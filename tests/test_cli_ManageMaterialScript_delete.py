@@ -1,3 +1,4 @@
+import io
 import os
 import pytest
 import supriya.cli
@@ -26,10 +27,11 @@ class Test(ProjectPackageScriptTestCase):
         ]
 
     def test_missing(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         script = supriya.cli.ManageMaterialScript()
         command = ['--delete', 'test_material']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with pytest.raises(SystemExit) as exception_info:
@@ -40,15 +42,16 @@ class Test(ProjectPackageScriptTestCase):
             Deleting material subpackage 'test_material' ...
                 Subpackage test_project/materials/test_material/ does not exist!
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_success(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         pytest.helpers.create_cli_material(self.test_path, 'test_material')
         script = supriya.cli.ManageMaterialScript()
         command = ['--delete', 'test_material']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -60,7 +63,7 @@ class Test(ProjectPackageScriptTestCase):
             Deleting material subpackage 'test_material' ...
                 Deleted test_project/materials/test_material/
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
         self.compare_path_contents(
             self.inner_project_path,

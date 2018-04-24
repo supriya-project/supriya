@@ -1,3 +1,4 @@
+import io
 import pytest
 import supriya.cli
 import uqbar.io
@@ -7,6 +8,7 @@ from cli_testbase import ProjectPackageScriptTestCase
 class Test(ProjectPackageScriptTestCase):
 
     def test_clean(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         pytest.helpers.create_cli_material(
             self.test_path,
@@ -82,7 +84,7 @@ class Test(ProjectPackageScriptTestCase):
 
         script = supriya.cli.ManageProjectScript()
         command = ['--clean']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -133,5 +135,5 @@ class Test(ProjectPackageScriptTestCase):
                 Cleaned test_project/renders/session-e628a25fe369270f786d60fbbc047365.aiff
                 Cleaned test_project/renders/session-e628a25fe369270f786d60fbbc047365.osc
             ''',
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )

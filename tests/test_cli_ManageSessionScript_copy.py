@@ -1,3 +1,4 @@
+import io
 import os
 import pytest
 import supriya.cli
@@ -30,10 +31,11 @@ class Test(ProjectPackageScriptTestCase):
         ]
 
     def test_missing_source(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         script = supriya.cli.ManageSessionScript()
         command = ['--copy', 'session_one', 'session_two']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with pytest.raises(SystemExit) as exception_info:
@@ -44,16 +46,17 @@ class Test(ProjectPackageScriptTestCase):
             Copying session subpackage 'session_one' to 'session_two' ...
                 Subpackage test_project/sessions/session_one/ does not exist!
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_no_force_replace(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         pytest.helpers.create_cli_session(self.test_path, 'session_one')
         pytest.helpers.create_cli_session(self.test_path, 'session_two')
         script = supriya.cli.ManageSessionScript()
         command = ['--copy', 'session_one', 'session_two']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with pytest.raises(SystemExit) as exception_info:
@@ -64,16 +67,17 @@ class Test(ProjectPackageScriptTestCase):
             Copying session subpackage 'session_one' to 'session_two' ...
                 Subpackage test_project/sessions/session_two/ exists!
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_force_replace(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         pytest.helpers.create_cli_session(self.test_path, 'session_one')
         pytest.helpers.create_cli_session(self.test_path, 'session_two')
         script = supriya.cli.ManageSessionScript()
         command = ['--copy', 'session_one', 'session_two', '-f']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -86,7 +90,7 @@ class Test(ProjectPackageScriptTestCase):
                 Overwriting test_project/sessions/session_two/ ...
                 Copied test_project/sessions/session_one/ to test_project/sessions/session_two/
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
         self.compare_path_contents(
             self.inner_project_path,
@@ -94,11 +98,12 @@ class Test(ProjectPackageScriptTestCase):
             )
 
     def test_success(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         pytest.helpers.create_cli_session(self.test_path, 'session_one')
         script = supriya.cli.ManageSessionScript()
         command = ['--copy', 'session_one', 'session_two']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -110,7 +115,7 @@ class Test(ProjectPackageScriptTestCase):
             Copying session subpackage 'session_one' to 'session_two' ...
                 Copied test_project/sessions/session_one/ to test_project/sessions/session_two/
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
         self.compare_path_contents(
             self.inner_project_path,

@@ -1,3 +1,4 @@
+import io
 import os
 import pytest
 import supriya.cli
@@ -28,10 +29,11 @@ class Test(ProjectPackageScriptTestCase):
         ]
 
     def test_missing_source(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         script = supriya.cli.ManageMaterialScript()
         command = ['--rename', 'material_one', 'material_two']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with pytest.raises(SystemExit) as exception_info:
@@ -42,16 +44,17 @@ class Test(ProjectPackageScriptTestCase):
             Renaming material subpackage 'material_one' to 'material_two' ...
                 Subpackage test_project/materials/material_one/ does not exist!
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_no_force_replace(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         pytest.helpers.create_cli_material(self.test_path, 'material_one')
         pytest.helpers.create_cli_material(self.test_path, 'material_two')
         script = supriya.cli.ManageMaterialScript()
         command = ['--rename', 'material_one', 'material_two']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with pytest.raises(SystemExit) as exception_info:
@@ -62,16 +65,17 @@ class Test(ProjectPackageScriptTestCase):
             Renaming material subpackage 'material_one' to 'material_two' ...
                 Subpackage test_project/materials/material_two/ exists!
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_force_replace(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         pytest.helpers.create_cli_material(self.test_path, 'material_one')
         pytest.helpers.create_cli_material(self.test_path, 'material_two')
         script = supriya.cli.ManageMaterialScript()
         command = ['--rename', 'material_one', 'material_two', '-f']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -84,7 +88,7 @@ class Test(ProjectPackageScriptTestCase):
                 Overwriting test_project/materials/material_two/ ...
                 Renamed test_project/materials/material_one/ to test_project/materials/material_two/
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
         self.compare_path_contents(
             self.inner_project_path,
@@ -92,11 +96,12 @@ class Test(ProjectPackageScriptTestCase):
             )
 
     def test_success(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         pytest.helpers.create_cli_material(self.test_path, 'material_one')
         script = supriya.cli.ManageMaterialScript()
         command = ['--rename', 'material_one', 'material_two']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -108,7 +113,7 @@ class Test(ProjectPackageScriptTestCase):
             Renaming material subpackage 'material_one' to 'material_two' ...
                 Renamed test_project/materials/material_one/ to test_project/materials/material_two/
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
         self.compare_path_contents(
             self.inner_project_path,

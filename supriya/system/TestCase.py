@@ -2,7 +2,6 @@ import re
 import pytest
 import pathlib
 import unittest
-from io import StringIO
 
 
 class TestCase(unittest.TestCase):
@@ -27,16 +26,6 @@ class TestCase(unittest.TestCase):
             '\n'.join(str(_) for _ in actual_files),
             '\n'.join(str(_) for _ in expected_files),
             )
-
-    def reset_string_io(self):
-        self.string_io.close()
-        self.string_io = StringIO()
-
-    def setUp(self):
-        self.string_io = StringIO()
-
-    def tearDown(self):
-        self.string_io.close()
 
     ### PUBLIC PROPERTIES ###
 

@@ -1,3 +1,4 @@
+import io
 import os
 import pytest
 import supriya.cli
@@ -15,10 +16,11 @@ class Test(ProjectPackageScriptTestCase):
         """
         Handle missing session.
         """
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with pytest.raises(SystemExit) as exception_info:
@@ -31,20 +33,21 @@ class Test(ProjectPackageScriptTestCase):
             Available sessions:
                 No sessions available.
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_missing_definition(self):
         """
         Handle missing definition.
         """
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         session_path = pytest.helpers.create_cli_session(self.test_path, 'test_session')
         definition_path = session_path.joinpath('definition.py')
         definition_path.unlink()
         script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with pytest.raises(SystemExit) as exception_info:
@@ -60,13 +63,14 @@ class Test(ProjectPackageScriptTestCase):
               ...
             ModuleNotFoundError: No module named 'test_project.sessions.test_session.definition'
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_python_cannot_render(self):
         """
         Handle un-renderables.
         """
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         session_path = pytest.helpers.create_cli_session(self.test_path, 'test_session')
         definition_path = session_path.joinpath('definition.py')
@@ -76,7 +80,7 @@ class Test(ProjectPackageScriptTestCase):
             '''))
         script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with pytest.raises(SystemExit) as exception_info:
@@ -89,13 +93,14 @@ class Test(ProjectPackageScriptTestCase):
                 Importing test_project.sessions.test_session.definition
                 Cannot render session of type NoneType.
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_python_error_on_render(self):
         """
         Handle exceptions inside the Python module on __call__().
         """
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         session_path = pytest.helpers.create_cli_session(self.test_path, 'test_session')
         definition_path = session_path.joinpath('definition.py')
@@ -114,7 +119,7 @@ class Test(ProjectPackageScriptTestCase):
             '''))
         script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with pytest.raises(SystemExit) as exception_info:
@@ -135,13 +140,14 @@ class Test(ProjectPackageScriptTestCase):
                 raise TypeError('This is fake.')
             TypeError: This is fake.
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_python_error_on_import(self):
         """
         Handle exceptions inside the Python module on import.
         """
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         session_path = pytest.helpers.create_cli_session(self.test_path, 'test_session')
         definition_path = session_path.joinpath('definition.py')
@@ -149,7 +155,7 @@ class Test(ProjectPackageScriptTestCase):
             file_pointer.write('\n\nfailure = 1 / 0\n')
         script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with pytest.raises(SystemExit) as exception_info:
@@ -168,17 +174,18 @@ class Test(ProjectPackageScriptTestCase):
                 failure = 1 / 0
             ZeroDivisionError: division by zero
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_supercollider_error(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         pytest.helpers.create_cli_session(self.test_path, 'test_session')
         script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
         mock_path = supriya.nonrealtime.SessionRenderer.__module__
         mock_path += '._stream_subprocess'
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with pytest.raises(SystemExit) as exception_info:
@@ -200,17 +207,18 @@ class Test(ProjectPackageScriptTestCase):
                 Python/SC runtime: 0 seconds
                 Render failed. Exiting.
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_supercollider_no_output(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         pytest.helpers.create_cli_session(self.test_path, 'test_session')
         script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
         mock_path = supriya.nonrealtime.SessionRenderer.__module__
         mock_path += '._stream_subprocess'
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with pytest.raises(SystemExit) as exception_info:
@@ -232,17 +240,18 @@ class Test(ProjectPackageScriptTestCase):
                 Python/SC runtime: 0 seconds
                 Render failed. Exiting.
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_success_all_sessions(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         pytest.helpers.create_cli_session(self.test_path, 'session_one')
         pytest.helpers.create_cli_session(self.test_path, 'session_two')
         pytest.helpers.create_cli_session(self.test_path, 'session_three')
         script = supriya.cli.ManageSessionScript()
         command = ['--render', '*']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -284,7 +293,7 @@ class Test(ProjectPackageScriptTestCase):
                 Python/SC runtime: 0 seconds
                 Rendered test_project/sessions/session_two/
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
         assert self.sessions_path.joinpath(
             'session_one',
@@ -330,13 +339,14 @@ class Test(ProjectPackageScriptTestCase):
             }
 
     def test_success_filtered_sessions(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         pytest.helpers.create_cli_session(self.test_path, 'session_one')
         pytest.helpers.create_cli_session(self.test_path, 'session_two')
         pytest.helpers.create_cli_session(self.test_path, 'session_three')
         script = supriya.cli.ManageSessionScript()
         command = ['--render', 'session_t*']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -368,7 +378,7 @@ class Test(ProjectPackageScriptTestCase):
                 Python/SC runtime: 0 seconds
                 Rendered test_project/sessions/session_two/
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
         assert not self.sessions_path.joinpath(
             'session_one',
@@ -404,11 +414,12 @@ class Test(ProjectPackageScriptTestCase):
             }
 
     def test_success_one_session(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         pytest.helpers.create_cli_session(self.test_path, 'test_session')
         script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -430,7 +441,7 @@ class Test(ProjectPackageScriptTestCase):
                 Python/SC runtime: 0 seconds
                 Rendered test_project/sessions/test_session/
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
         self.compare_path_contents(
             self.inner_project_path,
@@ -470,6 +481,7 @@ class Test(ProjectPackageScriptTestCase):
             }
 
     def test_success_chained(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         pytest.helpers.create_cli_session(self.test_path, 'session_one')
         pytest.helpers.create_cli_session(
@@ -535,7 +547,7 @@ class Test(ProjectPackageScriptTestCase):
 
         script = supriya.cli.ManageSessionScript()
         command = ['--render', 'session_three']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -568,7 +580,7 @@ class Test(ProjectPackageScriptTestCase):
                 Python/SC runtime: 0 seconds
                 Rendered test_project/sessions/session_three/
             ''',
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
         self.compare_path_contents(
@@ -640,6 +652,7 @@ class Test(ProjectPackageScriptTestCase):
         """
         Handle session factories implemented with __session__().
         """
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         session_path = pytest.helpers.create_cli_session(self.test_path, 'test_session')
         definition_path = session_path.joinpath('definition.py')
@@ -649,7 +662,7 @@ class Test(ProjectPackageScriptTestCase):
                 ))
         script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -671,7 +684,7 @@ class Test(ProjectPackageScriptTestCase):
                 Python/SC runtime: 0 seconds
                 Rendered test_project/sessions/test_session/
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
         self.compare_path_contents(
             self.inner_project_path,

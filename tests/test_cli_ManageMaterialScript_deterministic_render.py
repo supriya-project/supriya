@@ -1,3 +1,4 @@
+import io
 import os
 import pytest
 import supriya.cli
@@ -32,6 +33,7 @@ class Test(ProjectPackageScriptTestCase):
     ''')
 
     def test_01(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         material_path = pytest.helpers.create_cli_material(self.test_path, 'test_material')
         definition_path = material_path.joinpath('definition.py')
@@ -45,7 +47,7 @@ class Test(ProjectPackageScriptTestCase):
         assert len(aiff_artifacts) == 0
         assert len(osc_artifacts) == 0
 
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -67,12 +69,11 @@ class Test(ProjectPackageScriptTestCase):
                 Python/SC runtime: ... seconds
                 Rendered test_project/materials/test_material/
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
-        self.reset_string_io()
-
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        string_io = io.StringIO()
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -93,12 +94,11 @@ class Test(ProjectPackageScriptTestCase):
                 Python/SC runtime: 0 seconds
                 Rendered test_project/materials/test_material/
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
-        self.reset_string_io()
-
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        string_io = io.StringIO()
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -119,7 +119,7 @@ class Test(ProjectPackageScriptTestCase):
                 Python/SC runtime: 0 seconds
                 Rendered test_project/materials/test_material/
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
         aiff_artifacts = sorted(self.renders_path.glob('*.aiff'))

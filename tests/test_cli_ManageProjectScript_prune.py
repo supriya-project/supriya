@@ -1,3 +1,4 @@
+import io
 import pytest
 import shutil
 import supriya.cli
@@ -8,6 +9,7 @@ from cli_testbase import ProjectPackageScriptTestCase
 class Test(ProjectPackageScriptTestCase):
 
     def test_prune(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         pytest.helpers.create_cli_material(self.test_path, 'material_one')
         pytest.helpers.create_cli_material(
@@ -99,7 +101,7 @@ class Test(ProjectPackageScriptTestCase):
 
         script = supriya.cli.ManageProjectScript()
         command = ['--prune']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -113,7 +115,7 @@ class Test(ProjectPackageScriptTestCase):
                 Pruned test_project/renders/session-1fa53239afd7268cce27ff05fad76c18.aiff
                 Pruned test_project/renders/session-1fa53239afd7268cce27ff05fad76c18.osc
             ''',
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
         self.compare_path_contents(

@@ -1,3 +1,4 @@
+import io
 import os
 import pytest
 import supriya.cli
@@ -15,38 +16,41 @@ class Test(ProjectPackageScriptTestCase):
         ]
 
     def test_exists(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         pytest.helpers.create_cli_material(self.test_path, 'test_material')
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             pytest.helpers.create_cli_material(self.test_path, 'test_material', expect_error=True)
         pytest.helpers.compare_strings(
             r'''
             Creating material subpackage 'test_material' ...
                 Path exists: test_project/materials/test_material
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_force_replace(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         pytest.helpers.create_cli_material(self.test_path, 'test_material')
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             pytest.helpers.create_cli_material(self.test_path, 'test_material', force=True)
         pytest.helpers.compare_strings(
             r'''
             Creating material subpackage 'test_material' ...
                 Created test_project/materials/test_material/
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_internal_path(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         script = supriya.cli.ManageMaterialScript()
         command = ['--new', 'test_material']
         internal_path = self.assets_path
         assert internal_path.exists()
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(str(internal_path)):
                 try:
                     script(command)
@@ -57,14 +61,15 @@ class Test(ProjectPackageScriptTestCase):
             Creating material subpackage 'test_material' ...
                 Created test_project/materials/test_material/
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_success(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         script = supriya.cli.ManageMaterialScript()
         command = ['--new', 'test_material']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -76,7 +81,7 @@ class Test(ProjectPackageScriptTestCase):
             Creating material subpackage 'test_material' ...
                 Created test_project/materials/test_material/
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
         assert self.materials_path.joinpath('test_material').exists()
         self.compare_path_contents(self.materials_path, self.expected_files)

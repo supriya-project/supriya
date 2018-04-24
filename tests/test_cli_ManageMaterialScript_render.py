@@ -1,3 +1,4 @@
+import io
 import os
 import pytest
 import supriya.cli
@@ -15,10 +16,11 @@ class Test(ProjectPackageScriptTestCase):
         """
         Handle missing material.
         """
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         script = supriya.cli.ManageMaterialScript()
         command = ['--render', 'test_material']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with pytest.raises(SystemExit) as exception_info:
@@ -31,20 +33,21 @@ class Test(ProjectPackageScriptTestCase):
             Available materials:
                 No materials available.
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_missing_definition(self):
         """
         Handle missing definition.
         """
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         material_path = pytest.helpers.create_cli_material(self.test_path, 'test_material')
         definition_path = material_path.joinpath('definition.py')
         definition_path.unlink()
         script = supriya.cli.ManageMaterialScript()
         command = ['--render', 'test_material']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with pytest.raises(SystemExit) as exception_info:
@@ -61,13 +64,14 @@ class Test(ProjectPackageScriptTestCase):
               ...
             ModuleNotFoundError: No module named 'test_project.materials.test_material.definition'
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_python_cannot_render(self):
         """
         Handle un-renderables.
         """
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         material_path = pytest.helpers.create_cli_material(self.test_path, 'test_material')
         definition_path = material_path.joinpath('definition.py')
@@ -77,7 +81,7 @@ class Test(ProjectPackageScriptTestCase):
             '''))
         script = supriya.cli.ManageMaterialScript()
         command = ['--render', 'test_material']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with pytest.raises(SystemExit) as exception_info:
@@ -90,13 +94,14 @@ class Test(ProjectPackageScriptTestCase):
                 Importing test_project.materials.test_material.definition
                 Cannot render material of type NoneType.
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_python_error_on_render(self):
         """
         Handle exceptions inside the Python module on __call__().
         """
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         material_path = pytest.helpers.create_cli_material(self.test_path, 'test_material')
         definition_path = material_path.joinpath('definition.py')
@@ -115,7 +120,7 @@ class Test(ProjectPackageScriptTestCase):
             '''))
         script = supriya.cli.ManageMaterialScript()
         command = ['--render', 'test_material']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with pytest.raises(SystemExit) as exception_info:
@@ -136,13 +141,14 @@ class Test(ProjectPackageScriptTestCase):
                 raise TypeError('This is fake.')
             TypeError: This is fake.
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_python_error_on_import(self):
         """
         Handle exceptions inside the Python module on import.
         """
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         material_path = pytest.helpers.create_cli_material(self.test_path, 'test_material')
         definition_path = material_path.joinpath('definition.py')
@@ -150,7 +156,7 @@ class Test(ProjectPackageScriptTestCase):
             file_pointer.write('\n\nfailure = 1 / 0\n')
         script = supriya.cli.ManageMaterialScript()
         command = ['--render', 'test_material']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with pytest.raises(SystemExit) as exception_info:
@@ -169,17 +175,18 @@ class Test(ProjectPackageScriptTestCase):
                 failure = 1 / 0
             ZeroDivisionError: division by zero
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_supercollider_error(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         pytest.helpers.create_cli_material(self.test_path, 'test_material')
         script = supriya.cli.ManageMaterialScript()
         command = ['--render', 'test_material']
         mock_path = supriya.nonrealtime.SessionRenderer.__module__
         mock_path += '._stream_subprocess'
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with pytest.raises(SystemExit) as exception_info:
@@ -201,17 +208,18 @@ class Test(ProjectPackageScriptTestCase):
                 Python/SC runtime: 0 seconds
                 Render failed. Exiting.
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_supercollider_no_output(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         pytest.helpers.create_cli_material(self.test_path, 'test_material')
         script = supriya.cli.ManageMaterialScript()
         command = ['--render', 'test_material']
         mock_path = supriya.nonrealtime.SessionRenderer.__module__
         mock_path += '._stream_subprocess'
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with pytest.raises(SystemExit) as exception_info:
@@ -233,17 +241,18 @@ class Test(ProjectPackageScriptTestCase):
                 Python/SC runtime: 0 seconds
                 Render failed. Exiting.
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_success_all_materials(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         pytest.helpers.create_cli_material(self.test_path, 'material_one')
         pytest.helpers.create_cli_material(self.test_path, 'material_two')
         pytest.helpers.create_cli_material(self.test_path, 'material_three')
         script = supriya.cli.ManageMaterialScript()
         command = ['--render', '*']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -251,7 +260,7 @@ class Test(ProjectPackageScriptTestCase):
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
         pytest.helpers.compare_strings(
-        r'''
+            r'''
             Render candidates: '*' ...
             Rendering test_project/materials/material_one/
                 Importing test_project.materials.material_one.definition
@@ -285,7 +294,7 @@ class Test(ProjectPackageScriptTestCase):
                 Python/SC runtime: 0 seconds
                 Rendered test_project/materials/material_two/
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
         assert self.materials_path.joinpath(
             'material_one',
@@ -331,13 +340,14 @@ class Test(ProjectPackageScriptTestCase):
             }
 
     def test_success_filtered_materials(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         pytest.helpers.create_cli_material(self.test_path, 'material_one')
         pytest.helpers.create_cli_material(self.test_path, 'material_two')
         pytest.helpers.create_cli_material(self.test_path, 'material_three')
         script = supriya.cli.ManageMaterialScript()
         command = ['--render', 'material_t*']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -369,7 +379,7 @@ class Test(ProjectPackageScriptTestCase):
                 Python/SC runtime: 0 seconds
                 Rendered test_project/materials/material_two/
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
         assert not self.materials_path.joinpath(
             'material_one',
@@ -405,11 +415,12 @@ class Test(ProjectPackageScriptTestCase):
             }
 
     def test_success_one_material(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         pytest.helpers.create_cli_material(self.test_path, 'test_material')
         script = supriya.cli.ManageMaterialScript()
         command = ['--render', 'test_material']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -431,7 +442,7 @@ class Test(ProjectPackageScriptTestCase):
                 Python/SC runtime: 0 seconds
                 Rendered test_project/materials/test_material/
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
         self.compare_path_contents(
             self.inner_project_path,
@@ -471,6 +482,7 @@ class Test(ProjectPackageScriptTestCase):
             }
 
     def test_success_chained(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         pytest.helpers.create_cli_material(self.test_path, 'material_one')
         pytest.helpers.create_cli_material(
@@ -536,7 +548,7 @@ class Test(ProjectPackageScriptTestCase):
 
         script = supriya.cli.ManageMaterialScript()
         command = ['--render', 'material_three']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -569,7 +581,7 @@ class Test(ProjectPackageScriptTestCase):
                 Python/SC runtime: 0 seconds
                 Rendered test_project/materials/material_three/
             ''',
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
         self.compare_path_contents(

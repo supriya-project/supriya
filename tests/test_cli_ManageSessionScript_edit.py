@@ -1,3 +1,4 @@
+import io
 import pytest
 import supriya
 import supriya.cli
@@ -10,12 +11,13 @@ class Test(ProjectPackageScriptTestCase):
 
     @mock.patch('supriya.cli.ProjectPackageScript._call_subprocess')
     def test_success(self, call_subprocess_mock):
+        string_io = io.StringIO()
         call_subprocess_mock.return_value = 0
         pytest.helpers.create_cli_project(self.test_path)
         session_path = pytest.helpers.create_cli_session(self.test_path, 'test_session')
         script = supriya.cli.ManageSessionScript()
         command = ['--edit', 'test_session']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -26,7 +28,7 @@ class Test(ProjectPackageScriptTestCase):
             r'''
             Edit candidates: 'test_session' ...
             ''',
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
         definition_path = session_path.joinpath('definition.py')
         command = '{} {!s}'.format(

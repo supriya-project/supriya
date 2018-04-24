@@ -1,3 +1,4 @@
+import io
 import os
 import pytest
 import uqbar.io
@@ -72,10 +73,11 @@ class Test(ProjectPackageScriptTestCase):
     ''')
 
     def test_exists(self):
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        string_io = io.StringIO()
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             pytest.helpers.create_cli_project(self.test_path)
         assert self.outer_project_path.exists()
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             pytest.helpers.create_cli_project(self.test_path, expect_error=True)
         assert self.outer_project_path.exists()
         pytest.helpers.compare_strings(
@@ -85,14 +87,15 @@ class Test(ProjectPackageScriptTestCase):
             Creating project package 'Test Project'...
                 Directory test_project already exists.
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_force_replace(self):
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        string_io = io.StringIO()
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             pytest.helpers.create_cli_project(self.test_path)
         assert self.outer_project_path.exists()
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             pytest.helpers.create_cli_project(self.test_path, force=True)
         assert self.outer_project_path.exists()
         pytest.helpers.compare_strings(
@@ -102,11 +105,12 @@ class Test(ProjectPackageScriptTestCase):
             Creating project package 'Test Project'...
                 Created test_project/
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_success(self):
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        string_io = io.StringIO()
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             pytest.helpers.create_cli_project(self.test_path)
         assert self.outer_project_path.exists()
         self.compare_path_contents(
@@ -118,7 +122,7 @@ class Test(ProjectPackageScriptTestCase):
             Creating project package 'Test Project'...
                 Created test_project/
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
         self.compare_file_contents(
             self.outer_project_path.joinpath('README.md'),

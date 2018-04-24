@@ -1,3 +1,4 @@
+import io
 import os
 import pytest
 import supriya.cli
@@ -15,9 +16,10 @@ class Test(ProjectPackageScriptTestCase):
         ]
 
     def test_exists(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         pytest.helpers.create_cli_session(self.test_path, 'test_session')
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             pytest.helpers.create_cli_session(
                 self.test_path, 'test_session', expect_error=True)
         pytest.helpers.compare_strings(
@@ -25,13 +27,14 @@ class Test(ProjectPackageScriptTestCase):
             Creating session subpackage 'test_session' ...
                 Path exists: test_project/sessions/test_session
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_force_replace(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         pytest.helpers.create_cli_session(self.test_path, 'test_session')
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             pytest.helpers.create_cli_session(
                 self.test_path, 'test_session', force=True)
         pytest.helpers.compare_strings(
@@ -39,16 +42,17 @@ class Test(ProjectPackageScriptTestCase):
             Creating session subpackage 'test_session' ...
                 Created test_project/sessions/test_session/
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_internal_path(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         script = supriya.cli.ManageSessionScript()
         command = ['--new', 'test_session']
         internal_path = self.assets_path
         assert internal_path.exists()
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(str(internal_path)):
                 try:
                     script(command)
@@ -59,14 +63,15 @@ class Test(ProjectPackageScriptTestCase):
             Creating session subpackage 'test_session' ...
                 Created test_project/sessions/test_session/
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
 
     def test_success(self):
+        string_io = io.StringIO()
         pytest.helpers.create_cli_project(self.test_path)
         script = supriya.cli.ManageSessionScript()
         command = ['--new', 'test_session']
-        with uqbar.io.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -78,7 +83,7 @@ class Test(ProjectPackageScriptTestCase):
             Creating session subpackage 'test_session' ...
                 Created test_project/sessions/test_session/
             '''.replace('/', os.path.sep),
-            self.string_io.getvalue(),
+            string_io.getvalue(),
             )
         assert self.sessions_path.joinpath('test_session').exists()
         self.compare_path_contents(self.sessions_path, self.expected_files)
