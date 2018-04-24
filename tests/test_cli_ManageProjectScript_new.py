@@ -78,7 +78,7 @@ class Test(ProjectPackageScriptTestCase):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             pytest.helpers.create_cli_project(self.test_path, expect_error=True)
         assert self.outer_project_path.exists()
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Creating project package 'Test Project'...
                 Created test_project/
@@ -95,7 +95,7 @@ class Test(ProjectPackageScriptTestCase):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             pytest.helpers.create_cli_project(self.test_path, force=True)
         assert self.outer_project_path.exists()
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Creating project package 'Test Project'...
                 Created test_project/
@@ -113,7 +113,7 @@ class Test(ProjectPackageScriptTestCase):
             self.outer_project_path,
             self.expected_files,
             )
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Creating project package 'Test Project'...
                 Created test_project/

@@ -24,7 +24,7 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Render candidates: 'test_material' ...
                 No matching materials.
@@ -50,7 +50,7 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Render candidates: 'test_material' ...
             Rendering test_project/materials/test_material/
@@ -83,7 +83,7 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Render candidates: 'test_material' ...
             Rendering test_project/materials/test_material/
@@ -121,7 +121,7 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Render candidates: 'test_material' ...
             Rendering test_project/materials/test_material/
@@ -156,7 +156,7 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Render candidates: 'test_material' ...
             Rendering test_project/materials/test_material/
@@ -187,7 +187,7 @@ class Test(ProjectPackageScriptTestCase):
                         call_mock.return_value = 1
                         script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Render candidates: 'test_material' ...
             Rendering test_project/materials/test_material/
@@ -219,7 +219,7 @@ class Test(ProjectPackageScriptTestCase):
                         call_mock.return_value = 0  # no output, but no error
                         script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Render candidates: 'test_material' ...
             Rendering test_project/materials/test_material/
@@ -250,7 +250,7 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
         r'''
             Render candidates: '*' ...
             Rendering test_project/materials/material_one/
@@ -344,7 +344,7 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Render candidates: 'material_t*' ...
             Rendering test_project/materials/material_three/
@@ -416,7 +416,7 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Render candidates: 'test_material' ...
             Rendering test_project/materials/test_material/
@@ -544,7 +544,7 @@ class Test(ProjectPackageScriptTestCase):
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
 
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Render candidates: 'material_three' ...
             Rendering test_project/materials/material_three/

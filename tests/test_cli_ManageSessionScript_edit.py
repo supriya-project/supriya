@@ -22,7 +22,7 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Edit candidates: 'test_session' ...
             ''',

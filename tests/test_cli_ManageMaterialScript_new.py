@@ -19,7 +19,7 @@ class Test(ProjectPackageScriptTestCase):
         pytest.helpers.create_cli_material(self.test_path, 'test_material')
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             pytest.helpers.create_cli_material(self.test_path, 'test_material', expect_error=True)
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Creating material subpackage 'test_material' ...
                 Path exists: test_project/materials/test_material
@@ -32,7 +32,7 @@ class Test(ProjectPackageScriptTestCase):
         pytest.helpers.create_cli_material(self.test_path, 'test_material')
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             pytest.helpers.create_cli_material(self.test_path, 'test_material', force=True)
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Creating material subpackage 'test_material' ...
                 Created test_project/materials/test_material/
@@ -52,7 +52,7 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit:
                     raise RuntimeError('SystemExit')
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Creating material subpackage 'test_material' ...
                 Created test_project/materials/test_material/
@@ -71,7 +71,7 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit:
                     raise RuntimeError('SystemExit')
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Creating material subpackage 'test_material' ...
                 Created test_project/materials/test_material/

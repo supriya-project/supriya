@@ -35,7 +35,7 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Deleting session subpackage 'test_session' ...
                 Subpackage test_project/sessions/test_session/ does not exist!
@@ -55,7 +55,7 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit:
                     raise RuntimeError('SystemExit')
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Deleting session subpackage 'test_session' ...
                 Deleted test_project/sessions/test_session/

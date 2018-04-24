@@ -107,7 +107,7 @@ class Test(ProjectPackageScriptTestCase):
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
 
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Pruning test_project/renders ...
                 Pruned test_project/renders/session-1fa53239afd7268cce27ff05fad76c18.aiff

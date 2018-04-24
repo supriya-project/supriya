@@ -39,7 +39,7 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Copying session subpackage 'session_one' to 'session_two' ...
                 Subpackage test_project/sessions/session_one/ does not exist!
@@ -59,7 +59,7 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Copying session subpackage 'session_one' to 'session_two' ...
                 Subpackage test_project/sessions/session_two/ exists!
@@ -80,7 +80,7 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit:
                     raise RuntimeError('SystemExit')
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Copying session subpackage 'session_one' to 'session_two' ...
                 Overwriting test_project/sessions/session_two/ ...
@@ -105,7 +105,7 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit:
                     raise RuntimeError('SystemExit')
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Copying session subpackage 'session_one' to 'session_two' ...
                 Copied test_project/sessions/session_one/ to test_project/sessions/session_two/

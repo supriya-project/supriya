@@ -11,11 +11,6 @@ class TestCase(unittest.TestCase):
 
     ansi_escape = re.compile(r'\x1b[^m]*m')
 
-    def compare_captured_output(self, expected, string_io):
-        if not isinstance(string_io, str):
-            string_io = string_io.getvalue()
-        pytest.helpers.compare_strings(expected, string_io)
-
     def compare_file_contents(self, path, expected_contents):
         with pathlib.Path(path).open('r') as file_pointer:
             actual_contents = file_pointer.read()

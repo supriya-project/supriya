@@ -20,7 +20,7 @@ class Test(ProjectPackageScriptTestCase):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             pytest.helpers.create_cli_session(
                 self.test_path, 'test_session', expect_error=True)
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Creating session subpackage 'test_session' ...
                 Path exists: test_project/sessions/test_session
@@ -34,7 +34,7 @@ class Test(ProjectPackageScriptTestCase):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             pytest.helpers.create_cli_session(
                 self.test_path, 'test_session', force=True)
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Creating session subpackage 'test_session' ...
                 Created test_project/sessions/test_session/
@@ -54,7 +54,7 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit:
                     raise RuntimeError('SystemExit')
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Creating session subpackage 'test_session' ...
                 Created test_project/sessions/test_session/
@@ -73,7 +73,7 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit:
                     raise RuntimeError('SystemExit')
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Creating session subpackage 'test_session' ...
                 Created test_project/sessions/test_session/

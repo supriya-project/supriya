@@ -20,7 +20,7 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Available materials:
                 Session:
@@ -42,7 +42,7 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Available materials:
                 No materials available.

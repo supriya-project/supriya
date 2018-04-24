@@ -123,7 +123,7 @@ class Test(ProjectPackageScriptTestCase):
                 ],
             )
 
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Cleaning test_project/renders ...
                 Cleaned test_project/renders/session-5ec1eb97cfc0e98291f27464546df568.aiff

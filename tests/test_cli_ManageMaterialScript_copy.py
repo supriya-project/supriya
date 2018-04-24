@@ -39,7 +39,7 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Copying material subpackage 'material_one' to 'material_two' ...
                 Subpackage test_project/materials/material_one/ does not exist!
@@ -59,7 +59,7 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Copying material subpackage 'material_one' to 'material_two' ...
                 Subpackage test_project/materials/material_two/ exists!
@@ -80,7 +80,7 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit:
                     raise RuntimeError('SystemExit')
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Copying material subpackage 'material_one' to 'material_two' ...
                 Overwriting test_project/materials/material_two/ ...
@@ -105,7 +105,7 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit:
                     raise RuntimeError('SystemExit')
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Copying material subpackage 'material_one' to 'material_two' ...
                 Copied test_project/materials/material_one/ to test_project/materials/material_two/

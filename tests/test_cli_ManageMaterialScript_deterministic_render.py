@@ -52,7 +52,7 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Render candidates: 'test_material' ...
             Rendering test_project/materials/test_material/
@@ -79,7 +79,7 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Render candidates: 'test_material' ...
             Rendering test_project/materials/test_material/
@@ -105,7 +105,7 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Render candidates: 'test_material' ...
             Rendering test_project/materials/test_material/

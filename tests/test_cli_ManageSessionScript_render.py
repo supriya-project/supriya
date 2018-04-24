@@ -24,7 +24,7 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Render candidates: 'test_session' ...
                 No matching sessions.
@@ -50,7 +50,7 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(r'''
+        pytest.helpers.compare_strings(r'''
             Render candidates: 'test_session' ...
             Rendering test_project/sessions/test_session/
                 Importing test_project.sessions.test_session.definition
@@ -82,7 +82,7 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Render candidates: 'test_session' ...
             Rendering test_project/sessions/test_session/
@@ -120,7 +120,7 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Render candidates: 'test_session' ...
             Rendering test_project/sessions/test_session/
@@ -155,7 +155,7 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Render candidates: 'test_session' ...
             Rendering test_project/sessions/test_session/
@@ -186,7 +186,7 @@ class Test(ProjectPackageScriptTestCase):
                         call_mock.return_value = 1
                         script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Render candidates: 'test_session' ...
             Rendering test_project/sessions/test_session/
@@ -218,7 +218,7 @@ class Test(ProjectPackageScriptTestCase):
                         call_mock.return_value = 0  # no output, but no error
                         script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Render candidates: 'test_session' ...
             Rendering test_project/sessions/test_session/
@@ -249,7 +249,7 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Render candidates: '*' ...
             Rendering test_project/sessions/session_one/
@@ -343,7 +343,7 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Render candidates: 'session_t*' ...
             Rendering test_project/sessions/session_three/
@@ -415,7 +415,7 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Render candidates: 'test_session' ...
             Rendering test_project/sessions/test_session/
@@ -543,7 +543,7 @@ class Test(ProjectPackageScriptTestCase):
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
 
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Render candidates: 'session_three' ...
             Rendering test_project/sessions/session_three/
@@ -656,7 +656,7 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
-        self.compare_captured_output(
+        pytest.helpers.compare_strings(
             r'''
             Render candidates: 'test_session' ...
             Rendering test_project/sessions/test_session/
