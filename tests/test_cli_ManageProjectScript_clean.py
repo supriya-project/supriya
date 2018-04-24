@@ -123,12 +123,15 @@ class Test(ProjectPackageScriptTestCase):
                 ],
             )
 
-        self.compare_captured_output(r'''
-        Cleaning test_project/renders ...
-            Cleaned test_project/renders/session-5ec1eb97cfc0e98291f27464546df568.aiff
-            Cleaned test_project/renders/session-5ec1eb97cfc0e98291f27464546df568.osc
-            Cleaned test_project/renders/session-95cecb2c724619fe502164459560ba5d.aiff
-            Cleaned test_project/renders/session-95cecb2c724619fe502164459560ba5d.osc
-            Cleaned test_project/renders/session-e628a25fe369270f786d60fbbc047365.aiff
-            Cleaned test_project/renders/session-e628a25fe369270f786d60fbbc047365.osc
-        ''')
+        self.compare_captured_output(
+            r'''
+            Cleaning test_project/renders ...
+                Cleaned test_project/renders/session-5ec1eb97cfc0e98291f27464546df568.aiff
+                Cleaned test_project/renders/session-5ec1eb97cfc0e98291f27464546df568.osc
+                Cleaned test_project/renders/session-95cecb2c724619fe502164459560ba5d.aiff
+                Cleaned test_project/renders/session-95cecb2c724619fe502164459560ba5d.osc
+                Cleaned test_project/renders/session-e628a25fe369270f786d60fbbc047365.aiff
+                Cleaned test_project/renders/session-e628a25fe369270f786d60fbbc047365.osc
+            ''',
+            self.string_io.getvalue(),
+            )

@@ -20,14 +20,17 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(r'''
-        Available sessions:
-            Session:
-                bar [Session]
-                baz [Session]
-                foo [Session]
-                quux [Session]
-        ''')
+        self.compare_captured_output(
+            r'''
+            Available sessions:
+                Session:
+                    bar [Session]
+                    baz [Session]
+                    foo [Session]
+                    quux [Session]
+            ''',
+            self.string_io.getvalue(),
+            )
 
     def test_list_sessions_no_sessions(self):
         pytest.helpers.create_cli_project(self.test_path)
@@ -39,7 +42,10 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(r'''
-        Available sessions:
-            No sessions available.
-        ''')
+        self.compare_captured_output(
+            r'''
+            Available sessions:
+                No sessions available.
+            ''',
+            self.string_io.getvalue(),
+            )

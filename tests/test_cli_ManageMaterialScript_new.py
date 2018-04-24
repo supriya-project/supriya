@@ -19,20 +19,26 @@ class Test(ProjectPackageScriptTestCase):
         pytest.helpers.create_cli_material(self.test_path, 'test_material')
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             pytest.helpers.create_cli_material(self.test_path, 'test_material', expect_error=True)
-        self.compare_captured_output(r'''
+        self.compare_captured_output(
+            r'''
             Creating material subpackage 'test_material' ...
                 Path exists: test_project/materials/test_material
-        '''.replace('/', os.path.sep))
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
 
     def test_force_replace(self):
         pytest.helpers.create_cli_project(self.test_path)
         pytest.helpers.create_cli_material(self.test_path, 'test_material')
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             pytest.helpers.create_cli_material(self.test_path, 'test_material', force=True)
-        self.compare_captured_output(r'''
+        self.compare_captured_output(
+            r'''
             Creating material subpackage 'test_material' ...
                 Created test_project/materials/test_material/
-        '''.replace('/', os.path.sep))
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
 
     def test_internal_path(self):
         pytest.helpers.create_cli_project(self.test_path)
@@ -46,10 +52,13 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit:
                     raise RuntimeError('SystemExit')
-        self.compare_captured_output(r'''
+        self.compare_captured_output(
+            r'''
             Creating material subpackage 'test_material' ...
                 Created test_project/materials/test_material/
-        '''.replace('/', os.path.sep))
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
 
     def test_success(self):
         pytest.helpers.create_cli_project(self.test_path)
@@ -62,10 +71,13 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit:
                     raise RuntimeError('SystemExit')
-        self.compare_captured_output(r'''
+        self.compare_captured_output(
+            r'''
             Creating material subpackage 'test_material' ...
                 Created test_project/materials/test_material/
-        '''.replace('/', os.path.sep))
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
         assert self.materials_path.joinpath('test_material').exists()
         self.compare_path_contents(self.materials_path, self.expected_files)
         definition_path = self.materials_path.joinpath(

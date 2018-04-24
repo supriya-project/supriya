@@ -24,12 +24,15 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(r'''
-        Render candidates: 'test_material' ...
-            No matching materials.
-        Available materials:
-            No materials available.
-        '''.replace('/', os.path.sep))
+        self.compare_captured_output(
+            r'''
+            Render candidates: 'test_material' ...
+                No matching materials.
+            Available materials:
+                No materials available.
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
 
     def test_missing_definition(self):
         """
@@ -47,7 +50,8 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(r'''
+        self.compare_captured_output(
+            r'''
             Render candidates: 'test_material' ...
             Rendering test_project/materials/test_material/
                 Importing test_project.materials.test_material.definition
@@ -56,7 +60,9 @@ class Test(ProjectPackageScriptTestCase):
                 return importlib.import_module(path)
               ...
             ModuleNotFoundError: No module named 'test_project.materials.test_material.definition'
-        '''.replace('/', os.path.sep))
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
 
     def test_python_cannot_render(self):
         """
@@ -77,12 +83,15 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(r'''
+        self.compare_captured_output(
+            r'''
             Render candidates: 'test_material' ...
             Rendering test_project/materials/test_material/
                 Importing test_project.materials.test_material.definition
                 Cannot render material of type NoneType.
-        '''.replace('/', os.path.sep))
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
 
     def test_python_error_on_render(self):
         """
@@ -112,20 +121,23 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(r'''
-        Render candidates: 'test_material' ...
-        Rendering test_project/materials/test_material/
-            Importing test_project.materials.test_material.definition
-        Traceback (most recent call last):
-          File ".../supriya/cli/ProjectSectionScript.py", line ..., in _render_object
-            **kwargs
-          File ".../supriya/soundfiles/render.py", line ..., in render
-            **kwargs
-          File
-          ".../test_project/test_project/materials/test_material/definition.py", line ..., in __render__
-            raise TypeError('This is fake.')
-        TypeError: This is fake.
-        '''.replace('/', os.path.sep))
+        self.compare_captured_output(
+            r'''
+            Render candidates: 'test_material' ...
+            Rendering test_project/materials/test_material/
+                Importing test_project.materials.test_material.definition
+            Traceback (most recent call last):
+              File ".../supriya/cli/ProjectSectionScript.py", line ..., in _render_object
+                **kwargs
+              File ".../supriya/soundfiles/render.py", line ..., in render
+                **kwargs
+              File
+              ".../test_project/test_project/materials/test_material/definition.py", line ..., in __render__
+                raise TypeError('This is fake.')
+            TypeError: This is fake.
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
 
     def test_python_error_on_import(self):
         """
@@ -144,18 +156,21 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(r'''
-        Render candidates: 'test_material' ...
-        Rendering test_project/materials/test_material/
-            Importing test_project.materials.test_material.definition
-        Traceback (most recent call last):
-          File ".../supriya/cli/ProjectPackageScript.py", line ..., in _import_path
-            return importlib.import_module(path)
-          ...
-          File ".../test_project/test_project/materials/test_material/definition.py", line ..., in <module>
-            failure = 1 / 0
-        ZeroDivisionError: division by zero
-        '''.replace('/', os.path.sep))
+        self.compare_captured_output(
+            r'''
+            Render candidates: 'test_material' ...
+            Rendering test_project/materials/test_material/
+                Importing test_project.materials.test_material.definition
+            Traceback (most recent call last):
+              File ".../supriya/cli/ProjectPackageScript.py", line ..., in _import_path
+                return importlib.import_module(path)
+              ...
+              File ".../test_project/test_project/materials/test_material/definition.py", line ..., in <module>
+                failure = 1 / 0
+            ZeroDivisionError: division by zero
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
 
     def test_supercollider_error(self):
         pytest.helpers.create_cli_project(self.test_path)
@@ -172,19 +187,22 @@ class Test(ProjectPackageScriptTestCase):
                         call_mock.return_value = 1
                         script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(r'''
-        Render candidates: 'test_material' ...
-        Rendering test_project/materials/test_material/
-            Importing test_project.materials.test_material.definition
-            Writing session-95cecb2c724619fe502164459560ba5d.osc.
-                Wrote session-95cecb2c724619fe502164459560ba5d.osc.
-            Rendering session-95cecb2c724619fe502164459560ba5d.osc.
-                Command: scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
-                Rendered session-95cecb2c724619fe502164459560ba5d.osc with exit code 1.
-                SuperCollider errored!
-            Python/SC runtime: 0 seconds
-            Render failed. Exiting.
-        '''.replace('/', os.path.sep))
+        self.compare_captured_output(
+            r'''
+            Render candidates: 'test_material' ...
+            Rendering test_project/materials/test_material/
+                Importing test_project.materials.test_material.definition
+                Writing session-95cecb2c724619fe502164459560ba5d.osc.
+                    Wrote session-95cecb2c724619fe502164459560ba5d.osc.
+                Rendering session-95cecb2c724619fe502164459560ba5d.osc.
+                    Command: scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
+                    Rendered session-95cecb2c724619fe502164459560ba5d.osc with exit code 1.
+                    SuperCollider errored!
+                Python/SC runtime: 0 seconds
+                Render failed. Exiting.
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
 
     def test_supercollider_no_output(self):
         pytest.helpers.create_cli_project(self.test_path)
@@ -201,19 +219,22 @@ class Test(ProjectPackageScriptTestCase):
                         call_mock.return_value = 0  # no output, but no error
                         script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(r'''
-        Render candidates: 'test_material' ...
-        Rendering test_project/materials/test_material/
-            Importing test_project.materials.test_material.definition
-            Writing session-95cecb2c724619fe502164459560ba5d.osc.
-                Wrote session-95cecb2c724619fe502164459560ba5d.osc.
-            Rendering session-95cecb2c724619fe502164459560ba5d.osc.
-                Command: scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
-                Rendered session-95cecb2c724619fe502164459560ba5d.osc with exit code 0.
-                Output file is missing!
-            Python/SC runtime: 0 seconds
-            Render failed. Exiting.
-        '''.replace('/', os.path.sep))
+        self.compare_captured_output(
+            r'''
+            Render candidates: 'test_material' ...
+            Rendering test_project/materials/test_material/
+                Importing test_project.materials.test_material.definition
+                Writing session-95cecb2c724619fe502164459560ba5d.osc.
+                    Wrote session-95cecb2c724619fe502164459560ba5d.osc.
+                Rendering session-95cecb2c724619fe502164459560ba5d.osc.
+                    Command: scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
+                    Rendered session-95cecb2c724619fe502164459560ba5d.osc with exit code 0.
+                    Output file is missing!
+                Python/SC runtime: 0 seconds
+                Render failed. Exiting.
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
 
     def test_success_all_materials(self):
         pytest.helpers.create_cli_project(self.test_path)
@@ -229,40 +250,43 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
-        self.compare_captured_output(r'''
-        Render candidates: '*' ...
-        Rendering test_project/materials/material_one/
-            Importing test_project.materials.material_one.definition
-            Writing session-95cecb2c724619fe502164459560ba5d.osc.
-                Wrote session-95cecb2c724619fe502164459560ba5d.osc.
-            Rendering session-95cecb2c724619fe502164459560ba5d.osc.
-                Command: scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
-                Rendered session-95cecb2c724619fe502164459560ba5d.osc with exit code 0.
-            Writing test_project/materials/material_one/render.yml.
-                Wrote test_project/materials/material_one/render.yml.
-            Python/SC runtime: 0 seconds
-            Rendered test_project/materials/material_one/
-        Rendering test_project/materials/material_three/
-            Importing test_project.materials.material_three.definition
-            Writing session-95cecb2c724619fe502164459560ba5d.osc.
-                Skipped session-95cecb2c724619fe502164459560ba5d.osc. File already exists.
-            Rendering session-95cecb2c724619fe502164459560ba5d.osc.
-                Skipped session-95cecb2c724619fe502164459560ba5d.osc. Output already exists.
-            Writing test_project/materials/material_three/render.yml.
-                Wrote test_project/materials/material_three/render.yml.
-            Python/SC runtime: 0 seconds
-            Rendered test_project/materials/material_three/
-        Rendering test_project/materials/material_two/
-            Importing test_project.materials.material_two.definition
-            Writing session-95cecb2c724619fe502164459560ba5d.osc.
-                Skipped session-95cecb2c724619fe502164459560ba5d.osc. File already exists.
-            Rendering session-95cecb2c724619fe502164459560ba5d.osc.
-                Skipped session-95cecb2c724619fe502164459560ba5d.osc. Output already exists.
-            Writing test_project/materials/material_two/render.yml.
-                Wrote test_project/materials/material_two/render.yml.
-            Python/SC runtime: 0 seconds
-            Rendered test_project/materials/material_two/
-        '''.replace('/', os.path.sep))
+        self.compare_captured_output(
+        r'''
+            Render candidates: '*' ...
+            Rendering test_project/materials/material_one/
+                Importing test_project.materials.material_one.definition
+                Writing session-95cecb2c724619fe502164459560ba5d.osc.
+                    Wrote session-95cecb2c724619fe502164459560ba5d.osc.
+                Rendering session-95cecb2c724619fe502164459560ba5d.osc.
+                    Command: scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
+                    Rendered session-95cecb2c724619fe502164459560ba5d.osc with exit code 0.
+                Writing test_project/materials/material_one/render.yml.
+                    Wrote test_project/materials/material_one/render.yml.
+                Python/SC runtime: 0 seconds
+                Rendered test_project/materials/material_one/
+            Rendering test_project/materials/material_three/
+                Importing test_project.materials.material_three.definition
+                Writing session-95cecb2c724619fe502164459560ba5d.osc.
+                    Skipped session-95cecb2c724619fe502164459560ba5d.osc. File already exists.
+                Rendering session-95cecb2c724619fe502164459560ba5d.osc.
+                    Skipped session-95cecb2c724619fe502164459560ba5d.osc. Output already exists.
+                Writing test_project/materials/material_three/render.yml.
+                    Wrote test_project/materials/material_three/render.yml.
+                Python/SC runtime: 0 seconds
+                Rendered test_project/materials/material_three/
+            Rendering test_project/materials/material_two/
+                Importing test_project.materials.material_two.definition
+                Writing session-95cecb2c724619fe502164459560ba5d.osc.
+                    Skipped session-95cecb2c724619fe502164459560ba5d.osc. File already exists.
+                Rendering session-95cecb2c724619fe502164459560ba5d.osc.
+                    Skipped session-95cecb2c724619fe502164459560ba5d.osc. Output already exists.
+                Writing test_project/materials/material_two/render.yml.
+                    Wrote test_project/materials/material_two/render.yml.
+                Python/SC runtime: 0 seconds
+                Rendered test_project/materials/material_two/
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
         assert self.materials_path.joinpath(
             'material_one',
             'render.aiff',
@@ -320,30 +344,33 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
-        self.compare_captured_output(r'''
-        Render candidates: 'material_t*' ...
-        Rendering test_project/materials/material_three/
-            Importing test_project.materials.material_three.definition
-            Writing session-95cecb2c724619fe502164459560ba5d.osc.
-                Wrote session-95cecb2c724619fe502164459560ba5d.osc.
-            Rendering session-95cecb2c724619fe502164459560ba5d.osc.
-                Command: scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
-                Rendered session-95cecb2c724619fe502164459560ba5d.osc with exit code 0.
-            Writing test_project/materials/material_three/render.yml.
-                Wrote test_project/materials/material_three/render.yml.
-            Python/SC runtime: 0 seconds
-            Rendered test_project/materials/material_three/
-        Rendering test_project/materials/material_two/
-            Importing test_project.materials.material_two.definition
-            Writing session-95cecb2c724619fe502164459560ba5d.osc.
-                Skipped session-95cecb2c724619fe502164459560ba5d.osc. File already exists.
-            Rendering session-95cecb2c724619fe502164459560ba5d.osc.
-                Skipped session-95cecb2c724619fe502164459560ba5d.osc. Output already exists.
-            Writing test_project/materials/material_two/render.yml.
-                Wrote test_project/materials/material_two/render.yml.
-            Python/SC runtime: 0 seconds
-            Rendered test_project/materials/material_two/
-        '''.replace('/', os.path.sep))
+        self.compare_captured_output(
+            r'''
+            Render candidates: 'material_t*' ...
+            Rendering test_project/materials/material_three/
+                Importing test_project.materials.material_three.definition
+                Writing session-95cecb2c724619fe502164459560ba5d.osc.
+                    Wrote session-95cecb2c724619fe502164459560ba5d.osc.
+                Rendering session-95cecb2c724619fe502164459560ba5d.osc.
+                    Command: scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
+                    Rendered session-95cecb2c724619fe502164459560ba5d.osc with exit code 0.
+                Writing test_project/materials/material_three/render.yml.
+                    Wrote test_project/materials/material_three/render.yml.
+                Python/SC runtime: 0 seconds
+                Rendered test_project/materials/material_three/
+            Rendering test_project/materials/material_two/
+                Importing test_project.materials.material_two.definition
+                Writing session-95cecb2c724619fe502164459560ba5d.osc.
+                    Skipped session-95cecb2c724619fe502164459560ba5d.osc. File already exists.
+                Rendering session-95cecb2c724619fe502164459560ba5d.osc.
+                    Skipped session-95cecb2c724619fe502164459560ba5d.osc. Output already exists.
+                Writing test_project/materials/material_two/render.yml.
+                    Wrote test_project/materials/material_two/render.yml.
+                Python/SC runtime: 0 seconds
+                Rendered test_project/materials/material_two/
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
         assert not self.materials_path.joinpath(
             'material_one',
             'render.aiff',
@@ -389,20 +416,23 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
-        self.compare_captured_output(r'''
-        Render candidates: 'test_material' ...
-        Rendering test_project/materials/test_material/
-            Importing test_project.materials.test_material.definition
-            Writing session-95cecb2c724619fe502164459560ba5d.osc.
-                Wrote session-95cecb2c724619fe502164459560ba5d.osc.
-            Rendering session-95cecb2c724619fe502164459560ba5d.osc.
-                Command: scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
-                Rendered session-95cecb2c724619fe502164459560ba5d.osc with exit code 0.
-            Writing test_project/materials/test_material/render.yml.
-                Wrote test_project/materials/test_material/render.yml.
-            Python/SC runtime: 0 seconds
-            Rendered test_project/materials/test_material/
-        '''.replace('/', os.path.sep))
+        self.compare_captured_output(
+            r'''
+            Render candidates: 'test_material' ...
+            Rendering test_project/materials/test_material/
+                Importing test_project.materials.test_material.definition
+                Writing session-95cecb2c724619fe502164459560ba5d.osc.
+                    Wrote session-95cecb2c724619fe502164459560ba5d.osc.
+                Rendering session-95cecb2c724619fe502164459560ba5d.osc.
+                    Command: scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
+                    Rendered session-95cecb2c724619fe502164459560ba5d.osc with exit code 0.
+                Writing test_project/materials/test_material/render.yml.
+                    Wrote test_project/materials/test_material/render.yml.
+                Python/SC runtime: 0 seconds
+                Rendered test_project/materials/test_material/
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
         self.compare_path_contents(
             self.inner_project_path,
             [
@@ -514,30 +544,33 @@ class Test(ProjectPackageScriptTestCase):
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
 
-        self.compare_captured_output(r'''
-        Render candidates: 'material_three' ...
-        Rendering test_project/materials/material_three/
-            Importing test_project.materials.material_three.definition
-            Writing session-aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
-                Wrote session-aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
-            Rendering session-aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
-                Command: scsynth -N session-aa1ca9fda49a2dd38a1a2b8a91a76cca.osc _ session-aa1ca9fda49a2dd38a1a2b8a91a76cca.aiff 44100 aiff int24 -i 2 -o 2
-                Rendered session-aa1ca9fda49a2dd38a1a2b8a91a76cca.osc with exit code 0.
-            Writing session-46f9bdbbd13bcf641e2a79917dcc041f.osc.
-                Wrote session-46f9bdbbd13bcf641e2a79917dcc041f.osc.
-            Rendering session-46f9bdbbd13bcf641e2a79917dcc041f.osc.
-                Command: scsynth -N session-46f9bdbbd13bcf641e2a79917dcc041f.osc session-aa1ca9fda49a2dd38a1a2b8a91a76cca.aiff session-46f9bdbbd13bcf641e2a79917dcc041f.aiff 44100 aiff int24 -i 2 -o 2
-                Rendered session-46f9bdbbd13bcf641e2a79917dcc041f.osc with exit code 0.
-            Writing session-352b87b6c1d447a5be11020a33ceadec.osc.
-                Wrote session-352b87b6c1d447a5be11020a33ceadec.osc.
-            Rendering session-352b87b6c1d447a5be11020a33ceadec.osc.
-                Command: scsynth -N session-352b87b6c1d447a5be11020a33ceadec.osc session-46f9bdbbd13bcf641e2a79917dcc041f.aiff session-352b87b6c1d447a5be11020a33ceadec.aiff 44100 aiff int24 -i 2 -o 2
-                Rendered session-352b87b6c1d447a5be11020a33ceadec.osc with exit code 0.
-            Writing test_project/materials/material_three/render.yml.
-                Wrote test_project/materials/material_three/render.yml.
-            Python/SC runtime: 0 seconds
-            Rendered test_project/materials/material_three/
-        ''')
+        self.compare_captured_output(
+            r'''
+            Render candidates: 'material_three' ...
+            Rendering test_project/materials/material_three/
+                Importing test_project.materials.material_three.definition
+                Writing session-aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
+                    Wrote session-aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
+                Rendering session-aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
+                    Command: scsynth -N session-aa1ca9fda49a2dd38a1a2b8a91a76cca.osc _ session-aa1ca9fda49a2dd38a1a2b8a91a76cca.aiff 44100 aiff int24 -i 2 -o 2
+                    Rendered session-aa1ca9fda49a2dd38a1a2b8a91a76cca.osc with exit code 0.
+                Writing session-46f9bdbbd13bcf641e2a79917dcc041f.osc.
+                    Wrote session-46f9bdbbd13bcf641e2a79917dcc041f.osc.
+                Rendering session-46f9bdbbd13bcf641e2a79917dcc041f.osc.
+                    Command: scsynth -N session-46f9bdbbd13bcf641e2a79917dcc041f.osc session-aa1ca9fda49a2dd38a1a2b8a91a76cca.aiff session-46f9bdbbd13bcf641e2a79917dcc041f.aiff 44100 aiff int24 -i 2 -o 2
+                    Rendered session-46f9bdbbd13bcf641e2a79917dcc041f.osc with exit code 0.
+                Writing session-352b87b6c1d447a5be11020a33ceadec.osc.
+                    Wrote session-352b87b6c1d447a5be11020a33ceadec.osc.
+                Rendering session-352b87b6c1d447a5be11020a33ceadec.osc.
+                    Command: scsynth -N session-352b87b6c1d447a5be11020a33ceadec.osc session-46f9bdbbd13bcf641e2a79917dcc041f.aiff session-352b87b6c1d447a5be11020a33ceadec.aiff 44100 aiff int24 -i 2 -o 2
+                    Rendered session-352b87b6c1d447a5be11020a33ceadec.osc with exit code 0.
+                Writing test_project/materials/material_three/render.yml.
+                    Wrote test_project/materials/material_three/render.yml.
+                Python/SC runtime: 0 seconds
+                Rendered test_project/materials/material_three/
+            ''',
+            self.string_io.getvalue(),
+            )
 
         self.compare_path_contents(
             self.inner_project_path,

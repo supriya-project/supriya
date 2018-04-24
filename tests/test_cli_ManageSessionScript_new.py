@@ -20,10 +20,13 @@ class Test(ProjectPackageScriptTestCase):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             pytest.helpers.create_cli_session(
                 self.test_path, 'test_session', expect_error=True)
-        self.compare_captured_output(r'''
+        self.compare_captured_output(
+            r'''
             Creating session subpackage 'test_session' ...
                 Path exists: test_project/sessions/test_session
-        '''.replace('/', os.path.sep))
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
 
     def test_force_replace(self):
         pytest.helpers.create_cli_project(self.test_path)
@@ -31,10 +34,13 @@ class Test(ProjectPackageScriptTestCase):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             pytest.helpers.create_cli_session(
                 self.test_path, 'test_session', force=True)
-        self.compare_captured_output(r'''
+        self.compare_captured_output(
+            r'''
             Creating session subpackage 'test_session' ...
                 Created test_project/sessions/test_session/
-        '''.replace('/', os.path.sep))
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
 
     def test_internal_path(self):
         pytest.helpers.create_cli_project(self.test_path)
@@ -48,10 +54,13 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit:
                     raise RuntimeError('SystemExit')
-        self.compare_captured_output(r'''
+        self.compare_captured_output(
+            r'''
             Creating session subpackage 'test_session' ...
                 Created test_project/sessions/test_session/
-        '''.replace('/', os.path.sep))
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
 
     def test_success(self):
         pytest.helpers.create_cli_project(self.test_path)
@@ -64,10 +73,13 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit:
                     raise RuntimeError('SystemExit')
-        self.compare_captured_output(r'''
+        self.compare_captured_output(
+            r'''
             Creating session subpackage 'test_session' ...
                 Created test_project/sessions/test_session/
-        '''.replace('/', os.path.sep))
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
         assert self.sessions_path.joinpath('test_session').exists()
         self.compare_path_contents(self.sessions_path, self.expected_files)
         definition_path = self.sessions_path.joinpath(

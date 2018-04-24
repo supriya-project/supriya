@@ -21,9 +21,12 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
-        self.compare_captured_output(r'''
-        Edit candidates: 'test_material' ...
-        ''')
+        self.compare_captured_output(
+            r'''
+            Edit candidates: 'test_material' ...
+            ''',
+            self.string_io.getvalue(),
+            )
         definition_path = material_path.joinpath('definition.py')
         command = '{} {!s}'.format(
             supriya.config.get('core', 'editor', fallback='vim'),

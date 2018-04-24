@@ -35,10 +35,13 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(r'''
-        Deleting material subpackage 'test_material' ...
-            Subpackage test_project/materials/test_material/ does not exist!
-        '''.replace('/', os.path.sep))
+        self.compare_captured_output(
+            r'''
+            Deleting material subpackage 'test_material' ...
+                Subpackage test_project/materials/test_material/ does not exist!
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
 
     def test_success(self):
         pytest.helpers.create_cli_project(self.test_path)
@@ -52,10 +55,13 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit:
                     raise RuntimeError('SystemExit')
-        self.compare_captured_output(r'''
-        Deleting material subpackage 'test_material' ...
-            Deleted test_project/materials/test_material/
-        '''.replace('/', os.path.sep))
+        self.compare_captured_output(
+            r'''
+            Deleting material subpackage 'test_material' ...
+                Deleted test_project/materials/test_material/
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
         self.compare_path_contents(
             self.inner_project_path,
             self.expected_files,

@@ -37,10 +37,13 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(r'''
-        Renaming material subpackage 'material_one' to 'material_two' ...
-            Subpackage test_project/materials/material_one/ does not exist!
-        '''.replace('/', os.path.sep))
+        self.compare_captured_output(
+            r'''
+            Renaming material subpackage 'material_one' to 'material_two' ...
+                Subpackage test_project/materials/material_one/ does not exist!
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
 
     def test_no_force_replace(self):
         pytest.helpers.create_cli_project(self.test_path)
@@ -54,10 +57,13 @@ class Test(ProjectPackageScriptTestCase):
                 with pytest.raises(SystemExit) as exception_info:
                     script(command)
                 assert exception_info.value.code == 1
-        self.compare_captured_output(r'''
-        Renaming material subpackage 'material_one' to 'material_two' ...
-            Subpackage test_project/materials/material_two/ exists!
-        '''.replace('/', os.path.sep))
+        self.compare_captured_output(
+            r'''
+            Renaming material subpackage 'material_one' to 'material_two' ...
+                Subpackage test_project/materials/material_two/ exists!
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
 
     def test_force_replace(self):
         pytest.helpers.create_cli_project(self.test_path)
@@ -72,11 +78,14 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit:
                     raise RuntimeError('SystemExit')
-        self.compare_captured_output(r'''
-        Renaming material subpackage 'material_one' to 'material_two' ...
-            Overwriting test_project/materials/material_two/ ...
-            Renamed test_project/materials/material_one/ to test_project/materials/material_two/
-        '''.replace('/', os.path.sep))
+        self.compare_captured_output(
+            r'''
+            Renaming material subpackage 'material_one' to 'material_two' ...
+                Overwriting test_project/materials/material_two/ ...
+                Renamed test_project/materials/material_one/ to test_project/materials/material_two/
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
         self.compare_path_contents(
             self.inner_project_path,
             self.expected_files,
@@ -94,10 +103,13 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit:
                     raise RuntimeError('SystemExit')
-        self.compare_captured_output(r'''
-        Renaming material subpackage 'material_one' to 'material_two' ...
-            Renamed test_project/materials/material_one/ to test_project/materials/material_two/
-        '''.replace('/', os.path.sep))
+        self.compare_captured_output(
+            r'''
+            Renaming material subpackage 'material_one' to 'material_two' ...
+                Renamed test_project/materials/material_one/ to test_project/materials/material_two/
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
         self.compare_path_contents(
             self.inner_project_path,
             self.expected_files,

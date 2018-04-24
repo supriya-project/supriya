@@ -78,12 +78,15 @@ class Test(ProjectPackageScriptTestCase):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             pytest.helpers.create_cli_project(self.test_path, expect_error=True)
         assert self.outer_project_path.exists()
-        self.compare_captured_output(r'''
+        self.compare_captured_output(
+            r'''
             Creating project package 'Test Project'...
                 Created test_project/
             Creating project package 'Test Project'...
                 Directory test_project already exists.
-        '''.replace('/', os.path.sep))
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
 
     def test_force_replace(self):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
@@ -92,12 +95,15 @@ class Test(ProjectPackageScriptTestCase):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             pytest.helpers.create_cli_project(self.test_path, force=True)
         assert self.outer_project_path.exists()
-        self.compare_captured_output(r'''
+        self.compare_captured_output(
+            r'''
             Creating project package 'Test Project'...
                 Created test_project/
             Creating project package 'Test Project'...
                 Created test_project/
-        '''.replace('/', os.path.sep))
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
 
     def test_success(self):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
@@ -107,10 +113,13 @@ class Test(ProjectPackageScriptTestCase):
             self.outer_project_path,
             self.expected_files,
             )
-        self.compare_captured_output(r'''
+        self.compare_captured_output(
+            r'''
             Creating project package 'Test Project'...
                 Created test_project/
-        '''.replace('/', os.path.sep))
+            '''.replace('/', os.path.sep),
+            self.string_io.getvalue(),
+            )
         self.compare_file_contents(
             self.outer_project_path.joinpath('README.md'),
             self.expected_readme_contents,
