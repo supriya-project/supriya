@@ -91,7 +91,9 @@ class Test(ProjectPackageScriptTestCase):
             )
         definition_path = self.materials_path.joinpath(
             'test_material', 'definition.py')
-        self.compare_file_contents(definition_path, '''
+        with definition_path.open() as file_pointer:
+            actual_contents = uqbar.strings.normalize(file_pointer.read())
+        expected_contents = uqbar.strings.normalize('''
         import supriya
         from test_project import project_settings
 
@@ -117,3 +119,4 @@ class Test(ProjectPackageScriptTestCase):
                 synthdef=ramp_synthdef,
                 )
         ''')
+        assert actual_contents == expected_contents

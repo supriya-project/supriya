@@ -1,16 +1,13 @@
 import jinja2
 import pathlib
-import pytest
 import shutil
-import supriya.cli
-import supriya.soundfiles
-import supriya.system
 import sys
+import unittest
 import uqbar.io
 import uqbar.strings
 
 
-class ProjectPackageScriptTestCase(supriya.system.TestCase):
+class ProjectPackageScriptTestCase(unittest.TestCase):
 
     package_name = 'test_project'
     test_path = pathlib.Path(__file__).parent

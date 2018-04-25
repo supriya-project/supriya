@@ -132,7 +132,6 @@ from supriya.system import (  # noqa
     Bindable,
     Binding,
     Enumeration,
-    TestCase,
     bind,
     )
 from supriya.soundfiles import (  # noqa

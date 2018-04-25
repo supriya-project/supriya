@@ -125,11 +125,17 @@ class Test(ProjectPackageScriptTestCase):
             '''.replace('/', os.path.sep),
             string_io.getvalue(),
             )
-        self.compare_file_contents(
-            self.outer_project_path.joinpath('README.md'),
-            self.expected_readme_contents,
-            )
-        self.compare_file_contents(
-            self.inner_project_path.joinpath('project-settings.yml'),
-            self.expected_project_settings_contents
-            )
+
+        readme_path = self.outer_project_path.joinpath('README.md')
+        with readme_path.open() as file_pointer:
+            actual_readme_contents = uqbar.strings.normalize(
+                file_pointer.read())
+        assert self.expected_readme_contents == actual_readme_contents
+
+        project_settings_path = self.inner_project_path.joinpath(
+            'project-settings.yml')
+        with project_settings_path.open() as file_pointer:
+            actual_project_settings_contents = uqbar.strings.normalize(
+                file_pointer.read())
+        assert self.expected_project_settings_contents == \
+            actual_project_settings_contents
