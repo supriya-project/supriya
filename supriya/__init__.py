@@ -96,7 +96,6 @@ def import_structured_package(
 
 
 from supriya import utils  # noqa
-from supriya import tools  # noqa
 from supriya.midi import Device  # noqa
 from supriya.live import Application, Mixer  # noqa
 from supriya.nonrealtime import Session  # noqa
@@ -133,15 +132,10 @@ from supriya.system import (  # noqa
     Bindable,
     Binding,
     Enumeration,
-    TestCase,
     bind,
     )
 from supriya.soundfiles import (  # noqa
     Say,
     )
-from abjad.tools.topleveltools import (  # noqa
-    graph,
-    )
-from supriya.tools import *  # noqa
-import supriya.commands  # noqa
+from abjad.tools.topleveltools import graph  # noqa
 from supriya._version import __version__, __version_info__  # noqa

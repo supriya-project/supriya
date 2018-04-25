@@ -11,7 +11,7 @@ Supriya lets you:
 -   object-model ``scysnth`` OSC communications explicitly via ``Request`` and
     ``Response`` classes
 -   compile non-realtime synthesis scores via Supriya's
-    ``nonrealtimetools.Session`` class
+    ``nonrealtime.Session`` class
 
 ..  note:: This project is still under **heavy** development, is **not** yet
            stable, and is **not** yet intended for deployment in the field.
@@ -59,17 +59,17 @@ setting it up, and installing any additional dependencies like `Graphviz`_.
 
 Start your Python interpreter and import Supriya::
 
-    >>> from supriya import *
+    >>> import supriya
 
 Boot the SuperCollider server::
 
-    >>> server = servertools.Server()
+    >>> server = supriya.realtime.Server()
     >>> server.boot()
     <Server: udp://127.0.0.1:57751, 8i8o>
 
 Create and allocate a group::
 
-    >>> group = servertools.Group().allocate()
+    >>> group = supriya.realtime.Group().allocate()
 
 Make a synthesizer definition and send it to the server::
 
@@ -82,17 +82,17 @@ Make a synthesizer definition and send it to the server::
 ::
 
     >>> with builder:
-    ...     source = ugentools.SinOsc.ar(
+    ...     source = supriya.ugens.SinOsc.ar(
     ...         frequency=builder['frequency'],
     ...         )
-    ...     envelope = ugentools.EnvGen.kr(
+    ...     envelope = supriya.ugens.EnvGen.kr(
     ...         done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
     ...         envelope=supriya.synthdefs.Envelope.asr(),
     ...         gate=builder['gate'],
     ...         )
     ...     source = source * builder['amplitude']
     ...     source = source * envelope
-    ...     out = ugentools.Out.ar(
+    ...     out = supriya.ugens.Out.ar(
     ...         bus=(0, 1),
     ...         source=source,
     ...         )
@@ -131,11 +131,11 @@ Query the server's node tree::
 
 Bind a MIDI controller to the synth's controls::
 
-    >>> korg = miditools.Device('NanoKontrol2')
+    >>> korg = supriya.midi.Device('NanoKontrol2')
     >>> korg.open_port(0)
     >>> source = korg['fader_1']
     >>> target = synth.controls['frequency']
-    >>> bind(source, target, range_=Range(110, 880), exponent=2.0)
+    >>> supriya.bind(source, target, range_=Range(110, 880), exponent=2.0)
     Binding()
 
 Release the synth::
