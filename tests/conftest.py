@@ -1,9 +1,12 @@
+import doctest
+import jinja2
 import os
 import pathlib
 import pytest
 import re
 import shutil
 import supriya
+import sys
 import types
 import uqbar.io
 
@@ -15,13 +18,43 @@ pytest_plugins = ['helpers_namespace']
 
 
 @pytest.fixture
-def paths():
+def cli_paths():
+    package_name = 'test_project'
+    test_directory_path = pathlib.Path(__file__).parent
+    outer_project_path = test_directory_path.joinpath(package_name)
+    inner_project_path = outer_project_path.joinpath(package_name)
+    cli_paths = types.SimpleNamespace(
+        test_directory_path=test_directory_path,
+        outer_project_path=outer_project_path,
+        inner_project_path=inner_project_path,
+        assets_path=inner_project_path.joinpath('assets'),
+        sessions_path=inner_project_path.joinpath('sessions'),
+        distribution_path=inner_project_path.joinpath('distribution'),
+        materials_path=inner_project_path.joinpath('materials'),
+        renders_path=inner_project_path.joinpath('renders'),
+        synthdefs_path=inner_project_path.joinpath('synthdefs'),
+        tools_path=inner_project_path.joinpath('tools'),
+        )
+    if outer_project_path.exists():
+        shutil.rmtree(outer_project_path)
+    if sys.path[0] != str(outer_project_path):
+        sys.path.insert(0, str(outer_project_path))
+    yield cli_paths
+    for path, module in tuple(sys.modules.items()):
+        if not path or not module:
+            continue
+        if path.startswith(package_name):
+            del(sys.modules[path])
+
+
+@pytest.fixture
+def nonrealtime_paths():
     test_directory_path = pathlib.Path(__file__).parent
     output_directory_path = test_directory_path / 'output'
     render_directory_path = test_directory_path / 'render'
     output_file_path = output_directory_path / 'output.aiff'
     render_yml_file_path = output_directory_path / 'render.yml'
-    paths = types.SimpleNamespace(
+    nonrealtime_paths = types.SimpleNamespace(
         test_directory_path=test_directory_path,
         output_directory_path=output_directory_path,
         render_directory_path=render_directory_path,
@@ -35,7 +68,7 @@ def paths():
         ]:
         path.mkdir(parents=True, exist_ok=True)
     os.chdir(test_directory_path)
-    yield paths
+    yield nonrealtime_paths
     os.chdir(original_directory)
     for path in [
         output_directory_path,
@@ -120,6 +153,9 @@ class TestSessionFactory:
             synth['source'] = 1.0 * self.multiplier
         assert synthdef.anonymous_name == 'b47278d408f17357f6b260ec30ea213d'
         return session
+
+
+ansi_escape = re.compile(r'\x1b[^m]*m')
 
 
 ### HELPERS ###
@@ -244,7 +280,73 @@ def build_multiplier_synthdef(channel_count=1):
 
 
 @pytest.helpers.register
+def compare_path_contents(path_to_search, expected_files, test_path):
+    actual_files = sorted(
+        str(path.relative_to(test_path))
+        for path in sorted(path_to_search.glob('**/*.*'))
+        if '__pycache__' not in path.parts and
+        path.suffix != '.pyc'
+        )
+    pytest.helpers.compare_strings(
+        '\n'.join(str(_) for _ in actual_files),
+        '\n'.join(str(_) for _ in expected_files),
+        )
+
+
+@pytest.helpers.register
+def compare_strings(expected, actual):
+    actual = uqbar.strings.normalize(ansi_escape.sub('', actual))
+    expected = uqbar.strings.normalize(ansi_escape.sub('', expected))
+    example = types.SimpleNamespace()
+    example.want = expected
+    output_checker = doctest.OutputChecker()
+    flags = (
+        doctest.NORMALIZE_WHITESPACE |
+        doctest.ELLIPSIS |
+        doctest.REPORT_NDIFF
+        )
+    success = output_checker.check_output(expected, actual, flags)
+    if not success:
+        diff = output_checker.output_difference(example, actual, flags)
+        raise Exception(diff)
+
+
+@pytest.helpers.register
+def create_cli_material(
+    path,
+    material_name='test_material',
+    force=False,
+    expect_error=False,
+    definition_contents=None,
+    ):
+    path = pathlib.Path(path)
+    inner_project_path = path / 'test_project' / 'test_project'
+    script = supriya.cli.ManageMaterialScript()
+    command = ['--new', material_name]
+    if force:
+        command.insert(0, '-f')
+    with uqbar.io.DirectoryChange(str(inner_project_path)):
+        if expect_error:
+            with pytest.raises(SystemExit) as exception_info:
+                script(command)
+            assert exception_info.value.code == 1
+        else:
+            try:
+                script(command)
+            except SystemExit:
+                raise RuntimeError('SystemExit')
+    material_path = inner_project_path / 'materials' / material_name
+    if definition_contents:
+        definition_contents = uqbar.strings.normalize(definition_contents)
+        definition_file_path = material_path / 'definition.py'
+        with open(str(definition_file_path), 'w') as file_pointer:
+            file_pointer.write(definition_contents)
+    return material_path
+
+
+@pytest.helpers.register
 def create_cli_project(path, force=False, expect_error=False):
+    path = pathlib.Path(path)
     script = supriya.cli.ManageProjectScript()
     command = [
         '--new',
@@ -267,6 +369,152 @@ def create_cli_project(path, force=False, expect_error=False):
                 script(command)
             except SystemExit:
                 raise RuntimeError('SystemExit')
+
+
+@pytest.helpers.register
+def create_cli_session(
+    path,
+    session_name='test_session',
+    force=False,
+    expect_error=False,
+    definition_contents=None,
+    ):
+    path = pathlib.Path(path)
+    inner_project_path = path / 'test_project' / 'test_project'
+    script = supriya.cli.ManageSessionScript()
+    command = ['--new', session_name]
+    if force:
+        command.insert(0, '-f')
+    with uqbar.io.DirectoryChange(str(inner_project_path)):
+        if expect_error:
+            with pytest.raises(SystemExit) as exception_info:
+                script(command)
+            assert exception_info.value.code == 1
+        else:
+            try:
+                script(command)
+            except SystemExit:
+                raise RuntimeError('SystemExit')
+    session_path = inner_project_path / 'sessions' / session_name
+    if definition_contents:
+        definition_contents = uqbar.strings.normalize(definition_contents)
+        definition_file_path = session_path / 'definition.py'
+        with open(str(definition_file_path), 'w') as file_pointer:
+            file_pointer.write(definition_contents)
+    return session_path
+
+
+@pytest.helpers.register
+def get_basic_session_template():
+    return jinja2.Template(uqbar.strings.normalize('''
+    import supriya
+    from test_project import project_settings
+
+
+    {{ output_section_singular }} = supriya.Session.from_project_settings(project_settings)
+
+    with supriya.synthdefs.SynthDefBuilder(
+        duration=1.,
+        out_bus=0,
+        ) as builder:
+        source = supriya.ugens.Line.ar(
+            duration=builder['duration'],
+            ) * {{ multiplier | default(1.0) }}
+        supriya.ugens.Out.ar(
+            bus=builder['out_bus'],
+            source=[source] * len({{ output_section_singular }}.audio_output_bus_group),
+            )
+    ramp_synthdef = builder.build()
+
+    with {{ output_section_singular }}.at(0):
+        {{ output_section_singular }}.add_synth(
+            duration=1,
+            synthdef=ramp_synthdef,
+            )
+    '''))
+
+
+@pytest.helpers.register
+def get_chained_session_template():
+    return jinja2.Template(uqbar.strings.normalize('''
+    import supriya
+    from test_project import project_settings
+    from test_project.{{ input_section_singular }}s.{{ input_name }}.definition \
+        import {{ input_section_singular }} as {{ input_name }}
+
+
+    {{ output_section_singular }} = supriya.Session.from_project_settings(
+        project_settings,
+        input_={{ input_name }},
+        )
+
+    with supriya.SynthDefBuilder(
+        in_bus=0,
+        out_bus=0,
+        multiplier=1,
+        ) as builder:
+        source = supriya.ugens.In.ar(
+            bus=builder['in_bus'],
+            channel_count=len({{ output_section_singular }}.audio_output_bus_group),
+            )
+        supriya.ugens.ReplaceOut.ar(
+            bus=builder['out_bus'],
+            source=source * builder['multiplier'],
+            )
+    multiplier_synthdef = builder.build()
+
+    with {{ output_section_singular }}.at(0):
+        {{ output_section_singular }}.add_synth(
+            duration=1,
+            in_bus={{ output_section_singular }}.audio_input_bus_group,
+            multiplier={{ multiplier }},
+            synthdef=multiplier_synthdef,
+            )
+    '''))
+
+
+@pytest.helpers.register
+def get_session_factory_template():
+    return jinja2.Template(uqbar.strings.normalize('''
+    import supriya
+    from test_project import project_settings
+
+
+    class SessionFactory:
+
+        def __init__(self, project_settings):
+            self.project_settings = project_settings
+
+        def _build_ramp_synthdef(self):
+            server_options = self.project_settings['server_options']
+            channel_count = server_options['output_bus_channel_count']
+            with supriya.synthdefs.SynthDefBuilder(
+                duration=1.,
+                out_bus=0,
+                ) as builder:
+                source = supriya.ugens.Line.ar(
+                    duration=builder['duration'],
+                    ) * {{ multiplier | default(1.0) }}
+                supriya.ugens.Out.ar(
+                    bus=builder['out_bus'],
+                    source=[source] * channel_count,
+                    )
+            ramp_synthdef = builder.build()
+            return ramp_synthdef
+
+        def __session__(self):
+            session = supriya.Session.from_project_settings(self.project_settings)
+            ramp_synthdef = self._build_ramp_synthdef()
+            with session.at(0):
+                session.add_synth(
+                    duration=1,
+                    synthdef=ramp_synthdef,
+                    )
+            return session
+
+
+    {{ output_section_singular }} = SessionFactory(project_settings)
+    '''))
 
 
 @pytest.helpers.register

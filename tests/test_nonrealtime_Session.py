@@ -4,18 +4,18 @@ import supriya.osc
 import supriya.soundfiles
 
 
-def test_01(paths):
+def test_01(nonrealtime_paths):
     session = supriya.nonrealtime.Session()
     with session.at(0):
         session.add_synth(
             duration=1,
             synthdef=pytest.helpers.build_basic_synthdef(),
             )
-    exit_code, _ = session.render(paths.output_file_path)
-    pytest.helpers.assert_soundfile_ok(paths.output_file_path, exit_code, 1., 44100, 8)
+    exit_code, _ = session.render(nonrealtime_paths.output_file_path)
+    pytest.helpers.assert_soundfile_ok(nonrealtime_paths.output_file_path, exit_code, 1., 44100, 8)
 
 
-def test_02(paths):
+def test_02(nonrealtime_paths):
     session = supriya.nonrealtime.Session()
     with session.at(0):
         session.add_synth(
@@ -23,14 +23,14 @@ def test_02(paths):
             synthdef=pytest.helpers.build_basic_synthdef(),
             )
     exit_code, _ = session.render(
-        paths.output_file_path,
+        nonrealtime_paths.output_file_path,
         sample_rate=48000,
         output_bus_channel_count=2,
         )
-    pytest.helpers.assert_soundfile_ok(paths.output_file_path, exit_code, 300., 48000, 2)
+    pytest.helpers.assert_soundfile_ok(nonrealtime_paths.output_file_path, exit_code, 300., 48000, 2)
 
 
-def test_03(paths):
+def test_03(nonrealtime_paths):
     session = supriya.nonrealtime.Session()
     synthdef = pytest.helpers.build_duration_synthdef()
     with session.at(0):
@@ -55,11 +55,11 @@ def test_03(paths):
             ),
         ]
     exit_code, _ = session.render(
-        paths.output_file_path,
+        nonrealtime_paths.output_file_path,
         output_bus_channel_count=1,
         )
-    pytest.helpers.assert_soundfile_ok(paths.output_file_path, exit_code, 1., 44100, 1)
-    soundfile = supriya.soundfiles.SoundFile(paths.output_file_path)
+    pytest.helpers.assert_soundfile_ok(nonrealtime_paths.output_file_path, exit_code, 1., 44100, 1)
+    soundfile = supriya.soundfiles.SoundFile(nonrealtime_paths.output_file_path)
     for i in range(1, 100):
         value = round(float(i) / 100, 2)
         assert round(soundfile.at_percent(value)[0], 2) == value
