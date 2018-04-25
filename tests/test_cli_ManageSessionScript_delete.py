@@ -65,7 +65,7 @@ class Test(ProjectPackageScriptTestCase):
             '''.replace('/', os.path.sep),
             string_io.getvalue(),
             )
-        self.compare_path_contents(
+        pytest.helpers.compare_path_contents(
             self.inner_project_path,
             self.expected_files,
             self.test_path,

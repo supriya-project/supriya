@@ -43,7 +43,7 @@ class Test(ProjectPackageScriptTestCase):
             except SystemExit as e:
                 raise RuntimeError('SystemExit: {}'.format(e.code))
 
-        self.compare_path_contents(
+        pytest.helpers.compare_path_contents(
             self.inner_project_path,
             [
                 'test_project/test_project/__init__.py',
@@ -93,7 +93,7 @@ class Test(ProjectPackageScriptTestCase):
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
 
-        self.compare_path_contents(
+        pytest.helpers.compare_path_contents(
             self.inner_project_path,
             [
                 'test_project/test_project/__init__.py',

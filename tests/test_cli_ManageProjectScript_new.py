@@ -113,7 +113,7 @@ class Test(ProjectPackageScriptTestCase):
         with uqbar.io.RedirectedStreams(stdout=string_io):
             pytest.helpers.create_cli_project(self.test_path)
         assert self.outer_project_path.exists()
-        self.compare_path_contents(
+        pytest.helpers.compare_path_contents(
             self.outer_project_path,
             self.expected_files,
             self.test_path,

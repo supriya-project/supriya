@@ -443,7 +443,7 @@ class Test(ProjectPackageScriptTestCase):
             '''.replace('/', os.path.sep),
             string_io.getvalue(),
             )
-        self.compare_path_contents(
+        pytest.helpers.compare_path_contents(
             self.inner_project_path,
             [
                 'test_project/test_project/__init__.py',
@@ -520,7 +520,7 @@ class Test(ProjectPackageScriptTestCase):
         with open(str(project_settings_path), 'w') as file_pointer:
             file_pointer.write(project_settings)
 
-        self.compare_path_contents(
+        pytest.helpers.compare_path_contents(
             self.inner_project_path,
             [
                 'test_project/test_project/__init__.py',
@@ -585,7 +585,7 @@ class Test(ProjectPackageScriptTestCase):
             string_io.getvalue(),
             )
 
-        self.compare_path_contents(
+        pytest.helpers.compare_path_contents(
             self.inner_project_path,
             [
                 'test_project/test_project/__init__.py',
@@ -689,7 +689,7 @@ class Test(ProjectPackageScriptTestCase):
             '''.replace('/', os.path.sep),
             string_io.getvalue(),
             )
-        self.compare_path_contents(
+        pytest.helpers.compare_path_contents(
             self.inner_project_path,
             [
                 'test_project/test_project/__init__.py',

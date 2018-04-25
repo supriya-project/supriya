@@ -86,7 +86,7 @@ class Test(ProjectPackageScriptTestCase):
             string_io.getvalue(),
             )
         assert self.sessions_path.joinpath('test_session').exists()
-        self.compare_path_contents(
+        pytest.helpers.compare_path_contents(
             self.sessions_path,
             self.expected_files,
             self.test_path,
