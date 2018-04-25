@@ -101,15 +101,6 @@ def server():
     server.quit()
 
 
-@pytest.fixture(autouse=True)
-def server_shutdown():
-    for server in supriya.Server._servers.values():
-        server.quit()
-    yield
-    for server in supriya.Server._servers.values():
-        server.quit()
-
-
 ### DATA ###
 
 
