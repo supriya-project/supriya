@@ -80,6 +80,7 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/tools/.gitignore',
                 'test_project/test_project/tools/__init__.py'
                 ],
+            self.test_path,
             )
 
         script = supriya.cli.ManageProjectScript()
@@ -123,6 +124,7 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/tools/.gitignore',
                 'test_project/test_project/tools/__init__.py'
                 ],
+            self.test_path,
             )
 
         pytest.helpers.compare_strings(

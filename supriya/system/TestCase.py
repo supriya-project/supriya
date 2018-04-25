@@ -15,9 +15,9 @@ class TestCase(unittest.TestCase):
             actual_contents = file_pointer.read()
         pytest.helpers.compare_strings(expected_contents, actual_contents)
 
-    def compare_path_contents(self, path_to_search, expected_files):
+    def compare_path_contents(self, path_to_search, expected_files, test_path):
         actual_files = sorted(
-            str(path.relative_to(self.test_path))
+            str(path.relative_to(test_path))
             for path in sorted(path_to_search.glob('**/*.*'))
             if '__pycache__' not in path.parts and
             path.suffix != '.pyc'

@@ -93,6 +93,7 @@ class Test(ProjectPackageScriptTestCase):
         self.compare_path_contents(
             self.inner_project_path,
             self.expected_files,
+            self.test_path,
             )
 
     def test_success(self):
@@ -118,4 +119,5 @@ class Test(ProjectPackageScriptTestCase):
         self.compare_path_contents(
             self.inner_project_path,
             self.expected_files,
+            self.test_path,
             )

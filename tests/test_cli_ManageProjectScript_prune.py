@@ -95,6 +95,7 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/tools/.gitignore',
                 'test_project/test_project/tools/__init__.py'
                 ],
+            self.test_path,
             )
 
         shutil.rmtree(str(material_four_path))
@@ -155,4 +156,5 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/tools/.gitignore',
                 'test_project/test_project/tools/__init__.py'
                 ],
+            self.test_path,
             )

@@ -68,4 +68,5 @@ class Test(ProjectPackageScriptTestCase):
         self.compare_path_contents(
             self.inner_project_path,
             self.expected_files,
+            self.test_path,
             )

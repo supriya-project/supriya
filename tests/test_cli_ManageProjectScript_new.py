@@ -116,6 +116,7 @@ class Test(ProjectPackageScriptTestCase):
         self.compare_path_contents(
             self.outer_project_path,
             self.expected_files,
+            self.test_path,
             )
         pytest.helpers.compare_strings(
             r'''

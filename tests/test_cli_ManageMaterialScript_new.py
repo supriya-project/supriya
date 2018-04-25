@@ -84,7 +84,11 @@ class Test(ProjectPackageScriptTestCase):
             string_io.getvalue(),
             )
         assert self.materials_path.joinpath('test_material').exists()
-        self.compare_path_contents(self.materials_path, self.expected_files)
+        self.compare_path_contents(
+            self.materials_path,
+            self.expected_files,
+            self.test_path,
+            )
         definition_path = self.materials_path.joinpath(
             'test_material', 'definition.py')
         self.compare_file_contents(definition_path, '''

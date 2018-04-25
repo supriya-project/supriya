@@ -468,7 +468,8 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/test/.gitignore',
                 'test_project/test_project/tools/.gitignore',
                 'test_project/test_project/tools/__init__.py',
-                ]
+                ],
+            self.test_path,
             )
         assert pytest.helpers.sample_soundfile(
             str(self.materials_path.joinpath('test_material', 'render.aiff'))
@@ -543,7 +544,9 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/synthdefs/__init__.py',
                 'test_project/test_project/test/.gitignore',
                 'test_project/test_project/tools/.gitignore',
-                'test_project/test_project/tools/__init__.py']
+                'test_project/test_project/tools/__init__.py',
+                ],
+            self.test_path,
             )
 
         script = supriya.cli.ManageMaterialScript()
@@ -615,7 +618,9 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/synthdefs/__init__.py',
                 'test_project/test_project/test/.gitignore',
                 'test_project/test_project/tools/.gitignore',
-                'test_project/test_project/tools/__init__.py']
+                'test_project/test_project/tools/__init__.py',
+                ],
+            self.test_path,
             )
 
         render_yml_file_path = material_three_path / 'render.yml'

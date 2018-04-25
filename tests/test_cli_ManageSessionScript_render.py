@@ -467,7 +467,8 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/test/.gitignore',
                 'test_project/test_project/tools/.gitignore',
                 'test_project/test_project/tools/__init__.py',
-                ]
+                ],
+            self.test_path,
             )
         assert pytest.helpers.sample_soundfile(
             str(self.sessions_path.joinpath('test_session', 'render.aiff'))
@@ -542,7 +543,8 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/synthdefs/__init__.py',
                 'test_project/test_project/test/.gitignore',
                 'test_project/test_project/tools/.gitignore',
-                'test_project/test_project/tools/__init__.py']
+                'test_project/test_project/tools/__init__.py'],
+            self.test_path,
             )
 
         script = supriya.cli.ManageSessionScript()
@@ -614,7 +616,8 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/synthdefs/__init__.py',
                 'test_project/test_project/test/.gitignore',
                 'test_project/test_project/tools/.gitignore',
-                'test_project/test_project/tools/__init__.py']
+                'test_project/test_project/tools/__init__.py'],
+            self.test_path,
             )
 
         render_yml_file_path = session_three_path / 'render.yml'
@@ -710,7 +713,8 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/test/.gitignore',
                 'test_project/test_project/tools/.gitignore',
                 'test_project/test_project/tools/__init__.py',
-                ]
+                ],
+            self.test_path,
             )
         assert pytest.helpers.sample_soundfile(
             str(self.sessions_path.joinpath('test_session', 'render.aiff'))

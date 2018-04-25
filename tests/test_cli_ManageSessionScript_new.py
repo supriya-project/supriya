@@ -86,7 +86,11 @@ class Test(ProjectPackageScriptTestCase):
             string_io.getvalue(),
             )
         assert self.sessions_path.joinpath('test_session').exists()
-        self.compare_path_contents(self.sessions_path, self.expected_files)
+        self.compare_path_contents(
+            self.sessions_path,
+            self.expected_files,
+            self.test_path,
+            )
         definition_path = self.sessions_path.joinpath(
             'test_session', 'definition.py')
         self.compare_file_contents(definition_path, '''
