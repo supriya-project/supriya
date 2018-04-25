@@ -35,7 +35,7 @@ def test_01(cli_paths):
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
     material_path = pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'test_material')
     definition_path = material_path.joinpath('definition.py')
-    with open(str(definition_path), 'w') as file_pointer:
+    with definition_path.open('w') as file_pointer:
         file_pointer.write(module_contents.format(seed=0))
     script = supriya.cli.ManageMaterialScript()
     command = ['--render', 'test_material']
@@ -95,8 +95,7 @@ def test_01(cli_paths):
 
     string_io = io.StringIO()
     with uqbar.io.RedirectedStreams(stdout=string_io):
-        with uqbar.io.DirectoryChange(
-            str(cli_paths.inner_project_path)):
+        with uqbar.io.DirectoryChange(cli_paths.inner_project_path):
             try:
                 script(command)
             except SystemExit as e:
@@ -128,7 +127,7 @@ def test_02(cli_paths):
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
     material_path = pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'test_material')
     definition_path = material_path.joinpath('definition.py')
-    with open(str(definition_path), 'w') as file_pointer:
+    with definition_path.open('w') as file_pointer:
         file_pointer.write(module_contents.format(seed=None))
     script = supriya.cli.ManageMaterialScript()
     command = ['--render', 'test_material']

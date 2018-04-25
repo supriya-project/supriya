@@ -42,8 +42,7 @@ def test_prune(cli_paths):
 
     script = supriya.cli.ManageMaterialScript()
     command = ['--render', '*']
-    with uqbar.io.DirectoryChange(
-        str(cli_paths.inner_project_path)):
+    with uqbar.io.DirectoryChange(cli_paths.inner_project_path):
         try:
             script(command)
         except SystemExit as e:
@@ -95,13 +94,12 @@ def test_prune(cli_paths):
         cli_paths.test_directory_path,
         )
 
-    shutil.rmtree(str(material_four_path))
+    shutil.rmtree(material_four_path)
 
     script = supriya.cli.ManageProjectScript()
     command = ['--prune']
     with uqbar.io.RedirectedStreams(stdout=string_io):
-        with uqbar.io.DirectoryChange(
-            str(cli_paths.inner_project_path)):
+        with uqbar.io.DirectoryChange(cli_paths.inner_project_path):
             try:
                 script(command)
             except SystemExit as e:

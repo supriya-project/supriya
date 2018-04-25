@@ -18,9 +18,10 @@ pytest_plugins = ['helpers_namespace']
 
 
 @pytest.fixture
-def cli_paths():
+def cli_paths(tmpdir):
     package_name = 'test_project'
-    test_directory_path = pathlib.Path(__file__).parent
+    # test_directory_path = pathlib.Path(__file__).parent
+    test_directory_path = pathlib.Path(tmpdir)
     outer_project_path = test_directory_path.joinpath(package_name)
     inner_project_path = outer_project_path.joinpath(package_name)
     cli_paths = types.SimpleNamespace(
@@ -48,8 +49,9 @@ def cli_paths():
 
 
 @pytest.fixture
-def nonrealtime_paths():
-    test_directory_path = pathlib.Path(__file__).parent
+def nonrealtime_paths(tmpdir):
+    # test_directory_path = pathlib.Path(__file__).parent
+    test_directory_path = pathlib.Path(tmpdir)
     output_directory_path = test_directory_path / 'output'
     render_directory_path = test_directory_path / 'render'
     output_file_path = output_directory_path / 'output.aiff'

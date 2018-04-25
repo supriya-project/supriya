@@ -399,13 +399,9 @@ def test_05(nonrealtime_paths):
         0.81: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
         0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
         }
+    # NOTE: Render YML is not portable across systems.
+    #       Do not verify its output.
     assert nonrealtime_paths.render_yml_file_path.exists()
-    with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
-        file_contents = uqbar.strings.normalize(file_pointer.read())
-        assert file_contents == uqbar.strings.normalize('''
-            render: session-6df7796fda830e747034c592358617b6
-            source: null
-            ''')
 
 
 def test_06(nonrealtime_paths):
