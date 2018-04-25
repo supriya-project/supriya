@@ -3,7 +3,6 @@ import os
 import pytest
 import uqbar.io
 import uqbar.strings
-from cli_testbase import ProjectPackageScriptTestCase
 
 
 expected_files = [
@@ -73,72 +72,72 @@ expected_project_settings_contents = uqbar.strings.normalize('''
     ''')
 
 
-class Test(ProjectPackageScriptTestCase):
+def test_exists(cli_paths):
+    string_io = io.StringIO()
+    with uqbar.io.RedirectedStreams(stdout=string_io):
+        pytest.helpers.create_cli_project(cli_paths.test_directory_path)
+    assert cli_paths.outer_project_path.exists()
+    with uqbar.io.RedirectedStreams(stdout=string_io):
+        pytest.helpers.create_cli_project(cli_paths.test_directory_path, expect_error=True)
+    assert cli_paths.outer_project_path.exists()
+    pytest.helpers.compare_strings(
+        r'''
+        Creating project package 'Test Project'...
+            Created test_project/
+        Creating project package 'Test Project'...
+            Directory test_project already exists.
+        '''.replace('/', os.path.sep),
+        string_io.getvalue(),
+        )
 
-    def test_exists(self):
-        string_io = io.StringIO()
-        with uqbar.io.RedirectedStreams(stdout=string_io):
-            pytest.helpers.create_cli_project(self.test_path)
-        assert self.outer_project_path.exists()
-        with uqbar.io.RedirectedStreams(stdout=string_io):
-            pytest.helpers.create_cli_project(self.test_path, expect_error=True)
-        assert self.outer_project_path.exists()
-        pytest.helpers.compare_strings(
-            r'''
-            Creating project package 'Test Project'...
-                Created test_project/
-            Creating project package 'Test Project'...
-                Directory test_project already exists.
-            '''.replace('/', os.path.sep),
-            string_io.getvalue(),
-            )
 
-    def test_force_replace(self):
-        string_io = io.StringIO()
-        with uqbar.io.RedirectedStreams(stdout=string_io):
-            pytest.helpers.create_cli_project(self.test_path)
-        assert self.outer_project_path.exists()
-        with uqbar.io.RedirectedStreams(stdout=string_io):
-            pytest.helpers.create_cli_project(self.test_path, force=True)
-        assert self.outer_project_path.exists()
-        pytest.helpers.compare_strings(
-            r'''
-            Creating project package 'Test Project'...
-                Created test_project/
-            Creating project package 'Test Project'...
-                Created test_project/
-            '''.replace('/', os.path.sep),
-            string_io.getvalue(),
-            )
+def test_force_replace(cli_paths):
+    string_io = io.StringIO()
+    with uqbar.io.RedirectedStreams(stdout=string_io):
+        pytest.helpers.create_cli_project(cli_paths.test_directory_path)
+    assert cli_paths.outer_project_path.exists()
+    with uqbar.io.RedirectedStreams(stdout=string_io):
+        pytest.helpers.create_cli_project(cli_paths.test_directory_path, force=True)
+    assert cli_paths.outer_project_path.exists()
+    pytest.helpers.compare_strings(
+        r'''
+        Creating project package 'Test Project'...
+            Created test_project/
+        Creating project package 'Test Project'...
+            Created test_project/
+        '''.replace('/', os.path.sep),
+        string_io.getvalue(),
+        )
 
-    def test_success(self):
-        string_io = io.StringIO()
-        with uqbar.io.RedirectedStreams(stdout=string_io):
-            pytest.helpers.create_cli_project(self.test_path)
-        assert self.outer_project_path.exists()
-        pytest.helpers.compare_path_contents(
-            self.outer_project_path,
-            expected_files,
-            self.test_path,
-            )
-        pytest.helpers.compare_strings(
-            r'''
-            Creating project package 'Test Project'...
-                Created test_project/
-            '''.replace('/', os.path.sep),
-            string_io.getvalue(),
-            )
 
-        readme_path = self.outer_project_path.joinpath('README.md')
-        with readme_path.open() as file_pointer:
-            actual_readme_contents = uqbar.strings.normalize(
-                file_pointer.read())
-        assert expected_readme_contents == actual_readme_contents
+def test_success(cli_paths):
+    string_io = io.StringIO()
+    with uqbar.io.RedirectedStreams(stdout=string_io):
+        pytest.helpers.create_cli_project(cli_paths.test_directory_path)
+    assert cli_paths.outer_project_path.exists()
+    pytest.helpers.compare_path_contents(
+        cli_paths.outer_project_path,
+        expected_files,
+        cli_paths.test_directory_path,
+        )
+    pytest.helpers.compare_strings(
+        r'''
+        Creating project package 'Test Project'...
+            Created test_project/
+        '''.replace('/', os.path.sep),
+        string_io.getvalue(),
+        )
 
-        project_settings_path = self.inner_project_path.joinpath(
-            'project-settings.yml')
-        with project_settings_path.open() as file_pointer:
-            actual_project_settings_contents = uqbar.strings.normalize(
-                file_pointer.read())
-        assert expected_project_settings_contents == \
-            actual_project_settings_contents
+    readme_path = cli_paths.outer_project_path.joinpath('README.md')
+    with readme_path.open() as file_pointer:
+        actual_readme_contents = uqbar.strings.normalize(
+            file_pointer.read())
+    assert expected_readme_contents == actual_readme_contents
+
+    project_settings_path = cli_paths.inner_project_path.joinpath(
+        'project-settings.yml')
+    with project_settings_path.open() as file_pointer:
+        actual_project_settings_contents = uqbar.strings.normalize(
+            file_pointer.read())
+    assert expected_project_settings_contents == \
+        actual_project_settings_contents

@@ -3,7 +3,6 @@ import os
 import pytest
 import supriya.cli
 import uqbar.io
-from cli_testbase import ProjectPackageScriptTestCase
 
 
 expected_files = [
@@ -25,49 +24,46 @@ expected_files = [
     ]
 
 
-class Test(ProjectPackageScriptTestCase):
+def test_missing(cli_paths):
+    string_io = io.StringIO()
+    pytest.helpers.create_cli_project(cli_paths.test_directory_path)
+    script = supriya.cli.ManageSessionScript()
+    command = ['--delete', 'test_session']
+    with uqbar.io.RedirectedStreams(stdout=string_io):
+        with uqbar.io.DirectoryChange(cli_paths.inner_project_path):
+            with pytest.raises(SystemExit) as exception_info:
+                script(command)
+            assert exception_info.value.code == 1
+    pytest.helpers.compare_strings(
+        r'''
+        Deleting session subpackage 'test_session' ...
+            Subpackage test_project/sessions/test_session/ does not exist!
+        '''.replace('/', os.path.sep),
+        string_io.getvalue(),
+        )
 
-    def test_missing(self):
-        string_io = io.StringIO()
-        pytest.helpers.create_cli_project(self.test_path)
-        script = supriya.cli.ManageSessionScript()
-        command = ['--delete', 'test_session']
-        with uqbar.io.RedirectedStreams(stdout=string_io):
-            with uqbar.io.DirectoryChange(
-                str(self.inner_project_path)):
-                with pytest.raises(SystemExit) as exception_info:
-                    script(command)
-                assert exception_info.value.code == 1
-        pytest.helpers.compare_strings(
-            r'''
-            Deleting session subpackage 'test_session' ...
-                Subpackage test_project/sessions/test_session/ does not exist!
-            '''.replace('/', os.path.sep),
-            string_io.getvalue(),
-            )
 
-    def test_success(self):
-        string_io = io.StringIO()
-        pytest.helpers.create_cli_project(self.test_path)
-        pytest.helpers.create_cli_session(self.test_path, 'test_session')
-        script = supriya.cli.ManageSessionScript()
-        command = ['--delete', 'test_session']
-        with uqbar.io.RedirectedStreams(stdout=string_io):
-            with uqbar.io.DirectoryChange(
-                str(self.inner_project_path)):
-                try:
-                    script(command)
-                except SystemExit:
-                    raise RuntimeError('SystemExit')
-        pytest.helpers.compare_strings(
-            r'''
-            Deleting session subpackage 'test_session' ...
-                Deleted test_project/sessions/test_session/
-            '''.replace('/', os.path.sep),
-            string_io.getvalue(),
-            )
-        pytest.helpers.compare_path_contents(
-            self.inner_project_path,
-            expected_files,
-            self.test_path,
-            )
+def test_success(cli_paths):
+    string_io = io.StringIO()
+    pytest.helpers.create_cli_project(cli_paths.test_directory_path)
+    pytest.helpers.create_cli_session(cli_paths.test_directory_path, 'test_session')
+    script = supriya.cli.ManageSessionScript()
+    command = ['--delete', 'test_session']
+    with uqbar.io.RedirectedStreams(stdout=string_io):
+        with uqbar.io.DirectoryChange(cli_paths.inner_project_path):
+            try:
+                script(command)
+            except SystemExit:
+                raise RuntimeError('SystemExit')
+    pytest.helpers.compare_strings(
+        r'''
+        Deleting session subpackage 'test_session' ...
+            Deleted test_project/sessions/test_session/
+        '''.replace('/', os.path.sep),
+        string_io.getvalue(),
+        )
+    pytest.helpers.compare_path_contents(
+        cli_paths.inner_project_path,
+        expected_files,
+        cli_paths.test_directory_path,
+        )
