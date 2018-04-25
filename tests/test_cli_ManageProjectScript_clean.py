@@ -13,14 +13,14 @@ class Test(ProjectPackageScriptTestCase):
         pytest.helpers.create_cli_material(
             self.test_path,
             'material_one',
-            definition_contents=self.basic_session_template.render(
+            definition_contents=pytest.helpers.get_basic_session_template().render(
                 output_section_singular='material',
                 ),
             )
         pytest.helpers.create_cli_material(
             self.test_path,
             'material_two',
-            definition_contents=self.basic_session_template.render(
+            definition_contents=pytest.helpers.get_basic_session_template().render(
                 multiplier=0.5,
                 output_section_singular='material',
                 ),
@@ -28,7 +28,7 @@ class Test(ProjectPackageScriptTestCase):
         pytest.helpers.create_cli_material(
             self.test_path,
             'material_three',
-            definition_contents=self.basic_session_template.render(
+            definition_contents=pytest.helpers.get_basic_session_template().render(
                 multiplier=0.25,
                 output_section_singular='material',
                 ),

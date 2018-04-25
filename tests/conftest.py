@@ -1,4 +1,5 @@
 import doctest
+import jinja2
 import os
 import pathlib
 import pytest
@@ -370,6 +371,119 @@ def create_cli_session(
         with open(str(definition_file_path), 'w') as file_pointer:
             file_pointer.write(definition_contents)
     return session_path
+
+
+@pytest.helpers.register
+def get_basic_session_template():
+    return jinja2.Template(uqbar.strings.normalize('''
+    import supriya
+    from test_project import project_settings
+
+
+    {{ output_section_singular }} = supriya.Session.from_project_settings(project_settings)
+
+    with supriya.synthdefs.SynthDefBuilder(
+        duration=1.,
+        out_bus=0,
+        ) as builder:
+        source = supriya.ugens.Line.ar(
+            duration=builder['duration'],
+            ) * {{ multiplier | default(1.0) }}
+        supriya.ugens.Out.ar(
+            bus=builder['out_bus'],
+            source=[source] * len({{ output_section_singular }}.audio_output_bus_group),
+            )
+    ramp_synthdef = builder.build()
+
+    with {{ output_section_singular }}.at(0):
+        {{ output_section_singular }}.add_synth(
+            duration=1,
+            synthdef=ramp_synthdef,
+            )
+    '''))
+
+
+@pytest.helpers.register
+def get_chained_session_template():
+    return jinja2.Template(uqbar.strings.normalize('''
+    import supriya
+    from test_project import project_settings
+    from test_project.{{ input_section_singular }}s.{{ input_name }}.definition \
+        import {{ input_section_singular }} as {{ input_name }}
+
+
+    {{ output_section_singular }} = supriya.Session.from_project_settings(
+        project_settings,
+        input_={{ input_name }},
+        )
+
+    with supriya.SynthDefBuilder(
+        in_bus=0,
+        out_bus=0,
+        multiplier=1,
+        ) as builder:
+        source = supriya.ugens.In.ar(
+            bus=builder['in_bus'],
+            channel_count=len({{ output_section_singular }}.audio_output_bus_group),
+            )
+        supriya.ugens.ReplaceOut.ar(
+            bus=builder['out_bus'],
+            source=source * builder['multiplier'],
+            )
+    multiplier_synthdef = builder.build()
+
+    with {{ output_section_singular }}.at(0):
+        {{ output_section_singular }}.add_synth(
+            duration=1,
+            in_bus={{ output_section_singular }}.audio_input_bus_group,
+            multiplier={{ multiplier }},
+            synthdef=multiplier_synthdef,
+            )
+    '''))
+
+
+@pytest.helpers.register
+def get_session_factory_template():
+    return jinja2.Template(uqbar.strings.normalize('''
+    import supriya
+    from test_project import project_settings
+
+
+    class SessionFactory:
+
+        def __init__(self, project_settings):
+            self.project_settings = project_settings
+
+        def _build_ramp_synthdef(self):
+            server_options = self.project_settings['server_options']
+            channel_count = server_options['output_bus_channel_count']
+            with supriya.synthdefs.SynthDefBuilder(
+                duration=1.,
+                out_bus=0,
+                ) as builder:
+                source = supriya.ugens.Line.ar(
+                    duration=builder['duration'],
+                    ) * {{ multiplier | default(1.0) }}
+                supriya.ugens.Out.ar(
+                    bus=builder['out_bus'],
+                    source=[source] * channel_count,
+                    )
+            ramp_synthdef = builder.build()
+            return ramp_synthdef
+
+        def __session__(self):
+            session = supriya.Session.from_project_settings(self.project_settings)
+            ramp_synthdef = self._build_ramp_synthdef()
+            with session.at(0):
+                session.add_synth(
+                    duration=1,
+                    synthdef=ramp_synthdef,
+                    )
+            return session
+
+
+    {{ output_section_singular }} = SessionFactory(project_settings)
+    '''))
 
 
 @pytest.helpers.register

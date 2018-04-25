@@ -488,7 +488,7 @@ class Test(ProjectPackageScriptTestCase):
         pytest.helpers.create_cli_session(
             self.test_path,
             'session_two',
-            definition_contents=self.chained_session_template.render(
+            definition_contents=pytest.helpers.get_chained_session_template().render(
                 input_name='session_one',
                 input_section_singular='session',
                 output_section_singular='session',
@@ -498,7 +498,7 @@ class Test(ProjectPackageScriptTestCase):
         session_three_path = pytest.helpers.create_cli_session(
             self.test_path,
             'session_three',
-            definition_contents=self.chained_session_template.render(
+            definition_contents=pytest.helpers.get_chained_session_template().render(
                 input_name='session_two',
                 input_section_singular='session',
                 output_section_singular='session',
@@ -660,7 +660,7 @@ class Test(ProjectPackageScriptTestCase):
         session_path = pytest.helpers.create_cli_session(self.test_path, 'test_session')
         definition_path = session_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
-            file_pointer.write(self.session_factory_template.render(
+            file_pointer.write(pytest.helpers.get_session_factory_template().render(
                 output_section_singular='session',
                 ))
         script = supriya.cli.ManageSessionScript()

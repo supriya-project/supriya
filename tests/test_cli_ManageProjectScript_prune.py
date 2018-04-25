@@ -15,7 +15,7 @@ class Test(ProjectPackageScriptTestCase):
         pytest.helpers.create_cli_material(
             self.test_path,
             'material_two',
-            definition_contents=self.chained_session_template.render(
+            definition_contents=pytest.helpers.get_chained_session_template().render(
                 input_name='material_one',
                 input_section_singular='material',
                 output_section_singular='material',
@@ -25,7 +25,7 @@ class Test(ProjectPackageScriptTestCase):
         pytest.helpers.create_cli_material(
             self.test_path,
             'material_three',
-            definition_contents=self.chained_session_template.render(
+            definition_contents=pytest.helpers.get_chained_session_template().render(
                 input_name='material_two',
                 input_section_singular='material',
                 output_section_singular='material',
@@ -35,7 +35,7 @@ class Test(ProjectPackageScriptTestCase):
         material_four_path = pytest.helpers.create_cli_material(
             self.test_path,
             'material_four',
-            definition_contents=self.chained_session_template.render(
+            definition_contents=pytest.helpers.get_chained_session_template().render(
                 input_name='material_two',
                 input_section_singular='material',
                 output_section_singular='material',
