@@ -6,6 +6,7 @@ import pytest
 import re
 import shutil
 import supriya
+import sys
 import types
 import uqbar.io
 
@@ -17,13 +18,43 @@ pytest_plugins = ['helpers_namespace']
 
 
 @pytest.fixture
-def paths():
+def cli_paths():
+    package_name = 'test_project'
+    test_directory_path = pathlib.Path(__file__).parent
+    outer_project_path = test_directory_path.joinpath(package_name)
+    inner_project_path = outer_project_path.joinpath(package_name)
+    cli_paths = types.SimpleNamespace(
+        test_directory_path=test_directory_path,
+        outer_project_path=outer_project_path,
+        inner_project_path=inner_project_path,
+        assets_path=inner_project_path.joinpath('assets'),
+        sessions_path=inner_project_path.joinpath('sessions'),
+        distribution_path=inner_project_path.joinpath('distribution'),
+        materials_path=inner_project_path.joinpath('materials'),
+        renders_path=inner_project_path.joinpath('renders'),
+        synthdefs_path=inner_project_path.joinpath('synthdefs'),
+        tools_path=inner_project_path.joinpath('tools'),
+        )
+    if outer_project_path.exists():
+        shutil.rmtree(outer_project_path)
+    if sys.path[0] != str(outer_project_path):
+        sys.path.insert(0, str(outer_project_path))
+    yield cli_paths
+    for path, module in tuple(sys.modules.items()):
+        if not path or not module:
+            continue
+        if path.startswith(package_name):
+            del(sys.modules[path])
+
+
+@pytest.fixture
+def nonrealtime_paths():
     test_directory_path = pathlib.Path(__file__).parent
     output_directory_path = test_directory_path / 'output'
     render_directory_path = test_directory_path / 'render'
     output_file_path = output_directory_path / 'output.aiff'
     render_yml_file_path = output_directory_path / 'render.yml'
-    paths = types.SimpleNamespace(
+    nonrealtime_paths = types.SimpleNamespace(
         test_directory_path=test_directory_path,
         output_directory_path=output_directory_path,
         render_directory_path=render_directory_path,
@@ -37,7 +68,7 @@ def paths():
         ]:
         path.mkdir(parents=True, exist_ok=True)
     os.chdir(test_directory_path)
-    yield paths
+    yield nonrealtime_paths
     os.chdir(original_directory)
     for path in [
         output_directory_path,

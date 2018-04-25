@@ -6,14 +6,15 @@ import uqbar.io
 from cli_testbase import ProjectPackageScriptTestCase
 
 
-class Test(ProjectPackageScriptTestCase):
+expected_files = [
+    'test_project/test_project/materials/.gitignore',
+    'test_project/test_project/materials/__init__.py',
+    'test_project/test_project/materials/test_material/__init__.py',
+    'test_project/test_project/materials/test_material/definition.py',
+    ]
 
-    expected_files = [
-        'test_project/test_project/materials/.gitignore',
-        'test_project/test_project/materials/__init__.py',
-        'test_project/test_project/materials/test_material/__init__.py',
-        'test_project/test_project/materials/test_material/definition.py',
-        ]
+
+class Test(ProjectPackageScriptTestCase):
 
     def test_exists(self):
         string_io = io.StringIO()
@@ -86,7 +87,7 @@ class Test(ProjectPackageScriptTestCase):
         assert self.materials_path.joinpath('test_material').exists()
         pytest.helpers.compare_path_contents(
             self.materials_path,
-            self.expected_files,
+            expected_files,
             self.test_path,
             )
         definition_path = self.materials_path.joinpath(

@@ -6,29 +6,30 @@ import uqbar.io
 from cli_testbase import ProjectPackageScriptTestCase
 
 
-class Test(ProjectPackageScriptTestCase):
+expected_files = [
+    'test_project/test_project/__init__.py',
+    'test_project/test_project/assets/.gitignore',
+    'test_project/test_project/distribution/.gitignore',
+    'test_project/test_project/etc/.gitignore',
+    'test_project/test_project/materials/.gitignore',
+    'test_project/test_project/materials/__init__.py',
+    'test_project/test_project/project-settings.yml',
+    'test_project/test_project/renders/.gitignore',
+    'test_project/test_project/sessions/.gitignore',
+    'test_project/test_project/sessions/__init__.py',
+    'test_project/test_project/sessions/session_one/__init__.py',
+    'test_project/test_project/sessions/session_one/definition.py',
+    'test_project/test_project/sessions/session_two/__init__.py',
+    'test_project/test_project/sessions/session_two/definition.py',
+    'test_project/test_project/synthdefs/.gitignore',
+    'test_project/test_project/synthdefs/__init__.py',
+    'test_project/test_project/test/.gitignore',
+    'test_project/test_project/tools/.gitignore',
+    'test_project/test_project/tools/__init__.py'
+    ]
 
-    expected_files = [
-        'test_project/test_project/__init__.py',
-        'test_project/test_project/assets/.gitignore',
-        'test_project/test_project/distribution/.gitignore',
-        'test_project/test_project/etc/.gitignore',
-        'test_project/test_project/materials/.gitignore',
-        'test_project/test_project/materials/__init__.py',
-        'test_project/test_project/project-settings.yml',
-        'test_project/test_project/renders/.gitignore',
-        'test_project/test_project/sessions/.gitignore',
-        'test_project/test_project/sessions/__init__.py',
-        'test_project/test_project/sessions/session_one/__init__.py',
-        'test_project/test_project/sessions/session_one/definition.py',
-        'test_project/test_project/sessions/session_two/__init__.py',
-        'test_project/test_project/sessions/session_two/definition.py',
-        'test_project/test_project/synthdefs/.gitignore',
-        'test_project/test_project/synthdefs/__init__.py',
-        'test_project/test_project/test/.gitignore',
-        'test_project/test_project/tools/.gitignore',
-        'test_project/test_project/tools/__init__.py'
-        ]
+
+class Test(ProjectPackageScriptTestCase):
 
     def test_missing_source(self):
         string_io = io.StringIO()
@@ -94,7 +95,7 @@ class Test(ProjectPackageScriptTestCase):
             )
         pytest.helpers.compare_path_contents(
             self.inner_project_path,
-            self.expected_files,
+            expected_files,
             self.test_path,
             )
 
@@ -120,6 +121,6 @@ class Test(ProjectPackageScriptTestCase):
             )
         pytest.helpers.compare_path_contents(
             self.inner_project_path,
-            self.expected_files,
+            expected_files,
             self.test_path,
             )

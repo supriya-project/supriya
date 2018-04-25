@@ -6,37 +6,37 @@ import uqbar.strings
 from cli_testbase import ProjectPackageScriptTestCase
 
 
-class Test(ProjectPackageScriptTestCase):
+expected_files = [
+    'test_project/.gitignore',
+    'test_project/README.md',
+    'test_project/requirements.txt',
+    'test_project/setup.cfg',
+    'test_project/setup.py',
+    'test_project/test_project/__init__.py',
+    'test_project/test_project/assets/.gitignore',
+    'test_project/test_project/distribution/.gitignore',
+    'test_project/test_project/etc/.gitignore',
+    'test_project/test_project/materials/.gitignore',
+    'test_project/test_project/materials/__init__.py',
+    'test_project/test_project/project-settings.yml',
+    'test_project/test_project/renders/.gitignore',
+    'test_project/test_project/sessions/.gitignore',
+    'test_project/test_project/sessions/__init__.py',
+    'test_project/test_project/synthdefs/.gitignore',
+    'test_project/test_project/synthdefs/__init__.py',
+    'test_project/test_project/test/.gitignore',
+    'test_project/test_project/tools/.gitignore',
+    'test_project/test_project/tools/__init__.py',
+    ]
 
-    expected_files = [
-        'test_project/.gitignore',
-        'test_project/README.md',
-        'test_project/requirements.txt',
-        'test_project/setup.cfg',
-        'test_project/setup.py',
-        'test_project/test_project/__init__.py',
-        'test_project/test_project/assets/.gitignore',
-        'test_project/test_project/distribution/.gitignore',
-        'test_project/test_project/etc/.gitignore',
-        'test_project/test_project/materials/.gitignore',
-        'test_project/test_project/materials/__init__.py',
-        'test_project/test_project/project-settings.yml',
-        'test_project/test_project/renders/.gitignore',
-        'test_project/test_project/sessions/.gitignore',
-        'test_project/test_project/sessions/__init__.py',
-        'test_project/test_project/synthdefs/.gitignore',
-        'test_project/test_project/synthdefs/__init__.py',
-        'test_project/test_project/test/.gitignore',
-        'test_project/test_project/tools/.gitignore',
-        'test_project/test_project/tools/__init__.py',
-        ]
 
-    expected_readme_contents = uqbar.strings.normalize('''
+expected_readme_contents = uqbar.strings.normalize('''
     TEST PROJECT
     ############
     ''')
 
-    expected_project_settings_contents = uqbar.strings.normalize('''
+
+expected_project_settings_contents = uqbar.strings.normalize('''
     composer:
         email: josiah.oberholtzer@gmail.com
         github: josiah-wolf-oberholtzer
@@ -71,6 +71,9 @@ class Test(ProjectPackageScriptTestCase):
         zero_configuration: false
     title: Test Project
     ''')
+
+
+class Test(ProjectPackageScriptTestCase):
 
     def test_exists(self):
         string_io = io.StringIO()
@@ -115,7 +118,7 @@ class Test(ProjectPackageScriptTestCase):
         assert self.outer_project_path.exists()
         pytest.helpers.compare_path_contents(
             self.outer_project_path,
-            self.expected_files,
+            expected_files,
             self.test_path,
             )
         pytest.helpers.compare_strings(
@@ -130,12 +133,12 @@ class Test(ProjectPackageScriptTestCase):
         with readme_path.open() as file_pointer:
             actual_readme_contents = uqbar.strings.normalize(
                 file_pointer.read())
-        assert self.expected_readme_contents == actual_readme_contents
+        assert expected_readme_contents == actual_readme_contents
 
         project_settings_path = self.inner_project_path.joinpath(
             'project-settings.yml')
         with project_settings_path.open() as file_pointer:
             actual_project_settings_contents = uqbar.strings.normalize(
                 file_pointer.read())
-        assert self.expected_project_settings_contents == \
+        assert expected_project_settings_contents == \
             actual_project_settings_contents

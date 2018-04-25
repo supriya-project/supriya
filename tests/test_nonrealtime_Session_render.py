@@ -9,7 +9,7 @@ import supriya.nonrealtime
 import supriya.soundfiles
 
 
-def test_00a(paths):
+def test_00a(nonrealtime_paths):
     """
     No input, no output file path specified, no render path specified.
     """
@@ -28,16 +28,16 @@ def test_00a(paths):
         }
 
 
-def test_00b(paths):
+def test_00b(nonrealtime_paths):
     """
     No input, no output file path specified, render path specified.
     """
     session = pytest.helpers.make_test_session()
     exit_code, output_file_path = session.render(
-        render_directory_path=paths.render_directory_path,
+        render_directory_path=nonrealtime_paths.render_directory_path,
         )
     pytest.helpers.assert_soundfile_ok(output_file_path, exit_code, 10., 44100, 8)
-    assert pathlib.Path(paths.render_directory_path) in \
+    assert pathlib.Path(nonrealtime_paths.render_directory_path) in \
         output_file_path.parents
     assert pytest.helpers.sample_soundfile(output_file_path) == {
         0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
@@ -49,7 +49,7 @@ def test_00b(paths):
         }
 
 
-def test_00c(paths):
+def test_00c(nonrealtime_paths):
     """
     No input, no output file path specified, no render path specified,
     output already exists.
@@ -155,7 +155,7 @@ def test_00c(paths):
     assert aiff_path.exists()
 
 
-def test_01(paths):
+def test_01(nonrealtime_paths):
     """
     No input.
     """
@@ -173,12 +173,12 @@ def test_01(paths):
         [8.0, [['/n_set', 1000, 'source', 1.0]]],
         [10.0, [['/n_free', 1000], [0]]]]
     exit_code, _ = session.render(
-        paths.output_file_path,
-        render_directory_path=paths.render_directory_path,
+        nonrealtime_paths.output_file_path,
+        render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
         )
-    pytest.helpers.assert_soundfile_ok(paths.output_file_path, exit_code, 10., 44100, 8)
-    assert pytest.helpers.sample_soundfile(paths.output_file_path) == {
+    pytest.helpers.assert_soundfile_ok(nonrealtime_paths.output_file_path, exit_code, 10., 44100, 8)
+    assert pytest.helpers.sample_soundfile(nonrealtime_paths.output_file_path) == {
         0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
         0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
         0.41: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
@@ -186,8 +186,8 @@ def test_01(paths):
         0.81: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
         0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
         }
-    assert paths.render_yml_file_path.exists()
-    with paths.render_yml_file_path.open() as file_pointer:
+    assert nonrealtime_paths.render_yml_file_path.exists()
+    with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
         file_contents = uqbar.strings.normalize(file_pointer.read())
         assert file_contents == uqbar.strings.normalize('''
             render: session-7b3f85710f19667f73f745b8ac8080a0
@@ -195,16 +195,16 @@ def test_01(paths):
             ''')
 
 
-def test_02(paths):
+def test_02(nonrealtime_paths):
     """
     Soundfile NRT input, matched channels.
     """
-    path_one = paths.output_directory_path / 'output-one.aiff'
-    path_two = paths.output_directory_path / 'output-two.aiff'
+    path_one = nonrealtime_paths.output_directory_path / 'output-one.aiff'
+    path_two = nonrealtime_paths.output_directory_path / 'output-two.aiff'
     session_one = pytest.helpers.make_test_session()
     exit_code, _ = session_one.render(
         path_one,
-        render_directory_path=paths.render_directory_path,
+        render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
         )
     pytest.helpers.assert_soundfile_ok(path_one, exit_code, 10., 44100, 8)
@@ -220,7 +220,7 @@ def test_02(paths):
             )
     exit_code, _ = session_two.render(
         path_two,
-        render_directory_path=paths.render_directory_path,
+        render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
         )
     pytest.helpers.assert_soundfile_ok(path_two, exit_code, 10., 44100, 8)
@@ -232,8 +232,8 @@ def test_02(paths):
         0.81: [-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5],
         0.99: [-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5],
         }
-    assert paths.render_yml_file_path.exists()
-    with paths.render_yml_file_path.open() as file_pointer:
+    assert nonrealtime_paths.render_yml_file_path.exists()
+    with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
         file_contents = uqbar.strings.normalize(file_pointer.read())
         assert file_contents == uqbar.strings.normalize('''
             render: session-34a8138953258b32d05ed6e09ebdf5b7
@@ -241,16 +241,16 @@ def test_02(paths):
             ''')
 
 
-def test_03(paths):
+def test_03(nonrealtime_paths):
     """
     Soundfile NRT input, mismatched channels.
     """
-    path_one = paths.output_directory_path / 'output-one.aiff'
-    path_two = paths.output_directory_path / 'output-two.aiff'
+    path_one = nonrealtime_paths.output_directory_path / 'output-one.aiff'
+    path_two = nonrealtime_paths.output_directory_path / 'output-two.aiff'
     session_one = pytest.helpers.make_test_session()
     exit_code, _ = session_one.render(
         path_one,
-        render_directory_path=paths.render_directory_path,
+        render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
         )
     pytest.helpers.assert_soundfile_ok(path_one, exit_code, 10., 44100, 8)
@@ -276,7 +276,7 @@ def test_03(paths):
         [10.0, [['/n_free', 1000], [0]]]]
     exit_code, _ = session_two.render(
         path_two,
-        render_directory_path=paths.render_directory_path,
+        render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
         )
     pytest.helpers.assert_soundfile_ok(path_two, exit_code, 10., 44100, 4)
@@ -288,8 +288,8 @@ def test_03(paths):
         0.81: [-0.5, -0.5, -0.5, -0.5],
         0.99: [-0.5, -0.5, -0.5, -0.5],
         }
-    assert paths.render_yml_file_path.exists()
-    with paths.render_yml_file_path.open() as file_pointer:
+    assert nonrealtime_paths.render_yml_file_path.exists()
+    with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
         file_contents = uqbar.strings.normalize(file_pointer.read())
         assert file_contents == uqbar.strings.normalize('''
             render: session-f90a25f63698e1c8c4f6fe63d7d87bc4
@@ -297,7 +297,7 @@ def test_03(paths):
             ''')
 
 
-def test_04(paths):
+def test_04(nonrealtime_paths):
     """
     Session NRT input, matched channels.
     """
@@ -322,12 +322,12 @@ def test_04(paths):
                 'in_bus', 8, 'multiplier', -0.5, 'out_bus', 0]]],
         [10.0, [['/n_free', 1000], [0]]]]
     exit_code, _ = session_two.render(
-        paths.output_file_path,
-        render_directory_path=paths.render_directory_path,
+        nonrealtime_paths.output_file_path,
+        render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
         )
-    pytest.helpers.assert_soundfile_ok(paths.output_file_path, exit_code, 10., 44100, 8)
-    assert pytest.helpers.sample_soundfile(paths.output_file_path) == {
+    pytest.helpers.assert_soundfile_ok(nonrealtime_paths.output_file_path, exit_code, 10., 44100, 8)
+    assert pytest.helpers.sample_soundfile(nonrealtime_paths.output_file_path) == {
         0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
         0.21: [-0.125, -0.125, -0.125, -0.125, -0.125, -0.125, -0.125, -0.125],
         0.41: [-0.25, -0.25, -0.25, -0.25, -0.25, -0.25, -0.25, -0.25],
@@ -335,8 +335,8 @@ def test_04(paths):
         0.81: [-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5],
         0.99: [-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5],
         }
-    assert paths.render_yml_file_path.exists()
-    with paths.render_yml_file_path.open() as file_pointer:
+    assert nonrealtime_paths.render_yml_file_path.exists()
+    with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
         file_contents = uqbar.strings.normalize(file_pointer.read())
         assert file_contents == uqbar.strings.normalize('''
             render: session-0038ce94f2ab7825919c1b5e1d5f2e82
@@ -345,16 +345,16 @@ def test_04(paths):
             ''')
 
 
-def test_05(paths):
+def test_05(nonrealtime_paths):
     """
     Soundfile DiskIn input.
     """
-    path_one = paths.output_directory_path / 'output-one.aiff'
-    path_two = paths.output_directory_path / 'output-two.aiff'
+    path_one = nonrealtime_paths.output_directory_path / 'output-one.aiff'
+    path_two = nonrealtime_paths.output_directory_path / 'output-two.aiff'
     session_one = pytest.helpers.make_test_session()
     exit_code, _ = session_one.render(
         path_one,
-        render_directory_path=paths.render_directory_path,
+        render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
         )
     pytest.helpers.assert_soundfile_ok(path_one, exit_code, 10., 44100, 8)
@@ -387,7 +387,7 @@ def test_05(paths):
             ['/b_free', 0], [0]]]]
     exit_code, _ = session_two.render(
         path_two,
-        render_directory_path=paths.render_directory_path,
+        render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
         )
     pytest.helpers.assert_soundfile_ok(path_two, exit_code, 10., 44100, 8)
@@ -399,8 +399,8 @@ def test_05(paths):
         0.81: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
         0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
         }
-    assert paths.render_yml_file_path.exists()
-    with paths.render_yml_file_path.open() as file_pointer:
+    assert nonrealtime_paths.render_yml_file_path.exists()
+    with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
         file_contents = uqbar.strings.normalize(file_pointer.read())
         assert file_contents == uqbar.strings.normalize('''
             render: session-6df7796fda830e747034c592358617b6
@@ -408,7 +408,7 @@ def test_05(paths):
             ''')
 
 
-def test_06(paths):
+def test_06(nonrealtime_paths):
     """
     Session DiskIn input.
     """
@@ -437,12 +437,12 @@ def test_06(paths):
             ['/b_close', 0],
             ['/b_free', 0], [0]]]]
     exit_code, _ = session_two.render(
-        paths.output_file_path,
-        render_directory_path=paths.render_directory_path,
+        nonrealtime_paths.output_file_path,
+        render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
         )
-    pytest.helpers.assert_soundfile_ok(paths.output_file_path, exit_code, 10., 44100, 8)
-    assert pytest.helpers.sample_soundfile(paths.output_file_path) == {
+    pytest.helpers.assert_soundfile_ok(nonrealtime_paths.output_file_path, exit_code, 10., 44100, 8)
+    assert pytest.helpers.sample_soundfile(nonrealtime_paths.output_file_path) == {
         0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
         0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
         0.41: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
@@ -450,8 +450,8 @@ def test_06(paths):
         0.81: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
         0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
         }
-    assert paths.render_yml_file_path.exists()
-    with paths.render_yml_file_path.open() as file_pointer:
+    assert nonrealtime_paths.render_yml_file_path.exists()
+    with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
         file_contents = uqbar.strings.normalize(file_pointer.read())
         assert file_contents == uqbar.strings.normalize('''
             render: session-fbd50fbec743e7758481debe0450f38c
@@ -460,7 +460,7 @@ def test_06(paths):
             ''')
 
 
-def test_07(paths):
+def test_07(nonrealtime_paths):
     """
     Chained Session DiskIn input.
     """
@@ -535,14 +535,14 @@ def test_07(paths):
             ['/b_close', 0],
             ['/b_free', 0], [0]]]]
 
-    buffer_one_path = paths.render_directory_path / buffer_one_name
-    buffer_two_path = paths.render_directory_path / buffer_two_name
+    buffer_one_path = nonrealtime_paths.render_directory_path / buffer_one_name
+    buffer_two_path = nonrealtime_paths.render_directory_path / buffer_two_name
 
     assert not buffer_one_path.exists()
     assert not buffer_two_path.exists()
     exit_code, _ = session_three.render(
-        paths.output_file_path,
-        render_directory_path=paths.render_directory_path,
+        nonrealtime_paths.output_file_path,
+        render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
         )
     pytest.helpers.assert_soundfile_ok(buffer_one_path, exit_code, 10., 44100, 8)
@@ -563,8 +563,8 @@ def test_07(paths):
         0.81: [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0],
         0.99: [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0],
         }
-    pytest.helpers.assert_soundfile_ok(paths.output_file_path, exit_code, 10., 44100, 8)
-    assert pytest.helpers.sample_soundfile(paths.output_file_path) == {
+    pytest.helpers.assert_soundfile_ok(nonrealtime_paths.output_file_path, exit_code, 10., 44100, 8)
+    assert pytest.helpers.sample_soundfile(nonrealtime_paths.output_file_path) == {
         0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
         0.21: [0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125],
         0.41: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
@@ -572,8 +572,8 @@ def test_07(paths):
         0.81: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
         0.99: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
         }
-    assert paths.render_yml_file_path.exists()
-    with paths.render_yml_file_path.open() as file_pointer:
+    assert nonrealtime_paths.render_yml_file_path.exists()
+    with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
         file_contents = uqbar.strings.normalize(file_pointer.read())
         assert file_contents == uqbar.strings.normalize('''
             render: session-5657353b9c5dcd1e807fb6bf9919e1f4
@@ -583,7 +583,7 @@ def test_07(paths):
             ''')
 
 
-def test_08(paths):
+def test_08(nonrealtime_paths):
     """
     Fanned Session DiskIn input and NRT input.
     """
@@ -675,15 +675,15 @@ def test_08(paths):
             ['/b_close', 1],
             ['/b_free', 1],
             [0]]]]
-    session_one_path = paths.render_directory_path.joinpath(
+    session_one_path = nonrealtime_paths.render_directory_path.joinpath(
         'session-c6d86f3d482a8bac1f7cc6650017da8e.aiff',
         )
-    session_two_path = paths.render_directory_path.joinpath(
+    session_two_path = nonrealtime_paths.render_directory_path.joinpath(
         'session-81d02f16aff7797ca3ac041facb61b95.aiff',
         )
     exit_code, _ = session_three.render(
-        paths.output_file_path,
-        render_directory_path=paths.render_directory_path,
+        nonrealtime_paths.output_file_path,
+        render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
         )
     pytest.helpers.assert_soundfile_ok(session_one_path, exit_code, 10., 44100, 8)
@@ -704,8 +704,8 @@ def test_08(paths):
         0.81: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
         0.99: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
         }
-    pytest.helpers.assert_soundfile_ok(paths.output_file_path, exit_code, 10., 44100, 8)
-    assert pytest.helpers.sample_soundfile(paths.output_file_path) == {
+    pytest.helpers.assert_soundfile_ok(nonrealtime_paths.output_file_path, exit_code, 10., 44100, 8)
+    assert pytest.helpers.sample_soundfile(nonrealtime_paths.output_file_path) == {
         0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
         0.21: [0.1875, 0.1875, 0.1875, 0.1875, 0.1875, 0.1875, 0.1875, 0.1875],
         0.41: [0.375, 0.375, 0.375, 0.375, 0.375, 0.375, 0.375, 0.375],
@@ -732,8 +732,8 @@ def test_08(paths):
         'Writing output/render.yml.',
         '    Wrote output/render.yml.',
         ]
-    assert paths.render_yml_file_path.exists()
-    with paths.render_yml_file_path.open() as file_pointer:
+    assert nonrealtime_paths.render_yml_file_path.exists()
+    with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
         file_contents = uqbar.strings.normalize(file_pointer.read())
         assert file_contents == uqbar.strings.normalize('''
             render: session-1d80bd5d7da1eb8c25d322aa85384513
@@ -743,7 +743,7 @@ def test_08(paths):
             ''')
 
 
-def test_09(paths):
+def test_09(nonrealtime_paths):
     """
     Non-session renderable NRT input.
     """
@@ -765,12 +765,12 @@ def test_09(paths):
                 'in_bus', 1, 'multiplier', 0.5, 'out_bus', 0]]],
         [2.0, [['/n_free', 1000], [0]]]]
     exit_code, _ = session.render(
-        paths.output_file_path,
-        render_directory_path=paths.render_directory_path,
+        nonrealtime_paths.output_file_path,
+        render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
         )
-    assert paths.render_yml_file_path.exists()
-    with paths.render_yml_file_path.open() as file_pointer:
+    assert nonrealtime_paths.render_yml_file_path.exists()
+    with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
         file_contents = uqbar.strings.normalize(file_pointer.read())
         assert file_contents == uqbar.strings.normalize('''
             render: session-ea2ca28c15208db4fce5eb184d0b9257
@@ -779,7 +779,7 @@ def test_09(paths):
             ''')
 
 
-def test_10(paths):
+def test_10(nonrealtime_paths):
     """
     Non-session renderable DiskIn input.
     """
@@ -810,12 +810,12 @@ def test_10(paths):
             ['/b_free', 0],
             [0]]]]
     exit_code, _ = session.render(
-        paths.output_file_path,
-        render_directory_path=paths.render_directory_path,
+        nonrealtime_paths.output_file_path,
+        render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
         )
-    assert paths.render_yml_file_path.exists()
-    with paths.render_yml_file_path.open() as file_pointer:
+    assert nonrealtime_paths.render_yml_file_path.exists()
+    with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
         file_contents = uqbar.strings.normalize(file_pointer.read())
         assert file_contents == uqbar.strings.normalize('''
             render: session-96c65c92f6d0d0bbb08d85720d16a383
@@ -824,7 +824,7 @@ def test_10(paths):
             ''')
 
 
-def test_11(paths):
+def test_11(nonrealtime_paths):
     """
     Chained session and non-session inputs.
     """
@@ -875,12 +875,12 @@ def test_11(paths):
             ['/b_free', 0],
             [0]]]]
     exit_code, _ = session_two.render(
-        paths.output_file_path,
-        render_directory_path=paths.render_directory_path,
+        nonrealtime_paths.output_file_path,
+        render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
         )
-    assert paths.render_yml_file_path.exists()
-    with paths.render_yml_file_path.open() as file_pointer:
+    assert nonrealtime_paths.render_yml_file_path.exists()
+    with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
         file_contents = uqbar.strings.normalize(file_pointer.read())
         assert file_contents == uqbar.strings.normalize('''
             render: session-9d80db1d391da3ab4f1cab54a0963d44
@@ -890,7 +890,7 @@ def test_11(paths):
             ''')
 
 
-def test_12(paths):
+def test_12(nonrealtime_paths):
     """
     SessionFactory NRT input.
     """
@@ -920,13 +920,13 @@ def test_12(paths):
         wraps=session_factory.__session__,
         ) as spy:
         exit_code, _ = session.render(
-            paths.output_file_path,
-            render_directory_path=paths.render_directory_path,
+            nonrealtime_paths.output_file_path,
+            render_directory_path=nonrealtime_paths.render_directory_path,
             build_render_yml=True,
             )
     assert spy.call_count == 1
-    pytest.helpers.assert_soundfile_ok(paths.output_file_path, exit_code, 10., 44100, 8)
-    assert pytest.helpers.sample_soundfile(paths.output_file_path) == {
+    pytest.helpers.assert_soundfile_ok(nonrealtime_paths.output_file_path, exit_code, 10., 44100, 8)
+    assert pytest.helpers.sample_soundfile(nonrealtime_paths.output_file_path) == {
         0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
         0.21: [-0.125, -0.125, -0.125, -0.125, -0.125, -0.125, -0.125, -0.125],
         0.41: [-0.25, -0.25, -0.25, -0.25, -0.25, -0.25, -0.25, -0.25],
@@ -934,8 +934,8 @@ def test_12(paths):
         0.81: [-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5],
         0.99: [-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5],
         }
-    assert paths.render_yml_file_path.exists()
-    with paths.render_yml_file_path.open() as file_pointer:
+    assert nonrealtime_paths.render_yml_file_path.exists()
+    with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
         file_contents = uqbar.strings.normalize(file_pointer.read())
         assert file_contents == uqbar.strings.normalize('''
             render: session-0038ce94f2ab7825919c1b5e1d5f2e82
@@ -944,7 +944,7 @@ def test_12(paths):
             ''')
 
 
-def test_13(paths):
+def test_13(nonrealtime_paths):
     """
     SessionFactory DiskIn input.
     """
@@ -981,13 +981,13 @@ def test_13(paths):
         wraps=session_factory.__session__,
         ) as spy:
         exit_code, _ = session.render(
-            paths.output_file_path,
-            render_directory_path=paths.render_directory_path,
+            nonrealtime_paths.output_file_path,
+            render_directory_path=nonrealtime_paths.render_directory_path,
             build_render_yml=True,
             )
     assert spy.call_count == 1
-    pytest.helpers.assert_soundfile_ok(paths.output_file_path, exit_code, 10., 44100, 8)
-    assert pytest.helpers.sample_soundfile(paths.output_file_path) == {
+    pytest.helpers.assert_soundfile_ok(nonrealtime_paths.output_file_path, exit_code, 10., 44100, 8)
+    assert pytest.helpers.sample_soundfile(nonrealtime_paths.output_file_path) == {
         0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
         0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
         0.41: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
@@ -995,8 +995,8 @@ def test_13(paths):
         0.81: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
         0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
         }
-    assert paths.render_yml_file_path.exists()
-    with paths.render_yml_file_path.open() as file_pointer:
+    assert nonrealtime_paths.render_yml_file_path.exists()
+    with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
         file_contents = uqbar.strings.normalize(file_pointer.read())
         assert file_contents == uqbar.strings.normalize('''
             render: session-fbd50fbec743e7758481debe0450f38c

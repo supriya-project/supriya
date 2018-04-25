@@ -31,7 +31,7 @@ with supriya.synthdefs.SynthDefBuilder(rand_id=0) as builder:
 maybe_repeatable_noise_synthdef = builder.build()
 
 
-def test_nonrepeatable(paths):
+def test_nonrepeatable(nonrealtime_paths):
     session = supriya.nonrealtime.Session(0, 1)
     with session.at(0):
         session.add_synth(
@@ -48,7 +48,7 @@ def test_nonrepeatable(paths):
         assert pytest.helpers.sample_soundfile(output_file_path) != sampled_session
 
 
-def test_repeatable(paths):
+def test_repeatable(nonrealtime_paths):
     session = supriya.nonrealtime.Session(0, 1)
     with session.at(0):
         session.add_synth(
@@ -65,7 +65,7 @@ def test_repeatable(paths):
         assert pytest.helpers.sample_soundfile(output_file_path) == sampled_session
 
 
-def test_maybe_repeatable_but_wasnt(paths):
+def test_maybe_repeatable_but_wasnt(nonrealtime_paths):
     """
     Setting a RandID isn't enough. The RNG will be initialized randomly.
     """
@@ -85,7 +85,7 @@ def test_maybe_repeatable_but_wasnt(paths):
         assert pytest.helpers.sample_soundfile(output_file_path) != sampled_session
 
 
-def test_maybe_repeatable_and_was(paths):
+def test_maybe_repeatable_and_was(nonrealtime_paths):
     """
     Setting a RandID and seeding it in another synth locks us in.
     """
@@ -110,7 +110,7 @@ def test_maybe_repeatable_and_was(paths):
         assert pytest.helpers.sample_soundfile(output_file_path) == sampled_session
 
 
-def test_maybe_repeatable_and_almost_was(paths):
+def test_maybe_repeatable_and_almost_was(nonrealtime_paths):
     """
     Seeding is sensitive to node order.
     """
@@ -137,7 +137,7 @@ def test_maybe_repeatable_and_almost_was(paths):
         assert first_sampled_session[1:] == sampled_session[1:]
 
 
-def test_repeatable_via_session_method(paths):
+def test_repeatable_via_session_method(nonrealtime_paths):
     session = supriya.nonrealtime.Session(0, 1)
     with session.at(0):
         session.add_synth(
