@@ -50,8 +50,14 @@ def test_missing_source(cli_paths):
 def test_no_force_replace(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'material_one')
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'material_two')
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'material_one',
+        )
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'material_two',
+        )
     script = supriya.cli.ManageMaterialScript()
     command = ['--copy', 'material_one', 'material_two']
     with uqbar.io.RedirectedStreams(stdout=string_io):
@@ -71,8 +77,14 @@ def test_no_force_replace(cli_paths):
 def test_force_replace(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'material_one')
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'material_two')
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'material_one',
+        )
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'material_two',
+        )
     script = supriya.cli.ManageMaterialScript()
     command = ['--copy', 'material_one', 'material_two', '-f']
     with uqbar.io.RedirectedStreams(stdout=string_io):
@@ -99,7 +111,10 @@ def test_force_replace(cli_paths):
 def test_success(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'material_one')
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'material_one',
+        )
     script = supriya.cli.ManageMaterialScript()
     command = ['--copy', 'material_one', 'material_two']
     with uqbar.io.RedirectedStreams(stdout=string_io):
