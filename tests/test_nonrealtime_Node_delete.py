@@ -11,7 +11,8 @@ def test_01():
         group = session.add_group(duration=20)
         group.add_synth(duration=20)
         session.add_group(duration=20)
-    d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
+    d_recv_commands = pytest.helpers.build_d_recv_commands(
+        [supriya.assets.synthdefs.default])
     assert session.to_strings() == uqbar.strings.normalize('''
         0.0:
             NODE TREE 0 group
@@ -84,7 +85,8 @@ def test_02():
         20.0:
             NODE TREE 0 group
         ''')
-    d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
+    d_recv_commands = pytest.helpers.build_d_recv_commands(
+        [supriya.assets.synthdefs.default])
     assert session.to_lists() == [
         [0.0, [
             *d_recv_commands,
@@ -167,7 +169,8 @@ def test_03():
         20.0:
             NODE TREE 0 group
         ''')
-    d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
+    d_recv_commands = pytest.helpers.build_d_recv_commands(
+        [supriya.assets.synthdefs.default])
     assert session.to_lists() == [
         [0.0, [
             *d_recv_commands,

@@ -39,7 +39,10 @@ def test_missing_definition(cli_paths):
     """
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    material_path = pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'test_material')
+    material_path = pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'test_material',
+        )
     definition_path = material_path.joinpath('definition.py')
     definition_path.unlink()
     script = supriya.cli.ManageMaterialScript()
@@ -70,7 +73,10 @@ def test_python_cannot_render(cli_paths):
     """
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    material_path = pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'test_material')
+    material_path = pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'test_material',
+        )
     definition_path = material_path.joinpath('definition.py')
     with definition_path.open('w') as file_pointer:
         file_pointer.write(uqbar.strings.normalize(r'''
@@ -100,7 +106,10 @@ def test_python_error_on_render(cli_paths):
     """
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    material_path = pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'test_material')
+    material_path = pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'test_material',
+        )
     definition_path = material_path.joinpath('definition.py')
     with definition_path.open('w') as file_pointer:
         file_pointer.write(uqbar.strings.normalize(r'''
@@ -147,7 +156,10 @@ def test_python_error_on_import(cli_paths):
     """
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    material_path = pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'test_material')
+    material_path = pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'test_material',
+        )
     definition_path = material_path.joinpath('definition.py')
     with definition_path.open('a') as file_pointer:
         file_pointer.write('\n\nfailure = 1 / 0\n')
@@ -178,7 +190,10 @@ def test_python_error_on_import(cli_paths):
 def test_supercollider_error(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'test_material')
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'test_material',
+        )
     script = supriya.cli.ManageMaterialScript()
     command = ['--render', 'test_material']
     mock_path = supriya.nonrealtime.SessionRenderer.__module__
@@ -211,7 +226,10 @@ def test_supercollider_error(cli_paths):
 def test_supercollider_no_output(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'test_material')
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'test_material',
+        )
     script = supriya.cli.ManageMaterialScript()
     command = ['--render', 'test_material']
     mock_path = supriya.nonrealtime.SessionRenderer.__module__
@@ -244,9 +262,18 @@ def test_supercollider_no_output(cli_paths):
 def test_success_all_materials(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'material_one')
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'material_two')
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'material_three')
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'material_one',
+        )
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'material_two',
+        )
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'material_three',
+        )
     script = supriya.cli.ManageMaterialScript()
     command = ['--render', '*']
     with uqbar.io.RedirectedStreams(stdout=string_io):
@@ -339,9 +366,18 @@ def test_success_all_materials(cli_paths):
 def test_success_filtered_materials(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'material_one')
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'material_two')
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'material_three')
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'material_one',
+        )
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'material_two',
+        )
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'material_three',
+        )
     script = supriya.cli.ManageMaterialScript()
     command = ['--render', 'material_t*']
     with uqbar.io.RedirectedStreams(stdout=string_io):
@@ -414,7 +450,10 @@ def test_success_filtered_materials(cli_paths):
 def test_success_one_material(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'test_material')
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'test_material',
+        )
     script = supriya.cli.ManageMaterialScript()
     command = ['--render', 'test_material']
     with uqbar.io.RedirectedStreams(stdout=string_io):
@@ -482,7 +521,10 @@ def test_success_one_material(cli_paths):
 def test_success_chained(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'material_one')
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'material_one',
+        )
     pytest.helpers.create_cli_material(
         cli_paths.test_directory_path,
         'material_two',

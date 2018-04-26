@@ -39,7 +39,10 @@ def test_missing_definition(cli_paths):
     """
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    session_path = pytest.helpers.create_cli_session(cli_paths.test_directory_path, 'test_session')
+    session_path = pytest.helpers.create_cli_session(
+        cli_paths.test_directory_path,
+        'test_session',
+        )
     definition_path = session_path.joinpath('definition.py')
     definition_path.unlink()
     script = supriya.cli.ManageSessionScript()
@@ -69,7 +72,10 @@ def test_python_cannot_render(cli_paths):
     """
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    session_path = pytest.helpers.create_cli_session(cli_paths.test_directory_path, 'test_session')
+    session_path = pytest.helpers.create_cli_session(
+        cli_paths.test_directory_path,
+        'test_session',
+        )
     definition_path = session_path.joinpath('definition.py')
     with open(str(definition_path), 'w') as file_pointer:
         file_pointer.write(uqbar.strings.normalize(r'''
@@ -99,7 +105,10 @@ def test_python_error_on_render(cli_paths):
     """
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    session_path = pytest.helpers.create_cli_session(cli_paths.test_directory_path, 'test_session')
+    session_path = pytest.helpers.create_cli_session(
+        cli_paths.test_directory_path,
+        'test_session',
+        )
     definition_path = session_path.joinpath('definition.py')
     with open(str(definition_path), 'w') as file_pointer:
         file_pointer.write(uqbar.strings.normalize(r'''
@@ -146,7 +155,10 @@ def test_python_error_on_import(cli_paths):
     """
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    session_path = pytest.helpers.create_cli_session(cli_paths.test_directory_path, 'test_session')
+    session_path = pytest.helpers.create_cli_session(
+        cli_paths.test_directory_path,
+        'test_session',
+        )
     definition_path = session_path.joinpath('definition.py')
     with open(str(definition_path), 'a') as file_pointer:
         file_pointer.write('\n\nfailure = 1 / 0\n')
@@ -177,7 +189,10 @@ def test_python_error_on_import(cli_paths):
 def test_supercollider_error(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_session(cli_paths.test_directory_path, 'test_session')
+    pytest.helpers.create_cli_session(
+        cli_paths.test_directory_path,
+        'test_session',
+        )
     script = supriya.cli.ManageSessionScript()
     command = ['--render', 'test_session']
     mock_path = supriya.nonrealtime.SessionRenderer.__module__
@@ -210,7 +225,10 @@ def test_supercollider_error(cli_paths):
 def test_supercollider_no_output(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_session(cli_paths.test_directory_path, 'test_session')
+    pytest.helpers.create_cli_session(
+        cli_paths.test_directory_path,
+        'test_session',
+        )
     script = supriya.cli.ManageSessionScript()
     command = ['--render', 'test_session']
     mock_path = supriya.nonrealtime.SessionRenderer.__module__
@@ -243,9 +261,18 @@ def test_supercollider_no_output(cli_paths):
 def test_success_all_sessions(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_session(cli_paths.test_directory_path, 'session_one')
-    pytest.helpers.create_cli_session(cli_paths.test_directory_path, 'session_two')
-    pytest.helpers.create_cli_session(cli_paths.test_directory_path, 'session_three')
+    pytest.helpers.create_cli_session(
+        cli_paths.test_directory_path,
+        'session_one',
+        )
+    pytest.helpers.create_cli_session(
+        cli_paths.test_directory_path,
+        'session_two',
+        )
+    pytest.helpers.create_cli_session(
+        cli_paths.test_directory_path,
+        'session_three',
+        )
     script = supriya.cli.ManageSessionScript()
     command = ['--render', '*']
     with uqbar.io.RedirectedStreams(stdout=string_io):
@@ -338,9 +365,18 @@ def test_success_all_sessions(cli_paths):
 def test_success_filtered_sessions(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_session(cli_paths.test_directory_path, 'session_one')
-    pytest.helpers.create_cli_session(cli_paths.test_directory_path, 'session_two')
-    pytest.helpers.create_cli_session(cli_paths.test_directory_path, 'session_three')
+    pytest.helpers.create_cli_session(
+        cli_paths.test_directory_path,
+        'session_one',
+        )
+    pytest.helpers.create_cli_session(
+        cli_paths.test_directory_path,
+        'session_two',
+        )
+    pytest.helpers.create_cli_session(
+        cli_paths.test_directory_path,
+        'session_three',
+        )
     script = supriya.cli.ManageSessionScript()
     command = ['--render', 'session_t*']
     with uqbar.io.RedirectedStreams(stdout=string_io):
@@ -413,7 +449,10 @@ def test_success_filtered_sessions(cli_paths):
 def test_success_one_session(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_session(cli_paths.test_directory_path, 'test_session')
+    pytest.helpers.create_cli_session(
+        cli_paths.test_directory_path,
+        'test_session',
+        )
     script = supriya.cli.ManageSessionScript()
     command = ['--render', 'test_session']
     with uqbar.io.RedirectedStreams(stdout=string_io):
@@ -481,7 +520,10 @@ def test_success_one_session(cli_paths):
 def test_success_chained(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_session(cli_paths.test_directory_path, 'session_one')
+    pytest.helpers.create_cli_session(
+        cli_paths.test_directory_path,
+        'session_one',
+        )
     pytest.helpers.create_cli_session(
         cli_paths.test_directory_path,
         'session_two',
@@ -654,7 +696,10 @@ def test_session_factory(cli_paths):
     """
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    session_path = pytest.helpers.create_cli_session(cli_paths.test_directory_path, 'test_session')
+    session_path = pytest.helpers.create_cli_session(
+        cli_paths.test_directory_path,
+        'test_session',
+        )
     definition_path = session_path.joinpath('definition.py')
     with open(str(definition_path), 'w') as file_pointer:
         file_pointer.write(pytest.helpers.get_session_factory_template().render(

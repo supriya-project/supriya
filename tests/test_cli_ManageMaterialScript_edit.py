@@ -8,7 +8,10 @@ import unittest.mock
 def test_success(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    material_path = pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'test_material')
+    material_path = pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'test_material',
+        )
     script = supriya.cli.ManageMaterialScript()
     command = ['--edit', 'test_material']
     mock_path = 'supriya.cli.ProjectPackageScript._call_subprocess'

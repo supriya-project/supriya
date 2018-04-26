@@ -8,7 +8,10 @@ import unittest.mock
 def test_success(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    session_path = pytest.helpers.create_cli_session(cli_paths.test_directory_path, 'test_session')
+    session_path = pytest.helpers.create_cli_session(
+        cli_paths.test_directory_path,
+        'test_session',
+        )
     script = supriya.cli.ManageSessionScript()
     command = ['--edit', 'test_session']
     mock_path = 'supriya.cli.ProjectPackageScript._call_subprocess'

@@ -46,7 +46,10 @@ def test_missing(cli_paths):
 def test_success(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_session(cli_paths.test_directory_path, 'test_session')
+    pytest.helpers.create_cli_session(
+        cli_paths.test_directory_path,
+        'test_session',
+        )
     script = supriya.cli.ManageSessionScript()
     command = ['--delete', 'test_session']
     with uqbar.io.RedirectedStreams(stdout=string_io):

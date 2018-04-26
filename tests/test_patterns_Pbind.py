@@ -1,10 +1,9 @@
 import pytest
-import time
-import uqbar.strings
-
 import supriya.assets.synthdefs
 import supriya.nonrealtime
 import supriya.patterns
+import time
+import uqbar.strings
 
 
 pbind_01 = supriya.patterns.Pbind(

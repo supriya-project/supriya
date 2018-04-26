@@ -16,9 +16,16 @@ expected_files = [
 def test_exists(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'test_material')
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'test_material',
+        )
     with uqbar.io.RedirectedStreams(stdout=string_io):
-        pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'test_material', expect_error=True)
+        pytest.helpers.create_cli_material(
+            cli_paths.test_directory_path,
+            'test_material',
+            expect_error=True,
+            )
     pytest.helpers.compare_strings(
         r'''
         Creating material subpackage 'test_material' ...
@@ -31,9 +38,16 @@ def test_exists(cli_paths):
 def test_force_replace(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'test_material')
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'test_material',
+        )
     with uqbar.io.RedirectedStreams(stdout=string_io):
-        pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'test_material', force=True)
+        pytest.helpers.create_cli_material(
+            cli_paths.test_directory_path,
+            'test_material',
+            force=True,
+            )
     pytest.helpers.compare_strings(
         r'''
         Creating material subpackage 'test_material' ...

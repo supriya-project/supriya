@@ -177,7 +177,8 @@ def test_01(nonrealtime_paths):
         render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
         )
-    pytest.helpers.assert_soundfile_ok(nonrealtime_paths.output_file_path, exit_code, 10., 44100, 8)
+    pytest.helpers.assert_soundfile_ok(
+        nonrealtime_paths.output_file_path, exit_code, 10., 44100, 8)
     assert pytest.helpers.sample_soundfile(nonrealtime_paths.output_file_path) == {
         0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
         0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
@@ -326,7 +327,8 @@ def test_04(nonrealtime_paths):
         render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
         )
-    pytest.helpers.assert_soundfile_ok(nonrealtime_paths.output_file_path, exit_code, 10., 44100, 8)
+    pytest.helpers.assert_soundfile_ok(
+        nonrealtime_paths.output_file_path, exit_code, 10., 44100, 8)
     assert pytest.helpers.sample_soundfile(nonrealtime_paths.output_file_path) == {
         0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
         0.21: [-0.125, -0.125, -0.125, -0.125, -0.125, -0.125, -0.125, -0.125],
@@ -437,7 +439,8 @@ def test_06(nonrealtime_paths):
         render_directory_path=nonrealtime_paths.render_directory_path,
         build_render_yml=True,
         )
-    pytest.helpers.assert_soundfile_ok(nonrealtime_paths.output_file_path, exit_code, 10., 44100, 8)
+    pytest.helpers.assert_soundfile_ok(
+        nonrealtime_paths.output_file_path, exit_code, 10., 44100, 8)
     assert pytest.helpers.sample_soundfile(nonrealtime_paths.output_file_path) == {
         0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
         0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
@@ -559,7 +562,8 @@ def test_07(nonrealtime_paths):
         0.81: [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0],
         0.99: [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0],
         }
-    pytest.helpers.assert_soundfile_ok(nonrealtime_paths.output_file_path, exit_code, 10., 44100, 8)
+    pytest.helpers.assert_soundfile_ok(
+        nonrealtime_paths.output_file_path, exit_code, 10., 44100, 8)
     assert pytest.helpers.sample_soundfile(nonrealtime_paths.output_file_path) == {
         0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
         0.21: [0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125],
@@ -700,7 +704,8 @@ def test_08(nonrealtime_paths):
         0.81: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
         0.99: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
         }
-    pytest.helpers.assert_soundfile_ok(nonrealtime_paths.output_file_path, exit_code, 10., 44100, 8)
+    pytest.helpers.assert_soundfile_ok(
+        nonrealtime_paths.output_file_path, exit_code, 10., 44100, 8)
     assert pytest.helpers.sample_soundfile(nonrealtime_paths.output_file_path) == {
         0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
         0.21: [0.1875, 0.1875, 0.1875, 0.1875, 0.1875, 0.1875, 0.1875, 0.1875],
@@ -921,7 +926,8 @@ def test_12(nonrealtime_paths):
             build_render_yml=True,
             )
     assert spy.call_count == 1
-    pytest.helpers.assert_soundfile_ok(nonrealtime_paths.output_file_path, exit_code, 10., 44100, 8)
+    pytest.helpers.assert_soundfile_ok(
+        nonrealtime_paths.output_file_path, exit_code, 10., 44100, 8)
     assert pytest.helpers.sample_soundfile(nonrealtime_paths.output_file_path) == {
         0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
         0.21: [-0.125, -0.125, -0.125, -0.125, -0.125, -0.125, -0.125, -0.125],
@@ -982,7 +988,8 @@ def test_13(nonrealtime_paths):
             build_render_yml=True,
             )
     assert spy.call_count == 1
-    pytest.helpers.assert_soundfile_ok(nonrealtime_paths.output_file_path, exit_code, 10., 44100, 8)
+    pytest.helpers.assert_soundfile_ok(
+        nonrealtime_paths.output_file_path, exit_code, 10., 44100, 8)
     assert pytest.helpers.sample_soundfile(nonrealtime_paths.output_file_path) == {
         0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
         0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],

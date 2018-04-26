@@ -46,7 +46,10 @@ def test_missing(cli_paths):
 def test_success(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'test_material')
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'test_material',
+        )
     script = supriya.cli.ManageMaterialScript()
     command = ['--delete', 'test_material']
     with uqbar.io.RedirectedStreams(stdout=string_io):

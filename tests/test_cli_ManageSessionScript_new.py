@@ -16,7 +16,10 @@ expected_files = [
 def test_exists(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_session(cli_paths.test_directory_path, 'test_session')
+    pytest.helpers.create_cli_session(
+        cli_paths.test_directory_path,
+        'test_session',
+        )
     with uqbar.io.RedirectedStreams(stdout=string_io):
         pytest.helpers.create_cli_session(
             cli_paths.test_directory_path, 'test_session', expect_error=True)
@@ -32,7 +35,10 @@ def test_exists(cli_paths):
 def test_force_replace(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_session(cli_paths.test_directory_path, 'test_session')
+    pytest.helpers.create_cli_session(
+        cli_paths.test_directory_path,
+        'test_session',
+        )
     with uqbar.io.RedirectedStreams(stdout=string_io):
         pytest.helpers.create_cli_session(
             cli_paths.test_directory_path, 'test_session', force=True)

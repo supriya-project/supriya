@@ -8,7 +8,10 @@ import uqbar.io
 def test_prune(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'material_one')
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'material_one',
+        )
     pytest.helpers.create_cli_material(
         cli_paths.test_directory_path,
         'material_two',
