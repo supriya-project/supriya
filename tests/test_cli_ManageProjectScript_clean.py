@@ -81,12 +81,12 @@ def test_clean(cli_paths):
 
     script = supriya.cli.ManageProjectScript()
     command = ['--clean']
-    with uqbar.io.RedirectedStreams(stdout=string_io):
-        with uqbar.io.DirectoryChange(cli_paths.inner_project_path):
-            try:
-                script(command)
-            except SystemExit as e:
-                raise RuntimeError('SystemExit: {}'.format(e.code))
+    with uqbar.io.RedirectedStreams(stdout=string_io), \
+        uqbar.io.DirectoryChange(cli_paths.inner_project_path):
+        try:
+            script(command)
+        except SystemExit as e:
+            raise RuntimeError('SystemExit: {}'.format(e.code))
 
     pytest.helpers.compare_path_contents(
         cli_paths.inner_project_path,

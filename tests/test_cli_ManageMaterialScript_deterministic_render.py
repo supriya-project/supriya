@@ -48,12 +48,12 @@ def test_01(cli_paths):
     assert len(aiff_artifacts) == 0
     assert len(osc_artifacts) == 0
 
-    with uqbar.io.RedirectedStreams(stdout=string_io):
-        with uqbar.io.DirectoryChange(cli_paths.inner_project_path):
-            try:
-                script(command)
-            except SystemExit as e:
-                raise RuntimeError('SystemExit: {}'.format(e.code))
+    with uqbar.io.RedirectedStreams(stdout=string_io), \
+        uqbar.io.DirectoryChange(cli_paths.inner_project_path):
+        try:
+            script(command)
+        except SystemExit as e:
+            raise RuntimeError('SystemExit: {}'.format(e.code))
     pytest.helpers.compare_strings(
         r'''
         Render candidates: 'test_material' ...
@@ -73,12 +73,12 @@ def test_01(cli_paths):
         )
 
     string_io = io.StringIO()
-    with uqbar.io.RedirectedStreams(stdout=string_io):
-        with uqbar.io.DirectoryChange(cli_paths.inner_project_path):
-            try:
-                script(command)
-            except SystemExit as e:
-                raise RuntimeError('SystemExit: {}'.format(e.code))
+    with uqbar.io.RedirectedStreams(stdout=string_io), \
+        uqbar.io.DirectoryChange(cli_paths.inner_project_path):
+        try:
+            script(command)
+        except SystemExit as e:
+            raise RuntimeError('SystemExit: {}'.format(e.code))
     pytest.helpers.compare_strings(
         r'''
         Render candidates: 'test_material' ...
@@ -97,12 +97,12 @@ def test_01(cli_paths):
         )
 
     string_io = io.StringIO()
-    with uqbar.io.RedirectedStreams(stdout=string_io):
-        with uqbar.io.DirectoryChange(cli_paths.inner_project_path):
-            try:
-                script(command)
-            except SystemExit as e:
-                raise RuntimeError('SystemExit: {}'.format(e.code))
+    with uqbar.io.RedirectedStreams(stdout=string_io), \
+        uqbar.io.DirectoryChange(cli_paths.inner_project_path):
+        try:
+            script(command)
+        except SystemExit as e:
+            raise RuntimeError('SystemExit: {}'.format(e.code))
     pytest.helpers.compare_strings(
         r'''
         Render candidates: 'test_material' ...
