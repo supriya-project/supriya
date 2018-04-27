@@ -78,7 +78,10 @@ def test_exists(cli_paths):
         pytest.helpers.create_cli_project(cli_paths.test_directory_path)
     assert cli_paths.outer_project_path.exists()
     with uqbar.io.RedirectedStreams(stdout=string_io):
-        pytest.helpers.create_cli_project(cli_paths.test_directory_path, expect_error=True)
+        pytest.helpers.create_cli_project(
+            cli_paths.test_directory_path,
+            expect_error=True,
+            )
     assert cli_paths.outer_project_path.exists()
     pytest.helpers.compare_strings(
         r'''
@@ -97,7 +100,10 @@ def test_force_replace(cli_paths):
         pytest.helpers.create_cli_project(cli_paths.test_directory_path)
     assert cli_paths.outer_project_path.exists()
     with uqbar.io.RedirectedStreams(stdout=string_io):
-        pytest.helpers.create_cli_project(cli_paths.test_directory_path, force=True)
+        pytest.helpers.create_cli_project(
+            cli_paths.test_directory_path,
+            force=True,
+            )
     assert cli_paths.outer_project_path.exists()
     pytest.helpers.compare_strings(
         r'''

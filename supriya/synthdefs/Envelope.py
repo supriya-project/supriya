@@ -8,7 +8,6 @@ class Envelope(SupriyaValueObject):
 
     ::
 
-        >>> from supriya.tools import *
         >>> envelope = supriya.synthdefs.Envelope()
         >>> envelope
         Envelope()

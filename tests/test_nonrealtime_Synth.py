@@ -19,7 +19,8 @@ def test_01():
             pan=0.75,
             out=8,
             )
-    d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
+    d_recv_commands = pytest.helpers.build_d_recv_commands(
+        [supriya.assets.synthdefs.default])
     assert session.to_lists() == [
         [0.0, [
             *d_recv_commands,
@@ -45,7 +46,8 @@ def test_01b():
         synth['frequency'] = 442
     with session.at(13):
         synth['frequency'] = 443
-    d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
+    d_recv_commands = pytest.helpers.build_d_recv_commands(
+        [supriya.assets.synthdefs.default])
     assert session.to_lists() == [
         [10.0, [
             *d_recv_commands,
@@ -164,7 +166,8 @@ def test_04():
         group_b['frequency'] = 445
         synth_a['frequency'] = 446
         synth_b['frequency'] = 447
-    d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
+    d_recv_commands = pytest.helpers.build_d_recv_commands(
+        [supriya.assets.synthdefs.default])
     assert session.to_lists(duration=6) == [
         [0.0, [
             *d_recv_commands,

@@ -17,11 +17,11 @@ def test_missing_material(cli_paths):
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
     script = supriya.cli.ManageMaterialScript()
     command = ['--render', 'test_material']
-    with uqbar.io.RedirectedStreams(stdout=string_io):
-        with uqbar.io.DirectoryChange(cli_paths.inner_project_path):
-            with pytest.raises(SystemExit) as exception_info:
-                script(command)
-            assert exception_info.value.code == 1
+    with uqbar.io.RedirectedStreams(stdout=string_io), \
+        uqbar.io.DirectoryChange(cli_paths.inner_project_path), \
+        pytest.raises(SystemExit) as exception_info:
+        script(command)
+    assert exception_info.value.code == 1
     pytest.helpers.compare_strings(
         r'''
         Render candidates: 'test_material' ...
@@ -39,16 +39,19 @@ def test_missing_definition(cli_paths):
     """
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    material_path = pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'test_material')
+    material_path = pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'test_material',
+        )
     definition_path = material_path.joinpath('definition.py')
     definition_path.unlink()
     script = supriya.cli.ManageMaterialScript()
     command = ['--render', 'test_material']
-    with uqbar.io.RedirectedStreams(stdout=string_io):
-        with uqbar.io.DirectoryChange(cli_paths.inner_project_path):
-            with pytest.raises(SystemExit) as exception_info:
-                script(command)
-            assert exception_info.value.code == 1
+    with uqbar.io.RedirectedStreams(stdout=string_io), \
+        uqbar.io.DirectoryChange(cli_paths.inner_project_path), \
+        pytest.raises(SystemExit) as exception_info:
+        script(command)
+    assert exception_info.value.code == 1
     pytest.helpers.compare_strings(
         r'''
         Render candidates: 'test_material' ...
@@ -70,19 +73,22 @@ def test_python_cannot_render(cli_paths):
     """
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    material_path = pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'test_material')
+    material_path = pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'test_material',
+        )
     definition_path = material_path.joinpath('definition.py')
-    with open(str(definition_path), 'w') as file_pointer:
+    with definition_path.open('w') as file_pointer:
         file_pointer.write(uqbar.strings.normalize(r'''
         material = None
         '''))
     script = supriya.cli.ManageMaterialScript()
     command = ['--render', 'test_material']
-    with uqbar.io.RedirectedStreams(stdout=string_io):
-        with uqbar.io.DirectoryChange(cli_paths.inner_project_path):
-            with pytest.raises(SystemExit) as exception_info:
-                script(command)
-            assert exception_info.value.code == 1
+    with uqbar.io.RedirectedStreams(stdout=string_io), \
+        uqbar.io.DirectoryChange(cli_paths.inner_project_path), \
+        pytest.raises(SystemExit) as exception_info:
+        script(command)
+    assert exception_info.value.code == 1
     pytest.helpers.compare_strings(
         r'''
         Render candidates: 'test_material' ...
@@ -100,9 +106,12 @@ def test_python_error_on_render(cli_paths):
     """
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    material_path = pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'test_material')
+    material_path = pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'test_material',
+        )
     definition_path = material_path.joinpath('definition.py')
-    with open(str(definition_path), 'w') as file_pointer:
+    with definition_path.open('w') as file_pointer:
         file_pointer.write(uqbar.strings.normalize(r'''
         class Foo:
             def __render__(
@@ -147,17 +156,20 @@ def test_python_error_on_import(cli_paths):
     """
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    material_path = pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'test_material')
+    material_path = pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'test_material',
+        )
     definition_path = material_path.joinpath('definition.py')
-    with open(str(definition_path), 'a') as file_pointer:
+    with definition_path.open('a') as file_pointer:
         file_pointer.write('\n\nfailure = 1 / 0\n')
     script = supriya.cli.ManageMaterialScript()
     command = ['--render', 'test_material']
-    with uqbar.io.RedirectedStreams(stdout=string_io):
-        with uqbar.io.DirectoryChange(cli_paths.inner_project_path):
-            with pytest.raises(SystemExit) as exception_info:
-                script(command)
-            assert exception_info.value.code == 1
+    with uqbar.io.RedirectedStreams(stdout=string_io), \
+        uqbar.io.DirectoryChange(cli_paths.inner_project_path), \
+        pytest.raises(SystemExit) as exception_info:
+        script(command)
+    assert exception_info.value.code == 1
     pytest.helpers.compare_strings(
         r'''
         Render candidates: 'test_material' ...
@@ -178,18 +190,21 @@ def test_python_error_on_import(cli_paths):
 def test_supercollider_error(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'test_material')
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'test_material',
+        )
     script = supriya.cli.ManageMaterialScript()
     command = ['--render', 'test_material']
     mock_path = supriya.nonrealtime.SessionRenderer.__module__
     mock_path += '._stream_subprocess'
-    with uqbar.io.RedirectedStreams(stdout=string_io):
-        with uqbar.io.DirectoryChange(cli_paths.inner_project_path):
-            with pytest.raises(SystemExit) as exception_info:
-                with mock.patch(mock_path) as call_mock:
-                    call_mock.return_value = 1
-                    script(command)
-            assert exception_info.value.code == 1
+    with uqbar.io.RedirectedStreams(stdout=string_io), \
+        uqbar.io.DirectoryChange(cli_paths.inner_project_path), \
+        pytest.raises(SystemExit) as exception_info, \
+        mock.patch(mock_path) as call_mock:
+        call_mock.return_value = 1
+        script(command)
+    assert exception_info.value.code == 1
     pytest.helpers.compare_strings(
         r'''
         Render candidates: 'test_material' ...
@@ -211,18 +226,21 @@ def test_supercollider_error(cli_paths):
 def test_supercollider_no_output(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'test_material')
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'test_material',
+        )
     script = supriya.cli.ManageMaterialScript()
     command = ['--render', 'test_material']
     mock_path = supriya.nonrealtime.SessionRenderer.__module__
     mock_path += '._stream_subprocess'
-    with uqbar.io.RedirectedStreams(stdout=string_io):
-        with uqbar.io.DirectoryChange(cli_paths.inner_project_path):
-            with pytest.raises(SystemExit) as exception_info:
-                with mock.patch(mock_path) as call_mock:
-                    call_mock.return_value = 0  # no output, but no error
-                    script(command)
-            assert exception_info.value.code == 1
+    with uqbar.io.RedirectedStreams(stdout=string_io), \
+        uqbar.io.DirectoryChange(cli_paths.inner_project_path), \
+        pytest.raises(SystemExit) as exception_info, \
+        mock.patch(mock_path) as call_mock:
+        call_mock.return_value = 0  # no output, but no error
+        script(command)
+    assert exception_info.value.code == 1
     pytest.helpers.compare_strings(
         r'''
         Render candidates: 'test_material' ...
@@ -244,17 +262,26 @@ def test_supercollider_no_output(cli_paths):
 def test_success_all_materials(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'material_one')
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'material_two')
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'material_three')
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'material_one',
+        )
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'material_two',
+        )
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'material_three',
+        )
     script = supriya.cli.ManageMaterialScript()
     command = ['--render', '*']
-    with uqbar.io.RedirectedStreams(stdout=string_io):
-        with uqbar.io.DirectoryChange(cli_paths.inner_project_path):
-            try:
-                script(command)
-            except SystemExit as e:
-                raise RuntimeError('SystemExit: {}'.format(e.code))
+    with uqbar.io.RedirectedStreams(stdout=string_io), \
+        uqbar.io.DirectoryChange(cli_paths.inner_project_path):
+        try:
+            script(command)
+        except SystemExit as e:
+            raise RuntimeError('SystemExit: {}'.format(e.code))
     pytest.helpers.compare_strings(
         r'''
         Render candidates: '*' ...
@@ -305,7 +332,7 @@ def test_success_all_materials(cli_paths):
         'render.aiff',
         ).exists()
     assert pytest.helpers.sample_soundfile(
-        str(cli_paths.materials_path.joinpath('material_one', 'render.aiff'))
+        cli_paths.materials_path.joinpath('material_one', 'render.aiff')
         ) == {
         0.0:  [2.3e-05] * 8,
         0.21: [0.210295] * 8,
@@ -315,7 +342,7 @@ def test_success_all_materials(cli_paths):
         0.99: [0.991361] * 8,
         }
     assert pytest.helpers.sample_soundfile(
-        str(cli_paths.materials_path.joinpath('material_two', 'render.aiff'))
+        cli_paths.materials_path.joinpath('material_two', 'render.aiff')
         ) == {
         0.0:  [2.3e-05] * 8,
         0.21: [0.210295] * 8,
@@ -325,7 +352,7 @@ def test_success_all_materials(cli_paths):
         0.99: [0.991361] * 8,
         }
     assert pytest.helpers.sample_soundfile(
-        str(cli_paths.materials_path.joinpath('material_three', 'render.aiff'))
+        cli_paths.materials_path.joinpath('material_three', 'render.aiff')
         ) == {
         0.0:  [2.3e-05] * 8,
         0.21: [0.210295] * 8,
@@ -339,17 +366,26 @@ def test_success_all_materials(cli_paths):
 def test_success_filtered_materials(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'material_one')
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'material_two')
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'material_three')
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'material_one',
+        )
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'material_two',
+        )
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'material_three',
+        )
     script = supriya.cli.ManageMaterialScript()
     command = ['--render', 'material_t*']
-    with uqbar.io.RedirectedStreams(stdout=string_io):
-        with uqbar.io.DirectoryChange(cli_paths.inner_project_path):
-            try:
-                script(command)
-            except SystemExit as e:
-                raise RuntimeError('SystemExit: {}'.format(e.code))
+    with uqbar.io.RedirectedStreams(stdout=string_io), \
+        uqbar.io.DirectoryChange(cli_paths.inner_project_path):
+        try:
+            script(command)
+        except SystemExit as e:
+            raise RuntimeError('SystemExit: {}'.format(e.code))
     pytest.helpers.compare_strings(
         r'''
         Render candidates: 'material_t*' ...
@@ -390,7 +426,7 @@ def test_success_filtered_materials(cli_paths):
         'render.aiff',
         ).exists()
     assert pytest.helpers.sample_soundfile(
-        str(cli_paths.materials_path.joinpath('material_two', 'render.aiff'))
+        cli_paths.materials_path.joinpath('material_two', 'render.aiff')
         ) == {
         0.0:  [2.3e-05] * 8,
         0.21: [0.210295] * 8,
@@ -400,7 +436,7 @@ def test_success_filtered_materials(cli_paths):
         0.99: [0.991361] * 8,
         }
     assert pytest.helpers.sample_soundfile(
-        str(cli_paths.materials_path.joinpath('material_three', 'render.aiff'))
+        cli_paths.materials_path.joinpath('material_three', 'render.aiff')
         ) == {
         0.0:  [2.3e-05] * 8,
         0.21: [0.210295] * 8,
@@ -414,15 +450,18 @@ def test_success_filtered_materials(cli_paths):
 def test_success_one_material(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'test_material')
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'test_material',
+        )
     script = supriya.cli.ManageMaterialScript()
     command = ['--render', 'test_material']
-    with uqbar.io.RedirectedStreams(stdout=string_io):
-        with uqbar.io.DirectoryChange(cli_paths.inner_project_path):
-            try:
-                script(command)
-            except SystemExit as e:
-                raise RuntimeError('SystemExit: {}'.format(e.code))
+    with uqbar.io.RedirectedStreams(stdout=string_io), \
+        uqbar.io.DirectoryChange(cli_paths.inner_project_path):
+        try:
+            script(command)
+        except SystemExit as e:
+            raise RuntimeError('SystemExit: {}'.format(e.code))
     pytest.helpers.compare_strings(
         r'''
         Render candidates: 'test_material' ...
@@ -468,7 +507,7 @@ def test_success_one_material(cli_paths):
         cli_paths.test_directory_path,
         )
     assert pytest.helpers.sample_soundfile(
-        str(cli_paths.materials_path.joinpath('test_material', 'render.aiff'))
+        cli_paths.materials_path.joinpath('test_material', 'render.aiff')
         ) == {
         0.0:  [2.3e-05] * 8,
         0.21: [0.210295] * 8,
@@ -482,7 +521,10 @@ def test_success_one_material(cli_paths):
 def test_success_chained(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'material_one')
+    pytest.helpers.create_cli_material(
+        cli_paths.test_directory_path,
+        'material_one',
+        )
     pytest.helpers.create_cli_material(
         cli_paths.test_directory_path,
         'material_two',
@@ -505,7 +547,7 @@ def test_success_chained(cli_paths):
         )
 
     project_settings_path = cli_paths.inner_project_path / 'project-settings.yml'
-    with open(str(project_settings_path), 'r') as file_pointer:
+    with project_settings_path.open() as file_pointer:
         project_settings = file_pointer.read()
     project_settings = project_settings.replace(
         'input_bus_channel_count: 8',
@@ -515,7 +557,7 @@ def test_success_chained(cli_paths):
         'output_bus_channel_count: 8',
         'output_bus_channel_count: 2',
         )
-    with open(str(project_settings_path), 'w') as file_pointer:
+    with project_settings_path.open('w') as file_pointer:
         file_pointer.write(project_settings)
 
     pytest.helpers.compare_path_contents(
@@ -548,12 +590,12 @@ def test_success_chained(cli_paths):
 
     script = supriya.cli.ManageMaterialScript()
     command = ['--render', 'material_three']
-    with uqbar.io.RedirectedStreams(stdout=string_io):
-        with uqbar.io.DirectoryChange(cli_paths.inner_project_path):
-            try:
-                script(command)
-            except SystemExit as e:
-                raise RuntimeError('SystemExit: {}'.format(e.code))
+    with uqbar.io.RedirectedStreams(stdout=string_io), \
+        uqbar.io.DirectoryChange(cli_paths.inner_project_path):
+        try:
+            script(command)
+        except SystemExit as e:
+            raise RuntimeError('SystemExit: {}'.format(e.code))
 
     pytest.helpers.compare_strings(
         r'''
@@ -620,7 +662,7 @@ def test_success_chained(cli_paths):
         )
 
     render_yml_file_path = material_three_path / 'render.yml'
-    with open(str(render_yml_file_path), 'r') as file_pointer:
+    with render_yml_file_path.open() as file_pointer:
         render_yml = yaml.load(file_pointer.read())
     assert render_yml == {
         'render': 'session-352b87b6c1d447a5be11020a33ceadec',
@@ -631,12 +673,12 @@ def test_success_chained(cli_paths):
         }
 
     material_three_render_sample = pytest.helpers.sample_soundfile(
-        str(material_three_path / 'render.aiff'),
+        material_three_path / 'render.aiff',
         rounding=2,
         )
 
     material_three_source_sample = pytest.helpers.sample_soundfile(
-        str(cli_paths.renders_path / '{}.aiff'.format(render_yml['render'])),
+        cli_paths.renders_path / '{}.aiff'.format(render_yml['render']),
         rounding=2,
         )
 

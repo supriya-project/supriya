@@ -18,9 +18,9 @@ pytest_plugins = ['helpers_namespace']
 
 
 @pytest.fixture
-def cli_paths():
+def cli_paths(tmpdir):
     package_name = 'test_project'
-    test_directory_path = pathlib.Path(__file__).parent
+    test_directory_path = pathlib.Path(tmpdir)
     outer_project_path = test_directory_path.joinpath(package_name)
     inner_project_path = outer_project_path.joinpath(package_name)
     cli_paths = types.SimpleNamespace(
@@ -48,8 +48,8 @@ def cli_paths():
 
 
 @pytest.fixture
-def nonrealtime_paths():
-    test_directory_path = pathlib.Path(__file__).parent
+def nonrealtime_paths(tmpdir):
+    test_directory_path = pathlib.Path(tmpdir)
     output_directory_path = test_directory_path / 'output'
     render_directory_path = test_directory_path / 'render'
     output_file_path = output_directory_path / 'output.aiff'
@@ -97,15 +97,6 @@ def server():
     yield server
     server.debug_osc = False
     server.quit()
-
-
-@pytest.fixture(autouse=True)
-def server_shutdown():
-    for server in supriya.Server._servers.values():
-        server.quit()
-    yield
-    for server in supriya.Server._servers.values():
-        server.quit()
 
 
 ### DATA ###
@@ -173,9 +164,12 @@ def assert_soundfile_ok(
     assert file_path.exists(), file_path
     assert exit_code == 0, exit_code
     soundfile = supriya.soundfiles.SoundFile(file_path)
-    assert round(soundfile.seconds, 2) == expected_duration, round(soundfile.seconds, 2)
-    assert soundfile.sample_rate == expected_sample_rate, soundfile.sample_rate
-    assert soundfile.channel_count == expected_channel_count, soundfile.channel_count
+    assert round(soundfile.seconds, 2) == expected_duration, \
+        round(soundfile.seconds, 2)
+    assert soundfile.sample_rate == expected_sample_rate, \
+        soundfile.sample_rate
+    assert soundfile.channel_count == expected_channel_count, \
+        soundfile.channel_count
 
 
 @pytest.helpers.register
@@ -406,7 +400,7 @@ def create_cli_session(
 
 @pytest.helpers.register
 def get_basic_session_template():
-    return jinja2.Template(uqbar.strings.normalize('''
+    return jinja2.Template(uqbar.strings.normalize(r'''
     import supriya
     from test_project import project_settings
 
@@ -436,7 +430,7 @@ def get_basic_session_template():
 
 @pytest.helpers.register
 def get_chained_session_template():
-    return jinja2.Template(uqbar.strings.normalize('''
+    return jinja2.Template(uqbar.strings.normalize(r'''
     import supriya
     from test_project import project_settings
     from test_project.{{ input_section_singular }}s.{{ input_name }}.definition \
@@ -475,7 +469,7 @@ def get_chained_session_template():
 
 @pytest.helpers.register
 def get_session_factory_template():
-    return jinja2.Template(uqbar.strings.normalize('''
+    return jinja2.Template(uqbar.strings.normalize(r'''
     import supriya
     from test_project import project_settings
 

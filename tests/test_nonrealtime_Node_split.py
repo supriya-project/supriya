@@ -17,7 +17,8 @@ def test_basic():
         20.0:
             NODE TREE 0 group
         ''')
-    d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
+    d_recv_commands = pytest.helpers.build_d_recv_commands(
+        [supriya.assets.synthdefs.default])
     assert session.to_lists() == [
         [0.0, [
             *d_recv_commands,
@@ -181,7 +182,8 @@ def test_basic_synth_settings():
         30.0:
             NODE TREE 0 group
         ''')
-    d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
+    d_recv_commands = pytest.helpers.build_d_recv_commands(
+        [supriya.assets.synthdefs.default])
     assert session.to_lists() == [
         [10.0, [
             *d_recv_commands,
@@ -275,7 +277,8 @@ def test_basic_node_order():
         20.0:
             NODE TREE 0 group
         ''')
-    d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
+    d_recv_commands = pytest.helpers.build_d_recv_commands(
+        [supriya.assets.synthdefs.default])
     assert session.to_lists() == [
         [0.0, [
             *d_recv_commands,
@@ -369,7 +372,8 @@ def test_entering():
             20.0:
                 NODE TREE 0 group
             ''')
-        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands(
+            [supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,
@@ -398,7 +402,8 @@ def test_entering():
         20.0:
             NODE TREE 0 group
         ''')
-    d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
+    d_recv_commands = pytest.helpers.build_d_recv_commands(
+        [supriya.assets.synthdefs.default])
     assert session.to_lists() == [
         [0.0, [
             *d_recv_commands,
@@ -525,7 +530,8 @@ def test_exiting():
             20.0:
                 NODE TREE 0 group
             ''')
-        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands(
+            [supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,
@@ -554,7 +560,8 @@ def test_exiting():
         20.0:
             NODE TREE 0 group
         ''')
-    d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
+    d_recv_commands = pytest.helpers.build_d_recv_commands(
+        [supriya.assets.synthdefs.default])
     assert session.to_lists() == [
         [0.0, [
             *d_recv_commands,
@@ -673,7 +680,8 @@ def test_occupying():
             20.0:
                 NODE TREE 0 group
             ''')
-        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands(
+            [supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,
@@ -700,7 +708,8 @@ def test_occupying():
         20.0:
             NODE TREE 0 group
         ''')
-    d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
+    d_recv_commands = pytest.helpers.build_d_recv_commands(
+        [supriya.assets.synthdefs.default])
     assert session.to_lists() == [
         [0.0, [
             *d_recv_commands,
@@ -823,7 +832,8 @@ def test_starting():
             20.0:
                 NODE TREE 0 group
             ''')
-        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands(
+            [supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
                 ['/g_new', 1000, 0, 0]]],
@@ -850,7 +860,8 @@ def test_starting():
         20.0:
             NODE TREE 0 group
         ''')
-    d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
+    d_recv_commands = pytest.helpers.build_d_recv_commands(
+        [supriya.assets.synthdefs.default])
     assert session.to_lists() == [
         [0.0, [
             ['/g_new', 1000, 0, 0]]],
@@ -963,7 +974,8 @@ def test_stopping():
             20.0:
                 NODE TREE 0 group
             ''')
-        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands(
+            [supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,
@@ -987,7 +999,8 @@ def test_stopping():
         20.0:
             NODE TREE 0 group
         ''')
-    d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
+    d_recv_commands = pytest.helpers.build_d_recv_commands(
+        [supriya.assets.synthdefs.default])
     assert session.to_lists() == [
         [0.0, [
             *d_recv_commands,
@@ -1098,7 +1111,8 @@ def test_nested_entering():
             20.0:
                 NODE TREE 0 group
             ''')
-        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands(
+            [supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,
@@ -1130,7 +1144,8 @@ def test_nested_entering():
         20.0:
             NODE TREE 0 group
         ''')
-    d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
+    d_recv_commands = pytest.helpers.build_d_recv_commands(
+        [supriya.assets.synthdefs.default])
     assert session.to_lists() == [
         [0.0, [
             *d_recv_commands,
@@ -1271,7 +1286,8 @@ def test_nested_exiting():
             20.0:
                 NODE TREE 0 group
             ''')
-        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands(
+            [supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,
@@ -1303,7 +1319,8 @@ def test_nested_exiting():
         20.0:
             NODE TREE 0 group
         ''')
-    d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
+    d_recv_commands = pytest.helpers.build_d_recv_commands(
+        [supriya.assets.synthdefs.default])
     assert session.to_lists() == [
         [0.0, [
             *d_recv_commands,

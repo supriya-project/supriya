@@ -16,7 +16,10 @@ expected_files = [
 def test_exists(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_session(cli_paths.test_directory_path, 'test_session')
+    pytest.helpers.create_cli_session(
+        cli_paths.test_directory_path,
+        'test_session',
+        )
     with uqbar.io.RedirectedStreams(stdout=string_io):
         pytest.helpers.create_cli_session(
             cli_paths.test_directory_path, 'test_session', expect_error=True)
@@ -32,7 +35,10 @@ def test_exists(cli_paths):
 def test_force_replace(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_session(cli_paths.test_directory_path, 'test_session')
+    pytest.helpers.create_cli_session(
+        cli_paths.test_directory_path,
+        'test_session',
+        )
     with uqbar.io.RedirectedStreams(stdout=string_io):
         pytest.helpers.create_cli_session(
             cli_paths.test_directory_path, 'test_session', force=True)
@@ -52,12 +58,12 @@ def test_internal_path(cli_paths):
     command = ['--new', 'test_session']
     internal_path = cli_paths.assets_path
     assert internal_path.exists()
-    with uqbar.io.RedirectedStreams(stdout=string_io):
-        with uqbar.io.DirectoryChange(internal_path):
-            try:
-                script(command)
-            except SystemExit:
-                raise RuntimeError('SystemExit')
+    with uqbar.io.RedirectedStreams(stdout=string_io), \
+        uqbar.io.DirectoryChange(internal_path):
+        try:
+            script(command)
+        except SystemExit:
+            raise RuntimeError('SystemExit')
     pytest.helpers.compare_strings(
         r'''
         Creating session subpackage 'test_session' ...
@@ -72,12 +78,12 @@ def test_success(cli_paths):
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
     script = supriya.cli.ManageSessionScript()
     command = ['--new', 'test_session']
-    with uqbar.io.RedirectedStreams(stdout=string_io):
-        with uqbar.io.DirectoryChange(cli_paths.inner_project_path):
-            try:
-                script(command)
-            except SystemExit:
-                raise RuntimeError('SystemExit')
+    with uqbar.io.RedirectedStreams(stdout=string_io), \
+        uqbar.io.DirectoryChange(cli_paths.inner_project_path):
+        try:
+            script(command)
+        except SystemExit:
+            raise RuntimeError('SystemExit')
     pytest.helpers.compare_strings(
         r'''
         Creating session subpackage 'test_session' ...

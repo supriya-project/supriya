@@ -14,7 +14,8 @@ def test_manual_with_gate():
     for i in range(4):
         with session.at(i):
             group.add_synth(duration=0)
-    d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
+    d_recv_commands = pytest.helpers.build_d_recv_commands(
+        [supriya.assets.synthdefs.default])
     assert session.to_lists(duration=5) == [
         [0.0, [
             *d_recv_commands,

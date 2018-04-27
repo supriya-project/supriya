@@ -251,6 +251,10 @@ class SessionRenderer(supriya.system.SupriyaObject):
                     if output.startswith('FAILURE IN SERVER /n_free Node'):
                         continue
                     progress_bar.write(output)
+                elif output.startswith('start time 0'):
+                    continue
+                else:
+                    progress_bar.write('WARNING: {}'.format(output))
         return process.poll()
 
     def _collect_prerender_tuples(self, session, duration=None):
