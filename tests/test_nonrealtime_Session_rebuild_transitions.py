@@ -20,7 +20,8 @@ def test_01():
         20.0:
             NODE TREE 0 group
         ''')
-    d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
+    d_recv_commands = pytest.helpers.build_d_recv_commands(
+        [supriya.assets.synthdefs.default])
     assert session.to_lists() == [
         [0.0, [
             *d_recv_commands,
