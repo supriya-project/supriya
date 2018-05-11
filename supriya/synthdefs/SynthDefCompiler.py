@@ -119,16 +119,16 @@ class SynthDefCompiler(SupriyaObject):
 
     @staticmethod
     def encode_float(value):
-        return bytes(struct.pack('>f', value))
+        return bytes(struct.pack('>f', float(value)))
 
     @staticmethod
     def encode_unsigned_int_8bit(value):
-        return bytes(struct.pack('>B', value))
+        return bytes(struct.pack('>B', int(value)))
 
     @staticmethod
     def encode_unsigned_int_16bit(value):
-        return bytes(struct.pack('>H', value))
+        return bytes(struct.pack('>H', int(value)))
 
     @staticmethod
     def encode_unsigned_int_32bit(value):
-        return bytes(struct.pack('>I', value))
+        return bytes(struct.pack('>I', int(value)))
