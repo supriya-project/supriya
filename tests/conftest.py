@@ -313,7 +313,7 @@ def create_cli_material(
     expect_error=False,
     definition_contents=None,
 ):
-    test_directory_path = pathlib.test_directory_path(test_directory_path)
+    test_directory_path = pathlib.Path(test_directory_path)
     inner_project_path = test_directory_path / 'test_project' / 'test_project'
     script = supriya.cli.ManageMaterialScript()
     command = ['--new', material_name]
@@ -340,7 +340,7 @@ def create_cli_material(
 
 @pytest.helpers.register
 def create_cli_project(test_directory_path, force=False, expect_error=False):
-    test_directory_path = pathlib.test_directory_path(test_directory_path)
+    test_directory_path = pathlib.Path(test_directory_path)
     script = supriya.cli.ManageProjectScript()
     command = [
         '--new',
@@ -373,7 +373,7 @@ def create_cli_session(
     expect_error=False,
     definition_contents=None,
 ):
-    test_directory_path = pathlib.test_directory_path(test_directory_path)
+    test_directory_path = pathlib.Path(test_directory_path)
     inner_project_path = test_directory_path / 'test_project' / 'test_project'
     script = supriya.cli.ManageSessionScript()
     command = ['--new', session_name]

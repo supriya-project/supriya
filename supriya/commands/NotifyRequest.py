@@ -70,7 +70,7 @@ class NotifyRequest(Request):
     @property
     def response_specification(self):
         import supriya.commands
-        pattern = ('/notify', 0)
+        pattern = ('/notify', 0, 64)
         if os.environ.get('TRAVIS'):
             pattern = ('/notify',)
         return {
