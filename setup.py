@@ -17,7 +17,7 @@ install_requires = [
     'sphinx_rtd_theme >= 0.3.0',
     'tornado',
     'tqdm',
-    'uqbar >= 0.2.9',
+    'uqbar >= 0.2.12',
     'wavefile',
     ]
 version = '.'.join(str(x) for x in sys.version_info[:3])

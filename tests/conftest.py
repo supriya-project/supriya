@@ -14,7 +14,7 @@ import uqbar.io
 pytest_plugins = ['helpers_namespace']
 
 
-### FIXTURES ###
+# ### FIXTURES ### #
 
 
 @pytest.fixture
@@ -65,7 +65,7 @@ def nonrealtime_paths(tmpdir):
     for path in [
         output_directory_path,
         render_directory_path,
-        ]:
+    ]:
         path.mkdir(parents=True, exist_ok=True)
     os.chdir(test_directory_path)
     yield nonrealtime_paths
@@ -73,7 +73,7 @@ def nonrealtime_paths(tmpdir):
     for path in [
         output_directory_path,
         render_directory_path,
-        ]:
+    ]:
         if path.exists():
             shutil.rmtree(path)
 
@@ -99,7 +99,7 @@ def server():
     server.quit()
 
 
-### DATA ###
+# ### DATA ### #
 
 
 class TestSessionFactory:
@@ -109,7 +109,7 @@ class TestSessionFactory:
         input_bus_channel_count=None,
         output_bus_channel_count=None,
         multiplier=1.0,
-        ):
+    ):
         options = supriya.realtime.ServerOptions(
             input_bus_channel_count=input_bus_channel_count,
             output_bus_channel_count=output_bus_channel_count,
@@ -149,7 +149,7 @@ class TestSessionFactory:
 ansi_escape = re.compile(r'\x1b[^m]*m')
 
 
-### HELPERS ###
+# ### HELPERS ### #
 
 
 @pytest.helpers.register
@@ -159,7 +159,7 @@ def assert_soundfile_ok(
     expected_duration,
     expected_sample_rate,
     expected_channel_count,
-    ):
+):
     file_path = pathlib.Path(file_path)
     assert file_path.exists(), file_path
     assert exit_code == 0, exit_code
@@ -188,7 +188,7 @@ def build_dc_synthdef(channel_count=1):
     with supriya.synthdefs.SynthDefBuilder(
         out_bus=0,
         source=0,
-        ) as builder:
+    ) as builder:
         source = supriya.ugens.K2A.ar(source=builder['source'])
         supriya.ugens.Out.ar(
             bus=builder['out_bus'],
@@ -213,7 +213,7 @@ def build_diskin_synthdef(channel_count=1):
     with supriya.synthdefs.SynthDefBuilder(
         out_bus=0,
         buffer_id=0,
-        ) as builder:
+    ) as builder:
         source = supriya.ugens.DiskIn.ar(
             buffer_id=builder['buffer_id'],
             channel_count=channel_count,
@@ -261,7 +261,7 @@ def build_multiplier_synthdef(channel_count=1):
         in_bus=0,
         out_bus=0,
         multiplier=1,
-        ) as builder:
+    ) as builder:
         source = supriya.ugens.In.ar(
             bus=builder['in_bus'],
             channel_count=channel_count,
@@ -307,14 +307,14 @@ def compare_strings(expected, actual):
 
 @pytest.helpers.register
 def create_cli_material(
-    path,
+    test_directory_path,
     material_name='test_material',
     force=False,
     expect_error=False,
     definition_contents=None,
-    ):
-    path = pathlib.Path(path)
-    inner_project_path = path / 'test_project' / 'test_project'
+):
+    test_directory_path = pathlib.test_directory_path(test_directory_path)
+    inner_project_path = test_directory_path / 'test_project' / 'test_project'
     script = supriya.cli.ManageMaterialScript()
     command = ['--new', material_name]
     if force:
@@ -339,8 +339,8 @@ def create_cli_material(
 
 
 @pytest.helpers.register
-def create_cli_project(path, force=False, expect_error=False):
-    path = pathlib.Path(path)
+def create_cli_project(test_directory_path, force=False, expect_error=False):
+    test_directory_path = pathlib.test_directory_path(test_directory_path)
     script = supriya.cli.ManageProjectScript()
     command = [
         '--new',
@@ -353,7 +353,7 @@ def create_cli_project(path, force=False, expect_error=False):
         ]
     if force:
         command.insert(0, '-f')
-    with uqbar.io.DirectoryChange(str(path)):
+    with uqbar.io.DirectoryChange(str(test_directory_path)):
         if expect_error:
             with pytest.raises(SystemExit) as exception_info:
                 script(command)
@@ -367,14 +367,14 @@ def create_cli_project(path, force=False, expect_error=False):
 
 @pytest.helpers.register
 def create_cli_session(
-    path,
+    test_directory_path,
     session_name='test_session',
     force=False,
     expect_error=False,
     definition_contents=None,
-    ):
-    path = pathlib.Path(path)
-    inner_project_path = path / 'test_project' / 'test_project'
+):
+    test_directory_path = pathlib.test_directory_path(test_directory_path)
+    inner_project_path = test_directory_path / 'test_project' / 'test_project'
     script = supriya.cli.ManageSessionScript()
     command = ['--new', session_name]
     if force:
@@ -537,7 +537,7 @@ def make_test_session(
     input_bus_channel_count=None,
     output_bus_channel_count=None,
     multiplier=1.0,
-    ):
+):
     session = supriya.nonrealtime.Session(
         input_bus_channel_count=input_bus_channel_count,
         output_bus_channel_count=output_bus_channel_count,
@@ -582,7 +582,7 @@ def make_test_session_factory(
     input_bus_channel_count=None,
     output_bus_channel_count=None,
     multiplier=1.0,
-    ):
+):
     session_factory = TestSessionFactory(
         input_bus_channel_count=input_bus_channel_count,
         output_bus_channel_count=output_bus_channel_count,
