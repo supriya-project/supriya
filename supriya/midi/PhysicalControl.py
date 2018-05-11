@@ -1,9 +1,9 @@
-from supriya.system import Enumeration
+from uqbar.enums import IntEnumeration
 
 
 class PhysicalControl:
 
-    class Mode(Enumeration):
+    class Mode(IntEnumeration):
         CONTINUOUS = 0
         BOOLEAN = 1
 

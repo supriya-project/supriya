@@ -1,7 +1,7 @@
-from supriya.system.Enumeration import Enumeration
+from uqbar.enums import IntEnumeration
 
 
-class DoneAction(Enumeration):
+class DoneAction(IntEnumeration):
     """
     An enumeration of scsynth UGen "done" actions.
 

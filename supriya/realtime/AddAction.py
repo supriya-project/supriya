@@ -1,7 +1,7 @@
-from supriya.system.Enumeration import Enumeration
+from uqbar.enums import IntEnumeration
 
 
-class AddAction(Enumeration):
+class AddAction(IntEnumeration):
     """
     An enumeration of scsynth node add actions.
 

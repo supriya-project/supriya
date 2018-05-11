@@ -1,7 +1,7 @@
-from supriya.system.Enumeration import Enumeration
+from uqbar.enums import IntEnumeration
 
 
-class Unit(Enumeration):
+class Unit(IntEnumeration):
 
     ### CLASS VARIABLES ###
 

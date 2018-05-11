@@ -1,7 +1,7 @@
-from supriya.system.Enumeration import Enumeration
+from uqbar.enums import IntEnumeration
 
 
-class ODFType(Enumeration):
+class ODFType(IntEnumeration):
     """
     ODFType enumeration, used by Onsets.
     """

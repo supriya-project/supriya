@@ -1,7 +1,7 @@
-from supriya.system.Enumeration import Enumeration
+from uqbar.enums import IntEnumeration
 
 
-class SignalRange(Enumeration):
+class SignalRange(IntEnumeration):
     """
     An enumeration of scsynth UGen signal ranges.
 

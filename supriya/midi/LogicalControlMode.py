@@ -1,7 +1,7 @@
-from supriya.system import Enumeration
+from uqbar.enums import IntEnumeration
 
 
-class LogicalControlMode(Enumeration):
+class LogicalControlMode(IntEnumeration):
     CONTINUOUS = 0
     TRIGGER = 1
     TOGGLE = 2

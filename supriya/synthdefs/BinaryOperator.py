@@ -1,7 +1,7 @@
-from supriya.system.Enumeration import Enumeration
+from uqbar.enums import IntEnumeration
 
 
-class BinaryOperator(Enumeration):
+class BinaryOperator(IntEnumeration):
 
     ### CLASS VARIABLES ###
 

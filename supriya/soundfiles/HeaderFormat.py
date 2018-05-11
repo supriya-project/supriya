@@ -1,7 +1,7 @@
-from supriya.system.Enumeration import Enumeration
+from uqbar.enums import IntEnumeration
 
 
-class HeaderFormat(Enumeration):
+class HeaderFormat(IntEnumeration):
     """
     An enumeration of soundfile header formats.
 

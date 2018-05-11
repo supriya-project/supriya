@@ -1,8 +1,8 @@
 import collections
-from supriya.system.Enumeration import Enumeration
+from uqbar.enums import IntEnumeration
 
 
-class CalculationRate(Enumeration):
+class CalculationRate(IntEnumeration):
     """
     An enumeration of scsynth calculation-rates.
 
