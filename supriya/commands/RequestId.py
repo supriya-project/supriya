@@ -1,7 +1,7 @@
-from supriya.system.Enumeration import Enumeration
+from uqbar.enums import IntEnumeration
 
 
-class RequestId(Enumeration):
+class RequestId(IntEnumeration):
     """
     An enumeration of scsynth message types.
     """

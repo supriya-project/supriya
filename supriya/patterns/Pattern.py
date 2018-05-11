@@ -5,8 +5,8 @@ import itertools
 import re
 from supriya import utils
 from supriya.system import BindableNamespace
-from supriya.system import Enumeration
 from supriya.system import SupriyaValueObject
+from uqbar.enums import IntEnumeration
 
 
 class Pattern(SupriyaValueObject):
@@ -20,7 +20,7 @@ class Pattern(SupriyaValueObject):
 
     _rngs = {}
 
-    class PatternState(Enumeration):
+    class PatternState(IntEnumeration):
         CONTINUE = 0
         REALTIME_STOP = 1
         NONREALTIME_STOP = 2

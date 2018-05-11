@@ -1,7 +1,7 @@
-from supriya.system.Enumeration import Enumeration
+from uqbar.enums import IntEnumeration
 
 
-class ParameterRate(Enumeration):
+class ParameterRate(IntEnumeration):
     """
     An enumeration of synthdef control rates.
     """

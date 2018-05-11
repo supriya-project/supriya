@@ -131,7 +131,6 @@ from supriya.system import (  # noqa
     Assets,
     Bindable,
     Binding,
-    Enumeration,
     bind,
     )
 from supriya.soundfiles import (  # noqa

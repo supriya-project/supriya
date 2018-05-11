@@ -1,7 +1,7 @@
-from supriya.system.Enumeration import Enumeration
+from uqbar.enums import IntEnumeration
 
 
-class SampleFormat(Enumeration):
+class SampleFormat(IntEnumeration):
     """
     An enumeration of soundfile sample formats.
 
