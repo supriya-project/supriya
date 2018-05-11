@@ -415,9 +415,9 @@ class Server(SupriyaObject):
             if line.startswith('SuperCollider 3 server ready'):
                 break
             elif line.startswith('Exception in World_OpenUDP: bind: Address already in use'):
-                raise Exception
+                raise Exception(line)
             elif (time.time() - start_time) > 1:
-                raise Exception
+                raise Exception('Timeout')
         self._is_running = True
         self._server_options = server_options
         self._setup()
