@@ -1,7 +1,7 @@
 import abc
 import collections
 import uuid
-import supriya.utils
+import uqbar.objects
 from supriya.system.SupriyaValueObject import SupriyaValueObject
 
 
@@ -115,7 +115,7 @@ class Event(SupriyaValueObject):
     ### PUBLIC METHODS ###
 
     def as_dict(self):
-        _, _, kwargs = supriya.utils.get_object_vars(self)
+        _, _, kwargs = uqbar.objects.get_vars(self)
         return kwargs
 
     def get(self, item, default=None):

@@ -19,17 +19,9 @@ class Request(SupriyaValueObject):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        ):
+    def __init__(self):
         self._condition = threading.Condition()
         self._response = None
-
-    ### SPECIAL METHODS ###
-
-    def __repr__(self):
-        import supriya.utils
-        return supriya.utils.get_object_repr(self, multiline=True)
 
     ### PRIVATE METHODS ###
 
@@ -58,7 +50,7 @@ class Request(SupriyaValueObject):
         server=None,
         sync=True,
         timeout=1.0,
-        ):
+    ):
         import supriya.realtime
         server = server or supriya.realtime.Server.get_default_server()
         assert isinstance(server, supriya.realtime.Server)

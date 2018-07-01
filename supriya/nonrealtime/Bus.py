@@ -15,8 +15,8 @@ class Bus(SessionObject):
         >>> bus = session.add_bus('control')
         >>> print(repr(bus))
         <Bus(
+            <Session>,
             calculation_rate=CalculationRate.CONTROL,
-            session=<Session>,
             session_id=0,
             )>
 
