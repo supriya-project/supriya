@@ -1,4 +1,4 @@
-from supriya import utils
+import uqbar.objects
 from supriya.system.SupriyaObject import SupriyaObject
 
 
@@ -11,18 +11,18 @@ class SupriyaValueObject(SupriyaObject):
     ### SPECIAL METHODS ###
 
     def __copy__(self, *args):
-        return utils.new(self)
+        return uqbar.objects.new(self)
 
     def __eq__(self, expr):
-        self_values = type(self), utils.get_object_vars(self)
+        self_values = type(self), uqbar.objects.get_vars(self)
         try:
-            expr_values = type(expr), utils.get_object_vars(expr)
+            expr_values = type(expr), uqbar.objects.get_vars(expr)
         except AttributeError:
             expr_values = type(expr), expr
         return self_values == expr_values
 
     def __hash__(self):
-        args, var_args, kwargs = utils.get_object_vars(self)
+        args, var_args, kwargs = uqbar.objects.get_vars(self)
         hash_values = [type(self)]
         hash_values.append(tuple(args.items()))
         hash_values.append(tuple(var_args))

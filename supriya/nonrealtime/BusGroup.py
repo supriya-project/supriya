@@ -13,9 +13,9 @@ class BusGroup(SessionObject):
         >>> bus_group = session.add_bus_group(3)
         >>> print(repr(bus_group))
         <BusGroup(
+            <Session>,
             bus_count=3,
             calculation_rate=CalculationRate.CONTROL,
-            session=<Session>,
             session_id=0,
             )>
 
