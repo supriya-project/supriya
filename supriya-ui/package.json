@@ -1,0 +1,16 @@
+{
+  "name": "supriya-ui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "blessed": "^0.1.81",
+    "react": "^16.4.1",
+    "react-blessed": "^0.2.1"
+  }
+}
