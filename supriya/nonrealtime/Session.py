@@ -114,7 +114,7 @@ class Session:
         input_=None,
         name=None,
         padding=None,
-        ):
+    ):
         import supriya.nonrealtime
         self._options = supriya.realtime.ServerOptions(
             input_bus_channel_count=input_bus_channel_count,
@@ -159,7 +159,7 @@ class Session:
         output_file_path=None,
         render_directory_path=None,
         **kwargs
-        ):
+    ):
         exit_code, output_file_path = self.render(
             output_file_path=output_file_path,
             render_directory_path=render_directory_path,
@@ -311,7 +311,7 @@ class Session:
         sample_rate=44100,
         header_format=supriya.soundfiles.HeaderFormat.AIFF,
         sample_format=supriya.soundfiles.SampleFormat.INT24,
-        ):
+    ):
         """
         Builds non-realtime rendering command.
 
@@ -359,36 +359,37 @@ class Session:
         buffer_open_states,
         id_mapping,
         start_buffers,
-        ):
+    ):
         requests = []
-        if start_buffers:
-            for buffer_ in sorted(start_buffers, key=lambda x: x.session_id):
-                arguments = dict(
-                    buffer_id=id_mapping[buffer_],
-                    frame_count=buffer_.frame_count,
-                    )
-                request_class = supriya.commands.BufferAllocateRequest
-                if buffer_.file_path is not None:
-                    request_class = supriya.commands.BufferAllocateReadRequest
-                    arguments['file_path'] = buffer_.file_path
-                    arguments['starting_frame'] = buffer_.starting_frame
-                    channel_indices = buffer_.channel_count
-                    if isinstance(channel_indices, int):
-                        channel_indices = tuple(range(buffer_.channel_count))
-                        arguments['channel_indices'] = channel_indices
-                        request_class = supriya.commands.BufferAllocateReadChannelRequest
-                    elif isinstance(buffer_.channel_count, tuple):
-                        arguments['channel_indices'] = channel_indices
-                        request_class = supriya.commands.BufferAllocateReadChannelRequest
-                else:
-                    arguments['channel_count'] = buffer_.channel_count or 1
-                    arguments['frame_count'] = arguments['frame_count'] or 1
-                try:
-                    request = request_class(**arguments)
-                except TypeError:
-                    raise
-                requests.append(request)
-                buffer_open_states[id_mapping[buffer_]] = False
+        if not start_buffers:
+            return requests
+        for buffer_ in sorted(start_buffers, key=lambda x: x.session_id):
+            arguments = dict(
+                buffer_id=id_mapping[buffer_],
+                frame_count=buffer_.frame_count,
+                )
+            request_class = supriya.commands.BufferAllocateRequest
+            if buffer_.file_path is not None:
+                request_class = supriya.commands.BufferAllocateReadRequest
+                arguments['file_path'] = buffer_.file_path
+                arguments['starting_frame'] = buffer_.starting_frame
+                channel_indices = buffer_.channel_count
+                if isinstance(channel_indices, int):
+                    channel_indices = tuple(range(buffer_.channel_count))
+                    arguments['channel_indices'] = channel_indices
+                    request_class = supriya.commands.BufferAllocateReadChannelRequest
+                elif isinstance(buffer_.channel_count, tuple):
+                    arguments['channel_indices'] = channel_indices
+                    request_class = supriya.commands.BufferAllocateReadChannelRequest
+            else:
+                arguments['channel_count'] = buffer_.channel_count or 1
+                arguments['frame_count'] = arguments['frame_count'] or 1
+            try:
+                request = request_class(**arguments)
+            except TypeError:
+                raise
+            requests.append(request)
+            buffer_open_states[id_mapping[buffer_]] = False
         return requests
 
     def _collect_buffer_free_requests(
@@ -396,20 +397,21 @@ class Session:
         buffer_open_states,
         id_mapping,
         stop_buffers,
-        ):
+    ):
         requests = []
-        if stop_buffers:
-            for buffer_ in sorted(stop_buffers, key=lambda x: x.session_id):
-                if buffer_open_states[id_mapping[buffer_]]:
-                    close_request = supriya.commands.BufferCloseRequest(
-                        buffer_id=id_mapping[buffer_],
-                        )
-                    requests.append(close_request)
-                request = supriya.commands.BufferFreeRequest(
+        if not stop_buffers:
+            return requests
+        for buffer_ in sorted(stop_buffers, key=lambda x: x.session_id):
+            if buffer_open_states[id_mapping[buffer_]]:
+                close_request = supriya.commands.BufferCloseRequest(
                     buffer_id=id_mapping[buffer_],
                     )
-                requests.append(request)
-                del(buffer_open_states[id_mapping[buffer_]])
+                requests.append(close_request)
+            request = supriya.commands.BufferFreeRequest(
+                buffer_id=id_mapping[buffer_],
+                )
+            requests.append(request)
+            del(buffer_open_states[id_mapping[buffer_]])
         return requests
 
     def _collect_buffer_nonlifecycle_requests(
@@ -420,7 +422,7 @@ class Session:
         id_mapping,
         offset,
         request_types,
-        ):
+    ):
         requests = []
         buffer_settings = buffer_settings.get(offset)
         if not buffer_settings:
@@ -433,7 +435,7 @@ class Session:
                 supriya.commands.BufferReadRequest,
                 supriya.commands.BufferReadChannelRequest,
                 supriya.commands.BufferWriteRequest,
-                ):
+            ):
                 for request in buffer_requests:
                     buffer_id = request.buffer_id
                     open_state = buffer_open_states[buffer_id]
@@ -449,10 +451,7 @@ class Session:
                 requests.extend(buffer_requests)
         return requests
 
-    def _collect_buffer_settings(
-        self,
-        id_mapping,
-        ):
+    def _collect_buffer_settings(self, id_mapping):
         buffer_settings = {}
         for buffer_ in sorted(self._buffers, key=lambda x: id_mapping[x]):
             for event_type, events in buffer_._events.items():
@@ -518,7 +517,7 @@ class Session:
         node_actions,
         node_settings,
         start_nodes,
-        ):
+    ):
         import supriya.nonrealtime
         requests = []
         for source, action in node_actions.items():
@@ -548,8 +547,10 @@ class Session:
             free_ids, gate_ids = [], []
             for node in stop_nodes:
                 node_id = id_mapping[node]
-                if hasattr(node, 'synthdef') and \
-                    'gate' in node.synthdef.parameter_names:
+                if (
+                    hasattr(node, 'synthdef') and
+                    'gate' in node.synthdef.parameter_names
+                ):
                     gate_ids.append(node_id)
                 elif node.duration:
                     free_ids.append(node_id)
@@ -620,7 +621,7 @@ class Session:
                 if (
                     key in parameters and
                     parameters[key].parameter_rate == scalar_rate
-                    ):
+                ):
                     continue
                 if isinstance(value, bus_prototype):
                     if value is None:
@@ -663,7 +664,7 @@ class Session:
         is_last_offset,
         offset,
         visited_synthdefs,
-        ):
+    ):
         requests = []
         (
             all_buffers, all_nodes,
@@ -793,7 +794,7 @@ class Session:
         offset,
         reverse=False,
         with_node_tree=None,
-        ):
+    ):
         if reverse:
             state_two = self._find_state_at(
                 offset,
@@ -859,10 +860,7 @@ class Session:
         del(self.states[offset])
         return state
 
-    def _to_non_xrefd_osc_bundles(
-        self,
-        duration=None,
-        ):
+    def _to_non_xrefd_osc_bundles(self, duration=None):
         id_mapping = self._build_id_mapping()
         if self.duration == float('inf'):
             assert duration is not None and 0 < duration < float('inf')
@@ -928,7 +926,7 @@ class Session:
         starting_frame=None,
         file_path=None,
         offset=None,
-        ):
+    ):
         import supriya.nonrealtime
         start_moment = self.active_moments[-1]
         session_id = self._get_next_session_id('buffer')
@@ -956,7 +954,7 @@ class Session:
         duration=None,
         frame_count=None,
         offset=None,
-        ):
+    ):
         import supriya.nonrealtime
         start_moment = self.active_moments[-1]
         buffer_group = supriya.nonrealtime.BufferGroup(
@@ -1004,7 +1002,7 @@ class Session:
         add_action=None,
         duration=None,
         offset=None,
-        ):
+    ):
         return self.root_node.add_group(
             add_action=add_action,
             duration=duration,
@@ -1018,7 +1016,7 @@ class Session:
         synthdef=None,
         offset=None,
         **synth_kwargs
-        ):
+    ):
         return self.root_node.add_synth(
             add_action=add_action,
             duration=duration,
@@ -1036,7 +1034,7 @@ class Session:
         frame_count=1024 * 32,
         starting_frame=0,
         offset=None,
-        ):
+    ):
         if isinstance(file_path, str):
             file_path = pathlib.Path(file_path)
         if isinstance(file_path, pathlib.Path):
@@ -1068,7 +1066,7 @@ class Session:
         input_=None,
         name=None,
         padding=None,
-        ):
+    ):
         import supriya.cli
         assert isinstance(project_settings, supriya.cli.ProjectSettings)
         server_options = supriya.realtime.ServerOptions(
@@ -1090,7 +1088,7 @@ class Session:
         duration=None,
         offset=None,
         seed=None,
-        ):
+    ):
         return self.root_node.inscribe(
             pattern,
             duration=duration,
@@ -1111,7 +1109,7 @@ class Session:
         node,
         add_action=None,
         offset=None,
-        ):
+    ):
         self.root_node.move_node(
             node,
             add_action=add_action,
@@ -1120,7 +1118,8 @@ class Session:
 
     def rebuild_transitions(self):
         for state_one, state_two in self._iterate_state_pairs(
-            float('-inf'), with_node_tree=True):
+            float('-inf'), with_node_tree=True,
+        ):
             transitions = state_two._rebuild_transitions(state_one, state_two)
             state_two._transitions = transitions
 
@@ -1137,7 +1136,7 @@ class Session:
         print_transcript=None,
         transcript_prefix=None,
         **kwargs
-        ):
+    ):
         import supriya.nonrealtime
         duration = (duration or self.duration) or 0.
         assert 0. < duration < float('inf')
@@ -1179,7 +1178,7 @@ class Session:
     def to_datagram(
         self,
         duration=None,
-        ):
+    ):
         osc_bundles = self.to_osc_bundles(
             duration=duration,
             )
@@ -1199,7 +1198,7 @@ class Session:
         header_format=supriya.soundfiles.HeaderFormat.AIFF,
         sample_format=supriya.soundfiles.SampleFormat.INT24,
         sample_rate=44100,
-        ):
+    ):
         import supriya.nonrealtime
         renderer = supriya.nonrealtime.SessionRenderer(
             session=self,
@@ -1215,7 +1214,7 @@ class Session:
         header_format=supriya.soundfiles.HeaderFormat.AIFF,
         sample_format=supriya.soundfiles.SampleFormat.INT24,
         sample_rate=44100,
-        ):
+    ):
         import supriya.nonrealtime
         renderer = supriya.nonrealtime.SessionRenderer(
             session=self,

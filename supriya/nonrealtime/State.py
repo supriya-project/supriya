@@ -65,7 +65,7 @@ class State(SessionObject):
         nodes_to_children=None,
         nodes_to_parents=None,
         stop_nodes=None,
-        ):
+    ):
         import supriya.nonrealtime
         if nodes_to_children is not None:
             nodes_to_children = nodes_to_children.copy()
@@ -122,7 +122,7 @@ class State(SessionObject):
         nodes_to_children_one,
         nodes_to_children_two,
         stop_nodes,
-        ):
+    ):
         import supriya.nonrealtime
         for parent in cls._iterate_nodes(root_node, nodes_to_children_one):
             if parent in stop_nodes:
@@ -205,8 +205,10 @@ class State(SessionObject):
     def report(self):
         state = {}
         node_hierarchy = {}
-        items = sorted(self.nodes_to_children.items(),
-            key=lambda item: item[0].session_id)
+        items = sorted(
+            self.nodes_to_children.items(),
+            key=lambda item: item[0].session_id,
+        )
         for parent, children in items:
             if not children:
                 children = []
