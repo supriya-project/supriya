@@ -842,7 +842,7 @@ class Session:
         import supriya.nonrealtime
         offset = float('-inf')
         state = supriya.nonrealtime.State(self, offset)
-        state._nodes_to_children = {self.root_node: ()}
+        state._nodes_to_children = {self.root_node: None}
         state._nodes_to_parents = {self.root_node: None}
         self.states[offset] = state
         self.offsets.append(offset)

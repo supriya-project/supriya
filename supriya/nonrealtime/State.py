@@ -176,6 +176,7 @@ class State(SessionObject):
 
     @classmethod
     def _rebuild_transitions(cls, state_one, state_two):
+        # print('REBUILDING')
         assert state_one.session.root_node is state_two.session.root_node
         a_children = state_one.nodes_to_children.copy()
         a_parents = state_one.nodes_to_parents.copy()
@@ -184,6 +185,9 @@ class State(SessionObject):
         transitions = collections.OrderedDict()
         counter = 0
         while (b_children != state_two.nodes_to_children):
+            # print('ROUND', counter)
+            # print('C-1', b_children)
+            # print('C-2', state_two.nodes_to_children)
             transition = State._find_first_inconsistency(
                 state_one.session.root_node,
                 b_children,
