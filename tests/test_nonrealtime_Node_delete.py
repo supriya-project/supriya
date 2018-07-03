@@ -234,3 +234,59 @@ def test_03():
             ['/n_set', 1001, 'gate', 0],
             ['/n_set', 1003, 'gate', 0],
             [0]]]]
+
+
+def test_04():
+    session = supriya.nonrealtime.Session()
+    with session.at(0):
+        synth_a = session.add_synth(duration=10)
+    with session.at(5):
+        synth_b = synth_a.add_synth(duration=10)
+        synth_c = synth_b.add_synth(duration=5)
+    d_recv_commands = pytest.helpers.build_d_recv_commands(
+        [supriya.assets.synthdefs.default])
+    assert session.to_lists() == [
+        [0.0, [
+            *d_recv_commands,
+            ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 0]]],
+        [5.0, [
+            ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 2, 1000],
+            ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 2, 1001]]],
+        [10.0, [['/n_set', 1000, 'gate', 0], ['/n_set', 1002, 'gate', 0]]],
+        [15.0, [['/n_set', 1001, 'gate', 0], [0]]]]
+    assert session.to_strings() == uqbar.strings.normalize('''
+        0.0:
+            NODE TREE 0 group
+                1000 default
+        5.0:
+            NODE TREE 0 group
+                1002 default
+                1001 default
+                1000 default
+        10.0:
+            NODE TREE 0 group
+                1001 default
+        15.0:
+            NODE TREE 0 group
+        ''')
+    synth_a.delete()
+    assert session.to_lists() == [
+        [5.0, [
+            *d_recv_commands,
+            ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 0],
+            ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 3, 1002]]],
+        [10.0, [['/n_set', 1002, 'gate', 0]]],
+        [15.0, [['/n_set', 1001, 'gate', 0], [0]]]]
+    assert session.to_strings() == uqbar.strings.normalize('''
+        0.0:
+            NODE TREE 0 group
+        5.0:
+            NODE TREE 0 group
+                1002 default
+                1001 default
+        10.0:
+            NODE TREE 0 group
+                1001 default
+        15.0:
+            NODE TREE 0 group
+        ''')

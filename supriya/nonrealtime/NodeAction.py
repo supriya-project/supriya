@@ -52,11 +52,7 @@ class NodeAction(SupriyaValueObject):
             return
         children = list(nodes_to_children[parent])
         children.remove(node)
-        if children:
-            children = tuple(children)
-        else:
-            children = None
-        nodes_to_children[parent] = children
+        nodes_to_children[parent] = tuple(children) or None
 
     def _move_node(self, nodes_to_children, nodes_to_parents):
         assert self.target in nodes_to_children
@@ -66,10 +62,7 @@ class NodeAction(SupriyaValueObject):
         if old_parent:
             children = list(nodes_to_children[old_parent])
             children.remove(self.source)
-            if children:
-                nodes_to_children[old_parent] = tuple(children)
-            else:
-                nodes_to_children[old_parent] = None
+            nodes_to_children[old_parent] = tuple(children) or None
         if self.action in (
             supriya.realtime.AddAction.ADD_AFTER,
             supriya.realtime.AddAction.ADD_BEFORE,
@@ -89,7 +82,7 @@ class NodeAction(SupriyaValueObject):
         elif self.action == supriya.realtime.AddAction.ADD_AFTER:
             index = children.index(self.target) + 1
             children.insert(index, self.source)
-        nodes_to_children[new_parent] = tuple(children)
+        nodes_to_children[new_parent] = tuple(children) or None
 
     def _to_request(self, id_mapping):
         node_id_pair = supriya.commands.NodeIdPair(

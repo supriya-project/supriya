@@ -376,8 +376,7 @@ class Node(SessionObject):
                 outer_children[index:index + 1] = inner_children
                 for child in inner_children:
                     state_two.nodes_to_parents[child] = parent
-                children = tuple(outer_children) or None
-                state_two.nodes_to_children[parent] = children
+                state_two.nodes_to_children[parent] = tuple(outer_children) or None
             state_two._transitions = state_two._rebuild_transitions(
                 state_one, state_two)
             if state_two == self.stop_offset:
@@ -509,7 +508,7 @@ class Node(SessionObject):
             state = self.session._find_state_before(state.offset, True)
         elif self.stop_offset == state.offset:
             state = self.session._find_state_before(state.offset, True)
-        return state.nodes_to_parents.get(self) or None
+        return state.nodes_to_parents.get(self)
 
     @SessionObject.require_offset
     def get_parentage(self, offset=None):
