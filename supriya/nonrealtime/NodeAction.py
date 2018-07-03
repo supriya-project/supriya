@@ -25,7 +25,7 @@ class NodeAction(SupriyaValueObject):
         source=None,
         action=None,
         target=None,
-        ):
+    ):
         if action is not None:
             action = supriya.realtime.AddAction.from_expr(action)
             assert isinstance(action, supriya.realtime.AddAction)
@@ -73,7 +73,7 @@ class NodeAction(SupriyaValueObject):
         if self.action in (
             supriya.realtime.AddAction.ADD_AFTER,
             supriya.realtime.AddAction.ADD_BEFORE,
-            ):
+        ):
             new_parent = nodes_to_parents[self.target]
         else:
             new_parent = self.target

@@ -29,7 +29,7 @@ class Node(SessionObject):
         session_id,
         duration=None,
         start_offset=None,
-        ):
+    ):
         SessionObject.__init__(self, session)
         self._session_id = int(session_id)
         start_offset = start_offset or 0
@@ -129,8 +129,10 @@ class Node(SessionObject):
                 else:
                     right_events.setdefault(name, []).append((offset, value))
         for name, events in left_events.items():
-            if (name in right_events and
-                right_events[name][0][0] == split_offset):
+            if (
+                name in right_events and
+                right_events[name][0][0] == split_offset
+            ):
                 continue
             event = (split_offset, events[-1][-1])
             right_events.setdefault(name, []).insert(0, event)
@@ -203,7 +205,7 @@ class Node(SessionObject):
         new_nodes=None,
         split_occupiers=True,
         split_traversers=True,
-        ):
+    ):
         import supriya.nonrealtime
         new_nodes = new_nodes or []
         state = self.session.states[split_offset]
@@ -264,7 +266,7 @@ class Node(SessionObject):
                 (split_occupiers and child in occupying) or
                 (split_traversers and child in entering) or
                 (split_traversers and child in exiting)
-                ):
+            ):
                 child._split(
                     split_offset,
                     new_nodes=new_nodes,
@@ -281,8 +283,12 @@ class Node(SessionObject):
         add_action=None,
         duration=None,
         offset=None,
-        ):
+    ):
         import supriya.nonrealtime
+        if add_action is None:
+            add_action = self._valid_add_actions[0]
+        add_action = supriya.realtime.AddAction.from_expr(add_action)
+        assert add_action in self._valid_add_actions
         session_id = self.session._get_next_session_id('node')
         node = supriya.nonrealtime.Group(
             self.session,
@@ -301,9 +307,13 @@ class Node(SessionObject):
         synthdef=None,
         offset=None,
         **synth_kwargs
-        ):
+    ):
         import supriya.assets.synthdefs
         import supriya.nonrealtime
+        if add_action is None:
+            add_action = self._valid_add_actions[0]
+        add_action = supriya.realtime.AddAction.from_expr(add_action)
+        assert add_action in self._valid_add_actions
         session_id = self.session._get_next_session_id('node')
         synthdef = synthdef or supriya.assets.synthdefs.default
         node = supriya.nonrealtime.Synth(
@@ -325,7 +335,7 @@ class Node(SessionObject):
         node,
         add_action=None,
         offset=None,
-        ):
+    ):
         import supriya.nonrealtime
         state = self.session.active_moments[-1].state
         if state.nodes_to_parents is None:
@@ -333,9 +343,12 @@ class Node(SessionObject):
         if (
             node in state.nodes_to_parents and
             node in self.get_parentage()
-            ):
+        ):
             raise ValueError("Can't add parent as a child.")
+        if add_action is None:
+            add_action = self._valid_add_actions[0]
         add_action = supriya.realtime.AddAction.from_expr(add_action)
+        assert add_action in self._valid_add_actions
         node_action = supriya.nonrealtime.NodeAction(
             source=node,
             target=self,
@@ -352,7 +365,8 @@ class Node(SessionObject):
         start_offset = self.session._find_state_before(
             self.start_offset, with_node_tree=True).offset
         for state_one, state_two in self.session._iterate_state_pairs(
-            start_offset, with_node_tree=True):
+            start_offset, with_node_tree=True,
+        ):
             state_two._desparsify()
             if self in state_two.nodes_to_children:
                 parent = state_two.nodes_to_parents.pop(self)
@@ -432,7 +446,7 @@ class Node(SessionObject):
         split_occupiers=True,
         split_traversers=True,
         offset=None,
-        ):
+    ):
         assert self.session.active_moments
         state = self.session.active_moments[-1].state
         self.session._apply_transitions(state.offset)

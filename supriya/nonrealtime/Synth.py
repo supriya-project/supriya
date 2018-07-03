@@ -18,8 +18,8 @@ class Synth(Node):
         )
 
     _valid_add_actions = (
-        supriya.realtime.AddAction.ADD_AFTER,
         supriya.realtime.AddAction.ADD_BEFORE,
+        supriya.realtime.AddAction.ADD_AFTER,
         )
 
     ### INITIALIZER ###
@@ -32,7 +32,7 @@ class Synth(Node):
         synthdef=None,
         start_offset=None,
         **synth_kwargs
-        ):
+    ):
         Node.__init__(
             self,
             session,
