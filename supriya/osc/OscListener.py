@@ -19,7 +19,7 @@ class OscListener(SupriyaObject, threading.Thread):
         debug_osc=False,
         debug_udp=False,
         timeout=1,
-        ):
+    ):
         threading.Thread.__init__(self)
         self.debug_osc = bool(debug_osc)
         self.debug_udp = bool(debug_udp)

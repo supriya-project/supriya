@@ -1,10 +1,11 @@
 import datetime
 import decimal
 import struct
-from supriya.osc.OscMixin import OscMixin
+from supriya.osc import format_datagram
+from supriya.system.SupriyaValueObject import SupriyaValueObject
 
 
-class OscBundle(OscMixin):
+class OscBundle(SupriyaValueObject):
     """
     An OSC bundle.
 
@@ -93,7 +94,7 @@ class OscBundle(OscMixin):
         self,
         timestamp=None,
         contents=None,
-        ):
+    ):
         import supriya.osc
         self._timestamp = timestamp
         if contents is not None:
@@ -103,6 +104,12 @@ class OscBundle(OscMixin):
         else:
             contents = ()
         self._contents = contents
+
+    ### SPECIAL METHODS ###
+
+    def __str__(self):
+        datagram = bytearray(self.to_datagram())
+        return format_datagram(datagram)
 
     ### PRIVATE METHODS ###
 

@@ -1,10 +1,11 @@
 import collections
 import struct
 import sys
-from supriya.osc.OscMixin import OscMixin
+from supriya.osc import format_datagram
+from supriya.system.SupriyaValueObject import SupriyaValueObject
 
 
-class OscMessage(OscMixin):
+class OscMessage(SupriyaValueObject):
     """
     An OSC message.
 
@@ -36,7 +37,7 @@ class OscMessage(OscMixin):
         self,
         address,
         *contents
-        ):
+    ):
         def recurse(sequence):
             sequence = list(sequence)
             for i, x in enumerate(sequence):
@@ -57,6 +58,10 @@ class OscMessage(OscMixin):
             items,
             )
         return result
+
+    def __str__(self):
+        datagram = bytearray(self.to_datagram())
+        return format_datagram(datagram)
 
     ### PRIVATE METHODS ###
 
