@@ -43,7 +43,7 @@ class OscController(SupriyaObject):
         debug_udp=False,
         server=None,
         timeout=2,
-        ):
+    ):
         self._debug_osc = bool(debug_osc)
         self._debug_udp = bool(debug_udp)
         self._server = server
