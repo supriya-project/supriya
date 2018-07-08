@@ -12,6 +12,7 @@ install_requires = [
     'pytest >= 3.0.0',
     'pytest-helpers-namespace',
     'pytest-timeout >= 1.2.0',
+    'pytest-cov',
     'python-rtmidi',
     'sphinx >= 1.5.0',
     'sphinx_rtd_theme >= 0.3.0',
@@ -20,10 +21,6 @@ install_requires = [
     'uqbar >= 0.2.12',
     'wavefile',
     ]
-version = '.'.join(str(x) for x in sys.version_info[:3])
-if StrictVersion(version) < StrictVersion('3.4.0'):
-    install_requires.append('enum34')
-    install_requires.append('pathlib2')
 
 with open('README.rst', 'r') as file_pointer:
     long_description = file_pointer.read()
