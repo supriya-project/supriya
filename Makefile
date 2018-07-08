@@ -12,3 +12,6 @@ clean:
 
 docs:
 	make -C docs html
+
+test:
+	pytest --cov=supriya --cov-report=html --cov-report=term --cov-branch supriya tests

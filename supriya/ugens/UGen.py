@@ -1,5 +1,7 @@
 import abc
 import collections
+import inspect
+import sys
 from supriya.synthdefs.SignalRange import SignalRange
 from supriya.synthdefs.UGenMethodMixin import UGenMethodMixin
 
@@ -350,14 +352,8 @@ class UGen(UGenMethodMixin):
         special_index=0,
         **kwargs
         ):
-        import sys
         import supriya.synthdefs
-        if sys.version_info[0] == 2:
-            import funcsigs
-            get_signature = funcsigs.signature
-        else:
-            import inspect
-            get_signature = inspect.signature
+        get_signature = inspect.signature
         signature = get_signature(cls.__init__)
         input_dicts = UGen._expand_dictionary(
             kwargs, unexpanded_input_names=cls._unexpanded_input_names)
