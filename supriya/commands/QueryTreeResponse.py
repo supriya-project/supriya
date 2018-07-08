@@ -17,11 +17,8 @@ class QueryTreeResponse(Response):
         node_id=None,
         osc_message=None,
         query_tree_group=None,
-        ):
-        Response.__init__(
-            self,
-            osc_message=osc_message,
-            )
+    ):
+        Response.__init__(self, osc_message=osc_message)
         self._node_id = node_id
         self._query_tree_group = query_tree_group
 
@@ -31,6 +28,94 @@ class QueryTreeResponse(Response):
         return str(self._query_tree_group)
 
     ### PUBLIC METHODS ###
+
+    @classmethod
+    def from_osc_message(cls, osc_message):
+        """
+        Create response from OSC message.
+
+        ::
+
+            >>> message = supriya.osc.OscMessage('/g_queryTree.reply', 0, 0, 1, 1, 2, 1001, 0, 1000, 1, 1002, 0)
+            >>> supriya.commands.QueryTreeResponse.from_osc_message(message)
+            QueryTreeResponse(
+                node_id=0,
+                query_tree_group=QueryTreeGroup(
+                    children=(
+                        QueryTreeGroup(
+                            children=(
+                                QueryTreeGroup(
+                                    children=(),
+                                    node_id=1001,
+                                    ),
+                                QueryTreeGroup(
+                                    children=(
+                                        QueryTreeGroup(
+                                            children=(),
+                                            node_id=1002,
+                                            ),
+                                        ),
+                                    node_id=1000,
+                                    ),
+                                ),
+                            node_id=1,
+                            ),
+                        ),
+                    node_id=0,
+                    ),
+                )
+
+        ::
+
+            >>> print(supriya.commands.QueryTreeResponse.from_osc_message(message))
+            NODE TREE 0 group
+                1 group
+                    1001 group
+                    1000 group
+                        1002 group
+
+        """
+        def recurse(contents, control_flag):
+            node_id = contents.pop(0)
+            child_count = contents.pop(0)
+            if child_count == -1:
+                controls = []
+                synthdef_name = contents.pop(0)
+                if control_flag:
+                    control_count = contents.pop(0)
+                    for i in range(control_count):
+                        control_name_or_index = contents.pop(0)
+                        control_value = contents.pop(0)
+                        control = supriya.commands.QueryTreeControl(
+                            control_name_or_index=control_name_or_index,
+                            control_value=control_value,
+                            )
+                        controls.append(control)
+                controls = tuple(controls)
+                result = supriya.commands.QueryTreeSynth(
+                    node_id=node_id,
+                    synthdef_name=synthdef_name,
+                    controls=controls,
+                    )
+            else:
+                children = []
+                for i in range(child_count):
+                    children.append(recurse(contents, control_flag))
+                children = tuple(children)
+                result = supriya.commands.QueryTreeGroup(
+                    node_id=node_id,
+                    children=children,
+                    )
+            return result
+        import supriya.commands
+        contents = list(osc_message.contents)
+        control_flag = bool(contents.pop(0))
+        query_tree_group = recurse(contents, control_flag)
+        response = cls(
+            node_id=query_tree_group.node_id,
+            query_tree_group=query_tree_group,
+            )
+        return response
 
     def to_dict(self, flat=False):
         """

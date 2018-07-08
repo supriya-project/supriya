@@ -18,7 +18,7 @@ class BufferSetResponse(Response, collections.Sequence):
         buffer_id=None,
         items=None,
         osc_message=None,
-        ):
+    ):
         Response.__init__(
             self,
             osc_message=osc_message,
@@ -41,6 +41,21 @@ class BufferSetResponse(Response, collections.Sequence):
         for item in self:
             result[item.sample_index] = item.sample_value
         return result
+
+    @classmethod
+    def from_osc_message(cls, osc_message):
+        import supriya.commands
+        buffer_id, remainder = osc_message.contents[0], osc_message.contents[1:]
+        items = []
+        for group in cls._group_items(remainder, 2):
+            item = supriya.commands.BufferSetItem(*group)
+            items.append(item)
+        items = tuple(items)
+        response = cls(
+            buffer_id=buffer_id,
+            items=items,
+            )
+        return response
 
     ### PUBLIC PROPERTIES ###
 

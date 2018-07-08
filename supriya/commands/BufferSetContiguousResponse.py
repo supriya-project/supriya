@@ -13,16 +13,8 @@ class BufferSetContiguousResponse(Response, collections.Sequence):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        items=None,
-        buffer_id=None,
-        osc_message=None,
-        ):
-        Response.__init__(
-            self,
-            osc_message=osc_message,
-            )
+    def __init__(self, items=None, buffer_id=None, osc_message=None):
+        Response.__init__(self, osc_message=osc_message)
         self._buffer_id = buffer_id
         self._items = items
 
@@ -41,6 +33,46 @@ class BufferSetContiguousResponse(Response, collections.Sequence):
         for item in self:
             result[item.starting_sample_index] = item.sample_values
         return result
+
+    @classmethod
+    def from_osc_message(cls, osc_message):
+        """
+        Create response from OSC message.
+
+        ::
+
+            >>> message = supriya.osc.OscMessage('/b_setn', 1, 0, 8, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+            >>> supriya.commands.BufferSetContiguousResponse.from_osc_message(message)
+            BufferSetContiguousResponse(
+                buffer_id=1,
+                items=(
+                    BufferSetContiguousItem(
+                        sample_values=(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+                        starting_sample_index=0,
+                        ),
+                    ),
+                )
+
+        """
+        import supriya.commands
+        buffer_id, remainder = osc_message.contents[0], osc_message.contents[1:]
+        items = []
+        while remainder:
+            starting_sample_index = remainder[0]
+            sample_count = remainder[1]
+            sample_values = tuple(remainder[2:2 + sample_count])
+            item = supriya.commands.BufferSetContiguousItem(
+                starting_sample_index=starting_sample_index,
+                sample_values=sample_values,
+                )
+            items.append(item)
+            remainder = remainder[2 + sample_count:]
+        items = tuple(items)
+        response = cls(
+            buffer_id=buffer_id,
+            items=items,
+            )
+        return response
 
     ### PUBLIC PROPERTIES ###
 

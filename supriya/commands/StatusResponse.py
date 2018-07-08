@@ -29,7 +29,7 @@ class StatusResponse(Response):
         synthdef_count=None,
         target_sample_rate=None,
         ugen_count=None,
-        ):
+    ):
         Response.__init__(
             self,
             osc_message=osc_message,
@@ -44,6 +44,54 @@ class StatusResponse(Response):
         self._ugen_count = ugen_count
 
     ### PUBLIC METHODS ###
+
+    @classmethod
+    def from_osc_message(cls, osc_message):
+        """
+        Create response from OSC message.
+
+        ::
+
+            >>> message = supriya.osc.OscMessage(
+            ...     '/status.reply', 1, 0, 0, 2, 4,
+            ...     0.040679048746824265, 0.15118031203746796,
+            ...     44100.0, 44100.00077873274,
+            ...     )
+            >>> supriya.commands.StatusResponse.from_osc_message(message)
+            StatusResponse(
+                actual_sample_rate=44100.00077873274,
+                average_cpu_usage=0.040679048746824265,
+                group_count=2,
+                peak_cpu_usage=0.15118031203746796,
+                synth_count=0,
+                synthdef_count=4,
+                target_sample_rate=44100.0,
+                ugen_count=0,
+                )
+
+        """
+        arguments = osc_message.contents[1:]
+        (
+            ugen_count,
+            synth_count,
+            group_count,
+            synthdef_count,
+            average_cpu_usage,
+            peak_cpu_usage,
+            target_sample_rate,
+            actual_sample_rate,
+            ) = arguments
+        response = cls(
+            actual_sample_rate=actual_sample_rate,
+            average_cpu_usage=average_cpu_usage,
+            group_count=group_count,
+            peak_cpu_usage=peak_cpu_usage,
+            synth_count=synth_count,
+            synthdef_count=synthdef_count,
+            target_sample_rate=target_sample_rate,
+            ugen_count=ugen_count,
+            )
+        return response
 
     def to_dict(self):
         """
