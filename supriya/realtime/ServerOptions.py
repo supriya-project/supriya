@@ -74,7 +74,7 @@ class ServerOptions(SupriyaObject):
         verbosity=0,
         wire_buffer_count=64,
         zero_configuration=False,
-        ):
+    ):
         if os.environ.get('TRAVIS', None):
             input_device = 'dummy'
             output_device = 'dummy'

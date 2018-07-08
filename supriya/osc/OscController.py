@@ -1,4 +1,3 @@
-import queue
 import socket
 import time
 from supriya.system.SupriyaObject import SupriyaObject
@@ -14,26 +13,11 @@ class OscController(SupriyaObject):
     __slots__ = (
         '_debug_osc',
         '_debug_udp',
-        '_incoming_message_queue',
         '_listener',
         '_server',
         '_socket_instance',
         '_timeout',
         )
-
-    class CleanableQueue(queue.Queue):
-
-        def __init__(self, maximum_length=0):
-            queue.Queue.__init__(self)
-            self._maximum_length = int(maximum_length)
-
-        def clean(self):
-            while not self.empty() and self.maximum_length < self.qsize():
-                self.get()
-
-        @property
-        def maximum_length(self):
-            return self._maximum_length
 
     ### INITIALIZER ###
 
