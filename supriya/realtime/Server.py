@@ -51,8 +51,8 @@ class Server(SupriyaObject):
         '_meters',
         '_node_id_allocator',
         '_nodes',
-        '_osc_controller',
         '_osc_dispatcher',
+        '_osc_io',
         '_port',
         '_recorder',
         '_response_dispatcher',
@@ -76,7 +76,7 @@ class Server(SupriyaObject):
         ip_address='127.0.0.1',
         port=57751,
         **kwargs
-        ):
+    ):
         key = (ip_address, port)
         if key not in cls._servers:
             instance = object.__new__(cls)
@@ -94,7 +94,7 @@ class Server(SupriyaObject):
         self,
         ip_address='127.0.0.1',
         port=57751,
-        ):
+    ):
         import supriya.osc
         import supriya.commands
         import supriya.realtime
@@ -112,13 +112,16 @@ class Server(SupriyaObject):
         self._latency = 0.1
         self._response_dispatcher = supriya.commands.ResponseDispatcher()
         self._osc_dispatcher = supriya.osc.OscDispatcher()
-        self._osc_controller = supriya.osc.OscController(server=self)
+        self._osc_io = supriya.osc.OscIO(
+            osc_dispatcher=self._osc_dispatcher,
+            response_dispatcher=self._response_dispatcher,
+        )
         for callback in (
             supriya.commands.BufferResponseCallback(self),
             supriya.commands.ControlBusResponseCallback(self),
             supriya.commands.NodeResponseCallback(self),
             supriya.commands.SynthDefResponseCallback(self),
-            ):
+        ):
             self.register_response_callback(callback)
 
         fail_callback = supriya.osc.OscCallback(
@@ -387,14 +390,17 @@ class Server(SupriyaObject):
         self,
         server_options=None,
         **kwargs
-        ):
+    ):
         import supriya.realtime
         if self.is_running:
             return self
         scsynth_path = 'scsynth'
         if not uqbar.io.find_executable(scsynth_path):
             raise RuntimeError('Cannot find scsynth')
-        self._osc_controller.boot()
+        self._osc_io.boot(
+            ip_address=self.ip_address,
+            port=self.port,
+        )
         server_options = server_options or supriya.realtime.ServerOptions()
         assert isinstance(server_options, supriya.realtime.ServerOptions)
         if kwargs:
@@ -415,8 +421,10 @@ class Server(SupriyaObject):
             if line.startswith('SuperCollider 3 server ready'):
                 break
             elif line.startswith('Exception in World_OpenUDP: bind: Address already in use'):
+                self._osc_io.quit()
                 raise Exception(line)
             elif (time.time() - start_time) > 1:
+                self._osc_io.quit()
                 raise Exception('Timeout')
         self._is_running = True
         self._server_options = server_options
@@ -582,7 +590,7 @@ class Server(SupriyaObject):
         self._is_running = False
         if not self._server_process.terminate():
             self._server_process.wait()
-        self._osc_controller.quit()
+        self._osc_io.quit()
         self._teardown()
         PubSub.notify('server-quit')
         return self
@@ -596,7 +604,7 @@ class Server(SupriyaObject):
     def send_message(self, message):
         if not message or not self.is_running:
             return
-        self._osc_controller.send(message)
+        self._osc_io.send(message)
 
     def sync(self, sync_id=None):
         import supriya.commands
@@ -643,7 +651,7 @@ class Server(SupriyaObject):
     @debug_osc.setter
     def debug_osc(self, expr):
         self._debug_osc = bool(expr)
-        self._osc_controller.debug_osc = self.debug_osc
+        self._osc_io.debug_osc = self.debug_osc
 
     @property
     def debug_subprocess(self):
@@ -660,7 +668,7 @@ class Server(SupriyaObject):
     @debug_udp.setter
     def debug_udp(self, expr):
         self._debug_udp = bool(expr)
-        self._osc_controller.debug_udp = self.debug_udp
+        self._osc_io.debug_udp = self.debug_udp
 
     @property
     def default_group(self):

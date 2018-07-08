@@ -18,7 +18,7 @@ class ResponseCallback(SupriyaObject):
         procedure=None,
         prototype=None,
         is_one_shot=False,
-        ):
+    ):
         #import supriya.commands
         assert callable(procedure)
         if prototype is not None:
