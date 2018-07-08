@@ -13,11 +13,16 @@ class Response(SupriyaValueObject):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        osc_message=None,
-        ):
+    def __init__(self, osc_message=None):
         self._osc_message = osc_message
+
+    ### PRIVATE METHODS ###
+
+    @staticmethod
+    def _group_items(items, length):
+        iterators = [iter(items)] * length
+        iterator = zip(*iterators)
+        return iterator
 
     ### PUBLIC METHODS ###
 

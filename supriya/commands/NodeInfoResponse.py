@@ -29,7 +29,7 @@ class NodeInfoResponse(Response):
         head_node_id=None,
         tail_node_id=None,
         osc_message=None,
-        ):
+    ):
         import supriya.commands
         Response.__init__(
             self,
@@ -50,6 +50,14 @@ class NodeInfoResponse(Response):
         if node_id is not None and -1 < node_id:
             return node_id
         return None
+
+    ### PUBLIC METHODS ###
+
+    @classmethod
+    def from_osc_message(cls, osc_message):
+        arguments = (osc_message.address,) + osc_message.contents
+        response = cls(*arguments)
+        return response
 
     ### PUBLIC PROPERTIES ###
 

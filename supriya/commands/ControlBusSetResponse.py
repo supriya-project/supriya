@@ -12,15 +12,8 @@ class ControlBusSetResponse(Response, collections.Sequence):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        items=None,
-        osc_message=None,
-        ):
-        Response.__init__(
-            self,
-            osc_message=osc_message,
-            )
+    def __init__(self, items=None, osc_message=None):
+        Response.__init__(self, osc_message=osc_message)
         self._items = items
 
     ### SPECIAL METHODS ###
@@ -30,6 +23,18 @@ class ControlBusSetResponse(Response, collections.Sequence):
 
     def __len__(self):
         return len(self._items)
+
+    ### PUBLIC METHODS ###
+
+    @classmethod
+    def from_osc_message(cls, osc_message):
+        import supriya.commands
+        items = []
+        for group in cls._group_items(osc_message.contents, 2):
+            item = supriya.commands.ControlBusSetItem(*group)
+            items.append(item)
+        response = cls(items=tuple(items))
+        return response
 
     ### PUBLIC PROPERTIES ###
 
