@@ -241,10 +241,7 @@ class SynthDefDecompiler(SupriyaObject):
         length = struct.unpack('>B', value[index:index + 1])[0]
         index += 1
         result = value[index:index + length]
-        if sys.version_info[0] == 3:
-            result = result.decode('ascii')
-        else:
-            result = str(result)
+        result = result.decode('ascii')
         index += length
         return result, index
 
