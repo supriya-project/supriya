@@ -7,7 +7,7 @@ from supriya.osc.OscMessage import OscMessage
 
 class OscIO:
 
-    class OscServer(socketserver.UDPServer):
+    class OscServer(socketserver.ThreadingMixIn, socketserver.UDPServer):
         pass
 
     class OscHandler(socketserver.BaseRequestHandler):
