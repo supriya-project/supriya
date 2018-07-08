@@ -122,10 +122,7 @@ class ResponseManager(SupriyaObject):
     @staticmethod
     def group_items(items, length):
         iterators = [iter(items)] * length
-        if sys.version_info[0] == 2:
-            iterator = itertools.izip(*iterators)
-        else:
-            iterator = zip(*iterators)
+        iterator = zip(*iterators)
         return iterator
 
     @staticmethod

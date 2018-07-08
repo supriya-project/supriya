@@ -290,9 +290,6 @@ class OscMessage(OscMixin):
         result = payload[payload_offset:payload_offset + offset]
         result = result.replace(b'\x00', b'')
         result = result.decode('utf-8')
-        if sys.version_info[0] == 2:
-            if all(ord(x) < 256 for x in result):
-                result = str(result)
         payload_offset += offset
         return result, payload_offset
 

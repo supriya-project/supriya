@@ -95,13 +95,13 @@ class OscBundle(OscMixin):
         contents=None,
         ):
         import supriya.osc
+        prototype = (supriya.osc.OscMessage, type(self))
         self._timestamp = timestamp
-        if contents is not None:
-            prototype = (supriya.osc.OscMessage, type(self))
-            assert all(isinstance(x, prototype) for x in contents)
-            contents = tuple(contents)
-        else:
-            contents = ()
+        contents = contents or ()
+        for x in contents:
+            if not isinstance(x, prototype):
+                raise ValueError(contents)
+        contents = tuple(contents)
         self._contents = contents
 
     ### PRIVATE METHODS ###
@@ -180,18 +180,6 @@ class OscBundle(OscMixin):
             contents=tuple(contents),
             )
         return osc_bundle
-
-    @staticmethod
-    def bundles_to_nonrealtime_datagram(osc_bundles):
-        datagrams = []
-        for osc_bundle in osc_bundles:
-            datagram = osc_bundle.to_datagram(realtime=False)
-            size = len(datagram)
-            size = struct.pack('>i', size)
-            datagrams.append(size)
-            datagrams.append(datagram)
-        datagram = b''.join(datagrams)
-        return datagram
 
     def to_datagram(self, realtime=True):
         import supriya.osc
