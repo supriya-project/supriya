@@ -40,7 +40,7 @@ class ServerMeters(supriya.system.SupriyaObject):
         channel_count=1,
         command_name='/reply',
         initial_bus=0,
-        ):
+    ):
         import supriya.synthdefs
         import supriya.ugens
         with supriya.synthdefs.SynthDefBuilder() as builder:
@@ -94,16 +94,14 @@ class ServerMeters(supriya.system.SupriyaObject):
     def allocate(self):
         import supriya.osc
         import supriya.realtime
-        self._input_meter_callback = supriya.osc.OscCallback(
-            address_pattern=self.input_meter_command,
+        self._input_meter_callback = self.server.osc_io.register(
+            pattern=self.input_meter_command,
             procedure=self._handle_input_levels,
             )
-        self._output_meter_callback = supriya.osc.OscCallback(
-            address_pattern=self.output_meter_command,
+        self._output_meter_callback = self.server.osc_io.register(
+            pattern=self.output_meter_command,
             procedure=self._handle_output_levels,
             )
-        self.server.register_osc_callback(self._input_meter_callback)
-        self.server.register_osc_callback(self._output_meter_callback)
         input_meter_synthdef = self.input_meter_synthdef
         output_meter_synthdef = self.output_meter_synthdef
         self._input_meter_synth = supriya.realtime.Synth(
@@ -126,8 +124,8 @@ class ServerMeters(supriya.system.SupriyaObject):
 
     @supriya.system.PubSub.unsubscribe_after('server-quitting')
     def free(self):
-        self.server.unregister_osc_callback(self._input_meter_callback)
-        self.server.unregister_osc_callback(self._output_meter_callback)
+        self.server.osc_io.unregister(self._input_meter_callback)
+        self.server.osc_io.unregister(self._output_meter_callback)
         self._input_meter_synth.free()
         self._output_meter_synth.free()
         self._input_meter_callback = None
@@ -144,12 +142,12 @@ class ServerMeters(supriya.system.SupriyaObject):
         for peak, rms in zip(
             self._input_meter_peak_levels,
             self._input_meter_rms_levels,
-            ):
+        ):
             input_meter_levels.append(dict(peak=peak, rms=rms))
         for peak, rms in zip(
             self._output_meter_peak_levels,
             self._output_meter_rms_levels,
-            ):
+        ):
             output_meter_levels.append(dict(peak=peak, rms=rms))
         result = {
             'server_meters': {

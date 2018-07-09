@@ -26,7 +26,6 @@ class Mixer:
         self._server = None
         self._setup_cue_track()
         self._setup_master_track()
-        self._setup_osc_callbacks()
 
     ### SPECIAL METHODS ###
 
@@ -115,19 +114,25 @@ class Mixer:
         self._tracks_by_name['cue'] = track
         self._cue_track = track
 
-    def _setup_osc_callbacks(self):
-        self._input_levels_callback = supriya.osc.OscCallback(
-            address_pattern='/levels/input',
-            procedure=self._handle_input_levels,
-            )
-        self._prefader_levels_callback = supriya.osc.OscCallback(
-            address_pattern='/levels/prefader',
-            procedure=self._handle_prefader_levels,
-            )
-        self._postfader_levels_callback = supriya.osc.OscCallback(
-            address_pattern='/levels/postfader',
-            procedure=self._handle_postfader_levels,
-            )
+    def _allocate_osc_callbacks(self):
+        self._callbacks = [
+            self.server.osc_io.register(
+                pattern='/levels/input',
+                procedure=self._handle_input_levels,
+                ),
+            self.server.osc_io.register(
+                pattern='/levels/prefader',
+                procedure=self._handle_prefader_levels,
+                ),
+            self.server.osc_io.register(
+                pattern='/levels/postfader',
+                procedure=self._handle_postfader_levels,
+                ),
+            ]
+
+    def _free_osc_callbacks(self):
+        for callback in self._callbacks:
+            self.server.osc_io.unregister(callback)
 
     def _update_track_audibility(self):
         soloed_tracks = []
@@ -180,15 +185,11 @@ class Mixer:
             track._allocate_nodes(self._track_group)
         self.server.sync()
         self._update_track_audibility()
-        self.server.register_osc_callback(self._input_levels_callback)
-        self.server.register_osc_callback(self._prefader_levels_callback)
-        self.server.register_osc_callback(self._postfader_levels_callback)
+        self._allocate_osc_callbacks()
         return self
 
     def free(self):
-        self.server.unregister_osc_callback(self._input_levels_callback)
-        self.server.unregister_osc_callback(self._prefader_levels_callback)
-        self.server.unregister_osc_callback(self._postfader_levels_callback)
+        self._free_osc_callbacks()
         self._cue_track._free()
         self._master_track._free()
         for track in self._tracks:
