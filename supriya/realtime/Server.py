@@ -51,7 +51,6 @@ class Server(SupriyaObject):
         '_meters',
         '_node_id_allocator',
         '_nodes',
-        '_osc_dispatcher',
         '_osc_io',
         '_port',
         '_recorder',
@@ -111,9 +110,7 @@ class Server(SupriyaObject):
 
         self._latency = 0.1
         self._response_dispatcher = supriya.commands.ResponseDispatcher()
-        self._osc_dispatcher = supriya.osc.OscDispatcher()
         self._osc_io = supriya.osc.OscIO(
-            osc_dispatcher=self._osc_dispatcher,
             response_dispatcher=self._response_dispatcher,
         )
         for callback in (
@@ -124,11 +121,10 @@ class Server(SupriyaObject):
         ):
             self.register_response_callback(callback)
 
-        fail_callback = supriya.osc.OscCallback(
-            address_pattern='/fail',
+        self._osc_io.register(
+            pattern='/fail',
             procedure=lambda message: print('FAILED:', message),
-            )
-        self.register_osc_callback(fail_callback)
+        )
 
         ### ALLOCATORS ###
 
@@ -595,9 +591,6 @@ class Server(SupriyaObject):
         PubSub.notify('server-quit')
         return self
 
-    def register_osc_callback(self, osc_callback):
-        self._osc_dispatcher.register_callback(osc_callback)
-
     def register_response_callback(self, response_callback):
         self.response_dispatcher.register_callback(response_callback)
 
@@ -615,9 +608,6 @@ class Server(SupriyaObject):
         request = supriya.commands.SyncRequest(sync_id=sync_id)
         request.communicate(server=self)
         return self
-
-    def unregister_osc_callback(self, osc_callback):
-        self._osc_dispatcher.unregister_callback(osc_callback)
 
     def unregister_response_callback(self, response_callback):
         self.response_dispatcher.unregister_callback(response_callback)
@@ -703,6 +693,10 @@ class Server(SupriyaObject):
     @property
     def node_id_allocator(self):
         return self._node_id_allocator
+
+    @property
+    def osc_io(self):
+        return self._osc_io
 
     @property
     def port(self):
