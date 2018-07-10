@@ -62,7 +62,7 @@ class Synth(Node):
         name=None,
         register_controls=None,
         **kwargs
-        ):
+    ):
         import supriya.assets.synthdefs
         import supriya.realtime
         import supriya.synthdefs
@@ -132,7 +132,7 @@ class Synth(Node):
         sync=True,
         target_node=None,
         **kwargs
-        ):
+    ):
         import supriya.commands
         import supriya.realtime
         if self.is_allocated:

@@ -24,10 +24,7 @@ class ServerObjectProxy(SupriyaObject):
     ### PUBLIC METHODS ###
 
     @abc.abstractmethod
-    def allocate(
-        self,
-        server=None,
-        ):
+    def allocate(self, server=None):
         import supriya.realtime
         assert self.server is None, (self, self.server)
         server = server or supriya.realtime.Server.get_default_server()

@@ -78,7 +78,7 @@ class Group(Node, UniqueTreeContainer):
             i.start is not None and
             i.stop is not None and
             i.start <= -len(self)
-            ):
+        ):
             start, stop = 0, 0
         else:
             start, stop, stride = i.indices(len(self))
@@ -140,10 +140,13 @@ class Group(Node, UniqueTreeContainer):
             outer_node_was_allocated = outer_node.is_allocated
             yield outer_node, outer_target_node, outer_add_action
             outer_target_node = outer_node
-            if isinstance(outer_node, supriya.realtime.Group) and \
-                not outer_node_was_allocated:
-                for inner_node, inner_target_node, inner_add_action in \
-                    Group._iterate_setitem_expr(outer_node, outer_node):
+            if (
+                isinstance(outer_node, supriya.realtime.Group) and
+                not outer_node_was_allocated
+            ):
+                for inner_node, inner_target_node, inner_add_action in (
+                    Group._iterate_setitem_expr(outer_node, outer_node)
+                ):
                     yield inner_node, inner_target_node, inner_add_action
 
     @staticmethod
@@ -288,7 +291,7 @@ class Group(Node, UniqueTreeContainer):
         node_id_is_permanent=False,
         sync=False,
         target_node=None,
-        ):
+    ):
         # TODO: Handle AddAction.REPLACE un-allocation of target node
         import supriya.commands
         import supriya.realtime

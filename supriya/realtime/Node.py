@@ -155,9 +155,7 @@ class Node(ServerObjectProxy, UniqueTreeNode):
                     )
         self._node_id = None
         self._node_id_is_permanent = None
-        ServerObjectProxy.free(
-            self,
-            )
+        ServerObjectProxy.free(self)
         return node_id
 
     ### PUBLIC METHODS ###
