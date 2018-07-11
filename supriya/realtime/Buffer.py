@@ -50,7 +50,7 @@ class Buffer(ServerObjectProxy):
     def __init__(
         self,
         buffer_group_or_index=None,
-        ):
+    ):
         import supriya.realtime
         ServerObjectProxy.__init__(self)
         buffer_group = None
@@ -219,7 +219,7 @@ class Buffer(ServerObjectProxy):
         file_path=None,
         channel_indices=None,
         starting_frame=None,
-        ):
+    ):
         import supriya.commands
         on_done = supriya.commands.BufferQueryRequest(
             buffer_ids=(self.buffer_id,),
@@ -283,7 +283,7 @@ class Buffer(ServerObjectProxy):
         frame_count=1,
         server=None,
         sync=True,
-        ):
+    ):
         """
         Allocates buffer on `server`.
 
@@ -293,10 +293,14 @@ class Buffer(ServerObjectProxy):
             >>> buffer_one = supriya.realtime.Buffer().allocate()
             >>> buffer_one.query()
             BufferInfoResponse(
-                buffer_id=0,
-                channel_count=1,
-                frame_count=1,
-                sample_rate=44100.0,
+                items=(
+                    BufferInfoItem(
+                        buffer_id=0,
+                        channel_count=1,
+                        frame_count=1,
+                        sample_rate=44100.0,
+                        ),
+                    ),
                 )
 
         ::
@@ -306,10 +310,14 @@ class Buffer(ServerObjectProxy):
             ...     )
             >>> buffer_two.query()
             BufferInfoResponse(
-                buffer_id=1,
-                channel_count=1,
-                frame_count=16,
-                sample_rate=44100.0,
+                items=(
+                    BufferInfoItem(
+                        buffer_id=1,
+                        channel_count=1,
+                        frame_count=16,
+                        sample_rate=44100.0,
+                        ),
+                    ),
                 )
 
         ::
@@ -320,10 +328,14 @@ class Buffer(ServerObjectProxy):
             ...     )
             >>> buffer_three.query()
             BufferInfoResponse(
-                buffer_id=2,
-                channel_count=2,
-                frame_count=32,
-                sample_rate=44100.0,
+                items=(
+                    BufferInfoItem(
+                        buffer_id=2,
+                        channel_count=2,
+                        frame_count=32,
+                        sample_rate=44100.0,
+                        ),
+                    ),
                 )
 
         ::
@@ -357,7 +369,7 @@ class Buffer(ServerObjectProxy):
                 server=self.server,
                 sync=sync,
                 )
-        except:
+        except Exception:
             self.free()
         return self
 
@@ -370,7 +382,7 @@ class Buffer(ServerObjectProxy):
         server=None,
         starting_frame=None,
         sync=True,
-        ):
+    ):
         """
         Allocates buffer on `server` with contents read from `file_path`.
 
@@ -382,10 +394,14 @@ class Buffer(ServerObjectProxy):
             ...     )
             >>> buffer_one.query()
             BufferInfoResponse(
-                buffer_id=0,
-                channel_count=8,
-                frame_count=8,
-                sample_rate=44100.0,
+                items=(
+                    BufferInfoItem(
+                        buffer_id=0,
+                        channel_count=8,
+                        frame_count=8,
+                        sample_rate=44100.0,
+                        ),
+                    ),
                 )
 
         ::
@@ -399,10 +415,14 @@ class Buffer(ServerObjectProxy):
             ...     )
             >>> buffer_two.query()
             BufferInfoResponse(
-                buffer_id=1,
-                channel_count=2,
-                frame_count=4,
-                sample_rate=44100.0,
+                items=(
+                    BufferInfoItem(
+                        buffer_id=1,
+                        channel_count=2,
+                        frame_count=4,
+                        sample_rate=44100.0,
+                        ),
+                    ),
                 )
 
         ::
@@ -443,14 +463,14 @@ class Buffer(ServerObjectProxy):
                 server=self.server,
                 sync=sync,
                 )
-        except:
+        except Exception:
             ServerObjectProxy.allocate(self, server=server)
         return self
 
     def close(
         self,
         sync=True,
-        ):
+    ):
         """
         Closes buffer, if it was open during a read or write process by
         the DiskIn or DiskOut UGens.
@@ -489,7 +509,7 @@ class Buffer(ServerObjectProxy):
         target_buffer_id=None,
         target_starting_frame=None,
         sync=True,
-        ):
+    ):
         """
         Copies data in this buffer into another buffer.
 
@@ -532,7 +552,7 @@ class Buffer(ServerObjectProxy):
         source_starting_frame=None,
         target_starting_frame=None,
         sync=True,
-        ):
+    ):
         """
         Copies data from another buffer into this buffer.
 
@@ -575,7 +595,7 @@ class Buffer(ServerObjectProxy):
     def fill(
         self,
         index_count_value_triples=None,
-        ):
+    ):
         """
         Fills contiguous blocks of samples with values.
 
@@ -634,7 +654,7 @@ class Buffer(ServerObjectProxy):
         should_normalize=True,
         should_clear_first=True,
         sync=True,
-        ):
+    ):
         """
         Fills buffer with Chebyshev polynomial.
 
@@ -689,7 +709,7 @@ class Buffer(ServerObjectProxy):
         should_clear_first=True,
         should_normalize=True,
         sync=True,
-        ):
+    ):
         """
         Fills buffer with sum of sinusoids via `/b_gen sine1`.
 
@@ -745,7 +765,7 @@ class Buffer(ServerObjectProxy):
         should_clear_first=True,
         should_normalize=True,
         sync=True,
-        ):
+    ):
         """
         Fills buffer with sum of sinusoids via `/b_gen sine2`.
 
@@ -804,7 +824,7 @@ class Buffer(ServerObjectProxy):
         should_clear_first=True,
         should_normalize=True,
         sync=True,
-        ):
+    ):
         """
         Fills buffer with sum of sinusoids via `/b_gen sine3`.
 
@@ -859,7 +879,7 @@ class Buffer(ServerObjectProxy):
     def get(
         self,
         indices=None,
-        ):
+    ):
         """
         Gets sample values at `indices`.
 
@@ -882,7 +902,6 @@ class Buffer(ServerObjectProxy):
         Returns buffer-set response.
         """
         import supriya.commands
-        import supriya.commands
         if not self.is_allocated:
             raise Exception
         if isinstance(indices, int):
@@ -899,7 +918,7 @@ class Buffer(ServerObjectProxy):
     def get_contiguous(
         self,
         index_count_pairs=None,
-        ):
+    ):
         """
         Gets contiguous sample values.
 
@@ -924,7 +943,6 @@ class Buffer(ServerObjectProxy):
         Returns buffer-set-contiguous response.
         """
         import supriya.commands
-        import supriya.commands
         if not self.is_allocated:
             raise Exception
         request = supriya.commands.BufferGetContiguousRequest(
@@ -940,7 +958,7 @@ class Buffer(ServerObjectProxy):
         self,
         frame_ids=None,
         completion_callback=None,
-        ):
+    ):
         """
         Gets frames at `frame_ids`.
 
@@ -987,13 +1005,13 @@ class Buffer(ServerObjectProxy):
         loop=False,
         rate=1,
         target_node=None,
-        ):
+    ):
         import supriya.synthdefs
         import supriya.ugens
         with supriya.synthdefs.SynthDefBuilder(
             level=1,
             rate=1,
-            ) as builder:
+        ) as builder:
             player = supriya.ugens.PlayBuf.ar(
                 buffer_id=self.buffer_id,
                 channel_count=self.channel_count,
@@ -1025,10 +1043,14 @@ class Buffer(ServerObjectProxy):
             ...     )
             >>> buffer_.query()
             BufferInfoResponse(
-                buffer_id=0,
-                channel_count=2,
-                frame_count=16,
-                sample_rate=44100.0,
+                items=(
+                    BufferInfoItem(
+                        buffer_id=0,
+                        channel_count=2,
+                        frame_count=16,
+                        sample_rate=44100.0,
+                        ),
+                    ),
                 )
 
         ::
@@ -1059,7 +1081,7 @@ class Buffer(ServerObjectProxy):
         starting_frame_in_buffer=None,
         starting_frame_in_file=None,
         sync=True,
-        ):
+    ):
         """
         Reads contents of `file_path` into buffer.
 
@@ -1146,7 +1168,7 @@ class Buffer(ServerObjectProxy):
         self,
         index_value_pairs=None,
         sync=False,
-        ):
+    ):
         """
         Sets samples.
 
@@ -1190,7 +1212,7 @@ class Buffer(ServerObjectProxy):
         self,
         index_values_pairs=None,
         sync=False,
-        ):
+    ):
         """
         Sets contiguous blocks of samples.
 
@@ -1238,7 +1260,7 @@ class Buffer(ServerObjectProxy):
         sample_format='int24',
         starting_frame=None,
         sync=True,
-        ):
+    ):
         """
         Writes buffer to disk.
 
@@ -1303,7 +1325,7 @@ class Buffer(ServerObjectProxy):
         self,
         completion_message=None,
         sync=True,
-        ):
+    ):
         """
         Zero all samples in buffer.
 

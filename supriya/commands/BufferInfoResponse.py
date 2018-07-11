@@ -60,3 +60,13 @@ class BufferInfoResponse(Response):
             item = supriya.commands.BufferInfoItem(*group)
             items.append(item)
         return cls(items=items)
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def buffer_id(self):
+        return self[0].buffer_id
+
+    @property
+    def items(self):
+        return self._items

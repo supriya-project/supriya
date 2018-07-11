@@ -267,10 +267,12 @@ class Server(SupriyaObject):
         return control_bus_proxy
 
     def _handle_buffer_response(self, response):
-        print('RESP?', response)
-        buffer_id = response.buffer_id
-        buffer_proxy = self._get_buffer_proxy(buffer_id)
-        buffer_proxy._handle_response(response)
+        from supriya.commands import BufferInfoResponse
+        if isinstance(response, BufferInfoResponse):
+            for item in response.items:
+                buffer_proxy = self._get_buffer_proxy(item.buffer_id)
+                if buffer_proxy:
+                    buffer_proxy._handle_response(item)
 
     def _handle_control_bus_response(self, response):
         from supriya.commands import (
@@ -291,18 +293,22 @@ class Server(SupriyaObject):
                     bus_proxy._value = value
 
     def _handle_node_response(self, response):
-        node_id = response.node_id
-        node = self._nodes.get(node_id)
-        if node is None:
-            return
-        node._handle_response(response)
+        from supriya.commands import NodeInfoResponse
+        if isinstance(response, NodeInfoResponse):
+            node_id = response.node_id
+            node = self._nodes.get(node_id)
+            if node is None:
+                return
+            node._handle_response(response)
 
     def _handle_synthdef_response(self, response):
-        synthdef_name = response.synthdef_name
-        synthdef = self._synthdefs.get(synthdef_name)
-        if synthdef is None:
-            return
-        synthdef._handle_response(response)
+        from supriya.commands import SynthDefRemovedResponse
+        if isinstance(response, SynthDefRemovedResponse):
+            synthdef_name = response.synthdef_name
+            synthdef = self._synthdefs.get(synthdef_name)
+            if synthdef is None:
+                return
+            synthdef._handle_response(response)
 
     def _setup(self):
         self._setup_notifications()
