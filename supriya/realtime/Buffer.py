@@ -294,12 +294,7 @@ class Buffer(ServerObjectProxy):
             >>> buffer_one.query()
             BufferInfoResponse(
                 items=(
-                    BufferInfoItem(
-                        buffer_id=0,
-                        channel_count=1,
-                        frame_count=1,
-                        sample_rate=44100.0,
-                        ),
+                    Item(buffer_id=0, frame_count=1, channel_count=1, sample_rate=44100.0),
                     ),
                 )
 
@@ -311,12 +306,7 @@ class Buffer(ServerObjectProxy):
             >>> buffer_two.query()
             BufferInfoResponse(
                 items=(
-                    BufferInfoItem(
-                        buffer_id=1,
-                        channel_count=1,
-                        frame_count=16,
-                        sample_rate=44100.0,
-                        ),
+                    Item(buffer_id=1, frame_count=16, channel_count=1, sample_rate=44100.0),
                     ),
                 )
 
@@ -329,12 +319,7 @@ class Buffer(ServerObjectProxy):
             >>> buffer_three.query()
             BufferInfoResponse(
                 items=(
-                    BufferInfoItem(
-                        buffer_id=2,
-                        channel_count=2,
-                        frame_count=32,
-                        sample_rate=44100.0,
-                        ),
+                    Item(buffer_id=2, frame_count=32, channel_count=2, sample_rate=44100.0),
                     ),
                 )
 
@@ -395,12 +380,7 @@ class Buffer(ServerObjectProxy):
             >>> buffer_one.query()
             BufferInfoResponse(
                 items=(
-                    BufferInfoItem(
-                        buffer_id=0,
-                        channel_count=8,
-                        frame_count=8,
-                        sample_rate=44100.0,
-                        ),
+                    Item(buffer_id=0, frame_count=8, channel_count=8, sample_rate=44100.0),
                     ),
                 )
 
@@ -416,12 +396,7 @@ class Buffer(ServerObjectProxy):
             >>> buffer_two.query()
             BufferInfoResponse(
                 items=(
-                    BufferInfoItem(
-                        buffer_id=1,
-                        channel_count=2,
-                        frame_count=4,
-                        sample_rate=44100.0,
-                        ),
+                    Item(buffer_id=1, frame_count=4, channel_count=2, sample_rate=44100.0),
                     ),
                 )
 
@@ -1044,12 +1019,7 @@ class Buffer(ServerObjectProxy):
             >>> buffer_.query()
             BufferInfoResponse(
                 items=(
-                    BufferInfoItem(
-                        buffer_id=0,
-                        channel_count=2,
-                        frame_count=16,
-                        sample_rate=44100.0,
-                        ),
+                    Item(buffer_id=0, frame_count=16, channel_count=2, sample_rate=44100.0),
                     ),
                 )
 
