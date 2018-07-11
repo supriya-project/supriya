@@ -136,7 +136,7 @@ class BufferProxy(SupriyaValueObject):
 
         ::
 
-            >>> response = supriya.commands.BufferInfoResponse(
+            >>> response_item = supriya.commands.BufferInfoItem(
             ...     buffer_id=23,
             ...     channel_count=2,
             ...     frame_count=512,
@@ -145,7 +145,7 @@ class BufferProxy(SupriyaValueObject):
 
         ::
 
-            >>> a_buffer._handle_response(response)
+            >>> a_buffer._handle_response(response_item)
             >>> a_buffer
             BufferProxy(
                 buffer_id=23,
@@ -158,8 +158,8 @@ class BufferProxy(SupriyaValueObject):
         Returns none.
         """
         import supriya.commands
-        assert response.buffer_id == self.buffer_id
-        if isinstance(response, supriya.commands.BufferInfoResponse):
+        if isinstance(response, supriya.commands.BufferInfoItem):
+            assert response.buffer_id == self.buffer_id
             self._channel_count = response.channel_count
             self._frame_count = response.frame_count
             self._sample_rate = response.sample_rate
