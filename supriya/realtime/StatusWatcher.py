@@ -12,7 +12,7 @@ class StatusWatcher(threading.Thread):
     __slots__ = (
         '_active',
         '_attempts',
-        '_response_callback',
+        '_callback',
         '_server',
         )
 
@@ -21,16 +21,10 @@ class StatusWatcher(threading.Thread):
     ### INITIALIZER ###
 
     def __init__(self, server):
-        import supriya.commands
         threading.Thread.__init__(self)
         self._attempts = 0
         self._server = server
-        self._response_callback = supriya.commands.ResponseCallback(
-            procedure=lambda message: self.__call__(message),
-            prototype=(
-                supriya.commands.StatusResponse,
-                ),
-            )
+        self._callback = None
         self.active = True
         self.daemon = True
 
@@ -52,7 +46,11 @@ class StatusWatcher(threading.Thread):
 
     def run(self):
         import supriya.commands
-        self.server.register_response_callback(self.response_callback)
+        self._callback = self.server.osc_io.register(
+            pattern='/status.reply',
+            procedure=self.__call__,
+            parse_response=True,
+        )
         request = supriya.commands.StatusRequest()
         message = request.to_osc_message()
         while self._active:
@@ -62,7 +60,7 @@ class StatusWatcher(threading.Thread):
             self.server.send_message(message)
             self._attempts += 1
             time.sleep(0.1)
-        self.server.unregister_response_callback(self.response_callback)
+        self.server.osc_io.unregister(self.callback)
 
     ### PUBLIC PROPERTIES ###
 
@@ -79,8 +77,8 @@ class StatusWatcher(threading.Thread):
         return self._attempts
 
     @property
-    def response_callback(self):
-        return self._response_callback
+    def callback(self):
+        return self._callback
 
     @property
     def server(self):

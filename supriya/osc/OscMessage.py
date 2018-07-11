@@ -1,6 +1,5 @@
 import collections
 import struct
-import sys
 from supriya.osc import format_datagram
 from supriya.system.SupriyaValueObject import SupriyaValueObject
 
@@ -33,11 +32,7 @@ class OscMessage(SupriyaValueObject):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        address,
-        *contents
-    ):
+    def __init__(self, address, *contents):
         def recurse(sequence):
             sequence = list(sequence)
             for i, x in enumerate(sequence):
