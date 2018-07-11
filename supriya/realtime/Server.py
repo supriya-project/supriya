@@ -681,9 +681,6 @@ class Server(SupriyaObject):
         request.communicate(server=self)
         return self
 
-    def unregister_response_callback(self, response_callback):
-        self.response_dispatcher.unregister_callback(response_callback)
-
     ### PUBLIC PROPERTIES ###
 
     @property

@@ -50,8 +50,4 @@ class ResponseDispatcher(Dispatcher):
     @property
     def callback_class(self):
         import supriya.commands
-        prototype = (
-            supriya.commands.RequestCallback,
-            supriya.commands.ResponseCallback,
-            )
-        return prototype
+        return supriya.commands.RequestCallback
