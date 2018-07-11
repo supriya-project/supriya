@@ -32,12 +32,10 @@ class OscIO:
                         handler = self.server.io_instance.response_handlers[
                             message.address]
                         response = handler.from_osc_message(message)
-                    args = (response,)
+                    args = response
                 else:
-                    args = (message,)
-                thread = threading.Thread(target=callback.procedure, args=args)
-                thread.daemon = True
-                thread.start()
+                    args = message
+                callback.procedure(args)
 
     class OscCallback(typing.NamedTuple):
         pattern: typing.Tuple[typing.Union[str, int, float], ...]
