@@ -30,9 +30,7 @@ class BufferResponseCallback(ResponseCallback):
     ### SPECIAL METHODS ###
 
     def __call__(self, response):
-        buffer_id = response.buffer_id
-        buffer_proxy = self._server._get_buffer_proxy(buffer_id)
-        buffer_proxy._handle_response(response)
+        self.server._handle_buffer_response(response)
 
     ### PUBLIC PROPERTIES ###
 

@@ -138,15 +138,15 @@ class OscIO:
             >>> for callback in io.match(supriya.osc.OscMessage('/synced', 1)):
             ...     callback
             ...
-            OscCallback(pattern=('/synced',), procedure=<function <lambda> at 0x...>, once=False)
-            OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, once=False)
+            OscCallback(pattern=('/synced',), procedure=<function <lambda> at 0x...>, once=False, parse_response=False)
+            OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, once=False, parse_response=False)
 
         ::
 
             >>> for callback in io.match(supriya.osc.OscMessage('/synced', 2)):
             ...     callback
             ...
-            OscCallback(pattern=('/synced',), procedure=<function <lambda> at 0x...>, once=False)
+            OscCallback(pattern=('/synced',), procedure=<function <lambda> at 0x...>, once=False, parse_response=False)
 
         ::
 
@@ -195,7 +195,7 @@ class OscIO:
             >>> import pprint
             >>> pprint.pprint(io.callbacks)
             {'/synced': ([],
-                         {1: ([OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, once=False)],
+                         {1: ([OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, once=False, parse_response=False)],
                               {})})}
 
         """
@@ -257,8 +257,8 @@ class OscIO:
 
             >>> import pprint
             >>> pprint.pprint(io.callbacks)
-            {'/synced': ([OscCallback(pattern=('/synced',), procedure=<function <lambda> at 0x...>, once=False)],
-                         {1: ([OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, once=False)],
+            {'/synced': ([OscCallback(pattern=('/synced',), procedure=<function <lambda> at 0x...>, once=False, parse_response=False)],
+                         {1: ([OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, once=False, parse_response=False)],
                               {})})}
 
         ::
@@ -266,7 +266,7 @@ class OscIO:
             >>> io.unregister(other_callback)
             >>> pprint.pprint(io.callbacks)
             {'/synced': ([],
-                         {1: ([OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, once=False)],
+                         {1: ([OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, once=False, parse_response=False)],
                               {})})}
 
         ::
