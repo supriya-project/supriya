@@ -24,7 +24,7 @@ class RequestCallback(SupriyaObject):
     ### SPECIAL METHODS ###
 
     def __call__(self, response):
-        self.request.response = response
+        self.request._set_response(response)
 
     ### PUBLIC METHODS ###
 

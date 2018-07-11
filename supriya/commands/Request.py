@@ -42,6 +42,11 @@ class Request(SupriyaValueObject):
             completion_message = bytearray(completion_message)
             contents.append(completion_message)
 
+    def _set_response(self, response):
+        with self.condition:
+            self._response = response
+            self.condition.notify()
+
     ### PUBLIC METHODS ###
 
     def communicate(
@@ -120,4 +125,8 @@ class Request(SupriyaValueObject):
 
     @property
     def response_specification(self):
+        return None
+
+    @property
+    def response_patterns(self):
         return None

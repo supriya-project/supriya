@@ -1,3 +1,4 @@
+from typing import NamedTuple
 from supriya.commands.Response import Response
 
 
@@ -11,6 +12,12 @@ class BufferInfoResponse(Response):
         '_frame_count',
         '_sample_rate',
         )
+
+    class Item(NamedTuple):
+        buffer_id: int
+        frame_count: int
+        channel_count: int
+        sample_rate: int
 
     ### INITIALIZER ###
 
@@ -43,21 +50,15 @@ class BufferInfoResponse(Response):
             >>> supriya.commands.BufferInfoResponse.from_osc_message(message)
             BufferInfoResponse(
                 items=(
-                    BufferInfoItem(
-                        buffer_id=1100,
-                        channel_count=1,
-                        frame_count=512,
-                        sample_rate=44100.0,
-                        ),
+                    Item(buffer_id=1100, frame_count=512, channel_count=1, sample_rate=44100.0),
                     ),
                 )
 
         """
         # TODO: Return one single thing
-        import supriya.commands
         items = []
         for group in cls._group_items(osc_message.contents, 4):
-            item = supriya.commands.BufferInfoItem(*group)
+            item = cls.Item(*group)
             items.append(item)
         return cls(items=items)
 
