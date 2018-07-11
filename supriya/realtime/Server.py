@@ -113,18 +113,6 @@ class Server(SupriyaObject):
         self._osc_io = supriya.osc.OscIO(
             response_dispatcher=self._response_dispatcher,
         )
-        for callback in (
-            supriya.commands.BufferResponseCallback(self),
-            supriya.commands.ControlBusResponseCallback(self),
-            supriya.commands.NodeResponseCallback(self),
-            supriya.commands.SynthDefResponseCallback(self),
-        ):
-            self.register_response_callback(callback)
-
-        self._osc_io.register(
-            pattern='/fail',
-            procedure=lambda message: print('FAILED:', message),
-        )
 
         ### ALLOCATORS ###
 
@@ -279,6 +267,7 @@ class Server(SupriyaObject):
         return control_bus_proxy
 
     def _handle_buffer_response(self, response):
+        print('RESP?', response)
         buffer_id = response.buffer_id
         buffer_proxy = self._get_buffer_proxy(buffer_id)
         buffer_proxy._handle_response(response)
@@ -358,6 +347,45 @@ class Server(SupriyaObject):
             )
         self._default_group = default_group
 
+    def _setup_response_callbacks(self):
+        for pattern in ('/b_info', '/b_set', '/b_setn'):
+            self._osc_io.register(
+                pattern=pattern,
+                procedure=self._handle_buffer_response,
+                parse_response=True,
+            )
+        for pattern in ('/c_set', '/c_setn'):
+            self._osc_io.register(
+                pattern=pattern,
+                procedure=self._handle_control_bus_response,
+                parse_response=True,
+            )
+        for pattern in (
+            '/n_end',
+            '/n_go',
+            '/n_info',
+            '/n_move',
+            '/n_off',
+            '/n_on',
+            '/n_set',
+            '/n_setn',
+        ):
+            self._osc_io.register(
+                pattern=pattern,
+                procedure=self._handle_node_response,
+                parse_response=True,
+            )
+        for pattern in ('/d_removed',):
+            self._osc_io.register(
+                pattern=pattern,
+                procedure=self._handle_synthdef_response,
+                parse_response=True,
+            )
+        self._osc_io.register(
+            pattern='/fail',
+            procedure=lambda message: print('FAILED:', message),
+        )
+
     def _setup_status_watcher(self):
         import supriya.realtime
         self._status = None
@@ -434,6 +462,7 @@ class Server(SupriyaObject):
             ip_address=self.ip_address,
             port=self.port,
         )
+        self._setup_response_callbacks()
         server_options = server_options or supriya.realtime.ServerOptions()
         assert isinstance(server_options, supriya.realtime.ServerOptions)
         if kwargs:

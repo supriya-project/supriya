@@ -23,7 +23,7 @@ class Bus(ServerObjectProxy):
         self,
         bus_group_or_index=None,
         calculation_rate=None,
-        ):
+    ):
         import supriya.realtime
         import supriya.synthdefs
         ServerObjectProxy.__init__(self)
@@ -72,7 +72,7 @@ class Bus(ServerObjectProxy):
     def _get_allocator(
         calculation_rate=None,
         server=None,
-        ):
+    ):
         import supriya.synthdefs
         if calculation_rate == supriya.synthdefs.CalculationRate.AUDIO:
             allocator = server.audio_bus_allocator
@@ -92,7 +92,7 @@ class Bus(ServerObjectProxy):
         self,
         server=None,
         sync=False,
-        ):
+    ):
         if self.bus_group is not None:
             return
         if self.is_allocated:
@@ -199,10 +199,7 @@ class Bus(ServerObjectProxy):
         self._bus_id = None
         ServerObjectProxy.free(self)
 
-    def get(
-        self,
-        completion_callback=None,
-        ):
+    def get(self, completion_callback=None):
         import supriya.commands
         import supriya.realtime
         import supriya.synthdefs

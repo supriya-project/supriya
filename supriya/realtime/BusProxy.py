@@ -24,8 +24,8 @@ class BusProxy(SupriyaValueObject):
         bus_id=None,
         calculation_rate=None,
         server=None,
-        value=None,
-        ):
+        value=0.0,
+    ):
         import supriya.realtime
         import supriya.synthdefs
         bus_id = int(bus_id)
@@ -36,7 +36,7 @@ class BusProxy(SupriyaValueObject):
         self._bus_id = int(bus_id)
         self._calculation_rate = calculation_rate
         self._server = server
-        self._value = None
+        self._value = value or 0.0
 
     ### SPECIAL METHODS ###
 
