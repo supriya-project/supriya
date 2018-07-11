@@ -29,20 +29,7 @@ class ControlBusResponseCallback(ResponseCallback):
     ### SPECIAL METHODS ###
 
     def __call__(self, response):
-        import supriya.commands
-        if isinstance(response, supriya.commands.ControlBusSetResponse):
-            for item in response:
-                bus_id = item.bus_id
-                bus_proxy = self._server._get_control_bus_proxy(bus_id)
-                bus_proxy._value = item.bus_value
-        elif isinstance(response,
-            supriya.commands.ControlBusSetContiguousResponse):
-            for item in response:
-                starting_bus_id = item.starting_bus_id
-                for i, value in enumerate(item.bus_values):
-                    bus_id = starting_bus_id + i
-                    bus_proxy = self._server._get_control_bus_proxy(bus_id)
-                    bus_proxy._value = value
+        self.server._handle_control_bus_response(response)
 
     ### PUBLIC PROPERTIES ###
 

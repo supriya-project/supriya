@@ -28,11 +28,7 @@ class SynthDefResponseCallback(ResponseCallback):
     ### SPECIAL METHODS ###
 
     def __call__(self, response):
-        synthdef_name = response.synthdef_name
-        synthdef = self._server._synthdefs.get(synthdef_name)
-        if synthdef is None:
-            return
-        synthdef._handle_response(response)
+        self.server._handle_synthdef_response(response)
 
     ### PUBLIC PROPERTIES ###
 

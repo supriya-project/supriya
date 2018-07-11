@@ -30,11 +30,7 @@ class NodeResponseCallback(ResponseCallback):
     ### SPECIAL METHODS ###
 
     def __call__(self, response):
-        node_id = response.node_id
-        node = self._server._nodes.get(node_id)
-        if node is None:
-            return
-        node._handle_response(response)
+        self.server._handle_node_response(response)
 
     ### PUBLIC PROPERTIES ###
 

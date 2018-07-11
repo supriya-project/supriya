@@ -278,6 +278,43 @@ class Server(SupriyaObject):
             self._control_bus_proxies[bus_id] = control_bus_proxy
         return control_bus_proxy
 
+    def _handle_buffer_response(self, response):
+        buffer_id = response.buffer_id
+        buffer_proxy = self._get_buffer_proxy(buffer_id)
+        buffer_proxy._handle_response(response)
+
+    def _handle_control_bus_response(self, response):
+        from supriya.commands import (
+            ControlBusSetResponse,
+            ControlBusSetContiguousResponse,
+        )
+        if isinstance(response, ControlBusSetResponse):
+            for item in response:
+                bus_id = item.bus_id
+                bus_proxy = self._get_control_bus_proxy(bus_id)
+                bus_proxy._value = item.bus_value
+        elif isinstance(response, ControlBusSetContiguousResponse):
+            for item in response:
+                starting_bus_id = item.starting_bus_id
+                for i, value in enumerate(item.bus_values):
+                    bus_id = starting_bus_id + i
+                    bus_proxy = self._get_control_bus_proxy(bus_id)
+                    bus_proxy._value = value
+
+    def _handle_node_response(self, response):
+        node_id = response.node_id
+        node = self._nodes.get(node_id)
+        if node is None:
+            return
+        node._handle_response(response)
+
+    def _handle_synthdef_response(self, response):
+        synthdef_name = response.synthdef_name
+        synthdef = self._synthdefs.get(synthdef_name)
+        if synthdef is None:
+            return
+        synthdef._handle_response(response)
+
     def _setup(self):
         self._setup_notifications()
         self._setup_status_watcher()

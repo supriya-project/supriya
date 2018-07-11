@@ -16,7 +16,7 @@ class RequestCallback(SupriyaObject):
         is_one_shot=False,
         request=None,
         response_specification=None,
-        ):
+    ):
         self._is_one_shot = bool(is_one_shot)
         self._request = request
         self._response_specification = response_specification
