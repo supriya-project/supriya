@@ -16,20 +16,19 @@ class BufferInfoResponse(Response):
 
     def __init__(
         self,
-        buffer_id=None,
-        frame_count=None,
-        channel_count=None,
-        sample_rate=None,
+        items=None,
         osc_message=None,
     ):
-        Response.__init__(
-            self,
-            osc_message=osc_message,
-            )
-        self._buffer_id = buffer_id
-        self._frame_count = frame_count
-        self._channel_count = channel_count
-        self._sample_rate = sample_rate
+        Response.__init__(self, osc_message=osc_message)
+        self._items = tuple(items or ())
+
+    ### SPECIAL METHODS ###
+
+    def __getitem__(self, item):
+        return self._items[item]
+
+    def __len__(self):
+        return len(self._items)
 
     ### PUBLIC METHODS ###
 
@@ -41,37 +40,23 @@ class BufferInfoResponse(Response):
         ::
 
             >>> message = supriya.osc.OscMessage('/b_info', 1100, 512, 1, 44100.0)
-            >>> supriya.commands.BufferInfoResponse.from_osc_message(message)[0]
+            >>> supriya.commands.BufferInfoResponse.from_osc_message(message)
             BufferInfoResponse(
-                buffer_id=1100,
-                channel_count=1,
-                frame_count=512,
-                sample_rate=44100.0,
+                items=(
+                    BufferInfoItem(
+                        buffer_id=1100,
+                        channel_count=1,
+                        frame_count=512,
+                        sample_rate=44100.0,
+                        ),
+                    ),
                 )
 
         """
         # TODO: Return one single thing
-        responses = []
+        import supriya.commands
+        items = []
         for group in cls._group_items(osc_message.contents, 4):
-            response = cls(*group)
-            responses.append(response)
-        responses = tuple(responses)
-        return responses
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def buffer_id(self):
-        return self._buffer_id
-
-    @property
-    def channel_count(self):
-        return self._channel_count
-
-    @property
-    def frame_count(self):
-        return self._frame_count
-
-    @property
-    def sample_rate(self):
-        return self._sample_rate
+            item = supriya.commands.BufferInfoItem(*group)
+            items.append(item)
+        return cls(items=items)
