@@ -1,3 +1,4 @@
+from typing import NamedTuple, Tuple, Union
 from supriya.commands.Response import Response
 
 
@@ -9,6 +10,10 @@ class NodeSetContiguousResponse(Response):
         '_items',
         '_node_id',
         )
+
+    class Item(NamedTuple):
+        control_values: Tuple[float]
+        starting_control_index_or_name: Union[int, str]
 
     ### INITIALIZER ###
 
@@ -26,14 +31,13 @@ class NodeSetContiguousResponse(Response):
 
     @classmethod
     def from_osc_message(cls, osc_message):
-        import supriya.commands
         node_id, remainder = osc_message.contents[0], osc_message.contents[1:]
         items = []
         while remainder:
             control_index_or_name = remainder[0]
             control_count = remainder[1]
             control_values = tuple(remainder[2:2 + control_count])
-            item = supriya.commands.NodeSetContiguousItem(
+            item = cls.Item(
                 control_index_or_name=control_index_or_name,
                 control_values=control_values,
                 )

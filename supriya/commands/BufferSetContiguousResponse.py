@@ -1,4 +1,5 @@
 import collections
+from typing import NamedTuple
 from supriya.commands.Response import Response
 
 
@@ -10,6 +11,10 @@ class BufferSetContiguousResponse(Response, collections.Sequence):
         '_buffer_id',
         '_items',
         )
+
+    class Item(NamedTuple):
+        sample_values: int
+        starting_sample_index: int
 
     ### INITIALIZER ###
 
@@ -46,22 +51,18 @@ class BufferSetContiguousResponse(Response, collections.Sequence):
             BufferSetContiguousResponse(
                 buffer_id=1,
                 items=(
-                    BufferSetContiguousItem(
-                        sample_values=(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
-                        starting_sample_index=0,
-                        ),
+                    Item(sample_values=(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0), starting_sample_index=0),
                     ),
                 )
 
         """
-        import supriya.commands
         buffer_id, remainder = osc_message.contents[0], osc_message.contents[1:]
         items = []
         while remainder:
             starting_sample_index = remainder[0]
             sample_count = remainder[1]
             sample_values = tuple(remainder[2:2 + sample_count])
-            item = supriya.commands.BufferSetContiguousItem(
+            item = cls.Item(
                 starting_sample_index=starting_sample_index,
                 sample_values=sample_values,
                 )

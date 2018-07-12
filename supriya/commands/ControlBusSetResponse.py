@@ -1,4 +1,5 @@
 import collections
+from typing import NamedTuple
 from supriya.commands.Response import Response
 
 
@@ -9,6 +10,10 @@ class ControlBusSetResponse(Response, collections.Sequence):
     __slots__ = (
         '_items',
         )
+
+    class Item(NamedTuple):
+        bus_id: int
+        bus_value: float
 
     ### INITIALIZER ###
 
@@ -28,10 +33,9 @@ class ControlBusSetResponse(Response, collections.Sequence):
 
     @classmethod
     def from_osc_message(cls, osc_message):
-        import supriya.commands
         items = []
         for group in cls._group_items(osc_message.contents, 2):
-            item = supriya.commands.ControlBusSetItem(*group)
+            item = cls.Item(*group)
             items.append(item)
         response = cls(items=tuple(items))
         return response
