@@ -1,3 +1,4 @@
+from typing import NamedTuple, Union
 from supriya.commands.Response import Response
 
 
@@ -10,6 +11,10 @@ class NodeSetResponse(Response):
         '_node_id',
         )
 
+    class Item(NamedTuple):
+        control_index_or_name: Union[int, str]
+        control_value: float
+
     ### INITIALIZER ###
 
     def __init__(
@@ -18,10 +23,7 @@ class NodeSetResponse(Response):
         items=None,
         osc_message=None,
     ):
-        Response.__init__(
-            self,
-            osc_message=osc_message,
-            )
+        Response.__init__(self, osc_message=osc_message)
         self._items = items
         self._node_id = node_id
 
@@ -38,24 +40,17 @@ class NodeSetResponse(Response):
             >>> supriya.commands.NodeSetResponse.from_osc_message(message)
             NodeSetResponse(
                 items=(
-                    NodeSetItem(
-                        control_index_or_name='/one',
-                        control_value=-1,
-                        ),
-                    NodeSetItem(
-                        control_index_or_name='/two',
-                        control_value=0,
-                        ),
+                    Item(control_index_or_name='/one', control_value=-1),
+                    Item(control_index_or_name='/two', control_value=0),
                     ),
                 node_id=1023,
                 )
 
         """
-        import supriya.commands
         node_id, remainder = osc_message.contents[0], osc_message.contents[1:]
         items = []
         for group in cls._group_items(remainder, 2):
-            item = supriya.commands.NodeSetItem(*group)
+            item = cls.Item(*group)
             items.append(item)
         response = cls(
             node_id=node_id,

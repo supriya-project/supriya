@@ -1,4 +1,5 @@
 import collections
+from typing import NamedTuple, Tuple
 from supriya.commands.Response import Response
 
 
@@ -9,6 +10,10 @@ class ControlBusSetContiguousResponse(Response, collections.Sequence):
     __slots__ = (
         '_items',
         )
+
+    class Item(NamedTuple):
+        bus_values: Tuple[float]
+        starting_bus_id: int
 
     ### INITIALIZER ###
 
@@ -28,13 +33,12 @@ class ControlBusSetContiguousResponse(Response, collections.Sequence):
 
     @classmethod
     def from_osc_message(cls, osc_message):
-        import supriya.commands
         items = []
         while osc_message.contents:
             starting_bus_id = osc_message.contents[0]
             bus_count = osc_message.contents[1]
             bus_values = tuple(osc_message.contents[2:2 + bus_count])
-            item = supriya.commands.ControlBusSetContiguousItem(
+            item = cls.Item(
                 starting_bus_id=starting_bus_id,
                 bus_values=bus_values,
                 )

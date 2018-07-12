@@ -1,4 +1,5 @@
 import collections
+from typing import NamedTuple
 from supriya.commands.Response import Response
 
 
@@ -10,6 +11,10 @@ class BufferSetResponse(Response, collections.Sequence):
         '_buffer_id',
         '_items',
         )
+
+    class Item(NamedTuple):
+        sample_index: int
+        sample_value: float
 
     ### INITIALIZER ###
 
@@ -44,11 +49,10 @@ class BufferSetResponse(Response, collections.Sequence):
 
     @classmethod
     def from_osc_message(cls, osc_message):
-        import supriya.commands
         buffer_id, remainder = osc_message.contents[0], osc_message.contents[1:]
         items = []
         for group in cls._group_items(remainder, 2):
-            item = supriya.commands.BufferSetItem(*group)
+            item = cls.Item(*group)
             items.append(item)
         items = tuple(items)
         response = cls(
