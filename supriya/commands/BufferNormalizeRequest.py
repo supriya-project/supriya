@@ -45,7 +45,7 @@ class BufferNormalizeRequest(Request):
         as_wavetable=None,
         buffer_id=None,
         new_maximum=1.0,
-        ):
+    ):
         Request.__init__(self)
         if as_wavetable is not None:
             as_wavetable = bool(as_wavetable)
@@ -91,6 +91,10 @@ class BufferNormalizeRequest(Request):
     def request_id(self):
         import supriya.commands
         return supriya.commands.RequestId.BUFFER_GENERATE
+
+    @property
+    def response_patterns(self):
+        return [['/done', '/b_gen', self.buffer_id]]
 
     @property
     def response_specification(self):

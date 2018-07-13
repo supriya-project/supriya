@@ -77,7 +77,7 @@ class BufferGenerateRequest(Request):
         phases=None,
         should_clear_first=None,
         should_normalize=None,
-        ):
+    ):
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
         assert command_name in (
@@ -138,7 +138,7 @@ class BufferGenerateRequest(Request):
         if self.command_name in (
             'cheby',
             'sine1',
-            ):
+        ):
             coefficients = self.amplitudes
         elif self.command_name == 'sine2':
             coefficients = zip(
@@ -280,6 +280,10 @@ class BufferGenerateRequest(Request):
     @property
     def phases(self):
         return self._phases
+
+    @property
+    def response_patterns(self):
+        return [['/done', '/b_gen', self.buffer_id]]
 
     @property
     def response_specification(self):

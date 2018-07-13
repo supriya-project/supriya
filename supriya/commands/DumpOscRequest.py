@@ -36,10 +36,7 @@ class DumpOscRequest(Request):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        osc_status=None,
-        ):
+    def __init__(self, osc_status=None):
         Request.__init__(self)
         self._osc_status = int(osc_status)
 
@@ -63,10 +60,6 @@ class DumpOscRequest(Request):
     @property
     def osc_status(self):
         return self._osc_status
-
-    @property
-    def response_specification(self):
-        return None
 
     @property
     def request_id(self):

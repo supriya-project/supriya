@@ -45,7 +45,7 @@ class GroupQueryTreeRequest(Request):
         self,
         include_controls=False,
         node_id=None,
-        ):
+    ):
         Request.__init__(self)
         self._node_id = node_id
         self._include_controls = bool(include_controls)
@@ -75,6 +75,13 @@ class GroupQueryTreeRequest(Request):
     @property
     def node_id(self):
         return self._node_id
+
+    @property
+    def response_patterns(self):
+        return [[
+            '/g_queryTree.reply',
+            self.node_id,
+            ]]
 
     @property
     def response_specification(self):

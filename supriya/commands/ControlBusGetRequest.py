@@ -68,6 +68,10 @@ class ControlBusGetRequest(Request):
         return self._indices
 
     @property
+    def response_patterns(self):
+        return [['/c_set']]
+
+    @property
     def response_specification(self):
         import supriya.commands
         return {

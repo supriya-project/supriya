@@ -17,11 +17,7 @@ class SynthDefLoadRequest(Request):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        completion_message=None,
-        synthdef_path=None,
-        ):
+    def __init__(self, completion_message=None, synthdef_path=None):
         Request.__init__(self)
         self._completion_message = completion_message
         self._synthdef_path = os.path.abspath(synthdef_path)
@@ -49,6 +45,10 @@ class SynthDefLoadRequest(Request):
     @property
     def completion_message(self):
         return self._completion_message
+
+    @property
+    def response_patterns(self):
+        return [['/done', '/d_load']]
 
     @property
     def response_specification(self):

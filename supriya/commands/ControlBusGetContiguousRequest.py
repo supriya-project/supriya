@@ -48,10 +48,7 @@ class ControlBusGetContiguousRequest(Request):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        index_count_pairs=None,
-        ):
+    def __init__(self, index_count_pairs=None):
         Request.__init__(self)
         if index_count_pairs:
             pairs = []
@@ -84,6 +81,10 @@ class ControlBusGetContiguousRequest(Request):
     @property
     def index_count_pairs(self):
         return self._index_count_pairs
+
+    @property
+    def response_patterns(self):
+        return [['/c_setn']]
 
     @property
     def response_specification(self):

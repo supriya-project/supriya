@@ -53,7 +53,7 @@ class BufferReadChannelRequest(BufferReadRequest):
         leave_open=None,
         starting_frame_in_buffer=None,
         starting_frame_in_file=None,
-        ):
+    ):
         BufferReadRequest.__init__(
             self,
             buffer_id=buffer_id,
@@ -84,6 +84,10 @@ class BufferReadChannelRequest(BufferReadRequest):
     @property
     def channel_indices(self):
         return self._channel_indices
+
+    @property
+    def response_patterns(self):
+        return [['/done', '/b_readChannel', self.buffer_id]]
 
     @property
     def response_specification(self):

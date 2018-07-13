@@ -48,7 +48,7 @@ class BufferGetContiguousRequest(Request):
         self,
         buffer_id=None,
         index_count_pairs=None,
-        ):
+    ):
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
         self._index_count_pairs = tuple(
@@ -84,6 +84,13 @@ class BufferGetContiguousRequest(Request):
     @property
     def index_count_pairs(self):
         return self._index_count_pairs
+
+    @property
+    def response_patterns(self):
+        return [
+            ['/b_setn', self.buffer_id],
+            ['/fail', '/b_getn'],
+            ]
 
     @property
     def response_specification(self):

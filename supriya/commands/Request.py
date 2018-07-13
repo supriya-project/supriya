@@ -124,9 +124,9 @@ class Request(SupriyaValueObject):
             )
 
     @property
-    def response_specification(self):
-        return None
+    def response_patterns(self):
+        return []
 
     @property
-    def response_patterns(self):
+    def response_specification(self):
         return None

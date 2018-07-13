@@ -44,10 +44,7 @@ class ControlBusSetContiguousRequest(Request):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        index_values_pairs=None,
-        ):
+    def __init__(self, index_values_pairs=None):
         Request.__init__(self)
         if index_values_pairs:
             pairs = []
@@ -84,10 +81,6 @@ class ControlBusSetContiguousRequest(Request):
     @property
     def index_values_pairs(self):
         return self._index_values_pairs
-
-    @property
-    def response_specification(self):
-        return None
 
     @property
     def request_id(self):

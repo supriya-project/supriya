@@ -51,7 +51,7 @@ class BufferFillRequest(Request):
         self,
         buffer_id=None,
         index_count_value_triples=None,
-        ):
+    ):
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
         triples = []
@@ -89,10 +89,6 @@ class BufferFillRequest(Request):
     @property
     def index_count_value_triples(self):
         return self._index_count_value_triples
-
-    @property
-    def response_specification(self):
-        return None
 
     @property
     def request_id(self):

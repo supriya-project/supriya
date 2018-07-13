@@ -21,10 +21,6 @@ class ParallelGroupNewRequest(Request):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def response_specification(self):
-        return None
-
-    @property
     def request_id(self):
         import supriya.commands
         return supriya.commands.RequestId.PARALLEL_GROUP_NEW

@@ -48,10 +48,7 @@ class ControlBusSetRequest(Request):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        index_value_pairs=None,
-        ):
+    def __init__(self, index_value_pairs=None):
         Request.__init__(self)
         if index_value_pairs:
             pairs = []
@@ -83,10 +80,6 @@ class ControlBusSetRequest(Request):
     @property
     def index_value_pairs(self):
         return self._index_value_pairs
-
-    @property
-    def response_specification(self):
-        return None
 
     @property
     def request_id(self):

@@ -40,10 +40,7 @@ class NotifyRequest(Request):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        notify_status=None,
-        ):
+    def __init__(self, notify_status=None):
         Request.__init__(self)
         self._notify_status = bool(notify_status)
 
@@ -68,9 +65,14 @@ class NotifyRequest(Request):
         return self._notify_status
 
     @property
+    def response_patterns(self):
+        return [['/done', '/notify']]
+
+    @property
     def response_specification(self):
         import supriya.commands
         pattern = ('/notify', 0, 64)
+        # TODO: Fix this
         if os.environ.get('TRAVIS'):
             pattern = ('/notify',)
         return {

@@ -43,7 +43,7 @@ class BufferZeroRequest(Request):
         self,
         buffer_id=None,
         completion_message=None
-        ):
+    ):
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
         self._completion_message = self._coerce_completion_message_input(
@@ -74,6 +74,10 @@ class BufferZeroRequest(Request):
     @property
     def completion_message(self):
         return self._completion_message
+
+    @property
+    def response_patterns(self):
+        return [['/done', '/b_zero', self.buffer_id]]
 
     @property
     def response_specification(self):

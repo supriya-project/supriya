@@ -41,7 +41,7 @@ class BufferCloseRequest(Request):
     def __init__(
         self,
         buffer_id=None,
-        ):
+    ):
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
 
@@ -64,6 +64,10 @@ class BufferCloseRequest(Request):
     @property
     def buffer_id(self):
         return self._buffer_id
+
+    @property
+    def response_patterns(self):
+        return [['/done', '/b_close', self.buffer_id]]
 
     @property
     def response_specification(self):

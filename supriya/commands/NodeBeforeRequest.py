@@ -13,10 +13,7 @@ class NodeBeforeRequest(Request):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        node_id_pairs=None,
-        ):
+    def __init__(self, node_id_pairs=None):
         import supriya.commands
         Request.__init__(self)
         if node_id_pairs:
@@ -47,10 +44,6 @@ class NodeBeforeRequest(Request):
     @property
     def node_id_pairs(self):
         return self._node_id_pairs
-
-    @property
-    def response_specification(self):
-        return None
 
     @property
     def request_id(self):

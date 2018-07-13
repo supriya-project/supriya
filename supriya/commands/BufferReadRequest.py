@@ -140,6 +140,10 @@ class BufferReadRequest(Request):
         return self._leave_open
 
     @property
+    def response_patterns(self):
+        return [['/done', '/b_read', self.buffer_id]]
+
+    @property
     def response_specification(self):
         import supriya.commands
         return {

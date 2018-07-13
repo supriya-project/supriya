@@ -106,6 +106,10 @@ class BufferAllocateRequest(Request):
         return supriya.commands.RequestId.BUFFER_ALLOCATE
 
     @property
+    def response_patterns(self):
+        return [['/done', '/b_alloc', self.buffer_id]]
+
+    @property
     def response_specification(self):
         import supriya.commands
         return {

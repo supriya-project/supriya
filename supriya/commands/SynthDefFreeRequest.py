@@ -1,4 +1,3 @@
-import supriya.osc
 from supriya.commands.Request import Request
 
 
@@ -38,10 +37,7 @@ class SynthDefFreeRequest(Request):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        synthdef=None,
-        ):
+    def __init__(self, synthdef=None):
         import supriya.synthdefs
         Request.__init__(self)
         prototype = (str, supriya.synthdefs.SynthDef)
@@ -66,10 +62,6 @@ class SynthDefFreeRequest(Request):
         return message
 
     ### PUBLIC PROPERTIES ###
-
-    @property
-    def response_specification(self):
-        return None
 
     @property
     def request_id(self):
