@@ -61,16 +61,20 @@ class Request(SupriyaValueObject):
         assert isinstance(server, supriya.realtime.Server)
         assert server.is_running
         message = message or self.to_osc_message()
-        if not sync or self.response_specification is None:
+        if not sync or not self.response_patterns:
             server.send_message(message)
             return None
+        response_pattern = self.response_patterns[0]
         start_time = time.time()
         timed_out = False
         with self.condition:
-            with server.response_dispatcher.lock:
-                callback = self.response_callback
-                server.register_response_callback(callback)
-                server.send_message(message)
+            server.osc_io.register(
+                pattern=response_pattern,
+                procedure=self._set_response,
+                once=True,
+                parse_response=True,
+                )
+            server.send_message(message)
             while self.response is None:
                 self.condition.wait(timeout)
                 current_time = time.time()

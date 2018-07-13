@@ -54,7 +54,6 @@ class Server(SupriyaObject):
         '_osc_io',
         '_port',
         '_recorder',
-        '_response_dispatcher',
         '_root_node',
         '_server_options',
         '_server_process',
@@ -109,10 +108,7 @@ class Server(SupriyaObject):
         ### OSC MESSAGING ###
 
         self._latency = 0.1
-        self._response_dispatcher = supriya.commands.ResponseDispatcher()
-        self._osc_io = supriya.osc.OscIO(
-            response_dispatcher=self._response_dispatcher,
-        )
+        self._osc_io = supriya.osc.OscIO()
 
         ### ALLOCATORS ###
 
@@ -387,9 +383,13 @@ class Server(SupriyaObject):
                 procedure=self._handle_synthdef_response,
                 parse_response=True,
             )
+
+        def failed(message):
+            print('FAILED:', message)
+
         self._osc_io.register(
             pattern='/fail',
-            procedure=lambda message: print('FAILED:', message),
+            procedure=failed,
         )
 
     def _setup_status_watcher(self):
@@ -663,9 +663,6 @@ class Server(SupriyaObject):
         PubSub.notify('server-quit')
         return self
 
-    def register_response_callback(self, response_callback):
-        self.response_dispatcher.register_callback(response_callback)
-
     def send_message(self, message):
         if not message or not self.is_running:
             return
@@ -774,10 +771,6 @@ class Server(SupriyaObject):
     @property
     def recorder(self):
         return self._recorder
-
-    @property
-    def response_dispatcher(self):
-        return self._response_dispatcher
 
     @property
     def root_node(self):
