@@ -92,8 +92,7 @@ class GroupNewRequest(Request):
     @property
     def response_patterns(self):
         return [[
-            '/n_info',
-            int(supriya.commands.NodeAction.NODE_CREATED),
+            '/n_go',
             self.node_id,
             ]]
 

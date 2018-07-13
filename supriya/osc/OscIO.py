@@ -23,15 +23,14 @@ class OscIO:
                 if debug_udp:
                     for line in str(message).splitlines():
                         print('    ' + line)
-            self.server.io_instance.response_dispatcher(message)
             # TODO: Is it worth the additional thread creation?
             response = None
             for callback in self.server.io_instance.match(message):
                 if callback.parse_response:
                     if response is None:
-                        handler = self.server.io_instance.response_handlers[
-                            message.address]
-                        response = handler.from_osc_message(message)
+                        handler = self.server.io_instance.response_handlers.get(message.address)
+                        if handler:
+                            response = handler.from_osc_message(message)
                     args = response
                 else:
                     args = message
@@ -50,7 +49,6 @@ class OscIO:
         ip_address='127.0.0.1',
         port=57751,
         timeout=2,
-        response_dispatcher=None,
     ):
         import supriya.commands
         self.callbacks = {}
@@ -61,7 +59,6 @@ class OscIO:
         self.server = None
         self.server_thread = None
         self.port = port
-        self.response_dispatcher = response_dispatcher
         self.running = False
         self.timeout = timeout
         self.response_handlers = {

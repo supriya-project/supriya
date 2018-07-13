@@ -80,6 +80,7 @@ class GroupQueryTreeRequest(Request):
     def response_patterns(self):
         return [[
             '/g_queryTree.reply',
+            int(self.include_controls),
             self.node_id,
             ]]
 
