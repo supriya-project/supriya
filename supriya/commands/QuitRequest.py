@@ -28,6 +28,10 @@ class QuitRequest(Request):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def response_patterns(self):
+        return [['/done', '/quit']]
+
+    @property
     def response_specification(self):
         import supriya.commands
         return {

@@ -44,10 +44,7 @@ class ControlBusFillRequest(Request):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        index_count_value_triples=None,
-        ):
+    def __init__(self, index_count_value_triples=None):
         Request.__init__(self)
         if index_count_value_triples:
             triples = []
@@ -83,10 +80,6 @@ class ControlBusFillRequest(Request):
     @property
     def index_count_value_triples(self):
         return self._index_count_value_triples
-
-    @property
-    def response_specification(self):
-        return None
 
     @property
     def request_id(self):

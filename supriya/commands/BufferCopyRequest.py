@@ -51,7 +51,7 @@ class BufferCopyRequest(Request):
         source_starting_frame=None,
         target_buffer_id=None,
         target_starting_frame=None,
-        ):
+    ):
         Request.__init__(self)
         self._source_buffer_id = int(source_buffer_id)
         self._target_buffer_id = int(target_buffer_id)
@@ -106,6 +106,10 @@ class BufferCopyRequest(Request):
     def request_id(self):
         import supriya.commands
         return supriya.commands.RequestId.BUFFER_GENERATE
+
+    @property
+    def response_patterns(self):
+        return [['/done', '/b_gen', self.target_buffer_id]]
 
     @property
     def response_specification(self):

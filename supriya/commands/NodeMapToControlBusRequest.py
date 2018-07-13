@@ -46,11 +46,7 @@ class NodeMapToControlBusRequest(Request):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        node_id=None,
-        **kwargs
-        ):
+    def __init__(self, node_id=None, **kwargs):
         Request.__init__(self)
         self._node_id = node_id
         self._kwargs = dict(
@@ -89,10 +85,6 @@ class NodeMapToControlBusRequest(Request):
     @property
     def node_id(self):
         return self._node_id
-
-    @property
-    def response_specification(self):
-        return None
 
     @property
     def request_id(self):

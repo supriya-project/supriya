@@ -44,10 +44,7 @@ class NodeRunRequest(Request):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        node_id_run_flag_pairs=None,
-        ):
+    def __init__(self, node_id_run_flag_pairs=None):
         Request.__init__(self)
         if node_id_run_flag_pairs:
             pairs = []
@@ -78,10 +75,6 @@ class NodeRunRequest(Request):
     @property
     def node_id_run_flag_pairs(self):
         return self._node_id_run_flag_pairs
-
-    @property
-    def response_specification(self):
-        return None
 
     @property
     def request_id(self):

@@ -117,6 +117,10 @@ class SynthNewRequest(Request):
         return self._node_id
 
     @property
+    def response_patterns(self):
+        return [['/n_go', self.node_id]]
+
+    @property
     def response_specification(self):
         import supriya.commands
         return {

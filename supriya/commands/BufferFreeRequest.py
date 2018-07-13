@@ -43,7 +43,7 @@ class BufferFreeRequest(Request):
         self,
         buffer_id=None,
         completion_message=None,
-        ):
+    ):
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
         self._completion_message = self._coerce_completion_message_input(
@@ -74,10 +74,6 @@ class BufferFreeRequest(Request):
     @property
     def completion_message(self):
         return self._completion_message
-
-    @property
-    def response_specification(self):
-        return None
 
     @property
     def request_id(self):

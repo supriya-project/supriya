@@ -68,6 +68,10 @@ class SynthDefReceiveRequest(Request):
         return self._completion_message
 
     @property
+    def response_patterns(self):
+        return [['/done', '/d_recv']]
+
+    @property
     def response_specification(self):
         import supriya.commands
         return {

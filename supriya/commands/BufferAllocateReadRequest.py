@@ -49,7 +49,7 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
         file_path=None,
         frame_count=None,
         starting_frame=None,
-        ):
+    ):
         import supriya.nonrealtime
         BufferAllocateRequest.__init__(
             self,
@@ -113,6 +113,10 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
     @property
     def frame_count(self):
         return self._frame_count
+
+    @property
+    def response_patterns(self):
+        return [['/done', '/b_allocRead', self.buffer_id]]
 
     @property
     def response_specification(self):

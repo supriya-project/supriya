@@ -10,9 +10,7 @@ class NodeMapToAudioBusContiguousRequest(Request):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        ):
+    def __init__(self):
         Request.__init__(self)
         raise NotImplementedError
 
@@ -22,10 +20,6 @@ class NodeMapToAudioBusContiguousRequest(Request):
         raise NotImplementedError
 
     ### PUBLIC PROPERTIES ###
-
-    @property
-    def response_specification(self):
-        return None
 
     @property
     def request_id(self):

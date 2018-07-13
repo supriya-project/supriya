@@ -45,7 +45,7 @@ class BufferGetRequest(Request):
         self,
         buffer_id=None,
         indices=None,
-        ):
+    ):
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
         self._indices = tuple(int(index) for index in indices)
@@ -77,6 +77,13 @@ class BufferGetRequest(Request):
     @property
     def indices(self):
         return self._indices
+
+    @property
+    def response_patterns(self):
+        return [
+            ['/b_set', self.buffer_id],
+            ['/fail', '/b_get'],
+            ]
 
     @property
     def response_specification(self):

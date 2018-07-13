@@ -50,7 +50,7 @@ class GroupNewRequest(Request):
         add_action=None,
         node_id=None,
         target_node_id=None,
-        ):
+    ):
         import supriya.realtime
         Request.__init__(self)
         self._add_action = supriya.realtime.AddAction.from_expr(add_action)
@@ -88,6 +88,14 @@ class GroupNewRequest(Request):
     @property
     def target_node_id(self):
         return self._target_node_id
+
+    @property
+    def response_patterns(self):
+        return [[
+            '/n_info',
+            int(supriya.commands.NodeAction.NODE_CREATED),
+            self.node_id,
+            ]]
 
     @property
     def response_specification(self):

@@ -98,10 +98,6 @@ class BufferSetContiguousRequest(Request):
         return self._index_values_pairs
 
     @property
-    def response_specification(self):
-        return None
-
-    @property
     def request_id(self):
         import supriya.commands
         return supriya.commands.RequestId.BUFFER_SET_CONTIGUOUS

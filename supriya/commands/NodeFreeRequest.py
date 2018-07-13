@@ -39,10 +39,7 @@ class NodeFreeRequest(Request):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        node_ids=None
-        ):
+    def __init__(self, node_ids=None):
         Request.__init__(self)
         if not isinstance(node_ids, collections.Sequence):
             node_ids = (node_ids,)
@@ -66,10 +63,6 @@ class NodeFreeRequest(Request):
     @property
     def node_ids(self):
         return self._node_ids
-
-    @property
-    def response_specification(self):
-        return None
 
     @property
     def request_id(self):

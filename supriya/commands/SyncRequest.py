@@ -62,6 +62,10 @@ class SyncRequest(Request):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def response_patterns(self):
+        return [['/synced', self.sync_id]]
+
+    @property
     def response_specification(self):
         import supriya.commands
         return {
