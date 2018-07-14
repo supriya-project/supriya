@@ -66,6 +66,13 @@ class GroupFreeAllRequest(Request):
             1 group
                 1000 group
 
+    ::
+
+        >>> print(server.query_local_nodes(True))
+        NODE TREE 0 group
+            1 group
+                1000 group
+
     """
 
     ### CLASS VARIABLES ###

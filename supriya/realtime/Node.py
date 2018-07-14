@@ -103,6 +103,7 @@ class Node(ServerObjectProxy, UniqueTreeNode):
 
     def _register_with_local_server(
         self,
+        node_id=None,
         node_id_is_permanent=False,
         server=None,
     ):
@@ -111,14 +112,17 @@ class Node(ServerObjectProxy, UniqueTreeNode):
         if self.server is not None or self in server._nodes:
             return
         id_allocator = server.node_id_allocator
-        if node_id_is_permanent:
-            node_id = id_allocator.allocate_permanent_node_id()
-        else:
-            node_id = server.node_id_allocator.allocate_node_id()
         if node_id is None:
-            raise ValueError(self)
-        elif node_id in server._nodes:
-            raise ValueError(self)
+            if node_id_is_permanent:
+                node_id = id_allocator.allocate_permanent_node_id()
+            else:
+                node_id = server.node_id_allocator.allocate_node_id()
+            if node_id is None:
+                raise ValueError(self)
+            elif node_id in server._nodes:
+                raise ValueError(self)
+        else:
+            node_id = int(node_id)
         ServerObjectProxy.allocate(self, server=server)
         self._node_id = node_id
         self._node_id_is_permanent = bool(node_id_is_permanent)
