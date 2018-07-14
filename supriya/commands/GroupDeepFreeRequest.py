@@ -66,6 +66,16 @@ class GroupDeepFreeRequest(Request):
                         1004 group
                             1006 group
 
+    ::
+
+        >>> print(server.query_local_nodes(True))
+        NODE TREE 0 group
+            1 group
+                1000 group
+                    1002 group
+                        1004 group
+                            1006 group
+
     """
 
     ### CLASS VARIABLES ###
