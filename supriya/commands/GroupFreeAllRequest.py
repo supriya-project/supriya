@@ -39,7 +39,25 @@ class GroupFreeAllRequest(Request):
 
     ::
 
-        >>> request.communicate(server=server)
+        >>> with server.osc_io.capture() as transcript:
+        ...     request.communicate(server=server)
+        ...     _ = server.sync()
+        ...
+
+    ::
+
+        >>> for entry in transcript:
+        ...     entry
+        ...
+        ('S', OscMessage(24, 1000))
+        ('S', OscMessage(52, 3))
+        ('R', OscMessage('/n_end', 1001, -1, -1, -1, 0))
+        ('R', OscMessage('/n_end', 1003, -1, -1, -1, 0))
+        ('R', OscMessage('/n_end', 1005, -1, -1, -1, 0))
+        ('R', OscMessage('/n_end', 1006, -1, -1, -1, 1, -1, -1))
+        ('R', OscMessage('/n_end', 1004, -1, -1, -1, 1, -1, -1))
+        ('R', OscMessage('/n_end', 1002, -1, -1, -1, 1, -1, -1))
+        ('R', OscMessage('/synced', 3))
 
     ::
 
