@@ -366,7 +366,7 @@ class Server(SupriyaObject):
             )
         self._default_group = default_group
 
-    def _setup_response_callbacks(self):
+    def _setup_osc_callbacks(self):
         for pattern in ('/b_info', '/b_set', '/b_setn'):
             self._osc_io.register(
                 pattern=pattern,
@@ -485,7 +485,7 @@ class Server(SupriyaObject):
             ip_address=self.ip_address,
             port=self.port,
         )
-        self._setup_response_callbacks()
+        self._setup_osc_callbacks()
         server_options = server_options or supriya.realtime.ServerOptions()
         assert isinstance(server_options, supriya.realtime.ServerOptions)
         if kwargs:

@@ -172,17 +172,11 @@ class Group(Node, UniqueTreeContainer):
             if node.is_allocated:
                 if add_action == supriya.realtime.AddAction.ADD_TO_HEAD:
                     request = supriya.commands.GroupHeadRequest(
-                        node_id_pairs=supriya.commands.NodeIdPair(
-                            node_id=node,
-                            target_node_id=target_node,
-                            ),
+                        node_id_pairs=[(node, target_node)],
                         )
                 else:
                     request = supriya.commands.NodeAfterRequest(
-                        node_id_pairs=supriya.commands.NodeIdPair(
-                            node_id=node,
-                            target_node_id=target_node,
-                            ),
+                        node_id_pairs=[(node, target_node)],
                         )
                 requests.append(request)
             else:
