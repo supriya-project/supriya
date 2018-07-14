@@ -137,7 +137,11 @@ class Node(ServerObjectProxy, UniqueTreeNode):
     def _restore_control_interface_to_parentage(self, name_dictionary):
         if self._parent is not None and name_dictionary:
             for parent in self.parentage[1:]:
-                parent._control_interface.add_controls(name_dictionary)
+                try:
+                    parent._control_interface.add_controls(name_dictionary)
+                except Exception:
+                    print('PARENT?!', type(parent))
+                    raise
 
     def _set_parent(self, new_parent):
         named_children = self._cache_named_children()

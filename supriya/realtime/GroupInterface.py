@@ -12,10 +12,7 @@ class GroupInterface(ControlInterface):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        client=None,
-        ):
+    def __init__(self, client=None):
         self._synth_controls = {}
         self._group_controls = {}
         self._client = client

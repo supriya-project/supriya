@@ -46,9 +46,9 @@ class Group(Node, UniqueTreeContainer):
 
     def __init__(self, children=None, name=None):
         import supriya.realtime
+        self._control_interface = supriya.realtime.GroupInterface(client=self)
         Node.__init__(self, name=name)
         UniqueTreeContainer.__init__(self, children=children, name=name)
-        self._control_interface = supriya.realtime.GroupInterface(client=self)
 
     ### SPECIAL METHODS ###
 

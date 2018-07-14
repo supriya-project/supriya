@@ -12,8 +12,7 @@ class RootNode(Group):
     ### INITIALIZER ###
 
     def __init__(self, server=None):
-        import supriya.realtime
-        supriya.realtime.Group.__init__(self)
+        super().__init__()
         self._server = server
 
     ### PUBLIC METHODS ###

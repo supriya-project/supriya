@@ -1,49 +1,98 @@
-import collections
-import supriya.osc
-from supriya.commands.Request import Request
+from supriya.commands.MoveRequest import MoveRequest
 
 
-class NodeAfterRequest(Request):
+class NodeAfterRequest(MoveRequest):
+    """
+    An /n_after request.
+
+    ::
+
+        >>> import supriya
+        >>> server = supriya.Server().boot()
+        >>> group_a = supriya.Group([supriya.Group(), supriya.Group()])
+        >>> group_b = supriya.Group([supriya.Group(), supriya.Group()])
+        >>> synth_a = supriya.Synth()
+        >>> synth_b = supriya.Synth()
+        >>> server.default_group.extend([synth_a, synth_b, group_a, group_b])
+
+    ::
+
+        >>> print(server.query_remote_nodes())
+        NODE TREE 0 group
+            1 group
+                1000 default
+                1001 default
+                1002 group
+                    1003 group
+                    1004 group
+                1005 group
+                    1006 group
+                    1007 group
+
+    ::
+
+        >>> request = supriya.commands.NodeAfterRequest([
+        ...     [synth_a, group_a[-1]],
+        ...     [synth_b, group_b],
+        ...     ])
+        >>> request.to_osc_message(True)
+        OscMessage('/n_after', 1000, 1004, 1001, 1005)
+
+    ::
+
+        >>> with server.osc_io.capture() as transcript:
+        ...     request.communicate(server=server)
+        ...     _ = server.sync()
+        ...
+
+    ::
+
+        >>> for entry in transcript:
+        ...     entry
+        ...
+        ('S', OscMessage(19, 1000, 1004, 1001, 1005))
+        ('S', OscMessage(52, 1))
+        ('R', OscMessage('/n_move', 1000, 1002, 1004, -1, 0))
+        ('R', OscMessage('/n_move', 1001, 1, 1005, -1, 0))
+        ('R', OscMessage('/synced', 1))
+
+    ::
+
+        >>> print(server.query_remote_nodes())
+        NODE TREE 0 group
+            1 group
+                1002 group
+                    1003 group
+                    1004 group
+                    1000 default
+                1005 group
+                    1006 group
+                    1007 group
+                1001 default
+
+    ::
+
+        >>> print(server.query_local_nodes())
+        NODE TREE 0 group
+            1 group
+                1002 group
+                    1003 group
+                    1004 group
+                    1000 default
+                1005 group
+                    1006 group
+                    1007 group
+                1001 default
+
+    """
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_node_id_pairs',
-        )
+    __slots__ = ()
 
-    ### INITIALIZER ###
-
-    def __init__(self, node_id_pairs=None):
-        import supriya.commands
-        Request.__init__(self)
-        if node_id_pairs:
-            if not isinstance(node_id_pairs, collections.Sequence):
-                node_id_pairs = [node_id_pairs]
-            prototype = supriya.commands.NodeIdPair
-            assert all(isinstance(x, prototype) for x in node_id_pairs)
-            node_id_pairs = tuple(node_id_pairs)
-        self._node_id_pairs = node_id_pairs
-
-    ### PUBLIC METHODS ###
-
-    def to_osc_message(self, with_textual_osc_command=False):
-        if with_textual_osc_command:
-            request_id = self.request_command
-        else:
-            request_id = int(self.request_id)
-        contents = [request_id]
-        if self.node_id_pairs:
-            for node_id_pair in self.node_id_pairs:
-                contents.append(node_id_pair.node_id)
-                contents.append(node_id_pair.target_node_id)
-        message = supriya.osc.OscMessage(*contents)
-        return message
+    _target_first = False
 
     ### PUBLIC PROPERTIES ###
-
-    @property
-    def node_id_pairs(self):
-        return self._node_id_pairs
 
     @property
     def request_id(self):
