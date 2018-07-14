@@ -33,7 +33,7 @@ class NodeIdPair(SupriyaValueObject):
         self,
         node_id=None,
         target_node_id=None,
-        ):
+    ):
         self._node_id = int(node_id)
         self._target_node_id = int(target_node_id)
 
