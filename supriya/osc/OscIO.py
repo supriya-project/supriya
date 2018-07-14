@@ -8,6 +8,26 @@ from supriya.osc.OscMessage import OscMessage
 
 class OscIO:
 
+    class Capture:
+
+        def __init__(self, osc_io):
+            self.osc_io = osc_io
+            self.osc_messages = []
+
+        def __enter__(self):
+            self.osc_io.captures.add(self)
+            self.osc_messages[:] = []
+            return self
+
+        def __exit__(self, exc_type, exc_value, traceback):
+            self.osc_io.captures.remove(self)
+
+        def __iter__(self):
+            return iter(self.osc_messages)
+
+        def __len__(self):
+            return len(self.osc_messages)
+
     class OscServer(socketserver.ThreadingMixIn, socketserver.UDPServer):
         pass
 
@@ -18,11 +38,14 @@ class OscIO:
             message = OscMessage.from_datagram(data)
             debug_osc = self.server.io_instance.debug_osc
             debug_udp = self.server.io_instance.debug_udp
-            if debug_osc and message.address != '/status.reply':
-                print('RECV', '{:0.6f}'.format(time.time()), message.to_list())
-                if debug_udp:
-                    for line in str(message).splitlines():
-                        print('    ' + line)
+            if message.address != '/status.reply':
+                for capture in self.server.io_instance.captures:
+                    capture.osc_messages.append(('R', message))
+                if debug_osc:
+                    print('RECV', '{:0.6f}'.format(time.time()), message.to_list())
+                    if debug_udp:
+                        for line in str(message).splitlines():
+                            print('    ' + line)
             # TODO: Is it worth the additional thread creation?
             response = None
             for callback in self.server.io_instance.match(message):
@@ -52,6 +75,7 @@ class OscIO:
     ):
         import supriya.commands
         self.callbacks = {}
+        self.captures = set()
         self.debug_osc = bool(debug_osc)
         self.debug_udp = bool(debug_udp)
         self.ip_address = ip_address
@@ -111,6 +135,9 @@ class OscIO:
             self.server_thread.daemon = True
             self.server_thread.start()
             self.running = True
+
+    def capture(self):
+        return self.Capture(self)
 
     def match(self, message):
         """
@@ -222,9 +249,11 @@ class OscIO:
             if not len(message):
                 raise ValueError(message)
             message = OscMessage(message[0], *message[1:])
-        if self.debug_osc:
-            as_list = message.to_list()
-            if as_list != [2]:  # /status
+        as_list = message.to_list()
+        if as_list != [2]:  # /status
+            for capture in self.captures:
+                capture.osc_messages.append(('S', message))
+            if self.debug_osc:
                 print('SEND', '{:0.6f}'.format(time.time()), message.to_list())
                 if self.debug_udp:
                     for line in str(message).splitlines():
