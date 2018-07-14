@@ -34,7 +34,7 @@ class BufferFreeRequest(Request):
 
     __slots__ = (
         '_buffer_id',
-        '_completion_message',
+        '_callback',
         )
 
     ### INITIALIZER ###
@@ -42,12 +42,12 @@ class BufferFreeRequest(Request):
     def __init__(
         self,
         buffer_id=None,
-        completion_message=None,
+        callback=None,
     ):
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
-        self._completion_message = self._coerce_completion_message_input(
-            completion_message)
+        self._callback = self._coerce_callback_input(
+            callback)
 
     ### PUBLIC METHODS ###
 
@@ -61,7 +61,7 @@ class BufferFreeRequest(Request):
             request_id,
             buffer_id,
             ]
-        self._coerce_completion_message_output(contents)
+        self._coerce_callback_output(contents)
         message = supriya.osc.OscMessage(*contents)
         return message
 
@@ -72,8 +72,8 @@ class BufferFreeRequest(Request):
         return self._buffer_id
 
     @property
-    def completion_message(self):
-        return self._completion_message
+    def callback(self):
+        return self._callback
 
     @property
     def request_id(self):

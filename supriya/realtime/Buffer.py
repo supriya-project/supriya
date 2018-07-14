@@ -236,7 +236,7 @@ class Buffer(ServerObjectProxy):
                 file_path=file_path,
                 frame_count=frame_count,
                 starting_frame=starting_frame,
-                completion_message=on_done,
+                callback=on_done,
                 )
         elif file_path:
             request = supriya.commands.BufferAllocateReadRequest(
@@ -244,14 +244,14 @@ class Buffer(ServerObjectProxy):
                 file_path=file_path,
                 frame_count=frame_count,
                 starting_frame=starting_frame,
-                completion_message=on_done,
+                callback=on_done,
                 )
         else:
             request = supriya.commands.BufferAllocateRequest(
                 buffer_id=self.buffer_id,
                 frame_count=frame_count,
                 channel_count=channel_count,
-                completion_message=on_done,
+                callback=on_done,
                 )
         return request
 
@@ -271,7 +271,7 @@ class Buffer(ServerObjectProxy):
         on_done = on_done.to_osc_message()
         request = supriya.commands.BufferFreeRequest(
             buffer_id=buffer_id,
-            completion_message=on_done,
+            callback=on_done,
             )
         return request
 
@@ -362,7 +362,7 @@ class Buffer(ServerObjectProxy):
         self,
         file_path,
         channel_indices=None,
-        completion_message=None,
+        callback=None,
         frame_count=None,
         server=None,
         starting_frame=None,
@@ -1045,7 +1045,7 @@ class Buffer(ServerObjectProxy):
         self,
         file_path,
         channel_indices=None,
-        completion_message=None,
+        callback=None,
         frame_count=None,
         leave_open=None,
         starting_frame_in_buffer=None,
@@ -1112,7 +1112,7 @@ class Buffer(ServerObjectProxy):
             request = supriya.commands.BufferReadChannelRequest(
                 buffer_id=self.buffer_id,
                 channel_indices=channel_indices,
-                completion_message=on_done,
+                callback=on_done,
                 file_path=file_path,
                 frame_count=frame_count,
                 leave_open=leave_open,
@@ -1122,7 +1122,7 @@ class Buffer(ServerObjectProxy):
         else:
             request = supriya.commands.BufferReadRequest(
                 buffer_id=self.buffer_id,
-                completion_message=on_done,
+                callback=on_done,
                 file_path=file_path,
                 frame_count=frame_count,
                 leave_open=leave_open,
@@ -1223,7 +1223,7 @@ class Buffer(ServerObjectProxy):
     def write(
         self,
         file_path,
-        completion_message=None,
+        callback=None,
         frame_count=None,
         header_format='aiff',
         leave_open=False,
@@ -1278,7 +1278,7 @@ class Buffer(ServerObjectProxy):
             raise Exception
         request = supriya.commands.BufferWriteRequest(
             buffer_id=self.buffer_id,
-            completion_message=completion_message,
+            callback=callback,
             file_path=file_path,
             frame_count=frame_count,
             header_format=header_format,
@@ -1293,7 +1293,7 @@ class Buffer(ServerObjectProxy):
 
     def zero(
         self,
-        completion_message=None,
+        callback=None,
         sync=True,
     ):
         """
@@ -1339,7 +1339,7 @@ class Buffer(ServerObjectProxy):
             raise Exception
         request = supriya.commands.BufferZeroRequest(
             buffer_id=self.buffer_id,
-            completion_message=completion_message,
+            callback=callback,
             )
         request.communicate(
             server=self.server,

@@ -11,16 +11,16 @@ class SynthDefLoadDirectoryRequest(Request):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_completion_message',
+        '_callback',
         '_directory_path',
         )
 
     ### INITIALIZER ###
 
-    def __init__(self, completion_message=None, directory_path=None):
+    def __init__(self, callback=None, directory_path=None):
         Request.__init__(self)
         Request.__init__(self)
-        self._completion_message = completion_message
+        self._callback = callback
         self._directory_path = os.path.abspath(directory_path)
 
     ### PUBLIC METHODS ###
@@ -34,18 +34,18 @@ class SynthDefLoadDirectoryRequest(Request):
             request_id,
             self.directory_path,
             ]
-        if self.completion_message:
-            completion_message = self.completion_message.to_datagram()
-            completion_message = bytearray(completion_message)
-            contents.append(completion_message)
+        if self.callback:
+            callback = self.callback.to_datagram()
+            callback = bytearray(callback)
+            contents.append(callback)
         message = supriya.osc.OscMessage(*contents)
         return message
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def completion_message(self):
-        return self._completion_message
+    def callback(self):
+        return self._callback
 
     @property
     def response_patterns(self):

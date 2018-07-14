@@ -25,7 +25,7 @@ class Request(SupriyaValueObject):
 
     ### PRIVATE METHODS ###
 
-    def _coerce_completion_message_input(self, message):
+    def _coerce_callback_input(self, message):
         if message is None:
             return message
         elif isinstance(message, (supriya.osc.OscMessage, supriya.osc.OscBundle)):
@@ -36,11 +36,11 @@ class Request(SupriyaValueObject):
             return supriya.osc.OscMessage(*message)
         raise ValueError(message)
 
-    def _coerce_completion_message_output(self, contents):
-        if self.completion_message is not None:
-            completion_message = self.completion_message.to_datagram()
-            completion_message = bytearray(completion_message)
-            contents.append(completion_message)
+    def _coerce_callback_output(self, contents):
+        if self.callback is not None:
+            callback = self.callback.to_datagram()
+            callback = bytearray(callback)
+            contents.append(callback)
 
     def _set_response(self, response):
         with self.condition:

@@ -54,7 +54,7 @@ class RequestBundle(SupriyaValueObject):
         self,
         timestamp=None,
         contents=None,
-        ):
+    ):
         import supriya.commands
         self._timestamp = timestamp
         if contents is not None:

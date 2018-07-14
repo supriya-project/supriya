@@ -11,15 +11,15 @@ class SynthDefLoadRequest(Request):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_completion_message',
+        '_callback',
         '_synthdef_path',
         )
 
     ### INITIALIZER ###
 
-    def __init__(self, completion_message=None, synthdef_path=None):
+    def __init__(self, callback=None, synthdef_path=None):
         Request.__init__(self)
-        self._completion_message = completion_message
+        self._callback = callback
         self._synthdef_path = os.path.abspath(synthdef_path)
 
     ### PUBLIC METHODS ###
@@ -33,18 +33,18 @@ class SynthDefLoadRequest(Request):
             request_id,
             self.synthdef_path,
             ]
-        if self.completion_message:
-            completion_message = self.completion_message.to_datagram()
-            completion_message = bytearray(completion_message)
-            contents.append(completion_message)
+        if self.callback:
+            callback = self.callback.to_datagram()
+            callback = bytearray(callback)
+            contents.append(callback)
         message = supriya.osc.OscMessage(*contents)
         return message
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def completion_message(self):
-        return self._completion_message
+    def callback(self):
+        return self._callback
 
     @property
     def response_patterns(self):

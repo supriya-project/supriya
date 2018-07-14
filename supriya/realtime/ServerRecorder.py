@@ -82,7 +82,7 @@ class ServerRecorder(SupriyaObject):
             frame_count=frame_count,
             channel_count=self.current_channel_count,
             )
-        completion_message = supriya.commands.BufferWriteRequest(
+        callback = supriya.commands.BufferWriteRequest(
             buffer_id=buffer_id,
             file_path=self.current_file_path,
             frame_count=0,
@@ -91,7 +91,7 @@ class ServerRecorder(SupriyaObject):
             sample_format=self.current_sample_format,
             starting_frame=0,
             )
-        completion_message.communicate(
+        callback.communicate(
             server=self.server,
             sync=True,
             )
