@@ -43,7 +43,7 @@ class BufferWriteRequest(Request):
 
     __slots__ = (
         '_buffer_id',
-        '_completion_message',
+        '_callback',
         '_file_path',
         '_frame_count',
         '_header_format',
@@ -57,7 +57,7 @@ class BufferWriteRequest(Request):
     def __init__(
         self,
         buffer_id=None,
-        completion_message=None,
+        callback=None,
         file_path=None,
         frame_count=None,
         header_format='aiff',
@@ -68,8 +68,8 @@ class BufferWriteRequest(Request):
         import supriya.soundfiles
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
-        self._completion_message = self._coerce_completion_message_input(
-            completion_message)
+        self._callback = self._coerce_callback_input(
+            callback)
         self._file_path = str(file_path)
         if frame_count is None:
             frame_count = -1
@@ -108,7 +108,7 @@ class BufferWriteRequest(Request):
             self.starting_frame,
             leave_open,
             ]
-        self._coerce_completion_message_output(contents)
+        self._coerce_callback_output(contents)
         message = supriya.osc.OscMessage(*contents)
         return message
 
@@ -119,8 +119,8 @@ class BufferWriteRequest(Request):
         return self._buffer_id
 
     @property
-    def completion_message(self):
-        return self._completion_message
+    def callback(self):
+        return self._callback
 
     @property
     def file_path(self):

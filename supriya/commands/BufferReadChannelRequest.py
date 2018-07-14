@@ -47,7 +47,7 @@ class BufferReadChannelRequest(BufferReadRequest):
         self,
         buffer_id=None,
         channel_indices=None,
-        completion_message=None,
+        callback=None,
         file_path=None,
         frame_count=None,
         leave_open=None,
@@ -57,7 +57,7 @@ class BufferReadChannelRequest(BufferReadRequest):
         BufferReadRequest.__init__(
             self,
             buffer_id=buffer_id,
-            completion_message=completion_message,
+            callback=callback,
             file_path=file_path,
             frame_count=frame_count,
             leave_open=leave_open,
@@ -75,7 +75,7 @@ class BufferReadChannelRequest(BufferReadRequest):
     def to_osc_message(self, with_textual_osc_command=False):
         contents = self._get_osc_message_contents(with_textual_osc_command)
         contents.extend(self.channel_indices)
-        self._coerce_completion_message_output(contents)
+        self._coerce_callback_output(contents)
         message = supriya.osc.OscMessage(*contents)
         return message
 

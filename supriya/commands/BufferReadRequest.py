@@ -36,7 +36,7 @@ class BufferReadRequest(Request):
 
     __slots__ = (
         '_buffer_id',
-        '_completion_message',
+        '_callback',
         '_file_path',
         '_frame_count',
         '_leave_open',
@@ -49,7 +49,7 @@ class BufferReadRequest(Request):
     def __init__(
         self,
         buffer_id=None,
-        completion_message=None,
+        callback=None,
         file_path=None,
         frame_count=None,
         leave_open=None,
@@ -59,8 +59,8 @@ class BufferReadRequest(Request):
         import supriya.nonrealtime
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
-        self._completion_message = self._coerce_completion_message_input(
-            completion_message)
+        self._callback = self._coerce_callback_input(
+            callback)
         if not supriya.nonrealtime.Session.is_session_like(file_path):
             file_path = str(file_path)
         self._file_path = file_path
@@ -113,7 +113,7 @@ class BufferReadRequest(Request):
 
     def to_osc_message(self, with_textual_osc_command=False):
         contents = self._get_osc_message_contents(with_textual_osc_command)
-        self._coerce_completion_message_output(contents)
+        self._coerce_callback_output(contents)
         message = supriya.osc.OscMessage(*contents)
         return message
 
@@ -124,8 +124,8 @@ class BufferReadRequest(Request):
         return self._buffer_id
 
     @property
-    def completion_message(self):
-        return self._completion_message
+    def callback(self):
+        return self._callback
 
     @property
     def file_path(self):

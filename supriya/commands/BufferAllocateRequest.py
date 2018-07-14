@@ -39,7 +39,7 @@ class BufferAllocateRequest(Request):
     __slots__ = (
         '_buffer_id',
         '_channel_count',
-        '_completion_message',
+        '_callback',
         '_frame_count',
         )
 
@@ -50,7 +50,7 @@ class BufferAllocateRequest(Request):
         buffer_id=None,
         frame_count=None,
         channel_count=None,
-        completion_message=None,
+        callback=None,
         ):
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
@@ -59,8 +59,8 @@ class BufferAllocateRequest(Request):
             channel_count = int(channel_count)
             assert 0 < channel_count
         self._channel_count = channel_count
-        self._completion_message = self._coerce_completion_message_input(
-            completion_message)
+        self._callback = self._coerce_callback_input(
+            callback)
 
     ### PUBLIC METHODS ###
 
@@ -78,7 +78,7 @@ class BufferAllocateRequest(Request):
             frame_count,
             channel_count,
             ]
-        self._coerce_completion_message_output(contents)
+        self._coerce_callback_output(contents)
         message = supriya.osc.OscMessage(*contents)
         return message
 
@@ -93,8 +93,8 @@ class BufferAllocateRequest(Request):
         return self._channel_count
 
     @property
-    def completion_message(self):
-        return self._completion_message
+    def callback(self):
+        return self._callback
 
     @property
     def frame_count(self):

@@ -10,7 +10,7 @@ class SynthDefReceiveRequest(Request):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_completion_message',
+        '_callback',
         '_synthdefs',
         '_use_anonymous_names',
         )
@@ -19,13 +19,13 @@ class SynthDefReceiveRequest(Request):
 
     def __init__(
         self,
-        completion_message=None,
+        callback=None,
         synthdefs=None,
         use_anonymous_names=None,
-        ):
+    ):
         import supriya.synthdefs
         Request.__init__(self)
-        self._completion_message = completion_message
+        self._callback = callback
         if synthdefs:
             prototype = supriya.synthdefs.SynthDef
             if isinstance(synthdefs, prototype):
@@ -54,18 +54,18 @@ class SynthDefReceiveRequest(Request):
             request_id,
             compiled_synthdefs,
             ]
-        if self.completion_message:
-            completion_message = self.completion_message.to_datagram()
-            completion_message = bytearray(completion_message)
-            contents.append(completion_message)
+        if self.callback:
+            callback = self.callback.to_datagram()
+            callback = bytearray(callback)
+            contents.append(callback)
         message = supriya.osc.OscMessage(*contents)
         return message
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def completion_message(self):
-        return self._completion_message
+    def callback(self):
+        return self._callback
 
     @property
     def response_patterns(self):
