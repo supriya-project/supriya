@@ -44,9 +44,6 @@ class NodeAfterRequest(MoveRequest):
         ...     request.communicate(server=server)
         ...     _ = server.sync()
         ...
-
-    ::
-
         >>> for entry in transcript:
         ...     entry
         ...
