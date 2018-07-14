@@ -119,15 +119,6 @@ class Request(SupriyaValueObject):
             self.condition.notify()
 
     @property
-    def response_callback(self):
-        import supriya.commands
-        return supriya.commands.RequestCallback(
-            is_one_shot=True,
-            request=self,
-            response_specification=self.response_specification,
-            )
-
-    @property
     def response_patterns(self):
         return []
 

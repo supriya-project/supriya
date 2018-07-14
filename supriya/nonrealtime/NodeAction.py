@@ -85,9 +85,9 @@ class NodeAction(SupriyaValueObject):
         nodes_to_children[new_parent] = tuple(children) or None
 
     def _to_request(self, id_mapping):
-        node_id_pair = supriya.commands.NodeIdPair(
-            node_id=id_mapping[self.source],
-            target_node_id=id_mapping[self.target],
+        node_id_pair = (
+            id_mapping[self.source],
+            id_mapping[self.target],
             )
         if self.action == supriya.realtime.AddAction.ADD_TO_HEAD:
             request_class = supriya.commands.GroupHeadRequest

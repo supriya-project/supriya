@@ -39,7 +39,7 @@ class Out(UGen):
         calculation_rate=None,
         bus=0,
         source=None,
-        ):
+    ):
         if not isinstance(source, collections.Sequence):
             source = (source,)
         UGen.__init__(
@@ -61,7 +61,7 @@ class Out(UGen):
         cls,
         bus=0,
         source=None,
-        ):
+    ):
         """
         Constructs an audio-rate bus output.
 
@@ -99,7 +99,7 @@ class Out(UGen):
         cls,
         bus=0,
         source=None,
-        ):
+    ):
         """
         Constructs a control-rate bus output.
 
