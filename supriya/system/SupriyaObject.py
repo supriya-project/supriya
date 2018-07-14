@@ -2,7 +2,7 @@ import abc
 import uqbar.objects
 
 
-class SupriyaObject(abc.ABC):
+class SupriyaObject(metaclass=abc.ABCMeta):
     """
     Abstract base class from which many custom classes inherit.
     """

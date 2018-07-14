@@ -485,7 +485,7 @@ class Server(SupriyaObject):
             )
         start_time = time.time()
         while True:
-            line = self._server_process.stdout.readline().decode()
+            line = self._server_process.stdout.readline().decode().rstrip()
             if line.startswith('SuperCollider 3 server ready'):
                 break
             elif line.startswith('Exception in World_OpenUDP: bind: Address already in use'):

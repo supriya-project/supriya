@@ -7,10 +7,7 @@ class BufferInfoResponse(Response):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_buffer_id',
-        '_channel_count',
-        '_frame_count',
-        '_sample_rate',
+        '_items',
         )
 
     class Item(NamedTuple):
