@@ -8,31 +8,74 @@ class NodeRunRequest(Request):
 
     ::
 
-        >>> import supriya.commands
-        >>> request = supriya.commands.NodeRunRequest(
-        ...     node_id_run_flag_pairs=(
-        ...         (1000, True),
-        ...         (1001, False),
-        ...         ),
-        ...     )
-        >>> request
-        NodeRunRequest(
-            node_id_run_flag_pairs=(
-                (1000, True),
-                (1001, False),
-                ),
-            )
+        >>> import supriya
+        >>> server = supriya.Server().boot()
+        >>> synth_a = supriya.Synth().allocate()
+        >>> synth_b = supriya.Synth().allocate()
+        >>> synth_a.is_paused, synth_b.is_paused
+        (False, False)
+
+    Unpause ``synth_a`` (a no-op because it's already unpaused) and pause
+    ``synth_b``:
 
     ::
 
-        >>> message = request.to_osc_message()
-        >>> message
-        OscMessage(12, 1000, 1, 1001, 0)
+        >>> request = supriya.commands.NodeRunRequest([
+        ...     [synth_a, True],
+        ...     [synth_b, False],
+        ...     ])
+        >>> request.to_osc_message(True)
+        OscMessage('/n_run', 1000, 1, 1001, 0)
 
     ::
 
-        >>> message.address == supriya.commands.RequestId.NODE_RUN
-        True
+        >>> with server.osc_io.capture() as transcript:
+        ...     request.communicate(server=server)
+        ...     _ = server.sync()
+        ...
+        >>> for entry in transcript:
+        ...     entry
+        ...
+        ('S', OscMessage(12, 1000, 1, 1001, 0))
+        ('S', OscMessage(52, 0))
+        ('R', OscMessage('/n_off', 1001, 1, -1, 1000, 0))
+        ('R', OscMessage('/synced', 0))
+
+    ::
+
+        >>> synth_a.is_paused, synth_b.is_paused
+        (False, True)
+
+    Pause ``synth_a`` and unpause ``synth_b``:
+
+    ::
+
+        >>> request = supriya.commands.NodeRunRequest([
+        ...     [synth_a, False],
+        ...     [synth_b, True],
+        ...     ])
+        >>> request.to_osc_message(True)
+        OscMessage('/n_run', 1000, 0, 1001, 1)
+
+    ::
+
+        >>> with server.osc_io.capture() as transcript:
+        ...     request.communicate(server=server)
+        ...     _ = server.sync()
+        ...
+        >>> for entry in transcript:
+        ...     entry
+        ...
+        ('S', OscMessage(12, 1000, 0, 1001, 1))
+        ('S', OscMessage(52, 1))
+        ('R', OscMessage('/n_off', 1000, 1, 1001, -1, 0))
+        ('R', OscMessage('/n_on', 1001, 1, -1, 1000, 0))
+        ('R', OscMessage('/synced', 1))
+
+    ::
+
+        >>> synth_a.is_paused, synth_b.is_paused
+        (True, False)
 
     """
 
