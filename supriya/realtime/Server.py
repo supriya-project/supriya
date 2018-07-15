@@ -294,28 +294,29 @@ class Server(SupriyaObject):
     def _handle_node_response(self, response):
         from supriya.commands import NodeAction, NodeInfoResponse
         from supriya.realtime import Group, Synth
-        if isinstance(response, NodeInfoResponse):
-            node_id = response.node_id
-            node = self._nodes.get(node_id)
-            if node is not None:
-                node._handle_response(response)
-            elif response.action == NodeAction.NODE_CREATED:
-                if response.is_group:
-                    node = Group()
-                else:
-                    node = Synth()
-                node._register_with_local_server(
-                    server=self,
-                    node_id=response.node_id,
-                    )
-                parent = self._nodes[response.parent_group_id]
-                node._set_parent(parent)
-                if response.previous_node_id:
-                    previous_child = self._nodes[response.previous_node_id]
-                    index = parent.index(previous_child)
-                    parent._children.insert(index + 1, node)
-                else:
-                    parent._children.append(node)
+        with self._lock:
+            if isinstance(response, NodeInfoResponse):
+                node_id = response.node_id
+                node = self._nodes.get(node_id)
+                if node is not None:
+                    node._handle_response(response)
+                elif response.action == NodeAction.NODE_CREATED:
+                    if response.is_group:
+                        node = Group()
+                    else:
+                        node = Synth()
+                    node._register_with_local_server(
+                        server=self,
+                        node_id=response.node_id,
+                        )
+                    parent = self._nodes[response.parent_group_id]
+                    node._set_parent(parent)
+                    if response.previous_node_id:
+                        previous_child = self._nodes[response.previous_node_id]
+                        index = parent.index(previous_child)
+                        parent._children.insert(index + 1, node)
+                    else:
+                        parent._children.append(node)
 
     def _handle_synthdef_response(self, response):
         from supriya.commands import SynthDefRemovedResponse
