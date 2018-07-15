@@ -5,6 +5,102 @@ from supriya.commands.RequestBundle import RequestBundle
 class SynthDefReceiveRequest(Request):
     """
     A /d_recv request.
+
+    ::
+
+        >>> import supriya
+        >>> server = supriya.Server().boot()
+
+
+    ::
+
+        >>> with supriya.SynthDefBuilder(out=0, value=0.5) as builder:
+        ...     _ = supriya.ugens.Out.ar(
+        ...         bus=builder['out'],
+        ...         source=supriya.ugens.DC.ar(builder['value']),
+        ...         )
+        ...
+        >>> synthdef = builder.build(name='example')
+
+    ::
+
+        >>> synthdef in server
+        False
+
+    ::
+
+        >>> print(server.query_remote_nodes())
+        NODE TREE 0 group
+            1 group
+
+    Allocate a synthdef, then allocate a new group and allocate a synth in that
+    group using the newly allocated synthdef:
+
+    ::
+
+        >>> request = supriya.commands.SynthDefReceiveRequest(
+        ...     synthdefs=[synthdef],
+        ...     callback=supriya.commands.RequestBundle(
+        ...         contents=[
+        ...             supriya.commands.GroupNewRequest(
+        ...                 node_id=1000,
+        ...                 target_node_id=1,
+        ...                 ),
+        ...             supriya.commands.SynthNewRequest(
+        ...                 node_id=1001,
+        ...                 synthdef=synthdef,
+        ...                 target_node_id=1000,
+        ...                 ),
+        ...             ],
+        ...         ),
+        ...     )
+
+    ::
+
+        >>> with server.osc_io.capture() as transcript:
+        ...     response = request.communicate(server=server)
+        ...     _ = server.sync()
+        ...
+        >>> response
+        DoneResponse(
+            action=('/d_recv',),
+            )
+
+    ::
+
+        >>> for entry in transcript:
+        ...     entry
+        ...
+        ('S', OscMessage(5, bytearray(b'SCgf...'), bytearray(b'#bundle...')))
+        ('R', OscMessage('/n_go', 1000, 1, -1, -1, 1, -1, -1))
+        ('R', OscMessage('/n_go', 1001, 1000, -1, -1, 0))
+        ('R', OscMessage('/done', '/d_recv'))
+        ('S', OscMessage(52, 0))
+        ('R', OscMessage('/synced', 0))
+
+    ::
+
+        >>> print(server.query_remote_nodes(True))
+        NODE TREE 0 group
+            1 group
+                1000 group
+                    1001 example
+                        out: 0.0, value: 0.5
+
+    ::
+
+        >>> print(server.query_local_nodes(True))
+        NODE TREE 0 group
+            1 group
+                1000 group
+                    1001 default
+                        out: 0.0, value: 0.5
+
+    ::
+
+        >>> synthdef in server
+        True
+
     """
 
     ### CLASS VARIABLES ###
