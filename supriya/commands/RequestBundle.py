@@ -75,6 +75,9 @@ class RequestBundle(SupriyaValueObject):
         message = self.to_osc_bundle()
         server.send_message(message)
 
+    def to_datagram(self):
+        return self.to_osc_message().to_datagram()
+
     def to_list(self, with_textual_osc_command=False):
         return self.to_osc_bundle(with_textual_osc_command).to_list()
 

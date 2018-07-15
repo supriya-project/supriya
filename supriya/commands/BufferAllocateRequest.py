@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestBundle import RequestBundle
 
 
 class BufferAllocateRequest(Request):
@@ -51,7 +52,7 @@ class BufferAllocateRequest(Request):
         frame_count=None,
         channel_count=None,
         callback=None,
-        ):
+    ):
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
         self._frame_count = frame_count
@@ -59,8 +60,9 @@ class BufferAllocateRequest(Request):
             channel_count = int(channel_count)
             assert 0 < channel_count
         self._channel_count = channel_count
-        self._callback = self._coerce_callback_input(
-            callback)
+        if callback is not None:
+            assert isinstance(callback, (Request, RequestBundle))
+        self._callback = callback
 
     ### PUBLIC METHODS ###
 
@@ -78,7 +80,8 @@ class BufferAllocateRequest(Request):
             frame_count,
             channel_count,
             ]
-        self._coerce_callback_output(contents)
+        if self.callback:
+            contents.append(bytearray(self.callback.to_datagram()))
         message = supriya.osc.OscMessage(*contents)
         return message
 

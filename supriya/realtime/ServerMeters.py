@@ -1,8 +1,27 @@
 from supriya import utils
+
 import supriya.system
 
 
 class ServerMeters(supriya.system.SupriyaObject):
+    """
+    A server recorder.
+
+    ::
+
+        >>> import supriya
+        >>> server = supriya.Server().boot()
+        >>> meters = server.meters.allocate()
+
+    ::
+
+        >>> meters.to_dict()
+
+    ::
+
+        >>> meters.free()
+
+    """
 
     ### CLASS VARIABLES ###
 
@@ -32,30 +51,6 @@ class ServerMeters(supriya.system.SupriyaObject):
         self._output_meter_peak_levels = None
         self._output_meter_rms_levels = None
         self._output_meter_synth = None
-
-    ### PUBLIC METHODS ###
-
-    @staticmethod
-    def make_meter_synthdef(
-        channel_count=1,
-        command_name='/reply',
-        initial_bus=0,
-    ):
-        import supriya.synthdefs
-        import supriya.ugens
-        with supriya.synthdefs.SynthDefBuilder() as builder:
-            source = supriya.ugens.In.ar(
-                bus=initial_bus,
-                channel_count=channel_count,
-                )
-            supriya.ugens.SendPeakRMS.kr(
-                command_name=command_name,
-                peak_lag=1,
-                reply_rate=20,
-                source=source,
-                )
-        synthdef = builder.build()
-        return synthdef
 
     ### PRIVATE METHODS ###
 
@@ -90,7 +85,6 @@ class ServerMeters(supriya.system.SupriyaObject):
 
     ### PUBLIC METHODS ###
 
-    @supriya.system.PubSub.subscribe_before('server-quitting')
     def allocate(self):
         import supriya.osc
         import supriya.realtime
@@ -122,7 +116,6 @@ class ServerMeters(supriya.system.SupriyaObject):
             )
         return self
 
-    @supriya.system.PubSub.unsubscribe_after('server-quitting')
     def free(self):
         self.server.osc_io.unregister(self._input_meter_callback)
         self.server.osc_io.unregister(self._output_meter_callback)
@@ -132,6 +125,28 @@ class ServerMeters(supriya.system.SupriyaObject):
         self._output_meter_callback = None
         self._input_meter_synth = None
         self._output_meter_synth = None
+
+    @staticmethod
+    def make_meter_synthdef(
+        channel_count=1,
+        command_name='/reply',
+        initial_bus=0,
+    ):
+        import supriya.synthdefs
+        import supriya.ugens
+        with supriya.synthdefs.SynthDefBuilder() as builder:
+            source = supriya.ugens.In.ar(
+                bus=initial_bus,
+                channel_count=channel_count,
+                )
+            supriya.ugens.SendPeakRMS.kr(
+                command_name=command_name,
+                peak_lag=1,
+                reply_rate=20,
+                source=source,
+                )
+        synthdef = builder.build()
+        return synthdef
 
     def notify(self, topic, event):
         if topic == 'server-quitting':
@@ -151,8 +166,8 @@ class ServerMeters(supriya.system.SupriyaObject):
             output_meter_levels.append(dict(peak=peak, rms=rms))
         result = {
             'server_meters': {
-                'input_meter_levels': self._input_meter_levels,
-                'output_meter_levels': self._output_meter_levels,
+                'input_meter_levels': input_meter_levels,
+                'output_meter_levels': output_meter_levels,
                 },
             }
         return result

@@ -1,6 +1,7 @@
-import os
+import pathlib
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestBundle import RequestBundle
 
 
 class SynthDefLoadDirectoryRequest(Request):
@@ -19,9 +20,10 @@ class SynthDefLoadDirectoryRequest(Request):
 
     def __init__(self, callback=None, directory_path=None):
         Request.__init__(self)
-        Request.__init__(self)
+        if callback is not None:
+            assert isinstance(callback, (Request, RequestBundle))
         self._callback = callback
-        self._directory_path = os.path.abspath(directory_path)
+        self._directory_path = pathlib.Path(directory_path).absolute()
 
     ### PUBLIC METHODS ###
 
@@ -32,12 +34,10 @@ class SynthDefLoadDirectoryRequest(Request):
             request_id = int(self.request_id)
         contents = [
             request_id,
-            self.directory_path,
+            str(self.directory_path),
             ]
         if self.callback:
-            callback = self.callback.to_datagram()
-            callback = bytearray(callback)
-            contents.append(callback)
+            contents.append(bytearray(self.callback.to_datagram()))
         message = supriya.osc.OscMessage(*contents)
         return message
 

@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestBundle import RequestBundle
 
 
 class BufferReadRequest(Request):
@@ -59,8 +60,9 @@ class BufferReadRequest(Request):
         import supriya.nonrealtime
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
-        self._callback = self._coerce_callback_input(
-            callback)
+        if callback is not None:
+            assert isinstance(callback, (Request, RequestBundle))
+        self._callback = callback
         if not supriya.nonrealtime.Session.is_session_like(file_path):
             file_path = str(file_path)
         self._file_path = file_path
@@ -113,7 +115,8 @@ class BufferReadRequest(Request):
 
     def to_osc_message(self, with_textual_osc_command=False):
         contents = self._get_osc_message_contents(with_textual_osc_command)
-        self._coerce_callback_output(contents)
+        if self.callback:
+            contents.append(bytearray(self.callback.to_datagram()))
         message = supriya.osc.OscMessage(*contents)
         return message
 

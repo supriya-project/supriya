@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestBundle import RequestBundle
 
 
 class BufferZeroRequest(Request):
@@ -46,8 +47,9 @@ class BufferZeroRequest(Request):
     ):
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
-        self._callback = self._coerce_callback_input(
-            callback)
+        if callback is not None:
+            assert isinstance(callback, (Request, RequestBundle))
+        self._callback = callback
 
     ### PUBLIC METHODS ###
 
@@ -61,7 +63,8 @@ class BufferZeroRequest(Request):
             request_id,
             buffer_id,
             ]
-        self._coerce_callback_output(contents)
+        if self.callback:
+            contents.append(bytearray(self.callback.to_datagram()))
         message = supriya.osc.OscMessage(*contents)
         return message
 

@@ -1,6 +1,7 @@
-import os
+import pathlib
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestBundle import RequestBundle
 
 
 class SynthDefLoadRequest(Request):
@@ -19,8 +20,10 @@ class SynthDefLoadRequest(Request):
 
     def __init__(self, callback=None, synthdef_path=None):
         Request.__init__(self)
+        if callback is not None:
+            assert isinstance(callback, (Request, RequestBundle))
         self._callback = callback
-        self._synthdef_path = os.path.abspath(synthdef_path)
+        self._synthdef_path = pathlib.Path(synthdef_path).absolute()
 
     ### PUBLIC METHODS ###
 
@@ -31,12 +34,10 @@ class SynthDefLoadRequest(Request):
             request_id = int(self.request_id)
         contents = [
             request_id,
-            self.synthdef_path,
+            str(self.synthdef_path),
             ]
         if self.callback:
-            callback = self.callback.to_datagram()
-            callback = bytearray(callback)
-            contents.append(callback)
+            contents.append(bytearray(self.callback.to_datagram()))
         message = supriya.osc.OscMessage(*contents)
         return message
 
