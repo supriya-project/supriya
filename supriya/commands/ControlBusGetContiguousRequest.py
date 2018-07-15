@@ -87,13 +87,6 @@ class ControlBusGetContiguousRequest(Request):
         return [['/c_setn']]
 
     @property
-    def response_specification(self):
-        import supriya.commands
-        return {
-            supriya.commands.ControlBusSetContiguousResponse: None,
-            }
-
-    @property
     def request_id(self):
         import supriya.commands
         return supriya.commands.RequestId.CONTROL_BUS_GET_CONTIGUOUS

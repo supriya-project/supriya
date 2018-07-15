@@ -232,7 +232,7 @@ class BufferGenerateRequest(Request):
         phases=None,
         should_normalize=True,
         should_clear_first=True,
-        ):
+    ):
         command_name = 'sine3'
         request = cls(
             amplitudes=amplitudes,
@@ -284,15 +284,6 @@ class BufferGenerateRequest(Request):
     @property
     def response_patterns(self):
         return [['/done', '/b_gen', self.buffer_id]]
-
-    @property
-    def response_specification(self):
-        import supriya.commands
-        return {
-            supriya.commands.DoneResponse: {
-                'action': ('/b_gen', self.buffer_id),
-                },
-            }
 
     @property
     def request_id(self):

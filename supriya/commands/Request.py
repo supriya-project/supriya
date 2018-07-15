@@ -123,10 +123,6 @@ class Request(SupriyaValueObject):
         return []
 
     @property
-    def response_specification(self):
-        return None
-
-    @property
     @abc.abstractmethod
     def request_id(self):
         return NotImplementedError

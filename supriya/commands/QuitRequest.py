@@ -32,15 +32,6 @@ class QuitRequest(Request):
         return [['/done', '/quit']]
 
     @property
-    def response_specification(self):
-        import supriya.commands
-        return {
-            supriya.commands.DoneResponse: {
-                'action': ('/quit',),
-                },
-            }
-
-    @property
     def request_id(self):
         import supriya.commands
         return supriya.commands.RequestId.QUIT

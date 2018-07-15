@@ -52,15 +52,6 @@ class SynthDefLoadDirectoryRequest(Request):
         return [['/done', '/d_loadDir']]
 
     @property
-    def response_specification(self):
-        import supriya.commands
-        return {
-            supriya.commands.DoneResponse: {
-                'action': ('/d_loadDir',),
-                },
-            }
-
-    @property
     def request_id(self):
         import supriya.commands
         return supriya.commands.RequestId.SYNTHDEF_LOAD_DIR

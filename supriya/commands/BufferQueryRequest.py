@@ -78,13 +78,3 @@ class BufferQueryRequest(Request):
         if 1 == len(self.buffer_ids):
             return [['/b_info', self.buffer_ids[0]]]
         return []
-
-    @property
-    def response_specification(self):
-        import supriya.commands
-        if 1 == len(self.buffer_ids):
-            return {
-                supriya.commands.BufferInfoResponse: {
-                    'buffer_id': self.buffer_ids[0],
-                    },
-                }

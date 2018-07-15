@@ -38,10 +38,7 @@ class SyncRequest(Request):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        sync_id=None,
-        ):
+    def __init__(self, sync_id=None):
         Request.__init__(self)
         self._sync_id = int(sync_id)
 
@@ -64,15 +61,6 @@ class SyncRequest(Request):
     @property
     def response_patterns(self):
         return [['/synced', self.sync_id]]
-
-    @property
-    def response_specification(self):
-        import supriya.commands
-        return {
-            supriya.commands.SyncedResponse: {
-                'sync_id': self.sync_id,
-                },
-            }
 
     @property
     def request_id(self):

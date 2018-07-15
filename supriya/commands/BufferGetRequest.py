@@ -86,18 +86,6 @@ class BufferGetRequest(Request):
             ]
 
     @property
-    def response_specification(self):
-        import supriya.commands
-        return {
-            supriya.commands.BufferSetResponse: {
-                'buffer_id': self.buffer_id,
-                },
-            supriya.commands.FailResponse: {
-                'failed_command': '/b_get',
-                }
-            }
-
-    @property
     def request_id(self):
         import supriya.commands
         return supriya.commands.RequestId.BUFFER_GET

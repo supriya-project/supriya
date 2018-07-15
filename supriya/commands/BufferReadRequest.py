@@ -55,7 +55,7 @@ class BufferReadRequest(Request):
         leave_open=None,
         starting_frame_in_buffer=None,
         starting_frame_in_file=None,
-        ):
+    ):
         import supriya.nonrealtime
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
@@ -142,15 +142,6 @@ class BufferReadRequest(Request):
     @property
     def response_patterns(self):
         return [['/done', '/b_read', self.buffer_id]]
-
-    @property
-    def response_specification(self):
-        import supriya.commands
-        return {
-            supriya.commands.DoneResponse: {
-                'action': ('/b_read', self.buffer_id),
-                },
-            }
 
     @property
     def request_id(self):

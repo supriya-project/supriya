@@ -112,15 +112,6 @@ class BufferCopyRequest(Request):
         return [['/done', '/b_gen', self.target_buffer_id]]
 
     @property
-    def response_specification(self):
-        import supriya.commands
-        return {
-            supriya.commands.DoneResponse: {
-                'action': ('/b_gen', self.target_buffer_id),
-                },
-            }
-
-    @property
     def source_buffer_id(self):
         return self._source_buffer_id
 

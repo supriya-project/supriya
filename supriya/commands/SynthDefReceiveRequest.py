@@ -1,4 +1,3 @@
-import supriya.osc
 from supriya.commands.Request import Request
 
 
@@ -70,15 +69,6 @@ class SynthDefReceiveRequest(Request):
     @property
     def response_patterns(self):
         return [['/done', '/d_recv']]
-
-    @property
-    def response_specification(self):
-        import supriya.commands
-        return {
-            supriya.commands.DoneResponse: {
-                'action': ('/d_recv',),
-                },
-            }
 
     @property
     def request_id(self):
