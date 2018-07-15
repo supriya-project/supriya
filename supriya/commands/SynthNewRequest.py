@@ -1,4 +1,6 @@
 from supriya.commands.Request import Request
+from supriya.realtime.AddAction import AddAction
+from supriya.realtime.Synth import Synth
 
 
 class SynthNewRequest(Request):
@@ -63,7 +65,7 @@ class SynthNewRequest(Request):
         import supriya.realtime
         import supriya.synthdefs
         Request.__init__(self)
-        self._add_action = supriya.realtime.AddAction.from_expr(add_action)
+        self._add_action = AddAction.from_expr(add_action)
         self._node_id = node_id
         prototype = (str, supriya.synthdefs.SynthDef)
         assert isinstance(synthdef, prototype)
@@ -77,6 +79,21 @@ class SynthNewRequest(Request):
         if name in self._kwargs:
             return self._kwargs[name]
         return object.__getattr__(self, name)
+
+    ### PRIVATE METHODS ###
+
+    def _apply_local(self, server):
+        return
+        if self.node_id in server._pending_nodes:
+            synth = server._pending_nodes.pop(self.node_id)
+        else:
+            synth = Synth(
+                synthdef=self.synthdef,
+                **self.kwargs,
+                )
+        target_node = server._nodes[self.target_node_id]
+        synth._register_with_local_server(node_id=self.node_id, server=server)
+        target_node._move_node(add_action=self.add_action, node=synth)
 
     ### PUBLIC METHODS ###
 

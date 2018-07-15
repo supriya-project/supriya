@@ -25,7 +25,7 @@ class MessageBundler(SupriyaObject):
         server=None,
         sync=False,
         timestamp=None,
-        ):
+    ):
         import supriya.realtime
         self._result = None
         self._send_to_server = bool(send_to_server)

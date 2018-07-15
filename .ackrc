@@ -4,4 +4,6 @@
 --ignore-dir=build/
 --ignore-dir=dist/
 --ignore-dir=docs/
+--ignore-dir=htmlcov/
 --ignore-dir=supriya.egg-info/
+--ignore-file=is:.coverage
