@@ -85,13 +85,6 @@ class GroupQueryTreeRequest(Request):
             ]]
 
     @property
-    def response_specification(self):
-        import supriya.commands
-        return {
-            supriya.commands.QueryTreeResponse: None,
-            }
-
-    @property
     def request_id(self):
         import supriya.commands
         return supriya.commands.RequestId.GROUP_QUERY_TREE

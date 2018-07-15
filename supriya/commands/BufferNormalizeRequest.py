@@ -95,12 +95,3 @@ class BufferNormalizeRequest(Request):
     @property
     def response_patterns(self):
         return [['/done', '/b_gen', self.buffer_id]]
-
-    @property
-    def response_specification(self):
-        import supriya.commands
-        return {
-            supriya.commands.DoneResponse: {
-                'action': ('/b_gen', self.buffer_id),
-                },
-            }

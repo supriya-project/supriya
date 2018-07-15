@@ -134,16 +134,6 @@ class GroupNewRequest(Request):
             ]]
 
     @property
-    def response_specification(self):
-        import supriya.commands
-        return {
-            supriya.commands.NodeInfoResponse: {
-                'action': supriya.commands.NodeAction.NODE_CREATED,
-                'node_id': self.node_id,
-                },
-            }
-
-    @property
     def request_id(self):
         import supriya.commands
         return supriya.commands.RequestId.GROUP_NEW

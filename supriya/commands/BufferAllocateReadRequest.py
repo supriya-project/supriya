@@ -119,15 +119,6 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
         return [['/done', '/b_allocRead', self.buffer_id]]
 
     @property
-    def response_specification(self):
-        import supriya.commands
-        return {
-            supriya.commands.DoneResponse: {
-                'action': ('/b_allocRead', self.buffer_id),
-                },
-            }
-
-    @property
     def request_id(self):
         import supriya.commands
         return supriya.commands.RequestId.BUFFER_ALLOCATE_READ

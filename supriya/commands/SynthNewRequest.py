@@ -1,4 +1,3 @@
-import supriya.osc
 from supriya.commands.Request import Request
 
 
@@ -59,8 +58,8 @@ class SynthNewRequest(Request):
         node_id=None,
         synthdef=None,
         target_node_id=None,
-        **kwargs
-        ):
+        **kwargs,
+    ):
         import supriya.realtime
         import supriya.synthdefs
         Request.__init__(self)
@@ -119,16 +118,6 @@ class SynthNewRequest(Request):
     @property
     def response_patterns(self):
         return [['/n_go', self.node_id]]
-
-    @property
-    def response_specification(self):
-        import supriya.commands
-        return {
-            supriya.commands.NodeInfoResponse: {
-                'action': supriya.commands.NodeAction.NODE_CREATED,
-                'node_id': self.node_id,
-                },
-            }
 
     @property
     def request_id(self):

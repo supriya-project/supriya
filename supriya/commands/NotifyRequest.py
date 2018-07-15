@@ -69,19 +69,6 @@ class NotifyRequest(Request):
         return [['/done', '/notify']]
 
     @property
-    def response_specification(self):
-        import supriya.commands
-        pattern = ('/notify', 0, 64)
-        # TODO: Fix this
-        if os.environ.get('TRAVIS'):
-            pattern = ('/notify',)
-        return {
-            supriya.commands.DoneResponse: {
-                'action': pattern,
-                },
-            }
-
-    @property
     def request_id(self):
         import supriya.commands
         return supriya.commands.RequestId.NOTIFY

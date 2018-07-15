@@ -72,13 +72,6 @@ class ControlBusGetRequest(Request):
         return [['/c_set']]
 
     @property
-    def response_specification(self):
-        import supriya.commands
-        return {
-            supriya.commands.ControlBusSetResponse: None,
-            }
-
-    @property
     def request_id(self):
         import supriya.commands
         return supriya.commands.RequestId.CONTROL_BUS_GET

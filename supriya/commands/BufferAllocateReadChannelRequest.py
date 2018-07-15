@@ -89,15 +89,6 @@ class BufferAllocateReadChannelRequest(BufferAllocateReadRequest):
         return [['/done', '/b_allocReadChannel', self.buffer_id]]
 
     @property
-    def response_specification(self):
-        import supriya.commands
-        return {
-            supriya.commands.DoneResponse: {
-                'action': ('/b_allocReadChannel', self.buffer_id),
-                },
-            }
-
-    @property
     def request_id(self):
         import supriya.commands
         return supriya.commands.RequestId.BUFFER_ALLOCATE_READ_CHANNEL
