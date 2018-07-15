@@ -1,4 +1,5 @@
 from supriya.commands.Request import Request
+from supriya.commands.RequestBundle import RequestBundle
 
 
 class SynthDefReceiveRequest(Request):
@@ -24,6 +25,8 @@ class SynthDefReceiveRequest(Request):
     ):
         import supriya.synthdefs
         Request.__init__(self)
+        if callback is not None:
+            assert isinstance(callback, (Request, RequestBundle))
         self._callback = callback
         if synthdefs:
             prototype = supriya.synthdefs.SynthDef
@@ -54,9 +57,7 @@ class SynthDefReceiveRequest(Request):
             compiled_synthdefs,
             ]
         if self.callback:
-            callback = self.callback.to_datagram()
-            callback = bytearray(callback)
-            contents.append(callback)
+            contents.append(bytearray(self.callback.to_datagram()))
         message = supriya.osc.OscMessage(*contents)
         return message
 

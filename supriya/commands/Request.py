@@ -1,8 +1,6 @@
 import abc
-import collections
 import threading
 import time
-import supriya.osc
 from supriya.system.SupriyaValueObject import SupriyaValueObject
 
 
@@ -24,23 +22,6 @@ class Request(SupriyaValueObject):
         self._response = None
 
     ### PRIVATE METHODS ###
-
-    def _coerce_callback_input(self, message):
-        if message is None:
-            return message
-        elif isinstance(message, (supriya.osc.OscMessage, supriya.osc.OscBundle)):
-            return message
-        elif isinstance(message, Request):
-            return message.to_osc_message()
-        elif isinstance(message, collections.Sequence):
-            return supriya.osc.OscMessage(*message)
-        raise ValueError(message)
-
-    def _coerce_callback_output(self, contents):
-        if self.callback is not None:
-            callback = self.callback.to_datagram()
-            callback = bytearray(callback)
-            contents.append(callback)
 
     def _set_response(self, response):
         with self.condition:
@@ -87,14 +68,17 @@ class Request(SupriyaValueObject):
             return None
         return self._response
 
-    @abc.abstractmethod
-    def to_osc_message(self, with_textual_osc_command=False):
-        raise NotImplementedError
+    def to_datagram(self):
+        return self.to_osc_message().to_datagram()
 
     def to_list(self, with_textual_osc_command=False):
         return self.to_osc_message(
             with_textual_osc_command=with_textual_osc_command
             ).to_list()
+
+    @abc.abstractmethod
+    def to_osc_message(self, with_textual_osc_command=False):
+        raise NotImplementedError
 
     ### PUBLIC PROPERTIES ###
 

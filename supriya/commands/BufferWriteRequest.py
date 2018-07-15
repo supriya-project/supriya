@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestBundle import RequestBundle
 
 
 class BufferWriteRequest(Request):
@@ -64,12 +65,13 @@ class BufferWriteRequest(Request):
         leave_open=False,
         sample_format='int24',
         starting_frame=None,
-        ):
+    ):
         import supriya.soundfiles
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
-        self._callback = self._coerce_callback_input(
-            callback)
+        if callback is not None:
+            assert isinstance(callback, (Request, RequestBundle))
+        self._callback = callback
         self._file_path = str(file_path)
         if frame_count is None:
             frame_count = -1
@@ -108,7 +110,8 @@ class BufferWriteRequest(Request):
             self.starting_frame,
             leave_open,
             ]
-        self._coerce_callback_output(contents)
+        if self.callback:
+            contents.append(bytearray(self.callback.to_datagram()))
         message = supriya.osc.OscMessage(*contents)
         return message
 
