@@ -65,6 +65,12 @@ class RequestBundle(SupriyaValueObject):
             contents = ()
         self._contents = contents
 
+    ### PRIVATE METHODS ###
+
+    def _linearize(self):
+        for x in self.contents:
+            yield from x._linearize()
+
     ### PUBLIC METHODS ###
 
     def communicate(self, server=None):

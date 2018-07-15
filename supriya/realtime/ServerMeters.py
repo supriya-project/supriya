@@ -15,10 +15,6 @@ class ServerMeters(supriya.system.SupriyaObject):
 
     ::
 
-        >>> meters.to_dict()
-
-    ::
-
         >>> meters.free()
 
     """
