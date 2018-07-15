@@ -71,7 +71,7 @@ class SynthDefReceiveRequest(Request):
         >>> for entry in transcript:
         ...     entry
         ...
-        ('S', OscMessage(5, bytearray(b'SCgf...'), bytearray(b'#bundle...')))
+        ('S', OscMessage(5, bytearray(b'SCgf...example...'), bytearray(b'#bundle...')))
         ('R', OscMessage('/n_go', 1000, 1, -1, -1, 1, -1, -1))
         ('R', OscMessage('/n_go', 1001, 1000, -1, -1, 0))
         ('R', OscMessage('/done', '/d_recv'))

@@ -1,6 +1,7 @@
 import abc
 import threading
 import time
+from uqbar.objects import new
 from supriya.system.SupriyaValueObject import SupriyaValueObject
 
 
@@ -23,6 +24,19 @@ class Request(SupriyaValueObject):
 
     ### PRIVATE METHODS ###
 
+    def _apply_local(self, server):
+        pass
+
+    def _apply_remote(self, server):
+        pass
+
+    def _linearize(self):
+        if hasattr(self, 'callback') and self.callback:
+            yield new(self, callback=None)
+            yield from self.callback._linearize()
+        else:
+            yield self
+
     def _set_response(self, response):
         with self.condition:
             self._response = response
@@ -36,12 +50,16 @@ class Request(SupriyaValueObject):
         server=None,
         sync=True,
         timeout=1.0,
+        apply_local=False,
     ):
         import supriya.realtime
         server = server or supriya.realtime.Server.get_default_server()
         assert isinstance(server, supriya.realtime.Server)
         assert server.is_running
         message = message or self.to_osc_message()
+        if apply_local:
+            for request in self._linearize():
+                request._apply_local(server)
         if not sync or not self.response_patterns:
             server.send_message(message)
             return None

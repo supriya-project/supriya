@@ -1,5 +1,6 @@
 import atexit
 import subprocess
+import threading
 import time
 import uqbar.graphs
 import uqbar.io
@@ -48,6 +49,7 @@ class Server(SupriyaObject):
         '_ip_address',
         '_is_running',
         '_latency',
+        '_lock',
         '_meters',
         '_node_id_allocator',
         '_nodes',
@@ -108,6 +110,7 @@ class Server(SupriyaObject):
         ### OSC MESSAGING ###
 
         self._latency = 0.1
+        self._lock = threading.Lock()
         self._osc_io = supriya.osc.OscIO()
 
         ### ALLOCATORS ###

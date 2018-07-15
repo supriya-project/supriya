@@ -224,7 +224,6 @@ class Buffer(ServerObjectProxy):
         on_done = supriya.commands.BufferQueryRequest(
             buffer_ids=(self.buffer_id,),
             )
-        on_done = on_done.to_osc_message()
         if file_path and channel_indices is not None:
             if not isinstance(channel_indices, collections.Sequence):
                 channel_indices = (channel_indices,)
@@ -268,7 +267,6 @@ class Buffer(ServerObjectProxy):
         on_done = supriya.commands.BufferQueryRequest(
             buffer_ids=(buffer_id,),
             )
-        on_done = on_done.to_osc_message()
         request = supriya.commands.BufferFreeRequest(
             buffer_id=buffer_id,
             callback=on_done,
@@ -1107,7 +1105,6 @@ class Buffer(ServerObjectProxy):
         on_done = supriya.commands.BufferQueryRequest(
             buffer_ids=(self.buffer_id,),
             )
-        on_done = on_done.to_osc_message()
         if channel_indices is not None:
             request = supriya.commands.BufferReadChannelRequest(
                 buffer_id=self.buffer_id,
