@@ -135,6 +135,12 @@ class SynthDefReceiveRequest(Request):
             use_anonymous_names = bool(use_anonymous_names)
         self._use_anonymous_names = use_anonymous_names
 
+    ### PRIVATE METHODS ###
+
+    def _apply_local(self, server):
+        for synthdef in self.synthdefs:
+            synthdef._register_with_local_server(server)
+
     ### PUBLIC METHODS ###
 
     def to_osc_message(self, with_textual_osc_command=False):

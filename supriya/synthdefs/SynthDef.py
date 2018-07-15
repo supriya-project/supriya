@@ -79,7 +79,7 @@ class SynthDef(ServerObjectProxy):
         optimize=True,
         parameter_names=None,
         **kwargs
-        ):
+    ):
         import supriya.synthdefs
         import supriya.ugens
         ServerObjectProxy.__init__(self)
@@ -275,7 +275,7 @@ class SynthDef(ServerObjectProxy):
                 if (
                     ugen._unexpanded_input_names and
                     argument_name in ugen._unexpanded_input_names
-                    ):
+                ):
                     unexpanded_index = i - ugen._ordered_input_names.index(
                         argument_name)
                     argument_name += '[{}]'.format(unexpanded_index)
@@ -319,7 +319,7 @@ class SynthDef(ServerObjectProxy):
         d_load_synthdefs = []
         if synthdefs:
             for synthdef in synthdefs:
-                synthdef._register_with_local_server(server=server)
+                #synthdef._register_with_local_server(server=server)
                 compiled = synthdef.compile()
                 if 8192 < len(compiled):
                     d_load_synthdefs.append(synthdef)
@@ -391,7 +391,8 @@ class SynthDef(ServerObjectProxy):
                 indexed_parameters.append((starting_control_index, parameter))
                 starting_control_index += len(parameter)
             for i, output_proxy in enumerate(
-                control._get_parameter_output_proxies()):
+                control._get_parameter_output_proxies()
+            ):
                 control_mapping[output_proxy] = control[i]
         if trigger_parameters:
             control = supriya.ugens.TrigControl(
@@ -403,7 +404,8 @@ class SynthDef(ServerObjectProxy):
                 indexed_parameters.append((starting_control_index, parameter))
                 starting_control_index += len(parameter)
             for i, output_proxy in enumerate(
-                control._get_parameter_output_proxies()):
+                control._get_parameter_output_proxies()
+            ):
                 control_mapping[output_proxy] = control[i]
         if audio_parameters:
             control = supriya.ugens.AudioControl(
@@ -415,7 +417,8 @@ class SynthDef(ServerObjectProxy):
                 indexed_parameters.append((starting_control_index, parameter))
                 starting_control_index += len(parameter)
             for i, output_proxy in enumerate(
-                control._get_parameter_output_proxies()):
+                control._get_parameter_output_proxies()
+            ):
                 control_mapping[output_proxy] = control[i]
         if control_parameters:
             if any(_.lag for _ in control_parameters):
@@ -435,7 +438,8 @@ class SynthDef(ServerObjectProxy):
                 indexed_parameters.append((starting_control_index, parameter))
                 starting_control_index += len(parameter)
             for i, output_proxy in enumerate(
-                control._get_parameter_output_proxies()):
+                control._get_parameter_output_proxies()
+            ):
                 control_mapping[output_proxy] = control[i]
         control_ugens = tuple(control_ugens)
         indexed_parameters.sort(
@@ -528,7 +532,7 @@ class SynthDef(ServerObjectProxy):
     def _collect_indexed_parameters(
         control_ugens,
         parameter_names=None,
-        ):
+    ):
         indexed_parameters = []
         parameters = {}
         for control_ugen in control_ugens:
@@ -628,10 +632,7 @@ class SynthDef(ServerObjectProxy):
             ugen._optimize_graph(sort_bundles)
         return tuple(sort_bundles)
 
-    def _register_with_local_server(
-        self,
-        server=None,
-        ):
+    def _register_with_local_server(self, server=None):
         ServerObjectProxy.allocate(self, server=server)
         synthdef_name = self.actual_name
         self.server._synthdefs[synthdef_name] = self
@@ -661,10 +662,7 @@ class SynthDef(ServerObjectProxy):
 
     ### PUBLIC METHODS ###
 
-    def allocate(
-        self,
-        server=None,
-        ):
+    def allocate(self, server=None):
         self._allocate_synthdefs((self,), server)
         return self
 
@@ -862,8 +860,10 @@ class SynthDef(ServerObjectProxy):
         Returns integer.
         """
         import supriya.synthdefs
-        ugens = tuple(_ for _ in self.input_ugens
-            if _.calculation_rate == supriya.synthdefs.CalculationRate.AUDIO)
+        ugens = tuple(
+            _ for _ in self.input_ugens
+            if _.calculation_rate == supriya.synthdefs.CalculationRate.AUDIO
+        )
         if len(ugens) == 1:
             return ugens[0].channel_count
         elif not ugens:
@@ -900,8 +900,10 @@ class SynthDef(ServerObjectProxy):
         Returns integer.
         """
         import supriya.synthdefs
-        ugens = tuple(_ for _ in self.output_ugens
-            if _.calculation_rate == supriya.synthdefs.CalculationRate.AUDIO)
+        ugens = tuple(
+            _ for _ in self.output_ugens
+            if _.calculation_rate == supriya.synthdefs.CalculationRate.AUDIO
+        )
         if len(ugens) == 1:
             return len(ugens[0].source)
         elif not ugens:
@@ -953,8 +955,10 @@ class SynthDef(ServerObjectProxy):
         Returns integer.
         """
         import supriya.synthdefs
-        ugens = tuple(_ for _ in self.input_ugens
-            if _.calculation_rate == supriya.synthdefs.CalculationRate.CONTROL)
+        ugens = tuple(
+            _ for _ in self.input_ugens
+            if _.calculation_rate == supriya.synthdefs.CalculationRate.CONTROL
+        )
         if len(ugens) == 1:
             return ugens[0].channel_count
         elif not ugens:
@@ -991,8 +995,10 @@ class SynthDef(ServerObjectProxy):
         Returns integer.
         """
         import supriya.synthdefs
-        ugens = tuple(_ for _ in self.output_ugens
-            if _.calculation_rate == supriya.synthdefs.CalculationRate.CONTROL)
+        ugens = tuple(
+            _ for _ in self.output_ugens
+            if _.calculation_rate == supriya.synthdefs.CalculationRate.CONTROL
+        )
         if len(ugens) == 1:
             return len(ugens[0].source)
         elif not ugens:
@@ -1036,8 +1042,10 @@ class SynthDef(ServerObjectProxy):
 
     @property
     def parameters(self):
-        return {parameter.name: parameter
-            for index, parameter in self.indexed_parameters}
+        return {
+            parameter.name: parameter
+            for index, parameter in self.indexed_parameters
+        }
 
     @property
     def parameter_names(self):
