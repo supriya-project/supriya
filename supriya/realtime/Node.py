@@ -1,5 +1,6 @@
 import abc
 from uqbar.containers import UniqueTreeNode
+from supriya.realtime.AddAction import AddAction
 from supriya.realtime.ServerObjectProxy import ServerObjectProxy
 
 
@@ -100,6 +101,28 @@ class Node(ServerObjectProxy, UniqueTreeNode):
                     next_node = self.server._nodes[response.next_node_id]
                     index = new_parent.index(next_node)
                 new_parent._children.insert(index, self)
+
+    def _move_node(self, *, add_action, node):
+        target_node = self
+        if add_action in (AddAction.ADD_TO_HEAD, AddAction.ADD_TO_TAIL):
+            parent_node = target_node
+        else:
+            parent_node = target_node._parent
+        node._set_parent(parent_node)
+        if add_action == AddAction.ADD_TO_HEAD:
+            parent_node._children.insert(0, node)
+        elif add_action == AddAction.ADD_TO_TAIL:
+            parent_node._children.append(node)
+        elif add_action == AddAction.ADD_BEFORE:
+            index = parent_node.index(target_node)
+            parent_node._children.insert(index, node)
+        elif add_action == AddAction.ADD_AFTER:
+            index = parent_node.index(target_node)
+            parent_node._children.insert(index + 1, node)
+        elif add_action == AddAction.REPLACE:
+            index = parent_node.index(target_node)
+            parent_node._children[index] = node
+            target_node._set_parent(None)
 
     def _register_with_local_server(
         self,

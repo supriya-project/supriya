@@ -47,10 +47,7 @@ class BufferGroup(ServerObjectProxy):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        buffer_count=1,
-        ):
+    def __init__(self, buffer_count=1):
         import supriya.realtime
         ServerObjectProxy.__init__(self)
         self._buffer_id = None
@@ -129,7 +126,7 @@ class BufferGroup(ServerObjectProxy):
         frame_count=None,
         server=None,
         sync=True,
-        ):
+    ):
         """
         Allocates buffer group.
 
@@ -175,10 +172,7 @@ class BufferGroup(ServerObjectProxy):
         return self.buffers.index(item)
 
     @staticmethod
-    def from_file_paths(
-        file_paths,
-        server=None,
-        ):
+    def from_file_paths(file_paths, server=None):
         """
         Create a buffer group from `file_paths`.
 

@@ -54,6 +54,7 @@ class Server(SupriyaObject):
         '_node_id_allocator',
         '_nodes',
         '_osc_io',
+        '_pending_nodes',
         '_port',
         '_recorder',
         '_root_node',
@@ -141,11 +142,12 @@ class Server(SupriyaObject):
         ### PROXY MAPPINGS ###
 
         self._audio_buses = {}
-        self._control_buses = {}
-        self._control_bus_proxies = {}
-        self._buffers = {}
         self._buffer_proxies = {}
+        self._buffers = {}
+        self._control_bus_proxies = {}
+        self._control_buses = {}
         self._nodes = {}
+        self._pending_nodes = {}
         self._synthdefs = {}
 
         ### DEBUG ###
@@ -358,6 +360,7 @@ class Server(SupriyaObject):
 
     def _setup_proxies(self):
         import supriya.realtime
+        self._pending_nodes = {}
         self._audio_input_bus_group = supriya.realtime.AudioInputBusGroup(self)
         self._audio_output_bus_group = supriya.realtime.AudioOutputBusGroup(self)
         self._root_node = supriya.realtime.RootNode(server=self)
