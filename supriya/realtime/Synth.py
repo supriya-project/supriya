@@ -162,13 +162,12 @@ class Synth(Node):
                 [(self.node_id, False)])
             requests.append(pause_request)
         if 1 < len(requests):
-            message_bundler = supriya.realtime.MessageBundler(
+            supriya.commands.RequestBundle(
+                contents=requests,
+            ).communicate(
                 server=self.server,
                 sync=True,
-                )
-            message_bundler.add_messages(requests)
-            message_bundler.add_synchronizing_request(synth_request)
-            message_bundler.send_messages()
+            )
         else:
             synth_request.communicate(
                 server=self.server,

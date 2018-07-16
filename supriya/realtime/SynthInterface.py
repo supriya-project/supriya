@@ -66,14 +66,15 @@ class SynthInterface(ControlInterface):
         synth_controls = self.__getitem__(items)
         synth_control_names = [x.name for x in synth_controls]
         settings = dict(zip(synth_control_names, values))
-        messages = self._set(**settings)
-        if self.client.is_allocated:
-            message_bundler = supriya.realtime.MessageBundler(
-                server=self.client.server,
-                sync=False,
-                )
-            with message_bundler:
-                message_bundler.add_messages(messages)
+        requests = self._set(**settings)
+        if not self.client.is_allocated:
+            return
+        supriya.commands.RequestBundle(
+            contents=requests,
+        ).communicate(
+            server=self.client.server,
+            sync=True,
+        )
 
     def __str__(self):
         result = []

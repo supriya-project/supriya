@@ -47,7 +47,7 @@ class ControlInterface(SupriyaObject):
                     isinstance(self.client, supriya.realtime.Synth) and
                     not self.client.is_allocated and
                     control.calculation_rate == supriya.synthdefs.CalculationRate.SCALAR
-                    ):
+                ):
                     control._set_to_number(int(value))
                 elif value_rate == supriya.synthdefs.CalculationRate.CONTROL:
                     n_map_settings[control_name] = value
@@ -60,30 +60,27 @@ class ControlInterface(SupriyaObject):
                 control._unmap()
             else:
                 raise ValueError(value)
-        messages = []
+        requests = []
         if self.client.is_allocated:
             if n_set_settings:
                 request = supriya.commands.NodeSetRequest(
                     self.node_id,
                     **n_set_settings
                     )
-                message = request.to_osc_message()
-                messages.append(message)
+                requests.append(request)
             if n_map_settings:
                 request = supriya.commands.NodeMapToControlBusRequest(
                     self.node_id,
                     **n_map_settings
                     )
-                message = request.to_osc_message()
-                messages.append(message)
+                requests.append(request)
             if n_mapa_settings:
                 request = supriya.commands.NodeMapToAudioBusRequest(
                     self.node_id,
                     **n_mapa_settings
                     )
-                message = request.to_osc_message()
-                messages.append(message)
-        return tuple(messages)
+                requests.append(request)
+        return tuple(requests)
 
     ### PUBLIC METHODS ###
 

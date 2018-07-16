@@ -140,17 +140,18 @@ class BufferGroup(ServerObjectProxy):
         frame_count = int(frame_count)
         assert 0 < channel_count
         assert 0 < frame_count
-        message_bundler = supriya.realtime.MessageBundler(
+        requests = []
+        for buffer_ in self:
+            requests.append(buffer_._register_with_remote_server(
+                channel_count=channel_count,
+                frame_count=frame_count,
+                ))
+        supriya.commands.RequestBundle(
+            contents=requests,
+        ).communicate(
             server=server,
             sync=sync,
-            )
-        with message_bundler:
-            for buffer_ in self:
-                request = buffer_._register_with_remote_server(
-                    channel_count=channel_count,
-                    frame_count=frame_count,
-                    )
-                message_bundler.add_message(request)
+        )
         return self
 
     def free(self):
@@ -172,7 +173,7 @@ class BufferGroup(ServerObjectProxy):
         return self.buffers.index(item)
 
     @staticmethod
-    def from_file_paths(file_paths, server=None):
+    def from_file_paths(file_paths, server=None, sync=True):
         """
         Create a buffer group from `file_paths`.
 
@@ -204,16 +205,18 @@ class BufferGroup(ServerObjectProxy):
             assert os.path.exists(file_path)
         buffer_group = BufferGroup(buffer_count=len(file_paths))
         buffer_group._register_with_local_server(server)
-        message_bundler = supriya.realtime.MessageBundler(
+        requests = []
+        for buffer_, file_path in zip(buffer_group.buffers, file_paths):
+            request = buffer_._register_with_remote_server(
+                file_path=file_path,
+                )
+            requests.append(request)
+        supriya.commands.RequestBundle(
+            contents=requests,
+        ).communicate(
             server=server,
-            sync=True,
-            )
-        with message_bundler:
-            for buffer_, file_path in zip(buffer_group.buffers, file_paths):
-                request = buffer_._register_with_remote_server(
-                    file_path=file_path,
-                    )
-                message_bundler.add_message(request)
+            sync=sync,
+        )
         return buffer_group
 
     def zero(self):
