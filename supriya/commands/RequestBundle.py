@@ -1,8 +1,10 @@
 import supriya.osc
-from supriya.system.SupriyaValueObject import SupriyaValueObject
+import threading
+import time
+from supriya.commands.Requestable import Requestable
 
 
-class RequestBundle(SupriyaValueObject):
+class RequestBundle(Requestable):
     """
     A Request bundle.
 
@@ -56,6 +58,7 @@ class RequestBundle(SupriyaValueObject):
         contents=None,
     ):
         import supriya.commands
+        self._condition = threading.Condition()
         self._timestamp = timestamp
         if contents is not None:
             prototype = (supriya.commands.Request, type(self))
@@ -64,8 +67,23 @@ class RequestBundle(SupriyaValueObject):
         else:
             contents = ()
         self._contents = contents
+        self._response = None
 
     ### PRIVATE METHODS ###
+
+    def _get_response_pattern_and_message(self, server):
+        sync_id = server.next_sync_id
+        contents = list(self.contents)
+        contents.append(supriya.commands.SyncRequest(sync_id=sync_id))
+        request_bundle = type(self)(contents=contents)
+        response_pattern = ['/synced', sync_id]
+        return response_pattern, request_bundle.to_osc_bundle()
+
+    def _handle_async(self, sync, server):
+        if not sync:
+            message = self.to_osc_bundle()
+            server.send_message(message)
+            return True
 
     def _linearize(self):
         for x in self.contents:
@@ -73,13 +91,51 @@ class RequestBundle(SupriyaValueObject):
 
     ### PUBLIC METHODS ###
 
-    def communicate(self, server=None):
+    def communicate(
+        self,
+        server=None,
+        sync=True,
+        timeout=1.0,
+        apply_local=True,
+    ):
         import supriya.realtime
         server = server or supriya.realtime.Server.get_default_server()
         assert isinstance(server, supriya.realtime.Server)
         assert server.is_running
-        message = self.to_osc_bundle()
-        server.send_message(message)
+        with server._lock:
+            if apply_local:
+                for request in self._linearize():
+                    request._apply_local(server)
+        if not sync:
+            message = self.to_osc_bundle()
+            server.send_message(message)
+            return None
+        sync_id = server.next_sync_id
+        contents = list(self.contents)
+        contents.append(supriya.commands.SyncRequest(sync_id=sync_id))
+        message = type(self)(contents=contents).to_osc_bundle()
+        response_pattern = ['/synced', sync_id]
+        start_time = time.time()
+        timed_out = False
+        with self.condition:
+            server.osc_io.register(
+                pattern=response_pattern,
+                procedure=self._set_response,
+                once=True,
+                parse_response=True,
+                )
+            server.send_message(message)
+            while self.response is None:
+                self.condition.wait(timeout)
+                current_time = time.time()
+                delta_time = current_time - start_time
+                if timeout <= delta_time:
+                    timed_out = True
+                    break
+        if timed_out:
+            print('TIMED OUT:', repr(self))
+            return None
+        return self._response
 
     def to_datagram(self):
         return self.to_osc_bundle().to_datagram()
@@ -101,6 +157,10 @@ class RequestBundle(SupriyaValueObject):
         return bundle
 
     ### PUBLIC PROPERTIES ###
+
+    @property
+    def condition(self):
+        return self._condition
 
     @property
     def contents(self):

@@ -247,12 +247,13 @@ class Group(Node, UniqueTreeContainer):
                 )
             requests.append(request)
 
-        message_bundler = supriya.realtime.MessageBundler(
+        supriya.commands.RequestBundle(
+            contents=requests,
+        ).communicate(
             server=self.server,
             sync=True,
-            )
-        message_bundler.add_messages(requests)
-        message_bundler.send_messages()
+        )
+
 
     def _set_unallocated(self, expr, start, stop):
         for node in expr:
@@ -316,13 +317,12 @@ class Group(Node, UniqueTreeContainer):
                 )
             requests.append(request)
         if 1 < len(requests):
-            message_bundler = supriya.realtime.MessageBundler(
+            supriya.commands.RequestBundle(
+                contents=requests,
+            ).communicate(
                 server=self.server,
                 sync=True,
-                )
-            message_bundler.add_messages(requests)
-            message_bundler.add_synchronizing_request(group_new_request)
-            message_bundler.send_messages()
+            )
         else:
             group_new_request.communicate(
                 server=self.server,

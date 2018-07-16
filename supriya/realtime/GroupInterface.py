@@ -45,14 +45,13 @@ class GroupInterface(ControlInterface):
                     control._unmap()
                 else:
                     control._set_to_number(value)
-        messages = self._set(**settings)
-        message_bundler = supriya.realtime.MessageBundler(
+        requests = self._set(**settings)
+        supriya.commands.RequestBundle(
+            contents=requests,
+        ).communicate(
             server=self.client.server,
             sync=True,
-            )
-        with message_bundler:
-            for message in messages:
-                message_bundler.add_message(message)
+        )
 
     ### PUBLIC METHODS ###
 

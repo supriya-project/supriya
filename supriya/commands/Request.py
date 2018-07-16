@@ -1,31 +1,29 @@
 import abc
-import threading
-import time
 from uqbar.objects import new
-from supriya.system.SupriyaValueObject import SupriyaValueObject
+from supriya.commands.Requestable import Requestable
 
 
-class Request(SupriyaValueObject):
+class Request(Requestable):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_condition',
-        '_response',
-        )
-
-    _prototype = None
-
-    ### INITIALIZER ###
-
-    def __init__(self):
-        self._condition = threading.Condition()
-        self._response = None
+    __slots__ = ()
 
     ### PRIVATE METHODS ###
 
     def _apply_local(self, server):
         pass
+
+    def _get_response_pattern_and_message(self, server):
+        response_pattern = self.response_patterns[0]
+        message = self.to_osc_message()
+        return response_pattern, message
+
+    def _handle_async(self, sync, server):
+        if not sync or not self.response_patterns:
+            message = self.to_osc_message()
+            server.send_message(message)
+            return True
 
     def _linearize(self):
         if hasattr(self, 'callback') and self.callback:
@@ -34,55 +32,7 @@ class Request(SupriyaValueObject):
         else:
             yield self
 
-    def _set_response(self, response):
-        with self.condition:
-            self._response = response
-            self.condition.notify()
-
     ### PUBLIC METHODS ###
-
-    def communicate(
-        self,
-        message=None,
-        server=None,
-        sync=True,
-        timeout=1.0,
-        apply_local=True,
-    ):
-        import supriya.realtime
-        server = server or supriya.realtime.Server.get_default_server()
-        assert isinstance(server, supriya.realtime.Server)
-        assert server.is_running
-        message = message or self.to_osc_message()
-        with server._lock:
-            if apply_local:
-                for request in self._linearize():
-                    request._apply_local(server)
-        if not sync or not self.response_patterns:
-            server.send_message(message)
-            return None
-        response_pattern = self.response_patterns[0]
-        start_time = time.time()
-        timed_out = False
-        with self.condition:
-            server.osc_io.register(
-                pattern=response_pattern,
-                procedure=self._set_response,
-                once=True,
-                parse_response=True,
-                )
-            server.send_message(message)
-            while self.response is None:
-                self.condition.wait(timeout)
-                current_time = time.time()
-                delta_time = current_time - start_time
-                if timeout <= delta_time:
-                    timed_out = True
-                    break
-        if timed_out:
-            print('TIMED OUT:', repr(self))
-            return None
-        return self._response
 
     def to_datagram(self):
         return self.to_osc_message().to_datagram()
@@ -99,24 +49,8 @@ class Request(SupriyaValueObject):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def condition(self):
-        return self._condition
-
-    @property
     def request_command(self):
         return self.request_id.osc_command
-
-    @property
-    def response(self):
-        return self._response
-
-    @response.setter
-    def response(self, response):
-        import supriya.commands
-        assert isinstance(response, supriya.commands.Response)
-        with self.condition:
-            self._response = response
-            self.condition.notify()
 
     @property
     def response_patterns(self):
