@@ -46,6 +46,16 @@ class NodeFreeRequest(Request):
         node_ids = tuple(int(_) for _ in node_ids)
         self._node_ids = node_ids
 
+    ### PRIVATE METHODS ###
+
+    def _apply_local(self, server):
+        for node_id in self.node_ids:
+            node = server._nodes.get(node_id)
+            if not node:
+                continue
+            node._set_parent(None)
+            node._unregister_with_local_server()
+
     ### PUBLIC METHODS ###
 
     def to_osc_message(self, with_textual_osc_command=False):
