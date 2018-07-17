@@ -166,6 +166,9 @@ class Node(ServerObjectProxy, UniqueTreeNode):
                     print('PARENT?!', type(parent))
                     raise
 
+    def _run(self, run_flag):
+        self._is_paused = not bool(run_flag)
+
     def _set_parent(self, new_parent):
         named_children = self._cache_named_children()
         control_interface = self._cache_control_interface()
