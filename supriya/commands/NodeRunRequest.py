@@ -98,6 +98,15 @@ class NodeRunRequest(Request):
             node_id_run_flag_pairs = tuple(pairs)
         self._node_id_run_flag_pairs = node_id_run_flag_pairs
 
+    ### PRIVATE METHODS ###
+
+    def _apply_local(self, server):
+        for node_id, run_flag in self.node_id_run_flag_pairs:
+            node = server._nodes.get(node_id)
+            if not node:
+                continue
+            node._run(run_flag)
+
     ### PUBLIC METHODS ###
 
     def to_osc_message(self, with_textual_osc_command=False):
