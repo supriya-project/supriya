@@ -44,10 +44,14 @@ class Group(Node, UniqueTreeContainer):
 
     ### INITIALIZER ###
 
-    def __init__(self, children=None, name=None):
+    def __init__(self, children=None, name=None, node_id_is_permanent=False):
         import supriya.realtime
         self._control_interface = supriya.realtime.GroupInterface(client=self)
-        Node.__init__(self, name=name)
+        Node.__init__(
+            self,
+            name=name,
+            node_id_is_permanent=node_id_is_permanent,
+            )
         UniqueTreeContainer.__init__(self, children=children, name=name)
 
     ### SPECIAL METHODS ###
@@ -254,7 +258,6 @@ class Group(Node, UniqueTreeContainer):
             sync=True,
         )
 
-
     def _set_unallocated(self, expr, start, stop):
         for node in expr:
             node.free()
@@ -292,16 +295,23 @@ class Group(Node, UniqueTreeContainer):
         import supriya.realtime
         if self.is_allocated:
             return
-        add_action, node_id, target_node_id = Node.allocate(
-            self,
-            add_action=add_action,
-            node_id_is_permanent=node_id_is_permanent,
-            target_node=target_node,
-            )
+        self._node_id_is_permanent = bool(node_id_is_permanent)
+#        add_action, node_id, target_node_id = Node.allocate(
+#            self,
+#            add_action=add_action,
+#            node_id_is_permanent=node_id_is_permanent,
+#            target_node=target_node,
+#            )
+        target_node = Node.expr_as_target(target_node)
+        server = target_node.server
         group_new_request = supriya.commands.GroupNewRequest(
-            add_action=add_action,
-            node_id=node_id,
-            target_node_id=target_node_id,
+            items=[
+                supriya.commands.GroupNewRequest.Item(
+                    add_action=add_action,
+                    node_id=self,
+                    target_node_id=target_node,
+                    ),
+                ],
             )
         nodes, paused_nodes, requests, synthdefs = \
             self._collect_requests_and_synthdefs(self)
@@ -320,12 +330,12 @@ class Group(Node, UniqueTreeContainer):
             supriya.commands.RequestBundle(
                 contents=requests,
             ).communicate(
-                server=self.server,
+                server=server,
                 sync=True,
             )
         else:
             group_new_request.communicate(
-                server=self.server,
+                server=server,
                 sync=True,
                 )
         return self

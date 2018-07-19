@@ -1,4 +1,8 @@
+import collections
 import supriya.osc
+import typing
+from supriya.realtime.Group import Group
+from supriya.realtime.Node import Node
 from supriya.commands.Request import Request
 
 
@@ -22,36 +26,38 @@ class GroupNewRequest(Request):
     ::
 
         >>> request = supriya.commands.GroupNewRequest(
-        ...     add_action=supriya.realtime.AddAction.ADD_TO_TAIL,
-        ...     node_id=1001,
-        ...     target_node_id=1,
+        ...     items=[
+        ...         supriya.commands.GroupNewRequest.Item(
+        ...             add_action=supriya.realtime.AddAction.ADD_TO_TAIL,
+        ...             node_id=1001,
+        ...             target_node_id=1,
+        ...             ),
+        ...         supriya.commands.GroupNewRequest.Item(
+        ...             add_action=supriya.realtime.AddAction.ADD_TO_HEAD,
+        ...             node_id=1002,
+        ...             target_node_id=1001,
+        ...             ),
+        ...         ],
         ...     )
         >>> request.to_osc_message(True)
-        OscMessage('/g_new', 1001, 1, 1)
+        OscMessage('/g_new', 1001, 1, 1, 1002, 0, 1001)
 
     ::
 
         >>> with server.osc_io.capture() as transcript:
-        ...     response = request.communicate(server=server)
+        ...     request.communicate(server=server)
         ...     _ = server.sync()
         ...
-        >>> response
-        NodeInfoResponse(
-            action=NodeAction.NODE_CREATED,
-            is_group=True,
-            node_id=1001,
-            parent_group_id=1,
-            previous_node_id=1000,
-            )
 
     ::
 
         >>> for entry in transcript:
         ...     entry
         ...
-        ('S', OscMessage(21, 1001, 1, 1))
-        ('R', OscMessage('/n_go', 1001, 1, 1000, -1, 1, -1, -1))
+        ('S', OscMessage(21, 1001, 1, 1, 1002, 0, 1001))
         ('S', OscMessage(52, 0))
+        ('R', OscMessage('/n_go', 1001, 1, 1000, -1, 1, -1, -1))
+        ('R', OscMessage('/n_go', 1002, 1001, -1, -1, 1, -1, -1))
         ('R', OscMessage('/synced', 0))
 
     ::
@@ -61,6 +67,7 @@ class GroupNewRequest(Request):
             1 group
                 1000 group
                 1001 group
+                    1002 group
 
     ::
 
@@ -69,30 +76,63 @@ class GroupNewRequest(Request):
             1 group
                 1000 group
                 1001 group
+                    1002 group
 
     """
 
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_add_action',
-        '_node_id',
-        '_target_node_id',
+        '_items',
         )
+
+    class Item(typing.NamedTuple):
+        add_action: int = 0
+        node_id: int = 0
+        target_node_id: int = 0
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        add_action=None,
-        node_id=None,
-        target_node_id=None,
+        items=None,
     ):
+        # TODO: Support multi-group allocation
         import supriya.realtime
         Request.__init__(self)
-        self._add_action = supriya.realtime.AddAction.from_expr(add_action)
-        self._node_id = node_id
-        self._target_node_id = target_node_id
+        if items:
+            if not isinstance(items, collections.Sequence):
+                items = [items]
+            items = list(items)
+            for i, (add_action, node_id, target_node_id) in enumerate(items):
+                add_action = supriya.realtime.AddAction.from_expr(add_action)
+                items[i] = self.Item(
+                    add_action=add_action,
+                    node_id=node_id,
+                    target_node_id=target_node_id,
+                    )
+        self._items = items
+
+    ### PRIVATE METHODS ###
+
+    def _apply_local(self, server):
+        for item in self.items:
+            if isinstance(item.node_id, Group):
+                node_id = None
+                group = item.node_id
+            else:
+                node_id = item.node_id
+                group = Group()
+            if isinstance(item.target_node_id, Node):
+                target_node = item.target_node_id
+            else:
+                target_node = server._nodes[item.target_node_id]
+            group._register_with_local_server(
+                node_id=node_id,
+                node_id_is_permanent=group.node_id_is_permanent,
+                server=server,
+                )
+            target_node._move_node(add_action=item.add_action, node=group)
 
     ### PUBLIC METHODS ###
 
@@ -101,37 +141,27 @@ class GroupNewRequest(Request):
             request_id = self.request_command
         else:
             request_id = int(self.request_id)
-        add_action = int(self.add_action)
-        node_id = int(self.node_id)
-        target_node_id = int(self.target_node_id)
-        message = supriya.osc.OscMessage(
-            request_id,
-            node_id,
-            add_action,
-            target_node_id,
-            )
+        contents = [request_id]
+        for item in self.items:
+            contents.append(int(item.node_id))
+            contents.append(int(item.add_action))
+            contents.append(int(item.target_node_id))
+        message = supriya.osc.OscMessage(*contents)
         return message
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def add_action(self):
-        return self._add_action
-
-    @property
-    def node_id(self):
-        return self._node_id
-
-    @property
-    def target_node_id(self):
-        return self._target_node_id
+    def items(self):
+        return self._items
 
     @property
     def response_patterns(self):
-        return [[
-            '/n_go',
-            self.node_id,
-            ]]
+        if len(self.items) == 1:
+            return [[
+                '/n_go',
+                int(self.items[0].node_id),
+                ]]
 
     @property
     def request_id(self):

@@ -19,12 +19,12 @@ class Node(ServerObjectProxy, UniqueTreeNode):
     ### INITIALIZER ###
 
     @abc.abstractmethod
-    def __init__(self, name=None):
+    def __init__(self, name=None, node_id_is_permanent=False):
         ServerObjectProxy.__init__(self)
         UniqueTreeNode.__init__(self, name=name)
         self._is_paused = False
         self._node_id = None
-        self._node_id_is_permanent = None
+        self._node_id_is_permanent = bool(node_id_is_permanent)
 
     ### SPECIAL METHODS ###
 
@@ -182,7 +182,8 @@ class Node(ServerObjectProxy, UniqueTreeNode):
     def _unregister_with_local_server(self):
         node_id = self.node_id
         if self.server is not None:
-            del(self._server._nodes[self._node_id])
+            if self._node_id in self._server._nodes:
+                del(self._server._nodes[self._node_id])
             if self.node_id_is_permanent:
                 self.server.node_id_allocator.free_permanent_node_id(
                     self.node_id,
