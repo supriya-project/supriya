@@ -61,12 +61,17 @@ class Synth(Node):
         synthdef=None,
         name=None,
         register_controls=None,
+        node_id_is_permanent=False,
         **kwargs
     ):
         import supriya.assets.synthdefs
         import supriya.realtime
         import supriya.synthdefs
-        Node.__init__(self, name=name)
+        Node.__init__(
+            self,
+            name=name,
+            node_id_is_permanent=node_id_is_permanent,
+            )
         synthdef = synthdef or supriya.assets.synthdefs.default
         assert isinstance(synthdef, supriya.synthdefs.SynthDef)
         self._synthdef = synthdef
@@ -131,12 +136,13 @@ class Synth(Node):
         node_id_is_permanent=False,
         sync=True,
         target_node=None,
-        **kwargs
+        **kwargs,
     ):
         import supriya.commands
         import supriya.realtime
         if self.is_allocated:
             return
+        self._node_id_is_permanent = bool(node_id_is_permanent)
         add_action, node_id, target_node_id = Node.allocate(
             self,
             add_action=add_action,

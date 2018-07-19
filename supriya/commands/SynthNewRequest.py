@@ -1,6 +1,7 @@
 from supriya.commands.Request import Request
 from supriya.realtime.AddAction import AddAction
 from supriya.realtime.Synth import Synth
+from supriya.realtime.Node import Node
 
 
 class SynthNewRequest(Request):
@@ -71,28 +72,36 @@ class SynthNewRequest(Request):
         assert isinstance(synthdef, prototype)
         self._synthdef = synthdef
         self._target_node_id = target_node_id
-        self._kwargs = kwargs
+        self._kwargs = tuple(sorted(kwargs.items()))
 
     ### SPECIAL METHODS ###
 
-    def __getattr__(self, name):
-        if name in self._kwargs:
-            return self._kwargs[name]
-        return object.__getattr__(self, name)
+#    def __getattr__(self, name):
+#        if name in self._kwargs:
+#            return self._kwargs[name]
+#        return object.__getattr__(self, name)
 
     ### PRIVATE METHODS ###
 
     def _apply_local(self, server):
-        return
-        if self.node_id in server._pending_nodes:
-            synth = server._pending_nodes.pop(self.node_id)
+        if isinstance(self.node_id, Synth):
+            node_id = None
+            synth = self.node_id
         else:
+            node_id = self.node_id
             synth = Synth(
                 synthdef=self.synthdef,
-                **self.kwargs,
+                **dict(self.kwargs),
                 )
-        target_node = server._nodes[self.target_node_id]
-        synth._register_with_local_server(node_id=self.node_id, server=server)
+        if isinstance(self.target_node_id, Node):
+            target_node = self.target_node_id
+        else:
+            target_node = server._nodes[self.target_node_id]
+        synth._register_with_local_server(
+            node_id=node_id,
+            node_id_is_permanent=synth.node_id_is_permanent,
+            server=server,
+            )
         target_node._move_node(add_action=self.add_action, node=synth)
 
     ### PUBLIC METHODS ###
@@ -116,7 +125,7 @@ class SynthNewRequest(Request):
             add_action,
             target_node_id,
             ]
-        for key, value in sorted(self._kwargs.items()):
+        for key, value in self._kwargs:
             contents.append(key)
             contents.append(value)
         message = supriya.osc.OscMessage(*contents)
@@ -129,12 +138,16 @@ class SynthNewRequest(Request):
         return self._add_action
 
     @property
+    def kwargs(self):
+        return self._kwargs
+
+    @property
     def node_id(self):
         return self._node_id
 
     @property
     def response_patterns(self):
-        return [['/n_go', self.node_id]]
+        return [['/n_go', int(self.node_id)]]
 
     @property
     def request_id(self):

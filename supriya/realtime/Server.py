@@ -188,7 +188,12 @@ class Server(SupriyaObject):
         self.quit()
 
     def __getitem__(self, item):
-        result = self.root_node[item]
+        if isinstance(item, str):
+            result = self.root_node[item]
+        elif isinstance(item, int):
+            result = self._nodes.get(item)
+        else:
+            raise ValueError(item)
         if isinstance(result, set) and len(result) == 1:
             return tuple(result)[0]
         return result
