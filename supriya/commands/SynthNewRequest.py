@@ -74,13 +74,6 @@ class SynthNewRequest(Request):
         self._target_node_id = target_node_id
         self._kwargs = tuple(sorted(kwargs.items()))
 
-    ### SPECIAL METHODS ###
-
-#    def __getattr__(self, name):
-#        if name in self._kwargs:
-#            return self._kwargs[name]
-#        return object.__getattr__(self, name)
-
     ### PRIVATE METHODS ###
 
     def _apply_local(self, server):

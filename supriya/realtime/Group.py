@@ -184,12 +184,15 @@ class Group(Node, UniqueTreeContainer):
                         )
                 requests.append(request)
             else:
-                node._register_with_local_server(server=self.server)
                 if isinstance(node, supriya.realtime.Group):
                     request = supriya.commands.GroupNewRequest(
-                        add_action=add_action,
-                        node_id=node,
-                        target_node_id=target_node,
+                        items=[
+                            supriya.commands.GroupNewRequest.Item(
+                                add_action=add_action,
+                                node_id=node,
+                                target_node_id=target_node,
+                                ),
+                            ],
                         )
                     requests.append(request)
                 else:
@@ -213,7 +216,6 @@ class Group(Node, UniqueTreeContainer):
     def _set_allocated(self, expr, start, stop):
         import supriya.commands
         import supriya.realtime
-
         old_nodes = self._children[start:stop]
         self._children.__delitem__(slice(start, stop))
         for old_node in old_nodes:
@@ -223,11 +225,9 @@ class Group(Node, UniqueTreeContainer):
                 start -= 1
             child._set_parent(self)
         self._children.__setitem__(slice(start, start), expr)
-
         new_nodes, paused_nodes, requests, synthdefs = \
             self._collect_requests_and_synthdefs(expr, start)
         self._allocate_synthdefs(synthdefs)
-
         old_node_ids = []
         for old_node in old_nodes:
             if old_node in new_nodes:
@@ -235,22 +235,17 @@ class Group(Node, UniqueTreeContainer):
             old_node_id = old_node._unregister_with_local_server()
             old_node._set_parent(None)
             old_node_ids.append(old_node_id)
-            #if isinstance(old_node, supriya.realtime.Group):
-            #    for old_node_child in Group._iterate_children(old_node):
-            #        old_node_child._unregister_with_local_server()
         if old_node_ids:
             node_free_request = supriya.commands.NodeFreeRequest(
                 node_ids=old_node_ids,
                 )
             requests.insert(0, node_free_request)
-
         if paused_nodes:
             pairs = sorted((node.node_id, False) for node in paused_nodes)
             request = supriya.commands.NodeRunRequest(
                 node_id_run_flag_pairs=pairs,
                 )
             requests.append(request)
-
         supriya.commands.RequestBundle(
             contents=requests,
         ).communicate(
@@ -296,12 +291,6 @@ class Group(Node, UniqueTreeContainer):
         if self.is_allocated:
             return
         self._node_id_is_permanent = bool(node_id_is_permanent)
-#        add_action, node_id, target_node_id = Node.allocate(
-#            self,
-#            add_action=add_action,
-#            node_id_is_permanent=node_id_is_permanent,
-#            target_node=target_node,
-#            )
         target_node = Node.expr_as_target(target_node)
         server = target_node.server
         group_new_request = supriya.commands.GroupNewRequest(

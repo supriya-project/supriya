@@ -20,7 +20,7 @@ class GroupEvent(Event):
         target_node=None,
         uuid=None,
         **settings
-        ):
+    ):
         if add_action is not None:
             add_action = supriya.realtime.AddAction.from_expr(add_action)
         is_stop = bool(is_stop)
@@ -73,7 +73,7 @@ class GroupEvent(Event):
         server=None,
         timestamp=0,
         uuids=None,
-        ):
+    ):
         import supriya.patterns
         node_uuid = self.get('uuid') or uuid.uuid4()
         requests = []
@@ -87,9 +87,13 @@ class GroupEvent(Event):
                 target_node_id = list(uuids[target_node_id])[0]
             add_action = self.get('add_action')
             request = supriya.commands.GroupNewRequest(
-                add_action=add_action,
-                node_id=node_id,
-                target_node_id=target_node_id,
+                items=[
+                    supriya.commands.GroupNewRequest.Item(
+                        add_action=add_action,
+                        node_id=node_id,
+                        target_node_id=target_node_id,
+                        ),
+                    ],
                 )
         else:
             request = supriya.commands.NodeFreeRequest(

@@ -34,9 +34,13 @@ class Group(Node):
         target_id = id_mapping[action.target]
         add_action = action.action
         request = supriya.commands.GroupNewRequest(
-            add_action=add_action,
-            node_id=source_id,
-            target_node_id=target_id,
+            items=[
+                supriya.commands.GroupNewRequest.Item(
+                    add_action=add_action,
+                    node_id=source_id,
+                    target_node_id=target_id,
+                    ),
+                ],
             )
         return request
 

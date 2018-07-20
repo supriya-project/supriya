@@ -24,9 +24,13 @@ class ParallelGroupNewRequest(GroupNewRequest):
     ::
 
         >>> request = supriya.commands.ParallelGroupNewRequest(
-        ...     add_action=supriya.realtime.AddAction.ADD_TO_TAIL,
-        ...     node_id=1001,
-        ...     target_node_id=1,
+        ...     items=[
+        ...         supriya.commands.ParallelGroupNewRequest.Item(
+        ...             add_action=supriya.realtime.AddAction.ADD_TO_TAIL,
+        ...             node_id=1001,
+        ...             target_node_id=1,
+        ...             ),
+        ...         ],
         ...     )
         >>> request.to_osc_message(True)
         OscMessage('/p_new', 1001, 1, 1)
@@ -37,14 +41,6 @@ class ParallelGroupNewRequest(GroupNewRequest):
         ...     response = request.communicate(server=server)
         ...     _ = server.sync()
         ...
-        >>> response
-        NodeInfoResponse(
-            action=NodeAction.NODE_CREATED,
-            is_group=True,
-            node_id=1001,
-            parent_group_id=1,
-            previous_node_id=1000,
-            )
 
     ::
 
