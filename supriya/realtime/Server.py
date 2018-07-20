@@ -167,13 +167,13 @@ class Server(SupriyaObject):
         import supriya.synthdefs
         if not isinstance(expr, supriya.realtime.ServerObjectProxy):
             return False
-        elif expr.server is not self:
+        if expr.server is not self:
             return False
-        elif isinstance(expr, supriya.realtime.Node):
+        if isinstance(expr, supriya.realtime.Node):
             node_id = expr.node_id
             if node_id in self._nodes and self._nodes[node_id] is expr:
                 return True
-        elif isinstance(expr, supriya.synthdefs.SynthDef):
+        if isinstance(expr, supriya.synthdefs.SynthDef):
             name = expr.actual_name
             if name in self._synthdefs and self._synthdefs[name] == expr:
                 return True

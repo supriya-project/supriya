@@ -30,9 +30,9 @@ def test__perform_realtime_01(server):
                 ),
             requests=[
                 GroupNewRequest(
-                    add_action=AddAction.ADD_TO_HEAD,
-                    node_id=1000,
-                    target_node_id=1,
+                    items=[
+                        Item(add_action=AddAction.ADD_TO_HEAD, node_id=1000, target_node_id=1),
+                        ],
                     ),
                 ],
             timestamp=100.0,

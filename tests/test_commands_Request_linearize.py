@@ -22,8 +22,12 @@ def test_01():
         callback=supriya.commands.RequestBundle(
             contents=[
                 supriya.commands.GroupNewRequest(
-                    node_id=1000,
-                    target_node_id=1,
+                    items=[
+                        supriya.commands.GroupNewRequest.Item(
+                            node_id=1000,
+                            target_node_id=1,
+                            ),
+                        ],
                     ),
                 supriya.commands.SynthNewRequest(
                     node_id=1001,
@@ -57,9 +61,13 @@ def test_01():
                 ),
             ),
         supriya.commands.GroupNewRequest(
-            add_action=supriya.AddAction.ADD_TO_HEAD,
-            node_id=1000,
-            target_node_id=1,
+            items=[
+                supriya.commands.GroupNewRequest.Item(
+                    add_action=supriya.AddAction.ADD_TO_HEAD,
+                    node_id=1000,
+                    target_node_id=1,
+                    ),
+                ],
             ),
         supriya.commands.SynthNewRequest(
             add_action=supriya.AddAction.ADD_TO_HEAD,

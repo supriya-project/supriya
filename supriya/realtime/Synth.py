@@ -143,12 +143,8 @@ class Synth(Node):
         if self.is_allocated:
             return
         self._node_id_is_permanent = bool(node_id_is_permanent)
-        add_action, node_id, target_node_id = Node.allocate(
-            self,
-            add_action=add_action,
-            node_id_is_permanent=node_id_is_permanent,
-            target_node=target_node,
-            )
+        target_node = Node.expr_as_target(target_node)
+        server = target_node.server
         if not self.synthdef.is_allocated:
             self.synthdef.allocate()
         self.controls._set(**kwargs)
@@ -156,9 +152,9 @@ class Synth(Node):
         settings, map_requests = self.controls._make_synth_new_settings()
         synth_request = supriya.commands.SynthNewRequest(
             add_action=add_action,
-            node_id=node_id,
+            node_id=self,
             synthdef=self.synthdef,
-            target_node_id=target_node_id,
+            target_node_id=target_node,
             **settings
             )
         requests.append(synth_request)
@@ -168,17 +164,10 @@ class Synth(Node):
                 [(self.node_id, False)])
             requests.append(pause_request)
         if 1 < len(requests):
-            supriya.commands.RequestBundle(
-                contents=requests,
-            ).communicate(
-                server=self.server,
-                sync=True,
-            )
+            request = supriya.commands.RequestBundle(contents=requests)
         else:
-            synth_request.communicate(
-                server=self.server,
-                sync=True,
-                )
+            request = requests[0]
+        request.communicate(server=server, sync=True)
         return self
 
     def free(self):

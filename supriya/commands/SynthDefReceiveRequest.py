@@ -43,8 +43,12 @@ class SynthDefReceiveRequest(Request):
         ...     callback=supriya.commands.RequestBundle(
         ...         contents=[
         ...             supriya.commands.GroupNewRequest(
-        ...                 node_id=1000,
-        ...                 target_node_id=1,
+        ...                 items=[
+        ...                     supriya.commands.GroupNewRequest.Item(
+        ...                         node_id=1000,
+        ...                         target_node_id=1,
+        ...                         ),
+        ...                     ],
         ...                 ),
         ...             supriya.commands.SynthNewRequest(
         ...                 node_id=1001,

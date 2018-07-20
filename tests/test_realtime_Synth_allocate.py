@@ -4,6 +4,65 @@ import uqbar.strings
 
 
 def test_01(server):
+    synthdef = supriya.assets.synthdefs.test
+    synth_a = supriya.realtime.Synth(synthdef=synthdef)
+    assert not synthdef.is_allocated
+    assert not synth_a.is_allocated
+    assert synth_a.node_id is None
+    assert synth_a not in server
+    with server.osc_io.capture() as transcript:
+        synth_a.allocate()
+    assert list(transcript) == [
+        ('S', supriya.osc.OscMessage(5, synthdef.compile())),
+        ('R', supriya.osc.OscMessage('/done', '/d_recv')),
+        ('S', supriya.osc.OscMessage(9, 'test', 1000, 0, 1)),
+        ('R', supriya.osc.OscMessage('/n_go', 1000, 1, -1, -1, 0)),
+        ]
+    assert synthdef.is_allocated
+    assert synth_a.node_id == 1000
+    assert server[1000] is synth_a
+    assert synth_a in server
+    server_state = str(server.query_remote_nodes(include_controls=True))
+    assert server_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1000 test
+                    amplitude: 1.0, frequency: 440.0
+        ''')
+    assert str(server.query_local_nodes(include_controls=True)) == server_state
+
+
+def test_02(server):
+    synthdef = supriya.assets.synthdefs.test
+    supriya.realtime.Synth(synthdef=synthdef).allocate()
+    # SynthDef won't be allocated again
+    synth_b = supriya.realtime.Synth(synthdef=synthdef)
+    assert not synth_b.is_allocated
+    assert synth_b.node_id is None
+    assert synth_b not in server
+    with server.osc_io.capture() as transcript:
+        synth_b.allocate()
+    assert list(transcript) == [
+        ('S', supriya.osc.OscMessage(9, 'test', 1001, 0, 1)),
+        ('R', supriya.osc.OscMessage('/n_go', 1001, 1, -1, 1000, 0)),
+        ]
+    assert synthdef.is_allocated
+    assert synth_b.node_id == 1001
+    assert server[1001] is synth_b
+    assert synth_b in server
+    server_state = str(server.query_remote_nodes(include_controls=True))
+    assert server_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1001 test
+                    amplitude: 1.0, frequency: 440.0
+                1000 test
+                    amplitude: 1.0, frequency: 440.0
+        ''')
+    assert str(server.query_local_nodes(include_controls=True)) == server_state
+
+
+def test_03(server):
     group = supriya.realtime.Group().allocate()
     synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     synth_a.allocate(
@@ -80,7 +139,7 @@ def test_01(server):
     assert synth_b['amplitude'].get() == bus_b
 
 
-def test_02(server):
+def test_04(server):
     synth = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     synth['frequency'].set(443)
     synth['amplitude'].set(0.5)
