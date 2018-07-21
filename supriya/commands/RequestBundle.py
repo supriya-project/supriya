@@ -27,7 +27,7 @@ class RequestBundle(Requestable):
 
     ::
 
-        >>> request_bundle.to_osc_bundle(True)
+        >>> request_bundle.to_osc(True)
         OscBundle(
             contents=(
                 OscMessage('/b_alloc', 23, 512, 1),
@@ -77,11 +77,11 @@ class RequestBundle(Requestable):
         contents.append(supriya.commands.SyncRequest(sync_id=sync_id))
         request_bundle = type(self)(contents=contents)
         response_pattern = ['/synced', sync_id]
-        return response_pattern, request_bundle.to_osc_bundle()
+        return response_pattern, request_bundle.to_osc()
 
     def _handle_async(self, sync, server):
         if not sync:
-            message = self.to_osc_bundle()
+            message = self.to_osc()
             server.send_message(message)
             return True
 
@@ -107,13 +107,13 @@ class RequestBundle(Requestable):
                 for request in self._linearize():
                     request._apply_local(server)
         if not sync:
-            message = self.to_osc_bundle()
+            message = self.to_osc()
             server.send_message(message)
             return None
         sync_id = server.next_sync_id
         contents = list(self.contents)
         contents.append(supriya.commands.SyncRequest(sync_id=sync_id))
-        message = type(self)(contents=contents).to_osc_bundle()
+        message = type(self)(contents=contents).to_osc()
         response_pattern = ['/synced', sync_id]
         start_time = time.time()
         timed_out = False
@@ -138,18 +138,18 @@ class RequestBundle(Requestable):
         return self._response
 
     def to_datagram(self):
-        return self.to_osc_bundle().to_datagram()
+        return self.to_osc().to_datagram()
 
     def to_list(self, with_textual_osc_command=False):
-        return self.to_osc_bundle(with_textual_osc_command).to_list()
+        return self.to_osc(with_textual_osc_command).to_list()
 
-    def to_osc_bundle(self, with_textual_osc_command=False):
+    def to_osc(self, with_textual_osc_command=False):
         contents = []
         for x in self.contents:
             if isinstance(x, type(self)):
-                contents.append(x.to_osc_bundle(with_textual_osc_command))
+                contents.append(x.to_osc(with_textual_osc_command))
             else:
-                contents.append(x.to_osc_message(with_textual_osc_command))
+                contents.append(x.to_osc(with_textual_osc_command))
         bundle = supriya.osc.OscBundle(
             timestamp=self.timestamp,
             contents=contents,

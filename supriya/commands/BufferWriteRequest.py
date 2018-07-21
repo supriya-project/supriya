@@ -29,7 +29,7 @@ class BufferWriteRequest(Request):
 
     ::
 
-        >>> message = request.to_osc_message()
+        >>> message = request.to_osc()
         >>> message # doctest: +SKIP
         OscMessage(31, 23, 'test.aiff', 'aiff', 'int24', -1, 0, 0)
 
@@ -91,7 +91,7 @@ class BufferWriteRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc_message(self, with_textual_osc_command=False):
+    def to_osc(self, with_textual_osc_command=False):
         if with_textual_osc_command:
             request_id = self.request_command
         else:

@@ -39,7 +39,7 @@ class GroupNewRequest(Request):
         ...             ),
         ...         ],
         ...     )
-        >>> request.to_osc_message(True)
+        >>> request.to_osc(True)
         OscMessage('/g_new', 1001, 1, 1, 1002, 0, 1001)
 
     ::
@@ -136,7 +136,7 @@ class GroupNewRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc_message(self, with_textual_osc_command=False):
+    def to_osc(self, with_textual_osc_command=False):
         if with_textual_osc_command:
             request_id = self.request_command
         else:

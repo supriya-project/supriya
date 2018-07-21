@@ -17,7 +17,7 @@ class DumpOscRequest(Request):
 
     ::
 
-        >>> message = request.to_osc_message()
+        >>> message = request.to_osc()
         >>> message
         OscMessage(39, 1)
 
@@ -42,7 +42,7 @@ class DumpOscRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc_message(self, with_textual_osc_command=False):
+    def to_osc(self, with_textual_osc_command=False):
         if with_textual_osc_command:
             request_id = self.request_command
         else:

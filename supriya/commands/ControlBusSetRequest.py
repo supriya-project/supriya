@@ -29,7 +29,7 @@ class ControlBusSetRequest(Request):
 
     ::
 
-        >>> message = request.to_osc_message()
+        >>> message = request.to_osc()
         >>> message
         OscMessage(25, 0, 0.1, 1, 0.2, 1, 0.3, 1, 0.4)
 
@@ -63,7 +63,7 @@ class ControlBusSetRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc_message(self, with_textual_osc_command=False):
+    def to_osc(self, with_textual_osc_command=False):
         if with_textual_osc_command:
             request_id = self.request_command
         else:

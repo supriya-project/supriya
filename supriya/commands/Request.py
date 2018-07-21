@@ -16,12 +16,12 @@ class Request(Requestable):
 
     def _get_response_pattern_and_message(self, server):
         response_pattern = self.response_patterns[0]
-        message = self.to_osc_message()
+        message = self.to_osc()
         return response_pattern, message
 
     def _handle_async(self, sync, server):
         if not sync or not self.response_patterns:
-            message = self.to_osc_message()
+            message = self.to_osc()
             server.send_message(message)
             return True
 
@@ -35,15 +35,15 @@ class Request(Requestable):
     ### PUBLIC METHODS ###
 
     def to_datagram(self):
-        return self.to_osc_message().to_datagram()
+        return self.to_osc().to_datagram()
 
     def to_list(self, with_textual_osc_command=False):
-        return self.to_osc_message(
+        return self.to_osc(
             with_textual_osc_command=with_textual_osc_command
             ).to_list()
 
     @abc.abstractmethod
-    def to_osc_message(self, with_textual_osc_command=False):
+    def to_osc(self, with_textual_osc_command=False):
         raise NotImplementedError
 
     ### PUBLIC PROPERTIES ###

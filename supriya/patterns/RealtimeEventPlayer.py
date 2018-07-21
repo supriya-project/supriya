@@ -84,7 +84,7 @@ class RealtimeEventPlayer(EventPlayer):
             contents=requests,
             )
         if communicate:
-            osc_bundle = consolidated_bundle.to_osc_bundle()
+            osc_bundle = consolidated_bundle.to_osc()
             osc_bundle = utils.new(
                 osc_bundle,
                 timestamp=osc_bundle.timestamp + self._server.latency,
@@ -199,4 +199,4 @@ class RealtimeEventPlayer(EventPlayer):
         self._iterator = None
         bundle = self._collect_stop_requests()
         if bundle and self._server.is_running:
-            self._server.send_message(bundle.to_osc_bundle())
+            self._server.send_message(bundle.to_osc())

@@ -24,7 +24,7 @@ class BufferReadChannelRequest(BufferReadRequest):
 
     ::
 
-        >>> message = request.to_osc_message()
+        >>> message = request.to_osc()
         >>> message
         OscMessage(55, 23, '...pulse_44100sr_16bit_octo.wav', 0, -1, 0, 0, 3, 4)
 
@@ -72,7 +72,7 @@ class BufferReadChannelRequest(BufferReadRequest):
 
     ### PUBLIC METHODS ###
 
-    def to_osc_message(self, with_textual_osc_command=False):
+    def to_osc(self, with_textual_osc_command=False):
         contents = self._get_osc_message_contents(with_textual_osc_command)
         contents.extend(self.channel_indices)
         if self.callback:

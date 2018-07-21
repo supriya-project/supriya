@@ -35,7 +35,7 @@ class NodeBeforeRequest(MoveRequest):
         ...     [synth_a, group_a[0]],
         ...     [synth_b, group_b],
         ...     ])
-        >>> request.to_osc_message(True)
+        >>> request.to_osc(True)
         OscMessage('/n_before', 1000, 1003, 1001, 1005)
 
     ::

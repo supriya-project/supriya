@@ -52,7 +52,7 @@ class StatusWatcher(threading.Thread):
             parse_response=True,
         )
         request = supriya.commands.StatusRequest()
-        message = request.to_osc_message()
+        message = request.to_osc()
         while self._active:
             if self.max_attempts == self.attempts:
                 self.server.quit()

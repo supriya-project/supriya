@@ -25,7 +25,7 @@ class ControlBusFillRequest(Request):
 
     ::
 
-        >>> message = request.to_osc_message()
+        >>> message = request.to_osc()
         >>> message
         OscMessage(27, 0, 8, 0.5, 8, 8, 0.25)
 
@@ -61,7 +61,7 @@ class ControlBusFillRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc_message(self, with_textual_osc_command=False):
+    def to_osc(self, with_textual_osc_command=False):
         if with_textual_osc_command:
             request_id = self.request_command
         else:

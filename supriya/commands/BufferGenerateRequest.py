@@ -41,7 +41,7 @@ class BufferGenerateRequest(Request):
 
     ::
 
-        >>> message = request.to_osc_message()
+        >>> message = request.to_osc()
         >>> message
         OscMessage(38, 23, 'sine3', 7, 1.0, 1.0, 0.0, 0.5, 2.0, 0.5, 0.25, 3.0, 0.0)
 
@@ -123,7 +123,7 @@ class BufferGenerateRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc_message(self, with_textual_osc_command=False):
+    def to_osc(self, with_textual_osc_command=False):
         if with_textual_osc_command:
             request_id = self.request_command
         else:

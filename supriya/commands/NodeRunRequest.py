@@ -24,7 +24,7 @@ class NodeRunRequest(Request):
         ...     [synth_a, True],
         ...     [synth_b, False],
         ...     ])
-        >>> request.to_osc_message(True)
+        >>> request.to_osc(True)
         OscMessage('/n_run', 1000, 1, 1001, 0)
 
     ::
@@ -54,7 +54,7 @@ class NodeRunRequest(Request):
         ...     [synth_a, False],
         ...     [synth_b, True],
         ...     ])
-        >>> request.to_osc_message(True)
+        >>> request.to_osc(True)
         OscMessage('/n_run', 1000, 0, 1001, 1)
 
     ::
@@ -109,7 +109,7 @@ class NodeRunRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc_message(self, with_textual_osc_command=False):
+    def to_osc(self, with_textual_osc_command=False):
         if with_textual_osc_command:
             request_id = self.request_command
         else:

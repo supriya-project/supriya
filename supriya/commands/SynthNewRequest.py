@@ -32,7 +32,7 @@ class SynthNewRequest(Request):
 
     ::
 
-        >>> message = request.to_osc_message()
+        >>> message = request.to_osc()
         >>> message
         OscMessage(9, 'test', 1001, 1, 1000, 'frequency', 443, 'phase', 0.2)
 
@@ -99,7 +99,7 @@ class SynthNewRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc_message(self, with_textual_osc_command=False):
+    def to_osc(self, with_textual_osc_command=False):
         import supriya.synthdefs
         if with_textual_osc_command:
             request_id = self.request_command
