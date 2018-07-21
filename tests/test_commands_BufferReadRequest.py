@@ -14,7 +14,7 @@ def test_Session():
         starting_frame_in_file=0,
         )
     assert request.file_path is session
-    osc_message = request.to_osc_message(with_textual_osc_command=True)
+    osc_message = request.to_osc(with_textual_osc_command=True)
     assert osc_message.address == '/b_read'
     assert osc_message.contents == (1, session, 0, 512, 0, 1)
 
@@ -30,6 +30,6 @@ def test_Say():
         starting_frame_in_file=0,
         )
     assert request.file_path is say
-    osc_message = request.to_osc_message(with_textual_osc_command=True)
+    osc_message = request.to_osc(with_textual_osc_command=True)
     assert osc_message.address == '/b_read'
     assert osc_message.contents == (1, say, 0, 512, 0, 1)

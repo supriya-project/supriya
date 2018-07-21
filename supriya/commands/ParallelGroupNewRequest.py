@@ -32,7 +32,7 @@ class ParallelGroupNewRequest(GroupNewRequest):
         ...             ),
         ...         ],
         ...     )
-        >>> request.to_osc_message(True)
+        >>> request.to_osc(True)
         OscMessage('/p_new', 1001, 1, 1)
 
     ::

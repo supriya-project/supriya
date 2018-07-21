@@ -891,7 +891,7 @@ class Session:
                 offset,
                 visited_synthdefs,
                 )
-            osc_messages.extend(_.to_osc_message(True) for _ in requests)
+            osc_messages.extend(_.to_osc(True) for _ in requests)
             if is_last_offset:
                 osc_messages.append(supriya.osc.OscMessage(0))
             if osc_messages:

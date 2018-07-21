@@ -16,7 +16,7 @@ class NodeMapToAudioBusContiguousRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc_message(self, with_textual_osc_command=False):
+    def to_osc(self, with_textual_osc_command=False):
         raise NotImplementedError
 
     ### PUBLIC PROPERTIES ###

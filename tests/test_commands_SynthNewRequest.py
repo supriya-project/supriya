@@ -17,7 +17,7 @@ def test_1():
     assert synth.node_id is None
     assert group.node_id is None
     with pytest.raises(TypeError):
-        request.to_osc_message()
+        request.to_osc()
 
 
 def test_2(server):

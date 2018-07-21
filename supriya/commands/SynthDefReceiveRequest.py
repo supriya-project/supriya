@@ -147,7 +147,7 @@ class SynthDefReceiveRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc_message(self, with_textual_osc_command=False):
+    def to_osc(self, with_textual_osc_command=False):
         import supriya.synthdefs
         if with_textual_osc_command:
             request_id = self.request_command

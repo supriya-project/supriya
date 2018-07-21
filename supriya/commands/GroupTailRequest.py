@@ -26,7 +26,7 @@ class GroupTailRequest(MoveRequest):
     ::
 
         >>> request = supriya.commands.GroupTailRequest([(synth, group)])
-        >>> request.to_osc_message(True)
+        >>> request.to_osc(True)
         OscMessage('/g_tail', 1000, 1001)
 
     ::

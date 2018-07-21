@@ -29,7 +29,7 @@ class BufferSetRequest(Request):
 
     ::
 
-        >>> message = request.to_osc_message()
+        >>> message = request.to_osc()
         >>> message
         OscMessage(35, 23, 0, 1.0, 10, 13.2, 17, 19.3)
 
@@ -68,7 +68,7 @@ class BufferSetRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc_message(self, with_textual_osc_command=False):
+    def to_osc(self, with_textual_osc_command=False):
         if with_textual_osc_command:
             request_id = self.request_command
         else:

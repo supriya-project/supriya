@@ -34,7 +34,7 @@ class GroupDeepFreeRequest(Request):
     ::
 
         >>> request = supriya.commands.GroupDeepFreeRequest(group)
-        >>> request.to_osc_message(True)
+        >>> request.to_osc(True)
         OscMessage('/g_deepFree', 1000)
 
     ::
@@ -90,7 +90,7 @@ class GroupDeepFreeRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc_message(self, with_textual_osc_command=False):
+    def to_osc(self, with_textual_osc_command=False):
         if with_textual_osc_command:
             request_id = self.request_command
         else:

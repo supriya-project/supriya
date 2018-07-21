@@ -27,7 +27,7 @@ def test_1():
     assert request.items[1].node_id is group_c
     assert request.items[1].target_node_id is group_b
     with pytest.raises(TypeError):
-        request.to_osc_message()
+        request.to_osc()
 
 
 def test_2(server):
