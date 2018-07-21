@@ -92,7 +92,7 @@ class NodeRunRequest(Request):
         if node_id_run_flag_pairs:
             pairs = []
             for node_id, run_flag in node_id_run_flag_pairs:
-                node_id = int(node_id)
+                node_id = node_id
                 run_flag = bool(run_flag)
                 pairs.append((node_id, run_flag))
             node_id_run_flag_pairs = tuple(pairs)
@@ -116,8 +116,11 @@ class NodeRunRequest(Request):
             request_id = int(self.request_id)
         contents = [request_id]
         if self.node_id_run_flag_pairs:
-            for node_id, run_flag in self.node_id_run_flag_pairs:
-                contents.append(node_id)
+            for node_id, run_flag in sorted(
+                self.node_id_run_flag_pairs,
+                key=lambda x: int(x[0]),
+            ):
+                contents.append(int(node_id))
                 contents.append(int(run_flag))
         message = supriya.osc.OscMessage(*contents)
         return message

@@ -48,10 +48,10 @@ class NodeAfterRequest(MoveRequest):
         ...     entry
         ...
         ('S', OscMessage(19, 1000, 1004, 1001, 1005))
-        ('S', OscMessage(52, 1))
+        ('S', OscMessage(52, 0))
         ('R', OscMessage('/n_move', 1000, 1002, 1004, -1, 0))
         ('R', OscMessage('/n_move', 1001, 1, 1005, -1, 0))
-        ('R', OscMessage('/synced', 1))
+        ('R', OscMessage('/synced', 0))
 
     ::
 

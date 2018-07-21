@@ -155,9 +155,17 @@ class Synth(Node):
             **settings,
             )
         requests = [synth_request, *map_requests]
+        paused_nodes = set()
         if self.is_paused:
-            requests.append(supriya.commands.NodeRunRequest([(self, False)]))
-        if 1 < len(requests):
+            paused_nodes.add(self)
+        if paused_nodes:
+            requests.append(supriya.commands.NodeRunRequest(
+                node_id_run_flag_pairs=[
+                    (node, False) for node in paused_nodes
+                ]))
+        if not requests:
+            return
+        elif 1 < len(requests):
             request = supriya.commands.RequestBundle(contents=requests)
         else:
             request = requests[0]

@@ -50,11 +50,11 @@ class GroupDeepFreeRequest(Request):
         ...     entry
         ...
         ('S', OscMessage(50, 1000))
-        ('S', OscMessage(52, 3))
+        ('S', OscMessage(52, 2))
         ('R', OscMessage('/n_end', 1001, -1, -1, -1, 0))
         ('R', OscMessage('/n_end', 1003, -1, -1, -1, 0))
         ('R', OscMessage('/n_end', 1005, -1, -1, -1, 0))
-        ('R', OscMessage('/synced', 3))
+        ('R', OscMessage('/synced', 2))
 
     ::
 
