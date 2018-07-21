@@ -109,7 +109,6 @@ class SynthInterface(ControlInterface):
         import supriya.synthdefs
         audio_map = {}
         control_map = {}
-        node_id = self.client.node_id
         requests = []
         settings = {}
         for synth_control in self.synth_controls:
@@ -122,13 +121,13 @@ class SynthInterface(ControlInterface):
                 settings[synth_control.name] = synth_control.value
         if audio_map:
             request = supriya.commands.NodeMapToAudioBusRequest(
-                node_id=node_id,
+                node_id=self.client,
                 **audio_map
                 )
             requests.append(request)
         if control_map:
             request = supriya.commands.NodeMapToControlBusRequest(
-                node_id=node_id,
+                node_id=self.client,
                 **control_map
                 )
             requests.append(request)
