@@ -111,7 +111,7 @@ class BufferWriteRequest(Request):
             leave_open,
             ]
         if self.callback:
-            contents.append(bytearray(self.callback.to_datagram()))
+            contents.append(self.callback.to_osc())
         message = supriya.osc.OscMessage(*contents)
         return message
 

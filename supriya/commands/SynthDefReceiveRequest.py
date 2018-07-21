@@ -75,7 +75,12 @@ class SynthDefReceiveRequest(Request):
         >>> for entry in transcript:
         ...     entry
         ...
-        ('S', OscMessage(5, bytearray(b'SCgf...example...'), bytearray(b'#bundle...')))
+        ('S', OscMessage(5, bytearray(b'SCgf...example...'), OscBundle(
+            contents=(
+                OscMessage(21, 1000, 0, 1),
+                OscMessage(9, 'example', 1001, 0, 1000),
+                ),
+            )))
         ('R', OscMessage('/n_go', 1000, 1, -1, -1, 1, -1, -1))
         ('R', OscMessage('/n_go', 1001, 1000, -1, -1, 0))
         ('R', OscMessage('/done', '/d_recv'))
@@ -163,7 +168,7 @@ class SynthDefReceiveRequest(Request):
             compiled_synthdefs,
             ]
         if self.callback:
-            contents.append(bytearray(self.callback.to_datagram()))
+            contents.append(self.callback.to_osc())
         message = supriya.osc.OscMessage(*contents)
         return message
 

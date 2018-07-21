@@ -116,7 +116,7 @@ class BufferReadRequest(Request):
     def to_osc(self, with_textual_osc_command=False):
         contents = self._get_osc_message_contents(with_textual_osc_command)
         if self.callback:
-            contents.append(bytearray(self.callback.to_datagram()))
+            contents.append(self.callback.to_osc())
         message = supriya.osc.OscMessage(*contents)
         return message
 
