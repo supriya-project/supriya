@@ -298,7 +298,7 @@ class Group(Node, UniqueTreeContainer):
                 supriya.commands.GroupNewRequest.Item(
                     add_action=add_action,
                     node_id=self,
-                    target_node_id=target_node,
+                    target_node_id=target_node.node_id,
                     ),
                 ],
             )

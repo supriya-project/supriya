@@ -154,7 +154,7 @@ class Synth(Node):
             add_action=add_action,
             node_id=self,
             synthdef=self.synthdef,
-            target_node_id=target_node,
+            target_node_id=target_node.node_id,
             **settings
             )
         requests.append(synth_request)

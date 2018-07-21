@@ -123,6 +123,7 @@ class Node(ServerObjectProxy, UniqueTreeNode):
             index = parent_node.index(target_node)
             parent_node._children[index] = node
             target_node._set_parent(None)
+            target_node._unregister_with_local_server()
 
     def _register_with_local_server(
         self,

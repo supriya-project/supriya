@@ -97,7 +97,7 @@ class SynthDefReceiveRequest(Request):
         NODE TREE 0 group
             1 group
                 1000 group
-                    1001 default
+                    1001 example
                         out: 0.0, value: 0.5
 
     ::
