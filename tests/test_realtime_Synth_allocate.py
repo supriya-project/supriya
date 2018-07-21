@@ -13,10 +13,9 @@ def test_allocate_synthdef(server):
     with server.osc_io.capture() as transcript:
         synth_a.allocate()
     assert list(transcript) == [
-        ('S', supriya.osc.OscMessage(5, synthdef.compile())),
-        ('R', supriya.osc.OscMessage('/done', '/d_recv')),
-        ('S', supriya.osc.OscMessage(9, 'test', 1000, 0, 1)),
+        ('S', supriya.osc.OscMessage(5, bytearray(synthdef.compile()), supriya.osc.OscMessage(9, 'test', 1000, 0, 1))),
         ('R', supriya.osc.OscMessage('/n_go', 1000, 1, -1, -1, 0)),
+        ('R', supriya.osc.OscMessage('/done', '/d_recv')),
         ]
     assert synthdef.is_allocated
     assert synth_a.node_id == 1000
@@ -88,10 +87,9 @@ def test_replace(server):
             target_node=synth_a,
             )
     assert list(transcript) == [
-        ('S', supriya.osc.OscMessage(5, synthdef.compile())),
+        ('S', supriya.osc.OscMessage(5, bytearray(synthdef.compile()), supriya.osc.OscMessage(9, 'test', 1001, 4, 1000))),
+        ('R', supriya.osc.OscMessage('/n_go', 1001, 1, -1, -1, 0)),
         ('R', supriya.osc.OscMessage('/done', '/d_recv')),
-        ('S', supriya.osc.OscMessage(9, 'test', 1001, 4, 1000)),
-        ('R', supriya.osc.OscMessage('/n_go', 1001, 1, -1, -1, 0))
         ]
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize('''

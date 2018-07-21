@@ -198,8 +198,10 @@ class Group(Node, UniqueTreeContainer):
                 else:
                     if not node.synthdef.is_allocated:
                         synthdefs.add(node.synthdef)
-                    settings, map_requests = \
-                        node.controls._make_synth_new_settings()
+                    (
+                        settings,
+                        map_requests,
+                    ) = node.controls._make_synth_new_settings()
                     request = supriya.commands.SynthNewRequest(
                         add_action=add_action,
                         node_id=node,
