@@ -79,8 +79,9 @@ class OscMessage(SupriyaValueObject):
         type_tag_offset += 1
         return array, type_tag_offset, payload_offset
 
-    @staticmethod
-    def _decode_blob(type_tags, type_tag_offset, payload, payload_offset):
+    @classmethod
+    def _decode_blob(cls, type_tags, type_tag_offset, payload, payload_offset):
+        from supriya.osc import OscBundle
         assert type_tags[type_tag_offset] == 'b'
         length = payload[payload_offset:payload_offset + 4]
         length = struct.unpack('>i', length)
@@ -90,6 +91,12 @@ class OscMessage(SupriyaValueObject):
         result = payload[payload_offset:payload_offset + length]
         type_tag_offset += 1
         payload_offset += total_length
+        for class_ in (cls, OscBundle):
+            try:
+                result = class_.from_datagram(result)
+                break
+            except IndexError:
+                pass
         return result, type_tag_offset, payload_offset
 
     @staticmethod
@@ -233,8 +240,10 @@ class OscMessage(SupriyaValueObject):
         encoded_value += padding
         return type_tags, encoded_value
 
-    @staticmethod
-    def _encode_value(value):
+    @classmethod
+    def _encode_value(cls, value):
+        if hasattr(value, 'to_datagram'):
+            value = bytearray(value.to_datagram())
         if isinstance(value, bytearray):
             type_tags, encoded_value = OscMessage._encode_blob(value)
         elif isinstance(value, str):
