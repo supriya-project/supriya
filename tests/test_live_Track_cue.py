@@ -58,7 +58,7 @@ def test_02(mixer):
     Tracks can be cued.
     """
     mixer['bar'].set_cue(True)
-    time.sleep(0.2)
+    time.sleep(0.25)
     assert not mixer['foo'].is_cued
     assert mixer['bar'].is_cued
     assert not mixer['baz'].is_cued
@@ -75,7 +75,7 @@ def test_03(mixer):
     """
     mixer['bar'].set_cue(True)
     mixer['bar'].set_cue(False)
-    time.sleep(0.2)
+    time.sleep(0.25)
     assert not mixer['foo'].is_cued
     assert not mixer['bar'].is_cued
     assert not mixer['baz'].is_cued
@@ -92,7 +92,7 @@ def test_04(mixer):
     """
     mixer['bar'].set_cue(True)
     mixer['baz'].set_cue(True)
-    time.sleep(0.2)
+    time.sleep(0.25)
     assert not mixer['foo'].is_cued
     assert not mixer['bar'].is_cued
     assert mixer['baz'].is_cued
@@ -110,7 +110,7 @@ def test_05(mixer):
     mixer['bar'].set_cue(True)
     mixer.allow_multiple(True)
     mixer['baz'].set_cue(True)
-    time.sleep(0.2)
+    time.sleep(0.25)
     assert not mixer['foo'].is_cued
     assert mixer['bar'].is_cued
     assert mixer['baz'].is_cued
@@ -130,7 +130,7 @@ def test_06(mixer):
     mixer['baz'].set_cue(True)
     mixer.allow_multiple(False)
     mixer['foo'].set_cue(True)
-    time.sleep(0.2)
+    time.sleep(0.25)
     assert mixer['foo'].is_cued
     assert not mixer['bar'].is_cued
     assert not mixer['baz'].is_cued
