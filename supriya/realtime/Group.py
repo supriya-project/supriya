@@ -235,24 +235,7 @@ class Group(Node, UniqueTreeContainer):
             requests.insert(0, supriya.commands.NodeFreeRequest(
                 node_ids=sorted(nodes_to_free, key=lambda x: x.node_id),
                 ))
-        if paused_nodes:
-            requests.append(supriya.commands.NodeRunRequest(
-                node_id_run_flag_pairs=[
-                    (node, False) for node in paused_nodes
-                ]))
-        if not requests:
-            return
-        elif 1 < len(requests):
-            request = supriya.commands.RequestBundle(contents=requests)
-        else:
-            request = requests[0]
-        if synthdefs:
-            request = supriya.commands.SynthDefReceiveRequest(
-                synthdefs=synthdefs,
-                callback=request,
-                )
-        request.communicate(server=self.server, sync=True)
-        return self
+        return self._allocate(paused_nodes, requests, self.server, synthdefs)
 
     def _set_unallocated(self, expr, start, stop):
         for node in expr:
@@ -309,24 +292,7 @@ class Group(Node, UniqueTreeContainer):
         requests = [group_new_request, *requests]
         if self.is_paused:
             paused_nodes.add(self)
-        if paused_nodes:
-            requests.append(supriya.commands.NodeRunRequest(
-                node_id_run_flag_pairs=[
-                    (node, False) for node in paused_nodes
-                ]))
-        if not requests:
-            return
-        elif 1 < len(requests):
-            request = supriya.commands.RequestBundle(contents=requests)
-        else:
-            request = requests[0]
-        if synthdefs:
-            request = supriya.commands.SynthDefReceiveRequest(
-                synthdefs=synthdefs,
-                callback=request,
-                )
-        request.communicate(server=server, sync=True)
-        return self
+        return self._allocate(paused_nodes, requests, server, synthdefs)
 
     def free(self):
         for node in self:

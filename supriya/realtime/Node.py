@@ -54,6 +54,33 @@ class Node(ServerObjectProxy, UniqueTreeNode):
 
     ### PRIVATE METHODS ###
 
+    def _allocate(
+        self,
+        paused_nodes,
+        requests,
+        server,
+        synthdefs,
+    ):
+        import supriya.commands
+        if paused_nodes:
+            requests.append(supriya.commands.NodeRunRequest(
+                node_id_run_flag_pairs=[
+                    (node, False) for node in paused_nodes
+                ]))
+        if not requests:
+            return self
+        elif 1 < len(requests):
+            request = supriya.commands.RequestBundle(contents=requests)
+        else:
+            request = requests[0]
+        if synthdefs:
+            request = supriya.commands.SynthDefReceiveRequest(
+                synthdefs=synthdefs,
+                callback=request,
+                )
+        request.communicate(server=server, sync=True)
+        return self
+
     def _as_node_target(self):
         return self
 
@@ -195,49 +222,6 @@ class Node(ServerObjectProxy, UniqueTreeNode):
         return node_id
 
     ### PUBLIC METHODS ###
-
-    @abc.abstractmethod
-    def allocate(
-        self,
-        add_action=None,
-        node_id_is_permanent=False,
-        target_node=None,
-    ):
-        import supriya.realtime
-        target_node = Node.expr_as_target(target_node)
-        server = target_node.server
-        node_id = self._register_with_local_server(
-            node_id_is_permanent=node_id_is_permanent,
-            server=server,
-            )
-        target_node_id = target_node.node_id
-        add_action = supriya.realtime.AddAction.from_expr(add_action)
-        if add_action == supriya.realtime.AddAction.ADD_TO_HEAD:
-            assert isinstance(target_node, supriya.realtime.Group)
-            self._set_parent(target_node)
-            target_node._children.insert(0, self)
-        elif add_action == supriya.realtime.AddAction.ADD_TO_TAIL:
-            assert isinstance(target_node, supriya.realtime.Group)
-            self._set_parent(target_node)
-            target_node._children.append(self)
-        elif add_action == supriya.realtime.AddAction.ADD_BEFORE:
-            self._set_parent(target_node.parent)
-            index = self.parent._children.index(target_node)
-            self._parent._children.insert(index, self)
-        elif add_action == supriya.realtime.AddAction.ADD_AFTER:
-            self._set_parent(target_node.parent)
-            index = self.parent._children.index(target_node)
-            self._parent._children.insert(index + 1, self)
-        elif add_action == supriya.realtime.AddAction.REPLACE:
-            assert target_node.parent is not self.server.root_node
-            self._set_parent(target_node.parent)
-            index = self.parent._children.index(target_node)
-            self._parent._children[index] = self
-            target_node._unregister_with_local_server()
-            target_node._set_parent(None)
-        else:
-            raise ValueError
-        return add_action, node_id, target_node_id
 
     @staticmethod
     def expr_as_node_id(expr):
