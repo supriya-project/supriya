@@ -38,9 +38,9 @@ def test_01(server):
 
     assert list(capture) == [
         ('S', supriya.osc.OscMessage('/n_after', 1003, 1002)),
-        ('S', supriya.osc.OscMessage(52, 2)),
+        ('S', supriya.osc.OscMessage(52, 0)),
         ('R', supriya.osc.OscMessage('/n_move', 1003, 1000, 1002, -1, 0)),
-        ('R', supriya.osc.OscMessage('/synced', 2)),
+        ('R', supriya.osc.OscMessage('/synced', 0)),
         ]
 
     remote_state = str(server.query_remote_nodes())
@@ -68,10 +68,10 @@ def test_01(server):
 
     assert list(capture) == [
         ('S', supriya.osc.OscMessage('/n_order', 0, 1001, 1003, 1002)),
-        ('S', supriya.osc.OscMessage(52, 3)),
+        ('S', supriya.osc.OscMessage(52, 1)),
         ('R', supriya.osc.OscMessage('/n_move', 1003, 1001, -1, -1, 0)),
         ('R', supriya.osc.OscMessage('/n_move', 1002, 1001, 1003, -1, 0)),
-        ('R', supriya.osc.OscMessage('/synced', 3)),
+        ('R', supriya.osc.OscMessage('/synced', 1)),
         ]
 
     remote_state = str(server.query_remote_nodes())

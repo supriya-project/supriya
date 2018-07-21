@@ -216,6 +216,7 @@ class Group(Node, UniqueTreeContainer):
         return nodes, paused_nodes, requests, synthdefs
 
     def _set_allocated(self, expr, start, stop):
+        # TODO: Consolidate this with Group.allocate()
         import supriya.commands
         import supriya.realtime
         old_nodes = self._children[start:stop]
@@ -229,31 +230,29 @@ class Group(Node, UniqueTreeContainer):
         self._children.__setitem__(slice(start, start), expr)
         new_nodes, paused_nodes, requests, synthdefs = \
             self._collect_requests_and_synthdefs(expr, start)
-        self._allocate_synthdefs(synthdefs)
-        old_node_ids = []
-        for old_node in old_nodes:
-            if old_node in new_nodes:
-                continue
-            old_node_id = old_node._unregister_with_local_server()
-            old_node._set_parent(None)
-            old_node_ids.append(old_node_id)
-        if old_node_ids:
-            node_free_request = supriya.commands.NodeFreeRequest(
-                node_ids=old_node_ids,
-                )
-            requests.insert(0, node_free_request)
+        nodes_to_free = [_ for _ in old_nodes if _ not in new_nodes]
+        if nodes_to_free:
+            requests.insert(0, supriya.commands.NodeFreeRequest(
+                node_ids=sorted(nodes_to_free, key=lambda x: x.node_id),
+                ))
         if paused_nodes:
-            pairs = sorted((node.node_id, False) for node in paused_nodes)
-            request = supriya.commands.NodeRunRequest(
-                node_id_run_flag_pairs=pairs,
+            requests.append(supriya.commands.NodeRunRequest(
+                node_id_run_flag_pairs=[
+                    (node, False) for node in paused_nodes
+                ]))
+        if not requests:
+            return
+        elif 1 < len(requests):
+            request = supriya.commands.RequestBundle(contents=requests)
+        else:
+            request = requests[0]
+        if synthdefs:
+            request = supriya.commands.SynthDefReceiveRequest(
+                synthdefs=synthdefs,
+                callback=request,
                 )
-            requests.append(request)
-        supriya.commands.RequestBundle(
-            contents=requests,
-        ).communicate(
-            server=self.server,
-            sync=True,
-        )
+        request.communicate(server=self.server, sync=True)
+        return self
 
     def _set_unallocated(self, expr, start, stop):
         for node in expr:
@@ -287,7 +286,7 @@ class Group(Node, UniqueTreeContainer):
         sync=False,
         target_node=None,
     ):
-        # TODO: Handle AddAction.REPLACE un-allocation of target node
+        # TODO: Consolidate this with Group.allocate()
         import supriya.commands
         import supriya.realtime
         if self.is_allocated:
@@ -307,18 +306,20 @@ class Group(Node, UniqueTreeContainer):
         (
             nodes, paused_nodes, requests, synthdefs,
         ) = self._collect_requests_and_synthdefs(self)
+        requests = [group_new_request, *requests]
         if self.is_paused:
             paused_nodes.add(self)
-        requests = [group_new_request, *requests]
         if paused_nodes:
             requests.append(supriya.commands.NodeRunRequest(
-                node_id_run_flag_pairs=sorted(
-                    (node.node_id, False) for node in paused_nodes,
-                )))
-        if 1 < len(requests):
+                node_id_run_flag_pairs=[
+                    (node, False) for node in paused_nodes
+                ]))
+        if not requests:
+            return
+        elif 1 < len(requests):
             request = supriya.commands.RequestBundle(contents=requests)
         else:
-            request = group_new_request
+            request = requests[0]
         if synthdefs:
             request = supriya.commands.SynthDefReceiveRequest(
                 synthdefs=synthdefs,

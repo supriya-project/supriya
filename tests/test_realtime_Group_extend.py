@@ -14,14 +14,7 @@ def test_noop(server):
     assert str(server.query_local_nodes(include_controls=True)) == server_state
     with server.osc_io.capture() as transcript:
         group.extend([])
-    assert list(transcript) == [
-        ('S', supriya.osc.OscBundle(
-            contents=[
-                supriya.osc.OscMessage(52, 0),
-            ],
-        )),
-        ('R', supriya.osc.OscMessage('/synced', 0)),
-        ]
+    assert list(transcript) == []
     server_state = str(server.query_remote_nodes(True))
     assert server_state == uqbar.strings.normalize('''
         NODE TREE 0 group
@@ -83,19 +76,16 @@ def test_extend_unallocated(server):
                         amplitude: 0.0, frequency: 440.0
         ''')
     assert str(server.query_local_nodes(include_controls=True)) == server_state
+    bundle = supriya.osc.OscBundle(
+        contents=(
+            supriya.osc.OscMessage(9, 'test', 1001, 0, 1000),
+            supriya.osc.OscMessage(9, 'test', 1002, 3, 1001, 'amplitude', 0.0),
+        ))
     assert list(transcript) == [
-        ('S', supriya.osc.OscMessage(5, supriya.assets.synthdefs.test.compile())),
-        ('R', supriya.osc.OscMessage('/done', '/d_recv')),
-        ('S', supriya.osc.OscBundle(
-            contents=(
-                supriya.osc.OscMessage(9, 'test', 1001, 0, 1000),
-                supriya.osc.OscMessage(9, 'test', 1002, 3, 1001, 'amplitude', 0.0),
-                supriya.osc.OscMessage(52, 0),
-            ),
-        )),
+        ('S', supriya.osc.OscMessage(5, supriya.assets.synthdefs.test.compile(), bundle)),
         ('R', supriya.osc.OscMessage('/n_go', 1001, 1000, -1, -1, 0)),
         ('R', supriya.osc.OscMessage('/n_go', 1002, 1000, 1001, -1, 0)),
-        ('R', supriya.osc.OscMessage('/synced', 0)),
+        ('R', supriya.osc.OscMessage('/done', '/d_recv')),
     ]
 
 
@@ -119,25 +109,23 @@ def test_extend_allocate_nested_and_move(server):
     assert str(server.query_local_nodes()) == server_state
     with server.osc_io.capture() as transcript:
         group_a.extend([group_b, synth])
-    assert list(transcript) == [
-        ('S', supriya.osc.OscMessage(5, supriya.assets.synthdefs.test.compile())),
-        ('R', supriya.osc.OscMessage('/done', '/d_recv')),
-        ('S', supriya.osc.OscBundle(
-            contents=(
-                supriya.osc.OscMessage(21, 1002, 0, 1001),
-                supriya.osc.OscMessage(9, 'test', 1003, 0, 1002),
-                supriya.osc.OscMessage(21, 1004, 3, 1003),
-                supriya.osc.OscMessage(9, 'test', 1005, 0, 1004),
-                supriya.osc.OscMessage(19, 1000, 1002),
-                supriya.osc.OscMessage(52, 0),
+    bundle = supriya.osc.OscBundle(
+        contents=(
+            supriya.osc.OscMessage(21, 1002, 0, 1001),
+            supriya.osc.OscMessage(9, 'test', 1003, 0, 1002),
+            supriya.osc.OscMessage(21, 1004, 3, 1003),
+            supriya.osc.OscMessage(9, 'test', 1005, 0, 1004),
+            supriya.osc.OscMessage(19, 1000, 1002),
             ),
-        )),
+        )
+    assert list(transcript) == [
+        ('S', supriya.osc.OscMessage(5, supriya.assets.synthdefs.test.compile(), bundle)),
         ('R', supriya.osc.OscMessage('/n_go', 1002, 1001, -1, -1, 1, -1, -1)),
         ('R', supriya.osc.OscMessage('/n_go', 1003, 1002, -1, -1, 0)),
         ('R', supriya.osc.OscMessage('/n_go', 1004, 1002, 1003, -1, 1, -1, -1)),
         ('R', supriya.osc.OscMessage('/n_go', 1005, 1004, -1, -1, 0)),
         ('R', supriya.osc.OscMessage('/n_move', 1000, 1001, 1002, -1, 0)),
-        ('R', supriya.osc.OscMessage('/synced', 0)),
+        ('R', supriya.osc.OscMessage('/done', '/d_recv')),
         ]
     server_state = str(server.query_remote_nodes())
     assert server_state == uqbar.strings.normalize('''
