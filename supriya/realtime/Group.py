@@ -116,19 +116,6 @@ class Group(Node, UniqueTreeContainer):
 
     ### PRIVATE METHODS ###
 
-    def _allocate_synthdefs(self, synthdefs):
-        import supriya.synthdefs
-        supriya.synthdefs.SynthDef._allocate_synthdefs(synthdefs, self.server)
-
-    @staticmethod
-    def _iterate_children(group):
-        import supriya.realtime
-        for child in group.children:
-            if isinstance(child, supriya.realtime.Group):
-                for subchild in Group._iterate_children(child):
-                    yield subchild
-            yield child
-
     @staticmethod
     def _iterate_setitem_expr(group, expr, start=0):
         import supriya.realtime
@@ -152,16 +139,6 @@ class Group(Node, UniqueTreeContainer):
                     Group._iterate_setitem_expr(outer_node, outer_node)
                 ):
                     yield inner_node, inner_target_node, inner_add_action
-
-    @staticmethod
-    def _iterate_synths(node):
-        import supriya.realtime
-        if isinstance(node, supriya.realtime.Synth):
-            yield node
-        else:
-            for child in node:
-                for subchild in Group._iterate_synths(child):
-                    yield subchild
 
     def _collect_requests_and_synthdefs(self, expr, start=0):
         import supriya.commands
@@ -228,6 +205,7 @@ class Group(Node, UniqueTreeContainer):
                 start -= 1
             child._set_parent(self)
         self._children.__setitem__(slice(start, start), expr)
+
         new_nodes, paused_nodes, requests, synthdefs = \
             self._collect_requests_and_synthdefs(expr, start)
         nodes_to_free = [_ for _ in old_nodes if _ not in new_nodes]
@@ -299,10 +277,6 @@ class Group(Node, UniqueTreeContainer):
             node._unregister_with_local_server()
         Node.free(self)
         return self
-
-    def release(self):
-        if 'gate' in self.controls:
-            self.controls['gate'] = 0
 
     @property
     def controls(self):

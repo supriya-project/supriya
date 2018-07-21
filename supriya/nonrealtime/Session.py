@@ -789,44 +789,22 @@ class Session:
         self._session_ids[kind] += 1
         return session_id
 
-    def _iterate_state_pairs(
-        self,
-        offset,
-        reverse=False,
-        with_node_tree=None,
-    ):
-        if reverse:
-            state_two = self._find_state_at(
-                offset,
-                clone_if_missing=True,
-                )
-            state_one = self._find_state_before(
-                state_two.offset,
-                with_node_tree=with_node_tree,
-                )
-            while state_one is not None:
-                yield state_one, state_two
-                state_two = state_one
-                state_one = self._find_state_before(
-                    state_two.offset,
-                    with_node_tree=with_node_tree,
-                    )
-        else:
-            state_one = self._find_state_at(
-                offset,
-                clone_if_missing=True,
-                )
+    def _iterate_state_pairs(self, offset, with_node_tree=None):
+        state_one = self._find_state_at(
+            offset,
+            clone_if_missing=True,
+            )
+        state_two = self._find_state_after(
+            state_one.offset,
+            with_node_tree=with_node_tree,
+            )
+        while state_two is not None:
+            yield state_one, state_two
+            state_one = state_two
             state_two = self._find_state_after(
                 state_one.offset,
                 with_node_tree=with_node_tree,
                 )
-            while state_two is not None:
-                yield state_one, state_two
-                state_one = state_two
-                state_two = self._find_state_after(
-                    state_one.offset,
-                    with_node_tree=with_node_tree,
-                    )
 
     def _setup_buses(self):
         import supriya.nonrealtime

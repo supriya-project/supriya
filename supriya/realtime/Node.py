@@ -158,20 +158,12 @@ class Node(ServerObjectProxy, UniqueTreeNode):
         node_id_is_permanent=False,
         server=None,
     ):
-        if server is None or not server.is_running:
-            raise ValueError(self)
-        if self.server is not None or self in server._nodes:
-            return
         id_allocator = server.node_id_allocator
         if node_id is None:
             if node_id_is_permanent:
                 node_id = id_allocator.allocate_permanent_node_id()
             else:
                 node_id = server.node_id_allocator.allocate_node_id()
-            if node_id is None:
-                raise ValueError(self)
-            elif node_id in server._nodes:
-                raise ValueError(self)
         else:
             node_id = int(node_id)
         ServerObjectProxy.allocate(self, server=server)
@@ -188,11 +180,7 @@ class Node(ServerObjectProxy, UniqueTreeNode):
     def _restore_control_interface_to_parentage(self, name_dictionary):
         if self._parent is not None and name_dictionary:
             for parent in self.parentage[1:]:
-                try:
-                    parent._control_interface.add_controls(name_dictionary)
-                except Exception:
-                    print('PARENT?!', type(parent))
-                    raise
+                parent._control_interface.add_controls(name_dictionary)
 
     def _run(self, run_flag):
         self._is_paused = not bool(run_flag)
@@ -222,19 +210,6 @@ class Node(ServerObjectProxy, UniqueTreeNode):
         return node_id
 
     ### PUBLIC METHODS ###
-
-    @staticmethod
-    def expr_as_node_id(expr):
-        import supriya.realtime
-        if isinstance(expr, supriya.realtime.Server):
-            return 0
-        elif isinstance(expr, Node):
-            return expr.node_id
-        elif expr is None:
-            return None
-        elif isinstance(expr, int):
-            return expr
-        raise TypeError(expr)
 
     @staticmethod
     def expr_as_target(expr):
@@ -306,10 +281,6 @@ class Node(ServerObjectProxy, UniqueTreeNode):
     @property
     def is_paused(self):
         return self._is_paused
-
-    @property
-    def is_running(self):
-        return self.server is not None
 
     @property
     def node_id(self):
