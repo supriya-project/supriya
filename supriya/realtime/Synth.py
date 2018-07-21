@@ -145,28 +145,27 @@ class Synth(Node):
         self._node_id_is_permanent = bool(node_id_is_permanent)
         target_node = Node.expr_as_target(target_node)
         server = target_node.server
-        if not self.synthdef.is_allocated:
-            self.synthdef.allocate()
-        self.controls._set(**kwargs)
-        requests = []
+        self.controls._set(**kwargs)  # TODO: Will map requests will handle?
         settings, map_requests = self.controls._make_synth_new_settings()
         synth_request = supriya.commands.SynthNewRequest(
             add_action=add_action,
             node_id=self,
             synthdef=self.synthdef,
             target_node_id=target_node.node_id,
-            **settings
+            **settings,
             )
-        requests.append(synth_request)
-        requests.extend(map_requests)
+        requests = [synth_request, *map_requests]
         if self.is_paused:
-            pause_request = supriya.commands.NodeRunRequest(
-                [(self.node_id, False)])
-            requests.append(pause_request)
+            requests.append(supriya.commands.NodeRunRequest([(self, False)]))
         if 1 < len(requests):
             request = supriya.commands.RequestBundle(contents=requests)
         else:
             request = requests[0]
+        if not self.synthdef.is_allocated:
+            request = supriya.commands.SynthDefReceiveRequest(
+                synthdefs=self.synthdef,
+                callback=request,
+                )
         request.communicate(server=server, sync=True)
         return self
 
