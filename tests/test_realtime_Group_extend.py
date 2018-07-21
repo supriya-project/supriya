@@ -49,21 +49,19 @@ def test_allocate_nested(server):
                         amplitude: 0.0, frequency: 440.0
         ''')
     assert str(server.query_local_nodes(include_controls=True)) == server_state
+    bundle = supriya.osc.OscBundle(
+        contents=(
+            supriya.osc.OscMessage(21, 1000, 0, 1),
+            supriya.osc.OscMessage(9, 'test', 1001, 0, 1000),
+            supriya.osc.OscMessage(9, 'test', 1002, 3, 1001, 'amplitude', 0.0),
+            ),
+        )
     assert list(transcript) == [
-        ('S', supriya.osc.OscMessage(5, supriya.assets.synthdefs.test.compile())),
-        ('R', supriya.osc.OscMessage('/done', '/d_recv')),
-        ('S', supriya.osc.OscBundle(
-            contents=(
-                supriya.osc.OscMessage(21, 1000, 0, 1),
-                supriya.osc.OscMessage(9, 'test', 1001, 0, 1000),
-                supriya.osc.OscMessage(9, 'test', 1002, 3, 1001, 'amplitude', 0.0),
-                supriya.osc.OscMessage(52, 0),
-                ),
-        )),
+        ('S', supriya.osc.OscMessage(5, bytearray(supriya.assets.synthdefs.test.compile()), bundle)),
         ('R', supriya.osc.OscMessage('/n_go', 1000, 1, -1, -1, 1, -1, -1)),
         ('R', supriya.osc.OscMessage('/n_go', 1001, 1000, -1, -1, 0)),
         ('R', supriya.osc.OscMessage('/n_go', 1002, 1000, 1001, -1, 0)),
-        ('R', supriya.osc.OscMessage('/synced', 0)),
+        ('R', supriya.osc.OscMessage('/done', '/d_recv')),
     ]
 
 

@@ -177,11 +177,11 @@ class Group(Node, UniqueTreeContainer):
                 if add_action == supriya.realtime.AddAction.ADD_TO_HEAD:
                     request = supriya.commands.GroupHeadRequest(
                         node_id_pairs=[(node, target_node)],
-                        )
+                    )
                 else:
                     request = supriya.commands.NodeAfterRequest(
                         node_id_pairs=[(node, target_node)],
-                        )
+                    )
                 requests.append(request)
             else:
                 if isinstance(node, supriya.realtime.Group):
@@ -304,31 +304,27 @@ class Group(Node, UniqueTreeContainer):
                     ),
                 ],
             )
-        nodes, paused_nodes, requests, synthdefs = \
-            self._collect_requests_and_synthdefs(self)
+        (
+            nodes, paused_nodes, requests, synthdefs,
+        ) = self._collect_requests_and_synthdefs(self)
         if self.is_paused:
             paused_nodes.add(self)
-        requests.insert(0, group_new_request)
-        if synthdefs:
-            self._allocate_synthdefs(synthdefs)
+        requests = [group_new_request, *requests]
         if paused_nodes:
-            pairs = sorted((node.node_id, False) for node in paused_nodes)
-            request = supriya.commands.NodeRunRequest(
-                node_id_run_flag_pairs=pairs,
-                )
-            requests.append(request)
+            requests.append(supriya.commands.NodeRunRequest(
+                node_id_run_flag_pairs=sorted(
+                    (node.node_id, False) for node in paused_nodes,
+                )))
         if 1 < len(requests):
-            supriya.commands.RequestBundle(
-                contents=requests,
-            ).communicate(
-                server=server,
-                sync=True,
-            )
+            request = supriya.commands.RequestBundle(contents=requests)
         else:
-            group_new_request.communicate(
-                server=server,
-                sync=True,
+            request = group_new_request
+        if synthdefs:
+            request = supriya.commands.SynthDefReceiveRequest(
+                synthdefs=synthdefs,
+                callback=request,
                 )
+        request.communicate(server=server, sync=True)
         return self
 
     def free(self):
