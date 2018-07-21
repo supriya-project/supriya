@@ -156,26 +156,12 @@ class Synth(Node):
             )
         requests = [synth_request, *map_requests]
         paused_nodes = set()
+        synthdefs = set()
         if self.is_paused:
             paused_nodes.add(self)
-        if paused_nodes:
-            requests.append(supriya.commands.NodeRunRequest(
-                node_id_run_flag_pairs=[
-                    (node, False) for node in paused_nodes
-                ]))
-        if not requests:
-            return
-        elif 1 < len(requests):
-            request = supriya.commands.RequestBundle(contents=requests)
-        else:
-            request = requests[0]
         if not self.synthdef.is_allocated:
-            request = supriya.commands.SynthDefReceiveRequest(
-                synthdefs=self.synthdef,
-                callback=request,
-                )
-        request.communicate(server=server, sync=True)
-        return self
+            synthdefs.add(self.synthdef)
+        return self._allocate(paused_nodes, requests, server, synthdefs)
 
     def free(self):
         Node.free(self)
