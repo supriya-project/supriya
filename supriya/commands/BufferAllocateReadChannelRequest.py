@@ -71,8 +71,8 @@ class BufferAllocateReadChannelRequest(BufferAllocateReadRequest):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, with_textual_osc_command=False):
-        contents = self._get_osc_message_contents(with_textual_osc_command)
+    def to_osc(self, with_request_name=False):
+        contents = self._get_osc_message_contents(with_request_name)
         contents.extend(self.channel_indices)
         if self.callback:
             contents.append(self.callback.to_osc())

@@ -84,9 +84,9 @@ class BufferReadRequest(Request):
 
     ### PRIVATE METHODS ###
 
-    def _get_osc_message_contents(self, with_textual_osc_command=False):
-        if with_textual_osc_command:
-            request_id = self.request_command
+    def _get_osc_message_contents(self, with_request_name=False):
+        if with_request_name:
+            request_id = self.request_name
         else:
             request_id = int(self.request_id)
         buffer_id = int(self.buffer_id)
@@ -113,8 +113,8 @@ class BufferReadRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, with_textual_osc_command=False):
-        contents = self._get_osc_message_contents(with_textual_osc_command)
+    def to_osc(self, with_request_name=False):
+        contents = self._get_osc_message_contents(with_request_name)
         if self.callback:
             contents.append(self.callback.to_osc())
         message = supriya.osc.OscMessage(*contents)

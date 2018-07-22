@@ -74,6 +74,6 @@ class RequestId(IntEnumeration):
     UGEN_COMMAND = 20
 
     @property
-    def osc_command(self):
+    def request_name(self):
         from supriya.commands import RequestName
         return RequestName.from_expr(self.name)

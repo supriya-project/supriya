@@ -66,9 +66,9 @@ class BufferSetContiguousRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, with_textual_osc_command=False):
-        if with_textual_osc_command:
-            request_id = self.request_command
+    def to_osc(self, with_request_name=False):
+        if with_request_name:
+            request_id = self.request_name
         else:
             request_id = int(self.request_id)
         buffer_id = int(self.buffer_id)
