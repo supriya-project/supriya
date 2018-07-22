@@ -9,9 +9,38 @@ class ServerMeters(supriya.system.SupriyaObject):
 
     ::
 
-        >>> import supriya
-        >>> server = supriya.Server().boot()
+        >>> import json, supriya, time
+        >>> server = supriya.Server().boot(
+        ...     input_bus_channel_count=2,
+        ...     output_bus_channel_count=2,
+        ...     )
         >>> meters = server.meters.allocate()
+        >>> time.sleep(1)
+        >>> print(json.dumps(meters.to_dict(), indent=4))
+        {
+            "server_meters": {
+                "input_meter_levels": [
+                    {
+                        "peak": 0...,
+                        "rms": 0...
+                    },
+                    {
+                        "peak": 0...,
+                        "rms": 0...
+                    }
+                ],
+                "output_meter_levels": [
+                    {
+                        "peak": 0.0,
+                        "rms": 0.0
+                    },
+                    {
+                        "peak": 0.0,
+                        "rms": 0.0
+                    }
+                ]
+            }
+        }
 
     ::
 

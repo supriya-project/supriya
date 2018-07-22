@@ -3,6 +3,25 @@ from supriya.system.SupriyaObject import SupriyaObject
 
 
 class ServerRecorder(SupriyaObject):
+    """
+    A server recorder.
+
+    ::
+
+        >>> import supriya
+        >>> import tempfile, time
+        >>> server = supriya.Server().boot()
+        >>> with tempfile.TemporaryDirectory() as tempdir:
+        ...     server.recorder.start(
+        ...         file_path=os.path.join(tempdir, 'example.aiff'),
+        ...         channel_count=2,
+        ...         header_format='AIFF',
+        ...         )
+        ...     time.sleep(1)
+        ...     server.recorder.stop()
+        ...
+
+    """
 
     ### CLASS VARIABLES ###
 
@@ -50,7 +69,7 @@ class ServerRecorder(SupriyaObject):
         channel_count=None,
         header_format=None,
         sample_format=None,
-        ):
+    ):
         import supriya.soundfiles
         if channel_count is None:
             channel_count = self.channel_count
@@ -69,21 +88,16 @@ class ServerRecorder(SupriyaObject):
             file_path = os.path.abspath(os.path.expanduser(file_path))
         return file_path
 
-    def _get_record_id(self):
-        return 23
-
     def _setup_buffer(self):
         import supriya.commands
         import supriya.realtime
-        buffer_id = self._get_record_id()
-        buffer_ = supriya.realtime.Buffer(buffer_id)
         frame_count = 65536
-        buffer_.allocate(
+        buffer_ = supriya.realtime.Buffer().allocate(
             frame_count=frame_count,
             channel_count=self.current_channel_count,
             )
         callback = supriya.commands.BufferWriteRequest(
-            buffer_id=buffer_id,
+            buffer_id=buffer_,
             file_path=self.current_file_path,
             frame_count=0,
             header_format=self.current_header_format,
@@ -138,7 +152,7 @@ class ServerRecorder(SupriyaObject):
         channel_count=None,
         header_format=None,
         sample_format=None,
-        ):
+    ):
         if self.is_recording:
             raise Exception
         self._cache_properties(
@@ -158,7 +172,7 @@ class ServerRecorder(SupriyaObject):
         channel_count=None,
         header_format=None,
         sample_format=None,
-        ):
+    ):
         if self.record_node is not None:
             raise Exception('Already recording.')
         if not self.record_buffer or not self.record_buffer.is_allocated:
