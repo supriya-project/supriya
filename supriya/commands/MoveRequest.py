@@ -1,7 +1,9 @@
 import collections
-import supriya.osc
 import typing
+
+import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class MoveRequest(Request):

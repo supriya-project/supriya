@@ -1,4 +1,5 @@
 from supriya.commands.MoveRequest import MoveRequest
+from supriya.commands.RequestId import RequestId
 
 
 class NodeAfterRequest(MoveRequest):
@@ -89,9 +90,4 @@ class NodeAfterRequest(MoveRequest):
 
     _target_first = False
 
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.NODE_AFTER
+    request_id = RequestId.NODE_AFTER

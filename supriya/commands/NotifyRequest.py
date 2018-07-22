@@ -1,6 +1,6 @@
-import os
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class NotifyRequest(Request):
@@ -38,6 +38,8 @@ class NotifyRequest(Request):
         '_notify_status',
         )
 
+    request_id = RequestId.NOTIFY
+
     ### INITIALIZER ###
 
     def __init__(self, notify_status=None):
@@ -67,8 +69,3 @@ class NotifyRequest(Request):
     @property
     def response_patterns(self):
         return [['/done', '/notify']]
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.NOTIFY

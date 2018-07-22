@@ -1,4 +1,5 @@
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class GroupDumpTreeRequest(Request):
@@ -6,6 +7,8 @@ class GroupDumpTreeRequest(Request):
     ### CLASS VARIABLES ###
 
     __slots__ = ()
+
+    request_id = RequestId.GROUP_DUMP_TREE
 
     ### INITIALIZER ###
 
@@ -17,10 +20,3 @@ class GroupDumpTreeRequest(Request):
 
     def to_osc(self, with_request_name=False):
         raise NotImplementedError
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.GROUP_DUMP_TREE

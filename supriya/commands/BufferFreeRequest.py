@@ -1,6 +1,7 @@
 import supriya.osc
 from supriya.commands.Request import Request
 from supriya.commands.RequestBundle import RequestBundle
+from supriya.commands.RequestId import RequestId
 
 
 class BufferFreeRequest(Request):
@@ -37,6 +38,8 @@ class BufferFreeRequest(Request):
         '_buffer_id',
         '_callback',
         )
+
+    request_id = RequestId.BUFFER_FREE
 
     ### INITIALIZER ###
 
@@ -77,8 +80,3 @@ class BufferFreeRequest(Request):
     @property
     def callback(self):
         return self._callback
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.BUFFER_FREE

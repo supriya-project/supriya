@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class DumpOscRequest(Request):
@@ -34,6 +35,8 @@ class DumpOscRequest(Request):
         '_osc_status',
         )
 
+    request_id = RequestId.DUMP_OSC
+
     ### INITIALIZER ###
 
     def __init__(self, osc_status=None):
@@ -60,8 +63,3 @@ class DumpOscRequest(Request):
     @property
     def osc_status(self):
         return self._osc_status
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.DUMP_OSC

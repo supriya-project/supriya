@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class ControlBusSetRequest(Request):
@@ -46,6 +47,8 @@ class ControlBusSetRequest(Request):
         '_index_value_pairs',
         )
 
+    request_id = RequestId.CONTROL_BUS_SET
+
     ### INITIALIZER ###
 
     def __init__(self, index_value_pairs=None):
@@ -80,8 +83,3 @@ class ControlBusSetRequest(Request):
     @property
     def index_value_pairs(self):
         return self._index_value_pairs
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.CONTROL_BUS_SET

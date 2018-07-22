@@ -1,4 +1,5 @@
 from typing import NamedTuple, Tuple, Union
+
 from supriya.commands.Response import Response
 
 

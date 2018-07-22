@@ -1,4 +1,5 @@
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class NodeMapToControlBusContiguousRequest(Request):
@@ -6,6 +7,8 @@ class NodeMapToControlBusContiguousRequest(Request):
     ### CLASS VARIABLES ###
 
     __slots__ = ()
+
+    request_id = RequestId.NODE_MAP_TO_CONTROL_BUS_CONTIGUOUS
 
     ### INITIALIZER ###
 
@@ -17,10 +20,3 @@ class NodeMapToControlBusContiguousRequest(Request):
 
     def to_osc(self, with_request_name=False):
         raise NotImplementedError
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.NODE_MAP_TO_CONTROL_BUS_CONTIGUOUS

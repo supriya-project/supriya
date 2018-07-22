@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.BufferAllocateRequest import BufferAllocateRequest
+from supriya.commands.RequestId import RequestId
 
 
 class BufferAllocateReadRequest(BufferAllocateRequest):
@@ -39,6 +40,8 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
         '_frame_count',
         '_starting_frame',
         )
+
+    request_id = RequestId.BUFFER_ALLOCATE_READ
 
     ### INITIALIZER ###
 
@@ -118,11 +121,6 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
     @property
     def response_patterns(self):
         return [['/done', '/b_allocRead', self.buffer_id]]
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.BUFFER_ALLOCATE_READ
 
     @property
     def starting_frame(self):

@@ -1,6 +1,7 @@
 import supriya.osc
 from supriya.commands.Request import Request
 from supriya.commands.RequestBundle import RequestBundle
+from supriya.commands.RequestId import RequestId
 
 
 class BufferReadRequest(Request):
@@ -44,6 +45,8 @@ class BufferReadRequest(Request):
         '_starting_frame_in_buffer',
         '_starting_frame_in_file',
         )
+
+    request_id = RequestId.BUFFER_READ
 
     ### INITIALIZER ###
 
@@ -145,11 +148,6 @@ class BufferReadRequest(Request):
     @property
     def response_patterns(self):
         return [['/done', '/b_read', self.buffer_id]]
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.BUFFER_READ
 
     @property
     def starting_frame_in_buffer(self):

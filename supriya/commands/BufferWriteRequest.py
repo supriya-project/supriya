@@ -1,6 +1,7 @@
 import supriya.osc
 from supriya.commands.Request import Request
 from supriya.commands.RequestBundle import RequestBundle
+from supriya.commands.RequestId import RequestId
 
 
 class BufferWriteRequest(Request):
@@ -52,6 +53,8 @@ class BufferWriteRequest(Request):
         '_sample_format',
         '_starting_frame',
         )
+
+    request_id = RequestId.BUFFER_WRITE
 
     ### INITIALIZER ###
 
@@ -140,11 +143,6 @@ class BufferWriteRequest(Request):
     @property
     def leave_open(self):
         return self._leave_open
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.BUFFER_WRITE
 
     @property
     def sample_format(self):

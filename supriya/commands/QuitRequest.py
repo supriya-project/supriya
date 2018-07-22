@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class QuitRequest(Request):
@@ -7,6 +8,8 @@ class QuitRequest(Request):
     ### CLASS VARIABLES ###
 
     __slots__ = ()
+
+    request_id = RequestId.QUIT
 
     ### INITIALIZER ###
 
@@ -30,8 +33,3 @@ class QuitRequest(Request):
     @property
     def response_patterns(self):
         return [['/done', '/quit']]
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.QUIT

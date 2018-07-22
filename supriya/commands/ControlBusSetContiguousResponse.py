@@ -1,5 +1,6 @@
 import collections
 from typing import NamedTuple, Tuple
+
 from supriya.commands.Response import Response
 
 

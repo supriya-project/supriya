@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class NodeRunRequest(Request):
@@ -85,6 +86,8 @@ class NodeRunRequest(Request):
         '_node_id_run_flag_pairs',
         )
 
+    request_id = RequestId.NODE_RUN
+
     ### INITIALIZER ###
 
     def __init__(self, node_id_run_flag_pairs=None):
@@ -130,8 +133,3 @@ class NodeRunRequest(Request):
     @property
     def node_id_run_flag_pairs(self):
         return self._node_id_run_flag_pairs
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.NODE_RUN

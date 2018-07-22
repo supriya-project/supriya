@@ -1,5 +1,6 @@
 from supriya.commands.Request import Request
 from supriya.commands.RequestBundle import RequestBundle
+from supriya.commands.RequestId import RequestId
 
 
 class SynthDefReceiveRequest(Request):
@@ -120,6 +121,8 @@ class SynthDefReceiveRequest(Request):
         '_use_anonymous_names',
         )
 
+    request_id = RequestId.SYNTHDEF_RECEIVE
+
     ### INITIALIZER ###
 
     def __init__(
@@ -181,11 +184,6 @@ class SynthDefReceiveRequest(Request):
     @property
     def response_patterns(self):
         return [['/done', '/d_recv']]
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.SYNTHDEF_RECEIVE
 
     @property
     def synthdefs(self):

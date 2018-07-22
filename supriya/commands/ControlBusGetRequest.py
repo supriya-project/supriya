@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class ControlBusGetRequest(Request):
@@ -36,12 +37,14 @@ class ControlBusGetRequest(Request):
         '_indices',
         )
 
+    request_id = RequestId.CONTROL_BUS_GET
+
     ### INITIALIZER ###
 
     def __init__(
         self,
         indices=None,
-        ):
+    ):
         Request.__init__(self)
         if indices:
             indices = tuple(int(index) for index in indices)
@@ -70,8 +73,3 @@ class ControlBusGetRequest(Request):
     @property
     def response_patterns(self):
         return [['/c_set']]
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.CONTROL_BUS_GET

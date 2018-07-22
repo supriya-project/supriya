@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class BufferCloseRequest(Request):
@@ -36,6 +37,8 @@ class BufferCloseRequest(Request):
         '_buffer_id',
         )
 
+    request_id = RequestId.BUFFER_CLOSE
+
     ### INITIALIZER ###
 
     def __init__(
@@ -68,8 +71,3 @@ class BufferCloseRequest(Request):
     @property
     def response_patterns(self):
         return [['/done', '/b_close', self.buffer_id]]
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.BUFFER_CLOSE

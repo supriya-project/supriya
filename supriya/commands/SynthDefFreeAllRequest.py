@@ -1,4 +1,5 @@
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class SynthDefFreeAllRequest(Request):
@@ -6,6 +7,8 @@ class SynthDefFreeAllRequest(Request):
     ### CLASS VARIABLES ###
 
     __slots__ = ()
+
+    request_id = RequestId.SYNTHDEF_FREE_ALL
 
     ### INITIALIZER ###
 
@@ -17,10 +20,3 @@ class SynthDefFreeAllRequest(Request):
 
     def to_osc(self, with_request_name=False):
         raise NotImplementedError
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.SYNTHDEF_FREE_ALL

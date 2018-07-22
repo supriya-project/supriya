@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class BufferCopyRequest(Request):
@@ -41,6 +42,8 @@ class BufferCopyRequest(Request):
         '_target_buffer_id',
         '_target_starting_frame',
         )
+
+    request_id = RequestId.BUFFER_GENERATE
 
     ### INITIALIZER ###
 
@@ -101,11 +104,6 @@ class BufferCopyRequest(Request):
     @property
     def frame_count(self):
         return self._frame_count
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.BUFFER_GENERATE
 
     @property
     def response_patterns(self):

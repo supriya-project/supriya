@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class StatusRequest(Request):
@@ -30,6 +31,8 @@ class StatusRequest(Request):
 
     __slots__ = ()
 
+    request_id = RequestId.STATUS
+
     ### INITIALIZER ###
 
     def __init__(self):
@@ -46,10 +49,3 @@ class StatusRequest(Request):
             request_id,
             )
         return message
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.STATUS

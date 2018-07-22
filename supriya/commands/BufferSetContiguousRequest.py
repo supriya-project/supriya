@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class BufferSetContiguousRequest(Request):
@@ -45,13 +46,15 @@ class BufferSetContiguousRequest(Request):
         '_index_values_pairs',
         )
 
+    request_id = RequestId.BUFFER_SET_CONTIGUOUS
+
     ### INITIALIZER ###
 
     def __init__(
         self,
         buffer_id=None,
         index_values_pairs=None,
-        ):
+    ):
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
         if index_values_pairs:
@@ -96,8 +99,3 @@ class BufferSetContiguousRequest(Request):
     @property
     def index_values_pairs(self):
         return self._index_values_pairs
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.BUFFER_SET_CONTIGUOUS

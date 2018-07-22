@@ -1,6 +1,7 @@
 import supriya.osc
 from supriya.commands.Request import Request
 from supriya.commands.RequestBundle import RequestBundle
+from supriya.commands.RequestId import RequestId
 
 
 class BufferZeroRequest(Request):
@@ -37,6 +38,8 @@ class BufferZeroRequest(Request):
         '_buffer_id',
         '_callback',
         )
+
+    request_id = RequestId.BUFFER_ZERO
 
     ### INITIALIZER ###
 
@@ -81,8 +84,3 @@ class BufferZeroRequest(Request):
     @property
     def response_patterns(self):
         return [['/done', '/b_zero', self.buffer_id]]
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.BUFFER_ZERO

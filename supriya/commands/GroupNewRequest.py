@@ -1,9 +1,11 @@
 import collections
-import supriya.osc
 import typing
+
+import supriya.osc
+from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 from supriya.realtime.Group import Group
 from supriya.realtime.Node import Node
-from supriya.commands.Request import Request
 
 
 class GroupNewRequest(Request):
@@ -91,12 +93,11 @@ class GroupNewRequest(Request):
         node_id: int = 0
         target_node_id: int = 0
 
+    request_id = RequestId.GROUP_NEW
+
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        items=None,
-    ):
+    def __init__(self, items=None):
         # TODO: Support multi-group allocation
         import supriya.realtime
         Request.__init__(self)
@@ -162,8 +163,3 @@ class GroupNewRequest(Request):
                 '/n_go',
                 int(self.items[0].node_id),
                 ]]
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.GROUP_NEW

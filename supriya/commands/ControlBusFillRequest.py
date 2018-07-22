@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class ControlBusFillRequest(Request):
@@ -42,6 +43,8 @@ class ControlBusFillRequest(Request):
         '_index_count_value_triples',
         )
 
+    request_id = RequestId.CONTROL_BUS_FILL
+
     ### INITIALIZER ###
 
     def __init__(self, index_count_value_triples=None):
@@ -80,8 +83,3 @@ class ControlBusFillRequest(Request):
     @property
     def index_count_value_triples(self):
         return self._index_count_value_triples
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.CONTROL_BUS_FILL

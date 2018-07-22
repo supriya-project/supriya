@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class BufferFillRequest(Request):
@@ -45,6 +46,8 @@ class BufferFillRequest(Request):
         '_index_count_value_triples',
         )
 
+    request_id = RequestId.BUFFER_FILL
+
     ### INITIALIZER ###
 
     def __init__(
@@ -89,8 +92,3 @@ class BufferFillRequest(Request):
     @property
     def index_count_value_triples(self):
         return self._index_count_value_triples
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.BUFFER_FILL

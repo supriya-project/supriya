@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class SyncRequest(Request):
@@ -36,6 +37,8 @@ class SyncRequest(Request):
         '_sync_id',
         )
 
+    request_id = RequestId.SYNC
+
     ### INITIALIZER ###
 
     def __init__(self, sync_id=None):
@@ -61,11 +64,6 @@ class SyncRequest(Request):
     @property
     def response_patterns(self):
         return [['/synced', self.sync_id]]
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.SYNC
 
     @property
     def sync_id(self):

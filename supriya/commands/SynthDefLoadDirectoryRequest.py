@@ -1,7 +1,9 @@
 import pathlib
+
 import supriya.osc
 from supriya.commands.Request import Request
 from supriya.commands.RequestBundle import RequestBundle
+from supriya.commands.RequestId import RequestId
 
 
 class SynthDefLoadDirectoryRequest(Request):
@@ -15,6 +17,8 @@ class SynthDefLoadDirectoryRequest(Request):
         '_callback',
         '_directory_path',
         )
+
+    request_id = RequestId.SYNTHDEF_LOAD_DIR
 
     ### INITIALIZER ###
 
@@ -50,11 +54,6 @@ class SynthDefLoadDirectoryRequest(Request):
     @property
     def response_patterns(self):
         return [['/done', '/d_loadDir']]
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.SYNTHDEF_LOAD_DIR
 
     @property
     def directory_path(self):

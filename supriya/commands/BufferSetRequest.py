@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class BufferSetRequest(Request):
@@ -47,13 +48,15 @@ class BufferSetRequest(Request):
         '_index_value_pairs',
         )
 
+    request_id = RequestId.BUFFER_SET
+
     ### INITIALIZER ###
 
     def __init__(
         self,
         buffer_id=None,
         index_value_pairs=None,
-        ):
+    ):
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
         if index_value_pairs:
@@ -94,8 +97,3 @@ class BufferSetRequest(Request):
     @property
     def index_value_pairs(self):
         return self._index_value_pairs
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.BUFFER_SET
