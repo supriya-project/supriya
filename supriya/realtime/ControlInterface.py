@@ -1,4 +1,5 @@
 import abc
+import re
 from supriya.system.SupriyaObject import SupriyaObject
 
 
@@ -12,6 +13,8 @@ class ControlInterface(SupriyaObject):
         '_synth_controls',
         '_client',
         )
+
+    _bus_pattern = re.compile('(?P<type>c|a)(?P<id>\d+)')
 
     ### SPECIAL METHODS ###
 
@@ -38,6 +41,18 @@ class ControlInterface(SupriyaObject):
             if control_name not in self:
                 continue
             control = self[control_name]
+            if isinstance(value, str):
+                match = self._bus_pattern.match(value)
+                if match:
+                    group_dict = match.groupdict()
+                    if group_dict['type'] == 'c':
+                        calculation_rate = 'control'
+                    else:
+                        calculation_rate = 'audio'
+                    value = supriya.realtime.Bus(
+                        bus_group_or_index=int(group_dict['id']),
+                        calculation_rate=calculation_rate,
+                        )
             if isinstance(value, (int, float)):
                 n_set_settings[control_name] = float(value)
                 control._set_to_number(value)
