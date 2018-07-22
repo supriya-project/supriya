@@ -152,10 +152,10 @@ class SynthDefReceiveRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, with_textual_osc_command=False):
+    def to_osc(self, with_request_name=False):
         import supriya.synthdefs
-        if with_textual_osc_command:
-            request_id = self.request_command
+        if with_request_name:
+            request_id = self.request_name
         else:
             request_id = int(self.request_id)
         compiled_synthdefs = supriya.synthdefs.SynthDefCompiler.compile_synthdefs(
