@@ -1,7 +1,9 @@
 import pathlib
+
 import supriya.osc
 from supriya.commands.Request import Request
 from supriya.commands.RequestBundle import RequestBundle
+from supriya.commands.RequestId import RequestId
 
 
 class SynthDefLoadRequest(Request):
@@ -15,6 +17,8 @@ class SynthDefLoadRequest(Request):
         '_callback',
         '_synthdef_path',
         )
+
+    request_id = RequestId.SYNTHDEF_LOAD
 
     ### INITIALIZER ###
 
@@ -50,11 +54,6 @@ class SynthDefLoadRequest(Request):
     @property
     def response_patterns(self):
         return [['/done', '/d_load']]
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.SYNTHDEF_LOAD
 
     @property
     def synthdef_path(self):

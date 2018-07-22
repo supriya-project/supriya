@@ -1,4 +1,5 @@
 from supriya.commands.MoveRequest import MoveRequest
+from supriya.commands.RequestId import RequestId
 
 
 class GroupTailRequest(MoveRequest):
@@ -75,9 +76,4 @@ class GroupTailRequest(MoveRequest):
 
     _target_first = True
 
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.GROUP_TAIL
+    request_id = RequestId.GROUP_TAIL

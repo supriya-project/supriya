@@ -1,7 +1,9 @@
 import collections
-from supriya import utils
+
 import supriya.osc
+from supriya import utils
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class BufferGenerateRequest(Request):
@@ -64,6 +66,8 @@ class BufferGenerateRequest(Request):
         '_should_clear_first',
         '_should_normalize',
         )
+
+    request_id = RequestId.BUFFER_GENERATE
 
     ### INITIALIZER ###
 
@@ -168,7 +172,7 @@ class BufferGenerateRequest(Request):
         buffer_id=None,
         should_normalize=True,
         should_clear_first=True,
-        ):
+    ):
         command_name = 'cheby'
         request = cls(
             amplitudes=amplitudes,
@@ -188,7 +192,7 @@ class BufferGenerateRequest(Request):
         buffer_id=None,
         should_normalize=True,
         should_clear_first=True,
-        ):
+    ):
         command_name = 'sine1'
         request = cls(
             amplitudes=amplitudes,
@@ -209,7 +213,7 @@ class BufferGenerateRequest(Request):
         frequencies=None,
         should_normalize=True,
         should_clear_first=True,
-        ):
+    ):
         command_name = 'sine2'
         request = cls(
             amplitudes=amplitudes,
@@ -284,11 +288,6 @@ class BufferGenerateRequest(Request):
     @property
     def response_patterns(self):
         return [['/done', '/b_gen', self.buffer_id]]
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.BUFFER_GENERATE
 
     @property
     def should_clear_first(self):

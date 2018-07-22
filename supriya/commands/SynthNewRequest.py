@@ -1,7 +1,8 @@
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 from supriya.realtime.AddAction import AddAction
-from supriya.realtime.Synth import Synth
 from supriya.realtime.Node import Node
+from supriya.realtime.Synth import Synth
 
 
 class SynthNewRequest(Request):
@@ -52,6 +53,8 @@ class SynthNewRequest(Request):
         '_target_node_id',
         '_kwargs',
         )
+
+    request_id = RequestId.SYNTH_NEW
 
     ### INITIALIZER ###
 
@@ -141,11 +144,6 @@ class SynthNewRequest(Request):
     @property
     def response_patterns(self):
         return [['/n_go', int(self.node_id)]]
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.SYNTH_NEW
 
     @property
     def synthdef(self):

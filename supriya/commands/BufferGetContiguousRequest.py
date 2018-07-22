@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class BufferGetContiguousRequest(Request):
@@ -41,6 +42,8 @@ class BufferGetContiguousRequest(Request):
         '_buffer_id',
         '_index_count_pairs',
         )
+
+    request_id = RequestId.BUFFER_GET_CONTIGUOUS
 
     ### INITIALIZER ###
 
@@ -91,8 +94,3 @@ class BufferGetContiguousRequest(Request):
             ['/b_setn', self.buffer_id],
             ['/fail', '/b_getn'],
             ]
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.BUFFER_GET_CONTIGUOUS

@@ -1,4 +1,5 @@
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class SynthDefFreeRequest(Request):
@@ -35,6 +36,8 @@ class SynthDefFreeRequest(Request):
         '_synthdef',
         )
 
+    request_id = RequestId.SYNTHDEF_FREE
+
     ### INITIALIZER ###
 
     def __init__(self, synthdef=None):
@@ -62,11 +65,6 @@ class SynthDefFreeRequest(Request):
         return message
 
     ### PUBLIC PROPERTIES ###
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.SYNTHDEF_FREE
 
     @property
     def synthdef(self):

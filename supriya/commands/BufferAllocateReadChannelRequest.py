@@ -1,6 +1,9 @@
 import collections
+
 import supriya.osc
-from supriya.commands.BufferAllocateReadRequest import BufferAllocateReadRequest
+from supriya.commands.BufferAllocateReadRequest import \
+    BufferAllocateReadRequest
+from supriya.commands.RequestId import RequestId
 
 
 class BufferAllocateReadChannelRequest(BufferAllocateReadRequest):
@@ -40,6 +43,8 @@ class BufferAllocateReadChannelRequest(BufferAllocateReadRequest):
     __slots__ = (
         '_channel_indices',
         )
+
+    request_id = RequestId.BUFFER_ALLOCATE_READ_CHANNEL
 
     ### INITIALIZER ###
 
@@ -88,8 +93,3 @@ class BufferAllocateReadChannelRequest(BufferAllocateReadRequest):
     @property
     def response_patterns(self):
         return [['/done', '/b_allocReadChannel', self.buffer_id]]
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.BUFFER_ALLOCATE_READ_CHANNEL

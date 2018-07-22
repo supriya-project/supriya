@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class BufferQueryRequest(Request):
@@ -36,6 +37,8 @@ class BufferQueryRequest(Request):
         '_buffer_ids',
         )
 
+    request_id = RequestId.BUFFER_QUERY
+
     ### INITIALIZER ###
 
     def __init__(
@@ -67,11 +70,6 @@ class BufferQueryRequest(Request):
     @property
     def buffer_ids(self):
         return self._buffer_ids
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.BUFFER_QUERY
 
     @property
     def response_patterns(self):

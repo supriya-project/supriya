@@ -1,6 +1,7 @@
-import supriya.osc
 import threading
 import time
+
+import supriya.osc
 from supriya.commands.Requestable import Requestable
 
 

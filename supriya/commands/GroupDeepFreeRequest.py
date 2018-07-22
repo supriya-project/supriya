@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class GroupDeepFreeRequest(Request):
@@ -82,6 +83,8 @@ class GroupDeepFreeRequest(Request):
 
     __slots__ = ('_group_id',)
 
+    request_id = RequestId.GROUP_DEEP_FREE
+
     ### INITIALIZER ###
 
     def __init__(self, group_id):
@@ -107,8 +110,3 @@ class GroupDeepFreeRequest(Request):
     @property
     def group_id(self):
         return self._group_id
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.GROUP_DEEP_FREE

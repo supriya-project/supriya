@@ -1,6 +1,7 @@
 import abc
-from uqbar.objects import new
+
 from supriya.commands.Requestable import Requestable
+from uqbar.objects import new
 
 
 class Request(Requestable):

@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class ControlBusSetContiguousRequest(Request):
@@ -42,6 +43,8 @@ class ControlBusSetContiguousRequest(Request):
         '_index_values_pairs',
         )
 
+    request_id = RequestId.CONTROL_BUS_SET_CONTIGUOUS
+
     ### INITIALIZER ###
 
     def __init__(self, index_values_pairs=None):
@@ -81,8 +84,3 @@ class ControlBusSetContiguousRequest(Request):
     @property
     def index_values_pairs(self):
         return self._index_values_pairs
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.CONTROL_BUS_SET_CONTIGUOUS

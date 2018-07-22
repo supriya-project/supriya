@@ -1,6 +1,8 @@
 import collections
+
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class NodeFreeRequest(Request):
@@ -36,6 +38,8 @@ class NodeFreeRequest(Request):
     __slots__ = (
         '_node_ids',
         )
+
+    request_id = RequestId.NODE_FREE
 
     ### INITIALIZER ###
 
@@ -73,8 +77,3 @@ class NodeFreeRequest(Request):
     @property
     def node_ids(self):
         return self._node_ids
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.NODE_FREE

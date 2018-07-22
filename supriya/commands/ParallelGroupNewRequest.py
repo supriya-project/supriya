@@ -1,4 +1,5 @@
 from supriya.commands.GroupNewRequest import GroupNewRequest
+from supriya.commands.RequestId import RequestId
 
 
 class ParallelGroupNewRequest(GroupNewRequest):
@@ -74,9 +75,4 @@ class ParallelGroupNewRequest(GroupNewRequest):
 
     __slots__ = ()
 
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.PARALLEL_GROUP_NEW
+    request_id = RequestId.PARALLEL_GROUP_NEW

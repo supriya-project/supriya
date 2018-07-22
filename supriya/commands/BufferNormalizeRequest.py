@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class BufferNormalizeRequest(Request):
@@ -37,6 +38,8 @@ class BufferNormalizeRequest(Request):
         '_buffer_id',
         '_new_maximum',
         )
+
+    request_id = RequestId.BUFFER_GENERATE
 
     ### INITIALIZER ###
 
@@ -86,11 +89,6 @@ class BufferNormalizeRequest(Request):
     @property
     def new_maximum(self):
         return self._new_maximum
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.BUFFER_GENERATE
 
     @property
     def response_patterns(self):

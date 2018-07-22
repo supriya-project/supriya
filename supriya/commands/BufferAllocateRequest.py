@@ -1,6 +1,7 @@
 import supriya.osc
 from supriya.commands.Request import Request
 from supriya.commands.RequestBundle import RequestBundle
+from supriya.commands.RequestId import RequestId
 
 
 class BufferAllocateRequest(Request):
@@ -43,6 +44,8 @@ class BufferAllocateRequest(Request):
         '_callback',
         '_frame_count',
         )
+
+    request_id = RequestId.BUFFER_ALLOCATE
 
     ### INITIALIZER ###
 
@@ -102,11 +105,6 @@ class BufferAllocateRequest(Request):
     @property
     def frame_count(self):
         return self._frame_count
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.BUFFER_ALLOCATE
 
     @property
     def response_patterns(self):

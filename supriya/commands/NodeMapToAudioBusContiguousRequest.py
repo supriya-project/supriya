@@ -1,12 +1,14 @@
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class NodeMapToAudioBusContiguousRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        )
+    __slots__ = ()
+
+    request_id = RequestId.NODE_MAP_TO_AUDIO_BUS_CONTIGUOUS
 
     ### INITIALIZER ###
 
@@ -18,10 +20,3 @@ class NodeMapToAudioBusContiguousRequest(Request):
 
     def to_osc(self, with_request_name=False):
         raise NotImplementedError
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.NODE_MAP_TO_AUDIO_BUS_CONTIGUOUS

@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class ControlBusGetContiguousRequest(Request):
@@ -46,6 +47,8 @@ class ControlBusGetContiguousRequest(Request):
         '_index_count_pairs',
         )
 
+    request_id = RequestId.CONTROL_BUS_GET_CONTIGUOUS
+
     ### INITIALIZER ###
 
     def __init__(self, index_count_pairs=None):
@@ -85,8 +88,3 @@ class ControlBusGetContiguousRequest(Request):
     @property
     def response_patterns(self):
         return [['/c_setn']]
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.CONTROL_BUS_GET_CONTIGUOUS

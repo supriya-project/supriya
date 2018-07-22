@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class ClearScheduleRequest(Request):
@@ -7,6 +8,8 @@ class ClearScheduleRequest(Request):
     ### CLASS VARIABLES ###
 
     __slots__ = ()
+
+    request_id = RequestId.CLEAR_SCHEDULE
 
     ### INITIALIZER ###
 
@@ -23,10 +26,3 @@ class ClearScheduleRequest(Request):
         contents = [request_id]
         message = supriya.osc.OscMessage(*contents)
         return message
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.CLEAR_SCHEDULE

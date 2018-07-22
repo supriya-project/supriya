@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class GroupFreeAllRequest(Request):
@@ -81,6 +82,8 @@ class GroupFreeAllRequest(Request):
         '_group_id',
         )
 
+    request_id = RequestId.GROUP_FREE_ALL
+
     ### INITIALIZER ###
 
     def __init__(self, group_id):
@@ -106,8 +109,3 @@ class GroupFreeAllRequest(Request):
     @property
     def group_id(self):
         return self._group_id
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.GROUP_FREE_ALL

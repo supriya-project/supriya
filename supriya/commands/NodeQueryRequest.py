@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class NodeQueryRequest(Request):
@@ -36,6 +37,8 @@ class NodeQueryRequest(Request):
         '_node_id',
         )
 
+    request_id = RequestId.NODE_QUERY
+
     ### INITIALIZER ###
 
     def __init__(self, node_id=None):
@@ -61,8 +64,3 @@ class NodeQueryRequest(Request):
     @property
     def node_id(self):
         return self._node_id
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.NODE_QUERY

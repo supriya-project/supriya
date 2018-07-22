@@ -1,5 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
+from supriya.commands.RequestId import RequestId
 
 
 class BufferGetRequest(Request):
@@ -38,6 +39,8 @@ class BufferGetRequest(Request):
         '_buffer_id',
         '_indices',
         )
+
+    request_id = RequestId.BUFFER_GET
 
     ### INITIALIZER ###
 
@@ -84,8 +87,3 @@ class BufferGetRequest(Request):
             ['/b_set', self.buffer_id],
             ['/fail', '/b_get'],
             ]
-
-    @property
-    def request_id(self):
-        import supriya.commands
-        return supriya.commands.RequestId.BUFFER_GET
