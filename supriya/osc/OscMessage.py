@@ -1,4 +1,5 @@
 import collections
+import enum
 import struct
 from supriya.osc import format_datagram
 from supriya.system.SupriyaValueObject import SupriyaValueObject
@@ -39,6 +40,8 @@ class OscMessage(SupriyaValueObject):
                 if isinstance(x, list):
                     sequence[i] = tuple(recurse(sequence[i]))
             return tuple(sequence)
+        if isinstance(address, enum.Enum):
+            address = address.value
         assert isinstance(address, (str, int))
         self._address = address
         self._contents = recurse(contents)
@@ -244,6 +247,8 @@ class OscMessage(SupriyaValueObject):
     def _encode_value(cls, value):
         if hasattr(value, 'to_datagram'):
             value = bytearray(value.to_datagram())
+        elif isinstance(value, enum.Enum):
+            value = value.value
         if isinstance(value, bytearray):
             type_tags, encoded_value = OscMessage._encode_blob(value)
         elif isinstance(value, str):
