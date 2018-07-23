@@ -9,7 +9,8 @@ class ControlBusGetRequest(Request):
 
     ::
 
-        >>> import supriya.commands
+        >>> import supriya
+        >>> server = supriya.Server().boot()
         >>> request = supriya.commands.ControlBusGetRequest(
         ...     indices=(0, 4, 8, 12),
         ...     )
@@ -20,14 +21,30 @@ class ControlBusGetRequest(Request):
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(40, 0, 4, 8, 12)
+        >>> request.to_osc(True)
+        OscMessage('/c_get', 0, 4, 8, 12)
 
     ::
 
-        >>> message.address == supriya.commands.RequestId.CONTROL_BUS_GET
-        True
+        >>> with server.osc_io.capture() as transcript:
+        ...     request.communicate(server=server)
+        ...
+        ControlBusSetResponse(
+            items=(
+                Item(bus_id=0, bus_value=0.0),
+                Item(bus_id=4, bus_value=0.0),
+                Item(bus_id=8, bus_value=0.0),
+                Item(bus_id=12, bus_value=0.0),
+                ),
+            )
+
+    ::
+
+        >>> for entry in transcript:
+        ...     entry
+        ...
+        ('S', OscMessage(40, 0, 4, 8, 12))
+        ('R', OscMessage('/c_set', 0, 0.0, 4, 0.0, 8, 0.0, 12, 0.0))
 
     """
 

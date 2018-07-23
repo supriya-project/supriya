@@ -35,16 +35,17 @@ class ControlBusSetContiguousResponse(Response, collections.Sequence):
     @classmethod
     def from_osc_message(cls, osc_message):
         items = []
-        while osc_message.contents:
-            starting_bus_id = osc_message.contents[0]
-            bus_count = osc_message.contents[1]
-            bus_values = tuple(osc_message.contents[2:2 + bus_count])
+        contents = list(osc_message.contents)
+        while contents:
+            starting_bus_id = contents[0]
+            bus_count = contents[1]
+            bus_values = tuple(contents[2:2 + bus_count])
             item = cls.Item(
                 starting_bus_id=starting_bus_id,
                 bus_values=bus_values,
                 )
             items.append(item)
-            osc_message.contents = osc_message.contents[2 + bus_count:]
+            contents = contents[2 + bus_count:]
         items = tuple(items)
         response = cls(items=items)
         return response
