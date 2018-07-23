@@ -272,67 +272,58 @@ class Server(SupriyaObject):
             self._control_bus_proxies[bus_id] = control_bus_proxy
         return control_bus_proxy
 
-    def _handle_buffer_response(self, response):
-        from supriya.commands import BufferInfoResponse
-        if isinstance(response, BufferInfoResponse):
-            for item in response.items:
-                buffer_proxy = self._get_buffer_proxy(item.buffer_id)
-                if buffer_proxy:
-                    buffer_proxy._handle_response(item)
+    def _handle_buffer_info_response(self, response):
+        for item in response.items:
+            buffer_proxy = self._get_buffer_proxy(item.buffer_id)
+            if buffer_proxy:
+                buffer_proxy._handle_response(item)
 
-    def _handle_control_bus_response(self, response):
-        from supriya.commands import (
-            ControlBusSetResponse,
-            ControlBusSetContiguousResponse,
-        )
-        if isinstance(response, ControlBusSetResponse):
-            for item in response:
-                bus_id = item.bus_id
+    def _handle_control_bus_set_response(self, response):
+        for item in response:
+            bus_id = item.bus_id
+            bus_proxy = self._get_control_bus_proxy(bus_id)
+            bus_proxy._value = item.bus_value
+
+    def _handle_control_bus_setn_response(self, response):
+        for item in response:
+            starting_bus_id = item.starting_bus_id
+            for i, value in enumerate(item.bus_values):
+                bus_id = starting_bus_id + i
                 bus_proxy = self._get_control_bus_proxy(bus_id)
-                bus_proxy._value = item.bus_value
-        elif isinstance(response, ControlBusSetContiguousResponse):
-            for item in response:
-                starting_bus_id = item.starting_bus_id
-                for i, value in enumerate(item.bus_values):
-                    bus_id = starting_bus_id + i
-                    bus_proxy = self._get_control_bus_proxy(bus_id)
-                    bus_proxy._value = value
+                bus_proxy._value = value
 
-    def _handle_node_response(self, response):
-        from supriya.commands import NodeAction, NodeInfoResponse
+    def _handle_node_info_response(self, response):
+        from supriya.commands import NodeAction
         from supriya.realtime import Group, Synth
         with self._lock:
-            if isinstance(response, NodeInfoResponse):
-                node_id = response.node_id
-                node = self._nodes.get(node_id)
-                if node is not None:
-                    node._handle_response(response)
-                elif response.action == NodeAction.NODE_CREATED:
-                    if response.is_group:
-                        node = Group()
-                    else:
-                        node = Synth()
-                    node._register_with_local_server(
-                        server=self,
-                        node_id=response.node_id,
-                        )
-                    parent = self._nodes[response.parent_group_id]
-                    node._set_parent(parent)
-                    if response.previous_node_id:
-                        previous_child = self._nodes[response.previous_node_id]
-                        index = parent.index(previous_child)
-                        parent._children.insert(index + 1, node)
-                    else:
-                        parent._children.append(node)
+            node_id = response.node_id
+            node = self._nodes.get(node_id)
+            if node is not None:
+                node._handle_response(response)
+            elif response.action == NodeAction.NODE_CREATED:
+                if response.is_group:
+                    node = Group()
+                else:
+                    node = Synth()
+                node._register_with_local_server(
+                    server=self,
+                    node_id=response.node_id,
+                    )
+                parent = self._nodes[response.parent_group_id]
+                node._set_parent(parent)
+                if response.previous_node_id:
+                    previous_child = self._nodes[response.previous_node_id]
+                    index = parent.index(previous_child)
+                    parent._children.insert(index + 1, node)
+                else:
+                    parent._children.append(node)
 
-    def _handle_synthdef_response(self, response):
-        from supriya.commands import SynthDefRemovedResponse
-        if isinstance(response, SynthDefRemovedResponse):
-            synthdef_name = response.synthdef_name
-            synthdef = self._synthdefs.get(synthdef_name)
-            if synthdef is None:
-                return
-            synthdef._handle_response(response)
+    def _handle_synthdef_removed_response(self, response):
+        synthdef_name = response.synthdef_name
+        synthdef = self._synthdefs.get(synthdef_name)
+        if synthdef is None:
+            return
+        synthdef._handle_response(response)
 
     def _setup(self):
         self._setup_notifications()
@@ -379,18 +370,21 @@ class Server(SupriyaObject):
         self._default_group = default_group
 
     def _setup_osc_callbacks(self):
-        for pattern in ('/b_info', '/b_set', '/b_setn'):
-            self._osc_io.register(
-                pattern=pattern,
-                procedure=self._handle_buffer_response,
-                parse_response=True,
-            )
-        for pattern in ('/c_set', '/c_setn'):
-            self._osc_io.register(
-                pattern=pattern,
-                procedure=self._handle_control_bus_response,
-                parse_response=True,
-            )
+        self._osc_io.register(
+            pattern='/b_info',
+            procedure=self._handle_buffer_info_response,
+            parse_response=True,
+        )
+        self._osc_io.register(
+            pattern='/c_set',
+            procedure=self._handle_control_bus_set_response,
+            parse_response=True,
+        )
+        self._osc_io.register(
+            pattern='/c_setn',
+            procedure=self._handle_control_bus_setn_response,
+            parse_response=True,
+        )
         for pattern in (
             '/n_end',
             '/n_go',
@@ -403,15 +397,14 @@ class Server(SupriyaObject):
         ):
             self._osc_io.register(
                 pattern=pattern,
-                procedure=self._handle_node_response,
+                procedure=self._handle_node_info_response,
                 parse_response=True,
             )
-        for pattern in ('/d_removed',):
-            self._osc_io.register(
-                pattern=pattern,
-                procedure=self._handle_synthdef_response,
-                parse_response=True,
-            )
+        self._osc_io.register(
+            pattern='/d_removed',
+            procedure=self._handle_synthdef_removed_response,
+            parse_response=True,
+        )
 
         def failed(message):
             print('FAILED:', message)

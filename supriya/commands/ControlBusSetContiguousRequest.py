@@ -9,7 +9,8 @@ class ControlBusSetContiguousRequest(Request):
 
     ::
 
-        >>> import supriya.commands
+        >>> import supriya
+        >>> server = supriya.Server().boot()
         >>> request = supriya.commands.ControlBusSetContiguousRequest(
         ...     index_values_pairs=[
         ...         (0, (0.1, 0.2, 0.3)),
@@ -26,14 +27,24 @@ class ControlBusSetContiguousRequest(Request):
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(26, 0, 3, 0.1, 0.2, 0.3, 4, 3, 0.4, 0.5, 0.6)
+        >>> request.to_osc(True)
+        OscMessage('/c_setn', 0, 3, 0.1, 0.2, 0.3, 4, 3, 0.4, 0.5, 0.6)
 
     ::
 
-        >>> message.address == supriya.commands.RequestId.CONTROL_BUS_SET_CONTIGUOUS
-        True
+        >>> with server.osc_io.capture() as transcript:
+        ...     request.communicate(server=server)
+        ...     _ = server.sync()
+        ...
+
+    ::
+
+        >>> for entry in transcript:
+        ...     entry
+        ...
+        ('S', OscMessage(26, 0, 3, 0.1, 0.2, 0.3, 4, 3, 0.4, 0.5, 0.6))
+        ('S', OscMessage(52, 0))
+        ('R', OscMessage('/synced', 0))
 
     """
 
@@ -62,6 +73,15 @@ class ControlBusSetContiguousRequest(Request):
                 pairs.append(pair)
             index_values_pairs = tuple(pairs)
         self._index_values_pairs = index_values_pairs
+
+    ### PRIVATE METHODS ###
+
+    def _apply_local(self, server):
+        for starting_bus_index, values in self._index_values_pairs or ():
+            for i, value in enumerate(values):
+                bus_id = starting_bus_index + i
+                bus_proxy = server._get_control_bus_proxy(bus_id)
+                bus_proxy._value = value
 
     ### PUBLIC METHODS ###
 

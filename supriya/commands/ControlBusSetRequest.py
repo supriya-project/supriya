@@ -9,13 +9,14 @@ class ControlBusSetRequest(Request):
 
     ::
 
-        >>> import supriya.commands
+        >>> import supriya
+        >>> server = supriya.Server().boot()
         >>> request = supriya.commands.ControlBusSetRequest(
         ...     index_value_pairs=[
         ...         (0, 0.1),
         ...         (1, 0.2),
-        ...         (1, 0.3),
-        ...         (1, 0.4),
+        ...         (2, 0.3),
+        ...         (3, 0.4),
         ...         ],
         ...     )
         >>> request
@@ -23,21 +24,32 @@ class ControlBusSetRequest(Request):
             index_value_pairs=(
                 (0, 0.1),
                 (1, 0.2),
-                (1, 0.3),
-                (1, 0.4),
+                (2, 0.3),
+                (3, 0.4),
                 ),
             )
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(25, 0, 0.1, 1, 0.2, 1, 0.3, 1, 0.4)
+        >>> request.to_osc(True)
+        OscMessage('/c_set', 0, 0.1, 1, 0.2, 2, 0.3, 3, 0.4)
 
     ::
 
-        >>> message.address == supriya.commands.RequestId.CONTROL_BUS_SET
-        True
+        >>> with server.osc_io.capture() as transcript:
+        ...     request.communicate(server=server)
+        ...     _ = server.sync()
+        ...
+
+    ::
+
+        >>> for entry in transcript:
+        ...     entry
+        ...
+        ('S', OscMessage(25, 0, 0.1, 1, 0.2, 2, 0.3, 3, 0.4))
+        ('S', OscMessage(52, 0))
+        ('R', OscMessage('/synced', 0))
+
 
     """
 
@@ -63,6 +75,13 @@ class ControlBusSetRequest(Request):
                 pairs.append(pair)
             index_value_pairs = tuple(pairs)
         self._index_value_pairs = index_value_pairs
+
+    ### PRIVATE METHODS ###
+
+    def _apply_local(self, server):
+        for bus_id, value in self.index_value_pairs or ():
+            bus_proxy = server._get_control_bus_proxy(bus_id)
+            bus_proxy._value = value
 
     ### PUBLIC METHODS ###
 

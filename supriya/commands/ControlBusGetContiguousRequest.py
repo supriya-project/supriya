@@ -9,35 +9,52 @@ class ControlBusGetContiguousRequest(Request):
 
     ::
 
-        >>> import supriya.commands
+        >>> import supriya
+        >>> server = supriya.Server().boot()
         >>> request = supriya.commands.ControlBusGetContiguousRequest(
         ...     index_count_pairs=[
         ...         (0, 2),
-        ...         (4, 2),
+        ...         (4, 1),
         ...         (8, 2),
-        ...         (12, 2),
+        ...         (12, 1),
         ...         ],
         ...     )
         >>> request
         ControlBusGetContiguousRequest(
             index_count_pairs=(
                 (0, 2),
-                (4, 2),
+                (4, 1),
                 (8, 2),
-                (12, 2),
+                (12, 1),
                 ),
             )
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(41, 0, 2, 4, 2, 8, 2, 12, 2)
+        >>> request.to_osc(True)
+        OscMessage('/c_getn', 0, 2, 4, 1, 8, 2, 12, 1)
 
     ::
 
-        >>> message.address == supriya.commands.RequestId.CONTROL_BUS_GET_CONTIGUOUS
-        True
+        >>> with server.osc_io.capture() as transcript:
+        ...     request.communicate(server=server)
+        ...
+        ControlBusSetContiguousResponse(
+            items=(
+                Item(bus_values=(0.0, 0.0), starting_bus_id=0),
+                Item(bus_values=(0.0,), starting_bus_id=4),
+                Item(bus_values=(0.0, 0.0), starting_bus_id=8),
+                Item(bus_values=(0.0,), starting_bus_id=12),
+                ),
+            )
+
+    ::
+
+        >>> for entry in transcript:
+        ...     entry
+        ...
+        ('S', OscMessage(41, 0, 2, 4, 1, 8, 2, 12, 1))
+        ('R', OscMessage('/c_setn', 0, 2, 0.0, 0.0, 4, 1, 0.0, 8, 2, 0.0, 0.0, 12, 1, 0.0))
 
     """
 
