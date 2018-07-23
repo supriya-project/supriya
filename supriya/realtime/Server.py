@@ -199,6 +199,46 @@ class Server(SupriyaObject):
         return result
 
     def __graph__(self):
+        '''
+        Graph server.
+
+        ::
+
+            >>> import supriya
+            >>> server = supriya.Server().boot()
+            >>> group = supriya.Group([
+            ...     supriya.Synth(),
+            ...     supriya.Group([
+            ...         supriya.Synth(),
+            ...         supriya.Synth(),
+            ...         ]),
+            ...     ]).allocate()
+
+        ::
+
+            >>> graph = server.__graph__()
+            >>> print(format(graph, 'graphviz'))
+            digraph server {
+                "Root Node";
+                "Group 1";
+                "Group 1000";
+                "Synth 1001";
+                "Group 1002";
+                "Synth 1003";
+                "Synth 1004";
+                "Root Node" -> "Group 1";
+                "Group 1" -> "Group 1000";
+                "Group 1000" -> "Synth 1001";
+                "Group 1000" -> "Group 1002";
+                "Group 1002" -> "Synth 1003";
+                "Group 1002" -> "Synth 1004";
+            }
+
+        ::
+
+            >>> supriya.graph(graph)  # pytest: +skip
+
+        '''
         def recurse(graph, parent_graphviz_node, parent_server_node):
             if not isinstance(parent_server_node, supriya.realtime.Group):
                 return
@@ -211,15 +251,10 @@ class Server(SupriyaObject):
                     name=name,
                     )
                 graph.append(child_graphviz_node)
-                uqbar.graphs.Edge()(
-                    parent_graphviz_node,
-                    child_graphviz_node,
-                    )
+                parent_graphviz_node.attach(child_graphviz_node)
                 recurse(graph, child_graphviz_node, child_server_node)
         import supriya.realtime
-        graph = uqbar.graphs.Graph(
-            name='server',
-            )
+        graph = uqbar.graphs.Graph(name='server')
         root_graphviz_node = uqbar.graphs.Node(name='Root Node')
         graph.append(root_graphviz_node)
         recurse(graph, root_graphviz_node, self.root_node)
