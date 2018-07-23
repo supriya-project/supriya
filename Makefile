@@ -14,4 +14,5 @@ docs:
 	make -C docs html
 
 test:
-	pytest --cov=supriya --cov-report=html --cov-report=term --cov-branch supriya tests
+	rm -Rf htmlcov/
+	pytest --cov=supriya --cov-report=html --cov-report=term --cov-config .coveragerc supriya tests
