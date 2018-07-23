@@ -1,4 +1,5 @@
 import atexit
+import re
 import subprocess
 import threading
 import time
@@ -188,7 +189,20 @@ class Server(SupriyaObject):
         self.quit()
 
     def __getitem__(self, item):
+        import supriya
         if isinstance(item, str):
+            match = re.match('b(?P<id>\d+)', item)
+            if match:
+                id_ = int(match.groupdict()['id'])
+                return supriya.realtime.Buffer(id_).allocate()
+            match = re.match('c(?P<id>\d+)', item)
+            if match:
+                id_ = int(match.groupdict()['id'])
+                return supriya.realtime.Bus(id_, 'control').allocate()
+            match = re.match('a(?P<id>\d+)', item)
+            if match:
+                id_ = int(match.groupdict()['id'])
+                return supriya.realtime.Bus(id_, 'audio').allocate()
             result = self.root_node[item]
         elif isinstance(item, int):
             result = self._nodes.get(item)
