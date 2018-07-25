@@ -134,7 +134,7 @@ class BufferGroup(ServerObjectProxy):
         """
         import supriya.realtime
         if self.is_allocated:
-            return
+            return supriya.exceptions.BufferAlreadyAllocated
         self._register_with_local_server(server)
         channel_count = int(channel_count)
         frame_count = int(frame_count)
@@ -161,7 +161,7 @@ class BufferGroup(ServerObjectProxy):
         Returns none.
         """
         if not self.is_allocated:
-            return
+            raise supriya.exceptions.BufferNotAllocated
         for buffer_ in self:
             buffer_.free()
         buffer_id = self.buffer_id

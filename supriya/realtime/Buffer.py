@@ -1,4 +1,5 @@
 import collections
+import supriya.exceptions
 from supriya.realtime.ServerObjectProxy import ServerObjectProxy
 
 
@@ -108,12 +109,12 @@ class Buffer(ServerObjectProxy):
             >>> float(buffer_three)
             Traceback (most recent call last):
             ...
-            ValueError: Cannot cast unallocated buffer to float.
+            supriya.exceptions.BufferNotAllocated
 
         Returns float.
         """
         if not self.is_allocated:
-            raise ValueError('Cannot cast unallocated buffer to float.')
+            raise supriya.exceptions.BufferNotAllocated
         return float(self.buffer_id)
 
     def __int__(self):
@@ -157,12 +158,12 @@ class Buffer(ServerObjectProxy):
             >>> int(buffer_three)
             Traceback (most recent call last):
             ...
-            ValueError: Cannot cast unallocated buffer to int.
+            supriya.exceptions.BufferNotAllocated
 
         Returns integer.
         """
         if not self.is_allocated:
-            raise ValueError('Cannot cast unallocated buffer to int.')
+            raise supriya.exceptions.BufferNotAllocated
         return int(self.buffer_id)
 
     def __repr__(self):
@@ -323,16 +324,21 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> buffer_three.allocate()
+            Traceback (most recent call last):
+            ...
+            supriya.exceptions.BufferAlreadyAllocated
+
+        ::
+
             >>> buffer_one.free()
             >>> buffer_two.free()
             >>> buffer_three.free()
 
         Returns buffer.
         """
-        if self.buffer_group is not None:
-            return
         if self.is_allocated:
-            return
+            raise supriya.exceptions.BufferAlreadyAllocated
         try:
             ServerObjectProxy.allocate(
                 self,
@@ -410,15 +416,20 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> buffer_two.allocate()
+            Traceback (most recent call last):
+            ...
+            supriya.exceptions.BufferAlreadyAllocated
+
+        ::
+
             >>> buffer_one.free()
             >>> buffer_two.free()
 
         Returns buffer.
         """
-        if self.buffer_group is not None:
-            return
         if self.is_allocated:
-            return
+            raise supriya.exceptions.BufferAlreadyAllocated
         try:
             ServerObjectProxy.allocate(
                 self,
@@ -462,11 +473,18 @@ class Buffer(ServerObjectProxy):
             >>> buffer_.close()
             >>> buffer_.free()
 
+        ::
+
+            >>> buffer_.close()
+            Traceback (most recent call last):
+            ...
+            supriya.exceptions.BufferNotAllocated
+
         Returns none.
         """
         import supriya.commands
         if not self.is_allocated:
-            raise Exception
+            raise supriya.exceptions.BufferNotAllocated
         request = supriya.commands.BufferCloseRequest(
             buffer_id=self.buffer_id,
             )
@@ -501,11 +519,18 @@ class Buffer(ServerObjectProxy):
             >>> buffer_one.free()
             >>> buffer_two.free()
 
+        ::
+
+            >>> buffer_one.copy_to(target_buffer_id=666)
+            Traceback (most recent call last):
+            ...
+            supriya.exceptions.BufferNotAllocated
+
         Returns none.
         """
         import supriya.commands
         if not self.is_allocated:
-            raise Exception
+            raise supriya.exceptions.BufferNotAllocated
         request = supriya.commands.BufferCopyRequest(
             frame_count=frame_count,
             source_buffer_id=self.buffer_id,
@@ -548,11 +573,18 @@ class Buffer(ServerObjectProxy):
             >>> buffer_one.free()
             >>> buffer_two.free()
 
+        ::
+
+            >>> buffer_one.copy_from(source_buffer_id=666)
+            Traceback (most recent call last):
+            ...
+            supriya.exceptions.BufferNotAllocated
+
         Returns none.
         """
         import supriya.commands
         if not self.is_allocated:
-            raise Exception
+            raise supriya.exceptions.BufferNotAllocated
         request = supriya.commands.BufferCopyRequest(
             frame_count=frame_count,
             source_buffer_id=source_buffer_id,
@@ -588,9 +620,18 @@ class Buffer(ServerObjectProxy):
 
             >>> buffer_.free()
 
+        ::
+
+            >>> buffer_.fill()
+            Traceback (most recent call last):
+            ...
+            supriya.exceptions.BufferNotAllocated
+
         Returns none.
         """
         import supriya.commands
+        if not self.is_allocated:
+            raise supriya.exceptions.BufferNotAllocated
         request = supriya.commands.BufferFillRequest(
             buffer_id=self.buffer_id,
             index_count_value_triples=index_count_value_triples,
@@ -607,7 +648,7 @@ class Buffer(ServerObjectProxy):
         Returns none.
         """
         if not self.is_allocated:
-            return
+            raise supriya.exceptions.BufferNotAllocated
         buffer_id = self._unregister_with_local_server()
         request = self._unregister_with_remote_server(buffer_id)
         if self.server.is_running:
@@ -658,11 +699,18 @@ class Buffer(ServerObjectProxy):
 
             >>> buffer_.free()
 
+        ::
+
+            >>> buffer_.fill_via_chebyshev(amplitudes=(1, 0.5, 0.25))
+            Traceback (most recent call last):
+            ...
+            supriya.exceptions.BufferNotAllocated
+
         Returns none.
         """
         import supriya.commands
         if not self.is_allocated:
-            raise Exception
+            raise supriya.exceptions.BufferNotAllocated
         request = supriya.commands.BufferGenerateRequest.chebyshev(
             amplitudes=amplitudes,
             as_wavetable=as_wavetable,
@@ -713,11 +761,18 @@ class Buffer(ServerObjectProxy):
 
             >>> buffer_.free()
 
+        ::
+
+            >>> buffer_.fill_via_sine_1(amplitudes=(1, 1, 1))
+            Traceback (most recent call last):
+            ...
+            supriya.exceptions.BufferNotAllocated
+
         Returns none.
         """
         import supriya.commands
         if not self.is_allocated:
-            raise Exception
+            raise supriya.exceptions.BufferNotAllocated
         request = supriya.commands.BufferGenerateRequest.sine1(
             amplitudes=amplitudes,
             as_wavetable=as_wavetable,
@@ -770,11 +825,21 @@ class Buffer(ServerObjectProxy):
 
             >>> buffer_.free()
 
+        ::
+
+            >>> buffer_.fill_via_sine_2(
+            ...     amplitudes=(1, 0.5, 0.25),
+            ...     frequencies=(1, 2, 4),
+            ...     )
+            Traceback (most recent call last):
+            ...
+            supriya.exceptions.BufferNotAllocated
+
         Returns none.
         """
         import supriya.commands
         if not self.is_allocated:
-            raise Exception
+            raise supriya.exceptions.BufferNotAllocated
         request = supriya.commands.BufferGenerateRequest.sine2(
             amplitudes=amplitudes,
             frequencies=frequencies,
@@ -830,11 +895,22 @@ class Buffer(ServerObjectProxy):
 
             >>> buffer_.free()
 
+        ::
+
+            >>> buffer_.fill_via_sine_3(
+            ...     amplitudes=(1, 0.5, 0.25),
+            ...     frequencies=(1, 2, 3),
+            ...     phases=(0, 0.5, 0),
+            ...     )
+            Traceback (most recent call last):
+            ...
+            supriya.exceptions.BufferNotAllocated
+
         Returns none.
         """
         import supriya.commands
         if not self.is_allocated:
-            raise Exception
+            raise supriya.exceptions.BufferNotAllocated
         request = supriya.commands.BufferGenerateRequest.sine3(
             amplitudes=amplitudes,
             frequencies=frequencies,
@@ -872,11 +948,18 @@ class Buffer(ServerObjectProxy):
 
             >>> buffer_.free()
 
+        ::
+
+            >>> buffer_.get()
+            Traceback (most recent call last):
+            ...
+            supriya.exceptions.BufferNotAllocated
+
         Returns buffer-set response.
         """
         import supriya.commands
         if not self.is_allocated:
-            raise Exception
+            raise supriya.exceptions.BufferNotAllocated
         if isinstance(indices, int):
             indices = [indices]
         request = supriya.commands.BufferGetRequest(
@@ -913,11 +996,18 @@ class Buffer(ServerObjectProxy):
 
             >>> buffer_.free()
 
+        ::
+
+            >>> buffer_.get_contiguous()
+            Traceback (most recent call last):
+            ...
+            supriya.exceptions.BufferNotAllocated
+
         Returns buffer-set-contiguous response.
         """
         import supriya.commands
         if not self.is_allocated:
-            raise Exception
+            raise supriya.exceptions.BufferNotAllocated
         request = supriya.commands.BufferGetContiguousRequest(
             buffer_id=self,
             index_count_pairs=index_count_pairs,
@@ -957,10 +1047,17 @@ class Buffer(ServerObjectProxy):
 
             >>> buffer_.free()
 
+        ::
+
+            >>> buffer_.get_frame()
+            Traceback (most recent call last):
+            ...
+            supriya.exceptions.BufferNotAllocated
+
         Returns buffer-set-contiguous response.
         """
         if not self.is_allocated:
-            raise Exception
+            raise supriya.exceptions.BufferNotAllocated
         if isinstance(frame_ids, int):
             frame_ids = [frame_ids]
         index_count_pairs = [
@@ -981,6 +1078,8 @@ class Buffer(ServerObjectProxy):
     ):
         import supriya.synthdefs
         import supriya.ugens
+        if not self.is_allocated:
+            raise supriya.exceptions.BufferNotAllocated
         with supriya.synthdefs.SynthDefBuilder(
             level=1,
             rate=1,
@@ -1025,11 +1124,18 @@ class Buffer(ServerObjectProxy):
 
             >>> buffer_.free()
 
+        ::
+
+            >>> buffer_.query()
+            Traceback (most recent call last):
+            ...
+            supriya.exceptions.BufferNotAllocated
+
         Returns buffer-info response.
         """
         import supriya.commands
         if not self.is_allocated:
-            raise Exception
+            raise supriya.exceptions.BufferNotAllocated
         buffer_ids = [self.buffer_id]
         request = supriya.commands.BufferQueryRequest(
             buffer_ids=buffer_ids,
@@ -1074,10 +1180,8 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_.read(
-            ...     supriya.system.Assets['audio/pulse_44100sr_16bit_octo.wav'],
-            ...     channel_indices=(0, 1),
-            ...     )
+            >>> file_path = supriya.system.Assets['audio/pulse_44100sr_16bit_octo.wav']
+            >>> buffer_.read(file_path, channel_indices=(0, 1))
 
         ::
 
@@ -1097,11 +1201,18 @@ class Buffer(ServerObjectProxy):
 
             >>> buffer_.free()
 
+        ::
+
+            >>> buffer_.read(file_path)
+            Traceback (most recent call last):
+            ...
+            supriya.exceptions.BufferNotAllocated
+
         Returns none.
         """
         import supriya.commands
         if not self.is_allocated:
-            return
+            raise supriya.exceptions.BufferNotAllocated
         on_done = supriya.commands.BufferQueryRequest(
             buffer_ids=(self.buffer_id,),
             )
@@ -1161,11 +1272,18 @@ class Buffer(ServerObjectProxy):
 
             >>> buffer_.free()
 
+        ::
+
+            >>> buffer_.set()
+            Traceback (most recent call last):
+            ...
+            supriya.exceptions.BufferNotAllocated
+
         Returns none.
         """
         import supriya.commands
         if not self.is_allocated:
-            raise Exception
+            raise supriya.exceptions.BufferNotAllocated
         request = supriya.commands.BufferSetRequest(
             buffer_id=self,
             index_value_pairs=index_value_pairs,
@@ -1203,11 +1321,18 @@ class Buffer(ServerObjectProxy):
 
             >>> buffer_.free()
 
+        ::
+
+            >>> buffer_.set_contiguous()
+            Traceback (most recent call last):
+            ...
+            supriya.exceptions.BufferNotAllocated
+
         Returns none.
         """
         import supriya.commands
         if not self.is_allocated:
-            raise Exception
+            raise supriya.exceptions.BufferNotAllocated
         request = supriya.commands.BufferSetContiguousRequest(
             buffer_id=self,
             index_values_pairs=index_values_pairs,
@@ -1268,11 +1393,18 @@ class Buffer(ServerObjectProxy):
             >>> buffer_one.free()
             >>> buffer_two.free()
 
+        ::
+
+            >>> buffer_one.write(file_path=file_path)
+            Traceback (most recent call last):
+            ...
+            supriya.exceptions.BufferNotAllocated
+
         Returns none.
         """
         import supriya.commands
         if not self.is_allocated:
-            raise Exception
+            raise supriya.exceptions.BufferNotAllocated
         request = supriya.commands.BufferWriteRequest(
             buffer_id=self.buffer_id,
             callback=callback,
@@ -1329,11 +1461,18 @@ class Buffer(ServerObjectProxy):
 
             >>> buffer_.free()
 
+        ::
+
+            >>> buffer_.zero()
+            Traceback (most recent call last):
+            ...
+            supriya.exceptions.BufferNotAllocated
+
         Returns none.
         """
         import supriya.commands
         if not self.is_allocated:
-            raise Exception
+            raise supriya.exceptions.BufferNotAllocated
         request = supriya.commands.BufferZeroRequest(
             buffer_id=self.buffer_id,
             callback=callback,
