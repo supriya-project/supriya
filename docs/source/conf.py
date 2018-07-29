@@ -60,7 +60,7 @@ nodes.doctest_block = nodes.literal_block
 
 intersphinx_mapping = {
     'abjad': ('http://abjad.mbrsi.org', None),
-    'python': ('http://docs.python.org/3.2', None),
+    'python': ('http://docs.python.org/3.6', None),
     }
 
 templates_path = ['_templates']

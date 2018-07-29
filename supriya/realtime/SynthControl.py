@@ -69,12 +69,6 @@ class SynthControl:
             self._last_unmapped_value = self._value
         self._value = bus
 
-    def _receive_bound_event(self, event=None):
-        if event is None:
-            return
-        event = float(event)
-        self.set(event)
-
     def _set_to_number(self, value):
         self._value = float(value)
         self._last_unmapped_value = self._value

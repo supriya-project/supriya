@@ -1,9 +1,57 @@
+import supriya.exceptions
 from supriya.realtime.ServerObjectProxy import ServerObjectProxy
+from supriya.synthdefs.CalculationRate import CalculationRate
 
 
 class BusGroup(ServerObjectProxy):
     """
     A bus group.
+
+    ::
+
+        >>> import supriya
+        >>> server = supriya.Server().boot()
+        >>> bus_group = supriya.BusGroup(bus_count=4)
+        >>> bus_group
+        <BusGroup{4}: ???>
+
+    ::
+
+        >>> bus_group.allocate()
+        <BusGroup{4}: 0>
+
+    ::
+
+        >>> bus_group[2]
+        <Bus: 2>
+
+    ::
+
+        >>> for i in range(len(bus_group)):
+        ...     bus = bus_group[i]
+        ...     value = (i * 0.2) + 0.1
+        ...     bus.set(value)
+        ...
+        >>> bus_values = bus_group.get()
+
+    Values in ``scsynth`` don't necessarily have the same precision as in
+    Python, so we'll round them here for display purposes:
+
+    ::
+
+        >>> print([round(value, 1) for value in bus_values])
+        [0.1, 0.3, 0.5, 0.7]
+
+    ::
+
+        >>> print(bus_group)
+        c0
+        
+    ::
+
+        >>> bus_group.free()
+        <BusGroup{4}: ???>
+
     """
 
     ### CLASS VARIABLES ###
@@ -21,17 +69,15 @@ class BusGroup(ServerObjectProxy):
     def __init__(
         self,
         bus_count=1,
-        calculation_rate=None,
+        calculation_rate=CalculationRate.CONTROL,
         bus_id=None,
         ):
         import supriya.realtime
-        import supriya.synthdefs
         ServerObjectProxy.__init__(self)
-        calculation_rate = supriya.synthdefs.CalculationRate.from_expr(
-            calculation_rate)
+        calculation_rate = CalculationRate.from_expr(calculation_rate)
         assert calculation_rate in (
-            supriya.synthdefs.CalculationRate.AUDIO,
-            supriya.synthdefs.CalculationRate.CONTROL,
+            CalculationRate.AUDIO,
+            CalculationRate.CONTROL,
             )
         self._calculation_rate = calculation_rate
         bus_count = int(bus_count)
@@ -52,6 +98,8 @@ class BusGroup(ServerObjectProxy):
         return self.buses.__contains__(item)
 
     def __float__(self):
+        if not self.is_allocated:
+            raise supriya.exceptions.BusNotAllocated
         return float(self.bus_id)
 
     def __getitem__(self, item):
@@ -68,6 +116,8 @@ class BusGroup(ServerObjectProxy):
             return bus_group
 
     def __int__(self):
+        if not self.is_allocated:
+            raise supriya.exceptions.BusNotAllocated
         return int(self.bus_id)
 
     def __iter__(self):
@@ -77,23 +127,43 @@ class BusGroup(ServerObjectProxy):
         return len(self._buses)
 
     def __repr__(self):
-        string = '<{}: {{{}}} @ {}>'.format(
-            type(self).__name__,
-            len(self),
-            self.bus_id
-            )
-        return string
+        bus_id = self.bus_id
+        if bus_id is None:
+            bus_id = '???'
+        return '<{}{{{}}}: {}>'.format(type(self).__name__, len(self), bus_id)
 
     def __str__(self):
+        """
+        Gets map symbol representation of bus group.
+
+        ::
+
+            >>> import supriya
+            >>> server = supriya.Server().boot()
+            >>> control_bus_group = supriya.BusGroup.control(4).allocate()
+            >>> audio_bus_group = supriya.BusGroup.audio(4).allocate()
+
+        ::
+
+            >>> print(str(control_bus_group))
+            c0
+
+        ::
+
+            >>> print(str(audio_bus_group))
+            a16
+
+        ::
+
+            >>> print(str(control_bus_group.free()))
+            Traceback (most recent call last):
+            ...
+            supriya.exceptions.BusNotAllocated
+
+        """
+        if not self.is_allocated:
+            raise supriya.exceptions.BusNotAllocated
         return self.map_symbol
-
-    ### PRIVATE METHODS ###
-
-    def _receive_bound_event(self, event=None):
-        if event is None:
-            return
-        event = float(event)
-        self.fill(event)
 
     ### PUBLIC METHODS ###
 
@@ -104,7 +174,7 @@ class BusGroup(ServerObjectProxy):
         ):
         import supriya.realtime
         if self.is_allocated:
-            return
+            raise supriya.exceptions.BusAlreadyAllocated
         ServerObjectProxy.allocate(self, server=server)
         allocator = supriya.realtime.Bus._get_allocator(
             calculation_rate=self.calculation_rate,
@@ -176,10 +246,9 @@ class BusGroup(ServerObjectProxy):
 
         Returns ugen.
         """
-        import supriya.synthdefs
         import supriya.ugens
         channel_count = len(self)
-        if self.calculation_rate == supriya.synthdefs.CalculationRate.AUDIO:
+        if self.calculation_rate == CalculationRate.AUDIO:
             ugen = supriya.ugens.In.ar(
                 bus=self.bus_id,
                 channel_count=channel_count,
@@ -194,10 +263,23 @@ class BusGroup(ServerObjectProxy):
                 )
         return ugen
 
+    @classmethod
+    def audio(cls, bus_count=1):
+        return cls(
+            bus_count=bus_count,
+            calculation_rate=CalculationRate.AUDIO,
+            )
+
+    @classmethod
+    def control(cls, bus_count=1):
+        return cls(
+            bus_count=bus_count,
+            calculation_rate=CalculationRate.CONTROL,
+            )
+
     def fill(self, value):
         import supriya.commands
-        import supriya.synthdefs
-        if self.calculation_rate != supriya.synthdefs.CalculationRate.CONTROL:
+        if self.calculation_rate != CalculationRate.CONTROL:
             return
         if not self.is_allocated:
             return
@@ -213,7 +295,7 @@ class BusGroup(ServerObjectProxy):
     def free(self):
         import supriya.realtime
         if not self.is_allocated:
-            return
+            raise supriya.exceptions.BusNotAllocated
         allocator = supriya.realtime.Bus._get_allocator(
             calculation_rate=self.calculation_rate,
             server=self.server,
@@ -221,11 +303,11 @@ class BusGroup(ServerObjectProxy):
         allocator.free(self.bus_id)
         self._bus_id = None
         ServerObjectProxy.free(self)
+        return self
 
     def get(self):
         import supriya.commands
-        import supriya.synthdefs
-        if self.calculation_rate != supriya.synthdefs.CalculationRate.CONTROL:
+        if self.calculation_rate != CalculationRate.CONTROL:
             return
         if not self.is_allocated:
             return
@@ -298,10 +380,9 @@ class BusGroup(ServerObjectProxy):
 
         Returns ugen.
         """
-        import supriya.synthdefs
         import supriya.ugens
         channel_count = len(self)
-        if self.calculation_rate == supriya.synthdefs.CalculationRate.AUDIO:
+        if self.calculation_rate == CalculationRate.AUDIO:
             ugen = supriya.ugens.In.ar(
                 bus=self.bus_id,
                 channel_count=channel_count,
@@ -336,8 +417,9 @@ class BusGroup(ServerObjectProxy):
 
     @property
     def map_symbol(self):
-        import supriya.synthdefs
-        if self.calculation_rate == supriya.synthdefs.CalculationRate.AUDIO:
+        if not self.is_allocated:
+            raise supriya.exceptions.BusNotAllocated
+        if self.calculation_rate == CalculationRate.AUDIO:
             map_symbol = 'a'
         else:
             map_symbol = 'c'

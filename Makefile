@@ -15,4 +15,12 @@ docs:
 
 test:
 	rm -Rf htmlcov/
-	pytest --cov=supriya --cov-report=html --cov-report=term --cov-config .coveragerc supriya tests
+	pytest \
+		--cov-config=.coveragerc \
+		--cov-report=html \
+		--cov-report=term \
+		--cov=supriya/ \
+		--durations=20 \
+		--timeout=60 \
+		supriya/ \
+		tests/

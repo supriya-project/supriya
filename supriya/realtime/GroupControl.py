@@ -29,12 +29,6 @@ class GroupControl:
     def _map_to_bus(self, bus):
         pass
 
-    def _receive_bound_event(self, event=None):
-        if event is None:
-            return
-        event = float(event)
-        self.set(event)
-
     def _set_to_number(self, value):
         pass
 

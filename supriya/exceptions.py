@@ -1,20 +1,36 @@
-class BufferNotAllocated(Exception):
+class AlreadyAllocated(Exception):
     pass
 
 
-class BufferAlreadyAllocated(Exception):
+class NotAllocated(Exception):
     pass
 
 
-class BusNotAllocated(Exception):
+class BufferAlreadyAllocated(AlreadyAllocated):
     pass
 
 
-class NodeAlreadyAllocated(Exception):
+class BufferNotAllocated(NotAllocated):
     pass
 
 
-class NodeNotAllocated(Exception):
+class BusAlreadyAllocated(AlreadyAllocated):
+    pass
+
+
+class BusNotAllocated(NotAllocated):
+    pass
+
+
+class IncompatibleRate(Exception):
+    pass
+
+
+class NodeAlreadyAllocated(AlreadyAllocated):
+    pass
+
+
+class NodeNotAllocated(NotAllocated):
     pass
 
 
