@@ -27,8 +27,8 @@ class NodeAction(SupriyaValueObject):
         target=None,
     ):
         if action is not None:
-            action = supriya.realtime.AddAction.from_expr(action)
-            assert isinstance(action, supriya.realtime.AddAction)
+            action = supriya.AddAction.from_expr(action)
+            assert isinstance(action, supriya.AddAction)
             assert source is not target
         if action is None:
             assert source is not None
@@ -64,22 +64,22 @@ class NodeAction(SupriyaValueObject):
             children.remove(self.source)
             nodes_to_children[old_parent] = tuple(children) or None
         if self.action in (
-            supriya.realtime.AddAction.ADD_AFTER,
-            supriya.realtime.AddAction.ADD_BEFORE,
+            supriya.AddAction.ADD_AFTER,
+            supriya.AddAction.ADD_BEFORE,
         ):
             new_parent = nodes_to_parents[self.target]
         else:
             new_parent = self.target
         nodes_to_parents[self.source] = new_parent
         children = list(nodes_to_children.get(new_parent, None) or ())
-        if self.action == supriya.realtime.AddAction.ADD_TO_HEAD:
+        if self.action == supriya.AddAction.ADD_TO_HEAD:
             children.insert(0, self.source)
-        elif self.action == supriya.realtime.AddAction.ADD_TO_TAIL:
+        elif self.action == supriya.AddAction.ADD_TO_TAIL:
             children.append(self.source)
-        elif self.action == supriya.realtime.AddAction.ADD_BEFORE:
+        elif self.action == supriya.AddAction.ADD_BEFORE:
             index = children.index(self.target)
             children.insert(index, self.source)
-        elif self.action == supriya.realtime.AddAction.ADD_AFTER:
+        elif self.action == supriya.AddAction.ADD_AFTER:
             index = children.index(self.target) + 1
             children.insert(index, self.source)
         nodes_to_children[new_parent] = tuple(children) or None
@@ -89,13 +89,13 @@ class NodeAction(SupriyaValueObject):
             id_mapping[self.source],
             id_mapping[self.target],
             )
-        if self.action == supriya.realtime.AddAction.ADD_TO_HEAD:
+        if self.action == supriya.AddAction.ADD_TO_HEAD:
             request_class = supriya.commands.GroupHeadRequest
-        elif self.action == supriya.realtime.AddAction.ADD_TO_TAIL:
+        elif self.action == supriya.AddAction.ADD_TO_TAIL:
             request_class = supriya.commands.GroupTailRequest
-        elif self.action == supriya.realtime.AddAction.ADD_BEFORE:
+        elif self.action == supriya.AddAction.ADD_BEFORE:
             request_class = supriya.commands.NodeBeforeRequest
-        elif self.action == supriya.realtime.AddAction.ADD_AFTER:
+        elif self.action == supriya.AddAction.ADD_AFTER:
             request_class = supriya.commands.NodeAfterRequest
         request = request_class(node_id_pairs=[node_id_pair])
         return request

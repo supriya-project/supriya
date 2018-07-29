@@ -558,7 +558,7 @@ def test_05(server):
     assert synth_e.node_id is None
 
     synth_e.allocate(
-        add_action=supriya.realtime.AddAction.REPLACE,
+        add_action=supriya.AddAction.REPLACE,
         target_node=group_a,
         )
 

@@ -18,8 +18,8 @@ class Synth(Node):
         )
 
     _valid_add_actions = (
-        supriya.realtime.AddAction.ADD_BEFORE,
-        supriya.realtime.AddAction.ADD_AFTER,
+        supriya.AddAction.ADD_BEFORE,
+        supriya.AddAction.ADD_AFTER,
         )
 
     ### INITIALIZER ###

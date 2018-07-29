@@ -16,10 +16,10 @@ class Group(Node):
     __slots__ = ()
 
     _valid_add_actions = (
-        supriya.realtime.AddAction.ADD_TO_HEAD,
-        supriya.realtime.AddAction.ADD_TO_TAIL,
-        supriya.realtime.AddAction.ADD_AFTER,
-        supriya.realtime.AddAction.ADD_BEFORE,
+        supriya.AddAction.ADD_TO_HEAD,
+        supriya.AddAction.ADD_TO_TAIL,
+        supriya.AddAction.ADD_AFTER,
+        supriya.AddAction.ADD_BEFORE,
         )
 
     ### SPECIAL METHODS ###

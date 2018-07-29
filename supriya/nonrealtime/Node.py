@@ -287,7 +287,7 @@ class Node(SessionObject):
         import supriya.nonrealtime
         if add_action is None:
             add_action = self._valid_add_actions[0]
-        add_action = supriya.realtime.AddAction.from_expr(add_action)
+        add_action = supriya.AddAction.from_expr(add_action)
         assert add_action in self._valid_add_actions
         session_id = self.session._get_next_session_id('node')
         node = supriya.nonrealtime.Group(
@@ -312,7 +312,7 @@ class Node(SessionObject):
         import supriya.nonrealtime
         if add_action is None:
             add_action = self._valid_add_actions[0]
-        add_action = supriya.realtime.AddAction.from_expr(add_action)
+        add_action = supriya.AddAction.from_expr(add_action)
         assert add_action in self._valid_add_actions
         session_id = self.session._get_next_session_id('node')
         synthdef = synthdef or supriya.assets.synthdefs.default
@@ -347,7 +347,7 @@ class Node(SessionObject):
             raise ValueError("Can't add parent as a child.")
         if add_action is None:
             add_action = self._valid_add_actions[0]
-        add_action = supriya.realtime.AddAction.from_expr(add_action)
+        add_action = supriya.AddAction.from_expr(add_action)
         assert add_action in self._valid_add_actions
         node_action = supriya.nonrealtime.NodeAction(
             source=node,

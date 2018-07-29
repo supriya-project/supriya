@@ -1,6 +1,6 @@
+from supriya import AddAction
 from supriya.commands.Request import Request
 from supriya.commands.RequestId import RequestId
-from supriya.realtime.AddAction import AddAction
 from supriya.realtime.Node import Node
 from supriya.realtime.Synth import Synth
 
@@ -14,7 +14,7 @@ class SynthNewRequest(Request):
         >>> import supriya.commands
         >>> import supriya.realtime
         >>> request = supriya.commands.SynthNewRequest(
-        ...     add_action=supriya.realtime.AddAction.ADD_TO_TAIL,
+        ...     add_action=supriya.AddAction.ADD_TO_TAIL,
         ...     node_id=1001,
         ...     synthdef='test',
         ...     target_node_id=1000,

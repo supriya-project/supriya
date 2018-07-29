@@ -14,8 +14,8 @@ class RootNode(Group):
     __slots__ = ()
 
     _valid_add_actions = (
-        supriya.realtime.AddAction.ADD_TO_HEAD,
-        supriya.realtime.AddAction.ADD_TO_TAIL,
+        supriya.AddAction.ADD_TO_HEAD,
+        supriya.AddAction.ADD_TO_TAIL,
         )
 
     ### INITIALIZER ###

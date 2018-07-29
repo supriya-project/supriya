@@ -1,6 +1,6 @@
 import abc
 from uqbar.containers import UniqueTreeNode
-from supriya.realtime.AddAction import AddAction
+from supriya import AddAction
 from supriya.realtime.ServerObjectProxy import ServerObjectProxy
 
 

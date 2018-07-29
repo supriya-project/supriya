@@ -412,7 +412,7 @@ class Server(SupriyaObject):
         self._nodes[0] = self._root_node
         default_group = supriya.realtime.Group()
         default_group.allocate(
-            add_action=supriya.realtime.AddAction.ADD_TO_HEAD,
+            add_action=supriya.AddAction.ADD_TO_HEAD,
             node_id_is_permanent=True,
             target_node=self.root_node,
             )

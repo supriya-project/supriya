@@ -22,7 +22,7 @@ class GroupEvent(Event):
         **settings
     ):
         if add_action is not None:
-            add_action = supriya.realtime.AddAction.from_expr(add_action)
+            add_action = supriya.AddAction.from_expr(add_action)
         is_stop = bool(is_stop)
         if is_stop:
             add_action = None
