@@ -125,9 +125,9 @@ class Group(Node, UniqueTreeContainer):
             outer_target_node = group[start - 1]
         for outer_node in expr:
             if outer_target_node is group:
-                outer_add_action = supriya.realtime.AddAction.ADD_TO_HEAD
+                outer_add_action = supriya.AddAction.ADD_TO_HEAD
             else:
-                outer_add_action = supriya.realtime.AddAction.ADD_AFTER
+                outer_add_action = supriya.AddAction.ADD_AFTER
             outer_node_was_allocated = outer_node.is_allocated
             yield outer_node, outer_target_node, outer_add_action
             outer_target_node = outer_node
@@ -151,7 +151,7 @@ class Group(Node, UniqueTreeContainer):
         for node, target_node, add_action in iterator:
             nodes.add(node)
             if node.is_allocated:
-                if add_action == supriya.realtime.AddAction.ADD_TO_HEAD:
+                if add_action == supriya.AddAction.ADD_TO_HEAD:
                     request = supriya.commands.GroupHeadRequest(
                         node_id_pairs=[(node, target_node)],
                     )

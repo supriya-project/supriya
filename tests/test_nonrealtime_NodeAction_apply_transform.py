@@ -14,7 +14,7 @@ def test_add_to_head_01():
     action = supriya.nonrealtime.NodeAction(
         source=nodes[1],
         target=nodes[0],
-        action=supriya.realtime.AddAction.ADD_TO_HEAD,
+        action=supriya.AddAction.ADD_TO_HEAD,
         )
     action.apply_transform(nodes_to_children, nodes_to_parents)
     assert nodes_to_children == {
@@ -44,7 +44,7 @@ def test_add_to_head_02():
     action = supriya.nonrealtime.NodeAction(
         source=nodes[3],
         target=nodes[1],
-        action=supriya.realtime.AddAction.ADD_TO_HEAD,
+        action=supriya.AddAction.ADD_TO_HEAD,
         )
     action.apply_transform(nodes_to_children, nodes_to_parents)
     assert nodes_to_children == {
@@ -76,7 +76,7 @@ def test_add_to_head_03():
     action = supriya.nonrealtime.NodeAction(
         source=nodes[2],
         target=nodes[0],
-        action=supriya.realtime.AddAction.ADD_TO_HEAD,
+        action=supriya.AddAction.ADD_TO_HEAD,
         )
     action.apply_transform(nodes_to_children, nodes_to_parents)
     assert nodes_to_children == {
@@ -106,7 +106,7 @@ def test_add_to_head_04():
     action = supriya.nonrealtime.NodeAction(
         source=nodes[1],
         target=nodes[0],
-        action=supriya.realtime.AddAction.ADD_TO_HEAD,
+        action=supriya.AddAction.ADD_TO_HEAD,
         )
     action.apply_transform(nodes_to_children, nodes_to_parents)
     assert nodes_to_children == {
@@ -132,7 +132,7 @@ def test_add_to_tail_01():
     action = supriya.nonrealtime.NodeAction(
         source=nodes[1],
         target=nodes[0],
-        action=supriya.realtime.AddAction.ADD_TO_TAIL,
+        action=supriya.AddAction.ADD_TO_TAIL,
         )
     action.apply_transform(nodes_to_children, nodes_to_parents)
     assert nodes_to_children == {
@@ -162,7 +162,7 @@ def test_add_to_tail_02():
     action = supriya.nonrealtime.NodeAction(
         source=nodes[3],
         target=nodes[1],
-        action=supriya.realtime.AddAction.ADD_TO_TAIL,
+        action=supriya.AddAction.ADD_TO_TAIL,
         )
     action.apply_transform(nodes_to_children, nodes_to_parents)
     assert nodes_to_children == {
@@ -194,7 +194,7 @@ def test_add_to_tail_03():
     action = supriya.nonrealtime.NodeAction(
         source=nodes[1],
         target=nodes[0],
-        action=supriya.realtime.AddAction.ADD_TO_TAIL,
+        action=supriya.AddAction.ADD_TO_TAIL,
         )
     action.apply_transform(nodes_to_children, nodes_to_parents)
     assert nodes_to_children == {
@@ -224,7 +224,7 @@ def test_add_to_tail_04():
     action = supriya.nonrealtime.NodeAction(
         source=nodes[2],
         target=nodes[0],
-        action=supriya.realtime.AddAction.ADD_TO_TAIL,
+        action=supriya.AddAction.ADD_TO_TAIL,
         )
     action.apply_transform(nodes_to_children, nodes_to_parents)
     assert nodes_to_children == {
@@ -254,7 +254,7 @@ def test_add_before_01():
     action = supriya.nonrealtime.NodeAction(
         source=nodes[3],
         target=nodes[2],
-        action=supriya.realtime.AddAction.ADD_BEFORE,
+        action=supriya.AddAction.ADD_BEFORE,
         )
     action.apply_transform(nodes_to_children, nodes_to_parents)
     assert nodes_to_children == {
@@ -286,7 +286,7 @@ def test_add_after_01():
     action = supriya.nonrealtime.NodeAction(
         source=nodes[3],
         target=nodes[1],
-        action=supriya.realtime.AddAction.ADD_AFTER,
+        action=supriya.AddAction.ADD_AFTER,
         )
     action.apply_transform(nodes_to_children, nodes_to_parents)
     assert nodes_to_children == {

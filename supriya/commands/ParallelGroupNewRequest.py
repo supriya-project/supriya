@@ -27,7 +27,7 @@ class ParallelGroupNewRequest(GroupNewRequest):
         >>> request = supriya.commands.ParallelGroupNewRequest(
         ...     items=[
         ...         supriya.commands.ParallelGroupNewRequest.Item(
-        ...             add_action=supriya.realtime.AddAction.ADD_TO_TAIL,
+        ...             add_action=supriya.AddAction.ADD_TO_TAIL,
         ...             node_id=1001,
         ...             target_node_id=1,
         ...             ),

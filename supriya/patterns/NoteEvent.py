@@ -24,7 +24,7 @@ class NoteEvent(Event):
         **settings
         ):
         if add_action is not None:
-            add_action = supriya.realtime.AddAction.from_expr(add_action)
+            add_action = supriya.AddAction.from_expr(add_action)
         Event.__init__(
             self,
             add_action=add_action,

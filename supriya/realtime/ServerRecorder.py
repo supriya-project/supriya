@@ -115,7 +115,7 @@ class ServerRecorder(SupriyaObject):
         import supriya.realtime
         synth = supriya.realtime.Synth(self.record_synthdef)
         synth.allocate(
-            add_action=supriya.realtime.AddAction.ADD_TO_TAIL,
+            add_action=supriya.AddAction.ADD_TO_TAIL,
             target_node=self.server.root_node,
             node_id_is_permanent=True,
             )

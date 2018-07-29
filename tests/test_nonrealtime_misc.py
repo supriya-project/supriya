@@ -5,7 +5,7 @@ import supriya.patterns
 import supriya.synthdefs
 import supriya.ugens
 import uqbar.strings
-from supriya.realtime import AddAction
+from supriya import AddAction
 
 
 with supriya.synthdefs.SynthDefBuilder(in_=0, out=0) as builder:

@@ -30,12 +30,12 @@ class GroupNewRequest(Request):
         >>> request = supriya.commands.GroupNewRequest(
         ...     items=[
         ...         supriya.commands.GroupNewRequest.Item(
-        ...             add_action=supriya.realtime.AddAction.ADD_TO_TAIL,
+        ...             add_action=supriya.AddAction.ADD_TO_TAIL,
         ...             node_id=1001,
         ...             target_node_id=1,
         ...             ),
         ...         supriya.commands.GroupNewRequest.Item(
-        ...             add_action=supriya.realtime.AddAction.ADD_TO_HEAD,
+        ...             add_action=supriya.AddAction.ADD_TO_HEAD,
         ...             node_id=1002,
         ...             target_node_id=1001,
         ...             ),
@@ -106,7 +106,7 @@ class GroupNewRequest(Request):
                 items = [items]
             items = list(items)
             for i, (add_action, node_id, target_node_id) in enumerate(items):
-                add_action = supriya.realtime.AddAction.from_expr(add_action)
+                add_action = supriya.AddAction.from_expr(add_action)
                 items[i] = self.Item(
                     add_action=add_action,
                     node_id=node_id,
