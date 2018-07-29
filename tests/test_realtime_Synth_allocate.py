@@ -205,8 +205,8 @@ def test_mapping(server):
     assert synth['frequency'].get() == 443
     assert synth['amplitude'].get() == 0.5
     # Map controls to buses
-    control_bus = supriya.realtime.Bus(0, calculation_rate='control')
-    audio_bus = supriya.realtime.Bus(0, calculation_rate='audio')
+    control_bus = supriya.realtime.Bus(0, calculation_rate='control').allocate()
+    audio_bus = supriya.realtime.Bus(0, calculation_rate='audio').allocate()
     synth['frequency'].set(control_bus)
     synth['amplitude'].set(audio_bus)
     assert synth['frequency'].get() == control_bus

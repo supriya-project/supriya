@@ -95,6 +95,7 @@ def import_structured_package(
         del(namespace[this_name])
 
 
+from supriya.enums import AddAction, CalculationRate
 from supriya import utils  # noqa
 from supriya.midi import Device  # noqa
 from supriya.live import Application, Mixer  # noqa

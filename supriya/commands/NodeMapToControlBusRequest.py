@@ -19,10 +19,10 @@ class NodeMapToControlBusRequest(Request):
         ...     )
         >>> request
         NodeMapToControlBusRequest(
-            amplitude=11,
-            frequency=9,
+            amplitude=<Bus: 11>,
+            frequency=<Bus: 9>,
             node_id=1000,
-            phase=10,
+            phase=<Bus: 10>,
             )
 
     ::
@@ -53,7 +53,7 @@ class NodeMapToControlBusRequest(Request):
         Request.__init__(self)
         self._node_id = node_id
         self._kwargs = dict(
-            (name, int(value))
+            (name, value)
             for name, value in kwargs.items()
             )
 
