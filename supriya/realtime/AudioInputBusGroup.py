@@ -2,6 +2,25 @@ from supriya.realtime.BusGroup import BusGroup
 
 
 class AudioInputBusGroup(BusGroup):
+    """
+    Audio input bus group.
+
+    Allocated automatically on server boot.
+
+    ::
+
+        >>> import supriya
+        >>> server = supriya.Server().boot()
+        >>> bus_group = server.audio_input_bus_group
+        >>> bus_group
+        <AudioInputBusGroup{8}: 8>
+
+    ::
+
+        >>> bus_group.is_allocated
+        True
+
+    """
 
     ### CLASS VARIABLES ###
 
@@ -11,24 +30,18 @@ class AudioInputBusGroup(BusGroup):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        server,
-        ):
+    def __init__(self, server):
         import supriya.realtime
         import supriya.synthdefs
         assert isinstance(server, supriya.realtime.Server)
         assert server.is_running
-        self._server = server
-        bus_id = server.server_options.output_bus_channel_count
-        bus_count = server.server_options.input_bus_channel_count
-        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         BusGroup.__init__(
             self,
-            bus_count=bus_count,
-            calculation_rate=calculation_rate,
+            bus_count=server.server_options.input_bus_channel_count,
+            calculation_rate=supriya.synthdefs.CalculationRate.AUDIO,
             )
-        self._bus_id = bus_id
+        self._bus_id = server.server_options.output_bus_channel_count
+        self._server = server
 
     ### PUBLIC METHODS ###
 

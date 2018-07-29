@@ -86,13 +86,9 @@ class Bus(ServerObjectProxy):
     ### SPECIAL METHODS ###
 
     def __float__(self):
-        if not self.is_allocated:
-            raise supriya.exceptions.BusNotAllocated
         return float(self.bus_id)
 
     def __int__(self):
-        if not self.is_allocated:
-            raise supriya.exceptions.BusNotAllocated
         return int(self.bus_id)
 
     def __repr__(self):
@@ -374,6 +370,8 @@ class Bus(ServerObjectProxy):
 
     @property
     def map_symbol(self):
+        if self.bus_id is None:
+            raise supriya.exceptions.BusNotAllocated
         if self.calculation_rate == CalculationRate.AUDIO:
             map_symbol = 'a'
         else:

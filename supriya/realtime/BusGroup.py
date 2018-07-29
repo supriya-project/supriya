@@ -98,8 +98,6 @@ class BusGroup(ServerObjectProxy):
         return self.buses.__contains__(item)
 
     def __float__(self):
-        if not self.is_allocated:
-            raise supriya.exceptions.BusNotAllocated
         return float(self.bus_id)
 
     def __getitem__(self, item):
@@ -116,8 +114,6 @@ class BusGroup(ServerObjectProxy):
             return bus_group
 
     def __int__(self):
-        if not self.is_allocated:
-            raise supriya.exceptions.BusNotAllocated
         return int(self.bus_id)
 
     def __iter__(self):
@@ -153,16 +149,7 @@ class BusGroup(ServerObjectProxy):
             >>> print(str(audio_bus_group))
             a16
 
-        ::
-
-            >>> print(str(control_bus_group.free()))
-            Traceback (most recent call last):
-            ...
-            supriya.exceptions.BusNotAllocated
-
         """
-        if not self.is_allocated:
-            raise supriya.exceptions.BusNotAllocated
         return self.map_symbol
 
     ### PUBLIC METHODS ###
@@ -417,7 +404,7 @@ class BusGroup(ServerObjectProxy):
 
     @property
     def map_symbol(self):
-        if not self.is_allocated:
+        if self.bus_id is None:
             raise supriya.exceptions.BusNotAllocated
         if self.calculation_rate == CalculationRate.AUDIO:
             map_symbol = 'a'

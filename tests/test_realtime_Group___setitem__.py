@@ -610,8 +610,8 @@ def test_06(server):
     synth_b['amplitude'] = 0.5
     synth_b['frequency'] = 443
 
-    audio_bus = supriya.realtime.Bus(0, 'audio')
-    control_bus = supriya.realtime.Bus(1, 'control')
+    audio_bus = supriya.realtime.Bus(0, 'audio').allocate()
+    control_bus = supriya.realtime.Bus(1, 'control').allocate()
 
     synth_c = supriya.realtime.Synth(
         name='Synth C',
