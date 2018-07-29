@@ -1,2 +1,0 @@
-class RateError(Exception):
-    pass
