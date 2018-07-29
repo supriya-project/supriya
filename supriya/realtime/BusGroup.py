@@ -9,7 +9,6 @@ class BusGroup(ServerObjectProxy):
 
     ::
 
-        >>> import supriya
         >>> server = supriya.Server().boot()
         >>> bus_group = supriya.BusGroup(bus_count=4)
         >>> bus_group
@@ -46,7 +45,7 @@ class BusGroup(ServerObjectProxy):
 
         >>> print(bus_group)
         c0
-        
+
     ::
 
         >>> bus_group.free()
@@ -95,12 +94,45 @@ class BusGroup(ServerObjectProxy):
     ### SPECIAL METHODS ###
 
     def __contains__(self, item):
+        """
+        Test if a bus belongs to the bus group.
+
+        ::
+
+            >>> bus_group = supriya.BusGroup.control(4)
+            >>> bus_group[0] in bus_group
+            True
+
+        ::
+
+            >>> bus = supriya.Bus.audio()
+            >>> bus in bus_group
+            False
+
+        """
+        # TODO: Should this handle allocated buses that match by ID?
         return self.buses.__contains__(item)
 
     def __float__(self):
         return float(self.bus_id)
 
     def __getitem__(self, item):
+        """
+        Get ``item`` in bus group.
+
+        ::
+
+            >>> server = supriya.Server().boot()
+            >>> bus_group = supriya.BusGroup.control(4).allocate()
+            >>> bus_group[0]
+            <Bus: 0>
+
+        ::
+
+            >>> bus_group[1:]
+            <BusGroup{3}: 1>
+
+        """
         if isinstance(item, int):
             return self._buses[item]
         elif isinstance(item, slice):
@@ -108,7 +140,7 @@ class BusGroup(ServerObjectProxy):
             bus_count = indices[1] - indices[0]
             bus_group = type(self)(
                 bus_count=bus_count,
-                bus_id=self.bus_id,
+                bus_id=indices[0],
                 calculation_rate=self.calculation_rate,
                 )
             return bus_group
@@ -134,7 +166,6 @@ class BusGroup(ServerObjectProxy):
 
         ::
 
-            >>> import supriya
             >>> server = supriya.Server().boot()
             >>> control_bus_group = supriya.BusGroup.control(4).allocate()
             >>> audio_bus_group = supriya.BusGroup.audio(4).allocate()
@@ -154,11 +185,7 @@ class BusGroup(ServerObjectProxy):
 
     ### PUBLIC METHODS ###
 
-    def allocate(
-        self,
-        server=None,
-        sync=False,
-        ):
+    def allocate(self, server=None):
         import supriya.realtime
         if self.is_allocated:
             raise supriya.exceptions.BusAlreadyAllocated
@@ -172,8 +199,6 @@ class BusGroup(ServerObjectProxy):
             ServerObjectProxy.free(self)
             raise ValueError
         self._bus_id = bus_id
-        if sync:
-            self.server.sync()
         return self
 
     def ar(self):
@@ -265,19 +290,51 @@ class BusGroup(ServerObjectProxy):
             )
 
     def fill(self, value):
+        """
+        Fill buses in bus group with ``value``.
+
+        ::
+
+            >>> server = supriya.Server().boot()
+            >>> bus_group = supriya.BusGroup.control(4).allocate()
+            >>> bus_group.get()
+            (0.0, 0.0, 0.0, 0.0)
+
+        ::
+
+            >>> bus_group.fill(0.5)
+
+        ::
+
+            >>> bus_group.get()
+            (0.5, 0.5, 0.5, 0.5)
+
+        ::
+
+            >>> bus_group = supriya.BusGroup.audio(4)
+            >>> bus_group.fill(0.5)
+            Traceback (most recent call last):
+            ...
+            supriya.exceptions.BusNotAllocated
+
+        ::
+
+            >>> bus_group.allocate().fill(0.5)
+            Traceback (most recent call last):
+            ...
+            supriya.exceptions.IncompatibleRate
+
+        """
         import supriya.commands
-        if self.calculation_rate != CalculationRate.CONTROL:
-            return
         if not self.is_allocated:
-            return
+            raise supriya.exceptions.BusNotAllocated
+        if self.calculation_rate != CalculationRate.CONTROL:
+            raise supriya.exceptions.IncompatibleRate
         index_count_value_triples = [(self.bus_id, len(self), value)]
         request = supriya.commands.ControlBusFillRequest(
             index_count_value_triples=index_count_value_triples,
             )
-        request.communicate(
-            server=self.server,
-            sync=False,
-            )
+        request.communicate(server=self.server, sync=False)
 
     def free(self):
         import supriya.realtime
@@ -293,11 +350,22 @@ class BusGroup(ServerObjectProxy):
         return self
 
     def get(self):
+        """
+        Get bus group values.
+
+        ::
+
+            >>> server = supriya.Server().boot()
+            >>> bus_group = supriya.BusGroup().control(4).allocate()
+            >>> bus_group.get()
+            (0.0, 0.0, 0.0, 0.0)
+
+        """
         import supriya.commands
-        if self.calculation_rate != CalculationRate.CONTROL:
-            return
         if not self.is_allocated:
-            return
+            raise supriya.exceptions.BusNotAllocated
+        if self.calculation_rate != CalculationRate.CONTROL:
+            raise supriya.exceptions.IncompatibleRate
         index_count_pairs = [(self.bus_id, len(self))]
         request = supriya.commands.ControlBusGetContiguousRequest(
             index_count_pairs=index_count_pairs,
@@ -383,6 +451,36 @@ class BusGroup(ServerObjectProxy):
                 channel_count=channel_count,
                 )
         return ugen
+
+    def set(self, values):
+        """
+        Set bus group values.
+
+        ::
+
+            >>> server = supriya.Server().boot()
+            >>> bus_group = supriya.BusGroup.control(4).allocate()
+            >>> bus_group.get()
+            (0.0, 0.0, 0.0, 0.0)
+
+        ::
+
+            >>> bus_group.set((-0.5, 0.5, -0.5, 0.5))
+            >>> bus_group.get()
+            (-0.5, 0.5, -0.5, 0.5)
+
+        """
+        import supriya.commands
+        if not self.is_allocated:
+            raise supriya.exceptions.BusNotAllocated(self)
+        if self.calculation_rate != CalculationRate.CONTROL:
+            raise supriya.exceptions.IncompatibleRate(self)
+        if len(values) != len(self):
+            raise ValueError(values)
+        request = supriya.commands.ControlBusSetContiguousRequest(
+            index_values_pairs=[(self, values)],
+            )
+        request.communicate(sync=False)
 
     ### PUBLIC PROPERTIES ###
 

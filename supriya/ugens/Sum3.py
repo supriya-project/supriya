@@ -42,9 +42,9 @@ class Sum3(UGen):
         import supriya.synthdefs
         CalculationRate = supriya.CalculationRate
         inputs = [input_one, input_two, input_three]
-        calculation_rate = CalculationRate.from_input(inputs)
+        calculation_rate = CalculationRate.from_expr(inputs)
         inputs.sort(
-            key=lambda x: CalculationRate.from_input(x),
+            key=lambda x: CalculationRate.from_expr(x),
             reverse=True,
             )
         inputs = tuple(inputs)

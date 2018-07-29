@@ -1964,8 +1964,8 @@ class UGenMethodMixin(SupriyaObject):
     @staticmethod
     def _compute_binary_rate(ugen_a, ugen_b):
         import supriya.synthdefs
-        a_rate = supriya.CalculationRate.from_input(ugen_a)
-        b_rate = supriya.CalculationRate.from_input(ugen_b)
+        a_rate = supriya.CalculationRate.from_expr(ugen_a)
+        b_rate = supriya.CalculationRate.from_expr(ugen_b)
         if a_rate == supriya.CalculationRate.DEMAND \
             or a_rate == supriya.CalculationRate.DEMAND:
             return supriya.CalculationRate.DEMAND
@@ -2009,7 +2009,7 @@ class UGenMethodMixin(SupriyaObject):
         operator = supriya.synthdefs.UnaryOperator.from_expr(operator)
         special_index = operator.value
         for single_source in source:
-            calculation_rate = supriya.CalculationRate.from_input(
+            calculation_rate = supriya.CalculationRate.from_expr(
                 single_source)
             ugen = supriya.ugens.UnaryOpUGen._new_single(
                 calculation_rate=calculation_rate,

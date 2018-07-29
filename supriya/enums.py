@@ -49,7 +49,7 @@ class CalculationRate(IntEnumeration):
     ### PUBLIC METHODS ###
 
     @classmethod
-    def from_input(cls, input_):
+    def from_expr(cls, expr):
         """
         Gets calculation-rate.
 
@@ -60,41 +60,53 @@ class CalculationRate(IntEnumeration):
 
         ::
 
+            >>> supriya.CalculationRate.from_expr(1)
+            CalculationRate.SCALAR
+
+        ::
+
+            >>> supriya.CalculationRate.from_expr('demand')
+            CalculationRate.DEMAND
+
+        ::
+
             >>> collection = []
             >>> collection.append(supriya.ugens.DC.ar(0))
             >>> collection.append(supriya.ugens.DC.kr(1))
             >>> collection.append(2.0)
-            >>> supriya.CalculationRate.from_input(collection)
+            >>> supriya.CalculationRate.from_expr(collection)
             CalculationRate.AUDIO
 
         ::
             >>> collection = []
             >>> collection.append(supriya.ugens.DC.kr(1))
             >>> collection.append(2.0)
-            >>> supriya.CalculationRate.from_input(collection)
+            >>> supriya.CalculationRate.from_expr(collection)
             CalculationRate.CONTROL
 
         Return calculation-rate.
         """
         import supriya.synthdefs
         import supriya.ugens
-        if isinstance(input_, (int, float)):
+        if isinstance(expr, (int, float)) and not isinstance(expr, cls):
             return CalculationRate.SCALAR
-        elif isinstance(input_, (
+        elif isinstance(expr, (
             supriya.synthdefs.OutputProxy,
             supriya.ugens.UGen,
             )):
-            return input_.calculation_rate
-        elif isinstance(input_, supriya.synthdefs.Parameter):
-            name = input_.parameter_rate.name
+            return expr.calculation_rate
+        elif isinstance(expr, supriya.synthdefs.Parameter):
+            name = expr.parameter_rate.name
             if name == 'TRIGGER':
                 return CalculationRate.CONTROL
             return CalculationRate.from_expr(name)
-        elif isinstance(input_, collections.Sequence):
-            return max(CalculationRate.from_input(item) for item in input_)
-        elif hasattr(input_, 'calculation_rate'):
-            return Calculation.from_expr(input_.calculation_rate)
-        raise ValueError(input_)
+        elif isinstance(expr, str):
+            return super().from_expr(expr)
+        elif isinstance(expr, collections.Sequence):
+            return max(CalculationRate.from_expr(item) for item in expr)
+        elif hasattr(expr, 'calculation_rate'):
+            return Calculation.from_expr(expr.calculation_rate)
+        return super().from_expr(expr)
 
     ### PUBLIC PROPERTIES ###
 
