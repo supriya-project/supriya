@@ -158,7 +158,6 @@ class SynthDefBuilder(SupriyaObject):
         with self:
             ugens = list(self._parameters.values()) + list(self._ugens)
             ugens = copy.deepcopy(ugens)
-            ugens = supriya.synthdefs.SynthDef._flatten_ugens(ugens)
             ugens, parameters = supriya.synthdefs.SynthDef._extract_parameters(ugens)
             (
                 control_ugens,

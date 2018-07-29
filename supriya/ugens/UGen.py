@@ -192,7 +192,7 @@ class UGen(UGenMethodMixin):
 
     def _check_rate_same_as_first_input_rate(self):
         import supriya.synthdefs
-        first_input_rate = supriya.CalculationRate.from_input(
+        first_input_rate = supriya.CalculationRate.from_expr(
             self.inputs[0],
             )
         return self.calculation_rate == first_input_rate
@@ -202,7 +202,7 @@ class UGen(UGenMethodMixin):
         if self.calculation_rate != supriya.CalculationRate.AUDIO:
             return True
         for input_ in self.inputs[start:stop]:
-            calculation_rate = supriya.CalculationRate.from_input(input_)
+            calculation_rate = supriya.CalculationRate.from_expr(input_)
             if calculation_rate != supriya.CalculationRate.AUDIO:
                 return False
         return True
@@ -311,7 +311,7 @@ class UGen(UGenMethodMixin):
     @staticmethod
     def _get_method_for_rate(cls, calculation_rate):
         import supriya.synthdefs
-        calculation_rate = supriya.CalculationRate.from_input(
+        calculation_rate = supriya.CalculationRate.from_expr(
             calculation_rate)
         if calculation_rate == supriya.CalculationRate.AUDIO:
             return cls.ar

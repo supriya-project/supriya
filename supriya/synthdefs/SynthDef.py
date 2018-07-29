@@ -85,8 +85,7 @@ class SynthDef(ServerObjectProxy):
         ServerObjectProxy.__init__(self)
         compiler = supriya.synthdefs.SynthDefCompiler
         self._name = name
-        ugens = copy.deepcopy(ugens)
-        ugens = self._flatten_ugens(ugens)
+        ugens = list(copy.deepcopy(ugens))
         assert all(isinstance(_, supriya.ugens.UGen) for _ in ugens)
         ugens = self._cleanup_pv_chains(ugens)
         ugens = self._cleanup_local_bufs(ugens)
@@ -548,13 +547,6 @@ class SynthDef(ServerObjectProxy):
         return indexed_parameters
 
     @staticmethod
-    def _collect_parameters(control_ugens):
-        parameters = []
-        for control_ugen in control_ugens:
-            parameters.extend(control_ugen._parameters)
-        return parameters
-
-    @staticmethod
     def _extract_parameters(ugens):
         import supriya.synthdefs
         parameters = set()
@@ -564,38 +556,6 @@ class SynthDef(ServerObjectProxy):
         ugens = tuple(ugen for ugen in ugens if ugen not in parameters)
         parameters = tuple(sorted(parameters, key=lambda x: x.name))
         return ugens, parameters
-
-    @staticmethod
-    def _flatten_ugens(ugens):
-        def recurse(ugen):
-            if ugen not in flattened_ugens:
-                flattened_ugens.append(ugen)
-            if isinstance(ugen, supriya.synthdefs.Parameter):
-                return
-            elif isinstance(ugen, supriya.synthdefs.OutputProxy):
-                source = ugen.source
-                if source not in flattened_ugens:
-                    flattened_ugens.append(source)
-                    recurse(source)
-                return
-            for input_ in ugen.inputs:
-                if isinstance(input_, supriya.synthdefs.Parameter):
-                    if input_ not in flattened_ugens:
-                        flattened_ugens.append(input_)
-                elif isinstance(input_, supriya.synthdefs.OutputProxy):
-                    if input_.source not in flattened_ugens:
-                        flattened_ugens.append(input_.source)
-                        recurse(input_.source)
-                elif isinstance(input_, supriya.ugens.UGen):
-                    if input_ not in flattened_ugens:
-                        flattened_ugens.append(input_)
-                        recurse(input_)
-        import supriya.synthdefs
-        import supriya.ugens
-        flattened_ugens = []
-        for ugen in ugens:
-            recurse(ugen)
-        return flattened_ugens
 
     def _handle_response(self, response):
         import supriya.commands

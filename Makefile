@@ -22,5 +22,18 @@ test:
 		--cov=supriya/ \
 		--durations=20 \
 		--timeout=60 \
-		supriya/ \
-		tests/
+		tests/ \
+		supriya/
+
+testx:
+	rm -Rf htmlcov/
+	pytest \
+		-x \
+		--cov-config=.coveragerc \
+		--cov-report=html \
+		--cov-report=term \
+		--cov=supriya/ \
+		--durations=20 \
+		--timeout=60 \
+		tests/ \
+		supriya/

@@ -59,7 +59,7 @@ class Lag(Filter):
         ):
         if lag_time == 0:
             return source
-        source_rate = CalculationRate.from_input(source)
+        source_rate = CalculationRate.from_expr(source)
         if source_rate == CalculationRate.SCALAR:
             return source
         ugen = cls(

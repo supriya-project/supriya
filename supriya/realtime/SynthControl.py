@@ -89,7 +89,7 @@ class SynthControl:
         assert isinstance(parameter, supriya.synthdefs.Parameter)
         name = parameter.name
         range_ = parameter.range_
-        calculation_rate = supriya.CalculationRate.from_input(parameter)
+        calculation_rate = supriya.CalculationRate.from_expr(parameter)
         unit = parameter.unit
         value = parameter.value
         synth_control = SynthControl(
