@@ -1,8 +1,7 @@
 import uqbar.graphs
-from supriya.system.Grapher import Grapher
 
 
-class SynthDefGrapher(Grapher):
+class SynthDefGrapher:
     r"""
     Graphs SynthDefs.
 

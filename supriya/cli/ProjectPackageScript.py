@@ -226,26 +226,7 @@ class ProjectPackageScript(uqbar.cli.CLI):
         return '.'.join(parts)
 
     def _path_to_project_package_path(self, path):
-        if isinstance(path, str):
-            # Is `path` an importable name? Use its module path.
-            if self._name_re.match(path):
-                try:
-                    importlib.invalidate_caches()
-                    module = importlib.import_module(path)
-                    path = getattr(module, '__file__',  # A module.
-                        getattr(module, '__path__'))  # A package.
-                    if hasattr(path, '_path'):  # A local import.
-                        path = path._path
-                    if not isinstance(path, str):  # If it's a package...
-                        path = path[0]  # Get the first path in the list.
-                except Exception:
-                    print(traceback.format_exc())
-            # Make sure to expand any home variables.
-            path = pathlib.Path(os.path.expanduser(path))
         path = path.absolute()
-        if not path.exists():
-            print("Couldn locate or import project matching {!r}.".format(path))
-            sys.exit(1)
         # Convert to directory.
         if path.is_file():
             path = path.parent
@@ -265,10 +246,6 @@ class ProjectPackageScript(uqbar.cli.CLI):
         while path.joinpath('__init__.py').exists():
             path = path.parent
         path = path.joinpath(path.name)
-        # Make sure the directory even exists.
-        if not path.exists():
-            print('No project matching {!r} exists.'.format(path))
-            sys.exit(1)
         # Check for mandatory files and subdirectories.
         necessary_paths = {}
         for name in ('__init__.py',) + self._project_subdirectory_names:
@@ -351,9 +328,6 @@ class ProjectPackageScript(uqbar.cli.CLI):
             source_path=source_path.relative_to(self.outer_project_path),
             target_path=target_path.relative_to(self.outer_project_path),
             sep=os.path.sep))
-
-    def _replace_in_file(self, target_name, old_string, new_string):
-        pass
 
     def _replace_in_files(self, target_directory, old_string, new_string):
         pass

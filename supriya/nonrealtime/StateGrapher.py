@@ -1,8 +1,7 @@
 import uqbar.graphs
-from supriya.system.Grapher import Grapher
 
 
-class StateGrapher(Grapher):
+class StateGrapher:
     """
     Graphs non-realtime sessions via .
     """
