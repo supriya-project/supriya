@@ -14,11 +14,11 @@ install_requires = [
     'pytest-timeout >= 1.2.0',
     'pytest-cov',
     'python-rtmidi',
-    'sphinx >= 1.5.0',
+    'sphinx >= 1.7.0',
     'sphinx_rtd_theme >= 0.3.0',
     'tornado',
     'tqdm',
-    'uqbar >= 0.2.12',
+    'uqbar >= 0.2.15',
     'wavefile',
     ]
 

@@ -1,9 +1,46 @@
+import supriya.exceptions
 from supriya.realtime.ServerObjectProxy import ServerObjectProxy
+from supriya.synthdefs.CalculationRate import CalculationRate
 
 
 class Bus(ServerObjectProxy):
     """
     A bus.
+
+    ::
+
+        >>> import supriya
+        >>> server = supriya.Server().boot()
+        >>> bus = supriya.Bus()
+        >>> bus
+        <Bus: ???>
+
+    ::
+
+        >>> bus.allocate()
+        <Bus: 0>
+
+    ::
+
+        >>> bus.get()
+        0.0
+
+    ::
+
+        >>> bus.set(0.5)
+        >>> bus.get()
+        0.5
+
+    ::
+
+        >>> print(bus)
+        c0
+        
+    ::
+
+        >>> bus.free()
+        <Bus: ???>
+
     """
 
     ### CLASS VARIABLES ###
@@ -22,10 +59,9 @@ class Bus(ServerObjectProxy):
     def __init__(
         self,
         bus_group_or_index=None,
-        calculation_rate=None,
+        calculation_rate=CalculationRate.CONTROL,
     ):
         import supriya.realtime
-        import supriya.synthdefs
         ServerObjectProxy.__init__(self)
         bus_group = None
         bus_id = None
@@ -40,30 +76,62 @@ class Bus(ServerObjectProxy):
         self._bus_id = bus_id
         if calculation_rate is None:
             calculation_rate = 'control'
-        calculation_rate = supriya.synthdefs.CalculationRate.from_expr(
-            calculation_rate)
+        calculation_rate = CalculationRate.from_expr(calculation_rate)
         assert calculation_rate in (
-            supriya.synthdefs.CalculationRate.AUDIO,
-            supriya.synthdefs.CalculationRate.CONTROL,
+            CalculationRate.AUDIO,
+            CalculationRate.CONTROL,
             )
         self._calculation_rate = calculation_rate
 
     ### SPECIAL METHODS ###
 
     def __float__(self):
+        if not self.is_allocated:
+            raise supriya.exceptions.BusNotAllocated
         return float(self.bus_id)
 
     def __int__(self):
+        if not self.is_allocated:
+            raise supriya.exceptions.BusNotAllocated
         return int(self.bus_id)
 
     def __repr__(self):
-        string = '<{}: {}>'.format(
-            type(self).__name__,
-            self.bus_id,
-            )
-        return string
+        bus_id = self.bus_id
+        if bus_id is None:
+            bus_id = '???'
+        return '<{}: {}>'.format(type(self).__name__, bus_id)
 
     def __str__(self):
+        """
+        Gets map symbol representation of bus.
+
+        ::
+
+            >>> import supriya
+            >>> server = supriya.Server().boot()
+            >>> control_bus = supriya.Bus.control().allocate()
+            >>> audio_bus = supriya.Bus.audio().allocate()
+
+        ::
+
+            >>> print(str(control_bus))
+            c0
+
+        ::
+
+            >>> print(str(audio_bus))
+            a16
+
+        ::
+
+            >>> print(str(control_bus.free()))
+            Traceback (most recent call last):
+            ...
+            supriya.exceptions.BusNotAllocated
+
+        """
+        if not self.is_allocated:
+            raise supriya.exceptions.BusNotAllocated
         return self.map_symbol
 
     ### PRIVATE METHODS ###
@@ -73,18 +141,11 @@ class Bus(ServerObjectProxy):
         calculation_rate=None,
         server=None,
     ):
-        import supriya.synthdefs
-        if calculation_rate == supriya.synthdefs.CalculationRate.AUDIO:
+        if calculation_rate == CalculationRate.AUDIO:
             allocator = server.audio_bus_allocator
         else:
             allocator = server.control_bus_allocator
         return allocator
-
-    def _receive_bound_event(self, event=None):
-        if event is None:
-            return
-        event = float(event)
-        self.set(event)
 
     ### PUBLIC METHODS ###
 
@@ -96,7 +157,7 @@ class Bus(ServerObjectProxy):
         if self.bus_group is not None:
             return
         if self.is_allocated:
-            return
+            raise supriya.exceptions.BusAlreadyAllocated
         ServerObjectProxy.allocate(self, server=server)
         if self.bus_id is None:
             allocator = self._get_allocator(
@@ -155,10 +216,9 @@ class Bus(ServerObjectProxy):
 
         Returns ugen.
         """
-        import supriya.synthdefs
         import supriya.ugens
         channel_count = 1
-        if self.calculation_rate == supriya.synthdefs.CalculationRate.AUDIO:
+        if self.calculation_rate == CalculationRate.AUDIO:
             ugen = supriya.ugens.In.ar(
                 bus=self.bus_id,
                 channel_count=channel_count,
@@ -173,23 +233,17 @@ class Bus(ServerObjectProxy):
                 )
         return ugen
 
-    @staticmethod
-    def audio():
-        import supriya.synthdefs
-        return Bus(
-            calculation_rate=supriya.synthdefs.CalculationRate.AUDIO,
-            )
+    @classmethod
+    def audio(cls):
+        return cls(calculation_rate=CalculationRate.AUDIO)
 
-    @staticmethod
-    def control():
-        import supriya.synthdefs
-        return Bus(
-            calculation_rate=supriya.synthdefs.CalculationRate.CONTROL,
-            )
+    @classmethod
+    def control(cls):
+        return cls(calculation_rate=CalculationRate.CONTROL)
 
     def free(self):
         if not self.is_allocated:
-            return
+            raise supriya.exceptions.BusNotAllocated
         if not self._bus_id_was_set_manually:
             allocator = self._get_allocator(
                 calculation_rate=self.calculation_rate,
@@ -198,15 +252,15 @@ class Bus(ServerObjectProxy):
             allocator.free(self.bus_id)
         self._bus_id = None
         ServerObjectProxy.free(self)
+        return self
 
     def get(self, completion_callback=None):
         import supriya.commands
         import supriya.realtime
-        import supriya.synthdefs
         if not self.is_allocated:
-            raise supriya.realtime.NotAllocatedError(self)
-        elif not self.calculation_rate == supriya.synthdefs.CalculationRate.CONTROL:
-            raise supriya.synthdefs.RateError
+            raise supriya.exceptions.BusNotAllocated
+        elif not self.calculation_rate == CalculationRate.CONTROL:
+            raise supriya.exceptions.IncompatibleRate
         request = supriya.commands.ControlBusGetRequest(
             indices=(self,),
             )
@@ -260,10 +314,9 @@ class Bus(ServerObjectProxy):
 
         Returns ugen.
         """
-        import supriya.synthdefs
         import supriya.ugens
         channel_count = 1
-        if self.calculation_rate == supriya.synthdefs.CalculationRate.AUDIO:
+        if self.calculation_rate == CalculationRate.AUDIO:
             ugen = supriya.ugens.In.ar(
                 bus=self.bus_id,
                 channel_count=channel_count,
@@ -281,11 +334,10 @@ class Bus(ServerObjectProxy):
     def set(self, value):
         import supriya.commands
         import supriya.realtime
-        import supriya.synthdefs
         if not self.is_allocated:
-            raise supriya.realtime.NotAllocatedError(self)
-        elif not self.calculation_rate == supriya.synthdefs.CalculationRate.CONTROL:
-            raise supriya.synthdefs.RateError
+            raise supriya.exceptions.BusNotAllocated
+        elif not self.calculation_rate == CalculationRate.CONTROL:
+            raise supriya.exceptions.IncompatibleRate
         request = supriya.commands.ControlBusSetRequest(
             index_value_pairs=((self, value,),),
             )
@@ -322,8 +374,7 @@ class Bus(ServerObjectProxy):
 
     @property
     def map_symbol(self):
-        import supriya.synthdefs
-        if self.calculation_rate == supriya.synthdefs.CalculationRate.AUDIO:
+        if self.calculation_rate == CalculationRate.AUDIO:
             map_symbol = 'a'
         else:
             map_symbol = 'c'
@@ -338,9 +389,8 @@ class Bus(ServerObjectProxy):
 
     @property
     def value(self):
-        import supriya.synthdefs
         if self.is_allocated:
-            if self.calculation_rate == supriya.synthdefs.CalculationRate.CONTROL:
+            if self.calculation_rate == CalculationRate.CONTROL:
                 proxy = self.server._get_control_bus_proxy(self.bus_id)
                 return proxy.value
         return None
