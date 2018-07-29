@@ -48,10 +48,10 @@ class CalculationRate(IntEnumeration):
 
     ### PUBLIC METHODS ###
 
-    @staticmethod
-    def from_collection(collection):
+    @classmethod
+    def from_input(cls, input_):
         """
-        Gets calculation-rate from a collection.
+        Gets calculation-rate.
 
         ::
 
@@ -64,26 +64,18 @@ class CalculationRate(IntEnumeration):
             >>> collection.append(supriya.ugens.DC.ar(0))
             >>> collection.append(supriya.ugens.DC.kr(1))
             >>> collection.append(2.0)
-            >>> supriya.CalculationRate.from_collection(collection)
+            >>> supriya.CalculationRate.from_input(collection)
             CalculationRate.AUDIO
 
         ::
             >>> collection = []
             >>> collection.append(supriya.ugens.DC.kr(1))
             >>> collection.append(2.0)
-            >>> supriya.CalculationRate.from_collection(collection)
+            >>> supriya.CalculationRate.from_input(collection)
             CalculationRate.CONTROL
 
         Return calculation-rate.
         """
-        rates = [
-            CalculationRate.from_input(item) for item in collection
-            ]
-        maximum_rate = max(rates)
-        return maximum_rate
-
-    @staticmethod
-    def from_input(input_):
         import supriya.synthdefs
         import supriya.ugens
         if isinstance(input_, (int, float)):
@@ -99,16 +91,10 @@ class CalculationRate(IntEnumeration):
                 return CalculationRate.CONTROL
             return CalculationRate.from_expr(name)
         elif isinstance(input_, collections.Sequence):
-            return CalculationRate.from_collection(input_)
+            return max(CalculationRate.from_input(item) for item in input_)
         elif hasattr(input_, 'calculation_rate'):
             return Calculation.from_expr(input_.calculation_rate)
         raise ValueError(input_)
-
-    @staticmethod
-    def from_ugen_method_mixin(expr):
-        if isinstance(expr, collections.Sequence):
-            return CalculationRate.from_collection(expr)
-        return CalculationRate.from_input(expr)
 
     ### PUBLIC PROPERTIES ###
 
