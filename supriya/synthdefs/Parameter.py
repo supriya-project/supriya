@@ -79,7 +79,7 @@ class Parameter(UGenMethodMixin, SupriyaValueObject):
     @property
     def calculation_rate(self):
         import supriya.synthdefs
-        return supriya.synthdefs.CalculationRate.from_input(self)
+        return supriya.CalculationRate.from_input(self)
 
     @property
     def has_done_flag(self):

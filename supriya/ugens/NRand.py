@@ -73,7 +73,7 @@ class NRand(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
-        calculation_rate = supriya.synthdefs.CalculationRate.SCALAR
+        calculation_rate = supriya.CalculationRate.SCALAR
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             maximum=maximum,

@@ -253,10 +253,10 @@ class Session:
         output_count = self._options._output_bus_channel_count
         first_private_bus_id = input_count + output_count
         allocators = {
-            supriya.synthdefs.CalculationRate.AUDIO: supriya.realtime.BlockAllocator(
+            supriya.CalculationRate.AUDIO: supriya.realtime.BlockAllocator(
                 heap_minimum=first_private_bus_id,
                 ),
-            supriya.synthdefs.CalculationRate.CONTROL: supriya.realtime.BlockAllocator(),
+            supriya.CalculationRate.CONTROL: supriya.realtime.BlockAllocator(),
             }
         mapping = {}
         if output_count:
@@ -482,7 +482,7 @@ class Session:
     def _collect_bus_settings(self, id_mapping):
         bus_settings = {}
         for bus in self._buses:
-            if bus.calculation_rate != supriya.synthdefs.CalculationRate.CONTROL:
+            if bus.calculation_rate != supriya.CalculationRate.CONTROL:
                 continue
             bus_id = id_mapping[bus]
             for offset, value in bus._events:

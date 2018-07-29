@@ -83,7 +83,7 @@ class BufCombN(PureUGen):
         Returns unit generator graph.
         """
         import supriya.synthdefs
-        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
+        calculation_rate = supriya.CalculationRate.AUDIO
         source = cls._as_audio_rate_input(source)
         ugen = cls._new_expanded(
             buffer_id=buffer_id,
@@ -124,7 +124,7 @@ class BufCombN(PureUGen):
         Returns unit generator graph.
         """
         import supriya.synthdefs
-        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
+        calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             buffer_id=buffer_id,
             calculation_rate=calculation_rate,

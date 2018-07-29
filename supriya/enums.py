@@ -29,12 +29,12 @@ class CalculationRate(IntEnumeration):
     ::
 
         >>> import supriya.synthdefs
-        >>> supriya.synthdefs.CalculationRate.AUDIO
+        >>> supriya.CalculationRate.AUDIO
         CalculationRate.AUDIO
 
     ::
 
-        >>> supriya.synthdefs.CalculationRate.from_expr('demand')
+        >>> supriya.CalculationRate.from_expr('demand')
         CalculationRate.DEMAND
 
     """
@@ -64,14 +64,14 @@ class CalculationRate(IntEnumeration):
             >>> collection.append(supriya.ugens.DC.ar(0))
             >>> collection.append(supriya.ugens.DC.kr(1))
             >>> collection.append(2.0)
-            >>> supriya.synthdefs.CalculationRate.from_collection(collection)
+            >>> supriya.CalculationRate.from_collection(collection)
             CalculationRate.AUDIO
 
         ::
             >>> collection = []
             >>> collection.append(supriya.ugens.DC.kr(1))
             >>> collection.append(2.0)
-            >>> supriya.synthdefs.CalculationRate.from_collection(collection)
+            >>> supriya.CalculationRate.from_collection(collection)
             CalculationRate.CONTROL
 
         Return calculation-rate.

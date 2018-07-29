@@ -163,7 +163,7 @@ class SynthDefDecompiler(SupriyaObject):
         for i in range(ugen_count):
             ugen_name, index = sdd._decode_string(value, index)
             calculation_rate, index = sdd._decode_int_8bit(value, index)
-            calculation_rate = supriya.synthdefs.CalculationRate(calculation_rate)
+            calculation_rate = supriya.CalculationRate(calculation_rate)
             input_count, index = sdd._decode_int_32bit(value, index)
             output_count, index = sdd._decode_int_32bit(value, index)
             special_index, index = sdd._decode_int_16bit(value, index)
@@ -283,9 +283,9 @@ class SynthDefDecompiler(SupriyaObject):
         parameter_rate = supriya.synthdefs.ParameterRate.CONTROL
         if issubclass(ugen_class, supriya.ugens.TrigControl):
             parameter_rate = supriya.synthdefs.ParameterRate.TRIGGER
-        elif calculation_rate == supriya.synthdefs.CalculationRate.SCALAR:
+        elif calculation_rate == supriya.CalculationRate.SCALAR:
             parameter_rate = supriya.synthdefs.ParameterRate.SCALAR
-        elif calculation_rate == supriya.synthdefs.CalculationRate.AUDIO:
+        elif calculation_rate == supriya.CalculationRate.AUDIO:
             parameter_rate = supriya.synthdefs.ParameterRate.AUDIO
         parameters = []
         collected_output_count = 0

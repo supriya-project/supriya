@@ -62,7 +62,7 @@ class CompanderD(PseudoUGen):
         """
         import supriya.synthdefs
         import supriya.ugens
-        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
+        calculation_rate = supriya.CalculationRate.AUDIO
         control = supriya.ugens.DelayN.ar(
             source=source,
             maximum_delay_time=clamp_time,

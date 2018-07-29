@@ -25,11 +25,11 @@ class Pbus(EventPattern):
         ):
         import supriya.synthdefs
         self._pattern = pattern
-        calculation_rate = supriya.synthdefs.CalculationRate.from_expr(
+        calculation_rate = supriya.CalculationRate.from_expr(
             calculation_rate)
         assert calculation_rate in (
-            supriya.synthdefs.CalculationRate.AUDIO,
-            supriya.synthdefs.CalculationRate.CONTROL,
+            supriya.CalculationRate.AUDIO,
+            supriya.CalculationRate.CONTROL,
             )
         self._calculation_rate = calculation_rate
         if channel_count is not None:
@@ -82,7 +82,7 @@ class Pbus(EventPattern):
         if channel_count is None:
             synthdef = initial_expr.get('synthdef') or supriya.assets.synthdefs.default
             channel_count = synthdef.audio_output_channel_count
-        if self.calculation_rate == supriya.synthdefs.CalculationRate.AUDIO:
+        if self.calculation_rate == supriya.CalculationRate.AUDIO:
             link_synthdef_name = 'system_link_audio_{}'.format(channel_count)
         else:
             link_synthdef_name = 'system_link_control_{}'.format(channel_count)

@@ -56,7 +56,7 @@ class MulAdd(UGen):
         addend,
         ):
         import supriya.synthdefs
-        CalculationRate = supriya.synthdefs.CalculationRate
+        CalculationRate = supriya.CalculationRate
         if CalculationRate.from_input(source) == CalculationRate.AUDIO:
             return True
         if CalculationRate.from_input(source) == CalculationRate.CONTROL:
@@ -135,7 +135,7 @@ class MulAdd(UGen):
         """
         import supriya.synthdefs
         # TODO: handle case of array as source
-        calculation_rate = supriya.synthdefs.CalculationRate.from_input((source, multiplier, addend))
+        calculation_rate = supriya.CalculationRate.from_input((source, multiplier, addend))
         ugen = cls._new_expanded(
             addend=addend,
             multiplier=multiplier,

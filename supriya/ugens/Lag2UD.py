@@ -1,4 +1,4 @@
-from supriya.synthdefs.CalculationRate import CalculationRate
+from supriya import CalculationRate
 from supriya.ugens.Filter import Filter
 
 
@@ -79,7 +79,7 @@ class Lag2UD(Filter):
         Returns ugen graph.
         """
         import supriya.synthdefs
-        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
+        calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             lag_time_d=lag_time_d,
@@ -114,7 +114,7 @@ class Lag2UD(Filter):
         Returns ugen graph.
         """
         import supriya.synthdefs
-        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
+        calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             lag_time_d=lag_time_d,

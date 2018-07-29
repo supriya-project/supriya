@@ -24,7 +24,7 @@ class BusEvent(Event):
         if channel_count is not None:
             assert 0 < channel_count
         if calculation_rate is not None:
-            calculation_rate = supriya.synthdefs.CalculationRate.from_expr(
+            calculation_rate = supriya.CalculationRate.from_expr(
                 calculation_rate)
         is_stop = bool(is_stop)
         if is_stop:

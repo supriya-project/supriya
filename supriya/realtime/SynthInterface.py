@@ -113,7 +113,7 @@ class SynthInterface(ControlInterface):
         settings = {}
         for synth_control in self.synth_controls:
             if isinstance(synth_control.value, supriya.realtime.Bus):
-                if synth_control.value.calculation_rate == supriya.synthdefs.CalculationRate.AUDIO:
+                if synth_control.value.calculation_rate == supriya.CalculationRate.AUDIO:
                     audio_map[synth_control.name] = synth_control.value
                 else:
                     control_map[synth_control.name] = synth_control.value

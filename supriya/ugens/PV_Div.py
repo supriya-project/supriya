@@ -1,4 +1,4 @@
-from supriya.synthdefs.CalculationRate import CalculationRate
+from supriya import CalculationRate
 from supriya.ugens.PV_ChainUGen import PV_ChainUGen
 
 

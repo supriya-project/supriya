@@ -6,7 +6,7 @@ def test_01(server):
 
     bus_group_one = supriya.realtime.BusGroup(
         bus_count=4,
-        calculation_rate=supriya.synthdefs.CalculationRate.CONTROL,
+        calculation_rate=supriya.CalculationRate.CONTROL,
         )
 
     assert not bus_group_one.is_allocated
@@ -34,7 +34,7 @@ def test_01(server):
 
     bus_group_two = supriya.realtime.BusGroup(
         bus_count=4,
-        calculation_rate=supriya.synthdefs.CalculationRate.CONTROL,
+        calculation_rate=supriya.CalculationRate.CONTROL,
         )
     server.sync()
 

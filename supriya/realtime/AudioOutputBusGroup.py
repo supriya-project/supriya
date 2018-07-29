@@ -38,7 +38,7 @@ class AudioOutputBusGroup(BusGroup):
         BusGroup.__init__(
             self,
             bus_count=server.server_options.input_bus_channel_count,
-            calculation_rate=supriya.synthdefs.CalculationRate.AUDIO
+            calculation_rate=supriya.CalculationRate.AUDIO
             )
         self._bus_id = 0
         self._server = server

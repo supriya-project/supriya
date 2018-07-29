@@ -78,7 +78,7 @@ class PitchShift(UGen):
 
         """
         import supriya.synthdefs
-        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
+        calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             pitch_dispersion=pitch_dispersion,

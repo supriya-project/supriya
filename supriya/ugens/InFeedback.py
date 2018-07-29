@@ -63,7 +63,7 @@ class InFeedback(MultiOutUGen):
         '''
         import supriya.realtime
         import supriya.synthdefs
-        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
+        calculation_rate = supriya.CalculationRate.AUDIO
         prototype = (
             supriya.realtime.Bus,
             supriya.realtime.BusGroup,

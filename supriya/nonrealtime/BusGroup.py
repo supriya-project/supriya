@@ -73,7 +73,7 @@ class BusGroup(SessionObject):
         SessionObject.__init__(self, session)
         self._session_id = session_id
         assert calculation_rate is not None
-        calculation_rate = supriya.synthdefs.CalculationRate.from_expr(
+        calculation_rate = supriya.CalculationRate.from_expr(
             calculation_rate)
         self._calculation_rate = calculation_rate
         bus_count = int(bus_count)
@@ -110,7 +110,7 @@ class BusGroup(SessionObject):
 
     def __str__(self):
         map_symbol = 'c'
-        if self.calculation_rate == supriya.synthdefs.CalculationRate.AUDIO:
+        if self.calculation_rate == supriya.CalculationRate.AUDIO:
             map_symbol = 'a'
         session_id = self._session_id
         if session_id is None:
@@ -136,7 +136,7 @@ class BusGroup(SessionObject):
 
     def get_map_symbol(self, bus_id):
         import supriya.synthdefs
-        if self.calculation_rate == supriya.synthdefs.CalculationRate.AUDIO:
+        if self.calculation_rate == supriya.CalculationRate.AUDIO:
             map_symbol = 'a'
         else:
             map_symbol = 'c'

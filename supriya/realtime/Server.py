@@ -315,7 +315,7 @@ class Server(SupriyaObject):
         if not control_bus_proxy:
             control_bus_proxy = supriya.realtime.BusProxy(
                 bus_id=bus_id,
-                calculation_rate=supriya.synthdefs.CalculationRate.CONTROL,
+                calculation_rate=supriya.CalculationRate.CONTROL,
                 server=self,
                 )
             self._control_bus_proxies[bus_id] = control_bus_proxy
