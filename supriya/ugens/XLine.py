@@ -91,7 +91,7 @@ class XLine(UGen):
         Returns unit generator graph.
         """
         import supriya.synthdefs
-        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
+        calculation_rate = supriya.CalculationRate.AUDIO
         return cls._new_expanded(
             calculation_rate=calculation_rate,
             done_action=done_action,
@@ -124,7 +124,7 @@ class XLine(UGen):
         Returns unit generator graph.
         """
         import supriya.synthdefs
-        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
+        calculation_rate = supriya.CalculationRate.CONTROL
         return cls._new_expanded(
             calculation_rate=calculation_rate,
             done_action=done_action,

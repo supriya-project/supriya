@@ -61,13 +61,13 @@ class ControlInterface(SupriyaObject):
                 if (
                     isinstance(self.client, supriya.realtime.Synth) and
                     not self.client.is_allocated and
-                    control.calculation_rate == supriya.synthdefs.CalculationRate.SCALAR
+                    control.calculation_rate == supriya.CalculationRate.SCALAR
                 ):
                     control._set_to_number(int(value))
-                elif value_rate == supriya.synthdefs.CalculationRate.CONTROL:
+                elif value_rate == supriya.CalculationRate.CONTROL:
                     n_map_settings[control_name] = value
                     control._map_to_bus(value)
-                elif value_rate == supriya.synthdefs.CalculationRate.AUDIO:
+                elif value_rate == supriya.CalculationRate.AUDIO:
                     n_mapa_settings[control_name] = value
                     control._map_to_bus(value)
             elif value is None:

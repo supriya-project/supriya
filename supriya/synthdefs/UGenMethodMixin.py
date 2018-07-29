@@ -1964,18 +1964,18 @@ class UGenMethodMixin(SupriyaObject):
     @staticmethod
     def _compute_binary_rate(ugen_a, ugen_b):
         import supriya.synthdefs
-        a_rate = supriya.synthdefs.CalculationRate.from_input(ugen_a)
-        b_rate = supriya.synthdefs.CalculationRate.from_input(ugen_b)
-        if a_rate == supriya.synthdefs.CalculationRate.DEMAND \
-            or a_rate == supriya.synthdefs.CalculationRate.DEMAND:
-            return supriya.synthdefs.CalculationRate.DEMAND
-        elif a_rate == supriya.synthdefs.CalculationRate.AUDIO \
-            or b_rate == supriya.synthdefs.CalculationRate.AUDIO:
-            return supriya.synthdefs.CalculationRate.AUDIO
-        elif a_rate == supriya.synthdefs.CalculationRate.CONTROL \
-            or b_rate == supriya.synthdefs.CalculationRate.CONTROL:
-            return supriya.synthdefs.CalculationRate.CONTROL
-        return supriya.synthdefs.CalculationRate.SCALAR
+        a_rate = supriya.CalculationRate.from_input(ugen_a)
+        b_rate = supriya.CalculationRate.from_input(ugen_b)
+        if a_rate == supriya.CalculationRate.DEMAND \
+            or a_rate == supriya.CalculationRate.DEMAND:
+            return supriya.CalculationRate.DEMAND
+        elif a_rate == supriya.CalculationRate.AUDIO \
+            or b_rate == supriya.CalculationRate.AUDIO:
+            return supriya.CalculationRate.AUDIO
+        elif a_rate == supriya.CalculationRate.CONTROL \
+            or b_rate == supriya.CalculationRate.CONTROL:
+            return supriya.CalculationRate.CONTROL
+        return supriya.CalculationRate.SCALAR
 
     def _compute_ugen_map(self, map_ugen, **kwargs):
         import supriya.synthdefs
@@ -2009,7 +2009,7 @@ class UGenMethodMixin(SupriyaObject):
         operator = supriya.synthdefs.UnaryOperator.from_expr(operator)
         special_index = operator.value
         for single_source in source:
-            calculation_rate = supriya.synthdefs.CalculationRate.from_input(
+            calculation_rate = supriya.CalculationRate.from_input(
                 single_source)
             ugen = supriya.ugens.UnaryOpUGen._new_single(
                 calculation_rate=calculation_rate,

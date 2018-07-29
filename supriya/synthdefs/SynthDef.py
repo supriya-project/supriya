@@ -383,7 +383,7 @@ class SynthDef(ServerObjectProxy):
         if scalar_parameters:
             control = supriya.ugens.Control(
                 parameters=scalar_parameters,
-                calculation_rate=supriya.synthdefs.CalculationRate.SCALAR,
+                calculation_rate=supriya.CalculationRate.SCALAR,
                 starting_control_index=starting_control_index,
                 )
             control_ugens.append(control)
@@ -424,13 +424,13 @@ class SynthDef(ServerObjectProxy):
             if any(_.lag for _ in control_parameters):
                 control = supriya.ugens.LagControl(
                     parameters=control_parameters,
-                    calculation_rate=supriya.synthdefs.CalculationRate.CONTROL,
+                    calculation_rate=supriya.CalculationRate.CONTROL,
                     starting_control_index=starting_control_index,
                     )
             else:
                 control = supriya.ugens.Control(
                     parameters=control_parameters,
-                    calculation_rate=supriya.synthdefs.CalculationRate.CONTROL,
+                    calculation_rate=supriya.CalculationRate.CONTROL,
                     starting_control_index=starting_control_index,
                     )
             control_ugens.append(control)
@@ -862,7 +862,7 @@ class SynthDef(ServerObjectProxy):
         import supriya.synthdefs
         ugens = tuple(
             _ for _ in self.input_ugens
-            if _.calculation_rate == supriya.synthdefs.CalculationRate.AUDIO
+            if _.calculation_rate == supriya.CalculationRate.AUDIO
         )
         if len(ugens) == 1:
             return ugens[0].channel_count
@@ -902,7 +902,7 @@ class SynthDef(ServerObjectProxy):
         import supriya.synthdefs
         ugens = tuple(
             _ for _ in self.output_ugens
-            if _.calculation_rate == supriya.synthdefs.CalculationRate.AUDIO
+            if _.calculation_rate == supriya.CalculationRate.AUDIO
         )
         if len(ugens) == 1:
             return len(ugens[0].source)
@@ -957,7 +957,7 @@ class SynthDef(ServerObjectProxy):
         import supriya.synthdefs
         ugens = tuple(
             _ for _ in self.input_ugens
-            if _.calculation_rate == supriya.synthdefs.CalculationRate.CONTROL
+            if _.calculation_rate == supriya.CalculationRate.CONTROL
         )
         if len(ugens) == 1:
             return ugens[0].channel_count
@@ -997,7 +997,7 @@ class SynthDef(ServerObjectProxy):
         import supriya.synthdefs
         ugens = tuple(
             _ for _ in self.output_ugens
-            if _.calculation_rate == supriya.synthdefs.CalculationRate.CONTROL
+            if _.calculation_rate == supriya.CalculationRate.CONTROL
         )
         if len(ugens) == 1:
             return len(ugens[0].source)

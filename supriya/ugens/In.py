@@ -57,7 +57,7 @@ class In(MultiOutUGen):
         """
         import supriya.realtime
         import supriya.synthdefs
-        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
+        calculation_rate = supriya.CalculationRate.AUDIO
         prototype = (
             supriya.realtime.Bus,
             supriya.realtime.BusGroup,
@@ -94,7 +94,7 @@ class In(MultiOutUGen):
         """
         import supriya.realtime
         import supriya.synthdefs
-        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
+        calculation_rate = supriya.CalculationRate.CONTROL
         prototype = (
             supriya.realtime.Bus,
             supriya.realtime.BusGroup,

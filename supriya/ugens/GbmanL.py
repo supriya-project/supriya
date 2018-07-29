@@ -73,7 +73,7 @@ class GbmanL(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
-        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
+        calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             frequency=frequency,

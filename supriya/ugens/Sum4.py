@@ -44,7 +44,7 @@ class Sum4(UGen):
         input_four=None,
         ):
         import supriya.synthdefs
-        CalculationRate = supriya.synthdefs.CalculationRate
+        CalculationRate = supriya.CalculationRate
         inputs = [input_one, input_two, input_three, input_four]
         calculation_rate = CalculationRate.from_collection(inputs)
         inputs.sort(

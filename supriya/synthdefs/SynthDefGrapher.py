@@ -81,9 +81,9 @@ class SynthDefGrapher(Grapher):
                     tail_port_position='e',
                     )
                 edge.attach(head_field, tail_field)
-                if source.calculation_rate == supriya.synthdefs.CalculationRate.CONTROL:
+                if source.calculation_rate == supriya.CalculationRate.CONTROL:
                     edge.attributes['color'] = 'goldenrod'
-                elif source.calculation_rate == supriya.synthdefs.CalculationRate.AUDIO:
+                elif source.calculation_rate == supriya.CalculationRate.AUDIO:
                     edge.attributes['color'] = 'steelblue'
                 else:
                     edge.attributes['color'] = 'salmon'
@@ -125,9 +125,9 @@ class SynthDefGrapher(Grapher):
             node = uqbar.graphs.Node(
                 name='ugen_{}'.format(ugen_index),
                 )
-            if ugen.calculation_rate == supriya.synthdefs.CalculationRate.CONTROL:
+            if ugen.calculation_rate == supriya.CalculationRate.CONTROL:
                 node.attributes['fillcolor'] = 'lightgoldenrod2'
-            elif ugen.calculation_rate == supriya.synthdefs.CalculationRate.AUDIO:
+            elif ugen.calculation_rate == supriya.CalculationRate.AUDIO:
                 node.attributes['fillcolor'] = 'lightsteelblue2'
             else:
                 node.attributes['fillcolor'] = 'lightsalmon2'

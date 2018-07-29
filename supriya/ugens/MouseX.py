@@ -1,4 +1,4 @@
-from supriya.synthdefs.CalculationRate import CalculationRate
+from supriya import CalculationRate
 from supriya.synthdefs.SignalRange import SignalRange
 from supriya.ugens.UGen import UGen
 
@@ -81,7 +81,7 @@ class MouseX(UGen):
         Returns unit generator graph.
         """
         import supriya.synthdefs
-        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
+        calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             lag=lag,

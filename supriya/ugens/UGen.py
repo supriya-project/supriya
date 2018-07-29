@@ -40,7 +40,7 @@ class UGen(UGenMethodMixin):
         **kwargs
         ):
         import supriya.synthdefs
-        assert isinstance(calculation_rate, supriya.synthdefs.CalculationRate), \
+        assert isinstance(calculation_rate, supriya.CalculationRate), \
             calculation_rate
         if self._valid_rates is not None:
             assert calculation_rate in self._valid_rates
@@ -130,12 +130,12 @@ class UGen(UGenMethodMixin):
         Returns string.
         """
         import supriya.synthdefs
-        if self.calculation_rate == supriya.synthdefs.CalculationRate.DEMAND:
+        if self.calculation_rate == supriya.CalculationRate.DEMAND:
             return '{}()'.format(type(self).__name__)
         calculation_abbreviations = {
-            supriya.synthdefs.CalculationRate.AUDIO: 'ar',
-            supriya.synthdefs.CalculationRate.CONTROL: 'kr',
-            supriya.synthdefs.CalculationRate.SCALAR: 'ir',
+            supriya.CalculationRate.AUDIO: 'ar',
+            supriya.CalculationRate.CONTROL: 'kr',
+            supriya.CalculationRate.SCALAR: 'ir',
             }
         string = '{}.{}()'.format(
             type(self).__name__,
@@ -154,7 +154,7 @@ class UGen(UGenMethodMixin):
                 return supriya.ugens.Silence.ar()
             return supriya.ugens.DC.ar(expr)
         elif isinstance(expr, (UGen, supriya.synthdefs.OutputProxy)):
-            if expr.calculation_rate == supriya.synthdefs.CalculationRate.AUDIO:
+            if expr.calculation_rate == supriya.CalculationRate.AUDIO:
                 return expr
             return supriya.ugens.K2A.ar(source=expr)
         elif isinstance(expr, collections.Iterable):
@@ -192,18 +192,18 @@ class UGen(UGenMethodMixin):
 
     def _check_rate_same_as_first_input_rate(self):
         import supriya.synthdefs
-        first_input_rate = supriya.synthdefs.CalculationRate.from_input(
+        first_input_rate = supriya.CalculationRate.from_input(
             self.inputs[0],
             )
         return self.calculation_rate == first_input_rate
 
     def _check_range_of_inputs_at_audio_rate(self, start=None, stop=None):
         import supriya.synthdefs
-        if self.calculation_rate != supriya.synthdefs.CalculationRate.AUDIO:
+        if self.calculation_rate != supriya.CalculationRate.AUDIO:
             return True
         for input_ in self.inputs[start:stop]:
-            calculation_rate = supriya.synthdefs.CalculationRate.from_input(input_)
-            if calculation_rate != supriya.synthdefs.CalculationRate.AUDIO:
+            calculation_rate = supriya.CalculationRate.from_input(input_)
+            if calculation_rate != supriya.CalculationRate.AUDIO:
                 return False
         return True
 
@@ -311,13 +311,13 @@ class UGen(UGenMethodMixin):
     @staticmethod
     def _get_method_for_rate(cls, calculation_rate):
         import supriya.synthdefs
-        calculation_rate = supriya.synthdefs.CalculationRate.from_input(
+        calculation_rate = supriya.CalculationRate.from_input(
             calculation_rate)
-        if calculation_rate == supriya.synthdefs.CalculationRate.AUDIO:
+        if calculation_rate == supriya.CalculationRate.AUDIO:
             return cls.ar
-        elif calculation_rate == supriya.synthdefs.CalculationRate.CONTROL:
+        elif calculation_rate == supriya.CalculationRate.CONTROL:
             return cls.kr
-        elif calculation_rate == supriya.synthdefs.CalculationRate.SCALAR:
+        elif calculation_rate == supriya.CalculationRate.SCALAR:
             if hasattr(cls, 'ir'):
                 return cls.ir
             return cls.kr

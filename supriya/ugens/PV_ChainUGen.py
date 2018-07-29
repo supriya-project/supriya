@@ -1,4 +1,4 @@
-from supriya.synthdefs.CalculationRate import CalculationRate
+from supriya import CalculationRate
 from supriya.ugens.WidthFirstUGen import WidthFirstUGen
 
 
@@ -24,7 +24,7 @@ class PV_ChainUGen(WidthFirstUGen):
         **kwargs
         ):
         import supriya.synthdefs
-        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
+        calculation_rate = supriya.CalculationRate.CONTROL
         WidthFirstUGen.__init__(
             self,
             calculation_rate=calculation_rate,

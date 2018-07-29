@@ -102,7 +102,7 @@ class SendPeakRMS(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
-        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
+        calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_single(
             calculation_rate=calculation_rate,
             command_name=command_name,
@@ -141,7 +141,7 @@ class SendPeakRMS(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
-        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
+        calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_single(
             calculation_rate=calculation_rate,
             command_name=command_name,

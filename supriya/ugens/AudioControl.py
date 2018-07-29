@@ -24,6 +24,6 @@ class AudioControl(Control):
         Control.__init__(
             self,
             parameters,
-            calculation_rate=supriya.synthdefs.CalculationRate.AUDIO,
+            calculation_rate=supriya.CalculationRate.AUDIO,
             starting_control_index=starting_control_index,
             )

@@ -42,7 +42,7 @@ class GroupControl:
         import supriya.realtime
         import supriya.synthdefs
         if isinstance(expr, supriya.realtime.Bus):
-            if expr.calculation_rate == supriya.synthdefs.CalculationRate.CONTROL:
+            if expr.calculation_rate == supriya.CalculationRate.CONTROL:
                 request = supriya.commands.NodeMapToControlBusRequest(
                     self.node,
                     **{self.name: expr}

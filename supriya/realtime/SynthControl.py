@@ -40,7 +40,7 @@ class SynthControl:
             self._range = range_
         else:
             self._range = None
-        self._calculation_rate = supriya.synthdefs.CalculationRate.from_expr(calculation_rate)
+        self._calculation_rate = supriya.CalculationRate.from_expr(calculation_rate)
         self._unit = unit
         self._value = value
         self._default_value = value
@@ -89,7 +89,7 @@ class SynthControl:
         assert isinstance(parameter, supriya.synthdefs.Parameter)
         name = parameter.name
         range_ = parameter.range_
-        calculation_rate = supriya.synthdefs.CalculationRate.from_input(parameter)
+        calculation_rate = supriya.CalculationRate.from_input(parameter)
         unit = parameter.unit
         value = parameter.value
         synth_control = SynthControl(
@@ -115,7 +115,7 @@ class SynthControl:
         import supriya.synthdefs
         if isinstance(expr, supriya.realtime.Bus):
             self._map_to_bus(expr)
-            if expr.calculation_rate == supriya.synthdefs.CalculationRate.CONTROL:
+            if expr.calculation_rate == supriya.CalculationRate.CONTROL:
                 request = supriya.commands.NodeMapToControlBusRequest(
                     self.node,
                     **{self.name: self._value}

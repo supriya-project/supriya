@@ -117,7 +117,6 @@ from supriya.soundfiles import (  # noqa
     render,
     )
 from supriya.synthdefs import (  # noqa
-    CalculationRate,
     DoneAction,
     Envelope,
     Parameter,
@@ -127,14 +126,7 @@ from supriya.synthdefs import (  # noqa
     SynthDefBuilder,
     SynthDefFactory,
     )
-from supriya.system import (  # noqa
-    Assets,
-    Bindable,
-    Binding,
-    bind,
-    )
-from supriya.soundfiles import (  # noqa
-    Say,
-    )
+from supriya.system import Assets, Bindable, Binding, bind  # noqa
+from supriya.soundfiles import Say  # noqa
 from abjad.tools.topleveltools import graph  # noqa
 from supriya._version import __version__, __version_info__  # noqa

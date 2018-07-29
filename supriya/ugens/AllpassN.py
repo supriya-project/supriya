@@ -74,7 +74,7 @@ class AllpassN(PureUGen):
         Returns unit generator graph.
         """
         import supriya.synthdefs
-        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
+        calculation_rate = supriya.CalculationRate.AUDIO
         source = cls._as_audio_rate_input(source)
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -111,7 +111,7 @@ class AllpassN(PureUGen):
         Returns unit generator graph.
         """
         import supriya.synthdefs
-        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
+        calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             decay_time=decay_time,

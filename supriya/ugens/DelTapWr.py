@@ -87,7 +87,7 @@ class DelTapWr(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
-        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
+        calculation_rate = supriya.CalculationRate.AUDIO
         source = cls._as_audio_rate_input(source)
         ugen = cls._new_expanded(
             buffer_id=buffer_id,
@@ -119,7 +119,7 @@ class DelTapWr(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
-        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
+        calculation_rate = supriya.CalculationRate.CONTROL
         source = cls._as_audio_rate_input(source)
         ugen = cls._new_expanded(
             buffer_id=buffer_id,

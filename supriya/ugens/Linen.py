@@ -75,7 +75,7 @@ class Linen(UGen):
         Returns unit generator graph.
         """
         import supriya.synthdefs
-        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
+        calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             attack_time=attack_time,
             done_action=done_action,
