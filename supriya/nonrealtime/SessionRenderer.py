@@ -12,7 +12,7 @@ import yaml
 
 import supriya
 from supriya import utils
-from supriya.nonrealtime import (
+from supriya.exceptions import (
     NonrealtimeRenderError,
     NonrealtimeOutputMissing,
 )

@@ -1,4 +1,4 @@
-from supriya.ugens.ODFType import ODFType
+from uqbar.enums import IntEnumeration
 from supriya.synthdefs.CalculationRate import CalculationRate
 from supriya.ugens.UGen import UGen
 
@@ -16,7 +16,7 @@ class Onsets(UGen):
         ...     floor=0.1,
         ...     medianspan=11,
         ...     mingap=10,
-        ...     odftype=supriya.ugens.ODFType.RCOMPLEX,
+        ...     odftype=supriya.ugens.Onsets.ODFType.RCOMPLEX,
         ...     rawodf=0,
         ...     relaxtime=1,
         ...     threshold=0.5,
@@ -48,6 +48,16 @@ class Onsets(UGen):
     _valid_calculation_rates = (
         CalculationRate.CONTROL,
         )
+
+
+    class ODFType(IntEnumeration):
+        POWER = 0
+        MAGSUM = 1
+        COMPLEX = 2
+        RCOMPLEX = 3
+        PHASE = 4
+        WPHASE = 5
+        MKL = 6
 
     ### INITIALIZER ###
 
@@ -104,7 +114,7 @@ class Onsets(UGen):
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
-            ...     odftype=supriya.ugens.ODFType.RCOMPLEX,
+            ...     odftype=supriya.ugens.Onsets.ODFType.RCOMPLEX,
             ...     rawodf=0,
             ...     relaxtime=1,
             ...     threshold=0.5,
@@ -144,7 +154,7 @@ class Onsets(UGen):
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
-            ...     odftype=supriya.ugens.ODFType.RCOMPLEX,
+            ...     odftype=supriya.ugens.Onsets.ODFType.RCOMPLEX,
             ...     rawodf=0,
             ...     relaxtime=1,
             ...     threshold=0.5,
@@ -172,7 +182,7 @@ class Onsets(UGen):
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
-            ...     odftype=supriya.ugens.ODFType.RCOMPLEX,
+            ...     odftype=supriya.ugens.Onsets.ODFType.RCOMPLEX,
             ...     rawodf=0,
             ...     relaxtime=1,
             ...     threshold=0.5,
@@ -200,7 +210,7 @@ class Onsets(UGen):
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
-            ...     odftype=supriya.ugens.ODFType.RCOMPLEX,
+            ...     odftype=supriya.ugens.Onsets.ODFType.RCOMPLEX,
             ...     rawodf=0,
             ...     relaxtime=1,
             ...     threshold=0.5,
@@ -228,7 +238,7 @@ class Onsets(UGen):
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
-            ...     odftype=supriya.ugens.ODFType.RCOMPLEX,
+            ...     odftype=supriya.ugens.Onsets.ODFType.RCOMPLEX,
             ...     rawodf=0,
             ...     relaxtime=1,
             ...     threshold=0.5,
@@ -256,7 +266,7 @@ class Onsets(UGen):
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
-            ...     odftype=supriya.ugens.ODFType.RCOMPLEX,
+            ...     odftype=supriya.ugens.Onsets.ODFType.RCOMPLEX,
             ...     rawodf=0,
             ...     relaxtime=1,
             ...     threshold=0.5,
@@ -284,7 +294,7 @@ class Onsets(UGen):
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
-            ...     odftype=supriya.ugens.ODFType.RCOMPLEX,
+            ...     odftype=supriya.ugens.Onsets.ODFType.RCOMPLEX,
             ...     rawodf=0,
             ...     relaxtime=1,
             ...     threshold=0.5,
@@ -312,7 +322,7 @@ class Onsets(UGen):
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
-            ...     odftype=supriya.ugens.ODFType.RCOMPLEX,
+            ...     odftype=supriya.ugens.Onsets.ODFType.RCOMPLEX,
             ...     rawodf=0,
             ...     relaxtime=1,
             ...     threshold=0.5,
@@ -340,7 +350,7 @@ class Onsets(UGen):
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
-            ...     odftype=supriya.ugens.ODFType.RCOMPLEX,
+            ...     odftype=supriya.ugens.Onsets.ODFType.RCOMPLEX,
             ...     rawodf=0,
             ...     relaxtime=1,
             ...     threshold=0.5,
@@ -368,7 +378,7 @@ class Onsets(UGen):
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
-            ...     odftype=supriya.ugens.ODFType.RCOMPLEX,
+            ...     odftype=supriya.ugens.Onsets.ODFType.RCOMPLEX,
             ...     rawodf=0,
             ...     relaxtime=1,
             ...     threshold=0.5,

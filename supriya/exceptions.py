@@ -34,5 +34,13 @@ class NodeNotAllocated(NotAllocated):
     pass
 
 
+class NonrealtimeOutputMissing(Exception):
+    pass
+
+
+class NonrealtimeRenderError(Exception):
+    pass
+
+
 class ServerOffline(Exception):
     pass
