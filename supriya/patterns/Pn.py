@@ -1,8 +1,8 @@
 from supriya import utils
-from supriya.patterns.Pattern import Pattern
+from supriya.patterns.EventPattern import EventPattern
 
 
-class Pn(Pattern):
+class Pn(EventPattern):
 
     ### CLASS VARIABLES ###
 
@@ -15,7 +15,7 @@ class Pn(Pattern):
     ### INITIALIZER ###
 
     def __init__(self, pattern, repetitions=None, key=None):
-        assert isinstance(pattern, Pattern)
+        assert isinstance(pattern, EventPattern)
         if repetitions is not None:
             repetitions = int(repetitions)
             assert 0 < repetitions
@@ -23,6 +23,7 @@ class Pn(Pattern):
         if key is not None:
             key = str(key)
         self._key = key
+        self._pattern = pattern
 
     ### PRIVATE METHODS ###
 
@@ -36,3 +37,25 @@ class Pn(Pattern):
         else:
             for _ in self._loop(self._repetitions):
                 yield from self._pattern
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def arity(self):
+        return self._pattern.arity
+
+    @property
+    def is_infinite(self):
+        return self._pattern.is_infinite
+
+    @property
+    def key(self):
+        return self._key
+
+    @property
+    def pattern(self):
+        return self._pattern
+
+    @property
+    def repetitions(self):
+        return self._repetitions
