@@ -3,6 +3,28 @@ from supriya.realtime.ControlInterface import ControlInterface
 
 
 class GroupInterface(ControlInterface):
+    """
+    Interface to group controls.
+
+    ::
+
+        >>> server = supriya.Server().boot()
+        >>> group = supriya.Group().allocate()
+        >>> group.extend([
+        ...     supriya.Synth(synthdef=supriya.assets.synthdefs.test),
+        ...     supriya.Synth(synthdef=supriya.assets.synthdefs.default),
+        ...     supriya.Synth(synthdef=supriya.assets.synthdefs.default),
+        ...     ])
+
+    ::
+
+        >>> control = group.controls['amplitude']
+
+    ::
+
+        >>> group.controls['frequency'] = 777
+
+    """
 
     ### CLASS VARIABLES ###
 

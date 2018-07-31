@@ -226,6 +226,7 @@ class ProjectPackageScript(uqbar.cli.CLI):
         return '.'.join(parts)
 
     def _path_to_project_package_path(self, path):
+        path = pathlib.Path(path)
         path = path.absolute()
         # Convert to directory.
         if path.is_file():
