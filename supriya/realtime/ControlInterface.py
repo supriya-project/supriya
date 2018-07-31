@@ -5,6 +5,8 @@ from supriya.system.SupriyaObject import SupriyaObject
 
 class ControlInterface(SupriyaObject):
 
+    # TODO: This should inherit from collections.Mapping
+
     ### CLASS VARIABLES ###
 
     __documentation_section__ = 'Server Internals'
