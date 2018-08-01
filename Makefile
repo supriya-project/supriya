@@ -13,6 +13,9 @@ clean:
 docs:
 	make -C docs html
 
+sanity-check:
+	python -c 'import supriya, time; server = supriya.Server(); server.debug_osc = True; server.boot(); time.sleep(3); print(server); server.quit()'
+
 test:
 	rm -Rf htmlcov/
 	pytest \
@@ -21,7 +24,17 @@ test:
 		--cov-report=term \
 		--cov=supriya/ \
 		--durations=20 \
+		--profile \
 		--timeout=60 \
+		tests/ \
+		supriya/
+
+test-travis:
+	pytest \
+		--durations=100 \
+		--profile \
+		--timeout=60 \
+		-q \
 		tests/ \
 		supriya/
 

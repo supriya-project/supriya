@@ -1,3 +1,4 @@
+import collections
 import socketserver
 import threading
 import time
@@ -238,13 +239,17 @@ class OscIO:
         return callback
 
     def send(self, message):
+        # TODO: only accept request(bundle) objects, and convert all others to
+        #       request(bundle) here
         if not self.running:
             raise RuntimeError
-        prototype = (str, tuple, OscBundle, OscMessage)
+        prototype = (str, collections.Iterable, OscBundle, OscMessage)
         if not isinstance(message, prototype):
             raise ValueError(message)
         if isinstance(message, str):
             message = OscMessage(message)
+        elif isinstance(message, collections.Iterable):
+            message = OscMessage(*message)
         elif isinstance(message, tuple):
             if not len(message):
                 raise ValueError(message)
