@@ -60,10 +60,13 @@ class Say(SupriyaValueObject):
                 print('        Skipping {}. File already exists.'.format(
                     relative_file_path))
             return output_file_path
-        command_parts = ['say']
-        command_parts.extend(['-o', str(relative_file_path)])
-        if self.voice:
-            command_parts.extend(['-v', self.voice])
+        if uqbar.io.find_executable('say'):
+            command_parts = ['say']
+            command_parts.extend(['-o', str(relative_file_path)])
+            if self.voice:
+                command_parts.extend(['-v', self.voice])
+        else:
+            command_parts = ['espeak', '-w', str(relative_file_path)]
         command_parts.append(shlex.quote(self.text))
         command = ' '.join(command_parts)
         if print_transcript:

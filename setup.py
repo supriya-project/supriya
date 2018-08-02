@@ -1,26 +1,28 @@
 #!/usr/bin/env python
-import sys
 import setuptools
-from distutils.version import StrictVersion
 
 install_requires = [
     'PyYAML',
-    'appdirs',
     'abjad == 2.21',
+    'appdirs',
     'cython',
     'numpy',
-    'pytest >= 3.0.0',
-    'pytest-helpers-namespace',
-    'pytest-timeout >= 1.2.0',
-    'pytest-cov',
     'python-rtmidi',
-    'sphinx >= 1.7.0',
-    'sphinx_rtd_theme >= 0.3.0',
     'tornado',
     'tqdm',
     'uqbar >= 0.2.15',
     'wavefile',
-    ]
+]
+
+extras_require = {
+    'test': [
+        'pytest >= 3.6.0',
+        'pytest-helpers-namespace',
+        'pytest-timeout >= 1.2.0',
+        'pytest-cov',
+        'pytest-profiling',
+    ],
+}
 
 with open('README.rst', 'r') as file_pointer:
     long_description = file_pointer.read()
@@ -63,6 +65,7 @@ if __name__ == '__main__':
         classifiers=classifiers,
         description='A Python API for SuperCollider',
         entry_points=entry_points,
+        extras_require=extras_require,
         include_package_data=True,
         install_requires=install_requires,
         keywords=keywords,
