@@ -45,9 +45,9 @@ def test_01(mixer):
     assert not mixer['foo'].is_cued
     assert not mixer['bar'].is_cued
     assert not mixer['baz'].is_cued
-    assert not mixer['foo'].cue_synth['active'].value
-    assert not mixer['bar'].cue_synth['active'].value
-    assert not mixer['baz'].cue_synth['active'].value
+    assert not mixer['foo'].cue_synth['active']
+    assert not mixer['bar'].cue_synth['active']
+    assert not mixer['baz'].cue_synth['active']
     time.sleep(0.1)
     levels = mixer['cue'].input_levels
     assert round(levels['rms'][0], 2) == 0.0
@@ -62,9 +62,9 @@ def test_02(mixer):
     assert not mixer['foo'].is_cued
     assert mixer['bar'].is_cued
     assert not mixer['baz'].is_cued
-    assert not mixer['foo'].cue_synth['active'].value
-    assert mixer['bar'].cue_synth['active'].value
-    assert not mixer['baz'].cue_synth['active'].value
+    assert not mixer['foo'].cue_synth['active']
+    assert mixer['bar'].cue_synth['active']
+    assert not mixer['baz'].cue_synth['active']
     levels = mixer['cue'].input_levels
     assert round(levels['rms'][0], 2) == 0.5
 
@@ -79,9 +79,9 @@ def test_03(mixer):
     assert not mixer['foo'].is_cued
     assert not mixer['bar'].is_cued
     assert not mixer['baz'].is_cued
-    assert not mixer['foo'].cue_synth['active'].value
-    assert not mixer['bar'].cue_synth['active'].value
-    assert not mixer['baz'].cue_synth['active'].value
+    assert not mixer['foo'].cue_synth['active']
+    assert not mixer['bar'].cue_synth['active']
+    assert not mixer['baz'].cue_synth['active']
     levels = mixer['cue'].input_levels
     assert round(levels['rms'][0], 2) == 0.0
 
@@ -96,9 +96,9 @@ def test_04(mixer):
     assert not mixer['foo'].is_cued
     assert not mixer['bar'].is_cued
     assert mixer['baz'].is_cued
-    assert not mixer['foo'].cue_synth['active'].value
-    assert not mixer['bar'].cue_synth['active'].value
-    assert mixer['baz'].cue_synth['active'].value
+    assert not mixer['foo'].cue_synth['active']
+    assert not mixer['bar'].cue_synth['active']
+    assert mixer['baz'].cue_synth['active']
     levels = mixer['cue'].input_levels
     assert round(levels['rms'][0], 2) == 0.25
 
@@ -114,9 +114,9 @@ def test_05(mixer):
     assert not mixer['foo'].is_cued
     assert mixer['bar'].is_cued
     assert mixer['baz'].is_cued
-    assert not mixer['foo'].cue_synth['active'].value
-    assert mixer['bar'].cue_synth['active'].value
-    assert mixer['baz'].cue_synth['active'].value
+    assert not mixer['foo'].cue_synth['active']
+    assert mixer['bar'].cue_synth['active']
+    assert mixer['baz'].cue_synth['active']
     levels = mixer['cue'].input_levels
     assert round(levels['rms'][0], 2) == 0.75
 
@@ -134,8 +134,8 @@ def test_06(mixer):
     assert mixer['foo'].is_cued
     assert not mixer['bar'].is_cued
     assert not mixer['baz'].is_cued
-    assert mixer['foo'].cue_synth['active'].value
-    assert not mixer['bar'].cue_synth['active'].value
-    assert not mixer['baz'].cue_synth['active'].value
+    assert mixer['foo'].cue_synth['active']
+    assert not mixer['bar'].cue_synth['active']
+    assert not mixer['baz'].cue_synth['active']
     levels = mixer['cue'].input_levels
     assert round(levels['rms'][0], 2) == 1.0
