@@ -48,9 +48,9 @@ def test_01(mixer):
     assert not mixer['foo'].is_muted
     assert not mixer['bar'].is_muted
     assert not mixer['baz'].is_muted
-    assert mixer['foo'].output_synth['active'].value
-    assert mixer['bar'].output_synth['active'].value
-    assert mixer['baz'].output_synth['active'].value
+    assert mixer['foo'].output_synth['active']
+    assert mixer['bar'].output_synth['active']
+    assert mixer['baz'].output_synth['active']
     time.sleep(0.5)
     levels = mixer['master'].input_levels
     assert round(levels['rms'][0], 2) == 1.75
@@ -65,9 +65,9 @@ def test_02(mixer):
     assert not mixer['foo'].is_muted
     assert mixer['bar'].is_muted
     assert not mixer['baz'].is_muted
-    assert mixer['foo'].output_synth['active'].value
-    assert not mixer['bar'].output_synth['active'].value
-    assert mixer['baz'].output_synth['active'].value
+    assert mixer['foo'].output_synth['active']
+    assert not mixer['bar'].output_synth['active']
+    assert mixer['baz'].output_synth['active']
     levels = mixer['master'].input_levels
     assert round(levels['rms'][0], 2) == 1.25
 
@@ -82,9 +82,9 @@ def test_03(mixer):
     assert not mixer['foo'].is_muted
     assert not mixer['bar'].is_muted
     assert not mixer['baz'].is_muted
-    assert mixer['foo'].output_synth['active'].value
-    assert mixer['bar'].output_synth['active'].value
-    assert mixer['baz'].output_synth['active'].value
+    assert mixer['foo'].output_synth['active']
+    assert mixer['bar'].output_synth['active']
+    assert mixer['baz'].output_synth['active']
     levels = mixer['master'].input_levels
     assert round(levels['rms'][0], 2) == 1.75
 
@@ -99,8 +99,8 @@ def test_04(mixer):
     assert mixer['foo'].is_muted
     assert mixer['bar'].is_muted
     assert not mixer['baz'].is_muted
-    assert not mixer['foo'].output_synth['active'].value
-    assert not mixer['bar'].output_synth['active'].value
-    assert mixer['baz'].output_synth['active'].value
+    assert not mixer['foo'].output_synth['active']
+    assert not mixer['bar'].output_synth['active']
+    assert mixer['baz'].output_synth['active']
     levels = mixer['master'].input_levels
     assert round(levels['rms'][0], 2) == 0.25

@@ -227,7 +227,7 @@ def test___getitem__(server, mixer):
         value=0.5,
         )
     assert isinstance(slot['value'], supriya.system.BindableFloat)
-    assert slot['value'].value == 0.5
+    assert slot['value'] == 0.5
 
 
 def test___setitem__01(server, mixer):
@@ -241,13 +241,13 @@ def test___setitem__01(server, mixer):
         value=0.5,
         )
     assert sorted(slot.bindable_namespace.items()) == [('value', 0.5)]
-    assert slot.synth['value'].value == 0.5
+    assert slot.synth['value'] == 0.5
     slot.play(True)
     assert sorted(slot.bindable_namespace.items()) == [('value', 0.5)]
-    assert slot.synth['value'].value == 0.5
+    assert slot.synth['value'] == 0.5
     slot['value'] = 0.25
     assert sorted(slot.bindable_namespace.items()) == [('value', 0.25)]
-    assert slot.synth['value'].value == 0.25
+    assert slot.synth['value'] == 0.25
     assert str(server) == uqbar.strings.normalize("""
         NODE TREE 0 group
             1 group
@@ -301,13 +301,13 @@ def test___setitem__02(server, mixer):
         value=0.5,
         )
     assert sorted(slot.bindable_namespace.items()) == [('value', 0.5)]
-    assert slot.synth['value'].value == 0.5
+    assert slot.synth['value'] == 0.5
     slot['value'] = 0.25
     assert sorted(slot.bindable_namespace.items()) == [('value', 0.25)]
-    assert slot.synth['value'].value == 0.25
+    assert slot.synth['value'] == 0.25
     slot.play(True)
     assert sorted(slot.bindable_namespace.items()) == [('value', 0.25)]
-    assert slot.synth['value'].value == 0.25
+    assert slot.synth['value'] == 0.25
     assert str(server) == uqbar.strings.normalize("""
         NODE TREE 0 group
             1 group

@@ -35,7 +35,19 @@ class Synth(Node):
 
     ::
 
-        >>> synth = supriya.realtime.Synth(synthdef=synthdef).allocate()
+        >>> synth = supriya.realtime.Synth(
+        ...     amplitude=0.5,
+        ...     frequency=443,
+        ...     synthdef=synthdef
+        ...     )
+        >>> synth.allocate()
+        <Synth: 1000>
+
+    ::
+
+        >>> synth['frequency'] = 666.0
+        >>> synth['frequency']
+        666.0
 
     ::
 
@@ -87,7 +99,7 @@ class Synth(Node):
     ### SPECIAL METHODS ###
 
     def __getitem__(self, item):
-        return self._control_interface[item]
+        return self._control_interface[item].value
 
     def __setitem__(self, items, values):
         self.controls.__setitem__(items, values)
@@ -125,7 +137,7 @@ class Synth(Node):
     def _unregister_with_local_server(self):
         node_id = Node._unregister_with_local_server(self)
         if 'gate' in self.controls:
-            self['gate'].reset()
+            self.controls['gate'].reset()
         return node_id
 
     ### PUBLIC METHODS ###
@@ -145,7 +157,8 @@ class Synth(Node):
         self._node_id_is_permanent = bool(node_id_is_permanent)
         target_node = Node.expr_as_target(target_node)
         server = target_node.server
-        self.controls._set(**kwargs)  # TODO: Will map requests will handle?
+        self.controls._set(**kwargs)
+        # TODO: Map requests aren't necessary during /s_new
         settings, map_requests = self.controls._make_synth_new_settings()
         synth_request = supriya.commands.SynthNewRequest(
             add_action=add_action,
@@ -162,9 +175,6 @@ class Synth(Node):
         if not self.synthdef.is_allocated:
             synthdefs.add(self.synthdef)
         return self._allocate(paused_nodes, requests, server, synthdefs)
-
-    def free(self):
-        Node.free(self)
 
     def release(self):
         if 'gate' in self.controls:
