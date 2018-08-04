@@ -5,6 +5,7 @@ import threading
 import time
 import uqbar.graphs
 import uqbar.io
+import supriya.exceptions
 from supriya import utils
 from supriya.system import PubSub
 from supriya.system import SupriyaObject
@@ -522,6 +523,18 @@ class Server(SupriyaObject):
         self._status_watcher = None
         self._status = None
 
+    def _read_scsynth_boot_output(self):
+        start_time = time.time()
+        timeout = 10
+        while True:
+            line = self._server_process.stdout.readline().decode().rstrip()
+            if line.startswith('SuperCollider 3 server ready'):
+                break
+            elif line.startswith('Exception in World_OpenUDP: bind: Address already in use'):
+                raise supriya.exceptions.ServerAddressInUse
+            elif (time.time() - start_time) > timeout:
+                raise supriya.exceptions.ServerTimeout
+
     ### PUBLIC METHODS ###
 
     def boot(
@@ -554,17 +567,17 @@ class Server(SupriyaObject):
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             )
-        start_time = time.time()
-        while True:
-            line = self._server_process.stdout.readline().decode().rstrip()
-            if line.startswith('SuperCollider 3 server ready'):
-                break
-            elif line.startswith('Exception in World_OpenUDP: bind: Address already in use'):
-                self._osc_io.quit()
-                raise Exception(line)
-            elif (time.time() - start_time) > 1:
-                self._osc_io.quit()
-                raise Exception('Timeout')
+        try:
+            self._read_scsynth_boot_output()
+        except (
+            supriya.exceptions.ServerAddressInUse,
+            supriya.exceptions.ServerTimeout,
+        ):
+            self._osc_io.quit()
+            for process in self._server_process.children(recursive=True):
+                process.kill()
+            self._server_process.kill()
+            raise
         self._is_running = True
         self._server_options = server_options
         self._setup()
