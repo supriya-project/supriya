@@ -13,7 +13,7 @@ class AudioInputBusGroup(BusGroup):
         >>> server = supriya.Server().boot()
         >>> bus_group = server.audio_input_bus_group
         >>> bus_group
-        <AudioInputBusGroup{8}: 8>
+        <+ AudioInputBusGroup{8}: 8 (audio)>
 
     ::
 

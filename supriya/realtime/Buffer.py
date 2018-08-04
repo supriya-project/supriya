@@ -15,7 +15,7 @@ class Buffer(ServerObjectProxy):
 
         >>> buffer_ = supriya.realtime.Buffer()
         >>> buffer_
-        <Buffer: None>
+        <- Buffer: ???>
 
     ::
 
@@ -26,13 +26,13 @@ class Buffer(ServerObjectProxy):
     ::
 
         >>> buffer_
-        <Buffer: 0>
+        <+ Buffer: 0>
 
     ::
 
-        >>> buffer_.free()
+        >>> buffer_ = buffer_.free()
         >>> buffer_
-        <Buffer: None>
+        <- Buffer: ???>
 
     """
 
@@ -81,7 +81,7 @@ class Buffer(ServerObjectProxy):
         ::
 
             >>> buffer_one
-            <Buffer: 0>
+            <+ Buffer: 0>
 
         ::
 
@@ -91,7 +91,7 @@ class Buffer(ServerObjectProxy):
         ::
 
             >>> buffer_two
-            <Buffer: 1>
+            <+ Buffer: 1>
 
         ::
 
@@ -100,8 +100,8 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_one.free()
-            >>> buffer_two.free()
+            >>> buffer_one = buffer_one.free()
+            >>> buffer_two = buffer_two.free()
 
         ::
 
@@ -130,7 +130,7 @@ class Buffer(ServerObjectProxy):
         ::
 
             >>> buffer_one
-            <Buffer: 0>
+            <+ Buffer: 0>
 
         ::
 
@@ -140,7 +140,7 @@ class Buffer(ServerObjectProxy):
         ::
 
             >>> buffer_two
-            <Buffer: 1>
+            <+ Buffer: 1>
 
         ::
 
@@ -149,8 +149,8 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_one.free()
-            >>> buffer_two.free()
+            >>> buffer_one = buffer_one.free()
+            >>> buffer_two = buffer_two.free()
 
         ::
 
@@ -175,25 +175,29 @@ class Buffer(ServerObjectProxy):
             >>> server = supriya.realtime.Server().boot()
             >>> buffer_ = supriya.realtime.Buffer()
             >>> repr(buffer_)
-            '<Buffer: None>'
+            '<- Buffer: ???>'
 
         ::
 
             >>> buffer_ = buffer_.allocate(frame_count=8)
             >>> repr(buffer_)
-            '<Buffer: 0>'
+            '<+ Buffer: 0>'
 
         ::
 
-            >>> buffer_.free()
+            >>> buffer_ = buffer_.free()
             >>> repr(buffer_)
-            '<Buffer: None>'
+            '<- Buffer: ???>'
 
         Returns string.
         """
-        string = '<{}: {}>'.format(
+        buffer_id = self.buffer_id
+        if buffer_id is None:
+            buffer_id = '???'
+        string = '<{} {}: {}>'.format(
+            '+' if self.is_allocated else '-',
             type(self).__name__,
-            self.buffer_id
+            buffer_id
             )
         return string
 
@@ -331,9 +335,9 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_one.free()
-            >>> buffer_two.free()
-            >>> buffer_three.free()
+            >>> buffer_one = buffer_one.free()
+            >>> buffer_two = buffer_two.free()
+            >>> buffer_three = buffer_three.free()
 
         Returns buffer.
         """
@@ -423,8 +427,8 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_one.free()
-            >>> buffer_two.free()
+            >>> buffer_one = buffer_one.free()
+            >>> buffer_two = buffer_two.free()
 
         Returns buffer.
         """
@@ -471,7 +475,7 @@ class Buffer(ServerObjectProxy):
             ...     leave_open=True,
             ...     )
             >>> buffer_.close()
-            >>> buffer_.free()
+            >>> buffer_ = buffer_.free()
 
         ::
 
@@ -516,8 +520,8 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_one.free()
-            >>> buffer_two.free()
+            >>> buffer_one = buffer_one.free()
+            >>> buffer_two = buffer_two.free()
 
         ::
 
@@ -570,8 +574,8 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_one.free()
-            >>> buffer_two.free()
+            >>> buffer_one = buffer_one.free()
+            >>> buffer_two = buffer_two.free()
 
         ::
 
@@ -618,7 +622,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_.free()
+            >>> buffer_ = buffer_.free()
 
         ::
 
@@ -641,11 +645,9 @@ class Buffer(ServerObjectProxy):
             sync=False,
             )
 
-    def free(self):
+    def free(self) -> 'Buffer':
         """
         Frees buffer.
-
-        Returns none.
         """
         if not self.is_allocated:
             raise supriya.exceptions.BufferNotAllocated
@@ -660,6 +662,7 @@ class Buffer(ServerObjectProxy):
             self.server.buffer_allocator.free(self.buffer_id)
         self._buffer_id = None
         ServerObjectProxy.free(self)
+        return self
 
     def fill_via_chebyshev(
         self,
@@ -697,7 +700,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_.free()
+            >>> buffer_ = buffer_.free()
 
         ::
 
@@ -759,7 +762,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_.free()
+            >>> buffer_ = buffer_.free()
 
         ::
 
@@ -823,7 +826,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_.free()
+            >>> buffer_ = buffer_.free()
 
         ::
 
@@ -893,7 +896,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_.free()
+            >>> buffer_ = buffer_.free()
 
         ::
 
@@ -946,7 +949,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_.free()
+            >>> buffer_ = buffer_.free()
 
         ::
 
@@ -994,7 +997,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_.free()
+            >>> buffer_ = buffer_.free()
 
         ::
 
@@ -1045,7 +1048,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_.free()
+            >>> buffer_ = buffer_.free()
 
         ::
 
@@ -1122,7 +1125,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_.free()
+            >>> buffer_ = buffer_.free()
 
         ::
 
@@ -1199,7 +1202,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_.free()
+            >>> buffer_ = buffer_.free()
 
         ::
 
@@ -1270,7 +1273,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_.free()
+            >>> buffer_ = buffer_.free()
 
         ::
 
@@ -1319,7 +1322,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_.free()
+            >>> buffer_ = buffer_.free()
 
         ::
 
@@ -1390,8 +1393,8 @@ class Buffer(ServerObjectProxy):
         ::
 
             >>> os.remove(file_path)
-            >>> buffer_one.free()
-            >>> buffer_two.free()
+            >>> buffer_one = buffer_one.free()
+            >>> buffer_two = buffer_two.free()
 
         ::
 
@@ -1459,7 +1462,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_.free()
+            >>> buffer_ = buffer_.free()
 
         ::
 
@@ -1499,10 +1502,8 @@ class Buffer(ServerObjectProxy):
         ::
 
             >>> buffer_group = supriya.realtime.BufferGroup(buffer_count=1)
-            >>> buffer_group.allocate(
-            ...     frame_count=8,
-            ...     )
-            <BufferGroup: {1} @ 1>
+            >>> buffer_group.allocate(frame_count=8)
+            <+ BufferGroup{1}: 1>
 
         ::
 
@@ -1512,13 +1513,13 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_one.free()
+            >>> buffer_one = buffer_one.free()
             >>> buffer_one.buffer_group is None
             True
 
         ::
 
-            >>> buffer_group.free()
+            >>> buffer_group = buffer_group.free()
             >>> buffer_two.buffer_group is buffer_group
             True
 
@@ -1558,7 +1559,7 @@ class Buffer(ServerObjectProxy):
         ::
 
             >>> buffer_group.allocate(frame_count=8)
-            <BufferGroup: {4} @ 1>
+            <+ BufferGroup{4}: 1>
 
         ::
 
@@ -1572,13 +1573,13 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_one.free()
+            >>> buffer_one = buffer_one.free()
             >>> buffer_one.buffer_id is None
             True
 
         ::
 
-            >>> buffer_group.free()
+            >>> buffer_group = buffer_group.free()
             >>> for buffer_ in buffer_group:
             ...     print(buffer_.buffer_id)
             ...
@@ -1628,8 +1629,8 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_one.free()
-            >>> buffer_two.free()
+            >>> buffer_one = buffer_one.free()
+            >>> buffer_two = buffer_two.free()
 
         Returns integer.
         """
@@ -1658,7 +1659,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_.free()
+            >>> buffer_ = buffer_.free()
             >>> buffer_.duration_in_seconds
             0.0
 
@@ -1689,7 +1690,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_.free()
+            >>> buffer_ = buffer_.free()
             >>> buffer_.frame_count
             0
 
@@ -1735,9 +1736,9 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_one.free()
-            >>> buffer_two.free()
-            >>> buffer_three.free()
+            >>> buffer_one = buffer_one.free()
+            >>> buffer_two = buffer_two.free()
+            >>> buffer_three = buffer_three.free()
 
         ::
 
@@ -1781,7 +1782,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_.free()
+            >>> buffer_ = buffer_.free()
             >>> buffer_.sample_rate
             0
 
@@ -1812,7 +1813,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_.free()
+            >>> buffer_ = buffer_.free()
             >>> buffer_.is_allocated
             False
 
@@ -1842,7 +1843,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
-            >>> buffer_.free()
+            >>> buffer_ = buffer_.free()
             >>> buffer_.server is None
             True
 

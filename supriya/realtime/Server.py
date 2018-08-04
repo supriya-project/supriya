@@ -190,20 +190,65 @@ class Server(SupriyaObject):
         self.quit()
 
     def __getitem__(self, item):
+        """
+        Get ``item`` from server.
+
+        ::
+
+            >>> server = supriya.Server().boot()
+            >>> supriya.Synth(name='foo').allocate()
+            <+ Synth: 1000 (foo)>
+
+        ::
+
+            >>> server[1000]
+            <+ Synth: 1000 (foo)>
+
+        ::
+
+            >>> server['foo']
+            <+ Synth: 1000 (foo)>
+
+        ::
+
+            >>> server['b10']
+            <+ Buffer: 10>
+
+        ::
+
+            >>> server['a0']
+            <+ Bus: 0 (audio)>
+
+        ::
+
+            >>> server['c16']
+            <+ Bus: 16 (control)>
+
+        ::
+
+            >>> server = server.quit()
+            >>> server['c16']
+            Traceback (most recent call last):
+            ...
+            supriya.exceptions.ServerOffline
+
+        """
         import supriya
+        if not self.is_running:
+            raise supriya.exceptions.ServerOffline
         if isinstance(item, str):
             match = re.match('b(?P<id>\d+)', item)
             if match:
                 id_ = int(match.groupdict()['id'])
-                return supriya.realtime.Buffer(id_).allocate()
+                return supriya.realtime.Buffer(id_).allocate(server=self)
             match = re.match('c(?P<id>\d+)', item)
             if match:
                 id_ = int(match.groupdict()['id'])
-                return supriya.realtime.Bus(id_, 'control').allocate()
+                return supriya.realtime.Bus(id_, 'control').allocate(server=self)
             match = re.match('a(?P<id>\d+)', item)
             if match:
                 id_ = int(match.groupdict()['id'])
-                return supriya.realtime.Bus(id_, 'audio').allocate()
+                return supriya.realtime.Bus(id_, 'audio').allocate(server=self)
             result = self.root_node[item]
         elif isinstance(item, int):
             result = self._nodes.get(item)
