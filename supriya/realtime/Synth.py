@@ -40,8 +40,13 @@ class Synth(Node):
         ...     frequency=443,
         ...     synthdef=synthdef
         ...     )
+        >>> synth
+        <- Synth: ???>
+
+    ::
+
         >>> synth.allocate()
-        <Synth: 1000>
+        <+ Synth: 1000>
 
     ::
 

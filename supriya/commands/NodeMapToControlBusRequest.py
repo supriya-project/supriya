@@ -19,10 +19,10 @@ class NodeMapToControlBusRequest(Request):
         ...     )
         >>> request
         NodeMapToControlBusRequest(
-            amplitude=<Bus: 11>,
-            frequency=<Bus: 9>,
+            amplitude=<- Bus: 11 (control)>,
+            frequency=<- Bus: 9 (control)>,
             node_id=1000,
-            phase=<Bus: 10>,
+            phase=<- Bus: 10 (control)>,
             )
 
     ::

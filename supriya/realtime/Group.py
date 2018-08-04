@@ -18,12 +18,12 @@ class Group(Node, UniqueTreeContainer):
 
         >>> group = supriya.realtime.Group()
         >>> group.allocate()
-        <Group: 1000>
+        <+ Group: 1000>
 
     ::
 
         >>> group.free()
-        <Group: ???>
+        <- Group: ???>
 
     ::
 

@@ -2,7 +2,6 @@ import bisect
 import collections
 import os
 import pathlib
-import struct
 import uqbar.io
 import supriya.osc
 import supriya.commands
@@ -102,7 +101,7 @@ class Session:
 
     _ordered_buffer_pre_free_request_types = (
         supriya.commands.BufferWriteRequest,
-        #supriya.commands.BufferCloseRequest,  # should be automatic
+        # supriya.commands.BufferCloseRequest,  # should be automatic
         )
 
     ### INITIALIZER ###
@@ -1136,13 +1135,6 @@ class Session:
         self._transcript = transcript
         return exit_code, output_file_path
 
-    def report(self):
-        states = []
-        for offset in self.offsets[1:]:
-            state = self.states[offset]
-            states.append(state.report())
-        return states
-
     @SessionObject.require_offset
     def set_rand_seed(self, rand_id=0, rand_seed=0, offset=None):
         return self.add_synth(
@@ -1152,23 +1144,6 @@ class Session:
             rand_seed=rand_seed,
             synthdef=self._build_rand_seed_synthdef(),
             )
-
-    def to_datagram(
-        self,
-        duration=None,
-    ):
-        osc_bundles = self.to_osc_bundles(
-            duration=duration,
-            )
-        datagrams = []
-        for osc_bundle in osc_bundles:
-            datagram = osc_bundle.to_datagram(realtime=False)
-            size = len(datagram)
-            size = struct.pack('>i', size)
-            datagrams.append(size)
-            datagrams.append(datagram)
-        datagram = b''.join(datagrams)
-        return datagram
 
     def to_lists(
         self,

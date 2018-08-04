@@ -39,13 +39,16 @@ class Node(ServerObjectProxy, UniqueTreeNode):
         node_id = '???'
         if self.node_id is not None:
             node_id = self.node_id
+        allocation_indicator = '+' if self.is_allocated else '-'
         if self.name is None:
-            string = '<{class_name}: {node_id}>'.format(
+            string = '<{allocated} {class_name}: {node_id}>'.format(
+                allocated=allocation_indicator,
                 class_name=class_name,
                 node_id=node_id,
                 )
         else:
-            string = '<{class_name}: {node_id} ({name})>'.format(
+            string = '<{allocated} {class_name}: {node_id} ({name})>'.format(
+                allocated=allocation_indicator,
                 class_name=class_name,
                 name=self.name,
                 node_id=node_id,

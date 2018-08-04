@@ -13,12 +13,12 @@ class Bus(ServerObjectProxy):
         >>> server = supriya.Server().boot()
         >>> bus = supriya.Bus()
         >>> bus
-        <Bus: ???>
+        <- Bus: ??? (control)>
 
     ::
 
         >>> bus.allocate()
-        <Bus: 0>
+        <+ Bus: 0 (control)>
 
     ::
 
@@ -35,11 +35,11 @@ class Bus(ServerObjectProxy):
 
         >>> print(bus)
         c0
-        
+
     ::
 
         >>> bus.free()
-        <Bus: ???>
+        <- Bus: ??? (control)>
 
     """
 
@@ -95,7 +95,12 @@ class Bus(ServerObjectProxy):
         bus_id = self.bus_id
         if bus_id is None:
             bus_id = '???'
-        return '<{}: {}>'.format(type(self).__name__, bus_id)
+        return '<{} {}: {} ({})>'.format(
+            '+' if self.is_allocated else '-',
+            type(self).__name__,
+            bus_id,
+            self.calculation_rate.name.lower(),
+            )
 
     def __str__(self):
         """

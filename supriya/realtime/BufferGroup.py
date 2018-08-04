@@ -1,4 +1,5 @@
 import os
+import supriya.exceptions
 from supriya.realtime.ServerObjectProxy import ServerObjectProxy
 
 
@@ -14,7 +15,7 @@ class BufferGroup(ServerObjectProxy):
 
         >>> buffer_group = supriya.realtime.BufferGroup(buffer_count=4)
         >>> buffer_group
-        <BufferGroup: {4} @ None>
+        <- BufferGroup{4}: ???>
 
     ::
 
@@ -23,16 +24,12 @@ class BufferGroup(ServerObjectProxy):
         ...     server=server,
         ...     sync=True,
         ...     )
-        <BufferGroup: {4} @ 0>
-
-    ::
-
-        >>> buffer_group
-        <BufferGroup: {4} @ 0>
+        <+ BufferGroup{4}: 0>
 
     ::
 
         >>> buffer_group.free()
+        <- BufferGroup{4}: ???>
 
     """
 
@@ -94,10 +91,14 @@ class BufferGroup(ServerObjectProxy):
 
         Returns string.
         """
-        string = '<{}: {{{}}} @ {}>'.format(
+        buffer_id = self.buffer_id
+        if buffer_id is None:
+            buffer_id = '???'
+        string = '<{} {}{{{}}}: {}>'.format(
+            '+' if self.is_allocated else '-',
             type(self).__name__,
             len(self),
-            self.buffer_id
+            buffer_id
             )
         return string
 
@@ -154,11 +155,9 @@ class BufferGroup(ServerObjectProxy):
         )
         return self
 
-    def free(self):
+    def free(self) -> 'BufferGroup':
         """
         Frees all buffers in buffer group.
-
-        Returns none.
         """
         if not self.is_allocated:
             raise supriya.exceptions.BufferNotAllocated
@@ -168,6 +167,7 @@ class BufferGroup(ServerObjectProxy):
         self._buffer_id = None
         self.server.buffer_allocator.free(buffer_id)
         ServerObjectProxy.free(self)
+        return self
 
     def index(self, item):
         return self.buffers.index(item)
@@ -193,10 +193,10 @@ class BufferGroup(ServerObjectProxy):
             >>> for buffer_ in buffer_group:
             ...     buffer_, buffer_.frame_count
             ...
-            (<Buffer: 0>, 44100)
-            (<Buffer: 1>, 44100)
-            (<Buffer: 2>, 44100)
-            (<Buffer: 3>, 44100)
+            (<+ Buffer: 0>, 44100)
+            (<+ Buffer: 1>, 44100)
+            (<+ Buffer: 2>, 44100)
+            (<+ Buffer: 3>, 44100)
 
         Returns buffer group.
         """

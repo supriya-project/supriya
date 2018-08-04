@@ -12,17 +12,17 @@ class BusGroup(ServerObjectProxy):
         >>> server = supriya.Server().boot()
         >>> bus_group = supriya.BusGroup(bus_count=4)
         >>> bus_group
-        <BusGroup{4}: ???>
+        <- BusGroup{4}: ??? (control)>
 
     ::
 
         >>> bus_group.allocate()
-        <BusGroup{4}: 0>
+        <+ BusGroup{4}: 0 (control)>
 
     ::
 
         >>> bus_group[2]
-        <Bus: 2>
+        <+ Bus: 2 (control)>
 
     ::
 
@@ -49,7 +49,7 @@ class BusGroup(ServerObjectProxy):
     ::
 
         >>> bus_group.free()
-        <BusGroup{4}: ???>
+        <- BusGroup{4}: ??? (control)>
 
     """
 
@@ -125,12 +125,12 @@ class BusGroup(ServerObjectProxy):
             >>> server = supriya.Server().boot()
             >>> bus_group = supriya.BusGroup.control(4).allocate()
             >>> bus_group[0]
-            <Bus: 0>
+            <+ Bus: 0 (control)>
 
         ::
 
             >>> bus_group[1:]
-            <BusGroup{3}: 1>
+            <+ BusGroup{3}: 1 (control)>
 
         """
         if isinstance(item, int):
@@ -143,6 +143,8 @@ class BusGroup(ServerObjectProxy):
                 bus_id=indices[0],
                 calculation_rate=self.calculation_rate,
                 )
+            if self.is_allocated:
+                bus_group._server = self.server
             return bus_group
 
     def __int__(self):
@@ -158,7 +160,13 @@ class BusGroup(ServerObjectProxy):
         bus_id = self.bus_id
         if bus_id is None:
             bus_id = '???'
-        return '<{}{{{}}}: {}>'.format(type(self).__name__, len(self), bus_id)
+        return '<{} {}{{{}}}: {} ({})>'.format(
+            '+' if self.is_allocated else '-',
+            type(self).__name__,
+            len(self),
+            bus_id,
+            self.calculation_rate.name.lower(),
+            )
 
     def __str__(self):
         """
