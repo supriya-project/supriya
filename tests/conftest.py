@@ -89,6 +89,7 @@ def pseudo_server():
 
 @pytest.fixture
 def server():
+    pytest.helpers.kill_scsynth()
     server = supriya.Server()
     server.latency = 0.0
     server.boot()
@@ -97,6 +98,7 @@ def server():
     yield server
     server.debug_osc = False
     server.quit()
+    pytest.helpers.kill_scsynth()
 
 
 # ### DATA ### #
