@@ -84,7 +84,7 @@ class OscIO:
         self.server = None
         self.server_thread = None
         self.port = port
-        self.running = False
+        self.is_running = False
         self.timeout = timeout
         self.response_handlers = {
             '/b_info': supriya.commands.BufferInfoResponse,
@@ -118,7 +118,7 @@ class OscIO:
 
     def boot(self, ip_address=None, port=None):
         with self.lock:
-            if self.running:
+            if self.is_running:
                 return
             if ip_address:
                 self.ip_address = ip_address
@@ -135,7 +135,7 @@ class OscIO:
             )
             self.server_thread.daemon = True
             self.server_thread.start()
-            self.running = True
+            self.is_running = True
 
     def capture(self):
         return self.Capture(self)
@@ -194,12 +194,12 @@ class OscIO:
 
     def quit(self):
         with self.lock:
-            if not self.running:
+            if not self.is_running:
                 return
             self.server.shutdown()
             self.server = None
             self.server_thread = None
-            self.running = False
+            self.is_running = False
 
     def register(self, pattern, procedure, once=False, parse_response=False):
         """
@@ -241,7 +241,7 @@ class OscIO:
     def send(self, message):
         # TODO: only accept request(bundle) objects, and convert all others to
         #       request(bundle) here
-        if not self.running:
+        if not self.is_running:
             raise RuntimeError
         prototype = (str, collections.Iterable, OscBundle, OscMessage)
         if not isinstance(message, prototype):
