@@ -20,6 +20,7 @@ env:
 before_install:
 - git clone -q https://github.com/supercollider/supercollider.git
 - cd $TRAVIS_BUILD_DIR/supercollider &&
+    git checkout Version-3.9.3 &&
     git submodule -q init &&
     git submodule -q update &&
     mkdir BUILD &&

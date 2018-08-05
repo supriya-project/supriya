@@ -14,7 +14,7 @@ docs:
 	make -C docs html
 
 sanity-check:
-	python -c 'import supriya, time; server = supriya.Server(); server.debug_osc = True; server.boot(); time.sleep(3); print(server); server.quit()'
+	python -c 'import supriya; server = supriya.Server().boot(); print(server); server.quit()'
 
 test:
 	rm -Rf htmlcov/
@@ -34,7 +34,8 @@ test-travis:
 		--durations=100 \
 		--profile \
 		--timeout=60 \
-		-q \
+		-x \
+		tests/test_realtime_Server_boot.py \
 		tests/ \
 		supriya/
 
