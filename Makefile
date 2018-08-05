@@ -34,7 +34,8 @@ test-travis:
 		--durations=100 \
 		--profile \
 		--timeout=60 \
-		-q \
+		-x \
+		tests/test_realtime_Server_boot.py \
 		tests/ \
 		supriya/
 
