@@ -1,4 +1,7 @@
+import pytest
+import subprocess
 import supriya.realtime
+from unittest import mock
 
 
 def test_boot():
@@ -52,3 +55,46 @@ def test_server_options():
     finally:
         if server.is_running:
             server.quit()
+
+
+@pytest.mark.parametrize(
+    'exception_type',
+    [
+        supriya.exceptions.ServerTimeout,
+        supriya.exceptions.ServerAddressInUse,
+    ],
+)
+def test_server_boot_errors(exception_type):
+    def check_scsynth():
+        process = subprocess.Popen(
+            'ps -Af',
+            shell=True,
+            stdout=subprocess.PIPE,
+            )
+        output, _ = process.communicate()
+        return output.decode()
+
+    assert 'scsynth' not in check_scsynth()
+
+    server = supriya.realtime.Server()
+    server.boot()
+    assert 'scsynth' in check_scsynth()
+    assert server.is_running
+    assert server.osc_io.is_running
+
+    server.quit()
+    assert 'scsynth' not in check_scsynth()
+    assert not server.is_running
+    assert not server.osc_io.is_running
+
+    with pytest.raises(exception_type), \
+        mock.patch.object(
+            supriya.realtime.Server,
+            '_read_scsynth_boot_output',
+        ) as patch:
+        patch.side_effect = exception_type()
+        server.boot()
+
+    assert 'scsynth' not in check_scsynth()
+    assert not server.is_running
+    assert not server.osc_io.is_running
