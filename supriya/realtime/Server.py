@@ -1,11 +1,14 @@
+import os
+import signal
+import traceback
 import atexit
 import re
 import subprocess
+import supriya.exceptions
 import threading
 import time
 import uqbar.graphs
 import uqbar.io
-import supriya.exceptions
 from supriya import utils
 from supriya.system import PubSub
 from supriya.system import SupriyaObject
@@ -590,9 +593,10 @@ class Server(SupriyaObject):
         import supriya.realtime
         if self.is_running:
             return self
-        scsynth_path = 'scsynth'
-        if not uqbar.io.find_executable(scsynth_path):
+        scsynth_path_candidates = uqbar.io.find_executable('scsynth')
+        if not scsynth_path_candidates:
             raise RuntimeError('Cannot find scsynth')
+        scsynth_path = scsynth_path_candidates[0]
         self._osc_io.boot(
             ip_address=self.ip_address,
             port=self.port,
@@ -606,11 +610,12 @@ class Server(SupriyaObject):
         command = '{} {}'.format(scsynth_path, options_string)
         if self.debug_subprocess:
             print(command)
-        self._server_process = subprocess.Popen(
+        process = self._server_process = subprocess.Popen(
             command,
             shell=True,
-            stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
+            stdout=subprocess.PIPE,
+            start_new_session=True,
             )
         try:
             self._read_scsynth_boot_output()
@@ -619,9 +624,18 @@ class Server(SupriyaObject):
             supriya.exceptions.ServerTimeout,
         ):
             self._osc_io.quit()
-            for process in self._server_process.children(recursive=True):
-                process.kill()
-            self._server_process.kill()
+            try:
+                process_group = os.getpgid(process.pid)
+                os.killpg(process_group, signal.SIGINT)
+            except Exception:
+                traceback.print_exc()
+                pass
+            try:
+                process.terminate()
+                process.wait()
+            except Exception:
+                traceback.print_exc()
+                pass
             raise
         self._is_running = True
         self._server_options = server_options
