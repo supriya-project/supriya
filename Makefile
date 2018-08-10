@@ -51,3 +51,6 @@ testx:
 		--timeout=60 \
 		tests/ \
 		supriya/
+
+mypy:
+	mypy supriya ../uqbar/uqbar
