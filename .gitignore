@@ -29,6 +29,7 @@ nosetests.xml
 .pytest_cache/
 prof/
 htmlcov/
+.mypy_cache/
 
 # Translations
 *.mo

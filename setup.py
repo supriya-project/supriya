@@ -16,6 +16,7 @@ install_requires = [
 
 extras_require = {
     'test': [
+        'mypy',
         'pytest >= 3.6.0',
         'pytest-helpers-namespace',
         'pytest-timeout >= 1.2.0',
