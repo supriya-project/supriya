@@ -1,5 +1,6 @@
 import supriya.realtime
 from supriya.nonrealtime.Group import Group
+from typing import Tuple
 
 
 class RootNode(Group):
@@ -13,7 +14,7 @@ class RootNode(Group):
 
     __slots__ = ()
 
-    _valid_add_actions = (
+    _valid_add_actions: Tuple[int, ...] = (
         supriya.AddAction.ADD_TO_HEAD,
         supriya.AddAction.ADD_TO_TAIL,
         )

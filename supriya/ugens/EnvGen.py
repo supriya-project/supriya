@@ -43,7 +43,7 @@ class EnvGen(UGen):
         level_bias=0.0,
         level_scale=1.0,
         time_scale=1.0,
-        ):
+    ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -67,7 +67,7 @@ class EnvGen(UGen):
         level_bias=0.0,
         level_scale=1.0,
         time_scale=1.0,
-        ):
+    ):
         import supriya.synthdefs
         if not isinstance(done_action, supriya.synthdefs.Parameter):
             done_action = supriya.synthdefs.DoneAction.from_expr(done_action)
@@ -96,7 +96,7 @@ class EnvGen(UGen):
         level_bias=0.0,
         level_scale=1.0,
         time_scale=1.0,
-        ):
+    ):
         """
         Constructs an audio-rate envelope generator.
 
@@ -132,7 +132,7 @@ class EnvGen(UGen):
         level_bias=0.0,
         level_scale=1.0,
         time_scale=1.0,
-        ):
+    ):
         """
         Constructs an control-rate envelope generator.
 

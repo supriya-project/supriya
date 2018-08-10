@@ -1,3 +1,6 @@
+from typing import List
+
+
 class DoNotPropagate:
     """
     Context manager which prevents propagation of node hierarchy changes across
@@ -8,7 +11,7 @@ class DoNotPropagate:
 
     __documentation_section__ = 'Session Internals'
 
-    _stack = []
+    _stack: List['DoNotPropagate'] = []
 
     ### SPECIAL METHODS ###
 

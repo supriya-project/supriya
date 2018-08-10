@@ -11,7 +11,8 @@ import uqbar.graphs
 import uqbar.io
 from supriya import utils
 from supriya.system import PubSub
-from supriya.system import SupriyaObject
+from supriya.system.SupriyaObject import SupriyaObject
+from typing import Dict, Tuple
 
 
 class Server(SupriyaObject):
@@ -73,7 +74,7 @@ class Server(SupriyaObject):
 
     _default_server = None
 
-    _servers = {}
+    _servers: Dict[Tuple[str, int], 'Server'] = {}
 
     ### CONSTRUCTOR ###
 

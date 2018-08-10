@@ -2,7 +2,7 @@ from supriya.system.SupriyaObject import SupriyaObject
 from supriya.time.TimespanCollectionDriver import (
     TimespanCollectionDriver,
     )
-from supriya.time.TimespanCollectionDriverEx import (
+from supriya.time.TimespanCollectionDriverEx import (  # type: ignore
     TimespanCollectionDriverEx,
     )
 from supriya.time.TimespanSimultaneity import TimespanSimultaneity
@@ -39,7 +39,7 @@ class TimespanCollection(SupriyaObject):
         self,
         timespans=None,
         accelerated=None,
-        ):
+    ):
         if accelerated:
             self._driver = TimespanCollectionDriverEx(timespans)
         else:
@@ -484,10 +484,7 @@ class TimespanCollection(SupriyaObject):
         """
         self._driver.insert(timespans)
 
-    def iterate_simultaneities(
-        self,
-        reverse=False,
-        ):
+    def iterate_simultaneities(self, reverse=False):
         """
         Iterates simultaneities in this timespan collection.
 
@@ -544,11 +541,7 @@ class TimespanCollection(SupriyaObject):
                 yield simultaneity
                 simultaneity = simultaneity.next_simultaneity
 
-    def iterate_simultaneities_nwise(
-        self,
-        n=3,
-        reverse=False,
-        ):
+    def iterate_simultaneities_nwise(self, n=3, reverse=False):
         """
         Iterates simultaneities in this timespan collection in groups of
         `n`.

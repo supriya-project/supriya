@@ -1,11 +1,9 @@
-import pyximport
-pyximport.install()
-del(pyximport)
-
-
-import appdirs  # noqa
+import appdirs  # type: ignore
 import configparser  # noqa
 import pathlib  # noqa
+import pyximport  # type: ignore
+
+pyximport.install()
 
 output_path = pathlib.Path(appdirs.user_cache_dir('supriya', 'supriya'))
 if not output_path.exists():
@@ -38,6 +36,7 @@ with config_path.open() as file_pointer:
 del appdirs
 del configparser
 del pathlib
+del pyximport
 
 
 def import_structured_package(
@@ -128,5 +127,5 @@ from supriya.synthdefs import (  # noqa
     )
 from supriya.system import Assets, Bindable, Binding, bind  # noqa
 from supriya.soundfiles import Say  # noqa
-from abjad.tools.topleveltools import graph  # noqa
+from abjad.top import graph  # noqa
 from supriya._version import __version__, __version_info__  # noqa

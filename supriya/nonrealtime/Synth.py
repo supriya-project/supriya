@@ -1,6 +1,9 @@
-import supriya.commands
 import supriya.realtime
+from supriya.commands import SynthNewRequest
 from supriya.nonrealtime.Node import Node
+from supriya.nonrealtime.SessionObject import SessionObject
+from supriya.nonrealtime.NodeAction import NodeAction
+from typing import Dict, Optional
 
 
 class Synth(Node):
@@ -27,12 +30,14 @@ class Synth(Node):
     def __init__(
         self,
         session,
-        session_id,
-        duration=None,
+        session_id: int,
+        duration: float=None,
         synthdef=None,
-        start_offset=None,
+        start_offset: float=None,
         **synth_kwargs
-    ):
+    ) -> None:
+        if synthdef is None:
+            synthdef = supriya.assets.synthdefs.default
         Node.__init__(
             self,
             session,
@@ -45,12 +50,26 @@ class Synth(Node):
 
     ### SPECIAL METHODS ###
 
-    def __str__(self):
+    def __str__(self) -> str:
         return 'synth-{}'.format(self.session_id)
 
     ### PRIVATE METHODS ###
 
-    def _to_request(self, action, id_mapping, **synth_kwargs):
+    def _get_at_offset(
+        self,
+        offset: float,
+        item: str,
+    ) -> Optional[float]:
+        default = self.synthdef.parameters[item].value
+        default = self._synth_kwargs.get(item, default)
+        return super()._get_at_offset(offset=offset, item=item) or default
+
+    def _to_request(
+        self,
+        action: NodeAction,
+        id_mapping: Dict[SessionObject, int],
+        **synth_kwargs,
+    ) -> SynthNewRequest:
         import supriya.nonrealtime
         source_id = id_mapping[action.source]
         target_id = id_mapping[action.target]
@@ -75,7 +94,7 @@ class Synth(Node):
                 synth_kwargs[key] = value
             elif isinstance(value, buffer_prototype):
                 synth_kwargs[key] = id_mapping[value]
-        request = supriya.commands.SynthNewRequest(
+        request = SynthNewRequest(
             add_action=add_action,
             node_id=source_id,
             synthdef=self.synthdef.anonymous_name,

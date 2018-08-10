@@ -1,6 +1,8 @@
 import supriya.synthdefs
 import supriya.system
 from supriya.live.Slot import Slot
+from supriya.system.Bindable import Bindable
+from supriya.system.BindableNamespace import BindableNamespace
 
 
 class SynthSlot(Slot):
@@ -41,11 +43,11 @@ class SynthSlot(Slot):
                 kwargs.pop(key)
             elif key not in self._synthdef.parameter_names:
                 kwargs.pop(key)
-        return supriya.system.BindableNamespace(**kwargs)
+        return BindableNamespace(**kwargs)
 
     ### PUBLIC METHODS ###
 
-    @supriya.system.Bindable(rebroadcast=True)
+    @Bindable(rebroadcast=True)
     def play(self, state):
         if not self.is_allocated:
             return False

@@ -20,8 +20,6 @@ class TwoZero(TwoPole):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
-
     __slots__ = ()
 
     _ordered_input_names = (
@@ -40,7 +38,7 @@ class TwoZero(TwoPole):
         frequency=440,
         radius=0.8,
         source=None,
-        ):
+    ):
         TwoPole.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -57,7 +55,7 @@ class TwoZero(TwoPole):
         frequency=440,
         radius=0.8,
         source=None,
-        ):
+    ):
         """
         Constructs an audio-rate TwoZero.
 
@@ -92,7 +90,7 @@ class TwoZero(TwoPole):
         frequency=440,
         radius=0.8,
         source=None,
-        ):
+    ):
         """
         Constructs a control-rate TwoZero.
 
@@ -118,16 +116,6 @@ class TwoZero(TwoPole):
             source=source,
             )
         return ugen
-
-    # def magResponse(): ...
-
-    # def magResponse2(): ...
-
-    # def magResponse5(): ...
-
-    # def magResponseN(): ...
-
-    # def scopeResponse(): ...
 
     ### PUBLIC PROPERTIES ###
 

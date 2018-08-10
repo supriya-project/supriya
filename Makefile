@@ -53,4 +53,4 @@ testx:
 		supriya/
 
 mypy:
-	mypy supriya ../uqbar/uqbar
+	mypy supriya ../uqbar/uqbar ../../Abjad/abjad/abjad ../../Abjad/abjad-ext-tonality/abjadext

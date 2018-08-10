@@ -1,9 +1,9 @@
-from supriya import utils
-
 import supriya.system
+from supriya import utils
+from supriya.system.SupriyaObject import SupriyaObject
 
 
-class ServerMeters(supriya.system.SupriyaObject):
+class ServerMeters(SupriyaObject):
     """
     A server recorder.
 

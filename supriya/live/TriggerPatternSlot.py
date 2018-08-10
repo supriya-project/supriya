@@ -2,6 +2,7 @@ import supriya.patterns
 import supriya.realtime
 import supriya.system
 from supriya.live.PatternSlot import PatternSlot
+from supriya.system.Bindable import Bindable
 
 
 class TriggerPatternSlot(PatternSlot):
@@ -16,7 +17,7 @@ class TriggerPatternSlot(PatternSlot):
         pattern=None,
         maximum_replicas=64,
         **kwargs
-        ):
+    ):
         PatternSlot.__init__(
             self,
             name=name,
@@ -40,7 +41,7 @@ class TriggerPatternSlot(PatternSlot):
         self._pattern = pattern
         self._iterator = iter(pattern)
 
-    @supriya.system.Bindable(rebroadcast=True)
+    @Bindable(rebroadcast=True)
     def trigger(self, state):
         import supriya.assets.synthdefs
         if not self.is_allocated or not self._iterator:
@@ -69,7 +70,7 @@ class TriggerPatternSlot(PatternSlot):
                 synthdef=synthdef,
                 uuids=[],
                 synth_parameters_only=True,
-                ):
+            ):
                 synth_kwargs.update(self.synth_kwargs)
                 synth = supriya.realtime.Synth(synthdef=synthdef)
                 synth.allocate(**synth_kwargs)

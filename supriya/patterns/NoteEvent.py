@@ -22,7 +22,7 @@ class NoteEvent(Event):
         target_node=None,
         uuid=None,
         **settings
-        ):
+    ):
         if add_action is not None:
             add_action = supriya.AddAction.from_expr(add_action)
         Event.__init__(
@@ -45,7 +45,7 @@ class NoteEvent(Event):
         uuids,
         offset,
         maximum_offset=None,
-        ):
+    ):
         import supriya.assets.synthdefs
         settings = self.settings.copy()  # Do not mutate in place.
         synthdef = self.get('synthdef', supriya.assets.synthdefs.default)
@@ -102,7 +102,7 @@ class NoteEvent(Event):
         server=None,
         timestamp=0,
         uuids=None,
-        ):
+    ):
         import supriya.assets.synthdefs
         import supriya.patterns
         synth_uuid = self.get('uuid') or uuid.uuid4()
@@ -162,7 +162,7 @@ class NoteEvent(Event):
         synthdef,
         timestamp,
         uuids,
-        ):
+    ):
         import supriya.patterns
         requests = []
         node_ids = uuids[synth_uuid]
@@ -214,7 +214,7 @@ class NoteEvent(Event):
         synthdef,
         timestamp,
         uuids,
-        ):
+    ):
         import supriya.patterns
         import supriya.synthdefs
         duration = self['duration']
@@ -233,7 +233,7 @@ class NoteEvent(Event):
         elif any(
             x >= supriya.synthdefs.DoneAction.FREE_SYNTH
             for x in synthdef.done_actions
-            ):
+        ):
             pass
         else:
             request = supriya.commands.NodeFreeRequest(

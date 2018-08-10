@@ -1,5 +1,6 @@
 import abc
 import uqbar.objects
+from typing import Optional
 
 
 class SupriyaObject(metaclass=abc.ABCMeta):
@@ -8,6 +9,8 @@ class SupriyaObject(metaclass=abc.ABCMeta):
     """
 
     ### CLASS VARIABLES ###
+
+    __documentation_section__: Optional[str] = None
 
     __slots__ = ()
 

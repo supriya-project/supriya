@@ -9,8 +9,6 @@ class MultiOutUGen(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
-
     __slots__ = (
         '_channel_count',
         )
@@ -24,7 +22,7 @@ class MultiOutUGen(UGen):
         special_index=0,
         channel_count=1,
         **kwargs
-        ):
+    ):
         self._channel_count = int(channel_count)
         if 'channel_count' in self._ordered_input_names:
             kwargs['channel_count'] = channel_count
@@ -48,11 +46,7 @@ class MultiOutUGen(UGen):
     ### PRIVATE METHODS ###
 
     @classmethod
-    def _new_expanded(
-        cls,
-        special_index=0,
-        **kwargs
-        ):
+    def _new_expanded(cls, special_index=0, **kwargs):
         import supriya.synthdefs
         import supriya.ugens
         ugen = super(MultiOutUGen, cls)._new_expanded(

@@ -1,7 +1,11 @@
 import bisect
 import collections
+import supriya  # noqa
 from supriya import utils
 from supriya.nonrealtime.SessionObject import SessionObject
+from supriya.nonrealtime.NodeAction import NodeAction
+from supriya.nonrealtime.State import State
+from typing import Dict, List, Optional, Set, Tuple, Union
 
 
 class Node(SessionObject):
@@ -21,15 +25,17 @@ class Node(SessionObject):
         '_start_offset',
         )
 
+    _valid_add_actions: Tuple[int, ...] = ()
+
     ### INITIALIZER ###
 
     def __init__(
         self,
         session,
-        session_id,
-        duration=None,
-        start_offset=None,
-    ):
+        session_id: int,
+        duration: float=None,
+        start_offset: float=None,
+    ) -> None:
         SessionObject.__init__(self, session)
         self._session_id = int(session_id)
         start_offset = start_offset or 0
@@ -37,11 +43,11 @@ class Node(SessionObject):
         if duration is None:
             duration = float('inf')
         self._duration = duration
-        self._events = {}
+        self._events: Dict[str, List[Tuple[float, float]]] = {}
 
     ### SPECIAL METHODS ###
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return '<{} #{} @{}:{}>'.format(
             type(self).__name__,
             self.session_id,
@@ -51,12 +57,19 @@ class Node(SessionObject):
 
     ### SPECIAL METHODS ###
 
-    def __getitem__(self, item):
+    def __getitem__(
+        self,
+        item: str,
+    ) -> float:
         assert self.session._active_moments
         offset = self.session._active_moments[-1].offset
-        return self._get_at_offset(offset, item)
+        return self._get_at_offset(offset, item) or 0
 
-    def __setitem__(self, item, value):
+    def __setitem__(
+        self,
+        item: str,
+        value: Union[float, 'supriya.nonrealtime.Bus', 'supriya.nonrealtime.BusGroup'],
+    ) -> None:
         import supriya.nonrealtime
         assert self.session._active_moments
         offset = self.session._active_moments[-1].offset
@@ -65,7 +78,11 @@ class Node(SessionObject):
 
     ### PRIVATE METHODS ###
 
-    def _add_node(self, node, add_action):
+    def _add_node(
+        self,
+        node: 'Node',
+        add_action: int,
+    ) -> 'Node':
         state = self.session._find_state_at(
             node.start_offset,
             clone_if_missing=True,
@@ -81,12 +98,18 @@ class Node(SessionObject):
         self.move_node(node, add_action=add_action)
         self.session.nodes.insert(node)
         self.session._apply_transitions([node.start_offset, node.stop_offset])
+        return node
 
-    def _collect_settings(self, offset, id_mapping=None, persistent=False):
-        settings = {}
+    def _collect_settings(
+        self,
+        offset: float,
+        id_mapping=None,
+        persistent=False,
+    ):
+        settings: Dict[str, float] = {}
         if persistent:
             for key in self._events:
-                value = self._get_at_offset(offset, key)
+                value = self._get_at_offset(offset, key) or 0.
                 if id_mapping and value in id_mapping:
                     value = id_mapping[value]
                 settings[key] = value
@@ -106,7 +129,10 @@ class Node(SessionObject):
                     settings[key] = value
         return settings
 
-    def _fixup_duration(self, new_duration):
+    def _fixup_duration(
+        self,
+        new_duration: float,
+    ) -> None:
         old_duration = self._duration
         if old_duration == new_duration:
             return
@@ -120,8 +146,13 @@ class Node(SessionObject):
         with self.session.at(self.stop_offset, propagate=False) as moment:
             moment.state.stop_nodes.add(self)
 
-    def _fixup_events(self, new_node, split_offset):
-        left_events, right_events = {}, {}
+    def _fixup_events(
+        self,
+        new_node: 'Node',
+        split_offset: float,
+    ) -> None:
+        left_events: Dict[str, List[Tuple[float, float]]] = {}
+        right_events: Dict[str, List[Tuple[float, float]]] = {}
         for name, events in self._events.items():
             for offset, value in events:
                 if offset < split_offset:
@@ -139,7 +170,12 @@ class Node(SessionObject):
         self._events = left_events
         new_node._events = right_events
 
-    def _fixup_node_actions(self, new_node, start_offset, stop_offset):
+    def _fixup_node_actions(
+        self,
+        new_node: 'Node',
+        start_offset: 'float',
+        stop_offset: 'float',
+    ) -> None:
         for offset in sorted(self.session.states):
             if offset < start_offset:
                 continue
@@ -154,18 +190,17 @@ class Node(SessionObject):
                 if action.target is self:
                     action._target = new_node
 
-    def _get_at_offset(self, offset, item):
+    def _get_at_offset(
+        self,
+        offset: float,
+        item: str,
+    ) -> Optional[float]:
         """
-        Relative to Synth start offset.
+        Relative to Node start offset.
         """
         events = self._events.get(item)
-        if hasattr(self, 'synthdef'):
-            default = self.synthdef.parameters[item].value
-            default = self._synth_kwargs.get(item, default)
-        else:
-            default = None
         if not events:
-            return default
+            return None
         index = bisect.bisect_left(events, (offset, 0.))
         if len(events) <= index:
             old_offset, value = events[-1]
@@ -175,7 +210,7 @@ class Node(SessionObject):
             return value
         index -= 1
         if index < 0:
-            return default
+            return None
         _, value = events[index]
         return value
 
@@ -201,11 +236,11 @@ class Node(SessionObject):
 
     def _split(
         self,
-        split_offset,
+        split_offset: float,
         new_nodes=None,
-        split_occupiers=True,
-        split_traversers=True,
-    ):
+        split_occupiers: bool=True,
+        split_traversers: bool=True,
+    ) -> List['Node']:
         import supriya.nonrealtime
         new_nodes = new_nodes or []
         state = self.session.states[split_offset]
@@ -230,7 +265,7 @@ class Node(SessionObject):
                         duration=new_duration,
                         )
             new_nodes.append(new_node)
-            new_actions = collections.OrderedDict()
+            new_actions: Dict['Node', NodeAction] = collections.OrderedDict()
             for node in new_nodes:
                 if node is new_node and self in old_actions:
                     old_actions.pop(node)
@@ -280,10 +315,10 @@ class Node(SessionObject):
     @SessionObject.require_offset
     def add_group(
         self,
-        add_action=None,
-        duration=None,
-        offset=None,
-    ):
+        add_action: int=None,
+        duration: float=None,
+        offset: float=None,
+    ) -> 'supriya.nonrealtime.Group':
         import supriya.nonrealtime
         if add_action is None:
             add_action = self._valid_add_actions[0]
@@ -302,12 +337,12 @@ class Node(SessionObject):
     @SessionObject.require_offset
     def add_synth(
         self,
-        add_action=None,
-        duration=None,
+        add_action: int=None,
+        duration: float=None,
         synthdef=None,
-        offset=None,
+        offset: float=None,
         **synth_kwargs
-    ):
+    ) -> 'supriya.nonrealtime.Synth':
         import supriya.assets.synthdefs
         import supriya.nonrealtime
         if add_action is None:
@@ -332,18 +367,15 @@ class Node(SessionObject):
     @SessionObject.require_offset
     def move_node(
         self,
-        node,
-        add_action=None,
-        offset=None,
-    ):
+        node: 'Node',
+        add_action: int=None,
+        offset: float=None,
+    ) -> 'Node':
         import supriya.nonrealtime
-        state = self.session.active_moments[-1].state
+        state: State = self.session.active_moments[-1].state
         if state.nodes_to_parents is None:
             state._desparsify()
-        if (
-            node in state.nodes_to_parents and
-            node in self.get_parentage()
-        ):
+        if node in state.nodes_to_parents and node in self.get_parentage():
             raise ValueError("Can't add parent as a child.")
         if add_action is None:
             add_action = self._valid_add_actions[0]
@@ -356,8 +388,9 @@ class Node(SessionObject):
             )
         state.transitions[node] = node_action
         self.session._apply_transitions([state.offset, node.stop_offset])
+        return node
 
-    def delete(self):
+    def delete(self) -> None:
         start_state = self.session._find_state_at(self.start_offset)
         start_state.start_nodes.remove(self)
         stop_state = self.session._find_state_at(self.stop_offset)
@@ -384,11 +417,15 @@ class Node(SessionObject):
         self.session.nodes.remove(self)
         self.session._apply_transitions([self.start_offset, self.stop_offset])
 
-    def set_duration(self, new_duration, clip_children=False):
+    def set_duration(
+        self,
+        new_duration: float,
+        clip_children: bool=False,
+    ) -> 'Node':
         import supriya.nonrealtime
         assert new_duration > 0
         if self.duration == new_duration:
-            return
+            return self
         if new_duration < self.duration:
             split_offset = self.start_offset + new_duration
             if clip_children:
@@ -410,6 +447,7 @@ class Node(SessionObject):
                         )
                     new_node.delete()
             self.session._find_state_at(new_node.stop_offset)._sparsify()
+            return old_node
         else:
             old_stop_offset = self.stop_offset
             new_stop_offset = self.start_offset + new_duration
@@ -438,15 +476,17 @@ class Node(SessionObject):
                 old_stop_offset,
                 new_stop_offset,
                 ])
+            return self
 
     @SessionObject.require_offset
     def split(
         self,
-        split_occupiers=True,
-        split_traversers=True,
-        offset=None,
-    ):
-        assert self.session.active_moments
+        split_occupiers: bool=True,
+        split_traversers: bool=True,
+        offset: float=None,
+    ) -> List['Node']:
+        if offset is None:
+            raise ValueError
         state = self.session.active_moments[-1].state
         self.session._apply_transitions(state.offset)
         shards = self._split(
@@ -463,18 +503,27 @@ class Node(SessionObject):
     ### RELATIONS ###
 
     @SessionObject.require_offset
-    def inspect_children(self, offset=None):
+    def inspect_children(
+        self,
+        offset: float=None,
+    ) -> Tuple[
+        Tuple['Node', ...],
+        Tuple['Node', ...],
+        Tuple['Node', ...],
+        Tuple['Node', ...],
+        Tuple['Node', ...],
+    ]:
         this_state = self.session._find_state_at(offset, clone_if_missing=True)
         prev_state = self.session._find_state_before(this_state.offset, True)
         prev_state._desparsify()
         this_state._desparsify()
         prev_children = prev_state.nodes_to_children.get(self) or ()
         this_children = this_state.nodes_to_children.get(self) or ()
-        entering = set()
-        exiting = set()
-        occupying = set()
-        starting = set()
-        stopping = set()
+        entering: Set['Node'] = set()
+        exiting: Set['Node'] = set()
+        occupying: Set['Node'] = set()
+        starting: Set['Node'] = set()
+        stopping: Set['Node'] = set()
         for node in prev_children:
             if node.stop_offset == offset:
                 stopping.add(node)
@@ -494,15 +543,19 @@ class Node(SessionObject):
                 occupying.add(node)
             else:
                 entering.add(node)
-        entering = tuple(sorted(entering, key=lambda x: x.session_id))
-        exiting = tuple(sorted(exiting, key=lambda x: x.session_id))
-        occupying = tuple(sorted(occupying, key=lambda x: x.session_id))
-        starting = tuple(sorted(starting, key=lambda x: x.session_id))
-        stopping = tuple(sorted(stopping, key=lambda x: x.session_id))
-        return (entering, exiting, occupying, starting, stopping)
+        return (
+            tuple(sorted(entering, key=lambda x: x.session_id)),
+            tuple(sorted(exiting, key=lambda x: x.session_id)),
+            tuple(sorted(occupying, key=lambda x: x.session_id)),
+            tuple(sorted(starting, key=lambda x: x.session_id)),
+            tuple(sorted(stopping, key=lambda x: x.session_id)),
+        )
 
     @SessionObject.require_offset
-    def get_parent(self, offset=None):
+    def get_parent(
+        self,
+        offset: float=None,
+    ) -> Optional['Node']:
         state = self.session._find_state_at(offset, clone_if_missing=True)
         if not state.nodes_to_children:
             state = self.session._find_state_before(state.offset, True)
@@ -511,7 +564,10 @@ class Node(SessionObject):
         return state.nodes_to_parents.get(self)
 
     @SessionObject.require_offset
-    def get_parentage(self, offset=None):
+    def get_parentage(
+        self,
+        offset: float=None,
+    ) -> List['Node']:
         state = self.session._find_state_at(offset, clone_if_missing=True)
         if not state.nodes_to_children:
             state = self.session._find_state_before(state.offset, True)
@@ -526,19 +582,19 @@ class Node(SessionObject):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def duration(self):
+    def duration(self) -> float:
         return self._duration
 
     @property
-    def session_id(self):
+    def session_id(self) -> int:
         return self._session_id
 
     @property
-    def start_offset(self):
+    def start_offset(self) -> float:
         return self._start_offset
 
     @property
-    def stop_offset(self):
+    def stop_offset(self) -> float:
         if self.duration is None:
-            return None
+            return float('inf')
         return self.start_offset + self.duration

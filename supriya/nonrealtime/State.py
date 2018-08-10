@@ -1,6 +1,7 @@
 import collections
 import supriya.commands
 from supriya.nonrealtime.SessionObject import SessionObject
+from typing import Dict, Tuple
 
 
 class State(SessionObject):
@@ -31,10 +32,11 @@ class State(SessionObject):
     ### INITIALIZER ###
 
     def __init__(self, session, offset):
+        from supriya.nonrealtime import Node
         SessionObject.__init__(self, session)
         self._transitions = collections.OrderedDict()
-        self._nodes_to_children = None
-        self._nodes_to_parents = None
+        self._nodes_to_children: Dict[Node, Tuple[Node]] = {}
+        self._nodes_to_parents: Dict[Node, Tuple[Node]] = {}
         self._start_nodes = set()
         self._stop_nodes = set()
         self._start_buffers = set()
@@ -242,15 +244,21 @@ class State(SessionObject):
         return True
 
     @property
-    def nodes_to_children(self):
+    def nodes_to_children(self) -> Dict[
+        'supriya.nonrealtime.Node',
+        Tuple['supriya.nonrealtime.Node'],
+    ]:
         return self._nodes_to_children
 
     @property
-    def nodes_to_parents(self):
+    def nodes_to_parents(self) -> Dict[
+        'supriya.nonrealtime.Node',
+        Tuple['supriya.nonrealtime.Node'],
+    ]:
         return self._nodes_to_parents
 
     @property
-    def offset(self):
+    def offset(self) -> float:
         return self._offset
 
     @property

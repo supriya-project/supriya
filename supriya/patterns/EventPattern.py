@@ -37,7 +37,7 @@ class EventPattern(Pattern):
         calculation_rate='audio',
         channel_count=None,
         release_time=0.25,
-        ):
+    ):
         import supriya.patterns
         return supriya.patterns.Pbus(
             self,
@@ -51,7 +51,7 @@ class EventPattern(Pattern):
         synthdef,
         release_time=0.25,
         **settings
-        ):
+    ):
         import supriya.patterns
         return supriya.patterns.Pfx(
             self,

@@ -1,6 +1,7 @@
 import supriya.patterns
 import supriya.system
 from supriya.live.PatternSlot import PatternSlot
+from supriya.system.Bindable import Bindable
 
 
 class AutoPatternSlot(PatternSlot):
@@ -14,7 +15,7 @@ class AutoPatternSlot(PatternSlot):
         pattern,
         synthdef=None,
         **kwargs
-        ):
+    ):
         self._event_player = None
         PatternSlot.__init__(
             self,
@@ -27,7 +28,7 @@ class AutoPatternSlot(PatternSlot):
 
     ### PUBLIC METHODS ###
 
-    @supriya.system.Bindable(rebroadcast=True)
+    @Bindable(rebroadcast=True)
     def play(self, state):
         if not self.is_allocated:
             return False

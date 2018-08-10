@@ -5,8 +5,9 @@ import itertools
 import re
 from supriya import utils
 from supriya.system import BindableNamespace
-from supriya.system import SupriyaValueObject
+from supriya.system.SupriyaValueObject import SupriyaValueObject
 from uqbar.enums import IntEnumeration
+from typing import Dict, Generator, Iterator
 
 
 class Pattern(SupriyaValueObject):
@@ -18,7 +19,7 @@ class Pattern(SupriyaValueObject):
 
     __slots__ = ()
 
-    _rngs = {}
+    _rngs: Dict[int, Iterator[float]] = {}
 
     class PatternState(IntEnumeration):
         CONTINUE = 0
@@ -106,7 +107,7 @@ class Pattern(SupriyaValueObject):
         import supriya.patterns
         return supriya.patterns.Pbinop(self, '-', expr)
 
-    def __iter__(self):
+    def __iter__(self) -> Generator:
         import supriya.patterns
         should_stop = self.PatternState.CONTINUE
         state = self._setup_state()
@@ -188,7 +189,7 @@ class Pattern(SupriyaValueObject):
         elif (
             isinstance(value, collections.Sequence) and
             not isinstance(value, Pattern)
-            ):
+        ):
             return tuple(cls._freeze_recursive(_) for _ in value)
         return value
 
@@ -213,7 +214,7 @@ class Pattern(SupriyaValueObject):
                 if (
                     file_path == pseed_file_path and
                     function_name == '_iterate'
-                    ):
+                ):
                     identifier = id(frame)
                     break
                 frame = frame.f_back
@@ -224,6 +225,10 @@ class Pattern(SupriyaValueObject):
         else:
             rng = RandomNumberGenerator.get_stdlib_rng()
         return rng
+
+    @abc.abstractmethod
+    def _iterate(self, state=None):
+        raise NotImplementedError
 
     @classmethod
     def _loop(cls, repetitions=None):
@@ -236,8 +241,10 @@ class Pattern(SupriyaValueObject):
 
     @classmethod
     def _process_recursive(cls, one, two, procedure):
-        if not isinstance(one, collections.Sequence) and \
-            not isinstance(two, collections.Sequence):
+        if (
+            not isinstance(one, collections.Sequence) and
+            not isinstance(two, collections.Sequence)
+        ):
             return procedure(one, two)
         if not isinstance(one, collections.Sequence):
             one = [one]

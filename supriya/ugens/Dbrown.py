@@ -37,7 +37,7 @@ class Dbrown(DUGen):
         maximum=1,
         minimum=0,
         step=0.01,
-        ):
+    ):
         if length is None:
             length = float('inf')
         DUGen.__init__(
@@ -57,7 +57,7 @@ class Dbrown(DUGen):
         maximum=1,
         minimum=0,
         step=0.01,
-        ):
+    ):
         """
         Constructs a Dbrown.
 

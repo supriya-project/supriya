@@ -1,4 +1,4 @@
-from abjad.tools import timespantools
+import abjad.timespans
 
 
 class _CTimespan:
@@ -164,7 +164,7 @@ class TimespanCollectionDriver:
     ### PRIVATE METHODS ###
 
     def _get_node_ctimespan(self, node):
-        return timespantools.Timespan(
+        return abjad.timespans.Timespan(
             start_offset=node.start_offset,
             stop_offset=node.stop_offset_high,
             )
@@ -251,8 +251,10 @@ class TimespanCollectionDriver:
             subresult = self._recurse_find_timespans_intersecting_timespan(
                 node.right_child, ctimespan)
             result.extend(subresult)
-        elif (ctimespan.start_offset <= node.start_offset) or \
-            (ctimespan.stop_offset <= node.start_offset):
+        elif (
+            (ctimespan.start_offset <= node.start_offset) or
+            (ctimespan.stop_offset <= node.start_offset)
+        ):
             subresult = self._recurse_find_timespans_intersecting_timespan(
                 node.left_child, ctimespan)
             result.extend(subresult)
@@ -324,12 +326,12 @@ class TimespanCollectionDriver:
         elif (
             node.left_child is not None and
             index < node.node_start_index
-            ):
+        ):
             return self._recurse_getitem_by_index(node.left_child, index)
         elif (
             node.right_child is not None and
             node.node_stop_index <= index
-            ):
+        ):
             return self._recurse_getitem_by_index(node.right_child, index)
 
     def _recurse_getitem_by_slice(self, node, start, stop):
@@ -445,10 +447,7 @@ class TimespanCollectionDriver:
                 )
             node.subtree_stop_index = node.right_child.subtree_stop_index
 
-    def _update_offsets(
-        self,
-        node,
-        ):
+    def _update_offsets(self, node):
         if node is None:
             return
         stop_offset_low = min(x.stop_offset for x in node.payload)

@@ -3,6 +3,7 @@ import supriya.osc
 import supriya.realtime
 import supriya.system
 from supriya.live.Track import Track
+from supriya.system.Bindable import Bindable
 
 
 class Mixer:
@@ -238,7 +239,7 @@ class Mixer:
 
     ### BINDABLES ###
 
-    @supriya.system.Bindable(rebroadcast=True)
+    @Bindable(rebroadcast=True)
     def allow_multiple(self, state):
         self._is_allowing_multiple = bool(state)
         return self._is_allowing_multiple

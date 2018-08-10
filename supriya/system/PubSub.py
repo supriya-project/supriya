@@ -1,6 +1,7 @@
 import functools
 import threading
 from supriya.system.SupriyaObject import SupriyaObject
+from typing import Callable, Dict, Set
 
 
 class PubSub(SupriyaObject):
@@ -10,8 +11,8 @@ class PubSub(SupriyaObject):
     __documentation_section__ = 'Server Internals'
 
     _lock = threading.Lock()
-    _subscribers = {}
-    _topics = {}
+    _subscribers: Dict[Callable, Set[str]] = {}
+    _topics: Dict[str, Set[Callable]] = {}
 
     ### PRIVATE METHODS ###
 

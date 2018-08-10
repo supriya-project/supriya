@@ -2,10 +2,9 @@ import collections
 import copy
 import logging
 import pathlib
-import rtmidi
+import rtmidi  # type: ignore
 import threading
 import uqbar.containers
-import supriya.system
 from supriya.midi.LogicalView import LogicalView
 from supriya.midi.LogicalControl import LogicalControl
 from supriya.midi.LogicalControlMode import LogicalControlMode

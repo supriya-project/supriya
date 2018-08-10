@@ -5,7 +5,7 @@ import shutil
 import struct
 import subprocess
 import sys
-import tqdm
+import tqdm  # type: ignore
 import uqbar.containers
 import uqbar.io
 import yaml
@@ -19,9 +19,10 @@ from supriya.exceptions import (
 import supriya.realtime
 import supriya.soundfiles
 import supriya.system
+from supriya.system.SupriyaObject import SupriyaObject
 
 
-class SessionRenderer(supriya.system.SupriyaObject):
+class SessionRenderer(SupriyaObject):
     """
     Renders non-realtime sessions as audio files.
     """

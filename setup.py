@@ -3,7 +3,7 @@ import setuptools
 
 install_requires = [
     'PyYAML',
-    'abjad == 2.21',
+    'abjad == 3.0.0',
     'appdirs',
     'cython',
     'numpy',

@@ -1,4 +1,4 @@
-import supriya.system
+from supriya.system.Bindable import Bindable
 from supriya.midi.LogicalControlMode import LogicalControlMode
 
 
@@ -12,7 +12,7 @@ class LogicalControl:
         physical_control,
         device,
         mode=None,
-        ):
+    ):
         self.device = device
         self.mode = LogicalControlMode.from_expr(mode)
         self.name = name
@@ -23,7 +23,7 @@ class LogicalControl:
 
     ### SPECIAL METHODS ###
 
-    @supriya.system.Bindable(rebroadcast=True)
+    @Bindable(rebroadcast=True)
     def __call__(self, value):
         value = float(value)
         if self.parent.is_mutex:
@@ -71,7 +71,7 @@ class LogicalControl:
         if self.mode in (
             LogicalControlMode.CONTINUOUS,
             LogicalControlMode.TOGGLE,
-            ):
+        ):
             self.physical_control.set_led(self.value * 127)
         else:
             self.physical_control.set_led(0)
@@ -80,7 +80,7 @@ class LogicalControl:
         if (
             self.mode == LogicalControlMode.CONTINUOUS and
             self.physical_control.mode == self.physical_control.Mode.BOOLEAN
-            ):
+        ):
             self.previous_value = self.value
             self.value = 0.
 

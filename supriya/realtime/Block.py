@@ -1,4 +1,5 @@
-from abjad.tools.timespantools.Timespan import Timespan
+from abjad import NegativeInfinity, Infinity
+from abjad.timespans.Timespan import Timespan
 
 
 class Block(Timespan):
@@ -18,7 +19,7 @@ class Block(Timespan):
         start_offset=NegativeInfinity,
         stop_offset=Infinity,
         used=False,
-        ):
+    ):
         if start_offset is None:
             start_offset = NegativeInfinity
         if stop_offset is None:

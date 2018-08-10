@@ -11,6 +11,18 @@ import supriya.synthdefs
 import supriya.time
 from queue import PriorityQueue
 from supriya.nonrealtime.SessionObject import SessionObject
+from supriya.commands import (
+    BufferReadRequest,
+    BufferReadChannelRequest,
+    BufferZeroRequest,
+    BufferFillRequest,
+    BufferGenerateRequest,
+    BufferSetRequest,
+    BufferSetContiguousRequest,
+    BufferNormalizeRequest,
+    BufferCopyRequest,
+    BufferWriteRequest,
+)
 
 
 class Session:
@@ -88,19 +100,19 @@ class Session:
         )
 
     _ordered_buffer_post_alloc_request_types = (
-        supriya.commands.BufferReadRequest,
-        supriya.commands.BufferReadChannelRequest,
-        supriya.commands.BufferZeroRequest,
-        supriya.commands.BufferFillRequest,
-        supriya.commands.BufferGenerateRequest,
-        supriya.commands.BufferSetRequest,
-        supriya.commands.BufferSetContiguousRequest,
-        supriya.commands.BufferNormalizeRequest,
-        supriya.commands.BufferCopyRequest,
+        BufferReadRequest,
+        BufferReadChannelRequest,
+        BufferZeroRequest,
+        BufferFillRequest,
+        BufferGenerateRequest,
+        BufferSetRequest,
+        BufferSetContiguousRequest,
+        BufferNormalizeRequest,
+        BufferCopyRequest,
         )
 
     _ordered_buffer_pre_free_request_types = (
-        supriya.commands.BufferWriteRequest,
+        BufferWriteRequest,
         # supriya.commands.BufferCloseRequest,  # should be automatic
         )
 

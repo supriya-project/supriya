@@ -3,6 +3,7 @@ import copy
 import uuid
 from supriya import utils
 from supriya.system.SupriyaObject import SupriyaObject
+from typing import List
 
 
 class SynthDefBuilder(SupriyaObject):
@@ -47,7 +48,7 @@ class SynthDefBuilder(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    _active_builders = []
+    _active_builders: List['SynthDefBuilder'] = []
 
     __documentation_section__ = 'Main Classes'
 
@@ -60,11 +61,7 @@ class SynthDefBuilder(SupriyaObject):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        name=None,
-        **kwargs
-        ):
+    def __init__(self, name=None, **kwargs):
         self._name = name
         self._uuid = uuid.uuid4()
         self._parameters = collections.OrderedDict()
@@ -179,7 +176,7 @@ class SynthDefBuilder(SupriyaObject):
         label=None,
         trigger=None,
         trigger_id=-1,
-        ):
+    ):
         import supriya.ugens
         if trigger is None:
             trigger = supriya.ugens.Impulse.kr(1)

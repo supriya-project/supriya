@@ -1,7 +1,11 @@
-import supriya.commands
+import uuid
 import supriya.realtime
+from supriya.commands import GroupNewRequest
 from supriya.nonrealtime.Node import Node
 from supriya.nonrealtime.SessionObject import SessionObject
+from supriya.nonrealtime.NodeAction import NodeAction
+from supriya.patterns import Pattern
+from typing import Dict, Tuple
 
 
 class Group(Node):
@@ -15,7 +19,7 @@ class Group(Node):
 
     __slots__ = ()
 
-    _valid_add_actions = (
+    _valid_add_actions: Tuple[int, ...] = (
         supriya.AddAction.ADD_TO_HEAD,
         supriya.AddAction.ADD_TO_TAIL,
         supriya.AddAction.ADD_AFTER,
@@ -29,13 +33,17 @@ class Group(Node):
 
     ### PRIVATE METHODS ###
 
-    def _to_request(self, action, id_mapping):
+    def _to_request(
+        self,
+        action: NodeAction,
+        id_mapping: Dict[SessionObject, int],
+    ) -> GroupNewRequest:
         source_id = id_mapping[action.source]
         target_id = id_mapping[action.target]
         add_action = action.action
-        request = supriya.commands.GroupNewRequest(
+        request = GroupNewRequest(
             items=[
-                supriya.commands.GroupNewRequest.Item(
+                GroupNewRequest.Item(
                     add_action=add_action,
                     node_id=source_id,
                     target_node_id=target_id,
@@ -44,7 +52,7 @@ class Group(Node):
             )
         return request
 
-    def _get_stop_offset(self, offset, event):
+    def _get_stop_offset(self, offset, event) -> float:
         duration = event.get('duration') or 0
         delta = event.get('delta') or 0
         return offset + max(duration, delta)
@@ -54,46 +62,43 @@ class Group(Node):
     @SessionObject.require_offset
     def inscribe(
         self,
-        pattern,
-        duration=None,
-        offset=None,
-        seed=None,
-        ):
+        pattern: Pattern,
+        duration: float=None,
+        offset: float=None,
+        seed: int=None,
+    ) -> float:
         import supriya.patterns
-
+        if offset is None:
+            raise ValueError(offset)
         assert isinstance(pattern, supriya.patterns.Pattern)
-
         if seed is not None:
             pattern = supriya.patterns.Pseed(
                 pattern=pattern,
                 seed=seed,
                 )
-
         if duration is None:
             duration = self.stop_offset - offset
         if pattern.is_infinite:
+            if duration is None:
+                raise ValueError(duration)
             duration = float(duration)
             assert duration
-
+        if duration is None:
+            raise ValueError(duration)
         should_stop = supriya.patterns.Pattern.PatternState.CONTINUE
         maximum_offset = offset + duration
         actual_stop_offset = offset
-        iterator = iter(pattern)
-        uuids = {}
-
-        #print('[INSCRIBE]', 'START')
+        iterator = pattern.__iter__()
+        uuids: Dict[uuid.UUID, Tuple[Node]] = {}
         try:
             event = next(iterator)
-            #print('[INSCRIBE]', type(event).__name__, event.get('frequency') or '')
         except StopIteration:
-            #print('[INSCRIBE]', 'DONE')
             return offset
-
         if (
             duration is not None and
             isinstance(event, supriya.patterns.NoteEvent) and
             self._get_stop_offset(offset, event) > maximum_offset
-            ):
+        ):
             return offset
         performed_stop_offset = event._perform_nonrealtime(
             session=self.session,
@@ -101,48 +106,26 @@ class Group(Node):
             maximum_offset=maximum_offset,
             offset=offset,
             )
-        #print('[INSCRIBE]    START:', offset)
         offset += event.delta
         actual_stop_offset = max(actual_stop_offset, performed_stop_offset)
-        #print('[INSCRIBE]    STOP:', actual_stop_offset)
-        #print('[INSCRIBE]    NEXT START:', offset)
-
         while True:
             try:
                 event = iterator.send(should_stop)
-                #print(
-                #    '[INSCRIBE]',
-                #    type(event).__name__,
-                #    'DELTA', event.delta,
-                #    'DUR', event.get('duration'),
-                #    'FREQ', event.get('frequency'),
-                #    )
             except StopIteration:
-                #print('[INSCRIBE]', 'DONE')
                 break
-            #print('[INSCRIBE]    START:', offset)
             if (
                 maximum_offset is not None and
                 isinstance(event, supriya.patterns.NoteEvent)
-                ):
-                if (
-                    event.get('duration', 0) == 0 and
-                    offset == maximum_offset
-                    ):
+            ):
+                if event.get('duration', 0) == 0 and offset == maximum_offset:
                     # Current event is 0-duration and we're at our stop.
                     should_stop = supriya.patterns.Pattern.PatternState.NONREALTIME_STOP
                     offset = actual_stop_offset
-                    #print('[INSCRIBE]', 'STOPPING EXACT')
-                    #print('[INSCRIBE]    STOP:', actual_stop_offset)
-                    #print('[INSCRIBE]    NEXT START:', offset)
                     continue
                 elif self._get_stop_offset(offset, event) > maximum_offset:
                     # We would legitimately overshoot.
                     should_stop = supriya.patterns.Pattern.PatternState.NONREALTIME_STOP
                     offset = actual_stop_offset
-                    #print('[INSCRIBE]', 'STOPPING OVERHANG')
-                    #print('[INSCRIBE]    STOP:', actual_stop_offset)
-                    #print('[INSCRIBE]    NEXT START:', offset)
                     continue
             performed_stop_offset = event._perform_nonrealtime(
                 session=self.session,
@@ -155,7 +138,4 @@ class Group(Node):
                 actual_stop_offset,
                 performed_stop_offset,
                 )
-            #print('[INSCRIBE]    STOP:', actual_stop_offset)
-            #print('[INSCRIBE]    NEXT START:', offset)
-
         return actual_stop_offset

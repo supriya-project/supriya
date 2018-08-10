@@ -1,9 +1,9 @@
 import abc
 import collections
 import inspect
-import sys
 from supriya.synthdefs.SignalRange import SignalRange
 from supriya.synthdefs.UGenMethodMixin import UGenMethodMixin
+from typing import Optional, Tuple
 
 
 class UGen(UGenMethodMixin):
@@ -13,7 +13,7 @@ class UGen(UGenMethodMixin):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'SynthDef Internals'
+    __documentation_section__: Optional[str] = 'SynthDef Internals'
 
     __slots__ = (
         '_calculation_rate',
@@ -22,13 +22,13 @@ class UGen(UGenMethodMixin):
         '_uuid',
         )
 
-    _ordered_input_names = ()
+    _ordered_input_names: Tuple[str, ...] = ()
 
-    _signal_range = SignalRange.BIPOLAR
+    _signal_range: int = SignalRange.BIPOLAR
 
-    _unexpanded_input_names = None
+    _unexpanded_input_names: Tuple[str, ...] = ()
 
-    _valid_rates = None
+    _valid_rates: Tuple[int, ...] = ()
 
     ### INITIALIZER ###
 
@@ -38,11 +38,11 @@ class UGen(UGenMethodMixin):
         calculation_rate=None,
         special_index=0,
         **kwargs
-        ):
+    ):
         import supriya.synthdefs
         assert isinstance(calculation_rate, supriya.CalculationRate), \
             calculation_rate
-        if self._valid_rates is not None:
+        if self._valid_rates:
             assert calculation_rate in self._valid_rates
         self._calculation_rate = calculation_rate
         self._inputs = []
@@ -70,8 +70,10 @@ class UGen(UGenMethodMixin):
             self._configure_input(input_name, input_value)
         if kwargs:
             raise ValueError(kwargs)
-        assert all(isinstance(_, (supriya.synthdefs.OutputProxy, float))
-            for _ in self.inputs)
+        assert all(
+            isinstance(_, (supriya.synthdefs.OutputProxy, float))
+            for _ in self.inputs
+        )
         self._validate_inputs()
         self._uuid = None
         if supriya.synthdefs.SynthDefBuilder._active_builders:
@@ -286,14 +288,15 @@ class UGen(UGenMethodMixin):
             supriya.synthdefs.Parameter,
             )
         for name, value in dictionary.items():
-            if isinstance(value, prototype) and \
-                not isinstance(value, str):
+            if isinstance(value, prototype) and not isinstance(value, str):
                 maximum_length = max(maximum_length, len(value))
         for i in range(maximum_length):
             result.append({})
             for name, value in dictionary.items():
-                if isinstance(value, prototype) and \
-                    not isinstance(value, str):
+                if (
+                    isinstance(value, prototype) and
+                    not isinstance(value, str)
+                ):
                     value = value[i % len(value)]
                     result[i][name] = value
                 else:
@@ -347,11 +350,7 @@ class UGen(UGenMethodMixin):
         return False
 
     @classmethod
-    def _new_expanded(
-        cls,
-        special_index=0,
-        **kwargs
-        ):
+    def _new_expanded(cls, special_index=0, **kwargs):
         import supriya.synthdefs
         get_signature = inspect.signature
         signature = get_signature(cls.__init__)
@@ -375,13 +374,8 @@ class UGen(UGenMethodMixin):
         return supriya.synthdefs.UGenArray(ugens)
 
     @classmethod
-    def _new_single(
-        cls,
-        **kwargs
-        ):
-        ugen = cls(
-            **kwargs
-            )
+    def _new_single(cls, **kwargs):
+        ugen = cls(**kwargs)
         return ugen
 
     def _optimize_graph(self, sort_bundles):

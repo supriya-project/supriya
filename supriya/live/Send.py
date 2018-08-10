@@ -2,6 +2,7 @@ import supriya.realtime
 import supriya.synthdefs
 import supriya.system
 import supriya.ugens
+from supriya.system.Bindable import Bindable
 
 
 class Send:
@@ -25,7 +26,7 @@ class Send:
 
     ### SPECIAL METHODS ###
 
-    @supriya.system.Bindable
+    @Bindable
     def __call__(self, gain):
         self._gain = float(gain)
         if self.synth and self.synth.is_allocated:

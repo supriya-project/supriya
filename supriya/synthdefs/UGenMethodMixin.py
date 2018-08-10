@@ -1,13 +1,14 @@
 import collections
 import copy
 from supriya.system.SupriyaObject import SupriyaObject
+from typing import Optional
 
 
 class UGenMethodMixin(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'SynthDef Internals'
+    __documentation_section__: Optional[str] = 'SynthDef Internals'
 
     __slots__ = ()
 
@@ -1966,14 +1967,20 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
         a_rate = supriya.CalculationRate.from_expr(ugen_a)
         b_rate = supriya.CalculationRate.from_expr(ugen_b)
-        if a_rate == supriya.CalculationRate.DEMAND \
-            or a_rate == supriya.CalculationRate.DEMAND:
+        if (
+            a_rate == supriya.CalculationRate.DEMAND or
+            a_rate == supriya.CalculationRate.DEMAND
+        ):
             return supriya.CalculationRate.DEMAND
-        elif a_rate == supriya.CalculationRate.AUDIO \
-            or b_rate == supriya.CalculationRate.AUDIO:
+        elif (
+            a_rate == supriya.CalculationRate.AUDIO or
+            b_rate == supriya.CalculationRate.AUDIO
+        ):
             return supriya.CalculationRate.AUDIO
-        elif a_rate == supriya.CalculationRate.CONTROL \
-            or b_rate == supriya.CalculationRate.CONTROL:
+        elif (
+            a_rate == supriya.CalculationRate.CONTROL or
+            b_rate == supriya.CalculationRate.CONTROL
+        ):
             return supriya.CalculationRate.CONTROL
         return supriya.CalculationRate.SCALAR
 
@@ -2649,10 +2656,7 @@ class UGenMethodMixin(SupriyaObject):
             supriya.synthdefs.BinaryOperator.NOT_EQUAL,
             )
 
-    def lag(
-        self,
-        lag_time=0.5,
-        ):
+    def lag(self, lag_time=0.5):
         """
         Lags ugen graph.
 
@@ -3096,7 +3100,7 @@ class UGenMethodMixin(SupriyaObject):
         output_minimum,
         output_maximum,
         exponential=False,
-        ):
+    ):
         """
         Scales ugen graph from `input_minimum` and `input_maximum` to
         `output_minimum` and `output_maximum`.

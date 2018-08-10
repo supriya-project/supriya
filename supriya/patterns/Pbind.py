@@ -155,7 +155,7 @@ class Pbind(EventPattern):
             if (
                 isinstance(value, supriya.patterns.Pattern) and
                 not value.is_infinite
-                ):
+            ):
                 return False
             elif isinstance(value, collections.Sequence):
                 return False

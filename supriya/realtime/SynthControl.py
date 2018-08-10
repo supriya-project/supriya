@@ -1,4 +1,4 @@
-import supriya.system
+from supriya.system.Bindable import Bindable
 
 
 class SynthControl:
@@ -31,7 +31,7 @@ class SynthControl:
         calculation_rate=None,
         unit=None,
         value=None,
-        ):
+    ):
         import supriya.realtime
         import supriya.synthdefs
         self._client = client
@@ -54,7 +54,7 @@ class SynthControl:
 
     ### SPECIAL METHODS ###
 
-    @supriya.system.Bindable(rebroadcast=False)
+    @Bindable(rebroadcast=False)
     def __call__(self, expr):
         return self.set(expr)
 
@@ -84,7 +84,7 @@ class SynthControl:
         parameter,
         index=0,
         client=None,
-        ):
+    ):
         import supriya.synthdefs
         assert isinstance(parameter, supriya.synthdefs.Parameter)
         name = parameter.name

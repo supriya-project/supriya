@@ -8,6 +8,7 @@ from supriya.live.Send import Send
 from supriya.live.SendManager import SendManager
 from supriya.live.SynthSlot import SynthSlot
 from supriya.live.TriggerPatternSlot import TriggerPatternSlot
+from supriya.system.Bindable import Bindable
 
 
 class Track:
@@ -19,7 +20,7 @@ class Track:
         mixer,
         name,
         channel_count=None,
-        ):
+    ):
         import supriya.live
         assert isinstance(mixer, supriya.live.Mixer)
         self._mixer = mixer
@@ -340,7 +341,7 @@ class Track:
     def get_solo(self):
         return self.is_soloed
 
-    @supriya.system.Bindable(rebroadcast=True)
+    @Bindable(rebroadcast=True)
     def set_cue(self, state):
         if self.name == 'cue':
             return False
@@ -358,13 +359,13 @@ class Track:
                         track.set_cue(False)
         return state
 
-    @supriya.system.Bindable(rebroadcast=True)
+    @Bindable(rebroadcast=True)
     def set_gain(self, gain):
         self._gain = gain
         self.output_synth['gain'] = gain
         return gain
 
-    @supriya.system.Bindable(rebroadcast=True)
+    @Bindable(rebroadcast=True)
     def set_mute(self, state):
         if self.name in ('master',):
             return False
@@ -376,7 +377,7 @@ class Track:
         self.mixer._update_track_audibility()
         return bool(state)
 
-    @supriya.system.Bindable(rebroadcast=True)
+    @Bindable(rebroadcast=True)
     def set_solo(self, state, handle=True):
         if self.name in ('cue', 'master'):
             return False
