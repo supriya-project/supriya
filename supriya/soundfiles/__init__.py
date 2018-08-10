@@ -1,7 +1,11 @@
 """
 Tools for interacting with soundfiles.
 """
-from supriya import import_structured_package
-
-
-import_structured_package(__path__[0], globals())
+from .Frame import Frame  # noqa
+from .HeaderFormat import HeaderFormat  # noqa
+from .SampleFormat import SampleFormat  # noqa
+from .Say import Say  # noqa
+from .Signal import Signal  # noqa
+from .SoundFile import SoundFile  # noqa
+from .play import play  # noqa
+from .render import render  # noqa
