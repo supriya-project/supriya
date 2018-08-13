@@ -299,7 +299,7 @@ class Server(SupriyaObject):
 
         ::
 
-            >>> supriya.graph(server)  # pytest: +SKIP
+            >>> supriya.graph(server)  # doctest: +SKIP
 
         '''
         def recurse(graph, parent_graphviz_node, parent_server_node):
