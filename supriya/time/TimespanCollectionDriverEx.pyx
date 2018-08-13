@@ -89,14 +89,14 @@ cdef class TimespanCollectionDriverEx:
 
     ::
 
-        >>> from abjad import timespantools
+        >>> import abjad.timespans
         >>> import supriya.time
         >>> timespans = (
-        ...     timespantools.Timespan(0, 3),
-        ...     timespantools.Timespan(1, 3),
-        ...     timespantools.Timespan(1, 2),
-        ...     timespantools.Timespan(2, 5),
-        ...     timespantools.Timespan(6, 9),
+        ...     abjad.timespans.Timespan(0, 3),
+        ...     abjad.timespans.Timespan(1, 3),
+        ...     abjad.timespans.Timespan(1, 2),
+        ...     abjad.timespans.Timespan(2, 5),
+        ...     abjad.timespans.Timespan(6, 9),
         ...     )
         >>> timespan_collection = supriya.time.TimespanCollectionDriverEx(timespans)
 
