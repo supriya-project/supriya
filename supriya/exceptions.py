@@ -46,13 +46,9 @@ class RequestTimeout(Exception):
     pass
 
 
-class ServerAddressInUse(Exception):
+class ServerCannotBoot(Exception):
     pass
 
 
 class ServerOffline(Exception):
-    pass
-
-
-class ServerTimeout(Exception):
     pass

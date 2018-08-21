@@ -577,12 +577,16 @@ class Server(SupriyaObject):
         timeout = 10
         while True:
             line = self._server_process.stdout.readline().decode().rstrip()
+            if self.debug_subprocess and line:
+                print('Boot:', line)
             if line.startswith('SuperCollider 3 server ready'):
                 break
+            elif line.startswith('ERROR:'):
+                raise supriya.exceptions.ServerCannotBoot(line)
             elif line.startswith('Exception in World_OpenUDP: bind: Address already in use'):
-                raise supriya.exceptions.ServerAddressInUse
+                raise supriya.exceptions.ServerCannotBoot(line)
             elif (time.time() - start_time) > timeout:
-                raise supriya.exceptions.ServerTimeout
+                raise supriya.exceptions.ServerCannotBoot(line)
 
     ### PUBLIC METHODS ###
 
@@ -610,7 +614,7 @@ class Server(SupriyaObject):
         options_string = server_options.as_options_string(self.port)
         command = '{} {}'.format(scsynth_path, options_string)
         if self.debug_subprocess:
-            print(command)
+            print('Boot:', command)
         process = self._server_process = subprocess.Popen(
             command,
             shell=True,
@@ -620,22 +624,14 @@ class Server(SupriyaObject):
             )
         try:
             self._read_scsynth_boot_output()
-        except (
-            supriya.exceptions.ServerAddressInUse,
-            supriya.exceptions.ServerTimeout,
-        ):
+        except supriya.exceptions.ServerCannotBoot:
             self._osc_io.quit()
             try:
                 process_group = os.getpgid(process.pid)
                 os.killpg(process_group, signal.SIGINT)
-            except Exception:
-                traceback.print_exc()
-                pass
-            try:
                 process.terminate()
                 process.wait()
-            except Exception:
-                traceback.print_exc()
+            except ProcessLookupError:
                 pass
             raise
         self._is_running = True
