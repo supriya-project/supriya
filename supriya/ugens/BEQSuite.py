@@ -9,19 +9,3 @@ class BEQSuite(Filter):
     ### CLASS VARIABLES ###
 
     __documentation_section__ = 'Filter UGens'
-
-    __slots__ = ()
-
-    ### PUBLIC METHODS ###
-
-    # def coeffs(): ...
-
-    # def magResponse(): ...
-
-    # def magResponse2(): ...
-
-    # def magResponse5(): ...
-
-    # def magResponseN(): ...
-
-    # def scopeResponse(): ...

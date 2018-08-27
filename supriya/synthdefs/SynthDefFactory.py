@@ -38,28 +38,28 @@ class SynthDefFactory(SupriyaObject):
 
             >>> print(synthdef)
             synthdef:
-                name: 93e1ac306eb2501b3ef8737186e34ab9
+                name: ...
                 ugens:
                 -   Control.ir: null
                 -   In.ar:
                         bus: Control.ir[0:out]
                 -   ExpRand.ir/0:
-                        maximum: 0.01
-                        minimum: 0.1
+                        maximum: 0.1
+                        minimum: 0.01
                 -   ExpRand.ir/1:
-                        maximum: 0.01
-                        minimum: 0.1
+                        maximum: 0.1
+                        minimum: 0.01
                 -   AllpassC.ar/0:
                         decay_time: ExpRand.ir/0[0]
                         delay_time: ExpRand.ir/1[0]
                         maximum_delay_time: 0.1
                         source: In.ar[0]
                 -   ExpRand.ir/2:
-                        maximum: 0.01
-                        minimum: 0.1
+                        maximum: 0.1
+                        minimum: 0.01
                 -   ExpRand.ir/3:
-                        maximum: 0.01
-                        minimum: 0.1
+                        maximum: 0.1
+                        minimum: 0.01
                 -   AllpassC.ar/1:
                         decay_time: ExpRand.ir/2[0]
                         delay_time: ExpRand.ir/3[0]
@@ -80,50 +80,50 @@ class SynthDefFactory(SupriyaObject):
 
             >>> print(synthdef)
             synthdef:
-                name: 9be4856556bc7986e05f858f3805551b
+                name: ...
                 ugens:
                 -   Control.ir: null
                 -   In.ar:
                         bus: Control.ir[0:out]
                 -   ExpRand.ir/0:
-                        maximum: 0.01
-                        minimum: 0.1
+                        maximum: 0.1
+                        minimum: 0.01
                 -   ExpRand.ir/1:
-                        maximum: 0.01
-                        minimum: 0.1
+                        maximum: 0.1
+                        minimum: 0.01
                 -   AllpassC.ar/0:
                         decay_time: ExpRand.ir/0[0]
                         delay_time: ExpRand.ir/1[0]
                         maximum_delay_time: 0.1
                         source: In.ar[0]
                 -   ExpRand.ir/2:
-                        maximum: 0.01
-                        minimum: 0.1
+                        maximum: 0.1
+                        minimum: 0.01
                 -   ExpRand.ir/3:
-                        maximum: 0.01
-                        minimum: 0.1
+                        maximum: 0.1
+                        minimum: 0.01
                 -   AllpassC.ar/1:
                         decay_time: ExpRand.ir/2[0]
                         delay_time: ExpRand.ir/3[0]
                         maximum_delay_time: 0.1
                         source: AllpassC.ar/0[0]
                 -   ExpRand.ir/4:
-                        maximum: 0.01
-                        minimum: 0.1
+                        maximum: 0.1
+                        minimum: 0.01
                 -   ExpRand.ir/5:
-                        maximum: 0.01
-                        minimum: 0.1
+                        maximum: 0.1
+                        minimum: 0.01
                 -   AllpassC.ar/2:
                         decay_time: ExpRand.ir/4[0]
                         delay_time: ExpRand.ir/5[0]
                         maximum_delay_time: 0.1
                         source: AllpassC.ar/1[0]
                 -   ExpRand.ir/6:
-                        maximum: 0.01
-                        minimum: 0.1
+                        maximum: 0.1
+                        minimum: 0.01
                 -   ExpRand.ir/7:
-                        maximum: 0.01
-                        minimum: 0.1
+                        maximum: 0.1
+                        minimum: 0.01
                 -   AllpassC.ar/3:
                         decay_time: ExpRand.ir/6[0]
                         delay_time: ExpRand.ir/7[0]
@@ -144,17 +144,17 @@ class SynthDefFactory(SupriyaObject):
 
             >>> print(synthdef)
             synthdef:
-                name: 42450f0bb42c5e21b27c159ad6572390
+                name: ...
                 ugens:
                 -   Control.ir: null
                 -   In.ar:
                         bus: Control.ir[0:out]
                 -   ExpRand.ir/0:
-                        maximum: 0.01
-                        minimum: 0.1
+                        maximum: 0.1
+                        minimum: 0.01
                 -   ExpRand.ir/1:
-                        maximum: 0.01
-                        minimum: 0.1
+                        maximum: 0.1
+                        minimum: 0.01
                 -   AllpassC.ar/0:
                         decay_time: ExpRand.ir/0[0]
                         delay_time: ExpRand.ir/1[0]
@@ -166,11 +166,11 @@ class SynthDefFactory(SupriyaObject):
                         maximum_delay_time: 0.1
                         source: In.ar[1]
                 -   ExpRand.ir/2:
-                        maximum: 0.01
-                        minimum: 0.1
+                        maximum: 0.1
+                        minimum: 0.01
                 -   ExpRand.ir/3:
-                        maximum: 0.01
-                        minimum: 0.1
+                        maximum: 0.1
+                        minimum: 0.01
                 -   AllpassC.ar/2:
                         decay_time: ExpRand.ir/2[0]
                         delay_time: ExpRand.ir/3[0]
@@ -246,7 +246,7 @@ class SynthDefFactory(SupriyaObject):
         if (
             self._output.get('windowed') or
             self._input.get('windowed')
-            ):
+        ):
             builder._add_parameter('duration', 1, 'SCALAR')
             state['line'] = supriya.ugens.Line.kr(
                 done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
@@ -256,7 +256,7 @@ class SynthDefFactory(SupriyaObject):
         if (
             not self._output.get('windowed') and
             self._output.get('crossfaded')
-            ):
+        ):
             builder._add_parameter('crossfade', 0, 'CONTROL')
         if self._output.get('leveled'):
             builder._add_parameter('level', 1, 'CONTROL')
@@ -416,17 +416,17 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> print(synthdef)
                 synthdef:
-                    name: a94da97d30cbb05fe8d1b79d11b7ca26
+                    name: ...
                     ugens:
                     -   Control.ir: null
                     -   In.ar:
                             bus: Control.ir[0:out]
                     -   ExpRand.ir/0:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/1:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/0:
                             decay_time: ExpRand.ir/0[0]
                             delay_time: ExpRand.ir/1[0]
@@ -448,11 +448,11 @@ class SynthDefFactory(SupriyaObject):
                             maximum_delay_time: 0.1
                             source: In.ar[3]
                     -   ExpRand.ir/2:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/3:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/4:
                             decay_time: ExpRand.ir/2[0]
                             delay_time: ExpRand.ir/3[0]
@@ -493,17 +493,17 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> print(synthdef)
                 synthdef:
-                    name: 4fc8b719bbc57ac050e6b6fbe632d3e6
+                    name: ...
                     ugens:
                     -   Control.ir: null
                     -   In.ar:
                             bus: Control.ir[0:out]
                     -   ExpRand.ir/0:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/1:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/0:
                             decay_time: ExpRand.ir/0[0]
                             delay_time: ExpRand.ir/1[0]
@@ -520,11 +520,11 @@ class SynthDefFactory(SupriyaObject):
                             maximum_delay_time: 0.1
                             source: In.ar[2]
                     -   ExpRand.ir/2:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/3:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/3:
                             decay_time: ExpRand.ir/2[0]
                             delay_time: ExpRand.ir/3[0]
@@ -599,7 +599,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> print(synthdef)
                 synthdef:
-                    name: 9e42aa261e0b5a913cf6256723da941b
+                    name: ...
                     ugens:
                     -   Control.ir: null
                     -   In.ar:
@@ -610,22 +610,22 @@ class SynthDefFactory(SupriyaObject):
                             left: In.ar[0]
                             right: LocalIn.ar[0]
                     -   ExpRand.ir/0:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/1:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/0:
                             decay_time: ExpRand.ir/0[0]
                             delay_time: ExpRand.ir/1[0]
                             maximum_delay_time: 0.1
                             source: BinaryOpUGen(ADDITION).ar[0]
                     -   ExpRand.ir/2:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/3:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/1:
                             decay_time: ExpRand.ir/2[0]
                             delay_time: ExpRand.ir/3[0]
@@ -657,7 +657,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> print(synthdef)
                 synthdef:
-                    name: c9fcaca9d89ff2799922976ba00b0e74
+                    name: ...
                     ugens:
                     -   Control.ir: null
                     -   In.ar:
@@ -668,22 +668,22 @@ class SynthDefFactory(SupriyaObject):
                             left: In.ar[0]
                             right: LocalIn.ar[0]
                     -   ExpRand.ir/0:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/1:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/0:
                             decay_time: ExpRand.ir/0[0]
                             delay_time: ExpRand.ir/1[0]
                             maximum_delay_time: 0.1
                             source: BinaryOpUGen(ADDITION).ar[0]
                     -   ExpRand.ir/2:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/3:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/1:
                             decay_time: ExpRand.ir/2[0]
                             delay_time: ExpRand.ir/3[0]
@@ -713,7 +713,7 @@ class SynthDefFactory(SupriyaObject):
         self,
         attack_time=0.02,
         release_time=0.02,
-        ):
+    ):
         """
         Return a new factory configured with a gate.
 
@@ -757,7 +757,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> print(synthdef)
                 synthdef:
-                    name: 18bb48452af6de95a01169c2ac9a1843
+                    name: ...
                     ugens:
                     -   Control.ir: null
                     -   In.ar:
@@ -770,22 +770,22 @@ class SynthDefFactory(SupriyaObject):
                             release_time: 0.02
                             sustain_level: 1.0
                     -   ExpRand.ir/0:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/1:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/0:
                             decay_time: ExpRand.ir/0[0]
                             delay_time: ExpRand.ir/1[0]
                             maximum_delay_time: 0.1
                             source: In.ar[0]
                     -   ExpRand.ir/2:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/3:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/1:
                             decay_time: ExpRand.ir/2[0]
                             delay_time: ExpRand.ir/3[0]
@@ -852,50 +852,50 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> print(synthdef)
                 synthdef:
-                    name: 9be4856556bc7986e05f858f3805551b
+                    name: ...
                     ugens:
                     -   Control.ir: null
                     -   In.ar:
                             bus: Control.ir[0:out]
                     -   ExpRand.ir/0:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/1:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/0:
                             decay_time: ExpRand.ir/0[0]
                             delay_time: ExpRand.ir/1[0]
                             maximum_delay_time: 0.1
                             source: In.ar[0]
                     -   ExpRand.ir/2:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/3:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/1:
                             decay_time: ExpRand.ir/2[0]
                             delay_time: ExpRand.ir/3[0]
                             maximum_delay_time: 0.1
                             source: AllpassC.ar/0[0]
                     -   ExpRand.ir/4:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/5:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/2:
                             decay_time: ExpRand.ir/4[0]
                             delay_time: ExpRand.ir/5[0]
                             maximum_delay_time: 0.1
                             source: AllpassC.ar/1[0]
                     -   ExpRand.ir/6:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/7:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/3:
                             decay_time: ExpRand.ir/6[0]
                             delay_time: ExpRand.ir/7[0]
@@ -913,7 +913,7 @@ class SynthDefFactory(SupriyaObject):
     def with_input(
         self,
         windowed=False,
-        ):
+    ):
         """
         Return a new factory configured with a bus input.
 
@@ -955,28 +955,28 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> print(synthdef)
                 synthdef:
-                    name: 93e1ac306eb2501b3ef8737186e34ab9
+                    name: ...
                     ugens:
                     -   Control.ir: null
                     -   In.ar:
                             bus: Control.ir[0:out]
                     -   ExpRand.ir/0:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/1:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/0:
                             decay_time: ExpRand.ir/0[0]
                             delay_time: ExpRand.ir/1[0]
                             maximum_delay_time: 0.1
                             source: In.ar[0]
                     -   ExpRand.ir/2:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/3:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/1:
                             decay_time: ExpRand.ir/2[0]
                             delay_time: ExpRand.ir/3[0]
@@ -1000,7 +1000,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> print(synthdef)
                 synthdef:
-                    name: 6dabe7ebb4a52a0daa6eb54adbe7ccee
+                    name: ...
                     ugens:
                     -   Control.ir: null
                     -   Line.kr:
@@ -1016,22 +1016,22 @@ class SynthDefFactory(SupriyaObject):
                             left: In.ar[0]
                             right: UnaryOpUGen(HANNING_WINDOW).kr[0]
                     -   ExpRand.ir/0:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/1:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/0:
                             decay_time: ExpRand.ir/0[0]
                             delay_time: ExpRand.ir/1[0]
                             maximum_delay_time: 0.1
                             source: BinaryOpUGen(MULTIPLICATION).ar[0]
                     -   ExpRand.ir/2:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/3:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/1:
                             decay_time: ExpRand.ir/2[0]
                             delay_time: ExpRand.ir/3[0]
@@ -1057,7 +1057,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> print(synthdef)
                 synthdef:
-                    name: 8e3abddff837fac19c9225c86736790f
+                    name: ...
                     ugens:
                     -   Control.ir: null
                     -   Line.kr:
@@ -1073,22 +1073,22 @@ class SynthDefFactory(SupriyaObject):
                             left: In.ar[0]
                             right: UnaryOpUGen(HANNING_WINDOW).kr[0]
                     -   ExpRand.ir/0:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/1:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/0:
                             decay_time: ExpRand.ir/0[0]
                             delay_time: ExpRand.ir/1[0]
                             maximum_delay_time: 0.1
                             source: BinaryOpUGen(MULTIPLICATION).ar/0[0]
                     -   ExpRand.ir/2:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/3:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/1:
                             decay_time: ExpRand.ir/2[0]
                             delay_time: ExpRand.ir/3[0]
@@ -1114,7 +1114,7 @@ class SynthDefFactory(SupriyaObject):
         leveled=False,
         replacing=False,
         windowed=False,
-        ):
+    ):
         """
         Return a new factory configured with a bus output.
 
@@ -1157,28 +1157,28 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> print(synthdef)
                 synthdef:
-                    name: 93e1ac306eb2501b3ef8737186e34ab9
+                    name: ...
                     ugens:
                     -   Control.ir: null
                     -   In.ar:
                             bus: Control.ir[0:out]
                     -   ExpRand.ir/0:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/1:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/0:
                             decay_time: ExpRand.ir/0[0]
                             delay_time: ExpRand.ir/1[0]
                             maximum_delay_time: 0.1
                             source: In.ar[0]
                     -   ExpRand.ir/2:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/3:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/1:
                             decay_time: ExpRand.ir/2[0]
                             delay_time: ExpRand.ir/3[0]
@@ -1202,7 +1202,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> print(synthdef)
                 synthdef:
-                    name: 4457d151cbd44a8ca6061a0bff7ce2a9
+                    name: ...
                     ugens:
                     -   Control.ir: null
                     -   Line.kr:
@@ -1215,22 +1215,22 @@ class SynthDefFactory(SupriyaObject):
                     -   In.ar:
                             bus: Control.ir[1:out]
                     -   ExpRand.ir/0:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/1:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/0:
                             decay_time: ExpRand.ir/0[0]
                             delay_time: ExpRand.ir/1[0]
                             maximum_delay_time: 0.1
                             source: In.ar[0]
                     -   ExpRand.ir/2:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/3:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/1:
                             decay_time: ExpRand.ir/2[0]
                             delay_time: ExpRand.ir/3[0]
@@ -1257,29 +1257,29 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> print(synthdef)
                 synthdef:
-                    name: 0d965f5316259794ff2dba023ee46cce
+                    name: ...
                     ugens:
                     -   Control.ir: null
                     -   In.ar:
                             bus: Control.ir[0:out]
                     -   Control.kr: null
                     -   ExpRand.ir/0:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/1:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/0:
                             decay_time: ExpRand.ir/0[0]
                             delay_time: ExpRand.ir/1[0]
                             maximum_delay_time: 0.1
                             source: In.ar[0]
                     -   ExpRand.ir/2:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/3:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/1:
                             decay_time: ExpRand.ir/2[0]
                             delay_time: ExpRand.ir/3[0]
@@ -1305,29 +1305,29 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> print(synthdef)
                 synthdef:
-                    name: ecb4d44b80293e1bd27623849a81dbdb
+                    name: ...
                     ugens:
                     -   Control.ir: null
                     -   In.ar:
                             bus: Control.ir[0:out]
                     -   Control.kr: null
                     -   ExpRand.ir/0:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/1:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/0:
                             decay_time: ExpRand.ir/0[0]
                             delay_time: ExpRand.ir/1[0]
                             maximum_delay_time: 0.1
                             source: In.ar[0]
                     -   ExpRand.ir/2:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/3:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/1:
                             decay_time: ExpRand.ir/2[0]
                             delay_time: ExpRand.ir/3[0]
@@ -1358,7 +1358,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> print(synthdef)
                 synthdef:
-                    name: ab4814d778db920cd705270a3667580b
+                    name: ...
                     ugens:
                     -   Control.ir: null
                     -   Line.kr:
@@ -1371,22 +1371,22 @@ class SynthDefFactory(SupriyaObject):
                     -   In.ar:
                             bus: Control.ir[1:out]
                     -   ExpRand.ir/0:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/1:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/0:
                             decay_time: ExpRand.ir/0[0]
                             delay_time: ExpRand.ir/1[0]
                             maximum_delay_time: 0.1
                             source: In.ar[0]
                     -   ExpRand.ir/2:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/3:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/1:
                             decay_time: ExpRand.ir/2[0]
                             delay_time: ExpRand.ir/3[0]
@@ -1415,7 +1415,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> print(synthdef)
                 synthdef:
-                    name: 6c7d16a174a3b8b2fc3fdbf989978553
+                    name: ...
                     ugens:
                     -   Control.ir: null
                     -   Line.kr:
@@ -1432,22 +1432,22 @@ class SynthDefFactory(SupriyaObject):
                             left: UnaryOpUGen(HANNING_WINDOW).kr[0]
                             right: Control.kr[0:level]
                     -   ExpRand.ir/0:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/1:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/0:
                             decay_time: ExpRand.ir/0[0]
                             delay_time: ExpRand.ir/1[0]
                             maximum_delay_time: 0.1
                             source: In.ar[0]
                     -   ExpRand.ir/2:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/3:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/1:
                             decay_time: ExpRand.ir/2[0]
                             delay_time: ExpRand.ir/3[0]
@@ -1473,7 +1473,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> print(synthdef)
                 synthdef:
-                    name: ee9b6124f194df8c11034f734cfae051
+                    name: ...
                     ugens:
                     -   Control.ir: null
                     -   Line.kr:
@@ -1493,22 +1493,22 @@ class SynthDefFactory(SupriyaObject):
                             left: UnaryOpUGen(HANNING_WINDOW).kr[0]
                             right: Control.kr[0:level]
                     -   ExpRand.ir/0:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/1:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/0:
                             decay_time: ExpRand.ir/0[0]
                             delay_time: ExpRand.ir/1[0]
                             maximum_delay_time: 0.1
                             source: BinaryOpUGen(MULTIPLICATION).ar[0]
                     -   ExpRand.ir/2:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/3:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/1:
                             decay_time: ExpRand.ir/2[0]
                             delay_time: ExpRand.ir/3[0]
@@ -1614,7 +1614,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> print(synthdef)
                 synthdef:
-                    name: 05302097b47611a26cb99c052708d21b
+                    name: ...
                     ugens:
                     -   Control.ir: null
                     -   In.ar:
@@ -1759,7 +1759,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> print(synthdef)
                 synthdef:
-                    name: 01601b63f9fe591dd0711d083a3343a7
+                    name: ...
                     ugens:
                     -   Control.ir: null
                     -   In.ar:
@@ -2066,7 +2066,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> print(synthdef)
                 synthdef:
-                    name: 71b359ac47a02b833c16587c3b7030d1
+                    name: ...
                     ugens:
                     -   Control.ir: null
                     -   RandID.ir:
@@ -2074,22 +2074,22 @@ class SynthDefFactory(SupriyaObject):
                     -   In.ar:
                             bus: Control.ir[0:out]
                     -   ExpRand.ir/0:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/1:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/0:
                             decay_time: ExpRand.ir/0[0]
                             delay_time: ExpRand.ir/1[0]
                             maximum_delay_time: 0.1
                             source: In.ar[0]
                     -   ExpRand.ir/2:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/3:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/1:
                             decay_time: ExpRand.ir/2[0]
                             delay_time: ExpRand.ir/3[0]
@@ -2175,28 +2175,28 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> print(synthdef)
                 synthdef:
-                    name: 6677f1ecc1b5477c33c91cc4ff752942
+                    name: ...
                     ugens:
                     -   Control.ir: null
                     -   In.ar:
                             bus: Control.ir[0:out]
                     -   ExpRand.ir/0:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/1:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/0:
                             decay_time: ExpRand.ir/0[0]
                             delay_time: ExpRand.ir/1[0]
                             maximum_delay_time: 0.1
                             source: In.ar[0]
                     -   ExpRand.ir/2:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/3:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/1:
                             decay_time: ExpRand.ir/2[0]
                             delay_time: ExpRand.ir/3[0]
@@ -2264,28 +2264,28 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> print(synthdef)
                 synthdef:
-                    name: a5db914f81bdc61c95dbeaa39c6e8a43
+                    name: ...
                     ugens:
                     -   Control.ir: null
                     -   In.ar:
                             bus: Control.ir[0:out]
                     -   ExpRand.ir/0:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/1:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/0:
                             decay_time: ExpRand.ir/0[0]
                             delay_time: ExpRand.ir/1[0]
                             maximum_delay_time: 0.1
                             source: In.ar[0]
                     -   ExpRand.ir/2:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/3:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/1:
                             decay_time: ExpRand.ir/2[0]
                             delay_time: ExpRand.ir/3[0]
@@ -2318,7 +2318,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> print(synthdef)
                 synthdef:
-                    name: d24f54c02874a1aafc1fdac685735d67
+                    name: ...
                     ugens:
                     -   Control.ir: null
                     -   Line.kr:
@@ -2332,22 +2332,22 @@ class SynthDefFactory(SupriyaObject):
                             bus: Control.ir[1:out]
                     -   Control.kr: null
                     -   ExpRand.ir/0:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/1:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/0:
                             decay_time: ExpRand.ir/0[0]
                             delay_time: ExpRand.ir/1[0]
                             maximum_delay_time: 0.1
                             source: In.ar[0]
                     -   ExpRand.ir/2:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   ExpRand.ir/3:
-                            maximum: 0.01
-                            minimum: 0.1
+                            maximum: 0.1
+                            minimum: 0.01
                     -   AllpassC.ar/1:
                             decay_time: ExpRand.ir/2[0]
                             delay_time: ExpRand.ir/3[0]

@@ -1,3 +1,5 @@
+import collections
+
 ugens = {
     'A2K': {
         'parent': 'PureUGen',
@@ -4968,4 +4970,33 @@ ugens = {
                 ],
             },
         },
+    }
+
+for ugen_name, ugen_definition in ugens.items():
+    if (
+        'methods' in ugen_definition or
+        'parent' not in ugen_definition or
+        ugen_definition['parent'] == 'UGen'
+    ):
+        continue
+    parent_definition = ugens[ugen_definition['parent']]
+    while (
+        'methods' not in parent_definition and
+        parent_definition['parent'] != 'UGen'
+
+    ):
+        parent_definition = ugens[parent_definition['parent']]
+    if 'methods' in parent_definition:
+        ugen_definition['methods'] = parent_definition['methods']
+    else:
+        print(ugen_name)
+
+for ugen_name, ugen_definition in ugens.items():
+    methods = ugen_definition.get('methods')
+    if not methods:
+        continue
+    ugen_definition['methods'] = {
+        key: collections.OrderedDict(value)
+        for key, value in methods.items()
+        if key in ('ar', 'ir', 'kr', 'new')
     }

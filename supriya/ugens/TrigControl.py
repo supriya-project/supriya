@@ -1,3 +1,5 @@
+import collections
+from supriya import CalculationRate
 from supriya.ugens.Control import Control
 
 
@@ -7,8 +9,6 @@ class TrigControl(Control):
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ()
 
     ### INITIALIZER ##
 

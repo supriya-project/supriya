@@ -10,8 +10,6 @@ class Filter(PureUGen):
 
     __documentation_section__ = 'Filter UGens'
 
-    __slots__ = ()
-
     ### PRIVATE METHODS ###
 
     def _validate_inputs(self):

@@ -9,8 +9,6 @@ class WidthFirstUGen(UGen):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ()
-
     ### INITIALIZER ###
 
     @abc.abstractmethod

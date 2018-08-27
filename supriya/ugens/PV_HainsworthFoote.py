@@ -1,3 +1,4 @@
+import collections
 from supriya.ugens.PV_ChainUGen import PV_ChainUGen
 
 
@@ -10,7 +11,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
         >>> pv_chain = supriya.ugens.FFT(
         ...     source=supriya.ugens.WhiteNoise.ar(),
         ...     )
-        >>> pv_hainsworth_foote = supriya.ugens.PV_HainsworthFoote(
+        >>> pv_hainsworth_foote = supriya.ugens.PV_HainsworthFoote.new(
         ...     pv_chain=pv_chain,
         ...     propf=0,
         ...     proph=0,
@@ -24,200 +25,10 @@ class PV_HainsworthFoote(PV_ChainUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'FFT UGens'
-
-    __slots__ = ()
-
-    _ordered_input_names = (
-        'pv_chain',
-        'proph',
-        'propf',
-        'threshold',
-        'waittime',
-        )
-
-    ### INITIALIZER ###
-
-    def __init__(
-        self,
-        pv_chain=None,
-        propf=0,
-        proph=0,
-        threshold=1,
-        waittime=0.04,
-        ):
-        PV_ChainUGen.__init__(
-            self,
-            pv_chain=pv_chain,
-            propf=propf,
-            proph=proph,
-            threshold=threshold,
-            waittime=waittime,
-            )
-
-    ### PUBLIC METHODS ###
-
-    @classmethod
-    def new(
-        cls,
-        pv_chain=None,
-        propf=0,
-        proph=0,
-        threshold=1,
-        waittime=0.04,
-        ):
-        """
-        Constructs an audio-rate PV_HainsworthFoote.
-
-        ::
-
-            >>> pv_chain = supriya.ugens.FFT(
-            ...     source=supriya.ugens.WhiteNoise.ar(),
-            ...     )
-            >>> pv_hainsworth_foote = supriya.ugens.PV_HainsworthFoote(
-            ...     pv_chain=pv_chain,
-            ...     propf=0,
-            ...     proph=0,
-            ...     threshold=1,
-            ...     waittime=0.04,
-            ...     )
-            >>> pv_hainsworth_foote
-            PV_HainsworthFoote.kr()
-
-        Returns ugen graph.
-        """
-        ugen = cls._new_expanded(
-            pv_chain=pv_chain,
-            propf=propf,
-            proph=proph,
-            threshold=threshold,
-            waittime=waittime,
-            )
-        return ugen
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def pv_chain(self):
-        """
-        Gets `pv_chain` input of PV_HainsworthFoote.
-
-        ::
-
-            >>> pv_chain = supriya.ugens.FFT(
-            ...     source=supriya.ugens.WhiteNoise.ar(),
-            ...     )
-            >>> pv_hainsworth_foote = supriya.ugens.PV_HainsworthFoote(
-            ...     pv_chain=pv_chain,
-            ...     propf=0,
-            ...     proph=0,
-            ...     threshold=1,
-            ...     waittime=0.04,
-            ...     )
-            >>> pv_hainsworth_foote.pv_chain
-            FFT.kr()[0]
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('pv_chain')
-        return self._inputs[index]
-
-    @property
-    def propf(self):
-        """
-        Gets `propf` input of PV_HainsworthFoote.
-
-        ::
-
-            >>> pv_chain = supriya.ugens.FFT(
-            ...     source=supriya.ugens.WhiteNoise.ar(),
-            ...     )
-            >>> pv_hainsworth_foote = supriya.ugens.PV_HainsworthFoote(
-            ...     pv_chain=pv_chain,
-            ...     propf=0,
-            ...     proph=0,
-            ...     threshold=1,
-            ...     waittime=0.04,
-            ...     )
-            >>> pv_hainsworth_foote.propf
-            0.0
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('propf')
-        return self._inputs[index]
-
-    @property
-    def proph(self):
-        """
-        Gets `proph` input of PV_HainsworthFoote.
-
-        ::
-            >>> pv_chain = supriya.ugens.FFT(
-            ...     source=supriya.ugens.WhiteNoise.ar(),
-            ...     )
-
-            >>> pv_hainsworth_foote = supriya.ugens.PV_HainsworthFoote(
-            ...     pv_chain=pv_chain,
-            ...     propf=0,
-            ...     proph=0,
-            ...     threshold=1,
-            ...     waittime=0.04,
-            ...     )
-            >>> pv_hainsworth_foote.proph
-            0.0
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('proph')
-        return self._inputs[index]
-
-    @property
-    def threshold(self):
-        """
-        Gets `threshold` input of PV_HainsworthFoote.
-
-        ::
-
-            >>> pv_chain = supriya.ugens.FFT(
-            ...     source=supriya.ugens.WhiteNoise.ar(),
-            ...     )
-            >>> pv_hainsworth_foote = supriya.ugens.PV_HainsworthFoote(
-            ...     pv_chain=pv_chain,
-            ...     propf=0,
-            ...     proph=0,
-            ...     threshold=1,
-            ...     waittime=0.04,
-            ...     )
-            >>> pv_hainsworth_foote.threshold
-            1.0
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('threshold')
-        return self._inputs[index]
-
-    @property
-    def waittime(self):
-        """
-        Gets `waittime` input of PV_HainsworthFoote.
-
-        ::
-
-            >>> pv_chain = supriya.ugens.FFT(
-            ...     source=supriya.ugens.WhiteNoise.ar(),
-            ...     )
-            >>> pv_hainsworth_foote = supriya.ugens.PV_HainsworthFoote(
-            ...     pv_chain=pv_chain,
-            ...     propf=0,
-            ...     proph=0,
-            ...     threshold=1,
-            ...     waittime=0.04,
-            ...     )
-            >>> pv_hainsworth_foote.waittime
-            0.04
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('waittime')
-        return self._inputs[index]
+    _ordered_input_names = collections.OrderedDict([
+        ('pv_chain', None),
+        ('proph', 0),
+        ('propf', 0),
+        ('threshold', 1),
+        ('waittime', 0.04),
+    ])

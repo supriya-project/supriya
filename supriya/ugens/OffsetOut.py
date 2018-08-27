@@ -1,4 +1,5 @@
 import collections
+from supriya import CalculationRate
 from supriya.ugens.UGen import UGen
 
 
@@ -21,33 +22,18 @@ class OffsetOut(UGen):
 
     __documentation_section__ = 'Input/Output UGens'
 
-    __slots__ = ()
-
-    _ordered_input_names = (
-        'bus',
-        'source',
-        )
+    _ordered_input_names = collections.OrderedDict([
+        ('bus', 0),
+        ('source', None),
+    ])
 
     _unexpanded_input_names = (
         'source',
-        )
+    )
 
-    ### INITIALIZER ###
-
-    def __init__(
-        self,
-        calculation_rate=None,
-        bus=0,
-        source=None,
-        ):
-        if not isinstance(source, collections.Sequence):
-            source = [source]
-        UGen.__init__(
-            self,
-            bus=bus,
-            calculation_rate=calculation_rate,
-            source=source,
-            )
+    _valid_calculation_rates = (
+        CalculationRate.AUDIO,
+    )
 
     ### PRIVATE METHODS ###
 
@@ -61,7 +47,7 @@ class OffsetOut(UGen):
         cls,
         bus=0,
         source=None,
-        ):
+    ):
         """
         Constructs a sample-accurately-timed audio-rate bus output.
 
@@ -96,47 +82,5 @@ class OffsetOut(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def bus(self):
-        """
-        Gets `bus` input of OffsetOut.
-
-        ::
-
-            >>> bus = 0
-            >>> source = supriya.ugens.WhiteNoise.ar()
-            >>> offset_out = supriya.ugens.OffsetOut.ar(
-            ...     bus=bus,
-            ...     source=source,
-            ...     )
-            >>> offset_out.bus
-            0.0
-
-        Returns input.
-        """
-        index = self._ordered_input_names.index('bus')
-        return self._inputs[index]
-
-    @property
     def is_output_ugen(self):
         return True
-
-    @property
-    def source(self):
-        """
-        Gets `source` input of OffsetOut.
-
-        ::
-
-            >>> bus = 0
-            >>> source = supriya.ugens.WhiteNoise.ar()
-            >>> out = supriya.ugens.OffsetOut.ar(
-            ...     bus=bus,
-            ...     source=source,
-            ...     )
-            >>> out.source
-            (WhiteNoise.ar()[0],)
-
-        Returns input.
-        """
-        index = self._ordered_input_names.index('source')
-        return tuple(self._inputs[index:])

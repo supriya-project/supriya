@@ -1,3 +1,5 @@
+import collections
+from supriya import CalculationRate
 from supriya.ugens.UGen import UGen
 
 
@@ -23,189 +25,14 @@ class QuadN(UGen):
 
     __documentation_section__ = 'Chaos UGens'
 
-    __slots__ = ()
+    _ordered_input_names = collections.OrderedDict([
+        ('frequency', 22050),
+        ('a', 1),
+        ('b', -1),
+        ('c', -0.75),
+        ('xi', 0),
+    ])
 
-    _ordered_input_names = (
-        'frequency',
-        'a',
-        'b',
-        'c',
-        'xi',
-        )
-
-    _valid_calculation_rates = None
-
-    ### INITIALIZER ###
-
-    def __init__(
-        self,
-        calculation_rate=None,
-        a=1,
-        b=-1,
-        c=-0.75,
-        frequency=22050,
-        xi=0,
-        ):
-        UGen.__init__(
-            self,
-            calculation_rate=calculation_rate,
-            a=a,
-            b=b,
-            c=c,
-            frequency=frequency,
-            xi=xi,
-            )
-
-    ### PUBLIC METHODS ###
-
-    @classmethod
-    def ar(
-        cls,
-        a=1,
-        b=-1,
-        c=-0.75,
-        frequency=22050,
-        xi=0,
-        ):
-        """
-        Constructs an audio-rate QuadN.
-
-        ::
-
-            >>> quad_n = supriya.ugens.QuadN.ar(
-            ...     a=1,
-            ...     b=-1,
-            ...     c=-0.75,
-            ...     frequency=22050,
-            ...     xi=0,
-            ...     )
-            >>> quad_n
-            QuadN.ar()
-
-        Returns ugen graph.
-        """
-        import supriya.synthdefs
-        calculation_rate = supriya.CalculationRate.AUDIO
-        ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
-            a=a,
-            b=b,
-            c=c,
-            frequency=frequency,
-            xi=xi,
-            )
-        return ugen
-
-    # def equation(): ...
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def a(self):
-        """
-        Gets `a` input of QuadN.
-
-        ::
-
-            >>> quad_n = supriya.ugens.QuadN.ar(
-            ...     a=1,
-            ...     b=-1,
-            ...     c=-0.75,
-            ...     frequency=22050,
-            ...     xi=0,
-            ...     )
-            >>> quad_n.a
-            1.0
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('a')
-        return self._inputs[index]
-
-    @property
-    def b(self):
-        """
-        Gets `b` input of QuadN.
-
-        ::
-
-            >>> quad_n = supriya.ugens.QuadN.ar(
-            ...     a=1,
-            ...     b=-1,
-            ...     c=-0.75,
-            ...     frequency=22050,
-            ...     xi=0,
-            ...     )
-            >>> quad_n.b
-            -1.0
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('b')
-        return self._inputs[index]
-
-    @property
-    def c(self):
-        """
-        Gets `c` input of QuadN.
-
-        ::
-
-            >>> quad_n = supriya.ugens.QuadN.ar(
-            ...     a=1,
-            ...     b=-1,
-            ...     c=-0.75,
-            ...     frequency=22050,
-            ...     xi=0,
-            ...     )
-            >>> quad_n.c
-            -0.75
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('c')
-        return self._inputs[index]
-
-    @property
-    def frequency(self):
-        """
-        Gets `frequency` input of QuadN.
-
-        ::
-
-            >>> quad_n = supriya.ugens.QuadN.ar(
-            ...     a=1,
-            ...     b=-1,
-            ...     c=-0.75,
-            ...     frequency=22050,
-            ...     xi=0,
-            ...     )
-            >>> quad_n.frequency
-            22050.0
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('frequency')
-        return self._inputs[index]
-
-    @property
-    def xi(self):
-        """
-        Gets `xi` input of QuadN.
-
-        ::
-
-            >>> quad_n = supriya.ugens.QuadN.ar(
-            ...     a=1,
-            ...     b=-1,
-            ...     c=-0.75,
-            ...     frequency=22050,
-            ...     xi=0,
-            ...     )
-            >>> quad_n.xi
-            0.0
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('xi')
-        return self._inputs[index]
+    _valid_calculation_rates = (
+        CalculationRate.AUDIO,
+    )

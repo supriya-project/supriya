@@ -120,8 +120,6 @@ class Mix(PseudoUGen):
 
     __documentation_section__ = 'Utility UGens'
 
-    __slots__ = ()
-
     ### PUBLIC METHODS ###
 
     @classmethod
@@ -174,7 +172,7 @@ class Mix(PseudoUGen):
 
                 >>> print(out)
                 synthdef:
-                    name: fd9cb7fa733e52136a3108b9c3fe23ea
+                    name: ...
                     ugens:
                     -   SinOsc.ar/0:
                             frequency: 440.0
@@ -183,7 +181,6 @@ class Mix(PseudoUGen):
                             frequency: 500.0
                     -   PanAz.ar/0:
                             amplitude: 1.0
-                            channel_count: 4.0
                             orientation: 0.5
                             position: LFNoise2.kr[0]
                             source: SinOsc.ar/0[0]
@@ -193,7 +190,6 @@ class Mix(PseudoUGen):
                             phase: 0.0
                     -   PanAz.ar/1:
                             amplitude: 1.0
-                            channel_count: 4.0
                             orientation: 0.5
                             position: LFNoise2.kr[0]
                             source: SinOsc.ar/1[0]
@@ -203,7 +199,6 @@ class Mix(PseudoUGen):
                             phase: 0.0
                     -   PanAz.ar/2:
                             amplitude: 1.0
-                            channel_count: 4.0
                             orientation: 0.5
                             position: LFNoise2.kr[0]
                             source: SinOsc.ar/2[0]
@@ -241,7 +236,7 @@ class Mix(PseudoUGen):
 
                 >>> print(out)
                 synthdef:
-                    name: ac5c82bf384ab89565e859c4f948dce5
+                    name: ...
                     ugens:
                     -   SinOsc.ar/0:
                             frequency: 440.0
@@ -250,7 +245,6 @@ class Mix(PseudoUGen):
                             frequency: 500.0
                     -   PanAz.ar/0:
                             amplitude: 1.0
-                            channel_count: 4.0
                             orientation: 0.5
                             position: LFNoise2.kr[0]
                             source: SinOsc.ar/0[0]
@@ -265,7 +259,6 @@ class Mix(PseudoUGen):
                             phase: 0.0
                     -   PanAz.ar/1:
                             amplitude: 1.0
-                            channel_count: 4.0
                             orientation: 0.5
                             position: LFNoise2.kr[0]
                             source: SinOsc.ar/1[0]
@@ -280,7 +273,6 @@ class Mix(PseudoUGen):
                             phase: 0.0
                     -   PanAz.ar/2:
                             amplitude: 1.0
-                            channel_count: 4.0
                             orientation: 0.5
                             position: LFNoise2.kr[0]
                             source: SinOsc.ar/2[0]

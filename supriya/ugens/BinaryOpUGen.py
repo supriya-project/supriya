@@ -1,3 +1,4 @@
+import collections
 from supriya.ugens.PureUGen import PureUGen
 
 
@@ -25,29 +26,27 @@ class BinaryOpUGen(PureUGen):
 
     __documentation_section__ = 'Basic Operator UGens'
 
-    __slots__ = ()
-
-    _ordered_input_names = (
-        'left',
-        'right',
-        )
+    _ordered_input_names = collections.OrderedDict([
+        ('left', None),
+        ('right', None),
+    ])
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        left=None,
-        right=None,
         calculation_rate=None,
         special_index=None,
-        ):
+        left=None,
+        right=None,
+    ):
         PureUGen.__init__(
             self,
             calculation_rate=calculation_rate,
+            special_index=special_index,
             left=left,
             right=right,
-            special_index=special_index,
-            )
+        )
 
     ### PRIVATE METHODS ###
 
@@ -56,11 +55,12 @@ class BinaryOpUGen(PureUGen):
         cls,
         calculation_rate=None,
         special_index=None,
-        **kwargs
-        ):
+        left=None,
+        right=None,
+    ):
         import supriya.synthdefs
-        a = kwargs['left']
-        b = kwargs['right']
+        a = left
+        b = right
         if special_index == supriya.synthdefs.BinaryOperator.MULTIPLICATION:
             if a == 0:
                 return 0
@@ -100,24 +100,6 @@ class BinaryOpUGen(PureUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def left(self):
-        """
-        Gets `left` input of BinaryOpUGen.
-
-        ::
-
-            >>> left = supriya.ugens.SinOsc.ar()
-            >>> right = supriya.ugens.WhiteNoise.kr()
-            >>> binary_op_ugen = left * right
-            >>> binary_op_ugen.left
-            SinOsc.ar()[0]
-
-        Returns input.
-        """
-        index = self._ordered_input_names.index('left')
-        return self._inputs[index]
-
-    @property
     def operator(self):
         """
         Gets operator of BinaryOpUgen.
@@ -134,21 +116,3 @@ class BinaryOpUGen(PureUGen):
         """
         import supriya.synthdefs
         return supriya.synthdefs.BinaryOperator(self.special_index)
-
-    @property
-    def right(self):
-        """
-        Gets `right` input of BinaryOpUGen.
-
-        ::
-
-            >>> left = supriya.ugens.SinOsc.ar()
-            >>> right = supriya.ugens.WhiteNoise.kr()
-            >>> binary_op_ugen = left * right
-            >>> binary_op_ugen.right
-            WhiteNoise.kr()[0]
-
-        Returns input.
-        """
-        index = self._ordered_input_names.index('right')
-        return self._inputs[index]

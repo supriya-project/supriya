@@ -1,3 +1,4 @@
+import collections
 from supriya.ugens.PureUGen import PureUGen
 
 
@@ -23,11 +24,9 @@ class UnaryOpUGen(PureUGen):
 
     __documentation_section__ = 'Basic Operator UGens'
 
-    __slots__ = ()
-
-    _ordered_input_names = (
-        'source',
-        )
+    _ordered_input_names = collections.OrderedDict([
+        ('source', None),
+    ])
 
     ### INITIALIZER ###
 
@@ -36,7 +35,7 @@ class UnaryOpUGen(PureUGen):
         calculation_rate=None,
         source=None,
         special_index=None,
-        ):
+    ):
         PureUGen.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -62,20 +61,3 @@ class UnaryOpUGen(PureUGen):
         """
         import supriya.synthdefs
         return supriya.synthdefs.UnaryOperator(self.special_index)
-
-    @property
-    def source(self):
-        """
-        Gets `source` input of UnaryOpUGen.
-
-        ::
-
-            >>> source = supriya.ugens.SinOsc.ar()
-            >>> unary_op_ugen = -source
-            >>> unary_op_ugen.source
-            SinOsc.ar()[0]
-
-        Returns input.
-        """
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]

@@ -355,14 +355,12 @@ def test_build_synthdef_2_4():
                     bus: Control.ir[0:in_]
             -   PanAz.ar/0:
                     amplitude: 1.0
-                    channel_count: 4.0
                     orientation: 0.5
                     position: -0.5
                     source: In.ar[0]
                     width: 4.0
             -   PanAz.ar/1:
                     amplitude: 1.0
-                    channel_count: 4.0
                     orientation: 0.5
                     position: 0.5
                     source: In.ar[1]
@@ -441,14 +439,12 @@ def test_build_synthdef_2_8():
                     bus: Control.ir[0:in_]
             -   PanAz.ar/0:
                     amplitude: 1.0
-                    channel_count: 8.0
                     orientation: 0.5
                     position: -0.5
                     source: In.ar[0]
                     width: 8.0
             -   PanAz.ar/1:
                     amplitude: 1.0
-                    channel_count: 8.0
                     orientation: 0.5
                     position: 0.5
                     source: In.ar[1]
@@ -611,28 +607,24 @@ def test_build_synthdef_4_2():
                     bus: Control.ir[0:in_]
             -   PanAz.ar/0:
                     amplitude: 0.5
-                    channel_count: 2.0
                     orientation: 0.5
                     position: -0.25
                     source: In.ar[0]
                     width: 1.0
             -   PanAz.ar/1:
                     amplitude: 0.5
-                    channel_count: 2.0
                     orientation: 0.5
                     position: 0.25
                     source: In.ar[1]
                     width: 1.0
             -   PanAz.ar/2:
                     amplitude: 0.5
-                    channel_count: 2.0
                     orientation: 0.5
                     position: 0.75
                     source: In.ar[2]
                     width: 1.0
             -   PanAz.ar/3:
                     amplitude: 0.5
-                    channel_count: 2.0
                     orientation: 0.5
                     position: 1.25
                     source: In.ar[3]
@@ -761,28 +753,24 @@ def test_build_synthdef_4_8():
                     bus: Control.ir[0:in_]
             -   PanAz.ar/0:
                     amplitude: 1.0
-                    channel_count: 8.0
                     orientation: 0.5
                     position: -0.25
                     source: In.ar[0]
                     width: 4.0
             -   PanAz.ar/1:
                     amplitude: 1.0
-                    channel_count: 8.0
                     orientation: 0.5
                     position: 0.25
                     source: In.ar[1]
                     width: 4.0
             -   PanAz.ar/2:
                     amplitude: 1.0
-                    channel_count: 8.0
                     orientation: 0.5
                     position: 0.75
                     source: In.ar[2]
                     width: 4.0
             -   PanAz.ar/3:
                     amplitude: 1.0
-                    channel_count: 8.0
                     orientation: 0.5
                     position: 1.25
                     source: In.ar[3]
@@ -969,28 +957,24 @@ def test_build_synthdef_8_2():
                     bus: Control.ir[0:in_]
             -   PanAz.ar/0:
                     amplitude: 0.25
-                    channel_count: 2.0
                     orientation: 0.5
                     position: -0.125
                     source: In.ar[0]
                     width: 0.5
             -   PanAz.ar/1:
                     amplitude: 0.25
-                    channel_count: 2.0
                     orientation: 0.5
                     position: 0.125
                     source: In.ar[1]
                     width: 0.5
             -   PanAz.ar/2:
                     amplitude: 0.25
-                    channel_count: 2.0
                     orientation: 0.5
                     position: 0.375
                     source: In.ar[2]
                     width: 0.5
             -   PanAz.ar/3:
                     amplitude: 0.25
-                    channel_count: 2.0
                     orientation: 0.5
                     position: 0.625
                     source: In.ar[3]
@@ -1007,28 +991,24 @@ def test_build_synthdef_8_2():
                     input_two: PanAz.ar/1[1]
             -   PanAz.ar/4:
                     amplitude: 0.25
-                    channel_count: 2.0
                     orientation: 0.5
                     position: 0.875
                     source: In.ar[4]
                     width: 0.5
             -   PanAz.ar/5:
                     amplitude: 0.25
-                    channel_count: 2.0
                     orientation: 0.5
                     position: 1.125
                     source: In.ar[5]
                     width: 0.5
             -   PanAz.ar/6:
                     amplitude: 0.25
-                    channel_count: 2.0
                     orientation: 0.5
                     position: 1.375
                     source: In.ar[6]
                     width: 0.5
             -   PanAz.ar/7:
                     amplitude: 0.25
-                    channel_count: 2.0
                     orientation: 0.5
                     position: 1.625
                     source: In.ar[7]
@@ -1103,28 +1083,24 @@ def test_build_synthdef_8_4():
                     bus: Control.ir[0:in_]
             -   PanAz.ar/0:
                     amplitude: 0.5
-                    channel_count: 4.0
                     orientation: 0.5
                     position: -0.125
                     source: In.ar[0]
                     width: 1.0
             -   PanAz.ar/1:
                     amplitude: 0.5
-                    channel_count: 4.0
                     orientation: 0.5
                     position: 0.125
                     source: In.ar[1]
                     width: 1.0
             -   PanAz.ar/2:
                     amplitude: 0.5
-                    channel_count: 4.0
                     orientation: 0.5
                     position: 0.375
                     source: In.ar[2]
                     width: 1.0
             -   PanAz.ar/3:
                     amplitude: 0.5
-                    channel_count: 4.0
                     orientation: 0.5
                     position: 0.625
                     source: In.ar[3]
@@ -1151,28 +1127,24 @@ def test_build_synthdef_8_4():
                     input_two: PanAz.ar/1[3]
             -   PanAz.ar/4:
                     amplitude: 0.5
-                    channel_count: 4.0
                     orientation: 0.5
                     position: 0.875
                     source: In.ar[4]
                     width: 1.0
             -   PanAz.ar/5:
                     amplitude: 0.5
-                    channel_count: 4.0
                     orientation: 0.5
                     position: 1.125
                     source: In.ar[5]
                     width: 1.0
             -   PanAz.ar/6:
                     amplitude: 0.5
-                    channel_count: 4.0
                     orientation: 0.5
                     position: 1.375
                     source: In.ar[6]
                     width: 1.0
             -   PanAz.ar/7:
                     amplitude: 0.5
-                    channel_count: 4.0
                     orientation: 0.5
                     position: 1.625
                     source: In.ar[7]

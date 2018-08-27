@@ -1,3 +1,4 @@
+import collections
 from supriya.ugens.MultiOutUGen import MultiOutUGen
 
 
@@ -14,10 +15,11 @@ class Control(MultiOutUGen):
 
     __documentation_section__ = 'UGen Internals'
 
+    _ordered_input_names = collections.OrderedDict([])
+
     __slots__ = (
-        '_channel_count',
         '_parameters',
-        )
+    )
 
     ### INITIALIZER ###
 
@@ -26,7 +28,7 @@ class Control(MultiOutUGen):
         parameters,
         calculation_rate=None,
         starting_control_index=0,
-        ):
+    ):
         import supriya.synthdefs
         coerced_parameters = []
         for parameter in parameters:

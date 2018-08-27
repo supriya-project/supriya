@@ -10,8 +10,6 @@ class CompanderD(PseudoUGen):
 
     __documentation_section__ = 'Dynamics UGens'
 
-    __slots__ = ()
-
     ### PUBLIC METHODS ###
 
     @classmethod
@@ -23,7 +21,7 @@ class CompanderD(PseudoUGen):
         relax_time=0.1,
         slope_above=1.,
         slope_below=1.,
-        ):
+    ):
         """
         Constructs an audio-rate dynamics processor.
 

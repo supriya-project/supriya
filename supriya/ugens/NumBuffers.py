@@ -1,3 +1,5 @@
+import collections
+from supriya import CalculationRate
 from supriya.ugens.InfoUGenBase import InfoUGenBase
 
 
@@ -16,15 +18,8 @@ class NumBuffers(InfoUGenBase):
 
     __documentation_section__ = 'Info UGens'
 
-    __slots__ = ()
+    _ordered_input_names = collections.OrderedDict()
 
-    ### INITIALIZER ###
-
-    def __init__(
-        self,
-        calculation_rate=None,
-        ):
-        InfoUGenBase.__init__(
-            self,
-            calculation_rate=calculation_rate,
-            )
+    _valid_calculation_rates = (
+        CalculationRate.SCALAR,
+    )

@@ -9,8 +9,6 @@ class SoundIn(PseudoUGen):
 
     __documentation_section__ = 'Input/Output UGens'
 
-    __slots__ = ()
-
     ### INITIALIZER ###
 
     @abc.abstractmethod

@@ -7,12 +7,6 @@ class MultiOutUGen(UGen):
     Abstract base class for ugens with multiple outputs.
     """
 
-    ### CLASS VARIABLES ###
-
-    __slots__ = (
-        '_channel_count',
-        )
-
     ### INTIALIZER ###
 
     @abc.abstractmethod
@@ -24,14 +18,14 @@ class MultiOutUGen(UGen):
         **kwargs
     ):
         self._channel_count = int(channel_count)
-        if 'channel_count' in self._ordered_input_names:
-            kwargs['channel_count'] = channel_count
+        #if 'channel_count' in self._ordered_input_names:
+        #    kwargs['channel_count'] = channel_count
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
             special_index=special_index,
-            **kwargs
-            )
+            **kwargs,
+        )
 
     ### SPECIAL METHODS ###
 
@@ -41,7 +35,7 @@ class MultiOutUGen(UGen):
 
         Returns integer.
         """
-        return self.channel_count
+        return self._channel_count
 
     ### PRIVATE METHODS ###
 
@@ -52,7 +46,7 @@ class MultiOutUGen(UGen):
         ugen = super(MultiOutUGen, cls)._new_expanded(
             special_index=special_index,
             **kwargs
-            )
+        )
         output_proxies = []
         if isinstance(ugen, supriya.ugens.UGen):
             output_proxies.extend(ugen[:])

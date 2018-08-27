@@ -1,3 +1,5 @@
+import collections
+from supriya import CalculationRate
 from supriya.ugens.UGen import UGen
 
 
@@ -20,100 +22,11 @@ class Hasher(UGen):
 
     __documentation_section__ = 'Noise UGens'
 
-    __slots__ = ()
+    _ordered_input_names = collections.OrderedDict([
+        ('source', None),
+    ])
 
-    _ordered_input_names = (
-        'source',
-        )
-
-    _valid_calculation_rates = None
-
-    ### INITIALIZER ###
-
-    def __init__(
-        self,
-        calculation_rate=None,
-        source=0,
-        ):
-        UGen.__init__(
-            self,
-            calculation_rate=calculation_rate,
-            source=source,
-            )
-
-    ### PUBLIC METHODS ###
-
-    @classmethod
-    def ar(
-        cls,
-        source=0,
-        ):
-        """
-        Constructs an audio-rate signal hasher.
-
-        ::
-
-            >>> source = supriya.ugens.SinOsc.ar(frequency=[440, 442])
-            >>> hasher = supriya.ugens.Hasher.ar(
-            ...     source=source,
-            ...     )
-            >>> hasher
-            UGenArray({2})
-
-        Returns ugen graph.
-        """
-        import supriya.synthdefs
-        calculation_rate = supriya.CalculationRate.AUDIO
-        ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
-            source=source,
-            )
-        return ugen
-
-    @classmethod
-    def kr(
-        cls,
-        source=0,
-        ):
-        """
-        Constructs a control-rate signal hasher.
-
-        ::
-
-            >>> source = supriya.ugens.SinOsc.kr(frequency=[4, 2])
-            >>> hasher = supriya.ugens.Hasher.kr(
-            ...     source=source,
-            ...     )
-            >>> hasher
-            UGenArray({2})
-
-        Returns ugen graph.
-        """
-        import supriya.synthdefs
-        calculation_rate = supriya.CalculationRate.CONTROL
-        ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
-            source=source,
-            )
-        return ugen
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def source(self):
-        """
-        Gets `source` input of SignalHasher.
-
-        ::
-
-            >>> source = supriya.ugens.SinOsc.ar()
-            >>> hasher = supriya.ugens.Hasher.ar(
-            ...     source=source,
-            ...     )
-            >>> hasher.source
-            SinOsc.ar()[0]
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
+    _valid_calculation_rates = (
+        CalculationRate.AUDIO,
+        CalculationRate.CONTROL,
+    )

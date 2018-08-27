@@ -1,3 +1,4 @@
+import collections
 from supriya import CalculationRate
 from supriya.ugens.UGen import UGen
 
@@ -20,22 +21,20 @@ class MaxLocalBufs(UGen):
 
     __documentation_section__ = 'Buffer UGens'
 
-    __slots__ = ()
-
-    _ordered_input_names = (
-        'maximum',
-        )
+    _ordered_input_names = collections.OrderedDict([
+        ('maximum', 0),
+    ])
 
     _valid_calculation_rates = (
         CalculationRate.SCALAR,
-        )
+    )
 
     ### INITIALIZER ###
 
     def __init__(
         self,
         maximum=0,
-        ):
+    ):
         import supriya.synthdefs
         maximum = float(maximum)
         calculation_rate = supriya.CalculationRate.SCALAR
@@ -66,21 +65,3 @@ class MaxLocalBufs(UGen):
         Returns none.
         """
         self._inputs[0] += 1
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def maximum(self):
-        """
-        Gets `maximum` input of MaxLocalBufs.
-
-        ::
-
-            >>> max_local_bufs = supriya.ugens.MaxLocalBufs(1)
-            >>> max_local_bufs.maximum
-            1.0
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('maximum')
-        return self._inputs[index]

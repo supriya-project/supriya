@@ -1,7 +1,9 @@
-from supriya.ugens.Delay1 import Delay1
+import collections
+from supriya import CalculationRate
+from supriya.ugens.PureUGen import PureUGen
 
 
-class Delay2(Delay1):
+class Delay2(PureUGen):
     """
     A two-sample delay line unit generator.
 
@@ -17,73 +19,13 @@ class Delay2(Delay1):
 
     __documentation_section__ = 'Delay UGens'
 
-    __slots__ = ()
+    _ordered_input_names = collections.OrderedDict([
+        ('source', None),
+        ('maximum_delay_time', 0.2),
+        ('delay_time', 0.2),
+    ])
 
-    ### PUBLIC METHODS ###
-
-    @classmethod
-    def ar(
-        cls,
-        delay_time=0.2,
-        maximum_delay_time=0.2,
-        source=None,
-        ):
-        """
-        Constructs an audio-rate two-sample delay line.
-
-        ::
-
-            >>> source = supriya.ugens.In.ar(bus=0)
-            >>> supriya.ugens.Delay2.ar(
-            ...     source=source,
-            ...     )
-            Delay2.ar()
-
-        Returns unit generator graph.
-        """
-        return super(Delay2, cls).ar(
-            source=source,
-            )
-
-    @classmethod
-    def kr(
-        cls,
-        source=None,
-        ):
-        """
-        Constructs a control-rate two-sample delay line.
-
-        ::
-
-            >>> source = supriya.ugens.In.kr(bus=0)
-            >>> supriya.ugens.Delay2.kr(
-            ...     source=source,
-            ...     )
-            Delay2.ar()
-
-        Returns unit generator graph.
-        """
-        return super(Delay2, cls).kr(
-            source=source,
-            )
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def source(self):
-        """
-        Gets `source` input of Delay2.
-
-        ::
-
-            >>> source = supriya.ugens.In.ar(bus=0)
-            >>> delay_2 = supriya.ugens.Delay2.ar(
-            ...     source=source,
-            ...     )
-            >>> delay_2.source
-            In.ar()[0]
-
-        Returns input.
-        """
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
+    _valid_calculation_rates = (
+        CalculationRate.AUDIO,
+        CalculationRate.CONTROL,
+    )

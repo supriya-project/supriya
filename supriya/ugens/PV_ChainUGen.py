@@ -11,25 +11,15 @@ class PV_ChainUGen(WidthFirstUGen):
 
     __documentation_section__ = 'FFT UGens'
 
-    __slots__ = ()
-
-    _valid_calculation_rates = (
-        CalculationRate.CONTROL,
-        )
-
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        **kwargs
-        ):
-        import supriya.synthdefs
-        calculation_rate = supriya.CalculationRate.CONTROL
+    def __init__(self, **kwargs):
+        calculation_rate = CalculationRate.CONTROL
         WidthFirstUGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            **kwargs
-            )
+            **kwargs,
+        )
 
     ### PUBLIC PROPERTIES ###
 

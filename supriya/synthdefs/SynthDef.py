@@ -268,14 +268,14 @@ class SynthDef(ServerObjectProxy):
             ugen_name = named_ugens[ugen]
             for i, input_ in enumerate(ugen.inputs):
                 if i < len(ugen._ordered_input_names):
-                    argument_name = ugen._ordered_input_names[i]
+                    argument_name = tuple(ugen._ordered_input_names)[i]
                 else:
-                    argument_name = ugen._ordered_input_names[-1]
+                    argument_name = tuple(ugen._ordered_input_names)[-1]
                 if (
                     ugen._unexpanded_input_names and
                     argument_name in ugen._unexpanded_input_names
                 ):
-                    unexpanded_index = i - ugen._ordered_input_names.index(
+                    unexpanded_index = i - tuple(ugen._ordered_input_names).index(
                         argument_name)
                     argument_name += '[{}]'.format(unexpanded_index)
                 if isinstance(input_, float):
@@ -504,7 +504,11 @@ class SynthDef(ServerObjectProxy):
                 inputs[input_index] = pv_copy[0]
                 descendant._inputs = tuple(inputs)
                 index = ugens.index(descendant)
-                ugens[index:index] = [fft_size, new_buffer, pv_copy]
+                replacement = []
+                if isinstance(fft_size, supriya.synthdefs.UGenMethodMixin):
+                    replacement.append(fft_size)
+                replacement.extend([new_buffer, pv_copy])
+                ugens[index:index] = replacement
         return ugens
 
     @staticmethod

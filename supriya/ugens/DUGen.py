@@ -1,4 +1,4 @@
-from supriya import CalculationRate
+from supriya.enums import CalculationRate
 from supriya.ugens.UGen import UGen
 
 
@@ -11,17 +11,8 @@ class DUGen(UGen):
 
     __documentation_section__ = 'Demand UGens'
 
-    __slots__ = ()
-
-    _valid_calculation_rates = (
-        CalculationRate.DEMAND,
-        )
-
     ### INITIALIZER ###
 
     def __init__(self, **kwargs):
-        UGen.__init__(
-            self,
-            calculation_rate=CalculationRate.DEMAND,
-            **kwargs
-            )
+        kwargs['calculation_rate'] = CalculationRate.DEMAND
+        UGen.__init__(self, **kwargs)

@@ -1,4 +1,5 @@
 import collections
+from supriya import CalculationRate
 from supriya.ugens.UGen import UGen
 
 
@@ -66,17 +67,16 @@ class Poll(UGen):
 
     __documentation_section__ = 'Utility UGens'
 
-    __slots__ = ()
+    _ordered_input_names = collections.OrderedDict([
+        ('trigger', None),
+        ('source', None),
+        ('trigger_id', -1),
+    ])
 
-    _ordered_input_names = (
-        'trigger',
-        'source',
-        'trigger_id',
-        )
-
-    _unexpanded_argument_names = None
-
-    _valid_calculation_rates = None
+    _valid_calculation_rates = (
+        CalculationRate.AUDIO,
+        CalculationRate.CONTROL,
+    )
 
     ### INITIALIZER ###
 
@@ -87,7 +87,7 @@ class Poll(UGen):
         source=None,
         trigger=None,
         trigger_id=-1,
-        ):
+    ):
         import supriya.synthdefs
         import supriya.ugens
         if label is None:
@@ -116,7 +116,7 @@ class Poll(UGen):
         source=None,
         trigger=None,
         trigger_id=-1,
-        ):
+    ):
         import supriya.synthdefs
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -135,7 +135,7 @@ class Poll(UGen):
         source=None,
         trigger=None,
         trigger_id=-1,
-        ):
+    ):
         import supriya.synthdefs
         calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -154,7 +154,7 @@ class Poll(UGen):
         source=None,
         trigger=None,
         trigger_id=-1,
-        ):
+    ):
         import supriya.synthdefs
         if isinstance(source, collections.Sequence):
             source = (source,)
@@ -193,77 +193,8 @@ class Poll(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('trigger_id') + 2
+        index = tuple(self._ordered_input_names).index('trigger_id') + 2
         characters = self._inputs[index:]
         characters = [chr(int(_)) for _ in characters]
         label = ''.join(characters)
         return label
-
-    @property
-    def source(self):
-        """
-        Gets `source` input of Poll.
-
-        ::
-
-            >>> sine = supriya.ugens.SinOsc.ar()
-            >>> trigger = supriya.ugens.Impulse.kr(1)
-            >>> poll = supriya.ugens.Poll.ar(
-            ...     label='Foo',
-            ...     source=sine,
-            ...     trigger=trigger,
-            ...     trigger_id=1234,
-            ...     )
-            >>> poll.source
-            SinOsc.ar()[0]
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
-    def trigger(self):
-        """
-        Gets `trigger` input of Poll.
-
-        ::
-
-            >>> sine = supriya.ugens.SinOsc.ar()
-            >>> trigger = supriya.ugens.Impulse.kr(1)
-            >>> poll = supriya.ugens.Poll.ar(
-            ...     label='Foo',
-            ...     source=sine,
-            ...     trigger=trigger,
-            ...     trigger_id=1234,
-            ...     )
-            >>> poll.trigger
-            Impulse.kr()[0]
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('trigger')
-        return self._inputs[index]
-
-    @property
-    def trigger_id(self):
-        """
-        Gets `trigger_id` input of Poll.
-
-        ::
-
-            >>> sine = supriya.ugens.SinOsc.ar()
-            >>> trigger = supriya.ugens.Impulse.kr(1)
-            >>> poll = supriya.ugens.Poll.ar(
-            ...     label='Foo',
-            ...     source=sine,
-            ...     trigger=trigger,
-            ...     trigger_id=1234,
-            ...     )
-            >>> poll.trigger_id
-            1234.0
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('trigger_id')
-        return self._inputs[index]

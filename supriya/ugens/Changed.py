@@ -36,8 +36,6 @@ class Changed(PseudoUGen):
 
     __documentation_section__ = 'Filter UGens'
 
-    __slots__ = ()
-
     ### PUBLIC METHODS ###
 
     @classmethod
@@ -45,7 +43,7 @@ class Changed(PseudoUGen):
         cls,
         source=None,
         threshold=0,
-        ):
+    ):
         """
         Constructs an audio-rate Changed.
 
@@ -85,7 +83,7 @@ class Changed(PseudoUGen):
         cls,
         source=None,
         threshold=0,
-        ):
+    ):
         """
         Constructs a control-rate Changed.
 

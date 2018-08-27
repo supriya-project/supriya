@@ -3,10 +3,11 @@ import collections
 import inspect
 from supriya.synthdefs.SignalRange import SignalRange
 from supriya.synthdefs.UGenMethodMixin import UGenMethodMixin
-from typing import Optional, Tuple
+from supriya.ugens.UGenMeta import UGenMeta
+from typing import Dict, Optional, Tuple, Union
 
 
-class UGen(UGenMethodMixin):
+class UGen(UGenMethodMixin, metaclass=UGenMeta):
     """
     A UGen.
     """
@@ -16,19 +17,24 @@ class UGen(UGenMethodMixin):
     __documentation_section__: Optional[str] = 'SynthDef Internals'
 
     __slots__ = (
-        '_calculation_rate',
         '_inputs',
         '_special_index',
         '_uuid',
-        )
+    )
 
-    _ordered_input_names: Tuple[str, ...] = ()
+    _has_channel_count = False
+
+    _has_settable_channel_count = False
+
+    _has_done_flag = False
+
+    _ordered_input_names: Dict[str, Union[str, float, bool, None]] = None
 
     _signal_range: int = SignalRange.BIPOLAR
 
     _unexpanded_input_names: Tuple[str, ...] = ()
 
-    _valid_rates: Tuple[int, ...] = ()
+    _valid_calculation_rates: Tuple[int, ...] = ()
 
     ### INITIALIZER ###
 
@@ -37,30 +43,33 @@ class UGen(UGenMethodMixin):
         self,
         calculation_rate=None,
         special_index=0,
-        **kwargs
+        **kwargs,
     ):
         import supriya.synthdefs
-        assert isinstance(calculation_rate, supriya.CalculationRate), \
-            calculation_rate
-        if self._valid_rates:
-            assert calculation_rate in self._valid_rates
+        calculation_rate = supriya.CalculationRate.from_expr(calculation_rate)
+        if self._valid_calculation_rates:
+            assert calculation_rate in self._valid_calculation_rates
         self._calculation_rate = calculation_rate
         self._inputs = []
         self._special_index = special_index
-        ugenlike_prototype = (
-            UGen,
-            supriya.synthdefs.Parameter,
-            )
-        for i in range(len(self._ordered_input_names)):
-            input_name = self._ordered_input_names[i]
-            input_value = kwargs.get(input_name, None)
+        ugenlike_prototype = (UGen, supriya.synthdefs.Parameter)
+        server_id_prototype = (
+            supriya.realtime.ServerObjectProxy,
+            supriya.realtime.BusProxy,
+            supriya.realtime.BufferProxy,
+        )
+        for input_name in self._ordered_input_names:
+            input_value = None
             if input_name in kwargs:
-                input_value = kwargs[input_name]
-                del(kwargs[input_name])
+                input_value = kwargs.pop(input_name)
             if isinstance(input_value, ugenlike_prototype):
                 assert len(input_value) == 1
                 input_value = input_value[0]
+            elif isinstance(input_value, server_id_prototype):
+                input_value = int(input_value)
             if self._is_unexpanded_input_name(input_name):
+                if not isinstance(input_value, collections.Sequence):
+                    input_value = (input_value,)
                 if isinstance(input_value, collections.Sequence):
                     input_value = tuple(input_value)
                 elif not self._is_valid_input(input_value):
@@ -424,7 +433,7 @@ class UGen(UGenMethodMixin):
 
     @property
     def has_done_flag(self):
-        return False
+        return self._has_done_flag
 
     @property
     def inputs(self):

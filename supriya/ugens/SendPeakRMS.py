@@ -1,4 +1,5 @@
 import collections
+from supriya import CalculationRate
 from supriya.ugens.UGen import UGen
 
 
@@ -25,19 +26,20 @@ class SendPeakRMS(UGen):
 
     __documentation_section__ = 'Utility UGens'
 
-    __slots__ = ()
-
-    _ordered_input_names = (
-        'reply_rate',
-        'peak_lag',
-        'reply_id',
-        )
+    _ordered_input_names = collections.OrderedDict([
+        ('reply_rate', 20),
+        ('peak_lag', 3),
+        ('reply_id', -1),
+    ])
 
     _unexpanded_argument_names = (
         'source',
         )
 
-    _valid_calculation_rates = None
+    _valid_calculation_rates = (
+        CalculationRate.AUDIO,
+        CalculationRate.CONTROL,
+    )
 
     ### INITIALIZER ###
 
@@ -49,7 +51,7 @@ class SendPeakRMS(UGen):
         reply_id=-1,
         reply_rate=20,
         source=None,
-        ):
+    ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -82,7 +84,7 @@ class SendPeakRMS(UGen):
         reply_id=-1,
         reply_rate=20,
         source=None,
-        ):
+    ):
         """
         Constructs an audio-rate SendPeakRMS.
 
@@ -121,7 +123,7 @@ class SendPeakRMS(UGen):
         reply_id=-1,
         reply_rate=20,
         source=None,
-        ):
+    ):
         """
         Constructs a control-rate SendPeakRMS.
 
@@ -176,82 +178,13 @@ class SendPeakRMS(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('reply_id') + 1
+        index = tuple(self._ordered_input_names).index('reply_id') + 1
         source_length = int(self._inputs[index])
         index += source_length + 2
         characters = self._inputs[index:]
         characters = [chr(int(_)) for _ in characters]
         command_name = ''.join(characters)
         return command_name
-
-    @property
-    def peak_lag(self):
-        """
-        Gets `peak_lag` input of SendPeakRMS.
-
-        ::
-
-            >>> source = supriya.ugens.In.ar(channel_count=4)
-            >>> send_peak_rms = supriya.ugens.SendPeakRMS.ar(
-            ...     command_name='/reply',
-            ...     peak_lag=3,
-            ...     reply_id=-1,
-            ...     reply_rate=20,
-            ...     source=source,
-            ...     )
-            >>> send_peak_rms.peak_lag
-            3.0
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('peak_lag')
-        return self._inputs[index]
-
-    @property
-    def reply_id(self):
-        """
-        Gets `reply_id` input of SendPeakRMS.
-
-        ::
-
-            >>> source = supriya.ugens.In.ar(channel_count=4)
-            >>> send_peak_rms = supriya.ugens.SendPeakRMS.ar(
-            ...     command_name='/reply',
-            ...     peak_lag=3,
-            ...     reply_id=-1,
-            ...     reply_rate=20,
-            ...     source=source,
-            ...     )
-            >>> send_peak_rms.reply_id
-            -1.0
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('reply_id')
-        return self._inputs[index]
-
-    @property
-    def reply_rate(self):
-        """
-        Gets `reply_rate` input of SendPeakRMS.
-
-        ::
-
-            >>> source = supriya.ugens.In.ar(channel_count=4)
-            >>> send_peak_rms = supriya.ugens.SendPeakRMS.ar(
-            ...     command_name='/reply',
-            ...     peak_lag=3,
-            ...     reply_id=-1,
-            ...     reply_rate=20,
-            ...     source=source,
-            ...     )
-            >>> send_peak_rms.reply_rate
-            20.0
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('reply_rate')
-        return self._inputs[index]
 
     @property
     def source(self):
@@ -273,7 +206,7 @@ class SendPeakRMS(UGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('reply_id') + 1
+        index = tuple(self._ordered_input_names).index('reply_id') + 1
         source_length = int(self._inputs[index])
         start = index + 1
         stop = start + source_length

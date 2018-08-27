@@ -1,4 +1,6 @@
 import abc
+import collections
+from supriya import CalculationRate
 from supriya.ugens.PseudoUGen import PseudoUGen
 
 
@@ -7,8 +9,6 @@ class LinLin(PseudoUGen):
     ### CLASS VARIABLES ###
 
     __documentation_section__ = 'Line Utility UGens'
-
-    __slots__ = ()
 
     ### INITIALIZER ###
 

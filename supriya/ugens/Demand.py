@@ -1,4 +1,5 @@
 import collections
+from supriya import CalculationRate
 from supriya.ugens.MultiOutUGen import MultiOutUGen
 
 
@@ -27,201 +28,41 @@ class Demand(MultiOutUGen):
 
     __documentation_section__ = 'Demand UGens'
 
-    __slots__ = ()
+    _has_channel_count = True
 
-    _ordered_input_names = (
-        'trigger',
-        'reset',
-        'source',
-        )
+    _has_settable_channel_count = False
+
+    _ordered_input_names = collections.OrderedDict([
+        ('trigger', 0),
+        ('reset', 0),
+        ('source', None),
+    ])
 
     _unexpanded_input_names = (
         'source',
         )
 
-    _valid_calculation_rates = None
+    _valid_calculation_rates = (
+        CalculationRate.AUDIO,
+        CalculationRate.CONTROL,
+    )
 
     ### INITIALIZER ###
 
     def __init__(
         self,
         calculation_rate=None,
+        trigger=None,
         reset=None,
         source=None,
-        trigger=None,
-        ):
+    ):
         if not isinstance(source, collections.Sequence):
-            source = (source,)
-        channel_count = len(source)
+            source = [source]
         MultiOutUGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            channel_count=channel_count,
+            trigger=trigger,
             reset=reset,
             source=source,
-            trigger=trigger,
-            )
-
-    ### PUBLIC METHODS ###
-
-    @classmethod
-    def ar(
-        cls,
-        reset=None,
-        source=None,
-        trigger=None,
-        ):
-        """
-        Constructs an audio-rate Demand.
-
-        ::
-
-            >>> source = [
-            ...     supriya.ugens.Dseries(),
-            ...     supriya.ugens.Dwhite(),
-            ...     ]
-            >>> trigger = supriya.ugens.Impulse.kr(1)
-            >>> demand = supriya.ugens.Demand.ar(
-            ...     reset=0,
-            ...     source=source,
-            ...     trigger=trigger,
-            ...     )
-            >>> demand
-            UGenArray({2})
-
-        Returns ugen graph.
-        """
-        import supriya.synthdefs
-        calculation_rate = supriya.CalculationRate.AUDIO
-        ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
-            source=source,
-            reset=reset,
-            trigger=trigger,
-            )
-        return ugen
-
-    @classmethod
-    def kr(
-        cls,
-        source=None,
-        reset=None,
-        trigger=None,
-        ):
-        """
-        Constructs a control-rate Demand.
-
-        ::
-
-            >>> source = [
-            ...     supriya.ugens.Dseries(),
-            ...     supriya.ugens.Dwhite(),
-            ...     ]
-            >>> trigger = supriya.ugens.Impulse.kr(1)
-            >>> demand = supriya.ugens.Demand.kr(
-            ...     reset=0,
-            ...     source=source,
-            ...     trigger=trigger,
-            ...     )
-            >>> demand
-            UGenArray({2})
-
-        Returns ugen graph.
-        """
-        import supriya.synthdefs
-        calculation_rate = supriya.CalculationRate.CONTROL
-        ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
-            source=source,
-            reset=reset,
-            trigger=trigger,
-            )
-        return ugen
-
-    # def newFromDesc(): ...
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def has_done_flag(self):
-        """
-        Is true if UGen has a done flag.
-
-        Returns boolean.
-        """
-        return True
-
-    @property
-    def reset(self):
-        """
-        Gets `reset` input of Demand.
-
-        ::
-
-            >>> source = [
-            ...     supriya.ugens.Dseries(),
-            ...     supriya.ugens.Dwhite(),
-            ...     ]
-            >>> trigger = supriya.ugens.Impulse.kr(1)
-            >>> demand = supriya.ugens.Demand.ar(
-            ...     reset=0,
-            ...     source=source,
-            ...     trigger=trigger,
-            ...     )
-            >>> demand[0].source.reset
-            0.0
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('reset')
-        return self._inputs[index]
-
-    @property
-    def source(self):
-        """
-        Gets `source` input of Demand.
-
-        ::
-
-            >>> source = [
-            ...     supriya.ugens.Dseries(),
-            ...     supriya.ugens.Dwhite(),
-            ...     ]
-            >>> trigger = supriya.ugens.Impulse.kr(1)
-            >>> demand = supriya.ugens.Demand.ar(
-            ...     reset=0,
-            ...     source=source,
-            ...     trigger=trigger,
-            ...     )
-            >>> demand[0].source.source
-            (Dseries()[0], Dwhite()[0])
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('source')
-        return tuple(self._inputs[index:])
-
-    @property
-    def trigger(self):
-        """
-        Gets `trigger` input of Demand.
-
-        ::
-
-            >>> source = [
-            ...     supriya.ugens.Dseries(),
-            ...     supriya.ugens.Dwhite(),
-            ...     ]
-            >>> trigger = supriya.ugens.Impulse.kr(1)
-            >>> demand = supriya.ugens.Demand.ar(
-            ...     reset=0,
-            ...     source=source,
-            ...     trigger=trigger,
-            ...     )
-            >>> demand[0].source.trigger
-            Impulse.kr()[0]
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('trigger')
-        return self._inputs[index]
+            channel_count=len(source),
+        )

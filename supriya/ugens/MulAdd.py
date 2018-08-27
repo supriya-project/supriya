@@ -1,3 +1,5 @@
+import collections
+from supriya import CalculationRate
 from supriya.ugens.UGen import UGen
 
 
@@ -22,13 +24,11 @@ class MulAdd(UGen):
 
     __documentation_section__ = 'Basic Operator UGens'
 
-    __slots__ = ()
-
-    _ordered_input_names = (
-        'source',
-        'multiplier',
-        'addend',
-        )
+    _ordered_input_names = collections.OrderedDict([
+        ('source', None),
+        ('multiplier', 1.0),
+        ('addend', 0.0),
+    ])
 
     ### INITIALIZER ###
 
@@ -38,7 +38,7 @@ class MulAdd(UGen):
         multiplier=1.0,
         calculation_rate=None,
         source=None,
-        ):
+    ):
         UGen.__init__(
             self,
             addend=addend,
@@ -54,16 +54,18 @@ class MulAdd(UGen):
         source,
         multiplier,
         addend,
-        ):
-        import supriya.synthdefs
-        CalculationRate = supriya.CalculationRate
+    ):
         if CalculationRate.from_expr(source) == CalculationRate.AUDIO:
             return True
         if CalculationRate.from_expr(source) == CalculationRate.CONTROL:
             if CalculationRate.from_expr(multiplier) in (
-                CalculationRate.CONTROL, CalculationRate.SCALAR):
+                CalculationRate.CONTROL,
+                CalculationRate.SCALAR,
+            ):
                 if CalculationRate.from_expr(addend) in (
-                    CalculationRate.CONTROL, CalculationRate.SCALAR):
+                    CalculationRate.CONTROL,
+                    CalculationRate.SCALAR,
+                ):
                     return True
         return False
 
@@ -74,7 +76,7 @@ class MulAdd(UGen):
         multiplier=None,
         calculation_rate=None,
         source=None,
-        ):
+    ):
         if multiplier == 0.0:
             return addend
         minus = multiplier == -1
@@ -114,7 +116,7 @@ class MulAdd(UGen):
         source=None,
         multiplier=1.0,
         addend=0.0,
-        ):
+    ):
         """
         Constructs a multiplication / addition ugen.
 
@@ -143,74 +145,3 @@ class MulAdd(UGen):
             source=source,
             )
         return ugen
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def addend(self):
-        """
-        Gets `addend` input of MulAdd.
-
-        ::
-
-            >>> addend = 0.5
-            >>> multiplier = 1.5
-            >>> source = supriya.ugens.SinOsc.ar()
-            >>> mul_add = supriya.ugens.MulAdd.new(
-            ...     addend=addend,
-            ...     multiplier=multiplier,
-            ...     source=source,
-            ...     )
-            >>> mul_add.addend
-            0.5
-
-        Returns input.
-        """
-        index = self._ordered_input_names.index('addend')
-        return self._inputs[index]
-
-    @property
-    def multiplier(self):
-        """
-        Gets `multiplier` input of MulAdd.
-
-        ::
-
-            >>> addend = 0.5
-            >>> multiplier = 1.5
-            >>> source = supriya.ugens.SinOsc.ar()
-            >>> mul_add = supriya.ugens.MulAdd.new(
-            ...     addend=addend,
-            ...     multiplier=multiplier,
-            ...     source=source,
-            ...     )
-            >>> mul_add.multiplier
-            1.5
-
-        Returns input.
-        """
-        index = self._ordered_input_names.index('multiplier')
-        return self._inputs[index]
-
-    @property
-    def source(self):
-        """
-        Gets `source` input of MulAdd.
-
-        ::
-
-            >>> addend = 0.5
-            >>> multiplier = 1.5
-            >>> source = supriya.ugens.SinOsc.ar()
-            >>> mul_add = supriya.ugens.MulAdd.new(
-            ...     addend=addend,
-            ...     multiplier=multiplier,
-            ...     source=source,
-            ...     )
-            >>> mul_add.source
-            SinOsc.ar()[0]
-
-        Returns input.
-        """
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]

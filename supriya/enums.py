@@ -93,7 +93,7 @@ class CalculationRate(IntEnumeration):
         elif isinstance(expr, (
             supriya.synthdefs.OutputProxy,
             supriya.ugens.UGen,
-            )):
+        )):
             return expr.calculation_rate
         elif isinstance(expr, supriya.synthdefs.Parameter):
             name = expr.parameter_rate.name
@@ -105,7 +105,7 @@ class CalculationRate(IntEnumeration):
         elif isinstance(expr, collections.Sequence):
             return max(CalculationRate.from_expr(item) for item in expr)
         elif hasattr(expr, 'calculation_rate'):
-            return Calculation.from_expr(expr.calculation_rate)
+            return cls.from_expr(expr.calculation_rate)
         return super().from_expr(expr)
 
     ### PUBLIC PROPERTIES ###
@@ -118,4 +118,4 @@ class CalculationRate(IntEnumeration):
             return 'kr'
         elif self == CalculationRate.AUDIO:
             return 'ar'
-        return '--'
+        return 'new'

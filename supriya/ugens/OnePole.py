@@ -1,3 +1,5 @@
+import collections
+from supriya import CalculationRate
 from supriya.ugens.Filter import Filter
 
 
@@ -21,142 +23,12 @@ class OnePole(Filter):
 
     __documentation_section__ = 'Filter UGens'
 
-    __slots__ = ()
+    _ordered_input_names = collections.OrderedDict([
+        ('source', None),
+        ('coefficient', 0.5),
+    ])
 
-    _ordered_input_names = (
-        'source',
-        'coefficient',
-        )
-
-    _valid_calculation_rates = None
-
-    ### INITIALIZER ###
-
-    def __init__(
-        self,
-        calculation_rate=None,
-        coefficient=0.5,
-        source=None,
-        ):
-        Filter.__init__(
-            self,
-            calculation_rate=calculation_rate,
-            coefficient=coefficient,
-            source=source,
-            )
-
-    ### PUBLIC METHODS ###
-
-    @classmethod
-    def ar(
-        cls,
-        coefficient=0.5,
-        source=None,
-        ):
-        """
-        Constructs an audio-rate OnePole.
-
-        ::
-
-            >>> source = supriya.ugens.In.ar(bus=0)
-            >>> one_pole = supriya.ugens.OnePole.ar(
-            ...     coefficient=0.5,
-            ...     source=source,
-            ...     )
-            >>> one_pole
-            OnePole.ar()
-
-        Returns ugen graph.
-        """
-        import supriya.synthdefs
-        calculation_rate = supriya.CalculationRate.AUDIO
-        ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
-            coefficient=coefficient,
-            source=source,
-            )
-        return ugen
-
-    # def coeffs(): ...
-
-    @classmethod
-    def kr(
-        cls,
-        coefficient=0.5,
-        source=None,
-        ):
-        """
-        Constructs a control-rate OnePole.
-
-        ::
-
-            >>> source = supriya.ugens.In.ar(bus=0)
-            >>> one_pole = supriya.ugens.OnePole.kr(
-            ...     coefficient=0.5,
-            ...     source=source,
-            ...     )
-            >>> one_pole
-            OnePole.kr()
-
-        Returns ugen graph.
-        """
-        import supriya.synthdefs
-        calculation_rate = supriya.CalculationRate.CONTROL
-        ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
-            coefficient=coefficient,
-            source=source,
-            )
-        return ugen
-
-    # def magResponse(): ...
-
-    # def magResponse2(): ...
-
-    # def magResponse5(): ...
-
-    # def magResponseN(): ...
-
-    # def scopeResponse(): ...
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def coefficient(self):
-        """
-        Gets `coefficient` input of OnePole.
-
-        ::
-
-            >>> source = supriya.ugens.In.ar(bus=0)
-            >>> one_pole = supriya.ugens.OnePole.ar(
-            ...     coefficient=0.5,
-            ...     source=source,
-            ...     )
-            >>> one_pole.coefficient
-            0.5
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('coefficient')
-        return self._inputs[index]
-
-    @property
-    def source(self):
-        """
-        Gets `source` input of OnePole.
-
-        ::
-
-            >>> source = supriya.ugens.In.ar(bus=0)
-            >>> one_pole = supriya.ugens.OnePole.ar(
-            ...     coefficient=0.5,
-            ...     source=source,
-            ...     )
-            >>> one_pole.source
-            In.ar()[0]
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
+    _valid_calculation_rates = (
+        CalculationRate.AUDIO,
+        CalculationRate.CONTROL,
+    )

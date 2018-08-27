@@ -98,7 +98,7 @@ class SynthDefGrapher:
             label = ''
             input_name = None
             if i < len(ugen._ordered_input_names):
-                input_name = ugen._ordered_input_names[i]
+                input_name = tuple(ugen._ordered_input_names)[i]
             if input_name:
                 #input_name = r'\n'.join(input_name.split('_'))
                 if isinstance(input_, float):

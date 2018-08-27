@@ -1,3 +1,5 @@
+import collections
+from supriya import CalculationRate
 from supriya.ugens.UGen import UGen
 
 
@@ -20,11 +22,13 @@ class FreeSelfWhenDone(UGen):
 
     __documentation_section__ = 'Envelope Utility UGens'
 
-    __slots__ = ()
+    _ordered_input_names = collections.OrderedDict([
+        ('source', None),
+    ])
 
-    _ordered_input_names = (
-        'source',
-        )
+    _valid_calculation_rates = (
+        CalculationRate.CONTROL,
+    )
 
     ### INITIALIZER ###
 
@@ -32,61 +36,11 @@ class FreeSelfWhenDone(UGen):
         self,
         calculation_rate=None,
         source=None,
-        ):
+    ):
         if not (hasattr(source, 'has_done_flag') and source.has_done_flag):
             raise ValueError(repr(source))
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
             source=source,
-            )
-
-    ### PUBLIC METHODS ###
-
-    @classmethod
-    def kr(
-        cls,
-        source=None,
-        ):
-        """
-        Constructs a control-rate ugen.
-
-        ::
-
-            >>> source = supriya.ugens.Line.kr()
-            >>> free_self_when_done = supriya.ugens.FreeSelfWhenDone.kr(
-            ...     source=source,
-            ...     )
-            >>> free_self_when_done
-            FreeSelfWhenDone.kr()
-
-        Returns ugen graph.
-        """
-        import supriya.synthdefs
-        calculation_rate = supriya.CalculationRate.CONTROL
-        ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
-            source=source,
-            )
-        return ugen
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def source(self):
-        """
-        Gets `source` input of FreeSelfWhenDone.
-
-        ::
-
-            >>> source = supriya.ugens.Line.kr()
-            >>> free_self_when_done = supriya.ugens.FreeSelfWhenDone.kr(
-            ...     source=source,
-            ...     )
-            >>> free_self_when_done.source
-            Line.kr()[0]
-
-        Returns input.
-        """
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
+        )

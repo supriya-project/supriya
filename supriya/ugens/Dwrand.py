@@ -1,4 +1,5 @@
 import collections
+from supriya import CalculationRate
 from supriya.ugens.DUGen import DUGen
 
 
@@ -10,7 +11,7 @@ class Dwrand(DUGen):
 
         >>> sequence = [0, 1, 2, 7]
         >>> weights = [0.4, 0.4, 0.1, 0.1]
-        >>> dwrand = supriya.ugens.Dwrand(
+        >>> dwrand = supriya.ugens.Dwrand.new(
         ...     repeats=1,
         ...     sequence=sequence,
         ...     weights=weights,
@@ -22,19 +23,23 @@ class Dwrand(DUGen):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ()
+    # TODO: We should not include length in the generated methods
 
-    _ordered_input_names = (
-        'repeats',
-        'length',
-        'weights',
-        'sequence',
-        )
+    _ordered_input_names = collections.OrderedDict([
+        ('repeats', 1),
+        ('length', None),
+        ('weights', None),
+        ('sequence', None),
+    ])
 
     _unexpanded_input_names = (
         'weights',
         'sequence',
         )
+
+    _valid_calculation_rates = (
+        CalculationRate.DEMAND,
+    )
 
     ### INITIALIZER ###
 
@@ -43,7 +48,8 @@ class Dwrand(DUGen):
         repeats=1,
         sequence=None,
         weights=None,
-        ):
+        **kwargs,
+    ):
         if not isinstance(sequence, collections.Sequence):
             sequence = [sequence]
         sequence = tuple(float(_) for _ in sequence)
@@ -59,128 +65,3 @@ class Dwrand(DUGen):
             sequence=sequence,
             weights=weights,
             )
-
-    ### PUBLIC METHODS ###
-
-    @classmethod
-    def new(
-        cls,
-        repeats=1,
-        sequence=None,
-        weights=None,
-        ):
-        """
-        Constructs a Dwrand.
-
-        ::
-
-            >>> sequence = [0, 1, 2, 7]
-            >>> weights = [0.4, 0.4, 0.1, 0.1]
-            >>> dwrand = supriya.ugens.Dwrand.new(
-            ...     repeats=1,
-            ...     sequence=sequence,
-            ...     weights=weights,
-            ...     )
-            >>> dwrand
-            Dwrand()
-
-        Returns ugen graph.
-        """
-        ugen = cls._new_expanded(
-            repeats=repeats,
-            sequence=sequence,
-            weights=weights,
-            )
-        return ugen
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def length(self):
-        """
-        Gets `length` input of Dwrand.
-
-        ::
-
-            >>> sequence = [0, 1, 2, 7]
-            >>> weights = [0.4, 0.4, 0.1, 0.1]
-            >>> dwrand = supriya.ugens.Dwrand(
-            ...     repeats=1,
-            ...     sequence=sequence,
-            ...     weights=weights,
-            ...     )
-            >>> dwrand.length
-            4
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('length')
-        return int(self._inputs[index])
-
-    @property
-    def repeats(self):
-        """
-        Gets `repeats` input of Dwrand.
-
-        ::
-
-            >>> sequence = [0, 1, 2, 7]
-            >>> weights = [0.4, 0.4, 0.1, 0.1]
-            >>> dwrand = supriya.ugens.Dwrand(
-            ...     repeats=1,
-            ...     sequence=sequence,
-            ...     weights=weights,
-            ...     )
-            >>> dwrand.repeats
-            1.0
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('repeats')
-        return self._inputs[index]
-
-    @property
-    def sequence(self):
-        """
-        Gets `sequence` input of Dwrand.
-
-        ::
-
-            >>> sequence = [0, 1, 2, 7]
-            >>> weights = [0.4, 0.4, 0.1, 0.1]
-            >>> dwrand = supriya.ugens.Dwrand(
-            ...     repeats=1,
-            ...     sequence=sequence,
-            ...     weights=weights,
-            ...     )
-            >>> dwrand.sequence
-            (0.0, 1.0, 2.0, 7.0)
-
-        Returns ugen input.
-        """
-        length = self.length
-        index = self._ordered_input_names.index('length') + 1
-        return tuple(self._inputs[index + length:index + (length * 2)])
-
-    @property
-    def weights(self):
-        """
-        Gets `weights` input of Dwrand.
-
-        ::
-
-            >>> sequence = [0, 1, 2, 7]
-            >>> weights = [0.4, 0.4, 0.1, 0.1]
-            >>> dwrand = supriya.ugens.Dwrand(
-            ...     repeats=1,
-            ...     sequence=sequence,
-            ...     weights=weights,
-            ...     )
-            >>> dwrand.weights
-            (0.4, 0.4, 0.1, 0.1)
-
-        Returns ugen input.
-        """
-        length = self.length
-        index = self._ordered_input_names.index('length') + 1
-        return tuple(self._inputs[index:index + length])

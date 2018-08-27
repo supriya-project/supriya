@@ -1,3 +1,5 @@
+import collections
+from supriya import CalculationRate
 from supriya.ugens.InfoUGenBase import InfoUGenBase
 
 
@@ -16,37 +18,9 @@ class NumRunningSynths(InfoUGenBase):
 
     __documentation_section__ = 'Info UGens'
 
-    __slots__ = ()
+    _ordered_input_names = collections.OrderedDict()
 
-    ### INITIALIZER ###
-
-    def __init__(
-        self,
-        calculation_rate=None,
-        ):
-        InfoUGenBase.__init__(
-            self,
-            calculation_rate=calculation_rate,
-            )
-
-    ### PUBLIC METHODS ###
-
-    @classmethod
-    def kr(cls, **kwargs):
-        """
-        Construct a control-rate ugen.
-
-        ::
-
-            >>> supriya.ugens.NumRunningSynths.kr()
-            NumRunningSynths.kr()
-
-        Returns ugen graph.
-        """
-        import supriya.synthdefs
-        calculation_rate = supriya.CalculationRate.CONTROL
-        ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
-            **kwargs
-            )
-        return ugen
+    _valid_calculation_rates = (
+        CalculationRate.CONTROL,
+        CalculationRate.SCALAR,
+    )

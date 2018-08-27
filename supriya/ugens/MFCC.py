@@ -1,3 +1,4 @@
+import collections
 from supriya import CalculationRate
 from supriya.ugens.MultiOutUGen import MultiOutUGen
 
@@ -23,79 +24,14 @@ class MFCC(MultiOutUGen):
 
     __documentation_section__ = 'Machine Listening UGens'
 
-    __slots__ = ()
+    _has_channel_count = True
 
-    _ordered_input_names = (
-        'pv_chain',
-        )
+    _has_settable_channel_count = True
+
+    _ordered_input_names = collections.OrderedDict([
+        ('pv_chain', None),
+    ])
 
     _valid_calculation_rates = (
         CalculationRate.CONTROL,
-        )
-
-    ### INITIALIZER ###
-
-    def __init__(
-        self,
-        pv_chain=None,
-        channel_count=13,
-        ):
-        MultiOutUGen.__init__(
-            self,
-            calculation_rate=CalculationRate.CONTROL,
-            pv_chain=pv_chain,
-            channel_count=channel_count,
-            )
-
-    ### PUBLIC METHODS ###
-
-    @classmethod
-    def kr(
-        cls,
-        pv_chain=None,
-        channel_count=13,
-        ):
-        """
-        Constructs a control-rate MFCC.
-
-        ::
-
-            >>> source = supriya.ugens.SoundIn.ar(bus=0)
-            >>> pv_chain = supriya.ugens.FFT(source=source)
-            >>> mfcc = supriya.ugens.MFCC.kr(
-            ...     pv_chain=pv_chain,
-            ...     channel_count=13,
-            ...     )
-            >>> mfcc
-            UGenArray({13})
-
-        Returns ugen graph.
-        """
-        ugen = cls._new_expanded(
-            pv_chain=pv_chain,
-            channel_count=channel_count,
-            )
-        return ugen
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def pv_chain(self):
-        """
-        Gets `pv_chain` input of MFCC.
-
-        ::
-
-            >>> source = supriya.ugens.SoundIn.ar(bus=0)
-            >>> pv_chain = supriya.ugens.FFT(source=source)
-            >>> mfcc = supriya.ugens.MFCC.kr(
-            ...     pv_chain=pv_chain,
-            ...     channel_count=13,
-            ...     )
-            >>> mfcc[0].source.pv_chain
-            FFT.kr()[0]
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('pv_chain')
-        return self._inputs[index]
+    )

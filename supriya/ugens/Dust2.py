@@ -1,3 +1,5 @@
+import collections
+from supriya import CalculationRate
 from supriya.ugens.UGen import UGen
 
 
@@ -19,94 +21,11 @@ class Dust2(UGen):
 
     __documentation_section__ = 'Noise UGens'
 
-    __slots__ = ()
+    _ordered_input_names = collections.OrderedDict([
+        ('density', 0.0),
+    ])
 
-    _ordered_input_names = (
-        'density',
-        )
-
-    ### INITIALIZER ###
-
-    def __init__(
-        self,
-        calculation_rate=None,
-        density=0.,
-        ):
-        UGen.__init__(
-            self,
-            calculation_rate=calculation_rate,
-            density=density,
-            )
-
-    ### PUBLIC METHODS ###
-
-    @classmethod
-    def ar(
-        cls,
-        density=0,
-        ):
-        """
-        Constructs an audio-rate bipolar random impulse generator.
-
-        ::
-
-            >>> supriya.ugens.Dust2.ar(
-            ...     density=[1, 2],
-            ...     )
-            UGenArray({2})
-
-        Returns unit generator graph.
-        """
-        import supriya.synthdefs
-        calculation_rate = supriya.CalculationRate.AUDIO
-        ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
-            density=density,
-            )
-        return ugen
-
-    @classmethod
-    def kr(
-        cls,
-        density=0,
-        ):
-        """
-        Constructs a control-rate bipolar random impulse generator.
-
-        ::
-
-            >>> supriya.ugens.Dust2.kr(
-            ...     density=[1, 2],
-            ...     )
-            UGenArray({2})
-
-        Returns unit generator graph.
-        """
-        import supriya.synthdefs
-        calculation_rate = supriya.CalculationRate.CONTROL
-        ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
-            density=density,
-            )
-        return ugen
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def density(self):
-        """
-        Gets `density` input of Dust2.
-
-        ::
-
-            >>> density = 0.25
-            >>> dust_2 = supriya.ugens.Dust2.ar(
-            ...     density=density,
-            ...     )
-            >>> dust_2.density
-            0.25
-
-        Returns input.
-        """
-        index = self._ordered_input_names.index('density')
-        return self._inputs[index]
+    _valid_calculation_rates = (
+        CalculationRate.AUDIO,
+        CalculationRate.CONTROL,
+    )

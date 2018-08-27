@@ -1,3 +1,5 @@
+import collections
+from supriya import CalculationRate
 from supriya.ugens.MultiOutUGen import MultiOutUGen
 
 
@@ -21,28 +23,17 @@ class InFeedback(MultiOutUGen):
 
     __documentation_section__ = 'Input/Output UGens'
 
-    __slots__ = ()
+    _has_channel_count = 1
 
-    _ordered_input_names = (
-        'bus',
-        )
+    _has_settable_channel_count = True
 
-    _valid_calculation_rates = None
+    _ordered_input_names = collections.OrderedDict([
+        ('bus', 0),
+    ])
 
-    ### INITIALIZER ###
-
-    def __init__(
-        self,
-        calculation_rate=None,
-        bus=0,
-        channel_count=1,
-        ):
-        MultiOutUGen.__init__(
-            self,
-            calculation_rate=calculation_rate,
-            bus=bus,
-            channel_count=channel_count,
-            )
+    _valid_calculation_rates = (
+        CalculationRate.AUDIO,
+    )
 
     ### PUBLIC METHODS ###
 
@@ -51,7 +42,7 @@ class InFeedback(MultiOutUGen):
         cls,
         bus=0,
         channel_count=1,
-        ):
+    ):
         r'''Constructs an audio-rate InFeedback.
 
         ::
@@ -83,24 +74,6 @@ class InFeedback(MultiOutUGen):
         return ugen
 
     ### PUBLIC PROPERTIES ###
-
-    @property
-    def bus(self):
-        r'''Gets `bus` input of InFeedback.
-
-        ::
-
-            >>> bus = 2
-            >>> in_feedback = supriya.ugens.InFeedback.ar(
-            ...     bus=bus,
-            ...     )
-            >>> in_feedback.source.bus
-            2.0
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('bus')
-        return self._inputs[index]
 
     @property
     def is_input_ugen(self):
