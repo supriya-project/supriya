@@ -1,3 +1,5 @@
+import collections
+from supriya.enums import CalculationRate
 from supriya.ugens.Pan2 import Pan2
 
 
@@ -19,11 +21,7 @@ class LinPan2(Pan2):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
-
-    __slots__ = ()
-
-    _ordered_input_names = (
+    _ordered_input_names = collections.OrderedDict(
         'source',
         'pos',
         'level',

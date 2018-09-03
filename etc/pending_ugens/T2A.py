@@ -1,3 +1,5 @@
+import collections
+from supriya.enums import CalculationRate
 from supriya.ugens.K2A import K2A
 
 
@@ -18,11 +20,7 @@ class T2A(K2A):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
-
-    __slots__ = ()
-
-    _ordered_input_names = (
+    _ordered_input_names = collections.OrderedDict(
         'source',
         'offset',
         )

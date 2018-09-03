@@ -1,3 +1,5 @@
+import collections
+from supriya.enums import CalculationRate
 from supriya.ugens.MultiOutUGen import MultiOutUGen
 
 
@@ -23,7 +25,7 @@ class UnpackFFT(MultiOutUGen):
 
     __slots__ = ()
 
-    _ordered_input_names = (
+    _ordered_input_names = collections.OrderedDict(
         'chain',
         'bufsize',
         'frombin',

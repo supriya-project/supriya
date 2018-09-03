@@ -1,3 +1,5 @@
+import collections
+from supriya.enums import CalculationRate
 from supriya.ugens.Filter import Filter
 
 
@@ -25,7 +27,7 @@ class VarLag(Filter):
 
     __slots__ = ()
 
-    _ordered_input_names = (
+    _ordered_input_names = collections.OrderedDict(
         'source',
         'time',
         'curvature',

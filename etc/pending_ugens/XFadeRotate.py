@@ -1,3 +1,5 @@
+import collections
+from supriya.enums import CalculationRate
 from supriya.ugens.MultiOutUGen import MultiOutUGen
 
 
@@ -22,7 +24,7 @@ class XFadeRotate(MultiOutUGen):
 
     __slots__ = ()
 
-    _ordered_input_names = (
+    _ordered_input_names = collections.OrderedDict(
         'n',
         'source',
         )

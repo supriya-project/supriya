@@ -1,3 +1,5 @@
+import collections
+from supriya.enums import CalculationRate
 from supriya.ugens.PV_ChainUGen import PV_ChainUGen
 
 
@@ -21,11 +23,7 @@ class PackFFT(PV_ChainUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
-
-    __slots__ = ()
-
-    _ordered_input_names = (
+    _ordered_input_names = collections.OrderedDict(
         'chain',
         'bufsize',
         'magsphases',

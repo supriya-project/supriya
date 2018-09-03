@@ -91,6 +91,7 @@ from .DelayC import DelayC  # noqa
 from .DelayL import DelayL  # noqa
 from .DelayN import DelayN  # noqa
 from .Demand import Demand  # noqa
+from .DemandEnvGen import DemandEnvGen  # noqa
 from .DetectSilence import DetectSilence  # noqa
 from .Dgeom import Dgeom  # noqa
 from .Dibrown import Dibrown  # noqa
@@ -146,12 +147,15 @@ from .Hasher import Hasher  # noqa
 from .HenonC import HenonC  # noqa
 from .HenonL import HenonL  # noqa
 from .HenonN import HenonN  # noqa
+from .Hilbert import Hilbert  # noqa
+from .HilbertFIR import HilbertFIR  # noqa
 from .IFFT import IFFT  # noqa
 from .IRand import IRand  # noqa
 from .Impulse import Impulse  # noqa
 from .In import In  # noqa
 from .InFeedback import InFeedback  # noqa
 from .InRange import InRange  # noqa
+from .Index import Index  # noqa
 from .InfoUGenBase import InfoUGenBase  # noqa
 from .Integrator import Integrator  # noqa
 from .K2A import K2A  # noqa
@@ -186,6 +190,7 @@ from .LatoocarfianC import LatoocarfianC  # noqa
 from .LatoocarfianL import LatoocarfianL  # noqa
 from .LatoocarfianN import LatoocarfianN  # noqa
 from .LeakDC import LeakDC  # noqa
+from .LeastChange import LeastChange  # noqa
 from .Limiter import Limiter  # noqa
 from .LinCongC import LinCongC  # noqa
 from .LinCongL import LinCongL  # noqa
@@ -207,6 +212,8 @@ from .MaxLocalBufs import MaxLocalBufs  # noqa
 from .Median import Median  # noqa
 from .MidEQ import MidEQ  # noqa
 from .Mix import Mix  # noqa
+from .MoogFF import MoogFF  # noqa
+from .MostChange import MostChange  # noqa
 from .MouseButton import MouseButton  # noqa
 from .MouseX import MouseX  # noqa
 from .MouseY import MouseY  # noqa
@@ -222,6 +229,7 @@ from .NumOutputBuses import NumOutputBuses  # noqa
 from .NumRunningSynths import NumRunningSynths  # noqa
 from .OffsetOut import OffsetOut  # noqa
 from .OnePole import OnePole  # noqa
+from .OneZero import OneZero  # noqa
 from .Onsets import Onsets  # noqa
 from .Out import Out  # noqa
 from .PV_Add import PV_Add  # noqa
@@ -295,11 +303,13 @@ from .Ringz import Ringz  # noqa
 from .Rotate2 import Rotate2  # noqa
 from .RunningMax import RunningMax  # noqa
 from .RunningMin import RunningMin  # noqa
+from .RunningSum import RunningSum  # noqa
 from .SOS import SOS  # noqa
 from .SampleDur import SampleDur  # noqa
 from .SampleRate import SampleRate  # noqa
 from .Saw import Saw  # noqa
 from .Schmidt import Schmidt  # noqa
+from .Select import Select  # noqa
 from .SendPeakRMS import SendPeakRMS  # noqa
 from .Silence import Silence  # noqa
 from .SinOsc import SinOsc  # noqa
@@ -315,6 +325,7 @@ from .StandardN import StandardN  # noqa
 from .SubsampleOffset import SubsampleOffset  # noqa
 from .Sum3 import Sum3  # noqa
 from .Sum4 import Sum4  # noqa
+from .Sweep import Sweep  # noqa
 from .SyncSaw import SyncSaw  # noqa
 from .TBall import TBall  # noqa
 from .TDelay import TDelay  # noqa
@@ -339,6 +350,7 @@ from .Warp1 import Warp1  # noqa
 from .WhiteNoise import WhiteNoise  # noqa
 from .WidthFirstUGen import WidthFirstUGen  # noqa
 from .Wrap import Wrap  # noqa
+from .WrapIndex import WrapIndex  # noqa
 from .XFade2 import XFade2  # noqa
 from .XLine import XLine  # noqa
 from .XOut import XOut  # noqa

@@ -1,3 +1,5 @@
+import collections
+from supriya.enums import CalculationRate
 from supriya.ugens.UGen import UGen
 
 
@@ -19,11 +21,7 @@ class ScopeOut2(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
-
-    __slots__ = ()
-
-    _ordered_input_names = (
+    _ordered_input_names = collections.OrderedDict(
         'input_array',
         'scope_num',
         'max_frames',

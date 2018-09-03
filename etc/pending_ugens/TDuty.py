@@ -1,3 +1,5 @@
+import collections
+from supriya.enums import CalculationRate
 from supriya.ugens.Duty import Duty
 
 
@@ -20,11 +22,7 @@ class TDuty(Duty):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
-
-    __slots__ = ()
-
-    _ordered_input_names = (
+    _ordered_input_names = collections.OrderedDict(
         'duration',
         'reset',
         'level',

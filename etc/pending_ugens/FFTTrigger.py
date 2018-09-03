@@ -1,3 +1,5 @@
+import collections
+from supriya.enums import CalculationRate
 from supriya.ugens.PV_ChainUGen import PV_ChainUGen
 
 
@@ -20,9 +22,7 @@ class FFTTrigger(PV_ChainUGen):
 
     __documentation_section__ = None
 
-    __slots__ = ()
-
-    _ordered_input_names = (
+    _ordered_input_names = collections.OrderedDict(
         'buffer_id',
         'hop',
         'polar',

@@ -1,3 +1,5 @@
+import collections
+from supriya.enums import CalculationRate
 from supriya.ugens.UGen import UGen
 
 
@@ -22,9 +24,7 @@ class DynKlank(UGen):
 
     __documentation_section__ = None
 
-    __slots__ = ()
-
-    _ordered_input_names = (
+    _ordered_input_names = collections.OrderedDict(
         'specifications_array_ref',
         'input',
         'freqscale',

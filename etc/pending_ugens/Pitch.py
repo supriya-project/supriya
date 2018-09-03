@@ -1,3 +1,5 @@
+import collections
+from supriya.enums import CalculationRate
 from supriya.ugens.MultiOutUGen import MultiOutUGen
 
 
@@ -27,11 +29,7 @@ class Pitch(MultiOutUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
-
-    __slots__ = ()
-
-    _ordered_input_names = (
+    _ordered_input_names = collections.OrderedDict(
         'source',
         'init_frequency',
         'min_frequency',

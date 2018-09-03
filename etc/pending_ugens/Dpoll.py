@@ -1,3 +1,5 @@
+import collections
+from supriya.enums import CalculationRate
 from supriya.ugens.DUGen import DUGen
 
 
@@ -22,9 +24,7 @@ class Dpoll(DUGen):
 
     __documentation_section__ = None
 
-    __slots__ = ()
-
-    _ordered_input_names = (
+    _ordered_input_names = collections.OrderedDict(
         'source',
         'label',
         'run',

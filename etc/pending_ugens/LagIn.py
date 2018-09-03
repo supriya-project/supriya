@@ -1,3 +1,5 @@
+import collections
+from supriya.enums import CalculationRate
 from supriya.ugens.AbstractIn import AbstractIn
 
 
@@ -18,11 +20,7 @@ class LagIn(AbstractIn):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
-
-    __slots__ = ()
-
-    _ordered_input_names = (
+    _ordered_input_names = collections.OrderedDict(
         'bus',
         'channel_count',
         'lag',

@@ -1,3 +1,5 @@
+import collections
+from supriya.enums import CalculationRate
 from supriya.ugens.PureUGen import PureUGen
 
 
@@ -20,9 +22,7 @@ class Formant(PureUGen):
 
     __documentation_section__ = None
 
-    __slots__ = ()
-
-    _ordered_input_names = (
+    _ordered_input_names = collections.OrderedDict(
         'fundfrequency',
         'formfrequency',
         'bwfrequency',
