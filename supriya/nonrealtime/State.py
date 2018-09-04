@@ -45,13 +45,6 @@ class State(SessionObject):
 
     ### SPECIAL METHODS ###
 
-    def __graph__(self, include_controls=False):
-        import supriya.nonrealtime
-        return supriya.nonrealtime.StateGrapher.graph(
-            self,
-            include_controls=include_controls,
-            )
-
     def __repr__(self):
         return '<{} @{!r}>'.format(
             type(self).__name__,

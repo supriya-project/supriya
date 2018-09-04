@@ -18,5 +18,4 @@ from .SessionFactory import SessionFactory  # noqa
 from .SessionObject import SessionObject  # noqa
 from .SessionRenderer import SessionRenderer  # noqa
 from .State import State  # noqa
-from .StateGrapher import StateGrapher  # noqa
 from .Synth import Synth  # noqa

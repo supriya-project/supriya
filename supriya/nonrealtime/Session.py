@@ -151,20 +151,6 @@ class Session:
 
     ### SPECIAL METHODS ###
 
-    def __graph__(self, include_controls=False):
-        import supriya.nonrealtime
-        graph = uqbar.graphs.Graph()
-        for offset, state in sorted(self.states.items()):
-            if float('-inf') < offset:
-                self._apply_transitions(state.offset)
-            state_graph = state.__graph__(include_controls=include_controls)
-            subgraph = uqbar.graphs.Graph(is_cluster=True)
-            subgraph.extend(state_graph.children)
-            subgraph.attributes['label'] = str(offset)
-            graph.append(subgraph)
-        supriya.nonrealtime.StateGrapher._style_graph(graph)
-        return graph
-
     def __render__(
         self,
         output_file_path=None,
