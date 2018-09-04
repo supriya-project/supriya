@@ -22,6 +22,8 @@ class OffsetOut(UGen):
 
     __documentation_section__ = 'Input/Output UGens'
 
+    _is_output = True
+
     _ordered_input_names = collections.OrderedDict([
         ('bus', 0),
         ('source', None),
@@ -78,9 +80,3 @@ class OffsetOut(UGen):
             calculation_rate=calculation_rate,
             source=source,
             )
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def is_output_ugen(self):
-        return True

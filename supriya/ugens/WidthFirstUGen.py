@@ -9,6 +9,8 @@ class WidthFirstUGen(UGen):
 
     ### CLASS VARIABLES ###
 
+    _is_width_first = True
+
     ### INITIALIZER ###
 
     @abc.abstractmethod

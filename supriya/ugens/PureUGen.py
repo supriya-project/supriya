@@ -1,5 +1,3 @@
-import collections
-from supriya import CalculationRate
 from supriya.ugens.UGen import UGen
 
 
@@ -12,6 +10,8 @@ class PureUGen(UGen):
     """
 
     ### CLASS VARIABLES ###
+
+    _is_pure = True
 
     ### PRIVATE METHODS ###
 

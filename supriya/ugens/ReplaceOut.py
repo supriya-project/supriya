@@ -22,6 +22,8 @@ class ReplaceOut(UGen):
 
     __documentation_section__ = 'Input/Output UGens'
 
+    _is_output = True
+
     _ordered_input_names = collections.OrderedDict([
         ('bus', 0),
         ('source', None),
@@ -118,9 +120,3 @@ class ReplaceOut(UGen):
             source=source,
             )
         return ugen
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def is_output_ugen(self):
-        return True

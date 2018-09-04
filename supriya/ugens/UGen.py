@@ -28,6 +28,14 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
 
     _has_done_flag = False
 
+    _is_input = False
+
+    _is_output = False
+
+    _is_pure = False
+
+    _is_width_first = False
+
     _ordered_input_names: Dict[str, Union[str, float, bool, None]] = None
 
     _signal_range: int = SignalRange.BIPOLAR
@@ -458,11 +466,11 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
 
     @property
     def is_input_ugen(self):
-        return False
+        return self._is_input
 
     @property
     def is_output_ugen(self):
-        return False
+        return self._is_output
 
     @property
     def outputs(self):

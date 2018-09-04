@@ -22,6 +22,8 @@ class In(MultiOutUGen):
 
     _has_settable_channel_count = True
 
+    _is_input = True
+
     _ordered_input_names = collections.OrderedDict([
         ('bus', 0),
     ])
@@ -106,9 +108,3 @@ class In(MultiOutUGen):
             calculation_rate=calculation_rate,
             )
         return ugen
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def is_input_ugen(self):
-        return True
