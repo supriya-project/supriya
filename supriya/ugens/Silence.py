@@ -1,5 +1,3 @@
-import collections
-from supriya import CalculationRate
 from supriya.ugens.PseudoUGen import PseudoUGen
 
 
@@ -24,7 +22,7 @@ class Silence(PseudoUGen):
     def ar(
         cls,
         channel_count=1,
-        ):
+    ):
         import supriya.synthdefs
         import supriya.ugens
         channel_count = int(channel_count)

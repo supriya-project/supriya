@@ -22,7 +22,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
         '_uuid',
     )
 
-    _has_channel_count = False
+    _default_channel_count = 1
 
     _has_settable_channel_count = False
 
@@ -122,7 +122,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
 
         Returns integer.
         """
-        return 1
+        return getattr(self, '_channel_count', self._default_channel_count)
 
     def __repr__(self):
         """

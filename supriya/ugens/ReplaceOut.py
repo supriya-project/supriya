@@ -22,6 +22,8 @@ class ReplaceOut(UGen):
 
     __documentation_section__ = 'Input/Output UGens'
 
+    _default_channel_count = 0
+
     _is_output = True
 
     _ordered_input_names = collections.OrderedDict([
@@ -37,86 +39,3 @@ class ReplaceOut(UGen):
         CalculationRate.AUDIO,
         CalculationRate.CONTROL,
     )
-
-    ### PRIVATE METHODS ###
-
-    def _get_outputs(self):
-        return []
-
-    ### PUBLIC METHODS ###
-
-    @classmethod
-    def ar(
-        cls,
-        bus=0,
-        source=None,
-    ):
-        """
-        Constructs an audio-rate overwriting bus output.
-
-        ::
-
-            >>> source = supriya.ugens.SinOsc.ar(frequency=[440, 442])
-            >>> out = supriya.ugens.ReplaceOut.ar(
-            ...     bus=0,
-            ...     source=source,
-            ...     )
-            >>> out
-            ReplaceOut.ar()
-
-        Returns ugen graph.
-        """
-        import supriya.realtime
-        import supriya.synthdefs
-        calculation_rate = supriya.CalculationRate.AUDIO
-        prototype = (
-            supriya.realtime.Bus,
-            supriya.realtime.BusGroup,
-            supriya.realtime.BusProxy,
-            )
-        if isinstance(bus, prototype):
-            bus = int(bus)
-        ugen = cls._new_expanded(
-            bus=bus,
-            calculation_rate=calculation_rate,
-            source=source,
-            )
-        return ugen
-
-    @classmethod
-    def kr(
-        cls,
-        bus=0,
-        source=None,
-    ):
-        """
-        Constructs a control-rate overwriting bus output.
-
-        ::
-
-            >>> source = supriya.ugens.SinOsc.kr(frequency=[4, 2])
-            >>> out = supriya.ugens.ReplaceOut.kr(
-            ...     bus=0,
-            ...     source=source,
-            ...     )
-            >>> out
-            ReplaceOut.kr()
-
-        Returns ugen graph.
-        """
-        import supriya.realtime
-        import supriya.synthdefs
-        calculation_rate = supriya.CalculationRate.CONTROL
-        prototype = (
-            supriya.realtime.Bus,
-            supriya.realtime.BusGroup,
-            supriya.realtime.BusProxy,
-            )
-        if isinstance(bus, prototype):
-            bus = int(bus)
-        ugen = cls._new_expanded(
-            bus=bus,
-            calculation_rate=calculation_rate,
-            source=source,
-            )
-        return ugen

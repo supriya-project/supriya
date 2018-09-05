@@ -22,6 +22,8 @@ class Out(UGen):
 
     __documentation_section__ = 'Input/Output UGens'
 
+    _default_channel_count = 0
+
     _is_output = True
 
     _ordered_input_names = collections.OrderedDict([
@@ -37,8 +39,3 @@ class Out(UGen):
         CalculationRate.AUDIO,
         CalculationRate.CONTROL,
     )
-
-    ### PRIVATE METHODS ###
-
-    def _get_outputs(self):
-        return []

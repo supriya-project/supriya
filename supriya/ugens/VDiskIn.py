@@ -26,7 +26,7 @@ class VDiskIn(MultiOutUGen):
 
     __documentation_section__ = None
 
-    _has_channel_count = True
+    _default_channel_count = 1
 
     _has_done_flag = True
 

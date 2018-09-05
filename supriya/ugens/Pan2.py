@@ -22,7 +22,7 @@ class Pan2(MultiOutUGen):
 
     __documentation_section__ = 'Spatialization UGens'
 
-    _has_channel_count = 2
+    _default_channel_count = 2
 
     _has_settable_channel_count = False
 

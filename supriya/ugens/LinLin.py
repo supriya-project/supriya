@@ -1,6 +1,4 @@
 import abc
-import collections
-from supriya import CalculationRate
 from supriya.ugens.PseudoUGen import PseudoUGen
 
 
@@ -25,7 +23,7 @@ class LinLin(PseudoUGen):
         input_maximum=1.0,
         output_minimum=1.0,
         output_maximum=2.0,
-        ):
+    ):
         import supriya.ugens
         scale = (output_maximum - output_minimum) / (input_maximum - input_minimum)
         offset = output_minimum - (scale * input_minimum)
@@ -43,7 +41,7 @@ class LinLin(PseudoUGen):
         input_maximum=1.0,
         output_minimum=1.0,
         output_maximum=2.0,
-        ):
+    ):
         import supriya.ugens
         scale = (output_maximum - output_minimum) / (input_maximum - input_minimum)
         offset = output_minimum - (scale * input_minimum)

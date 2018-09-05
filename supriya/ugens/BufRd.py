@@ -31,7 +31,7 @@ class BufRd(MultiOutUGen):
 
     __documentation_section__ = 'Buffer UGens'
 
-    _has_channel_count = True
+    _default_channel_count = 1
 
     _has_settable_channel_count = True
 

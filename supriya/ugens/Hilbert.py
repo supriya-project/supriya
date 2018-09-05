@@ -20,7 +20,7 @@ class Hilbert(MultiOutUGen):
 
     ### CLASS VARIABLES ###
 
-    _has_channel_count = 2
+    _default_channel_count = 2
 
     _has_settable_channel_count = False
 

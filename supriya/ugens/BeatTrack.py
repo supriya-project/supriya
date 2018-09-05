@@ -24,7 +24,7 @@ class BeatTrack(MultiOutUGen):
 
     __documentation_section__ = 'Machine Listening UGens'
 
-    _has_channel_count = 4
+    _default_channel_count = 4
 
     _has_settable_channel_count = False
 

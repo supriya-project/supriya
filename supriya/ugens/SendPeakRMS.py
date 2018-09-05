@@ -26,6 +26,8 @@ class SendPeakRMS(UGen):
 
     __documentation_section__ = 'Utility UGens'
 
+    _default_channel_count = 0
+
     _ordered_input_names = collections.OrderedDict([
         ('reply_rate', 20),
         ('peak_lag', 3),
@@ -68,11 +70,6 @@ class SendPeakRMS(UGen):
         self._configure_input('command_name', len(command_name))
         for character in command_name:
             self._configure_input('label', ord(character))
-
-    ### PRIVATE METHODS ###
-
-    def _get_outputs(self):
-        return []
 
     ### PUBLIC METHODS ###
 

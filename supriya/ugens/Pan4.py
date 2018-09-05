@@ -25,7 +25,7 @@ class Pan4(MultiOutUGen):
 
     __documentation_section__ = 'Spatialization UGens'
 
-    _has_channel_count = 4
+    _default_channel_count = 4
 
     _has_settable_channel_count = False
 

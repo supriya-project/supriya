@@ -19,7 +19,7 @@ class LocalIn(MultiOutUGen):
 
     __documentation_section__ = 'Input/Output UGens'
 
-    _has_channel_count = 1
+    _default_channel_count = 1
 
     _has_settable_channel_count = True
 
