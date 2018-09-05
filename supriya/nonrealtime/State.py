@@ -1,6 +1,8 @@
 import collections
 import supriya.commands
+import uqbar.graphs
 from supriya.nonrealtime.SessionObject import SessionObject
+#from supriya.utils import iterate_nwise
 from typing import Dict, Tuple
 
 
@@ -78,6 +80,33 @@ class State(SessionObject):
             supriya.nonrealtime.NodeAction.free_node(
                 stop_node, nodes_to_children, nodes_to_parents)
         return nodes_to_children, nodes_to_parents
+
+    def _build_graphviz_graph(self):
+        from supriya.nonrealtime.Synth import Synth
+        ordered_synths = []
+        cluster = uqbar.graphs.Graph(
+            is_cluster=True,
+            attributes={'label': 'root'},
+        )
+        node_mapping = {self.session.root_node: cluster}
+        for parent, child in self._iterate_node_pairs(
+            self.session.root_node,
+            self._nodes_to_children,
+        ):
+            if isinstance(child, Synth) and child not in ordered_synths:
+                child_node = uqbar.graphs.Node()
+                ordered_synths.append(child_node)
+            else:
+                child_node = uqbar.graphs.Graph(
+                    is_cluster=True,
+                )
+            child_node.attributes['label'] = child.session_id
+            node_mapping[child] = child_node
+            parent_node = node_mapping[parent]
+            parent_node.append(child_node)
+        #for first_node, second_node in iterate_nwise(ordered_synths):
+        #    first_node.attach(second_node)
+        return cluster, node_mapping, ordered_synths
 
     def _clone(self, new_offset):
         if float('-inf') < self.offset:

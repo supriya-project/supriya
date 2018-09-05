@@ -11,6 +11,8 @@ import supriya.synthdefs
 import supriya.time
 from queue import PriorityQueue
 from supriya.nonrealtime.SessionObject import SessionObject
+from supriya.nonrealtime.Synth import Synth
+from supriya.utils import iterate_nwise
 from supriya.commands import (
     BufferReadRequest,
     BufferReadChannelRequest,
@@ -150,6 +152,123 @@ class Session:
         self._setup_buses()
 
     ### SPECIAL METHODS ###
+
+    def __graph__(self):
+        """
+        Graphs session.
+
+        ::
+
+            >>> session = supriya.Session()
+            >>> with session.at(0):
+            ...     group = session.add_group()
+            ...     synth_a = group.add_synth(duration=15)
+            ...
+            >>> with session.at(5):
+            ...     synth_b = group.add_synth(duration=15)
+            ...     synth_c = group.add_synth(duration=5)
+            ...
+
+        ::
+
+            >>> graph = session.__graph__()
+            >>> print(format(graph, 'graphviz'))
+            digraph G {
+                graph [bgcolor=transparent,
+                    fontname=Arial,
+                    penwidth=2,
+                    rankdir=LR,
+                    ranksep=1.5,
+                    style="dashed, rounded"];
+                node [fontname=Arial,
+                    fontsize=12,
+                    penwidth=2,
+                    style="filled, rounded"];
+                edge [penwidth=2];
+                subgraph cluster_0 {
+                    graph [label="[-inf]"];
+                }
+                subgraph cluster_1 {
+                    graph [label="[0.0]"];
+                    subgraph cluster_1_0 {
+                        graph [label="1000"];
+                        node_1_0_0 [label="1001"];
+                    }
+                }
+                subgraph cluster_2 {
+                    graph [label="[5.0]"];
+                    subgraph cluster_2_0 {
+                        graph [label="1000"];
+                        node_2_0_0 [label="1003"];
+                        node_2_0_1 [label="1002"];
+                        node_2_0_2 [label="1001"];
+                    }
+                }
+                subgraph cluster_3 {
+                    graph [label="[10.0]"];
+                    subgraph cluster_3_0 {
+                        graph [label="1000"];
+                        node_3_0_0 [label="1002"];
+                        node_3_0_1 [label="1001"];
+                    }
+                }
+                subgraph cluster_4 {
+                    graph [label="[15.0]"];
+                    subgraph cluster_4_0 {
+                        graph [label="1000"];
+                        node_4_0_0 [label="1002"];
+                    }
+                }
+                subgraph cluster_5 {
+                    graph [label="[20.0]"];
+                    subgraph cluster_5_0 {
+                        graph [label="1000"];
+                    }
+                }
+                subgraph cluster_6 {
+                    graph [label="[inf]"];
+                }
+                node_1_0_0 -> node_2_0_2;
+                node_2_0_1 -> node_3_0_0;
+                node_2_0_2 -> node_3_0_1;
+                node_3_0_0 -> node_4_0_0;
+            }
+
+        """
+        node_mappings = []
+        graph = uqbar.graphs.Graph(
+            attributes={
+                'bgcolor': 'transparent',
+                'fontname': 'Arial',
+                'penwidth': 2,
+                'rankdir': 'LR',
+                'ranksep': 1.5,
+                'style': ['dashed', 'rounded'],
+            },
+            edge_attributes={
+                'penwidth': 2,
+            },
+            node_attributes={
+                'fontname': 'Arial',
+                'fontsize': 12,
+                'penwidth': 2,
+                'style': ['filled', 'rounded'],
+            },
+        )
+        for offset, state in sorted(self.states.items()):
+            cluster, node_mapping, _ = state._build_graphviz_graph()
+            cluster.attributes['label'] = '[{}]'.format(offset)
+            graph.append(cluster)
+            node_mappings.append(node_mapping)
+        for first_mapping, second_mapping in iterate_nwise(node_mappings):
+            for nrt_node, graphviz_node_one in first_mapping.items():
+                if not isinstance(nrt_node, Synth):
+                    continue
+                graphviz_node_two = second_mapping.get(nrt_node)
+                if graphviz_node_two is None:
+                    continue
+                graphviz_node_one.attach(graphviz_node_two)
+        return graph
 
     def __render__(
         self,
