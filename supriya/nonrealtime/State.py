@@ -2,7 +2,7 @@ import collections
 import supriya.commands
 import uqbar.graphs
 from supriya.nonrealtime.SessionObject import SessionObject
-#from supriya.utils import iterate_nwise
+from supriya.utils import iterate_nwise
 from typing import Dict, Tuple
 
 
@@ -81,12 +81,12 @@ class State(SessionObject):
                 stop_node, nodes_to_children, nodes_to_parents)
         return nodes_to_children, nodes_to_parents
 
-    def _build_graphviz_graph(self):
+    def _as_graphviz_graph(self):
         from supriya.nonrealtime.Synth import Synth
         ordered_synths = []
         cluster = uqbar.graphs.Graph(
             is_cluster=True,
-            attributes={'label': 'root'},
+            attributes={'rank': 'same'},
         )
         node_mapping = {self.session.root_node: cluster}
         for parent, child in self._iterate_node_pairs(
@@ -94,18 +94,21 @@ class State(SessionObject):
             self._nodes_to_children,
         ):
             if isinstance(child, Synth) and child not in ordered_synths:
-                child_node = uqbar.graphs.Node()
+                child_node = child._as_graphviz_node(self.offset)
                 ordered_synths.append(child_node)
             else:
                 child_node = uqbar.graphs.Graph(
                     is_cluster=True,
+                    attributes={
+                        'label': child.session_id,
+                        'style': ['dashed', 'rounded'],
+                    },
                 )
-            child_node.attributes['label'] = child.session_id
             node_mapping[child] = child_node
             parent_node = node_mapping[parent]
             parent_node.append(child_node)
-        #for first_node, second_node in iterate_nwise(ordered_synths):
-        #    first_node.attach(second_node)
+        for synth_a, synth_b in iterate_nwise(ordered_synths):
+            synth_a.attach(synth_b)
         return cluster, node_mapping, ordered_synths
 
     def _clone(self, new_offset):

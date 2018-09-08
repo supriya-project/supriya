@@ -168,6 +168,13 @@ class Session:
             ...     synth_b = group.add_synth(duration=15)
             ...     synth_c = group.add_synth(duration=5)
             ...
+            >>> with session.at(7.5):
+            ...     synth_d = synth_b.add_synth(duration=5, add_action='ADD_BEFORE')
+            ...
+            >>> with session.at(11):
+            ...     synth_d.move_node(synth_a, add_action='ADD_AFTER')
+            ...
+            >>> supriya.graph(session)
 
         ::
 
@@ -243,7 +250,6 @@ class Session:
                 'penwidth': 2,
                 'rankdir': 'LR',
                 'ranksep': 1.5,
-                'style': ['dashed', 'rounded'],
             },
             edge_attributes={
                 'penwidth': 2,
@@ -252,12 +258,16 @@ class Session:
                 'fontname': 'Arial',
                 'fontsize': 12,
                 'penwidth': 2,
+                'shape': 'Mrecord',
                 'style': ['filled', 'rounded'],
             },
         )
         for offset, state in sorted(self.states.items()):
-            cluster, node_mapping, _ = state._build_graphviz_graph()
-            cluster.attributes['label'] = '[{}]'.format(offset)
+            cluster, node_mapping, _ = state._as_graphviz_graph()
+            cluster.attributes.update(
+                label='[{}]'.format(offset),
+                style=['solid', 'rounded'],
+            )
             graph.append(cluster)
             node_mappings.append(node_mapping)
         for first_mapping, second_mapping in iterate_nwise(node_mappings):
@@ -267,7 +277,8 @@ class Session:
                 graphviz_node_two = second_mapping.get(nrt_node)
                 if graphviz_node_two is None:
                     continue
-                graphviz_node_one.attach(graphviz_node_two)
+                graphviz_node_one['session_id'].attach(
+                    graphviz_node_two['session_id'])
         return graph
 
     def __render__(

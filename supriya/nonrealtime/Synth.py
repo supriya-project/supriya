@@ -1,8 +1,9 @@
 import supriya.realtime
+import uqbar.graphs
 from supriya.commands import SynthNewRequest
 from supriya.nonrealtime.Node import Node
-from supriya.nonrealtime.SessionObject import SessionObject
 from supriya.nonrealtime.NodeAction import NodeAction
+from supriya.nonrealtime.SessionObject import SessionObject
 from typing import Dict, Optional
 
 
@@ -54,6 +55,21 @@ class Synth(Node):
         return 'synth-{}'.format(self.session_id)
 
     ### PRIVATE METHODS ###
+
+    def _as_graphviz_node(self, offset):
+        group = uqbar.graphs.RecordGroup(children=[])
+        group.append(uqbar.graphs.RecordField(
+            '[{}]'.format(self.session_id),
+            name='session_id',
+        ))
+        group.append(uqbar.graphs.RecordField(self.synthdef.name))
+        for parameter_name in self.synthdef.parameters:
+            value = self._get_at_offset(offset, parameter_name)
+            field = '{}: {}'.format(parameter_name, value)
+            group.append(uqbar.graphs.RecordField(label=field))
+        return uqbar.graphs.Node(
+            children=[uqbar.graphs.RecordGroup([group])],
+        )
 
     def _get_at_offset(
         self,
