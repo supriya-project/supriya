@@ -598,10 +598,13 @@ class Server(SupriyaObject):
         import supriya.realtime
         if self.is_running:
             return self
-        scsynth_path_candidates = uqbar.io.find_executable('scsynth')
-        if not scsynth_path_candidates:
-            raise RuntimeError('Cannot find scsynth')
-        scsynth_path = scsynth_path_candidates[0]
+        from os import environ
+        scsynth_path = environ.get('SCSYNTH_PATH')
+        if not scsynth_path:
+            scsynth_path_candidates = uqbar.io.find_executable('scsynth')
+            if not scsynth_path_candidates:
+                raise RuntimeError('Cannot find scsynth')
+            scsynth_path = scsynth_path_candidates[0]
         self._osc_io.boot(
             ip_address=self.ip_address,
             port=self.port,
