@@ -19,8 +19,6 @@ env:
 
 before_install:
 - pip install --target /tmp/typehints --no-deps uqbar>=0.2.15
-- pip install --target /tmp/typehints --no-deps abjad>=3.0.0
-- pip install --target /tmp/typehints --no-deps abjad-ext-tonality>=3.0.0
 - export MYPYPATH=/tmp/typehints
 - git clone -q https://github.com/supercollider/supercollider.git
 - cd $TRAVIS_BUILD_DIR/supercollider &&
