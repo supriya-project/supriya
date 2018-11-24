@@ -14,7 +14,7 @@ class TimespanSimultaneity(SupriyaObject):
         '_start_timespans',
         '_start_offset',
         '_stop_timespans',
-        )
+    )
 
     ### INITIALIZER ###
 
@@ -25,7 +25,7 @@ class TimespanSimultaneity(SupriyaObject):
         start_timespans=None,
         start_offset=None,
         stop_timespans=None,
-        ):
+    ):
         self._timespan_collection = timespan_collection
         self._start_offset = start_offset
         self._start_timespans = start_timespans
@@ -42,7 +42,7 @@ class TimespanSimultaneity(SupriyaObject):
             type(self).__name__,
             str(self.start_offset),
             len(self.start_timespans) + len(self.overlap_timespans),
-            )
+        )
 
     ### PUBLIC PROPERTIES ###
 
