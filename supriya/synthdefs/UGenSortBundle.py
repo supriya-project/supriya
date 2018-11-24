@@ -7,12 +7,7 @@ class UGenSortBundle(SupriyaObject):
 
     __documentation_section__ = 'SynthDef Internals'
 
-    __slots__ = (
-        '_antecedents',
-        '_descendants',
-        '_ugen',
-        '_width_first_antecedents',
-        )
+    __slots__ = ('_antecedents', '_descendants', '_ugen', '_width_first_antecedents')
 
     ### INITIALIZER ###
 
@@ -27,6 +22,7 @@ class UGenSortBundle(SupriyaObject):
     def _initialize_topological_sort(self, sort_bundles):
         import supriya.synthdefs
         import supriya.ugens
+
         for input_ in self.ugen.inputs:
             if isinstance(input_, supriya.synthdefs.OutputProxy):
                 input_ = input_.source

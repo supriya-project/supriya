@@ -106,6 +106,7 @@ class SynthDefDecompiler(SupriyaObject):
     @staticmethod
     def _decode_parameters(value, index):
         import supriya.synthdefs
+
         sdd = SynthDefDecompiler
         parameter_values = []
         parameter_count, index = sdd._decode_int_32bit(value, index)
@@ -129,23 +130,15 @@ class SynthDefDecompiler(SupriyaObject):
                 value = parameter_values[index_one:index_two]
                 if len(value) == 1:
                     value = value[0]
-                parameter = supriya.synthdefs.Parameter(
-                    name=name_one,
-                    value=value,
-                    )
+                parameter = supriya.synthdefs.Parameter(name=name_one, value=value)
                 indexed_parameters.append((index_one, parameter))
             index_one, name_one = pairs[-1]
             value = parameter_values[index_one:]
             if len(value) == 1:
                 value = value[0]
-            parameter = supriya.synthdefs.Parameter(
-                name=name_one,
-                value=value,
-                )
+            parameter = supriya.synthdefs.Parameter(name=name_one, value=value)
             indexed_parameters.append((index_one, parameter))
-            indexed_parameters.sort(
-                key=lambda x: parameter_names.index(x[1].name),
-                )
+            indexed_parameters.sort(key=lambda x: parameter_names.index(x[1].name))
         indexed_parameters = collections.OrderedDict(indexed_parameters)
         return indexed_parameters, index
 
@@ -153,6 +146,7 @@ class SynthDefDecompiler(SupriyaObject):
     def _decompile_synthdef(value, index):
         import supriya.synthdefs
         import supriya.ugens
+
         sdd = SynthDefDecompiler
         synthdef = None
         name, index = sdd._decode_string(value, index)
@@ -170,7 +164,7 @@ class SynthDefDecompiler(SupriyaObject):
             inputs = []
             for _ in range(input_count):
                 ugen_index, index = sdd._decode_int_32bit(value, index)
-                if ugen_index == 0xffffffff:
+                if ugen_index == 0xFFFFFFFF:
                     constant_index, index = sdd._decode_int_32bit(value, index)
                     constant_index = int(constant_index)
                     inputs.append(constants[constant_index])
@@ -192,13 +186,13 @@ class SynthDefDecompiler(SupriyaObject):
                     output_count,
                     starting_control_index,
                     ugen_class,
-                    )
+                )
                 ugen_class.__init__(
                     ugen,
                     parameters=parameters,
                     starting_control_index=starting_control_index,
                     calculation_rate=calculation_rate,
-                    )
+                )
             else:
                 kwargs = {}
                 if not ugen._unexpanded_input_names:
@@ -216,56 +210,52 @@ class SynthDefDecompiler(SupriyaObject):
                         calculation_rate=calculation_rate,
                         channel_count=output_count,
                         special_index=special_index,
-                        **kwargs
-                        )
+                        **kwargs,
+                    )
                 else:
                     supriya.ugens.UGen.__init__(
                         ugen,
                         calculation_rate=calculation_rate,
                         special_index=special_index,
-                        **kwargs
-                        )
+                        **kwargs,
+                    )
             ugens.append(ugen)
         variants_count, index = sdd._decode_int_16bit(value, index)
-        synthdef = supriya.synthdefs.SynthDef(
-            ugens=ugens,
-            name=name,
-            decompiled=True,
-            )
+        synthdef = supriya.synthdefs.SynthDef(ugens=ugens, name=name, decompiled=True)
         if synthdef.name == synthdef.anonymous_name:
             synthdef._name = None
         return synthdef, index
 
     @staticmethod
     def _decode_string(value, index):
-        length = struct.unpack('>B', value[index:index + 1])[0]
+        length = struct.unpack('>B', value[index : index + 1])[0]
         index += 1
-        result = value[index:index + length]
+        result = value[index : index + length]
         result = result.decode('ascii')
         index += length
         return result, index
 
     @staticmethod
     def _decode_float(value, index):
-        result = struct.unpack('>f', value[index:index + 4])[0]
+        result = struct.unpack('>f', value[index : index + 4])[0]
         index += 4
         return result, index
 
     @staticmethod
     def _decode_int_8bit(value, index):
-        result = struct.unpack('>B', value[index:index + 1])[0]
+        result = struct.unpack('>B', value[index : index + 1])[0]
         index += 1
         return result, index
 
     @staticmethod
     def _decode_int_16bit(value, index):
-        result = struct.unpack('>H', value[index:index + 2])[0]
+        result = struct.unpack('>H', value[index : index + 2])[0]
         index += 2
         return result, index
 
     @staticmethod
     def _decode_int_32bit(value, index):
-        result = struct.unpack('>I', value[index:index + 4])[0]
+        result = struct.unpack('>I', value[index : index + 4])[0]
         index += 4
         return result, index
 
@@ -277,9 +267,10 @@ class SynthDefDecompiler(SupriyaObject):
         output_count,
         starting_control_index,
         ugen_class,
-        ):
+    ):
         import supriya.synthdefs
         import supriya.ugens
+
         parameter_rate = supriya.synthdefs.ParameterRate.CONTROL
         if issubclass(ugen_class, supriya.ugens.TrigControl):
             parameter_rate = supriya.synthdefs.ParameterRate.TRIGGER
@@ -294,9 +285,8 @@ class SynthDefDecompiler(SupriyaObject):
             if inputs:
                 lag = inputs[collected_output_count]
             parameter = indexed_parameters[
-                starting_control_index +
-                collected_output_count
-                ]
+                starting_control_index + collected_output_count
+            ]
             parameter._parameter_rate = parameter_rate
             if lag:
                 parameter._lag = lag

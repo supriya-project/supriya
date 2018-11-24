@@ -11,11 +11,7 @@ class SuperColliderSynthDef(SupriyaObject):
 
     __documentation_section__ = 'SynthDef Internals'
 
-    __slots__ = (
-        '_body',
-        '_name',
-        '_rates',
-        )
+    __slots__ = ('_body', '_name', '_rates')
 
     ### INITIALIZER ###
 
@@ -54,7 +50,7 @@ class SuperColliderSynthDef(SupriyaObject):
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
-            )
+        )
         with open(synthdef_file_path, 'rb') as f:
             result = f.read()
         shutil.rmtree(directory_path)

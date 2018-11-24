@@ -52,12 +52,7 @@ class SynthDefBuilder(SupriyaObject):
 
     __documentation_section__ = 'Main Classes'
 
-    __slots__ = (
-        '_name',
-        '_parameters',
-        '_ugens',
-        '_uuid',
-        )
+    __slots__ = ('_name', '_parameters', '_ugens', '_uuid')
 
     ### INITIALIZER ###
 
@@ -86,13 +81,14 @@ class SynthDefBuilder(SupriyaObject):
     def _add_ugens(self, ugens):
         import supriya.synthdefs
         import supriya.ugens
+
         if not isinstance(ugens, collections.Sequence):
             ugens = [ugens]
         prototype = (
             supriya.ugens.UGen,
             supriya.synthdefs.OutputProxy,
             supriya.synthdefs.Parameter,
-            )
+        )
         for ugen in ugens:
             assert isinstance(ugen, prototype), type(ugen)
             if isinstance(ugen, supriya.synthdefs.OutputProxy):
@@ -103,12 +99,12 @@ class SynthDefBuilder(SupriyaObject):
 
     def _add_parameter(self, *args):
         import supriya.synthdefs
+
         if 3 < len(args):
             raise ValueError(args)
         if len(args) == 1:
             assert isinstance(args[0], supriya.synthdefs.Parameter)
-            name, value, parameter_rate = \
-                args[0].name, args[0], args[0].parameter_rate
+            name, value, parameter_rate = args[0].name, args[0], args[0].parameter_rate
         elif len(args) == 2:
             name, value = args
             if not isinstance(value, supriya.synthdefs.Parameter):
@@ -125,23 +121,15 @@ class SynthDefBuilder(SupriyaObject):
                 parameter_rate = value.parameter_rate
         elif len(args) == 3:
             name, value, parameter_rate = args
-            parameter_rate = supriya.synthdefs.ParameterRate.from_expr(
-                parameter_rate,
-                )
+            parameter_rate = supriya.synthdefs.ParameterRate.from_expr(parameter_rate)
         else:
             raise ValueError(args)
         if not isinstance(value, supriya.synthdefs.Parameter):
             parameter = supriya.synthdefs.Parameter(
-                name=name,
-                parameter_rate=parameter_rate,
-                value=value,
-                )
+                name=name, parameter_rate=parameter_rate, value=value
+            )
         else:
-            parameter = utils.new(
-                value,
-                parameter_rate=parameter_rate,
-                name=name,
-                )
+            parameter = utils.new(value, parameter_rate=parameter_rate, name=name)
         assert parameter._uuid is None
         parameter._uuid = self._uuid
         self._parameters[name] = parameter
@@ -151,6 +139,7 @@ class SynthDefBuilder(SupriyaObject):
 
     def build(self, name=None, optimize=True):
         import supriya.synthdefs
+
         name = self.name or name
         with self:
             ugens = list(self._parameters.values()) + list(self._ugens)
@@ -160,32 +149,20 @@ class SynthDefBuilder(SupriyaObject):
                 control_ugens,
                 control_mapping,
                 indexed_parameters,
-                ) = supriya.synthdefs.SynthDef._build_control_mapping(parameters)
+            ) = supriya.synthdefs.SynthDef._build_control_mapping(parameters)
             supriya.synthdefs.SynthDef._remap_controls(ugens, control_mapping)
             ugens = control_ugens + ugens
-            synthdef = supriya.synthdefs.SynthDef(
-                ugens,
-                name=name,
-                optimize=optimize,
-                )
+            synthdef = supriya.synthdefs.SynthDef(ugens, name=name, optimize=optimize)
         return synthdef
 
-    def poll_ugen(
-        self,
-        ugen,
-        label=None,
-        trigger=None,
-        trigger_id=-1,
-    ):
+    def poll_ugen(self, ugen, label=None, trigger=None, trigger_id=-1):
         import supriya.ugens
+
         if trigger is None:
             trigger = supriya.ugens.Impulse.kr(1)
         poll = supriya.ugens.Poll.new(
-            source=ugen,
-            label=label,
-            trigger=trigger,
-            trigger_id=trigger_id,
-            )
+            source=ugen, label=label, trigger=trigger, trigger_id=trigger_id
+        )
         self._add_ugens(poll)
 
     ### PUBLIC PROPERTIES ###

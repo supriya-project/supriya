@@ -7,20 +7,15 @@ class OutputProxy(UGenMethodMixin):
 
     __documentation_section__ = 'SynthDef Internals'
 
-    __slots__ = (
-        '_output_index',
-        '_source',
-        )
+    __slots__ = ('_output_index', '_source')
 
     ### INITIALIZER ###
 
     def __init__(self, source=None, output_index=None):
         import supriya.synthdefs
         import supriya.ugens
-        prototype = (
-            supriya.ugens.UGen,
-            supriya.synthdefs.Parameter,
-            )
+
+        prototype = (supriya.ugens.UGen, supriya.synthdefs.Parameter)
         assert isinstance(source, prototype)
         assert isinstance(output_index, int)
         self._output_index = output_index
@@ -38,11 +33,7 @@ class OutputProxy(UGenMethodMixin):
         return True
 
     def __hash__(self):
-        hash_values = (
-            type(self),
-            self._output_index,
-            self._source,
-            )
+        hash_values = (type(self), self._output_index, self._source)
         return hash(hash_values)
 
     def __iter__(self):

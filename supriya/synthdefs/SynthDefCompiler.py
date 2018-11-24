@@ -20,8 +20,11 @@ class SynthDefCompiler(SupriyaObject):
     @staticmethod
     def compile_parameters(synthdef):
         result = []
-        result.append(SynthDefCompiler.encode_unsigned_int_32bit(
-            sum(len(_[1]) for _ in synthdef.indexed_parameters)))
+        result.append(
+            SynthDefCompiler.encode_unsigned_int_32bit(
+                sum(len(_[1]) for _ in synthdef.indexed_parameters)
+            )
+        )
         for control_ugen in synthdef.control_ugens:
             for parameter in control_ugen.parameters:
                 value = parameter.value
@@ -29,8 +32,9 @@ class SynthDefCompiler(SupriyaObject):
                     value = (value,)
                 for x in value:
                     result.append(SynthDefCompiler.encode_float(x))
-        result.append(SynthDefCompiler.encode_unsigned_int_32bit(
-            len(synthdef.indexed_parameters)))
+        result.append(
+            SynthDefCompiler.encode_unsigned_int_32bit(len(synthdef.indexed_parameters))
+        )
         for index, parameter in synthdef.indexed_parameters:
             name = parameter.name
             result.append(SynthDefCompiler.encode_string(name))
@@ -40,24 +44,26 @@ class SynthDefCompiler(SupriyaObject):
     @staticmethod
     def compile_synthdefs(synthdefs, use_anonymous_names=False):
         def flatten(value):
-            if isinstance(value, collections.Sequence) and \
-                not isinstance(value, (bytes, bytearray)):
+            if isinstance(value, collections.Sequence) and not isinstance(
+                value, (bytes, bytearray)
+            ):
                 return bytes().join(flatten(x) for x in value)
             return value
+
         result = []
         encoded_file_type_id = b'SCgf'
         result.append(encoded_file_type_id)
         encoded_file_version = SynthDefCompiler.encode_unsigned_int_32bit(2)
         result.append(encoded_file_version)
         encoded_synthdef_count = SynthDefCompiler.encode_unsigned_int_16bit(
-            len(synthdefs))
+            len(synthdefs)
+        )
         result.append(encoded_synthdef_count)
         for synthdef in synthdefs:
             name = synthdef.name
             if not name or use_anonymous_names:
                 name = synthdef.anonymous_name
-            result.append(SynthDefCompiler.compile_synthdef(
-                synthdef, name))
+            result.append(SynthDefCompiler.compile_synthdef(synthdef, name))
         result = flatten(result)
         result = bytes(result)
         return result
@@ -70,7 +76,9 @@ class SynthDefCompiler(SupriyaObject):
         result.append(SynthDefCompiler.encode_unsigned_int_8bit(ugen.calculation_rate))
         result.append(SynthDefCompiler.encode_unsigned_int_32bit(len(ugen.inputs)))
         result.append(SynthDefCompiler.encode_unsigned_int_32bit(len(outputs)))
-        result.append(SynthDefCompiler.encode_unsigned_int_16bit(int(ugen.special_index)))
+        result.append(
+            SynthDefCompiler.encode_unsigned_int_16bit(int(ugen.special_index))
+        )
         for input_ in ugen.inputs:
             result.append(SynthDefCompiler.compile_ugen_input_spec(input_, synthdef))
         for output in outputs:
@@ -81,7 +89,9 @@ class SynthDefCompiler(SupriyaObject):
     @staticmethod
     def compile_ugen_graph(synthdef):
         result = []
-        result.append(SynthDefCompiler.encode_unsigned_int_32bit(len(synthdef.constants)))
+        result.append(
+            SynthDefCompiler.encode_unsigned_int_32bit(len(synthdef.constants))
+        )
         for constant in synthdef.constants:
             result.append(SynthDefCompiler.encode_float(constant))
         result.append(SynthDefCompiler.compile_parameters(synthdef))
@@ -95,12 +105,12 @@ class SynthDefCompiler(SupriyaObject):
     @staticmethod
     def compile_ugen_input_spec(input_, synthdef):
         import supriya.synthdefs
+
         result = []
         if isinstance(input_, float):
-            result.append(SynthDefCompiler.encode_unsigned_int_32bit(0xffffffff))
+            result.append(SynthDefCompiler.encode_unsigned_int_32bit(0xFFFFFFFF))
             constant_index = synthdef._constants.index(input_)
-            result.append(SynthDefCompiler.encode_unsigned_int_32bit(
-                constant_index))
+            result.append(SynthDefCompiler.encode_unsigned_int_32bit(constant_index))
         elif isinstance(input_, supriya.synthdefs.OutputProxy):
             ugen = input_.source
             output_index = input_.output_index
