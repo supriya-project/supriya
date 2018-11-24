@@ -4,7 +4,7 @@ from supriya.commands import SynthNewRequest
 from supriya.nonrealtime.Node import Node
 from supriya.nonrealtime.NodeAction import NodeAction
 from supriya.nonrealtime.SessionObject import SessionObject
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 
 
 class Synth(Node):
@@ -47,7 +47,7 @@ class Synth(Node):
             start_offset=start_offset,
             )
         self._synthdef = synthdef
-        self._synth_kwargs = synth_kwargs
+        self._synth_kwargs: Dict[str, Any] = synth_kwargs
 
     ### SPECIAL METHODS ###
 

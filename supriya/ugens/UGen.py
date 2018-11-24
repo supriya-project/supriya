@@ -5,6 +5,7 @@ from supriya.synthdefs.SignalRange import SignalRange
 from supriya.synthdefs.UGenMethodMixin import UGenMethodMixin
 from supriya.ugens.UGenMeta import UGenMeta
 from typing import Dict, Optional, Tuple, Union
+from supriya.typing import UGenInputMap
 
 
 class UGen(UGenMethodMixin, metaclass=UGenMeta):
@@ -36,7 +37,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
 
     _is_width_first = False
 
-    _ordered_input_names: Dict[str, Union[str, float, bool, None]] = None
+    _ordered_input_names: UGenInputMap = None
 
     _signal_range: int = SignalRange.BIPOLAR
 
