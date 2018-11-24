@@ -3,7 +3,7 @@ import configparser  # noqa
 import pathlib  # noqa
 import pyximport  # type: ignore
 
-pyximport.install()
+pyximport.install(language_level=3)
 
 output_path = pathlib.Path(appdirs.user_cache_dir('supriya', 'supriya'))
 if not output_path.exists():
