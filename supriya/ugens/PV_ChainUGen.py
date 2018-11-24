@@ -15,11 +15,7 @@ class PV_ChainUGen(WidthFirstUGen):
 
     def __init__(self, **kwargs):
         calculation_rate = CalculationRate.CONTROL
-        WidthFirstUGen.__init__(
-            self,
-            calculation_rate=calculation_rate,
-            **kwargs,
-        )
+        WidthFirstUGen.__init__(self, calculation_rate=calculation_rate, **kwargs)
 
     ### PUBLIC PROPERTIES ###
 

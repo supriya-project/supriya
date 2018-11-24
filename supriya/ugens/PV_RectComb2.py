@@ -28,10 +28,12 @@ class PV_RectComb2(PV_ChainUGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('pv_chain_a', None),
-        ('pv_chain_b', None),
-        ('num_teeth', 0),
-        ('phase', 0),
-        ('width', 0.5),
-    ])
+    _ordered_input_names = collections.OrderedDict(
+        [
+            ('pv_chain_a', None),
+            ('pv_chain_b', None),
+            ('num_teeth', 0),
+            ('phase', 0),
+            ('width', 0.5),
+        ]
+    )

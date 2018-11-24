@@ -29,19 +29,18 @@ class Gendy3(UGen):
 
     __documentation_section__ = 'Noise UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('ampdist', 1),
-        ('durdist', 1),
-        ('adparam', 1),
-        ('ddparam', 1),
-        ('frequency', 440),
-        ('ampscale', 0.5),
-        ('durscale', 0.5),
-        ('init_cps', 12),
-        ('knum', None),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [
+            ('ampdist', 1),
+            ('durdist', 1),
+            ('adparam', 1),
+            ('ddparam', 1),
+            ('frequency', 440),
+            ('ampscale', 0.5),
+            ('durscale', 0.5),
+            ('init_cps', 12),
+            ('knum', None),
+        ]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

@@ -25,12 +25,8 @@ class SpecPcile(UGen):
 
     __documentation_section__ = 'Machine Listening UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('pv_chain', None),
-        ('fraction', 0.5),
-        ('interpolate', 0),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [('pv_chain', None), ('fraction', 0.5), ('interpolate', 0)]
     )
+
+    _valid_calculation_rates = (CalculationRate.CONTROL,)

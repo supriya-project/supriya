@@ -21,28 +21,18 @@ class MaxLocalBufs(UGen):
 
     __documentation_section__ = 'Buffer UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('maximum', 0),
-    ])
+    _ordered_input_names = collections.OrderedDict([('maximum', 0)])
 
-    _valid_calculation_rates = (
-        CalculationRate.SCALAR,
-    )
+    _valid_calculation_rates = (CalculationRate.SCALAR,)
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        maximum=0,
-    ):
+    def __init__(self, maximum=0):
         import supriya.synthdefs
+
         maximum = float(maximum)
         calculation_rate = supriya.CalculationRate.SCALAR
-        UGen.__init__(
-            self,
-            calculation_rate=calculation_rate,
-            maximum=maximum,
-            )
+        UGen.__init__(self, calculation_rate=calculation_rate, maximum=maximum)
 
     ### PUBLIC METHODS ###
 

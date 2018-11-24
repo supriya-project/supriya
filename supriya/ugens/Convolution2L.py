@@ -30,14 +30,14 @@ class Convolution2L(UGen):
 
     __documentation_section__ = None
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-        ('kernel', None),
-        ('trigger', 0.0),
-        ('framesize', 2048),
-        ('crossfade', 1.0),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
+    _ordered_input_names = collections.OrderedDict(
+        [
+            ('source', None),
+            ('kernel', None),
+            ('trigger', 0.0),
+            ('framesize', 2048),
+            ('crossfade', 1.0),
+        ]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO,)

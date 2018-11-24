@@ -28,11 +28,6 @@ class BeatTrack(MultiOutUGen):
 
     _has_settable_channel_count = False
 
-    _ordered_input_names = collections.OrderedDict([
-        ('pv_chain', None),
-        ('lock', 0.0),
-    ])
+    _ordered_input_names = collections.OrderedDict([('pv_chain', None), ('lock', 0.0)])
 
-    _valid_calculation_rates = (
-        CalculationRate.CONTROL,
-    )
+    _valid_calculation_rates = (CalculationRate.CONTROL,)

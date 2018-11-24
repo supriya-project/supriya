@@ -22,7 +22,4 @@ class PV_MagFreeze(PV_ChainUGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('pv_chain', None),
-        ('freeze', 0),
-    ])
+    _ordered_input_names = collections.OrderedDict([('pv_chain', None), ('freeze', 0)])

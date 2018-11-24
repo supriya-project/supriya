@@ -24,13 +24,8 @@ class TwoPole(Filter):
 
     __documentation_section__ = 'Filter UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-        ('frequency', 440),
-        ('radius', 0.8),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [('source', None), ('frequency', 440), ('radius', 0.8)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

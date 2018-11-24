@@ -24,13 +24,8 @@ class TExpRand(UGen):
 
     __documentation_section__ = 'Noise UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('minimum', 0.01),
-        ('maximum', 1),
-        ('trigger', 0),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [('minimum', 0.01), ('maximum', 1), ('trigger', 0)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

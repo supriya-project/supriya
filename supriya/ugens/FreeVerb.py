@@ -21,13 +21,8 @@ class FreeVerb(UGen):
 
     __documentation_section__ = 'Reverb UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-        ('mix', 0.33),
-        ('room_size', 0.5),
-        ('damping', 0.5),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
+    _ordered_input_names = collections.OrderedDict(
+        [('source', None), ('mix', 0.33), ('room_size', 0.5), ('damping', 0.5)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO,)

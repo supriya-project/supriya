@@ -19,12 +19,10 @@ class Silence(PseudoUGen):
     ### PUBLIC METHODS ###
 
     @classmethod
-    def ar(
-        cls,
-        channel_count=1,
-    ):
+    def ar(cls, channel_count=1):
         import supriya.synthdefs
         import supriya.ugens
+
         channel_count = int(channel_count)
         assert 0 <= channel_count
         silence = supriya.ugens.DC.ar(0)

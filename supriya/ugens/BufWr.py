@@ -33,21 +33,13 @@ class BufWr(UGen):
 
     _has_done_flag = True
 
-    _ordered_input_names = collections.OrderedDict([
-        ('buffer_id', None),
-        ('phase', 0.0),
-        ('loop', 1.0),
-        ('source', None),
-    ])
-
-    _unexpanded_input_names = (
-        'source',
-        )
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [('buffer_id', None), ('phase', 0.0), ('loop', 1.0), ('source', None)]
     )
+
+    _unexpanded_input_names = ('source',)
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
     ### PUBLIC PROPERTIES ###
 

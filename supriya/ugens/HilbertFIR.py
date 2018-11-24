@@ -21,11 +21,8 @@ class HilbertFIR(UGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-        ('buffer_id', None),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
+    _ordered_input_names = collections.OrderedDict(
+        [('source', None), ('buffer_id', None)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO,)

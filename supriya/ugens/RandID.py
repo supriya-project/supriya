@@ -21,11 +21,6 @@ class RandID(WidthFirstUGen):
 
     __documentation_section__ = 'Noise UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('rand_id', 1),
-    ])
+    _ordered_input_names = collections.OrderedDict([('rand_id', 1)])
 
-    _valid_calculation_rates = (
-        CalculationRate.CONTROL,
-        CalculationRate.SCALAR,
-    )
+    _valid_calculation_rates = (CalculationRate.CONTROL, CalculationRate.SCALAR)

@@ -28,20 +28,19 @@ class DemandEnvGen(UGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('level', None),
-        ('duration', None),
-        ('shape', 1),
-        ('curve', 0),
-        ('gate', 1),
-        ('reset', 1),
-        ('level_scale', 1),
-        ('level_bias', 0),
-        ('time_scale', 1),
-        ('done_action', 0),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [
+            ('level', None),
+            ('duration', None),
+            ('shape', 1),
+            ('curve', 0),
+            ('gate', 1),
+            ('reset', 1),
+            ('level_scale', 1),
+            ('level_bias', 0),
+            ('time_scale', 1),
+            ('done_action', 0),
+        ]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

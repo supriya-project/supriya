@@ -23,11 +23,9 @@ class AmpComp(PureUGen):
 
     __documentation_section__ = 'Line Utility UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('frequency', 1000),
-        ('root', 0),
-        ('exp', 0.3333),
-    ])
+    _ordered_input_names = collections.OrderedDict(
+        [('frequency', 1000), ('root', 0), ('exp', 0.3333)]
+    )
 
     _valid_calculation_rates = (
         CalculationRate.AUDIO,

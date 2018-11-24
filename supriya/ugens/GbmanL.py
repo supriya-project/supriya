@@ -23,12 +23,8 @@ class GbmanL(UGen):
 
     __documentation_section__ = 'Chaos UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('frequency', 22050),
-        ('xi', 1.2),
-        ('yi', 2.1),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
+    _ordered_input_names = collections.OrderedDict(
+        [('frequency', 22050), ('xi', 1.2), ('yi', 2.1)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO,)

@@ -24,9 +24,6 @@ class PV_BinScramble(PV_ChainUGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('pv_chain', None),
-        ('wipe', 0),
-        ('width', 0.2),
-        ('trigger', 0),
-    ])
+    _ordered_input_names = collections.OrderedDict(
+        [('pv_chain', None), ('wipe', 0), ('width', 0.2), ('trigger', 0)]
+    )

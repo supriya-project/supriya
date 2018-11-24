@@ -20,6 +20,7 @@ class SoundIn(PseudoUGen):
     @staticmethod
     def ar(bus=0):
         import supriya.ugens
+
         channel_offset = supriya.ugens.NumOutputBuses.ir()
         if isinstance(bus, collections.Iterable):
             assert all(isinstance(x, int) for x in bus)
@@ -33,7 +34,4 @@ class SoundIn(PseudoUGen):
         else:
             channel_count = 1
         bus = bus + channel_offset
-        return supriya.ugens.In.ar(
-            bus=bus,
-            channel_count=channel_count,
-            )
+        return supriya.ugens.In.ar(bus=bus, channel_count=channel_count)

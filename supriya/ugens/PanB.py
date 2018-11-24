@@ -29,14 +29,8 @@ class PanB(MultiOutUGen):
 
     _has_settable_channel_count = False
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-        ('azimuth', 0),
-        ('elevation', 0),
-        ('gain', 1),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [('source', None), ('azimuth', 0), ('elevation', 0), ('gain', 1)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

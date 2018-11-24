@@ -21,30 +21,15 @@ class Dseries(DUGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('start', 1),
-        ('step', 1),
-        ('length', float('inf')),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.DEMAND,
+    _ordered_input_names = collections.OrderedDict(
+        [('start', 1), ('step', 1), ('length', float('inf'))]
     )
+
+    _valid_calculation_rates = (CalculationRate.DEMAND,)
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        calculation_rate=None,
-        length=float('inf'),
-        start=1,
-        step=1,
-    ):
+    def __init__(self, calculation_rate=None, length=float('inf'), start=1, step=1):
         if length is None:
             length = float('inf')
-        DUGen.__init__(
-            self,
-            length=length,
-            start=start,
-            step=step,
-            )
+        DUGen.__init__(self, length=length, start=start, step=step)

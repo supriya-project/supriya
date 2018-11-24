@@ -21,6 +21,4 @@ class SampleRate(InfoUGenBase):
 
     _ordered_input_names: UGenInputMap = collections.OrderedDict([])
 
-    _valid_calculation_rates = (
-        CalculationRate.SCALAR,
-    )
+    _valid_calculation_rates = (CalculationRate.SCALAR,)

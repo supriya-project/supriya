@@ -25,14 +25,8 @@ class HenonC(UGen):
 
     __documentation_section__ = 'Chaos UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('frequency', 22050),
-        ('a', 1.4),
-        ('b', 0.3),
-        ('x_0', 0),
-        ('x_1', 0),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
+    _ordered_input_names = collections.OrderedDict(
+        [('frequency', 22050), ('a', 1.4), ('b', 0.3), ('x_0', 0), ('x_1', 0)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO,)

@@ -24,11 +24,9 @@ class Wrap(UGen):
 
     __documentation_section__ = 'Trigger Utility UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', 0),
-        ('minimum', 0),
-        ('maximum', 1),
-    ])
+    _ordered_input_names = collections.OrderedDict(
+        [('source', 0), ('minimum', 0), ('maximum', 1)]
+    )
 
     _valid_calculation_rates = (
         CalculationRate.AUDIO,

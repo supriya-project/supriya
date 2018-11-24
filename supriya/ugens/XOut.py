@@ -28,17 +28,10 @@ class XOut(UGen):
 
     _is_output = True
 
-    _ordered_input_names = collections.OrderedDict([
-        ('bus', 0),
-        ('crossfade', 0),
-        ('source', None),
-    ])
-
-    _unexpanded_input_names = (
-        'source',
+    _ordered_input_names = collections.OrderedDict(
+        [('bus', 0), ('crossfade', 0), ('source', None)]
     )
 
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
-    )
+    _unexpanded_input_names = ('source',)
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

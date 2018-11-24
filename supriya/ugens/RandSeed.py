@@ -18,14 +18,12 @@ class RandSeed(WidthFirstUGen):
         RandSeed.ar()
 
     """
+
     ### CLASS VARIABLES ###
 
     __documentation_section__ = 'Noise UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('trigger', 0),
-        ('seed', 56789),
-    ])
+    _ordered_input_names = collections.OrderedDict([('trigger', 0), ('seed', 56789)])
 
     _valid_calculation_rates = (
         CalculationRate.AUDIO,

@@ -22,10 +22,6 @@ class PauseSelf(UGen):
 
     __documentation_section__ = 'Envelope Utility UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('trigger', None),
-    ])
+    _ordered_input_names = collections.OrderedDict([('trigger', None)])
 
-    _valid_calculation_rates = (
-        CalculationRate.CONTROL,
-    )
+    _valid_calculation_rates = (CalculationRate.CONTROL,)

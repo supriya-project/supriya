@@ -25,14 +25,8 @@ class QuadN(UGen):
 
     __documentation_section__ = 'Chaos UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('frequency', 22050),
-        ('a', 1),
-        ('b', -1),
-        ('c', -0.75),
-        ('xi', 0),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
+    _ordered_input_names = collections.OrderedDict(
+        [('frequency', 22050), ('a', 1), ('b', -1), ('c', -0.75), ('xi', 0)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO,)

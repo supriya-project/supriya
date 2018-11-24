@@ -30,14 +30,8 @@ class Balance2(MultiOutUGen):
 
     _has_settable_channel_count = False
 
-    _ordered_input_names = collections.OrderedDict([
-        ('left', None),
-        ('right', None),
-        ('position', 0.0),
-        ('level', 1.0),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [('left', None), ('right', None), ('position', 0.0), ('level', 1.0)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

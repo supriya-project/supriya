@@ -23,12 +23,8 @@ class FSinOsc(UGen):
 
     __documentation_section__ = None
 
-    _ordered_input_names = collections.OrderedDict([
-        ('frequency', 440.0),
-        ('initial_phase', 0.0),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [('frequency', 440.0), ('initial_phase', 0.0)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

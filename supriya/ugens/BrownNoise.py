@@ -21,7 +21,4 @@ class BrownNoise(UGen):
 
     _ordered_input_names: UGenInputMap = collections.OrderedDict([])
 
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
-    )
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

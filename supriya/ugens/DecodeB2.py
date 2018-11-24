@@ -35,14 +35,8 @@ class DecodeB2(MultiOutUGen):
 
     _has_settable_channel_count = True
 
-    _ordered_input_names = collections.OrderedDict([
-        ('w', None),
-        ('x', None),
-        ('y', None),
-        ('orientation', 0.5),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [('w', None), ('x', None), ('y', None), ('orientation', 0.5)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

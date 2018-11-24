@@ -27,14 +27,16 @@ class FFT(PV_ChainUGen):
 
     __documentation_section__ = 'FFT UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('buffer_id', None),
-        ('source', None),
-        ('hop', 0.5),
-        ('window_type', 0),
-        ('active', 1),
-        ('window_size', 0),
-    ])
+    _ordered_input_names = collections.OrderedDict(
+        [
+            ('buffer_id', None),
+            ('source', None),
+            ('hop', 0.5),
+            ('window_type', 0),
+            ('active', 1),
+            ('window_size', 0),
+        ]
+    )
 
     ### INITIALIZER ###
 
@@ -48,6 +50,7 @@ class FFT(PV_ChainUGen):
         window_type=0,
     ):
         import supriya.ugens
+
         if buffer_id is None:
             buffer_size = window_size or 2048
             buffer_id = supriya.ugens.LocalBuf(buffer_size)
@@ -71,4 +74,5 @@ class FFT(PV_ChainUGen):
         Returns ugen input.
         """
         import supriya.ugens
+
         return supriya.ugens.BufFrames.ir(self.buffer_id)

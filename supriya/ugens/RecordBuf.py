@@ -33,23 +33,20 @@ class RecordBuf(UGen):
 
     _has_done_flag = True
 
-    _ordered_input_names = collections.OrderedDict([
-        ('buffer_id', None),
-        ('offset', 0),
-        ('record_level', 1),
-        ('preexisting_level', 0),
-        ('run', 1),
-        ('loop', 1),
-        ('trigger', 1),
-        ('done_action', 0),
-        ('source', None),
-    ])
-
-    _unexpanded_input_names = (
-        'source',
+    _ordered_input_names = collections.OrderedDict(
+        [
+            ('buffer_id', None),
+            ('offset', 0),
+            ('record_level', 1),
+            ('preexisting_level', 0),
+            ('run', 1),
+            ('loop', 1),
+            ('trigger', 1),
+            ('done_action', 0),
+            ('source', None),
+        ]
     )
 
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
-    )
+    _unexpanded_input_names = ('source',)
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

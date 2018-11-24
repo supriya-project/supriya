@@ -28,12 +28,8 @@ class Convolution(UGen):
 
     __documentation_section__ = 'FFT UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-        ('kernel', None),
-        ('framesize', 512),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
+    _ordered_input_names = collections.OrderedDict(
+        [('source', None), ('kernel', None), ('framesize', 512)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO,)

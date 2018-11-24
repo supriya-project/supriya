@@ -22,12 +22,8 @@ class BBandStop(BEQSuite):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-        ('frequency', 1200),
-        ('bandwidth', 1),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
+    _ordered_input_names = collections.OrderedDict(
+        [('source', None), ('frequency', 1200), ('bandwidth', 1)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO,)

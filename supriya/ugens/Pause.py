@@ -24,11 +24,8 @@ class Pause(UGen):
 
     __documentation_section__ = 'Envelope Utility UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('trigger', None),
-        ('node_id', None),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [('trigger', None), ('node_id', None)]
     )
+
+    _valid_calculation_rates = (CalculationRate.CONTROL,)

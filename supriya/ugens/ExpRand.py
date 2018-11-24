@@ -19,27 +19,14 @@ class ExpRand(UGen):
 
     __documentation_section__ = 'Noise UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('minimum', 0.0),
-        ('maximum', 1.0),
-    ])
+    _ordered_input_names = collections.OrderedDict([('minimum', 0.0), ('maximum', 1.0)])
 
-    _valid_calculation_rates = (
-        CalculationRate.SCALAR,
-    )
+    _valid_calculation_rates = (CalculationRate.SCALAR,)
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        calculation_rate=None,
-        maximum=None,
-        minimum=None,
-    ):
+    def __init__(self, calculation_rate=None, maximum=None, minimum=None):
         minimum, maximum = sorted([minimum, maximum])
         UGen.__init__(
-            self,
-            calculation_rate=calculation_rate,
-            minimum=minimum,
-            maximum=maximum,
+            self, calculation_rate=calculation_rate, minimum=minimum, maximum=maximum
         )

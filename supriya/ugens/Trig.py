@@ -23,12 +23,8 @@ class Trig(UGen):
 
     __documentation_section__ = 'Trigger Utility UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-        ('duration', 0.1),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [('source', None), ('duration', 0.1)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

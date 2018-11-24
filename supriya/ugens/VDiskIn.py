@@ -32,13 +32,8 @@ class VDiskIn(MultiOutUGen):
 
     _has_settable_channel_count = True
 
-    _ordered_input_names = collections.OrderedDict([
-        ('buffer_id', None),
-        ('rate', 1),
-        ('loop', 0),
-        ('send_id', 0),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
+    _ordered_input_names = collections.OrderedDict(
+        [('buffer_id', None), ('rate', 1), ('loop', 0), ('send_id', 0)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO,)

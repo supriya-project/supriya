@@ -28,20 +28,13 @@ class SendPeakRMS(UGen):
 
     _default_channel_count = 0
 
-    _ordered_input_names = collections.OrderedDict([
-        ('reply_rate', 20),
-        ('peak_lag', 3),
-        ('reply_id', -1),
-    ])
-
-    _unexpanded_argument_names = (
-        'source',
-        )
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [('reply_rate', 20), ('peak_lag', 3), ('reply_id', -1)]
     )
+
+    _unexpanded_argument_names = ('source',)
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
     ### INITIALIZER ###
 
@@ -60,7 +53,7 @@ class SendPeakRMS(UGen):
             peak_lag=peak_lag,
             reply_id=reply_id,
             reply_rate=reply_rate,
-            )
+        )
         command_name = str(command_name)
         if not isinstance(source, collections.Sequence):
             source = (source,)
@@ -75,12 +68,7 @@ class SendPeakRMS(UGen):
 
     @classmethod
     def ar(
-        cls,
-        command_name='/reply',
-        peak_lag=3,
-        reply_id=-1,
-        reply_rate=20,
-        source=None,
+        cls, command_name='/reply', peak_lag=3, reply_id=-1, reply_rate=20, source=None
     ):
         """
         Constructs an audio-rate SendPeakRMS.
@@ -101,6 +89,7 @@ class SendPeakRMS(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_single(
             calculation_rate=calculation_rate,
@@ -109,17 +98,12 @@ class SendPeakRMS(UGen):
             reply_id=reply_id,
             reply_rate=reply_rate,
             source=source,
-            )
+        )
         return ugen
 
     @classmethod
     def kr(
-        cls,
-        command_name='/reply',
-        peak_lag=3,
-        reply_id=-1,
-        reply_rate=20,
-        source=None,
+        cls, command_name='/reply', peak_lag=3, reply_id=-1, reply_rate=20, source=None
     ):
         """
         Constructs a control-rate SendPeakRMS.
@@ -140,6 +124,7 @@ class SendPeakRMS(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_single(
             calculation_rate=calculation_rate,
@@ -148,7 +133,7 @@ class SendPeakRMS(UGen):
             reply_id=reply_id,
             reply_rate=reply_rate,
             source=source,
-            )
+        )
         return ugen
 
     # def new1(): ...

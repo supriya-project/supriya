@@ -21,12 +21,8 @@ class Diwhite(Dwhite):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('minimum', 0),
-        ('maximum', 1),
-        ('length', float('inf')),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.DEMAND,
+    _ordered_input_names = collections.OrderedDict(
+        [('minimum', 0), ('maximum', 1), ('length', float('inf'))]
     )
+
+    _valid_calculation_rates = (CalculationRate.DEMAND,)

@@ -23,12 +23,6 @@ class Median(Filter):
 
     __documentation_section__ = 'Filter UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('length', 3),
-        ('source', None),
-    ])
+    _ordered_input_names = collections.OrderedDict([('length', 3), ('source', None)])
 
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
-    )
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

@@ -22,10 +22,6 @@ class A2K(PureUGen):
 
     __documentation_section__ = 'Utility UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-    ])
+    _ordered_input_names = collections.OrderedDict([('source', None)])
 
-    _valid_calculation_rates = (
-        CalculationRate.CONTROL,
-    )
+    _valid_calculation_rates = (CalculationRate.CONTROL,)

@@ -25,7 +25,6 @@ class PV_Mul(PV_ChainUGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('pv_chain_a', None),
-        ('pv_chain_b', None),
-    ])
+    _ordered_input_names = collections.OrderedDict(
+        [('pv_chain_a', None), ('pv_chain_b', None)]
+    )

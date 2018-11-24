@@ -31,21 +31,19 @@ class Klank(UGen):
 
     __documentation_section__ = 'Filter UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-        ('frequency_scale', 1),
-        ('frequency_offset', 0),
-        ('decay_scale', 1),
-        ('specifications', None),
-    ])
-
-    _unexpanded_input_names = (
-        'specifications',
+    _ordered_input_names = collections.OrderedDict(
+        [
+            ('source', None),
+            ('frequency_scale', 1),
+            ('frequency_offset', 0),
+            ('decay_scale', 1),
+            ('specifications', None),
+        ]
     )
 
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-    )
+    _unexpanded_input_names = ('specifications',)
+
+    _valid_calculation_rates = (CalculationRate.AUDIO,)
 
     ### INITIALIZER ###
 
@@ -68,9 +66,7 @@ class Klank(UGen):
             decay_times = [1.0] * len(frequencies)
         elif not isinstance(decay_times, collections.Sequence):
             decay_times = [decay_times] * len(frequencies)
-        specifications = utils.zip_sequences(
-            frequencies, amplitudes, decay_times
-            )
+        specifications = utils.zip_sequences(frequencies, amplitudes, decay_times)
         specifications = utils.flatten_iterable(specifications)
         specifications = tuple(specifications)
         UGen.__init__(

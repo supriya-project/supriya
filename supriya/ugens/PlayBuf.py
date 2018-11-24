@@ -32,16 +32,15 @@ class PlayBuf(MultiOutUGen):
 
     _has_settable_channel_count = True
 
-    _ordered_input_names = collections.OrderedDict([
-        ('buffer_id', None),
-        ('rate', 1),
-        ('trigger', 1),
-        ('start_position', 0),
-        ('loop', 0),
-        ('done_action', 0),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [
+            ('buffer_id', None),
+            ('rate', 1),
+            ('trigger', 1),
+            ('start_position', 0),
+            ('loop', 0),
+            ('done_action', 0),
+        ]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

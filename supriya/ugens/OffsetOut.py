@@ -26,15 +26,8 @@ class OffsetOut(UGen):
 
     _is_output = True
 
-    _ordered_input_names = collections.OrderedDict([
-        ('bus', 0),
-        ('source', None),
-    ])
+    _ordered_input_names = collections.OrderedDict([('bus', 0), ('source', None)])
 
-    _unexpanded_input_names = (
-        'source',
-    )
+    _unexpanded_input_names = ('source',)
 
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-    )
+    _valid_calculation_rates = (CalculationRate.AUDIO,)

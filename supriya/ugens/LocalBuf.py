@@ -48,24 +48,17 @@ class LocalBuf(WidthFirstUGen):
 
     __documentation_section__ = 'Buffer UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('channel_count', 1),
-        ('frame_count', 1),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.SCALAR,
+    _ordered_input_names = collections.OrderedDict(
+        [('channel_count', 1), ('frame_count', 1)]
     )
+
+    _valid_calculation_rates = (CalculationRate.SCALAR,)
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        frame_count=1,
-        channel_count=1,
-        calculation_rate=None,
-    ):
+    def __init__(self, frame_count=1, channel_count=1, calculation_rate=None):
         import supriya.synthdefs
+
         if calculation_rate is None:
             calculation_rate = supriya.CalculationRate.SCALAR
         WidthFirstUGen.__init__(

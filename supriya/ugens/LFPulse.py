@@ -18,13 +18,8 @@ class LFPulse(PureUGen):
 
     __documentation_section__ = 'Oscillator UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('frequency', 440.0),
-        ('initial_phase', 0),
-        ('width', 0.5),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [('frequency', 440.0), ('initial_phase', 0), ('width', 0.5)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

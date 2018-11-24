@@ -21,23 +21,20 @@ class EnvGen(UGen):
 
     _has_done_flag = True
 
-    _ordered_input_names = collections.OrderedDict([
-        ('gate', 1.0),
-        ('level_scale', 1.0),
-        ('level_bias', 0.0),
-        ('time_scale', 1.0),
-        ('done_action', 0.0),
-        ('envelope', None),
-    ])
-
-    _unexpanded_input_names = (
-        'envelope',
+    _ordered_input_names = collections.OrderedDict(
+        [
+            ('gate', 1.0),
+            ('level_scale', 1.0),
+            ('level_bias', 0.0),
+            ('time_scale', 1.0),
+            ('done_action', 0.0),
+            ('envelope', None),
+        ]
     )
 
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
-    )
+    _unexpanded_input_names = ('envelope',)
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
     ### PRIVATE METHODS ###
 
@@ -53,6 +50,7 @@ class EnvGen(UGen):
         time_scale=1.0,
     ):
         import supriya.synthdefs
+
         if not isinstance(done_action, supriya.synthdefs.Parameter):
             done_action = supriya.synthdefs.DoneAction.from_expr(int(done_action))
         if envelope is None:
@@ -67,4 +65,4 @@ class EnvGen(UGen):
             level_bias=level_bias,
             level_scale=level_scale,
             time_scale=time_scale,
-            )
+        )

@@ -22,7 +22,6 @@ class PV_MagAbove(PV_ChainUGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('pv_chain', None),
-        ('threshold', 0),
-    ])
+    _ordered_input_names = collections.OrderedDict(
+        [('pv_chain', None), ('threshold', 0)]
+    )

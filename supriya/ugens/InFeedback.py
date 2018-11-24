@@ -29,10 +29,6 @@ class InFeedback(MultiOutUGen):
 
     _is_input = True
 
-    _ordered_input_names = collections.OrderedDict([
-        ('bus', 0),
-    ])
+    _ordered_input_names = collections.OrderedDict([('bus', 0)])
 
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-    )
+    _valid_calculation_rates = (CalculationRate.AUDIO,)

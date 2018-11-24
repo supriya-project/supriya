@@ -41,14 +41,13 @@ class DelTapRd(UGen):
 
     __documentation_section__ = 'Delay UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('buffer_id', None),
-        ('phase', None),
-        ('delay_time', 0.0),
-        ('interpolation', 1.0),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [
+            ('buffer_id', None),
+            ('phase', None),
+            ('delay_time', 0.0),
+            ('interpolation', 1.0),
+        ]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

@@ -23,13 +23,8 @@ class BLowCut(BEQSuite):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-        ('frequency', 1200),
-        ('order', 2),
-        ('max_order', 5),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
+    _ordered_input_names = collections.OrderedDict(
+        [('source', None), ('frequency', 1200), ('order', 2), ('max_order', 5)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO,)

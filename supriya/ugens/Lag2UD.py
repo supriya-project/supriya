@@ -24,13 +24,8 @@ class Lag2UD(Filter):
 
     __documentation_section__ = 'Filter UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-        ('lag_time_u', 0.1),
-        ('lag_time_d', 0.1),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [('source', None), ('lag_time_u', 0.1), ('lag_time_d', 0.1)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

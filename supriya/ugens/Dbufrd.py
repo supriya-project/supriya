@@ -23,12 +23,8 @@ class Dbufrd(DUGen):
 
     __documentation_section__ = 'Demand UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('buffer_id', 0),
-        ('phase', 0),
-        ('loop', 1),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.DEMAND,
+    _ordered_input_names = collections.OrderedDict(
+        [('buffer_id', 0), ('phase', 0), ('loop', 1)]
     )
+
+    _valid_calculation_rates = (CalculationRate.DEMAND,)

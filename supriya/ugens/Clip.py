@@ -24,11 +24,9 @@ class Clip(UGen):
 
     __documentation_section__ = 'Trigger Utility UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-        ('minimum', 0.0),
-        ('maximum', 1.0),
-    ])
+    _ordered_input_names = collections.OrderedDict(
+        [('source', None), ('minimum', 0.0), ('maximum', 1.0)]
+    )
 
     _valid_calculation_rates = (
         CalculationRate.AUDIO,

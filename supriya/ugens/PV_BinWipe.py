@@ -26,8 +26,6 @@ class PV_BinWipe(PV_ChainUGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('pv_chain_a', None),
-        ('pv_chain_b', None),
-        ('wipe', 0),
-    ])
+    _ordered_input_names = collections.OrderedDict(
+        [('pv_chain_a', None), ('pv_chain_b', None), ('wipe', 0)]
+    )

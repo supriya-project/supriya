@@ -67,16 +67,11 @@ class Poll(UGen):
 
     __documentation_section__ = 'Utility UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('trigger', None),
-        ('source', None),
-        ('trigger_id', -1),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [('trigger', None), ('source', None), ('trigger_id', -1)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
     ### INITIALIZER ###
 
@@ -90,6 +85,7 @@ class Poll(UGen):
     ):
         import supriya.synthdefs
         import supriya.ugens
+
         if label is None:
             if isinstance(source, supriya.ugens.UGen):
                 label = type(source).__name__
@@ -101,7 +97,7 @@ class Poll(UGen):
             source=source,
             trigger=trigger,
             trigger_id=trigger_id,
-            )
+        )
         label = str(label)
         self._configure_input('label', len(label))
         for character in label:
@@ -110,14 +106,9 @@ class Poll(UGen):
     ### PUBLIC METHODS ###
 
     @classmethod
-    def ar(
-        cls,
-        label=None,
-        source=None,
-        trigger=None,
-        trigger_id=-1,
-    ):
+    def ar(cls, label=None, source=None, trigger=None, trigger_id=-1):
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -125,18 +116,13 @@ class Poll(UGen):
             source=source,
             trigger=trigger,
             trigger_id=trigger_id,
-            )
+        )
         return ugen
 
     @classmethod
-    def kr(
-        cls,
-        label=None,
-        source=None,
-        trigger=None,
-        trigger_id=-1,
-    ):
+    def kr(cls, label=None, source=None, trigger=None, trigger_id=-1):
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -144,18 +130,13 @@ class Poll(UGen):
             source=source,
             trigger=trigger,
             trigger_id=trigger_id,
-            )
+        )
         return ugen
 
     @classmethod
-    def new(
-        cls,
-        label=None,
-        source=None,
-        trigger=None,
-        trigger_id=-1,
-    ):
+    def new(cls, label=None, source=None, trigger=None, trigger_id=-1):
         import supriya.synthdefs
+
         if isinstance(source, collections.Sequence):
             source = (source,)
         calculation_rates = []
@@ -168,7 +149,7 @@ class Poll(UGen):
             source=source,
             trigger=trigger,
             trigger_id=trigger_id,
-            )
+        )
         return ugen
 
     ### PUBLIC PROPERTIES ###

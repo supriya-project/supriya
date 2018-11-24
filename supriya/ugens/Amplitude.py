@@ -24,13 +24,8 @@ class Amplitude(UGen):
 
     __documentation_section__ = 'Dynamics UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-        ('attack_time', 0.01),
-        ('release_time', 0.01),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [('source', None), ('attack_time', 0.01), ('release_time', 0.01)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

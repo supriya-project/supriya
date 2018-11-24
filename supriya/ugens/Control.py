@@ -18,19 +18,13 @@ class Control(MultiOutUGen):
 
     _ordered_input_names: UGenInputMap = collections.OrderedDict([])
 
-    __slots__ = (
-        '_parameters',
-    )
+    __slots__ = ('_parameters',)
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        parameters,
-        calculation_rate=None,
-        starting_control_index=0,
-    ):
+    def __init__(self, parameters, calculation_rate=None, starting_control_index=0):
         import supriya.synthdefs
+
         coerced_parameters = []
         for parameter in parameters:
             if not isinstance(parameter, supriya.synthdefs.Parameter):
@@ -42,7 +36,7 @@ class Control(MultiOutUGen):
             channel_count=len(self),
             calculation_rate=calculation_rate,
             special_index=starting_control_index,
-            )
+        )
 
     ### SPECIAL METHODS ###
 
@@ -53,6 +47,7 @@ class Control(MultiOutUGen):
         Returns output proxy.
         """
         import supriya.synthdefs
+
         if type(i) == int:
             if len(self) == 1:
                 return supriya.synthdefs.OutputProxy(self, 0)
@@ -97,13 +92,14 @@ class Control(MultiOutUGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         if len(self.parameters) == 1:
             result = self
         else:
             result = [
                 supriya.synthdefs.OutputProxy(self, i)
                 for i in range(len(self.parameters))
-                ]
+            ]
         return result
 
     @property

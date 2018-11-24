@@ -18,18 +18,17 @@ class LFGauss(UGen):
 
     __documentation_section__ = 'Oscillator UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('duration', 1),
-        ('width', 0.1),
-        ('initial_phase', 0),
-        ('loop', 1),
-        ('done_action', 0),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [
+            ('duration', 1),
+            ('width', 0.1),
+            ('initial_phase', 0),
+            ('loop', 1),
+            ('done_action', 0),
+        ]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
     ### INITIALIZER ###
 
@@ -43,6 +42,7 @@ class LFGauss(UGen):
         width=0.1,
     ):
         import supriya.synthdefs
+
         done_action = supriya.synthdefs.DoneAction.from_expr(done_action)
         UGen.__init__(
             self,
@@ -52,4 +52,4 @@ class LFGauss(UGen):
             initial_phase=initial_phase,
             loop=loop,
             width=width,
-            )
+        )

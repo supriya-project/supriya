@@ -22,10 +22,6 @@ class K2A(PureUGen):
 
     __documentation_section__ = 'Utility UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-    ])
+    _ordered_input_names = collections.OrderedDict([('source', None)])
 
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-    )
+    _valid_calculation_rates = (CalculationRate.AUDIO,)

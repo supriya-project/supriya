@@ -22,7 +22,4 @@ class PV_Diffuser(PV_ChainUGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('pv_chain', None),
-        ('trigger', 0),
-    ])
+    _ordered_input_names = collections.OrderedDict([('pv_chain', None), ('trigger', 0)])

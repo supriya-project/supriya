@@ -23,12 +23,6 @@ class PeakFollower(UGen):
 
     __documentation_section__ = 'Trigger Utility UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-        ('decay', 0.999),
-    ])
+    _ordered_input_names = collections.OrderedDict([('source', None), ('decay', 0.999)])
 
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
-    )
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

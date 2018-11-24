@@ -23,12 +23,8 @@ class NRand(UGen):
 
     __documentation_section__ = 'Noise UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('minimum', 0.),
-        ('maximum', 1.),
-        ('n', 1),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.SCALAR,
+    _ordered_input_names = collections.OrderedDict(
+        [('minimum', 0.0), ('maximum', 1.0), ('n', 1)]
     )
+
+    _valid_calculation_rates = (CalculationRate.SCALAR,)

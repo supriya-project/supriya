@@ -28,18 +28,17 @@ class Vibrato(PureUGen):
 
     __documentation_section__ = None
 
-    _ordered_input_names = collections.OrderedDict([
-        ('frequency', 440),
-        ('rate', 6),
-        ('depth', 0.02),
-        ('delay', 0),
-        ('onset', 0),
-        ('rate_variation', 0.04),
-        ('depth_variation', 0.1),
-        ('initial_phase', 0),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [
+            ('frequency', 440),
+            ('rate', 6),
+            ('depth', 0.02),
+            ('delay', 0),
+            ('onset', 0),
+            ('rate_variation', 0.04),
+            ('depth_variation', 0.1),
+            ('initial_phase', 0),
+        ]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

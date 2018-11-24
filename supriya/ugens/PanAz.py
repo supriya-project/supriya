@@ -31,15 +31,14 @@ class PanAz(MultiOutUGen):
 
     _has_settable_channel_count = True
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-        ('position', 0),
-        ('amplitude', 1),
-        ('width', 2),
-        ('orientation', 0.5),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [
+            ('source', None),
+            ('position', 0),
+            ('amplitude', 1),
+            ('width', 2),
+            ('orientation', 0.5),
+        ]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

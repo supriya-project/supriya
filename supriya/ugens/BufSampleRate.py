@@ -18,11 +18,6 @@ class BufSampleRate(BufInfoUGenBase):
 
     __documentation_section__ = 'Buffer UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('buffer_id', None),
-    ])
+    _ordered_input_names = collections.OrderedDict([('buffer_id', None)])
 
-    _valid_calculation_rates = (
-        CalculationRate.CONTROL,
-        CalculationRate.SCALAR,
-    )
+    _valid_calculation_rates = (CalculationRate.CONTROL, CalculationRate.SCALAR)

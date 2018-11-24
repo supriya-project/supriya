@@ -39,11 +39,7 @@ class Changed(PseudoUGen):
     ### PUBLIC METHODS ###
 
     @classmethod
-    def ar(
-        cls,
-        source=None,
-        threshold=0,
-    ):
+    def ar(cls, source=None, threshold=0):
         """
         Constructs an audio-rate Changed.
 
@@ -75,15 +71,12 @@ class Changed(PseudoUGen):
         Returns ugen graph.
         """
         import supriya.ugens
+
         ugen = abs(supriya.ugens.HPZ1.ar(source=source)) > threshold
         return ugen
 
     @classmethod
-    def kr(
-        cls,
-        source=None,
-        threshold=0,
-    ):
+    def kr(cls, source=None, threshold=0):
         """
         Constructs a control-rate Changed.
 
@@ -115,5 +108,6 @@ class Changed(PseudoUGen):
         Returns ugen graph.
         """
         import supriya.ugens
+
         ugen = abs(supriya.ugens.HPZ1.kr(source=source)) > threshold
         return ugen

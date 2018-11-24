@@ -30,15 +30,15 @@ class BeatTrack2(MultiOutUGen):
 
     _has_settable_channel_count = False
 
-    _ordered_input_names = collections.OrderedDict([
-        ('bus_index', 0.0),
-        ('feature_count', None),
-        ('window_size', 2),
-        ('phase_accuracy', 0.02),
-        ('lock', 0.0),
-        ('weighting_scheme', -2.1),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [
+            ('bus_index', 0.0),
+            ('feature_count', None),
+            ('window_size', 2),
+            ('phase_accuracy', 0.02),
+            ('lock', 0.0),
+            ('weighting_scheme', -2.1),
+        ]
     )
+
+    _valid_calculation_rates = (CalculationRate.CONTROL,)

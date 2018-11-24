@@ -35,14 +35,8 @@ class BufRd(MultiOutUGen):
 
     _has_settable_channel_count = True
 
-    _ordered_input_names = collections.OrderedDict([
-        ('buffer_id', None),
-        ('phase', 0.0),
-        ('loop', 1.0),
-        ('interpolation', 2.0),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [('buffer_id', None), ('phase', 0.0), ('loop', 1.0), ('interpolation', 2.0)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

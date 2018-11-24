@@ -24,13 +24,8 @@ class DegreeToKey(PureUGen):
 
     __documentation_section__ = 'Utility UGens'
 
-    _ordered_input_names = collections.OrderedDict([
-        ('buffer_id', None),
-        ('source', None),
-        ('octave', 12),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [('buffer_id', None), ('source', None), ('octave', 12)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
