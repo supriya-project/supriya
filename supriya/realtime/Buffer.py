@@ -40,19 +40,13 @@ class Buffer(ServerObjectProxy):
 
     __documentation_section__ = 'Main Classes'
 
-    __slots__ = (
-        '_buffer_group',
-        '_buffer_id',
-        '_buffer_id_was_set_manually',
-        )
+    __slots__ = ('_buffer_group', '_buffer_id', '_buffer_id_was_set_manually')
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        buffer_group_or_index=None,
-    ):
+    def __init__(self, buffer_group_or_index=None):
         import supriya.realtime
+
         ServerObjectProxy.__init__(self)
         buffer_group = None
         buffer_id = None
@@ -195,10 +189,8 @@ class Buffer(ServerObjectProxy):
         if buffer_id is None:
             buffer_id = '???'
         string = '<{} {}: {}>'.format(
-            '+' if self.is_allocated else '-',
-            type(self).__name__,
-            buffer_id
-            )
+            '+' if self.is_allocated else '-', type(self).__name__, buffer_id
+        )
         return string
 
     ### PRIVATE METHODS ###
@@ -226,9 +218,8 @@ class Buffer(ServerObjectProxy):
         starting_frame=None,
     ):
         import supriya.commands
-        on_done = supriya.commands.BufferQueryRequest(
-            buffer_ids=(self.buffer_id,),
-            )
+
+        on_done = supriya.commands.BufferQueryRequest(buffer_ids=(self.buffer_id,))
         if file_path and channel_indices is not None:
             if not isinstance(channel_indices, collections.Sequence):
                 channel_indices = (channel_indices,)
@@ -241,7 +232,7 @@ class Buffer(ServerObjectProxy):
                 frame_count=frame_count,
                 starting_frame=starting_frame,
                 callback=on_done,
-                )
+            )
         elif file_path:
             request = supriya.commands.BufferAllocateReadRequest(
                 buffer_id=self.buffer_id,
@@ -249,14 +240,14 @@ class Buffer(ServerObjectProxy):
                 frame_count=frame_count,
                 starting_frame=starting_frame,
                 callback=on_done,
-                )
+            )
         else:
             request = supriya.commands.BufferAllocateRequest(
                 buffer_id=self.buffer_id,
                 frame_count=frame_count,
                 channel_count=channel_count,
                 callback=on_done,
-                )
+            )
         return request
 
     def _unregister_with_local_server(self):
@@ -264,29 +255,21 @@ class Buffer(ServerObjectProxy):
         buffers = self.server._buffers[buffer_id]
         buffers.remove(self)
         if not buffers:
-            del(self.server._buffers[buffer_id])
+            del (self.server._buffers[buffer_id])
         return buffer_id
 
     def _unregister_with_remote_server(self, buffer_id):
         import supriya.commands
-        on_done = supriya.commands.BufferQueryRequest(
-            buffer_ids=(buffer_id,),
-            )
+
+        on_done = supriya.commands.BufferQueryRequest(buffer_ids=(buffer_id,))
         request = supriya.commands.BufferFreeRequest(
-            buffer_id=buffer_id,
-            callback=on_done,
-            )
+            buffer_id=buffer_id, callback=on_done
+        )
         return request
 
     ### PUBLIC METHODS ###
 
-    def allocate(
-        self,
-        channel_count=1,
-        frame_count=1,
-        server=None,
-        sync=True,
-    ):
+    def allocate(self, channel_count=1, frame_count=1, server=None, sync=True):
         """
         Allocates buffer on `server`.
 
@@ -344,10 +327,7 @@ class Buffer(ServerObjectProxy):
         if self.is_allocated:
             raise supriya.exceptions.BufferAlreadyAllocated
         try:
-            ServerObjectProxy.allocate(
-                self,
-                server=server,
-                )
+            ServerObjectProxy.allocate(self, server=server)
             channel_count = int(channel_count)
             frame_count = int(frame_count)
             assert 0 < channel_count
@@ -355,13 +335,9 @@ class Buffer(ServerObjectProxy):
             self._allocate_buffer_id()
             self._register_with_local_server()
             request = self._register_with_remote_server(
-                channel_count=channel_count,
-                frame_count=frame_count,
-                )
-            request.communicate(
-                server=self.server,
-                sync=sync,
-                )
+                channel_count=channel_count, frame_count=frame_count
+            )
+            request.communicate(server=self.server, sync=sync)
         except Exception:
             self.free()
         return self
@@ -435,10 +411,7 @@ class Buffer(ServerObjectProxy):
         if self.is_allocated:
             raise supriya.exceptions.BufferAlreadyAllocated
         try:
-            ServerObjectProxy.allocate(
-                self,
-                server=server,
-                )
+            ServerObjectProxy.allocate(self, server=server)
             self._allocate_buffer_id()
             self._register_with_local_server()
             request = self._register_with_remote_server(
@@ -446,19 +419,13 @@ class Buffer(ServerObjectProxy):
                 channel_indices=channel_indices,
                 file_path=file_path,
                 starting_frame=starting_frame,
-                )
-            request.communicate(
-                server=self.server,
-                sync=sync,
-                )
+            )
+            request.communicate(server=self.server, sync=sync)
         except Exception:
             ServerObjectProxy.allocate(self, server=server)
         return self
 
-    def close(
-        self,
-        sync=True,
-    ):
+    def close(self, sync=True):
         """
         Closes buffer, if it was open during a read or write process by
         the DiskIn or DiskOut UGens.
@@ -487,15 +454,11 @@ class Buffer(ServerObjectProxy):
         Returns none.
         """
         import supriya.commands
+
         if not self.is_allocated:
             raise supriya.exceptions.BufferNotAllocated
-        request = supriya.commands.BufferCloseRequest(
-            buffer_id=self.buffer_id,
-            )
-        request.communicate(
-            server=self.server,
-            sync=sync,
-            )
+        request = supriya.commands.BufferCloseRequest(buffer_id=self.buffer_id)
+        request.communicate(server=self.server, sync=sync)
 
     def copy_to(
         self,
@@ -533,6 +496,7 @@ class Buffer(ServerObjectProxy):
         Returns none.
         """
         import supriya.commands
+
         if not self.is_allocated:
             raise supriya.exceptions.BufferNotAllocated
         request = supriya.commands.BufferCopyRequest(
@@ -541,11 +505,8 @@ class Buffer(ServerObjectProxy):
             source_starting_frame=source_starting_frame,
             target_buffer_id=target_buffer_id,
             target_starting_frame=target_starting_frame,
-            )
-        request.communicate(
-            server=self.server,
-            sync=sync,
-            )
+        )
+        request.communicate(server=self.server, sync=sync)
 
     def copy_from(
         self,
@@ -587,6 +548,7 @@ class Buffer(ServerObjectProxy):
         Returns none.
         """
         import supriya.commands
+
         if not self.is_allocated:
             raise supriya.exceptions.BufferNotAllocated
         request = supriya.commands.BufferCopyRequest(
@@ -595,16 +557,10 @@ class Buffer(ServerObjectProxy):
             source_starting_frame=source_starting_frame,
             target_buffer_id=self.buffer_id,
             target_starting_frame=target_starting_frame,
-            )
-        request.communicate(
-            server=self.server,
-            sync=sync,
-            )
+        )
+        request.communicate(server=self.server, sync=sync)
 
-    def fill(
-        self,
-        index_count_value_triples=None,
-    ):
+    def fill(self, index_count_value_triples=None):
         """
         Fills contiguous blocks of samples with values.
 
@@ -634,16 +590,14 @@ class Buffer(ServerObjectProxy):
         Returns none.
         """
         import supriya.commands
+
         if not self.is_allocated:
             raise supriya.exceptions.BufferNotAllocated
         request = supriya.commands.BufferFillRequest(
             buffer_id=self.buffer_id,
             index_count_value_triples=index_count_value_triples,
-            )
-        request.communicate(
-            server=self.server,
-            sync=False,
-            )
+        )
+        request.communicate(server=self.server, sync=False)
 
     def free(self) -> 'Buffer':
         """
@@ -654,10 +608,7 @@ class Buffer(ServerObjectProxy):
         buffer_id = self._unregister_with_local_server()
         request = self._unregister_with_remote_server(buffer_id)
         if self.server.is_running:
-            request.communicate(
-                server=self.server,
-                sync=False,
-                )
+            request.communicate(server=self.server, sync=False)
         if not self._buffer_id_was_set_manually:
             self.server.buffer_allocator.free(self.buffer_id)
         self._buffer_id = None
@@ -712,6 +663,7 @@ class Buffer(ServerObjectProxy):
         Returns none.
         """
         import supriya.commands
+
         if not self.is_allocated:
             raise supriya.exceptions.BufferNotAllocated
         request = supriya.commands.BufferGenerateRequest.chebyshev(
@@ -720,11 +672,8 @@ class Buffer(ServerObjectProxy):
             buffer_id=self.buffer_id,
             should_clear_first=should_clear_first,
             should_normalize=should_normalize,
-            )
-        request.communicate(
-            server=self.server,
-            sync=sync,
-            )
+        )
+        request.communicate(server=self.server, sync=sync)
 
     def fill_via_sine_1(
         self,
@@ -774,6 +723,7 @@ class Buffer(ServerObjectProxy):
         Returns none.
         """
         import supriya.commands
+
         if not self.is_allocated:
             raise supriya.exceptions.BufferNotAllocated
         request = supriya.commands.BufferGenerateRequest.sine1(
@@ -782,11 +732,8 @@ class Buffer(ServerObjectProxy):
             buffer_id=self.buffer_id,
             should_clear_first=should_clear_first,
             should_normalize=should_normalize,
-            )
-        request.communicate(
-            server=self.server,
-            sync=sync,
-            )
+        )
+        request.communicate(server=self.server, sync=sync)
 
     def fill_via_sine_2(
         self,
@@ -841,6 +788,7 @@ class Buffer(ServerObjectProxy):
         Returns none.
         """
         import supriya.commands
+
         if not self.is_allocated:
             raise supriya.exceptions.BufferNotAllocated
         request = supriya.commands.BufferGenerateRequest.sine2(
@@ -850,11 +798,8 @@ class Buffer(ServerObjectProxy):
             buffer_id=self.buffer_id,
             should_clear_first=should_clear_first,
             should_normalize=should_normalize,
-            )
-        request.communicate(
-            server=self.server,
-            sync=sync,
-            )
+        )
+        request.communicate(server=self.server, sync=sync)
 
     def fill_via_sine_3(
         self,
@@ -912,6 +857,7 @@ class Buffer(ServerObjectProxy):
         Returns none.
         """
         import supriya.commands
+
         if not self.is_allocated:
             raise supriya.exceptions.BufferNotAllocated
         request = supriya.commands.BufferGenerateRequest.sine3(
@@ -922,16 +868,10 @@ class Buffer(ServerObjectProxy):
             buffer_id=self.buffer_id,
             should_clear_first=should_clear_first,
             should_normalize=should_normalize,
-            )
-        request.communicate(
-            server=self.server,
-            sync=sync,
-            )
+        )
+        request.communicate(server=self.server, sync=sync)
 
-    def get(
-        self,
-        indices=None,
-    ):
+    def get(self, indices=None):
         """
         Gets sample values at `indices`.
 
@@ -961,23 +901,18 @@ class Buffer(ServerObjectProxy):
         Returns buffer-set response.
         """
         import supriya.commands
+
         if not self.is_allocated:
             raise supriya.exceptions.BufferNotAllocated
         if isinstance(indices, int):
             indices = [indices]
-        request = supriya.commands.BufferGetRequest(
-            buffer_id=self,
-            indices=indices,
-            )
+        request = supriya.commands.BufferGetRequest(buffer_id=self, indices=indices)
         response = request.communicate(server=self.server)
         if isinstance(response, supriya.commands.FailResponse):
             raise IndexError('Index out of range.')
         return response
 
-    def get_contiguous(
-        self,
-        index_count_pairs=None,
-    ):
+    def get_contiguous(self, index_count_pairs=None):
         """
         Gets contiguous sample values.
 
@@ -1009,22 +944,18 @@ class Buffer(ServerObjectProxy):
         Returns buffer-set-contiguous response.
         """
         import supriya.commands
+
         if not self.is_allocated:
             raise supriya.exceptions.BufferNotAllocated
         request = supriya.commands.BufferGetContiguousRequest(
-            buffer_id=self,
-            index_count_pairs=index_count_pairs,
-            )
+            buffer_id=self, index_count_pairs=index_count_pairs
+        )
         response = request.communicate(server=self.server)
         if isinstance(response, supriya.commands.FailResponse):
             raise IndexError('Index out of range.')
         return response
 
-    def get_frame(
-        self,
-        frame_ids=None,
-        completion_callback=None,
-    ):
+    def get_frame(self, frame_ids=None, completion_callback=None):
         """
         Gets frames at `frame_ids`.
 
@@ -1066,44 +997,33 @@ class Buffer(ServerObjectProxy):
         index_count_pairs = [
             (frame_id * self.channel_count, self.channel_count)
             for frame_id in frame_ids
-            ]
+        ]
         response = self.get_contiguous(index_count_pairs=index_count_pairs)
         return response
 
     def play(
-        self,
-        add_action=None,
-        bus=0,
-        level=1,
-        loop=False,
-        rate=1,
-        target_node=None,
+        self, add_action=None, bus=0, level=1, loop=False, rate=1, target_node=None
     ):
         import supriya.synthdefs
         import supriya.ugens
+
         if not self.is_allocated:
             raise supriya.exceptions.BufferNotAllocated
-        with supriya.synthdefs.SynthDefBuilder(
-            level=1,
-            rate=1,
-        ) as builder:
+        with supriya.synthdefs.SynthDefBuilder(level=1, rate=1) as builder:
             player = supriya.ugens.PlayBuf.ar(
                 buffer_id=self.buffer_id,
                 channel_count=self.channel_count,
                 loop=loop,
                 rate=supriya.ugens.BufRateScale.kr(self.buffer_id) * builder['rate'],
-                )
+            )
             if not loop:
                 supriya.ugens.FreeSelfWhenDone.kr(player)
             source = player * builder['level']
             supriya.ugens.Out.ar(bus=bus, source=source)
         synthdef = builder.build()
         return synthdef.play(
-            add_action=add_action,
-            level=level,
-            rate=rate,
-            target_node=target_node,
-            )
+            add_action=add_action, level=level, rate=rate, target_node=target_node
+        )
 
     def query(self):
         """
@@ -1137,15 +1057,12 @@ class Buffer(ServerObjectProxy):
         Returns buffer-info response.
         """
         import supriya.commands
+
         if not self.is_allocated:
             raise supriya.exceptions.BufferNotAllocated
         buffer_ids = [self.buffer_id]
-        request = supriya.commands.BufferQueryRequest(
-            buffer_ids=buffer_ids,
-            )
-        response = request.communicate(
-            server=self.server,
-            )
+        request = supriya.commands.BufferQueryRequest(buffer_ids=buffer_ids)
+        response = request.communicate(server=self.server)
         return response
 
     def read(
@@ -1214,11 +1131,10 @@ class Buffer(ServerObjectProxy):
         Returns none.
         """
         import supriya.commands
+
         if not self.is_allocated:
             raise supriya.exceptions.BufferNotAllocated
-        on_done = supriya.commands.BufferQueryRequest(
-            buffer_ids=(self.buffer_id,),
-            )
+        on_done = supriya.commands.BufferQueryRequest(buffer_ids=(self.buffer_id,))
         if channel_indices is not None:
             request = supriya.commands.BufferReadChannelRequest(
                 buffer_id=self.buffer_id,
@@ -1229,7 +1145,7 @@ class Buffer(ServerObjectProxy):
                 leave_open=leave_open,
                 starting_frame_in_buffer=starting_frame_in_buffer,
                 starting_frame_in_file=starting_frame_in_file,
-                )
+            )
         else:
             request = supriya.commands.BufferReadRequest(
                 buffer_id=self.buffer_id,
@@ -1239,17 +1155,10 @@ class Buffer(ServerObjectProxy):
                 leave_open=leave_open,
                 starting_frame_in_buffer=starting_frame_in_buffer,
                 starting_frame_in_file=starting_frame_in_file,
-                )
-        request.communicate(
-            server=self.server,
-            sync=sync,
             )
+        request.communicate(server=self.server, sync=sync)
 
-    def set(
-        self,
-        index_value_pairs=None,
-        sync=False,
-    ):
+    def set(self, index_value_pairs=None, sync=False):
         """
         Sets samples.
 
@@ -1285,22 +1194,15 @@ class Buffer(ServerObjectProxy):
         Returns none.
         """
         import supriya.commands
+
         if not self.is_allocated:
             raise supriya.exceptions.BufferNotAllocated
         request = supriya.commands.BufferSetRequest(
-            buffer_id=self,
-            index_value_pairs=index_value_pairs,
-            )
-        request.communicate(
-            server=self.server,
-            sync=sync,
-            )
+            buffer_id=self, index_value_pairs=index_value_pairs
+        )
+        request.communicate(server=self.server, sync=sync)
 
-    def set_contiguous(
-        self,
-        index_values_pairs=None,
-        sync=False,
-    ):
+    def set_contiguous(self, index_values_pairs=None, sync=False):
         """
         Sets contiguous blocks of samples.
 
@@ -1334,16 +1236,13 @@ class Buffer(ServerObjectProxy):
         Returns none.
         """
         import supriya.commands
+
         if not self.is_allocated:
             raise supriya.exceptions.BufferNotAllocated
         request = supriya.commands.BufferSetContiguousRequest(
-            buffer_id=self,
-            index_values_pairs=index_values_pairs,
-            )
-        request.communicate(
-            server=self.server,
-            sync=sync,
-            )
+            buffer_id=self, index_values_pairs=index_values_pairs
+        )
+        request.communicate(server=self.server, sync=sync)
 
     def write(
         self,
@@ -1406,6 +1305,7 @@ class Buffer(ServerObjectProxy):
         Returns none.
         """
         import supriya.commands
+
         if not self.is_allocated:
             raise supriya.exceptions.BufferNotAllocated
         request = supriya.commands.BufferWriteRequest(
@@ -1417,17 +1317,10 @@ class Buffer(ServerObjectProxy):
             leave_open=leave_open,
             sample_format=sample_format,
             starting_frame=starting_frame,
-            )
-        request.communicate(
-            server=self.server,
-            sync=sync,
-            )
+        )
+        request.communicate(server=self.server, sync=sync)
 
-    def zero(
-        self,
-        callback=None,
-        sync=True,
-    ):
+    def zero(self, callback=None, sync=True):
         """
         Zero all samples in buffer.
 
@@ -1474,16 +1367,13 @@ class Buffer(ServerObjectProxy):
         Returns none.
         """
         import supriya.commands
+
         if not self.is_allocated:
             raise supriya.exceptions.BufferNotAllocated
         request = supriya.commands.BufferZeroRequest(
-            buffer_id=self.buffer_id,
-            callback=callback,
-            )
-        request.communicate(
-            server=self.server,
-            sync=sync,
-            )
+            buffer_id=self.buffer_id, callback=callback
+        )
+        request.communicate(server=self.server, sync=sync)
 
     ### PUBLIC PROPERTIES ###
 
@@ -1668,7 +1558,7 @@ class Buffer(ServerObjectProxy):
         if self.is_allocated:
             proxy = self.server._buffer_proxies[self.buffer_id]
             return proxy.duration_in_seconds
-        return 0.
+        return 0.0
 
     @property
     def frame_count(self):

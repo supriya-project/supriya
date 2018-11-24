@@ -8,13 +8,7 @@ class Node(ServerObjectProxy, UniqueTreeNode):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_is_paused',
-        '_name',
-        '_node_id',
-        '_node_id_is_permanent',
-        '_parent',
-        )
+    __slots__ = ('_is_paused', '_name', '_node_id', '_node_id_is_permanent', '_parent')
 
     ### INITIALIZER ###
 
@@ -42,34 +36,28 @@ class Node(ServerObjectProxy, UniqueTreeNode):
         allocation_indicator = '+' if self.is_allocated else '-'
         if self.name is None:
             string = '<{allocated} {class_name}: {node_id}>'.format(
-                allocated=allocation_indicator,
-                class_name=class_name,
-                node_id=node_id,
-                )
+                allocated=allocation_indicator, class_name=class_name, node_id=node_id
+            )
         else:
             string = '<{allocated} {class_name}: {node_id} ({name})>'.format(
                 allocated=allocation_indicator,
                 class_name=class_name,
                 name=self.name,
                 node_id=node_id,
-                )
+            )
         return string
 
     ### PRIVATE METHODS ###
 
-    def _allocate(
-        self,
-        paused_nodes,
-        requests,
-        server,
-        synthdefs,
-    ):
+    def _allocate(self, paused_nodes, requests, server, synthdefs):
         import supriya.commands
+
         if paused_nodes:
-            requests.append(supriya.commands.NodeRunRequest(
-                node_id_run_flag_pairs=[
-                    (node, False) for node in paused_nodes
-                ]))
+            requests.append(
+                supriya.commands.NodeRunRequest(
+                    node_id_run_flag_pairs=[(node, False) for node in paused_nodes]
+                )
+            )
         if not requests:
             return self
         elif 1 < len(requests):
@@ -78,9 +66,8 @@ class Node(ServerObjectProxy, UniqueTreeNode):
             request = requests[0]
         if synthdefs:
             request = supriya.commands.SynthDefReceiveRequest(
-                synthdefs=synthdefs,
-                callback=request,
-                )
+                synthdefs=synthdefs, callback=request
+            )
         request.communicate(server=server, sync=True)
         return self
 
@@ -92,6 +79,7 @@ class Node(ServerObjectProxy, UniqueTreeNode):
 
     def _handle_response(self, response):
         import supriya.commands
+
         if not isinstance(response, supriya.commands.NodeInfoResponse):
             return
         if response.action == supriya.commands.NodeAction.NODE_REMOVED:
@@ -106,8 +94,7 @@ class Node(ServerObjectProxy, UniqueTreeNode):
             if new_parent is self.parent:
                 new_index = 0
                 if response.previous_node_id is not None:
-                    previous_node = \
-                        self.server._nodes[response.previous_node_id]
+                    previous_node = self.server._nodes[response.previous_node_id]
                     new_index = new_parent.index(previous_node) + 1
                 elif response.next_node_id is not None:
                     next_node = self.server._nodes[response.next_node_id]
@@ -124,8 +111,7 @@ class Node(ServerObjectProxy, UniqueTreeNode):
                 self._set_parent(new_parent)
                 index = 0
                 if response.previous_node_id is not None:
-                    previous_node = \
-                        self.server._nodes[response.previous_node_id]
+                    previous_node = self.server._nodes[response.previous_node_id]
                     index = new_parent.index(previous_node) + 1
                 elif response.next_node_id is not None:
                     next_node = self.server._nodes[response.next_node_id]
@@ -156,10 +142,7 @@ class Node(ServerObjectProxy, UniqueTreeNode):
             target_node._unregister_with_local_server()
 
     def _register_with_local_server(
-        self,
-        node_id=None,
-        node_id_is_permanent=False,
-        server=None,
+        self, node_id=None, node_id_is_permanent=False, server=None
     ):
         id_allocator = server.node_id_allocator
         if node_id is None:
@@ -202,11 +185,9 @@ class Node(ServerObjectProxy, UniqueTreeNode):
         node_id = self.node_id
         if self.server is not None:
             if self._node_id in self._server._nodes:
-                del(self._server._nodes[self._node_id])
+                del (self._server._nodes[self._node_id])
             if self.node_id_is_permanent:
-                self.server.node_id_allocator.free_permanent_node_id(
-                    self.node_id,
-                    )
+                self.server.node_id_allocator.free_permanent_node_id(self.node_id)
         self._node_id = None
         self._node_id_is_permanent = None
         ServerObjectProxy.free(self)
@@ -217,6 +198,7 @@ class Node(ServerObjectProxy, UniqueTreeNode):
     @staticmethod
     def expr_as_target(expr):
         import supriya.realtime
+
         if expr is None:
             return Node.expr_as_target(supriya.realtime.Server())
         elif hasattr(expr, '_as_node_target'):
@@ -228,50 +210,38 @@ class Node(ServerObjectProxy, UniqueTreeNode):
 
     def free(self):
         import supriya.commands
+
         self._set_parent(None)
         server = self.server
         if self.node_id is not None and server.is_running:
             node_id = self._unregister_with_local_server()
-            node_free_request = supriya.commands.NodeFreeRequest(
-                node_ids=(node_id,),
-                )
-            node_free_request.communicate(
-                server=server,
-                sync=False,
-                )
+            node_free_request = supriya.commands.NodeFreeRequest(node_ids=(node_id,))
+            node_free_request.communicate(server=server, sync=False)
         return self
 
     def pause(self):
         import supriya.commands
+
         if self.is_paused:
             return
         self._is_paused = True
         if self.is_allocated:
             request = supriya.commands.NodeRunRequest(
-                node_id_run_flag_pairs=(
-                    (self.node_id, False),
-                    ),
-                )
-            request.communicate(
-                server=self.server,
-                sync=False,
-                )
+                node_id_run_flag_pairs=((self.node_id, False),)
+            )
+            request.communicate(server=self.server, sync=False)
 
     def unpause(self):
         import supriya.commands
+
         if not self.is_paused:
             return
         self._is_paused = False
         if self.is_allocated:
             request = supriya.commands.NodeRunRequest(
-                node_id_run_flag_pairs=(
-                    (self.node_id, True),
-                    ),
-                )
-            request.communicate(
-                server=self.server,
-                sync=False,
-                )
+                node_id_run_flag_pairs=((self.node_id, True),)
+            )
+            request.communicate(server=self.server, sync=False)
 
     ### PUBLIC PROPERTIES ###
 

@@ -18,7 +18,7 @@ class SynthControl:
         '_unit',
         '_value',
         '__weakref__',
-        )
+    )
 
     ### INITIALIZER ###
 
@@ -34,6 +34,7 @@ class SynthControl:
     ):
         import supriya.realtime
         import supriya.synthdefs
+
         self._client = client
         self._name = str(name)
         if isinstance(range_, supriya.synthdefs.Range):
@@ -65,6 +66,7 @@ class SynthControl:
 
     def _map_to_bus(self, bus):
         import supriya.realtime
+
         if not isinstance(self.value, supriya.realtime.Bus):
             self._last_unmapped_value = self._value
         self._value = bus
@@ -79,13 +81,9 @@ class SynthControl:
     ### PUBLIC METHODS ###
 
     @classmethod
-    def from_parameter(
-        cls,
-        parameter,
-        index=0,
-        client=None,
-    ):
+    def from_parameter(cls, parameter, index=0, client=None):
         import supriya.synthdefs
+
         assert isinstance(parameter, supriya.synthdefs.Parameter)
         name = parameter.name
         range_ = parameter.range_
@@ -100,7 +98,7 @@ class SynthControl:
             calculation_rate=calculation_rate,
             unit=unit,
             value=value,
-            )
+        )
         return synth_control
 
     def get(self):
@@ -113,30 +111,27 @@ class SynthControl:
         import supriya.commands
         import supriya.realtime
         import supriya.synthdefs
+
         if isinstance(expr, supriya.realtime.Bus):
             self._map_to_bus(expr)
             if expr.calculation_rate == supriya.CalculationRate.CONTROL:
                 request = supriya.commands.NodeMapToControlBusRequest(
-                    self.node,
-                    **{self.name: self._value}
-                    )
+                    self.node, **{self.name: self._value}
+                )
             else:
                 request = supriya.commands.NodeMapToAudioBusRequest(
-                    self.node,
-                    **{self.name: self._value}
-                    )
+                    self.node, **{self.name: self._value}
+                )
         elif expr is None:
             self._unmap()
             request = supriya.commands.NodeMapToControlBusRequest(
-                self.node,
-                **{self.name: -1}
-                )
+                self.node, **{self.name: -1}
+            )
         else:
             self._set_to_number(expr)
             request = supriya.commands.NodeSetRequest(
-                self.node,
-                **{self.name: self._value}
-                )
+                self.node, **{self.name: self._value}
+            )
         if self.node.is_allocated:
             request.communicate(server=self.node.server)
         return self.get()

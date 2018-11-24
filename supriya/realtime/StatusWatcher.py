@@ -9,12 +9,7 @@ class StatusWatcher(threading.Thread):
 
     __documentation_section__ = 'Server Internals'
 
-    __slots__ = (
-        '_active',
-        '_attempts',
-        '_callback',
-        '_server',
-        )
+    __slots__ = ('_active', '_attempts', '_callback', '_server')
 
     max_attempts = 5
 
@@ -37,19 +32,15 @@ class StatusWatcher(threading.Thread):
             return
         self._server._status = response
         self._attempts = 0
-        supriya.system.PubSub.notify(
-            'server-status',
-            response.to_dict(),
-            )
+        supriya.system.PubSub.notify('server-status', response.to_dict())
 
     ### PUBLIC METHODS ###
 
     def run(self):
         import supriya.commands
+
         self._callback = self.server.osc_io.register(
-            pattern='/status.reply',
-            procedure=self.__call__,
-            parse_response=True,
+            pattern='/status.reply', procedure=self.__call__, parse_response=True
         )
         request = supriya.commands.StatusRequest()
         message = request.to_osc()

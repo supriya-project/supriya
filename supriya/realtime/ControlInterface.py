@@ -11,10 +11,7 @@ class ControlInterface(SupriyaObject):
 
     __documentation_section__ = 'Server Internals'
 
-    __slots__ = (
-        '_synth_controls',
-        '_client',
-        )
+    __slots__ = ('_synth_controls', '_client')
 
     _bus_pattern = re.compile('(?P<type>c|a)(?P<id>\d+)')
 
@@ -36,6 +33,7 @@ class ControlInterface(SupriyaObject):
         import supriya.commands
         import supriya.realtime
         import supriya.synthdefs
+
         n_set_settings = {}
         n_map_settings = {}
         n_mapa_settings = {}
@@ -54,16 +52,16 @@ class ControlInterface(SupriyaObject):
                     value = supriya.realtime.Bus(
                         bus_group_or_index=int(group_dict['id']),
                         calculation_rate=calculation_rate,
-                        ).allocate()
+                    ).allocate()
             if isinstance(value, (int, float)):
                 n_set_settings[control_name] = float(value)
                 control._set_to_number(value)
             elif isinstance(value, (supriya.realtime.Bus, supriya.realtime.BusGroup)):
                 value_rate = value.calculation_rate
                 if (
-                    isinstance(self.client, supriya.realtime.Synth) and
-                    not self.client.is_allocated and
-                    control.calculation_rate == supriya.CalculationRate.SCALAR
+                    isinstance(self.client, supriya.realtime.Synth)
+                    and not self.client.is_allocated
+                    and control.calculation_rate == supriya.CalculationRate.SCALAR
                 ):
                     control._set_to_number(int(value))
                 elif value_rate == supriya.CalculationRate.CONTROL:
@@ -81,21 +79,18 @@ class ControlInterface(SupriyaObject):
         if self.client.is_allocated:
             if n_set_settings:
                 request = supriya.commands.NodeSetRequest(
-                    self.node_id,
-                    **n_set_settings
-                    )
+                    self.node_id, **n_set_settings
+                )
                 requests.append(request)
             if n_map_settings:
                 request = supriya.commands.NodeMapToControlBusRequest(
-                    self.node_id,
-                    **n_map_settings
-                    )
+                    self.node_id, **n_map_settings
+                )
                 requests.append(request)
             if n_mapa_settings:
                 request = supriya.commands.NodeMapToAudioBusRequest(
-                    self.node_id,
-                    **n_mapa_settings
-                    )
+                    self.node_id, **n_mapa_settings
+                )
                 requests.append(request)
         return tuple(requests)
 

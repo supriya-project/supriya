@@ -37,15 +37,13 @@ class BufferGroup(ServerObjectProxy):
 
     __documentation_section__ = 'Main Classes'
 
-    __slots__ = (
-        '_buffer_id',
-        '_buffers',
-        )
+    __slots__ = ('_buffer_id', '_buffers')
 
     ### INITIALIZER ###
 
     def __init__(self, buffer_count=1):
         import supriya.realtime
+
         ServerObjectProxy.__init__(self)
         self._buffer_id = None
         buffer_count = int(buffer_count)
@@ -53,7 +51,7 @@ class BufferGroup(ServerObjectProxy):
         self._buffers = tuple(
             supriya.realtime.Buffer(buffer_group_or_index=self)
             for _ in range(buffer_count)
-            )
+        )
 
     ### SPECIAL METHODS ###
 
@@ -95,20 +93,14 @@ class BufferGroup(ServerObjectProxy):
         if buffer_id is None:
             buffer_id = '???'
         string = '<{} {}{{{}}}: {}>'.format(
-            '+' if self.is_allocated else '-',
-            type(self).__name__,
-            len(self),
-            buffer_id
-            )
+            '+' if self.is_allocated else '-', type(self).__name__, len(self), buffer_id
+        )
         return string
 
     ### PRIVATE METHODS ###
 
     def _register_with_local_server(self, server):
-        ServerObjectProxy.allocate(
-            self,
-            server=server,
-            )
+        ServerObjectProxy.allocate(self, server=server)
         allocator = self.server.buffer_allocator
         buffer_id = allocator.allocate(len(self))
         if buffer_id is None:
@@ -121,19 +113,14 @@ class BufferGroup(ServerObjectProxy):
 
     ### PUBLIC METHODS ###
 
-    def allocate(
-        self,
-        channel_count=1,
-        frame_count=None,
-        server=None,
-        sync=True,
-    ):
+    def allocate(self, channel_count=1, frame_count=None, server=None, sync=True):
         """
         Allocates buffer group.
 
         Returns buffer group.
         """
         import supriya.realtime
+
         if self.is_allocated:
             return supriya.exceptions.BufferAlreadyAllocated
         self._register_with_local_server(server)
@@ -143,15 +130,13 @@ class BufferGroup(ServerObjectProxy):
         assert 0 < frame_count
         requests = []
         for buffer_ in self:
-            requests.append(buffer_._register_with_remote_server(
-                channel_count=channel_count,
-                frame_count=frame_count,
-                ))
-        supriya.commands.RequestBundle(
-            contents=requests,
-        ).communicate(
-            server=server,
-            sync=sync,
+            requests.append(
+                buffer_._register_with_remote_server(
+                    channel_count=channel_count, frame_count=frame_count
+                )
+            )
+        supriya.commands.RequestBundle(contents=requests).communicate(
+            server=server, sync=sync
         )
         return self
 
@@ -201,21 +186,17 @@ class BufferGroup(ServerObjectProxy):
         Returns buffer group.
         """
         import supriya.realtime
+
         for file_path in file_paths:
             assert os.path.exists(file_path)
         buffer_group = BufferGroup(buffer_count=len(file_paths))
         buffer_group._register_with_local_server(server)
         requests = []
         for buffer_, file_path in zip(buffer_group.buffers, file_paths):
-            request = buffer_._register_with_remote_server(
-                file_path=file_path,
-                )
+            request = buffer_._register_with_remote_server(file_path=file_path)
             requests.append(request)
-        supriya.commands.RequestBundle(
-            contents=requests,
-        ).communicate(
-            server=server,
-            sync=sync,
+        supriya.commands.RequestBundle(contents=requests).communicate(
+            server=server, sync=sync
         )
         return buffer_group
 

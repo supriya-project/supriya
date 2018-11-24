@@ -28,9 +28,7 @@ class GroupInterface(ControlInterface):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_group_controls',
-        )
+    __slots__ = ('_group_controls',)
 
     ### INITIALIZER ###
 
@@ -51,6 +49,7 @@ class GroupInterface(ControlInterface):
 
     def __setitem__(self, items, values):
         import supriya.realtime
+
         if not isinstance(items, tuple):
             items = (items,)
         assert all(_ in self._synth_controls for _ in items)
@@ -68,29 +67,26 @@ class GroupInterface(ControlInterface):
                 else:
                     control._set_to_number(value)
         requests = self._set(**settings)
-        supriya.commands.RequestBundle(
-            contents=requests,
-        ).communicate(
-            server=self.client.server,
-            sync=True,
+        supriya.commands.RequestBundle(contents=requests).communicate(
+            server=self.client.server, sync=True
         )
 
     ### PUBLIC METHODS ###
 
     def add_controls(self, control_interface_dict):
         import supriya.realtime
+
         for control_name in control_interface_dict:
             if control_name not in self._synth_controls:
                 self._synth_controls[control_name] = copy.copy(
-                    control_interface_dict[control_name])
-                proxy = supriya.realtime.GroupControl(
-                    client=self,
-                    name=control_name,
-                    )
+                    control_interface_dict[control_name]
+                )
+                proxy = supriya.realtime.GroupControl(client=self, name=control_name)
                 self._group_controls[control_name] = proxy
             else:
                 self._synth_controls[control_name].update(
-                    control_interface_dict[control_name])
+                    control_interface_dict[control_name]
+                )
 
     def as_dict(self):
         result = {}
@@ -106,8 +102,8 @@ class GroupInterface(ControlInterface):
             nodes_to_remove = control_interface_dict[control_name]
             current_nodes.difference_update(nodes_to_remove)
             if not current_nodes:
-                del(self._synth_controls[control_name])
-                del(self._group_controls[control_name])
+                del (self._synth_controls[control_name])
+                del (self._group_controls[control_name])
 
     def reset(self):
         self._synth_controls.clear()

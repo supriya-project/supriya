@@ -33,13 +33,14 @@ class AudioOutputBusGroup(BusGroup):
     def __init__(self, server):
         import supriya.realtime
         import supriya.synthdefs
+
         assert isinstance(server, supriya.realtime.Server)
         assert server.is_running
         BusGroup.__init__(
             self,
             bus_count=server.server_options.input_bus_channel_count,
-            calculation_rate=supriya.CalculationRate.AUDIO
-            )
+            calculation_rate=supriya.CalculationRate.AUDIO,
+        )
         self._bus_id = 0
         self._server = server
 

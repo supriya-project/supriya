@@ -11,9 +11,7 @@ class ServerObjectProxy(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_server',
-        )
+    __slots__ = ('_server',)
 
     ### INITIALIZER ###
 
@@ -26,6 +24,7 @@ class ServerObjectProxy(SupriyaObject):
     @abc.abstractmethod
     def allocate(self, server=None):
         import supriya.realtime
+
         assert self.server is None, (self, self.server)
         server = server or supriya.realtime.Server.get_default_server()
         assert isinstance(server, supriya.realtime.Server)

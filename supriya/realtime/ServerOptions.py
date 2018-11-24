@@ -43,7 +43,7 @@ class ServerOptions(SupriyaObject):
         '_verbosity',
         '_wire_buffer_count',
         '_zero_configuration',
-        )
+    )
 
     ### INITIALIZER ###
 
@@ -129,10 +129,10 @@ class ServerOptions(SupriyaObject):
         if realtime:
             result.append('-a')
             result.append(
-                self.private_audio_bus_channel_count +
-                self.input_bus_channel_count +
-                self.output_bus_channel_count
-                )
+                self.private_audio_bus_channel_count
+                + self.input_bus_channel_count
+                + self.output_bus_channel_count
+            )
 
         if self.control_bus_channel_count != 4096:
             result.append('-c {}'.format(self.control_bus_channel_count))

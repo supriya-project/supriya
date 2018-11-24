@@ -10,28 +10,17 @@ class BusProxy(SupriyaValueObject):
 
     __documentation_section__ = 'Server Internals'
 
-    __slots__ = (
-        '_bus_id',
-        '_calculation_rate',
-        '_server',
-        '_value',
-        )
+    __slots__ = ('_bus_id', '_calculation_rate', '_server', '_value')
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        bus_id=None,
-        calculation_rate=None,
-        server=None,
-        value=0.0,
-    ):
+    def __init__(self, bus_id=None, calculation_rate=None, server=None, value=0.0):
         import supriya.realtime
         import supriya.synthdefs
+
         bus_id = int(bus_id)
         assert 0 <= bus_id
-        calculation_rate = supriya.CalculationRate.from_expr(
-            calculation_rate)
+        calculation_rate = supriya.CalculationRate.from_expr(calculation_rate)
         assert isinstance(server, supriya.realtime.Server)
         self._bus_id = int(bus_id)
         self._calculation_rate = calculation_rate
@@ -62,6 +51,7 @@ class BusProxy(SupriyaValueObject):
     @property
     def map_symbol(self):
         import supriya.synthdefs
+
         if self.calculation_rate == supriya.CalculationRate.AUDIO:
             map_symbol = 'a'
         else:

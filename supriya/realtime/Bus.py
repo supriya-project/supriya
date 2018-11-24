@@ -52,16 +52,15 @@ class Bus(ServerObjectProxy):
         '_bus_id',
         '_bus_id_was_set_manually',
         '_calculation_rate',
-        )
+    )
 
     ### INITIALIZER ###
 
     def __init__(
-        self,
-        bus_group_or_index=None,
-        calculation_rate=CalculationRate.CONTROL,
+        self, bus_group_or_index=None, calculation_rate=CalculationRate.CONTROL
     ):
         import supriya.realtime
+
         ServerObjectProxy.__init__(self)
         bus_group = None
         bus_id = None
@@ -77,10 +76,7 @@ class Bus(ServerObjectProxy):
         if calculation_rate is None:
             calculation_rate = 'control'
         calculation_rate = CalculationRate.from_expr(calculation_rate)
-        assert calculation_rate in (
-            CalculationRate.AUDIO,
-            CalculationRate.CONTROL,
-            )
+        assert calculation_rate in (CalculationRate.AUDIO, CalculationRate.CONTROL)
         self._calculation_rate = calculation_rate
 
     ### SPECIAL METHODS ###
@@ -100,7 +96,7 @@ class Bus(ServerObjectProxy):
             type(self).__name__,
             bus_id,
             self.calculation_rate.name.lower(),
-            )
+        )
 
     def __str__(self):
         """
@@ -138,10 +134,7 @@ class Bus(ServerObjectProxy):
     ### PRIVATE METHODS ###
 
     @staticmethod
-    def _get_allocator(
-        calculation_rate=None,
-        server=None,
-    ):
+    def _get_allocator(calculation_rate=None, server=None):
         if calculation_rate == CalculationRate.AUDIO:
             allocator = server.audio_bus_allocator
         else:
@@ -150,11 +143,7 @@ class Bus(ServerObjectProxy):
 
     ### PUBLIC METHODS ###
 
-    def allocate(
-        self,
-        server=None,
-        sync=False,
-    ):
+    def allocate(self, server=None, sync=False):
         if self.bus_group is not None:
             return
         if self.is_allocated:
@@ -162,9 +151,8 @@ class Bus(ServerObjectProxy):
         ServerObjectProxy.allocate(self, server=server)
         if self.bus_id is None:
             allocator = self._get_allocator(
-                calculation_rate=self.calculation_rate,
-                server=self.server,
-                )
+                calculation_rate=self.calculation_rate, server=self.server
+            )
             bus_id = allocator.allocate(1)
             if bus_id is None:
                 ServerObjectProxy.free(self)
@@ -218,20 +206,13 @@ class Bus(ServerObjectProxy):
         Returns ugen.
         """
         import supriya.ugens
+
         channel_count = 1
         if self.calculation_rate == CalculationRate.AUDIO:
-            ugen = supriya.ugens.In.ar(
-                bus=self.bus_id,
-                channel_count=channel_count,
-                )
+            ugen = supriya.ugens.In.ar(bus=self.bus_id, channel_count=channel_count)
         else:
-            ugen = supriya.ugens.In.kr(
-                bus=self.bus_id,
-                channel_count=channel_count,
-                )
-            ugen = supriya.ugens.K2A.ar(
-                source=ugen,
-                )
+            ugen = supriya.ugens.In.kr(bus=self.bus_id, channel_count=channel_count)
+            ugen = supriya.ugens.K2A.ar(source=ugen)
         return ugen
 
     @classmethod
@@ -247,9 +228,8 @@ class Bus(ServerObjectProxy):
             raise supriya.exceptions.BusNotAllocated
         if not self._bus_id_was_set_manually:
             allocator = self._get_allocator(
-                calculation_rate=self.calculation_rate,
-                server=self.server,
-                )
+                calculation_rate=self.calculation_rate, server=self.server
+            )
             allocator.free(self.bus_id)
         self._bus_id = None
         ServerObjectProxy.free(self)
@@ -258,13 +238,12 @@ class Bus(ServerObjectProxy):
     def get(self, completion_callback=None):
         import supriya.commands
         import supriya.realtime
+
         if not self.is_allocated:
             raise supriya.exceptions.BusNotAllocated
         elif not self.calculation_rate == CalculationRate.CONTROL:
             raise supriya.exceptions.IncompatibleRate
-        request = supriya.commands.ControlBusGetRequest(
-            indices=(self,),
-            )
+        request = supriya.commands.ControlBusGetRequest(indices=(self,))
         if callable(completion_callback):
             raise NotImplementedError
         response = request.communicate(server=self.server)
@@ -316,36 +295,27 @@ class Bus(ServerObjectProxy):
         Returns ugen.
         """
         import supriya.ugens
+
         channel_count = 1
         if self.calculation_rate == CalculationRate.AUDIO:
-            ugen = supriya.ugens.In.ar(
-                bus=self.bus_id,
-                channel_count=channel_count,
-                )
-            ugen = supriya.ugens.A2K.kr(
-                source=ugen,
-                )
+            ugen = supriya.ugens.In.ar(bus=self.bus_id, channel_count=channel_count)
+            ugen = supriya.ugens.A2K.kr(source=ugen)
         else:
-            ugen = supriya.ugens.In.kr(
-                bus=self.bus_id,
-                channel_count=channel_count,
-                )
+            ugen = supriya.ugens.In.kr(bus=self.bus_id, channel_count=channel_count)
         return ugen
 
     def set(self, value):
         import supriya.commands
         import supriya.realtime
+
         if not self.is_allocated:
             raise supriya.exceptions.BusNotAllocated
         elif not self.calculation_rate == CalculationRate.CONTROL:
             raise supriya.exceptions.IncompatibleRate
         request = supriya.commands.ControlBusSetRequest(
-            index_value_pairs=((self, value,),),
-            )
-        request.communicate(
-            server=self.server,
-            sync=False,
-            )
+            index_value_pairs=((self, value),)
+        )
+        request.communicate(server=self.server, sync=False)
 
     ### PUBLIC PROPERTIES ###
 

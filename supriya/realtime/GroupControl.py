@@ -4,18 +4,11 @@ class GroupControl:
 
     __documentation_section__ = 'Server Internals'
 
-    __slots__ = (
-        '_client',
-        '_name',
-        )
+    __slots__ = ('_client', '_name')
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        client=None,
-        name=None,
-        ):
+    def __init__(self, client=None, name=None):
         self._client = client
         self._name = str(name)
 
@@ -41,23 +34,19 @@ class GroupControl:
         import supriya.commands
         import supriya.realtime
         import supriya.synthdefs
+
         if isinstance(expr, supriya.realtime.Bus):
             if expr.calculation_rate == supriya.CalculationRate.CONTROL:
                 request = supriya.commands.NodeMapToControlBusRequest(
-                    self.node,
-                    **{self.name: expr}
-                    )
+                    self.node, **{self.name: expr}
+                )
             else:
                 request = supriya.commands.NodeMapToAudioBusRequest(
-                    self.node,
-                    **{self.name: expr}
-                    )
+                    self.node, **{self.name: expr}
+                )
         else:
             expr = float(expr)
-            request = supriya.commands.NodeSetRequest(
-                self.node,
-                **{self.name: expr}
-                )
+            request = supriya.commands.NodeSetRequest(self.node, **{self.name: expr})
         if self.node.is_allocated:
             request.communicate(server=self.node.server)
 

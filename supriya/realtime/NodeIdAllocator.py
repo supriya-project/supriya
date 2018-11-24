@@ -49,15 +49,11 @@ class NodeIdAllocator(SupriyaObject):
         '_next_permanent_id',
         '_temp',
         '_user_id',
-        )
+    )
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        user_id=0,
-        initial_node_id=1000,
-        ):
+    def __init__(self, user_id=0, initial_node_id=1000):
         assert user_id <= 31
         self._initial_node_id = int(initial_node_id)
         self._user_id = int(user_id)

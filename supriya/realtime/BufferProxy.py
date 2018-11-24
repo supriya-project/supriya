@@ -43,19 +43,15 @@ class BufferProxy(SupriyaValueObject):
         '_frame_count',
         '_sample_rate',
         '_server',
-        )
+    )
 
     ### INITIALIZER ###
 
     def __init__(
-        self,
-        buffer_id=None,
-        channel_count=0,
-        frame_count=0,
-        sample_rate=0,
-        server=None,
-        ):
+        self, buffer_id=None, channel_count=0, frame_count=0, sample_rate=0, server=None
+    ):
         import supriya.realtime
+
         buffer_id = int(buffer_id)
         assert 0 <= buffer_id
         assert isinstance(server, supriya.realtime.Server)
@@ -158,6 +154,7 @@ class BufferProxy(SupriyaValueObject):
         Returns none.
         """
         import supriya.commands
+
         if isinstance(response, supriya.commands.BufferInfoResponse.Item):
             assert response.buffer_id == self.buffer_id
             self._channel_count = response.channel_count

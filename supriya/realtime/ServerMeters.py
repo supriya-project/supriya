@@ -62,7 +62,7 @@ class ServerMeters(SupriyaObject):
         '_output_meter_rms_levels',
         '_output_meter_synth',
         '_server',
-        )
+    )
 
     ### INITIALIZER ###
 
@@ -105,40 +105,35 @@ class ServerMeters(SupriyaObject):
                 'input_meter_rms_levels': self._input_meter_rms_levels,
                 'output_meter_peak_levels': self._output_meter_peak_levels,
                 'output_meter_rms_levels': self._output_meter_rms_levels,
-                },
-            )
+            },
+        )
 
     ### PUBLIC METHODS ###
 
     def allocate(self):
         import supriya.osc
         import supriya.realtime
+
         self._input_meter_callback = self.server.osc_io.register(
-            pattern=self.input_meter_command,
-            procedure=self._handle_input_levels,
-            )
+            pattern=self.input_meter_command, procedure=self._handle_input_levels
+        )
         self._output_meter_callback = self.server.osc_io.register(
-            pattern=self.output_meter_command,
-            procedure=self._handle_output_levels,
-            )
+            pattern=self.output_meter_command, procedure=self._handle_output_levels
+        )
         input_meter_synthdef = self.input_meter_synthdef
         output_meter_synthdef = self.output_meter_synthdef
-        self._input_meter_synth = supriya.realtime.Synth(
-            input_meter_synthdef,
-            )
-        self._output_meter_synth = supriya.realtime.Synth(
-            output_meter_synthdef,
-            )
+        self._input_meter_synth = supriya.realtime.Synth(input_meter_synthdef)
+        self._output_meter_synth = supriya.realtime.Synth(output_meter_synthdef)
         self._input_meter_synth.allocate(
             add_action=supriya.AddAction.ADD_TO_HEAD,
             node_id_is_permanent=True,
             target_node=self.server.root_node,
-            )
+        )
         self._output_meter_synth.allocate(
             add_action=supriya.AddAction.ADD_TO_TAIL,
             node_id_is_permanent=True,
             target_node=self.server.root_node,
-            )
+        )
         return self
 
     def free(self):
@@ -152,24 +147,15 @@ class ServerMeters(SupriyaObject):
         self._output_meter_synth = None
 
     @staticmethod
-    def make_meter_synthdef(
-        channel_count=1,
-        command_name='/reply',
-        initial_bus=0,
-    ):
+    def make_meter_synthdef(channel_count=1, command_name='/reply', initial_bus=0):
         import supriya.synthdefs
         import supriya.ugens
+
         with supriya.synthdefs.SynthDefBuilder() as builder:
-            source = supriya.ugens.In.ar(
-                bus=initial_bus,
-                channel_count=channel_count,
-                )
+            source = supriya.ugens.In.ar(bus=initial_bus, channel_count=channel_count)
             supriya.ugens.SendPeakRMS.kr(
-                command_name=command_name,
-                peak_lag=1,
-                reply_rate=20,
-                source=source,
-                )
+                command_name=command_name, peak_lag=1, reply_rate=20, source=source
+            )
         synthdef = builder.build()
         return synthdef
 
@@ -180,21 +166,19 @@ class ServerMeters(SupriyaObject):
     def to_dict(self):
         input_meter_levels, output_meter_levels = [], []
         for peak, rms in zip(
-            self._input_meter_peak_levels,
-            self._input_meter_rms_levels,
+            self._input_meter_peak_levels, self._input_meter_rms_levels
         ):
             input_meter_levels.append(dict(peak=peak, rms=rms))
         for peak, rms in zip(
-            self._output_meter_peak_levels,
-            self._output_meter_rms_levels,
+            self._output_meter_peak_levels, self._output_meter_rms_levels
         ):
             output_meter_levels.append(dict(peak=peak, rms=rms))
         result = {
             'server_meters': {
                 'input_meter_levels': input_meter_levels,
                 'output_meter_levels': output_meter_levels,
-                },
             }
+        }
         return result
 
     ### PUBLIC PROPERTIES ###
@@ -217,7 +201,7 @@ class ServerMeters(SupriyaObject):
             channel_count=self.server.server_options.input_bus_channel_count,
             initial_bus=self.server.server_options.output_bus_channel_count,
             command_name=self.input_meter_command,
-            )
+        )
 
     @property
     def output_meter_command(self):
@@ -229,7 +213,7 @@ class ServerMeters(SupriyaObject):
             channel_count=self.server.server_options.output_bus_channel_count,
             initial_bus=0,
             command_name=self.output_meter_command,
-            )
+        )
 
     @property
     def server(self):
