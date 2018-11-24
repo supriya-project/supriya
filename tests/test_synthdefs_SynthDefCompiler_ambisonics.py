@@ -27,6 +27,7 @@ def test_SynthDefCompiler_ambisonics_01():
     py_synthdef = builder.build('ambisonics')
     py_compiled_synthdef = py_synthdef.compile()
 
+    # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
@@ -102,6 +103,7 @@ def test_SynthDefCompiler_ambisonics_01():
                                 b'\x00\x00\x00\x03'
                 b'\x00\x00'
         )
+    # fmt: on
 
     assert sc_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef == test_compiled_synthdef

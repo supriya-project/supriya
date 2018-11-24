@@ -18,6 +18,7 @@ def test_01():
     synthdef = builder.build('LocalBufTest')
     py_compiled_synthdef = synthdef.compile()
 
+    # fmt: off
     test_compiled_synthdef = (
         b'SCgf'
         b'\x00\x00\x00\x02'
@@ -98,6 +99,7 @@ def test_01():
                             b'\x00\x00\x00\x00'
                 b'\x00\x00'
         )
+    # fmt: on
 
     assert py_compiled_synthdef == test_compiled_synthdef
 
@@ -210,6 +212,7 @@ def test_02():
     assert tuple(repr(_) for _ in sc_synthdef.ugens) == \
         tuple(repr(_) for _ in py_synthdef.ugens)
 
+    # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
@@ -353,6 +356,7 @@ def test_02():
                             b'\xff\xff\xff\xff\x00\x00\x00\x04\x00\x00\x00\n\x00\x00\x00\x00'
                 b'\x00\x00'
         )
+    # fmt: on
 
     assert sc_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef == test_compiled_synthdef

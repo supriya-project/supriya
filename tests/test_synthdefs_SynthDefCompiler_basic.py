@@ -18,6 +18,7 @@ def test_SynthDefCompiler_basic_01():
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
+    # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
@@ -71,6 +72,7 @@ def test_SynthDefCompiler_basic_01():
                             b'\x00\x00\x00\x00'
                 b'\x00\x00',
         )
+    # fmt: on
 
     assert sc_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef == test_compiled_synthdef
@@ -91,6 +93,7 @@ def test_SynthDefCompiler_basic_02():
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
+    # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
@@ -132,6 +135,7 @@ def test_SynthDefCompiler_basic_02():
                             b'\x00\x00\x00\x00'
                 b'\x00\x00',
         )
+    # fmt: on
 
     assert sc_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef == test_compiled_synthdef
@@ -153,6 +157,7 @@ def test_SynthDefCompiler_basic_03():
     py_synthdef = builder.build('test')
     py_compiled_synthdef = py_synthdef.compile()
 
+    # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
@@ -186,6 +191,7 @@ def test_SynthDefCompiler_basic_03():
                             b'\x00\x00\x00\x01'
                 b'\x00\x00',
         )
+    # fmt: on
 
     assert sc_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef == test_compiled_synthdef
@@ -209,6 +215,7 @@ def test_SynthDefCompiler_basic_04():
     py_synthdef = builder.build('test')
     py_compiled_synthdef = py_synthdef.compile()
 
+    # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
@@ -249,6 +256,7 @@ def test_SynthDefCompiler_basic_04():
                             b'\x00\x00\x00\x00'
                 b'\x00\x00',
         )
+    # fmt: on
 
     assert sc_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef == test_compiled_synthdef

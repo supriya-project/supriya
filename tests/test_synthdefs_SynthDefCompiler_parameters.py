@@ -30,6 +30,7 @@ def test_SynthDefCompiler_parameters_01():
             ),
         )
 
+    # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
@@ -70,6 +71,7 @@ def test_SynthDefCompiler_parameters_01():
                             b'\x00\x00\x00\x00'
                 b'\x00\x00',
         )
+    # fmt: on
 
     assert sc_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef == test_compiled_synthdef
@@ -114,6 +116,7 @@ def test_SynthDefCompiler_parameters_02():
             ),
         )
 
+    # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
@@ -158,6 +161,7 @@ def test_SynthDefCompiler_parameters_02():
                             b'\x00\x00\x00\x00'
                 b'\x00\x00',
         )
+    # fmt: on
 
     assert sc_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef == test_compiled_synthdef
@@ -219,6 +223,7 @@ def test_SynthDefCompiler_parameters_03():
             ),
         )
 
+    # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
@@ -278,6 +283,7 @@ def test_SynthDefCompiler_parameters_03():
                             b'\x00\x00\x00\x00'
                 b'\x00\x00',
         )
+    # fmt: on
 
     assert sc_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef == test_compiled_synthdef
@@ -370,6 +376,7 @@ def test_SynthDefCompiler_parameters_04():
             ),
         )
 
+    # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
@@ -488,6 +495,7 @@ def test_SynthDefCompiler_parameters_04():
                             b'\x00\x00\x00\x00'
                 b'\x00\x00'
         )
+    # fmt: on
 
     assert sc_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef == test_compiled_synthdef
@@ -546,6 +554,7 @@ def test_SynthDefCompiler_parameters_05():
         )
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
 
+    # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
@@ -622,6 +631,7 @@ def test_SynthDefCompiler_parameters_05():
                                 b'\x00\x00\x00\x00'
                 b'\x00\x00'
         )
+    # fmt: on
 
     assert sc_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef == test_compiled_synthdef
@@ -685,6 +695,7 @@ def test_SynthDefCompiler_parameters_06():
         )
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
 
+    # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
@@ -768,6 +779,7 @@ def test_SynthDefCompiler_parameters_06():
                                 b'\x00\x00\x00\x00'
                 b'\x00\x00'
         )
+    # fmt: on
 
     assert sc_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef == test_compiled_synthdef

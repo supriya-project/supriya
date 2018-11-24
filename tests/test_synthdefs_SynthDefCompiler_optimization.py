@@ -26,6 +26,7 @@ def test_SynthDefCompiler_optimization_01():
     py_synthdef = builder.build('optimized')
     py_compiled_synthdef = py_synthdef.compile()
 
+    # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
@@ -58,6 +59,7 @@ def test_SynthDefCompiler_optimization_01():
                                 b'\x00\x00\x00\x00'
                 b'\x00\x00'
         )
+    # fmt: on
 
     assert sc_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef == test_compiled_synthdef
