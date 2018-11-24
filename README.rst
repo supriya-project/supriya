@@ -109,7 +109,7 @@ Synchronize with the server::
 
 Create a synthesizer with the previously defined synthesizer definition::
 
-    >>> synth = servertools.Synth(synthdef)
+    >>> synth = supriya.Synth(synthdef)
     >>> synth
     <Synth: ???>
 
