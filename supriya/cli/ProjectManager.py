@@ -3,7 +3,6 @@ import pathlib
 
 
 class ProjectManager:
-
     @staticmethod
     def import_section_objects(section, file_path, namespace):
         section_path = pathlib.Path(file_path).parent

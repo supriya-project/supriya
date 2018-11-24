@@ -30,6 +30,7 @@ class SupriyaScript(uqbar.cli.CLIAggregator):
     @property
     def cli_classes(self):
         import supriya.cli
+
         classes = []
         for name in sorted(dir(supriya.cli)):
             obj = getattr(supriya.cli, name)

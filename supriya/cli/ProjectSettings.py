@@ -9,9 +9,7 @@ class ProjectSettings(collections.Mapping):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_settings',
-        )
+    __slots__ = ('_settings',)
 
     ### INITIALIZER ###
 
@@ -39,7 +37,9 @@ class ProjectSettings(collections.Mapping):
 
     @classmethod
     def from_dummy_data(cls):
-        dummy_data = yaml.load(uqbar.strings.normalize("""
+        dummy_data = yaml.load(
+            uqbar.strings.normalize(
+                """
         composer:
             email: josiah.oberholtzer@gmail.com
             github: josiah-wolf-oberholtzer
@@ -72,7 +72,9 @@ class ProjectSettings(collections.Mapping):
             wire_buffer_count: 64
             zero_configuration: false
         title: Test Project
-        """))
+        """
+            )
+        )
         project_settings = cls()
         project_settings._settings = dummy_data
         return project_settings

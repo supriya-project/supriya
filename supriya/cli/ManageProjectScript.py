@@ -45,7 +45,7 @@ class ManageProjectScript(ProjectPackageScript):
         composer_name=None,
         composer_website=None,
         force=False,
-        ):
+    ):
         print('Creating project package {!r}...'.format(title))
         package_name = uqbar.strings.to_snake_case(title)
         outer_target_path = pathlib.Path(package_name).absolute()
@@ -65,20 +65,14 @@ class ManageProjectScript(ProjectPackageScript):
             'composer_github_username': composer_github,
             'composer_library_package_name': composer_library,
             'title': title,
-            }
+        }
         for path in self._copy_tree(
-            outer_source_path,
-            outer_target_path,
-            recurse=False,
-            ):
+            outer_source_path, outer_target_path, recurse=False
+        ):
             if path.is_file() and path.suffix == '.jinja':
                 self._template_file(path, **metadata)
                 path.rename(path.with_suffix(''))
-        for path in self._copy_tree(
-            inner_source_path,
-            inner_target_path,
-            recurse=True,
-            ):
+        for path in self._copy_tree(inner_source_path, inner_target_path, recurse=True):
             if path.is_file() and path.suffix == '.jinja':
                 self._template_file(path, **metadata)
                 path.rename(path.with_suffix(''))
@@ -91,10 +85,8 @@ class ManageProjectScript(ProjectPackageScript):
             composer_name=composer_name,
             composer_website=composer_website,
             title=title,
-            )
-        print('    Created {path!s}{sep}'.format(
-            path=package_name,
-            sep=os.path.sep))
+        )
+        print('    Created {path!s}{sep}'.format(path=package_name, sep=os.path.sep))
 
     def _handle_prune(self):
         here = pathlib.Path.cwd()
@@ -125,8 +117,9 @@ class ManageProjectScript(ProjectPackageScript):
         composer_name=None,
         composer_website=None,
         title=None,
-        ):
+    ):
         import supriya.realtime
+
         server_options = supriya.realtime.ServerOptions()
         server_options = server_options.as_dict()
         project_settings = dict(
@@ -137,17 +130,13 @@ class ManageProjectScript(ProjectPackageScript):
                 library=composer_library,
                 name=composer_name,
                 website=composer_website,
-                ),
+            ),
             title=title,
-            )
+        )
         project_settings_yaml = yaml.dump(
-            project_settings,
-            default_flow_style=False,
-            indent=4,
-            )
-        project_settings_path = inner_project_path.joinpath(
-            'project-settings.yml',
-            )
+            project_settings, default_flow_style=False, indent=4
+        )
+        project_settings_path = inner_project_path.joinpath('project-settings.yml')
         with open(str(project_settings_path), 'w') as file_pointer:
             file_pointer.write(project_settings_yaml)
 
@@ -161,7 +150,7 @@ class ManageProjectScript(ProjectPackageScript):
                 composer_website=args.composer_website,
                 force=args.force,
                 title=args.new,
-                )
+            )
             return
         self._setup_paths(args.project_path)
         with uqbar.io.DirectoryChange(str(self.outer_project_path)):
@@ -174,57 +163,41 @@ class ManageProjectScript(ProjectPackageScript):
         action_group = parser.add_argument_group('actions')
         action_group = action_group.add_mutually_exclusive_group(required=True)
         action_group.add_argument(
-            '--new', '-N',
-            help='create a new project',
-            metavar='TITLE',
-            )
+            '--new', '-N', help='create a new project', metavar='TITLE'
+        )
         action_group.add_argument(
-            '--prune', '-P',
+            '--prune',
+            '-P',
             action='store_true',
             help='prune out stale render artifacts',
-            )
+        )
         action_group.add_argument(
-            '--clean', '-C',
-            action='store_true',
-            help='clean out all render artifacts',
-            )
+            '--clean', '-C', action='store_true', help='clean out all render artifacts'
+        )
 
         new_group = parser.add_argument_group('--new options')
+        new_group.add_argument('--composer-name', default='A Composer', metavar='NAME')
         new_group.add_argument(
-            '--composer-name',
-            default='A Composer',
-            metavar='NAME',
-            )
+            '--composer-email', default='composer@email.com', metavar='EMAIL'
+        )
         new_group.add_argument(
-            '--composer-email',
-            default='composer@email.com',
-            metavar='EMAIL',
-            )
+            '--composer-github', default='composer', metavar='GITHUB_USERNAME'
+        )
         new_group.add_argument(
-            '--composer-github',
-            default='composer',
-            metavar='GITHUB_USERNAME',
-            )
+            '--composer-library', default='library', metavar='LIBRARY_NAME'
+        )
         new_group.add_argument(
-            '--composer-library',
-            default='library',
-            metavar='LIBRARY_NAME',
-            )
-        new_group.add_argument(
-            '--composer-website',
-            default='www.composer.com',
-            metavar='WEBSITE',
-            )
+            '--composer-website', default='www.composer.com', metavar='WEBSITE'
+        )
 
         common_group = parser.add_argument_group('common options')
         common_group.add_argument(
-            '--force', '-f',
-            action='store_true',
-            help='force overwriting',
-            )
+            '--force', '-f', action='store_true', help='force overwriting'
+        )
         common_group.add_argument(
-            '--project-path', '-p',
+            '--project-path',
+            '-p',
             metavar='project',
             help='project path or package name',
             default=os.path.curdir,
-            )
+        )

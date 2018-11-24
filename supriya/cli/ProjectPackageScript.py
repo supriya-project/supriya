@@ -28,7 +28,7 @@ class ProjectPackageScript(uqbar.cli.CLI):
         'renders',
         'synthdefs',
         'tools',
-        )
+    )
 
     ### PRIVATE METHODS ###
 
@@ -61,34 +61,51 @@ class ProjectPackageScript(uqbar.cli.CLI):
         singular = section
         if singular.endswith('s'):
             singular = singular[:-1]
-        print('Copying {singular} subpackage {source_name!r} to {target_name!r} ...'.format(
-            singular=singular, source_name=source_name, target_name=target_name))
+        print(
+            'Copying {singular} subpackage {source_name!r} to {target_name!r} ...'.format(
+                singular=singular, source_name=source_name, target_name=target_name
+            )
+        )
         source_path = self._name_to_project_subdirectory_path(
-            source_name, section, self.inner_project_path)
+            source_name, section, self.inner_project_path
+        )
         target_path = self._name_to_project_subdirectory_path(
-            target_name, section, self.inner_project_path)
+            target_name, section, self.inner_project_path
+        )
         if not source_path.exists():
-            print('    Subpackage {path!s}{sep} does not exist!'.format(
-                path=source_path.relative_to(self.outer_project_path),
-                sep=os.path.sep))
+            print(
+                '    Subpackage {path!s}{sep} does not exist!'.format(
+                    path=source_path.relative_to(self.outer_project_path),
+                    sep=os.path.sep,
+                )
+            )
             sys.exit(1)
         if target_path.exists():
             if force:
-                print('    Overwriting {path!s}{sep} ...'.format(
-                    path=target_path.relative_to(self.outer_project_path),
-                    sep=os.path.sep))
+                print(
+                    '    Overwriting {path!s}{sep} ...'.format(
+                        path=target_path.relative_to(self.outer_project_path),
+                        sep=os.path.sep,
+                    )
+                )
                 self._remove_tree(target_path)
             else:
-                print('    Subpackage {path!s}{sep} exists!'.format(
-                    path=target_path.relative_to(self.outer_project_path),
-                    sep=os.path.sep))
+                print(
+                    '    Subpackage {path!s}{sep} exists!'.format(
+                        path=target_path.relative_to(self.outer_project_path),
+                        sep=os.path.sep,
+                    )
+                )
                 sys.exit(1)
         self._copy_tree(source_path, target_path)
         self._replace_in_files(target_path, source_name, target_name)
-        print('    Copied {source_path!s}{sep} to {target_path!s}{sep}'.format(
-            source_path=source_path.relative_to(self.outer_project_path),
-            target_path=target_path.relative_to(self.outer_project_path),
-            sep=os.path.sep))
+        print(
+            '    Copied {source_path!s}{sep} to {target_path!s}{sep}'.format(
+                source_path=source_path.relative_to(self.outer_project_path),
+                target_path=target_path.relative_to(self.outer_project_path),
+                sep=os.path.sep,
+            )
+        )
 
     @classmethod
     def _copy_tree(cls, source_directory, target_directory, recurse=True):
@@ -106,51 +123,52 @@ class ProjectPackageScript(uqbar.cli.CLI):
             if source_path.is_dir() and recurse:
                 copied_paths.extend(
                     cls._copy_tree(source_path, target_path, recurse=True)
-                    )
+                )
             elif source_path.is_file():
                 shutil.copyfile(str(source_path), str(target_path))
             copied_paths.append(target_path)
         return copied_paths
 
-    def _create_package_from_template(
-        self,
-        package_name,
-        section,
-        force=False,
-        ):
+    def _create_package_from_template(self, package_name, section, force=False):
         singular = section
         if singular.endswith('s'):
             singular = singular[:-1]
-        print('Creating {singular} subpackage {package_name!r} ...'.format(
-            singular=singular, package_name=package_name))
+        print(
+            'Creating {singular} subpackage {package_name!r} ...'.format(
+                singular=singular, package_name=package_name
+            )
+        )
         source_name = 'example_{}'.format(singular)
         source_path = self._get_boilerplate_path().joinpath(source_name)
         if not source_path.exists():
             print('    Missing source!')
             sys.exit(1)
         target_path = self._name_to_project_subdirectory_path(
-            package_name, section, self.inner_project_path)
+            package_name, section, self.inner_project_path
+        )
         if target_path.exists() and not force:
-            print('    Path exists: {}'.format(
-                target_path.relative_to(self.inner_project_path.parent)))
+            print(
+                '    Path exists: {}'.format(
+                    target_path.relative_to(self.inner_project_path.parent)
+                )
+            )
             sys.exit(1)
         for path in self._copy_tree(source_path, target_path):
             if path.is_file() and path.suffix == '.jinja':
                 self._template_file(
-                    path,
-                    project_package_name=self.inner_project_path.name,
-                    )
+                    path, project_package_name=self.inner_project_path.name
+                )
                 path.rename(path.with_suffix(''))
-        print('    Created {path!s}{sep}'.format(
-            path=target_path.relative_to(self.outer_project_path),
-            sep=os.path.sep))
+        print(
+            '    Created {path!s}{sep}'.format(
+                path=target_path.relative_to(self.outer_project_path), sep=os.path.sep
+            )
+        )
 
     def _edit_packages(self, names, section):
         globbable_names = self._collect_globbable_names(names)
-        print('Edit candidates: {!r} ...'.format(
-            ' '.join(globbable_names)))
-        matching_paths = self._collect_matching_paths(
-            globbable_names, section)
+        print('Edit candidates: {!r} ...'.format(' '.join(globbable_names)))
+        matching_paths = self._collect_matching_paths(globbable_names, section)
         if not matching_paths:
             print('    No matching {}.'.format(section))
             self._handle_list()
@@ -165,6 +183,7 @@ class ProjectPackageScript(uqbar.cli.CLI):
     @classmethod
     def _get_boilerplate_path(cls):
         import supriya
+
         return pathlib.Path(supriya.__path__[0]).joinpath('boilerplate')
 
     def _import_path(self, path, project_root_path, verbose=True):
@@ -194,9 +213,10 @@ class ProjectPackageScript(uqbar.cli.CLI):
             project_path = self._project_project_path
         section_path = project_path.joinpath(section)
         paths = [
-            path for path in sorted(section_path.glob('*'))
+            path
+            for path in sorted(section_path.glob('*'))
             if path.is_dir() and path.joinpath('__init__.py').exists()
-            ]
+        ]
         return sorted(paths)
 
     def _list_package_nominatives(self, section):
@@ -283,52 +303,78 @@ class ProjectPackageScript(uqbar.cli.CLI):
         if singular.endswith('s'):
             singular = singular[:-1]
         target_path = self._name_to_project_subdirectory_path(
-            target_name, section, self.inner_project_path)
-        print('Deleting {singular} subpackage {package_name!r} ...'.format(
-            singular=singular, package_name=target_name))
+            target_name, section, self.inner_project_path
+        )
+        print(
+            'Deleting {singular} subpackage {package_name!r} ...'.format(
+                singular=singular, package_name=target_name
+            )
+        )
         if not target_path.exists():
-            print('    Subpackage {path!s}{sep} does not exist!'.format(
-                path=target_path.relative_to(self.outer_project_path),
-                sep=os.path.sep))
+            print(
+                '    Subpackage {path!s}{sep} does not exist!'.format(
+                    path=target_path.relative_to(self.outer_project_path),
+                    sep=os.path.sep,
+                )
+            )
             sys.exit(1)
         self._remove_tree(target_path)
-        print('    Deleted {path!s}{sep}'.format(
-            path=target_path.relative_to(self.outer_project_path),
-            sep=os.path.sep))
+        print(
+            '    Deleted {path!s}{sep}'.format(
+                path=target_path.relative_to(self.outer_project_path), sep=os.path.sep
+            )
+        )
 
     def _rename_package(self, source_name, target_name, section, force=False):
         singular = section
         if singular.endswith('s'):
             singular = singular[:-1]
-        print('Renaming {singular} subpackage {source_name!r} to {target_name!r} ...'.format(
-            singular=singular, source_name=source_name, target_name=target_name))
+        print(
+            'Renaming {singular} subpackage {source_name!r} to {target_name!r} ...'.format(
+                singular=singular, source_name=source_name, target_name=target_name
+            )
+        )
         source_path = self._name_to_project_subdirectory_path(
-            source_name, section, self.inner_project_path)
+            source_name, section, self.inner_project_path
+        )
         target_path = self._name_to_project_subdirectory_path(
-            target_name, section, self.inner_project_path)
+            target_name, section, self.inner_project_path
+        )
         if not source_path.exists():
-            print('    Subpackage {path!s}{sep} does not exist!'.format(
-                path=source_path.relative_to(self.outer_project_path),
-                sep=os.path.sep))
+            print(
+                '    Subpackage {path!s}{sep} does not exist!'.format(
+                    path=source_path.relative_to(self.outer_project_path),
+                    sep=os.path.sep,
+                )
+            )
             sys.exit(1)
         if target_path.exists():
             if force:
-                print('    Overwriting {path!s}{sep} ...'.format(
-                    path=target_path.relative_to(self.outer_project_path),
-                    sep=os.path.sep))
+                print(
+                    '    Overwriting {path!s}{sep} ...'.format(
+                        path=target_path.relative_to(self.outer_project_path),
+                        sep=os.path.sep,
+                    )
+                )
                 self._remove_tree(target_path)
             else:
-                print('    Subpackage {path!s}{sep} exists!'.format(
-                    path=target_path.relative_to(self.outer_project_path),
-                    sep=os.path.sep))
+                print(
+                    '    Subpackage {path!s}{sep} exists!'.format(
+                        path=target_path.relative_to(self.outer_project_path),
+                        sep=os.path.sep,
+                    )
+                )
                 sys.exit(1)
         self._copy_tree(source_path, target_path)
         self._replace_in_files(target_path, source_name, target_name)
         self._remove_tree(source_path)
-        print('    Renamed {source_path!s}{sep} to {target_path!s}{sep}'.format(
-            source_path=source_path.relative_to(self.outer_project_path),
-            target_path=target_path.relative_to(self.outer_project_path),
-            sep=os.path.sep))
+        print(
+            '    Renamed {source_path!s}{sep} to {target_path!s}{sep}'.format(
+                source_path=source_path.relative_to(self.outer_project_path),
+                target_path=target_path.relative_to(self.outer_project_path),
+                sep=os.path.sep,
+            )
+        )
 
     def _replace_in_files(self, target_directory, old_string, new_string):
         pass
@@ -340,8 +386,7 @@ class ProjectPackageScript(uqbar.cli.CLI):
         print(message)
 
     def _setup_paths(self, project_path):
-        project_package_path = self._path_to_project_package_path(
-            project_path)
+        project_package_path = self._path_to_project_package_path(project_path)
         self.inner_project_path = project_package_path
         self.outer_project_path = project_package_path.parent
         self._root_parent_path = self.outer_project_path.parent
