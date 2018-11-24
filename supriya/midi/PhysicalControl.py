@@ -2,7 +2,6 @@ from uqbar.enums import IntEnumeration
 
 
 class PhysicalControl:
-
     class Mode(IntEnumeration):
         CONTINUOUS = 0
         BOOLEAN = 1
@@ -20,7 +19,7 @@ class PhysicalControl:
         group_name=None,
         has_led=False,
         mode='continuous',
-        ):
+    ):
         self.device = device
         self.name = name
         self.message_type = message_type
@@ -57,5 +56,5 @@ class PhysicalControl:
             value /= 127
         else:
             raise Exception(value)
-        assert 0. <= value <= 1.
+        assert 0.0 <= value <= 1.0
         return value

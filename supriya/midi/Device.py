@@ -12,15 +12,14 @@ from supriya.midi.PhysicalControl import PhysicalControl
 
 
 logging.basicConfig(
-    format='%(asctime)s [%(name)s] [%(levelname)s] %(message)s',
-    level='INFO',
-    )
+    format='%(asctime)s [%(name)s] [%(levelname)s] %(message)s', level='INFO'
+)
 
 
 class Device:
-
     def __init__(self, manifest, logger=None, overrides=None):
         import supriya
+
         self._logger = logger or logging.getLogger(type(self).__name__)
         if isinstance(manifest, dict):
             manifest = copy.deepcopy(manifest)
@@ -33,15 +32,11 @@ class Device:
                 manifest = manifest.with_suffix('.yml')
             if not manifest.is_absolute():
                 manifest = (
-                    pathlib.Path(supriya.__path__[0]) /
-                    'assets' /
-                    'devices' /
-                    manifest
-                    )
-            manifest = supriya.system.YAMLLoader.load(
-                str(manifest),
-                overrides=overrides,
+                    pathlib.Path(supriya.__path__[0]) / 'assets' / 'devices' / manifest
                 )
+            manifest = supriya.system.YAMLLoader.load(
+                str(manifest), overrides=overrides
+            )
             self._device_manifest = manifest
         self._lock = threading.RLock()
         self._midi_in = rtmidi.MidiIn()
@@ -59,11 +54,11 @@ class Device:
             message, timestamp = message
         self.logger.debug('MIDI I: 0x{}'.format(bytearray(message).hex()))
         with self._lock:
-            physical_control, value = self._process_physical_control(
-                message, timestamp)
+            physical_control, value = self._process_physical_control(message, timestamp)
             logical_control = self._process_logical_control(physical_control, value)
-            self.logger.info('PC: {}, LC: {}'.format(
-                physical_control.name, logical_control))
+            self.logger.info(
+                'PC: {}, LC: {}'.format(physical_control.name, logical_control)
+            )
 
     def __getitem__(self, name):
         return self.root_view[name]
@@ -81,8 +76,9 @@ class Device:
         group_name=None,
         has_led=None,
         mode=None,
-        ):
+    ):
         import supriya.midi
+
         assert control_name not in self._physical_controls
         physical_control = PhysicalControl(
             self,
@@ -95,10 +91,11 @@ class Device:
             group_name=group_name,
             has_led=has_led,
             mode=mode,
-            )
+        )
         self._physical_controls[control_name] = physical_control
-        self._physical_controls_by_group.setdefault(
-            group_name, []).append(physical_control)
+        self._physical_controls_by_group.setdefault(group_name, []).append(
+            physical_control
+        )
         if message_type == 'note':
             message_class = supriya.midi.NoteOnMessage
         elif message_type == 'controller':
@@ -115,17 +112,11 @@ class Device:
         all_toggles = self._node_instances[toggle_id]
         for parent, toggles in zip(parents, all_toggles):
             modal_view = LogicalView(
-                device=self,
-                name=node_template['name'],
-                visible=True,
-                )
+                device=self, name=node_template['name'], visible=True
+            )
             parent._add_child(modal_view)
             for i, toggle in enumerate(toggles.children.values()):
-                view = LogicalView(
-                    device=self,
-                    name=i,
-                    visible=i == 0,
-                    )
+                view = LogicalView(device=self, name=i, visible=i == 0)
                 nodes.append(view)
                 modal_view._add_child(view)
                 self._dependents.setdefault(toggle, []).append(view)
@@ -136,15 +127,9 @@ class Device:
         physical_controls = []
         physical_control_ids = node_template['children']
         for physical_control_id in physical_control_ids:
-            physical_controls.extend(
-                self._get_controls_by_name(
-                    physical_control_id))
+            physical_controls.extend(self._get_controls_by_name(physical_control_id))
         for parent in parents:
-            view = LogicalView(
-                device=self,
-                is_mutex=True,
-                name=node_template['name'],
-                )
+            view = LogicalView(device=self, is_mutex=True, name=node_template['name'])
             nodes.append(view)
             parent._add_child(view)
             for i, physical_control in enumerate(physical_controls):
@@ -153,7 +138,7 @@ class Device:
                     name=i,
                     mode='toggle',
                     physical_control=physical_control,
-                    )
+                )
                 if i == 0:
                     control.value = 1.0
                 view._add_child(control)
@@ -169,9 +154,7 @@ class Device:
         if isinstance(physical_control_ids, str):
             physical_control_ids = [physical_control_ids]
         for physical_control_id in physical_control_ids:
-            physical_controls.extend(
-                self._get_controls_by_name(
-                    physical_control_id))
+            physical_controls.extend(self._get_controls_by_name(physical_control_id))
         for parent in parents:
             for i, physical_control in enumerate(physical_controls, 1):
                 if 'name' in node_template:
@@ -185,11 +168,8 @@ class Device:
                     name = physical_control.name
                 mode = node_template.get('mode')
                 logical_control = LogicalControl(
-                    device=self,
-                    mode=mode,
-                    name=name,
-                    physical_control=physical_control,
-                    )
+                    device=self, mode=mode, name=name, physical_control=physical_control
+                )
                 nodes.append(logical_control)
                 parent._add_child(logical_control)
         return nodes
@@ -211,7 +191,7 @@ class Device:
                 device=self,
                 name=physical_control.name,
                 physical_control=physical_control,
-                )
+            )
             root_view._add_child(logical_control)
 
     def _initialize_logical_controls(self):
@@ -276,7 +256,7 @@ class Device:
                         control_group=spec['name'],
                         value_index=value_index,
                         channel_index=channel_index,
-                        )
+                    )
                     self._add_physical_control(
                         control_name,
                         message_type,
@@ -287,7 +267,7 @@ class Device:
                         group_name=spec['name'],
                         has_led=spec.get('has_led', False),
                         mode=spec.get('mode', 'continuous'),
-                        )
+                    )
 
     def _linearize_manifest(self, manifest):
         dependency_graph = uqbar.containers.DependencyGraph()
@@ -297,7 +277,7 @@ class Device:
             manifest=manifest,
             parentage=('root',),
             dependency_graph=dependency_graph,
-            )
+        )
         templates = collections.OrderedDict()
         for parentage_string in dependency_graph:
             if parentage_string == 'root':
@@ -307,11 +287,12 @@ class Device:
 
     def _process_physical_control(self, message, timestamp):
         import supriya.midi
+
         if timestamp is None:
             message, timestamp = message
         status_byte, data = message[0], message[1:]
         message_type = status_byte >> 4
-        channel = status_byte & 0x0f
+        channel = status_byte & 0x0F
         if message_type == 8:
             message_class = supriya.midi.NoteOnMessage
             message_number, value = data
@@ -329,8 +310,7 @@ class Device:
         return physical_control, value
 
     def _process_logical_control(self, physical_control, value):
-        logical_control = self.visibility_mapping.get(
-            physical_control)
+        logical_control = self.visibility_mapping.get(physical_control)
         if not logical_control:
             return
         if logical_control.mode == LogicalControlMode.TOGGLE and value:
@@ -344,12 +324,8 @@ class Device:
         return logical_control
 
     def _recurse_manifest(
-        self,
-        entries_by_parentage,
-        manifest,
-        parentage,
-        dependency_graph,
-        ):
+        self, entries_by_parentage, manifest, parentage, dependency_graph
+    ):
         for entry in manifest:
             entry_name = entry.get('name') or entry.get('physical_control')
             assert entry_name
@@ -359,17 +335,13 @@ class Device:
             entries_by_parentage[entry_parentage_string] = entry
             if parentage:
                 parentage_string = ':'.join(parentage)
-                dependency_graph.add(
-                    parentage_string,
-                    entry_parentage_string,
-                    )
+                dependency_graph.add(parentage_string, entry_parentage_string)
             else:
                 dependency_graph.add(entry_parentage_string)
             if 'modal' in entry:
                 dependency_graph.add(
-                    'root:{}'.format(entry.get('modal')),
-                    entry_parentage_string,
-                    )
+                    'root:{}'.format(entry.get('modal')), entry_parentage_string
+                )
             children = entry.get('children', [])
             if entry.get('mode') != 'mutex':
                 self._recurse_manifest(
@@ -377,7 +349,7 @@ class Device:
                     manifest=children,
                     parentage=entry_parentage,
                     dependency_graph=dependency_graph,
-                    )
+                )
 
     ### PUBLIC METHODS ###
 
@@ -414,11 +386,7 @@ class Device:
         else:
             self._midi_in.open_port(port)
             self._midi_out.open_port(port)
-        self._midi_in.ignore_types(
-            active_sense=True,
-            sysex=True,
-            timing=True,
-            )
+        self._midi_in.ignore_types(active_sense=True, sysex=True, timing=True)
         self._midi_in.set_callback(self.__call__)
         for message in self._device_manifest['device'].get('on_startup', []):
             self.send_message(message)

@@ -6,18 +6,11 @@ class MidiMessage(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_channel_number',
-        '_timestamp',
-        )
+    __slots__ = ('_channel_number', '_timestamp')
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        channel_number=None,
-        timestamp=None,
-        ):
+    def __init__(self, channel_number=None, timestamp=None):
         self._channel_number = channel_number
         self._timestamp = timestamp
 
