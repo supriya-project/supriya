@@ -24,15 +24,14 @@ def mixer(server):
 
 def test_post_mixer_allocate(server, mixer):
     pattern = supriya.patterns.Pbind(
-        value=supriya.patterns.Pseq([0.25, 0.5, 1.0, 2.0], None),
-        )
+        value=supriya.patterns.Pseq([0.25, 0.5, 1.0, 2.0], None)
+    )
     slot = mixer['track'].add_trigger_pattern_slot(
-        'trigger',
-        synthdef=dc_synthdef,
-        pattern=pattern,
-        )
+        'trigger', synthdef=dc_synthdef, pattern=pattern
+    )
     assert mixer['track']['trigger'] is slot
-    assert str(server) == uqbar.strings.normalize("""
+    assert str(server) == uqbar.strings.normalize(
+        """
         NODE TREE 0 group
             1 group
                 1000 group
@@ -69,23 +68,23 @@ def test_post_mixer_allocate(server, mixer):
                         1013 group
                         1014 mixer/direct/0:1
                             in_: 19.0, out: 0.0, gate: 1.0, lag: 0.1
-        """)
+        """
+    )
 
 
 def test_trigger(server, mixer):
     pattern = supriya.patterns.Pbind(
-        value=supriya.patterns.Pseq([0.25, 0.5, 1.0, 2.0], None),
-        )
+        value=supriya.patterns.Pseq([0.25, 0.5, 1.0, 2.0], None)
+    )
     slot = mixer['track'].add_trigger_pattern_slot(
-        'trigger',
-        synthdef=dc_synthdef,
-        pattern=pattern,
-        )
+        'trigger', synthdef=dc_synthdef, pattern=pattern
+    )
     slot.trigger(True)
     slot.trigger(True)
     slot.trigger(True)
     slot.trigger(True)
-    assert str(server) == uqbar.strings.normalize("""
+    assert str(server) == uqbar.strings.normalize(
+        """
         NODE TREE 0 group
             1 group
                 1000 group
@@ -130,24 +129,21 @@ def test_trigger(server, mixer):
                         1013 group
                         1014 mixer/direct/0:1
                             in_: 19.0, out: 0.0, gate: 1.0, lag: 0.1
-        """)
+        """
+    )
 
 
 def test_maximum_replicas(server, mixer):
-    pattern = supriya.patterns.Pbind(
-        value=supriya.patterns.Pseq([1, 2, 3, 4, 5], None),
-        )
+    pattern = supriya.patterns.Pbind(value=supriya.patterns.Pseq([1, 2, 3, 4, 5], None))
     slot = mixer['track'].add_trigger_pattern_slot(
-        'trigger',
-        synthdef=dc_synthdef,
-        pattern=pattern,
-        maximum_replicas=4,
-        )
+        'trigger', synthdef=dc_synthdef, pattern=pattern, maximum_replicas=4
+    )
     slot.trigger(True)
     slot.trigger(True)
     slot.trigger(True)
     slot.trigger(True)
-    assert str(server) == uqbar.strings.normalize("""
+    assert str(server) == uqbar.strings.normalize(
+        """
         NODE TREE 0 group
             1 group
                 1000 group
@@ -192,9 +188,11 @@ def test_maximum_replicas(server, mixer):
                         1013 group
                         1014 mixer/direct/0:1
                             in_: 19.0, out: 0.0, gate: 1.0, lag: 0.1
-        """)
+        """
+    )
     slot.trigger(True)
-    assert str(server) == uqbar.strings.normalize("""
+    assert str(server) == uqbar.strings.normalize(
+        """
         NODE TREE 0 group
             1 group
                 1000 group
@@ -239,4 +237,5 @@ def test_maximum_replicas(server, mixer):
                         1013 group
                         1014 mixer/direct/0:1
                             in_: 19.0, out: 0.0, gate: 1.0, lag: 0.1
-        """)
+        """
+    )

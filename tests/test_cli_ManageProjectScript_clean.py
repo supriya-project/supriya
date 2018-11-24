@@ -11,25 +11,23 @@ def test_clean(cli_paths):
         cli_paths.test_directory_path,
         'material_one',
         definition_contents=pytest.helpers.get_basic_session_template().render(
-            output_section_singular='material',
-            ),
-        )
+            output_section_singular='material'
+        ),
+    )
     pytest.helpers.create_cli_material(
         cli_paths.test_directory_path,
         'material_two',
         definition_contents=pytest.helpers.get_basic_session_template().render(
-            multiplier=0.5,
-            output_section_singular='material',
-            ),
-        )
+            multiplier=0.5, output_section_singular='material'
+        ),
+    )
     pytest.helpers.create_cli_material(
         cli_paths.test_directory_path,
         'material_three',
         definition_contents=pytest.helpers.get_basic_session_template().render(
-            multiplier=0.25,
-            output_section_singular='material',
-            ),
-        )
+            multiplier=0.25, output_section_singular='material'
+        ),
+    )
 
     script = supriya.cli.ManageMaterialScript()
     command = ['--render', '*']
@@ -74,15 +72,16 @@ def test_clean(cli_paths):
             'test_project/test_project/synthdefs/__init__.py',
             'test_project/test_project/test/.gitignore',
             'test_project/test_project/tools/.gitignore',
-            'test_project/test_project/tools/__init__.py'
-            ],
+            'test_project/test_project/tools/__init__.py',
+        ],
         cli_paths.test_directory_path,
-        )
+    )
 
     script = supriya.cli.ManageProjectScript()
     command = ['--clean']
-    with uqbar.io.RedirectedStreams(stdout=string_io), \
-        uqbar.io.DirectoryChange(cli_paths.inner_project_path):
+    with uqbar.io.RedirectedStreams(stdout=string_io), uqbar.io.DirectoryChange(
+        cli_paths.inner_project_path
+    ):
         try:
             script(command)
         except SystemExit as e:
@@ -117,10 +116,10 @@ def test_clean(cli_paths):
             'test_project/test_project/synthdefs/__init__.py',
             'test_project/test_project/test/.gitignore',
             'test_project/test_project/tools/.gitignore',
-            'test_project/test_project/tools/__init__.py'
-            ],
+            'test_project/test_project/tools/__init__.py',
+        ],
         cli_paths.test_directory_path,
-        )
+    )
 
     pytest.helpers.compare_strings(
         r'''
@@ -133,4 +132,4 @@ def test_clean(cli_paths):
             Cleaned test_project/renders/session-e628a25fe369270f786d60fbbc047365.osc
         ''',
         string_io.getvalue(),
-        )
+    )

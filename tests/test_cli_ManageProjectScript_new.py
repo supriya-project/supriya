@@ -26,13 +26,15 @@ expected_files = [
     'test_project/test_project/test/.gitignore',
     'test_project/test_project/tools/.gitignore',
     'test_project/test_project/tools/__init__.py',
-    ]
+]
 
 
-expected_readme_contents = uqbar.strings.normalize('''
+expected_readme_contents = uqbar.strings.normalize(
+    '''
     TEST PROJECT
     ############
-    ''')
+    '''
+)
 
 
 expected_project_settings_contents = '''
@@ -70,14 +72,18 @@ server_options:
     zero_configuration: false
 title: Test Project
 '''
-expected_project_settings_contents = uqbar.strings.normalize(expected_project_settings_contents)
+expected_project_settings_contents = uqbar.strings.normalize(
+    expected_project_settings_contents
+)
 if os.environ.get('CI'):
     for to_replace, replacement in [
         ('sample_rate: null', 'sample_rate: 44100'),
         ('input_device: null', 'input_device: dummy'),
         ('output_device: null', 'output_device: dummy'),
     ]:
-        expected_project_settings_contents = expected_project_settings_contents.replace(to_replace, replacement)
+        expected_project_settings_contents = expected_project_settings_contents.replace(
+            to_replace, replacement
+        )
 
 
 def test_exists(cli_paths):
@@ -87,9 +93,8 @@ def test_exists(cli_paths):
     assert cli_paths.outer_project_path.exists()
     with uqbar.io.RedirectedStreams(stdout=string_io):
         pytest.helpers.create_cli_project(
-            cli_paths.test_directory_path,
-            expect_error=True,
-            )
+            cli_paths.test_directory_path, expect_error=True
+        )
     assert cli_paths.outer_project_path.exists()
     pytest.helpers.compare_strings(
         r'''
@@ -97,9 +102,11 @@ def test_exists(cli_paths):
             Created test_project/
         Creating project package 'Test Project'...
             Directory test_project already exists.
-        '''.replace('/', os.path.sep),
+        '''.replace(
+            '/', os.path.sep
+        ),
         string_io.getvalue(),
-        )
+    )
 
 
 def test_force_replace(cli_paths):
@@ -108,10 +115,7 @@ def test_force_replace(cli_paths):
         pytest.helpers.create_cli_project(cli_paths.test_directory_path)
     assert cli_paths.outer_project_path.exists()
     with uqbar.io.RedirectedStreams(stdout=string_io):
-        pytest.helpers.create_cli_project(
-            cli_paths.test_directory_path,
-            force=True,
-            )
+        pytest.helpers.create_cli_project(cli_paths.test_directory_path, force=True)
     assert cli_paths.outer_project_path.exists()
     pytest.helpers.compare_strings(
         r'''
@@ -119,9 +123,11 @@ def test_force_replace(cli_paths):
             Created test_project/
         Creating project package 'Test Project'...
             Created test_project/
-        '''.replace('/', os.path.sep),
+        '''.replace(
+            '/', os.path.sep
+        ),
         string_io.getvalue(),
-        )
+    )
 
 
 def test_success(cli_paths):
@@ -131,27 +137,26 @@ def test_success(cli_paths):
         pytest.helpers.create_cli_project(cli_paths.test_directory_path)
     assert cli_paths.outer_project_path.exists()
     pytest.helpers.compare_path_contents(
-        cli_paths.outer_project_path,
-        expected_files,
-        cli_paths.test_directory_path,
-        )
+        cli_paths.outer_project_path, expected_files, cli_paths.test_directory_path
+    )
     pytest.helpers.compare_strings(
         r'''
         Creating project package 'Test Project'...
             Created test_project/
-        '''.replace('/', os.path.sep),
+        '''.replace(
+            '/', os.path.sep
+        ),
         string_io.getvalue(),
-        )
+    )
 
     readme_path = cli_paths.outer_project_path.joinpath('README.md')
     with readme_path.open() as file_pointer:
-        actual_readme_contents = uqbar.strings.normalize(
-            file_pointer.read())
+        actual_readme_contents = uqbar.strings.normalize(file_pointer.read())
     assert expected_readme_contents == actual_readme_contents
 
     project_settings_path = cli_paths.inner_project_path.joinpath(
-        'project-settings.yml')
+        'project-settings.yml'
+    )
     with project_settings_path.open() as file_pointer:
-        actual_project_settings_contents = uqbar.strings.normalize(
-            file_pointer.read())
+        actual_project_settings_contents = uqbar.strings.normalize(file_pointer.read())
     assert expected_project_settings_contents == actual_project_settings_contents

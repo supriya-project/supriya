@@ -3,27 +3,27 @@ import supriya.patterns
 import uqbar.strings
 
 
-pattern = supriya.patterns.Pchain([
-    supriya.patterns.Pbind(
-        amplitude=1.0,
-        duration=supriya.patterns.Pseq([1.0, 2.0, 3.0], 1),
-        frequency=supriya.patterns.Pseq([440, 660, 880], 1),
+pattern = supriya.patterns.Pchain(
+    [
+        supriya.patterns.Pbind(
+            amplitude=1.0,
+            duration=supriya.patterns.Pseq([1.0, 2.0, 3.0], 1),
+            frequency=supriya.patterns.Pseq([440, 660, 880], 1),
         ),
-    supriya.patterns.Pbind(
-        amplitude=supriya.patterns.Pseq([0.111, 0.333, 0.666, 1.0]),
+        supriya.patterns.Pbind(
+            amplitude=supriya.patterns.Pseq([0.111, 0.333, 0.666, 1.0])
         ),
-    supriya.patterns.Pbind(
-        pan=supriya.patterns.Pseq([0., 0.5, 1.0, 0.5]),
-        ),
-    ])
+        supriya.patterns.Pbind(pan=supriya.patterns.Pseq([0.0, 0.5, 1.0, 0.5])),
+    ]
+)
 
 
 def test___iter__():
     events = list(pattern)
     assert pytest.helpers.get_objects_as_string(
-        events,
-        replace_uuids=True,
-    ) == uqbar.strings.normalize('''
+        events, replace_uuids=True
+    ) == uqbar.strings.normalize(
+        '''
         NoteEvent(
             amplitude=0.111,
             delta=1.0,
@@ -48,4 +48,5 @@ def test___iter__():
             pan=1.0,
             uuid=UUID('C'),
             )
-        ''')
+        '''
+    )

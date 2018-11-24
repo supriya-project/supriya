@@ -6,24 +6,14 @@ import uqbar.strings
 
 
 def test__perform_realtime_01(server):
-    event = supriya.patterns.NoteEvent(
-        duration=1.0,
-        delta=10.0,
-        frequency=443,
-        )
-    server = types.SimpleNamespace(
-        node_id_allocator=supriya.realtime.NodeIdAllocator(),
-        )
-    event_products = event._perform_realtime(
-        server=server,
-        timestamp=100.0,
-        uuids={},
-        )
+    event = supriya.patterns.NoteEvent(duration=1.0, delta=10.0, frequency=443)
+    server = types.SimpleNamespace(node_id_allocator=supriya.realtime.NodeIdAllocator())
+    event_products = event._perform_realtime(server=server, timestamp=100.0, uuids={})
     assert event_products[0].uuid == event_products[1].uuid
     assert pytest.helpers.get_objects_as_string(
-        event_products,
-        replace_uuids=True,
-    ) == uqbar.strings.normalize('''
+        event_products, replace_uuids=True
+    ) == uqbar.strings.normalize(
+        '''
         EventProduct(
             event=NoteEvent(
                 delta=10.0,
@@ -58,27 +48,20 @@ def test__perform_realtime_01(server):
             timestamp=101.0,
             uuid=UUID('A'),
             )
-        ''')
+        '''
+    )
 
 
 def test__perform_realtime_02(server):
     event = supriya.patterns.NoteEvent(
-        duration=1.0,
-        delta=10.0,
-        frequency=[443, 445, 447],
-        )
-    server = types.SimpleNamespace(
-        node_id_allocator=supriya.realtime.NodeIdAllocator(),
-        )
-    event_products = event._perform_realtime(
-        server=server,
-        timestamp=100.0,
-        uuids={},
-        )
+        duration=1.0, delta=10.0, frequency=[443, 445, 447]
+    )
+    server = types.SimpleNamespace(node_id_allocator=supriya.realtime.NodeIdAllocator())
+    event_products = event._perform_realtime(server=server, timestamp=100.0, uuids={})
     assert pytest.helpers.get_objects_as_string(
-        event_products,
-        replace_uuids=True,
-    ) == uqbar.strings.normalize('''
+        event_products, replace_uuids=True
+    ) == uqbar.strings.normalize(
+        '''
         EventProduct(
             event=NoteEvent(
                 delta=10.0,
@@ -135,4 +118,5 @@ def test__perform_realtime_02(server):
             timestamp=101.0,
             uuid=UUID('A'),
             )
-        ''')
+        '''
+    )

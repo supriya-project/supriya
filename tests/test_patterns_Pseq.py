@@ -6,40 +6,43 @@ import uqbar.strings
 pseq_01 = supriya.patterns.Pseq(['A', 'B', 'C', 'D'])
 
 
-pseq_02 = supriya.patterns.Pseq([
-    supriya.patterns.Pseq(['A', 'B', 'C']),
-    supriya.patterns.Pseq(['D', 'E', 'F']),
-    ])
+pseq_02 = supriya.patterns.Pseq(
+    [supriya.patterns.Pseq(['A', 'B', 'C']), supriya.patterns.Pseq(['D', 'E', 'F'])]
+)
 
 
-pseq_03 = supriya.patterns.Pseq([
-    supriya.patterns.Pbind(
-        amplitude=1.0,
-        duration=supriya.patterns.Pseq([1.0, 2.0, 3.0], 1),
-        frequency=supriya.patterns.Pseq([440, 660, 880], 1),
+pseq_03 = supriya.patterns.Pseq(
+    [
+        supriya.patterns.Pbind(
+            amplitude=1.0,
+            duration=supriya.patterns.Pseq([1.0, 2.0, 3.0], 1),
+            frequency=supriya.patterns.Pseq([440, 660, 880], 1),
         ),
-    supriya.patterns.Pbind(
-        amplitude=1.0,
-        duration=supriya.patterns.Pseq([1.0, 2.0, 3.0], 1),
-        frequency=supriya.patterns.Pseq([550, 770, 990], 1),
-        ),
-    ])
-
-
-pseq_04 = supriya.patterns.Pseq([
-    supriya.patterns.Pbind(
-        amplitude=1.0,
-        duration=supriya.patterns.Pseq([1.0, 2.0, 3.0], 1),
-        frequency=supriya.patterns.Pseq([440, 660, 880], 1),
-        ),
-    supriya.patterns.Pbus(
         supriya.patterns.Pbind(
             amplitude=1.0,
             duration=supriya.patterns.Pseq([1.0, 2.0, 3.0], 1),
             frequency=supriya.patterns.Pseq([550, 770, 990], 1),
-            ),
         ),
-    ])
+    ]
+)
+
+
+pseq_04 = supriya.patterns.Pseq(
+    [
+        supriya.patterns.Pbind(
+            amplitude=1.0,
+            duration=supriya.patterns.Pseq([1.0, 2.0, 3.0], 1),
+            frequency=supriya.patterns.Pseq([440, 660, 880], 1),
+        ),
+        supriya.patterns.Pbus(
+            supriya.patterns.Pbind(
+                amplitude=1.0,
+                duration=supriya.patterns.Pseq([1.0, 2.0, 3.0], 1),
+                frequency=supriya.patterns.Pseq([550, 770, 990], 1),
+            )
+        ),
+    ]
+)
 
 
 def test___iter___01():
@@ -55,9 +58,9 @@ def test___iter___02():
 def test___iter___03():
     events = list(pseq_03)
     assert pytest.helpers.get_objects_as_string(
-        events,
-        replace_uuids=True,
-    ) == uqbar.strings.normalize('''
+        events, replace_uuids=True
+    ) == uqbar.strings.normalize(
+        '''
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -100,15 +103,16 @@ def test___iter___03():
             frequency=990,
             uuid=UUID('F'),
             )
-        ''')
+        '''
+    )
 
 
 def test___iter___04():
     events = list(pseq_04)
     assert pytest.helpers.get_objects_as_string(
-        events,
-        replace_uuids=True,
-    ) == uqbar.strings.normalize('''
+        events, replace_uuids=True
+    ) == uqbar.strings.normalize(
+        '''
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -200,7 +204,8 @@ def test___iter___04():
                 ),
             is_stop=True,
             )
-        ''')
+        '''
+    )
 
 
 def test_send_01():
@@ -226,9 +231,9 @@ def test_send_02c():
 def test_send_03a():
     events = pytest.helpers.setup_pattern_send(pseq_03, iterations=2)
     assert pytest.helpers.get_objects_as_string(
-        events,
-        replace_uuids=True,
-    ) == uqbar.strings.normalize('''
+        events, replace_uuids=True
+    ) == uqbar.strings.normalize(
+        '''
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -243,15 +248,16 @@ def test_send_03a():
             frequency=660,
             uuid=UUID('B'),
             )
-        ''')
+        '''
+    )
 
 
 def test_send_03b():
     events = pytest.helpers.setup_pattern_send(pseq_03, iterations=3)
     assert pytest.helpers.get_objects_as_string(
-        events,
-        replace_uuids=True,
-    ) == uqbar.strings.normalize('''
+        events, replace_uuids=True
+    ) == uqbar.strings.normalize(
+        '''
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -273,15 +279,16 @@ def test_send_03b():
             frequency=880,
             uuid=UUID('C'),
             )
-        ''')
+        '''
+    )
 
 
 def test_send_03c():
     events = pytest.helpers.setup_pattern_send(pseq_03, iterations=4)
     assert pytest.helpers.get_objects_as_string(
-        events,
-        replace_uuids=True,
-    ) == uqbar.strings.normalize('''
+        events, replace_uuids=True
+    ) == uqbar.strings.normalize(
+        '''
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -310,15 +317,16 @@ def test_send_03c():
             frequency=550,
             uuid=UUID('D'),
             )
-        ''')
+        '''
+    )
 
 
 def test_send_04a():
     events = pytest.helpers.setup_pattern_send(pseq_04, iterations=4)
     assert pytest.helpers.get_objects_as_string(
-        events,
-        replace_uuids=True,
-    ) == uqbar.strings.normalize('''
+        events, replace_uuids=True
+    ) == uqbar.strings.normalize(
+        '''
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -383,15 +391,16 @@ def test_send_04a():
                 ),
             is_stop=True,
             )
-        ''')
+        '''
+    )
 
 
 def test_send_04b():
     events = pytest.helpers.setup_pattern_send(pseq_04, iterations=5)
     assert pytest.helpers.get_objects_as_string(
-        events,
-        replace_uuids=True,
-    ) == uqbar.strings.normalize('''
+        events, replace_uuids=True
+    ) == uqbar.strings.normalize(
+        '''
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -465,4 +474,5 @@ def test_send_04b():
                 ),
             is_stop=True,
             )
-        ''')
+        '''
+    )

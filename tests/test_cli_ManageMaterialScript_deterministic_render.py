@@ -6,7 +6,8 @@ import uqbar.io
 import uqbar.strings
 
 
-module_contents = uqbar.strings.normalize('''
+module_contents = uqbar.strings.normalize(
+    '''
 import supriya.assets.synthdefs
 import supriya.patterns
 import supriya.nonrealtime
@@ -27,16 +28,16 @@ pattern = supriya.patterns.Pbus(
 
 with material.at(0):
     material.inscribe(pattern, duration=10, seed={seed!s})
-''')
+'''
+)
 
 
 def test_01(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
     material_path = pytest.helpers.create_cli_material(
-        cli_paths.test_directory_path,
-        'test_material',
-        )
+        cli_paths.test_directory_path, 'test_material'
+    )
     definition_path = material_path.joinpath('definition.py')
     with definition_path.open('w') as file_pointer:
         file_pointer.write(module_contents.format(seed=0))
@@ -48,8 +49,9 @@ def test_01(cli_paths):
     assert len(aiff_artifacts) == 0
     assert len(osc_artifacts) == 0
 
-    with uqbar.io.RedirectedStreams(stdout=string_io), \
-        uqbar.io.DirectoryChange(cli_paths.inner_project_path):
+    with uqbar.io.RedirectedStreams(stdout=string_io), uqbar.io.DirectoryChange(
+        cli_paths.inner_project_path
+    ):
         try:
             script(command)
         except SystemExit as e:
@@ -68,13 +70,16 @@ def test_01(cli_paths):
                 Wrote test_project/materials/test_material/render.yml.
             Python/SC runtime: ... seconds
             Rendered test_project/materials/test_material/
-        '''.replace('/', os.path.sep),
+        '''.replace(
+            '/', os.path.sep
+        ),
         string_io.getvalue(),
-        )
+    )
 
     string_io = io.StringIO()
-    with uqbar.io.RedirectedStreams(stdout=string_io), \
-        uqbar.io.DirectoryChange(cli_paths.inner_project_path):
+    with uqbar.io.RedirectedStreams(stdout=string_io), uqbar.io.DirectoryChange(
+        cli_paths.inner_project_path
+    ):
         try:
             script(command)
         except SystemExit as e:
@@ -92,13 +97,16 @@ def test_01(cli_paths):
                 Skipped test_project/materials/test_material/render.yml. File already exists.
             Python/SC runtime: 0 seconds
             Rendered test_project/materials/test_material/
-        '''.replace('/', os.path.sep),
+        '''.replace(
+            '/', os.path.sep
+        ),
         string_io.getvalue(),
-        )
+    )
 
     string_io = io.StringIO()
-    with uqbar.io.RedirectedStreams(stdout=string_io), \
-        uqbar.io.DirectoryChange(cli_paths.inner_project_path):
+    with uqbar.io.RedirectedStreams(stdout=string_io), uqbar.io.DirectoryChange(
+        cli_paths.inner_project_path
+    ):
         try:
             script(command)
         except SystemExit as e:
@@ -116,9 +124,11 @@ def test_01(cli_paths):
                 Skipped test_project/materials/test_material/render.yml. File already exists.
             Python/SC runtime: 0 seconds
             Rendered test_project/materials/test_material/
-        '''.replace('/', os.path.sep),
+        '''.replace(
+            '/', os.path.sep
+        ),
         string_io.getvalue(),
-        )
+    )
 
     aiff_artifacts = sorted(cli_paths.renders_path.glob('*.aiff'))
     osc_artifacts = sorted(cli_paths.renders_path.glob('*.osc'))
@@ -129,9 +139,8 @@ def test_01(cli_paths):
 def test_02(cli_paths):
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
     material_path = pytest.helpers.create_cli_material(
-        cli_paths.test_directory_path,
-        'test_material',
-        )
+        cli_paths.test_directory_path, 'test_material'
+    )
     definition_path = material_path.joinpath('definition.py')
     with definition_path.open('w') as file_pointer:
         file_pointer.write(module_contents.format(seed=None))

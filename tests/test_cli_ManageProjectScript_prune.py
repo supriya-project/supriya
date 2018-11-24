@@ -8,10 +8,7 @@ import uqbar.io
 def test_prune(cli_paths):
     string_io = io.StringIO()
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
-    pytest.helpers.create_cli_material(
-        cli_paths.test_directory_path,
-        'material_one',
-        )
+    pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'material_one')
     pytest.helpers.create_cli_material(
         cli_paths.test_directory_path,
         'material_two',
@@ -20,8 +17,8 @@ def test_prune(cli_paths):
             input_section_singular='material',
             output_section_singular='material',
             multiplier=0.5,
-            ),
-        )
+        ),
+    )
     pytest.helpers.create_cli_material(
         cli_paths.test_directory_path,
         'material_three',
@@ -30,8 +27,8 @@ def test_prune(cli_paths):
             input_section_singular='material',
             output_section_singular='material',
             multiplier=-1.0,
-            ),
-        )
+        ),
+    )
     material_four_path = pytest.helpers.create_cli_material(
         cli_paths.test_directory_path,
         'material_four',
@@ -40,8 +37,8 @@ def test_prune(cli_paths):
             input_section_singular='material',
             output_section_singular='material',
             multiplier=0.125,
-            ),
-        )
+        ),
+    )
 
     script = supriya.cli.ManageMaterialScript()
     command = ['--render', '*']
@@ -92,17 +89,18 @@ def test_prune(cli_paths):
             'test_project/test_project/synthdefs/__init__.py',
             'test_project/test_project/test/.gitignore',
             'test_project/test_project/tools/.gitignore',
-            'test_project/test_project/tools/__init__.py'
-            ],
+            'test_project/test_project/tools/__init__.py',
+        ],
         cli_paths.test_directory_path,
-        )
+    )
 
     shutil.rmtree(material_four_path)
 
     script = supriya.cli.ManageProjectScript()
     command = ['--prune']
-    with uqbar.io.RedirectedStreams(stdout=string_io), \
-        uqbar.io.DirectoryChange(cli_paths.inner_project_path):
+    with uqbar.io.RedirectedStreams(stdout=string_io), uqbar.io.DirectoryChange(
+        cli_paths.inner_project_path
+    ):
         try:
             script(command)
         except SystemExit as e:
@@ -115,7 +113,7 @@ def test_prune(cli_paths):
             Pruned test_project/renders/session-1fa53239afd7268cce27ff05fad76c18.osc
         ''',
         string_io.getvalue(),
-        )
+    )
 
     pytest.helpers.compare_path_contents(
         cli_paths.inner_project_path,
@@ -152,7 +150,7 @@ def test_prune(cli_paths):
             'test_project/test_project/synthdefs/__init__.py',
             'test_project/test_project/test/.gitignore',
             'test_project/test_project/tools/.gitignore',
-            'test_project/test_project/tools/__init__.py'
-            ],
+            'test_project/test_project/tools/__init__.py',
+        ],
         cli_paths.test_directory_path,
-        )
+    )

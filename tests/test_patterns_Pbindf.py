@@ -4,20 +4,18 @@ import uqbar.strings
 
 
 pattern = supriya.patterns.Pbindf(
-    supriya.patterns.Pbind(
-        duration=supriya.patterns.Pseq([1.0, 2.0, 3.0], 1),
-        ),
+    supriya.patterns.Pbind(duration=supriya.patterns.Pseq([1.0, 2.0, 3.0], 1)),
     amplitude=supriya.patterns.Pseq([0.111, 0.333, 0.666, 1.0]),
-    pan=supriya.patterns.Pseq([0., 0.5, 1.0, 0.5]),
-    )
+    pan=supriya.patterns.Pseq([0.0, 0.5, 1.0, 0.5]),
+)
 
 
 def test___iter__():
     events = [event for event in pattern]
     assert pytest.helpers.get_objects_as_string(
-        events,
-        replace_uuids=True,
-    ) == uqbar.strings.normalize('''
+        events, replace_uuids=True
+    ) == uqbar.strings.normalize(
+        '''
         NoteEvent(
             amplitude=0.111,
             delta=1.0,
@@ -39,7 +37,8 @@ def test___iter__():
             pan=1.0,
             uuid=UUID('C'),
             )
-        ''')
+        '''
+    )
 
 
 def test_send():
@@ -52,9 +51,9 @@ def test_send():
     except StopIteration:
         pass
     assert pytest.helpers.get_objects_as_string(
-        events,
-        replace_uuids=True,
-    ) == uqbar.strings.normalize('''
+        events, replace_uuids=True
+    ) == uqbar.strings.normalize(
+        '''
         NoteEvent(
             amplitude=0.111,
             delta=1.0,
@@ -62,4 +61,5 @@ def test_send():
             pan=0.0,
             uuid=UUID('A'),
             )
-        ''')
+        '''
+    )

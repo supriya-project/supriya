@@ -3,7 +3,6 @@ import supriya.system
 
 
 def test_01():
-
     class TestClass:
         def __init__(self):
             self.value = 0

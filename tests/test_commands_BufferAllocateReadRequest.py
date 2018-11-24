@@ -6,11 +6,8 @@ import supriya.soundfiles
 def test_Session():
     session = supriya.nonrealtime.Session()
     request = supriya.commands.BufferAllocateReadRequest(
-        buffer_id=1,
-        file_path=session,
-        frame_count=512,
-        starting_frame=128,
-        )
+        buffer_id=1, file_path=session, frame_count=512, starting_frame=128
+    )
     assert request.file_path is session
     osc_message = request.to_osc(with_request_name=True)
     assert osc_message.address == '/b_allocRead'
@@ -20,11 +17,8 @@ def test_Session():
 def test_Say():
     say = supriya.soundfiles.Say('Some text.')
     request = supriya.commands.BufferAllocateReadRequest(
-        buffer_id=1,
-        file_path=say,
-        frame_count=512,
-        starting_frame=128,
-        )
+        buffer_id=1, file_path=say, frame_count=512, starting_frame=128
+    )
     assert request.file_path is say
     osc_message = request.to_osc(with_request_name=True)
     assert osc_message.address == '/b_allocRead'

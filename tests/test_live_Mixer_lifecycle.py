@@ -13,14 +13,17 @@ dc_synthdef = builder.build('dc')
 
 def test_01(server):
     mixer = supriya.live.Mixer(channel_count=4)
-    assert str(server) == uqbar.strings.normalize("""
+    assert str(server) == uqbar.strings.normalize(
+        """
         NODE TREE 0 group
             1 group
-        """)
+        """
+    )
     mixer.allocate()
     mixer.add_track('foo')
     mixer.add_track('bar')
-    assert str(server) == uqbar.strings.normalize("""
+    assert str(server) == uqbar.strings.normalize(
+        """
         NODE TREE 0 group
             1 group
                 1000 group
@@ -67,17 +70,20 @@ def test_01(server):
                         1013 group
                         1014 mixer/direct/0:4,1:5
                             in_: 26.0, out: 0.0, gate: 1.0, lag: 0.1
-        """)
+        """
+    )
     for track_name in ('master', 'cue', 'foo', 'bar'):
         track = mixer[track_name]
         assert track.name == track_name
         assert track.input_bus_group.is_allocated
         assert track.output_bus_group.is_allocated
     mixer.free()
-    assert str(server) == uqbar.strings.normalize("""
+    assert str(server) == uqbar.strings.normalize(
+        """
         NODE TREE 0 group
             1 group
-        """)
+        """
+    )
     for track_name in ('master', 'cue', 'foo', 'bar'):
         track = mixer[track_name]
         assert track.name == track_name
@@ -87,14 +93,17 @@ def test_01(server):
 
 def test_02(server):
     mixer = supriya.live.Mixer(channel_count=4)
-    assert str(server) == uqbar.strings.normalize("""
+    assert str(server) == uqbar.strings.normalize(
+        """
         NODE TREE 0 group
             1 group
-        """)
+        """
+    )
     mixer.add_track('foo')
     mixer.add_track('bar')
     mixer.allocate()
-    assert str(server) == uqbar.strings.normalize("""
+    assert str(server) == uqbar.strings.normalize(
+        """
         NODE TREE 0 group
             1 group
                 1000 group
@@ -141,17 +150,20 @@ def test_02(server):
                         1013 group
                         1014 mixer/direct/0:4,1:5
                             in_: 26.0, out: 0.0, gate: 1.0, lag: 0.1
-        """)
+        """
+    )
     for track_name in ('master', 'cue', 'foo', 'bar'):
         track = mixer[track_name]
         assert track.name == track_name
         assert track.input_bus_group.is_allocated
         assert track.output_bus_group.is_allocated
     mixer.free()
-    assert str(server) == uqbar.strings.normalize("""
+    assert str(server) == uqbar.strings.normalize(
+        """
         NODE TREE 0 group
             1 group
-        """)
+        """
+    )
     for track_name in ('master', 'cue', 'foo', 'bar'):
         track = mixer[track_name]
         assert track.name == track_name
@@ -171,19 +183,11 @@ def test_03(server):
     synth_a = supriya.realtime.Synth(synthdef=dc_synthdef, value=1.0)
     synth_b = supriya.realtime.Synth(synthdef=dc_synthdef, value=0.5)
     synth_c = supriya.realtime.Synth(synthdef=dc_synthdef, value=0.25)
-    synth_a.allocate(
-        target_node=mixer['foo'],
-        out=int(mixer['foo'].output_bus_group),
-        )
-    synth_b.allocate(
-        target_node=mixer['bar'],
-        out=int(mixer['bar'].output_bus_group),
-        )
-    synth_c.allocate(
-        target_node=mixer['baz'],
-        out=int(mixer['baz'].output_bus_group),
-        )
-    assert str(server) == uqbar.strings.normalize("""
+    synth_a.allocate(target_node=mixer['foo'], out=int(mixer['foo'].output_bus_group))
+    synth_b.allocate(target_node=mixer['bar'], out=int(mixer['bar'].output_bus_group))
+    synth_c.allocate(target_node=mixer['baz'], out=int(mixer['baz'].output_bus_group))
+    assert str(server) == uqbar.strings.normalize(
+        """
         NODE TREE 0 group
             1 group
                 1000 group
@@ -247,4 +251,5 @@ def test_03(server):
                         1013 group
                         1014 mixer/direct/0:1
                             in_: 19.0, out: 0.0, gate: 1.0, lag: 0.1
-        """)
+        """
+    )

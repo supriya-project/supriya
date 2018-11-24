@@ -5,9 +5,8 @@ import supriya.synthdefs
 def test_01(server):
 
     bus_group_one = supriya.realtime.BusGroup(
-        bus_count=4,
-        calculation_rate=supriya.CalculationRate.CONTROL,
-        )
+        bus_count=4, calculation_rate=supriya.CalculationRate.CONTROL
+    )
 
     assert not bus_group_one.is_allocated
     assert bus_group_one.bus_id is None
@@ -33,9 +32,8 @@ def test_01(server):
         assert bus.calculation_rate == bus_group_one.calculation_rate
 
     bus_group_two = supriya.realtime.BusGroup(
-        bus_count=4,
-        calculation_rate=supriya.CalculationRate.CONTROL,
-        )
+        bus_count=4, calculation_rate=supriya.CalculationRate.CONTROL
+    )
     server.sync()
 
     assert not bus_group_two.is_allocated

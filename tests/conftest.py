@@ -34,7 +34,7 @@ def cli_paths(tmpdir):
         renders_path=inner_project_path.joinpath('renders'),
         synthdefs_path=inner_project_path.joinpath('synthdefs'),
         tools_path=inner_project_path.joinpath('tools'),
-        )
+    )
     if outer_project_path.exists():
         shutil.rmtree(outer_project_path)
     if sys.path[0] != str(outer_project_path):
@@ -44,7 +44,7 @@ def cli_paths(tmpdir):
         if not path or not module:
             continue
         if path.startswith(package_name):
-            del(sys.modules[path])
+            del (sys.modules[path])
 
 
 @pytest.fixture
@@ -60,20 +60,14 @@ def nonrealtime_paths(tmpdir):
         render_directory_path=render_directory_path,
         output_file_path=output_file_path,
         render_yml_file_path=render_yml_file_path,
-        )
+    )
     original_directory = pathlib.Path.cwd()
-    for path in [
-        output_directory_path,
-        render_directory_path,
-    ]:
+    for path in [output_directory_path, render_directory_path]:
         path.mkdir(parents=True, exist_ok=True)
     os.chdir(test_directory_path)
     yield nonrealtime_paths
     os.chdir(original_directory)
-    for path in [
-        output_directory_path,
-        render_directory_path,
-    ]:
+    for path in [output_directory_path, render_directory_path]:
         if path.exists():
             shutil.rmtree(path)
 
@@ -84,7 +78,7 @@ def pseudo_server():
         audio_bus_allocator=supriya.realtime.BlockAllocator(),
         control_bus_allocator=supriya.realtime.BlockAllocator(),
         node_id_allocator=supriya.realtime.NodeIdAllocator(),
-        )
+    )
 
 
 @pytest.fixture
@@ -105,7 +99,6 @@ def server():
 
 
 class TestSessionFactory:
-
     def __init__(
         self,
         input_bus_channel_count=None,
@@ -115,7 +108,7 @@ class TestSessionFactory:
         options = supriya.realtime.ServerOptions(
             input_bus_channel_count=input_bus_channel_count,
             output_bus_channel_count=output_bus_channel_count,
-            )
+        )
         self.input_bus_channel_count = options.input_bus_channel_count
         self.output_bus_channel_count = options.output_bus_channel_count
         self.multiplier = multiplier
@@ -125,17 +118,11 @@ class TestSessionFactory:
             input_bus_channel_count=self.input_bus_channel_count,
             output_bus_channel_count=self.output_bus_channel_count,
             name='inner-session',
-            )
+        )
         output_bus_channel_count = session.options.output_bus_channel_count
-        synthdef = build_dc_synthdef(
-            channel_count=output_bus_channel_count,
-            )
+        synthdef = build_dc_synthdef(channel_count=output_bus_channel_count)
         with session.at(0):
-            synth = session.add_synth(
-                synthdef=synthdef,
-                duration=10,
-                source=0,
-                )
+            synth = session.add_synth(synthdef=synthdef, duration=10, source=0)
         with session.at(2):
             synth['source'] = 0.25 * self.multiplier
         with session.at(4):
@@ -166,12 +153,9 @@ def assert_soundfile_ok(
     assert file_path.exists(), file_path
     assert exit_code == 0, exit_code
     soundfile = supriya.soundfiles.SoundFile(file_path)
-    assert round(soundfile.seconds, 2) == expected_duration, \
-        round(soundfile.seconds, 2)
-    assert soundfile.sample_rate == expected_sample_rate, \
-        soundfile.sample_rate
-    assert soundfile.channel_count == expected_channel_count, \
-        soundfile.channel_count
+    assert round(soundfile.seconds, 2) == expected_duration, round(soundfile.seconds, 2)
+    assert soundfile.sample_rate == expected_sample_rate, soundfile.sample_rate
+    assert soundfile.channel_count == expected_channel_count, soundfile.channel_count
 
 
 @pytest.helpers.register
@@ -187,15 +171,9 @@ def build_d_recv_commands(synthdefs):
 
 @pytest.helpers.register
 def build_dc_synthdef(channel_count=1):
-    with supriya.synthdefs.SynthDefBuilder(
-        out_bus=0,
-        source=0,
-    ) as builder:
+    with supriya.synthdefs.SynthDefBuilder(out_bus=0, source=0) as builder:
         source = supriya.ugens.K2A.ar(source=builder['source'])
-        supriya.ugens.Out.ar(
-            bus=builder['out_bus'],
-            source=[source] * channel_count,
-            )
+        supriya.ugens.Out.ar(bus=builder['out_bus'], source=[source] * channel_count)
     return builder.build()
 
 
@@ -203,27 +181,17 @@ def build_dc_synthdef(channel_count=1):
 def build_basic_synthdef(bus=0):
     builder = supriya.synthdefs.SynthDefBuilder()
     with builder:
-        supriya.ugens.Out.ar(
-            bus=bus,
-            source=supriya.ugens.SinOsc.ar(),
-            )
+        supriya.ugens.Out.ar(bus=bus, source=supriya.ugens.SinOsc.ar())
     return builder.build()
 
 
 @pytest.helpers.register
 def build_diskin_synthdef(channel_count=1):
-    with supriya.synthdefs.SynthDefBuilder(
-        out_bus=0,
-        buffer_id=0,
-    ) as builder:
+    with supriya.synthdefs.SynthDefBuilder(out_bus=0, buffer_id=0) as builder:
         source = supriya.ugens.DiskIn.ar(
-            buffer_id=builder['buffer_id'],
-            channel_count=channel_count,
-            )
-        supriya.ugens.Out.ar(
-            bus=builder['out_bus'],
-            source=source,
-            )
+            buffer_id=builder['buffer_id'], channel_count=channel_count
+        )
+        supriya.ugens.Out.ar(bus=builder['out_bus'], source=source)
     return builder.build()
 
 
@@ -232,11 +200,8 @@ def build_duration_synthdef(bus=0):
     builder = supriya.synthdefs.SynthDefBuilder(duration=0)
     with builder:
         supriya.ugens.Out.ar(
-            bus=bus,
-            source=supriya.ugens.Line.ar(
-                duration=builder['duration'],
-                ),
-            )
+            bus=bus, source=supriya.ugens.Line.ar(duration=builder['duration'])
+        )
     return builder.build()
 
 
@@ -245,33 +210,21 @@ def build_gate_synthdef(bus=0):
     builder = supriya.synthdefs.SynthDefBuilder(gate=1)
     with builder:
         envelope = supriya.synthdefs.Envelope.asr()
-        envgen = supriya.ugens.EnvGen.ar(
-            envelope=envelope,
-            gate=builder['gate'],
-            )
+        envgen = supriya.ugens.EnvGen.ar(envelope=envelope, gate=builder['gate'])
         source = supriya.ugens.Saw.ar() * envgen
-        supriya.ugens.Out.ar(
-            bus=bus,
-            source=source,
-            )
+        supriya.ugens.Out.ar(bus=bus, source=source)
     return builder.build()
 
 
 @pytest.helpers.register
 def build_multiplier_synthdef(channel_count=1):
     with supriya.synthdefs.SynthDefBuilder(
-        in_bus=0,
-        out_bus=0,
-        multiplier=1,
+        in_bus=0, out_bus=0, multiplier=1
     ) as builder:
-        source = supriya.ugens.In.ar(
-            bus=builder['in_bus'],
-            channel_count=channel_count,
-            )
+        source = supriya.ugens.In.ar(bus=builder['in_bus'], channel_count=channel_count)
         supriya.ugens.ReplaceOut.ar(
-            bus=builder['out_bus'],
-            source=source * builder['multiplier'],
-            )
+            bus=builder['out_bus'], source=source * builder['multiplier']
+        )
     return builder.build()
 
 
@@ -280,13 +233,12 @@ def compare_path_contents(path_to_search, expected_files, test_path):
     actual_files = sorted(
         str(path.relative_to(test_path))
         for path in sorted(path_to_search.glob('**/*.*'))
-        if '__pycache__' not in path.parts and
-        path.suffix != '.pyc'
-        )
+        if '__pycache__' not in path.parts and path.suffix != '.pyc'
+    )
     pytest.helpers.compare_strings(
         '\n'.join(str(_) for _ in actual_files),
         '\n'.join(str(_) for _ in expected_files),
-        )
+    )
 
 
 @pytest.helpers.register
@@ -296,11 +248,7 @@ def compare_strings(expected, actual):
     example = types.SimpleNamespace()
     example.want = expected
     output_checker = doctest.OutputChecker()
-    flags = (
-        doctest.NORMALIZE_WHITESPACE |
-        doctest.ELLIPSIS |
-        doctest.REPORT_NDIFF
-        )
+    flags = doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS | doctest.REPORT_NDIFF
     success = output_checker.check_output(expected, actual, flags)
     if not success:
         diff = output_checker.output_difference(example, actual, flags)
@@ -347,12 +295,17 @@ def create_cli_project(test_directory_path, force=False, expect_error=False):
     command = [
         '--new',
         'Test Project',
-        '--composer-name', 'Josiah Wolf Oberholtzer',
-        '--composer-email', 'josiah.oberholtzer@gmail.com',
-        '--composer-github', 'josiah-wolf-oberholtzer',
-        '--composer-website', 'www.josiahwolfoberholtzer.com',
-        '--composer-library', 'amazing_library',
-        ]
+        '--composer-name',
+        'Josiah Wolf Oberholtzer',
+        '--composer-email',
+        'josiah.oberholtzer@gmail.com',
+        '--composer-github',
+        'josiah-wolf-oberholtzer',
+        '--composer-website',
+        'www.josiahwolfoberholtzer.com',
+        '--composer-library',
+        'amazing_library',
+    ]
     if force:
         command.insert(0, '-f')
     with uqbar.io.DirectoryChange(str(test_directory_path)):
@@ -402,7 +355,9 @@ def create_cli_session(
 
 @pytest.helpers.register
 def get_basic_session_template():
-    return jinja2.Template(uqbar.strings.normalize(r'''
+    return jinja2.Template(
+        uqbar.strings.normalize(
+            r'''
     import supriya
     from test_project import project_settings
 
@@ -427,12 +382,16 @@ def get_basic_session_template():
             duration=1,
             synthdef=ramp_synthdef,
             )
-    '''))
+    '''
+        )
+    )
 
 
 @pytest.helpers.register
 def get_chained_session_template():
-    return jinja2.Template(uqbar.strings.normalize(r'''
+    return jinja2.Template(
+        uqbar.strings.normalize(
+            r'''
     import supriya
     from test_project import project_settings
     from test_project.{{ input_section_singular }}s.{{ input_name }}.definition \
@@ -466,12 +425,16 @@ def get_chained_session_template():
             multiplier={{ multiplier }},
             synthdef=multiplier_synthdef,
             )
-    '''))
+    '''
+        )
+    )
 
 
 @pytest.helpers.register
 def get_session_factory_template():
-    return jinja2.Template(uqbar.strings.normalize(r'''
+    return jinja2.Template(
+        uqbar.strings.normalize(
+            r'''
     import supriya
     from test_project import project_settings
 
@@ -510,7 +473,9 @@ def get_session_factory_template():
 
 
     {{ output_section_singular }} = SessionFactory(project_settings)
-    '''))
+    '''
+        )
+    )
 
 
 @pytest.helpers.register
@@ -538,17 +503,11 @@ def make_test_session(
         input_bus_channel_count=input_bus_channel_count,
         output_bus_channel_count=output_bus_channel_count,
         name='inner-session',
-        )
+    )
     output_bus_channel_count = session.options.output_bus_channel_count
-    synthdef = build_dc_synthdef(
-        channel_count=output_bus_channel_count,
-        )
+    synthdef = build_dc_synthdef(channel_count=output_bus_channel_count)
     with session.at(0):
-        synth = session.add_synth(
-            synthdef=synthdef,
-            duration=10,
-            source=0,
-            )
+        synth = session.add_synth(synthdef=synthdef, duration=10, source=0)
     with session.at(2):
         synth['source'] = 0.25 * multiplier
     with session.at(4):
@@ -560,30 +519,31 @@ def make_test_session(
     assert synthdef.anonymous_name == 'b47278d408f17357f6b260ec30ea213d'
     d_recv_commands = build_d_recv_commands([synthdef])
     assert session.to_lists() == [
-        [0.0, [
-            *d_recv_commands,
-            ['/s_new', 'b47278d408f17357f6b260ec30ea213d', 1000, 0, 0,
-                'source', 0]]],
+        [
+            0.0,
+            [
+                *d_recv_commands,
+                ['/s_new', 'b47278d408f17357f6b260ec30ea213d', 1000, 0, 0, 'source', 0],
+            ],
+        ],
         [2.0, [['/n_set', 1000, 'source', 0.25 * multiplier]]],
         [4.0, [['/n_set', 1000, 'source', 0.5 * multiplier]]],
         [6.0, [['/n_set', 1000, 'source', 0.75 * multiplier]]],
         [8.0, [['/n_set', 1000, 'source', 1.0 * multiplier]]],
-        [10.0, [['/n_free', 1000], [0]]]
-        ]
+        [10.0, [['/n_free', 1000], [0]]],
+    ]
     return session
 
 
 @pytest.helpers.register
 def make_test_session_factory(
-    input_bus_channel_count=None,
-    output_bus_channel_count=None,
-    multiplier=1.0,
+    input_bus_channel_count=None, output_bus_channel_count=None, multiplier=1.0
 ):
     session_factory = TestSessionFactory(
         input_bus_channel_count=input_bus_channel_count,
         output_bus_channel_count=output_bus_channel_count,
         multiplier=multiplier,
-        )
+    )
     return session_factory
 
 
@@ -593,11 +553,8 @@ def manual_incommunicado(pattern, timestamp=10):
         audio_bus_allocator=supriya.realtime.BlockAllocator(),
         control_bus_allocator=supriya.realtime.BlockAllocator(),
         node_id_allocator=supriya.realtime.NodeIdAllocator(),
-        )
-    player = supriya.patterns.RealtimeEventPlayer(
-        pattern,
-        server=pseudo_server,
-        )
+    )
+    player = supriya.patterns.RealtimeEventPlayer(pattern, server=pseudo_server)
     lists, deltas, delta = [], [], True
     while delta is not None:
         bundle, delta = player(timestamp, timestamp, communicate=False)
@@ -618,7 +575,7 @@ def sample_soundfile(file_path, rounding=6):
         0.61: [round(x, rounding) for x in soundfile.at_percent(0.61)],
         0.81: [round(x, rounding) for x in soundfile.at_percent(0.81)],
         0.99: [round(x, rounding) for x in soundfile.at_percent(0.99)],
-        }
+    }
 
 
 @pytest.helpers.register

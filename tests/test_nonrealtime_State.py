@@ -10,7 +10,7 @@ def test_iterate_nodes():
         'E': ['G'],
         'F': None,
         'G': None,
-        }
+    }
     root = 'A'
     iterator = supriya.nonrealtime.State._iterate_nodes(root, nodes)
     assert list(iterator) == ['A', 'B', 'C', 'E', 'G', 'F', 'D']

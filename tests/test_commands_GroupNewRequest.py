@@ -13,15 +13,13 @@ def test_1():
     request = supriya.commands.GroupNewRequest(
         items=[
             supriya.commands.GroupNewRequest.Item(
-                node_id=group_b,
-                target_node_id=group_a,
-                ),
+                node_id=group_b, target_node_id=group_a
+            ),
             supriya.commands.GroupNewRequest.Item(
-                node_id=group_c,
-                target_node_id=group_b,
-                ),
-            ],
-        )
+                node_id=group_c, target_node_id=group_b
+            ),
+        ]
+    )
     assert request.items[0].node_id is group_b
     assert request.items[0].target_node_id is group_a
     assert request.items[1].node_id is group_c
@@ -42,25 +40,23 @@ def test_2(server):
     assert group_b.node_id is None
     assert group_c.node_id is None
     server_state = str(server.query_remote_nodes())
-    assert server_state == uqbar.strings.normalize('''
+    assert server_state == uqbar.strings.normalize(
+        '''
         NODE TREE 0 group
             1 group
                 1000 group
-        ''')
+        '''
+    )
     request = supriya.commands.GroupNewRequest(
         items=[
             supriya.commands.GroupNewRequest.Item(
-                add_action='add_to_head',
-                node_id=group_b,
-                target_node_id=group_a,
-                ),
+                add_action='add_to_head', node_id=group_b, target_node_id=group_a
+            ),
             supriya.commands.GroupNewRequest.Item(
-                add_action='add_to_head',
-                node_id=group_c,
-                target_node_id=group_b,
-                ),
-            ],
-        )
+                add_action='add_to_head', node_id=group_c, target_node_id=group_b
+            ),
+        ]
+    )
     with server.osc_io.capture() as transcript:
         request.communicate()
         server.sync()
@@ -70,15 +66,17 @@ def test_2(server):
         ('R', supriya.osc.OscMessage('/n_go', 1001, 1000, -1, -1, 1, -1, -1)),
         ('R', supriya.osc.OscMessage('/n_go', 1002, 1001, -1, -1, 1, -1, -1)),
         ('R', supriya.osc.OscMessage('/synced', 0)),
-        ]
+    ]
     server_state = str(server.query_remote_nodes())
-    assert server_state == uqbar.strings.normalize('''
+    assert server_state == uqbar.strings.normalize(
+        '''
         NODE TREE 0 group
             1 group
                 1000 group
                     1001 group
                         1002 group
-        ''')
+        '''
+    )
     assert group_b.node_id == 1001
     assert group_b.parent is group_a
     assert group_b.is_allocated
@@ -94,25 +92,23 @@ def test_3(server):
     """
     group_a = supriya.realtime.Group().allocate()
     server_state = str(server.query_remote_nodes())
-    assert server_state == uqbar.strings.normalize('''
+    assert server_state == uqbar.strings.normalize(
+        '''
         NODE TREE 0 group
             1 group
                 1000 group
-        ''')
+        '''
+    )
     request = supriya.commands.GroupNewRequest(
         items=[
             supriya.commands.GroupNewRequest.Item(
-                add_action='add_to_head',
-                node_id=1001,
-                target_node_id=group_a,
-                ),
+                add_action='add_to_head', node_id=1001, target_node_id=group_a
+            ),
             supriya.commands.GroupNewRequest.Item(
-                add_action='add_to_head',
-                node_id=1002,
-                target_node_id=1001,
-                ),
-            ],
-        )
+                add_action='add_to_head', node_id=1002, target_node_id=1001
+            ),
+        ]
+    )
     with server.osc_io.capture() as transcript:
         request.communicate()
         server.sync()
@@ -122,15 +118,17 @@ def test_3(server):
         ('R', supriya.osc.OscMessage('/n_go', 1001, 1000, -1, -1, 1, -1, -1)),
         ('R', supriya.osc.OscMessage('/n_go', 1002, 1001, -1, -1, 1, -1, -1)),
         ('R', supriya.osc.OscMessage('/synced', 0)),
-        ]
+    ]
     server_state = str(server.query_remote_nodes())
-    assert server_state == uqbar.strings.normalize('''
+    assert server_state == uqbar.strings.normalize(
+        '''
         NODE TREE 0 group
             1 group
                 1000 group
                     1001 group
                         1002 group
-        ''')
+        '''
+    )
     group_b = server[1001]
     group_c = server[1002]
     assert group_b.parent is group_a

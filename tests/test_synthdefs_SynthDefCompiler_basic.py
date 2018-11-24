@@ -13,9 +13,8 @@ def test_SynthDefCompiler_basic_01():
     py_compiled_synthdef = py_synthdef.compile()
 
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
-        'foo',
-        'Out.ar(0, SinOsc.ar(freq: 420) * SinOsc.ar(freq: 440))',
-        )
+        'foo', 'Out.ar(0, SinOsc.ar(freq: 420) * SinOsc.ar(freq: 440))'
+    )
     sc_compiled_synthdef = sc_synthdef.compile()
 
     # fmt: off
@@ -88,9 +87,8 @@ def test_SynthDefCompiler_basic_02():
     py_compiled_synthdef = py_synthdef.compile()
 
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
-        'test',
-        'Out.ar(99, SinOsc.ar(freq: 440).neg)',
-        )
+        'test', 'Out.ar(99, SinOsc.ar(freq: 440).neg)'
+    )
     sc_compiled_synthdef = sc_synthdef.compile()
 
     # fmt: off
@@ -147,8 +145,8 @@ def test_SynthDefCompiler_basic_03():
         'test',
         r'''
         Out.ar(0, In.ar(8, 2))
-        '''
-        )
+        ''',
+    )
     sc_compiled_synthdef = sc_synthdef.compile()
 
     with supriya.synthdefs.SynthDefBuilder() as builder:
@@ -204,8 +202,8 @@ def test_SynthDefCompiler_basic_04():
         'test',
         r'''
         Out.ar(0, FreeSelf.kr(SinOsc.ar()))
-        '''
-        )
+        ''',
+    )
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
 
     with supriya.synthdefs.SynthDefBuilder() as builder:
@@ -278,8 +276,8 @@ def test_SynthDefCompiler_basic_05():
         source = In.ar(8, 2);
         detect_silence = DetectSilence.ar(source);
         out = Out.ar(0, source);
-        '''
-        )
+        ''',
+    )
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
 
     assert sc_compiled_synthdef == py_compiled_synthdef

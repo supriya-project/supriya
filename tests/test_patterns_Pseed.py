@@ -118,9 +118,9 @@ def test_grouped():
             c=supriya.patterns.Pwhite(),
             d=supriya.patterns.Pwhite(),
             uuid=666,
-            ),
+        ),
         seed=0,
-        )
+    )
     iterator_a = iter(pattern)
     iterator_b = iter(pattern)
     iterator_c = iter(pattern)

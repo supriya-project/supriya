@@ -13,8 +13,8 @@ def test_SynthDefCompiler_optimization_01():
         sine_c = SinOsc.ar(460);
         sine_d = SinOsc.ar(sine_c);
         Out.ar(0, sine_a);
-        '''
-        )
+        ''',
+    )
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
 
     with supriya.synthdefs.SynthDefBuilder() as builder:

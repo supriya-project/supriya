@@ -1,10 +1,7 @@
 import supriya.patterns
 
 
-pattern_01 = supriya.patterns.Prand(
-    ['A', 'B', 'C'],
-    repetitions=10,
-    )
+pattern_01 = supriya.patterns.Prand(['A', 'B', 'C'], repetitions=10)
 
 
 pattern_02 = supriya.patterns.Prand(
@@ -12,9 +9,9 @@ pattern_02 = supriya.patterns.Prand(
         supriya.patterns.Pseq(['A', 'B']),
         supriya.patterns.Pseq(['C', 'D']),
         supriya.patterns.Pseq(['E', 'F']),
-        ],
+    ],
     repetitions=4,
-    )
+)
 
 
 pattern_03 = supriya.patterns.Pseed(pattern_01)

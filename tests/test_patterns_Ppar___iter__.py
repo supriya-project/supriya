@@ -3,110 +3,124 @@ import uqbar.strings
 import supriya.patterns
 
 
-pattern_01 = supriya.patterns.Ppar([
-    supriya.patterns.Pbind(
-        amplitude=1.0,
-        duration=1.0,
-        frequency=supriya.patterns.Pseq([1001, 1002, 1003], 1),
-        ),
-    ])
-
-
-pattern_02 = supriya.patterns.Ppar([
-    supriya.patterns.Pbind(
-        amplitude=1.0,
-        duration=1.0,
-        frequency=supriya.patterns.Pseq([1001, 1002], 1),
-        ),
-    supriya.patterns.Pmono(
-        amplitude=1.0,
-        duration=0.75,
-        frequency=supriya.patterns.Pseq([2001, 2002, 2003], 1),
-        ),
-    ])
-
-
-pattern_03 = supriya.patterns.Ppar([
-    supriya.patterns.Pbind(
-        amplitude=1.0,
-        duration=1.0,
-        frequency=supriya.patterns.Pseq([1001, 1002, 1003], 1),
-        ),
-    supriya.patterns.Pbind(
-        amplitude=1.0,
-        duration=0.75,
-        frequency=supriya.patterns.Pseq([], 1),
-        ),
-    ])
-
-
-pattern_04 = supriya.patterns.Ppar([
-    supriya.patterns.Pbus(
+pattern_01 = supriya.patterns.Ppar(
+    [
         supriya.patterns.Pbind(
             amplitude=1.0,
-            duration=0.75,
+            duration=1.0,
             frequency=supriya.patterns.Pseq([1001, 1002, 1003], 1),
-            ),
-        ),
-    ])
+        )
+    ]
+)
 
 
-pattern_05 = supriya.patterns.Ppar([
-    supriya.patterns.Pbus(
+pattern_02 = supriya.patterns.Ppar(
+    [
         supriya.patterns.Pbind(
             amplitude=1.0,
             duration=1.0,
             frequency=supriya.patterns.Pseq([1001, 1002], 1),
-            ),
         ),
-    supriya.patterns.Pbus(
         supriya.patterns.Pmono(
             amplitude=1.0,
             duration=0.75,
             frequency=supriya.patterns.Pseq([2001, 2002, 2003], 1),
-            ),
         ),
-    ])
+    ]
+)
 
 
-pattern_06 = supriya.patterns.Ppar([
-    supriya.patterns.Pgpar([
-        [
+pattern_03 = supriya.patterns.Ppar(
+    [
+        supriya.patterns.Pbind(
+            amplitude=1.0,
+            duration=1.0,
+            frequency=supriya.patterns.Pseq([1001, 1002, 1003], 1),
+        ),
+        supriya.patterns.Pbind(
+            amplitude=1.0, duration=0.75, frequency=supriya.patterns.Pseq([], 1)
+        ),
+    ]
+)
+
+
+pattern_04 = supriya.patterns.Ppar(
+    [
+        supriya.patterns.Pbus(
             supriya.patterns.Pbind(
-                delta=10,
-                duration=10,
-                frequency=supriya.patterns.Pseq([1001, 1002, 1003]),
-                ),
+                amplitude=1.0,
+                duration=0.75,
+                frequency=supriya.patterns.Pseq([1001, 1002, 1003], 1),
+            )
+        )
+    ]
+)
+
+
+pattern_05 = supriya.patterns.Ppar(
+    [
+        supriya.patterns.Pbus(
             supriya.patterns.Pbind(
-                delta=12,
-                duration=10,
-                frequency=supriya.patterns.Pseq([2001, 2002, 2003]),
-                ),
-            ],
-        ]),
-    supriya.patterns.Pgpar([
-        [
-            supriya.patterns.Pbind(
-                delta=10,
-                duration=10,
-                frequency=supriya.patterns.Pseq([3001, 3002]),
-                ),
-            supriya.patterns.Pbind(
-                delta=12,
-                duration=10,
-                frequency=supriya.patterns.Pseq([4001, 4002]),
-                ),
-            ],
-        ]),
-    ])
+                amplitude=1.0,
+                duration=1.0,
+                frequency=supriya.patterns.Pseq([1001, 1002], 1),
+            )
+        ),
+        supriya.patterns.Pbus(
+            supriya.patterns.Pmono(
+                amplitude=1.0,
+                duration=0.75,
+                frequency=supriya.patterns.Pseq([2001, 2002, 2003], 1),
+            )
+        ),
+    ]
+)
+
+
+pattern_06 = supriya.patterns.Ppar(
+    [
+        supriya.patterns.Pgpar(
+            [
+                [
+                    supriya.patterns.Pbind(
+                        delta=10,
+                        duration=10,
+                        frequency=supriya.patterns.Pseq([1001, 1002, 1003]),
+                    ),
+                    supriya.patterns.Pbind(
+                        delta=12,
+                        duration=10,
+                        frequency=supriya.patterns.Pseq([2001, 2002, 2003]),
+                    ),
+                ]
+            ]
+        ),
+        supriya.patterns.Pgpar(
+            [
+                [
+                    supriya.patterns.Pbind(
+                        delta=10,
+                        duration=10,
+                        frequency=supriya.patterns.Pseq([3001, 3002]),
+                    ),
+                    supriya.patterns.Pbind(
+                        delta=12,
+                        duration=10,
+                        frequency=supriya.patterns.Pseq([4001, 4002]),
+                    ),
+                ]
+            ]
+        ),
+    ]
+)
 
 
 def test___iter___01():
     events = list(pattern_01)
     assert pytest.helpers.get_objects_as_string(
-        events,
-        replace_uuids=True,
-    ) == uqbar.strings.normalize('''
+        events, replace_uuids=True
+    ) == uqbar.strings.normalize(
+        '''
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -128,15 +142,16 @@ def test___iter___01():
             frequency=1003,
             uuid=UUID('C'),
             )
-        ''')
+        '''
+    )
 
 
 def test___iter___02():
     events = list(pattern_02)
     assert pytest.helpers.get_objects_as_string(
-        events,
-        replace_uuids=True,
-    ) == uqbar.strings.normalize('''
+        events, replace_uuids=True
+    ) == uqbar.strings.normalize(
+        '''
         NoteEvent(
             amplitude=1.0,
             delta=0.0,
@@ -174,15 +189,16 @@ def test___iter___02():
             frequency=2003,
             uuid=UUID('B'),
             )
-        ''')
+        '''
+    )
 
 
 def test___iter___03():
     events = list(pattern_03)
     assert pytest.helpers.get_objects_as_string(
-        events,
-        replace_uuids=True,
-    ) == uqbar.strings.normalize('''
+        events, replace_uuids=True
+    ) == uqbar.strings.normalize(
+        '''
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -204,15 +220,16 @@ def test___iter___03():
             frequency=1003,
             uuid=UUID('C'),
             )
-        ''')
+        '''
+    )
 
 
 def test___iter___04():
     events = list(pattern_04)
     assert pytest.helpers.get_objects_as_string(
-        events,
-        replace_uuids=True,
-    ) == uqbar.strings.normalize('''
+        events, replace_uuids=True
+    ) == uqbar.strings.normalize(
+        '''
         CompositeEvent(
             events=(
                 BusEvent(
@@ -283,15 +300,16 @@ def test___iter___04():
                 ),
             is_stop=True,
             )
-        ''')
+        '''
+    )
 
 
 def test___iter___05():
     events = list(pattern_05)
     assert pytest.helpers.get_objects_as_string(
-        events,
-        replace_uuids=True,
-    ) == uqbar.strings.normalize('''
+        events, replace_uuids=True
+    ) == uqbar.strings.normalize(
+        '''
         CompositeEvent(
             events=(
                 BusEvent(
@@ -426,15 +444,16 @@ def test___iter___05():
                 ),
             is_stop=True,
             )
-        ''')
+        '''
+    )
 
 
 def test___iter___06():
     events = list(pattern_06)
     assert pytest.helpers.get_objects_as_string(
-        events,
-        replace_uuids=True,
-    ) == uqbar.strings.normalize('''
+        events, replace_uuids=True
+    ) == uqbar.strings.normalize(
+        '''
         CompositeEvent(
             events=(
                 GroupEvent(
@@ -546,4 +565,5 @@ def test___iter___06():
                 ),
             is_stop=True,
             )
-        ''')
+        '''
+    )

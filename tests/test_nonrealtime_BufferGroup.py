@@ -6,10 +6,7 @@ def test_01():
     with session.at(0):
         buffer_group_one = session.add_buffer_group()
     with session.at(5):
-        buffer_group_two = session.add_buffer_group(
-            buffer_count=2,
-            duration=10,
-            )
+        buffer_group_two = session.add_buffer_group(buffer_count=2, duration=10)
 
     # buffer group one
     assert buffer_group_one.duration == float('inf')

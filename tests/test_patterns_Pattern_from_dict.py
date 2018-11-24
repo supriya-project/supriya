@@ -4,19 +4,24 @@ import yaml
 
 
 def test_01():
-    string = uqbar.strings.normalize("""
+    string = uqbar.strings.normalize(
+        """
     pattern:
         type: Pwhite
-    """)
+    """
+    )
     dict_ = yaml.load(string)
     pattern = supriya.patterns.Pattern.from_dict(dict_['pattern'])
-    assert repr(pattern) == uqbar.strings.normalize("""
+    assert repr(pattern) == uqbar.strings.normalize(
+        """
         Pwhite()
-        """)
+        """
+    )
 
 
 def test_02():
-    string = uqbar.strings.normalize("""
+    string = uqbar.strings.normalize(
+        """
     pattern:
         type: Pbind
         frequency: $args.frequency
@@ -27,19 +32,17 @@ def test_02():
             type: Pwhite
             minimum: $args.duration_min
             maximum: $args.duration_max
-    """)
+    """
+    )
     dict_ = yaml.load(string)
     namespaces = dict(
-        args=dict(
-            duration_max=11,
-            duration_min=0.25,
-            frequency=443,
-            pan=0.1,
-            )
-        )
+        args=dict(duration_max=11, duration_min=0.25, frequency=443, pan=0.1)
+    )
     pattern = supriya.patterns.Pattern.from_dict(
-        dict_['pattern'], namespaces=namespaces)
-    assert repr(pattern) == uqbar.strings.normalize("""
+        dict_['pattern'], namespaces=namespaces
+    )
+    assert repr(pattern) == uqbar.strings.normalize(
+        """
         Pbind(
             amplitude=Pwhite(),
             duration=Pwhite(
@@ -49,11 +52,13 @@ def test_02():
             frequency=443,
             pan=0.1,
             )
-        """)
+        """
+    )
 
 
 def test_03():
-    string = uqbar.strings.normalize("""
+    string = uqbar.strings.normalize(
+        """
     pattern:
         type: Pbind
         frequency: $args.frequency
@@ -65,22 +70,18 @@ def test_03():
             minimum: $args.duration_min
             maximum: $args.duration_max
         buffer_id: $buffers.birds
-    """)
+    """
+    )
     dict_ = yaml.load(string)
     namespaces = dict(
-        args=dict(
-            duration_max=11,
-            duration_min=0.25,
-            frequency=443,
-            pan=0.1,
-            ),
-        buffers=dict(
-            birds=[1, 2, 3],
-            ),
-        )
+        args=dict(duration_max=11, duration_min=0.25, frequency=443, pan=0.1),
+        buffers=dict(birds=[1, 2, 3]),
+    )
     pattern = supriya.patterns.Pattern.from_dict(
-        dict_['pattern'], namespaces=namespaces)
-    assert repr(pattern) == uqbar.strings.normalize("""
+        dict_['pattern'], namespaces=namespaces
+    )
+    assert repr(pattern) == uqbar.strings.normalize(
+        """
         Pbind(
             amplitude=Pwhite(),
             buffer_id=[1, 2, 3],
@@ -91,11 +92,13 @@ def test_03():
             frequency=443,
             pan=0.1,
             )
-        """)
+        """
+    )
 
 
 def test_04():
-    string = uqbar.strings.normalize("""
+    string = uqbar.strings.normalize(
+        """
     pattern:
         type: Pbind
         frequency: $args.frequency
@@ -106,19 +109,19 @@ def test_04():
             type: Pwhite
             minimum: $args.duration_min
             maximum: $args.duration_max
-    """)
+    """
+    )
     dict_ = yaml.load(string)
     namespaces = dict(
         args=supriya.system.BindableNamespace(
-            duration_max=11,
-            duration_min=0.25,
-            frequency=443,
-            pan=0.1,
-            )
+            duration_max=11, duration_min=0.25, frequency=443, pan=0.1
         )
+    )
     pattern = supriya.patterns.Pattern.from_dict(
-        dict_['pattern'], namespaces=namespaces)
-    assert repr(pattern) == uqbar.strings.normalize("""
+        dict_['pattern'], namespaces=namespaces
+    )
+    assert repr(pattern) == uqbar.strings.normalize(
+        """
         Pbind(
             amplitude=Pwhite(),
             duration=Pwhite(
@@ -128,4 +131,5 @@ def test_04():
             frequency=BindableFloat(443.0),
             pan=BindableFloat(0.1),
             )
-        """)
+        """
+    )

@@ -22,18 +22,9 @@ def mixer(server):
     synth_a = supriya.realtime.Synth(synthdef=dc_synthdef, value=1.0)
     synth_b = supriya.realtime.Synth(synthdef=dc_synthdef, value=0.5)
     synth_c = supriya.realtime.Synth(synthdef=dc_synthdef, value=0.25)
-    synth_a.allocate(
-        target_node=mixer['foo'],
-        out=int(mixer['foo'].output_bus_group),
-        )
-    synth_b.allocate(
-        target_node=mixer['bar'],
-        out=int(mixer['bar'].output_bus_group),
-        )
-    synth_c.allocate(
-        target_node=mixer['baz'],
-        out=int(mixer['baz'].output_bus_group),
-        )
+    synth_a.allocate(target_node=mixer['foo'], out=int(mixer['foo'].output_bus_group))
+    synth_b.allocate(target_node=mixer['bar'], out=int(mixer['bar'].output_bus_group))
+    synth_c.allocate(target_node=mixer['baz'], out=int(mixer['baz'].output_bus_group))
     time.sleep(0.25)
     return mixer
 

@@ -40,7 +40,8 @@ def test_01(server):
     assert len(group_b) == 2
 
     server_state = str(server.query_remote_nodes())
-    assert server_state == uqbar.strings.normalize('''
+    assert server_state == uqbar.strings.normalize(
+        '''
         NODE TREE 0 group
             1 group
                 1000 group
@@ -49,7 +50,8 @@ def test_01(server):
                         1003 test
                         1004 test
                     1005 test
-        ''')
+        '''
+    )
 
     assert len(group_a) == 3
     assert len(group_b) == 2
@@ -73,8 +75,10 @@ def test_01(server):
     assert len(group_a) == 0
 
     server_state = str(server.query_remote_nodes())
-    assert server_state == uqbar.strings.normalize('''
+    assert server_state == uqbar.strings.normalize(
+        '''
         NODE TREE 0 group
             1 group
                 1000 group
-        ''')
+        '''
+    )

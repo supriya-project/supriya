@@ -70,4 +70,4 @@ def test_06():
         synth = session.add_synth()
     assert synth.synthdef == supriya.assets.synthdefs.default
     assert synth.duration == float('inf')
-    assert synth.start_offset == 0.
+    assert synth.start_offset == 0.0

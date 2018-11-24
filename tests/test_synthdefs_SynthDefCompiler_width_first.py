@@ -8,10 +8,7 @@ def test_01():
     with supriya.synthdefs.SynthDefBuilder() as builder:
         local_buf = supriya.ugens.LocalBuf(2048)
         source = supriya.ugens.PinkNoise.ar()
-        pv_chain = supriya.ugens.FFT(
-            buffer_id=local_buf,
-            source=source,
-            )
+        pv_chain = supriya.ugens.FFT(buffer_id=local_buf, source=source)
         ifft = supriya.ugens.IFFT.ar(pv_chain=pv_chain)
         supriya.ugens.Out.ar(bus=0, source=ifft)
 
@@ -131,7 +128,7 @@ def test_02():
         'PV_MagMul.kr()',
         'IFFT.ar()',
         'Out.ar()',
-        )
+    )
 
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         'PVCopyTest',
@@ -144,11 +141,12 @@ def test_02():
         pv_chain = PV_MagMul(pv_chain_a, pv_chain_b);
         ifft = IFFT.ar(pv_chain);
         out = Out.ar(0, ifft);
-        '''
-        )
+        ''',
+    )
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
     sc_synthdef = supriya.synthdefs.SynthDefDecompiler.decompile_synthdef(
-        sc_compiled_synthdef)
+        sc_compiled_synthdef
+    )
 
     assert tuple(repr(_) for _ in sc_synthdef.ugens) == (
         'PinkNoise.ar()',
@@ -163,9 +161,12 @@ def test_02():
         'PV_MagMul.kr()',
         'IFFT.ar()',
         'Out.ar()',
-        )
+    )
 
-    assert str(py_synthdef) == uqbar.strings.normalize('''
+    assert (
+        str(py_synthdef)
+        == uqbar.strings.normalize(
+            '''
         synthdef:
             name: PVCopyTest
             ugens:
@@ -208,9 +209,13 @@ def test_02():
             -   Out.ar:
                     bus: 0.0
                     source[0]: IFFT.ar[0]
-        ''') + '\n'
-    assert tuple(repr(_) for _ in sc_synthdef.ugens) == \
-        tuple(repr(_) for _ in py_synthdef.ugens)
+        '''
+        )
+        + '\n'
+    )
+    assert tuple(repr(_) for _ in sc_synthdef.ugens) == tuple(
+        repr(_) for _ in py_synthdef.ugens
+    )
 
     # fmt: off
     test_compiled_synthdef = bytes(

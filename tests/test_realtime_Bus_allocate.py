@@ -61,9 +61,8 @@ def test_02(server):
 def test_03(server):
 
     bus = supriya.realtime.Bus(
-        bus_group_or_index=23,
-        calculation_rate=supriya.CalculationRate.CONTROL,
-        )
+        bus_group_or_index=23, calculation_rate=supriya.CalculationRate.CONTROL
+    )
 
     assert bus.bus_id == 23
     assert bus.bus_group is None

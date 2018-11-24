@@ -11,7 +11,10 @@ def test_gate_01():
     factory = factory.with_signal_block(signal_block)
     factory = factory.with_gate()
     factory = factory.with_output()
-    assert str(factory.build()) == uqbar.strings.normalize('''
+    assert (
+        str(factory.build())
+        == uqbar.strings.normalize(
+            '''
         synthdef:
             name: 937f9dd172e0c2ec52916ce2ae4cb9c1
             ugens:
@@ -32,7 +35,10 @@ def test_gate_01():
             -   Out.ar:
                     bus: Control.ir[0:out]
                     source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
-        ''') + '\n'
+        '''
+        )
+        + '\n'
+    )
 
 
 def test_gate_02():
@@ -42,10 +48,11 @@ def test_gate_02():
     factory = SynthDefFactory(channel_count=1)
     factory = factory.with_signal_block(signal_block)
     factory = factory.with_gate()
-    factory = factory.with_output(
-        crossfaded=True,
-        )
-    assert str(factory.build()) == uqbar.strings.normalize('''
+    factory = factory.with_output(crossfaded=True)
+    assert (
+        str(factory.build())
+        == uqbar.strings.normalize(
+            '''
         synthdef:
             name: b2b4641122aa7170a652c245e97f995e
             ugens:
@@ -68,7 +75,10 @@ def test_gate_02():
                     bus: Control.ir[0:out]
                     crossfade: BinaryOpUGen(MULTIPLICATION).kr[0]
                     source[0]: SinOsc.ar[0]
-        ''') + '\n'
+        '''
+        )
+        + '\n'
+    )
 
 
 def test_gate_03():
@@ -78,11 +88,11 @@ def test_gate_03():
     factory = SynthDefFactory(channel_count=1)
     factory = factory.with_signal_block(signal_block)
     factory = factory.with_gate()
-    factory = factory.with_output(
-        crossfaded=True,
-        windowed=True,
-        )
-    assert str(factory.build()) == uqbar.strings.normalize('''
+    factory = factory.with_output(crossfaded=True, windowed=True)
+    assert (
+        str(factory.build())
+        == uqbar.strings.normalize(
+            '''
         synthdef:
             name: 7758ec85f0a5e78d07ac88e6e9ac17db
             ugens:
@@ -111,7 +121,10 @@ def test_gate_03():
                     bus: Control.ir[1:out]
                     crossfade: BinaryOpUGen(MULTIPLICATION).kr[0]
                     source[0]: SinOsc.ar[0]
-        ''') + '\n'
+        '''
+        )
+        + '\n'
+    )
 
 
 def test_gate_04():
@@ -121,12 +134,11 @@ def test_gate_04():
     factory = SynthDefFactory(channel_count=1)
     factory = factory.with_signal_block(signal_block)
     factory = factory.with_gate()
-    factory = factory.with_output(
-        crossfaded=True,
-        leveled=True,
-        windowed=True,
-        )
-    assert str(factory.build()) == uqbar.strings.normalize('''
+    factory = factory.with_output(crossfaded=True, leveled=True, windowed=True)
+    assert (
+        str(factory.build())
+        == uqbar.strings.normalize(
+            '''
         synthdef:
             name: 976b3fc57d1862cb178148b04472e51c
             ugens:
@@ -159,4 +171,7 @@ def test_gate_04():
                     bus: Control.ir[1:out]
                     crossfade: BinaryOpUGen(MULTIPLICATION).kr/1[0]
                     source[0]: SinOsc.ar[0]
-        ''') + '\n'
+        '''
+        )
+        + '\n'
+    )

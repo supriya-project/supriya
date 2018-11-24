@@ -21,7 +21,8 @@ def test_01(server):
     group_a.append(synth_d)
 
     server_state = str(server.query_remote_nodes())
-    assert server_state == uqbar.strings.normalize('''
+    assert server_state == uqbar.strings.normalize(
+        '''
         NODE TREE 0 group
             1 group
                 1000 group
@@ -31,12 +32,14 @@ def test_01(server):
                         1004 test
                         1005 group
                     1006 test
-        ''')
+        '''
+    )
 
-    del(group_a[-1])
+    del (group_a[-1])
 
     server_state = str(server.query_remote_nodes())
-    assert server_state == uqbar.strings.normalize('''
+    assert server_state == uqbar.strings.normalize(
+        '''
         NODE TREE 0 group
             1 group
                 1000 group
@@ -45,12 +48,14 @@ def test_01(server):
                         1003 test
                         1004 test
                         1005 group
-        ''')
+        '''
+    )
 
-    del(group_b[1])
+    del (group_b[1])
 
     server_state = str(server.query_remote_nodes())
-    assert server_state == uqbar.strings.normalize('''
+    assert server_state == uqbar.strings.normalize(
+        '''
         NODE TREE 0 group
             1 group
                 1000 group
@@ -58,39 +63,46 @@ def test_01(server):
                     1002 group
                         1003 test
                         1005 group
-        ''')
+        '''
+    )
 
-    del(group_a[0])
+    del (group_a[0])
 
     server_state = str(server.query_remote_nodes())
-    assert server_state == uqbar.strings.normalize('''
+    assert server_state == uqbar.strings.normalize(
+        '''
         NODE TREE 0 group
             1 group
                 1000 group
                     1002 group
                         1003 test
                         1005 group
-        ''')
+        '''
+    )
 
-    del(group_b[1])
+    del (group_b[1])
 
     server_state = str(server.query_remote_nodes())
-    assert server_state == uqbar.strings.normalize('''
+    assert server_state == uqbar.strings.normalize(
+        '''
         NODE TREE 0 group
             1 group
                 1000 group
                     1002 group
                         1003 test
-        ''')
+        '''
+    )
 
-    del(group_a[0])
+    del (group_a[0])
 
     server_state = str(server.query_remote_nodes())
-    assert server_state == uqbar.strings.normalize('''
+    assert server_state == uqbar.strings.normalize(
+        '''
         NODE TREE 0 group
             1 group
                 1000 group
-        ''')
+        '''
+    )
 
     assert not group_b.is_allocated
     assert not group_c.is_allocated

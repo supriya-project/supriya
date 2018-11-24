@@ -4,22 +4,16 @@ import uqbar.strings
 
 
 def test_multi_value_parameters():
-    with supriya.synthdefs.SynthDefBuilder(
-        amp=0.1,
-        freqs=[300, 400],
-        out=0,
-        ) as builder:
-        sines = supriya.ugens.SinOsc.ar(
-            frequency=builder['freqs'],
-            )
+    with supriya.synthdefs.SynthDefBuilder(amp=0.1, freqs=[300, 400], out=0) as builder:
+        sines = supriya.ugens.SinOsc.ar(frequency=builder['freqs'])
         sines = supriya.ugens.Mix.new(sines)
         sines = sines * builder['amp']
-        supriya.ugens.Out.ar(
-            bus=builder['out'],
-            source=sines,
-            )
+        supriya.ugens.Out.ar(bus=builder['out'], source=sines)
     synthdef = builder.build()
-    assert str(synthdef) == uqbar.strings.normalize('''
+    assert (
+        str(synthdef)
+        == uqbar.strings.normalize(
+            '''
         synthdef:
             name: 58528261cb129f5bee634d41a34e082c
             ugens:
@@ -39,4 +33,7 @@ def test_multi_value_parameters():
             -   Out.ar:
                     bus: Control.kr[3:out]
                     source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
-        ''') + '\n'
+        '''
+        )
+        + '\n'
+    )

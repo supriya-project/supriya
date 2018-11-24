@@ -3,11 +3,8 @@ import supriya
 
 
 manifest_path = (
-    pathlib.Path(supriya.__path__[0]) /
-    'assets' /
-    'applications' /
-    'Test.yml'
-    )
+    pathlib.Path(supriya.__path__[0]) / 'assets' / 'applications' / 'Test.yml'
+)
 
 
 def test_01(server):

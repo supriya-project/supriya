@@ -30,20 +30,22 @@ pink_synthdef = builder.build(name='pink')
 
 
 release_time = 9
-pattern = supriya.patterns.Ppar([
-    supriya.patterns.Pbind(
-        synthdef=sine_synthdef,
-        add_action=AddAction.ADD_TO_HEAD,
-        duration=40,
-        delta=15,
+pattern = supriya.patterns.Ppar(
+    [
+        supriya.patterns.Pbind(
+            synthdef=sine_synthdef,
+            add_action=AddAction.ADD_TO_HEAD,
+            duration=40,
+            delta=15,
         ),
-    supriya.patterns.Pbind(
-        synthdef=pink_synthdef,
-        add_action=AddAction.ADD_TO_HEAD,
-        duration=32,
-        delta=16,
+        supriya.patterns.Pbind(
+            synthdef=pink_synthdef,
+            add_action=AddAction.ADD_TO_HEAD,
+            duration=32,
+            delta=16,
         ),
-    ])
+    ]
+)
 pattern = pattern.with_group(release_time=release_time)
 pattern = pattern.with_effect(limiter_synthdef, release_time=release_time)
 pattern = supriya.patterns.Pgpar([pattern], release_time=release_time)
@@ -54,7 +56,8 @@ def test_01():
     session = supriya.nonrealtime.Session(0, 1)
     with session.at(0):
         session.inscribe(pattern, duration=60)
-    assert session.to_strings() == uqbar.strings.normalize('''
+    assert session.to_strings() == uqbar.strings.normalize(
+        '''
         0.0:
             NODE TREE 0 group
                 1000 group
@@ -120,39 +123,105 @@ def test_01():
                         1003 limiter
         64.0:
             NODE TREE 0 group
-        ''')
-    d_recv_commands = pytest.helpers.build_d_recv_commands([
-        supriya.assets.synthdefs.system_link_audio_1,
-        sine_synthdef,
-        pink_synthdef,
-        limiter_synthdef,
-        ])
+        '''
+    )
+    d_recv_commands = pytest.helpers.build_d_recv_commands(
+        [
+            supriya.assets.synthdefs.system_link_audio_1,
+            sine_synthdef,
+            pink_synthdef,
+            limiter_synthdef,
+        ]
+    )
     assert session.to_lists() == [
-        [0.0, [
-            *d_recv_commands,
-            ['/g_new', 1000, 0, 0],
-            ['/s_new', '2aa2f6c46d902276bad2e942125ef247', 1001, 3, 1000,
-                'fade_time', 9.0, 'in_', 1],
-            ['/g_new', 1002, 1, 1000],
-            ['/s_new', '38bda0aee6d0e2d4af72be83c09d9b77', 1003, 1, 1002,
-                'in_', 1, 'out', 1],
-            ['/g_new', 1004, 0, 1002],
-            ['/s_new', '00a1f31c719b7e5a30788b0d2e78a2cd', 1005, 0, 1004,
-                'duration', 40.0, 'out', 1],
-            ['/s_new', '48dcd0cdb5ded3e947186fa74f097516', 1006, 0, 1004,
-                'duration', 32.0, 'out', 1]]],
-        [15.0, [
-            ['/s_new', '00a1f31c719b7e5a30788b0d2e78a2cd', 1007, 0, 1004,
-                'duration', 40.0, 'out', 1]]],
-        [16.0, [
-            ['/s_new', '48dcd0cdb5ded3e947186fa74f097516', 1008, 0, 1004,
-                'duration', 32.0, 'out', 1]]],
+        [
+            0.0,
+            [
+                *d_recv_commands,
+                ['/g_new', 1000, 0, 0],
+                [
+                    '/s_new',
+                    '2aa2f6c46d902276bad2e942125ef247',
+                    1001,
+                    3,
+                    1000,
+                    'fade_time',
+                    9.0,
+                    'in_',
+                    1,
+                ],
+                ['/g_new', 1002, 1, 1000],
+                [
+                    '/s_new',
+                    '38bda0aee6d0e2d4af72be83c09d9b77',
+                    1003,
+                    1,
+                    1002,
+                    'in_',
+                    1,
+                    'out',
+                    1,
+                ],
+                ['/g_new', 1004, 0, 1002],
+                [
+                    '/s_new',
+                    '00a1f31c719b7e5a30788b0d2e78a2cd',
+                    1005,
+                    0,
+                    1004,
+                    'duration',
+                    40.0,
+                    'out',
+                    1,
+                ],
+                [
+                    '/s_new',
+                    '48dcd0cdb5ded3e947186fa74f097516',
+                    1006,
+                    0,
+                    1004,
+                    'duration',
+                    32.0,
+                    'out',
+                    1,
+                ],
+            ],
+        ],
+        [
+            15.0,
+            [
+                [
+                    '/s_new',
+                    '00a1f31c719b7e5a30788b0d2e78a2cd',
+                    1007,
+                    0,
+                    1004,
+                    'duration',
+                    40.0,
+                    'out',
+                    1,
+                ]
+            ],
+        ],
+        [
+            16.0,
+            [
+                [
+                    '/s_new',
+                    '48dcd0cdb5ded3e947186fa74f097516',
+                    1008,
+                    0,
+                    1004,
+                    'duration',
+                    32.0,
+                    'out',
+                    1,
+                ]
+            ],
+        ],
         [32.0, [['/n_free', 1006]]],
         [40.0, [['/n_free', 1005]]],
         [48.0, [['/n_free', 1008]]],
-        [55.0, [
-            ['/n_free', 1007],
-            ['/n_set', 1001, 'gate', 0]]],
-        [64.0, [
-            ['/n_free', 1000, 1002, 1003, 1004],
-            [0]]]]
+        [55.0, [['/n_free', 1007], ['/n_set', 1001, 'gate', 0]]],
+        [64.0, [['/n_free', 1000, 1002, 1003, 1004], [0]]],
+    ]

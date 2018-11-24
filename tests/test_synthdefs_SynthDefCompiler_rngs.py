@@ -11,8 +11,8 @@ def test_SynthDefCompiler_rngs_01():
         RandID.ir(rand_id);
         RandSeed.ir(1, seed);
         Out.ar(0, WhiteNoise.ar());
-        """
-        )
+        """,
+    )
     sc_compiled_synthdef = sc_synthdef.compile()
 
     with supriya.synthdefs.SynthDefBuilder(rand_id=0, seed=0) as builder:

@@ -11,7 +11,7 @@ def test_Session():
         file_path=session,
         frame_count=512,
         starting_frame=128,
-        )
+    )
     assert request.file_path is session
     osc_message = request.to_osc(with_request_name=True)
     assert osc_message.address == '/b_allocReadChannel'
@@ -26,7 +26,7 @@ def test_Say():
         file_path=say,
         frame_count=512,
         starting_frame=128,
-        )
+    )
     assert request.file_path is say
     osc_message = request.to_osc(with_request_name=True)
     assert osc_message.address == '/b_allocReadChannel'

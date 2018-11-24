@@ -13,9 +13,9 @@ def test_list_materials(cli_paths):
     pytest.helpers.create_cli_material(cli_paths.test_directory_path, 'quux')
     script = supriya.cli.ManageMaterialScript()
     command = ['--list']
-    with uqbar.io.RedirectedStreams(stdout=string_io), \
-        uqbar.io.DirectoryChange(cli_paths.inner_project_path), \
-        pytest.raises(SystemExit) as exception_info:
+    with uqbar.io.RedirectedStreams(stdout=string_io), uqbar.io.DirectoryChange(
+        cli_paths.inner_project_path
+    ), pytest.raises(SystemExit) as exception_info:
         script(command)
     assert exception_info.value.code == 1
     pytest.helpers.compare_strings(
@@ -28,7 +28,7 @@ def test_list_materials(cli_paths):
                 quux [Session]
         ''',
         string_io.getvalue(),
-        )
+    )
 
 
 def test_list_materials_no_materials(cli_paths):
@@ -36,9 +36,9 @@ def test_list_materials_no_materials(cli_paths):
     pytest.helpers.create_cli_project(cli_paths.test_directory_path)
     script = supriya.cli.ManageMaterialScript()
     command = ['--list']
-    with uqbar.io.RedirectedStreams(stdout=string_io), \
-        uqbar.io.DirectoryChange(cli_paths.inner_project_path), \
-        pytest.raises(SystemExit) as exception_info:
+    with uqbar.io.RedirectedStreams(stdout=string_io), uqbar.io.DirectoryChange(
+        cli_paths.inner_project_path
+    ), pytest.raises(SystemExit) as exception_info:
         script(command)
     assert exception_info.value.code == 1
     pytest.helpers.compare_strings(
@@ -47,4 +47,4 @@ def test_list_materials_no_materials(cli_paths):
             No materials available.
         ''',
         string_io.getvalue(),
-        )
+    )

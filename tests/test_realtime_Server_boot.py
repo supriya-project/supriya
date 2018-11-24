@@ -26,9 +26,8 @@ def test_server_options():
     server = supriya.realtime.Server(port=57757)
     try:
         server_options = supriya.realtime.ServerOptions(
-            memory_size=8192 * 32,
-            load_synthdefs=False,
-            )
+            memory_size=8192 * 32, load_synthdefs=False
+        )
         # Default
         server.boot()
         assert isinstance(server.server_options, type(server_options))
@@ -60,11 +59,7 @@ def test_server_options():
 
 def test_server_boot_errors():
     def check_scsynth():
-        process = subprocess.Popen(
-            'ps -Af',
-            shell=True,
-            stdout=subprocess.PIPE,
-            )
+        process = subprocess.Popen('ps -Af', shell=True, stdout=subprocess.PIPE)
         output, _ = process.communicate()
         return output.decode()
 
@@ -81,11 +76,9 @@ def test_server_boot_errors():
     assert not server.is_running
     assert not server.osc_io.is_running
 
-    with pytest.raises(supriya.exceptions.ServerCannotBoot), \
-        mock.patch.object(
-            supriya.realtime.Server,
-            '_read_scsynth_boot_output',
-            ) as patch:
+    with pytest.raises(supriya.exceptions.ServerCannotBoot), mock.patch.object(
+        supriya.realtime.Server, '_read_scsynth_boot_output'
+    ) as patch:
         patch.side_effect = supriya.exceptions.ServerCannotBoot()
         server.boot()
 
