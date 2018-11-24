@@ -1,17 +1,13 @@
 import inspect
 from supriya.patterns.Pattern import Pattern
-from supriya.patterns.RandomNumberGenerator \
-    import RandomNumberGenerator
+from supriya.patterns.RandomNumberGenerator import RandomNumberGenerator
 
 
 class Pseed(Pattern):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_pattern',
-        '_seed',
-        )
+    __slots__ = ('_pattern', '_seed')
 
     _file_path = __file__
 
@@ -31,7 +27,7 @@ class Pseed(Pattern):
             Pattern._rngs[identifier] = iter(rng)
             yield from self._pattern
         finally:
-            del(Pattern._rngs[identifier])
+            del (Pattern._rngs[identifier])
 
     ### PUBLIC PROPERTIES ###
 

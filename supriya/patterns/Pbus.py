@@ -7,30 +7,21 @@ class Pbus(EventPattern):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_calculation_rate',
-        '_channel_count',
-        '_pattern',
-        '_release_time',
-        )
+    __slots__ = ('_calculation_rate', '_channel_count', '_pattern', '_release_time')
 
     ### INITIALIZER ###
 
     def __init__(
-        self,
-        pattern,
-        calculation_rate='audio',
-        channel_count=None,
-        release_time=0.25,
-        ):
+        self, pattern, calculation_rate='audio', channel_count=None, release_time=0.25
+    ):
         import supriya.synthdefs
+
         self._pattern = pattern
-        calculation_rate = supriya.CalculationRate.from_expr(
-            calculation_rate)
+        calculation_rate = supriya.CalculationRate.from_expr(calculation_rate)
         assert calculation_rate in (
             supriya.CalculationRate.AUDIO,
             supriya.CalculationRate.CONTROL,
-            )
+        )
         self._calculation_rate = calculation_rate
         if channel_count is not None:
             channel_count = int(channel_count)
@@ -45,11 +36,9 @@ class Pbus(EventPattern):
     def _coerce_iterator_output(self, expr, state):
         import supriya.assets.synthdefs
         import supriya.patterns
+
         expr = super(Pbus, self)._coerce_iterator_output(expr)
-        if (
-            isinstance(expr, supriya.patterns.NoteEvent) or
-            not expr.get('is_stop')
-            ):
+        if isinstance(expr, supriya.patterns.NoteEvent) or not expr.get('is_stop'):
             kwargs = {}
             if expr.get('target_node') is None:
                 kwargs['target_node'] = state['group_uuid']
@@ -72,12 +61,13 @@ class Pbus(EventPattern):
             'bus_uuid': uuid.uuid4(),
             'link_uuid': uuid.uuid4(),
             'group_uuid': uuid.uuid4(),
-            }
+        }
 
     def _setup_peripherals(self, initial_expr, state):
         import supriya.assets.synthdefs
         import supriya.patterns
         import supriya.synthdefs
+
         channel_count = self.channel_count
         if channel_count is None:
             synthdef = initial_expr.get('synthdef') or supriya.assets.synthdefs.default
@@ -91,10 +81,8 @@ class Pbus(EventPattern):
             calculation_rate=self.calculation_rate,
             channel_count=channel_count,
             uuid=state['bus_uuid'],
-            )
-        start_group_event = supriya.patterns.GroupEvent(
-            uuid=state['group_uuid'],
-            )
+        )
+        start_group_event = supriya.patterns.GroupEvent(uuid=state['group_uuid'])
         start_link_event = supriya.patterns.SynthEvent(
             add_action='ADD_AFTER',
             amplitude=1.0,
@@ -103,32 +91,20 @@ class Pbus(EventPattern):
             synthdef=link_synthdef,
             target_node=state['group_uuid'],
             uuid=state['link_uuid'],
-            )
+        )
         stop_link_event = supriya.patterns.SynthEvent(
-            uuid=state['link_uuid'],
-            is_stop=True,
-            )
+            uuid=state['link_uuid'], is_stop=True
+        )
         stop_group_event = supriya.patterns.GroupEvent(
-            uuid=state['group_uuid'],
-            is_stop=True,
-            )
-        stop_bus_event = supriya.patterns.BusEvent(
-            uuid=state['bus_uuid'],
-            is_stop=True,
-            )
-        peripheral_starts = [
-            start_bus_event,
-            start_group_event,
-            start_link_event,
-            ]
+            uuid=state['group_uuid'], is_stop=True
+        )
+        stop_bus_event = supriya.patterns.BusEvent(uuid=state['bus_uuid'], is_stop=True)
+        peripheral_starts = [start_bus_event, start_group_event, start_link_event]
         peripheral_stops = [stop_link_event]
         delta = self._release_time or 0
         if delta:
             peripheral_stops.append(supriya.patterns.NullEvent(delta=delta))
-        peripheral_stops.extend([
-            stop_group_event,
-            stop_bus_event,
-            ])
+        peripheral_stops.extend([stop_group_event, stop_bus_event])
         return peripheral_starts, peripheral_stops
 
     ### PUBLIC PROPERTIES ###

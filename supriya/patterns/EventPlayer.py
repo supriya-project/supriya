@@ -5,21 +5,13 @@ class EventPlayer(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_cumulative_time',
-        '_event_template',
-        '_iterator',
-        '_pattern',
-        )
+    __slots__ = ('_cumulative_time', '_event_template', '_iterator', '_pattern')
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        pattern,
-        event_template=None,
-        ):
+    def __init__(self, pattern, event_template=None):
         import supriya.patterns
+
         assert isinstance(pattern, supriya.patterns.Pattern)
         self._pattern = pattern
         if event_template is None:

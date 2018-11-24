@@ -10,12 +10,7 @@ class Clock(SupriyaObject):
 
     _default_clock = None
 
-    __slots__ = (
-        '_lock',
-        '_queue',
-        '_timer',
-        '_registry',
-        )
+    __slots__ = ('_lock', '_queue', '_timer', '_registry')
 
     ### INITIALIZER ###
 
@@ -46,7 +41,7 @@ class Clock(SupriyaObject):
                         rescheduled_time,
                         absolute=True,
                         registry_key=registry_key,
-                        )
+                    )
             if not self._queue.empty():
                 self._new_timer()
 
@@ -58,11 +53,7 @@ class Clock(SupriyaObject):
         scheduled_time, _ = pair
         now = time.time()
         delta = scheduled_time - now
-        self._timer = threading.Timer(
-            delta,
-            self._execute,
-            (scheduled_time,),
-            )
+        self._timer = threading.Timer(delta, self._execute, (scheduled_time,))
         self._timer.start()
 
     ### PUBLIC METHODS ###
@@ -87,12 +78,8 @@ class Clock(SupriyaObject):
             self._queue = PriorityQueue()
 
     def schedule(
-        self,
-        procedure,
-        scheduled_time=0.,
-        absolute=False,
-        registry_key=None,
-        ):
+        self, procedure, scheduled_time=0.0, absolute=False, registry_key=None
+    ):
         registry_key = registry_key or procedure
         now = time.time()
         if not absolute:
@@ -107,7 +94,7 @@ class Clock(SupriyaObject):
                         reschedule_time,
                         absolute=True,
                         registry_key=registry_key,
-                        )
+                    )
             else:
                 self._registry[registry_key] = procedure
                 self._queue.put((scheduled_time, registry_key))

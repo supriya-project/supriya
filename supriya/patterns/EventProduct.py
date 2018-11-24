@@ -5,26 +5,13 @@ class EventProduct(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        'event',
-        'index',
-        'is_stop',
-        'uuid',
-        'requests',
-        'timestamp',
-        )
+    __slots__ = ('event', 'index', 'is_stop', 'uuid', 'requests', 'timestamp')
 
     ### INITIALIZER ###
 
     def __init__(
-        self,
-        event=None,
-        index=0,
-        is_stop=False,
-        requests=None,
-        timestamp=0,
-        uuid=None,
-        ):
+        self, event=None, index=0, is_stop=False, requests=None, timestamp=0, uuid=None
+    ):
         self.event = event
         self.index = index
         self.is_stop = is_stop
@@ -40,10 +27,10 @@ class EventProduct(SupriyaValueObject):
         if self._get_sort_bundle() != expr._get_sort_bundle():
             return False
         return (
-            self.event == expr.event and
-            self.uuid == expr.uuid and
-            self.requests == expr.requests
-            )
+            self.event == expr.event
+            and self.uuid == expr.uuid
+            and self.requests == expr.requests
+        )
 
     def __lt__(self, expr):
         if type(self) != type(expr):
@@ -53,8 +40,4 @@ class EventProduct(SupriyaValueObject):
     ### PRIVATE METHODS ###
 
     def _get_sort_bundle(self):
-        return (
-            self.timestamp,
-            self.index,
-            self.is_stop,
-            )
+        return (self.timestamp, self.index, self.is_stop)

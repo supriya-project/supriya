@@ -29,21 +29,15 @@ class Event(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_delta',
-        '_settings',
-        )
+    __slots__ = ('_delta', '_settings')
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        delta=None,
-        **settings
-        ):
+    def __init__(self, delta=None, **settings):
         self._delta = delta
         self._settings = {
-            key: value for key, value in settings.items()
+            key: value
+            for key, value in settings.items()
             if not (key.startswith('_') and value is None)
         }
 
@@ -55,13 +49,8 @@ class Event(SupriyaValueObject):
     ### PRIVATE METHODS ###
 
     def _expand(
-        self,
-        settings,
-        synthdef,
-        uuids,
-        realtime=True,
-        synth_parameters_only=False,
-        ):
+        self, settings, synthdef, uuids, realtime=True, synth_parameters_only=False
+    ):
         settings = settings.copy()
         for key, value in settings.items():
             if isinstance(value, uuid.UUID) and value in uuids:
@@ -88,28 +77,20 @@ class Event(SupriyaValueObject):
         if synth_parameters_only:
             for i, dictionary in enumerate(expanded_settings):
                 expanded_settings[i] = {
-                    key: value for key, value in dictionary.items()
+                    key: value
+                    for key, value in dictionary.items()
                     if key in synthdef.parameter_names
-                    }
+                }
         return expanded_settings
 
     @abc.abstractmethod
-    def _perform_nonrealtime(
-        self,
-        session,
-        uuids,
-        offset,
-        ):
+    def _perform_nonrealtime(self, session, uuids, offset):
         raise NotImplementedError
 
     @abc.abstractmethod
     def _perform_realtime(
-        self,
-        index=0,
-        node_id_allocator=None,
-        timestamp=0,
-        uuids=None,
-        ):
+        self, index=0, node_id_allocator=None, timestamp=0, uuids=None
+    ):
         raise NotImplementedError
 
     ### PUBLIC METHODS ###

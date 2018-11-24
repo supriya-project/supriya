@@ -7,10 +7,7 @@ class Pgroup(EventPattern):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_pattern',
-        '_release_time',
-        )
+    __slots__ = ('_pattern', '_release_time')
 
     ### INITIALIZER ###
 
@@ -24,11 +21,9 @@ class Pgroup(EventPattern):
 
     def _coerce_iterator_output(self, expr, state):
         import supriya.patterns
+
         expr = super(Pgroup, self)._coerce_iterator_output(expr)
-        if (
-            isinstance(expr, supriya.patterns.NoteEvent) or
-            not expr.get('is_stop')
-            ):
+        if isinstance(expr, supriya.patterns.NoteEvent) or not expr.get('is_stop'):
             kwargs = {}
             if expr.get('target_node') is None:
                 kwargs['target_node'] = state['group_uuid']
@@ -39,20 +34,17 @@ class Pgroup(EventPattern):
         return iter(self.pattern)
 
     def _setup_state(self):
-        return {
-            'group_uuid': uuid.uuid4(),
-            }
+        return {'group_uuid': uuid.uuid4()}
 
     def _setup_peripherals(self, initial_expr, state):
         import supriya.patterns
+
         start_group_event = supriya.patterns.GroupEvent(
-            add_action='ADD_TO_HEAD',
-            uuid=state['group_uuid'],
-            )
+            add_action='ADD_TO_HEAD', uuid=state['group_uuid']
+        )
         stop_group_event = supriya.patterns.GroupEvent(
-            uuid=state['group_uuid'],
-            is_stop=True,
-            )
+            uuid=state['group_uuid'], is_stop=True
+        )
         peripheral_starts = [start_group_event]
         peripheral_stops = []
         delta = self._release_time or 0

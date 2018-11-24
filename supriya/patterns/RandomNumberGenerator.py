@@ -14,7 +14,7 @@ class RandomNumberGenerator(SupriyaObject):
     def __iter__(self):
         seed = self._seed
         while True:
-            seed = (seed * 1103515245 + 12345) & 0x7FFFFFFF
+            seed = (seed * 1_103_515_245 + 12345) & 0x7FFFFFFF
             yield float(seed) / 0x7FFFFFFF
 
     ### PUBLIC METHODS ###

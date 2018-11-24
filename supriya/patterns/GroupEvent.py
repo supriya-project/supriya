@@ -19,7 +19,7 @@ class GroupEvent(Event):
         is_stop=False,
         target_node=None,
         uuid=None,
-        **settings
+        **settings,
     ):
         if add_action is not None:
             add_action = supriya.AddAction.from_expr(add_action)
@@ -28,9 +28,8 @@ class GroupEvent(Event):
             add_action = None
             target_node = None
         settings = {
-            key: value for key, value in settings.items()
-            if key.startswith('_')
-            }
+            key: value for key, value in settings.items() if key.startswith('_')
+        }
         Event.__init__(
             self,
             add_action=add_action,
@@ -38,19 +37,14 @@ class GroupEvent(Event):
             is_stop=is_stop,
             target_node=target_node,
             uuid=uuid,
-            **settings
-            )
+            **settings,
+        )
 
     ### PRIVATE METHODS ###
 
-    def _perform_nonrealtime(
-        self,
-        session,
-        uuids,
-        offset,
-        maximum_offset=None,
-        ):
+    def _perform_nonrealtime(self, session, uuids, offset, maximum_offset=None):
         import supriya.nonrealtime
+
         group_uuid = self.get('uuid', uuid.uuid4())
         if not self.get('is_stop'):
             target_node = self['target_node']
@@ -67,14 +61,9 @@ class GroupEvent(Event):
             group.set_duration(duration, clip_children=True)
         return offset + self.delta
 
-    def _perform_realtime(
-        self,
-        index=0,
-        server=None,
-        timestamp=0,
-        uuids=None,
-    ):
+    def _perform_realtime(self, index=0, server=None, timestamp=0, uuids=None):
         import supriya.patterns
+
         node_uuid = self.get('uuid') or uuid.uuid4()
         requests = []
         if not self.get('is_stop'):
@@ -92,13 +81,13 @@ class GroupEvent(Event):
                         add_action=add_action,
                         node_id=node_id,
                         target_node_id=target_node_id,
-                        ),
-                    ],
-                )
+                    )
+                ]
+            )
         else:
             request = supriya.commands.NodeFreeRequest(
-                node_ids=sorted(uuids[node_uuid]),
-                )
+                node_ids=sorted(uuids[node_uuid])
+            )
         requests.append(request)
         event_product = supriya.patterns.EventProduct(
             event=self,
@@ -107,5 +96,5 @@ class GroupEvent(Event):
             requests=requests,
             timestamp=timestamp,
             uuid=self['uuid'],
-            )
+        )
         return [event_product]

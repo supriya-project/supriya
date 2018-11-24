@@ -7,17 +7,11 @@ class Pgpar(Ppar):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_release_time',
-        )
+    __slots__ = ('_release_time',)
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        patterns,
-        release_time=0.25,
-        ):
+    def __init__(self, patterns, release_time=0.25):
         Ppar.__init__(self, patterns=patterns)
         release_time = float(release_time)
         assert 0 <= release_time
@@ -27,13 +21,11 @@ class Pgpar(Ppar):
 
     def _coerce_iterator_output(self, expr, state):
         import supriya.patterns
+
         iterator = expr.get('_iterator')
         iterators_to_group_uuids = state['iterators_to_group_uuids']
         kwargs = {'_iterator': None}
-        if (
-            isinstance(expr, supriya.patterns.NoteEvent) or
-            not expr.get('is_stop')
-            ):
+        if isinstance(expr, supriya.patterns.NoteEvent) or not expr.get('is_stop'):
             if expr.get('target_node') is None:
                 kwargs['target_node'] = iterators_to_group_uuids[iterator]
             expr = utils.new(expr, **kwargs)
@@ -41,6 +33,7 @@ class Pgpar(Ppar):
 
     def _setup_peripherals(self, initial_expr, state):
         import supriya.patterns
+
         group_uuids = state.get('group_uuids')
         peripheral_starts, peripheral_stops = [], []
         delta = self._release_time or 0
@@ -48,13 +41,11 @@ class Pgpar(Ppar):
             peripheral_stops.append(supriya.patterns.NullEvent(delta=delta))
         for group_uuid in group_uuids:
             start_group_event = supriya.patterns.GroupEvent(
-                uuid=group_uuid,
-                add_action='ADD_TO_TAIL',
-                )
+                uuid=group_uuid, add_action='ADD_TO_TAIL'
+            )
             stop_group_event = supriya.patterns.GroupEvent(
-                uuid=group_uuid,
-                is_stop=True,
-                )
+                uuid=group_uuid, is_stop=True
+            )
             peripheral_starts.append(start_group_event)
             peripheral_stops.append(stop_group_event)
         return peripheral_starts, peripheral_stops

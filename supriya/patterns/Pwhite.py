@@ -5,15 +5,11 @@ class Pwhite(Pattern):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_minimum',
-        '_maximum',
-        '_repetitions',
-        )
+    __slots__ = ('_minimum', '_maximum', '_repetitions')
 
     ### INITIALIZER ###
 
-    def __init__(self, minimum=0., maximum=1., repetitions=None):
+    def __init__(self, minimum=0.0, maximum=1.0, repetitions=None):
         if repetitions is not None:
             repetitions = int(repetitions)
             assert 0 < repetitions
@@ -28,13 +24,10 @@ class Pwhite(Pattern):
             minimum, maximum = sorted([one, two])
             number = next(rng)
             return (number * (maximum - minimum)) + minimum
+
         rng = self._get_rng()
         for _ in self._loop(self._repetitions):
-            expr = self._process_recursive(
-                self._minimum,
-                self._maximum,
-                procedure,
-                )
+            expr = self._process_recursive(self._minimum, self._maximum, procedure)
             should_stop = yield expr
             if should_stop:
                 return
@@ -60,8 +53,7 @@ class Pwhite(Pattern):
 
         Returns integer.
         """
-        return max(self._get_arity(x) for x in (
-            self._minimum, self._maximum))
+        return max(self._get_arity(x) for x in (self._minimum, self._maximum))
 
     @property
     def is_infinite(self):
