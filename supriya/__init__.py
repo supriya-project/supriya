@@ -13,12 +13,7 @@ if not output_path.exists():
         pass
 
 config = configparser.ConfigParser()
-config.read_dict({
-    'core': {
-        'editor': 'vim',
-        'scsynth': 'scsynth',
-        },
-    })
+config.read_dict({'core': {'editor': 'vim', 'scsynth': 'scsynth'}})
 
 config_path = pathlib.Path(appdirs.user_config_dir('supriya', 'supriya'))
 config_path = config_path / 'supriya.cfg'
@@ -39,16 +34,12 @@ del pathlib
 del pyximport
 
 
-def import_structured_package(
-    path,
-    namespace,
-    remove=True,
-    verbose=False,
-    ):
+def import_structured_package(path, namespace, remove=True, verbose=False):
     import importlib
     import inspect
     import pathlib
     import traceback
+
     package_path = pathlib.Path(path).resolve().absolute()
     if not package_path.is_dir():
         package_path = package_path.parent()
@@ -91,7 +82,7 @@ def import_structured_package(
     # Delete this function from the namespace
     this_name = inspect.currentframe().f_code.co_name
     if remove and this_name in namespace:
-        del(namespace[this_name])
+        del (namespace[this_name])
 
 
 from supriya.enums import AddAction, CalculationRate  # noqa
@@ -107,14 +98,14 @@ from supriya.realtime import (  # noqa
     Group,
     Server,
     Synth,
-    )
+)
 from supriya.soundfiles import (  # noqa
     HeaderFormat,
     SampleFormat,
     SoundFile,
     play,
     render,
-    )
+)
 from supriya.synthdefs import (  # noqa
     DoneAction,
     Envelope,
@@ -124,7 +115,7 @@ from supriya.synthdefs import (  # noqa
     SynthDef,
     SynthDefBuilder,
     SynthDefFactory,
-    )
+)
 from supriya.system import Assets, Bindable, Binding, bind  # noqa
 from supriya.soundfiles import Say  # noqa
 from abjad.top import graph  # noqa

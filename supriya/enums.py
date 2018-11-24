@@ -2,10 +2,7 @@ import collections
 from uqbar.enums import IntEnumeration
 
 
-__all__ = [
-    'AddAction',
-    'CalculationRate',
-    ]
+__all__ = ['AddAction', 'CalculationRate']
 
 
 class AddAction(IntEnumeration):
@@ -88,12 +85,10 @@ class CalculationRate(IntEnumeration):
         """
         import supriya.synthdefs
         import supriya.ugens
+
         if isinstance(expr, (int, float)) and not isinstance(expr, cls):
             return CalculationRate.SCALAR
-        elif isinstance(expr, (
-            supriya.synthdefs.OutputProxy,
-            supriya.ugens.UGen,
-        )):
+        elif isinstance(expr, (supriya.synthdefs.OutputProxy, supriya.ugens.UGen)):
             return expr.calculation_rate
         elif isinstance(expr, supriya.synthdefs.Parameter):
             name = expr.parameter_rate.name
