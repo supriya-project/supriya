@@ -17,12 +17,7 @@ class OscCallback(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_address_pattern',
-        '_argument_template',
-        '_is_one_shot',
-        '_procedure',
-        )
+    __slots__ = ('_address_pattern', '_argument_template', '_is_one_shot', '_procedure')
 
     ### INITIALIZER ###
 
@@ -32,7 +27,7 @@ class OscCallback(SupriyaObject):
         argument_template=None,
         is_one_shot=False,
         procedure=None,
-        ):
+    ):
         self._address_pattern = address_pattern
         if argument_template is not None:
             argument_template = tuple(argument_template)

@@ -9,7 +9,7 @@ def format_datagram(datagram):
     result.append('size {}'.format(len(datagram)))
     index = 0
     while index < len(datagram):
-        chunk = datagram[index:index + 16]
+        chunk = datagram[index : index + 16]
         line = '{: >4}   '.format(index)
         hex_blocks = []
         ascii_block = ''

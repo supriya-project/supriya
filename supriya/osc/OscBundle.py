@@ -80,22 +80,16 @@ class OscBundle(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_contents',
-        '_timestamp',
-        )
+    __slots__ = ('_contents', '_timestamp')
 
     _bundle_prefix = b'#bundle\x00'
     _immediately = struct.pack('>q', 1)
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        timestamp=None,
-        contents=None,
-    ):
+    def __init__(self, timestamp=None, contents=None):
         import supriya.osc
+
         prototype = (supriya.osc.OscMessage, type(self))
         self._timestamp = timestamp
         contents = contents or ()
@@ -116,6 +110,7 @@ class OscBundle(SupriyaValueObject):
     @staticmethod
     def _get_ntp_delta():
         import time
+
         system_epoch = datetime.date(*time.gmtime(0)[0:3])
         ntp_epoch = datetime.date(1900, 1, 1)
         ntp_delta = (system_epoch - ntp_epoch).days * 24 * 3600
@@ -127,13 +122,10 @@ class OscBundle(SupriyaValueObject):
 
     @staticmethod
     def _read_date(payload, offset):
-        if payload[offset:offset + 8] == OscBundle._immediately:
+        if payload[offset : offset + 8] == OscBundle._immediately:
             date = None
         else:
-            seconds, fraction = struct.unpack(
-                '>II',
-                payload[offset:offset + 8],
-                )
+            seconds, fraction = struct.unpack('>II', payload[offset : offset + 8])
             date = decimal.Decimal('{!s}.{!s}'.format(seconds, fraction))
             date = float(date)
             date = OscBundle._ntp_to_system_time(date)
@@ -156,7 +148,7 @@ class OscBundle(SupriyaValueObject):
             result = struct.pack('>I', seconds)
             result += struct.pack('>I', fraction)
         else:
-            kSecondsToOSC = 4294967296
+            kSecondsToOSC = 4_294_967_296
             result = struct.pack('>q', int(value * kSecondsToOSC))
         return result
 
@@ -164,32 +156,31 @@ class OscBundle(SupriyaValueObject):
 
     @staticmethod
     def datagram_is_bundle(datagram, offset=0):
-        return datagram[offset:offset + 8] == OscBundle._bundle_prefix
+        return datagram[offset : offset + 8] == OscBundle._bundle_prefix
 
     @staticmethod
     def from_datagram(datagram):
         import supriya.osc
+
         assert OscBundle.datagram_is_bundle(datagram)
         offset = 8
         timestamp, offset = OscBundle._read_date(datagram, offset)
         contents = []
         while offset < len(datagram):
             length, offset = supriya.osc.OscMessage._read_int(datagram, offset)
-            data = datagram[offset:offset + length]
+            data = datagram[offset : offset + length]
             if OscBundle.datagram_is_bundle(data):
                 item = OscBundle.from_datagram(data)
             else:
                 item = supriya.osc.OscMessage.from_datagram(data)
             contents.append(item)
             offset += length
-        osc_bundle = OscBundle(
-            timestamp=timestamp,
-            contents=tuple(contents),
-            )
+        osc_bundle = OscBundle(timestamp=timestamp, contents=tuple(contents))
         return osc_bundle
 
     def to_datagram(self, realtime=True):
         import supriya.osc
+
         datagram = OscBundle._bundle_prefix
         datagram += OscBundle._write_date(self._timestamp, realtime=realtime)
         for content in self.contents:

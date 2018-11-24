@@ -8,9 +8,7 @@ from supriya.osc.OscMessage import OscMessage
 
 
 class OscIO:
-
     class Capture:
-
         def __init__(self, osc_io):
             self.osc_io = osc_io
             self.osc_messages = []
@@ -33,7 +31,6 @@ class OscIO:
         pass
 
     class OscHandler(socketserver.BaseRequestHandler):
-
         def handle(self):
             data = self.request[0]
             message = OscMessage.from_datagram(data)
@@ -52,7 +49,9 @@ class OscIO:
             for callback in self.server.io_instance.match(message):
                 if callback.parse_response:
                     if response is None:
-                        handler = self.server.io_instance.response_handlers.get(message.address)
+                        handler = self.server.io_instance.response_handlers.get(
+                            message.address
+                        )
                         if handler:
                             response = handler.from_osc_message(message)
                     args = response
@@ -75,6 +74,7 @@ class OscIO:
         timeout=2,
     ):
         import supriya.commands
+
         self.callbacks = {}
         self.captures = set()
         self.debug_osc = bool(debug_osc)
@@ -107,7 +107,7 @@ class OscIO:
             '/status.reply': supriya.commands.StatusResponse,
             '/synced': supriya.commands.SyncedResponse,
             '/tr': supriya.commands.TriggerResponse,
-            }
+        }
 
     ### SPECIAL METHODS ###
 
@@ -125,14 +125,10 @@ class OscIO:
             if port:
                 self.port = port
             self.server = self.OscServer(
-                (self.ip_address, self.port),
-                self.OscHandler,
-                bind_and_activate=False,
+                (self.ip_address, self.port), self.OscHandler, bind_and_activate=False
             )
             self.server.io_instance = self
-            self.server_thread = threading.Thread(
-                target=self.server.serve_forever,
-            )
+            self.server_thread = threading.Thread(target=self.server.serve_forever)
             self.server_thread.daemon = True
             self.server_thread.start()
             self.is_running = True
@@ -305,6 +301,7 @@ class OscIO:
             {}
 
         """
+
         def delete(pattern, original_callback_map):
             key = pattern.pop(0)
             if key not in original_callback_map:
@@ -316,5 +313,6 @@ class OscIO:
                 callbacks.remove(callback)
             if not callbacks and not callback_map:
                 original_callback_map.pop(key)
+
         with self.lock:
             delete(list(callback.pattern), self.callbacks)
