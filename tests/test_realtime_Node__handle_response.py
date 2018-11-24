@@ -1,9 +1,11 @@
+import pytest
 import supriya.assets.synthdefs
 import supriya.osc
 import supriya.realtime
 import uqbar.strings
 
 
+@pytest.mark.flaky(reruns=5)
 def test_01(server):
 
     group_a = supriya.realtime.Group().allocate()

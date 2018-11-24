@@ -20,10 +20,11 @@ extras_require = {
         'isort',
         'mypy',
         'pytest >= 3.6.0',
-        'pytest-helpers-namespace',
-        'pytest-timeout >= 1.2.0',
         'pytest-cov',
+        'pytest-helpers-namespace',
         'pytest-profiling',
+        'pytest-rerunfailures>=5.0',
+        'pytest-timeout >= 1.2.0',
     ],
 }
 
