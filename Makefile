@@ -20,7 +20,7 @@ docs:
 	make -C docs/ html
 
 isort:
-	isort --multi-line 1 --recursive --thirdparty uqbar --thirdparty abjad --trailing-comma --use-parenthesis -y supriya/ tests/
+	isort --multi-line 1 --recursive --thirdparty uqbar --thirdparty abjad --trailing-comma --use-parentheses -y supriya/ tests/
 
 mypy:
 	mypy --ignore-missing-imports supriya
