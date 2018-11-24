@@ -1,5 +1,11 @@
 .PHONY: docs
 
+black-check:
+	black --py36 --check --diff supriya/ tests/
+
+black-reformat:
+	black --py36 supriya/ tests/
+
 clean:
 	find . -name '*.pyc' | xargs rm
 	rm -Rif .cache/
@@ -11,12 +17,15 @@ clean:
 	rm -Rif supriya.egg-info/
 
 docs:
-	make -C docs html
+	make -C docs/ html
 
-sanity-check:
-	python -c 'import supriya; server = supriya.Server().boot(); print(server); server.quit()'
+isort:
+	isort --multi-line 1 --recursive --thirdparty uqbar --thirdparty abjad --trailing-comma --use-parenthesis -y supriya/ tests/
 
-test:
+mypy:
+	mypy supriya ../uqbar/uqbar ../../Abjad/abjad/abjad ../../Abjad/abjad-ext-tonality/abjadext
+
+pytest:
 	rm -Rf htmlcov/
 	pytest \
 		--cov-config=.coveragerc \
@@ -29,17 +38,16 @@ test:
 		tests/ \
 		supriya/
 
-test-travis:
+pytest-travis:
 	pytest \
 		--durations=100 \
 		--profile \
 		--timeout=60 \
-		-x \
 		tests/test_realtime_Server_boot.py \
 		tests/ \
 		supriya/
 
-testx:
+pytest-x:
 	rm -Rf htmlcov/
 	pytest \
 		-x \
@@ -52,5 +60,9 @@ testx:
 		tests/ \
 		supriya/
 
-mypy:
-	mypy supriya ../uqbar/uqbar ../../Abjad/abjad/abjad ../../Abjad/abjad-ext-tonality/abjadext
+reformat:
+	make isort
+	make black-reformat
+
+sanity-check:
+	python -c 'import supriya; server = supriya.Server().boot(); print(server); server.quit()'
