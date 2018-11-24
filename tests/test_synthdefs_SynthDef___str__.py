@@ -1,6 +1,7 @@
+import uqbar.strings
+
 import supriya.synthdefs
 import supriya.ugens
-import uqbar.strings
 
 
 def test_multi_value_parameters():

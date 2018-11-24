@@ -2,29 +2,31 @@ import bisect
 import collections
 import os
 import pathlib
+from queue import PriorityQueue
+
 import uqbar.io
-import supriya.osc
+
 import supriya.commands
+import supriya.osc
 import supriya.realtime
 import supriya.soundfiles
 import supriya.synthdefs
 import supriya.time
-from queue import PriorityQueue
+from supriya.commands import (
+    BufferCopyRequest,
+    BufferFillRequest,
+    BufferGenerateRequest,
+    BufferNormalizeRequest,
+    BufferReadChannelRequest,
+    BufferReadRequest,
+    BufferSetContiguousRequest,
+    BufferSetRequest,
+    BufferWriteRequest,
+    BufferZeroRequest,
+)
 from supriya.nonrealtime.SessionObject import SessionObject
 from supriya.nonrealtime.Synth import Synth
 from supriya.utils import iterate_nwise
-from supriya.commands import (
-    BufferReadRequest,
-    BufferReadChannelRequest,
-    BufferZeroRequest,
-    BufferFillRequest,
-    BufferGenerateRequest,
-    BufferSetRequest,
-    BufferSetContiguousRequest,
-    BufferNormalizeRequest,
-    BufferCopyRequest,
-    BufferWriteRequest,
-)
 
 
 class Session:

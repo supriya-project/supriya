@@ -1,5 +1,5 @@
-from supriya import SynthDefBuilder
 import supriya.ugens
+from supriya import SynthDefBuilder
 
 
 def _make_synthdef(channel_count=2):

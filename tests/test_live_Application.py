@@ -1,6 +1,6 @@
 import pathlib
-import supriya
 
+import supriya
 
 manifest_path = (
     pathlib.Path(supriya.__path__[0]) / "assets" / "applications" / "Test.yml"

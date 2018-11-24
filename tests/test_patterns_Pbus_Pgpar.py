@@ -1,8 +1,8 @@
 import pytest
+
 import supriya.assets.synthdefs
 import supriya.nonrealtime
 import supriya.patterns
-
 
 pattern = supriya.patterns.Pbus(
     supriya.patterns.Pgpar(

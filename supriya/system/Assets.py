@@ -1,8 +1,9 @@
 import abc
 import fnmatch
 import os
-import supriya
 from typing import List, Union
+
+import supriya
 
 
 def _search(pattern: str, root_path: str):

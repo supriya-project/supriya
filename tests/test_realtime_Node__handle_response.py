@@ -1,8 +1,9 @@
 import pytest
+import uqbar.strings
+
 import supriya.assets.synthdefs
 import supriya.osc
 import supriya.realtime
-import uqbar.strings
 
 
 @pytest.mark.flaky(reruns=5)

@@ -1,6 +1,7 @@
 import abc
-import uqbar.objects
 from typing import Optional
+
+import uqbar.objects
 
 
 class SupriyaObject(metaclass=abc.ABCMeta):

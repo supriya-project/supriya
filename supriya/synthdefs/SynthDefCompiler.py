@@ -1,5 +1,6 @@
 import collections
 import struct
+
 from supriya.system.SupriyaObject import SupriyaObject
 
 

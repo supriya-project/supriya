@@ -1,9 +1,9 @@
 import io
 import os
+
 import pytest
 import uqbar.io
 import uqbar.strings
-
 
 expected_files = [
     "test_project/.gitignore",

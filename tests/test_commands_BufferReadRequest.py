@@ -1,5 +1,5 @@
-import supriya.nonrealtime
 import supriya.commands
+import supriya.nonrealtime
 import supriya.soundfiles
 
 

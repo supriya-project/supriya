@@ -1,5 +1,5 @@
-from supriya.system.Bindable import Bindable
 from supriya.midi.LogicalControlMode import LogicalControlMode
+from supriya.system.Bindable import Bindable
 
 
 class LogicalControl:

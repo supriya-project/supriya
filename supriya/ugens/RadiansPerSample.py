@@ -1,7 +1,8 @@
 import collections
+
 from supriya import CalculationRate
-from supriya.ugens.InfoUGenBase import InfoUGenBase
 from supriya.typing import UGenInputMap
+from supriya.ugens.InfoUGenBase import InfoUGenBase
 
 
 class RadiansPerSample(InfoUGenBase):

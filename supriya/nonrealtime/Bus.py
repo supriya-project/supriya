@@ -1,5 +1,6 @@
 # -*- enoding: utf-8 -*-
 import bisect
+
 import supriya.synthdefs
 from supriya.nonrealtime.SessionObject import SessionObject
 

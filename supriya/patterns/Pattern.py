@@ -3,11 +3,13 @@ import collections
 import inspect
 import itertools
 import re
+from typing import Dict, Generator, Iterator
+
+from uqbar.enums import IntEnumeration
+
 from supriya import utils
 from supriya.system import BindableNamespace
 from supriya.system.SupriyaValueObject import SupriyaValueObject
-from uqbar.enums import IntEnumeration
-from typing import Dict, Generator, Iterator
 
 
 class Pattern(SupriyaValueObject):

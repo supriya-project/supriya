@@ -1,5 +1,7 @@
 import collections
+
 from uqbar.enums import IntEnumeration
+
 from supriya import CalculationRate
 from supriya.ugens.UGen import UGen
 

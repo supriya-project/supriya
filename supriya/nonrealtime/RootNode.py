@@ -1,6 +1,7 @@
+from typing import Tuple
+
 import supriya.realtime
 from supriya.nonrealtime.Group import Group
-from typing import Tuple
 
 
 class RootNode(Group):

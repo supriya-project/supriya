@@ -1,4 +1,5 @@
 import collections
+
 from supriya.ugens.Control import Control
 from supriya.ugens.MultiOutUGen import MultiOutUGen
 

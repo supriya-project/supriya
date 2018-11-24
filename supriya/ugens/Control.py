@@ -1,6 +1,7 @@
 import collections
-from supriya.ugens.MultiOutUGen import MultiOutUGen
+
 from supriya.typing import UGenInputMap
+from supriya.ugens.MultiOutUGen import MultiOutUGen
 
 
 class Control(MultiOutUGen):

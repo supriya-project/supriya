@@ -1,9 +1,10 @@
 import io
 import os
+
 import pytest
-import supriya.cli
 import uqbar.io
 
+import supriya.cli
 
 expected_files = [
     "test_project/test_project/__init__.py",

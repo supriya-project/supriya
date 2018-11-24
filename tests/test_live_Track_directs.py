@@ -1,7 +1,9 @@
+import time
+
+import uqbar.strings
+
 import supriya.live
 import supriya.realtime
-import time
-import uqbar.strings
 
 
 def test_01(server):

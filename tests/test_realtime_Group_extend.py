@@ -1,6 +1,7 @@
-import supriya.realtime
-import supriya.assets.synthdefs
 import uqbar.strings
+
+import supriya.assets.synthdefs
+import supriya.realtime
 
 
 def test_noop(server):

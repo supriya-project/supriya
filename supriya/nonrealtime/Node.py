@@ -1,11 +1,12 @@
 import bisect
 import collections
+from typing import Any, Dict, List, Optional, Set, Tuple, Union
+
 import supriya  # noqa
 from supriya import utils
-from supriya.nonrealtime.SessionObject import SessionObject
 from supriya.nonrealtime.NodeAction import NodeAction
+from supriya.nonrealtime.SessionObject import SessionObject
 from supriya.nonrealtime.State import State
-from typing import Any, Dict, List, Optional, Set, Tuple, Union
 
 
 class Node(SessionObject):

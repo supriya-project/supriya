@@ -1,4 +1,5 @@
 import collections
+
 from supriya.ugens.PV_MagSquared import PV_MagSquared
 
 

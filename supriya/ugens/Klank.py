@@ -1,6 +1,6 @@
 import collections
-from supriya import utils
-from supriya import CalculationRate
+
+from supriya import CalculationRate, utils
 from supriya.ugens.UGen import UGen
 
 

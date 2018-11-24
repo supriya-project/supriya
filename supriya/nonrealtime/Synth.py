@@ -1,10 +1,12 @@
-import supriya.realtime
+from typing import Any, Dict, Optional
+
 import uqbar.graphs
+
+import supriya.realtime
 from supriya.commands import SynthNewRequest
 from supriya.nonrealtime.Node import Node
 from supriya.nonrealtime.NodeAction import NodeAction
 from supriya.nonrealtime.SessionObject import SessionObject
-from typing import Any, Dict, Optional
 
 
 class Synth(Node):

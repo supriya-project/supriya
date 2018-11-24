@@ -1,6 +1,7 @@
-import time
 import threading
+import time
 from queue import PriorityQueue
+
 from supriya.system.SupriyaObject import SupriyaObject
 
 

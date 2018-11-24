@@ -1,7 +1,7 @@
 import pytest
-import supriya.patterns
 import uqbar.strings
 
+import supriya.patterns
 
 pattern_01 = supriya.patterns.Pn(
     supriya.patterns.Pbind(foo=supriya.patterns.Pseq(["A", "B", "C"])), repetitions=2

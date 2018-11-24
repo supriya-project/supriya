@@ -1,7 +1,8 @@
 import functools
 import threading
-from supriya.system.SupriyaObject import SupriyaObject
 from typing import Callable, Dict, Set
+
+from supriya.system.SupriyaObject import SupriyaObject
 
 
 class PubSub(SupriyaObject):

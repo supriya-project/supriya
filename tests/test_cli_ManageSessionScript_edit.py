@@ -1,8 +1,10 @@
 import io
-import pytest
-import supriya.cli
-import uqbar.io
 import unittest.mock
+
+import pytest
+import uqbar.io
+
+import supriya.cli
 
 
 def test_success(cli_paths):

@@ -1,7 +1,9 @@
 import abc
 import collections
-import supriya
+
 import uqbar.strings
+
+import supriya
 
 
 class UGenMeta(abc.ABCMeta):

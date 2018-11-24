@@ -1,8 +1,8 @@
 import pytest
+
 import supriya.nonrealtime
 import supriya.synthdefs
 import supriya.ugens
-
 
 with supriya.synthdefs.SynthDefBuilder() as builder:
     source = supriya.ugens.WhiteNoise.ar()

@@ -1,8 +1,10 @@
+import types
+
 import pytest
+import uqbar.strings
+
 import supriya.patterns
 import supriya.realtime
-import types
-import uqbar.strings
 
 
 def test__perform_realtime_01(server):

@@ -1,6 +1,7 @@
 import datetime
 import decimal
 import struct
+
 from supriya.osc import format_datagram
 from supriya.system.SupriyaValueObject import SupriyaValueObject
 

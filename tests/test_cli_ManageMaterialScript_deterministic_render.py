@@ -1,10 +1,11 @@
 import io
 import os
+
 import pytest
-import supriya.cli
 import uqbar.io
 import uqbar.strings
 
+import supriya.cli
 
 module_contents = uqbar.strings.normalize(
     """

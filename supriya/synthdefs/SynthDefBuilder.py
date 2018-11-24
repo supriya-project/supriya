@@ -1,9 +1,10 @@
 import collections
 import copy
 import uuid
+from typing import List
+
 from supriya import utils
 from supriya.system.SupriyaObject import SupriyaObject
-from typing import List
 
 
 class SynthDefBuilder(SupriyaObject):

@@ -1,4 +1,5 @@
 import operator
+
 from supriya.patterns.Pattern import Pattern
 
 

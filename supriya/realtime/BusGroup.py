@@ -1,6 +1,6 @@
 import supriya.exceptions
-from supriya.realtime.ServerObjectProxy import ServerObjectProxy
 from supriya import CalculationRate
+from supriya.realtime.ServerObjectProxy import ServerObjectProxy
 
 
 class BusGroup(ServerObjectProxy):

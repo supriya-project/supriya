@@ -1,12 +1,14 @@
 import io
 import os
+from unittest import mock
+
 import pytest
-import supriya.cli
-import supriya.nonrealtime
 import uqbar.io
 import uqbar.strings
 import yaml
-from unittest import mock
+
+import supriya.cli
+import supriya.nonrealtime
 
 
 def test_missing_session(cli_paths):

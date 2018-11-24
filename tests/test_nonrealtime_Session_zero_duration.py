@@ -1,10 +1,11 @@
 import pytest
+import uqbar.strings
+
 import supriya.assets.synthdefs
 import supriya.nonrealtime
 import supriya.patterns
 import supriya.synthdefs
 import supriya.ugens
-import uqbar.strings
 
 
 def test_manual_with_gate():

@@ -1,9 +1,11 @@
+import types
+import uuid
+
 import pytest
+import uqbar.strings
+
 import supriya.patterns
 import supriya.realtime
-import types
-import uqbar.strings
-import uuid
 
 
 def test__perform_realtime_01(server):

@@ -1,6 +1,7 @@
+import uqbar.strings
+
 import supriya.assets.synthdefs
 import supriya.realtime
-import uqbar.strings
 
 
 def test_allocate_synthdef(server):

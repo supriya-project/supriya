@@ -2,8 +2,10 @@ import hashlib
 import pathlib
 import shlex
 import subprocess
-import supriya
+
 import uqbar.strings
+
+import supriya
 from supriya.system.SupriyaValueObject import SupriyaValueObject
 
 

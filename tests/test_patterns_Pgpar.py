@@ -1,9 +1,9 @@
 import pytest
+import uqbar.strings
+
 import supriya.assets.synthdefs
 import supriya.nonrealtime
 import supriya.patterns
-import uqbar.strings
-
 
 pattern = supriya.patterns.Pgpar(
     [

@@ -1,6 +1,6 @@
 import collections
-from uqbar.enums import IntEnumeration
 
+from uqbar.enums import IntEnumeration
 
 __all__ = ["AddAction", "CalculationRate"]
 

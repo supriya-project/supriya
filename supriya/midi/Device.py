@@ -2,14 +2,15 @@ import collections
 import copy
 import logging
 import pathlib
-import rtmidi  # type: ignore
 import threading
+
+import rtmidi  # type: ignore
 import uqbar.containers
-from supriya.midi.LogicalView import LogicalView
+
 from supriya.midi.LogicalControl import LogicalControl
 from supriya.midi.LogicalControlMode import LogicalControlMode
+from supriya.midi.LogicalView import LogicalView
 from supriya.midi.PhysicalControl import PhysicalControl
-
 
 logging.basicConfig(
     format="%(asctime)s [%(name)s] [%(levelname)s] %(message)s", level="INFO"

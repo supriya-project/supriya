@@ -1,6 +1,5 @@
 import supriya.patterns
 
-
 pattern_01 = supriya.patterns.Prand(["A", "B", "C"], repetitions=10)
 
 

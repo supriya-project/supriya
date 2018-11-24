@@ -1,12 +1,12 @@
 import pytest
+import uqbar.strings
+
 import supriya.assets.synthdefs
 import supriya.nonrealtime
 import supriya.patterns
 import supriya.synthdefs
 import supriya.ugens
-import uqbar.strings
 from supriya import AddAction
-
 
 with supriya.synthdefs.SynthDefBuilder(in_=0, out=0) as builder:
     source = supriya.ugens.In.ar(bus=builder["in_"])

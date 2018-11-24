@@ -1,7 +1,7 @@
 import pytest
-import supriya.patterns
 import uqbar.strings
 
+import supriya.patterns
 
 pattern = supriya.patterns.Pbindf(
     supriya.patterns.Pbind(duration=supriya.patterns.Pseq([1.0, 2.0, 3.0], 1)),

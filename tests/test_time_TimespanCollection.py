@@ -1,10 +1,11 @@
 import itertools
-import pytest
 import random
-import supriya.time
+
+import pytest
 import uqbar.io
 from abjad import Timespan
 
+import supriya.time
 
 # from supriya.system import SupriyaValueObject
 # class Timespan(SupriyaValueObject):

@@ -1,7 +1,8 @@
 import pytest
-import supriya.nonrealtime
-import supriya.assets.synthdefs
 import uqbar.strings
+
+import supriya.assets.synthdefs
+import supriya.nonrealtime
 
 
 def test_01():

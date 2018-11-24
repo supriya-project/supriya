@@ -1,8 +1,10 @@
 import io
+
 import pytest
-import supriya.cli
 import uqbar.io
 import uqbar.strings
+
+import supriya.cli
 
 
 def test():

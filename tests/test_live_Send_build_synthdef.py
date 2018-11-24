@@ -1,5 +1,6 @@
-import supriya.live
 import uqbar.strings
+
+import supriya.live
 
 
 def test_build_synthdef_1_1():

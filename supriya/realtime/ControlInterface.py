@@ -1,5 +1,6 @@
 import abc
 import re
+
 from supriya.system.SupriyaObject import SupriyaObject
 
 

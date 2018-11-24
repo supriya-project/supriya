@@ -1,4 +1,5 @@
 import inspect
+
 from supriya.patterns.Pattern import Pattern
 from supriya.patterns.RandomNumberGenerator import RandomNumberGenerator
 

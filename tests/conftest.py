@@ -1,15 +1,16 @@
 import doctest
-import jinja2
 import os
 import pathlib
-import pytest
 import re
 import shutil
-import supriya.cli
 import sys
 import types
+
+import jinja2
+import pytest
 import uqbar.io
 
+import supriya.cli
 
 pytest_plugins = ["helpers_namespace"]
 

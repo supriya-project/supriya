@@ -5,17 +5,18 @@ import shutil
 import struct
 import subprocess
 import sys
+
 import tqdm  # type: ignore
 import uqbar.containers
 import uqbar.io
 import yaml
 
 import supriya
-from supriya import utils
-from supriya.exceptions import NonrealtimeRenderError, NonrealtimeOutputMissing
 import supriya.realtime
 import supriya.soundfiles
 import supriya.system
+from supriya import utils
+from supriya.exceptions import NonrealtimeOutputMissing, NonrealtimeRenderError
 from supriya.system.SupriyaObject import SupriyaObject
 
 

@@ -1,7 +1,7 @@
 import pytest
-import supriya.patterns
 import uqbar.strings
 
+import supriya.patterns
 
 pattern = supriya.patterns.Pchain(
     [

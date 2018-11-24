@@ -1,8 +1,10 @@
-import pytest
-import supriya.midi
-import uqbar.strings
-from supriya import Bindable, bind
 from unittest import mock
+
+import pytest
+import uqbar.strings
+
+import supriya.midi
+from supriya import Bindable, bind
 
 
 def test___init___01():

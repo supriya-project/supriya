@@ -1,4 +1,5 @@
 import pytest
+
 import supriya.patterns
 import supriya.system
 

@@ -1,5 +1,6 @@
 import collections
 from queue import PriorityQueue
+
 from supriya import utils
 from supriya.patterns.EventPattern import EventPattern
 

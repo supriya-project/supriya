@@ -1,8 +1,10 @@
 import io
-import pytest
 import shutil
-import supriya.cli
+
+import pytest
 import uqbar.io
+
+import supriya.cli
 
 
 def test_prune(cli_paths):

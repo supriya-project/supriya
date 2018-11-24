@@ -1,7 +1,7 @@
 import pytest
 import uqbar.strings
-import supriya.patterns
 
+import supriya.patterns
 
 pattern_01 = supriya.patterns.Ppar(
     [

@@ -1,5 +1,6 @@
-import supriya.ugens
 import uqbar.strings
+
+import supriya.ugens
 from supriya import SynthDefFactory
 
 

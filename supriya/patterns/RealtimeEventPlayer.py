@@ -1,10 +1,11 @@
 import itertools
 import time
 from queue import PriorityQueue
-from supriya import utils
+
 import supriya.commands
 import supriya.realtime
 import supriya.system
+from supriya import utils
 from supriya.patterns.EventPlayer import EventPlayer
 
 

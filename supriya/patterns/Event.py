@@ -1,7 +1,9 @@
 import abc
 import collections
 import uuid
+
 import uqbar.objects
+
 from supriya.system.SupriyaValueObject import SupriyaValueObject
 
 

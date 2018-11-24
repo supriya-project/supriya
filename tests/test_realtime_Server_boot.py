@@ -1,8 +1,10 @@
-import pytest
 import subprocess
+from unittest import mock
+
+import pytest
+
 import supriya.exceptions
 import supriya.realtime
-from unittest import mock
 
 
 def test_boot():

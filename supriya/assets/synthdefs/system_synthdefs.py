@@ -1,7 +1,6 @@
 import supriya.synthdefs
 import supriya.ugens
 
-
 __all__ = []
 
 

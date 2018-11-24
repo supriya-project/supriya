@@ -1,5 +1,6 @@
 import copy
 import types
+
 from supriya.system.SupriyaObject import SupriyaObject
 
 

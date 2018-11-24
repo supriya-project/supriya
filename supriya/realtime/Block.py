@@ -1,4 +1,4 @@
-from abjad import NegativeInfinity, Infinity
+from abjad import Infinity, NegativeInfinity
 from abjad.timespans.Timespan import Timespan
 
 

@@ -1,4 +1,5 @@
 import bisect
+
 import supriya.commands
 from supriya.nonrealtime.SessionObject import SessionObject
 

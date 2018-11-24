@@ -1,18 +1,20 @@
+import atexit
 import os
 import pathlib
-import signal
-import atexit
 import re
+import signal
 import subprocess
-import supriya.exceptions
 import threading
 import time
+from typing import Dict, Tuple
+
 import uqbar.graphs
 import uqbar.io
+
+import supriya.exceptions
 from supriya import utils
 from supriya.system import PubSub
 from supriya.system.SupriyaObject import SupriyaObject
-from typing import Dict, Tuple
 
 
 class Server(SupriyaObject):

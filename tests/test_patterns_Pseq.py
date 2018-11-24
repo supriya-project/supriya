@@ -1,7 +1,7 @@
 import pytest
-import supriya.patterns
 import uqbar.strings
 
+import supriya.patterns
 
 pseq_01 = supriya.patterns.Pseq(["A", "B", "C", "D"])
 

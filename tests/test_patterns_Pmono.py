@@ -1,10 +1,11 @@
-import pytest
 import time
+
+import pytest
+import uqbar.strings
+
 import supriya.assets.synthdefs
 import supriya.nonrealtime
 import supriya.patterns
-import uqbar.strings
-
 
 pmono_01 = supriya.patterns.Pmono(
     amplitude=1.0,

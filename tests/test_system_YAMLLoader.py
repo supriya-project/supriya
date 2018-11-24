@@ -1,8 +1,9 @@
-import yaml
 import pathlib
-import supriya
-import uqbar.strings
 
+import uqbar.strings
+import yaml
+
+import supriya
 
 base_path = pathlib.Path(supriya.__path__[0]) / "assets" / "devices"
 

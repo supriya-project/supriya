@@ -1,5 +1,6 @@
 import abc
 import functools
+
 from supriya.system.SupriyaObject import SupriyaObject
 
 

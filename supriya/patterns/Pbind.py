@@ -1,4 +1,5 @@
 import collections
+
 from supriya.patterns.EventPattern import EventPattern
 
 

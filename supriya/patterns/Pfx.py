@@ -1,4 +1,5 @@
 import uuid
+
 from supriya.patterns.EventPattern import EventPattern
 
 

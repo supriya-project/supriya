@@ -1,5 +1,6 @@
-import supriya
 import uqbar.strings
+
+import supriya
 
 
 def test():

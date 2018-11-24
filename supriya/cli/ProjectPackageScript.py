@@ -1,17 +1,19 @@
 import contextlib
 import importlib
-import jinja2
 import os
 import pathlib
 import re
 import shutil
 import subprocess
-import supriya
 import sys
 import traceback
+
+import jinja2
 import uqbar.cli
 import uqbar.io
 import uqbar.strings
+
+import supriya
 
 
 class ProjectPackageScript(uqbar.cli.CLI):

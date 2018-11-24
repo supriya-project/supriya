@@ -1,4 +1,5 @@
 import collections
+
 from supriya.midi.LogicalControl import LogicalControl
 
 

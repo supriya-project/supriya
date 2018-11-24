@@ -1,6 +1,6 @@
 import supriya.realtime
-import supriya.ugens
 import supriya.synthdefs
+import supriya.ugens
 
 
 class Direct:

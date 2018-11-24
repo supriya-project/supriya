@@ -1,12 +1,13 @@
+import time
+
 import pytest
+import uqbar.strings
+
 import supriya.assets.synthdefs
 import supriya.nonrealtime
 import supriya.patterns
 import supriya.ugens
-import time
-import uqbar.strings
-from supriya import SynthDefBuilder, Parameter
-
+from supriya import Parameter, SynthDefBuilder
 
 pbus_01 = supriya.patterns.Pbus(
     pattern=supriya.patterns.Pbind(

@@ -1,11 +1,12 @@
 import abc
 import collections
 import inspect
+from typing import Dict, Optional, Tuple, Union
+
 from supriya.synthdefs.SignalRange import SignalRange
 from supriya.synthdefs.UGenMethodMixin import UGenMethodMixin
-from supriya.ugens.UGenMeta import UGenMeta
-from typing import Dict, Optional, Tuple, Union
 from supriya.typing import UGenInputMap
+from supriya.ugens.UGenMeta import UGenMeta
 
 
 class UGen(UGenMethodMixin, metaclass=UGenMeta):

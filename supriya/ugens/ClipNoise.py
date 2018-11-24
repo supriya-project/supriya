@@ -1,7 +1,8 @@
 import collections
+
 from supriya import CalculationRate
-from supriya.ugens.UGen import UGen
 from supriya.typing import UGenInputMap
+from supriya.ugens.UGen import UGen
 
 
 class ClipNoise(UGen):

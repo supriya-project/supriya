@@ -1,6 +1,7 @@
 import pytest
-import supriya
 import uqbar.strings
+
+import supriya
 
 
 def test_do_not_coerce_arguments():

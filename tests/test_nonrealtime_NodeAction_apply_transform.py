@@ -1,6 +1,5 @@
 import supriya.nonrealtime
 import supriya.realtime
-import supriya.nonrealtime
 
 
 def test_add_to_head_01():

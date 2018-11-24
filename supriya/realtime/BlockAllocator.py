@@ -1,4 +1,5 @@
 import threading
+
 from supriya import utils
 from supriya.system.SupriyaObject import SupriyaObject
 

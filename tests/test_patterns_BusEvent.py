@@ -1,7 +1,9 @@
-import pytest
 import types
 import uuid
+
+import pytest
 import uqbar.strings
+
 import supriya.patterns
 import supriya.realtime
 

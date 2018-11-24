@@ -1,9 +1,11 @@
 import os
 import pathlib
 import sys
-import yaml
+
 import uqbar.io
 import uqbar.strings
+import yaml
+
 from supriya.cli.ProjectPackageScript import ProjectPackageScript
 
 

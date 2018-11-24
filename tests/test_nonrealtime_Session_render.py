@@ -1,8 +1,9 @@
 import pathlib
 import pprint
+from unittest import mock
+
 import pytest
 import uqbar.strings
-from unittest import mock
 
 import supriya
 import supriya.nonrealtime

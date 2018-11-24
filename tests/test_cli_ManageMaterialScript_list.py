@@ -1,7 +1,9 @@
 import io
+
 import pytest
-import supriya.cli
 import uqbar.io
+
+import supriya.cli
 
 
 def test_list_materials(cli_paths):

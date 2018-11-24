@@ -1,8 +1,8 @@
 import pytest
+
 import supriya.assets.synthdefs
 import supriya.nonrealtime
 import supriya.patterns
-
 
 pattern_01 = supriya.patterns.Ppar(
     [

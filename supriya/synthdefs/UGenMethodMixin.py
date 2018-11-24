@@ -1,7 +1,8 @@
 import collections
 import copy
-from supriya.system.SupriyaObject import SupriyaObject
 from typing import Optional
+
+from supriya.system.SupriyaObject import SupriyaObject
 
 
 class UGenMethodMixin(SupriyaObject):

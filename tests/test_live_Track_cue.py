@@ -1,10 +1,11 @@
+import time
+
 import pytest
+
 import supriya.live
 import supriya.realtime
 import supriya.synthdefs
 import supriya.ugens
-import time
-
 
 with supriya.synthdefs.SynthDefBuilder(out=0, value=1) as builder:
     source = supriya.ugens.DC.ar(source=builder["value"])

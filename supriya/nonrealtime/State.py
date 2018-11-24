@@ -1,9 +1,11 @@
 import collections
-import supriya.commands
+from typing import Dict, Tuple
+
 import uqbar.graphs
+
+import supriya.commands
 from supriya.nonrealtime.SessionObject import SessionObject
 from supriya.utils import iterate_nwise
-from typing import Dict, Tuple
 
 
 class State(SessionObject):

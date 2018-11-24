@@ -1,13 +1,15 @@
 import abc
 import collections
-import os
 import inspect
+import os
 import sys
 import traceback
+
 import uqbar.io
-from supriya.cli.ProjectSettings import ProjectSettings
+
 from supriya.cli.ProjectPackageScript import ProjectPackageScript
-from supriya.exceptions import NonrealtimeRenderError, NonrealtimeOutputMissing
+from supriya.cli.ProjectSettings import ProjectSettings
+from supriya.exceptions import NonrealtimeOutputMissing, NonrealtimeRenderError
 
 
 class ProjectSectionScript(ProjectPackageScript):
