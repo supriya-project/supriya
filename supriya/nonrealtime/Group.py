@@ -24,7 +24,7 @@ class Group(Node):
         supriya.AddAction.ADD_TO_TAIL,
         supriya.AddAction.ADD_AFTER,
         supriya.AddAction.ADD_BEFORE,
-        )
+    )
 
     ### SPECIAL METHODS ###
 
@@ -34,9 +34,7 @@ class Group(Node):
     ### PRIVATE METHODS ###
 
     def _to_request(
-        self,
-        action: NodeAction,
-        id_mapping: Dict[SessionObject, int],
+        self, action: NodeAction, id_mapping: Dict[SessionObject, int]
     ) -> GroupNewRequest:
         source_id = id_mapping[action.source]
         target_id = id_mapping[action.target]
@@ -44,12 +42,10 @@ class Group(Node):
         request = GroupNewRequest(
             items=[
                 GroupNewRequest.Item(
-                    add_action=add_action,
-                    node_id=source_id,
-                    target_node_id=target_id,
-                    ),
-                ],
-            )
+                    add_action=add_action, node_id=source_id, target_node_id=target_id
+                )
+            ]
+        )
         return request
 
     def _get_stop_offset(self, offset, event) -> float:
@@ -63,19 +59,17 @@ class Group(Node):
     def inscribe(
         self,
         pattern: Pattern,
-        duration: float=None,
-        offset: float=None,
-        seed: int=None,
+        duration: float = None,
+        offset: float = None,
+        seed: int = None,
     ) -> float:
         import supriya.patterns
+
         if offset is None:
             raise ValueError(offset)
         assert isinstance(pattern, supriya.patterns.Pattern)
         if seed is not None:
-            pattern = supriya.patterns.Pseed(
-                pattern=pattern,
-                seed=seed,
-                )
+            pattern = supriya.patterns.Pseed(pattern=pattern, seed=seed)
         if duration is None:
             duration = self.stop_offset - offset
         if pattern.is_infinite:
@@ -95,9 +89,9 @@ class Group(Node):
         except StopIteration:
             return offset
         if (
-            duration is not None and
-            isinstance(event, supriya.patterns.NoteEvent) and
-            self._get_stop_offset(offset, event) > maximum_offset
+            duration is not None
+            and isinstance(event, supriya.patterns.NoteEvent)
+            and self._get_stop_offset(offset, event) > maximum_offset
         ):
             return offset
         performed_stop_offset = event._perform_nonrealtime(
@@ -105,7 +99,7 @@ class Group(Node):
             uuids=uuids,
             maximum_offset=maximum_offset,
             offset=offset,
-            )
+        )
         offset += event.delta
         actual_stop_offset = max(actual_stop_offset, performed_stop_offset)
         while True:
@@ -113,9 +107,8 @@ class Group(Node):
                 event = iterator.send(should_stop)
             except StopIteration:
                 break
-            if (
-                maximum_offset is not None and
-                isinstance(event, supriya.patterns.NoteEvent)
+            if maximum_offset is not None and isinstance(
+                event, supriya.patterns.NoteEvent
             ):
                 if event.get('duration', 0) == 0 and offset == maximum_offset:
                     # Current event is 0-duration and we're at our stop.
@@ -132,10 +125,7 @@ class Group(Node):
                 uuids=uuids,
                 maximum_offset=maximum_offset,
                 offset=offset,
-                )
+            )
             offset += event.delta
-            actual_stop_offset = max(
-                actual_stop_offset,
-                performed_stop_offset,
-                )
+            actual_stop_offset = max(actual_stop_offset, performed_stop_offset)
         return actual_stop_offset

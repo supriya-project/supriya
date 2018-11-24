@@ -54,26 +54,20 @@ class Bus(SessionObject):
         '_events',
         '_session',
         '_session_id',
-        )
+    )
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        session,
-        bus_group=None,
-        calculation_rate=None,
-        session_id=None,
-        ):
+    def __init__(self, session, bus_group=None, calculation_rate=None, session_id=None):
         import supriya.nonrealtime
+
         SessionObject.__init__(self, session)
         self._session_id = session_id
         if bus_group is not None:
             assert isinstance(bus_group, supriya.nonrealtime.BusGroup)
         self._bus_group = bus_group
         assert calculation_rate is not None
-        calculation_rate = supriya.CalculationRate.from_expr(
-            calculation_rate)
+        calculation_rate = supriya.CalculationRate.from_expr(calculation_rate)
         self._calculation_rate = calculation_rate
         self._events = []
 
@@ -92,17 +86,16 @@ class Bus(SessionObject):
         elif isinstance(session_id, tuple):
             session_id = '{}:{}'.format(session_id[0], session_id[1])
         return '{map_symbol}{session_id}'.format(
-            map_symbol=map_symbol,
-            session_id=session_id,
-            )
+            map_symbol=map_symbol, session_id=session_id
+        )
 
     ### PRIVATE METHODS ###
 
     def _get_at_offset(self, offset):
         events = self._events
         if not events:
-            return 0.
-        index = bisect.bisect_left(events, (offset, 0.))
+            return 0.0
+        index = bisect.bisect_left(events, (offset, 0.0))
         if len(events) <= index:
             old_offset, value = events[-1]
         else:
@@ -111,7 +104,7 @@ class Bus(SessionObject):
             return value
         index -= 1
         if index < 0:
-            return 0.
+            return 0.0
         _, value = events[index]
         return value
 
@@ -140,6 +133,7 @@ class Bus(SessionObject):
 
     def get_map_symbol(self, bus_id):
         import supriya.synthdefs
+
         if self.calculation_rate == supriya.CalculationRate.AUDIO:
             map_symbol = 'a'
         else:

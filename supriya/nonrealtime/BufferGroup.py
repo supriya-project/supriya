@@ -11,10 +11,7 @@ class BufferGroup(SessionObject):
 
     __documentation_section__ = 'Session Objects'
 
-    __slots__ = (
-        '_buffers',
-        '_session',
-        )
+    __slots__ = ('_buffers', '_session')
 
     ### INITIALIZER ###
 
@@ -26,8 +23,9 @@ class BufferGroup(SessionObject):
         channel_count=1,
         frame_count=1,
         start_offset=None,
-        ):
+    ):
         import supriya.nonrealtime
+
         SessionObject.__init__(self, session)
         buffer_count = int(buffer_count)
         assert 0 < buffer_count
@@ -42,7 +40,7 @@ class BufferGroup(SessionObject):
                 channel_count=channel_count,
                 frame_count=frame_count,
                 start_offset=start_offset,
-                )
+            )
             buffers.append(buffer_)
         self._buffers = tuple(buffers)
 

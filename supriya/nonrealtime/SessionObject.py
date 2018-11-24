@@ -17,15 +17,10 @@ class SessionObject(SupriyaObject):
     ### INITIALIZER ###
 
     @abc.abstractmethod
-    def __init__(
-        self,
-        session,
-        ):
+    def __init__(self, session):
         import supriya.nonrealtime
-        prototype = (
-            supriya.nonrealtime.Session,
-            type(None),
-            )
+
+        prototype = (supriya.nonrealtime.Session, type(None))
         assert isinstance(session, prototype)
         self._session = session
 
@@ -36,6 +31,7 @@ class SessionObject(SupriyaObject):
         @functools.wraps(function)
         def wrapper(self, *args, **kwargs):
             import supriya.nonrealtime
+
             if isinstance(self, supriya.nonrealtime.Session):
                 session = self
             else:
@@ -47,10 +43,14 @@ class SessionObject(SupriyaObject):
                 kwargs['offset'] = offset
             if isinstance(self, SessionObject):
                 if not (self.start_offset <= kwargs['offset'] <= self.stop_offset):
-                    raise ValueError('Offset {} must intersect [{}, {}]'.format(
-                        float(offset), self.start_offset, self.stop_offset))
+                    raise ValueError(
+                        'Offset {} must intersect [{}, {}]'.format(
+                            float(offset), self.start_offset, self.stop_offset
+                        )
+                    )
             with session.at(kwargs['offset']):
                 return function(self, *args, **kwargs)
+
         return wrapper
 
     ### PUBLIC PROPERTIES ###

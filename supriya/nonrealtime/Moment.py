@@ -17,12 +17,7 @@ class Moment(SessionObject):
 
     __documentation_section__ = 'Session Objects'
 
-    __slots__ = (
-        '_offset',
-        '_propagate',
-        '_session',
-        '_state',
-        )
+    __slots__ = ('_offset', '_propagate', '_session', '_state')
 
     ### INITIALIZER ###
 
@@ -58,10 +53,7 @@ class Moment(SessionObject):
         return self.offset < expr.offset
 
     def __repr__(self):
-        return '<{} @{!r}>'.format(
-            type(self).__name__,
-            self.offset,
-            )
+        return '<{} @{!r}>'.format(type(self).__name__, self.offset)
 
     ### PUBLIC PROPERTIES ###
 

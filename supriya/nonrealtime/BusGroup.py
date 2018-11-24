@@ -53,28 +53,17 @@ class BusGroup(SessionObject):
 
     __documentation_section__ = 'Session Objects'
 
-    __slots__ = (
-        '_buses',
-        '_calculation_rate',
-        '_session',
-        '_session_id',
-        )
+    __slots__ = ('_buses', '_calculation_rate', '_session', '_session_id')
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        session,
-        bus_count=1,
-        calculation_rate=None,
-        session_id=None,
-        ):
+    def __init__(self, session, bus_count=1, calculation_rate=None, session_id=None):
         import supriya.nonrealtime
+
         SessionObject.__init__(self, session)
         self._session_id = session_id
         assert calculation_rate is not None
-        calculation_rate = supriya.CalculationRate.from_expr(
-            calculation_rate)
+        calculation_rate = supriya.CalculationRate.from_expr(calculation_rate)
         self._calculation_rate = calculation_rate
         bus_count = int(bus_count)
         assert 0 < bus_count
@@ -84,9 +73,9 @@ class BusGroup(SessionObject):
                 bus_group=self,
                 calculation_rate=self.calculation_rate,
                 session_id=(session_id, i),
-                )
-            for i in range(bus_count)
             )
+            for i in range(bus_count)
+        )
 
     ### SPECIAL METHODS ###
 
@@ -116,9 +105,8 @@ class BusGroup(SessionObject):
         if session_id is None:
             session_id = '?'
         return '{map_symbol}{session_id}'.format(
-            map_symbol=map_symbol,
-            session_id=session_id,
-            )
+            map_symbol=map_symbol, session_id=session_id
+        )
 
     ### PUBLIC METHODS ###
 
@@ -136,6 +124,7 @@ class BusGroup(SessionObject):
 
     def get_map_symbol(self, bus_id):
         import supriya.synthdefs
+
         if self.calculation_rate == supriya.CalculationRate.AUDIO:
             map_symbol = 'a'
         else:

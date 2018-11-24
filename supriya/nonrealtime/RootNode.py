@@ -17,7 +17,7 @@ class RootNode(Group):
     _valid_add_actions: Tuple[int, ...] = (
         supriya.AddAction.ADD_TO_HEAD,
         supriya.AddAction.ADD_TO_TAIL,
-        )
+    )
 
     ### INITIALIZER ###
 
@@ -28,7 +28,7 @@ class RootNode(Group):
             session_id=0,
             duration=float('inf'),
             start_offset=float('-inf'),
-            )
+        )
 
     ### SPECIAL METHODS ###
 
