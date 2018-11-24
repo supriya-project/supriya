@@ -86,7 +86,7 @@ class State(SessionObject):
         ordered_synths = []
         cluster = uqbar.graphs.Graph(
             is_cluster=True,
-            attributes={'rank': 'same'},
+            # attributes={'rank': 'same'},
         )
         node_mapping = {self.session.root_node: cluster}
         for parent, child in self._iterate_node_pairs(

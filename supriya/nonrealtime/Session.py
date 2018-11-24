@@ -157,6 +157,8 @@ class Session:
         """
         Graphs session.
 
+        TODO: Get graphviz to respect node order or reimplement as pure SVG.
+
         ::
 
             >>> session = supriya.Session()
@@ -172,73 +174,138 @@ class Session:
             ...     synth_d = synth_b.add_synth(duration=5, add_action='ADD_BEFORE')
             ...
             >>> with session.at(11):
-            ...     synth_d.move_node(synth_a, add_action='ADD_AFTER')
+            ...     _ = synth_d.move_node(synth_a, add_action='ADD_AFTER')
             ...
-            >>> supriya.graph(session)
+            >>> supriya.graph(session)  # doctest: +SKIP
 
         ::
 
-            >>> graph = session.__graph__()
-            >>> print(format(graph, 'graphviz'))
+            >>> graphviz_graph = session.__graph__()
+            >>> print(format(graphviz_graph, 'graphviz'))
             digraph G {
                 graph [bgcolor=transparent,
                     fontname=Arial,
                     penwidth=2,
                     rankdir=LR,
-                    ranksep=1.5,
-                    style="dashed, rounded"];
+                    ranksep=1.5];
                 node [fontname=Arial,
                     fontsize=12,
                     penwidth=2,
+                    shape=Mrecord,
                     style="filled, rounded"];
                 edge [penwidth=2];
                 subgraph cluster_0 {
-                    graph [label="[-inf]"];
+                    graph [label="[-inf]",
+                        style="solid, rounded"];
                 }
                 subgraph cluster_1 {
-                    graph [label="[0.0]"];
+                    graph [label="[0.0]",
+                        style="solid, rounded"];
                     subgraph cluster_1_0 {
-                        graph [label="1000"];
-                        node_1_0_0 [label="1001"];
+                        graph [label="1000",
+                            style="dashed, rounded"];
+                        node_1_0_0 [label="{ { <f_0_0_0> [1001] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
                     }
                 }
                 subgraph cluster_2 {
-                    graph [label="[5.0]"];
+                    graph [label="[5.0]",
+                        style="solid, rounded"];
                     subgraph cluster_2_0 {
-                        graph [label="1000"];
-                        node_2_0_0 [label="1003"];
-                        node_2_0_1 [label="1002"];
-                        node_2_0_2 [label="1001"];
+                        graph [label="1000",
+                            style="dashed, rounded"];
+                        node_2_0_0 [label="{ { <f_0_0_0> [1003] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
+                        node_2_0_1 [label="{ { <f_0_0_0> [1002] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
+                        node_2_0_2 [label="{ { <f_0_0_0> [1001] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
+                        node_2_0_0 -> node_2_0_1;
+                        node_2_0_1 -> node_2_0_2;
                     }
                 }
                 subgraph cluster_3 {
-                    graph [label="[10.0]"];
+                    graph [label="[7.5]",
+                        style="solid, rounded"];
                     subgraph cluster_3_0 {
-                        graph [label="1000"];
-                        node_3_0_0 [label="1002"];
-                        node_3_0_1 [label="1001"];
+                        graph [label="1000",
+                            style="dashed, rounded"];
+                        node_3_0_0 [label="{ { <f_0_0_0> [1003] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
+                        node_3_0_1 [label="{ { <f_0_0_0> [1004] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
+                        node_3_0_2 [label="{ { <f_0_0_0> [1002] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
+                        node_3_0_3 [label="{ { <f_0_0_0> [1001] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
+                        node_3_0_0 -> node_3_0_1;
+                        node_3_0_1 -> node_3_0_2;
+                        node_3_0_2 -> node_3_0_3;
                     }
                 }
                 subgraph cluster_4 {
-                    graph [label="[15.0]"];
+                    graph [label="[10.0]",
+                        style="solid, rounded"];
                     subgraph cluster_4_0 {
-                        graph [label="1000"];
-                        node_4_0_0 [label="1002"];
+                        graph [label="1000",
+                            style="dashed, rounded"];
+                        node_4_0_0 [label="{ { <f_0_0_0> [1004] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
+                        node_4_0_1 [label="{ { <f_0_0_0> [1002] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
+                        node_4_0_2 [label="{ { <f_0_0_0> [1001] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
+                        node_4_0_0 -> node_4_0_1;
+                        node_4_0_1 -> node_4_0_2;
                     }
                 }
                 subgraph cluster_5 {
-                    graph [label="[20.0]"];
+                    graph [label="[11.0]",
+                        style="solid, rounded"];
                     subgraph cluster_5_0 {
-                        graph [label="1000"];
+                        graph [label="1000",
+                            style="dashed, rounded"];
+                        node_5_0_0 [label="{ { <f_0_0_0> [1004] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
+                        node_5_0_1 [label="{ { <f_0_0_0> [1001] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
+                        node_5_0_2 [label="{ { <f_0_0_0> [1002] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
+                        node_5_0_0 -> node_5_0_1;
+                        node_5_0_1 -> node_5_0_2;
                     }
                 }
                 subgraph cluster_6 {
-                    graph [label="[inf]"];
+                    graph [label="[12.5]",
+                        style="solid, rounded"];
+                    subgraph cluster_6_0 {
+                        graph [label="1000",
+                            style="dashed, rounded"];
+                        node_6_0_0 [label="{ { <f_0_0_0> [1001] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
+                        node_6_0_1 [label="{ { <f_0_0_0> [1002] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
+                        node_6_0_0 -> node_6_0_1;
+                    }
                 }
-                node_1_0_0 -> node_2_0_2;
-                node_2_0_1 -> node_3_0_0;
-                node_2_0_2 -> node_3_0_1;
-                node_3_0_0 -> node_4_0_0;
+                subgraph cluster_7 {
+                    graph [label="[15.0]",
+                        style="solid, rounded"];
+                    subgraph cluster_7_0 {
+                        graph [label="1000",
+                            style="dashed, rounded"];
+                        node_7_0_0 [label="{ { <f_0_0_0> [1002] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
+                    }
+                }
+                subgraph cluster_8 {
+                    graph [label="[20.0]",
+                        style="solid, rounded"];
+                    subgraph cluster_8_0 {
+                        graph [label="1000",
+                            style="dashed, rounded"];
+                    }
+                }
+                subgraph cluster_9 {
+                    graph [label="[inf]",
+                        style="solid, rounded"];
+                }
+                node_1_0_0:f_0_0_0 -> node_2_0_2:f_0_0_0;
+                node_2_0_0:f_0_0_0 -> node_3_0_0:f_0_0_0;
+                node_2_0_1:f_0_0_0 -> node_3_0_2:f_0_0_0;
+                node_2_0_2:f_0_0_0 -> node_3_0_3:f_0_0_0;
+                node_3_0_1:f_0_0_0 -> node_4_0_0:f_0_0_0;
+                node_3_0_2:f_0_0_0 -> node_4_0_1:f_0_0_0;
+                node_3_0_3:f_0_0_0 -> node_4_0_2:f_0_0_0;
+                node_4_0_0:f_0_0_0 -> node_5_0_0:f_0_0_0;
+                node_4_0_1:f_0_0_0 -> node_5_0_2:f_0_0_0;
+                node_4_0_2:f_0_0_0 -> node_5_0_1:f_0_0_0;
+                node_5_0_1:f_0_0_0 -> node_6_0_0:f_0_0_0;
+                node_5_0_2:f_0_0_0 -> node_6_0_1:f_0_0_0;
+                node_6_0_1:f_0_0_0 -> node_7_0_0:f_0_0_0;
             }
 
         """
