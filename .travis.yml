@@ -78,7 +78,7 @@ before_script:
 
 script:
 - sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; make sanity-check"
-- sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; make test-travis"
+- sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; make pytest-travis"
 
 notifications:
-    email: false
+  email: false

@@ -16,6 +16,8 @@ install_requires = [
 
 extras_require = {
     'test': [
+        'black',
+        'isort',
         'mypy',
         'pytest >= 3.6.0',
         'pytest-helpers-namespace',
