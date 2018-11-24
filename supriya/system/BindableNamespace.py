@@ -8,7 +8,6 @@ class BindableNamespace(collections.Mapping):
     #       Unbind bindings on __delitem__.
 
     class ProxyProxy:
-
         def __init__(self, namespace):
             self.namespace = namespace
 

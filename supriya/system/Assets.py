@@ -30,7 +30,6 @@ class _AssetsMeta(abc.ABCMeta):
 
 
 class Assets(metaclass=_AssetsMeta):
-
     def __init__(self, root_path: str) -> None:
         self.root_path = root_path
 

@@ -3,7 +3,6 @@ import weakref
 
 
 class Bindable:
-
     def __init__(self, func=None, *, rebroadcast=False):
         if func is not None:
             functools.update_wrapper(self, func)
@@ -16,10 +15,7 @@ class Bindable:
 
     def __call__(self, *args, **kwargs):
         if self.func is None:
-            return type(self)(
-                func=args[0],
-                rebroadcast=self.rebroadcast,
-                )
+            return type(self)(func=args[0], rebroadcast=self.rebroadcast)
         return_value = self.func(*args, **kwargs)
         if return_value is not None:
             with self:
@@ -31,20 +27,19 @@ class Bindable:
         return return_value
 
     def __get__(self, instance, class_=None):
-        #print('GET', type(self).__name__, instance, class_.__name__, self.func)
+        # print('GET', type(self).__name__, instance, class_.__name__, self.func)
         if instance is None:
-            #print('    CLS')
+            # print('    CLS')
             return self
         elif instance in self.instances:
-            #print('    OLD', instance, instance.func)
+            # print('    OLD', instance, instance.func)
             return self.instances[instance]
         instance_method = self.func.__get__(instance, class_)
         instance_decorator = self.__class__(
-            instance_method,
-            rebroadcast=self.rebroadcast,
-            )
+            instance_method, rebroadcast=self.rebroadcast
+        )
         self.instances[instance] = instance_decorator
-        #print('    NEW', instance, instance.func)
+        # print('    NEW', instance, instance.func)
         return instance_decorator
 
     def __enter__(self):

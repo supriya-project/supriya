@@ -19,7 +19,7 @@ class Binding:
         'symmetric',
         'target',
         'target_range',
-        )
+    )
 
     ### INITIALIZER ###
 
@@ -33,20 +33,21 @@ class Binding:
         clip_maximum=None,
         exponent=None,
         symmetric=None,
-        ):
+    ):
         import supriya.synthdefs
-        #import supriya.system
-        #assert isinstance(source, supriya.system.Bindable), source
-        #assert isinstance(target, supriya.system.Bindable), target
-        #self.source = source
-        #self.target = target
+
+        # import supriya.system
+        # assert isinstance(source, supriya.system.Bindable), source
+        # assert isinstance(target, supriya.system.Bindable), target
+        # self.source = source
+        # self.target = target
         self.source = self.patch(source)
         self.target = self.patch(target)
         if source_range is None:
             if hasattr(self.source.func.__self__, 'range_'):
                 source_range = self.source.func.__self__.range_
             else:
-                source_range = (0., 1.)
+                source_range = (0.0, 1.0)
         source_range = supriya.synthdefs.Range(source_range)
         if source_range.minimum == float('-inf'):
             source_range = utils.new(source_range, minimum=0.0)
@@ -54,13 +55,12 @@ class Binding:
             source_range = utils.new(source_range, maximum=1.0)
         self.source_range = supriya.synthdefs.Range(source_range)
         if target_range is None:
-            if (
-                hasattr(self.target.func, '__self__') and
-                hasattr(self.target.func.__self__, 'range_')
-                ):
+            if hasattr(self.target.func, '__self__') and hasattr(
+                self.target.func.__self__, 'range_'
+            ):
                 target_range = self.target.func.__self__.range_
             else:
-                target_range = (0., 1.)
+                target_range = (0.0, 1.0)
         target_range = supriya.synthdefs.Range(target_range)
         if target_range.minimum == float('-inf'):
             target_range = utils.new(target_range, minimum=0.0)
@@ -79,13 +79,13 @@ class Binding:
     ### PUBLIC METHODS ###
 
     def is_class_instance(self, object_):
-        return (
-            hasattr(object_, '__class__') and
-            ('__dict__' in dir(object_) or hasattr(object_, '__slots__'))
-            )
+        return hasattr(object_, '__class__') and (
+            '__dict__' in dir(object_) or hasattr(object_, '__slots__')
+        )
 
     def patch(self, object_):
         import supriya.system
+
         if isinstance(object_, supriya.system.Bindable):
             pass
         elif callable(object_):
@@ -113,13 +113,7 @@ class Binding:
         return bindable
 
     @staticmethod
-    def perform_mapping(
-        value,
-        input_range,
-        output_range,
-        exponent=1,
-        symmetric=False,
-        ):
+    def perform_mapping(value, input_range, output_range, exponent=1, symmetric=False):
         value = (value - input_range.minimum) / input_range.width
         if exponent != 1:
             if symmetric and value >= 0.5:
@@ -142,18 +136,14 @@ class Binding:
             self.target_range,
             exponent=self.exponent,
             symmetric=self.symmetric,
-            )
+        )
         self.target(value)
 
     def perform_incoming(self, value):
         # TODO: handle exponent and symmetric in reverse
         if self.source.forbid_reentrancy:
             return
-        value = self.perform_mapping(
-            value,
-            self.target_range,
-            self.source_range,
-            )
+        value = self.perform_mapping(value, self.target_range, self.source_range)
         self.source(value)
 
     def unbind(self):

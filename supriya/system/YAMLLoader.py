@@ -5,7 +5,6 @@ import yaml
 
 
 class YAMLLoader:
-
     @classmethod
     def load(cls, path, overrides=None):
         path = pathlib.Path(path)
@@ -44,7 +43,8 @@ class YAMLLoader:
                 for key, value in local_template_variables.items():
                     value = str(value)
                     local_template_variables[key] = jinja2.Template(value).render(
-                        template_variables)
+                        template_variables
+                    )
                 template_variables.update(local_template_variables)
             for name, entry in manifest.items():
                 manifest[name] = cls.resolve_templating(entry, template_variables)

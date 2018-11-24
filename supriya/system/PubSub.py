@@ -24,12 +24,12 @@ class PubSub(SupriyaObject):
         if subscriber in subscribers:
             subscribers.remove(subscriber)
         if not subscribers:
-            del(cls._topics[topic])
+            del (cls._topics[topic])
         topics = cls._subscribers[subscriber]
         if topic in topics:
             topics.remove(topic)
         if not topics:
-            del(cls._subscribers[subscriber])
+            del (cls._subscribers[subscriber])
 
     ### PUBLIC METHODS ###
 
@@ -75,7 +75,9 @@ class PubSub(SupriyaObject):
             def wrapper(self, *args, **kwargs):
                 cls.subscribe(self, topic)
                 return function(self, *args, **kwargs)
+
             return wrapper
+
         return decorator
 
     @classmethod
@@ -86,5 +88,7 @@ class PubSub(SupriyaObject):
                 return_value = function(self, *args, **kwargs)
                 cls.unsubscribe(self, topic)
                 return return_value
+
             return wrapper
+
         return decorator

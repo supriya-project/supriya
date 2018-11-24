@@ -10,7 +10,7 @@ def bind(
     clip_maximum=None,
     exponent=None,
     symmetric=None,
-    ):
+):
     return Binding(
         source,
         target,
@@ -20,4 +20,4 @@ def bind(
         clip_maximum=clip_maximum,
         exponent=exponent,
         symmetric=symmetric,
-        )
+    )
