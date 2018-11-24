@@ -10,14 +10,13 @@ class Slot:
     @abc.abstractmethod
     def __init__(self, name, track, synthdef, **kwargs):
         import supriya.live
+
         self._name = str(name)
         assert isinstance(track, supriya.live.Track)
         self._track = track
         self._group = supriya.realtime.Group()
         if isinstance(synthdef, supriya.synthdefs.SynthDefFactory):
-            synthdef = synthdef.build(
-                channel_count=self._track.channel_count,
-                )
+            synthdef = synthdef.build(channel_count=self._track.channel_count)
         if synthdef is not None:
             assert isinstance(synthdef, supriya.synthdefs.SynthDef)
         self._synthdef = synthdef
@@ -81,7 +80,7 @@ class Slot:
             target_node=self,
             in_=int(self.track.output_bus_group),
             out=int(self.track.output_bus_group),
-            )
+        )
 
     @property
     def track(self):

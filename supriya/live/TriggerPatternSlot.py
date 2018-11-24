@@ -10,22 +10,11 @@ class TriggerPatternSlot(PatternSlot):
     ### INITIALIZER ###
 
     def __init__(
-        self,
-        name,
-        track,
-        synthdef=None,
-        pattern=None,
-        maximum_replicas=64,
-        **kwargs
+        self, name, track, synthdef=None, pattern=None, maximum_replicas=64, **kwargs
     ):
         PatternSlot.__init__(
-            self,
-            name=name,
-            track=track,
-            pattern=pattern,
-            synthdef=synthdef,
-            **kwargs,
-            )
+            self, name=name, track=track, pattern=pattern, synthdef=synthdef, **kwargs
+        )
         maximum_replicas = int(maximum_replicas)
         assert 0 < maximum_replicas
         self._maximum_replicas = maximum_replicas
@@ -44,6 +33,7 @@ class TriggerPatternSlot(PatternSlot):
     @Bindable(rebroadcast=True)
     def trigger(self, state):
         import supriya.assets.synthdefs
+
         if not self.is_allocated or not self._iterator:
             return state
         else:
@@ -57,14 +47,15 @@ class TriggerPatternSlot(PatternSlot):
                 return state
             assert isinstance(event, supriya.patterns.NoteEvent)
             synthdef = (
-                self.synthdef or
-                event.get('synthdef') or
-                supriya.assets.synthdefs.default
-                )
+                self.synthdef
+                or event.get('synthdef')
+                or supriya.assets.synthdefs.default
+            )
             settings = {
-                key: value for key, value in event._settings.items()
+                key: value
+                for key, value in event._settings.items()
                 if value is not None
-                }
+            }
             for synth_kwargs in event._expand(
                 settings=settings,
                 synthdef=synthdef,

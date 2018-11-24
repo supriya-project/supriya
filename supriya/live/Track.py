@@ -15,13 +15,9 @@ class Track:
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        mixer,
-        name,
-        channel_count=None,
-    ):
+    def __init__(self, mixer, name, channel_count=None):
         import supriya.live
+
         assert isinstance(mixer, supriya.live.Mixer)
         self._mixer = mixer
         channel_count = int(channel_count or self.mixer.channel_count)
@@ -29,13 +25,11 @@ class Track:
         self._channel_count = channel_count
 
         self._input_bus_group = supriya.realtime.BusGroup(
-            bus_count=self._channel_count,
-            calculation_rate='audio',
-            )
+            bus_count=self._channel_count, calculation_rate='audio'
+        )
         self._output_bus_group = supriya.realtime.BusGroup(
-            bus_count=self._channel_count,
-            calculation_rate='audio',
-            )
+            bus_count=self._channel_count, calculation_rate='audio'
+        )
 
         self._gain = float('-inf')
         self._is_cued = False
@@ -52,7 +46,8 @@ class Track:
 
         self._group = supriya.realtime.Group(name=name)
         self._input_synth = supriya.realtime.Synth(
-            synthdef=self.build_input_synthdef(self.channel_count))
+            synthdef=self.build_input_synthdef(self.channel_count)
+        )
         self._instrument_group = supriya.realtime.Group()
         self._send_group = supriya.realtime.Group()
         self._cue_synth = None
@@ -61,20 +56,24 @@ class Track:
         if self.name != 'cue':
             self._cue_synth = supriya.realtime.Synth(
                 synthdef=supriya.live.Send.build_synthdef(
-                    self.channel_count, self.mixer.cue_track.channel_count),
+                    self.channel_count, self.mixer.cue_track.channel_count
+                ),
                 active=False,
-                )
-        self._output_synth = supriya.realtime.Synth(
-            synthdef=self.build_output_synthdef(self.channel_count),
-            gain=-96,
             )
-        nodes = [_ for _ in [
-            self._input_synth,
-            self._instrument_group,
-            self._cue_synth,
-            self._output_synth,
-            self._send_group,
-            ] if _ is not None]
+        self._output_synth = supriya.realtime.Synth(
+            synthdef=self.build_output_synthdef(self.channel_count), gain=-96
+        )
+        nodes = [
+            _
+            for _ in [
+                self._input_synth,
+                self._instrument_group,
+                self._cue_synth,
+                self._output_synth,
+                self._send_group,
+            ]
+            if _ is not None
+        ]
         self._group.extend(nodes)
 
     ### SPECIAL METHODS ###
@@ -152,12 +151,8 @@ class Track:
 
     def add_auto_pattern_slot(self, name, pattern=None, synthdef=None, **kwargs):
         slot = AutoPatternSlot(
-            name=name,
-            track=self,
-            synthdef=synthdef,
-            pattern=pattern,
-            **kwargs
-            )
+            name=name, track=self, synthdef=synthdef, pattern=pattern, **kwargs
+        )
         return self._add_slot(slot)
 
     def add_direct_in(self, mapping):
@@ -198,11 +193,7 @@ class Track:
         assert target_name not in self._outgoing_sends
         source_track = self
         target_track = self.mixer[target_name]
-        send = Send(
-            source_track,
-            target_track,
-            initial_gain=initial_gain,
-            )
+        send = Send(source_track, target_track, initial_gain=initial_gain)
         source_track._outgoing_sends[target_name] = send
         target_track._incoming_sends[source_track.name] = send
         if self.mixer.is_allocated:
@@ -210,22 +201,13 @@ class Track:
         return send
 
     def add_synth_slot(self, name, synthdef=None, **kwargs):
-        slot = SynthSlot(
-            name=name,
-            track=self,
-            synthdef=synthdef,
-            **kwargs
-            )
+        slot = SynthSlot(name=name, track=self, synthdef=synthdef, **kwargs)
         return self._add_slot(slot)
 
     def add_trigger_pattern_slot(self, name, pattern=None, synthdef=None, **kwargs):
         slot = TriggerPatternSlot(
-            name=name,
-            track=self,
-            synthdef=synthdef,
-            pattern=pattern,
-            **kwargs
-            )
+            name=name, track=self, synthdef=synthdef, pattern=pattern, **kwargs
+        )
         return self._add_slot(slot)
 
     @staticmethod
@@ -237,38 +219,31 @@ class Track:
             in_=supriya.synthdefs.Parameter(value=0, parameter_rate='scalar'),
             lag=0.1,
             out=supriya.synthdefs.Parameter(value=0, parameter_rate='scalar'),
-            )
+        )
         with synthdef_builder:
             source = supriya.ugens.InFeedback.ar(
-                bus=synthdef_builder['in_'],
-                channel_count=channel_count,
-                )
-            supriya.ugens.SendPeakRMS.ar(
-                command_name='/levels/input',
-                source=source,
-                )
+                bus=synthdef_builder['in_'], channel_count=channel_count
+            )
+            supriya.ugens.SendPeakRMS.ar(command_name='/levels/input', source=source)
             gate = supriya.ugens.Linen.kr(
                 attack_time=synthdef_builder['lag'],
                 done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
                 gate=synthdef_builder['gate'],
                 release_time=synthdef_builder['lag'],
-                )
+            )
             active = supriya.ugens.Linen.kr(
                 attack_time=synthdef_builder['lag'],
                 done_action=supriya.synthdefs.DoneAction.NOTHING,
                 gate=synthdef_builder['active'],
                 release_time=synthdef_builder['lag'],
-                )
+            )
             amplitude = (
-                synthdef_builder['gain'].db_to_amplitude() *
-                (synthdef_builder['gain'] > -96.0)
-                ).lag(synthdef_builder['lag'])
+                synthdef_builder['gain'].db_to_amplitude()
+                * (synthdef_builder['gain'] > -96.0)
+            ).lag(synthdef_builder['lag'])
             total_gain = gate * active * amplitude
             source *= total_gain
-            supriya.ugens.ReplaceOut.ar(
-                bus=synthdef_builder['out'],
-                source=source,
-                )
+            supriya.ugens.ReplaceOut.ar(bus=synthdef_builder['out'], source=source)
         name = 'mixer/input/{}'.format(channel_count)
         return synthdef_builder.build(name=name)
 
@@ -280,42 +255,34 @@ class Track:
             gate=1,
             lag=0.1,
             out=supriya.synthdefs.Parameter(value=0, parameter_rate='scalar'),
-            )
+        )
         with synthdef_builder:
             source = supriya.ugens.In.ar(
-                bus=synthdef_builder['out'],
-                channel_count=channel_count,
-                )
-            supriya.ugens.SendPeakRMS.ar(
-                command_name='/levels/prefader',
-                source=source,
-                )
+                bus=synthdef_builder['out'], channel_count=channel_count
+            )
+            supriya.ugens.SendPeakRMS.ar(command_name='/levels/prefader', source=source)
             gate = supriya.ugens.Linen.kr(
                 attack_time=synthdef_builder['lag'],
                 done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
                 gate=synthdef_builder['gate'],
                 release_time=synthdef_builder['lag'],
-                )
+            )
             active = supriya.ugens.Linen.kr(
                 attack_time=synthdef_builder['lag'],
                 done_action=supriya.synthdefs.DoneAction.NOTHING,
                 gate=synthdef_builder['active'],
                 release_time=synthdef_builder['lag'],
-                )
+            )
             amplitude = (
-                synthdef_builder['gain'].db_to_amplitude() *
-                (synthdef_builder['gain'] > -96.0)
-                ).lag(synthdef_builder['lag'])
+                synthdef_builder['gain'].db_to_amplitude()
+                * (synthdef_builder['gain'] > -96.0)
+            ).lag(synthdef_builder['lag'])
             total_gain = gate * active * amplitude
             source *= total_gain
             supriya.ugens.SendPeakRMS.ar(
-                command_name='/levels/postfader',
-                source=source,
-                )
-            supriya.ugens.ReplaceOut.ar(
-                bus=synthdef_builder['out'],
-                source=source,
-                )
+                command_name='/levels/postfader', source=source
+            )
+            supriya.ugens.ReplaceOut.ar(bus=synthdef_builder['out'], source=source)
         name = 'mixer/output/{}'.format(channel_count)
         return synthdef_builder.build(name=name)
 
@@ -491,4 +458,4 @@ class Track:
             target_node=self,
             in_=int(self.output_bus_group),
             out=int(self.output_bus_group),
-            )
+        )

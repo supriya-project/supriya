@@ -93,22 +93,14 @@ class Mixer:
         return False
 
     def _setup_master_track(self):
-        track = Track(
-            self,
-            name='master',
-            channel_count=self._channel_count,
-            )
+        track = Track(self, name='master', channel_count=self._channel_count)
         mapping = [(i, i) for i in range(self._channel_count)]
         track.add_direct_out(mapping)
         self._tracks_by_name['master'] = track
         self._master_track = track
 
     def _setup_cue_track(self):
-        track = Track(
-            self,
-            name='cue',
-            channel_count=self.cue_channel_count,
-            )
+        track = Track(self, name='cue', channel_count=self.cue_channel_count)
         offset = self._channel_count
         mapping = [(i, i + offset) for i in range(self.cue_channel_count)]
         track.add_direct_out(mapping)
@@ -118,18 +110,15 @@ class Mixer:
     def _allocate_osc_callbacks(self):
         self._callbacks = [
             self.server.osc_io.register(
-                pattern='/levels/input',
-                procedure=self._handle_input_levels,
-                ),
+                pattern='/levels/input', procedure=self._handle_input_levels
+            ),
             self.server.osc_io.register(
-                pattern='/levels/prefader',
-                procedure=self._handle_prefader_levels,
-                ),
+                pattern='/levels/prefader', procedure=self._handle_prefader_levels
+            ),
             self.server.osc_io.register(
-                pattern='/levels/postfader',
-                procedure=self._handle_postfader_levels,
-                ),
-            ]
+                pattern='/levels/postfader', procedure=self._handle_postfader_levels
+            ),
+        ]
 
     def _free_osc_callbacks(self):
         for callback in self._callbacks:
@@ -214,7 +203,7 @@ class Mixer:
             raise KeyError
         group = match.groups()[0]
         current_object = current_object[group]
-        name = name[len(group):]
+        name = name[len(group) :]
         for substring in re.findall('([:.][\\w]+)', name):
             operator, name = substring[0], substring[1:]
             if name.isdigit():

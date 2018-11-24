@@ -8,14 +8,7 @@ class PatternSlot(Slot):
     ### INITIALIZER ###
 
     @abc.abstractmethod
-    def __init__(
-        self,
-        name,
-        track,
-        synthdef,
-        pattern,
-        **kwargs
-        ):
+    def __init__(self, name, track, synthdef, pattern, **kwargs):
         Slot.__init__(self, name, track, synthdef, **kwargs)
         self._pattern = None
         if pattern is not None:

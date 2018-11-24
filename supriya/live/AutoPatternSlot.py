@@ -8,23 +8,11 @@ class AutoPatternSlot(PatternSlot):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        name,
-        track,
-        pattern,
-        synthdef=None,
-        **kwargs
-    ):
+    def __init__(self, name, track, pattern, synthdef=None, **kwargs):
         self._event_player = None
         PatternSlot.__init__(
-            self,
-            name=name,
-            track=track,
-            pattern=pattern,
-            synthdef=synthdef,
-            **kwargs,
-            )
+            self, name=name, track=track, pattern=pattern, synthdef=synthdef, **kwargs
+        )
 
     ### PUBLIC METHODS ###
 

@@ -9,9 +9,9 @@ import supriya.system
 
 
 class Application:
-
     def __init__(self, manifest=None, logger=None, overrides=None):
         import supriya
+
         manifest = manifest or {}
         if isinstance(manifest, dict):
             manifest = copy.deepcopy(manifest)
@@ -20,10 +20,7 @@ class Application:
             self._manifest = manifest
         else:
             path = self._lookup_file_paths(str(manifest))[0]
-            manifest = supriya.system.YAMLLoader.load(
-                str(path),
-                overrides=overrides,
-                )
+            manifest = supriya.system.YAMLLoader.load(str(path), overrides=overrides)
             self._manifest = manifest['application']
         self._setup_buffers()
         self._setup_devices()
@@ -45,19 +42,16 @@ class Application:
         namespaces_spec = spec.get('namespaces', {})
         for namespace_name, namespace_path in namespaces_spec.items():
             namespaces[namespace_name] = self._lookup_nested_object(
-                object_=self, name=namespace_path)
+                object_=self, name=namespace_path
+            )
         return namespaces
 
     def _build_pattern_namespaces(self, slot):
         buffers = {
             name: buffer_group[:]
-            for name, buffer_group in
-            self._buffer_names_to_buffer_groups.items()
-            }
-        return {
-            'args': slot.bindable_namespace,
-            'buffers': buffers,
-            }
+            for name, buffer_group in self._buffer_names_to_buffer_groups.items()
+        }
+        return {'args': slot.bindable_namespace, 'buffers': buffers}
 
     @classmethod
     def _lookup_file_paths(cls, path):
@@ -109,7 +103,7 @@ class Application:
                 current_object = current_object[group]
             except (KeyError, TypeError):
                 current_object = getattr(current_object, group)
-        name = name[len(group):]
+        name = name[len(group) :]
         for substring in re.findall('([:.][\\w]+)', name):
             operator, name = substring[0], substring[1:]
             if name.isdigit():
@@ -135,7 +129,8 @@ class Application:
         namespaces = self._build_context_namespaces(context_spec)
         try:
             source = self._lookup_nested_object(
-                self, source_name[1:], namespaces=namespaces)
+                self, source_name[1:], namespaces=namespaces
+            )
         except:
             print(source_name)
             raise
@@ -156,8 +151,7 @@ class Application:
             slot_specs = track_spec.get('slots') or []
             for slot_spec in slot_specs:
                 slot = track[slot_spec['name']]
-                for target_name, bind_spec in slot_spec.get(
-                    'bind', {}).items():
+                for target_name, bind_spec in slot_spec.get('bind', {}).items():
                     self._setup_binding(slot, slot_spec, target_name, bind_spec)
             send_specs = track_spec.get('sends') or []
             for send_spec in send_specs:
@@ -183,6 +177,7 @@ class Application:
 
     def _setup_devices(self):
         import supriya.midi
+
         self._devices = {}
         device_specs = self.manifest.get('devices') or []
         for device_spec in device_specs:
@@ -191,12 +186,12 @@ class Application:
                 raise ValueError(device_spec)
             manifest_path = self._lookup_file_paths(path)[0]
             self._devices[name] = supriya.midi.Device(
-                manifest_path,
-                overrides=device_spec.get('overrides'),
-                )
+                manifest_path, overrides=device_spec.get('overrides')
+            )
 
     def _setup_mixer(self):
         import supriya.live
+
         manifest = self.manifest.get('mixer', {})
         channel_count = int(manifest.get('channel_count', 2))
         cue_channel_count = int(manifest.get('cue_channel_count', 2))
@@ -237,18 +232,13 @@ class Application:
             method = track.add_auto_pattern_slot
         elif slot_type == 'trigger':
             method = track.add_trigger_pattern_slot
-        slot = method(
-            name=slot_name,
-            synthdef=slot_synthdef,
-            **slot_args,
-            )
+        slot = method(name=slot_name, synthdef=slot_synthdef, **slot_args)
         if slot_type in ('auto', 'trigger'):
             pattern = slot_spec.get('pattern')
             assert pattern is not None
             pattern = supriya.patterns.Pattern.from_dict(
-                pattern,
-                namespaces=self._build_pattern_namespaces(slot),
-                )
+                pattern, namespaces=self._build_pattern_namespaces(slot)
+            )
 
     ### PUBLIC METHODS ###
 
