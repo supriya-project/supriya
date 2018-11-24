@@ -18,6 +18,10 @@ env:
     PATH=/usr/lib/ccache:$PATH
 
 before_install:
+- pip install --target /tmp/typehints --no-deps uqbar>=0.2.15
+- pip install --target /tmp/typehints --no-deps abjad>=3.0.0
+- pip install --target /tmp/typehints --no-deps abjad-ext-tonality>=3.0.0
+- export MYPYPATH=/tmp/typehints
 - git clone -q https://github.com/supercollider/supercollider.git
 - cd $TRAVIS_BUILD_DIR/supercollider &&
     git checkout Version-3.10.0-rc1 &&
@@ -77,6 +81,7 @@ before_script:
 - killall scsynth
 
 script:
+- make mypy
 - sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; make sanity-check"
 - sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; make pytest-travis"
 

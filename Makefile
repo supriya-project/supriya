@@ -23,7 +23,7 @@ isort:
 	isort --multi-line 1 --recursive --thirdparty uqbar --thirdparty abjad --trailing-comma --use-parenthesis -y supriya/ tests/
 
 mypy:
-	mypy supriya ../uqbar/uqbar ../../Abjad/abjad/abjad ../../Abjad/abjad-ext-tonality/abjadext
+	mypy supriya
 
 pytest:
 	rm -Rf htmlcov/
