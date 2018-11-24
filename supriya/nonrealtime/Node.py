@@ -5,7 +5,7 @@ from supriya import utils
 from supriya.nonrealtime.SessionObject import SessionObject
 from supriya.nonrealtime.NodeAction import NodeAction
 from supriya.nonrealtime.State import State
-from typing import Dict, List, Optional, Set, Tuple, Union
+from typing import Any, Dict, List, Optional, Set, Tuple, Union
 
 
 class Node(SessionObject):
@@ -257,7 +257,7 @@ class Node(SessionObject):
                         add_action='ADD_BEFORE',
                         duration=new_duration,
                         synthdef=self.synthdef,
-                        **self._synth_kwargs
+                        **self._synth_kwargs,
                         )
                 else:
                     new_node = self.add_group(

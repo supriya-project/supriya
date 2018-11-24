@@ -1,5 +1,6 @@
 import collections
 from supriya.ugens.MultiOutUGen import MultiOutUGen
+from supriya.typing import UGenInputMap
 
 
 class Control(MultiOutUGen):
@@ -15,7 +16,7 @@ class Control(MultiOutUGen):
 
     __documentation_section__ = 'UGen Internals'
 
-    _ordered_input_names = collections.OrderedDict([])
+    _ordered_input_names: UGenInputMap = collections.OrderedDict([])
 
     __slots__ = (
         '_parameters',
