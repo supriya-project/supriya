@@ -46,7 +46,7 @@ class SynthNewRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_add_action', '_node_id', '_synthdef', '_target_node_id', '_kwargs')
+    __slots__ = ("_add_action", "_node_id", "_synthdef", "_target_node_id", "_kwargs")
 
     request_id = RequestId.SYNTH_NEW
 
@@ -130,7 +130,7 @@ class SynthNewRequest(Request):
 
     @property
     def response_patterns(self):
-        return [['/n_go', int(self.node_id)]]
+        return [["/n_go", int(self.node_id)]]
 
     @property
     def synthdef(self):

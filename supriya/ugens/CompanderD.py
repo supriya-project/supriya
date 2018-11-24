@@ -8,7 +8,7 @@ class CompanderD(PseudoUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Dynamics UGens'
+    __documentation_section__ = "Dynamics UGens"
 
     ### PUBLIC METHODS ###
 

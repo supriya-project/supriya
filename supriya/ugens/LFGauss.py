@@ -16,15 +16,15 @@ class LFGauss(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Oscillator UGens'
+    __documentation_section__ = "Oscillator UGens"
 
     _ordered_input_names = collections.OrderedDict(
         [
-            ('duration', 1),
-            ('width', 0.1),
-            ('initial_phase', 0),
-            ('loop', 1),
-            ('done_action', 0),
+            ("duration", 1),
+            ("width", 0.1),
+            ("initial_phase", 0),
+            ("loop", 1),
+            ("done_action", 0),
         ]
     )
 

@@ -24,5 +24,5 @@ class PV_ConformalMap(PV_ChainUGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        [('pv_chain', None), ('areal', 0), ('aimag', 0)]
+        [("pv_chain", None), ("areal", 0), ("aimag", 0)]
     )

@@ -35,7 +35,7 @@ class BufferGetRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_buffer_id', '_indices')
+    __slots__ = ("_buffer_id", "_indices")
 
     request_id = RequestId.BUFFER_GET
 
@@ -73,4 +73,4 @@ class BufferGetRequest(Request):
 
     @property
     def response_patterns(self):
-        return [['/b_set', self.buffer_id], ['/fail', '/b_get']]
+        return [["/b_set", self.buffer_id], ["/fail", "/b_get"]]

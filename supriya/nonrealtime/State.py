@@ -13,18 +13,18 @@ class State(SessionObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Session Internals'
+    __documentation_section__ = "Session Internals"
 
     __slots__ = (
-        '_transitions',
-        '_nodes_to_children',
-        '_nodes_to_parents',
-        '_offset',
-        '_session',
-        '_start_buffers',
-        '_start_nodes',
-        '_stop_buffers',
-        '_stop_nodes',
+        "_transitions",
+        "_nodes_to_children",
+        "_nodes_to_parents",
+        "_offset",
+        "_session",
+        "_start_buffers",
+        "_start_nodes",
+        "_stop_buffers",
+        "_stop_nodes",
     )
 
     _ordered_buffer_request_types = (supriya.commands.BufferZeroRequest,)
@@ -47,7 +47,7 @@ class State(SessionObject):
     ### SPECIAL METHODS ###
 
     def __repr__(self):
-        return '<{} @{!r}>'.format(type(self).__name__, self.offset)
+        return "<{} @{!r}>".format(type(self).__name__, self.offset)
 
     ### PRIVATE METHODS ###
 
@@ -98,8 +98,8 @@ class State(SessionObject):
                 child_node = uqbar.graphs.Graph(
                     is_cluster=True,
                     attributes={
-                        'label': child.session_id,
-                        'style': ['dashed', 'rounded'],
+                        "label": child.session_id,
+                        "style": ["dashed", "rounded"],
                     },
                 )
             node_mapping[child] = child_node
@@ -110,7 +110,7 @@ class State(SessionObject):
         return cluster, node_mapping, ordered_synths
 
     def _clone(self, new_offset):
-        if float('-inf') < self.offset:
+        if float("-inf") < self.offset:
             self.session._apply_transitions(self.offset, chain=False)
         state = type(self)(self.session, new_offset)
         state._nodes_to_children = self.nodes_to_children.copy()
@@ -152,13 +152,13 @@ class State(SessionObject):
                 continue
             for i, child in enumerate(children_two):
                 if not children_one:
-                    action = 'ADD_TO_HEAD'
+                    action = "ADD_TO_HEAD"
                     target = parent
                 elif len(children_one) <= i:
-                    action = 'ADD_AFTER'
+                    action = "ADD_AFTER"
                     target = children_one[i - 1]
                 elif children_one[i] is not child:
-                    action = 'ADD_BEFORE'
+                    action = "ADD_BEFORE"
                     target = children_one[i]
                 else:
                     continue
@@ -233,14 +233,14 @@ class State(SessionObject):
             node_hierarchy[str(parent)] = [str(child) for child in children]
         node_lifecycle = {}
         if self.start_nodes:
-            node_lifecycle['start'] = sorted(str(node) for node in self.start_nodes)
+            node_lifecycle["start"] = sorted(str(node) for node in self.start_nodes)
         if self.stop_nodes:
-            node_lifecycle['stop'] = sorted(str(node) for node in self.stop_nodes)
+            node_lifecycle["stop"] = sorted(str(node) for node in self.stop_nodes)
         if node_hierarchy:
-            state['hierarchy'] = node_hierarchy
+            state["hierarchy"] = node_hierarchy
         if node_lifecycle:
-            state['lifecycle'] = node_lifecycle
-        state['offset'] = self.offset
+            state["lifecycle"] = node_lifecycle
+        state["offset"] = self.offset
         return state
 
     ### PUBLIC PROPERTIES ###
@@ -258,13 +258,13 @@ class State(SessionObject):
     @property
     def nodes_to_children(
         self
-    ) -> Dict['supriya.nonrealtime.Node', Tuple['supriya.nonrealtime.Node']]:
+    ) -> Dict["supriya.nonrealtime.Node", Tuple["supriya.nonrealtime.Node"]]:
         return self._nodes_to_children
 
     @property
     def nodes_to_parents(
         self
-    ) -> Dict['supriya.nonrealtime.Node', Tuple['supriya.nonrealtime.Node']]:
+    ) -> Dict["supriya.nonrealtime.Node", Tuple["supriya.nonrealtime.Node"]]:
         return self._nodes_to_parents
 
     @property

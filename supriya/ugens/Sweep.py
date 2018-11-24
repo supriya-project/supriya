@@ -20,6 +20,6 @@ class Sweep(UGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([('trigger', 0), ('rate', 1)])
+    _ordered_input_names = collections.OrderedDict([("trigger", 0), ("rate", 1)])
 
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

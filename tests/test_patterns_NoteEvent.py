@@ -13,7 +13,7 @@ def test__perform_realtime_01(server):
     assert pytest.helpers.get_objects_as_string(
         event_products, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         EventProduct(
             event=NoteEvent(
                 delta=10.0,
@@ -48,7 +48,7 @@ def test__perform_realtime_01(server):
             timestamp=101.0,
             uuid=UUID('A'),
             )
-        '''
+        """
     )
 
 
@@ -61,7 +61,7 @@ def test__perform_realtime_02(server):
     assert pytest.helpers.get_objects_as_string(
         event_products, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         EventProduct(
             event=NoteEvent(
                 delta=10.0,
@@ -118,5 +118,5 @@ def test__perform_realtime_02(server):
             timestamp=101.0,
             uuid=UUID('A'),
             )
-        '''
+        """
     )

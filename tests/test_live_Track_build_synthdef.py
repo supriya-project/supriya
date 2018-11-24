@@ -56,7 +56,7 @@ def test_build_input_synthdef_1():
                     source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
         """
         )
-        + '\n'
+        + "\n"
     )
 
 
@@ -118,7 +118,7 @@ def test_build_input_synthdef_2():
                     source[1]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
         """
         )
-        + '\n'
+        + "\n"
     )
 
 
@@ -188,7 +188,7 @@ def test_build_input_synthdef_4():
                     source[3]: BinaryOpUGen(MULTIPLICATION).ar/3[0]
         """
         )
-        + '\n'
+        + "\n"
     )
 
 
@@ -274,7 +274,7 @@ def test_build_input_synthdef_8():
                     source[7]: BinaryOpUGen(MULTIPLICATION).ar/7[0]
         """
         )
-        + '\n'
+        + "\n"
     )
 
 
@@ -336,7 +336,7 @@ def test_build_output_synthdef_1():
                     source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
         """
         )
-        + '\n'
+        + "\n"
     )
 
 
@@ -402,7 +402,7 @@ def test_build_output_synthdef_2():
                     source[1]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
         """
         )
-        + '\n'
+        + "\n"
     )
 
 
@@ -476,7 +476,7 @@ def test_build_output_synthdef_4():
                     source[3]: BinaryOpUGen(MULTIPLICATION).ar/3[0]
         """
         )
-        + '\n'
+        + "\n"
     )
 
 
@@ -566,5 +566,5 @@ def test_build_output_synthdef_8():
                     source[7]: BinaryOpUGen(MULTIPLICATION).ar/7[0]
         """
         )
-        + '\n'
+        + "\n"
     )

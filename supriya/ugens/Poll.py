@@ -65,10 +65,10 @@ class Poll(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Utility UGens'
+    __documentation_section__ = "Utility UGens"
 
     _ordered_input_names = collections.OrderedDict(
-        [('trigger', None), ('source', None), ('trigger_id', -1)]
+        [("trigger", None), ("source", None), ("trigger_id", -1)]
     )
 
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
@@ -99,9 +99,9 @@ class Poll(UGen):
             trigger_id=trigger_id,
         )
         label = str(label)
-        self._configure_input('label', len(label))
+        self._configure_input("label", len(label))
         for character in label:
-            self._configure_input('label', ord(character))
+            self._configure_input("label", ord(character))
 
     ### PUBLIC METHODS ###
 
@@ -174,8 +174,8 @@ class Poll(UGen):
 
         Returns ugen input.
         """
-        index = tuple(self._ordered_input_names).index('trigger_id') + 2
+        index = tuple(self._ordered_input_names).index("trigger_id") + 2
         characters = self._inputs[index:]
         characters = [chr(int(_)) for _ in characters]
-        label = ''.join(characters)
+        label = "".join(characters)
         return label

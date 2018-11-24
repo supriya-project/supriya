@@ -38,9 +38,9 @@ class Buffer(ServerObjectProxy):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Main Classes'
+    __documentation_section__ = "Main Classes"
 
-    __slots__ = ('_buffer_group', '_buffer_id', '_buffer_id_was_set_manually')
+    __slots__ = ("_buffer_group", "_buffer_id", "_buffer_id_was_set_manually")
 
     ### INITIALIZER ###
 
@@ -187,9 +187,9 @@ class Buffer(ServerObjectProxy):
         """
         buffer_id = self.buffer_id
         if buffer_id is None:
-            buffer_id = '???'
-        string = '<{} {}: {}>'.format(
-            '+' if self.is_allocated else '-', type(self).__name__, buffer_id
+            buffer_id = "???"
+        string = "<{} {}: {}>".format(
+            "+" if self.is_allocated else "-", type(self).__name__, buffer_id
         )
         return string
 
@@ -599,7 +599,7 @@ class Buffer(ServerObjectProxy):
         )
         request.communicate(server=self.server, sync=False)
 
-    def free(self) -> 'Buffer':
+    def free(self) -> "Buffer":
         """
         Frees buffer.
         """
@@ -909,7 +909,7 @@ class Buffer(ServerObjectProxy):
         request = supriya.commands.BufferGetRequest(buffer_id=self, indices=indices)
         response = request.communicate(server=self.server)
         if isinstance(response, supriya.commands.FailResponse):
-            raise IndexError('Index out of range.')
+            raise IndexError("Index out of range.")
         return response
 
     def get_contiguous(self, index_count_pairs=None):
@@ -952,7 +952,7 @@ class Buffer(ServerObjectProxy):
         )
         response = request.communicate(server=self.server)
         if isinstance(response, supriya.commands.FailResponse):
-            raise IndexError('Index out of range.')
+            raise IndexError("Index out of range.")
         return response
 
     def get_frame(self, frame_ids=None, completion_callback=None):
@@ -1014,11 +1014,11 @@ class Buffer(ServerObjectProxy):
                 buffer_id=self.buffer_id,
                 channel_count=self.channel_count,
                 loop=loop,
-                rate=supriya.ugens.BufRateScale.kr(self.buffer_id) * builder['rate'],
+                rate=supriya.ugens.BufRateScale.kr(self.buffer_id) * builder["rate"],
             )
             if not loop:
                 supriya.ugens.FreeSelfWhenDone.kr(player)
-            source = player * builder['level']
+            source = player * builder["level"]
             supriya.ugens.Out.ar(bus=bus, source=source)
         synthdef = builder.build()
         return synthdef.play(
@@ -1249,9 +1249,9 @@ class Buffer(ServerObjectProxy):
         file_path,
         callback=None,
         frame_count=None,
-        header_format='aiff',
+        header_format="aiff",
         leave_open=False,
-        sample_format='int24',
+        sample_format="int24",
         starting_frame=None,
         sync=True,
     ):

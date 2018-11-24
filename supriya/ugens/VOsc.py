@@ -24,7 +24,7 @@ class VOsc(PureUGen):
     __documentation_section__ = None
 
     _ordered_input_names = collections.OrderedDict(
-        [('buffer_id', None), ('frequency', 440), ('phase', 0)]
+        [("buffer_id", None), ("frequency", 440), ("phase", 0)]
     )
 
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

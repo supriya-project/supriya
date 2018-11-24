@@ -6,14 +6,14 @@ class NodeInfoResponse(Response):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_action',
-        '_head_node_id',
-        '_is_group',
-        '_next_node_id',
-        '_node_id',
-        '_parent_group_id',
-        '_previous_node_id',
-        '_tail_node_id',
+        "_action",
+        "_head_node_id",
+        "_is_group",
+        "_next_node_id",
+        "_node_id",
+        "_parent_group_id",
+        "_previous_node_id",
+        "_tail_node_id",
     )
 
     ### INITIALIZER ###

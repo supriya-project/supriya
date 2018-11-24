@@ -38,7 +38,7 @@ class BufferAllocateRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_buffer_id', '_channel_count', '_callback', '_frame_count')
+    __slots__ = ("_buffer_id", "_channel_count", "_callback", "_frame_count")
 
     request_id = RequestId.BUFFER_ALLOCATE
 
@@ -94,4 +94,4 @@ class BufferAllocateRequest(Request):
 
     @property
     def response_patterns(self):
-        return [['/done', '/b_alloc', self.buffer_id]]
+        return [["/done", "/b_alloc", self.buffer_id]]

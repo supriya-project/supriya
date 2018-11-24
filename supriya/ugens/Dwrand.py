@@ -26,10 +26,10 @@ class Dwrand(DUGen):
     # TODO: We should not include length in the generated methods
 
     _ordered_input_names = collections.OrderedDict(
-        [('repeats', 1), ('length', None), ('weights', None), ('sequence', None)]
+        [("repeats", 1), ("length", None), ("weights", None), ("sequence", None)]
     )
 
-    _unexpanded_input_names = ('weights', 'sequence')
+    _unexpanded_input_names = ("weights", "sequence")
 
     _valid_calculation_rates = (CalculationRate.DEMAND,)
 

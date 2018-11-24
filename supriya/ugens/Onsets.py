@@ -30,19 +30,19 @@ class Onsets(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Machine Listening UGens'
+    __documentation_section__ = "Machine Listening UGens"
 
     _ordered_input_names = collections.OrderedDict(
         [
-            ('pv_chain', None),
-            ('threshold', 0.5),
-            ('odftype', 3),
-            ('relaxtime', 1),
-            ('floor', 0.1),
-            ('mingap', 10),
-            ('medianspan', 11),
-            ('whtype', 1),
-            ('rawodf', 0),
+            ("pv_chain", None),
+            ("threshold", 0.5),
+            ("odftype", 3),
+            ("relaxtime", 1),
+            ("floor", 0.1),
+            ("mingap", 10),
+            ("medianspan", 11),
+            ("whtype", 1),
+            ("rawodf", 0),
         ]
     )
 

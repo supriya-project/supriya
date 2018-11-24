@@ -25,7 +25,7 @@ class PanAz(MultiOutUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Spatialization UGens'
+    __documentation_section__ = "Spatialization UGens"
 
     _default_channel_count = 1
 
@@ -33,11 +33,11 @@ class PanAz(MultiOutUGen):
 
     _ordered_input_names = collections.OrderedDict(
         [
-            ('source', None),
-            ('position', 0),
-            ('amplitude', 1),
-            ('width', 2),
-            ('orientation', 0.5),
+            ("source", None),
+            ("position", 0),
+            ("amplitude", 1),
+            ("width", 2),
+            ("orientation", 0.5),
         ]
     )
 

@@ -25,14 +25,14 @@ class Sum4(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Basic Operator UGens'
+    __documentation_section__ = "Basic Operator UGens"
 
     _ordered_input_names = collections.OrderedDict(
         [
-            ('input_one', None),
-            ('input_two', None),
-            ('input_three', None),
-            ('input_four', None),
+            ("input_one", None),
+            ("input_two", None),
+            ("input_three", None),
+            ("input_four", None),
         ]
     )
 

@@ -20,9 +20,9 @@ class Dust(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Noise UGens'
+    __documentation_section__ = "Noise UGens"
 
-    _ordered_input_names = collections.OrderedDict([('density', 0.0)])
+    _ordered_input_names = collections.OrderedDict([("density", 0.0)])
 
     _signal_range = SignalRange.UNIPOLAR
 

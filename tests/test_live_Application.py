@@ -3,7 +3,7 @@ import supriya
 
 
 manifest_path = (
-    pathlib.Path(supriya.__path__[0]) / 'assets' / 'applications' / 'Test.yml'
+    pathlib.Path(supriya.__path__[0]) / "assets" / "applications" / "Test.yml"
 )
 
 
@@ -11,20 +11,20 @@ def test_01(server):
     application = supriya.live.Application(manifest_path)
     # Buffers
     assert len(application.buffers) == 1
-    assert 'birds' in application.buffers
-    assert len(application.buffers['birds']) == 9
+    assert "birds" in application.buffers
+    assert len(application.buffers["birds"]) == 9
     # MIDI devices
     assert application.devices is not None
-    assert application.devices['test'] is not None
+    assert application.devices["test"] is not None
     # Mixer
     assert application.mixer is not None
     assert application.mixer.channel_count == 2
     assert application.mixer.cue_channel_count == 2
     assert len(application.mixer) == 4
-    assert 'track-a' in application.mixer
-    assert 'slot-one' in application.mixer['track-a']
-    assert 'track-b' in application.mixer
-    assert 'slot-two' in application.mixer['track-b']
+    assert "track-a" in application.mixer
+    assert "slot-one" in application.mixer["track-a"]
+    assert "track-b" in application.mixer
+    assert "slot-two" in application.mixer["track-b"]
 
 
 def test_02(server):
@@ -36,11 +36,11 @@ def test_02(server):
 
 
 def test_03(server):
-    application = supriya.Application('supriya:applications/Test2.yml')
+    application = supriya.Application("supriya:applications/Test2.yml")
     # MIDI devices
     assert application.devices is not None
-    assert isinstance(application.devices['nano_a'], supriya.Device)
-    assert isinstance(application.devices['nano_b'], supriya.Device)
+    assert isinstance(application.devices["nano_a"], supriya.Device)
+    assert isinstance(application.devices["nano_b"], supriya.Device)
     # Mixer
     mixer = application.mixer
     assert mixer is not None
@@ -48,14 +48,14 @@ def test_03(server):
     assert mixer.cue_channel_count == 2
     # Tracks
     assert len(mixer) == 6
-    assert 'track-a' in mixer
-    assert 'track-b' in mixer
-    assert 'track-c' in mixer
-    assert 'track-d' in mixer
+    assert "track-a" in mixer
+    assert "track-b" in mixer
+    assert "track-c" in mixer
+    assert "track-d" in mixer
     # Sends
-    assert sorted(mixer['track-a'].send) == ['master', 'track-c', 'track-d']
-    assert sorted(mixer['track-b'].send) == ['master', 'track-c', 'track-d']
-    assert sorted(mixer['track-c'].send) == ['master']
-    assert sorted(mixer['track-d'].send) == ['master']
+    assert sorted(mixer["track-a"].send) == ["master", "track-c", "track-d"]
+    assert sorted(mixer["track-b"].send) == ["master", "track-c", "track-d"]
+    assert sorted(mixer["track-c"].send) == ["master"]
+    assert sorted(mixer["track-d"].send) == ["master"]
     # Binding
     assert len(application.bindings) == 5

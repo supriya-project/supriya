@@ -5,7 +5,7 @@ class EventPlayer(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_cumulative_time', '_event_template', '_iterator', '_pattern')
+    __slots__ = ("_cumulative_time", "_event_template", "_iterator", "_pattern")
 
     ### INITIALIZER ###
 

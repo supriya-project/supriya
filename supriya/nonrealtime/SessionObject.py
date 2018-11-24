@@ -10,7 +10,7 @@ class SessionObject(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Session Internals'
+    __documentation_section__ = "Session Internals"
 
     __slots__ = ()
 
@@ -36,19 +36,19 @@ class SessionObject(SupriyaObject):
                 session = self
             else:
                 session = self.session
-            if 'offset' not in kwargs or kwargs['offset'] is None:
+            if "offset" not in kwargs or kwargs["offset"] is None:
                 if not session._active_moments:
-                    raise ValueError('No active moment.')
+                    raise ValueError("No active moment.")
                 offset = session._active_moments[-1].offset
-                kwargs['offset'] = offset
+                kwargs["offset"] = offset
             if isinstance(self, SessionObject):
-                if not (self.start_offset <= kwargs['offset'] <= self.stop_offset):
+                if not (self.start_offset <= kwargs["offset"] <= self.stop_offset):
                     raise ValueError(
-                        'Offset {} must intersect [{}, {}]'.format(
+                        "Offset {} must intersect [{}, {}]".format(
                             float(offset), self.start_offset, self.stop_offset
                         )
                     )
-            with session.at(kwargs['offset']):
+            with session.at(kwargs["offset"]):
                 return function(self, *args, **kwargs)
 
         return wrapper

@@ -4,13 +4,13 @@ import uqbar.strings
 
 
 pattern_01 = supriya.patterns.Pn(
-    supriya.patterns.Pbind(foo=supriya.patterns.Pseq(['A', 'B', 'C'])), repetitions=2
+    supriya.patterns.Pbind(foo=supriya.patterns.Pseq(["A", "B", "C"])), repetitions=2
 )
 
 
 pattern_02 = supriya.patterns.Pn(
-    supriya.patterns.Pbind(foo=supriya.patterns.Pseq(['A', 'B', 'C'])),
-    key='repeat',
+    supriya.patterns.Pbind(foo=supriya.patterns.Pseq(["A", "B", "C"])),
+    key="repeat",
     repetitions=3,
 )
 
@@ -20,7 +20,7 @@ def test___iter___01():
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         NoteEvent(
             foo='A',
             uuid=UUID('A'),
@@ -45,7 +45,7 @@ def test___iter___01():
             foo='C',
             uuid=UUID('F'),
             )
-        '''
+        """
     )
 
 
@@ -54,7 +54,7 @@ def test___iter___02():
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         NoteEvent(
             foo='A',
             repeat=True,
@@ -94,5 +94,5 @@ def test___iter___02():
             foo='C',
             uuid=UUID('I'),
             )
-        '''
+        """
     )

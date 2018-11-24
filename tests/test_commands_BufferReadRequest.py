@@ -15,12 +15,12 @@ def test_Session():
     )
     assert request.file_path is session
     osc_message = request.to_osc(with_request_name=True)
-    assert osc_message.address == '/b_read'
+    assert osc_message.address == "/b_read"
     assert osc_message.contents == (1, session, 0, 512, 0, 1)
 
 
 def test_Say():
-    say = supriya.soundfiles.Say('Some text.')
+    say = supriya.soundfiles.Say("Some text.")
     request = supriya.commands.BufferReadRequest(
         buffer_id=1,
         file_path=say,
@@ -31,5 +31,5 @@ def test_Say():
     )
     assert request.file_path is say
     osc_message = request.to_osc(with_request_name=True)
-    assert osc_message.address == '/b_read'
+    assert osc_message.address == "/b_read"
     assert osc_message.contents == (1, say, 0, 512, 0, 1)

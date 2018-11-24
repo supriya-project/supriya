@@ -9,13 +9,13 @@ class ProjectSettings(collections.Mapping):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_settings',)
+    __slots__ = ("_settings",)
 
     ### INITIALIZER ###
 
-    def __init__(self, yaml_path='project-settings.yml'):
+    def __init__(self, yaml_path="project-settings.yml"):
         try:
-            with open(str(yaml_path), 'r') as file_pointer:
+            with open(str(yaml_path), "r") as file_pointer:
                 self._settings = yaml.load(file_pointer.read())
         except Exception:
             self._settings = {}
@@ -81,5 +81,5 @@ class ProjectSettings(collections.Mapping):
 
     @classmethod
     def from_python_module(cls, path):
-        path = pathlib.Path(path).parent / 'project-settings.yml'
+        path = pathlib.Path(path).parent / "project-settings.yml"
         return cls(path)

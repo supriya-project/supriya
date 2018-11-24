@@ -29,7 +29,7 @@ class Event(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_delta', '_settings')
+    __slots__ = ("_delta", "_settings")
 
     ### INITIALIZER ###
 
@@ -38,7 +38,7 @@ class Event(SupriyaValueObject):
         self._settings = {
             key: value
             for key, value in settings.items()
-            if not (key.startswith('_') and value is None)
+            if not (key.startswith("_") and value is None)
         }
 
     ### SPECIAL METHODS ###
@@ -107,7 +107,7 @@ class Event(SupriyaValueObject):
     @property
     def delta(self):
         if self._delta is None:
-            return self.get('duration')
+            return self.get("duration")
         return self._delta
 
     @property

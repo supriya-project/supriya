@@ -24,5 +24,5 @@ class PV_MagShift(PV_ChainUGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        [('pv_chain', None), ('stretch', 1), ('shift', 0)]
+        [("pv_chain", None), ("stretch", 1), ("shift", 0)]
     )

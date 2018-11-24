@@ -4,11 +4,11 @@ import supriya
 import uqbar.strings
 
 
-base_path = pathlib.Path(supriya.__path__[0]) / 'assets' / 'devices'
+base_path = pathlib.Path(supriya.__path__[0]) / "assets" / "devices"
 
 
 def test_01():
-    path = base_path / 'Test.yml'
+    path = base_path / "Test.yml"
     manifest = supriya.system.YAMLLoader.load(path)
     assert (
         yaml.dump(manifest, default_flow_style=False, indent=4)
@@ -102,12 +102,12 @@ def test_01():
             port: Test Device
         """
         )
-        + '\n'
+        + "\n"
     )
 
 
 def test_02():
-    path = base_path / 'Test-Physical.yml'
+    path = base_path / "Test-Physical.yml"
     manifest = supriya.system.YAMLLoader.load(path)
     assert (
         yaml.dump(manifest, default_flow_style=False, indent=4)
@@ -176,12 +176,12 @@ def test_02():
             port: Test Device
         """
         )
-        + '\n'
+        + "\n"
     )
 
 
 def test_03():
-    path = base_path / 'Test-Logical.yml'
+    path = base_path / "Test-Logical.yml"
     manifest = supriya.system.YAMLLoader.load(path)
     assert (
         yaml.dump(manifest, default_flow_style=False, indent=4)
@@ -304,5 +304,5 @@ def test_03():
                 name: track_{{ index }}
         """
         )
-        + '\n'
+        + "\n"
     )

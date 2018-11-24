@@ -41,7 +41,7 @@ class BufferFillRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_buffer_id', '_index_count_value_triples')
+    __slots__ = ("_buffer_id", "_index_count_value_triples")
 
     request_id = RequestId.BUFFER_FILL
 

@@ -46,7 +46,7 @@ class RequestBundle(Requestable):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_contents', '_timestamp')
+    __slots__ = ("_contents", "_timestamp")
 
     ### INITIALIZER ###
 
@@ -71,7 +71,7 @@ class RequestBundle(Requestable):
         contents = list(self.contents)
         contents.append(supriya.commands.SyncRequest(sync_id=sync_id))
         request_bundle = type(self)(contents=contents)
-        response_pattern = ['/synced', sync_id]
+        response_pattern = ["/synced", sync_id]
         return response_pattern, request_bundle.to_osc()
 
     def _handle_async(self, sync, server):
@@ -104,7 +104,7 @@ class RequestBundle(Requestable):
         contents = list(self.contents)
         contents.append(supriya.commands.SyncRequest(sync_id=sync_id))
         message = type(self)(contents=contents).to_osc()
-        response_pattern = ['/synced', sync_id]
+        response_pattern = ["/synced", sync_id]
         start_time = time.time()
         timed_out = False
         with self.condition:
@@ -123,7 +123,7 @@ class RequestBundle(Requestable):
                     timed_out = True
                     break
         if timed_out:
-            print('TIMED OUT:', repr(self))
+            print("TIMED OUT:", repr(self))
             return None
         return self._response
 

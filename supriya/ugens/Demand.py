@@ -26,17 +26,17 @@ class Demand(MultiOutUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Demand UGens'
+    __documentation_section__ = "Demand UGens"
 
     _default_channel_count = 1
 
     _has_settable_channel_count = False
 
     _ordered_input_names = collections.OrderedDict(
-        [('trigger', 0), ('reset', 0), ('source', None)]
+        [("trigger", 0), ("reset", 0), ("source", None)]
     )
 
-    _unexpanded_input_names = ('source',)
+    _unexpanded_input_names = ("source",)
 
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 

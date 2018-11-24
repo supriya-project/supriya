@@ -24,15 +24,15 @@ class SendPeakRMS(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Utility UGens'
+    __documentation_section__ = "Utility UGens"
 
     _default_channel_count = 0
 
     _ordered_input_names = collections.OrderedDict(
-        [('reply_rate', 20), ('peak_lag', 3), ('reply_id', -1)]
+        [("reply_rate", 20), ("peak_lag", 3), ("reply_id", -1)]
     )
 
-    _unexpanded_argument_names = ('source',)
+    _unexpanded_argument_names = ("source",)
 
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
@@ -41,7 +41,7 @@ class SendPeakRMS(UGen):
     def __init__(
         self,
         calculation_rate=None,
-        command_name='/reply',
+        command_name="/reply",
         peak_lag=3,
         reply_id=-1,
         reply_rate=20,
@@ -57,18 +57,18 @@ class SendPeakRMS(UGen):
         command_name = str(command_name)
         if not isinstance(source, collections.Sequence):
             source = (source,)
-        self._configure_input('source', len(source))
+        self._configure_input("source", len(source))
         for input_ in source:
-            self._configure_input('source', input_)
-        self._configure_input('command_name', len(command_name))
+            self._configure_input("source", input_)
+        self._configure_input("command_name", len(command_name))
         for character in command_name:
-            self._configure_input('label', ord(character))
+            self._configure_input("label", ord(character))
 
     ### PUBLIC METHODS ###
 
     @classmethod
     def ar(
-        cls, command_name='/reply', peak_lag=3, reply_id=-1, reply_rate=20, source=None
+        cls, command_name="/reply", peak_lag=3, reply_id=-1, reply_rate=20, source=None
     ):
         """
         Constructs an audio-rate SendPeakRMS.
@@ -103,7 +103,7 @@ class SendPeakRMS(UGen):
 
     @classmethod
     def kr(
-        cls, command_name='/reply', peak_lag=3, reply_id=-1, reply_rate=20, source=None
+        cls, command_name="/reply", peak_lag=3, reply_id=-1, reply_rate=20, source=None
     ):
         """
         Constructs a control-rate SendPeakRMS.
@@ -160,12 +160,12 @@ class SendPeakRMS(UGen):
 
         Returns ugen input.
         """
-        index = tuple(self._ordered_input_names).index('reply_id') + 1
+        index = tuple(self._ordered_input_names).index("reply_id") + 1
         source_length = int(self._inputs[index])
         index += source_length + 2
         characters = self._inputs[index:]
         characters = [chr(int(_)) for _ in characters]
-        command_name = ''.join(characters)
+        command_name = "".join(characters)
         return command_name
 
     @property
@@ -188,7 +188,7 @@ class SendPeakRMS(UGen):
 
         Returns ugen input.
         """
-        index = tuple(self._ordered_input_names).index('reply_id') + 1
+        index = tuple(self._ordered_input_names).index("reply_id") + 1
         source_length = int(self._inputs[index])
         start = index + 1
         stop = start + source_length

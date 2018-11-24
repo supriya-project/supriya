@@ -5,7 +5,7 @@ class RootNode(Group):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Server Internals'
+    __documentation_section__ = "Server Internals"
 
     __slots__ = ()
 

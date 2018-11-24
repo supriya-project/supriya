@@ -37,13 +37,13 @@ class BufferReadRequest(Request):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_buffer_id',
-        '_callback',
-        '_file_path',
-        '_frame_count',
-        '_leave_open',
-        '_starting_frame_in_buffer',
-        '_starting_frame_in_file',
+        "_buffer_id",
+        "_callback",
+        "_file_path",
+        "_frame_count",
+        "_leave_open",
+        "_starting_frame_in_buffer",
+        "_starting_frame_in_file",
     )
 
     request_id = RequestId.BUFFER_READ
@@ -148,7 +148,7 @@ class BufferReadRequest(Request):
 
     @property
     def response_patterns(self):
-        return [['/done', '/b_read', self.buffer_id]]
+        return [["/done", "/b_read", self.buffer_id]]
 
     @property
     def starting_frame_in_buffer(self):

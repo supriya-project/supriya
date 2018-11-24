@@ -27,7 +27,7 @@ class Request(Requestable):
             return True
 
     def _linearize(self):
-        if hasattr(self, 'callback') and self.callback:
+        if hasattr(self, "callback") and self.callback:
             yield new(self, callback=None)
             yield from self.callback._linearize()
         else:

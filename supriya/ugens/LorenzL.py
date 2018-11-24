@@ -26,18 +26,18 @@ class LorenzL(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Chaos UGens'
+    __documentation_section__ = "Chaos UGens"
 
     _ordered_input_names = collections.OrderedDict(
         [
-            ('frequency', 22050),
-            ('s', 10),
-            ('r', 28),
-            ('b', 2.667),
-            ('h', 0.05),
-            ('xi', 0.1),
-            ('yi', 0),
-            ('zi', 0),
+            ("frequency", 22050),
+            ("s", 10),
+            ("r", 28),
+            ("b", 2.667),
+            ("h", 0.05),
+            ("xi", 0.1),
+            ("yi", 0),
+            ("zi", 0),
         ]
     )
 

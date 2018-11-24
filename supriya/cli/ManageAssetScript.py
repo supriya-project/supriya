@@ -2,21 +2,21 @@ from supriya.cli.ProjectPackageScript import ProjectPackageScript
 
 
 class ManageAssetScript(ProjectPackageScript):
-    '''
+    """
     Manages project package assets.
 
     ::
 
         sjv asset --help
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
     __slots__ = ()
 
-    alias = 'asset'
-    short_description = 'manage project package assets'
+    alias = "asset"
+    short_description = "manage project package assets"
 
     ### PRIVATE METHODS ###
 

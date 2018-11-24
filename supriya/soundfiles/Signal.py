@@ -5,7 +5,7 @@ class Signal(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_values',)
+    __slots__ = ("_values",)
 
     ### INITIALIZER ###
 

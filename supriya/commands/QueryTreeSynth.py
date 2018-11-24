@@ -7,7 +7,7 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_controls', '_extra', '_node_id', '_synthdef_name')
+    __slots__ = ("_controls", "_extra", "_node_id", "_synthdef_name")
 
     ### INITIALIZER ###
 
@@ -27,7 +27,7 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
 
     def __str__(self):
         result = self._get_str_format_pieces()
-        result = '\n'.join(result)
+        result = "\n".join(result)
         return result
 
     ### PRIVATE METHODS ###
@@ -81,16 +81,16 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
 
     def _get_str_format_pieces(self):
         result = []
-        string = '{} {}'.format(self.node_id, self.synthdef_name)
+        string = "{} {}".format(self.node_id, self.synthdef_name)
         if self.extra:
-            string = '{} ({})'.format(
+            string = "{} ({})".format(
                 string,
-                ', '.join('{}: {}'.format(key, value) for key, value in self.extra),
+                ", ".join("{}: {}".format(key, value) for key, value in self.extra),
             )
         result.append(string)
         if self.controls:
-            control_string = ', '.join(str(control) for control in self.controls)
-            control_string = '    ' + control_string
+            control_string = ", ".join(str(control) for control in self.controls)
+            control_string = "    " + control_string
             result.append(control_string)
         return result
 
@@ -161,13 +161,13 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
 
         """
         result = {
-            'node_id': self.node_id,
-            'synthdef': self.synthdef_name,
-            'controls': {},
+            "node_id": self.node_id,
+            "synthdef": self.synthdef_name,
+            "controls": {},
         }
         for control in self.controls:
             name = control.control_name_or_index
-            result['controls'][name] = control.control_value
+            result["controls"][name] = control.control_value
         return result
 
     ### PUBLIC PROPERTIES ###

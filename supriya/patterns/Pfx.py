@@ -6,7 +6,7 @@ class Pfx(EventPattern):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_pattern', '_release_time', '_settings', '_synthdef')
+    __slots__ = ("_pattern", "_release_time", "_settings", "_synthdef")
 
     ### INITIALIZER ###
 
@@ -30,13 +30,13 @@ class Pfx(EventPattern):
         import supriya.patterns
 
         start_synth_event = supriya.patterns.SynthEvent(
-            add_action='ADD_TO_TAIL',
+            add_action="ADD_TO_TAIL",
             synthdef=self.synthdef,
-            uuid=state['synth_uuid'],
+            uuid=state["synth_uuid"],
             **self.settings,
         )
         stop_synth_event = supriya.patterns.SynthEvent(
-            uuid=state['synth_uuid'], is_stop=True
+            uuid=state["synth_uuid"], is_stop=True
         )
         peripheral_starts = [start_synth_event]
         peripheral_stops = []
@@ -47,7 +47,7 @@ class Pfx(EventPattern):
         return peripheral_starts, peripheral_stops
 
     def _setup_state(self):
-        return {'synth_uuid': uuid.uuid4()}
+        return {"synth_uuid": uuid.uuid4()}
 
     ### PUBLIC PROPERTIES ###
 

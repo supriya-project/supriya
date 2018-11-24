@@ -9,10 +9,10 @@ class DUGen(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Demand UGens'
+    __documentation_section__ = "Demand UGens"
 
     ### INITIALIZER ###
 
     def __init__(self, **kwargs):
-        kwargs['calculation_rate'] = CalculationRate.DEMAND
+        kwargs["calculation_rate"] = CalculationRate.DEMAND
         UGen.__init__(self, **kwargs)

@@ -29,12 +29,12 @@ class PV_JensenAndersen(PV_ChainUGen):
 
     _ordered_input_names = collections.OrderedDict(
         [
-            ('pv_chain', None),
-            ('propsc', 0.25),
-            ('prophfe', 0.25),
-            ('prophfc', 0.25),
-            ('propsf', 0.25),
-            ('threshold', 1),
-            ('waittime', 0.04),
+            ("pv_chain", None),
+            ("propsc", 0.25),
+            ("prophfe", 0.25),
+            ("prophfc", 0.25),
+            ("propsf", 0.25),
+            ("threshold", 1),
+            ("waittime", 0.04),
         ]
     )

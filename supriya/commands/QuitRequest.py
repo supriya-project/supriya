@@ -30,4 +30,4 @@ class QuitRequest(Request):
 
     @property
     def response_patterns(self):
-        return [['/done', '/quit']]
+        return [["/done", "/quit"]]

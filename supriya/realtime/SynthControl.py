@@ -5,19 +5,19 @@ class SynthControl:
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Server Internals'
+    __documentation_section__ = "Server Internals"
 
     __slots__ = (
-        '_calculation_rate',
-        '_client',
-        '_index',
-        '_default_value',
-        '_last_unmapped_value',
-        '_name',
-        '_range',
-        '_unit',
-        '_value',
-        '__weakref__',
+        "_calculation_rate",
+        "_client",
+        "_index",
+        "_default_value",
+        "_last_unmapped_value",
+        "_name",
+        "_range",
+        "_unit",
+        "_value",
+        "__weakref__",
     )
 
     ### INITIALIZER ###

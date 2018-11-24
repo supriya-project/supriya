@@ -15,7 +15,7 @@ class Group(Node):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Session Objects'
+    __documentation_section__ = "Session Objects"
 
     __slots__ = ()
 
@@ -29,7 +29,7 @@ class Group(Node):
     ### SPECIAL METHODS ###
 
     def __str__(self):
-        return 'group-{}'.format(self.session_id)
+        return "group-{}".format(self.session_id)
 
     ### PRIVATE METHODS ###
 
@@ -49,8 +49,8 @@ class Group(Node):
         return request
 
     def _get_stop_offset(self, offset, event) -> float:
-        duration = event.get('duration') or 0
-        delta = event.get('delta') or 0
+        duration = event.get("duration") or 0
+        delta = event.get("delta") or 0
         return offset + max(duration, delta)
 
     ### PUBLIC METHODS ###
@@ -110,7 +110,7 @@ class Group(Node):
             if maximum_offset is not None and isinstance(
                 event, supriya.patterns.NoteEvent
             ):
-                if event.get('duration', 0) == 0 and offset == maximum_offset:
+                if event.get("duration", 0) == 0 and offset == maximum_offset:
                     # Current event is 0-duration and we're at our stop.
                     should_stop = supriya.patterns.Pattern.PatternState.NONREALTIME_STOP
                     offset = actual_stop_offset

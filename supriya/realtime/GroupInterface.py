@@ -28,7 +28,7 @@ class GroupInterface(ControlInterface):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_group_controls',)
+    __slots__ = ("_group_controls",)
 
     ### INITIALIZER ###
 

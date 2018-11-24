@@ -43,7 +43,7 @@ class BindableFloat:
         return expr + float(self)
 
     def __repr__(self):
-        return '{}({})'.format(type(self).__name__, self.value)
+        return "{}({})".format(type(self).__name__, self.value)
 
     def __rdiv__(self, expr):
         return expr / float(self)

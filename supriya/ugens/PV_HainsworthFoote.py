@@ -27,10 +27,10 @@ class PV_HainsworthFoote(PV_ChainUGen):
 
     _ordered_input_names = collections.OrderedDict(
         [
-            ('pv_chain', None),
-            ('proph', 0),
-            ('propf', 0),
-            ('threshold', 1),
-            ('waittime', 0.04),
+            ("pv_chain", None),
+            ("proph", 0),
+            ("propf", 0),
+            ("threshold", 1),
+            ("waittime", 0.04),
         ]
     )

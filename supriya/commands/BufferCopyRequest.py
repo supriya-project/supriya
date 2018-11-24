@@ -36,11 +36,11 @@ class BufferCopyRequest(Request):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_frame_count',
-        '_source_buffer_id',
-        '_source_starting_frame',
-        '_target_buffer_id',
-        '_target_starting_frame',
+        "_frame_count",
+        "_source_buffer_id",
+        "_source_starting_frame",
+        "_target_buffer_id",
+        "_target_starting_frame",
     )
 
     request_id = RequestId.BUFFER_GENERATE
@@ -90,7 +90,7 @@ class BufferCopyRequest(Request):
         contents = [
             request_id,
             self.target_buffer_id,
-            'copy',
+            "copy",
             target_starting_frame,
             self.source_buffer_id,
             source_starting_frame,
@@ -107,7 +107,7 @@ class BufferCopyRequest(Request):
 
     @property
     def response_patterns(self):
-        return [['/done', '/b_gen', self.target_buffer_id]]
+        return [["/done", "/b_gen", self.target_buffer_id]]
 
     @property
     def source_buffer_id(self):

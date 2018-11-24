@@ -44,14 +44,14 @@ class BufferWriteRequest(Request):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_buffer_id',
-        '_callback',
-        '_file_path',
-        '_frame_count',
-        '_header_format',
-        '_leave_open',
-        '_sample_format',
-        '_starting_frame',
+        "_buffer_id",
+        "_callback",
+        "_file_path",
+        "_frame_count",
+        "_header_format",
+        "_leave_open",
+        "_sample_format",
+        "_starting_frame",
     )
 
     request_id = RequestId.BUFFER_WRITE
@@ -64,9 +64,9 @@ class BufferWriteRequest(Request):
         callback=None,
         file_path=None,
         frame_count=None,
-        header_format='aiff',
+        header_format="aiff",
         leave_open=False,
-        sample_format='int24',
+        sample_format="int24",
         starting_frame=None,
     ):
         import supriya.soundfiles

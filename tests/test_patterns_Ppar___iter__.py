@@ -120,7 +120,7 @@ def test___iter___01():
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -142,7 +142,7 @@ def test___iter___01():
             frequency=1003,
             uuid=UUID('C'),
             )
-        '''
+        """
     )
 
 
@@ -151,7 +151,7 @@ def test___iter___02():
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         NoteEvent(
             amplitude=1.0,
             delta=0.0,
@@ -189,7 +189,7 @@ def test___iter___02():
             frequency=2003,
             uuid=UUID('B'),
             )
-        '''
+        """
     )
 
 
@@ -198,7 +198,7 @@ def test___iter___03():
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -220,7 +220,7 @@ def test___iter___03():
             frequency=1003,
             uuid=UUID('C'),
             )
-        '''
+        """
     )
 
 
@@ -229,7 +229,7 @@ def test___iter___04():
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         CompositeEvent(
             events=(
                 BusEvent(
@@ -300,7 +300,7 @@ def test___iter___04():
                 ),
             is_stop=True,
             )
-        '''
+        """
     )
 
 
@@ -309,7 +309,7 @@ def test___iter___05():
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         CompositeEvent(
             events=(
                 BusEvent(
@@ -444,7 +444,7 @@ def test___iter___05():
                 ),
             is_stop=True,
             )
-        '''
+        """
     )
 
 
@@ -453,7 +453,7 @@ def test___iter___06():
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         CompositeEvent(
             events=(
                 GroupEvent(
@@ -565,5 +565,5 @@ def test___iter___06():
                 ),
             is_stop=True,
             )
-        '''
+        """
     )

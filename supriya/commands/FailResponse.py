@@ -5,7 +5,7 @@ class FailResponse(Response):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_failed_command', '_failure_reason')
+    __slots__ = ("_failed_command", "_failure_reason")
 
     ### INITIALIZER ###
 

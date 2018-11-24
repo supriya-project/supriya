@@ -6,9 +6,9 @@ class UGenArray(UGenMethodMixin, collections.Sequence):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'SynthDef Internals'
+    __documentation_section__ = "SynthDef Internals"
 
-    __slots__ = ('_ugens',)
+    __slots__ = ("_ugens",)
 
     ### INITIALIZER ###
 
@@ -27,7 +27,7 @@ class UGenArray(UGenMethodMixin, collections.Sequence):
         return len(self.ugens)
 
     def __repr__(self):
-        return '{}({{{}}})'.format(type(self).__name__, len(self))
+        return "{}({{{}}})".format(type(self).__name__, len(self))
 
     ### PUBLIC PROPERTIES ###
 

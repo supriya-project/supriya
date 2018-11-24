@@ -14,9 +14,9 @@ class Synth(Node):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Session Objects'
+    __documentation_section__ = "Session Objects"
 
-    __slots__ = ('_synthdef', '_synth_kwargs')
+    __slots__ = ("_synthdef", "_synth_kwargs")
 
     _valid_add_actions = (supriya.AddAction.ADD_BEFORE, supriya.AddAction.ADD_AFTER)
 
@@ -42,19 +42,19 @@ class Synth(Node):
     ### SPECIAL METHODS ###
 
     def __str__(self) -> str:
-        return 'synth-{}'.format(self.session_id)
+        return "synth-{}".format(self.session_id)
 
     ### PRIVATE METHODS ###
 
     def _as_graphviz_node(self, offset):
         group = uqbar.graphs.RecordGroup(children=[])
         group.append(
-            uqbar.graphs.RecordField('[{}]'.format(self.session_id), name='session_id')
+            uqbar.graphs.RecordField("[{}]".format(self.session_id), name="session_id")
         )
         group.append(uqbar.graphs.RecordField(self.synthdef.name))
         for parameter_name in self.synthdef.parameters:
             value = self._get_at_offset(offset, parameter_name)
-            field = '{}: {}'.format(parameter_name, value)
+            field = "{}: {}".format(parameter_name, value)
             group.append(uqbar.graphs.RecordField(label=field))
         return uqbar.graphs.Node(children=[uqbar.graphs.RecordGroup([group])])
 

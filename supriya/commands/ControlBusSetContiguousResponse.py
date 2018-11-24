@@ -8,7 +8,7 @@ class ControlBusSetContiguousResponse(Response, collections.Sequence):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_items',)
+    __slots__ = ("_items",)
 
     class Item(NamedTuple):
         bus_values: Tuple[float]

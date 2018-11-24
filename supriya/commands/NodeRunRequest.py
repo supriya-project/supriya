@@ -82,7 +82,7 @@ class NodeRunRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_node_id_run_flag_pairs',)
+    __slots__ = ("_node_id_run_flag_pairs",)
 
     request_id = RequestId.NODE_RUN
 

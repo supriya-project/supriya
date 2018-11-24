@@ -24,15 +24,15 @@ class LinExp(PureUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Line Utility UGens'
+    __documentation_section__ = "Line Utility UGens"
 
     _ordered_input_names = collections.OrderedDict(
         [
-            ('source', None),
-            ('input_minimum', 0),
-            ('input_maximum', 1),
-            ('output_minimum', 1),
-            ('output_maximum', 2),
+            ("source", None),
+            ("input_minimum", 0),
+            ("input_maximum", 1),
+            ("output_minimum", 1),
+            ("output_maximum", 2),
         ]
     )
 

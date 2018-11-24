@@ -5,7 +5,7 @@ class SyncedResponse(Response):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_sync_id',)
+    __slots__ = ("_sync_id",)
 
     ### INITIALIZER ###
 

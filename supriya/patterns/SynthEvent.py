@@ -47,10 +47,10 @@ class SynthEvent(Event):
         import supriya.assets.synthdefs
         import supriya.nonrealtime
 
-        synthdef = self.get('synthdef') or supriya.assets.synthdefs.default
-        synth_uuid = self.get('uuid', uuid.uuid4())
-        if not self.get('is_stop'):
-            target_node = self['target_node']
+        synthdef = self.get("synthdef") or supriya.assets.synthdefs.default
+        synth_uuid = self.get("uuid", uuid.uuid4())
+        if not self.get("is_stop"):
+            target_node = self["target_node"]
             if isinstance(target_node, uuid.UUID) and target_node in uuids:
                 target_node = uuids[target_node]
             prototype = (supriya.nonrealtime.Session, supriya.nonrealtime.Node)
@@ -67,8 +67,8 @@ class SynthEvent(Event):
             with session.at(offset):
                 for dictionary in dictionaries:
                     synth = target_node.add_synth(
-                        add_action=self['add_action'],
-                        duration=float('inf'),
+                        add_action=self["add_action"],
+                        duration=float("inf"),
                         synthdef=synthdef,
                         **dictionary,
                     )
@@ -86,16 +86,16 @@ class SynthEvent(Event):
         import supriya.assets.synthdefs
         import supriya.patterns
 
-        node_uuid = self.get('uuid') or uuid.uuid4()
+        node_uuid = self.get("uuid") or uuid.uuid4()
         requests = []
-        synthdef = self.get('synthdef') or supriya.assets.synthdefs.default
-        if not self.get('is_stop'):
-            target_node_id = self.get('target_node')
+        synthdef = self.get("synthdef") or supriya.assets.synthdefs.default
+        if not self.get("is_stop"):
+            target_node_id = self.get("target_node")
             if not target_node_id:
                 target_node_id = 1
             elif isinstance(target_node_id, uuid.UUID):
                 target_node_id = list(uuids[target_node_id])[0]
-            add_action = self.get('add_action')
+            add_action = self.get("add_action")
             dictionaries = self._expand(
                 self.settings,
                 synthdef,
@@ -124,9 +124,9 @@ class SynthEvent(Event):
         event_product = supriya.patterns.EventProduct(
             event=self,
             index=index,
-            is_stop=self.get('is_stop'),
+            is_stop=self.get("is_stop"),
             requests=requests,
             timestamp=timestamp,
-            uuid=self['uuid'],
+            uuid=self["uuid"],
         )
         return [event_product]

@@ -55,7 +55,7 @@ class ControlBusSetRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_index_value_pairs',)
+    __slots__ = ("_index_value_pairs",)
 
     request_id = RequestId.CONTROL_BUS_SET
 

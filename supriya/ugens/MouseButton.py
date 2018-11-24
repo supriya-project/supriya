@@ -17,10 +17,10 @@ class MouseButton(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'User Interaction UGens'
+    __documentation_section__ = "User Interaction UGens"
 
     _ordered_input_names = collections.OrderedDict(
-        [('minimum', 0), ('maximum', 1), ('lag', 0.2)]
+        [("minimum", 0), ("maximum", 1), ("lag", 0.2)]
     )
 
     _signal_range = SignalRange.UNIPOLAR

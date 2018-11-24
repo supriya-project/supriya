@@ -13,12 +13,12 @@ def _build_link_audio_synthdef(channel_count):
         Out.ar(out, InFeedback.ar(in, i) * env);
     }, [\kr, \kr, \kr, \kr, \kr, \ir]).add;
     """
-    name = 'system_link_audio_{}'.format(channel_count)
+    name = "system_link_audio_{}".format(channel_count)
     builder = supriya.synthdefs.SynthDefBuilder(
         name=name, out=0, in_=16, gate=1, fade_time=0.02, done_action=2
     )
     with builder:
-        start_value = builder['fade_time'] <= 0
+        start_value = builder["fade_time"] <= 0
         envelope = supriya.synthdefs.Envelope(
             amplitudes=[start_value, 1.0, 0.0],
             durations=[1.0, 1.0],
@@ -29,15 +29,15 @@ def _build_link_audio_synthdef(channel_count):
             release_node=1.0,
         )
         envelope = supriya.ugens.EnvGen.kr(
-            done_action=builder['done_action'],
+            done_action=builder["done_action"],
             envelope=envelope,
-            gate=builder['gate'],
-            time_scale=builder['fade_time'],
+            gate=builder["gate"],
+            time_scale=builder["fade_time"],
         )
         source = supriya.ugens.InFeedback.ar(
-            bus=builder['in_'], channel_count=channel_count
+            bus=builder["in_"], channel_count=channel_count
         )
-        supriya.ugens.Out.ar(bus=builder['out'], source=source * envelope)
+        supriya.ugens.Out.ar(bus=builder["out"], source=source * envelope)
     globals()[name] = builder.build()
     __all__.append(name)
 
@@ -50,12 +50,12 @@ def _build_link_control_synthdef(channel_count):
         Out.kr(out, In.kr(in, i) * env);
     }, [\kr, \kr, \ir]).add;
     """
-    name = 'system_link_control_{}'.format(channel_count)
+    name = "system_link_control_{}".format(channel_count)
     builder = supriya.synthdefs.SynthDefBuilder(
         name=name, out=0, in_=16, gate=1, fade_time=0.02, done_action=2
     )
     with builder:
-        start_value = builder['fade_time'] <= 0
+        start_value = builder["fade_time"] <= 0
         envelope = supriya.synthdefs.Envelope(
             amplitudes=[start_value, 1.0, 0.0],
             durations=[1.0, 1.0],
@@ -63,13 +63,13 @@ def _build_link_control_synthdef(channel_count):
             release_node=1.0,
         )
         envelope = supriya.ugens.EnvGen.kr(
-            done_action=builder['done_action'],
+            done_action=builder["done_action"],
             envelope=envelope,
-            gate=builder['gate'],
-            time_scale=builder['fade_time'],
+            gate=builder["gate"],
+            time_scale=builder["fade_time"],
         )
-        input_ = supriya.ugens.In.kr(bus=builder['in_'], channel_count=channel_count)
-        supriya.ugens.Out.kr(bus=builder['out'], source=input_ * envelope)
+        input_ = supriya.ugens.In.kr(bus=builder["in_"], channel_count=channel_count)
+        supriya.ugens.Out.kr(bus=builder["out"], source=input_ * envelope)
     globals()[name] = builder.build()
     __all__.append(name)
 

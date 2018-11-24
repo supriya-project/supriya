@@ -16,9 +16,9 @@ class ProjectSectionScript(ProjectPackageScript):
 
     def _build_nrt_server_options(self, session):
         project_settings = ProjectSettings(
-            yaml_path=self.inner_project_path.joinpath('project-settings.yml')
+            yaml_path=self.inner_project_path.joinpath("project-settings.yml")
         )
-        server_options = project_settings.get('server_options', {})
+        server_options = project_settings.get("server_options", {})
         server_options.update(
             input_bus_channel_count=session.input_bus_channel_count,
             output_bus_channel_count=session.output_bus_channel_count,
@@ -41,10 +41,10 @@ class ProjectSectionScript(ProjectPackageScript):
         from supriya.system import SupriyaObject, SupriyaValueObject
 
         basic_bases = (SupriyaObject, SupriyaValueObject, object)
-        print('Available {}:'.format(self._section_plural))
+        print("Available {}:".format(self._section_plural))
         all_objects = self._import_objects(self._section_plural, verbose=False)
         if not all_objects:
-            print('    No {} available.'.format(self._section_plural))
+            print("    No {} available.".format(self._section_plural))
             sys.exit(1)
         categorized_objects = {}
         for name, object_ in all_objects.items():
@@ -54,8 +54,8 @@ class ProjectSectionScript(ProjectPackageScript):
             if any(_ in class_.__bases__ for _ in basic_bases):
                 base = class_
             elif (
-                getattr(class_, '__is_terminal_ajv_list_item__', False)
-                and attrs['__is_terminal_ajv_list_item__'].defining_class is class_
+                getattr(class_, "__is_terminal_ajv_list_item__", False)
+                and attrs["__is_terminal_ajv_list_item__"].defining_class is class_
             ):
                 base = class_
             categorized_objects.setdefault(base, []).append((name, class_))
@@ -63,9 +63,9 @@ class ProjectSectionScript(ProjectPackageScript):
             categorized_objects.items(), key=lambda pair: pair[0].__name__
         )
         for base, names in categorized_objects:
-            print('    {}:'.format(base.__name__))
+            print("    {}:".format(base.__name__))
             for name, class_ in names:
-                print('        {} [{}]'.format(name, class_.__name__))
+                print("        {} [{}]".format(name, class_.__name__))
         sys.exit(1)
 
     def _handle_new(self, name, force=False):
@@ -80,18 +80,18 @@ class ProjectSectionScript(ProjectPackageScript):
 
     def _handle_render(self, names, force=False):
         globbable_names = self._collect_globbable_names(names)
-        print('Render candidates: {!r} ...'.format(' '.join(globbable_names)))
+        print("Render candidates: {!r} ...".format(" ".join(globbable_names)))
         matching_paths = self._collect_matching_paths(
             globbable_names, self._section_plural
         )
         if not matching_paths:
-            print('    No matching {}.'.format(self._section_plural))
+            print("    No matching {}.".format(self._section_plural))
             self._handle_list()
             sys.exit(1)
         for path in matching_paths:
             self._render_object(path, self._section_singular)
             print(
-                '    Rendered {path!s}{sep}'.format(
+                "    Rendered {path!s}{sep}".format(
                     path=path.relative_to(self.inner_project_path.parent),
                     sep=os.path.sep,
                 )
@@ -99,7 +99,7 @@ class ProjectSectionScript(ProjectPackageScript):
 
     def _import_object(self, directory_path, section_singular, verbose=True):
         import_path = self._path_to_packagesystem_path(directory_path)
-        definition_import_path = import_path + '.definition'
+        definition_import_path = import_path + ".definition"
         try:
             module = self._import_path(
                 definition_import_path, self.outer_project_path, verbose=verbose
@@ -143,18 +143,18 @@ class ProjectSectionScript(ProjectPackageScript):
         from supriya import render
 
         print(
-            'Rendering {path!s}{sep}'.format(
+            "Rendering {path!s}{sep}".format(
                 path=directory_path.relative_to(self.inner_project_path.parent),
                 sep=os.path.sep,
             )
         )
-        output_file_path = directory_path / 'render.aiff'
+        output_file_path = directory_path / "render.aiff"
         with uqbar.io.Timer() as timer:
             object_ = self._import_object(directory_path, section_singular)
-            if hasattr(object_, '__session__'):
+            if hasattr(object_, "__session__"):
                 object_ = object_.__session__()
-            if not hasattr(object_, '__render__'):
-                template = '    Cannot render {} of type {}.'
+            if not hasattr(object_, "__render__"):
+                template = "    Cannot render {} of type {}."
                 message = template.format(section_singular, type(object_).__name__)
                 print(message)
                 sys.exit(1)
@@ -163,9 +163,9 @@ class ProjectSectionScript(ProjectPackageScript):
                 kwargs.update(self._build_nrt_server_options(object_))
                 kwargs.update(
                     {
-                        'print_transcript': True,
-                        'transcript_prefix': '    ',
-                        'build_render_yml': True,
+                        "print_transcript": True,
+                        "transcript_prefix": "    ",
+                        "build_render_yml": True,
                     }
                 )
             try:
@@ -176,77 +176,77 @@ class ProjectSectionScript(ProjectPackageScript):
                     **kwargs,
                 )
             except (NonrealtimeRenderError, NonrealtimeOutputMissing):
-                self._report_time(timer, prefix='Python/SC runtime')
-                print('    Render failed. Exiting.')
+                self._report_time(timer, prefix="Python/SC runtime")
+                print("    Render failed. Exiting.")
                 sys.exit(1)
             except Exception:
                 print(traceback.format_exc())
                 sys.exit(1)
-            self._report_time(timer, prefix='Python/SC runtime')
+            self._report_time(timer, prefix="Python/SC runtime")
         return output_file_path
 
     def _setup_argument_parser(self, parser):
-        action_group = parser.add_argument_group('actions')
+        action_group = parser.add_argument_group("actions")
         action_group = action_group.add_mutually_exclusive_group(required=True)
         action_group.add_argument(
-            '--new',
-            '-N',
-            help='create a new {}'.format(self._section_singular),
-            metavar='NAME',
+            "--new",
+            "-N",
+            help="create a new {}".format(self._section_singular),
+            metavar="NAME",
         )
         action_group.add_argument(
-            '--edit',
-            '-E',
-            help='edit {}s'.format(self._section_singular),
-            metavar='PATTERN',
-            nargs='+',
+            "--edit",
+            "-E",
+            help="edit {}s".format(self._section_singular),
+            metavar="PATTERN",
+            nargs="+",
         )
         action_group.add_argument(
-            '--render',
-            '-R',
-            help='render {}s'.format(self._section_singular),
-            metavar='PATTERN',
-            nargs='+',
+            "--render",
+            "-R",
+            help="render {}s".format(self._section_singular),
+            metavar="PATTERN",
+            nargs="+",
         )
         action_group.add_argument(
-            '--list',
-            '-L',
-            dest='list_',
-            help='list {}s'.format(self._section_singular),
-            action='store_true',
+            "--list",
+            "-L",
+            dest="list_",
+            help="list {}s".format(self._section_singular),
+            action="store_true",
         )
         action_group.add_argument(
-            '--copy',
-            '-Y',
-            help='copy {}'.format(self._section_singular),
-            metavar=('SOURCE', 'TARGET'),
+            "--copy",
+            "-Y",
+            help="copy {}".format(self._section_singular),
+            metavar=("SOURCE", "TARGET"),
             nargs=2,
         )
         action_group.add_argument(
-            '--rename',
-            '-M',
-            help='rename {}'.format(self._section_singular),
-            metavar=('SOURCE', 'TARGET'),
+            "--rename",
+            "-M",
+            help="rename {}".format(self._section_singular),
+            metavar=("SOURCE", "TARGET"),
             nargs=2,
         )
         action_group.add_argument(
-            '--delete',
-            '-D',
-            help='delete {}'.format(self._section_singular),
-            metavar='NAME',
+            "--delete",
+            "-D",
+            help="delete {}".format(self._section_singular),
+            metavar="NAME",
         )
-        common_group = parser.add_argument_group('common options')
+        common_group = parser.add_argument_group("common options")
         common_group.add_argument(
-            '--force', '-f', action='store_true', help='force overwriting'
+            "--force", "-f", action="store_true", help="force overwriting"
         )
         common_group.add_argument(
-            '--project-path',
-            metavar='project',
-            help='project path or package name',
+            "--project-path",
+            metavar="project",
+            help="project path or package name",
             default=os.path.curdir,
         )
         common_group.add_argument(
-            '--profile', action='store_true', help='display profiler info'
+            "--profile", action="store_true", help="display profiler info"
         )
 
     ### PRIVATE PROPERTIES ###

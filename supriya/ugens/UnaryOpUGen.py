@@ -22,9 +22,9 @@ class UnaryOpUGen(PureUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Basic Operator UGens'
+    __documentation_section__ = "Basic Operator UGens"
 
-    _ordered_input_names = collections.OrderedDict([('source', None)])
+    _ordered_input_names = collections.OrderedDict([("source", None)])
 
     ### INITIALIZER ###
 

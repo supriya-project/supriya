@@ -3,11 +3,11 @@ import supriya.patterns
 import uqbar.strings
 
 
-pseq_01 = supriya.patterns.Pseq(['A', 'B', 'C', 'D'])
+pseq_01 = supriya.patterns.Pseq(["A", "B", "C", "D"])
 
 
 pseq_02 = supriya.patterns.Pseq(
-    [supriya.patterns.Pseq(['A', 'B', 'C']), supriya.patterns.Pseq(['D', 'E', 'F'])]
+    [supriya.patterns.Pseq(["A", "B", "C"]), supriya.patterns.Pseq(["D", "E", "F"])]
 )
 
 
@@ -47,12 +47,12 @@ pseq_04 = supriya.patterns.Pseq(
 
 def test___iter___01():
     events = list(pseq_01)
-    assert events == ['A', 'B', 'C', 'D']
+    assert events == ["A", "B", "C", "D"]
 
 
 def test___iter___02():
     events = list(pseq_02)
-    assert events == ['A', 'B', 'C', 'D', 'E', 'F']
+    assert events == ["A", "B", "C", "D", "E", "F"]
 
 
 def test___iter___03():
@@ -60,7 +60,7 @@ def test___iter___03():
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -103,7 +103,7 @@ def test___iter___03():
             frequency=990,
             uuid=UUID('F'),
             )
-        '''
+        """
     )
 
 
@@ -112,7 +112,7 @@ def test___iter___04():
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -204,28 +204,28 @@ def test___iter___04():
                 ),
             is_stop=True,
             )
-        '''
+        """
     )
 
 
 def test_send_01():
     events = pytest.helpers.setup_pattern_send(pseq_01, iterations=2)
-    assert events == ['A', 'B']
+    assert events == ["A", "B"]
 
 
 def test_send_02a():
     events = pytest.helpers.setup_pattern_send(pseq_02, iterations=2)
-    assert events == ['A', 'B']
+    assert events == ["A", "B"]
 
 
 def test_send_02b():
     events = pytest.helpers.setup_pattern_send(pseq_02, iterations=3)
-    assert events == ['A', 'B', 'C']
+    assert events == ["A", "B", "C"]
 
 
 def test_send_02c():
     events = pytest.helpers.setup_pattern_send(pseq_02, iterations=4)
-    assert events == ['A', 'B', 'C', 'D']
+    assert events == ["A", "B", "C", "D"]
 
 
 def test_send_03a():
@@ -233,7 +233,7 @@ def test_send_03a():
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -248,7 +248,7 @@ def test_send_03a():
             frequency=660,
             uuid=UUID('B'),
             )
-        '''
+        """
     )
 
 
@@ -257,7 +257,7 @@ def test_send_03b():
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -279,7 +279,7 @@ def test_send_03b():
             frequency=880,
             uuid=UUID('C'),
             )
-        '''
+        """
     )
 
 
@@ -288,7 +288,7 @@ def test_send_03c():
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -317,7 +317,7 @@ def test_send_03c():
             frequency=550,
             uuid=UUID('D'),
             )
-        '''
+        """
     )
 
 
@@ -326,7 +326,7 @@ def test_send_04a():
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -391,7 +391,7 @@ def test_send_04a():
                 ),
             is_stop=True,
             )
-        '''
+        """
     )
 
 
@@ -400,7 +400,7 @@ def test_send_04b():
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -474,5 +474,5 @@ def test_send_04b():
                 ),
             is_stop=True,
             )
-        '''
+        """
     )

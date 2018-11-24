@@ -25,16 +25,16 @@ class FFT(PV_ChainUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'FFT UGens'
+    __documentation_section__ = "FFT UGens"
 
     _ordered_input_names = collections.OrderedDict(
         [
-            ('buffer_id', None),
-            ('source', None),
-            ('hop', 0.5),
-            ('window_type', 0),
-            ('active', 1),
-            ('window_size', 0),
+            ("buffer_id", None),
+            ("source", None),
+            ("hop", 0.5),
+            ("window_type", 0),
+            ("active", 1),
+            ("window_size", 0),
         ]
     )
 

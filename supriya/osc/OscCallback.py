@@ -17,7 +17,7 @@ class OscCallback(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_address_pattern', '_argument_template', '_is_one_shot', '_procedure')
+    __slots__ = ("_address_pattern", "_argument_template", "_is_one_shot", "_procedure")
 
     ### INITIALIZER ###
 

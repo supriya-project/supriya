@@ -5,7 +5,7 @@ class QueryTreeResponse(Response):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_node_id', '_query_tree_group')
+    __slots__ = ("_node_id", "_query_tree_group")
 
     ### INITIALIZER ###
 
@@ -700,25 +700,25 @@ class QueryTreeResponse(Response):
         """
 
         def recurse(node, parent_node_id, nodes):
-            if 'synthdef' in node:
-                node['parent'] = parent_node_id
+            if "synthdef" in node:
+                node["parent"] = parent_node_id
                 nodes.append(node)
             else:
                 group = {
-                    'node_id': node['node_id'],
-                    'parent': parent_node_id,
-                    'children': [x['node_id'] for x in node['children']],
+                    "node_id": node["node_id"],
+                    "parent": parent_node_id,
+                    "children": [x["node_id"] for x in node["children"]],
                 }
                 nodes.append(group)
-                for x in node['children']:
-                    recurse(x, node['node_id'], nodes)
+                for x in node["children"]:
+                    recurse(x, node["node_id"], nodes)
 
         data = self.query_tree_group.to_dict()
         if not flat:
-            return {'server_tree': data}
+            return {"server_tree": data}
         nodes = []
         recurse(data, None, nodes)
-        return {'server_tree': nodes}
+        return {"server_tree": nodes}
 
     ### PUBLIC PROPERTIES ###
 

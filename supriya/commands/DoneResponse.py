@@ -5,7 +5,7 @@ class DoneResponse(Response):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_action',)
+    __slots__ = ("_action",)
 
     ### INITIALIZER ###
 

@@ -9,7 +9,7 @@ class AudioControl(Control):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'UGen Internals'
+    __documentation_section__ = "UGen Internals"
 
     ### INITIALIZER ##
 

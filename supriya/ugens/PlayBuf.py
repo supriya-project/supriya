@@ -26,7 +26,7 @@ class PlayBuf(MultiOutUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Buffer UGens'
+    __documentation_section__ = "Buffer UGens"
 
     _default_channel_count = 1
 
@@ -34,12 +34,12 @@ class PlayBuf(MultiOutUGen):
 
     _ordered_input_names = collections.OrderedDict(
         [
-            ('buffer_id', None),
-            ('rate', 1),
-            ('trigger', 1),
-            ('start_position', 0),
-            ('loop', 0),
-            ('done_action', 0),
+            ("buffer_id", None),
+            ("rate", 1),
+            ("trigger", 1),
+            ("start_position", 0),
+            ("loop", 0),
+            ("done_action", 0),
         ]
     )
 

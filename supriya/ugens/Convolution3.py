@@ -30,7 +30,7 @@ class Convolution3(UGen):
     __documentation_section__ = None
 
     _ordered_input_names = collections.OrderedDict(
-        [('source', None), ('kernel', None), ('trigger', 0.0), ('framesize', 2048)]
+        [("source", None), ("kernel", None), ("trigger", 0.0), ("framesize", 2048)]
     )
 
     _valid_calculation_rates = (CalculationRate.AUDIO,)

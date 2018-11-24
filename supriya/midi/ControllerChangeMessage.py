@@ -5,7 +5,7 @@ class ControllerChangeMessage(MidiMessage):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_controller_number', '_controller_value')
+    __slots__ = ("_controller_number", "_controller_value")
 
     ### INITIALIZER ###
 

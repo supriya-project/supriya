@@ -6,7 +6,7 @@ class MidiMessage(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_channel_number', '_timestamp')
+    __slots__ = ("_channel_number", "_timestamp")
 
     ### INITIALIZER ###
 

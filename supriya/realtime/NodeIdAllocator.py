@@ -39,16 +39,16 @@ class NodeIdAllocator(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Server Internals'
+    __documentation_section__ = "Server Internals"
 
     __slots__ = (
-        '_freed_permanent_ids',
-        '_initial_node_id',
-        '_lock',
-        '_mask',
-        '_next_permanent_id',
-        '_temp',
-        '_user_id',
+        "_freed_permanent_ids",
+        "_initial_node_id",
+        "_lock",
+        "_mask",
+        "_next_permanent_id",
+        "_temp",
+        "_user_id",
     )
 
     ### INITIALIZER ###

@@ -39,14 +39,14 @@ class DelTapRd(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Delay UGens'
+    __documentation_section__ = "Delay UGens"
 
     _ordered_input_names = collections.OrderedDict(
         [
-            ('buffer_id', None),
-            ('phase', None),
-            ('delay_time', 0.0),
-            ('interpolation', 1.0),
+            ("buffer_id", None),
+            ("phase", None),
+            ("delay_time", 0.0),
+            ("interpolation", 1.0),
         ]
     )
 

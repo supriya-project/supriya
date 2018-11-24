@@ -28,14 +28,14 @@ class BiPanB2(MultiOutUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Spatialization UGens'
+    __documentation_section__ = "Spatialization UGens"
 
     _default_channel_count = 3
 
     _has_settable_channel_count = False
 
     _ordered_input_names = collections.OrderedDict(
-        [('in_a', None), ('in_b', None), ('azimuth', None), ('gain', 1.0)]
+        [("in_a", None), ("in_b", None), ("azimuth", None), ("gain", 1.0)]
     )
 
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

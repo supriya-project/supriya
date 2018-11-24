@@ -70,52 +70,52 @@ class Pattern(SupriyaValueObject):
         """
         import supriya.patterns
 
-        return supriya.patterns.Pbinop(self, '+', expr)
+        return supriya.patterns.Pbinop(self, "+", expr)
 
     def __div__(self, expr):
         import supriya.patterns
 
-        return supriya.patterns.Pbinop(self, '/', expr)
+        return supriya.patterns.Pbinop(self, "/", expr)
 
     def __mul__(self, expr):
         import supriya.patterns
 
-        return supriya.patterns.Pbinop(self, '*', expr)
+        return supriya.patterns.Pbinop(self, "*", expr)
 
     def __pow__(self, expr):
         import supriya.patterns
 
-        return supriya.patterns.Pbinop(self, '**', expr)
+        return supriya.patterns.Pbinop(self, "**", expr)
 
     def __radd__(self, expr):
         import supriya.patterns
 
-        return supriya.patterns.Pbinop(expr, '+', self)
+        return supriya.patterns.Pbinop(expr, "+", self)
 
     def __rdiv__(self, expr):
         import supriya.patterns
 
-        return supriya.patterns.Pbinop(expr, '/', self)
+        return supriya.patterns.Pbinop(expr, "/", self)
 
     def __rmul__(self, expr):
         import supriya.patterns
 
-        return supriya.patterns.Pbinop(expr, '*', self)
+        return supriya.patterns.Pbinop(expr, "*", self)
 
     def __rpow__(self, expr):
         import supriya.patterns
 
-        return supriya.patterns.Pbinop(expr, '**', self)
+        return supriya.patterns.Pbinop(expr, "**", self)
 
     def __rsub__(self, expr):
         import supriya.patterns
 
-        return supriya.patterns.Pbinop(expr, '-', self)
+        return supriya.patterns.Pbinop(expr, "-", self)
 
     def __sub__(self, expr):
         import supriya.patterns
 
-        return supriya.patterns.Pbinop(self, '-', expr)
+        return supriya.patterns.Pbinop(self, "-", expr)
 
     def __iter__(self) -> Generator:
         import supriya.patterns
@@ -135,7 +135,7 @@ class Pattern(SupriyaValueObject):
             peripheral_starts = supriya.patterns.CompositeEvent(
                 delta=0.0, events=peripheral_starts
             )
-            self._debug('PERIPHERAL_STARTS', peripheral_starts)
+            self._debug("PERIPHERAL_STARTS", peripheral_starts)
             should_stop = yield peripheral_starts
         if not should_stop:
             should_stop = yield initial_expr
@@ -150,7 +150,7 @@ class Pattern(SupriyaValueObject):
             peripheral_stops = supriya.patterns.CompositeEvent(
                 delta=0.0, events=peripheral_stops, is_stop=True
             )
-            self._debug('PERIPHERAL_STOPS', peripheral_stops)
+            self._debug("PERIPHERAL_STOPS", peripheral_stops)
             yield peripheral_stops
 
     ### PRIVATE METHODS ###
@@ -164,7 +164,7 @@ class Pattern(SupriyaValueObject):
         if isinstance(expr, supriya.patterns.CompositeEvent):
             coerced_events = [
                 self._coerce_iterator_output(child_event, state=state)
-                for child_event in expr.get('events') or ()
+                for child_event in expr.get("events") or ()
             ]
             expr = utils.new(expr, events=coerced_events)
         else:
@@ -185,10 +185,10 @@ class Pattern(SupriyaValueObject):
         if not self._name:
             return
         print(
-            '{}[{}] {}'.format(
-                (self._indent_level or 0) * '    ',
+            "{}[{}] {}".format(
+                (self._indent_level or 0) * "    ",
                 self._name,
-                ' '.join(str(arg) for arg in args),
+                " ".join(str(arg) for arg in args),
             )
         )
 
@@ -219,7 +219,7 @@ class Pattern(SupriyaValueObject):
             while frame is not None:
                 file_path = frame.f_code.co_filename
                 function_name = frame.f_code.co_name
-                if file_path == pseed_file_path and function_name == '_iterate':
+                if file_path == pseed_file_path and function_name == "_iterate":
                     identifier = id(frame)
                     break
                 frame = frame.f_back
@@ -279,20 +279,20 @@ class Pattern(SupriyaValueObject):
         import supriya.patterns
 
         namespaces = namespaces or {}
-        class_name = dict_['type']
+        class_name = dict_["type"]
         class_ = getattr(supriya.patterns, class_name)
         kwargs = {}
         for key, value in dict_.items():
-            if key == 'type':
+            if key == "type":
                 continue
-            if isinstance(value, str) and re.match('\$\w+\.\w+', value):
-                namespace, name = value.split('.')
+            if isinstance(value, str) and re.match("\$\w+\.\w+", value):
+                namespace, name = value.split(".")
                 namespace = namespaces[namespace[1:]]
                 if isinstance(namespace, BindableNamespace):
                     value = namespace.proxies[name]
                 else:
                     value = namespace[name]
-            elif isinstance(value, dict) and 'type' in value:
+            elif isinstance(value, dict) and "type" in value:
                 value = cls.from_dict(value, namespaces=namespaces)
             kwargs[key] = value
         return class_(**kwargs)

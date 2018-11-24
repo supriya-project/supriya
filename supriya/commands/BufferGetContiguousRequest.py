@@ -38,7 +38,7 @@ class BufferGetContiguousRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_buffer_id', '_index_count_pairs')
+    __slots__ = ("_buffer_id", "_index_count_pairs")
 
     request_id = RequestId.BUFFER_GET_CONTIGUOUS
 
@@ -79,4 +79,4 @@ class BufferGetContiguousRequest(Request):
 
     @property
     def response_patterns(self):
-        return [['/b_setn', self.buffer_id], ['/fail', '/b_getn']]
+        return [["/b_setn", self.buffer_id], ["/fail", "/b_getn"]]

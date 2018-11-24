@@ -80,10 +80,10 @@ class OscBundle(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_contents', '_timestamp')
+    __slots__ = ("_contents", "_timestamp")
 
-    _bundle_prefix = b'#bundle\x00'
-    _immediately = struct.pack('>q', 1)
+    _bundle_prefix = b"#bundle\x00"
+    _immediately = struct.pack(">q", 1)
 
     ### INITIALIZER ###
 
@@ -125,8 +125,8 @@ class OscBundle(SupriyaValueObject):
         if payload[offset : offset + 8] == OscBundle._immediately:
             date = None
         else:
-            seconds, fraction = struct.unpack('>II', payload[offset : offset + 8])
-            date = decimal.Decimal('{!s}.{!s}'.format(seconds, fraction))
+            seconds, fraction = struct.unpack(">II", payload[offset : offset + 8])
+            date = decimal.Decimal("{!s}.{!s}".format(seconds, fraction))
             date = float(date)
             date = OscBundle._ntp_to_system_time(date)
         offset += 8
@@ -142,14 +142,14 @@ class OscBundle(SupriyaValueObject):
             return OscBundle._immediately
         if realtime:
             ntp = OscBundle._system_time_to_ntp(value)
-            seconds, fraction = str(ntp).split('.')
+            seconds, fraction = str(ntp).split(".")
             seconds = int(seconds)
             fraction = int(fraction)
-            result = struct.pack('>I', seconds)
-            result += struct.pack('>I', fraction)
+            result = struct.pack(">I", seconds)
+            result += struct.pack(">I", fraction)
         else:
             kSecondsToOSC = 4_294_967_296
-            result = struct.pack('>q', int(value * kSecondsToOSC))
+            result = struct.pack(">q", int(value * kSecondsToOSC))
         return result
 
     ### PUBLIC METHODS ###

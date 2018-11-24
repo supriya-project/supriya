@@ -20,7 +20,7 @@ def test__perform_realtime_01():
     assert pytest.helpers.get_objects_as_string(
         event_products, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         EventProduct(
             event=SynthEvent(
                 out=4,
@@ -41,7 +41,7 @@ def test__perform_realtime_01():
             timestamp=100.0,
             uuid=UUID('A'),
             )
-        '''
+        """
     )
     assert node_uuid in uuids
     assert isinstance(uuids[node_uuid], dict)
@@ -61,7 +61,7 @@ def test__perform_realtime_02():
     assert pytest.helpers.get_objects_as_string(
         event_products, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         EventProduct(
             event=SynthEvent(
                 is_stop=True,
@@ -76,5 +76,5 @@ def test__perform_realtime_02():
             timestamp=100.0,
             uuid=UUID('A'),
             )
-        '''
+        """
     )

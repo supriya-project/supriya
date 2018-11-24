@@ -51,9 +51,9 @@ class BusGroup(SessionObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Session Objects'
+    __documentation_section__ = "Session Objects"
 
-    __slots__ = ('_buses', '_calculation_rate', '_session', '_session_id')
+    __slots__ = ("_buses", "_calculation_rate", "_session", "_session_id")
 
     ### INITIALIZER ###
 
@@ -95,16 +95,16 @@ class BusGroup(SessionObject):
         return len(self._buses)
 
     def __repr__(self):
-        return '<{}>'.format(super(BusGroup, self).__repr__())
+        return "<{}>".format(super(BusGroup, self).__repr__())
 
     def __str__(self):
-        map_symbol = 'c'
+        map_symbol = "c"
         if self.calculation_rate == supriya.CalculationRate.AUDIO:
-            map_symbol = 'a'
+            map_symbol = "a"
         session_id = self._session_id
         if session_id is None:
-            session_id = '?'
-        return '{map_symbol}{session_id}'.format(
+            session_id = "?"
+        return "{map_symbol}{session_id}".format(
             map_symbol=map_symbol, session_id=session_id
         )
 
@@ -126,9 +126,9 @@ class BusGroup(SessionObject):
         import supriya.synthdefs
 
         if self.calculation_rate == supriya.CalculationRate.AUDIO:
-            map_symbol = 'a'
+            map_symbol = "a"
         else:
-            map_symbol = 'c'
+            map_symbol = "c"
         map_symbol += str(bus_id)
         return map_symbol
 

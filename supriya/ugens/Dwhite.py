@@ -22,7 +22,7 @@ class Dwhite(DUGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        [('minimum', 0.0), ('maximum', 1.0), ('length', float('inf'))]
+        [("minimum", 0.0), ("maximum", 1.0), ("length", float("inf"))]
     )
 
     _valid_calculation_rates = (CalculationRate.DEMAND,)

@@ -7,7 +7,7 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_children', '_extra', '_node_id')
+    __slots__ = ("_children", "_extra", "_node_id")
 
     ### INITIALIZER ###
 
@@ -26,8 +26,8 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
 
     def __str__(self):
         result = self._get_str_format_pieces()
-        result = '\n'.join(result)
-        result = 'NODE TREE {}'.format(result)
+        result = "\n".join(result)
+        result = "NODE TREE {}".format(result)
         return result
 
     ### PRIVATE METHODS ###
@@ -76,16 +76,16 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
 
     def _get_str_format_pieces(self):
         result = []
-        string = '{} group'.format(self.node_id)
+        string = "{} group".format(self.node_id)
         if self.extra:
-            string = '{} ({})'.format(
+            string = "{} ({})".format(
                 string,
-                ', '.join('{}: {}'.format(key, value) for key, value in self.extra),
+                ", ".join("{}: {}".format(key, value) for key, value in self.extra),
             )
         result.append(string)
         for child in self.children:
             for line in child._get_str_format_pieces():
-                result.append('    {}'.format(line))
+                result.append("    {}".format(line))
         return result
 
     ### PUBLIC METHODS ###
@@ -242,8 +242,8 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
 
         """
         result = {
-            'node_id': self.node_id,
-            'children': [x.to_dict() for x in self.children],
+            "node_id": self.node_id,
+            "children": [x.to_dict() for x in self.children],
         }
         return result
 

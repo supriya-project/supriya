@@ -33,7 +33,7 @@ class NodeQueryRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_node_id',)
+    __slots__ = ("_node_id",)
 
     request_id = RequestId.NODE_QUERY
 

@@ -39,7 +39,7 @@ class NodeSetRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_kwargs', '_node_id')
+    __slots__ = ("_kwargs", "_node_id")
 
     request_id = RequestId.NODE_SET
 

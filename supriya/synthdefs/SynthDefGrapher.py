@@ -72,40 +72,40 @@ class SynthDefGrapher:
             for i, input_ in enumerate(ugen.inputs):
                 if not isinstance(input_, supriya.synthdefs.OutputProxy):
                     continue
-                tail_field = tail_node['inputs'][i]
+                tail_field = tail_node["inputs"][i]
                 source = input_.source
                 head_node = ugen_node_mapping[source]
-                head_field = head_node['outputs'][input_.output_index]
-                edge = uqbar.graphs.Edge(head_port_position='w', tail_port_position='e')
+                head_field = head_node["outputs"][input_.output_index]
+                edge = uqbar.graphs.Edge(head_port_position="w", tail_port_position="e")
                 edge.attach(head_field, tail_field)
                 if source.calculation_rate == supriya.CalculationRate.CONTROL:
-                    edge.attributes['color'] = 'goldenrod'
+                    edge.attributes["color"] = "goldenrod"
                 elif source.calculation_rate == supriya.CalculationRate.AUDIO:
-                    edge.attributes['color'] = 'steelblue'
+                    edge.attributes["color"] = "steelblue"
                 else:
-                    edge.attributes['color'] = 'salmon'
+                    edge.attributes["color"] = "salmon"
 
     @staticmethod
     def _create_ugen_input_group(ugen, ugen_index):
         if not ugen.inputs:
             return None
-        input_group = uqbar.graphs.RecordGroup(name='inputs'.format(ugen_index))
+        input_group = uqbar.graphs.RecordGroup(name="inputs".format(ugen_index))
         for i, input_ in enumerate(ugen.inputs):
-            label = ''
+            label = ""
             input_name = None
             if i < len(ugen._ordered_input_names):
                 input_name = tuple(ugen._ordered_input_names)[i]
             if input_name:
                 # input_name = r'\n'.join(input_name.split('_'))
                 if isinstance(input_, float):
-                    label = r'{}:\n{}'.format(input_name, input_)
+                    label = r"{}:\n{}".format(input_name, input_)
                 else:
                     label = input_name
             elif isinstance(input_, float):
                 label = str(input_)
             label = label or None
             field = uqbar.graphs.RecordField(
-                label=label, name='ugen_{}_input_{}'.format(ugen_index, i)
+                label=label, name="ugen_{}_input_{}".format(ugen_index, i)
             )
             input_group.append(field)
         return input_group
@@ -117,13 +117,13 @@ class SynthDefGrapher:
         ugen_node_mapping = {}
         for ugen in synthdef.ugens:
             ugen_index = synthdef.ugens.index(ugen)
-            node = uqbar.graphs.Node(name='ugen_{}'.format(ugen_index))
+            node = uqbar.graphs.Node(name="ugen_{}".format(ugen_index))
             if ugen.calculation_rate == supriya.CalculationRate.CONTROL:
-                node.attributes['fillcolor'] = 'lightgoldenrod2'
+                node.attributes["fillcolor"] = "lightgoldenrod2"
             elif ugen.calculation_rate == supriya.CalculationRate.AUDIO:
-                node.attributes['fillcolor'] = 'lightsteelblue2'
+                node.attributes["fillcolor"] = "lightsteelblue2"
             else:
-                node.attributes['fillcolor'] = 'lightsalmon2'
+                node.attributes["fillcolor"] = "lightsalmon2"
             title_field = SynthDefGrapher._create_ugen_title_field(ugen)
             node.append(title_field)
             group = uqbar.graphs.RecordGroup()
@@ -145,7 +145,7 @@ class SynthDefGrapher:
 
         if not ugen.outputs:
             return None
-        output_group = uqbar.graphs.RecordGroup(name='outputs'.format(ugen_index))
+        output_group = uqbar.graphs.RecordGroup(name="outputs".format(ugen_index))
         for i, output in enumerate(ugen.outputs):
             label = str(i)
             if isinstance(ugen, supriya.ugens.Control):
@@ -153,9 +153,9 @@ class SynthDefGrapher:
                 parameter = dict(synthdef.indexed_parameters)[parameter_index]
                 parameter_name = parameter.name
                 # parameter_name = r'\n'.join(parameter.name.split('_'))
-                label = r'{}:\n{}'.format(parameter_name, parameter.value)
+                label = r"{}:\n{}".format(parameter_name, parameter.value)
             field = uqbar.graphs.RecordField(
-                label=label, name='ugen_{}_output_{}'.format(ugen_index, i)
+                label=label, name="ugen_{}_output_{}".format(ugen_index, i)
             )
             output_group.append(field)
         return output_group
@@ -167,14 +167,14 @@ class SynthDefGrapher:
 
         name = type(ugen).__name__
         calculation_rate = ugen.calculation_rate.name.lower()
-        label_template = r'{name}\n({calculation_rate})'
+        label_template = r"{name}\n({calculation_rate})"
         operator = None
         if isinstance(ugen, supriya.ugens.BinaryOpUGen):
             operator = supriya.synthdefs.BinaryOperator(ugen.special_index).name
-            label_template = r'{name}\n[{operator}]\n({calculation_rate})'
+            label_template = r"{name}\n[{operator}]\n({calculation_rate})"
         elif isinstance(ugen, supriya.ugens.UnaryOpUGen):
             operator = supriya.synthdefs.UnaryOperator(ugen.special_index).name
-            label_template = r'{name}\n[{operator}]\n({calculation_rate})'
+            label_template = r"{name}\n[{operator}]\n({calculation_rate})"
         title_field = uqbar.graphs.RecordField(
             label=label_template.format(
                 name=name, operator=operator, calculation_rate=calculation_rate
@@ -186,27 +186,27 @@ class SynthDefGrapher:
     def _style_graph(graph):
         graph.attributes.update(
             {
-                'bgcolor': 'transparent',
-                'color': 'lightslategrey',
-                'dpi': 72,
-                'fontname': 'Arial',
-                'outputorder': 'edgesfirst',
-                'overlap': 'prism',
-                'penwidth': 2,
-                'rankdir': 'LR',
-                'ranksep': 1,
-                'splines': 'spline',
-                'style': ('dotted', 'rounded'),
+                "bgcolor": "transparent",
+                "color": "lightslategrey",
+                "dpi": 72,
+                "fontname": "Arial",
+                "outputorder": "edgesfirst",
+                "overlap": "prism",
+                "penwidth": 2,
+                "rankdir": "LR",
+                "ranksep": 1,
+                "splines": "spline",
+                "style": ("dotted", "rounded"),
             }
         )
-        graph.edge_attributes.update({'penwidth': 2})
+        graph.edge_attributes.update({"penwidth": 2})
         graph.node_attributes.update(
             {
-                'fontname': 'Arial',
-                'fontsize': 12,
-                'penwidth': 2,
-                'shape': 'Mrecord',
-                'style': ('filled', 'rounded'),
+                "fontname": "Arial",
+                "fontsize": 12,
+                "penwidth": 2,
+                "shape": "Mrecord",
+                "style": ("filled", "rounded"),
             }
         )
 
@@ -217,7 +217,7 @@ class SynthDefGrapher:
         import supriya.synthdefs
 
         assert isinstance(synthdef, supriya.synthdefs.SynthDef)
-        graph = uqbar.graphs.Graph(name='synthdef_{}'.format(synthdef.actual_name))
+        graph = uqbar.graphs.Graph(name="synthdef_{}".format(synthdef.actual_name))
         ugen_node_mapping = SynthDefGrapher._create_ugen_node_mapping(synthdef)
         for node in sorted(ugen_node_mapping.values(), key=lambda x: x.name):
             graph.append(node)

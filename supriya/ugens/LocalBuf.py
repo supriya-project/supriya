@@ -46,10 +46,10 @@ class LocalBuf(WidthFirstUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Buffer UGens'
+    __documentation_section__ = "Buffer UGens"
 
     _ordered_input_names = collections.OrderedDict(
-        [('channel_count', 1), ('frame_count', 1)]
+        [("channel_count", 1), ("frame_count", 1)]
     )
 
     _valid_calculation_rates = (CalculationRate.SCALAR,)

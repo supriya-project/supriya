@@ -23,7 +23,7 @@ class SyncSaw(PureUGen):
     __documentation_section__ = None
 
     _ordered_input_names = collections.OrderedDict(
-        [('sync_frequency', 440), ('saw_frequency', 440)]
+        [("sync_frequency", 440), ("saw_frequency", 440)]
     )
 
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

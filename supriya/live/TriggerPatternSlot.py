@@ -48,7 +48,7 @@ class TriggerPatternSlot(PatternSlot):
             assert isinstance(event, supriya.patterns.NoteEvent)
             synthdef = (
                 self.synthdef
-                or event.get('synthdef')
+                or event.get("synthdef")
                 or supriya.assets.synthdefs.default
             )
             settings = {

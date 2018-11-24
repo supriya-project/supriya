@@ -22,7 +22,7 @@ class RunningSum(UGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        [('source', None), ('sample_count', 40)]
+        [("source", None), ("sample_count", 40)]
     )
 
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

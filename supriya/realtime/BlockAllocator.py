@@ -44,9 +44,9 @@ class BlockAllocator(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Server Internals'
+    __documentation_section__ = "Server Internals"
 
-    __slots__ = ('_free_heap', '_heap_maximum', '_heap_minimum', '_lock', '_used_heap')
+    __slots__ = ("_free_heap", "_heap_maximum", "_heap_minimum", "_lock", "_used_heap")
 
     ### INITIALIZER ###
 

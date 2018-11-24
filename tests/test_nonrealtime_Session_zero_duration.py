@@ -22,33 +22,33 @@ def test_manual_with_gate():
             0.0,
             [
                 *d_recv_commands,
-                ['/g_new', 1000, 0, 0],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 1000],
-                ['/n_set', 1001, 'gate', 0],
+                ["/g_new", 1000, 0, 0],
+                ["/s_new", "da0982184cc8fa54cf9d288a0fe1f6ca", 1001, 0, 1000],
+                ["/n_set", 1001, "gate", 0],
             ],
         ],
         [
             1.0,
             [
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1000],
-                ['/n_set', 1002, 'gate', 0],
+                ["/s_new", "da0982184cc8fa54cf9d288a0fe1f6ca", 1002, 0, 1000],
+                ["/n_set", 1002, "gate", 0],
             ],
         ],
         [
             2.0,
             [
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1003, 0, 1000],
-                ['/n_set', 1003, 'gate', 0],
+                ["/s_new", "da0982184cc8fa54cf9d288a0fe1f6ca", 1003, 0, 1000],
+                ["/n_set", 1003, "gate", 0],
             ],
         ],
         [
             3.0,
             [
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1004, 0, 1000],
-                ['/n_set', 1004, 'gate', 0],
+                ["/s_new", "da0982184cc8fa54cf9d288a0fe1f6ca", 1004, 0, 1000],
+                ["/n_set", 1004, "gate", 0],
             ],
         ],
-        [4.0, [['/n_free', 1000]]],
+        [4.0, [["/n_free", 1000]]],
         [5.0, [[0]]],
     ]
 
@@ -68,15 +68,15 @@ def test_manual_without_gate():
         [
             0.0,
             [
-                ['/d_recv', bytearray(source_synthdef.compile())],
-                ['/g_new', 1000, 0, 0],
-                ['/s_new', '7839f99c38c2ac4326388a013cdd643c', 1001, 0, 1000],
+                ["/d_recv", bytearray(source_synthdef.compile())],
+                ["/g_new", 1000, 0, 0],
+                ["/s_new", "7839f99c38c2ac4326388a013cdd643c", 1001, 0, 1000],
             ],
         ],
-        [1.0, [['/s_new', '7839f99c38c2ac4326388a013cdd643c', 1002, 0, 1000]]],
-        [2.0, [['/s_new', '7839f99c38c2ac4326388a013cdd643c', 1003, 0, 1000]]],
-        [3.0, [['/s_new', '7839f99c38c2ac4326388a013cdd643c', 1004, 0, 1000]]],
-        [4.0, [['/n_free', 1000]]],
+        [1.0, [["/s_new", "7839f99c38c2ac4326388a013cdd643c", 1002, 0, 1000]]],
+        [2.0, [["/s_new", "7839f99c38c2ac4326388a013cdd643c", 1003, 0, 1000]]],
+        [3.0, [["/s_new", "7839f99c38c2ac4326388a013cdd643c", 1004, 0, 1000]]],
+        [4.0, [["/n_free", 1000]]],
         [10.0, [[0]]],
     ]
 
@@ -96,20 +96,20 @@ def test_pattern_without_gate():
         [
             0.0,
             [
-                ['/d_recv', bytearray(source_synthdef.compile())],
-                ['/g_new', 1000, 0, 0],
-                ['/s_new', '7839f99c38c2ac4326388a013cdd643c', 1001, 0, 1000],
+                ["/d_recv", bytearray(source_synthdef.compile())],
+                ["/g_new", 1000, 0, 0],
+                ["/s_new", "7839f99c38c2ac4326388a013cdd643c", 1001, 0, 1000],
             ],
         ],
-        [1.0, [['/s_new', '7839f99c38c2ac4326388a013cdd643c', 1002, 0, 1000]]],
-        [2.0, [['/s_new', '7839f99c38c2ac4326388a013cdd643c', 1003, 0, 1000]]],
-        [3.0, [['/s_new', '7839f99c38c2ac4326388a013cdd643c', 1004, 0, 1000]]],
-        [4.25, [['/n_free', 1000]]],
+        [1.0, [["/s_new", "7839f99c38c2ac4326388a013cdd643c", 1002, 0, 1000]]],
+        [2.0, [["/s_new", "7839f99c38c2ac4326388a013cdd643c", 1003, 0, 1000]]],
+        [3.0, [["/s_new", "7839f99c38c2ac4326388a013cdd643c", 1004, 0, 1000]]],
+        [4.25, [["/n_free", 1000]]],
         [10.0, [[0]]],
     ]
 
 
-@pytest.mark.skip('Awaiting implementation.')
+@pytest.mark.skip("Awaiting implementation.")
 def test_pattern_without_gate_with_bus():
     with supriya.synthdefs.SynthDefBuilder() as builder:
         source = supriya.ugens.DC.ar(1)
@@ -126,34 +126,34 @@ def test_pattern_without_gate_with_bus():
             0.0,
             [
                 [
-                    '/d_recv',
+                    "/d_recv",
                     bytearray(supriya.assets.synthdefs.system_link_audio_1.compile()),
                 ],
-                ['/d_recv', bytearray(source_synthdef.compile())],
-                ['/g_new', 1000, 0, 0],
+                ["/d_recv", bytearray(source_synthdef.compile())],
+                ["/g_new", 1000, 0, 0],
                 [
-                    '/s_new',
-                    '2aa2f6c46d902276bad2e942125ef247',
+                    "/s_new",
+                    "2aa2f6c46d902276bad2e942125ef247",
                     1001,
                     3,
                     1000,
-                    'fade_time',
+                    "fade_time",
                     0.25,
-                    'in_',
+                    "in_",
                     1,
                 ],
-                ['/s_new', '7839f99c38c2ac4326388a013cdd643c', 1002, 0, 1000],
+                ["/s_new", "7839f99c38c2ac4326388a013cdd643c", 1002, 0, 1000],
             ],
         ],
-        [1.0, [['/s_new', '7839f99c38c2ac4326388a013cdd643c', 1003, 0, 1000]]],
-        [2.0, [['/s_new', '7839f99c38c2ac4326388a013cdd643c', 1004, 0, 1000]]],
-        [3.0, [['/s_new', '7839f99c38c2ac4326388a013cdd643c', 1005, 0, 1000]]],
-        [4.0, [['/n_set', 1001, 'gate', 0]]],
-        [4.25, [['/n_free', 1000]]],
+        [1.0, [["/s_new", "7839f99c38c2ac4326388a013cdd643c", 1003, 0, 1000]]],
+        [2.0, [["/s_new", "7839f99c38c2ac4326388a013cdd643c", 1004, 0, 1000]]],
+        [3.0, [["/s_new", "7839f99c38c2ac4326388a013cdd643c", 1005, 0, 1000]]],
+        [4.0, [["/n_set", 1001, "gate", 0]]],
+        [4.25, [["/n_free", 1000]]],
         [10.0, [[0]]],
     ]
     assert session.to_strings() == uqbar.strings.normalize(
-        '''
+        """
     0.0:
         NODE TREE 0 group
             1000 group
@@ -179,5 +179,5 @@ def test_pattern_without_gate_with_bus():
             1000 group
     4.25:
         NODE TREE 0 group
-    '''
+    """
     )

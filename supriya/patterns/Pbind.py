@@ -90,7 +90,7 @@ class Pbind(EventPattern):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_patterns', '_synthdef')
+    __slots__ = ("_patterns", "_synthdef")
 
     ### INITIALIZER ###
 
@@ -122,7 +122,7 @@ class Pbind(EventPattern):
         synthdef = self.synthdef
         if not isinstance(synthdef, supriya.patterns.Pattern):
             synthdef = supriya.patterns.Pseq([synthdef], None)
-        patterns['synthdef'] = iter(synthdef)
+        patterns["synthdef"] = iter(synthdef)
         return patterns
 
     def _iterate(self, state=None):

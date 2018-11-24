@@ -7,9 +7,9 @@ import uqbar.strings
 
 
 with supriya.synthdefs.SynthDefBuilder(in_=0, out=0) as builder:
-    source = supriya.ugens.In.ar(bus=builder['in_'])
+    source = supriya.ugens.In.ar(bus=builder["in_"])
     source = supriya.ugens.Limiter.ar(source=source)
-    supriya.ugens.Out.ar(bus=builder['out'], source=source)
+    supriya.ugens.Out.ar(bus=builder["out"], source=source)
 limiter_synthdef = builder.build()
 
 
@@ -29,7 +29,7 @@ def test___iter__():
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         CompositeEvent(
             events=(
                 BusEvent(
@@ -148,7 +148,7 @@ def test___iter__():
                 ),
             is_stop=True,
             )
-        '''
+        """
     )
 
 
@@ -168,41 +168,41 @@ def test_nonrealtime():
             0.0,
             [
                 *d_recv_commands,
-                ['/g_new', 1000, 0, 0],
+                ["/g_new", 1000, 0, 0],
                 [
-                    '/s_new',
+                    "/s_new",
                     supriya.assets.synthdefs.system_link_audio_2.anonymous_name,
                     1001,
                     3,
                     1000,
-                    'fade_time',
+                    "fade_time",
                     0.25,
-                    'in_',
+                    "in_",
                     16,
                 ],
                 [
-                    '/s_new',
+                    "/s_new",
                     limiter_synthdef.anonymous_name,
                     1002,
                     1,
                     1000,
-                    'in_',
+                    "in_",
                     16.0,
-                    'out',
+                    "out",
                     16.0,
                 ],
-                ['/g_new', 1003, 0, 1000],
+                ["/g_new", 1003, 0, 1000],
                 [
-                    '/s_new',
+                    "/s_new",
                     supriya.assets.synthdefs.default.anonymous_name,
                     1004,
                     0,
                     1003,
-                    'amplitude',
+                    "amplitude",
                     1.0,
-                    'frequency',
+                    "frequency",
                     440,
-                    'out',
+                    "out",
                     16,
                 ],
             ],
@@ -211,41 +211,41 @@ def test_nonrealtime():
             1.0,
             [
                 [
-                    '/s_new',
+                    "/s_new",
                     supriya.assets.synthdefs.default.anonymous_name,
                     1005,
                     0,
                     1003,
-                    'amplitude',
+                    "amplitude",
                     1.0,
-                    'frequency',
+                    "frequency",
                     660,
-                    'out',
+                    "out",
                     16,
                 ],
-                ['/n_set', 1004, 'gate', 0],
+                ["/n_set", 1004, "gate", 0],
             ],
         ],
         [
             2.0,
             [
                 [
-                    '/s_new',
+                    "/s_new",
                     supriya.assets.synthdefs.default.anonymous_name,
                     1006,
                     0,
                     1003,
-                    'amplitude',
+                    "amplitude",
                     1.0,
-                    'frequency',
+                    "frequency",
                     880,
-                    'out',
+                    "out",
                     16,
                 ],
-                ['/n_set', 1005, 'gate', 0],
+                ["/n_set", 1005, "gate", 0],
             ],
         ],
-        [3.0, [['/n_set', 1001, 'gate', 0], ['/n_set', 1006, 'gate', 0]]],
-        [3.25, [['/n_free', 1000, 1002, 1003], [0]]],
+        [3.0, [["/n_set", 1001, "gate", 0], ["/n_set", 1006, "gate", 0]]],
+        [3.25, [["/n_free", 1000, 1002, 1003], [0]]],
     ]
     assert final_offset == 3.25

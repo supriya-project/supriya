@@ -43,19 +43,19 @@ class LogicalControl:
         return value
 
     def __repr__(self):
-        return '<{} {} {}>'.format(type(self).__name__, self.qualified_name, self.value)
+        return "<{} {} {}>".format(type(self).__name__, self.qualified_name, self.value)
 
     ### PRIVATE METHODS ###
 
     def _debug(self, only_visible=None):
         parts = [
-            'LC',
-            'name={}'.format(self.name),
-            'mode={}'.format(self.mode.name.lower()),
-            'pc={}'.format(self.physical_control.name),
-            'value={}'.format(round(self.value, 6)),
+            "LC",
+            "name={}".format(self.name),
+            "mode={}".format(self.mode.name.lower()),
+            "pc={}".format(self.physical_control.name),
+            "value={}".format(round(self.value, 6)),
         ]
-        return '<{}>'.format(' '.join(parts))
+        return "<{}>".format(" ".join(parts))
 
     def _mount(self):
         if self.mode in (LogicalControlMode.CONTINUOUS, LogicalControlMode.TOGGLE):
@@ -84,4 +84,4 @@ class LogicalControl:
         while node.parent is not None:
             node = node.parent
             names.append(node.name)
-        return ':'.join(str(_) for _ in reversed(names))
+        return ":".join(str(_) for _ in reversed(names))

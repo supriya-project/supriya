@@ -45,13 +45,13 @@ class Bus(ServerObjectProxy):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Main Classes'
+    __documentation_section__ = "Main Classes"
 
     __slots__ = (
-        '_bus_group',
-        '_bus_id',
-        '_bus_id_was_set_manually',
-        '_calculation_rate',
+        "_bus_group",
+        "_bus_id",
+        "_bus_id_was_set_manually",
+        "_calculation_rate",
     )
 
     ### INITIALIZER ###
@@ -74,7 +74,7 @@ class Bus(ServerObjectProxy):
         self._bus_group = bus_group
         self._bus_id = bus_id
         if calculation_rate is None:
-            calculation_rate = 'control'
+            calculation_rate = "control"
         calculation_rate = CalculationRate.from_expr(calculation_rate)
         assert calculation_rate in (CalculationRate.AUDIO, CalculationRate.CONTROL)
         self._calculation_rate = calculation_rate
@@ -90,9 +90,9 @@ class Bus(ServerObjectProxy):
     def __repr__(self):
         bus_id = self.bus_id
         if bus_id is None:
-            bus_id = '???'
-        return '<{} {}: {} ({})>'.format(
-            '+' if self.is_allocated else '-',
+            bus_id = "???"
+        return "<{} {}: {} ({})>".format(
+            "+" if self.is_allocated else "-",
             type(self).__name__,
             bus_id,
             self.calculation_rate.name.lower(),
@@ -348,9 +348,9 @@ class Bus(ServerObjectProxy):
         if self.bus_id is None:
             raise supriya.exceptions.BusNotAllocated
         if self.calculation_rate == CalculationRate.AUDIO:
-            map_symbol = 'a'
+            map_symbol = "a"
         else:
-            map_symbol = 'c'
+            map_symbol = "c"
         map_symbol += str(self.bus_id)
         return map_symbol
 

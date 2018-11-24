@@ -8,9 +8,9 @@ class BusProxy(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Server Internals'
+    __documentation_section__ = "Server Internals"
 
-    __slots__ = ('_bus_id', '_calculation_rate', '_server', '_value')
+    __slots__ = ("_bus_id", "_calculation_rate", "_server", "_value")
 
     ### INITIALIZER ###
 
@@ -53,9 +53,9 @@ class BusProxy(SupriyaValueObject):
         import supriya.synthdefs
 
         if self.calculation_rate == supriya.CalculationRate.AUDIO:
-            map_symbol = 'a'
+            map_symbol = "a"
         else:
-            map_symbol = 'c'
+            map_symbol = "c"
         map_symbol += str(self.bus_id)
         return map_symbol
 

@@ -31,7 +31,7 @@ class Duty(UGen):
     __documentation_section__ = None
 
     _ordered_input_names = collections.OrderedDict(
-        [('duration', 1.0), ('reset', 0.0), ('level', 1.0), ('done_action', 0.0)]
+        [("duration", 1.0), ("reset", 0.0), ("level", 1.0), ("done_action", 0.0)]
     )
 
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

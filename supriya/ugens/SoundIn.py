@@ -7,7 +7,7 @@ class SoundIn(PseudoUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Input/Output UGens'
+    __documentation_section__ = "Input/Output UGens"
 
     ### INITIALIZER ###
 

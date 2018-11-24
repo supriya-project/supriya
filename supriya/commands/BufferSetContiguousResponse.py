@@ -8,7 +8,7 @@ class BufferSetContiguousResponse(Response, collections.Sequence):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_buffer_id', '_items')
+    __slots__ = ("_buffer_id", "_items")
 
     class Item(NamedTuple):
         sample_values: int

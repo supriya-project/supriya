@@ -45,7 +45,7 @@ def test___iter__():
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         CompositeEvent(
             events=(
                 BusEvent(
@@ -185,5 +185,5 @@ def test___iter__():
                 ),
             is_stop=True,
             )
-        '''
+        """
     )

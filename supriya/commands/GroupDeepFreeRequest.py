@@ -81,7 +81,7 @@ class GroupDeepFreeRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_group_id',)
+    __slots__ = ("_group_id",)
 
     request_id = RequestId.GROUP_DEEP_FREE
 

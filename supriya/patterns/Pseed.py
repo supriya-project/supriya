@@ -7,7 +7,7 @@ class Pseed(Pattern):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_pattern', '_seed')
+    __slots__ = ("_pattern", "_seed")
 
     _file_path = __file__
 

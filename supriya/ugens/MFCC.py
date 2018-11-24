@@ -22,12 +22,12 @@ class MFCC(MultiOutUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Machine Listening UGens'
+    __documentation_section__ = "Machine Listening UGens"
 
     _default_channel_count = 1
 
     _has_settable_channel_count = True
 
-    _ordered_input_names = collections.OrderedDict([('pv_chain', None)])
+    _ordered_input_names = collections.OrderedDict([("pv_chain", None)])
 
     _valid_calculation_rates = (CalculationRate.CONTROL,)

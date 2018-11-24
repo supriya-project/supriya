@@ -11,7 +11,7 @@ class NullEvent(Event):
 
     def __init__(self, delta=0, uuid=None, **settings):
         settings = {
-            key: value for key, value in settings.items() if key.startswith('_')
+            key: value for key, value in settings.items() if key.startswith("_")
         }
         Event.__init__(self, delta=delta, uuid=None, **settings)
 
@@ -29,7 +29,7 @@ class NullEvent(Event):
             is_stop=False,
             requests=[],
             timestamp=timestamp,
-            uuid=self['uuid'],
+            uuid=self["uuid"],
         )
         event_products = [event_product]
         return event_products

@@ -149,7 +149,7 @@ def test_06():
 @pytest.mark.skip
 def test_07():
     class TestClass:
-        __slots__ = ('value', '__weakref__')
+        __slots__ = ("value", "__weakref__")
 
         def __init__(self):  # noqa
             self.value = 0
@@ -176,7 +176,7 @@ def test_07():
 @pytest.mark.skip
 def test_08():
     class TestClass(supriya.system.SupriyaObject):
-        __slots__ = ('value',)
+        __slots__ = ("value",)
 
         def __init__(self):  # noqa
             self.value = 0

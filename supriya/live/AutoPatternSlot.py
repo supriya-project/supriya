@@ -22,10 +22,10 @@ class AutoPatternSlot(PatternSlot):
             return False
         if state and not self._event_player:
             kwargs = self.synth_kwargs
-            kwargs['add_action'] = 'add_to_head'
-            kwargs['target_node'] = self._group
+            kwargs["add_action"] = "add_to_head"
+            kwargs["target_node"] = self._group
             if self._synthdef is not None:
-                kwargs['synthdef'] = self._synthdef
+                kwargs["synthdef"] = self._synthdef
             pattern = supriya.patterns.Pbindf(self._pattern, **kwargs)
             self._event_player = pattern.play()
         elif not state:

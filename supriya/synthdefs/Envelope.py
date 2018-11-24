@@ -21,14 +21,14 @@ class Envelope(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Main Classes'
+    __documentation_section__ = "Main Classes"
 
     __slots__ = (
-        '_envelope_segments',
-        '_initial_amplitude',
-        '_loop_node',
-        '_offset',
-        '_release_node',
+        "_envelope_segments",
+        "_initial_amplitude",
+        "_loop_node",
+        "_offset",
+        "_release_node",
     )
 
     ### INITIALIZER ###
@@ -37,7 +37,7 @@ class Envelope(SupriyaValueObject):
         self,
         amplitudes=(0, 1, 0),
         durations=(1, 1),
-        curves=('linear', 'linear'),
+        curves=("linear", "linear"),
         release_node=None,
         loop_node=None,
         offset=None,

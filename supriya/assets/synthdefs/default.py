@@ -37,7 +37,7 @@ def _build_default_synthdef():
         low_pass = supriya.ugens.LPF.ar(
             source=supriya.ugens.Mix.new(
                 supriya.ugens.VarSaw.ar(
-                    frequency=builder['frequency']
+                    frequency=builder["frequency"]
                     + (
                         0,
                         supriya.ugens.Rand.ir(minimum=-0.4, maximum=0.0),
@@ -55,18 +55,18 @@ def _build_default_synthdef():
         linen = supriya.ugens.Linen.kr(
             attack_time=0.01,
             done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
-            gate=builder['gate'],
+            gate=builder["gate"],
             release_time=0.3,
             sustain_level=0.7,
         )
         pan = supriya.ugens.Pan2.ar(
-            source=low_pass * linen * builder['amplitude'], position=builder['pan']
+            source=low_pass * linen * builder["amplitude"], position=builder["pan"]
         )
-        supriya.ugens.OffsetOut.ar(bus=builder['out'], source=pan)
-    synthdef = builder.build(name='default')
+        supriya.ugens.OffsetOut.ar(bus=builder["out"], source=pan)
+    synthdef = builder.build(name="default")
     return synthdef
 
 
 default = _build_default_synthdef()
 
-__all__ = ('default',)
+__all__ = ("default",)

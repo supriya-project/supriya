@@ -23,10 +23,10 @@ class KeyTrack(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Machine Listening UGens'
+    __documentation_section__ = "Machine Listening UGens"
 
     _ordered_input_names = collections.OrderedDict(
-        [('pv_chain', None), ('key_decay', 2), ('chroma_leak', 0.5)]
+        [("pv_chain", None), ("key_decay", 2), ("chroma_leak", 0.5)]
     )
 
     _valid_calculation_rates = (CalculationRate.CONTROL,)

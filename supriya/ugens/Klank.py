@@ -29,19 +29,19 @@ class Klank(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Filter UGens'
+    __documentation_section__ = "Filter UGens"
 
     _ordered_input_names = collections.OrderedDict(
         [
-            ('source', None),
-            ('frequency_scale', 1),
-            ('frequency_offset', 0),
-            ('decay_scale', 1),
-            ('specifications', None),
+            ("source", None),
+            ("frequency_scale", 1),
+            ("frequency_offset", 0),
+            ("decay_scale", 1),
+            ("specifications", None),
         ]
     )
 
-    _unexpanded_input_names = ('specifications',)
+    _unexpanded_input_names = ("specifications",)
 
     _valid_calculation_rates = (CalculationRate.AUDIO,)
 

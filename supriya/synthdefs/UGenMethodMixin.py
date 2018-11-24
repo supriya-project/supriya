@@ -8,7 +8,7 @@ class UGenMethodMixin(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__: Optional[str] = 'SynthDef Internals'
+    __documentation_section__: Optional[str] = "SynthDef Internals"
 
     __slots__ = ()
 
@@ -1889,7 +1889,7 @@ class UGenMethodMixin(SupriyaObject):
 
     def _clone(self):
         def recurse(uuid, ugen, all_ugens):
-            if hasattr(ugen, 'inputs'):
+            if hasattr(ugen, "inputs"):
                 for input_ in ugen.inputs:
                     if not isinstance(input_, supriya.synthdefs.OutputProxy):
                         continue
@@ -1929,12 +1929,12 @@ class UGenMethodMixin(SupriyaObject):
             left = (left,)
         if not isinstance(right, collections.Sequence):
             right = (right,)
-        dictionary = {'left': left, 'right': right}
+        dictionary = {"left": left, "right": right}
         operator = supriya.synthdefs.BinaryOperator.from_expr(operator)
         special_index = operator.value
         for expanded_dict in supriya.ugens.UGen._expand_dictionary(dictionary):
-            left = expanded_dict['left']
-            right = expanded_dict['right']
+            left = expanded_dict["left"]
+            right = expanded_dict["right"]
             calculation_rate = UGenMethodMixin._compute_binary_rate(left, right)
             ugen = supriya.ugens.BinaryOpUGen._new_single(
                 calculation_rate=calculation_rate,

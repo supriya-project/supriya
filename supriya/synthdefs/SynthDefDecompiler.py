@@ -89,7 +89,7 @@ class SynthDefDecompiler(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'SynthDef Internals'
+    __documentation_section__ = "SynthDef Internals"
 
     ### PRIVATE METHODS ###
 
@@ -228,34 +228,34 @@ class SynthDefDecompiler(SupriyaObject):
 
     @staticmethod
     def _decode_string(value, index):
-        length = struct.unpack('>B', value[index : index + 1])[0]
+        length = struct.unpack(">B", value[index : index + 1])[0]
         index += 1
         result = value[index : index + length]
-        result = result.decode('ascii')
+        result = result.decode("ascii")
         index += length
         return result, index
 
     @staticmethod
     def _decode_float(value, index):
-        result = struct.unpack('>f', value[index : index + 4])[0]
+        result = struct.unpack(">f", value[index : index + 4])[0]
         index += 4
         return result, index
 
     @staticmethod
     def _decode_int_8bit(value, index):
-        result = struct.unpack('>B', value[index : index + 1])[0]
+        result = struct.unpack(">B", value[index : index + 1])[0]
         index += 1
         return result, index
 
     @staticmethod
     def _decode_int_16bit(value, index):
-        result = struct.unpack('>H', value[index : index + 2])[0]
+        result = struct.unpack(">H", value[index : index + 2])[0]
         index += 2
         return result, index
 
     @staticmethod
     def _decode_int_32bit(value, index):
-        result = struct.unpack('>I', value[index : index + 4])[0]
+        result = struct.unpack(">I", value[index : index + 4])[0]
         index += 4
         return result, index
 
@@ -307,7 +307,7 @@ class SynthDefDecompiler(SupriyaObject):
         synthdefs = []
         sdd = SynthDefDecompiler
         index = 4
-        assert value[:index] == b'SCgf'
+        assert value[:index] == b"SCgf"
         file_version, index = sdd._decode_int_32bit(value, index)
         synthdef_count, index = sdd._decode_int_16bit(value, index)
         for _ in range(synthdef_count):

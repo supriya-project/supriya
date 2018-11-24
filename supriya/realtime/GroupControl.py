@@ -2,9 +2,9 @@ class GroupControl:
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Server Internals'
+    __documentation_section__ = "Server Internals"
 
-    __slots__ = ('_client', '_name')
+    __slots__ = ("_client", "_name")
 
     ### INITIALIZER ###
 

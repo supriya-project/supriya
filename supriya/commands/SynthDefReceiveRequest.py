@@ -115,7 +115,7 @@ class SynthDefReceiveRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_callback', '_synthdefs', '_use_anonymous_names')
+    __slots__ = ("_callback", "_synthdefs", "_use_anonymous_names")
 
     request_id = RequestId.SYNTHDEF_RECEIVE
 
@@ -172,7 +172,7 @@ class SynthDefReceiveRequest(Request):
 
     @property
     def response_patterns(self):
-        return [['/done', '/d_recv']]
+        return [["/done", "/d_recv"]]
 
     @property
     def synthdefs(self):

@@ -15,9 +15,9 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__: Optional[str] = 'SynthDef Internals'
+    __documentation_section__: Optional[str] = "SynthDef Internals"
 
-    __slots__ = ('_inputs', '_special_index', '_uuid')
+    __slots__ = ("_inputs", "_special_index", "_uuid")
 
     _default_channel_count = 1
 
@@ -114,7 +114,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
 
         Returns integer.
         """
-        return getattr(self, '_channel_count', self._default_channel_count)
+        return getattr(self, "_channel_count", self._default_channel_count)
 
     def __repr__(self):
         """
@@ -143,13 +143,13 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
         import supriya.synthdefs
 
         if self.calculation_rate == supriya.CalculationRate.DEMAND:
-            return '{}()'.format(type(self).__name__)
+            return "{}()".format(type(self).__name__)
         calculation_abbreviations = {
-            supriya.CalculationRate.AUDIO: 'ar',
-            supriya.CalculationRate.CONTROL: 'kr',
-            supriya.CalculationRate.SCALAR: 'ir',
+            supriya.CalculationRate.AUDIO: "ar",
+            supriya.CalculationRate.CONTROL: "kr",
+            supriya.CalculationRate.SCALAR: "ir",
         }
-        string = '{}.{}()'.format(
+        string = "{}.{}()".format(
             type(self).__name__, calculation_abbreviations[self.calculation_rate]
         )
         return string
@@ -198,7 +198,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
             if not isinstance(input_, supriya.synthdefs.OutputProxy):
                 continue
             if input_.source._uuid != self._uuid:
-                message = 'UGen input in different scope: {!r}'
+                message = "UGen input in different scope: {!r}"
                 message = message.format(input_.source)
                 raise ValueError(message)
 
@@ -227,7 +227,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
             supriya.synthdefs.Parameter,
             UGen,
         )
-        if hasattr(value, '__float__'):
+        if hasattr(value, "__float__"):
             self._add_constant_input(float(value))
         elif isinstance(value, ugen_prototype):
             self._add_ugen_input(value._get_source(), value._get_output_number())
@@ -235,12 +235,12 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
             assert self._unexpanded_input_names
             assert name in self._unexpanded_input_names
             for x in value:
-                if hasattr(x, '__float__'):
+                if hasattr(x, "__float__"):
                     self._add_constant_input(float(x))
                 elif isinstance(x, ugen_prototype):
                     self._add_ugen_input(x._get_source(), x._get_output_number())
                 else:
-                    raise Exception('{!r} {!r}'.format(value, x))
+                    raise Exception("{!r} {!r}".format(value, x))
         else:
             raise Exception(repr(value))
 
@@ -306,7 +306,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
     def _get_done_action(self):
         import supriya.synthdefs
 
-        if 'done_action' not in self._ordered_input_names:
+        if "done_action" not in self._ordered_input_names:
             return None
         return supriya.synthdefs.DoneAction.from_expr(int(self.done_action))
 
@@ -320,7 +320,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
         elif calculation_rate == supriya.CalculationRate.CONTROL:
             return cls.kr
         elif calculation_rate == supriya.CalculationRate.SCALAR:
-            if hasattr(cls, 'ir'):
+            if hasattr(cls, "ir"):
                 return cls.ir
             return cls.kr
         return cls.new
@@ -345,7 +345,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
 
         if isinstance(input_value, supriya.synthdefs.OutputProxy):
             return True
-        elif hasattr(input_value, '__float__'):
+        elif hasattr(input_value, "__float__"):
             return True
         return False
 
@@ -359,7 +359,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
             kwargs, unexpanded_input_names=cls._unexpanded_input_names
         )
         ugens = []
-        has_custom_special_index = 'special_index' in signature.parameters
+        has_custom_special_index = "special_index" in signature.parameters
         for input_dict in input_dicts:
             if has_custom_special_index:
                 ugen = cls._new_single(special_index=special_index, **input_dict)
@@ -397,7 +397,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
 
     @property
     def _has_done_action(self):
-        return 'done_action' in self._ordered_input_names
+        return "done_action" in self._ordered_input_names
 
     ### PUBLIC PROPERTIES ###
 

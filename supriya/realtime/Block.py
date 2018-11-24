@@ -6,9 +6,9 @@ class Block(Timespan):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Server Internals'
+    __documentation_section__ = "Server Internals"
 
-    __slots__ = ('_used',)
+    __slots__ = ("_used",)
 
     ### INITIALIZER ###
 

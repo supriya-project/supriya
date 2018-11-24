@@ -15,7 +15,7 @@ def test___iter__():
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         NoteEvent(
             amplitude=0.111,
             delta=1.0,
@@ -37,7 +37,7 @@ def test___iter__():
             pan=1.0,
             uuid=UUID('C'),
             )
-        '''
+        """
     )
 
 
@@ -53,7 +53,7 @@ def test_send():
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         NoteEvent(
             amplitude=0.111,
             delta=1.0,
@@ -61,5 +61,5 @@ def test_send():
             pan=0.0,
             uuid=UUID('A'),
             )
-        '''
+        """
     )

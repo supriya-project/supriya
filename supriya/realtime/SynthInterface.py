@@ -6,7 +6,7 @@ class SynthInterface(ControlInterface):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_synthdef', '_synth_control_map')
+    __slots__ = ("_synthdef", "_synth_control_map")
 
     ### INITIALIZER ###
 
@@ -68,7 +68,7 @@ class SynthInterface(ControlInterface):
 
     def __str__(self):
         result = []
-        string = '{}: ({})'.format(repr(self.client), self.synthdef.actual_name)
+        string = "{}: ({})".format(repr(self.client), self.synthdef.actual_name)
         result.append(string)
         maximum_length = 0
         for synth_control in self:
@@ -77,12 +77,12 @@ class SynthInterface(ControlInterface):
         for synth_control in sorted(self, key=lambda x: x.name):
             name = synth_control.name
             value = str(synth_control.value)
-            spacing = ' ' * (maximum_length - len(name))
-            string = '    ({}) {}:{}{}'.format(
+            spacing = " " * (maximum_length - len(name))
+            string = "    ({}) {}:{}{}".format(
                 synth_control.calculation_rate.token, name, spacing, value
             )
             result.append(string)
-        result = '\n'.join(result)
+        result = "\n".join(result)
         return result
 
     ### PRIVATE METHODS ###

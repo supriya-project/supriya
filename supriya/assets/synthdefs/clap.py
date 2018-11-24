@@ -73,9 +73,9 @@ def _build_clap_synthdef():
         result = noise_one + noise_two
         result = result * 2
         result = result.softclip()
-        result = result * builder['amplitude']
+        result = result * builder["amplitude"]
 
-        supriya.ugens.Out.ar(bus=builder['out'], source=(result, result))
+        supriya.ugens.Out.ar(bus=builder["out"], source=(result, result))
 
     synthdef = builder.build()
     return synthdef
@@ -83,4 +83,4 @@ def _build_clap_synthdef():
 
 clap = _build_clap_synthdef()
 
-__all__ = ('clap',)
+__all__ = ("clap",)

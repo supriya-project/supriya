@@ -21,8 +21,8 @@ class Drand(DUGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([('repeats', 1), ('sequence', None)])
+    _ordered_input_names = collections.OrderedDict([("repeats", 1), ("sequence", None)])
 
-    _unexpanded_input_names = ('sequence',)
+    _unexpanded_input_names = ("sequence",)
 
     _valid_calculation_rates = (CalculationRate.DEMAND,)

@@ -33,7 +33,7 @@ def make_expected_start_offsets(range_=10, timespans=None):
     for timespan in timespans:
         actual_offsets.add(float(timespan.start_offset))
     actual_offsets = sorted(actual_offsets)
-    print('    O:', actual_offsets)
+    print("    O:", actual_offsets)
     offsets = {}
     for offset in range(-1, range_ + 1):
         before = [_ for _ in actual_offsets if _ < offset]
@@ -118,7 +118,7 @@ def make_target_timespans(range_=10):
     return timespans
 
 
-@pytest.mark.parametrize('accelerated', [True, False])
+@pytest.mark.parametrize("accelerated", [True, False])
 def test___contains__(accelerated):
     timespans = make_timespans()
     timespan_collection = make_timespan_collection(
@@ -130,7 +130,7 @@ def test___contains__(accelerated):
     assert timespans[-1] not in timespan_collection
 
 
-@pytest.mark.parametrize('accelerated', [True, False])
+@pytest.mark.parametrize("accelerated", [True, False])
 def test___getitem__(accelerated):
     timespan_collection = make_timespan_collection(
         accelerated=accelerated, populated=True
@@ -143,13 +143,13 @@ def test___getitem__(accelerated):
     ]
 
 
-@pytest.mark.parametrize('accelerated', [True, False])
+@pytest.mark.parametrize("accelerated", [True, False])
 def test___init__(accelerated):
     make_timespan_collection(accelerated=accelerated, populated=False)
     make_timespan_collection(accelerated=accelerated, populated=True)
 
 
-@pytest.mark.parametrize('accelerated', [True, False])
+@pytest.mark.parametrize("accelerated", [True, False])
 def test___iter__(accelerated):
     timespan_collection = make_timespan_collection(
         accelerated=accelerated, populated=True
@@ -165,7 +165,7 @@ def test___iter__(accelerated):
     assert next(iterator) == Timespan(start_offset=0, stop_offset=3)
 
 
-@pytest.mark.parametrize('accelerated', [True, False])
+@pytest.mark.parametrize("accelerated", [True, False])
 def test___len__(accelerated):
     timespan_collection = make_timespan_collection(
         accelerated=accelerated, populated=False
@@ -177,7 +177,7 @@ def test___len__(accelerated):
     assert len(timespan_collection) == 5
 
 
-@pytest.mark.parametrize('accelerated', [True, False])
+@pytest.mark.parametrize("accelerated", [True, False])
 def test___setitem__(accelerated):
     timespan_collection = make_timespan_collection(
         accelerated=accelerated, populated=True
@@ -198,7 +198,7 @@ def test___setitem__(accelerated):
     ]
 
 
-@pytest.mark.parametrize('accelerated', [True, False])
+@pytest.mark.parametrize("accelerated", [True, False])
 def test___sub__(accelerated):
     timespan_collection = make_timespan_collection(
         accelerated=accelerated,
@@ -215,12 +215,12 @@ def test___sub__(accelerated):
 
 
 @pytest.mark.timeout(60)
-@pytest.mark.parametrize('accelerated', [True, False])
+@pytest.mark.parametrize("accelerated", [True, False])
 def test_find_intersection_with_offset(accelerated):
     iterations = 10
     count, range_ = 10, 15
     for i in range(iterations):
-        print('Iteration:', i)
+        print("Iteration:", i)
         timespans = make_random_timespans(count=count, range_=range_)
         timespan_collection = make_timespan_collection(
             accelerated=accelerated, timespans=timespans
@@ -239,20 +239,20 @@ def test_find_intersection_with_offset(accelerated):
                 brute_force += timer.elapsed_time
             assert found_by_search == found_by_brute_force
         print(
-            'D: {:0.6f}'.format(optimized / brute_force),
-            'O: {:0.6f}'.format(optimized),
-            'B: {:0.6f}'.format(brute_force),
+            "D: {:0.6f}".format(optimized / brute_force),
+            "O: {:0.6f}".format(optimized),
+            "B: {:0.6f}".format(brute_force),
         )
 
 
 @pytest.mark.timeout(120)
-@pytest.mark.parametrize('accelerated', [True, False])
+@pytest.mark.parametrize("accelerated", [True, False])
 def test_find_intersection_with_timespan(accelerated):
     iterations = 10
     count, range_ = 10, 15
     target_timespans = make_target_timespans(range_=range_)
     for i in range(iterations):
-        print('Iteration:', i)
+        print("Iteration:", i)
         timespans = make_random_timespans(count=count, range_=range_)
         timespan_collection = make_timespan_collection(
             accelerated=accelerated, timespans=timespans
@@ -281,19 +281,19 @@ def test_find_intersection_with_timespan(accelerated):
                 brute_force += timer.elapsed_time
             assert found_by_search == found_by_brute_force
             print(
-                'D: {:0.6f}'.format(optimized / brute_force),
-                'O: {:0.6f}'.format(optimized),
-                'B: {:0.6f}'.format(brute_force),
+                "D: {:0.6f}".format(optimized / brute_force),
+                "O: {:0.6f}".format(optimized),
+                "B: {:0.6f}".format(brute_force),
             )
 
 
 @pytest.mark.timeout(60)
-@pytest.mark.parametrize('accelerated', [True, False])
+@pytest.mark.parametrize("accelerated", [True, False])
 def test_find_timespans_starting_at(accelerated):
     iterations = 100
     count, range_ = 10, 15
     for i in range(iterations):
-        print('Iteration:', i)
+        print("Iteration:", i)
         timespans = make_random_timespans(count=count, range_=range_)
         timespan_collection = make_timespan_collection(
             accelerated=accelerated, timespans=timespans
@@ -310,12 +310,12 @@ def test_find_timespans_starting_at(accelerated):
 
 
 @pytest.mark.timeout(60)
-@pytest.mark.parametrize('accelerated', [True, False])
+@pytest.mark.parametrize("accelerated", [True, False])
 def test_find_timespans_stopping_at(accelerated):
     iterations = 100
     count, range_ = 10, 15
     for i in range(iterations):
-        print('Iteration:', i)
+        print("Iteration:", i)
         timespans = make_random_timespans(count=count, range_=range_)
         timespan_collection = make_timespan_collection(
             accelerated=accelerated, timespans=timespans
@@ -332,12 +332,12 @@ def test_find_timespans_stopping_at(accelerated):
 
 
 @pytest.mark.timeout(60)
-@pytest.mark.parametrize('accelerated', [True, False])
+@pytest.mark.parametrize("accelerated", [True, False])
 def test_get_simultaneity_at(accelerated):
     iterations = 100
     count, range_ = 10, 15
     for i in range(iterations):
-        print('Iteration:', i)
+        print("Iteration:", i)
         timespans = make_random_timespans(count=count, range_=range_)
         timespan_collection = make_timespan_collection(
             accelerated=accelerated, timespans=timespans
@@ -361,12 +361,12 @@ def test_get_simultaneity_at(accelerated):
 
 
 @pytest.mark.timeout(60)
-@pytest.mark.parametrize('accelerated', [True, False])
+@pytest.mark.parametrize("accelerated", [True, False])
 def test_get_start_offset(accelerated):
     iterations = 100
     count, range_ = 10, 15
     for i in range(iterations):
-        print('Iteration:', i)
+        print("Iteration:", i)
         timespans = make_random_timespans(count=count, range_=range_)
         timespan_collection = make_timespan_collection(
             accelerated=accelerated, timespans=timespans
@@ -375,10 +375,10 @@ def test_get_start_offset(accelerated):
             range_=range_, timespans=timespans
         )
         for timespan in sorted(timespans):
-            print('    Timespan:', timespan)
+            print("    Timespan:", timespan)
         for offset in range(-1, range_ + 1):
-            print('    Offset:', offset)
-            print('        :', expected_offsets[offset])
+            print("    Offset:", offset)
+            print("        :", expected_offsets[offset])
             expected_before, expected_after = expected_offsets[offset]
             actual_before = timespan_collection.get_start_offset_before(offset)
             actual_after = timespan_collection.get_start_offset_after(offset)
@@ -386,7 +386,7 @@ def test_get_start_offset(accelerated):
             assert expected_after == actual_after, offset
 
 
-@pytest.mark.parametrize('accelerated', [True, False])
+@pytest.mark.parametrize("accelerated", [True, False])
 def test_index(accelerated):
     timespans = make_timespans()
     timespan_collection = make_timespan_collection(
@@ -402,7 +402,7 @@ def test_index(accelerated):
         timespan_collection.index(timespan)
 
 
-@pytest.mark.parametrize('accelerated', [True, False])
+@pytest.mark.parametrize("accelerated", [True, False])
 def test_insert(accelerated):
     timespan_collection = make_timespan_collection(
         accelerated=accelerated, populated=False
@@ -416,7 +416,7 @@ def test_insert(accelerated):
     ]
 
 
-@pytest.mark.parametrize('accelerated', [True, False])
+@pytest.mark.parametrize("accelerated", [True, False])
 def test_iterate_simultaneities(accelerated):
     timespan_collection = make_timespan_collection(
         accelerated=accelerated, populated=True
@@ -427,7 +427,7 @@ def test_iterate_simultaneities(accelerated):
     assert [x.start_offset for x in simultaneities] == [6, 2, 1, 0]
 
 
-@pytest.mark.parametrize('accelerated', [True, False])
+@pytest.mark.parametrize("accelerated", [True, False])
 def test_remove(accelerated):
     timespans = make_timespans()
     timespan_collection = make_timespan_collection(

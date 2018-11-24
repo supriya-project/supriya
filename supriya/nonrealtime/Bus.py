@@ -46,14 +46,14 @@ class Bus(SessionObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Session Objects'
+    __documentation_section__ = "Session Objects"
 
     __slots__ = (
-        '_bus_group',
-        '_calculation_rate',
-        '_events',
-        '_session',
-        '_session_id',
+        "_bus_group",
+        "_calculation_rate",
+        "_events",
+        "_session",
+        "_session_id",
     )
 
     ### INITIALIZER ###
@@ -74,18 +74,18 @@ class Bus(SessionObject):
     ### SPECIAL METHODS ###
 
     def __repr__(self):
-        return '<{}>'.format(super(Bus, self).__repr__())
+        return "<{}>".format(super(Bus, self).__repr__())
 
     def __str__(self):
-        map_symbol = 'c'
+        map_symbol = "c"
         if self.calculation_rate == supriya.CalculationRate.AUDIO:
-            map_symbol = 'a'
+            map_symbol = "a"
         session_id = self._session_id
         if session_id is None:
-            session_id = '?'
+            session_id = "?"
         elif isinstance(session_id, tuple):
-            session_id = '{}:{}'.format(session_id[0], session_id[1])
-        return '{map_symbol}{session_id}'.format(
+            session_id = "{}:{}".format(session_id[0], session_id[1])
+        return "{map_symbol}{session_id}".format(
             map_symbol=map_symbol, session_id=session_id
         )
 
@@ -135,9 +135,9 @@ class Bus(SessionObject):
         import supriya.synthdefs
 
         if self.calculation_rate == supriya.CalculationRate.AUDIO:
-            map_symbol = 'a'
+            map_symbol = "a"
         else:
-            map_symbol = 'c'
+            map_symbol = "c"
         map_symbol += str(bus_id)
         return map_symbol
 
@@ -161,8 +161,8 @@ class Bus(SessionObject):
 
     @property
     def start_offset(self):
-        return float('-inf')
+        return float("-inf")
 
     @property
     def stop_offset(self):
-        return float('inf')
+        return float("inf")

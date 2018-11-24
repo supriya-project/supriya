@@ -22,10 +22,10 @@ class Dbrown(DUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Demand UGens'
+    __documentation_section__ = "Demand UGens"
 
     _ordered_input_names = collections.OrderedDict(
-        [('minimum', 0.0), ('maximum', 1.0), ('step', 0.01), ('length', float('inf'))]
+        [("minimum", 0.0), ("maximum", 1.0), ("step", 0.01), ("length", float("inf"))]
     )
 
     _valid_calculation_rates = (CalculationRate.DEMAND,)

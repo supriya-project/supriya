@@ -9,9 +9,9 @@ class BufferGroup(SessionObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Session Objects'
+    __documentation_section__ = "Session Objects"
 
-    __slots__ = ('_buffers', '_session')
+    __slots__ = ("_buffers", "_session")
 
     ### INITIALIZER ###
 

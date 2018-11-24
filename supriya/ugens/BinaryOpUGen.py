@@ -24,9 +24,9 @@ class BinaryOpUGen(PureUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Basic Operator UGens'
+    __documentation_section__ = "Basic Operator UGens"
 
-    _ordered_input_names = collections.OrderedDict([('left', None), ('right', None)])
+    _ordered_input_names = collections.OrderedDict([("left", None), ("right", None)])
 
     ### INITIALIZER ###
 

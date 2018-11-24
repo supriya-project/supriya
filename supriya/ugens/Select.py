@@ -23,9 +23,9 @@ class Select(PureUGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        [('selector', None), ('sources', None)]
+        [("selector", None), ("sources", None)]
     )
 
-    _unexpanded_input_names = ('sources',)
+    _unexpanded_input_names = ("sources",)
 
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

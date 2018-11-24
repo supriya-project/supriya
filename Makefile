@@ -1,10 +1,10 @@
 .PHONY: docs
 
 black-check:
-	black --py36 --check --diff --skip-string-normalization supriya/ tests/
+	black --py36 --check --diff supriya/ tests/
 
 black-reformat:
-	black --py36 --skip-string-normalization supriya/ tests/
+	black --py36 supriya/ tests/
 
 clean:
 	find . -name '*.pyc' | xargs rm

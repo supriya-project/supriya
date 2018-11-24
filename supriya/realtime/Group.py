@@ -34,9 +34,9 @@ class Group(Node, UniqueTreeContainer):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Main Classes'
+    __documentation_section__ = "Main Classes"
 
-    __slots__ = ('_children', '_control_interface', '_named_children')
+    __slots__ = ("_children", "_control_interface", "_named_children")
 
     ### INITIALIZER ###
 
@@ -90,19 +90,19 @@ class Group(Node, UniqueTreeContainer):
         result = []
         node_id = self.node_id
         if node_id is None:
-            node_id = '???'
+            node_id = "???"
         if self.name:
-            string = '{node_id} group ({name})'
+            string = "{node_id} group ({name})"
         else:
-            string = '{node_id} group'
+            string = "{node_id} group"
         string = string.format(name=self.name, node_id=node_id)
         result.append(string)
         for child in self:
             assert child.parent is self
             lines = str(child).splitlines()
             for line in lines:
-                result.append('    {}'.format(line))
-        return '\n'.join(result)
+                result.append("    {}".format(line))
+        return "\n".join(result)
 
     ### PRIVATE METHODS ###
 

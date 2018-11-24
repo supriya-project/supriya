@@ -34,7 +34,7 @@ class NotifyRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_notify_status',)
+    __slots__ = ("_notify_status",)
 
     request_id = RequestId.NOTIFY
 
@@ -63,4 +63,4 @@ class NotifyRequest(Request):
 
     @property
     def response_patterns(self):
-        return [['/done', '/notify']]
+        return [["/done", "/notify"]]

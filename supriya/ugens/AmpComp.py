@@ -21,10 +21,10 @@ class AmpComp(PureUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Line Utility UGens'
+    __documentation_section__ = "Line Utility UGens"
 
     _ordered_input_names = collections.OrderedDict(
-        [('frequency', 1000), ('root', 0), ('exp', 0.3333)]
+        [("frequency", 1000), ("root", 0), ("exp", 0.3333)]
     )
 
     _valid_calculation_rates = (

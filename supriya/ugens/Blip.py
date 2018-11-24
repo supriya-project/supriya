@@ -20,10 +20,10 @@ class Blip(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Oscillator UGens'
+    __documentation_section__ = "Oscillator UGens"
 
     _ordered_input_names = collections.OrderedDict(
-        [('frequency', 440.0), ('harmonic_count', 200.0)]
+        [("frequency", 440.0), ("harmonic_count", 200.0)]
     )
 
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

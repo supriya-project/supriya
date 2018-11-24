@@ -15,9 +15,9 @@ class Node(SessionObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Session Objects'
+    __documentation_section__ = "Session Objects"
 
-    __slots__ = ('_duration', '_events', '_session', '_session_id', '_start_offset')
+    __slots__ = ("_duration", "_events", "_session", "_session_id", "_start_offset")
 
     _valid_add_actions: Tuple[int, ...] = ()
 
@@ -35,14 +35,14 @@ class Node(SessionObject):
         start_offset = start_offset or 0
         self._start_offset = float(start_offset)
         if duration is None:
-            duration = float('inf')
+            duration = float("inf")
         self._duration = duration
         self._events: Dict[str, List[Tuple[float, float]]] = {}
 
     ### SPECIAL METHODS ###
 
     def __repr__(self) -> str:
-        return '<{} #{} @{}:{}>'.format(
+        return "<{} #{} @{}:{}>".format(
             type(self).__name__, self.session_id, self.start_offset, self.stop_offset
         )
 
@@ -56,7 +56,7 @@ class Node(SessionObject):
     def __setitem__(
         self,
         item: str,
-        value: Union[float, 'supriya.nonrealtime.Bus', 'supriya.nonrealtime.BusGroup'],
+        value: Union[float, "supriya.nonrealtime.Bus", "supriya.nonrealtime.BusGroup"],
     ) -> None:
         import supriya.nonrealtime
 
@@ -69,7 +69,7 @@ class Node(SessionObject):
 
     ### PRIVATE METHODS ###
 
-    def _add_node(self, node: 'Node', add_action: int) -> 'Node':
+    def _add_node(self, node: "Node", add_action: int) -> "Node":
         state = self.session._find_state_at(node.start_offset, clone_if_missing=True)
         state.start_nodes.add(node)
         if node not in state.nodes_to_children:
@@ -119,7 +119,7 @@ class Node(SessionObject):
         with self.session.at(self.stop_offset, propagate=False) as moment:
             moment.state.stop_nodes.add(self)
 
-    def _fixup_events(self, new_node: 'Node', split_offset: float) -> None:
+    def _fixup_events(self, new_node: "Node", split_offset: float) -> None:
         left_events: Dict[str, List[Tuple[float, float]]] = {}
         right_events: Dict[str, List[Tuple[float, float]]] = {}
         for name, events in self._events.items():
@@ -137,7 +137,7 @@ class Node(SessionObject):
         new_node._events = right_events
 
     def _fixup_node_actions(
-        self, new_node: 'Node', start_offset: 'float', stop_offset: 'float'
+        self, new_node: "Node", start_offset: "float", stop_offset: "float"
     ) -> None:
         for offset in sorted(self.session.states):
             if offset < start_offset:
@@ -199,7 +199,7 @@ class Node(SessionObject):
         new_nodes=None,
         split_occupiers: bool = True,
         split_traversers: bool = True,
-    ) -> List['Node']:
+    ) -> List["Node"]:
         import supriya.nonrealtime
 
         new_nodes = new_nodes or []
@@ -213,17 +213,17 @@ class Node(SessionObject):
             with supriya.nonrealtime.DoNotPropagate():
                 if isinstance(self, supriya.nonrealtime.Synth):
                     new_node = self.add_synth(
-                        add_action='ADD_BEFORE',
+                        add_action="ADD_BEFORE",
                         duration=new_duration,
                         synthdef=self.synthdef,
                         **self._synth_kwargs,
                     )
                 else:
                     new_node = self.add_group(
-                        add_action='ADD_BEFORE', duration=new_duration
+                        add_action="ADD_BEFORE", duration=new_duration
                     )
             new_nodes.append(new_node)
-            new_actions: Dict['Node', NodeAction] = collections.OrderedDict()
+            new_actions: Dict["Node", NodeAction] = collections.OrderedDict()
             for node in new_nodes:
                 if node is new_node and self in old_actions:
                     old_actions.pop(node)
@@ -235,7 +235,7 @@ class Node(SessionObject):
                 if child in old_actions:
                     old_actions.pop(child)
                 action = supriya.nonrealtime.NodeAction(
-                    source=child, target=new_node, action='ADD_TO_TAIL'
+                    source=child, target=new_node, action="ADD_TO_TAIL"
                 )
                 new_actions[child] = action
             new_actions.update(old_actions)
@@ -268,14 +268,14 @@ class Node(SessionObject):
     @SessionObject.require_offset
     def add_group(
         self, add_action: int = None, duration: float = None, offset: float = None
-    ) -> 'supriya.nonrealtime.Group':
+    ) -> "supriya.nonrealtime.Group":
         import supriya.nonrealtime
 
         if add_action is None:
             add_action = self._valid_add_actions[0]
         add_action = supriya.AddAction.from_expr(add_action)
         assert add_action in self._valid_add_actions
-        session_id = self.session._get_next_session_id('node')
+        session_id = self.session._get_next_session_id("node")
         node = supriya.nonrealtime.Group(
             self.session, duration=duration, session_id=session_id, start_offset=offset
         )
@@ -290,7 +290,7 @@ class Node(SessionObject):
         synthdef=None,
         offset: float = None,
         **synth_kwargs,
-    ) -> 'supriya.nonrealtime.Synth':
+    ) -> "supriya.nonrealtime.Synth":
         import supriya.assets.synthdefs
         import supriya.nonrealtime
 
@@ -298,7 +298,7 @@ class Node(SessionObject):
             add_action = self._valid_add_actions[0]
         add_action = supriya.AddAction.from_expr(add_action)
         assert add_action in self._valid_add_actions
-        session_id = self.session._get_next_session_id('node')
+        session_id = self.session._get_next_session_id("node")
         synthdef = synthdef or supriya.assets.synthdefs.default
         node = supriya.nonrealtime.Synth(
             self.session,
@@ -315,8 +315,8 @@ class Node(SessionObject):
 
     @SessionObject.require_offset
     def move_node(
-        self, node: 'Node', add_action: int = None, offset: float = None
-    ) -> 'Node':
+        self, node: "Node", add_action: int = None, offset: float = None
+    ) -> "Node":
         import supriya.nonrealtime
 
         state: State = self.session.active_moments[-1].state
@@ -364,7 +364,7 @@ class Node(SessionObject):
         self.session.nodes.remove(self)
         self.session._apply_transitions([self.start_offset, self.stop_offset])
 
-    def set_duration(self, new_duration: float, clip_children: bool = False) -> 'Node':
+    def set_duration(self, new_duration: float, clip_children: bool = False) -> "Node":
         import supriya.nonrealtime
 
         assert new_duration > 0
@@ -404,7 +404,7 @@ class Node(SessionObject):
             while parent is not None and parent.stop_offset < new_stop_offset:
                 with self.session.at(parent.stop_offset, propagate=False) as moment:
                     action = supriya.nonrealtime.NodeAction(
-                        source=self, target=parent, action='ADD_BEFORE'
+                        source=self, target=parent, action="ADD_BEFORE"
                     )
                     moment.state.transitions[self] = action
                     parent = parent.get_parent()
@@ -423,7 +423,7 @@ class Node(SessionObject):
         split_occupiers: bool = True,
         split_traversers: bool = True,
         offset: float = None,
-    ) -> List['Node']:
+    ) -> List["Node"]:
         if offset is None:
             raise ValueError
         state = self.session.active_moments[-1].state
@@ -443,11 +443,11 @@ class Node(SessionObject):
     def inspect_children(
         self, offset: float = None
     ) -> Tuple[
-        Tuple['Node', ...],
-        Tuple['Node', ...],
-        Tuple['Node', ...],
-        Tuple['Node', ...],
-        Tuple['Node', ...],
+        Tuple["Node", ...],
+        Tuple["Node", ...],
+        Tuple["Node", ...],
+        Tuple["Node", ...],
+        Tuple["Node", ...],
     ]:
         this_state = self.session._find_state_at(offset, clone_if_missing=True)
         prev_state = self.session._find_state_before(this_state.offset, True)
@@ -455,11 +455,11 @@ class Node(SessionObject):
         this_state._desparsify()
         prev_children = prev_state.nodes_to_children.get(self) or ()
         this_children = this_state.nodes_to_children.get(self) or ()
-        entering: Set['Node'] = set()
-        exiting: Set['Node'] = set()
-        occupying: Set['Node'] = set()
-        starting: Set['Node'] = set()
-        stopping: Set['Node'] = set()
+        entering: Set["Node"] = set()
+        exiting: Set["Node"] = set()
+        occupying: Set["Node"] = set()
+        starting: Set["Node"] = set()
+        stopping: Set["Node"] = set()
         for node in prev_children:
             if node.stop_offset == offset:
                 stopping.add(node)
@@ -488,7 +488,7 @@ class Node(SessionObject):
         )
 
     @SessionObject.require_offset
-    def get_parent(self, offset: float = None) -> Optional['Node']:
+    def get_parent(self, offset: float = None) -> Optional["Node"]:
         state = self.session._find_state_at(offset, clone_if_missing=True)
         if not state.nodes_to_children:
             state = self.session._find_state_before(state.offset, True)
@@ -497,7 +497,7 @@ class Node(SessionObject):
         return state.nodes_to_parents.get(self)
 
     @SessionObject.require_offset
-    def get_parentage(self, offset: float = None) -> List['Node']:
+    def get_parentage(self, offset: float = None) -> List["Node"]:
         state = self.session._find_state_at(offset, clone_if_missing=True)
         if not state.nodes_to_children:
             state = self.session._find_state_before(state.offset, True)
@@ -526,5 +526,5 @@ class Node(SessionObject):
     @property
     def stop_offset(self) -> float:
         if self.duration is None:
-            return float('inf')
+            return float("inf")
         return self.start_offset + self.duration

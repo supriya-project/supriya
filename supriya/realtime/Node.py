@@ -8,7 +8,7 @@ class Node(ServerObjectProxy, UniqueTreeNode):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_is_paused', '_name', '_node_id', '_node_id_is_permanent', '_parent')
+    __slots__ = ("_is_paused", "_name", "_node_id", "_node_id_is_permanent", "_parent")
 
     ### INITIALIZER ###
 
@@ -30,16 +30,16 @@ class Node(ServerObjectProxy, UniqueTreeNode):
 
     def __repr__(self):
         class_name = type(self).__name__
-        node_id = '???'
+        node_id = "???"
         if self.node_id is not None:
             node_id = self.node_id
-        allocation_indicator = '+' if self.is_allocated else '-'
+        allocation_indicator = "+" if self.is_allocated else "-"
         if self.name is None:
-            string = '<{allocated} {class_name}: {node_id}>'.format(
+            string = "<{allocated} {class_name}: {node_id}>".format(
                 allocated=allocation_indicator, class_name=class_name, node_id=node_id
             )
         else:
-            string = '<{allocated} {class_name}: {node_id} ({name})>'.format(
+            string = "<{allocated} {class_name}: {node_id} ({name})>".format(
                 allocated=allocation_indicator,
                 class_name=class_name,
                 name=self.name,
@@ -201,7 +201,7 @@ class Node(ServerObjectProxy, UniqueTreeNode):
 
         if expr is None:
             return Node.expr_as_target(supriya.realtime.Server())
-        elif hasattr(expr, '_as_node_target'):
+        elif hasattr(expr, "_as_node_target"):
             return expr._as_node_target()
         elif isinstance(expr, (float, int)):
             server = supriya.realtime.Server.get_default_server()

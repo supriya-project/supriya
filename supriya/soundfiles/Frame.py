@@ -6,7 +6,7 @@ class Frame(SupriyaObject, collections.Sequence):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_values',)
+    __slots__ = ("_values",)
 
     ### INITIALIZER ###
 

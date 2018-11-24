@@ -9,7 +9,7 @@ class AudioOutputBusGroup(BusGroup):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Session Objects'
+    __documentation_section__ = "Session Objects"
 
     __slots__ = ()
 

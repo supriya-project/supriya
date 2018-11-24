@@ -24,7 +24,7 @@ class MoogFF(Filter):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        [('source', None), ('frequency', 100), ('gain', 2), ('reset', 0)]
+        [("source", None), ("frequency", 100), ("gain", 2), ("reset", 0)]
     )
 
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

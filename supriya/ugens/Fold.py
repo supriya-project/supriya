@@ -22,10 +22,10 @@ class Fold(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Trigger Utility UGens'
+    __documentation_section__ = "Trigger Utility UGens"
 
     _ordered_input_names = collections.OrderedDict(
-        [('source', None), ('minimum', 0.0), ('maximum', 1.0)]
+        [("source", None), ("minimum", 0.0), ("maximum", 1.0)]
     )
 
     _valid_calculation_rates = (

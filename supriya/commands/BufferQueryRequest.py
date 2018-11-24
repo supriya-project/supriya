@@ -33,7 +33,7 @@ class BufferQueryRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_buffer_ids',)
+    __slots__ = ("_buffer_ids",)
 
     request_id = RequestId.BUFFER_QUERY
 
@@ -67,5 +67,5 @@ class BufferQueryRequest(Request):
     @property
     def response_patterns(self):
         if 1 == len(self.buffer_ids):
-            return [['/b_info', self.buffer_ids[0]]]
+            return [["/b_info", self.buffer_ids[0]]]
         return []

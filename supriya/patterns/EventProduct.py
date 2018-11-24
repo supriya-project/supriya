@@ -5,7 +5,7 @@ class EventProduct(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('event', 'index', 'is_stop', 'uuid', 'requests', 'timestamp')
+    __slots__ = ("event", "index", "is_stop", "uuid", "requests", "timestamp")
 
     ### INITIALIZER ###
 

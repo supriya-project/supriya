@@ -5,7 +5,7 @@ import supriya.ugens
 def test_SynthDefCompiler_rngs_01():
 
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
-        'seedednoise',
+        "seedednoise",
         r"""
         arg rand_id=0, seed=0;
         RandID.ir(rand_id);
@@ -16,11 +16,11 @@ def test_SynthDefCompiler_rngs_01():
     sc_compiled_synthdef = sc_synthdef.compile()
 
     with supriya.synthdefs.SynthDefBuilder(rand_id=0, seed=0) as builder:
-        supriya.ugens.RandID.ir(rand_id=builder['rand_id'])
-        supriya.ugens.RandSeed.ir(seed=builder['seed'], trigger=1)
+        supriya.ugens.RandID.ir(rand_id=builder["rand_id"])
+        supriya.ugens.RandSeed.ir(seed=builder["seed"], trigger=1)
         source = supriya.ugens.WhiteNoise.ar()
         supriya.ugens.Out.ar(bus=0, source=source)
-    py_synthdef = builder.build('seedednoise')
+    py_synthdef = builder.build("seedednoise")
     py_compiled_synthdef = py_synthdef.compile()
 
     # fmt: off

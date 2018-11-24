@@ -12,7 +12,7 @@ from supriya.midi.PhysicalControl import PhysicalControl
 
 
 logging.basicConfig(
-    format='%(asctime)s [%(name)s] [%(levelname)s] %(message)s', level='INFO'
+    format="%(asctime)s [%(name)s] [%(levelname)s] %(message)s", level="INFO"
 )
 
 
@@ -29,10 +29,10 @@ class Device:
         else:
             manifest = pathlib.Path(manifest)
             if not manifest.suffix:
-                manifest = manifest.with_suffix('.yml')
+                manifest = manifest.with_suffix(".yml")
             if not manifest.is_absolute():
                 manifest = (
-                    pathlib.Path(supriya.__path__[0]) / 'assets' / 'devices' / manifest
+                    pathlib.Path(supriya.__path__[0]) / "assets" / "devices" / manifest
                 )
             manifest = supriya.system.YAMLLoader.load(
                 str(manifest), overrides=overrides
@@ -42,7 +42,7 @@ class Device:
         self._midi_in = rtmidi.MidiIn()
         self._midi_out = rtmidi.MidiOut()
         self._initialize_physical_controls()
-        if 'logical_controls' in self._device_manifest['device']:
+        if "logical_controls" in self._device_manifest["device"]:
             self._initialize_logical_controls()
         else:
             self._initialize_default_logical_controls()
@@ -52,12 +52,12 @@ class Device:
     def __call__(self, message, timestamp=None):
         if timestamp is None:
             message, timestamp = message
-        self.logger.debug('MIDI I: 0x{}'.format(bytearray(message).hex()))
+        self.logger.debug("MIDI I: 0x{}".format(bytearray(message).hex()))
         with self._lock:
             physical_control, value = self._process_physical_control(message, timestamp)
             logical_control = self._process_logical_control(physical_control, value)
             self.logger.info(
-                'PC: {}, LC: {}'.format(physical_control.name, logical_control)
+                "PC: {}, LC: {}".format(physical_control.name, logical_control)
             )
 
     def __getitem__(self, name):
@@ -96,9 +96,9 @@ class Device:
         self._physical_controls_by_group.setdefault(group_name, []).append(
             physical_control
         )
-        if message_type == 'note':
+        if message_type == "note":
             message_class = supriya.midi.NoteOnMessage
-        elif message_type == 'controller':
+        elif message_type == "controller":
             message_class = supriya.midi.ControllerChangeMessage
         else:
             raise Exception
@@ -108,11 +108,11 @@ class Device:
 
     def _build_modal_view(self, node_template, parents):
         nodes = []
-        toggle_id = 'root:{}'.format(node_template['modal'])
+        toggle_id = "root:{}".format(node_template["modal"])
         all_toggles = self._node_instances[toggle_id]
         for parent, toggles in zip(parents, all_toggles):
             modal_view = LogicalView(
-                device=self, name=node_template['name'], visible=True
+                device=self, name=node_template["name"], visible=True
             )
             parent._add_child(modal_view)
             for i, toggle in enumerate(toggles.children.values()):
@@ -125,18 +125,18 @@ class Device:
     def _build_mutex_view(self, node_template, parents):
         nodes = []
         physical_controls = []
-        physical_control_ids = node_template['children']
+        physical_control_ids = node_template["children"]
         for physical_control_id in physical_control_ids:
             physical_controls.extend(self._get_controls_by_name(physical_control_id))
         for parent in parents:
-            view = LogicalView(device=self, is_mutex=True, name=node_template['name'])
+            view = LogicalView(device=self, is_mutex=True, name=node_template["name"])
             nodes.append(view)
             parent._add_child(view)
             for i, physical_control in enumerate(physical_controls):
                 control = LogicalControl(
                     device=self,
                     name=i,
-                    mode='toggle',
+                    mode="toggle",
                     physical_control=physical_control,
                 )
                 if i == 0:
@@ -150,23 +150,23 @@ class Device:
     def _build_physical_controls(self, node_template, parents):
         nodes = []
         physical_controls = []
-        physical_control_ids = node_template['physical_control']
+        physical_control_ids = node_template["physical_control"]
         if isinstance(physical_control_ids, str):
             physical_control_ids = [physical_control_ids]
         for physical_control_id in physical_control_ids:
             physical_controls.extend(self._get_controls_by_name(physical_control_id))
         for parent in parents:
             for i, physical_control in enumerate(physical_controls, 1):
-                if 'name' in node_template:
-                    if node_template['name']:
-                        name = node_template['name']
+                if "name" in node_template:
+                    if node_template["name"]:
+                        name = node_template["name"]
                         if len(physical_controls) > 1:
-                            name = '{}_{}'.format(name, i)
+                            name = "{}_{}".format(name, i)
                     else:
                         name = i - 1
                 else:
                     name = physical_control.name
-                mode = node_template.get('mode')
+                mode = node_template.get("mode")
                 logical_control = LogicalControl(
                     device=self, mode=mode, name=name, physical_control=physical_control
                 )
@@ -183,8 +183,8 @@ class Device:
 
     def _initialize_default_logical_controls(self):
         self._node_instances = {}
-        root_view = LogicalView(device=self, name='root')
-        self._node_instances['root'] = [root_view]
+        root_view = LogicalView(device=self, name="root")
+        self._node_instances["root"] = [root_view]
         self._dependents = {}
         for physical_control in self.physical_controls.values():
             logical_control = LogicalControl(
@@ -195,23 +195,23 @@ class Device:
             root_view._add_child(logical_control)
 
     def _initialize_logical_controls(self):
-        device_manifest = self._device_manifest['device']
-        manifest = device_manifest['logical_controls']
+        device_manifest = self._device_manifest["device"]
+        manifest = device_manifest["logical_controls"]
         self._node_templates = self._linearize_manifest(manifest)
         self._node_instances = {}
-        root_view = LogicalView(device=self, name='root')
-        self._node_instances['root'] = [root_view]
+        root_view = LogicalView(device=self, name="root")
+        self._node_instances["root"] = [root_view]
         self._dependents = {}
         for parentage_string, node_template in self._node_templates.items():
-            parents = self._node_instances[parentage_string.rpartition(':')[0]]
-            if 'children' in node_template:
-                if 'modal' in node_template:
+            parents = self._node_instances[parentage_string.rpartition(":")[0]]
+            if "children" in node_template:
+                if "modal" in node_template:
                     nodes = self._build_modal_view(node_template, parents)
-                elif node_template.get('mode') == 'mutex':
+                elif node_template.get("mode") == "mutex":
                     nodes = self._build_mutex_view(node_template, parents)
                 else:
                     nodes = self._build_view(node_template, parents)
-            elif 'physical_control' in node_template:
+            elif "physical_control" in node_template:
                 nodes = self._build_physical_controls(node_template, parents)
             else:
                 raise Exception(parentage_string, node_template)
@@ -219,41 +219,41 @@ class Device:
         self.rebuild_visibility_mapping()
 
     def _initialize_physical_controls(self):
-        device_manifest = self._device_manifest['device']
-        manifest = device_manifest['physical_controls']
+        device_manifest = self._device_manifest["device"]
+        manifest = device_manifest["physical_controls"]
         self._physical_controls = collections.OrderedDict()
         self._physical_controls_by_group = collections.OrderedDict()
         self._physical_controls_by_command = {}
-        defaults = device_manifest.get('defaults', {})
+        defaults = device_manifest.get("defaults", {})
         for spec in manifest:
             default_spec = defaults.copy()
             default_spec.update(spec)
             spec = default_spec
-            if 'note' in spec:
-                message_type = 'note'
-                message_values = spec.get('note')
-            elif 'controller' in spec:
-                message_type = 'controller'
-                message_values = spec.get('controller')
+            if "note" in spec:
+                message_type = "note"
+                message_values = spec.get("note")
+            elif "controller" in spec:
+                message_type = "controller"
+                message_values = spec.get("controller")
             else:
-                raise ValueError('Missing message type in {}'.format(spec))
-            channels = spec.get('channel', 0)
+                raise ValueError("Missing message type in {}".format(spec))
+            channels = spec.get("channel", 0)
             if not isinstance(message_values, list):
                 message_values = [message_values]
             if not isinstance(channels, list):
                 channels = [channels]
             if len(channels) > 1 and len(message_values) > 1:
-                template = '{control_group}_{value_index}x{channel_index}'
+                template = "{control_group}_{value_index}x{channel_index}"
             elif len(channels) > 1:
-                template = '{control_group}_{channel_index}'
+                template = "{control_group}_{channel_index}"
             elif len(message_values) > 1:
-                template = '{control_group}_{value_index}'
+                template = "{control_group}_{value_index}"
             else:
-                template = '{control_group}'
+                template = "{control_group}"
             for value_index, message_value in enumerate(message_values, 1):
                 for channel_index, channel in enumerate(channels, 1):
                     control_name = template.format(
-                        control_group=spec['name'],
+                        control_group=spec["name"],
                         value_index=value_index,
                         channel_index=channel_index,
                     )
@@ -261,12 +261,12 @@ class Device:
                         control_name,
                         message_type,
                         message_value,
-                        boolean_led_polarity=spec.get('boolean_led_polarity'),
-                        boolean_polarity=spec.get('boolean_polarity'),
+                        boolean_led_polarity=spec.get("boolean_led_polarity"),
+                        boolean_polarity=spec.get("boolean_polarity"),
                         channel=channel,
-                        group_name=spec['name'],
-                        has_led=spec.get('has_led', False),
-                        mode=spec.get('mode', 'continuous'),
+                        group_name=spec["name"],
+                        has_led=spec.get("has_led", False),
+                        mode=spec.get("mode", "continuous"),
                     )
 
     def _linearize_manifest(self, manifest):
@@ -275,12 +275,12 @@ class Device:
         self._recurse_manifest(
             entries_by_parentage=entries_by_parentage,
             manifest=manifest,
-            parentage=('root',),
+            parentage=("root",),
             dependency_graph=dependency_graph,
         )
         templates = collections.OrderedDict()
         for parentage_string in dependency_graph:
-            if parentage_string == 'root':
+            if parentage_string == "root":
                 continue
             templates[parentage_string] = entries_by_parentage[parentage_string]
         return templates
@@ -327,23 +327,23 @@ class Device:
         self, entries_by_parentage, manifest, parentage, dependency_graph
     ):
         for entry in manifest:
-            entry_name = entry.get('name') or entry.get('physical_control')
+            entry_name = entry.get("name") or entry.get("physical_control")
             assert entry_name
             entry_parentage = parentage + (entry_name,)
-            entry_parentage_string = ':'.join(entry_parentage)
+            entry_parentage_string = ":".join(entry_parentage)
             assert entry_parentage_string not in entries_by_parentage
             entries_by_parentage[entry_parentage_string] = entry
             if parentage:
-                parentage_string = ':'.join(parentage)
+                parentage_string = ":".join(parentage)
                 dependency_graph.add(parentage_string, entry_parentage_string)
             else:
                 dependency_graph.add(entry_parentage_string)
-            if 'modal' in entry:
+            if "modal" in entry:
                 dependency_graph.add(
-                    'root:{}'.format(entry.get('modal')), entry_parentage_string
+                    "root:{}".format(entry.get("modal")), entry_parentage_string
                 )
-            children = entry.get('children', [])
-            if entry.get('mode') != 'mutex':
+            children = entry.get("children", [])
+            if entry.get("mode") != "mutex":
                 self._recurse_manifest(
                     entries_by_parentage=entries_by_parentage,
                     manifest=children,
@@ -356,7 +356,7 @@ class Device:
     def close_port(self):
         self._midi_in.close_port()
         self._midi_out.close_port()
-        self.logger.info('Closed port.')
+        self.logger.info("Closed port.")
         return self
 
     def get_ports(self):
@@ -369,9 +369,9 @@ class Device:
         return self._midi_in.get_port_name()
 
     def open_port(self, port=None, virtual=False):
-        self.logger.info('Opening port {}'.format(port))
+        self.logger.info("Opening port {}".format(port))
         if port is None:
-            port = self._device_manifest.get('port')
+            port = self._device_manifest.get("port")
             if isinstance(port, str):
                 port_names = self.get_ports()
                 if port in port_names:
@@ -388,7 +388,7 @@ class Device:
             self._midi_out.open_port(port)
         self._midi_in.ignore_types(active_sense=True, sysex=True, timing=True)
         self._midi_in.set_callback(self.__call__)
-        for message in self._device_manifest['device'].get('on_startup', []):
+        for message in self._device_manifest["device"].get("on_startup", []):
             self.send_message(message)
         mapping = self.rebuild_visibility_mapping()
         for logical_control in mapping.values():
@@ -406,7 +406,7 @@ class Device:
 
     def send_message(self, message):
         self._midi_out.send_message(message)
-        self.logger.debug('MIDI O: 0x{}'.format(bytearray(message).hex()))
+        self.logger.debug("MIDI O: 0x{}".format(bytearray(message).hex()))
 
     ### PUBLIC PROPERTIES ###
 
@@ -432,7 +432,7 @@ class Device:
 
     @property
     def root_view(self):
-        return self._node_instances['root'][0]
+        return self._node_instances["root"][0]
 
     @property
     def visibility_mapping(self):

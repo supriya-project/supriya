@@ -26,7 +26,7 @@ class OscMessage(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_address', '_contents')
+    __slots__ = ("_address", "_contents")
 
     ### INITIALIZER ###
 
@@ -48,8 +48,8 @@ class OscMessage(SupriyaValueObject):
 
     def __repr__(self):
         items = (self.address,) + self.contents
-        items = ', '.join(repr(x) for x in items)
-        result = '{}({})'.format(type(self).__name__, items)
+        items = ", ".join(repr(x) for x in items)
+        result = "{}({})".format(type(self).__name__, items)
         return result
 
     def __str__(self):
@@ -60,15 +60,15 @@ class OscMessage(SupriyaValueObject):
 
     @staticmethod
     def _decode_array(type_tags, type_tag_offset, payload, payload_offset):
-        assert type_tags[type_tag_offset] == '['
+        assert type_tags[type_tag_offset] == "["
         array = []
         type_tag_offset += 1
-        while type_tags[type_tag_offset] != ']':
+        while type_tags[type_tag_offset] != "]":
             result, type_tag_offset, payload_offset = OscMessage._decode_value(
                 type_tags, type_tag_offset, payload, payload_offset
             )
             array.append(result)
-        assert type_tags[type_tag_offset] == ']'
+        assert type_tags[type_tag_offset] == "]"
         array = tuple(array)
         type_tag_offset += 1
         return array, type_tag_offset, payload_offset
@@ -77,9 +77,9 @@ class OscMessage(SupriyaValueObject):
     def _decode_blob(cls, type_tags, type_tag_offset, payload, payload_offset):
         from supriya.osc import OscBundle
 
-        assert type_tags[type_tag_offset] == 'b'
+        assert type_tags[type_tag_offset] == "b"
         length = payload[payload_offset : payload_offset + 4]
-        length = struct.unpack('>i', length)
+        length = struct.unpack(">i", length)
         length = length[0]
         payload_offset += 4
         total_length = length + (-length % 4)
@@ -97,45 +97,45 @@ class OscMessage(SupriyaValueObject):
     @staticmethod
     def _decode_boolean(type_tags, type_tag_offset, payload, payload_offset):
         type_tag = type_tags[type_tag_offset]
-        assert type_tag in ('T', 'F')
-        if type_tag == 'T':
+        assert type_tag in ("T", "F")
+        if type_tag == "T":
             result = True
-        elif type_tag == 'F':
+        elif type_tag == "F":
             result = False
         type_tag_offset += 1
         return result, type_tag_offset, payload_offset
 
     @staticmethod
     def _decode_double(type_tags, type_tag_offset, payload, payload_offset):
-        assert type_tags[type_tag_offset] == 'd'
+        assert type_tags[type_tag_offset] == "d"
         result, payload_offset = OscMessage._read_double(payload, payload_offset)
         type_tag_offset += 1
         return result, type_tag_offset, payload_offset
 
     @staticmethod
     def _decode_float(type_tags, type_tag_offset, payload, payload_offset):
-        assert type_tags[type_tag_offset] == 'f'
+        assert type_tags[type_tag_offset] == "f"
         result, payload_offset = OscMessage._read_float(payload, payload_offset)
         type_tag_offset += 1
         return result, type_tag_offset, payload_offset
 
     @staticmethod
     def _decode_int(type_tags, type_tag_offset, payload, payload_offset):
-        assert type_tags[type_tag_offset] == 'i'
+        assert type_tags[type_tag_offset] == "i"
         result, payload_offset = OscMessage._read_int(payload, payload_offset)
         type_tag_offset += 1
         return result, type_tag_offset, payload_offset
 
     @staticmethod
     def _decode_none(type_tags, type_tag_offset, payload, payload_offset):
-        assert type_tags[type_tag_offset] == 'N'
+        assert type_tags[type_tag_offset] == "N"
         result = None
         type_tag_offset += 1
         return result, type_tag_offset, payload_offset
 
     @staticmethod
     def _decode_string(type_tags, type_tag_offset, payload, payload_offset):
-        assert type_tags[type_tag_offset] == 's'
+        assert type_tags[type_tag_offset] == "s"
         result, payload_offset = OscMessage._read_string(payload, payload_offset)
         type_tag_offset += 1
         return result, type_tag_offset, payload_offset
@@ -144,15 +144,15 @@ class OscMessage(SupriyaValueObject):
     def _decode_value(type_tags, type_tag_offset, payload, payload_offset):
         type_tag = type_tags[type_tag_offset]
         type_tag_mapping = {
-            'N': OscMessage._decode_none,
-            'T': OscMessage._decode_boolean,
-            'F': OscMessage._decode_boolean,
-            'd': OscMessage._decode_double,
-            'i': OscMessage._decode_int,
-            'f': OscMessage._decode_float,
-            's': OscMessage._decode_string,
-            'b': OscMessage._decode_blob,
-            '[': OscMessage._decode_array,
+            "N": OscMessage._decode_none,
+            "T": OscMessage._decode_boolean,
+            "F": OscMessage._decode_boolean,
+            "d": OscMessage._decode_double,
+            "i": OscMessage._decode_int,
+            "f": OscMessage._decode_float,
+            "s": OscMessage._decode_string,
+            "b": OscMessage._decode_blob,
+            "[": OscMessage._decode_array,
         }
         procedure = type_tag_mapping[type_tag]
         result, type_tag_offset, payload_offset = procedure(
@@ -163,24 +163,24 @@ class OscMessage(SupriyaValueObject):
     @staticmethod
     def _encode_array(array):
         assert isinstance(array, collections.Sequence)
-        type_tags = '['
-        encoded_value = b''
+        type_tags = "["
+        encoded_value = b""
         for value in array:
             sub_type_tags, sub_encoded_value = OscMessage._encode_value(value)
             type_tags += sub_type_tags
             encoded_value += sub_encoded_value
-        type_tags += ']'
+        type_tags += "]"
         return type_tags, encoded_value
 
     @staticmethod
     def _encode_blob(value):
         assert isinstance(value, (bytearray, bytes))
-        type_tags = 'b'
+        type_tags = "b"
         encoded_value = OscMessage._write_int(len(value))
         encoded_value += value
         if len(encoded_value) % 4:
             difference = 4 - (len(encoded_value) % 4)
-            padding = b'\x00' * difference
+            padding = b"\x00" * difference
             encoded_value += padding
         return type_tags, encoded_value
 
@@ -188,45 +188,45 @@ class OscMessage(SupriyaValueObject):
     def _encode_boolean(value):
         assert value in (True, False)
         if value:
-            type_tags = 'T'
+            type_tags = "T"
         else:
-            type_tags = 'F'
+            type_tags = "F"
         encoded_value = None
         return type_tags, encoded_value
 
     @staticmethod
     def _encode_float(value):
         assert isinstance(value, float)
-        type_tags = 'f'
+        type_tags = "f"
         encoded_value = OscMessage._write_float(value)
         return type_tags, encoded_value
 
     @staticmethod
     def _encode_int(value):
         assert isinstance(value, int)
-        type_tags = 'i'
+        type_tags = "i"
         encoded_value = OscMessage._write_int(value)
         return type_tags, encoded_value
 
     @staticmethod
     def _encode_none():
-        type_tags = 'N'
+        type_tags = "N"
         encoded_value = None
         return type_tags, encoded_value
 
     @staticmethod
     def _encode_string(value):
         assert isinstance(value, str)
-        type_tags = 's'
-        encoded_value = value.encode('utf-8')
+        type_tags = "s"
+        encoded_value = value.encode("utf-8")
         padding_length = 4 - (len(encoded_value) % 4)
-        padding = b'\x00' * padding_length
+        padding = b"\x00" * padding_length
         encoded_value += padding
         return type_tags, encoded_value
 
     @classmethod
     def _encode_value(cls, value):
-        if hasattr(value, 'to_datagram'):
+        if hasattr(value, "to_datagram"):
             value = bytearray(value.to_datagram())
         elif isinstance(value, enum.Enum):
             value = value.value
@@ -245,14 +245,14 @@ class OscMessage(SupriyaValueObject):
         elif isinstance(value, collections.Sequence):
             type_tags, encoded_value = OscMessage._encode_array(value)
         else:
-            message = 'Cannot encode {!r}'.format(value)
+            message = "Cannot encode {!r}".format(value)
             raise TypeError(message)
         return type_tags, encoded_value
 
     @staticmethod
     def _read_double(payload, payload_offset):
         result = payload[payload_offset : payload_offset + 8]
-        result = struct.unpack('>d', result)
+        result = struct.unpack(">d", result)
         result = result[0]
         payload_offset += 8
         return result, payload_offset
@@ -260,7 +260,7 @@ class OscMessage(SupriyaValueObject):
     @staticmethod
     def _read_float(payload, payload_offset):
         result = payload[payload_offset : payload_offset + 4]
-        result = struct.unpack('>f', result)
+        result = struct.unpack(">f", result)
         result = result[0]
         payload_offset += 4
         return result, payload_offset
@@ -268,7 +268,7 @@ class OscMessage(SupriyaValueObject):
     @staticmethod
     def _read_int(payload, payload_offset):
         result = payload[payload_offset : payload_offset + 4]
-        result = struct.unpack('>i', result)
+        result = struct.unpack(">i", result)
         result = result[0]
         payload_offset += 4
         return result, payload_offset
@@ -283,18 +283,18 @@ class OscMessage(SupriyaValueObject):
         else:
             offset += -offset % 4
         result = payload[payload_offset : payload_offset + offset]
-        result = result.replace(b'\x00', b'')
-        result = result.decode('utf-8')
+        result = result.replace(b"\x00", b"")
+        result = result.decode("utf-8")
         payload_offset += offset
         return result, payload_offset
 
     @staticmethod
     def _write_float(value):
-        return struct.pack('>f', value)
+        return struct.pack(">f", value)
 
     @staticmethod
     def _write_int(value):
-        return struct.pack('>i', value)
+        return struct.pack(">i", value)
 
     ### PUBLIC METHODS ###
 
@@ -303,8 +303,8 @@ class OscMessage(SupriyaValueObject):
         datagram = OscMessage._encode_value(self.address)[1]
         if self.contents is None:
             return datagram
-        encoded_type_tags = ','
-        encoded_contents = b''
+        encoded_type_tags = ","
+        encoded_contents = b""
         for argument in self.contents:
             type_tags, encoded_value = OscMessage._encode_value(argument)
             encoded_type_tags += type_tags
@@ -323,7 +323,7 @@ class OscMessage(SupriyaValueObject):
         offset = 0
         address, offset = OscMessage._read_string(datagram, offset)
         type_tags, offset = OscMessage._read_string(datagram, offset)
-        assert type_tags[0] == ','
+        assert type_tags[0] == ","
         payload = datagram[offset:]
         payload_offset = 0
         type_tag_offset = 1
@@ -338,7 +338,7 @@ class OscMessage(SupriyaValueObject):
     def to_list(self):
         result = [self.address]
         for x in self.contents:
-            if hasattr(x, 'to_list'):
+            if hasattr(x, "to_list"):
                 result.append(x.to_list())
             else:
                 result.append(x)

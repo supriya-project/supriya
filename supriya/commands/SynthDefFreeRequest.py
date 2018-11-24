@@ -32,7 +32,7 @@ class SynthDefFreeRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_synthdef',)
+    __slots__ = ("_synthdef",)
 
     request_id = RequestId.SYNTHDEF_FREE
 

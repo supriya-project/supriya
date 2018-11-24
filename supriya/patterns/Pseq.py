@@ -35,7 +35,7 @@ class Pseq(Pattern):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_sequence', '_repetitions')
+    __slots__ = ("_sequence", "_repetitions")
 
     ### INITIALIZER ###
 

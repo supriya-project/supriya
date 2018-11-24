@@ -11,7 +11,7 @@ def test_01():
     """
     )
     dict_ = yaml.load(string)
-    pattern = supriya.patterns.Pattern.from_dict(dict_['pattern'])
+    pattern = supriya.patterns.Pattern.from_dict(dict_["pattern"])
     assert repr(pattern) == uqbar.strings.normalize(
         """
         Pwhite()
@@ -39,7 +39,7 @@ def test_02():
         args=dict(duration_max=11, duration_min=0.25, frequency=443, pan=0.1)
     )
     pattern = supriya.patterns.Pattern.from_dict(
-        dict_['pattern'], namespaces=namespaces
+        dict_["pattern"], namespaces=namespaces
     )
     assert repr(pattern) == uqbar.strings.normalize(
         """
@@ -78,7 +78,7 @@ def test_03():
         buffers=dict(birds=[1, 2, 3]),
     )
     pattern = supriya.patterns.Pattern.from_dict(
-        dict_['pattern'], namespaces=namespaces
+        dict_["pattern"], namespaces=namespaces
     )
     assert repr(pattern) == uqbar.strings.normalize(
         """
@@ -118,7 +118,7 @@ def test_04():
         )
     )
     pattern = supriya.patterns.Pattern.from_dict(
-        dict_['pattern'], namespaces=namespaces
+        dict_["pattern"], namespaces=namespaces
     )
     assert repr(pattern) == uqbar.strings.normalize(
         """

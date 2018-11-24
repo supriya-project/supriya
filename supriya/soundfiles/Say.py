@@ -12,53 +12,53 @@ class Say(SupriyaValueObject):
     ### CLASS VARIABLES ###
 
     _voices = (
-        'Alex',
-        'Alice',
-        'Alva',
-        'Amelie',
-        'Anna',
-        'Carmit',
-        'Damayanti',
-        'Daniel',
-        'Diego',
-        'Ellen',
-        'Fiona',
-        'Fred',
-        'Ioana',
-        'Joana',
-        'Jorge',
-        'Juan',
-        'Kanya',
-        'Karen',
-        'Kyoko',
-        'Laura',
-        'Lekha',
-        'Luca',
-        'Luciana',
-        'Maged',
-        'Mariska',
-        'Mei-Jia',
-        'Melina',
-        'Milena',
-        'Moira',
-        'Monica',
-        'Nora',
-        'Paulina',
-        'Samantha',
-        'Sara',
-        'Satu',
-        'Sin-ji',
-        'Tessa',
-        'Thomas',
-        'Ting-Ting',
-        'Veena',
-        'Victoria',
-        'Xander',
-        'Yelda',
-        'Yuna',
-        'Yuri',
-        'Zosia',
-        'Zuzana',
+        "Alex",
+        "Alice",
+        "Alva",
+        "Amelie",
+        "Anna",
+        "Carmit",
+        "Damayanti",
+        "Daniel",
+        "Diego",
+        "Ellen",
+        "Fiona",
+        "Fred",
+        "Ioana",
+        "Joana",
+        "Jorge",
+        "Juan",
+        "Kanya",
+        "Karen",
+        "Kyoko",
+        "Laura",
+        "Lekha",
+        "Luca",
+        "Luciana",
+        "Maged",
+        "Mariska",
+        "Mei-Jia",
+        "Melina",
+        "Milena",
+        "Moira",
+        "Monica",
+        "Nora",
+        "Paulina",
+        "Samantha",
+        "Sara",
+        "Satu",
+        "Sin-ji",
+        "Tessa",
+        "Thomas",
+        "Ting-Ting",
+        "Veena",
+        "Victoria",
+        "Xander",
+        "Yelda",
+        "Yuna",
+        "Yuri",
+        "Zosia",
+        "Zuzana",
     )
 
     ### INITIALIZER ###
@@ -87,30 +87,30 @@ class Say(SupriyaValueObject):
             except ValueError:
                 relative_file_path = output_file_path
         if print_transcript:
-            print('    Rendering {}'.format(relative_file_path))
+            print("    Rendering {}".format(relative_file_path))
         if output_file_path.exists():
             if print_transcript:
                 print(
-                    '        Skipping {}. File already exists.'.format(
+                    "        Skipping {}. File already exists.".format(
                         relative_file_path
                     )
                 )
             return output_file_path
-        if uqbar.io.find_executable('say'):
-            command_parts = ['say']
-            command_parts.extend(['-o', str(relative_file_path)])
+        if uqbar.io.find_executable("say"):
+            command_parts = ["say"]
+            command_parts.extend(["-o", str(relative_file_path)])
             if self.voice:
-                command_parts.extend(['-v', self.voice])
+                command_parts.extend(["-v", self.voice])
         else:
-            command_parts = ['espeak', '-w', str(relative_file_path)]
+            command_parts = ["espeak", "-w", str(relative_file_path)]
         command_parts.append(shlex.quote(self.text))
-        command = ' '.join(command_parts)
+        command = " ".join(command_parts)
         if print_transcript:
-            print('        Command: {}'.format(command))
+            print("        Command: {}".format(command))
         exit_code = subprocess.call(command, shell=True)
         if print_transcript:
             print(
-                '        Rendered {} with exit code {}.'.format(
+                "        Rendered {} with exit code {}.".format(
                     relative_file_path, exit_code
                 )
             )
@@ -126,7 +126,7 @@ class Say(SupriyaValueObject):
         if self.voice is not None:
             md5.update(self.voice.encode())
         md5 = md5.hexdigest()
-        file_path = '{}-{}.aiff'.format(
+        file_path = "{}-{}.aiff".format(
             uqbar.strings.to_dash_case(type(self).__name__), md5
         )
         return pathlib.Path(file_path)

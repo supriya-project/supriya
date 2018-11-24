@@ -33,7 +33,7 @@ class BufferNormalizeRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_as_wavetable', '_buffer_id', '_new_maximum')
+    __slots__ = ("_as_wavetable", "_buffer_id", "_new_maximum")
 
     request_id = RequestId.BUFFER_GENERATE
 
@@ -55,9 +55,9 @@ class BufferNormalizeRequest(Request):
         else:
             request_id = int(self.request_id)
         buffer_id = int(self.buffer_id)
-        command_name = 'normalize'
+        command_name = "normalize"
         if self.as_wavetable:
-            command_name = 'wnormalize'
+            command_name = "wnormalize"
         contents = [request_id, buffer_id, command_name, self.new_maximum]
         message = supriya.osc.OscMessage(*contents)
         return message
@@ -78,4 +78,4 @@ class BufferNormalizeRequest(Request):
 
     @property
     def response_patterns(self):
-        return [['/done', '/b_gen', self.buffer_id]]
+        return [["/done", "/b_gen", self.buffer_id]]

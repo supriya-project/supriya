@@ -55,9 +55,9 @@ class BusGroup(ServerObjectProxy):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Main Classes'
+    __documentation_section__ = "Main Classes"
 
-    __slots__ = ('_bus_id', '_buses', '_calculation_rate')
+    __slots__ = ("_bus_id", "_buses", "_calculation_rate")
 
     ### INITIALIZER ###
 
@@ -149,9 +149,9 @@ class BusGroup(ServerObjectProxy):
     def __repr__(self):
         bus_id = self.bus_id
         if bus_id is None:
-            bus_id = '???'
-        return '<{} {}{{{}}}: {} ({})>'.format(
-            '+' if self.is_allocated else '-',
+            bus_id = "???"
+        return "<{} {}{{{}}}: {} ({})>".format(
+            "+" if self.is_allocated else "-",
             type(self).__name__,
             len(self),
             bus_id,
@@ -486,8 +486,8 @@ class BusGroup(ServerObjectProxy):
         if self.bus_id is None:
             raise supriya.exceptions.BusNotAllocated
         if self.calculation_rate == CalculationRate.AUDIO:
-            map_symbol = 'a'
+            map_symbol = "a"
         else:
-            map_symbol = 'c'
+            map_symbol = "c"
         map_symbol += str(self.bus_id)
         return map_symbol

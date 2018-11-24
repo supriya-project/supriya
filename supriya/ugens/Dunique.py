@@ -23,7 +23,7 @@ class Dunique(DUGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        [('source', None), ('max_buffer_size', 1024), ('protected', True)]
+        [("source", None), ("max_buffer_size", 1024), ("protected", True)]
     )
 
     _valid_calculation_rates = (CalculationRate.DEMAND,)

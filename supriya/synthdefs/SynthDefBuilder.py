@@ -48,11 +48,11 @@ class SynthDefBuilder(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    _active_builders: List['SynthDefBuilder'] = []
+    _active_builders: List["SynthDefBuilder"] = []
 
-    __documentation_section__ = 'Main Classes'
+    __documentation_section__ = "Main Classes"
 
-    __slots__ = ('_name', '_parameters', '_ugens', '_uuid')
+    __slots__ = ("_name", "_parameters", "_ugens", "_uuid")
 
     ### INITIALIZER ###
 
@@ -109,11 +109,11 @@ class SynthDefBuilder(SupriyaObject):
             name, value = args
             if not isinstance(value, supriya.synthdefs.Parameter):
                 parameter_rate = supriya.synthdefs.ParameterRate.SCALAR
-                if name.startswith('a_'):
+                if name.startswith("a_"):
                     parameter_rate = supriya.synthdefs.ParameterRate.AUDIO
-                elif name.startswith('i_'):
+                elif name.startswith("i_"):
                     parameter_rate = supriya.synthdefs.ParameterRate.SCALAR
-                elif name.startswith('t_'):
+                elif name.startswith("t_"):
                     parameter_rate = supriya.synthdefs.ParameterRate.TRIGGER
                 else:
                     parameter_rate = supriya.synthdefs.ParameterRate.CONTROL

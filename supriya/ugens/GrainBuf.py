@@ -35,15 +35,15 @@ class GrainBuf(MultiOutUGen):
 
     _ordered_input_names = collections.OrderedDict(
         [
-            ('trigger', 0),
-            ('duration', 1),
-            ('buffer_id', None),
-            ('rate', 1),
-            ('position', 0),
-            ('interpolate', 2),
-            ('pan', 0),
-            ('envelope_buffer_id', -1),
-            ('maximum_overlap', 512),
+            ("trigger", 0),
+            ("duration", 1),
+            ("buffer_id", None),
+            ("rate", 1),
+            ("position", 0),
+            ("interpolate", 2),
+            ("pan", 0),
+            ("envelope_buffer_id", -1),
+            ("maximum_overlap", 512),
         ]
     )
 

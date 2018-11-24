@@ -13,7 +13,7 @@ class SynthDefLoadDirectoryRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_callback', '_directory_path')
+    __slots__ = ("_callback", "_directory_path")
 
     request_id = RequestId.SYNTHDEF_LOAD_DIR
 
@@ -47,7 +47,7 @@ class SynthDefLoadDirectoryRequest(Request):
 
     @property
     def response_patterns(self):
-        return [['/done', '/d_loadDir']]
+        return [["/done", "/d_loadDir"]]
 
     @property
     def directory_path(self):

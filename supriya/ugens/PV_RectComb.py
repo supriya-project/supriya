@@ -25,5 +25,5 @@ class PV_RectComb(PV_ChainUGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        [('pv_chain', None), ('num_teeth', 0), ('phase', 0), ('width', 0.5)]
+        [("pv_chain", None), ("num_teeth", 0), ("phase", 0), ("width", 0.5)]
     )

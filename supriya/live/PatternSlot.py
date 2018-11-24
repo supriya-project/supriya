@@ -18,6 +18,6 @@ class PatternSlot(Slot):
 
     def _setup_bindable_namespace(self, **kwargs):
         for key in tuple(kwargs):
-            if key in ('in_', 'out', 'gate'):
+            if key in ("in_", "out", "gate"):
                 kwargs.pop(key)
         return supriya.system.BindableNamespace(**kwargs)

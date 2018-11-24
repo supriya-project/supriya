@@ -27,7 +27,7 @@ class TimespanCollection(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_driver',)
+    __slots__ = ("_driver",)
 
     ### INITIALIZER ###
 
@@ -195,7 +195,7 @@ class TimespanCollection(SupriyaObject):
             self.remove(old)
             self.insert(new)
         else:
-            message = 'Indices must be ints or slices, got {}'.format(i)
+            message = "Indices must be ints or slices, got {}".format(i)
             raise TypeError(message)
 
     def __sub__(self, timespan):
@@ -240,7 +240,7 @@ class TimespanCollection(SupriyaObject):
 
     @staticmethod
     def _is_timespan(expr):
-        if hasattr(expr, 'start_offset') and hasattr(expr, 'stop_offset'):
+        if hasattr(expr, "start_offset") and hasattr(expr, "stop_offset"):
             return True
         return False
 
@@ -666,13 +666,13 @@ class TimespanCollection(SupriyaObject):
 
         if self._root_node is not None:
             return recurse(self._root_node)
-        return float('-inf')
+        return float("-inf")
 
     @property
     def earliest_stop_offset(self):
         if self._root_node is not None:
             return self._root_node.stop_offset_low
-        return float('inf')
+        return float("inf")
 
     @property
     def latest_start_offset(self):
@@ -683,13 +683,13 @@ class TimespanCollection(SupriyaObject):
 
         if self._root_node is not None:
             return recurse(self._root_node)
-        return float('-inf')
+        return float("-inf")
 
     @property
     def latest_stop_offset(self):
         if self._root_node is not None:
             return self._root_node.stop_offset_high
-        return float('inf')
+        return float("inf")
 
     @property
     def start_offset(self):

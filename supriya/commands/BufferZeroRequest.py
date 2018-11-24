@@ -34,7 +34,7 @@ class BufferZeroRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_buffer_id', '_callback')
+    __slots__ = ("_buffer_id", "_callback")
 
     request_id = RequestId.BUFFER_ZERO
 
@@ -73,4 +73,4 @@ class BufferZeroRequest(Request):
 
     @property
     def response_patterns(self):
-        return [['/done', '/b_zero', self.buffer_id]]
+        return [["/done", "/b_zero", self.buffer_id]]

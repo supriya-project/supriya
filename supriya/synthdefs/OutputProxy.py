@@ -5,9 +5,9 @@ class OutputProxy(UGenMethodMixin):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'SynthDef Internals'
+    __documentation_section__ = "SynthDef Internals"
 
-    __slots__ = ('_output_index', '_source')
+    __slots__ = ("_output_index", "_source")
 
     ### INITIALIZER ###
 
@@ -43,7 +43,7 @@ class OutputProxy(UGenMethodMixin):
         return 1
 
     def __repr__(self):
-        return '{!r}[{}]'.format(self.source, self.output_index)
+        return "{!r}[{}]".format(self.source, self.output_index)
 
     ### PRIVATE METHODS ###
 

@@ -5,7 +5,7 @@ class QueryTreeControl(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_control_value', '_control_name_or_index')
+    __slots__ = ("_control_value", "_control_name_or_index")
 
     ### INITIALIZER ###
 
@@ -22,7 +22,7 @@ class QueryTreeControl(SupriyaValueObject):
             value = round(value, 6)
         except Exception:
             pass
-        string = '{}: {!s}'.format(key, value)
+        string = "{}: {!s}".format(key, value)
         return string
 
     ### PUBLIC METHODS ###

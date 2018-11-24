@@ -14,7 +14,7 @@ class Silence(PseudoUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Utility UGens'
+    __documentation_section__ = "Utility UGens"
 
     ### PUBLIC METHODS ###
 

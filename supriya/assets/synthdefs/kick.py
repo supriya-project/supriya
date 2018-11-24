@@ -49,7 +49,7 @@ def _build_kick_synthdef():
 
         mix = pitch + noise
 
-        supriya.ugens.Out.ar(builder['out'], (mix, mix))
+        supriya.ugens.Out.ar(builder["out"], (mix, mix))
 
     synthdef = builder.build()
     return synthdef
@@ -57,4 +57,4 @@ def _build_kick_synthdef():
 
 kick = _build_kick_synthdef()
 
-__all__ = ('kick',)
+__all__ = ("kick",)

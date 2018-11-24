@@ -9,15 +9,15 @@ import uqbar.strings
 
 
 with supriya.synthdefs.SynthDefBuilder(out=0, value=1) as builder:
-    source = supriya.ugens.DC.ar(source=builder['value'])
-    supriya.ugens.Out.ar(bus=builder['out'], source=source)
-dc_synthdef = builder.build('dc')
+    source = supriya.ugens.DC.ar(source=builder["value"])
+    supriya.ugens.Out.ar(bus=builder["out"], source=source)
+dc_synthdef = builder.build("dc")
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope="function")
 def mixer(server):
     mixer = supriya.live.Mixer(channel_count=1, cue_channel_count=1)
-    mixer.add_track('track')
+    mixer.add_track("track")
     mixer.allocate()
     return mixer
 
@@ -26,10 +26,10 @@ def test_post_mixer_allocate(server, mixer):
     pattern = supriya.patterns.Pbind(
         duration=1, delta=0.25, value=supriya.patterns.Pseq([0.25, 0.5, 1.0, 2.0], None)
     )
-    slot = mixer['track'].add_auto_pattern_slot(
-        'auto', synthdef=dc_synthdef, pattern=pattern
+    slot = mixer["track"].add_auto_pattern_slot(
+        "auto", synthdef=dc_synthdef, pattern=pattern
     )
-    assert mixer['track']['auto'] is slot
+    assert mixer["track"]["auto"] is slot
     assert str(server) == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -76,10 +76,10 @@ def test_play(server, mixer):
     pattern = supriya.patterns.Pbind(
         duration=1, delta=0.25, value=supriya.patterns.Pseq([0.25, 0.5, 1.0, 2.0], None)
     )
-    slot = mixer['track'].add_auto_pattern_slot(
-        'auto', synthdef=dc_synthdef, pattern=pattern
+    slot = mixer["track"].add_auto_pattern_slot(
+        "auto", synthdef=dc_synthdef, pattern=pattern
     )
-    assert mixer['track']['auto'] is slot
+    assert mixer["track"]["auto"] is slot
     assert slot.play(True)
     time.sleep(0.6)
     assert str(server) == uqbar.strings.normalize(
@@ -134,10 +134,10 @@ def test_stop(server, mixer):
     pattern = supriya.patterns.Pbind(
         duration=1, delta=0.25, value=supriya.patterns.Pseq([0.25, 0.5, 1.0, 2.0], None)
     )
-    slot = mixer['track'].add_auto_pattern_slot(
-        'auto', synthdef=dc_synthdef, pattern=pattern
+    slot = mixer["track"].add_auto_pattern_slot(
+        "auto", synthdef=dc_synthdef, pattern=pattern
     )
-    assert mixer['track']['auto'] is slot
+    assert mixer["track"]["auto"] is slot
     assert slot.play(True)
     time.sleep(0.6)
     slot.play(False)

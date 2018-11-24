@@ -33,7 +33,7 @@ class SyncRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_sync_id',)
+    __slots__ = ("_sync_id",)
 
     request_id = RequestId.SYNC
 
@@ -58,7 +58,7 @@ class SyncRequest(Request):
 
     @property
     def response_patterns(self):
-        return [['/synced', self.sync_id]]
+        return [["/synced", self.sync_id]]
 
     @property
     def sync_id(self):

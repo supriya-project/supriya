@@ -32,11 +32,11 @@ class Convolution2L(UGen):
 
     _ordered_input_names = collections.OrderedDict(
         [
-            ('source', None),
-            ('kernel', None),
-            ('trigger', 0.0),
-            ('framesize', 2048),
-            ('crossfade', 1.0),
+            ("source", None),
+            ("kernel", None),
+            ("trigger", 0.0),
+            ("framesize", 2048),
+            ("crossfade", 1.0),
         ]
     )
 

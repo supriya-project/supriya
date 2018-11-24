@@ -9,7 +9,7 @@ class Pchain(EventPattern):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_patterns',)
+    __slots__ = ("_patterns",)
 
     ### INITIALIZER ###
 

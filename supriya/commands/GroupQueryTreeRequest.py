@@ -35,7 +35,7 @@ class GroupQueryTreeRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_include_controls', '_node_id')
+    __slots__ = ("_include_controls", "_node_id")
 
     request_id = RequestId.GROUP_QUERY_TREE
 
@@ -70,4 +70,4 @@ class GroupQueryTreeRequest(Request):
 
     @property
     def response_patterns(self):
-        return [['/g_queryTree.reply', int(self.include_controls), self.node_id]]
+        return [["/g_queryTree.reply", int(self.include_controls), self.node_id]]

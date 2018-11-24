@@ -73,7 +73,7 @@ def test_send_01():
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -81,13 +81,13 @@ def test_send_01():
             frequency=1001,
             uuid=UUID('A'),
             )
-        '''
+        """
     )
     events = pytest.helpers.setup_pattern_send(pattern_01, iterations=2)
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -102,13 +102,13 @@ def test_send_01():
             frequency=1002,
             uuid=UUID('B'),
             )
-        '''
+        """
     )
     events = pytest.helpers.setup_pattern_send(pattern_01, iterations=3)
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -130,7 +130,7 @@ def test_send_01():
             frequency=1003,
             uuid=UUID('C'),
             )
-        '''
+        """
     )
 
 
@@ -139,7 +139,7 @@ def test_send_02():
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         NoteEvent(
             amplitude=1.0,
             delta=0.0,
@@ -147,13 +147,13 @@ def test_send_02():
             frequency=1001,
             uuid=UUID('A'),
             )
-        '''
+        """
     )
     events = pytest.helpers.setup_pattern_send(pattern_02, iterations=2)
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         NoteEvent(
             amplitude=1.0,
             delta=0.0,
@@ -169,13 +169,13 @@ def test_send_02():
             is_stop=False,
             uuid=UUID('B'),
             )
-        '''
+        """
     )
     events = pytest.helpers.setup_pattern_send(pattern_02, iterations=3)
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         NoteEvent(
             amplitude=1.0,
             delta=0.0,
@@ -199,13 +199,13 @@ def test_send_02():
             is_stop=False,
             uuid=UUID('B'),
             )
-        '''
+        """
     )
     events = pytest.helpers.setup_pattern_send(pattern_02, iterations=4)
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         NoteEvent(
             amplitude=1.0,
             delta=0.0,
@@ -236,13 +236,13 @@ def test_send_02():
             frequency=1002,
             uuid=UUID('C'),
             )
-        '''
+        """
     )
     events = pytest.helpers.setup_pattern_send(pattern_02, iterations=5)
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         NoteEvent(
             amplitude=1.0,
             delta=0.0,
@@ -280,7 +280,7 @@ def test_send_02():
             frequency=2003,
             uuid=UUID('B'),
             )
-        '''
+        """
     )
 
 
@@ -290,7 +290,7 @@ def test_send_06():
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         CompositeEvent(
             events=(
                 GroupEvent(
@@ -299,13 +299,13 @@ def test_send_06():
                     ),
                 ),
             )
-        '''
+        """
     )
     events = pytest.helpers.setup_pattern_send(pattern_06, iterations=2)
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         CompositeEvent(
             events=(
                 GroupEvent(
@@ -333,13 +333,13 @@ def test_send_06():
                 ),
             is_stop=True,
             )
-        '''
+        """
     )
     events = pytest.helpers.setup_pattern_send(pattern_06, iterations=3)
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         CompositeEvent(
             events=(
                 GroupEvent(
@@ -374,14 +374,14 @@ def test_send_06():
                 ),
             is_stop=True,
             )
-        '''
+        """
     )
     events = pytest.helpers.setup_pattern_send(pattern_06, iterations=4)
     # This is odd, but in practice you wouldn't stop on this event.
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         CompositeEvent(
             events=(
                 GroupEvent(
@@ -424,5 +424,5 @@ def test_send_06():
                 ),
             is_stop=True,
             )
-        '''
+        """
     )

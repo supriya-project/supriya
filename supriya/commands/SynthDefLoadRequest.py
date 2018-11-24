@@ -13,7 +13,7 @@ class SynthDefLoadRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_callback', '_synthdef_path')
+    __slots__ = ("_callback", "_synthdef_path")
 
     request_id = RequestId.SYNTHDEF_LOAD
 
@@ -47,7 +47,7 @@ class SynthDefLoadRequest(Request):
 
     @property
     def response_patterns(self):
-        return [['/done', '/d_load']]
+        return [["/done", "/d_load"]]
 
     @property
     def synthdef_path(self):

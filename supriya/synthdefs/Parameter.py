@@ -8,16 +8,16 @@ class Parameter(UGenMethodMixin, SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Main Classes'
+    __documentation_section__ = "Main Classes"
 
     __slots__ = (
-        '_lag',
-        '_name',
-        '_parameter_rate',
-        '_range',
-        '_unit',
-        '_uuid',
-        '_value',
+        "_lag",
+        "_name",
+        "_parameter_rate",
+        "_range",
+        "_unit",
+        "_uuid",
+        "_value",
     )
 
     ### INITIALIZER ###

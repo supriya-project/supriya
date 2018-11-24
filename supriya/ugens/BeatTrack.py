@@ -22,12 +22,12 @@ class BeatTrack(MultiOutUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Machine Listening UGens'
+    __documentation_section__ = "Machine Listening UGens"
 
     _default_channel_count = 4
 
     _has_settable_channel_count = False
 
-    _ordered_input_names = collections.OrderedDict([('pv_chain', None), ('lock', 0.0)])
+    _ordered_input_names = collections.OrderedDict([("pv_chain", None), ("lock", 0.0)])
 
     _valid_calculation_rates = (CalculationRate.CONTROL,)

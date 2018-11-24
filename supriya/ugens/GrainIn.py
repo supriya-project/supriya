@@ -33,12 +33,12 @@ class GrainIn(MultiOutUGen):
 
     _ordered_input_names = collections.OrderedDict(
         [
-            ('trigger', 0),
-            ('duration', 1),
-            ('source', None),
-            ('position', 0),
-            ('envelope_buffer_id', -1),
-            ('maximum_overlap', 512),
+            ("trigger", 0),
+            ("duration", 1),
+            ("source", None),
+            ("position", 0),
+            ("envelope_buffer_id", -1),
+            ("maximum_overlap", 512),
         ]
     )
 

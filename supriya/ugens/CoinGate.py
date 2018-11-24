@@ -21,10 +21,10 @@ class CoinGate(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Noise UGens'
+    __documentation_section__ = "Noise UGens"
 
     _ordered_input_names = collections.OrderedDict(
-        [('probability', 0.5), ('trigger', None)]
+        [("probability", 0.5), ("trigger", None)]
     )
 
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

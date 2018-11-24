@@ -31,7 +31,7 @@ class DumpOscRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_osc_status',)
+    __slots__ = ("_osc_status",)
 
     request_id = RequestId.DUMP_OSC
 

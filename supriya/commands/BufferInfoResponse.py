@@ -7,7 +7,7 @@ class BufferInfoResponse(Response):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_items',)
+    __slots__ = ("_items",)
 
     class Item(NamedTuple):
         buffer_id: int

@@ -35,7 +35,7 @@ class NodeFreeRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_node_ids',)
+    __slots__ = ("_node_ids",)
 
     request_id = RequestId.NODE_FREE
 

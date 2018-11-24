@@ -19,9 +19,9 @@ class MaxLocalBufs(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Buffer UGens'
+    __documentation_section__ = "Buffer UGens"
 
-    _ordered_input_names = collections.OrderedDict([('maximum', 0)])
+    _ordered_input_names = collections.OrderedDict([("maximum", 0)])
 
     _valid_calculation_rates = (CalculationRate.SCALAR,)
 

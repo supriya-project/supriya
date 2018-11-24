@@ -27,7 +27,7 @@ class SessionFactory:
 
         assert isinstance(project_settings, supriya.cli.ProjectSettings)
         server_options = supriya.realtime.ServerOptions(
-            **project_settings.get('server_options', {})
+            **project_settings.get("server_options", {})
         )
         input_bus_channel_count = server_options.input_bus_channel_count
         output_bus_channel_count = server_options.output_bus_channel_count

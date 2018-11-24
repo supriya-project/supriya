@@ -24,10 +24,10 @@ class CheckBadValues(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Utility UGens'
+    __documentation_section__ = "Utility UGens"
 
     _ordered_input_names = collections.OrderedDict(
-        [('source', None), ('ugen_id', 0.0), ('post_mode', 2.0)]
+        [("source", None), ("ugen_id", 0.0), ("post_mode", 2.0)]
     )
 
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

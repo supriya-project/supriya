@@ -15,34 +15,34 @@ class ServerOptions(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Main Classes'
+    __documentation_section__ = "Main Classes"
 
     __slots__ = (
-        '_audio_bus_channel_count',
-        '_block_size',
-        '_buffer_count',
-        '_control_bus_channel_count',
-        '_hardware_buffer_size',
-        '_initial_node_id',
-        '_input_bus_channel_count',
-        '_input_device',
-        '_input_stream_mask',
-        '_load_synthdefs',
-        '_maximum_node_count',
-        '_maximum_synthdef_count',
-        '_memory_locking',
-        '_memory_size',
-        '_output_bus_channel_count',
-        '_output_device',
-        '_output_stream_mask',
-        '_protocol',
-        '_random_number_generator_count',
-        '_remote_control_volume',
-        '_restricted_path',
-        '_sample_rate',
-        '_verbosity',
-        '_wire_buffer_count',
-        '_zero_configuration',
+        "_audio_bus_channel_count",
+        "_block_size",
+        "_buffer_count",
+        "_control_bus_channel_count",
+        "_hardware_buffer_size",
+        "_initial_node_id",
+        "_input_bus_channel_count",
+        "_input_device",
+        "_input_stream_mask",
+        "_load_synthdefs",
+        "_maximum_node_count",
+        "_maximum_synthdef_count",
+        "_memory_locking",
+        "_memory_size",
+        "_output_bus_channel_count",
+        "_output_device",
+        "_output_stream_mask",
+        "_protocol",
+        "_random_number_generator_count",
+        "_remote_control_volume",
+        "_restricted_path",
+        "_sample_rate",
+        "_verbosity",
+        "_wire_buffer_count",
+        "_zero_configuration",
     )
 
     ### INITIALIZER ###
@@ -66,7 +66,7 @@ class ServerOptions(SupriyaObject):
         output_bus_channel_count=8,
         output_device=None,
         output_stream_mask=False,
-        protocol='udp',
+        protocol="udp",
         random_number_generator_count=64,
         remote_control_volume=False,
         restricted_path=None,
@@ -75,9 +75,9 @@ class ServerOptions(SupriyaObject):
         wire_buffer_count=64,
         zero_configuration=False,
     ):
-        if os.environ.get('TRAVIS', None):
-            input_device = 'dummy'
-            output_device = 'dummy'
+        if os.environ.get("TRAVIS", None):
+            input_device = "dummy"
+            output_device = "dummy"
             sample_rate = 44100
         self._audio_bus_channel_count = int(audio_bus_channel_count)
         self._block_size = int(block_size)
@@ -120,14 +120,14 @@ class ServerOptions(SupriyaObject):
         result = []
 
         if realtime:
-            if self.protocol == 'tcp':
-                result.append('-t')
+            if self.protocol == "tcp":
+                result.append("-t")
             else:
-                result.append('-u')
+                result.append("-u")
             result.append(str(port))
 
         if realtime:
-            result.append('-a')
+            result.append("-a")
             result.append(
                 self.private_audio_bus_channel_count
                 + self.input_bus_channel_count
@@ -135,79 +135,79 @@ class ServerOptions(SupriyaObject):
             )
 
         if self.control_bus_channel_count != 4096:
-            result.append('-c {}'.format(self.control_bus_channel_count))
+            result.append("-c {}".format(self.control_bus_channel_count))
 
         if self.input_bus_channel_count != 8:
-            result.append('-i {}'.format(self.input_bus_channel_count))
+            result.append("-i {}".format(self.input_bus_channel_count))
 
         if self.output_bus_channel_count != 8:
-            result.append('-o {}'.format(self.output_bus_channel_count))
+            result.append("-o {}".format(self.output_bus_channel_count))
 
         if self.buffer_count != 1024:
-            result.append('-b {}'.format(self.buffer_count))
+            result.append("-b {}".format(self.buffer_count))
 
         if self.maximum_node_count != 1024:
-            result.append('-n {}'.format(self.maximum_node_count))
+            result.append("-n {}".format(self.maximum_node_count))
 
         if self.maximum_synthdef_count != 1024:
-            result.append('-d {}'.format(self.maximum_synthdef_count))
+            result.append("-d {}".format(self.maximum_synthdef_count))
 
         if self.block_size != 64:
-            result.append('-z {}'.format(self.block_size))
+            result.append("-z {}".format(self.block_size))
 
         if self.hardware_buffer_size is not None:
-            result.append('-Z {}'.format(int(self.hardware_buffer_size)))
+            result.append("-Z {}".format(int(self.hardware_buffer_size)))
 
         if self.memory_size != 8192:
-            result.append('-m {}'.format(self.memory_size))
+            result.append("-m {}".format(self.memory_size))
 
         if self.random_number_generator_count != 64:
-            result.append('-r {}'.format(self.random_number_generator_count))
+            result.append("-r {}".format(self.random_number_generator_count))
 
         if self.wire_buffer_count != 64:
-            result.append('-w {}'.format(self.wire_buffer_count))
+            result.append("-w {}".format(self.wire_buffer_count))
 
         if realtime:
             if self.sample_rate is not None:
-                result.append('-S {}'.format(int(self.sample_rate)))
+                result.append("-S {}".format(int(self.sample_rate)))
 
         if not self.load_synthdefs:
-            result.append('-D 0')
+            result.append("-D 0")
 
         if self.input_stream_mask:
-            result.append('-I {}'.format(self.input_stream_mask))
+            result.append("-I {}".format(self.input_stream_mask))
 
         if self.output_stream_mask:
-            result.append('-O {}'.format(self.output_stream_mask))
+            result.append("-O {}".format(self.output_stream_mask))
 
         if 0 < self.verbosity:
-            result.append('-v {}'.format(self.verbosity))
+            result.append("-v {}".format(self.verbosity))
 
         if realtime:
             if not self.zero_configuration:
-                result.append('-R 0')
+                result.append("-R 0")
 
         if self.restricted_path is not None:
-            result.append('-P {}'.format(self.restricted_path))
+            result.append("-P {}".format(self.restricted_path))
 
         if self.memory_locking:
-            result.append('-L')
+            result.append("-L")
 
         if realtime:
             if self.input_device:
-                result.append('-H')
+                result.append("-H")
                 result.append(str(self.input_device))
                 if self.output_device != self.input_device:
                     result.append(str(self.output_device))
 
-        options_string = ' '.join(str(x) for x in result)
+        options_string = " ".join(str(x) for x in result)
         return options_string
 
     def as_dict(self):
         options = {}
         for name in self.__slots__:
             value = getattr(self, name)
-            name = name.strip('_')
+            name = name.strip("_")
             options[name] = value
         return options
 

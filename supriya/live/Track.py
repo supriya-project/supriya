@@ -25,13 +25,13 @@ class Track:
         self._channel_count = channel_count
 
         self._input_bus_group = supriya.realtime.BusGroup(
-            bus_count=self._channel_count, calculation_rate='audio'
+            bus_count=self._channel_count, calculation_rate="audio"
         )
         self._output_bus_group = supriya.realtime.BusGroup(
-            bus_count=self._channel_count, calculation_rate='audio'
+            bus_count=self._channel_count, calculation_rate="audio"
         )
 
-        self._gain = float('-inf')
+        self._gain = float("-inf")
         self._is_cued = False
         self._is_muted = False
         self._is_soloed = False
@@ -53,7 +53,7 @@ class Track:
         self._cue_synth = None
         self._direct_in = None
         self._direct_out = None
-        if self.name != 'cue':
+        if self.name != "cue":
             self._cue_synth = supriya.realtime.Synth(
                 synthdef=supriya.live.Send.build_synthdef(
                     self.channel_count, self.mixer.cue_track.channel_count
@@ -106,12 +106,12 @@ class Track:
         self.output_bus_group.allocate()
 
     def _allocate_nodes(self, target_group, index=None):
-        self.input_synth['in_'] = self.input_bus_group
-        self.input_synth['out'] = self.output_bus_group
-        self.output_synth['out'] = self.output_bus_group
+        self.input_synth["in_"] = self.input_bus_group
+        self.input_synth["out"] = self.output_bus_group
+        self.output_synth["out"] = self.output_bus_group
         if self.cue_synth:
-            self.cue_synth['in_'] = self.output_bus_group
-            self.cue_synth['out'] = self.mixer.cue_track.input_bus_group
+            self.cue_synth["in_"] = self.output_bus_group
+            self.cue_synth["out"] = self.mixer.cue_track.input_bus_group
         if index is None:
             target_group.append(self._group)
         else:
@@ -216,35 +216,35 @@ class Track:
             active=1,
             gain=0,
             gate=1,
-            in_=supriya.synthdefs.Parameter(value=0, parameter_rate='scalar'),
+            in_=supriya.synthdefs.Parameter(value=0, parameter_rate="scalar"),
             lag=0.1,
-            out=supriya.synthdefs.Parameter(value=0, parameter_rate='scalar'),
+            out=supriya.synthdefs.Parameter(value=0, parameter_rate="scalar"),
         )
         with synthdef_builder:
             source = supriya.ugens.InFeedback.ar(
-                bus=synthdef_builder['in_'], channel_count=channel_count
+                bus=synthdef_builder["in_"], channel_count=channel_count
             )
-            supriya.ugens.SendPeakRMS.ar(command_name='/levels/input', source=source)
+            supriya.ugens.SendPeakRMS.ar(command_name="/levels/input", source=source)
             gate = supriya.ugens.Linen.kr(
-                attack_time=synthdef_builder['lag'],
+                attack_time=synthdef_builder["lag"],
                 done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
-                gate=synthdef_builder['gate'],
-                release_time=synthdef_builder['lag'],
+                gate=synthdef_builder["gate"],
+                release_time=synthdef_builder["lag"],
             )
             active = supriya.ugens.Linen.kr(
-                attack_time=synthdef_builder['lag'],
+                attack_time=synthdef_builder["lag"],
                 done_action=supriya.synthdefs.DoneAction.NOTHING,
-                gate=synthdef_builder['active'],
-                release_time=synthdef_builder['lag'],
+                gate=synthdef_builder["active"],
+                release_time=synthdef_builder["lag"],
             )
             amplitude = (
-                synthdef_builder['gain'].db_to_amplitude()
-                * (synthdef_builder['gain'] > -96.0)
-            ).lag(synthdef_builder['lag'])
+                synthdef_builder["gain"].db_to_amplitude()
+                * (synthdef_builder["gain"] > -96.0)
+            ).lag(synthdef_builder["lag"])
             total_gain = gate * active * amplitude
             source *= total_gain
-            supriya.ugens.ReplaceOut.ar(bus=synthdef_builder['out'], source=source)
-        name = 'mixer/input/{}'.format(channel_count)
+            supriya.ugens.ReplaceOut.ar(bus=synthdef_builder["out"], source=source)
+        name = "mixer/input/{}".format(channel_count)
         return synthdef_builder.build(name=name)
 
     @staticmethod
@@ -254,36 +254,36 @@ class Track:
             gain=0,
             gate=1,
             lag=0.1,
-            out=supriya.synthdefs.Parameter(value=0, parameter_rate='scalar'),
+            out=supriya.synthdefs.Parameter(value=0, parameter_rate="scalar"),
         )
         with synthdef_builder:
             source = supriya.ugens.In.ar(
-                bus=synthdef_builder['out'], channel_count=channel_count
+                bus=synthdef_builder["out"], channel_count=channel_count
             )
-            supriya.ugens.SendPeakRMS.ar(command_name='/levels/prefader', source=source)
+            supriya.ugens.SendPeakRMS.ar(command_name="/levels/prefader", source=source)
             gate = supriya.ugens.Linen.kr(
-                attack_time=synthdef_builder['lag'],
+                attack_time=synthdef_builder["lag"],
                 done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
-                gate=synthdef_builder['gate'],
-                release_time=synthdef_builder['lag'],
+                gate=synthdef_builder["gate"],
+                release_time=synthdef_builder["lag"],
             )
             active = supriya.ugens.Linen.kr(
-                attack_time=synthdef_builder['lag'],
+                attack_time=synthdef_builder["lag"],
                 done_action=supriya.synthdefs.DoneAction.NOTHING,
-                gate=synthdef_builder['active'],
-                release_time=synthdef_builder['lag'],
+                gate=synthdef_builder["active"],
+                release_time=synthdef_builder["lag"],
             )
             amplitude = (
-                synthdef_builder['gain'].db_to_amplitude()
-                * (synthdef_builder['gain'] > -96.0)
-            ).lag(synthdef_builder['lag'])
+                synthdef_builder["gain"].db_to_amplitude()
+                * (synthdef_builder["gain"] > -96.0)
+            ).lag(synthdef_builder["lag"])
             total_gain = gate * active * amplitude
             source *= total_gain
             supriya.ugens.SendPeakRMS.ar(
-                command_name='/levels/postfader', source=source
+                command_name="/levels/postfader", source=source
             )
-            supriya.ugens.ReplaceOut.ar(bus=synthdef_builder['out'], source=source)
-        name = 'mixer/output/{}'.format(channel_count)
+            supriya.ugens.ReplaceOut.ar(bus=synthdef_builder["out"], source=source)
+        name = "mixer/output/{}".format(channel_count)
         return synthdef_builder.build(name=name)
 
     def remove_send(self, target_name):
@@ -310,14 +310,14 @@ class Track:
 
     @Bindable(rebroadcast=True)
     def set_cue(self, state):
-        if self.name == 'cue':
+        if self.name == "cue":
             return False
         elif not state:
             self._is_cued = False
-            self.cue_synth['active'] = False
+            self.cue_synth["active"] = False
         else:
             self._is_cued = True
-            self.cue_synth['active'] = True
+            self.cue_synth["active"] = True
             if not self.mixer.is_allowing_multiple:
                 for track in self.mixer.tracks + [self.mixer.master_track]:
                     if track is self:
@@ -329,12 +329,12 @@ class Track:
     @Bindable(rebroadcast=True)
     def set_gain(self, gain):
         self._gain = gain
-        self.output_synth['gain'] = gain
+        self.output_synth["gain"] = gain
         return gain
 
     @Bindable(rebroadcast=True)
     def set_mute(self, state):
-        if self.name in ('master',):
+        if self.name in ("master",):
             return False
         if state:
             self._is_muted = True
@@ -346,7 +346,7 @@ class Track:
 
     @Bindable(rebroadcast=True)
     def set_solo(self, state, handle=True):
-        if self.name in ('cue', 'master'):
+        if self.name in ("cue", "master"):
             return False
         if state:
             self._is_muted = False

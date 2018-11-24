@@ -16,7 +16,7 @@ class In(MultiOutUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Input/Output UGens'
+    __documentation_section__ = "Input/Output UGens"
 
     _default_channel_count = 1
 
@@ -24,6 +24,6 @@ class In(MultiOutUGen):
 
     _is_input = True
 
-    _ordered_input_names = collections.OrderedDict([('bus', 0)])
+    _ordered_input_names = collections.OrderedDict([("bus", 0)])
 
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

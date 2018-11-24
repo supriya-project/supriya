@@ -33,7 +33,7 @@ class SynthSlot(Slot):
                 continue
             kwargs[name] = parameter.value
         for key in tuple(kwargs):
-            if key in ('in_', 'out', 'gate'):
+            if key in ("in_", "out", "gate"):
                 kwargs.pop(key)
             elif key not in self._synthdef.parameter_names:
                 kwargs.pop(key)

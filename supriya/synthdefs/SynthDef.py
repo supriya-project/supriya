@@ -59,15 +59,15 @@ class SynthDef(ServerObjectProxy):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Main Classes'
+    __documentation_section__ = "Main Classes"
 
     __slots__ = (
-        '_compiled_ugen_graph',
-        '_constants',
-        '_control_ugens',
-        '_indexed_parameters',
-        '_name',
-        '_ugens',
+        "_compiled_ugen_graph",
+        "_constants",
+        "_control_ugens",
+        "_indexed_parameters",
+        "_name",
+        "_ugens",
     )
 
     ### INITIALIZER ###
@@ -156,7 +156,7 @@ class SynthDef(ServerObjectProxy):
         return hash(hash_values)
 
     def __repr__(self):
-        return '<{}: {}>'.format(type(self).__name__, self.actual_name)
+        return "<{}: {}>".format(type(self).__name__, self.actual_name)
 
     def __str__(self):
         """
@@ -215,23 +215,23 @@ class SynthDef(ServerObjectProxy):
                     ugen_op = supriya.synthdefs.BinaryOperator.from_expr(
                         ugen.special_index
                     )
-                    parts.append('(' + ugen_op.name + ')')
+                    parts.append("(" + ugen_op.name + ")")
                 elif isinstance(ugen, supriya.ugens.UnaryOpUGen):
                     ugen_op = supriya.synthdefs.UnaryOperator.from_expr(
                         ugen.special_index
                     )
-                    parts.append('(' + ugen_op.name + ')')
-                parts.append('.' + ugen.calculation_rate.token)
+                    parts.append("(" + ugen_op.name + ")")
+                parts.append("." + ugen.calculation_rate.token)
                 key = (type(ugen), ugen.calculation_rate, ugen.special_index)
                 related_ugens = grouped_ugens[key]
                 if len(related_ugens) > 1:
-                    parts.append('/{}'.format(related_ugens.index(ugen)))
-                named_ugens[ugen] = ''.join(parts)
+                    parts.append("/{}".format(related_ugens.index(ugen)))
+                named_ugens[ugen] = "".join(parts)
             return named_ugens
 
         def get_parameter_name(input_, output_index=0):
             if isinstance(input_, supriya.synthdefs.Parameter):
-                return ':{}'.format(input_.name)
+                return ":{}".format(input_.name)
             elif isinstance(input_, supriya.ugens.Control):
                 # Handle array-like parameters
                 value_index = 0
@@ -244,10 +244,10 @@ class SynthDef(ServerObjectProxy):
                             value_index += 1
                             continue
                         elif len(values) == 1:
-                            return ':{}'.format(parameter.name)
+                            return ":{}".format(parameter.name)
                         else:
-                            return ':{}[{}]'.format(parameter.name, i)
-            return ''
+                            return ":{}[{}]".format(parameter.name, i)
+            return ""
 
         import supriya.synthdefs
         import supriya.ugens
@@ -269,7 +269,7 @@ class SynthDef(ServerObjectProxy):
                     unexpanded_index = i - tuple(ugen._ordered_input_names).index(
                         argument_name
                     )
-                    argument_name += '[{}]'.format(unexpanded_index)
+                    argument_name += "[{}]".format(unexpanded_index)
                 if isinstance(input_, float):
                     value = input_
                 else:
@@ -278,7 +278,7 @@ class SynthDef(ServerObjectProxy):
                         output_index = input_.output_index
                         input_ = input_.source
                     input_name = named_ugens[input_]
-                    value = '{}[{}{}]'.format(
+                    value = "{}[{}{}]".format(
                         input_name,
                         output_index,
                         get_parameter_name(input_, output_index),
@@ -289,10 +289,10 @@ class SynthDef(ServerObjectProxy):
             ugens.append({ugen_name: ugen_dict})
 
         result = {
-            'synthdef': {
-                'name': self.actual_name,
+            "synthdef": {
+                "name": self.actual_name,
                 #'hash': self.anonymous_name,
-                'ugens': ugens,
+                "ugens": ugens,
             }
         }
         return yaml.dump(result, default_flow_style=False, indent=4)
@@ -332,9 +332,9 @@ class SynthDef(ServerObjectProxy):
         if d_load_synthdefs:
             temp_directory_path = tempfile.mkdtemp()
             for synthdef in d_load_synthdefs:
-                file_name = '{}.scsyndef'.format(synthdef.actual_name)
+                file_name = "{}.scsyndef".format(synthdef.actual_name)
                 file_path = os.path.join(temp_directory_path, file_name)
-                with open(file_path, 'wb') as file_pointer:
+                with open(file_path, "wb") as file_pointer:
                     file_pointer.write(synthdef.compile())
             d_load_dir_request = supriya.commands.SynthDefLoadDirectoryRequest(
                 directory_path=temp_directory_path
@@ -727,22 +727,22 @@ class SynthDef(ServerObjectProxy):
 
         """
         result = {
-            'name': self.actual_name,
-            'hash': self.anonymous_name,
-            'parameters': {},
+            "name": self.actual_name,
+            "hash": self.anonymous_name,
+            "parameters": {},
         }
         for parameter_name, parameter in self.parameters.items():
             range_ = [0, 1]
             if parameter.range_:
                 range_ = [parameter.range_.minimum, parameter.range_.maximum]
             rate = parameter.parameter_rate.name.lower()
-            result['parameters'][parameter_name] = {
-                'rate': rate,
-                'range': range_,
-                'unit': parameter.unit,
-                'value': parameter.value,
+            result["parameters"][parameter_name] = {
+                "rate": rate,
+                "range": range_,
+                "unit": parameter.unit,
+                "value": parameter.value,
             }
-        result = {'synthdef': result}
+        result = {"synthdef": result}
         return result
 
     ### PUBLIC PROPERTIES ###
@@ -953,7 +953,7 @@ class SynthDef(ServerObjectProxy):
 
     @property
     def has_gate(self):
-        return 'gate' in self.parameter_names
+        return "gate" in self.parameter_names
 
     @property
     def indexed_parameters(self):

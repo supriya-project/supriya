@@ -9,11 +9,11 @@ class ControlInterface(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Server Internals'
+    __documentation_section__ = "Server Internals"
 
-    __slots__ = ('_synth_controls', '_client')
+    __slots__ = ("_synth_controls", "_client")
 
-    _bus_pattern = re.compile('(?P<type>c|a)(?P<id>\d+)')
+    _bus_pattern = re.compile("(?P<type>c|a)(?P<id>\d+)")
 
     ### SPECIAL METHODS ###
 
@@ -45,12 +45,12 @@ class ControlInterface(SupriyaObject):
                 match = self._bus_pattern.match(value)
                 if match:
                     group_dict = match.groupdict()
-                    if group_dict['type'] == 'c':
-                        calculation_rate = 'control'
+                    if group_dict["type"] == "c":
+                        calculation_rate = "control"
                     else:
-                        calculation_rate = 'audio'
+                        calculation_rate = "audio"
                     value = supriya.realtime.Bus(
-                        bus_group_or_index=int(group_dict['id']),
+                        bus_group_or_index=int(group_dict["id"]),
                         calculation_rate=calculation_rate,
                     ).allocate()
             if isinstance(value, (int, float)):

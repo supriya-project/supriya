@@ -5,7 +5,7 @@ class SynthDefRemovedResponse(Response):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_synthdef_name',)
+    __slots__ = ("_synthdef_name",)
 
     ### INITIALIZER ###
 

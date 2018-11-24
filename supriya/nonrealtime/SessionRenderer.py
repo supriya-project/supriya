@@ -26,23 +26,23 @@ class SessionRenderer(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Session Internals'
+    __documentation_section__ = "Session Internals"
 
     __slots__ = (
-        '_compiled_sessions',
-        '_header_format',
-        '_prerender_tuples',
-        '_print_transcript',
-        '_render_directory_path',
-        '_sample_format',
-        '_sample_rate',
-        '_session',
-        '_session_input_paths',
-        '_renderable_prefixes',
-        '_transcript',
-        '_transcript_prefix',
-        '_dependency_graph',
-        '_sessionables_to_sessions',
+        "_compiled_sessions",
+        "_header_format",
+        "_prerender_tuples",
+        "_print_transcript",
+        "_render_directory_path",
+        "_sample_format",
+        "_sample_rate",
+        "_session",
+        "_session_input_paths",
+        "_renderable_prefixes",
+        "_transcript",
+        "_transcript_prefix",
+        "_dependency_graph",
+        "_sessionables_to_sessions",
     )
 
     ### INITIALIZER ###
@@ -89,10 +89,10 @@ class SessionRenderer(SupriyaObject):
         for osc_bundle in osc_bundles:
             datagram = osc_bundle.to_datagram(realtime=False)
             size = len(datagram)
-            size = struct.pack('>i', size)
+            size = struct.pack(">i", size)
             datagrams.append(size)
             datagrams.append(datagram)
-        datagram = b''.join(datagrams)
+        datagram = b"".join(datagrams)
         return datagram
 
     def _build_file_path(self, datagram, input_file_path, session):
@@ -116,7 +116,7 @@ class SessionRenderer(SupriyaObject):
             value = value.encode()
             md5.update(value)
         md5 = md5.hexdigest()
-        file_path = 'session-{}.osc'.format(md5)
+        file_path = "session-{}.osc".format(md5)
         return pathlib.Path(file_path)
 
     def _build_render_command(
@@ -128,18 +128,18 @@ class SessionRenderer(SupriyaObject):
     ):
         cwd = pathlib.Path.cwd()
         server_options = server_options or supriya.realtime.ServerOptions()
-        if os.environ.get('TRAVIS', None):
+        if os.environ.get("TRAVIS", None):
             server_options = utils.new(server_options, load_synthdefs=True)
-        scsynth_path = 'scsynth'
+        scsynth_path = "scsynth"
         if not uqbar.io.find_executable(scsynth_path):
-            raise RuntimeError('Cannot find scsynth')
+            raise RuntimeError("Cannot find scsynth")
         if session_osc_file_path.is_absolute():
             session_osc_file_path = session_osc_file_path.relative_to(cwd)
-        parts = [scsynth_path, '-N', session_osc_file_path]
+        parts = [scsynth_path, "-N", session_osc_file_path]
         if input_file_path:
             parts.append(input_file_path)
         else:
-            parts.append('_')
+            parts.append("_")
         if output_file_path.is_absolute() and cwd in output_file_path.parents:
             output_file_path = output_file_path.relative_to(cwd)
         parts.append(output_file_path)
@@ -149,19 +149,19 @@ class SessionRenderer(SupriyaObject):
         server_options = server_options.as_options_string(realtime=False)
         if server_options:
             parts.append(server_options)
-        command = ' '.join(str(_) for _ in parts)
+        command = " ".join(str(_) for _ in parts)
         return command
 
     def _build_render_yml(self, session_prefixes):
         session_prefixes = session_prefixes[:]
-        render_data = {'render': session_prefixes.pop(), 'source': None}
+        render_data = {"render": session_prefixes.pop(), "source": None}
         if session_prefixes:
-            render_data['source'] = list(reversed(session_prefixes))
+            render_data["source"] = list(reversed(session_prefixes))
         render_yaml = yaml.dump(render_data, default_flow_style=False, indent=4)
         return render_yaml
 
     def _build_xrefd_bundles(self, osc_bundles):
-        extension = '.{}'.format(self.header_format.name.lower())
+        extension = ".{}".format(self.header_format.name.lower())
         for osc_bundle in osc_bundles:
             for osc_message in osc_bundle.contents:
                 contents = list(osc_message.contents)
@@ -189,7 +189,7 @@ class SessionRenderer(SupriyaObject):
             if expr not in self.dependency_graph:
                 self._build_dependency_graph_and_nonxrefd_osc_bundles(expr)
             self.dependency_graph.add(expr, parent=parent)
-        elif hasattr(expr, '__render__'):
+        elif hasattr(expr, "__render__"):
             self.dependency_graph.add(expr, parent=parent)
 
     def _build_dependency_graph_and_nonxrefd_osc_bundles(self, session, duration=None):
@@ -220,7 +220,7 @@ class SessionRenderer(SupriyaObject):
         )
         previous_value = 0
         progress_bar = tqdm.tqdm(
-            bar_format=(), total=int(session_duration * 1000), unit='ms'
+            bar_format=(), total=int(session_duration * 1000), unit="ms"
         )
         with progress_bar:
             while True:
@@ -230,19 +230,19 @@ class SessionRenderer(SupriyaObject):
                         break
                     continue
                 output = output.decode().strip()
-                if output.startswith('nextOSCPacket'):
+                if output.startswith("nextOSCPacket"):
                     current_value = int(float(output.split()[-1]) * 1000)
                     difference = current_value - previous_value
                     progress_bar.update(difference)
                     previous_value = current_value
-                elif output.startswith('FAILURE'):
-                    if output.startswith('FAILURE IN SERVER /n_free Node'):
+                elif output.startswith("FAILURE"):
+                    if output.startswith("FAILURE IN SERVER /n_free Node"):
                         continue
                     progress_bar.write(output)
-                elif output.startswith('start time 0'):
+                elif output.startswith("start time 0"):
                     continue
                 else:
-                    progress_bar.write('WARNING: {}'.format(output))
+                    progress_bar.write("WARNING: {}".format(output))
         return process.poll()
 
     def _collect_prerender_tuples(self, session, duration=None):
@@ -252,7 +252,7 @@ class SessionRenderer(SupriyaObject):
             session, duration=duration
         )
         assert self.dependency_graph.is_acyclic()
-        extension = '.{}'.format(self.header_format.name.lower())
+        extension = ".{}".format(self.header_format.name.lower())
         for renderable in self.dependency_graph:
             if isinstance(renderable, supriya.nonrealtime.Session):
                 result = self._collect_session_prerender_tuple(renderable, extension)
@@ -265,7 +265,7 @@ class SessionRenderer(SupriyaObject):
         return self.prerender_tuples
 
     def _collect_renderable_prerender_tuple(self, renderable):
-        renderable_prefix = renderable._build_file_path().with_suffix('')
+        renderable_prefix = renderable._build_file_path().with_suffix("")
         return (renderable,), renderable_prefix
 
     def _collect_session_prerender_tuple(self, session, extension):
@@ -283,7 +283,7 @@ class SessionRenderer(SupriyaObject):
         datagram = self._build_datagram(osc_bundles)
         renderable_prefix = self._build_file_path(
             datagram, input_file_path, session
-        ).with_suffix('')
+        ).with_suffix("")
         return (session, datagram, input_, osc_bundles), renderable_prefix
 
     def _render_datagram(
@@ -299,10 +299,10 @@ class SessionRenderer(SupriyaObject):
             relative_session_osc_file_path = session_osc_file_path.relative_to(
                 pathlib.Path.cwd()
             )
-        self._report('Rendering {}.'.format(relative_session_osc_file_path))
+        self._report("Rendering {}.".format(relative_session_osc_file_path))
         if output_file_path.exists():
             self._report(
-                '    Skipped {}. Output already exists.'.format(
+                "    Skipped {}. Output already exists.".format(
                     relative_session_osc_file_path
                 )
             )
@@ -317,36 +317,36 @@ class SessionRenderer(SupriyaObject):
                 session_osc_file_path,
                 server_options=server_options,
             )
-            self._report('    Command: {}'.format(command))
+            self._report("    Command: {}".format(command))
             exit_code = self._stream_subprocess(command, session.duration)
             server_options = utils.new(
                 server_options, memory_size=memory_size * (2 ** factor)
             )
             if exit_code == -6:
                 self._report(
-                    '    Out of memory. Increasing to {}.'.format(
+                    "    Out of memory. Increasing to {}.".format(
                         server_options.memory_size
                     )
                 )
             else:
                 self._report(
-                    '    Rendered {} with exit code {}.'.format(
+                    "    Rendered {} with exit code {}.".format(
                         relative_session_osc_file_path, exit_code
                     )
                 )
                 break
         return exit_code
 
-    def _read(self, file_path, mode=''):
+    def _read(self, file_path, mode=""):
         try:
-            with open(str(file_path), 'r' + mode) as file_pointer:
+            with open(str(file_path), "r" + mode) as file_pointer:
                 return file_pointer.read()
         except FileNotFoundError:
             return None
 
     def _report(self, message):
         if self.transcript_prefix:
-            message = '{}{}'.format(self.transcript_prefix, message)
+            message = "{}{}".format(self.transcript_prefix, message)
         if self.print_transcript:
             print(message)
         self.transcript.append(message)
@@ -361,33 +361,33 @@ class SessionRenderer(SupriyaObject):
         self._sessionables_to_sessions = {}
 
     def _sessionable_to_session(self, expr):
-        if hasattr(expr, '__session__'):
+        if hasattr(expr, "__session__"):
             if expr not in self._sessionables_to_sessions:
                 self._sessionables_to_sessions[expr] = expr.__session__()
             return self._sessionables_to_sessions[expr]
         return expr
 
     def _write_datagram(self, file_path, new_contents):
-        self._write(file_path, new_contents, mode='b')
+        self._write(file_path, new_contents, mode="b")
 
     def _write_render_yml(self, file_path, render_yaml):
         self._write(file_path, render_yaml)
 
-    def _write(self, file_path, new_contents, mode=''):
+    def _write(self, file_path, new_contents, mode=""):
         cwd = pathlib.Path.cwd()
         relative_file_path = file_path
         if file_path.is_absolute() and cwd in file_path.parents:
             relative_file_path = file_path.relative_to(cwd)
-        self._report('Writing {}.'.format(relative_file_path))
+        self._report("Writing {}.".format(relative_file_path))
         old_contents = self._read(file_path, mode=mode)
         if old_contents == new_contents:
             self._report(
-                '    Skipped {}. File already exists.'.format(relative_file_path)
+                "    Skipped {}. File already exists.".format(relative_file_path)
             )
         else:
-            with open(str(file_path), 'w' + mode) as file_pointer:
+            with open(str(file_path), "w" + mode) as file_pointer:
                 file_pointer.write(new_contents)
-            self._report('    Wrote {}.'.format(relative_file_path))
+            self._report("    Wrote {}.".format(relative_file_path))
 
     ### PUBLIC METHODS ###
 
@@ -418,7 +418,7 @@ class SessionRenderer(SupriyaObject):
         common_parent = sorted(common_parents)[-1]
         target_path = target_path.relative_to(common_parent)
         render_path = render_path.relative_to(common_parent)
-        parts = ['..' for _ in render_path.parts] + [target_path]
+        parts = [".." for _ in render_path.parts] + [target_path]
         return pathlib.Path().joinpath(*parts)
 
     def render(
@@ -431,7 +431,7 @@ class SessionRenderer(SupriyaObject):
     ):
         import supriya.nonrealtime
 
-        extension = '.{}'.format(self.header_format.name.lower())
+        extension = ".{}".format(self.header_format.name.lower())
         if output_file_path is not None:
             output_file_path = pathlib.Path(output_file_path)
             output_file_path = output_file_path.expanduser().absolute()
@@ -444,12 +444,12 @@ class SessionRenderer(SupriyaObject):
                 renderable = prerender_tuple[0]
                 renderable_prefix = self.renderable_prefixes[renderable]
                 visited_renderable_prefixes.append(
-                    renderable_prefix.with_suffix('').name
+                    renderable_prefix.with_suffix("").name
                 )
                 output_file_path = renderable_prefix.with_suffix(extension)
                 if isinstance(renderable, supriya.nonrealtime.Session):
                     (session, datagram, input_, _) = prerender_tuple
-                    osc_file_path = renderable_prefix.with_suffix('.osc')
+                    osc_file_path = renderable_prefix.with_suffix(".osc")
                     input_file_path = self.session_input_paths.get(session)
                     self._write_datagram(osc_file_path, datagram)
                     try:
@@ -464,7 +464,7 @@ class SessionRenderer(SupriyaObject):
                         output_file_path.unlink()
                         sys.exit(1)
                     if exit_code:
-                        self._report('    SuperCollider errored!')
+                        self._report("    SuperCollider errored!")
                         raise NonrealtimeRenderError(exit_code)
                 else:
                     renderable.__render__(
@@ -473,14 +473,14 @@ class SessionRenderer(SupriyaObject):
                     )
         output_file_path = self.render_directory_path / output_file_path
         if not output_file_path.exists():
-            self._report('    Output file is missing!')
+            self._report("    Output file is missing!")
             raise NonrealtimeOutputMissing(output_file_path)
         if original_output_file_path is not None:
             shutil.copy(str(output_file_path), str(original_output_file_path))
         if build_render_yml:
             output_directory = (original_output_file_path or output_file_path).parent
             render_yaml = self._build_render_yml(visited_renderable_prefixes)
-            self._write_render_yml(output_directory / 'render.yml', render_yaml)
+            self._write_render_yml(output_directory / "render.yml", render_yaml)
         return exit_code, self.transcript, output_file_path
 
     ### PUBLIC PROPERTIES ###

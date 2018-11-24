@@ -43,7 +43,7 @@ class BufferSetRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_buffer_id', '_index_value_pairs')
+    __slots__ = ("_buffer_id", "_index_value_pairs")
 
     request_id = RequestId.BUFFER_SET
 

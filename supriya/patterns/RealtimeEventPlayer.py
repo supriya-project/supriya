@@ -12,7 +12,7 @@ class RealtimeEventPlayer(EventPlayer):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_clock', '_iterator', '_pattern', '_server', '_uuids')
+    __slots__ = ("_clock", "_iterator", "_pattern", "_server", "_uuids")
 
     ### INITIALIZER ###
 
@@ -145,10 +145,10 @@ class RealtimeEventPlayer(EventPlayer):
     ### PUBLIC METHODS ###
 
     def notify(self, topic, event):
-        if topic == 'server-quitting':
+        if topic == "server-quitting":
             self.stop()
 
-    @supriya.system.PubSub.subscribe_before('server-quitting')
+    @supriya.system.PubSub.subscribe_before("server-quitting")
     def start(self):
         if not self._server.is_running:
             return
@@ -162,7 +162,7 @@ class RealtimeEventPlayer(EventPlayer):
         )
         self._clock.schedule(self, scheduled_time=timestamp, absolute=True)
 
-    @supriya.system.PubSub.unsubscribe_after('server-quitting')
+    @supriya.system.PubSub.unsubscribe_after("server-quitting")
     def stop(self):
         self._clock.cancel(self)
         self._iterator = None

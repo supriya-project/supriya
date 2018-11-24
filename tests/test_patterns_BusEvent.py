@@ -9,7 +9,7 @@ import supriya.realtime
 def test__perform_realtime_01(server):
     bus_uuid = uuid.uuid4()
     event = supriya.patterns.BusEvent(
-        calculation_rate='audio', channel_count=2, uuid=bus_uuid
+        calculation_rate="audio", channel_count=2, uuid=bus_uuid
     )
     server = types.SimpleNamespace(
         audio_bus_allocator=supriya.realtime.BlockAllocator(),
@@ -22,7 +22,7 @@ def test__perform_realtime_01(server):
     assert pytest.helpers.get_objects_as_string(
         event_products, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         EventProduct(
             event=BusEvent(
                 calculation_rate=CalculationRate.AUDIO,
@@ -33,7 +33,7 @@ def test__perform_realtime_01(server):
             timestamp=100.0,
             uuid=UUID('A'),
             )
-        '''
+        """
     )
     assert bus_uuid in uuids
     assert isinstance(uuids[bus_uuid], dict)
@@ -48,7 +48,7 @@ def test__perform_realtime_02(server):
         control_bus_allocator=supriya.realtime.BlockAllocator(),
     )
     uuids = {
-        bus_uuid: {0: supriya.realtime.BusGroup(calculation_rate='audio', bus_count=2)}
+        bus_uuid: {0: supriya.realtime.BusGroup(calculation_rate="audio", bus_count=2)}
     }
     event_products = event._perform_realtime(
         server=server, timestamp=100.0, uuids=uuids
@@ -56,7 +56,7 @@ def test__perform_realtime_02(server):
     assert pytest.helpers.get_objects_as_string(
         event_products, replace_uuids=True
     ) == uqbar.strings.normalize(
-        '''
+        """
         EventProduct(
             event=BusEvent(
                 calculation_rate=None,
@@ -69,5 +69,5 @@ def test__perform_realtime_02(server):
             timestamp=100.0,
             uuid=UUID('A'),
             )
-        '''
+        """
     )

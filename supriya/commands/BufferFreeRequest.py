@@ -34,7 +34,7 @@ class BufferFreeRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_buffer_id', '_callback')
+    __slots__ = ("_buffer_id", "_callback")
 
     request_id = RequestId.BUFFER_FREE
 

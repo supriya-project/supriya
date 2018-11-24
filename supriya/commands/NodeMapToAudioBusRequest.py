@@ -40,7 +40,7 @@ class NodeMapToAudioBusRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_kwargs', '_node_id')
+    __slots__ = ("_kwargs", "_node_id")
 
     request_id = RequestId.NODE_MAP_TO_AUDIO_BUS
 

@@ -14,11 +14,11 @@ class Control(MultiOutUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'UGen Internals'
+    __documentation_section__ = "UGen Internals"
 
     _ordered_input_names: UGenInputMap = collections.OrderedDict([])
 
-    __slots__ = ('_parameters',)
+    __slots__ = ("_parameters",)
 
     ### INITIALIZER ###
 

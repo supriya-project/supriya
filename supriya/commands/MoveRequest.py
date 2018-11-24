@@ -10,7 +10,7 @@ class MoveRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_node_id_pairs',)
+    __slots__ = ("_node_id_pairs",)
 
     class NodeIdPair(typing.NamedTuple):
         node_id: int

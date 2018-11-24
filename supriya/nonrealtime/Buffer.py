@@ -10,19 +10,19 @@ class Buffer(SessionObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Session Objects'
+    __documentation_section__ = "Session Objects"
 
     __slots__ = (
-        '_buffer_group',
-        '_channel_count',
-        '_duration',
-        '_events',
-        '_frame_count',
-        '_session',
-        '_session_id',
-        '_start_offset',
-        '_file_path',
-        '_starting_frame',
+        "_buffer_group",
+        "_channel_count",
+        "_duration",
+        "_events",
+        "_frame_count",
+        "_session",
+        "_session_id",
+        "_start_offset",
+        "_file_path",
+        "_starting_frame",
     )
 
     ### INITIALIZER ###
@@ -50,7 +50,7 @@ class Buffer(SessionObject):
         start_offset = start_offset or 0
         self._start_offset = float(start_offset)
         if duration is None:
-            duration = float('inf')
+            duration = float("inf")
         self._duration = duration
         if file_path is not None:
             starting_frame = int(starting_frame or 0)
@@ -145,7 +145,7 @@ class Buffer(SessionObject):
             amplitudes=tuple(float(_) for _ in amplitudes),
             as_wavetable=bool(as_wavetable),
             buffer_id=self,
-            command_name='cheby',
+            command_name="cheby",
             should_clear_first=bool(should_clear_first),
             should_normalize=bool(should_normalize),
         )
@@ -164,7 +164,7 @@ class Buffer(SessionObject):
             amplitudes=tuple(float(_) for _ in amplitudes),
             as_wavetable=bool(as_wavetable),
             buffer_id=self,
-            command_name='sine1',
+            command_name="sine1",
             should_clear_first=bool(should_clear_first),
             should_normalize=bool(should_normalize),
         )
@@ -184,7 +184,7 @@ class Buffer(SessionObject):
             amplitudes=tuple(float(_) for _ in amplitudes),
             as_wavetable=bool(as_wavetable),
             buffer_id=self,
-            command_name='sine2',
+            command_name="sine2",
             frequencies=tuple(float(_) for _ in frequencies),
             should_clear_first=bool(should_clear_first),
             should_normalize=bool(should_normalize),
@@ -206,7 +206,7 @@ class Buffer(SessionObject):
             amplitudes=tuple(float(_) for _ in amplitudes),
             as_wavetable=bool(as_wavetable),
             buffer_id=self,
-            command_name='sine3',
+            command_name="sine3",
             frequencies=tuple(float(_) for _ in frequencies),
             phases=tuple(float(_) for _ in phases),
             should_clear_first=bool(should_clear_first),
@@ -251,9 +251,9 @@ class Buffer(SessionObject):
         self,
         file_path,
         frame_count=None,
-        header_format='aiff',
+        header_format="aiff",
         leave_open=False,
-        sample_format='int24',
+        sample_format="int24",
         starting_frame=None,
         offset=None,
     ):

@@ -5,9 +5,9 @@ class UGenSortBundle(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'SynthDef Internals'
+    __documentation_section__ = "SynthDef Internals"
 
-    __slots__ = ('_antecedents', '_descendants', '_ugen', '_width_first_antecedents')
+    __slots__ = ("_antecedents", "_descendants", "_ugen", "_width_first_antecedents")
 
     ### INITIALIZER ###
 

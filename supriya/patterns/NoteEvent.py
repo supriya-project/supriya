@@ -43,21 +43,21 @@ class NoteEvent(Event):
         import supriya.assets.synthdefs
 
         settings = self.settings.copy()  # Do not mutate in place.
-        synthdef = self.get('synthdef', supriya.assets.synthdefs.default)
+        synthdef = self.get("synthdef", supriya.assets.synthdefs.default)
         synthdef = synthdef or supriya.assets.synthdefs.default
-        synth_uuid = self.get('uuid', uuid.uuid4())
-        is_stop = self.get('is_stop')
-        duration = self.get('duration')
+        synth_uuid = self.get("uuid", uuid.uuid4())
+        is_stop = self.get("is_stop")
+        duration = self.get("duration")
         if duration is None:
             duration = 1
-        if 'duration' in settings:
-            duration = settings.pop('duration')
+        if "duration" in settings:
+            duration = settings.pop("duration")
         dictionaries = self._expand(
             settings, synthdef, uuids, realtime=False, synth_parameters_only=True
         )
         if synth_uuid not in uuids:
             # Begin a Pbind or Pmono synth
-            target_node = self['target_node']
+            target_node = self["target_node"]
             if isinstance(target_node, uuid.UUID) and target_node in uuids:
                 target_node = uuids[target_node]
             prototype = (supriya.nonrealtime.Session, supriya.nonrealtime.Node)
@@ -67,7 +67,7 @@ class NoteEvent(Event):
             with session.at(offset):
                 for dictionary in dictionaries:
                     synth = target_node.add_synth(
-                        add_action=self['add_action'],
+                        add_action=self["add_action"],
                         duration=duration,
                         synthdef=synthdef,
                         **dictionary,
@@ -85,17 +85,17 @@ class NoteEvent(Event):
                 with session.at(offset):
                     for key, value in dictionary.items():
                         synth[key] = value
-        return offset + max(self.delta, self.get('duration', 0))
+        return offset + max(self.delta, self.get("duration", 0))
 
     def _perform_realtime(self, index=0, server=None, timestamp=0, uuids=None):
         import supriya.assets.synthdefs
         import supriya.patterns
 
-        synth_uuid = self.get('uuid') or uuid.uuid4()
-        synthdef = self.get('synthdef', supriya.assets.synthdefs.default)
+        synth_uuid = self.get("uuid") or uuid.uuid4()
+        synthdef = self.get("synthdef", supriya.assets.synthdefs.default)
         synthdef = synthdef or supriya.assets.synthdefs.default
-        is_stop = self.get('is_stop')
-        duration = self['duration']
+        is_stop = self.get("is_stop")
+        duration = self["duration"]
         if duration is None:
             duration = 1
         dictionaries = self._expand(self.settings, synthdef, uuids)
@@ -110,7 +110,7 @@ class NoteEvent(Event):
         start_product = self._build_start_bundle(
             dictionaries, first_visit, index, synth_uuid, synthdef, timestamp, uuids
         )
-        if self.get('duration'):
+        if self.get("duration"):
             if is_stop:
                 stop_product = self._build_stop_bundle(
                     index, synth_uuid, synthdef, timestamp, uuids
@@ -138,8 +138,8 @@ class NoteEvent(Event):
         node_ids = uuids[synth_uuid]
         if first_visit:
             for node_id, dictionary in zip(node_ids, dictionaries):
-                add_action = dictionary.pop('add_action')
-                target_node = dictionary.pop('target_node')
+                add_action = dictionary.pop("add_action")
+                target_node = dictionary.pop("target_node")
                 if target_node is None:
                     target_node = 1
                 synth_kwargs = {
@@ -182,7 +182,7 @@ class NoteEvent(Event):
         import supriya.patterns
         import supriya.synthdefs
 
-        duration = self['duration']
+        duration = self["duration"]
         if duration is None:
             duration = 1
         requests = []

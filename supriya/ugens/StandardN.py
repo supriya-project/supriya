@@ -22,10 +22,10 @@ class StandardN(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Chaos UGens'
+    __documentation_section__ = "Chaos UGens"
 
     _ordered_input_names = collections.OrderedDict(
-        [('frequency', 22050), ('k', 1), ('xi', 0.5), ('yi', 0)]
+        [("frequency", 22050), ("k", 1), ("xi", 0.5), ("yi", 0)]
     )
 
     _valid_calculation_rates = (CalculationRate.AUDIO,)

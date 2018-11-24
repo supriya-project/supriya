@@ -21,6 +21,6 @@ class Dreset(DUGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([('source', None), ('reset', 0)])
+    _ordered_input_names = collections.OrderedDict([("source", None), ("reset", 0)])
 
     _valid_calculation_rates = (CalculationRate.DEMAND,)

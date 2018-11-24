@@ -33,7 +33,7 @@ def test_build_synthdef_01():
                     source[1]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
         """
         )
-        + '\n'
+        + "\n"
     )
 
 
@@ -68,7 +68,7 @@ def test_build_synthdef_02():
                     source[1]: BinaryOpUGen(MULTIPLICATION).ar/0[0]
         """
         )
-        + '\n'
+        + "\n"
     )
 
 
@@ -102,5 +102,5 @@ def test_build_synthdef_03():
                     source[1]: BinaryOpUGen(MULTIPLICATION).ar[0]
         """
         )
-        + '\n'
+        + "\n"
     )

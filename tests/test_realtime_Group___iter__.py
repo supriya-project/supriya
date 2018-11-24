@@ -22,7 +22,7 @@ def test_01(server):
 
     server_state = str(server.query_remote_nodes())
     assert server_state == uqbar.strings.normalize(
-        '''
+        """
         NODE TREE 0 group
             1 group
                 1000 group
@@ -32,7 +32,7 @@ def test_01(server):
                         1004 test
                         1005 group
                     1006 test
-        '''
+        """
     )
 
     assert [x for x in group_a] == [synth_a, group_b, synth_d]

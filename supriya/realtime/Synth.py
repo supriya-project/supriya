@@ -63,9 +63,9 @@ class Synth(Node):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Main Classes'
+    __documentation_section__ = "Main Classes"
 
-    __slots__ = ('_control_interface', '_register_controls', '_synthdef')
+    __slots__ = ("_control_interface", "_register_controls", "_synthdef")
 
     ### INITIALIZER ###
 
@@ -105,11 +105,11 @@ class Synth(Node):
         result = []
         node_id = self.node_id
         if node_id is None:
-            node_id = '???'
+            node_id = "???"
         if self.name:
-            string = '{node_id} {synthdef} ({name})'
+            string = "{node_id} {synthdef} ({name})"
         else:
-            string = '{node_id} {synthdef}'
+            string = "{node_id} {synthdef}"
         string = string.format(
             name=self.name, node_id=node_id, synthdef=self.synthdef.actual_name
         )
@@ -117,19 +117,19 @@ class Synth(Node):
         control_pieces = []
         controls = sorted(self.controls, key=lambda x: x.name)
         for control in controls:
-            control_piece = '{}: {!s}'.format(control.name, control.value)
+            control_piece = "{}: {!s}".format(control.name, control.value)
             control_pieces.append(control_piece)
-        control_pieces = '    ' + ', '.join(control_pieces)
+        control_pieces = "    " + ", ".join(control_pieces)
         result.append(control_pieces)
-        result = '\n'.join(result)
+        result = "\n".join(result)
         return result
 
     ### PRIVATE METHODS ###
 
     def _unregister_with_local_server(self):
         node_id = Node._unregister_with_local_server(self)
-        if 'gate' in self.controls:
-            self.controls['gate'].reset()
+        if "gate" in self.controls:
+            self.controls["gate"].reset()
         return node_id
 
     ### PUBLIC METHODS ###
@@ -170,8 +170,8 @@ class Synth(Node):
         return self._allocate(paused_nodes, requests, server, synthdefs)
 
     def release(self):
-        if 'gate' in self.controls:
-            self['gate'] = 0
+        if "gate" in self.controls:
+            self["gate"] = 0
         else:
             self.free()
 

@@ -20,7 +20,7 @@ class CompositeEvent(Event):
     ### PRIVATE METHODS ###
 
     def _perform_nonrealtime(self, session, uuids, offset, maximum_offset=None):
-        for event in self.get('events'):
+        for event in self.get("events"):
             event._perform_nonrealtime(
                 session=session,
                 uuids=uuids,
@@ -32,7 +32,7 @@ class CompositeEvent(Event):
 
     def _perform_realtime(self, index=None, server=None, timestamp=0, uuids=None):
         event_products = []
-        for subindex, event in enumerate(self.get('events')):
+        for subindex, event in enumerate(self.get("events")):
             event_products.extend(
                 event._perform_realtime(
                     index=(index[0], subindex),

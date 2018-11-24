@@ -6,7 +6,7 @@ class Pn(EventPattern):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_key', '_repetitions', '_pattern')
+    __slots__ = ("_key", "_repetitions", "_pattern")
 
     ### INITIALIZER ###
 

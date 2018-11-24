@@ -7,7 +7,7 @@ class NodeSetResponse(Response):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_items', '_node_id')
+    __slots__ = ("_items", "_node_id")
 
     class Item(NamedTuple):
         control_index_or_name: Union[int, str]

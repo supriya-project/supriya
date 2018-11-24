@@ -10,7 +10,7 @@ class Clock(SupriyaObject):
 
     _default_clock = None
 
-    __slots__ = ('_lock', '_queue', '_timer', '_registry')
+    __slots__ = ("_lock", "_queue", "_timer", "_registry")
 
     ### INITIALIZER ###
 

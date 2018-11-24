@@ -7,7 +7,7 @@ class SynthDefCompiler(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'SynthDef Internals'
+    __documentation_section__ = "SynthDef Internals"
 
     ### PUBLIC METHODS ###
 
@@ -51,7 +51,7 @@ class SynthDefCompiler(SupriyaObject):
             return value
 
         result = []
-        encoded_file_type_id = b'SCgf'
+        encoded_file_type_id = b"SCgf"
         result.append(encoded_file_type_id)
         encoded_file_version = SynthDefCompiler.encode_unsigned_int_32bit(2)
         result.append(encoded_file_version)
@@ -118,27 +118,27 @@ class SynthDefCompiler(SupriyaObject):
             result.append(SynthDefCompiler.encode_unsigned_int_32bit(ugen_index))
             result.append(SynthDefCompiler.encode_unsigned_int_32bit(output_index))
         else:
-            raise Exception('Unhandled input spec: {}'.format(input_))
+            raise Exception("Unhandled input spec: {}".format(input_))
         return bytes().join(result)
 
     @staticmethod
     def encode_string(value):
-        result = bytes(struct.pack('>B', len(value)))
-        result += bytes(bytearray(value, encoding='ascii'))
+        result = bytes(struct.pack(">B", len(value)))
+        result += bytes(bytearray(value, encoding="ascii"))
         return result
 
     @staticmethod
     def encode_float(value):
-        return bytes(struct.pack('>f', float(value)))
+        return bytes(struct.pack(">f", float(value)))
 
     @staticmethod
     def encode_unsigned_int_8bit(value):
-        return bytes(struct.pack('>B', int(value)))
+        return bytes(struct.pack(">B", int(value)))
 
     @staticmethod
     def encode_unsigned_int_16bit(value):
-        return bytes(struct.pack('>H', int(value)))
+        return bytes(struct.pack(">H", int(value)))
 
     @staticmethod
     def encode_unsigned_int_32bit(value):
-        return bytes(struct.pack('>I', int(value)))
+        return bytes(struct.pack(">I", int(value)))

@@ -6,7 +6,7 @@ class Pbinop(Pattern):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_expr_one', '_expr_two', '_operator')
+    __slots__ = ("_expr_one", "_expr_two", "_operator")
 
     ### INITIALIZER ###
 
@@ -34,12 +34,12 @@ class Pbinop(Pattern):
 
     def _string_to_operator(self):
         operators = {
-            '+': operator.__add__,
-            '-': operator.__sub__,
-            '*': operator.__mul__,
-            '**': operator.__pow__,
-            '/': operator.__truediv__,
-            '//': operator.__floordiv__,
+            "+": operator.__add__,
+            "-": operator.__sub__,
+            "*": operator.__mul__,
+            "**": operator.__pow__,
+            "/": operator.__truediv__,
+            "//": operator.__floordiv__,
         }
         return operators[self.operator]
 

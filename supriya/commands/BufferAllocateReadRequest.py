@@ -35,7 +35,7 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_file_path', '_frame_count', '_starting_frame')
+    __slots__ = ("_file_path", "_frame_count", "_starting_frame")
 
     request_id = RequestId.BUFFER_ALLOCATE_READ
 
@@ -108,7 +108,7 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
 
     @property
     def response_patterns(self):
-        return [['/done', '/b_allocRead', self.buffer_id]]
+        return [["/done", "/b_allocRead", self.buffer_id]]
 
     @property
     def starting_frame(self):

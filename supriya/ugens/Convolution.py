@@ -26,10 +26,10 @@ class Convolution(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'FFT UGens'
+    __documentation_section__ = "FFT UGens"
 
     _ordered_input_names = collections.OrderedDict(
-        [('source', None), ('kernel', None), ('framesize', 512)]
+        [("source", None), ("kernel", None), ("framesize", 512)]
     )
 
     _valid_calculation_rates = (CalculationRate.AUDIO,)

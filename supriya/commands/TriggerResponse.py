@@ -5,7 +5,7 @@ class TriggerResponse(Response):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_node_id', '_trigger_id', '_trigger_value')
+    __slots__ = ("_node_id", "_trigger_id", "_trigger_value")
 
     ### INITIALIZER ###
 

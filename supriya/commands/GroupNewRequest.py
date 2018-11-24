@@ -84,7 +84,7 @@ class GroupNewRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_items',)
+    __slots__ = ("_items",)
 
     class Item(typing.NamedTuple):
         add_action: int = 0
@@ -158,4 +158,4 @@ class GroupNewRequest(Request):
     @property
     def response_patterns(self):
         if len(self.items) == 1:
-            return [['/n_go', int(self.items[0].node_id)]]
+            return [["/n_go", int(self.items[0].node_id)]]

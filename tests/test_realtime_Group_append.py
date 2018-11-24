@@ -27,13 +27,13 @@ def test_01(server):
 
     server_state = str(server.query_remote_nodes())
     assert server_state == uqbar.strings.normalize(
-        '''
+        """
         NODE TREE 0 group
             1 group
                 1001 group
                 1000 group
                     1002 test
-        '''
+        """
     )
 
     group_b.append(synth_a)
@@ -45,13 +45,13 @@ def test_01(server):
 
     server_state = str(server.query_remote_nodes())
     assert server_state == uqbar.strings.normalize(
-        '''
+        """
         NODE TREE 0 group
             1 group
                 1001 group
                     1002 test
                 1000 group
-        '''
+        """
     )
 
     synth_b = supriya.realtime.Synth(synthdef)
@@ -64,12 +64,12 @@ def test_01(server):
 
     server_state = str(server.query_remote_nodes())
     assert server_state == uqbar.strings.normalize(
-        '''
+        """
         NODE TREE 0 group
             1 group
                 1001 group
                     1002 test
                     1003 test
                 1000 group
-        '''
+        """
     )

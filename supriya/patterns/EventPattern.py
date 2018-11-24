@@ -16,7 +16,7 @@ class EventPattern(Pattern):
 
         if not isinstance(expr, supriya.patterns.Event):
             expr = supriya.patterns.NoteEvent(**expr)
-        if expr.get('uuid') is None:
+        if expr.get("uuid") is None:
             expr = utils.new(expr, uuid=uuid.uuid4())
         return expr
 
@@ -34,7 +34,7 @@ class EventPattern(Pattern):
         event_player.start()
         return event_player
 
-    def with_bus(self, calculation_rate='audio', channel_count=None, release_time=0.25):
+    def with_bus(self, calculation_rate="audio", channel_count=None, release_time=0.25):
         import supriya.patterns
 
         return supriya.patterns.Pbus(

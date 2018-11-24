@@ -22,7 +22,7 @@ class OneZero(OnePole):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        [('source', None), ('coefficient', 0.5)]
+        [("source", None), ("coefficient", 0.5)]
     )
 
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

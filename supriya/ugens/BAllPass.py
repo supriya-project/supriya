@@ -23,7 +23,7 @@ class BAllPass(BEQSuite):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        [('source', None), ('frequency', 1200), ('reciprocal_of_q', 1)]
+        [("source", None), ("frequency", 1200), ("reciprocal_of_q", 1)]
     )
 
     _valid_calculation_rates = (CalculationRate.AUDIO,)

@@ -11,7 +11,7 @@ class ServerObjectProxy(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_server',)
+    __slots__ = ("_server",)
 
     ### INITIALIZER ###
 

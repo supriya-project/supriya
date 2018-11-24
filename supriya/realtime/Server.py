@@ -35,50 +35,50 @@ class Server(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Main Classes'
+    __documentation_section__ = "Main Classes"
 
     __slots__ = (
-        '_audio_bus_allocator',
-        '_audio_buses',
-        '_audio_input_bus_group',
-        '_audio_output_bus_group',
-        '_buffer_allocator',
-        '_buffers',
-        '_buffer_proxies',
-        '_control_bus_allocator',
-        '_control_buses',
-        '_control_bus_proxies',
-        '_debug_subprocess',
-        '_debug_osc',
-        '_debug_udp',
-        '_default_group',
-        '_ip_address',
-        '_is_running',
-        '_latency',
-        '_lock',
-        '_meters',
-        '_node_id_allocator',
-        '_nodes',
-        '_osc_io',
-        '_pending_nodes',
-        '_port',
-        '_recorder',
-        '_root_node',
-        '_server_options',
-        '_server_process',
-        '_status',
-        '_status_watcher',
-        '_sync_id',
-        '_synthdefs',
+        "_audio_bus_allocator",
+        "_audio_buses",
+        "_audio_input_bus_group",
+        "_audio_output_bus_group",
+        "_buffer_allocator",
+        "_buffers",
+        "_buffer_proxies",
+        "_control_bus_allocator",
+        "_control_buses",
+        "_control_bus_proxies",
+        "_debug_subprocess",
+        "_debug_osc",
+        "_debug_udp",
+        "_default_group",
+        "_ip_address",
+        "_is_running",
+        "_latency",
+        "_lock",
+        "_meters",
+        "_node_id_allocator",
+        "_nodes",
+        "_osc_io",
+        "_pending_nodes",
+        "_port",
+        "_recorder",
+        "_root_node",
+        "_server_options",
+        "_server_process",
+        "_status",
+        "_status_watcher",
+        "_sync_id",
+        "_synthdefs",
     )
 
     _default_server = None
 
-    _servers: Dict[Tuple[str, int], 'Server'] = {}
+    _servers: Dict[Tuple[str, int], "Server"] = {}
 
     ### CONSTRUCTOR ###
 
-    def __new__(cls, ip_address='127.0.0.1', port=57751, **kwargs):
+    def __new__(cls, ip_address="127.0.0.1", port=57751, **kwargs):
         key = (ip_address, port)
         if key not in cls._servers:
             instance = object.__new__(cls)
@@ -88,12 +88,12 @@ class Server(SupriyaObject):
 
     ### INITIALIZER ###
 
-    def __init__(self, ip_address='127.0.0.1', port=57751):
+    def __init__(self, ip_address="127.0.0.1", port=57751):
         import supriya.osc
         import supriya.commands
         import supriya.realtime
 
-        if hasattr(self, 'is_running') and self.is_running:
+        if hasattr(self, "is_running") and self.is_running:
             return
 
         ### NET ADDRESS ###
@@ -230,18 +230,18 @@ class Server(SupriyaObject):
         if not self.is_running:
             raise supriya.exceptions.ServerOffline
         if isinstance(item, str):
-            match = re.match('b(?P<id>\d+)', item)
+            match = re.match("b(?P<id>\d+)", item)
             if match:
-                id_ = int(match.groupdict()['id'])
+                id_ = int(match.groupdict()["id"])
                 return supriya.realtime.Buffer(id_).allocate(server=self)
-            match = re.match('c(?P<id>\d+)', item)
+            match = re.match("c(?P<id>\d+)", item)
             if match:
-                id_ = int(match.groupdict()['id'])
-                return supriya.realtime.Bus(id_, 'control').allocate(server=self)
-            match = re.match('a(?P<id>\d+)', item)
+                id_ = int(match.groupdict()["id"])
+                return supriya.realtime.Bus(id_, "control").allocate(server=self)
+            match = re.match("a(?P<id>\d+)", item)
             if match:
-                id_ = int(match.groupdict()['id'])
-                return supriya.realtime.Bus(id_, 'audio').allocate(server=self)
+                id_ = int(match.groupdict()["id"])
+                return supriya.realtime.Bus(id_, "audio").allocate(server=self)
             result = self.root_node[item]
         elif isinstance(item, int):
             result = self._nodes.get(item)
@@ -252,7 +252,7 @@ class Server(SupriyaObject):
         return result
 
     def __graph__(self):
-        '''
+        """
         Graph server.
 
         ::
@@ -291,16 +291,16 @@ class Server(SupriyaObject):
 
             >>> supriya.graph(server)  # doctest: +SKIP
 
-        '''
+        """
 
         def recurse(graph, parent_graphviz_node, parent_server_node):
             if not isinstance(parent_server_node, supriya.realtime.Group):
                 return
             for child_server_node in parent_server_node:
                 if isinstance(child_server_node, supriya.realtime.Group):
-                    name = 'Group {}'.format(child_server_node.node_id)
+                    name = "Group {}".format(child_server_node.node_id)
                 else:
-                    name = 'Synth {}'.format(child_server_node.node_id)
+                    name = "Synth {}".format(child_server_node.node_id)
                 child_graphviz_node = uqbar.graphs.Node(name=name)
                 graph.append(child_graphviz_node)
                 parent_graphviz_node.attach(child_graphviz_node)
@@ -308,17 +308,17 @@ class Server(SupriyaObject):
 
         import supriya.realtime
 
-        graph = uqbar.graphs.Graph(name='server')
-        root_graphviz_node = uqbar.graphs.Node(name='Root Node')
+        graph = uqbar.graphs.Graph(name="server")
+        root_graphviz_node = uqbar.graphs.Node(name="Root Node")
         graph.append(root_graphviz_node)
         recurse(graph, root_graphviz_node, self.root_node)
         return graph
 
     def __repr__(self):
         if not self.is_running:
-            return '<Server: offline>'
-        string = '<Server: {protocol}://{ip}:{port}, '
-        string += '{inputs}i{outputs}o>'
+            return "<Server: offline>"
+        string = "<Server: {protocol}://{ip}:{port}, "
+        string += "{inputs}i{outputs}o>"
         return string.format(
             protocol=self.server_options.protocol,
             ip=self.ip_address,
@@ -330,7 +330,7 @@ class Server(SupriyaObject):
     def __str__(self):
         if self.is_running:
             return str(self.query_remote_nodes(True))
-        return ''
+        return ""
 
     ### PRIVATE METHODS ###
 
@@ -462,29 +462,29 @@ class Server(SupriyaObject):
 
     def _setup_osc_callbacks(self):
         self._osc_io.register(
-            pattern='/b_info',
+            pattern="/b_info",
             procedure=self._handle_buffer_info_response,
             parse_response=True,
         )
         self._osc_io.register(
-            pattern='/c_set',
+            pattern="/c_set",
             procedure=self._handle_control_bus_set_response,
             parse_response=True,
         )
         self._osc_io.register(
-            pattern='/c_setn',
+            pattern="/c_setn",
             procedure=self._handle_control_bus_setn_response,
             parse_response=True,
         )
         for pattern in (
-            '/n_end',
-            '/n_go',
-            '/n_info',
-            '/n_move',
-            '/n_off',
-            '/n_on',
-            '/n_set',
-            '/n_setn',
+            "/n_end",
+            "/n_go",
+            "/n_info",
+            "/n_move",
+            "/n_off",
+            "/n_on",
+            "/n_set",
+            "/n_setn",
         ):
             self._osc_io.register(
                 pattern=pattern,
@@ -492,15 +492,15 @@ class Server(SupriyaObject):
                 parse_response=True,
             )
         self._osc_io.register(
-            pattern='/d_removed',
+            pattern="/d_removed",
             procedure=self._handle_synthdef_removed_response,
             parse_response=True,
         )
 
         def failed(message):
-            print('FAILED:', message)
+            print("FAILED:", message)
 
-        self._osc_io.register(pattern='/fail', procedure=failed)
+        self._osc_io.register(pattern="/fail", procedure=failed)
 
     def _setup_status_watcher(self):
         import supriya.realtime
@@ -515,7 +515,7 @@ class Server(SupriyaObject):
 
         system_synthdefs = []
         for name in dir(supriya.assets.synthdefs):
-            if not name.startswith('system_'):
+            if not name.startswith("system_"):
                 continue
             system_synthdef = getattr(supriya.assets.synthdefs, name)
             if not isinstance(system_synthdef, supriya.synthdefs.SynthDef):
@@ -569,13 +569,13 @@ class Server(SupriyaObject):
         while True:
             line = self._server_process.stdout.readline().decode().rstrip()
             if self.debug_subprocess and line:
-                print('Boot:', line)
-            if line.startswith('SuperCollider 3 server ready'):
+                print("Boot:", line)
+            if line.startswith("SuperCollider 3 server ready"):
                 break
-            elif line.startswith('ERROR:'):
+            elif line.startswith("ERROR:"):
                 raise supriya.exceptions.ServerCannotBoot(line)
             elif line.startswith(
-                'Exception in World_OpenUDP: bind: Address already in use'
+                "Exception in World_OpenUDP: bind: Address already in use"
             ):
                 raise supriya.exceptions.ServerCannotBoot(line)
             elif (time.time() - start_time) > timeout:
@@ -588,15 +588,15 @@ class Server(SupriyaObject):
 
         if self.is_running:
             return self
-        scsynth_path = scsynth_path or os.environ.get('SCSYNTH_PATH')
+        scsynth_path = scsynth_path or os.environ.get("SCSYNTH_PATH")
         if not scsynth_path:
-            scsynth_path_candidates = uqbar.io.find_executable('scsynth')
+            scsynth_path_candidates = uqbar.io.find_executable("scsynth")
             if not scsynth_path_candidates:
-                raise RuntimeError('Cannot find scsynth')
+                raise RuntimeError("Cannot find scsynth")
             scsynth_path = scsynth_path_candidates[0]
         scsynth_path = pathlib.Path(scsynth_path).absolute()
         if not scsynth_path.exists():
-            raise RuntimeError('{} does not exist'.format(scsynth_path))
+            raise RuntimeError("{} does not exist".format(scsynth_path))
 
         self._osc_io.boot(ip_address=self.ip_address, port=self.port)
         self._setup_osc_callbacks()
@@ -606,9 +606,9 @@ class Server(SupriyaObject):
         if kwargs:
             server_options = utils.new(server_options, **kwargs)
         options_string = server_options.as_options_string(self.port)
-        command = '{} {}'.format(scsynth_path, options_string)
+        command = "{} {}".format(scsynth_path, options_string)
         if self.debug_subprocess:
-            print('Boot:', command)
+            print("Boot:", command)
         process = self._server_process = subprocess.Popen(
             command,
             shell=True,
@@ -631,7 +631,7 @@ class Server(SupriyaObject):
         self._is_running = True
         self._server_options = server_options
         self._setup()
-        PubSub.notify('server-booted')
+        PubSub.notify("server-booted")
         return self
 
     @staticmethod
@@ -785,7 +785,7 @@ class Server(SupriyaObject):
 
         if not self.is_running:
             return
-        PubSub.notify('server-quitting')
+        PubSub.notify("server-quitting")
         if self.recorder.is_recording:
             self.recorder.stop()
         request = supriya.commands.QuitRequest()
@@ -795,7 +795,7 @@ class Server(SupriyaObject):
             self._server_process.wait()
         self._osc_io.quit()
         self._teardown()
-        PubSub.notify('server-quit')
+        PubSub.notify("server-quit")
         return self
 
     def send_message(self, message):

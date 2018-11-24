@@ -17,7 +17,7 @@ class BlockSize(InfoUGenBase):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Info UGens'
+    __documentation_section__ = "Info UGens"
 
     _ordered_input_names: UGenInputMap = collections.OrderedDict([])
 

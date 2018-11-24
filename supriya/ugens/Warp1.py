@@ -34,14 +34,14 @@ class Warp1(MultiOutUGen):
 
     _ordered_input_names = collections.OrderedDict(
         [
-            ('buffer_id', 0),
-            ('pointer', 0),
-            ('frequency_scaling', 1),
-            ('window_size', 0.2),
-            ('envelope_buffer_id', -1),
-            ('overlaps', 8),
-            ('window_rand_ratio', 0),
-            ('interpolation', 1),
+            ("buffer_id", 0),
+            ("pointer", 0),
+            ("frequency_scaling", 1),
+            ("window_size", 0.2),
+            ("envelope_buffer_id", -1),
+            ("overlaps", 8),
+            ("window_rand_ratio", 0),
+            ("interpolation", 1),
         ]
     )
 

@@ -17,12 +17,12 @@ class NodeAction(IntEnumeration):
     @staticmethod
     def from_address(address):
         addresses = {
-            '/n_end': NodeAction.NODE_REMOVED,
-            '/n_go': NodeAction.NODE_CREATED,
-            '/n_info': NodeAction.NODE_QUERIED,
-            '/n_move': NodeAction.NODE_MOVED,
-            '/n_off': NodeAction.NODE_DEACTIVATED,
-            '/n_on': NodeAction.NODE_ACTIVATED,
+            "/n_end": NodeAction.NODE_REMOVED,
+            "/n_go": NodeAction.NODE_CREATED,
+            "/n_info": NodeAction.NODE_QUERIED,
+            "/n_move": NodeAction.NODE_MOVED,
+            "/n_off": NodeAction.NODE_DEACTIVATED,
+            "/n_on": NodeAction.NODE_ACTIVATED,
         }
         action = addresses[address]
         return action

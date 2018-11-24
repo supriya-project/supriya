@@ -17,7 +17,7 @@ class ClipNoise(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Noise UGens'
+    __documentation_section__ = "Noise UGens"
 
     _ordered_input_names: UGenInputMap = collections.OrderedDict([])
 

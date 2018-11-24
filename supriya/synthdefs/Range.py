@@ -50,9 +50,9 @@ class Range(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Main Classes'
+    __documentation_section__ = "Main Classes"
 
-    __slots__ = ('_minimum', '_maximum')
+    __slots__ = ("_minimum", "_maximum")
 
     ### INITIALIZER ###
 
@@ -66,12 +66,12 @@ class Range(SupriyaObject):
         elif isinstance(minimum, type(self)):
             minimum, maximum = minimum.minimum, minimum.maximum
         if minimum is None:
-            minimum = float('-inf')
+            minimum = float("-inf")
         if not isinstance(minimum, (float, int)):
             raise ValueError(minimum)
         minimum = float(minimum)
         if maximum is None:
-            maximum = float('inf')
+            maximum = float("inf")
         if not isinstance(maximum, (float, int)):
             raise ValueError(maximum)
         maximum = float(maximum)

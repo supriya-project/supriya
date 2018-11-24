@@ -5,7 +5,7 @@ import supriya.ugens
 def test_SynthDefCompiler_ambisonics_01():
 
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
-        'ambisonics',
+        "ambisonics",
         r"""
         var source, azimuth, w, x, y;
         source = PinkNoise.ar();
@@ -25,7 +25,7 @@ def test_SynthDefCompiler_ambisonics_01():
             channel_count=4, w=w, x=x, y=y, orientation=0.5
         )
         supriya.ugens.Out.ar(0, source)
-    py_synthdef = builder.build('ambisonics')
+    py_synthdef = builder.build("ambisonics")
     py_compiled_synthdef = py_synthdef.compile()
 
     # fmt: off

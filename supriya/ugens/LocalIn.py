@@ -17,15 +17,15 @@ class LocalIn(MultiOutUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Input/Output UGens'
+    __documentation_section__ = "Input/Output UGens"
 
     _default_channel_count = 1
 
     _has_settable_channel_count = True
 
-    _ordered_input_names = collections.OrderedDict([('default', 0)])
+    _ordered_input_names = collections.OrderedDict([("default", 0)])
 
-    _unexpanded_input_names = ('default',)
+    _unexpanded_input_names = ("default",)
 
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 

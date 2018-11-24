@@ -22,10 +22,10 @@ class MulAdd(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Basic Operator UGens'
+    __documentation_section__ = "Basic Operator UGens"
 
     _ordered_input_names = collections.OrderedDict(
-        [('source', None), ('multiplier', 1.0), ('addend', 0.0)]
+        [("source", None), ("multiplier", 1.0), ("addend", 0.0)]
     )
 
     ### INITIALIZER ###

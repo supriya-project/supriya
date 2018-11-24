@@ -33,7 +33,7 @@ class BufferCloseRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_buffer_id',)
+    __slots__ = ("_buffer_id",)
 
     request_id = RequestId.BUFFER_CLOSE
 
@@ -62,4 +62,4 @@ class BufferCloseRequest(Request):
 
     @property
     def response_patterns(self):
-        return [['/done', '/b_close', self.buffer_id]]
+        return [["/done", "/b_close", self.buffer_id]]

@@ -79,26 +79,26 @@ class Session:
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Non-realtime Session'
+    __documentation_section__ = "Non-realtime Session"
 
     __is_terminal_ajv_list_item__ = True
 
     __slots__ = (
-        '_active_moments',
-        '_audio_input_bus_group',
-        '_audio_output_bus_group',
-        '_buffers',
-        '_buses',
-        '_input',
-        '_name',
-        '_nodes',
-        '_offsets',
-        '_options',
-        '_padding',
-        '_root_node',
-        '_session_ids',
-        '_states',
-        '_transcript',
+        "_active_moments",
+        "_audio_input_bus_group",
+        "_audio_output_bus_group",
+        "_buffers",
+        "_buses",
+        "_input",
+        "_name",
+        "_nodes",
+        "_offsets",
+        "_options",
+        "_padding",
+        "_root_node",
+        "_session_ids",
+        "_states",
+        "_transcript",
     )
 
     _ordered_buffer_post_alloc_request_types = (
@@ -313,25 +313,25 @@ class Session:
         node_mappings = []
         graph = uqbar.graphs.Graph(
             attributes={
-                'bgcolor': 'transparent',
-                'fontname': 'Arial',
-                'penwidth': 2,
-                'rankdir': 'LR',
-                'ranksep': 1.5,
+                "bgcolor": "transparent",
+                "fontname": "Arial",
+                "penwidth": 2,
+                "rankdir": "LR",
+                "ranksep": 1.5,
             },
-            edge_attributes={'penwidth': 2},
+            edge_attributes={"penwidth": 2},
             node_attributes={
-                'fontname': 'Arial',
-                'fontsize': 12,
-                'penwidth': 2,
-                'shape': 'Mrecord',
-                'style': ['filled', 'rounded'],
+                "fontname": "Arial",
+                "fontsize": 12,
+                "penwidth": 2,
+                "shape": "Mrecord",
+                "style": ["filled", "rounded"],
             },
         )
         for offset, state in sorted(self.states.items()):
             cluster, node_mapping, _ = state._as_graphviz_graph()
             cluster.attributes.update(
-                label='[{}]'.format(offset), style=['solid', 'rounded']
+                label="[{}]".format(offset), style=["solid", "rounded"]
             )
             graph.append(cluster)
             node_mappings.append(node_mapping)
@@ -342,7 +342,7 @@ class Session:
                 graphviz_node_two = second_mapping.get(nrt_node)
                 if graphviz_node_two is None:
                     continue
-                graphviz_node_one['session_id'].attach(graphviz_node_two['session_id'])
+                graphviz_node_one["session_id"].attach(graphviz_node_two["session_id"])
         return graph
 
     def __render__(self, output_file_path=None, render_directory_path=None, **kwargs):
@@ -354,7 +354,7 @@ class Session:
         return output_file_path
 
     def __repr__(self):
-        return '<{}>'.format(type(self).__name__)
+        return "<{}>".format(type(self).__name__)
 
     def __session__(self):
         return self
@@ -479,8 +479,8 @@ class Session:
         from supriya import SynthDefBuilder
 
         with SynthDefBuilder(rand_id=0, rand_seed=0) as builder:
-            supriya.ugens.RandID.ir(rand_id=builder['rand_id'])
-            supriya.ugens.RandSeed.ir(seed=builder['rand_seed'], trigger=1)
+            supriya.ugens.RandID.ir(rand_id=builder["rand_id"])
+            supriya.ugens.RandSeed.ir(seed=builder["rand_seed"], trigger=1)
             supriya.ugens.FreeSelf.kr(trigger=1)
         return builder.build()
 
@@ -505,14 +505,14 @@ class Session:
 
         """
         server_options = server_options or supriya.realtime.ServerOptions()
-        scsynth_path = 'scsynth'
+        scsynth_path = "scsynth"
         if not uqbar.io.find_executable(scsynth_path):
-            raise RuntimeError('Cannot find scsynth')
-        parts = [scsynth_path, '-N', '{}']
+            raise RuntimeError("Cannot find scsynth")
+        parts = [scsynth_path, "-N", "{}"]
         if input_file_path:
             parts.append(os.path.expanduser(input_file_path))
         else:
-            parts.append('_')
+            parts.append("_")
         parts.append(os.path.expanduser(output_filename))
         parts.append(str(int(sample_rate)))
         header_format = supriya.soundfiles.HeaderFormat.from_expr(header_format)
@@ -522,7 +522,7 @@ class Session:
         server_options = server_options.as_options_string(realtime=False)
         if server_options:
             parts.append(server_options)
-        command = ' '.join(parts)
+        command = " ".join(parts)
         return command
 
     def _collect_bus_set_requests(self, bus_settings, offset):
@@ -548,19 +548,19 @@ class Session:
             request_class = supriya.commands.BufferAllocateRequest
             if buffer_.file_path is not None:
                 request_class = supriya.commands.BufferAllocateReadRequest
-                arguments['file_path'] = buffer_.file_path
-                arguments['starting_frame'] = buffer_.starting_frame
+                arguments["file_path"] = buffer_.file_path
+                arguments["starting_frame"] = buffer_.starting_frame
                 channel_indices = buffer_.channel_count
                 if isinstance(channel_indices, int):
                     channel_indices = tuple(range(buffer_.channel_count))
-                    arguments['channel_indices'] = channel_indices
+                    arguments["channel_indices"] = channel_indices
                     request_class = supriya.commands.BufferAllocateReadChannelRequest
                 elif isinstance(buffer_.channel_count, tuple):
-                    arguments['channel_indices'] = channel_indices
+                    arguments["channel_indices"] = channel_indices
                     request_class = supriya.commands.BufferAllocateReadChannelRequest
             else:
-                arguments['channel_count'] = buffer_.channel_count or 1
-                arguments['frame_count'] = arguments['frame_count'] or 1
+                arguments["channel_count"] = buffer_.channel_count or 1
+                arguments["frame_count"] = arguments["frame_count"] or 1
             try:
                 request = request_class(**arguments)
             except TypeError:
@@ -636,13 +636,13 @@ class Session:
                         except TypeError:  # unhashable
                             continue
                     if event_type is supriya.commands.BufferReadRequest:
-                        if 'channel_indices' in payload:
-                            if payload['channel_indices'] is not None:
+                        if "channel_indices" in payload:
+                            if payload["channel_indices"] is not None:
                                 event = supriya.commands.BufferReadChannelRequest(
                                     **payload
                                 )
                             else:
-                                payload.pop('channel_indices')
+                                payload.pop("channel_indices")
                                 event = supriya.commands.BufferReadRequest(**payload)
                         else:
                             event = supriya.commands.BufferReadRequest(**payload)
@@ -696,7 +696,7 @@ class Session:
                     synth_kwargs = source.synth_kwargs
                     if source in node_settings:
                         synth_kwargs.update(node_settings.pop(source))
-                    if 'duration' in source.synthdef.parameter_names:
+                    if "duration" in source.synthdef.parameter_names:
                         # need to propagate in session rendering timespan
                         # as many nodes have "infinite" duration
                         node_duration = source.duration
@@ -704,7 +704,7 @@ class Session:
                             duration < source.stop_offset
                         ):  # duration is session duration
                             node_duration = duration - source.start_offset
-                        synth_kwargs['duration'] = float(node_duration)
+                        synth_kwargs["duration"] = float(node_duration)
                     request = source._to_request(action, id_mapping, **synth_kwargs)
                 else:
                     request = source._to_request(action, id_mapping)
@@ -720,8 +720,8 @@ class Session:
             for node in stop_nodes:
                 node_id = id_mapping[node]
                 if (
-                    hasattr(node, 'synthdef')
-                    and 'gate' in node.synthdef.parameter_names
+                    hasattr(node, "synthdef")
+                    and "gate" in node.synthdef.parameter_names
                 ):
                     gate_ids.append(node_id)
                 elif node.duration:
@@ -921,9 +921,9 @@ class Session:
             return None
         return self.states[self.offsets[index]]
 
-    def _get_next_session_id(self, kind='node'):
+    def _get_next_session_id(self, kind="node"):
         default = 0
-        if kind == 'node':
+        if kind == "node":
             default = 1000
         session_id = self._session_ids.setdefault(kind, default)
         self._session_ids[kind] += 1
@@ -955,7 +955,7 @@ class Session:
     def _setup_initial_states(self):
         import supriya.nonrealtime
 
-        offset = float('-inf')
+        offset = float("-inf")
         state = supriya.nonrealtime.State(self, offset)
         state._nodes_to_children = {self.root_node: None}
         state._nodes_to_parents = {self.root_node: None}
@@ -977,8 +977,8 @@ class Session:
 
     def _to_non_xrefd_osc_bundles(self, duration=None):
         id_mapping = self._build_id_mapping()
-        if self.duration == float('inf'):
-            assert duration is not None and 0 < duration < float('inf')
+        if self.duration == float("inf"):
+            assert duration is not None and 0 < duration < float("inf")
         duration = duration or self.duration
         offsets = self.offsets[1:]
         if duration not in offsets:
@@ -1043,7 +1043,7 @@ class Session:
         import supriya.nonrealtime
 
         start_moment = self.active_moments[-1]
-        session_id = self._get_next_session_id('buffer')
+        session_id = self._get_next_session_id("buffer")
         buffer_ = supriya.nonrealtime.Buffer(
             self,
             channel_count=channel_count,
@@ -1088,20 +1088,20 @@ class Session:
                 stop_moment.state.stop_buffers.add(buffer_)
         return buffer_group
 
-    def add_bus(self, calculation_rate='control'):
+    def add_bus(self, calculation_rate="control"):
         import supriya.nonrealtime
 
-        session_id = self._get_next_session_id('bus')
+        session_id = self._get_next_session_id("bus")
         bus = supriya.nonrealtime.Bus(
             self, calculation_rate=calculation_rate, session_id=session_id
         )
         self._buses[bus] = None  # ordered dictionary
         return bus
 
-    def add_bus_group(self, bus_count=1, calculation_rate='control'):
+    def add_bus_group(self, bus_count=1, calculation_rate="control"):
         import supriya.nonrealtime
 
-        session_id = self._get_next_session_id('bus')
+        session_id = self._get_next_session_id("bus")
         bus_group = supriya.nonrealtime.BusGroup(
             self,
             bus_count=bus_count,
@@ -1146,7 +1146,7 @@ class Session:
             channel_count = channel_count or soundfile.channel_count
         elif isinstance(file_path, type(self)):
             channel_count = channel_count or len(file_path.audio_output_bus_group)
-        elif hasattr(file_path, '__session__'):
+        elif hasattr(file_path, "__session__"):
             channel_count = channel_count or file_path.output_bus_channel_count
         buffer_ = self.add_buffer(
             channel_count=channel_count,
@@ -1170,7 +1170,7 @@ class Session:
 
         assert isinstance(project_settings, supriya.cli.ProjectSettings)
         server_options = supriya.realtime.ServerOptions(
-            **project_settings.get('server_options', {})
+            **project_settings.get("server_options", {})
         )
         input_bus_channel_count = server_options.input_bus_channel_count
         output_bus_channel_count = server_options.output_bus_channel_count
@@ -1189,9 +1189,9 @@ class Session:
 
     @staticmethod
     def is_session_like(expr):
-        if hasattr(expr, '__render__'):
+        if hasattr(expr, "__render__"):
             return True
-        elif hasattr(expr, '__session__'):
+        elif hasattr(expr, "__session__"):
             return True
         return False
 
@@ -1200,7 +1200,7 @@ class Session:
 
     def rebuild_transitions(self):
         for state_one, state_two in self._iterate_state_pairs(
-            float('-inf'), with_node_tree=True
+            float("-inf"), with_node_tree=True
         ):
             transitions = state_two._rebuild_transitions(state_one, state_two)
             state_two._transitions = transitions
@@ -1222,7 +1222,7 @@ class Session:
         import supriya.nonrealtime
 
         duration = (duration or self.duration) or 0.0
-        assert 0.0 < duration < float('inf')
+        assert 0.0 < duration < float("inf")
         renderer = supriya.nonrealtime.SessionRenderer(
             session=self,
             header_format=header_format,
@@ -1241,7 +1241,7 @@ class Session:
     @SessionObject.require_offset
     def set_rand_seed(self, rand_id=0, rand_seed=0, offset=None):
         return self.add_synth(
-            add_action='ADD_TO_HEAD',
+            add_action="ADD_TO_HEAD",
             duration=0,
             rand_id=rand_id,
             rand_seed=rand_seed,
@@ -1300,9 +1300,9 @@ class Session:
             if string == previous_string:
                 continue
             previous_string = string
-            result.append('{}:'.format(float(round(offset, 6))))
-            result.extend(('    ' + line for line in string.split('\n')))
-        return '\n'.join(result)
+            result.append("{}:".format(float(round(offset, 6))))
+            result.extend(("    " + line for line in string.split("\n")))
+        return "\n".join(result)
 
     ### PUBLIC PROPERTIES ###
 
@@ -1330,7 +1330,7 @@ class Session:
     def duration(self):
         duration = 0.0
         for duration in reversed(self.offsets):
-            if duration < float('inf'):
+            if duration < float("inf"):
                 break
         if duration < 0.0:
             duration = 0.0

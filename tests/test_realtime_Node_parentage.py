@@ -18,7 +18,7 @@ def test_Node_parentage_01(server):
 
     server_state = str(server.query_remote_nodes())
     assert server_state == uqbar.strings.normalize(
-        '''
+        """
         NODE TREE 0 group
             1 group
                 1000 group
@@ -27,7 +27,7 @@ def test_Node_parentage_01(server):
                             1003 group
                                 1004 test
                                 1005 test
-        '''
+        """
     )
 
     assert group_a.parentage == (group_a, default_group, root_node)
@@ -69,7 +69,7 @@ def test_Node_parentage_01(server):
 
     server_state = str(server.query_remote_nodes())
     assert server_state == uqbar.strings.normalize(
-        '''
+        """
         NODE TREE 0 group
             1 group
                 1000 group
@@ -78,7 +78,7 @@ def test_Node_parentage_01(server):
                 1003 group
                     1004 test
                     1005 test
-        '''
+        """
     )
 
     assert group_d.parentage == (group_d, default_group, root_node)

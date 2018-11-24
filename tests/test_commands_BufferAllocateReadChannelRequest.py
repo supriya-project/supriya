@@ -14,12 +14,12 @@ def test_Session():
     )
     assert request.file_path is session
     osc_message = request.to_osc(with_request_name=True)
-    assert osc_message.address == '/b_allocReadChannel'
+    assert osc_message.address == "/b_allocReadChannel"
     assert osc_message.contents == (1, session, 128, 512, 4, 5)
 
 
 def test_Say():
-    say = supriya.soundfiles.Say('Some text.')
+    say = supriya.soundfiles.Say("Some text.")
     request = supriya.commands.BufferAllocateReadChannelRequest(
         buffer_id=1,
         channel_indices=[4, 5],
@@ -29,5 +29,5 @@ def test_Say():
     )
     assert request.file_path is say
     osc_message = request.to_osc(with_request_name=True)
-    assert osc_message.address == '/b_allocReadChannel'
+    assert osc_message.address == "/b_allocReadChannel"
     assert osc_message.contents == (1, say, 128, 512, 4, 5)

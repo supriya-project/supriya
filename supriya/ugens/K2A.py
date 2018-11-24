@@ -20,8 +20,8 @@ class K2A(PureUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Utility UGens'
+    __documentation_section__ = "Utility UGens"
 
-    _ordered_input_names = collections.OrderedDict([('source', None)])
+    _ordered_input_names = collections.OrderedDict([("source", None)])
 
     _valid_calculation_rates = (CalculationRate.AUDIO,)

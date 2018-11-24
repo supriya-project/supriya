@@ -25,21 +25,21 @@ class ServerRecorder(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Server Internals'
+    __documentation_section__ = "Server Internals"
 
     __slots__ = (
-        '_channel_count',
-        '_current_channel_count',
-        '_current_header_format',
-        '_current_file_path',
-        '_current_sample_format',
-        '_header_format',
-        '_is_recording',
-        '_record_buffer',
-        '_record_node',
-        '_record_synthdef',
-        '_sample_format',
-        '_server',
+        "_channel_count",
+        "_current_channel_count",
+        "_current_header_format",
+        "_current_file_path",
+        "_current_sample_format",
+        "_header_format",
+        "_is_recording",
+        "_record_buffer",
+        "_record_node",
+        "_record_synthdef",
+        "_sample_format",
+        "_server",
     )
 
     ### INITIALIZER ###
@@ -162,7 +162,7 @@ class ServerRecorder(SupriyaObject):
         self, file_path=None, channel_count=None, header_format=None, sample_format=None
     ):
         if self.record_node is not None:
-            raise Exception('Already recording.')
+            raise Exception("Already recording.")
         if not self.record_buffer or not self.record_buffer.is_allocated:
             self.prepare(
                 file_path=file_path,

@@ -10,9 +10,9 @@ class NodeAction(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Session Internals'
+    __documentation_section__ = "Session Internals"
 
-    __slots__ = ('_source', '_target', '_action')
+    __slots__ = ("_source", "_target", "_action")
 
     ### INITIALIZER ###
 

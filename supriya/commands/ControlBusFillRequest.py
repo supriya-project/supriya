@@ -39,7 +39,7 @@ class ControlBusFillRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_index_count_value_triples',)
+    __slots__ = ("_index_count_value_triples",)
 
     request_id = RequestId.CONTROL_BUS_FILL
 

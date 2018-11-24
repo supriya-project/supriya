@@ -35,9 +35,9 @@ class BufferGroup(ServerObjectProxy):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Main Classes'
+    __documentation_section__ = "Main Classes"
 
-    __slots__ = ('_buffer_id', '_buffers')
+    __slots__ = ("_buffer_id", "_buffers")
 
     ### INITIALIZER ###
 
@@ -91,9 +91,9 @@ class BufferGroup(ServerObjectProxy):
         """
         buffer_id = self.buffer_id
         if buffer_id is None:
-            buffer_id = '???'
-        string = '<{} {}{{{}}}: {}>'.format(
-            '+' if self.is_allocated else '-', type(self).__name__, len(self), buffer_id
+            buffer_id = "???"
+        string = "<{} {}{{{}}}: {}>".format(
+            "+" if self.is_allocated else "-", type(self).__name__, len(self), buffer_id
         )
         return string
 
@@ -140,7 +140,7 @@ class BufferGroup(ServerObjectProxy):
         )
         return self
 
-    def free(self) -> 'BufferGroup':
+    def free(self) -> "BufferGroup":
         """
         Frees all buffers in buffer group.
         """

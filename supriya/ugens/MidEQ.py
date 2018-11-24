@@ -23,10 +23,10 @@ class MidEQ(Filter):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Filter UGens'
+    __documentation_section__ = "Filter UGens"
 
     _ordered_input_names = collections.OrderedDict(
-        [('source', None), ('frequency', 440), ('reciprocal_of_q', 1), ('db', 0)]
+        [("source", None), ("frequency", 440), ("reciprocal_of_q", 1), ("db", 0)]
     )
 
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

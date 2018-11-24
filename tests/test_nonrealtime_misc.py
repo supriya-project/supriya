@@ -9,24 +9,24 @@ from supriya import AddAction
 
 
 with supriya.synthdefs.SynthDefBuilder(in_=0, out=0) as builder:
-    source = supriya.ugens.In.ar(bus=builder['in_'])
+    source = supriya.ugens.In.ar(bus=builder["in_"])
     source = supriya.ugens.Limiter.ar(source=source)
-    supriya.ugens.Out.ar(bus=builder['out'], source=source)
-limiter_synthdef = builder.build(name='limiter')
+    supriya.ugens.Out.ar(bus=builder["out"], source=source)
+limiter_synthdef = builder.build(name="limiter")
 
 
 with supriya.synthdefs.SynthDefBuilder(out=0, duration=1) as builder:
-    line = supriya.ugens.Line.kr(duration=builder['duration'], done_action=2)
+    line = supriya.ugens.Line.kr(duration=builder["duration"], done_action=2)
     source = supriya.ugens.SinOsc.ar() * line.hanning_window()
-    supriya.ugens.Out.ar(bus=builder['out'], source=source)
-sine_synthdef = builder.build(name='sine')
+    supriya.ugens.Out.ar(bus=builder["out"], source=source)
+sine_synthdef = builder.build(name="sine")
 
 
 with supriya.synthdefs.SynthDefBuilder(out=0, duration=1) as builder:
-    line = supriya.ugens.Line.kr(duration=builder['duration'], done_action=2)
+    line = supriya.ugens.Line.kr(duration=builder["duration"], done_action=2)
     source = supriya.ugens.PinkNoise.ar() * line.hanning_window()
-    supriya.ugens.Out.ar(bus=builder['out'], source=source)
-pink_synthdef = builder.build(name='pink')
+    supriya.ugens.Out.ar(bus=builder["out"], source=source)
+pink_synthdef = builder.build(name="pink")
 
 
 release_time = 9
@@ -57,7 +57,7 @@ def test_01():
     with session.at(0):
         session.inscribe(pattern, duration=60)
     assert session.to_strings() == uqbar.strings.normalize(
-        '''
+        """
         0.0:
             NODE TREE 0 group
                 1000 group
@@ -123,7 +123,7 @@ def test_01():
                         1003 limiter
         64.0:
             NODE TREE 0 group
-        '''
+        """
     )
     d_recv_commands = pytest.helpers.build_d_recv_commands(
         [
@@ -138,51 +138,51 @@ def test_01():
             0.0,
             [
                 *d_recv_commands,
-                ['/g_new', 1000, 0, 0],
+                ["/g_new", 1000, 0, 0],
                 [
-                    '/s_new',
-                    '2aa2f6c46d902276bad2e942125ef247',
+                    "/s_new",
+                    "2aa2f6c46d902276bad2e942125ef247",
                     1001,
                     3,
                     1000,
-                    'fade_time',
+                    "fade_time",
                     9.0,
-                    'in_',
+                    "in_",
                     1,
                 ],
-                ['/g_new', 1002, 1, 1000],
+                ["/g_new", 1002, 1, 1000],
                 [
-                    '/s_new',
-                    '38bda0aee6d0e2d4af72be83c09d9b77',
+                    "/s_new",
+                    "38bda0aee6d0e2d4af72be83c09d9b77",
                     1003,
                     1,
                     1002,
-                    'in_',
+                    "in_",
                     1,
-                    'out',
+                    "out",
                     1,
                 ],
-                ['/g_new', 1004, 0, 1002],
+                ["/g_new", 1004, 0, 1002],
                 [
-                    '/s_new',
-                    '00a1f31c719b7e5a30788b0d2e78a2cd',
+                    "/s_new",
+                    "00a1f31c719b7e5a30788b0d2e78a2cd",
                     1005,
                     0,
                     1004,
-                    'duration',
+                    "duration",
                     40.0,
-                    'out',
+                    "out",
                     1,
                 ],
                 [
-                    '/s_new',
-                    '48dcd0cdb5ded3e947186fa74f097516',
+                    "/s_new",
+                    "48dcd0cdb5ded3e947186fa74f097516",
                     1006,
                     0,
                     1004,
-                    'duration',
+                    "duration",
                     32.0,
-                    'out',
+                    "out",
                     1,
                 ],
             ],
@@ -191,14 +191,14 @@ def test_01():
             15.0,
             [
                 [
-                    '/s_new',
-                    '00a1f31c719b7e5a30788b0d2e78a2cd',
+                    "/s_new",
+                    "00a1f31c719b7e5a30788b0d2e78a2cd",
                     1007,
                     0,
                     1004,
-                    'duration',
+                    "duration",
                     40.0,
-                    'out',
+                    "out",
                     1,
                 ]
             ],
@@ -207,21 +207,21 @@ def test_01():
             16.0,
             [
                 [
-                    '/s_new',
-                    '48dcd0cdb5ded3e947186fa74f097516',
+                    "/s_new",
+                    "48dcd0cdb5ded3e947186fa74f097516",
                     1008,
                     0,
                     1004,
-                    'duration',
+                    "duration",
                     32.0,
-                    'out',
+                    "out",
                     1,
                 ]
             ],
         ],
-        [32.0, [['/n_free', 1006]]],
-        [40.0, [['/n_free', 1005]]],
-        [48.0, [['/n_free', 1008]]],
-        [55.0, [['/n_free', 1007], ['/n_set', 1001, 'gate', 0]]],
-        [64.0, [['/n_free', 1000, 1002, 1003, 1004], [0]]],
+        [32.0, [["/n_free", 1006]]],
+        [40.0, [["/n_free", 1005]]],
+        [48.0, [["/n_free", 1008]]],
+        [55.0, [["/n_free", 1007], ["/n_set", 1001, "gate", 0]]],
+        [64.0, [["/n_free", 1000, 1002, 1003, 1004], [0]]],
     ]

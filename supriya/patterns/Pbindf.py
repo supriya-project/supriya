@@ -10,7 +10,7 @@ class Pbindf(EventPattern):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_event_pattern', '_patterns')
+    __slots__ = ("_event_pattern", "_patterns")
 
     ### INITIALIZER ###
 

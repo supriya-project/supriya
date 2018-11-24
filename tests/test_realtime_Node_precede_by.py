@@ -12,38 +12,38 @@ def test_01(server):
     synth_a.allocate()
     server_state = str(server.query_remote_nodes())
     assert server_state == uqbar.strings.normalize(
-        '''
+        """
         NODE TREE 0 group
             1 group
                 1000 test
-        '''
+        """
     )
     synth_a.precede_by(synth_b)
     server_state = str(server.query_remote_nodes())
     assert server_state == uqbar.strings.normalize(
-        '''
+        """
         NODE TREE 0 group
             1 group
                 1001 test
                 1000 test
-        '''
+        """
     )
     synth_a.precede_by([synth_c, synth_d])
     server_state = str(server.query_remote_nodes())
     assert server_state == uqbar.strings.normalize(
-        '''
+        """
         NODE TREE 0 group
             1 group
                 1001 test
                 1002 test
                 1003 test
                 1000 test
-        '''
+        """
     )
     synth_a.precede_by([synth_e, synth_b])
     server_state = str(server.query_remote_nodes())
     assert server_state == uqbar.strings.normalize(
-        '''
+        """
         NODE TREE 0 group
             1 group
                 1002 test
@@ -51,5 +51,5 @@ def test_01(server):
                 1004 test
                 1001 test
                 1000 test
-        '''
+        """
     )

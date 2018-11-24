@@ -3,7 +3,7 @@ import abjad.timespans
 
 class _CTimespan:
 
-    __slots__ = ('start_offset', 'stop_offset', 'original_timespan')
+    __slots__ = ("start_offset", "stop_offset", "original_timespan")
 
     def __init__(self, start_offset, stop_offset, original_timespan):
         self.start_offset = float(start_offset)
@@ -35,7 +35,7 @@ class _CTimespan:
         return False
 
     def __repr__(self):
-        return '<_CTimespan {}:{}>'.format(self.start_offset, self.stop_offset)
+        return "<_CTimespan {}:{}>".format(self.start_offset, self.stop_offset)
 
     @classmethod
     def from_timespan(cls, timespan):
@@ -56,18 +56,18 @@ class _CTimespan:
 class _CNode:
 
     __slots__ = (
-        'balance',
-        'height',
-        'left_child',
-        'node_start_index',
-        'node_stop_index',
-        'payload',
-        'right_child',
-        'start_offset',
-        'stop_offset_high',
-        'stop_offset_low',
-        'subtree_start_index',
-        'subtree_stop_index',
+        "balance",
+        "height",
+        "left_child",
+        "node_start_index",
+        "node_stop_index",
+        "payload",
+        "right_child",
+        "start_offset",
+        "stop_offset_high",
+        "stop_offset_low",
+        "subtree_start_index",
+        "subtree_stop_index",
     )
 
     def __init__(self, start_offset):
@@ -89,7 +89,7 @@ class TimespanCollectionDriver:
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_root_node',)
+    __slots__ = ("_root_node",)
 
     ### INITIALIZER ###
 
@@ -123,7 +123,7 @@ class TimespanCollectionDriver:
             start, stop = indices[0], indices[1]
             ctimespans = self._recurse_getitem_by_slice(self._root_node, start, stop)
             return [ctimespan.original_timespan for ctimespan in ctimespans]
-        raise TypeError('Indices must be integers or slices, got {}'.format(item))
+        raise TypeError("Indices must be integers or slices, got {}".format(item))
 
     def __iter__(self):
         stack = []
@@ -174,7 +174,7 @@ class TimespanCollectionDriver:
 
     @staticmethod
     def _is_timespan(expr):
-        if hasattr(expr, 'start_offset') and hasattr(expr, 'stop_offset'):
+        if hasattr(expr, "start_offset") and hasattr(expr, "stop_offset"):
             return True
         return False
 
@@ -485,9 +485,9 @@ class TimespanCollectionDriver:
         ctimespan = _CTimespan.from_timespan(timespan)
         node = self._search(self._root_node, ctimespan.start_offset)
         if node is None:
-            raise ValueError('{} not in timespan collection.'.format(timespan))
+            raise ValueError("{} not in timespan collection.".format(timespan))
         if ctimespan not in node.payload:
-            raise ValueError('{} not in timespan collection.'.format(timespan))
+            raise ValueError("{} not in timespan collection.".format(timespan))
         index = node.payload.index(ctimespan) + node.node_start_index
         return index
 

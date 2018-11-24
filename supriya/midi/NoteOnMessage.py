@@ -5,7 +5,7 @@ class NoteOnMessage(MidiMessage):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_note_number', '_velocity')
+    __slots__ = ("_note_number", "_velocity")
 
     ### INITIALIZER ###
 

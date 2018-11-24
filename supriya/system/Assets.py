@@ -9,9 +9,9 @@ def _search(pattern: str, root_path: str):
     search_path, pattern = os.path.split(pattern)
     search_path = os.path.expanduser(search_path)
     if not search_path:
-        search_path = os.path.join(root_path, 'assets')
+        search_path = os.path.join(root_path, "assets")
     elif not os.path.isabs(search_path):
-        search_path = os.path.join(root_path, 'assets', search_path)
+        search_path = os.path.join(root_path, "assets", search_path)
     result: List[str] = []
     result = os.listdir(search_path)
     result = fnmatch.filter(result, pattern)

@@ -18,7 +18,7 @@ class PhysicalControl:
         channel=0,
         group_name=None,
         has_led=False,
-        mode='continuous',
+        mode="continuous",
     ):
         self.device = device
         self.name = name
@@ -34,12 +34,12 @@ class PhysicalControl:
 
     def set_led(self, value):
         value = int(value)
-        if self.message_type == 'note':
+        if self.message_type == "note":
             if value:
                 message = 0x90 | self.channel
             else:
                 message = 0x80 | self.channel
-        elif self.message_type == 'controller':
+        elif self.message_type == "controller":
             message = 0xB0 | self.channel
         message = [message, self.message_value, value]
         self.device.send_message(message)

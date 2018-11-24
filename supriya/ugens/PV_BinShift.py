@@ -25,5 +25,5 @@ class PV_BinShift(PV_ChainUGen):
     ### CLASS VARIABLES ###
 
     _ordered_input_names = collections.OrderedDict(
-        [('pv_chain', None), ('stretch', 1), ('shift', 0), ('interpolate', 0)]
+        [("pv_chain", None), ("stretch", 1), ("shift", 0), ("interpolate", 0)]
     )

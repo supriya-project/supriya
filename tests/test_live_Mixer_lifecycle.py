@@ -6,9 +6,9 @@ import uqbar.strings
 
 
 with supriya.synthdefs.SynthDefBuilder(out=0, value=1) as builder:
-    source = supriya.ugens.DC.ar(source=builder['value'])
-    supriya.ugens.Out.ar(bus=builder['out'], source=source)
-dc_synthdef = builder.build('dc')
+    source = supriya.ugens.DC.ar(source=builder["value"])
+    supriya.ugens.Out.ar(bus=builder["out"], source=source)
+dc_synthdef = builder.build("dc")
 
 
 def test_01(server):
@@ -20,8 +20,8 @@ def test_01(server):
         """
     )
     mixer.allocate()
-    mixer.add_track('foo')
-    mixer.add_track('bar')
+    mixer.add_track("foo")
+    mixer.add_track("bar")
     assert str(server) == uqbar.strings.normalize(
         """
         NODE TREE 0 group
@@ -72,7 +72,7 @@ def test_01(server):
                             in_: 26.0, out: 0.0, gate: 1.0, lag: 0.1
         """
     )
-    for track_name in ('master', 'cue', 'foo', 'bar'):
+    for track_name in ("master", "cue", "foo", "bar"):
         track = mixer[track_name]
         assert track.name == track_name
         assert track.input_bus_group.is_allocated
@@ -84,7 +84,7 @@ def test_01(server):
             1 group
         """
     )
-    for track_name in ('master', 'cue', 'foo', 'bar'):
+    for track_name in ("master", "cue", "foo", "bar"):
         track = mixer[track_name]
         assert track.name == track_name
         assert not track.input_bus_group.is_allocated
@@ -99,8 +99,8 @@ def test_02(server):
             1 group
         """
     )
-    mixer.add_track('foo')
-    mixer.add_track('bar')
+    mixer.add_track("foo")
+    mixer.add_track("bar")
     mixer.allocate()
     assert str(server) == uqbar.strings.normalize(
         """
@@ -152,7 +152,7 @@ def test_02(server):
                             in_: 26.0, out: 0.0, gate: 1.0, lag: 0.1
         """
     )
-    for track_name in ('master', 'cue', 'foo', 'bar'):
+    for track_name in ("master", "cue", "foo", "bar"):
         track = mixer[track_name]
         assert track.name == track_name
         assert track.input_bus_group.is_allocated
@@ -164,7 +164,7 @@ def test_02(server):
             1 group
         """
     )
-    for track_name in ('master', 'cue', 'foo', 'bar'):
+    for track_name in ("master", "cue", "foo", "bar"):
         track = mixer[track_name]
         assert track.name == track_name
         assert not track.input_bus_group.is_allocated
@@ -176,16 +176,16 @@ def test_03(server):
     Common setup for other tests.
     """
     mixer = supriya.live.Mixer(channel_count=1, cue_channel_count=1)
-    mixer.add_track('foo')
-    mixer.add_track('bar')
-    mixer.add_track('baz')
+    mixer.add_track("foo")
+    mixer.add_track("bar")
+    mixer.add_track("baz")
     mixer.allocate()
     synth_a = supriya.realtime.Synth(synthdef=dc_synthdef, value=1.0)
     synth_b = supriya.realtime.Synth(synthdef=dc_synthdef, value=0.5)
     synth_c = supriya.realtime.Synth(synthdef=dc_synthdef, value=0.25)
-    synth_a.allocate(target_node=mixer['foo'], out=int(mixer['foo'].output_bus_group))
-    synth_b.allocate(target_node=mixer['bar'], out=int(mixer['bar'].output_bus_group))
-    synth_c.allocate(target_node=mixer['baz'], out=int(mixer['baz'].output_bus_group))
+    synth_a.allocate(target_node=mixer["foo"], out=int(mixer["foo"].output_bus_group))
+    synth_b.allocate(target_node=mixer["bar"], out=int(mixer["bar"].output_bus_group))
+    synth_c.allocate(target_node=mixer["baz"], out=int(mixer["baz"].output_bus_group))
     assert str(server) == uqbar.strings.normalize(
         """
         NODE TREE 0 group

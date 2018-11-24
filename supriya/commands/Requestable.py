@@ -8,7 +8,7 @@ class Requestable(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_condition', '_response')
+    __slots__ = ("_condition", "_response")
 
     ### INITIALIZER ###
 
@@ -66,7 +66,7 @@ class Requestable(SupriyaValueObject):
                     timed_out = True
                     break
         if timed_out:
-            print('TIMED OUT:', repr(self))
+            print("TIMED OUT:", repr(self))
             return None
         return self._response
 

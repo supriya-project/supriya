@@ -2,7 +2,7 @@ import collections
 from uqbar.enums import IntEnumeration
 
 
-__all__ = ['AddAction', 'CalculationRate']
+__all__ = ["AddAction", "CalculationRate"]
 
 
 class AddAction(IntEnumeration):
@@ -92,14 +92,14 @@ class CalculationRate(IntEnumeration):
             return expr.calculation_rate
         elif isinstance(expr, supriya.synthdefs.Parameter):
             name = expr.parameter_rate.name
-            if name == 'TRIGGER':
+            if name == "TRIGGER":
                 return CalculationRate.CONTROL
             return CalculationRate.from_expr(name)
         elif isinstance(expr, str):
             return super().from_expr(expr)
         elif isinstance(expr, collections.Sequence):
             return max(CalculationRate.from_expr(item) for item in expr)
-        elif hasattr(expr, 'calculation_rate'):
+        elif hasattr(expr, "calculation_rate"):
             return cls.from_expr(expr.calculation_rate)
         return super().from_expr(expr)
 
@@ -108,9 +108,9 @@ class CalculationRate(IntEnumeration):
     @property
     def token(self):
         if self == CalculationRate.SCALAR:
-            return 'ir'
+            return "ir"
         elif self == CalculationRate.CONTROL:
-            return 'kr'
+            return "kr"
         elif self == CalculationRate.AUDIO:
-            return 'ar'
-        return 'new'
+            return "ar"
+        return "new"

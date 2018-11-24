@@ -21,4 +21,4 @@ class PV_Conj(PV_MagSquared):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([('pv_chain', None)])
+    _ordered_input_names = collections.OrderedDict([("pv_chain", None)])

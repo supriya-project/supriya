@@ -30,6 +30,6 @@ class DiskIn(MultiOutUGen):
 
     _has_settable_channel_count = True
 
-    _ordered_input_names = collections.OrderedDict([('buffer_id', None), ('loop', 0.0)])
+    _ordered_input_names = collections.OrderedDict([("buffer_id", None), ("loop", 0.0)])
 
     _valid_calculation_rates = (CalculationRate.AUDIO,)

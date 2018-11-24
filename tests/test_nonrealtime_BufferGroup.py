@@ -9,10 +9,10 @@ def test_01():
         buffer_group_two = session.add_buffer_group(buffer_count=2, duration=10)
 
     # buffer group one
-    assert buffer_group_one.duration == float('inf')
+    assert buffer_group_one.duration == float("inf")
     assert buffer_group_one.session is session
     assert buffer_group_one.start_offset == 0
-    assert buffer_group_one.stop_offset == float('inf')
+    assert buffer_group_one.stop_offset == float("inf")
 
     # buffer group one bufferes
     assert len(buffer_group_one) == 1

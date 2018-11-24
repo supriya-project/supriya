@@ -50,18 +50,18 @@ class ServerMeters(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Server Internals'
+    __documentation_section__ = "Server Internals"
 
     __slots__ = (
-        '_input_meter_callback',
-        '_input_meter_peak_levels',
-        '_input_meter_rms_levels',
-        '_input_meter_synth',
-        '_output_meter_callback',
-        '_output_meter_peak_levels',
-        '_output_meter_rms_levels',
-        '_output_meter_synth',
-        '_server',
+        "_input_meter_callback",
+        "_input_meter_peak_levels",
+        "_input_meter_rms_levels",
+        "_input_meter_synth",
+        "_output_meter_callback",
+        "_output_meter_peak_levels",
+        "_output_meter_rms_levels",
+        "_output_meter_synth",
+        "_server",
     )
 
     ### INITIALIZER ###
@@ -99,12 +99,12 @@ class ServerMeters(SupriyaObject):
         self._output_meter_peak_levels = tuple(peak_levels)
         self._output_meter_rms_levels = tuple(rms_levels)
         supriya.system.PubSub.notify(
-            'server-meters',
+            "server-meters",
             {
-                'input_meter_peak_levels': self._input_meter_peak_levels,
-                'input_meter_rms_levels': self._input_meter_rms_levels,
-                'output_meter_peak_levels': self._output_meter_peak_levels,
-                'output_meter_rms_levels': self._output_meter_rms_levels,
+                "input_meter_peak_levels": self._input_meter_peak_levels,
+                "input_meter_rms_levels": self._input_meter_rms_levels,
+                "output_meter_peak_levels": self._output_meter_peak_levels,
+                "output_meter_rms_levels": self._output_meter_rms_levels,
             },
         )
 
@@ -147,7 +147,7 @@ class ServerMeters(SupriyaObject):
         self._output_meter_synth = None
 
     @staticmethod
-    def make_meter_synthdef(channel_count=1, command_name='/reply', initial_bus=0):
+    def make_meter_synthdef(channel_count=1, command_name="/reply", initial_bus=0):
         import supriya.synthdefs
         import supriya.ugens
 
@@ -160,7 +160,7 @@ class ServerMeters(SupriyaObject):
         return synthdef
 
     def notify(self, topic, event):
-        if topic == 'server-quitting':
+        if topic == "server-quitting":
             self.free()
 
     def to_dict(self):
@@ -174,9 +174,9 @@ class ServerMeters(SupriyaObject):
         ):
             output_meter_levels.append(dict(peak=peak, rms=rms))
         result = {
-            'server_meters': {
-                'input_meter_levels': input_meter_levels,
-                'output_meter_levels': output_meter_levels,
+            "server_meters": {
+                "input_meter_levels": input_meter_levels,
+                "output_meter_levels": output_meter_levels,
             }
         }
         return result
@@ -193,7 +193,7 @@ class ServerMeters(SupriyaObject):
 
     @property
     def input_meter_command(self):
-        return '/meter.inputs'
+        return "/meter.inputs"
 
     @property
     def input_meter_synthdef(self):
@@ -205,7 +205,7 @@ class ServerMeters(SupriyaObject):
 
     @property
     def output_meter_command(self):
-        return '/meter.outputs'
+        return "/meter.outputs"
 
     @property
     def output_meter_synthdef(self):

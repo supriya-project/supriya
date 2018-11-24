@@ -41,7 +41,7 @@ class BufferSetContiguousRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_buffer_id', '_index_values_pairs')
+    __slots__ = ("_buffer_id", "_index_values_pairs")
 
     request_id = RequestId.BUFFER_SET_CONTIGUOUS
 

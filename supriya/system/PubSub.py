@@ -8,7 +8,7 @@ class PubSub(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Server Internals'
+    __documentation_section__ = "Server Internals"
 
     _lock = threading.Lock()
     _subscribers: Dict[Callable, Set[str]] = {}

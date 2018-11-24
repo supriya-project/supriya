@@ -5,7 +5,7 @@ class Pwhite(Pattern):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_minimum', '_maximum', '_repetitions')
+    __slots__ = ("_minimum", "_maximum", "_repetitions")
 
     ### INITIALIZER ###
 

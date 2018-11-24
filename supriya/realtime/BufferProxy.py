@@ -35,14 +35,14 @@ class BufferProxy(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Server Internals'
+    __documentation_section__ = "Server Internals"
 
     __slots__ = (
-        '_buffer_id',
-        '_channel_count',
-        '_frame_count',
-        '_sample_rate',
-        '_server',
+        "_buffer_id",
+        "_channel_count",
+        "_frame_count",
+        "_sample_rate",
+        "_server",
     )
 
     ### INITIALIZER ###

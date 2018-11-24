@@ -10,11 +10,11 @@ class LagControl(Control):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'UGen Internals'
+    __documentation_section__ = "UGen Internals"
 
-    _ordered_input_names = collections.OrderedDict([('lags', None)])
+    _ordered_input_names = collections.OrderedDict([("lags", None)])
 
-    _unexpanded_input_names = ('lags',)
+    _unexpanded_input_names = ("lags",)
 
     ### INITIALIZER ###
 
