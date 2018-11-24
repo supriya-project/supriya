@@ -60,9 +60,7 @@ class ControlBusGetContiguousRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_index_count_pairs',
-        )
+    __slots__ = ('_index_count_pairs',)
 
     request_id = RequestId.CONTROL_BUS_GET_CONTIGUOUS
 

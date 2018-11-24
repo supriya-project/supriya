@@ -78,4 +78,5 @@ class RequestName(StrictEnumeration):
     @property
     def request_id(self):
         from supriya.commands import RequestId
+
         return RequestId.from_expr(self.name)

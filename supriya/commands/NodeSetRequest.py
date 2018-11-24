@@ -39,10 +39,7 @@ class NodeSetRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_kwargs',
-        '_node_id',
-        )
+    __slots__ = ('_kwargs', '_node_id')
 
     request_id = RequestId.NODE_SET
 
@@ -68,10 +65,7 @@ class NodeSetRequest(Request):
         else:
             request_id = int(self.request_id)
         node_id = int(self.node_id)
-        contents = [
-            request_id,
-            node_id,
-            ]
+        contents = [request_id, node_id]
         for key, value in sorted(self._kwargs.items()):
             contents.append(key)
             contents.append(value)

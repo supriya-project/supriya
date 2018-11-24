@@ -34,9 +34,7 @@ class NotifyRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_notify_status',
-        )
+    __slots__ = ('_notify_status',)
 
     request_id = RequestId.NOTIFY
 
@@ -54,10 +52,7 @@ class NotifyRequest(Request):
         else:
             request_id = int(self.request_id)
         notify_status = int(self.notify_status)
-        message = supriya.osc.OscMessage(
-            request_id,
-            notify_status,
-            )
+        message = supriya.osc.OscMessage(request_id, notify_status)
         return message
 
     ### PUBLIC PROPERTIES ###

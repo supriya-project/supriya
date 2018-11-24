@@ -5,9 +5,7 @@ class Response(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_osc_message',
-        )
+    __slots__ = ('_osc_message',)
 
     _address = None
 

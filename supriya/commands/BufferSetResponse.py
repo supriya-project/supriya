@@ -8,10 +8,7 @@ class BufferSetResponse(Response, collections.Sequence):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_buffer_id',
-        '_items',
-        )
+    __slots__ = ('_buffer_id', '_items')
 
     class Item(NamedTuple):
         sample_index: int
@@ -19,16 +16,8 @@ class BufferSetResponse(Response, collections.Sequence):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        buffer_id=None,
-        items=None,
-        osc_message=None,
-    ):
-        Response.__init__(
-            self,
-            osc_message=osc_message,
-            )
+    def __init__(self, buffer_id=None, items=None, osc_message=None):
+        Response.__init__(self, osc_message=osc_message)
         self._buffer_id = buffer_id
         self._items = items
 
@@ -56,10 +45,7 @@ class BufferSetResponse(Response, collections.Sequence):
             item = cls.Item(*group)
             items.append(item)
         items = tuple(items)
-        response = cls(
-            buffer_id=buffer_id,
-            items=items,
-            )
+        response = cls(buffer_id=buffer_id, items=items)
         return response
 
     ### PUBLIC PROPERTIES ###

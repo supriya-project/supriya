@@ -33,18 +33,13 @@ class BufferCloseRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_buffer_id',
-        )
+    __slots__ = ('_buffer_id',)
 
     request_id = RequestId.BUFFER_CLOSE
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        buffer_id=None,
-    ):
+    def __init__(self, buffer_id=None):
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
 
@@ -56,10 +51,7 @@ class BufferCloseRequest(Request):
         else:
             request_id = int(self.request_id)
         buffer_id = int(self.buffer_id)
-        message = supriya.osc.OscMessage(
-            request_id,
-            buffer_id,
-            )
+        message = supriya.osc.OscMessage(request_id, buffer_id)
         return message
 
     ### PUBLIC PROPERTIES ###

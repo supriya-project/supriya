@@ -35,11 +35,7 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_file_path',
-        '_frame_count',
-        '_starting_frame',
-        )
+    __slots__ = ('_file_path', '_frame_count', '_starting_frame')
 
     request_id = RequestId.BUFFER_ALLOCATE_READ
 
@@ -54,12 +50,10 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
         starting_frame=None,
     ):
         import supriya.nonrealtime
+
         BufferAllocateRequest.__init__(
-            self,
-            buffer_id=buffer_id,
-            frame_count=frame_count,
-            callback=callback,
-            )
+            self, buffer_id=buffer_id, frame_count=frame_count, callback=callback
+        )
         if not supriya.nonrealtime.Session.is_session_like(file_path):
             file_path = str(file_path)
         self._file_path = file_path
@@ -82,13 +76,7 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
         starting_frame = self.starting_frame
         if starting_frame is None:
             starting_frame = 0
-        contents = [
-            request_id,
-            buffer_id,
-            self.file_path,
-            starting_frame,
-            frame_count,
-            ]
+        contents = [request_id, buffer_id, self.file_path, starting_frame, frame_count]
         return contents
 
     ### PUBLIC METHODS ###

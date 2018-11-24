@@ -13,10 +13,7 @@ class SynthDefLoadDirectoryRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_callback',
-        '_directory_path',
-        )
+    __slots__ = ('_callback', '_directory_path')
 
     request_id = RequestId.SYNTHDEF_LOAD_DIR
 
@@ -36,10 +33,7 @@ class SynthDefLoadDirectoryRequest(Request):
             request_id = self.request_name
         else:
             request_id = int(self.request_id)
-        contents = [
-            request_id,
-            str(self.directory_path),
-            ]
+        contents = [request_id, str(self.directory_path)]
         if self.callback:
             contents.append(self.callback.to_osc())
         message = supriya.osc.OscMessage(*contents)

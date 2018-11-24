@@ -23,6 +23,6 @@ class NodeAction(IntEnumeration):
             '/n_move': NodeAction.NODE_MOVED,
             '/n_off': NodeAction.NODE_DEACTIVATED,
             '/n_on': NodeAction.NODE_ACTIVATED,
-            }
+        }
         action = addresses[address]
         return action

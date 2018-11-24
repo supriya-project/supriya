@@ -34,20 +34,13 @@ class BufferFreeRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_buffer_id',
-        '_callback',
-        )
+    __slots__ = ('_buffer_id', '_callback')
 
     request_id = RequestId.BUFFER_FREE
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        buffer_id=None,
-        callback=None,
-    ):
+    def __init__(self, buffer_id=None, callback=None):
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
         if callback is not None:
@@ -62,10 +55,7 @@ class BufferFreeRequest(Request):
         else:
             request_id = int(self.request_id)
         buffer_id = int(self.buffer_id)
-        contents = [
-            request_id,
-            buffer_id,
-            ]
+        contents = [request_id, buffer_id]
         if self.callback:
             contents.append(self.callback.to_osc())
         message = supriya.osc.OscMessage(*contents)

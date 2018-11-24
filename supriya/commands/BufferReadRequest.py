@@ -44,7 +44,7 @@ class BufferReadRequest(Request):
         '_leave_open',
         '_starting_frame_in_buffer',
         '_starting_frame_in_file',
-        )
+    )
 
     request_id = RequestId.BUFFER_READ
 
@@ -61,6 +61,7 @@ class BufferReadRequest(Request):
         starting_frame_in_file=None,
     ):
         import supriya.nonrealtime
+
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
         if callback is not None:
@@ -111,7 +112,7 @@ class BufferReadRequest(Request):
             frame_count,
             starting_frame_in_buffer,
             leave_open,
-            ]
+        ]
         return contents
 
     ### PUBLIC METHODS ###

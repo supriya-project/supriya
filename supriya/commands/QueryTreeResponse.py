@@ -5,19 +5,11 @@ class QueryTreeResponse(Response):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_node_id',
-        '_query_tree_group',
-        )
+    __slots__ = ('_node_id', '_query_tree_group')
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        node_id=None,
-        osc_message=None,
-        query_tree_group=None,
-    ):
+    def __init__(self, node_id=None, osc_message=None, query_tree_group=None):
         Response.__init__(self, osc_message=osc_message)
         self._node_id = node_id
         self._query_tree_group = query_tree_group
@@ -75,6 +67,7 @@ class QueryTreeResponse(Response):
                         1002 group
 
         """
+
         def recurse(contents, control_flag):
             node_id = contents.pop(0)
             child_count = contents.pop(0)
@@ -89,32 +82,30 @@ class QueryTreeResponse(Response):
                         control = supriya.commands.QueryTreeControl(
                             control_name_or_index=control_name_or_index,
                             control_value=control_value,
-                            )
+                        )
                         controls.append(control)
                 controls = tuple(controls)
                 result = supriya.commands.QueryTreeSynth(
-                    node_id=node_id,
-                    synthdef_name=synthdef_name,
-                    controls=controls,
-                    )
+                    node_id=node_id, synthdef_name=synthdef_name, controls=controls
+                )
             else:
                 children = []
                 for i in range(child_count):
                     children.append(recurse(contents, control_flag))
                 children = tuple(children)
                 result = supriya.commands.QueryTreeGroup(
-                    node_id=node_id,
-                    children=children,
-                    )
+                    node_id=node_id, children=children
+                )
             return result
+
         import supriya.commands
+
         contents = list(osc_message.contents)
         control_flag = bool(contents.pop(0))
         query_tree_group = recurse(contents, control_flag)
         response = cls(
-            node_id=query_tree_group.node_id,
-            query_tree_group=query_tree_group,
-            )
+            node_id=query_tree_group.node_id, query_tree_group=query_tree_group
+        )
         return response
 
     def to_dict(self, flat=False):
@@ -707,6 +698,7 @@ class QueryTreeResponse(Response):
             }
 
         """
+
         def recurse(node, parent_node_id, nodes):
             if 'synthdef' in node:
                 node['parent'] = parent_node_id
@@ -716,7 +708,7 @@ class QueryTreeResponse(Response):
                     'node_id': node['node_id'],
                     'parent': parent_node_id,
                     'children': [x['node_id'] for x in node['children']],
-                    }
+                }
                 nodes.append(group)
                 for x in node['children']:
                     recurse(x, node['node_id'], nodes)

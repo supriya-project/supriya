@@ -14,7 +14,7 @@ class StatusResponse(Response):
         '_synthdef_count',
         '_target_sample_rate',
         '_ugen_count',
-        )
+    )
 
     ### INITIALIZER ###
 
@@ -30,10 +30,7 @@ class StatusResponse(Response):
         target_sample_rate=None,
         ugen_count=None,
     ):
-        Response.__init__(
-            self,
-            osc_message=osc_message,
-            )
+        Response.__init__(self, osc_message=osc_message)
         self._actual_sample_rate = actual_sample_rate
         self._average_cpu_usage = average_cpu_usage
         self._group_count = group_count
@@ -80,7 +77,7 @@ class StatusResponse(Response):
             peak_cpu_usage,
             target_sample_rate,
             actual_sample_rate,
-            ) = arguments
+        ) = arguments
         response = cls(
             actual_sample_rate=actual_sample_rate,
             average_cpu_usage=average_cpu_usage,
@@ -90,7 +87,7 @@ class StatusResponse(Response):
             synthdef_count=synthdef_count,
             target_sample_rate=target_sample_rate,
             ugen_count=ugen_count,
-            )
+        )
         return response
 
     def to_dict(self):
@@ -145,8 +142,8 @@ class StatusResponse(Response):
                 'synthdef_count': self.synthdef_count,
                 'target_sample_rate': self.target_sample_rate,
                 'ugen_count': self.ugen_count,
-                },
             }
+        }
         return result
 
     ### PUBLIC PROPERTIES ###

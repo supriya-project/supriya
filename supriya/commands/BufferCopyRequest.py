@@ -41,7 +41,7 @@ class BufferCopyRequest(Request):
         '_source_starting_frame',
         '_target_buffer_id',
         '_target_starting_frame',
-        )
+    )
 
     request_id = RequestId.BUFFER_GENERATE
 
@@ -95,7 +95,7 @@ class BufferCopyRequest(Request):
             self.source_buffer_id,
             source_starting_frame,
             frame_count,
-            ]
+        ]
         message = supriya.osc.OscMessage(*contents)
         return message
 

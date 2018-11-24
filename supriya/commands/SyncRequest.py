@@ -33,9 +33,7 @@ class SyncRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_sync_id',
-        )
+    __slots__ = ('_sync_id',)
 
     request_id = RequestId.SYNC
 
@@ -53,10 +51,7 @@ class SyncRequest(Request):
         else:
             request_id = int(self.request_id)
         sync_id = int(self.sync_id)
-        message = supriya.osc.OscMessage(
-            request_id,
-            sync_id,
-            )
+        message = supriya.osc.OscMessage(request_id, sync_id)
         return message
 
     ### PUBLIC PROPERTIES ###

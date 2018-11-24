@@ -99,10 +99,7 @@ class GroupDeepFreeRequest(Request):
         else:
             request_id = int(self.request_id)
         group_id = int(self.group_id)
-        message = supriya.osc.OscMessage(
-            request_id,
-            group_id,
-            )
+        message = supriya.osc.OscMessage(request_id, group_id)
         return message
 
     ### PUBLIC PROPERTIES ###

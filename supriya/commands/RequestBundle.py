@@ -46,19 +46,13 @@ class RequestBundle(Requestable):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_contents',
-        '_timestamp',
-        )
+    __slots__ = ('_contents', '_timestamp')
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        timestamp=None,
-        contents=None,
-    ):
+    def __init__(self, timestamp=None, contents=None):
         import supriya.commands
+
         self._condition = threading.Condition()
         self._timestamp = timestamp
         if contents is not None:
@@ -92,14 +86,9 @@ class RequestBundle(Requestable):
 
     ### PUBLIC METHODS ###
 
-    def communicate(
-        self,
-        server=None,
-        sync=True,
-        timeout=1.0,
-        apply_local=True,
-    ):
+    def communicate(self, server=None, sync=True, timeout=1.0, apply_local=True):
         import supriya.realtime
+
         server = server or supriya.realtime.Server.get_default_server()
         assert isinstance(server, supriya.realtime.Server)
         assert server.is_running
@@ -124,7 +113,7 @@ class RequestBundle(Requestable):
                 procedure=self._set_response,
                 once=True,
                 parse_response=True,
-                )
+            )
             server.send_message(message)
             while self.response is None:
                 self.condition.wait(timeout)
@@ -151,10 +140,7 @@ class RequestBundle(Requestable):
                 contents.append(x.to_osc(with_request_name))
             else:
                 contents.append(x.to_osc(with_request_name))
-        bundle = supriya.osc.OscBundle(
-            timestamp=self.timestamp,
-            contents=contents,
-            )
+        bundle = supriya.osc.OscBundle(timestamp=self.timestamp, contents=contents)
         return bundle
 
     ### PUBLIC PROPERTIES ###

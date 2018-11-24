@@ -46,13 +46,7 @@ class SynthNewRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_add_action',
-        '_node_id',
-        '_synthdef',
-        '_target_node_id',
-        '_kwargs',
-        )
+    __slots__ = ('_add_action', '_node_id', '_synthdef', '_target_node_id', '_kwargs')
 
     request_id = RequestId.SYNTH_NEW
 
@@ -68,6 +62,7 @@ class SynthNewRequest(Request):
     ):
         import supriya.realtime
         import supriya.synthdefs
+
         Request.__init__(self)
         self._add_action = AddAction.from_expr(add_action)
         self._node_id = node_id
@@ -85,10 +80,7 @@ class SynthNewRequest(Request):
             synth = self.node_id
         else:
             node_id = self.node_id
-            synth = Synth(
-                synthdef=self.synthdef,
-                **dict(self.kwargs),
-                )
+            synth = Synth(synthdef=self.synthdef, **dict(self.kwargs))
         if isinstance(self.target_node_id, Node):
             target_node = self.target_node_id
         else:
@@ -97,13 +89,14 @@ class SynthNewRequest(Request):
             node_id=node_id,
             node_id_is_permanent=synth.node_id_is_permanent,
             server=server,
-            )
+        )
         target_node._move_node(add_action=self.add_action, node=synth)
 
     ### PUBLIC METHODS ###
 
     def to_osc(self, with_request_name=False):
         import supriya.synthdefs
+
         if with_request_name:
             request_id = self.request_name
         else:
@@ -114,13 +107,7 @@ class SynthNewRequest(Request):
         node_id = int(self.node_id)
         add_action = int(self.add_action)
         target_node_id = int(self.target_node_id)
-        contents = [
-            request_id,
-            synthdef,
-            node_id,
-            add_action,
-            target_node_id,
-            ]
+        contents = [request_id, synthdef, node_id, add_action, target_node_id]
         for key, value in self._kwargs:
             contents.append(key)
             contents.append(value)

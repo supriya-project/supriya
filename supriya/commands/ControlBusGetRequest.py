@@ -50,18 +50,13 @@ class ControlBusGetRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_indices',
-        )
+    __slots__ = ('_indices',)
 
     request_id = RequestId.CONTROL_BUS_GET
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        indices=None,
-    ):
+    def __init__(self, indices=None):
         Request.__init__(self)
         if indices:
             indices = tuple(int(index) for index in indices)

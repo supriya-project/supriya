@@ -8,10 +8,7 @@ class Requestable(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_condition',
-        '_response',
-        )
+    __slots__ = ('_condition', '_response')
 
     ### INITIALIZER ###
 
@@ -37,14 +34,9 @@ class Requestable(SupriyaValueObject):
 
     ### PUBLIC METHODS ###
 
-    def communicate(
-        self,
-        server=None,
-        sync=True,
-        timeout=1.0,
-        apply_local=True,
-    ):
+    def communicate(self, server=None, sync=True, timeout=1.0, apply_local=True):
         import supriya.realtime
+
         server = server or supriya.realtime.Server.get_default_server()
         assert isinstance(server, supriya.realtime.Server)
         assert server.is_running
@@ -55,8 +47,7 @@ class Requestable(SupriyaValueObject):
         # handle non-sync
         if self._handle_async(sync, server):
             return
-        response_pattern, message = self._get_response_pattern_and_message(
-            server)
+        response_pattern, message = self._get_response_pattern_and_message(server)
         start_time = time.time()
         timed_out = False
         with self.condition:
@@ -65,7 +56,7 @@ class Requestable(SupriyaValueObject):
                 procedure=self._set_response,
                 once=True,
                 parse_response=True,
-                )
+            )
             server.send_message(message)
             while self.response is None:
                 self.condition.wait(timeout)
