@@ -1,6 +1,6 @@
 import os
+import pathlib
 import signal
-import traceback
 import atexit
 import re
 import subprocess
@@ -592,24 +592,29 @@ class Server(SupriyaObject):
 
     def boot(
         self,
+        scsynth_path=None,
         server_options=None,
         **kwargs
     ):
         import supriya.realtime
         if self.is_running:
             return self
-        from os import environ
-        scsynth_path = environ.get('SCSYNTH_PATH')
+        scsynth_path = scsynth_path or os.environ.get('SCSYNTH_PATH')
         if not scsynth_path:
             scsynth_path_candidates = uqbar.io.find_executable('scsynth')
             if not scsynth_path_candidates:
                 raise RuntimeError('Cannot find scsynth')
             scsynth_path = scsynth_path_candidates[0]
+        scsynth_path = pathlib.Path(scsynth_path).absolute()
+        if not scsynth_path.exists():
+            raise RuntimeError('{} does not exist'.format(scsynth_path))
+
         self._osc_io.boot(
             ip_address=self.ip_address,
             port=self.port,
         )
         self._setup_osc_callbacks()
+
         server_options = server_options or supriya.realtime.ServerOptions()
         assert isinstance(server_options, supriya.realtime.ServerOptions)
         if kwargs:
