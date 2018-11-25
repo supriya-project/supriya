@@ -1,10 +1,11 @@
 import itertools
 import time
 from queue import PriorityQueue
-from supriya import utils
+
 import supriya.commands
 import supriya.realtime
 import supriya.system
+from supriya import utils
 from supriya.patterns.EventPlayer import EventPlayer
 
 
@@ -12,29 +13,14 @@ class RealtimeEventPlayer(EventPlayer):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_clock',
-        '_iterator',
-        '_pattern',
-        '_server',
-        '_uuids',
-        )
+    __slots__ = ("_clock", "_iterator", "_pattern", "_server", "_uuids")
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        pattern,
-        server=None,
-        event_template=None,
-        clock=None,
-        ):
+    def __init__(self, pattern, server=None, event_template=None, clock=None):
         import supriya.patterns
-        EventPlayer.__init__(
-            self,
-            pattern,
-            event_template,
-            )
+
+        EventPlayer.__init__(self, pattern, event_template)
         clock = clock or supriya.patterns.Clock.get_default_clock()
         assert isinstance(clock, supriya.patterns.Clock)
         self._server = server or supriya.realtime.Server.get_default_server()
@@ -51,7 +37,7 @@ class RealtimeEventPlayer(EventPlayer):
                 server=self._server,
                 timestamp=scheduled_time,
                 uuids=self._uuids,
-                )
+            )
         event_products, delta = next(self._iterator)
         node_free_ids, requests = set(), []
         for event_product in event_products:
@@ -65,14 +51,12 @@ class RealtimeEventPlayer(EventPlayer):
             if event_product.is_stop:
                 proxies = self._uuids[event_product.uuid]
                 for proxy_id, proxy in proxies.items():
-                    if isinstance(proxy, (
-                        supriya.realtime.Bus,
-                        supriya.realtime.BusGroup,
-                        )):
+                    if isinstance(
+                        proxy, (supriya.realtime.Bus, supriya.realtime.BusGroup)
+                    ):
                         allocator = supriya.realtime.Bus._get_allocator(
-                            calculation_rate=proxy.calculation_rate,
-                            server=self._server,
-                            )
+                            calculation_rate=proxy.calculation_rate, server=self._server
+                        )
                         allocator.free(proxy_id)
                 self._uuids.pop(event_product.uuid)
         if node_free_ids:
@@ -80,15 +64,13 @@ class RealtimeEventPlayer(EventPlayer):
             request = supriya.commands.NodeFreeRequest(node_ids=node_free_ids)
             requests.append(request)
         consolidated_bundle = supriya.commands.RequestBundle(
-            timestamp=scheduled_time,
-            contents=requests,
-            )
+            timestamp=scheduled_time, contents=requests
+        )
         if communicate:
             osc_bundle = consolidated_bundle.to_osc()
             osc_bundle = utils.new(
-                osc_bundle,
-                timestamp=osc_bundle.timestamp + self._server.latency,
-                )
+                osc_bundle, timestamp=osc_bundle.timestamp + self._server.latency
+            )
             self._server.send_message(osc_bundle)
             return delta
         return consolidated_bundle, delta
@@ -97,6 +79,7 @@ class RealtimeEventPlayer(EventPlayer):
 
     def _collect_stop_requests(self):
         import supriya.nonrealtime
+
         requests = []
         gated_node_ids = []
         freed_node_ids = []
@@ -105,22 +88,17 @@ class RealtimeEventPlayer(EventPlayer):
                 if not isinstance(proxy, supriya.realtime.Node):
                     continue
                 if (
-                    isinstance(proxy, supriya.nonrealtime.Synth) and
-                    proxy.synthdef.has_gate
+                    isinstance(proxy, supriya.nonrealtime.Synth)
+                    and proxy.synthdef.has_gate
                 ):
                     gated_node_ids.append(proxy_id)
                 else:
                     freed_node_ids.append(proxy_id)
         if freed_node_ids:
-            request = supriya.commands.NodeFreeRequest(
-                node_ids=sorted(freed_node_ids),
-                )
+            request = supriya.commands.NodeFreeRequest(node_ids=sorted(freed_node_ids))
             requests.append(request)
         for node_id in sorted(gated_node_ids):
-            request = supriya.commands.NodeSetRequest(
-                node_id=node_id,
-                gate=0,
-                )
+            request = supriya.commands.NodeSetRequest(node_id=node_id, gate=0)
             requests.append(request)
         if not requests:
             return
@@ -131,11 +109,8 @@ class RealtimeEventPlayer(EventPlayer):
         queue = PriorityQueue()
         for index, event in enumerate(pattern):
             for event_product in event._perform_realtime(
-                index=(index, 0),
-                server=server,
-                timestamp=timestamp,
-                uuids=uuids,
-                ):
+                index=(index, 0), server=server, timestamp=timestamp, uuids=uuids
+            ):
                 queue.put(event_product)
             while not queue.empty():
                 event_product = queue.get()
@@ -152,8 +127,7 @@ class RealtimeEventPlayer(EventPlayer):
 
     @staticmethod
     def _iterate_outer(pattern, server, timestamp, uuids):
-        iterator = RealtimeEventPlayer._iterate_inner(
-            pattern, server, timestamp, uuids)
+        iterator = RealtimeEventPlayer._iterate_inner(pattern, server, timestamp, uuids)
         iterator = itertools.groupby(iterator, lambda x: x.timestamp)
         pairs = []
         try:
@@ -172,10 +146,10 @@ class RealtimeEventPlayer(EventPlayer):
     ### PUBLIC METHODS ###
 
     def notify(self, topic, event):
-        if topic == 'server-quitting':
+        if topic == "server-quitting":
             self.stop()
 
-    @supriya.system.PubSub.subscribe_before('server-quitting')
+    @supriya.system.PubSub.subscribe_before("server-quitting")
     def start(self):
         if not self._server.is_running:
             return
@@ -186,14 +160,10 @@ class RealtimeEventPlayer(EventPlayer):
             server=self._server,
             timestamp=timestamp,
             uuids=self._uuids,
-            )
-        self._clock.schedule(
-            self,
-            scheduled_time=timestamp,
-            absolute=True,
-            )
+        )
+        self._clock.schedule(self, scheduled_time=timestamp, absolute=True)
 
-    @supriya.system.PubSub.unsubscribe_after('server-quitting')
+    @supriya.system.PubSub.unsubscribe_after("server-quitting")
     def stop(self):
         self._clock.cancel(self)
         self._iterator = None

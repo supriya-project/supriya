@@ -8,4 +8,4 @@ class BEQSuite(Filter):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Filter UGens'
+    __documentation_section__ = "Filter UGens"

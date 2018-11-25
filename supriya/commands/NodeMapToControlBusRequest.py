@@ -40,10 +40,7 @@ class NodeMapToControlBusRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_kwargs',
-        '_node_id',
-        )
+    __slots__ = ("_kwargs", "_node_id")
 
     request_id = RequestId.NODE_MAP_TO_CONTROL_BUS
 
@@ -52,10 +49,7 @@ class NodeMapToControlBusRequest(Request):
     def __init__(self, node_id=None, **kwargs):
         Request.__init__(self)
         self._node_id = node_id
-        self._kwargs = dict(
-            (name, value)
-            for name, value in kwargs.items()
-            )
+        self._kwargs = dict((name, value) for name, value in kwargs.items())
 
     ### SPECIAL METHODS ###
 
@@ -76,11 +70,7 @@ class NodeMapToControlBusRequest(Request):
         for name, bus in sorted(self._kwargs.items()):
             contents.append(name)
             contents.append(int(bus))
-        message = supriya.osc.OscMessage(
-            request_id,
-            node_id,
-            *contents
-            )
+        message = supriya.osc.OscMessage(request_id, node_id, *contents)
         return message
 
     ### PUBLIC PROPERTIES ###

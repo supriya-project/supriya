@@ -37,14 +37,14 @@ class BufferReadRequest(Request):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_buffer_id',
-        '_callback',
-        '_file_path',
-        '_frame_count',
-        '_leave_open',
-        '_starting_frame_in_buffer',
-        '_starting_frame_in_file',
-        )
+        "_buffer_id",
+        "_callback",
+        "_file_path",
+        "_frame_count",
+        "_leave_open",
+        "_starting_frame_in_buffer",
+        "_starting_frame_in_file",
+    )
 
     request_id = RequestId.BUFFER_READ
 
@@ -61,6 +61,7 @@ class BufferReadRequest(Request):
         starting_frame_in_file=None,
     ):
         import supriya.nonrealtime
+
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
         if callback is not None:
@@ -111,7 +112,7 @@ class BufferReadRequest(Request):
             frame_count,
             starting_frame_in_buffer,
             leave_open,
-            ]
+        ]
         return contents
 
     ### PUBLIC METHODS ###
@@ -147,7 +148,7 @@ class BufferReadRequest(Request):
 
     @property
     def response_patterns(self):
-        return [['/done', '/b_read', self.buffer_id]]
+        return [["/done", "/b_read", self.buffer_id]]
 
     @property
     def starting_frame_in_buffer(self):

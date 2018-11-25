@@ -8,7 +8,7 @@ class Filter(PureUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Filter UGens'
+    __documentation_section__ = "Filter UGens"
 
     ### PRIVATE METHODS ###
 

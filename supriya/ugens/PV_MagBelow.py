@@ -1,4 +1,5 @@
 import collections
+
 from supriya.ugens.PV_MagAbove import PV_MagAbove
 
 
@@ -22,7 +23,6 @@ class PV_MagBelow(PV_MagAbove):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('pv_chain', None),
-        ('threshold', 0),
-    ])
+    _ordered_input_names = collections.OrderedDict(
+        [("pv_chain", None), ("threshold", 0)]
+    )

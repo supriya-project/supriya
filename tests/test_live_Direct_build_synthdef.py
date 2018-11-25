@@ -1,11 +1,14 @@
-import supriya.live
 import uqbar.strings
+
+import supriya.live
 
 
 def test_build_synthdef_01():
-    synthdef = supriya.live.Direct.build_synthdef(
-        2, 2, [(0, 0), (1, 1)])
-    assert str(synthdef) == uqbar.strings.normalize("""
+    synthdef = supriya.live.Direct.build_synthdef(2, 2, [(0, 0), (1, 1)])
+    assert (
+        str(synthdef)
+        == uqbar.strings.normalize(
+            """
         synthdef:
             name: mixer/direct/0:0,1:1
             ugens:
@@ -29,13 +32,18 @@ def test_build_synthdef_01():
                     bus: Control.ir[1:out]
                     source[0]: BinaryOpUGen(MULTIPLICATION).ar/0[0]
                     source[1]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
-        """) + '\n'
+        """
+        )
+        + "\n"
+    )
 
 
 def test_build_synthdef_02():
-    synthdef = supriya.live.Direct.build_synthdef(
-        2, 2, [(0, 1), (1, 0)])
-    assert str(synthdef) == uqbar.strings.normalize("""
+    synthdef = supriya.live.Direct.build_synthdef(2, 2, [(0, 1), (1, 0)])
+    assert (
+        str(synthdef)
+        == uqbar.strings.normalize(
+            """
         synthdef:
             name: mixer/direct/0:1,1:0
             ugens:
@@ -59,13 +67,18 @@ def test_build_synthdef_02():
                     bus: Control.ir[1:out]
                     source[0]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
                     source[1]: BinaryOpUGen(MULTIPLICATION).ar/0[0]
-        """) + '\n'
+        """
+        )
+        + "\n"
+    )
 
 
 def test_build_synthdef_03():
-    synthdef = supriya.live.Direct.build_synthdef(
-        2, 2, [(0, 1)])
-    assert str(synthdef) == uqbar.strings.normalize("""
+    synthdef = supriya.live.Direct.build_synthdef(2, 2, [(0, 1)])
+    assert (
+        str(synthdef)
+        == uqbar.strings.normalize(
+            """
         synthdef:
             name: mixer/direct/0:1
             ugens:
@@ -88,4 +101,7 @@ def test_build_synthdef_03():
                     bus: Control.ir[1:out]
                     source[0]: DC.ar[0]
                     source[1]: BinaryOpUGen(MULTIPLICATION).ar[0]
-        """) + '\n'
+        """
+        )
+        + "\n"
+    )

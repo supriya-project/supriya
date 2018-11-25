@@ -38,23 +38,14 @@ class BufferAllocateRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_buffer_id',
-        '_channel_count',
-        '_callback',
-        '_frame_count',
-        )
+    __slots__ = ("_buffer_id", "_channel_count", "_callback", "_frame_count")
 
     request_id = RequestId.BUFFER_ALLOCATE
 
     ### INITIALIZER ###
 
     def __init__(
-        self,
-        buffer_id=None,
-        frame_count=None,
-        channel_count=None,
-        callback=None,
+        self, buffer_id=None, frame_count=None, channel_count=None, callback=None
     ):
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
@@ -77,12 +68,7 @@ class BufferAllocateRequest(Request):
         buffer_id = int(self.buffer_id)
         frame_count = int(self.frame_count)
         channel_count = int(self.channel_count)
-        contents = [
-            request_id,
-            buffer_id,
-            frame_count,
-            channel_count,
-            ]
+        contents = [request_id, buffer_id, frame_count, channel_count]
         if self.callback:
             contents.append(self.callback.to_osc())
         message = supriya.osc.OscMessage(*contents)
@@ -108,4 +94,4 @@ class BufferAllocateRequest(Request):
 
     @property
     def response_patterns(self):
-        return [['/done', '/b_alloc', self.buffer_id]]
+        return [["/done", "/b_alloc", self.buffer_id]]

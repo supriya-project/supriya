@@ -1,4 +1,5 @@
 import collections
+
 from supriya import CalculationRate
 from supriya.ugens.PureUGen import PureUGen
 
@@ -24,14 +25,8 @@ class VOsc3(PureUGen):
 
     __documentation_section__ = None
 
-    _ordered_input_names = collections.OrderedDict([
-        ('buffer_id', None),
-        ('freq_1', 110),
-        ('freq_2', 220),
-        ('freq_3', 440),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [("buffer_id", None), ("freq_1", 110), ("freq_2", 220), ("freq_3", 440)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

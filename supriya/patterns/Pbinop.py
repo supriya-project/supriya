@@ -1,4 +1,5 @@
 import operator
+
 from supriya.patterns.Pattern import Pattern
 
 
@@ -6,11 +7,7 @@ class Pbinop(Pattern):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_expr_one',
-        '_expr_two',
-        '_operator',
-        )
+    __slots__ = ("_expr_one", "_expr_two", "_operator")
 
     ### INITIALIZER ###
 
@@ -23,6 +20,7 @@ class Pbinop(Pattern):
 
     def _iterate(self, state=None):
         import supriya.patterns
+
         expr_one = self.expr_one
         if not isinstance(expr_one, Pattern):
             expr_one = supriya.patterns.Pseq([expr_one], None)
@@ -37,12 +35,12 @@ class Pbinop(Pattern):
 
     def _string_to_operator(self):
         operators = {
-            '+': operator.__add__,
-            '-': operator.__sub__,
-            '*': operator.__mul__,
-            '**': operator.__pow__,
-            '/': operator.__truediv__,
-            '//': operator.__floordiv__,
+            "+": operator.__add__,
+            "-": operator.__sub__,
+            "*": operator.__mul__,
+            "**": operator.__pow__,
+            "/": operator.__truediv__,
+            "//": operator.__floordiv__,
         }
         return operators[self.operator]
 
@@ -50,8 +48,7 @@ class Pbinop(Pattern):
 
     @property
     def arity(self):
-        return max(self._get_arity(x) for x in (
-            self._expr_one, self._expr_two))
+        return max(self._get_arity(x) for x in (self._expr_one, self._expr_two))
 
     @property
     def expr_one(self):
@@ -64,12 +61,13 @@ class Pbinop(Pattern):
     @property
     def is_infinite(self):
         import supriya.patterns
+
         return (
-            isinstance(self.expr_one, supriya.patterns.Pattern) and
-            isinstance(self.expr_two, supriya.patterns.Pattern) and
-            self.expr_one.is_infinite and
-            self.expr_two.is_infinite
-            )
+            isinstance(self.expr_one, supriya.patterns.Pattern)
+            and isinstance(self.expr_two, supriya.patterns.Pattern)
+            and self.expr_one.is_infinite
+            and self.expr_two.is_infinite
+        )
 
     @property
     def operator(self):

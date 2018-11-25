@@ -46,19 +46,13 @@ class RequestBundle(Requestable):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_contents',
-        '_timestamp',
-        )
+    __slots__ = ("_contents", "_timestamp")
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        timestamp=None,
-        contents=None,
-    ):
+    def __init__(self, timestamp=None, contents=None):
         import supriya.commands
+
         self._condition = threading.Condition()
         self._timestamp = timestamp
         if contents is not None:
@@ -77,7 +71,7 @@ class RequestBundle(Requestable):
         contents = list(self.contents)
         contents.append(supriya.commands.SyncRequest(sync_id=sync_id))
         request_bundle = type(self)(contents=contents)
-        response_pattern = ['/synced', sync_id]
+        response_pattern = ["/synced", sync_id]
         return response_pattern, request_bundle.to_osc()
 
     def _handle_async(self, sync, server):
@@ -92,14 +86,9 @@ class RequestBundle(Requestable):
 
     ### PUBLIC METHODS ###
 
-    def communicate(
-        self,
-        server=None,
-        sync=True,
-        timeout=1.0,
-        apply_local=True,
-    ):
+    def communicate(self, server=None, sync=True, timeout=1.0, apply_local=True):
         import supriya.realtime
+
         server = server or supriya.realtime.Server.get_default_server()
         assert isinstance(server, supriya.realtime.Server)
         assert server.is_running
@@ -115,7 +104,7 @@ class RequestBundle(Requestable):
         contents = list(self.contents)
         contents.append(supriya.commands.SyncRequest(sync_id=sync_id))
         message = type(self)(contents=contents).to_osc()
-        response_pattern = ['/synced', sync_id]
+        response_pattern = ["/synced", sync_id]
         start_time = time.time()
         timed_out = False
         with self.condition:
@@ -124,7 +113,7 @@ class RequestBundle(Requestable):
                 procedure=self._set_response,
                 once=True,
                 parse_response=True,
-                )
+            )
             server.send_message(message)
             while self.response is None:
                 self.condition.wait(timeout)
@@ -134,7 +123,7 @@ class RequestBundle(Requestable):
                     timed_out = True
                     break
         if timed_out:
-            print('TIMED OUT:', repr(self))
+            print("TIMED OUT:", repr(self))
             return None
         return self._response
 
@@ -151,10 +140,7 @@ class RequestBundle(Requestable):
                 contents.append(x.to_osc(with_request_name))
             else:
                 contents.append(x.to_osc(with_request_name))
-        bundle = supriya.osc.OscBundle(
-            timestamp=self.timestamp,
-            contents=contents,
-            )
+        bundle = supriya.osc.OscBundle(timestamp=self.timestamp, contents=contents)
         return bundle
 
     ### PUBLIC PROPERTIES ###

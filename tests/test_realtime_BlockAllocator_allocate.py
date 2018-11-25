@@ -3,10 +3,7 @@ import supriya.realtime
 
 def test_01():
 
-    allocator = supriya.realtime.BlockAllocator(
-        heap_minimum=0,
-        heap_maximum=16,
-        )
+    allocator = supriya.realtime.BlockAllocator(heap_minimum=0, heap_maximum=16)
 
     assert allocator.allocate(4) == 0
     assert allocator.allocate(4) == 4

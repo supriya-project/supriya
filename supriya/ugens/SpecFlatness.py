@@ -1,4 +1,5 @@
 import collections
+
 from supriya import CalculationRate
 from supriya.ugens.UGen import UGen
 
@@ -21,12 +22,8 @@ class SpecFlatness(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Machine Listening UGens'
+    __documentation_section__ = "Machine Listening UGens"
 
-    _ordered_input_names = collections.OrderedDict([
-        ('pv_chain', None),
-    ])
+    _ordered_input_names = collections.OrderedDict([("pv_chain", None)])
 
-    _valid_calculation_rates = (
-        CalculationRate.CONTROL,
-    )
+    _valid_calculation_rates = (CalculationRate.CONTROL,)

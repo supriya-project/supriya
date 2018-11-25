@@ -1,8 +1,10 @@
-import pytest
 import subprocess
+from unittest import mock
+
+import pytest
+
 import supriya.exceptions
 import supriya.realtime
-from unittest import mock
 
 
 def test_boot():
@@ -11,10 +13,10 @@ def test_boot():
         for i in range(4):
             print(i)
             assert not server.is_running
-            print('\tbooting...')
+            print("\tbooting...")
             server.boot()
             assert server.is_running
-            print('\tquiting...')
+            print("\tquiting...")
             server.quit()
         assert not server.is_running
     finally:
@@ -26,9 +28,8 @@ def test_server_options():
     server = supriya.realtime.Server(port=57757)
     try:
         server_options = supriya.realtime.ServerOptions(
-            memory_size=8192 * 32,
-            load_synthdefs=False,
-            )
+            memory_size=8192 * 32, load_synthdefs=False
+        )
         # Default
         server.boot()
         assert isinstance(server.server_options, type(server_options))
@@ -60,35 +61,29 @@ def test_server_options():
 
 def test_server_boot_errors():
     def check_scsynth():
-        process = subprocess.Popen(
-            'ps -Af',
-            shell=True,
-            stdout=subprocess.PIPE,
-            )
+        process = subprocess.Popen("ps -Af", shell=True, stdout=subprocess.PIPE)
         output, _ = process.communicate()
         return output.decode()
 
-    assert 'scsynth' not in check_scsynth()
+    assert "scsynth" not in check_scsynth()
 
     server = supriya.realtime.Server()
     server.boot()
-    assert 'scsynth' in check_scsynth()
+    assert "scsynth" in check_scsynth()
     assert server.is_running
     assert server.osc_io.is_running
 
     server.quit()
-    assert 'scsynth' not in check_scsynth()
+    assert "scsynth" not in check_scsynth()
     assert not server.is_running
     assert not server.osc_io.is_running
 
-    with pytest.raises(supriya.exceptions.ServerCannotBoot), \
-        mock.patch.object(
-            supriya.realtime.Server,
-            '_read_scsynth_boot_output',
-            ) as patch:
+    with pytest.raises(supriya.exceptions.ServerCannotBoot), mock.patch.object(
+        supriya.realtime.Server, "_read_scsynth_boot_output"
+    ) as patch:
         patch.side_effect = supriya.exceptions.ServerCannotBoot()
         server.boot()
 
-    assert 'scsynth' not in check_scsynth()
+    assert "scsynth" not in check_scsynth()
     assert not server.is_running
     assert not server.osc_io.is_running

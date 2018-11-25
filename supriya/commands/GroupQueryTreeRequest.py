@@ -35,20 +35,13 @@ class GroupQueryTreeRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_include_controls',
-        '_node_id',
-        )
+    __slots__ = ("_include_controls", "_node_id")
 
     request_id = RequestId.GROUP_QUERY_TREE
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        include_controls=False,
-        node_id=None,
-    ):
+    def __init__(self, include_controls=False, node_id=None):
         Request.__init__(self)
         self._node_id = node_id
         self._include_controls = bool(include_controls)
@@ -62,11 +55,7 @@ class GroupQueryTreeRequest(Request):
             request_id = int(self.request_id)
         node_id = int(self.node_id)
         include_controls = int(self.include_controls)
-        message = supriya.osc.OscMessage(
-            request_id,
-            node_id,
-            include_controls,
-            )
+        message = supriya.osc.OscMessage(request_id, node_id, include_controls)
         return message
 
     ### PUBLIC PROPERTIES ###
@@ -81,8 +70,4 @@ class GroupQueryTreeRequest(Request):
 
     @property
     def response_patterns(self):
-        return [[
-            '/g_queryTree.reply',
-            int(self.include_controls),
-            self.node_id,
-            ]]
+        return [["/g_queryTree.reply", int(self.include_controls), self.node_id]]

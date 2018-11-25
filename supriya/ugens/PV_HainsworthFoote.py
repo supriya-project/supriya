@@ -1,4 +1,5 @@
 import collections
+
 from supriya.ugens.PV_ChainUGen import PV_ChainUGen
 
 
@@ -25,10 +26,12 @@ class PV_HainsworthFoote(PV_ChainUGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('pv_chain', None),
-        ('proph', 0),
-        ('propf', 0),
-        ('threshold', 1),
-        ('waittime', 0.04),
-    ])
+    _ordered_input_names = collections.OrderedDict(
+        [
+            ("pv_chain", None),
+            ("proph", 0),
+            ("propf", 0),
+            ("threshold", 1),
+            ("waittime", 0.04),
+        ]
+    )

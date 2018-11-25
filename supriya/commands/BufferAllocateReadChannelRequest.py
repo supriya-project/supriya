@@ -1,8 +1,7 @@
 import collections
 
 import supriya.osc
-from supriya.commands.BufferAllocateReadRequest import \
-    BufferAllocateReadRequest
+from supriya.commands.BufferAllocateReadRequest import BufferAllocateReadRequest
 from supriya.commands.RequestId import RequestId
 
 
@@ -40,9 +39,7 @@ class BufferAllocateReadChannelRequest(BufferAllocateReadRequest):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_channel_indices',
-        )
+    __slots__ = ("_channel_indices",)
 
     request_id = RequestId.BUFFER_ALLOCATE_READ_CHANNEL
 
@@ -64,7 +61,7 @@ class BufferAllocateReadChannelRequest(BufferAllocateReadRequest):
             file_path=file_path,
             frame_count=frame_count,
             starting_frame=starting_frame,
-            )
+        )
         if channel_indices is None:
             channel_indices = -1
         if not isinstance(channel_indices, collections.Sequence):
@@ -92,4 +89,4 @@ class BufferAllocateReadChannelRequest(BufferAllocateReadRequest):
 
     @property
     def response_patterns(self):
-        return [['/done', '/b_allocReadChannel', self.buffer_id]]
+        return [["/done", "/b_allocReadChannel", self.buffer_id]]

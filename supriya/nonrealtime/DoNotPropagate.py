@@ -9,9 +9,9 @@ class DoNotPropagate:
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Session Internals'
+    __documentation_section__ = "Session Internals"
 
-    _stack: List['DoNotPropagate'] = []
+    _stack: List["DoNotPropagate"] = []
 
     ### SPECIAL METHODS ###
 

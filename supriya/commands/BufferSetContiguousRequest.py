@@ -41,20 +41,13 @@ class BufferSetContiguousRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_buffer_id',
-        '_index_values_pairs',
-        )
+    __slots__ = ("_buffer_id", "_index_values_pairs")
 
     request_id = RequestId.BUFFER_SET_CONTIGUOUS
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        buffer_id=None,
-        index_values_pairs=None,
-    ):
+    def __init__(self, buffer_id=None, index_values_pairs=None):
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
         if index_values_pairs:
@@ -75,10 +68,7 @@ class BufferSetContiguousRequest(Request):
         else:
             request_id = int(self.request_id)
         buffer_id = int(self.buffer_id)
-        contents = [
-            request_id,
-            buffer_id,
-            ]
+        contents = [request_id, buffer_id]
         if self.index_values_pairs:
             for index, values in self.index_values_pairs:
                 if not values:

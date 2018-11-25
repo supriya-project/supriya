@@ -1,5 +1,6 @@
 import abc
 import functools
+
 from supriya.system.SupriyaObject import SupriyaObject
 
 
@@ -10,22 +11,17 @@ class SessionObject(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Session Internals'
+    __documentation_section__ = "Session Internals"
 
     __slots__ = ()
 
     ### INITIALIZER ###
 
     @abc.abstractmethod
-    def __init__(
-        self,
-        session,
-        ):
+    def __init__(self, session):
         import supriya.nonrealtime
-        prototype = (
-            supriya.nonrealtime.Session,
-            type(None),
-            )
+
+        prototype = (supriya.nonrealtime.Session, type(None))
         assert isinstance(session, prototype)
         self._session = session
 
@@ -36,21 +32,26 @@ class SessionObject(SupriyaObject):
         @functools.wraps(function)
         def wrapper(self, *args, **kwargs):
             import supriya.nonrealtime
+
             if isinstance(self, supriya.nonrealtime.Session):
                 session = self
             else:
                 session = self.session
-            if 'offset' not in kwargs or kwargs['offset'] is None:
+            if "offset" not in kwargs or kwargs["offset"] is None:
                 if not session._active_moments:
-                    raise ValueError('No active moment.')
+                    raise ValueError("No active moment.")
                 offset = session._active_moments[-1].offset
-                kwargs['offset'] = offset
+                kwargs["offset"] = offset
             if isinstance(self, SessionObject):
-                if not (self.start_offset <= kwargs['offset'] <= self.stop_offset):
-                    raise ValueError('Offset {} must intersect [{}, {}]'.format(
-                        float(offset), self.start_offset, self.stop_offset))
-            with session.at(kwargs['offset']):
+                if not (self.start_offset <= kwargs["offset"] <= self.stop_offset):
+                    raise ValueError(
+                        "Offset {} must intersect [{}, {}]".format(
+                            float(offset), self.start_offset, self.stop_offset
+                        )
+                    )
+            with session.at(kwargs["offset"]):
                 return function(self, *args, **kwargs)
+
         return wrapper
 
     ### PUBLIC PROPERTIES ###

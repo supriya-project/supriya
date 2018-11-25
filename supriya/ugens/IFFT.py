@@ -1,4 +1,5 @@
 import collections
+
 from supriya import CalculationRate
 from supriya.ugens.WidthFirstUGen import WidthFirstUGen
 
@@ -22,15 +23,10 @@ class IFFT(WidthFirstUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'FFT UGens'
+    __documentation_section__ = "FFT UGens"
 
-    _ordered_input_names = collections.OrderedDict([
-        ('pv_chain', None),
-        ('window_type', 0),
-        ('window_size', 0),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [("pv_chain", None), ("window_type", 0), ("window_size", 0)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

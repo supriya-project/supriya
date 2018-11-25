@@ -35,20 +35,13 @@ class BufferGetRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_buffer_id',
-        '_indices',
-        )
+    __slots__ = ("_buffer_id", "_indices")
 
     request_id = RequestId.BUFFER_GET
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        buffer_id=None,
-        indices=None,
-    ):
+    def __init__(self, buffer_id=None, indices=None):
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
         self._indices = tuple(int(index) for index in indices)
@@ -61,10 +54,7 @@ class BufferGetRequest(Request):
         else:
             request_id = int(self.request_id)
         buffer_id = int(self.buffer_id)
-        contents = [
-            request_id,
-            buffer_id,
-            ]
+        contents = [request_id, buffer_id]
         if self.indices:
             for index in self.indices:
                 contents.append(index)
@@ -83,7 +73,4 @@ class BufferGetRequest(Request):
 
     @property
     def response_patterns(self):
-        return [
-            ['/b_set', self.buffer_id],
-            ['/fail', '/b_get'],
-            ]
+        return [["/b_set", self.buffer_id], ["/fail", "/b_get"]]

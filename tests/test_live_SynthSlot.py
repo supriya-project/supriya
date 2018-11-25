@@ -1,34 +1,32 @@
-import pytest
 import time
+
+import pytest
+import uqbar.strings
+
 import supriya.live
 import supriya.realtime
 import supriya.synthdefs
 import supriya.ugens
-import uqbar.strings
-
 
 with supriya.synthdefs.SynthDefBuilder(out=0, value=1) as builder:
-    source = supriya.ugens.DC.ar(source=builder['value'])
-    supriya.ugens.Out.ar(bus=builder['out'], source=source)
-dc_synthdef = builder.build('dc')
+    source = supriya.ugens.DC.ar(source=builder["value"])
+    supriya.ugens.Out.ar(bus=builder["out"], source=source)
+dc_synthdef = builder.build("dc")
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope="function")
 def mixer(server):
     mixer = supriya.live.Mixer(channel_count=1, cue_channel_count=1)
-    mixer.add_track('track')
+    mixer.add_track("track")
     return mixer
 
 
 def test_post_mixer_allocate(server, mixer):
     mixer.allocate()
-    slot = mixer['track'].add_synth_slot(
-        'synth',
-        synthdef=dc_synthdef,
-        value=0.5,
-        )
-    assert mixer['track']['synth'] is slot
-    assert str(server) == uqbar.strings.normalize("""
+    slot = mixer["track"].add_synth_slot("synth", synthdef=dc_synthdef, value=0.5)
+    assert mixer["track"]["synth"] is slot
+    assert str(server) == uqbar.strings.normalize(
+        """
         NODE TREE 0 group
             1 group
                 1000 group
@@ -65,18 +63,16 @@ def test_post_mixer_allocate(server, mixer):
                         1013 group
                         1014 mixer/direct/0:1
                             in_: 19.0, out: 0.0, gate: 1.0, lag: 0.1
-        """)
+        """
+    )
 
 
 def test_pre_mixer_allocate(server, mixer):
-    slot = mixer['track'].add_synth_slot(
-        'synth',
-        synthdef=dc_synthdef,
-        value=0.5,
-        )
-    assert mixer['track']['synth'] is slot
+    slot = mixer["track"].add_synth_slot("synth", synthdef=dc_synthdef, value=0.5)
+    assert mixer["track"]["synth"] is slot
     mixer.allocate()
-    assert str(server) == uqbar.strings.normalize("""
+    assert str(server) == uqbar.strings.normalize(
+        """
         NODE TREE 0 group
             1 group
                 1000 group
@@ -113,18 +109,16 @@ def test_pre_mixer_allocate(server, mixer):
                         1013 group
                         1014 mixer/direct/0:1
                             in_: 19.0, out: 0.0, gate: 1.0, lag: 0.1
-        """)
+        """
+    )
 
 
 def test_play(server, mixer):
-    slot = mixer['track'].add_synth_slot(
-        'synth',
-        synthdef=dc_synthdef,
-        value=0.5,
-        )
+    slot = mixer["track"].add_synth_slot("synth", synthdef=dc_synthdef, value=0.5)
     mixer.allocate()
     slot.play(True)
-    assert str(server) == uqbar.strings.normalize("""
+    assert str(server) == uqbar.strings.normalize(
+        """
         NODE TREE 0 group
             1 group
                 1000 group
@@ -164,20 +158,18 @@ def test_play(server, mixer):
                         1014 mixer/direct/0:1
                             in_: 19.0, out: 0.0, gate: 1.0, lag: 0.1
 
-            """)
+            """
+    )
 
 
 def test_stop(server, mixer):
-    slot = mixer['track'].add_synth_slot(
-        'synth',
-        synthdef=dc_synthdef,
-        value=0.5,
-        )
+    slot = mixer["track"].add_synth_slot("synth", synthdef=dc_synthdef, value=0.5)
     mixer.allocate()
     assert slot.play(True)
     time.sleep(0.25)
     assert not slot.play(False)
-    assert str(server) == uqbar.strings.normalize("""
+    assert str(server) == uqbar.strings.normalize(
+        """
         NODE TREE 0 group
             1 group
                 1000 group
@@ -214,20 +206,17 @@ def test_stop(server, mixer):
                         1013 group
                         1014 mixer/direct/0:1
                             in_: 19.0, out: 0.0, gate: 1.0, lag: 0.1
-        """)
+        """
+    )
 
 
 def test___getitem__(server, mixer):
     """
     Subscripting returns bindable namespace proxies.
     """
-    slot = mixer['track'].add_synth_slot(
-        'synth',
-        synthdef=dc_synthdef,
-        value=0.5,
-        )
-    assert isinstance(slot['value'], supriya.system.BindableFloat)
-    assert slot['value'] == 0.5
+    slot = mixer["track"].add_synth_slot("synth", synthdef=dc_synthdef, value=0.5)
+    assert isinstance(slot["value"], supriya.system.BindableFloat)
+    assert slot["value"] == 0.5
 
 
 def test___setitem__01(server, mixer):
@@ -235,20 +224,17 @@ def test___setitem__01(server, mixer):
     Can set synth controls when synth is allocated.
     """
     mixer.allocate()
-    slot = mixer['track'].add_synth_slot(
-        'synth',
-        synthdef=dc_synthdef,
-        value=0.5,
-        )
-    assert sorted(slot.bindable_namespace.items()) == [('value', 0.5)]
-    assert slot.synth['value'] == 0.5
+    slot = mixer["track"].add_synth_slot("synth", synthdef=dc_synthdef, value=0.5)
+    assert sorted(slot.bindable_namespace.items()) == [("value", 0.5)]
+    assert slot.synth["value"] == 0.5
     slot.play(True)
-    assert sorted(slot.bindable_namespace.items()) == [('value', 0.5)]
-    assert slot.synth['value'] == 0.5
-    slot['value'] = 0.25
-    assert sorted(slot.bindable_namespace.items()) == [('value', 0.25)]
-    assert slot.synth['value'] == 0.25
-    assert str(server) == uqbar.strings.normalize("""
+    assert sorted(slot.bindable_namespace.items()) == [("value", 0.5)]
+    assert slot.synth["value"] == 0.5
+    slot["value"] = 0.25
+    assert sorted(slot.bindable_namespace.items()) == [("value", 0.25)]
+    assert slot.synth["value"] == 0.25
+    assert str(server) == uqbar.strings.normalize(
+        """
         NODE TREE 0 group
             1 group
                 1000 group
@@ -287,7 +273,8 @@ def test___setitem__01(server, mixer):
                         1013 group
                         1014 mixer/direct/0:1
                             in_: 19.0, out: 0.0, gate: 1.0, lag: 0.1
-        """)
+        """
+    )
 
 
 def test___setitem__02(server, mixer):
@@ -295,20 +282,17 @@ def test___setitem__02(server, mixer):
     Can set synth controls when synth is not allocated.
     """
     mixer.allocate()
-    slot = mixer['track'].add_synth_slot(
-        'synth',
-        synthdef=dc_synthdef,
-        value=0.5,
-        )
-    assert sorted(slot.bindable_namespace.items()) == [('value', 0.5)]
-    assert slot.synth['value'] == 0.5
-    slot['value'] = 0.25
-    assert sorted(slot.bindable_namespace.items()) == [('value', 0.25)]
-    assert slot.synth['value'] == 0.25
+    slot = mixer["track"].add_synth_slot("synth", synthdef=dc_synthdef, value=0.5)
+    assert sorted(slot.bindable_namespace.items()) == [("value", 0.5)]
+    assert slot.synth["value"] == 0.5
+    slot["value"] = 0.25
+    assert sorted(slot.bindable_namespace.items()) == [("value", 0.25)]
+    assert slot.synth["value"] == 0.25
     slot.play(True)
-    assert sorted(slot.bindable_namespace.items()) == [('value', 0.25)]
-    assert slot.synth['value'] == 0.25
-    assert str(server) == uqbar.strings.normalize("""
+    assert sorted(slot.bindable_namespace.items()) == [("value", 0.25)]
+    assert slot.synth["value"] == 0.25
+    assert str(server) == uqbar.strings.normalize(
+        """
         NODE TREE 0 group
             1 group
                 1000 group
@@ -347,4 +331,5 @@ def test___setitem__02(server, mixer):
                         1013 group
                         1014 mixer/direct/0:1
                             in_: 19.0, out: 0.0, gate: 1.0, lag: 0.1
-        """)
+        """
+    )

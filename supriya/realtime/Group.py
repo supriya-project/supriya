@@ -1,5 +1,7 @@
 import collections
+
 from uqbar.containers import UniqueTreeContainer
+
 from supriya.realtime.Node import Node
 
 
@@ -34,24 +36,17 @@ class Group(Node, UniqueTreeContainer):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Main Classes'
+    __documentation_section__ = "Main Classes"
 
-    __slots__ = (
-        '_children',
-        '_control_interface',
-        '_named_children',
-        )
+    __slots__ = ("_children", "_control_interface", "_named_children")
 
     ### INITIALIZER ###
 
     def __init__(self, children=None, name=None, node_id_is_permanent=False):
         import supriya.realtime
+
         self._control_interface = supriya.realtime.GroupInterface(client=self)
-        Node.__init__(
-            self,
-            name=name,
-            node_id_is_permanent=node_id_is_permanent,
-            )
+        Node.__init__(self, name=name, node_id_is_permanent=node_id_is_permanent)
         UniqueTreeContainer.__init__(self, children=children, name=name)
 
     ### SPECIAL METHODS ###
@@ -78,10 +73,10 @@ class Group(Node, UniqueTreeContainer):
                 i = len(self) + i
             i = slice(i, i + 1)
         if (
-            i.start == i.stop and
-            i.start is not None and
-            i.stop is not None and
-            i.start <= -len(self)
+            i.start == i.stop
+            and i.start is not None
+            and i.stop is not None
+            and i.start <= -len(self)
         ):
             start, stop = 0, 0
         else:
@@ -97,28 +92,26 @@ class Group(Node, UniqueTreeContainer):
         result = []
         node_id = self.node_id
         if node_id is None:
-            node_id = '???'
+            node_id = "???"
         if self.name:
-            string = '{node_id} group ({name})'
+            string = "{node_id} group ({name})"
         else:
-            string = '{node_id} group'
-        string = string.format(
-            name=self.name,
-            node_id=node_id,
-            )
+            string = "{node_id} group"
+        string = string.format(name=self.name, node_id=node_id)
         result.append(string)
         for child in self:
             assert child.parent is self
             lines = str(child).splitlines()
             for line in lines:
-                result.append('    {}'.format(line))
-        return '\n'.join(result)
+                result.append("    {}".format(line))
+        return "\n".join(result)
 
     ### PRIVATE METHODS ###
 
     @staticmethod
     def _iterate_setitem_expr(group, expr, start=0):
         import supriya.realtime
+
         if not start or not group:
             outer_target_node = group
         else:
@@ -132,17 +125,20 @@ class Group(Node, UniqueTreeContainer):
             yield outer_node, outer_target_node, outer_add_action
             outer_target_node = outer_node
             if (
-                isinstance(outer_node, supriya.realtime.Group) and
-                not outer_node_was_allocated
+                isinstance(outer_node, supriya.realtime.Group)
+                and not outer_node_was_allocated
             ):
-                for inner_node, inner_target_node, inner_add_action in (
-                    Group._iterate_setitem_expr(outer_node, outer_node)
-                ):
+                for (
+                    inner_node,
+                    inner_target_node,
+                    inner_add_action,
+                ) in Group._iterate_setitem_expr(outer_node, outer_node):
                     yield inner_node, inner_target_node, inner_add_action
 
     def _collect_requests_and_synthdefs(self, expr, start=0):
         import supriya.commands
         import supriya.realtime
+
         nodes = set()
         paused_nodes = set()
         synthdefs = set()
@@ -153,11 +149,11 @@ class Group(Node, UniqueTreeContainer):
             if node.is_allocated:
                 if add_action == supriya.AddAction.ADD_TO_HEAD:
                     request = supriya.commands.GroupHeadRequest(
-                        node_id_pairs=[(node, target_node)],
+                        node_id_pairs=[(node, target_node)]
                     )
                 else:
                     request = supriya.commands.NodeAfterRequest(
-                        node_id_pairs=[(node, target_node)],
+                        node_id_pairs=[(node, target_node)]
                     )
                 requests.append(request)
             else:
@@ -168,24 +164,21 @@ class Group(Node, UniqueTreeContainer):
                                 add_action=add_action,
                                 node_id=node,
                                 target_node_id=target_node,
-                                ),
-                            ],
-                        )
+                            )
+                        ]
+                    )
                     requests.append(request)
                 else:
                     if not node.synthdef.is_allocated:
                         synthdefs.add(node.synthdef)
-                    (
-                        settings,
-                        map_requests,
-                    ) = node.controls._make_synth_new_settings()
+                    (settings, map_requests) = node.controls._make_synth_new_settings()
                     request = supriya.commands.SynthNewRequest(
                         add_action=add_action,
                         node_id=node,
                         synthdef=node.synthdef,
                         target_node_id=target_node,
-                        **settings
-                        )
+                        **settings,
+                    )
                     requests.append(request)
                     requests.extend(map_requests)
                 if node.is_paused:
@@ -196,6 +189,7 @@ class Group(Node, UniqueTreeContainer):
         # TODO: Consolidate this with Group.allocate()
         import supriya.commands
         import supriya.realtime
+
         old_nodes = self._children[start:stop]
         self._children.__delitem__(slice(start, stop))
         for old_node in old_nodes:
@@ -206,13 +200,17 @@ class Group(Node, UniqueTreeContainer):
             child._set_parent(self)
         self._children.__setitem__(slice(start, start), expr)
 
-        new_nodes, paused_nodes, requests, synthdefs = \
-            self._collect_requests_and_synthdefs(expr, start)
+        new_nodes, paused_nodes, requests, synthdefs = self._collect_requests_and_synthdefs(
+            expr, start
+        )
         nodes_to_free = [_ for _ in old_nodes if _ not in new_nodes]
         if nodes_to_free:
-            requests.insert(0, supriya.commands.NodeFreeRequest(
-                node_ids=sorted(nodes_to_free, key=lambda x: x.node_id),
-                ))
+            requests.insert(
+                0,
+                supriya.commands.NodeFreeRequest(
+                    node_ids=sorted(nodes_to_free, key=lambda x: x.node_id)
+                ),
+            )
         return self._allocate(paused_nodes, requests, self.server, synthdefs)
 
     def _set_unallocated(self, expr, start, stop):
@@ -231,6 +229,7 @@ class Group(Node, UniqueTreeContainer):
 
     def _validate_setitem_expr(self, expr):
         import supriya.realtime
+
         assert all(isinstance(_, supriya.realtime.Node) for _ in expr)
         parentage = self.parentage
         for x in expr:
@@ -241,15 +240,12 @@ class Group(Node, UniqueTreeContainer):
     ### PUBLIC METHODS ###
 
     def allocate(
-        self,
-        add_action=None,
-        node_id_is_permanent=False,
-        sync=False,
-        target_node=None,
+        self, add_action=None, node_id_is_permanent=False, sync=False, target_node=None
     ):
         # TODO: Consolidate this with Group.allocate()
         import supriya.commands
         import supriya.realtime
+
         if self.is_allocated:
             return
         self._node_id_is_permanent = bool(node_id_is_permanent)
@@ -261,11 +257,14 @@ class Group(Node, UniqueTreeContainer):
                     add_action=add_action,
                     node_id=self,
                     target_node_id=target_node.node_id,
-                    ),
-                ],
-            )
+                )
+            ]
+        )
         (
-            nodes, paused_nodes, requests, synthdefs,
+            nodes,
+            paused_nodes,
+            requests,
+            synthdefs,
         ) = self._collect_requests_and_synthdefs(self)
         requests = [group_new_request, *requests]
         if self.is_paused:

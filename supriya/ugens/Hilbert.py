@@ -1,4 +1,5 @@
 import collections
+
 from supriya.enums import CalculationRate
 from supriya.ugens.MultiOutUGen import MultiOutUGen
 
@@ -24,10 +25,6 @@ class Hilbert(MultiOutUGen):
 
     _has_settable_channel_count = False
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-    ])
+    _ordered_input_names = collections.OrderedDict([("source", None)])
 
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-    )
+    _valid_calculation_rates = (CalculationRate.AUDIO,)

@@ -1,4 +1,5 @@
 import collections
+
 from supriya.ugens.PV_ChainUGen import PV_ChainUGen
 
 
@@ -23,8 +24,6 @@ class PV_RandComb(PV_ChainUGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('pv_chain', None),
-        ('wipe', 0),
-        ('trigger', 0),
-    ])
+    _ordered_input_names = collections.OrderedDict(
+        [("pv_chain", None), ("wipe", 0), ("trigger", 0)]
+    )

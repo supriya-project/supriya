@@ -1,13 +1,14 @@
 import pytest
+
 import supriya.system
 
 
 @pytest.mark.skip
 def test_01():
-
     class TestClass:
         def __init__(self):
             self.value = 0
+
         def __call__(self, value):  # noqa
             self.value = value
             return value
@@ -28,10 +29,10 @@ def test_01():
 
 
 def test_02():
-
     class TestClass:
         def __init__(self):
             self.value = 0
+
         @supriya.system.Bindable  # noqa
         def __call__(self, value):
             self.value = value
@@ -53,10 +54,10 @@ def test_02():
 
 
 def test_03():
-
     class TestClass:
         def __init__(self):
             self.value = 0
+
         @supriya.system.Bindable(rebroadcast=True)  # noqa
         def __call__(self, value):
             self.value = value
@@ -78,10 +79,10 @@ def test_03():
 
 
 def test_04():
-
     class TestClass:
         def __init__(self):
             self.value = 0
+
         @supriya.system.Bindable(rebroadcast=True)  # noqa
         def __call__(self, value):
             self.value = value
@@ -98,10 +99,10 @@ def test_04():
 
 
 def test_05():
-
     class TestClass:
         def __init__(self):
             self.value = 0
+
         @supriya.system.Bindable(rebroadcast=True)  # noqa
         def __call__(self, value):
             self.value = value
@@ -126,10 +127,10 @@ def test_05():
 
 
 def test_06():
-
     class TestClass:
         def __init__(self):
             self.value = 0
+
         @supriya.system.Bindable(rebroadcast=True)  # noqa
         def __call__(self, value):
             self.value = value
@@ -148,11 +149,12 @@ def test_06():
 
 @pytest.mark.skip
 def test_07():
-
     class TestClass:
-        __slots__ = ('value', '__weakref__')
+        __slots__ = ("value", "__weakref__")
+
         def __init__(self):  # noqa
             self.value = 0
+
         def __call__(self, value):  # noqa
             self.value = value
             return value
@@ -174,11 +176,12 @@ def test_07():
 
 @pytest.mark.skip
 def test_08():
-
     class TestClass(supriya.system.SupriyaObject):
-        __slots__ = ('value',)
+        __slots__ = ("value",)
+
         def __init__(self):  # noqa
             self.value = 0
+
         def __call__(self, value):  # noqa
             self.value = value
             return value

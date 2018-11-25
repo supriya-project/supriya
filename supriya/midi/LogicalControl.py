@@ -1,25 +1,19 @@
-from supriya.system.Bindable import Bindable
 from supriya.midi.LogicalControlMode import LogicalControlMode
+from supriya.system.Bindable import Bindable
 
 
 class LogicalControl:
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        name,
-        physical_control,
-        device,
-        mode=None,
-    ):
+    def __init__(self, name, physical_control, device, mode=None):
         self.device = device
         self.mode = LogicalControlMode.from_expr(mode)
         self.name = name
         self.parent = None
         self.physical_control = physical_control
-        self.previous_value = 0.
-        self.value = 0.
+        self.previous_value = 0.0
+        self.value = 0.0
 
     ### SPECIAL METHODS ###
 
@@ -49,40 +43,33 @@ class LogicalControl:
         return value
 
     def __repr__(self):
-        return '<{} {} {}>'.format(
-            type(self).__name__,
-            self.qualified_name,
-            self.value,
-            )
+        return "<{} {} {}>".format(type(self).__name__, self.qualified_name, self.value)
 
     ### PRIVATE METHODS ###
 
     def _debug(self, only_visible=None):
         parts = [
-            'LC',
-            'name={}'.format(self.name),
-            'mode={}'.format(self.mode.name.lower()),
-            'pc={}'.format(self.physical_control.name),
-            'value={}'.format(round(self.value, 6)),
-            ]
-        return '<{}>'.format(' '.join(parts))
+            "LC",
+            "name={}".format(self.name),
+            "mode={}".format(self.mode.name.lower()),
+            "pc={}".format(self.physical_control.name),
+            "value={}".format(round(self.value, 6)),
+        ]
+        return "<{}>".format(" ".join(parts))
 
     def _mount(self):
-        if self.mode in (
-            LogicalControlMode.CONTINUOUS,
-            LogicalControlMode.TOGGLE,
-        ):
+        if self.mode in (LogicalControlMode.CONTINUOUS, LogicalControlMode.TOGGLE):
             self.physical_control.set_led(self.value * 127)
         else:
             self.physical_control.set_led(0)
 
     def _unmount(self):
         if (
-            self.mode == LogicalControlMode.CONTINUOUS and
-            self.physical_control.mode == self.physical_control.Mode.BOOLEAN
+            self.mode == LogicalControlMode.CONTINUOUS
+            and self.physical_control.mode == self.physical_control.Mode.BOOLEAN
         ):
             self.previous_value = self.value
-            self.value = 0.
+            self.value = 0.0
 
     ### PUBLIC PROPERTIES ###
 
@@ -97,4 +84,4 @@ class LogicalControl:
         while node.parent is not None:
             node = node.parent
             names.append(node.name)
-        return ':'.join(str(_) for _ in reversed(names))
+        return ":".join(str(_) for _ in reversed(names))

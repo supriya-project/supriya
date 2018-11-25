@@ -1,8 +1,9 @@
 import pytest
+import uqbar.strings
+
 import supriya.assets.synthdefs
 import supriya.osc
 import supriya.realtime
-import uqbar.strings
 
 
 @pytest.mark.flaky(reruns=5)
@@ -18,72 +19,72 @@ def test_01(server):
     group_b.append(synth_b)
 
     remote_state = str(server.query_remote_nodes())
-    assert remote_state == uqbar.strings.normalize('''
+    assert remote_state == uqbar.strings.normalize(
+        """
         NODE TREE 0 group
             1 group
                 1001 group
                     1003 test
                 1000 group
                     1002 test
-        ''')
+        """
+    )
     local_state = str(server.query_local_nodes())
     assert local_state == remote_state
 
     with server.osc_io.capture() as capture:
         osc_message = supriya.osc.OscMessage(
-            '/n_after',
-            synth_b.node_id,
-            synth_a.node_id,
-            )
+            "/n_after", synth_b.node_id, synth_a.node_id
+        )
         server.send_message(osc_message)
         server.sync()
 
     assert list(capture) == [
-        ('S', supriya.osc.OscMessage('/n_after', 1003, 1002)),
-        ('S', supriya.osc.OscMessage(52, 0)),
-        ('R', supriya.osc.OscMessage('/n_move', 1003, 1000, 1002, -1, 0)),
-        ('R', supriya.osc.OscMessage('/synced', 0)),
-        ]
+        ("S", supriya.osc.OscMessage("/n_after", 1003, 1002)),
+        ("S", supriya.osc.OscMessage(52, 0)),
+        ("R", supriya.osc.OscMessage("/n_move", 1003, 1000, 1002, -1, 0)),
+        ("R", supriya.osc.OscMessage("/synced", 0)),
+    ]
 
     remote_state = str(server.query_remote_nodes())
-    assert remote_state == uqbar.strings.normalize('''
+    assert remote_state == uqbar.strings.normalize(
+        """
         NODE TREE 0 group
             1 group
                 1001 group
                 1000 group
                     1002 test
                     1003 test
-        ''')
+        """
+    )
     local_state = str(server.query_local_nodes())
     assert local_state == remote_state
 
     with server.osc_io.capture() as capture:
         osc_message = supriya.osc.OscMessage(
-            '/n_order',
-            0,
-            group_b.node_id,
-            synth_b.node_id,
-            synth_a.node_id,
-            )
+            "/n_order", 0, group_b.node_id, synth_b.node_id, synth_a.node_id
+        )
         server.send_message(osc_message)
         server.sync()
 
     assert list(capture) == [
-        ('S', supriya.osc.OscMessage('/n_order', 0, 1001, 1003, 1002)),
-        ('S', supriya.osc.OscMessage(52, 1)),
-        ('R', supriya.osc.OscMessage('/n_move', 1003, 1001, -1, -1, 0)),
-        ('R', supriya.osc.OscMessage('/n_move', 1002, 1001, 1003, -1, 0)),
-        ('R', supriya.osc.OscMessage('/synced', 1)),
-        ]
+        ("S", supriya.osc.OscMessage("/n_order", 0, 1001, 1003, 1002)),
+        ("S", supriya.osc.OscMessage(52, 1)),
+        ("R", supriya.osc.OscMessage("/n_move", 1003, 1001, -1, -1, 0)),
+        ("R", supriya.osc.OscMessage("/n_move", 1002, 1001, 1003, -1, 0)),
+        ("R", supriya.osc.OscMessage("/synced", 1)),
+    ]
 
     remote_state = str(server.query_remote_nodes())
-    assert remote_state == uqbar.strings.normalize('''
+    assert remote_state == uqbar.strings.normalize(
+        """
         NODE TREE 0 group
             1 group
                 1001 group
                     1003 test
                     1002 test
                 1000 group
-        ''')
+        """
+    )
     local_state = str(server.query_local_nodes())
     assert local_state == remote_state

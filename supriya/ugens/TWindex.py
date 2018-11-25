@@ -1,4 +1,5 @@
 import collections
+
 from supriya import CalculationRate
 from supriya.ugens.UGen import UGen
 
@@ -22,19 +23,12 @@ class TWindex(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Noise UGens'
+    __documentation_section__ = "Noise UGens"
 
-    _ordered_input_names = collections.OrderedDict([
-        ('trigger', None),
-        ('normalize', 0),
-        ('array', None),
-    ])
-
-    _unexpanded_input_names = (
-        'array',
-        )
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [("trigger", None), ("normalize", 0), ("array", None)]
     )
+
+    _unexpanded_input_names = ("array",)
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

@@ -24,7 +24,7 @@ class AudioInputBusGroup(BusGroup):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Server Internals'
+    __documentation_section__ = "Server Internals"
 
     __slots__ = ()
 
@@ -33,13 +33,14 @@ class AudioInputBusGroup(BusGroup):
     def __init__(self, server):
         import supriya.realtime
         import supriya.synthdefs
+
         assert isinstance(server, supriya.realtime.Server)
         assert server.is_running
         BusGroup.__init__(
             self,
             bus_count=server.server_options.input_bus_channel_count,
             calculation_rate=supriya.CalculationRate.AUDIO,
-            )
+        )
         self._bus_id = server.server_options.output_bus_channel_count
         self._server = server
 

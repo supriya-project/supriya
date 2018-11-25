@@ -1,4 +1,5 @@
 import collections
+
 from supriya import CalculationRate
 from supriya.ugens.UGen import UGen
 
@@ -23,16 +24,10 @@ class QuadL(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Chaos UGens'
+    __documentation_section__ = "Chaos UGens"
 
-    _ordered_input_names = collections.OrderedDict([
-        ('frequency', 22050),
-        ('a', 1),
-        ('b', -1),
-        ('c', -0.75),
-        ('xi', 0),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
+    _ordered_input_names = collections.OrderedDict(
+        [("frequency", 22050), ("a", 1), ("b", -1), ("c", -0.75), ("xi", 0)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO,)

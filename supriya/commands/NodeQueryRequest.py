@@ -33,9 +33,7 @@ class NodeQueryRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_node_id',
-        )
+    __slots__ = ("_node_id",)
 
     request_id = RequestId.NODE_QUERY
 
@@ -53,10 +51,7 @@ class NodeQueryRequest(Request):
         else:
             request_id = int(self.request_id)
         node_id = int(self.node_id)
-        message = supriya.osc.OscMessage(
-            request_id,
-            node_id,
-            )
+        message = supriya.osc.OscMessage(request_id, node_id)
         return message
 
     ### PUBLIC PROPERTIES ###

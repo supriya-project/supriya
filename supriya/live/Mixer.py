@@ -1,4 +1,5 @@
 import re
+
 import supriya.osc
 import supriya.realtime
 import supriya.system
@@ -38,8 +39,8 @@ class Mixer:
     def __iter__(self):
         for track in self._tracks:
             yield track.name
-        yield 'master'
-        yield 'cue'
+        yield "master"
+        yield "cue"
 
     def __len__(self):
         return len(self._tracks_by_name)
@@ -93,43 +94,32 @@ class Mixer:
         return False
 
     def _setup_master_track(self):
-        track = Track(
-            self,
-            name='master',
-            channel_count=self._channel_count,
-            )
+        track = Track(self, name="master", channel_count=self._channel_count)
         mapping = [(i, i) for i in range(self._channel_count)]
         track.add_direct_out(mapping)
-        self._tracks_by_name['master'] = track
+        self._tracks_by_name["master"] = track
         self._master_track = track
 
     def _setup_cue_track(self):
-        track = Track(
-            self,
-            name='cue',
-            channel_count=self.cue_channel_count,
-            )
+        track = Track(self, name="cue", channel_count=self.cue_channel_count)
         offset = self._channel_count
         mapping = [(i, i + offset) for i in range(self.cue_channel_count)]
         track.add_direct_out(mapping)
-        self._tracks_by_name['cue'] = track
+        self._tracks_by_name["cue"] = track
         self._cue_track = track
 
     def _allocate_osc_callbacks(self):
         self._callbacks = [
             self.server.osc_io.register(
-                pattern='/levels/input',
-                procedure=self._handle_input_levels,
-                ),
+                pattern="/levels/input", procedure=self._handle_input_levels
+            ),
             self.server.osc_io.register(
-                pattern='/levels/prefader',
-                procedure=self._handle_prefader_levels,
-                ),
+                pattern="/levels/prefader", procedure=self._handle_prefader_levels
+            ),
             self.server.osc_io.register(
-                pattern='/levels/postfader',
-                procedure=self._handle_postfader_levels,
-                ),
-            ]
+                pattern="/levels/postfader", procedure=self._handle_postfader_levels
+            ),
+        ]
 
     def _free_osc_callbacks(self):
         for callback in self._callbacks:
@@ -144,12 +134,12 @@ class Mixer:
             for track in self.tracks:
                 if track in soloed_tracks:
                     track.output_synth.unpause()
-                    track.output_synth['active'] = True
+                    track.output_synth["active"] = True
                 else:
-                    track.output_synth['active'] = False
+                    track.output_synth["active"] = False
         else:
             for track in self.tracks:
-                track.output_synth['active'] = not track.is_muted
+                track.output_synth["active"] = not track.is_muted
 
     ### PUBLIC METHODS ###
 
@@ -165,7 +155,7 @@ class Mixer:
         if self.is_allocated:
             track._allocate_buses()
             track._allocate_nodes(self._track_group, index)
-        track.send('master', 0.0)
+        track.send("master", 0.0)
         return track
 
     def allocate(self, server=None):
@@ -200,7 +190,7 @@ class Mixer:
 
     def lookup(self, name):
         current_object = self
-        match = re.match(r'^(\w+)$', name)
+        match = re.match(r"^(\w+)$", name)
         if match:
             name = match.group()
             if name.isdigit():
@@ -209,19 +199,19 @@ class Mixer:
                 return current_object[name]
             except (IndexError, KeyError):
                 return getattr(current_object, name)
-        match = re.match(r'^(\w+)([:.][\w]+)*', name)
+        match = re.match(r"^(\w+)([:.][\w]+)*", name)
         if not match:
             raise KeyError
         group = match.groups()[0]
         current_object = current_object[group]
-        name = name[len(group):]
-        for substring in re.findall('([:.][\\w]+)', name):
+        name = name[len(group) :]
+        for substring in re.findall("([:.][\\w]+)", name):
             operator, name = substring[0], substring[1:]
             if name.isdigit():
                 name = int(name)
-            if operator == ':':
+            if operator == ":":
                 current_object = current_object[name]
-            elif operator == '.':
+            elif operator == ".":
                 current_object = getattr(current_object, name)
         return current_object
 

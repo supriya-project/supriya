@@ -39,9 +39,7 @@ class BufferReadChannelRequest(BufferReadRequest):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_channel_indices',
-        )
+    __slots__ = ("_channel_indices",)
 
     request_id = RequestId.BUFFER_READ_CHANNEL
 
@@ -67,7 +65,7 @@ class BufferReadChannelRequest(BufferReadRequest):
             leave_open=leave_open,
             starting_frame_in_buffer=starting_frame_in_buffer,
             starting_frame_in_file=starting_frame_in_file,
-            )
+        )
         if not isinstance(channel_indices, collections.Sequence):
             channel_indices = (channel_indices,)
         channel_indices = tuple(channel_indices)
@@ -92,4 +90,4 @@ class BufferReadChannelRequest(BufferReadRequest):
 
     @property
     def response_patterns(self):
-        return [['/done', '/b_readChannel', self.buffer_id]]
+        return [["/done", "/b_readChannel", self.buffer_id]]

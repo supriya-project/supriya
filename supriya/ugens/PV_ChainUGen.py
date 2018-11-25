@@ -9,17 +9,13 @@ class PV_ChainUGen(WidthFirstUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'FFT UGens'
+    __documentation_section__ = "FFT UGens"
 
     ### INITIALIZER ###
 
     def __init__(self, **kwargs):
         calculation_rate = CalculationRate.CONTROL
-        WidthFirstUGen.__init__(
-            self,
-            calculation_rate=calculation_rate,
-            **kwargs,
-        )
+        WidthFirstUGen.__init__(self, calculation_rate=calculation_rate, **kwargs)
 
     ### PUBLIC PROPERTIES ###
 

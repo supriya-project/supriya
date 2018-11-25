@@ -1,4 +1,5 @@
 import collections
+
 from supriya import CalculationRate
 from supriya.ugens.BufInfoUGenBase import BufInfoUGenBase
 
@@ -16,13 +17,8 @@ class BufDur(BufInfoUGenBase):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Buffer UGens'
+    __documentation_section__ = "Buffer UGens"
 
-    _ordered_input_names = collections.OrderedDict([
-        ('buffer_id', None),
-    ])
+    _ordered_input_names = collections.OrderedDict([("buffer_id", None)])
 
-    _valid_calculation_rates = (
-        CalculationRate.CONTROL,
-        CalculationRate.SCALAR,
-    )
+    _valid_calculation_rates = (CalculationRate.CONTROL, CalculationRate.SCALAR)

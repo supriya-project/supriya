@@ -1,4 +1,5 @@
 import collections
+
 from supriya.realtime.ControlInterface import ControlInterface
 
 
@@ -6,20 +7,14 @@ class SynthInterface(ControlInterface):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_synthdef',
-        '_synth_control_map',
-        )
+    __slots__ = ("_synthdef", "_synth_control_map")
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        client=None,
-        synthdef=None,
-    ):
+    def __init__(self, client=None, synthdef=None):
         import supriya.realtime
         import supriya.synthdefs
+
         self._client = client
         synth_controls = []
         synth_control_map = collections.OrderedDict()
@@ -27,10 +22,8 @@ class SynthInterface(ControlInterface):
             assert isinstance(synthdef, supriya.synthdefs.SynthDef)
             for index, parameter in synthdef.indexed_parameters:
                 synth_control = supriya.realtime.SynthControl.from_parameter(
-                    parameter,
-                    client=self,
-                    index=index,
-                    )
+                    parameter, client=self, index=index
+                )
                 synth_controls.append(synth_control)
                 synth_control_map[synth_control.name] = synth_control
             self._synth_controls = tuple(synth_controls)
@@ -58,6 +51,7 @@ class SynthInterface(ControlInterface):
 
     def __setitem__(self, items, values):
         import supriya.realtime
+
         if not isinstance(items, tuple):
             items = (items,)
         if not isinstance(values, tuple):
@@ -69,19 +63,13 @@ class SynthInterface(ControlInterface):
         requests = self._set(**settings)
         if not self.client.is_allocated:
             return
-        supriya.commands.RequestBundle(
-            contents=requests,
-        ).communicate(
-            server=self.client.server,
-            sync=True,
+        supriya.commands.RequestBundle(contents=requests).communicate(
+            server=self.client.server, sync=True
         )
 
     def __str__(self):
         result = []
-        string = '{}: ({})'.format(
-            repr(self.client),
-            self.synthdef.actual_name,
-            )
+        string = "{}: ({})".format(repr(self.client), self.synthdef.actual_name)
         result.append(string)
         maximum_length = 0
         for synth_control in self:
@@ -90,15 +78,12 @@ class SynthInterface(ControlInterface):
         for synth_control in sorted(self, key=lambda x: x.name):
             name = synth_control.name
             value = str(synth_control.value)
-            spacing = ' ' * (maximum_length - len(name))
-            string = '    ({}) {}:{}{}'.format(
-                synth_control.calculation_rate.token,
-                name,
-                spacing,
-                value,
-                )
+            spacing = " " * (maximum_length - len(name))
+            string = "    ({}) {}:{}{}".format(
+                synth_control.calculation_rate.token, name, spacing, value
+            )
             result.append(string)
-        result = '\n'.join(result)
+        result = "\n".join(result)
         return result
 
     ### PRIVATE METHODS ###
@@ -107,13 +92,17 @@ class SynthInterface(ControlInterface):
         import supriya.commands
         import supriya.realtime
         import supriya.synthdefs
+
         audio_map = {}
         control_map = {}
         requests = []
         settings = {}
         for synth_control in self.synth_controls:
             if isinstance(synth_control.value, supriya.realtime.Bus):
-                if synth_control.value.calculation_rate == supriya.CalculationRate.AUDIO:
+                if (
+                    synth_control.value.calculation_rate
+                    == supriya.CalculationRate.AUDIO
+                ):
                     audio_map[synth_control.name] = synth_control.value
                 else:
                     control_map[synth_control.name] = synth_control.value
@@ -121,15 +110,13 @@ class SynthInterface(ControlInterface):
                 settings[synth_control.name] = synth_control.value
         if audio_map:
             request = supriya.commands.NodeMapToAudioBusRequest(
-                node_id=self.client,
-                **audio_map
-                )
+                node_id=self.client, **audio_map
+            )
             requests.append(request)
         if control_map:
             request = supriya.commands.NodeMapToControlBusRequest(
-                node_id=self.client,
-                **control_map
-                )
+                node_id=self.client, **control_map
+            )
             requests.append(request)
         return settings, requests
 
@@ -137,10 +124,7 @@ class SynthInterface(ControlInterface):
 
     def as_dict(self):
         result = {}
-        if (
-            self.client.register_controls is None or
-            self.client.register_controls
-        ):
+        if self.client.register_controls is None or self.client.register_controls:
             for control in self:
                 result[control.name] = set([self.client])
         return result

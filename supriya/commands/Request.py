@@ -1,7 +1,8 @@
 import abc
 
-from supriya.commands.Requestable import Requestable
 from uqbar.objects import new
+
+from supriya.commands.Requestable import Requestable
 
 
 class Request(Requestable):
@@ -27,7 +28,7 @@ class Request(Requestable):
             return True
 
     def _linearize(self):
-        if hasattr(self, 'callback') and self.callback:
+        if hasattr(self, "callback") and self.callback:
             yield new(self, callback=None)
             yield from self.callback._linearize()
         else:

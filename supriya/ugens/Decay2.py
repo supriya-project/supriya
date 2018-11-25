@@ -1,4 +1,5 @@
 import collections
+
 from supriya import CalculationRate
 from supriya.ugens.Filter import Filter
 
@@ -20,13 +21,8 @@ class Decay2(Filter):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-        ('attack_time', 0.01),
-        ('decay_time', 1.0),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [("source", None), ("attack_time", 0.01), ("decay_time", 1.0)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

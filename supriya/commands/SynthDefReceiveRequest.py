@@ -115,23 +115,15 @@ class SynthDefReceiveRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_callback',
-        '_synthdefs',
-        '_use_anonymous_names',
-        )
+    __slots__ = ("_callback", "_synthdefs", "_use_anonymous_names")
 
     request_id = RequestId.SYNTHDEF_RECEIVE
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        callback=None,
-        synthdefs=None,
-        use_anonymous_names=None,
-    ):
+    def __init__(self, callback=None, synthdefs=None, use_anonymous_names=None):
         import supriya.synthdefs
+
         Request.__init__(self)
         if callback is not None:
             assert isinstance(callback, (Request, RequestBundle))
@@ -157,19 +149,16 @@ class SynthDefReceiveRequest(Request):
 
     def to_osc(self, with_request_name=False):
         import supriya.synthdefs
+
         if with_request_name:
             request_id = self.request_name
         else:
             request_id = int(self.request_id)
         compiled_synthdefs = supriya.synthdefs.SynthDefCompiler.compile_synthdefs(
-            self.synthdefs,
-            use_anonymous_names=self.use_anonymous_names,
-            )
+            self.synthdefs, use_anonymous_names=self.use_anonymous_names
+        )
         compiled_synthdefs = bytearray(compiled_synthdefs)
-        contents = [
-            request_id,
-            compiled_synthdefs,
-            ]
+        contents = [request_id, compiled_synthdefs]
         if self.callback:
             contents.append(self.callback.to_osc())
         message = supriya.osc.OscMessage(*contents)
@@ -183,7 +172,7 @@ class SynthDefReceiveRequest(Request):
 
     @property
     def response_patterns(self):
-        return [['/done', '/d_recv']]
+        return [["/done", "/d_recv"]]
 
     @property
     def synthdefs(self):

@@ -1,4 +1,5 @@
 import collections
+
 from supriya.enums import CalculationRate
 from supriya.ugens.PureUGen import PureUGen
 
@@ -21,12 +22,8 @@ class Index(PureUGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('buffer_id', None),
-        ('source', None),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [("buffer_id", None), ("source", None)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

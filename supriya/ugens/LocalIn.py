@@ -1,4 +1,5 @@
 import collections
+
 from supriya import utils
 from supriya.enums import CalculationRate
 from supriya.ugens.MultiOutUGen import MultiOutUGen
@@ -17,33 +18,21 @@ class LocalIn(MultiOutUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Input/Output UGens'
+    __documentation_section__ = "Input/Output UGens"
 
     _default_channel_count = 1
 
     _has_settable_channel_count = True
 
-    _ordered_input_names = collections.OrderedDict([
-        ('default', 0),
-    ])
+    _ordered_input_names = collections.OrderedDict([("default", 0)])
 
-    _unexpanded_input_names = (
-        'default',
-    )
+    _unexpanded_input_names = ("default",)
 
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
-    )
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        calculation_rate=None,
-        channel_count=1,
-        default=0,
-    ):
+    def __init__(self, calculation_rate=None, channel_count=1, default=0):
         if not isinstance(default, collections.Sequence):
             default = (default,)
         default = (float(_) for _ in default)

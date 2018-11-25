@@ -1,4 +1,5 @@
 import collections
+
 from supriya import CalculationRate
 from supriya.ugens.UGen import UGen
 
@@ -22,23 +23,16 @@ class XOut(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Input/Output UGens'
+    __documentation_section__ = "Input/Output UGens"
 
     _default_channel_count = 0
 
     _is_output = True
 
-    _ordered_input_names = collections.OrderedDict([
-        ('bus', 0),
-        ('crossfade', 0),
-        ('source', None),
-    ])
-
-    _unexpanded_input_names = (
-        'source',
+    _ordered_input_names = collections.OrderedDict(
+        [("bus", 0), ("crossfade", 0), ("source", None)]
     )
 
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
-    )
+    _unexpanded_input_names = ("source",)
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

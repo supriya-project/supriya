@@ -1,4 +1,5 @@
 import collections
+
 from supriya.ugens.PV_ChainUGen import PV_ChainUGen
 
 
@@ -24,9 +25,6 @@ class PV_RectComb(PV_ChainUGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('pv_chain', None),
-        ('num_teeth', 0),
-        ('phase', 0),
-        ('width', 0.5),
-    ])
+    _ordered_input_names = collections.OrderedDict(
+        [("pv_chain", None), ("num_teeth", 0), ("phase", 0), ("width", 0.5)]
+    )

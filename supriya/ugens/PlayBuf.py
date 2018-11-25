@@ -1,4 +1,5 @@
 import collections
+
 from supriya import CalculationRate
 from supriya.ugens.MultiOutUGen import MultiOutUGen
 
@@ -26,22 +27,21 @@ class PlayBuf(MultiOutUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Buffer UGens'
+    __documentation_section__ = "Buffer UGens"
 
     _default_channel_count = 1
 
     _has_settable_channel_count = True
 
-    _ordered_input_names = collections.OrderedDict([
-        ('buffer_id', None),
-        ('rate', 1),
-        ('trigger', 1),
-        ('start_position', 0),
-        ('loop', 0),
-        ('done_action', 0),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [
+            ("buffer_id", None),
+            ("rate", 1),
+            ("trigger", 1),
+            ("start_position", 0),
+            ("loop", 0),
+            ("done_action", 0),
+        ]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

@@ -1,10 +1,11 @@
 import collections
+
 from supriya import CalculationRate
 from supriya.ugens.MultiOutUGen import MultiOutUGen
 
 
 class InFeedback(MultiOutUGen):
-    r'''A bus input unit generator.
+    r"""A bus input unit generator.
 
     Reads signal from a bus with a current or one cycle old timestamp.
 
@@ -17,11 +18,11 @@ class InFeedback(MultiOutUGen):
         >>> in_feedback
         UGenArray({2})
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Input/Output UGens'
+    __documentation_section__ = "Input/Output UGens"
 
     _default_channel_count = 1
 
@@ -29,10 +30,6 @@ class InFeedback(MultiOutUGen):
 
     _is_input = True
 
-    _ordered_input_names = collections.OrderedDict([
-        ('bus', 0),
-    ])
+    _ordered_input_names = collections.OrderedDict([("bus", 0)])
 
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-    )
+    _valid_calculation_rates = (CalculationRate.AUDIO,)

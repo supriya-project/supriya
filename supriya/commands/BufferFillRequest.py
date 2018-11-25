@@ -41,20 +41,13 @@ class BufferFillRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_buffer_id',
-        '_index_count_value_triples',
-        )
+    __slots__ = ("_buffer_id", "_index_count_value_triples")
 
     request_id = RequestId.BUFFER_FILL
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        buffer_id=None,
-        index_count_value_triples=None,
-    ):
+    def __init__(self, buffer_id=None, index_count_value_triples=None):
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
         triples = []
@@ -72,10 +65,7 @@ class BufferFillRequest(Request):
         else:
             request_id = int(self.request_id)
         buffer_id = int(self.buffer_id)
-        contents = [
-            request_id,
-            buffer_id,
-            ]
+        contents = [request_id, buffer_id]
         for index, count, value in self.index_count_value_triples:
             contents.append(int(index))
             contents.append(int(count))

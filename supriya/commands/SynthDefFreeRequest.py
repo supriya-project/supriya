@@ -32,9 +32,7 @@ class SynthDefFreeRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_synthdef',
-        )
+    __slots__ = ("_synthdef",)
 
     request_id = RequestId.SYNTHDEF_FREE
 
@@ -42,6 +40,7 @@ class SynthDefFreeRequest(Request):
 
     def __init__(self, synthdef=None):
         import supriya.synthdefs
+
         Request.__init__(self)
         prototype = (str, supriya.synthdefs.SynthDef)
         assert isinstance(synthdef, prototype)
@@ -51,6 +50,7 @@ class SynthDefFreeRequest(Request):
 
     def to_osc(self, with_request_name=False):
         import supriya.synthdefs
+
         if with_request_name:
             request_id = self.request_name
         else:
@@ -58,10 +58,7 @@ class SynthDefFreeRequest(Request):
         synthdef = self.synthdef
         if isinstance(synthdef, supriya.synthdefs.SynthDef):
             synthdef = synthdef.actual_name
-        message = supriya.osc.OscMessage(
-            request_id,
-            synthdef,
-            )
+        message = supriya.osc.OscMessage(request_id, synthdef)
         return message
 
     ### PUBLIC PROPERTIES ###

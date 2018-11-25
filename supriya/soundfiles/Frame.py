@@ -1,4 +1,5 @@
 import collections
+
 from supriya.system.SupriyaObject import SupriyaObject
 
 
@@ -6,9 +7,7 @@ class Frame(SupriyaObject, collections.Sequence):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_values',
-        )
+    __slots__ = ("_values",)
 
     ### INITIALIZER ###
 

@@ -31,9 +31,7 @@ class DumpOscRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_osc_status',
-        )
+    __slots__ = ("_osc_status",)
 
     request_id = RequestId.DUMP_OSC
 
@@ -52,10 +50,7 @@ class DumpOscRequest(Request):
             request_id = int(self.request_id)
         osc_status = int(self.osc_status)
         assert 0 <= osc_status <= 4
-        message = supriya.osc.OscMessage(
-            request_id,
-            osc_status,
-            )
+        message = supriya.osc.OscMessage(request_id, osc_status)
         return message
 
     ### PUBLIC PROPERTIES ###

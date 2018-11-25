@@ -7,7 +7,7 @@ class SendManager:
 
     ### SPECIAL METHODS ###
 
-    def __call__(self, track_name, initial_gain=0.):
+    def __call__(self, track_name, initial_gain=0.0):
         if track_name in self.track._outgoing_sends:
             send = self.track._outgoing_sends[track_name]
             send(initial_gain)

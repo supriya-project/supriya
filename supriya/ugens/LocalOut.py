@@ -1,4 +1,5 @@
 import collections
+
 from supriya import CalculationRate
 from supriya.ugens.UGen import UGen
 
@@ -19,17 +20,10 @@ class LocalOut(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Input/Output UGens'
+    __documentation_section__ = "Input/Output UGens"
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-    ])
+    _ordered_input_names = collections.OrderedDict([("source", None)])
 
-    _unexpanded_input_names = (
-        'source',
-    )
+    _unexpanded_input_names = ("source",)
 
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
-    )
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

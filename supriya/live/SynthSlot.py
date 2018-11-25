@@ -9,20 +9,14 @@ class SynthSlot(Slot):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        name,
-        track,
-        synthdef,
-        **kwargs
-        ):
+    def __init__(self, name, track, synthdef, **kwargs):
         import supriya.assets.synthdefs
+
         self._synthdef = synthdef or supriya.assets.synthdefs.default
         Slot.__init__(self, name, track, self._synthdef, **kwargs)
         self._synth = supriya.realtime.Synth(
-            synthdef=self._synthdef,
-            **self.bindable_namespace
-            )
+            synthdef=self._synthdef, **self.bindable_namespace
+        )
         for key in self._bindable_namespace:
             supriya.system.bind(self[key], self._synth.controls[key])
 
@@ -33,13 +27,13 @@ class SynthSlot(Slot):
             if parameter.parameter_rate in (
                 supriya.synthdefs.ParameterRate.AUDIO,
                 supriya.synthdefs.ParameterRate.SCALAR,
-                ):
+            ):
                 continue
             elif name in kwargs:
                 continue
             kwargs[name] = parameter.value
         for key in tuple(kwargs):
-            if key in ('in_', 'out', 'gate'):
+            if key in ("in_", "out", "gate"):
                 kwargs.pop(key)
             elif key not in self._synthdef.parameter_names:
                 kwargs.pop(key)

@@ -5,9 +5,7 @@ class Response(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_osc_message',
-        )
+    __slots__ = ("_osc_message",)
 
     _address = None
 
@@ -30,7 +28,7 @@ class Response(SupriyaValueObject):
         result = {}
         for key, value in self.__getstate__().items():
             key = key[1:]
-            if key == 'osc_message':
+            if key == "osc_message":
                 continue
             result[key] = value
         return result

@@ -1,10 +1,14 @@
-import supriya.live
 import uqbar.strings
+
+import supriya.live
 
 
 def test_build_input_synthdef_1():
     synthdef = supriya.live.Track.build_input_synthdef(1)
-    assert str(synthdef) == uqbar.strings.normalize("""
+    assert (
+        str(synthdef)
+        == uqbar.strings.normalize(
+            """
         synthdef:
             name: mixer/input/1
             ugens:
@@ -51,12 +55,18 @@ def test_build_input_synthdef_1():
             -   ReplaceOut.ar:
                     bus: Control.ir[1:out]
                     source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
-        """) + '\n'
+        """
+        )
+        + "\n"
+    )
 
 
 def test_build_input_synthdef_2():
     synthdef = supriya.live.Track.build_input_synthdef(2)
-    assert str(synthdef) == uqbar.strings.normalize("""
+    assert (
+        str(synthdef)
+        == uqbar.strings.normalize(
+            """
         synthdef:
             name: mixer/input/2
             ugens:
@@ -107,12 +117,18 @@ def test_build_input_synthdef_2():
                     bus: Control.ir[1:out]
                     source[0]: BinaryOpUGen(MULTIPLICATION).ar/0[0]
                     source[1]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
-        """) + '\n'
+        """
+        )
+        + "\n"
+    )
 
 
 def test_build_input_synthdef_4():
     synthdef = supriya.live.Track.build_input_synthdef(4)
-    assert str(synthdef) == uqbar.strings.normalize("""
+    assert (
+        str(synthdef)
+        == uqbar.strings.normalize(
+            """
         synthdef:
             name: mixer/input/4
             ugens:
@@ -171,12 +187,18 @@ def test_build_input_synthdef_4():
                     source[1]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
                     source[2]: BinaryOpUGen(MULTIPLICATION).ar/2[0]
                     source[3]: BinaryOpUGen(MULTIPLICATION).ar/3[0]
-        """) + '\n'
+        """
+        )
+        + "\n"
+    )
 
 
 def test_build_input_synthdef_8():
     synthdef = supriya.live.Track.build_input_synthdef(8)
-    assert str(synthdef) == uqbar.strings.normalize("""
+    assert (
+        str(synthdef)
+        == uqbar.strings.normalize(
+            """
         synthdef:
             name: mixer/input/8
             ugens:
@@ -251,12 +273,18 @@ def test_build_input_synthdef_8():
                     source[5]: BinaryOpUGen(MULTIPLICATION).ar/5[0]
                     source[6]: BinaryOpUGen(MULTIPLICATION).ar/6[0]
                     source[7]: BinaryOpUGen(MULTIPLICATION).ar/7[0]
-        """) + '\n'
+        """
+        )
+        + "\n"
+    )
 
 
 def test_build_output_synthdef_1():
     synthdef = supriya.live.Track.build_output_synthdef(1)
-    assert str(synthdef) == uqbar.strings.normalize("""
+    assert (
+        str(synthdef)
+        == uqbar.strings.normalize(
+            """
         synthdef:
             name: mixer/output/1
             ugens:
@@ -307,12 +335,18 @@ def test_build_output_synthdef_1():
             -   ReplaceOut.ar:
                     bus: Control.ir[0:out]
                     source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
-        """) + '\n'
+        """
+        )
+        + "\n"
+    )
 
 
 def test_build_output_synthdef_2():
     synthdef = supriya.live.Track.build_output_synthdef(2)
-    assert str(synthdef) == uqbar.strings.normalize("""
+    assert (
+        str(synthdef)
+        == uqbar.strings.normalize(
+            """
         synthdef:
             name: mixer/output/2
             ugens:
@@ -367,12 +401,18 @@ def test_build_output_synthdef_2():
                     bus: Control.ir[0:out]
                     source[0]: BinaryOpUGen(MULTIPLICATION).ar/0[0]
                     source[1]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
-        """) + '\n'
+        """
+        )
+        + "\n"
+    )
 
 
 def test_build_output_synthdef_4():
     synthdef = supriya.live.Track.build_output_synthdef(4)
-    assert str(synthdef) == uqbar.strings.normalize("""
+    assert (
+        str(synthdef)
+        == uqbar.strings.normalize(
+            """
         synthdef:
             name: mixer/output/4
             ugens:
@@ -435,12 +475,18 @@ def test_build_output_synthdef_4():
                     source[1]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
                     source[2]: BinaryOpUGen(MULTIPLICATION).ar/2[0]
                     source[3]: BinaryOpUGen(MULTIPLICATION).ar/3[0]
-        """) + '\n'
+        """
+        )
+        + "\n"
+    )
 
 
 def test_build_output_synthdef_8():
     synthdef = supriya.live.Track.build_output_synthdef(8)
-    assert str(synthdef) == uqbar.strings.normalize("""
+    assert (
+        str(synthdef)
+        == uqbar.strings.normalize(
+            """
         synthdef:
             name: mixer/output/8
             ugens:
@@ -519,4 +565,7 @@ def test_build_output_synthdef_8():
                     source[5]: BinaryOpUGen(MULTIPLICATION).ar/5[0]
                     source[6]: BinaryOpUGen(MULTIPLICATION).ar/6[0]
                     source[7]: BinaryOpUGen(MULTIPLICATION).ar/7[0]
-        """) + '\n'
+        """
+        )
+        + "\n"
+    )

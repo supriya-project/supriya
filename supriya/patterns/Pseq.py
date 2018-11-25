@@ -1,4 +1,5 @@
 import collections
+
 from supriya.patterns.Pattern import Pattern
 
 
@@ -35,10 +36,7 @@ class Pseq(Pattern):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_sequence',
-        '_repetitions',
-        )
+    __slots__ = ("_sequence", "_repetitions")
 
     ### INITIALIZER ###
 
@@ -106,6 +104,7 @@ class Pseq(Pattern):
     @property
     def is_infinite(self):
         import supriya.patterns
+
         if self.repetitions is None:
             return True
         for x in self.sequence:

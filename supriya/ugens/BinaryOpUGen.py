@@ -1,4 +1,5 @@
 import collections
+
 from supriya.ugens.PureUGen import PureUGen
 
 
@@ -24,21 +25,14 @@ class BinaryOpUGen(PureUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Basic Operator UGens'
+    __documentation_section__ = "Basic Operator UGens"
 
-    _ordered_input_names = collections.OrderedDict([
-        ('left', None),
-        ('right', None),
-    ])
+    _ordered_input_names = collections.OrderedDict([("left", None), ("right", None)])
 
     ### INITIALIZER ###
 
     def __init__(
-        self,
-        calculation_rate=None,
-        special_index=None,
-        left=None,
-        right=None,
+        self, calculation_rate=None, special_index=None, left=None, right=None
     ):
         PureUGen.__init__(
             self,
@@ -52,13 +46,10 @@ class BinaryOpUGen(PureUGen):
 
     @classmethod
     def _new_single(
-        cls,
-        calculation_rate=None,
-        special_index=None,
-        left=None,
-        right=None,
+        cls, calculation_rate=None, special_index=None, left=None, right=None
     ):
         import supriya.synthdefs
+
         a = left
         b = right
         if special_index == supriya.synthdefs.BinaryOperator.MULTIPLICATION:
@@ -94,7 +85,7 @@ class BinaryOpUGen(PureUGen):
             special_index=special_index,
             left=a,
             right=b,
-            )
+        )
         return ugen
 
     ### PUBLIC PROPERTIES ###
@@ -115,4 +106,5 @@ class BinaryOpUGen(PureUGen):
         Returns binary operator.
         """
         import supriya.synthdefs
+
         return supriya.synthdefs.BinaryOperator(self.special_index)

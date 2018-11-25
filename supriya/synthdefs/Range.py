@@ -1,4 +1,5 @@
 import collections
+
 from supriya.system.SupriyaObject import SupriyaObject
 
 
@@ -50,33 +51,28 @@ class Range(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Main Classes'
+    __documentation_section__ = "Main Classes"
 
-    __slots__ = (
-        '_minimum',
-        '_maximum',
-        )
+    __slots__ = ("_minimum", "_maximum")
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        minimum=None,
-        maximum=None,
+    def __init__(self, minimum=None, maximum=None):
+        if (
+            isinstance(minimum, collections.Sequence)
+            and maximum is None
+            and len(minimum) == 2
         ):
-        if isinstance(minimum, collections.Sequence) and \
-            maximum is None and \
-            len(minimum) == 2:
             minimum, maximum = minimum
         elif isinstance(minimum, type(self)):
             minimum, maximum = minimum.minimum, minimum.maximum
         if minimum is None:
-            minimum = float('-inf')
+            minimum = float("-inf")
         if not isinstance(minimum, (float, int)):
             raise ValueError(minimum)
         minimum = float(minimum)
         if maximum is None:
-            maximum = float('inf')
+            maximum = float("inf")
         if not isinstance(maximum, (float, int)):
             raise ValueError(maximum)
         maximum = float(maximum)
@@ -87,7 +83,7 @@ class Range(SupriyaObject):
     ### PUBLIC METHODS ###
 
     @staticmethod
-    def scale(value, input_range, output_range, exponent=1.):
+    def scale(value, input_range, output_range, exponent=1.0):
         """
         Scales `value` from `input_range` to `output_range`.
 

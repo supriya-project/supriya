@@ -7,22 +7,11 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_controls',
-        '_extra',
-        '_node_id',
-        '_synthdef_name',
-        )
+    __slots__ = ("_controls", "_extra", "_node_id", "_synthdef_name")
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        node_id=None,
-        synthdef_name=None,
-        controls=None,
-        **extra
-        ):
+    def __init__(self, node_id=None, synthdef_name=None, controls=None, **extra):
         self._controls = controls
         self._extra = tuple(sorted(extra.items()))
         self._node_id = node_id
@@ -38,7 +27,7 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
 
     def __str__(self):
         result = self._get_str_format_pieces()
-        result = '\n'.join(result)
+        result = "\n".join(result)
         return result
 
     ### PRIVATE METHODS ###
@@ -51,10 +40,11 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
         include_controls=False,
         include_timespans=False,
         id_mapping=None,
-        ):
+    ):
         import supriya.nonrealtime
         import supriya.commands
         import supriya.synthdefs
+
         assert isinstance(node, supriya.nonrealtime.Synth)
         node_id = node.session_id
         synthdef_name = node.synthdef
@@ -63,10 +53,8 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
         controls = []
         if include_controls:
             settings = node._collect_settings(
-                state.offset,
-                persistent=True,
-                id_mapping=id_mapping,
-                )
+                state.offset, persistent=True, id_mapping=id_mapping
+            )
             synthdef, synth_kwargs = node.synthdef, node.synth_kwargs
             for name, parameter in sorted(synthdef.parameters.items()):
                 value = parameter.value
@@ -80,41 +68,29 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
                 except Exception:
                     pass
                 control = supriya.commands.QueryTreeControl(
-                    control_name_or_index=name,
-                    control_value=value,
-                    )
+                    control_name_or_index=name, control_value=value
+                )
                 controls.append(control)
         extra = {}
         if include_timespans:
             extra.update(timespan=[node.start_offset, node.stop_offset])
         query_tree_synth = QueryTreeSynth(
-            node_id=node_id,
-            synthdef_name=synthdef_name,
-            controls=controls,
-            **extra
-            )
+            node_id=node_id, synthdef_name=synthdef_name, controls=controls, **extra
+        )
         return query_tree_synth
 
     def _get_str_format_pieces(self):
         result = []
-        string = '{} {}'.format(
-            self.node_id,
-            self.synthdef_name,
-            )
+        string = "{} {}".format(self.node_id, self.synthdef_name)
         if self.extra:
-            string = '{} ({})'.format(
+            string = "{} ({})".format(
                 string,
-                ', '.join(
-                    '{}: {}'.format(key, value)
-                    for key, value in self.extra
-                    ),
-                )
+                ", ".join("{}: {}".format(key, value) for key, value in self.extra),
+            )
         result.append(string)
         if self.controls:
-            control_string = ', '.join(
-                str(control) for control in self.controls
-                )
-            control_string = '    ' + control_string
+            control_string = ", ".join(str(control) for control in self.controls)
+            control_string = "    " + control_string
             result.append(control_string)
         return result
 
@@ -125,6 +101,7 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
         import supriya.commands
         import supriya.realtime
         import supriya.synthdefs
+
         assert isinstance(synth, supriya.realtime.Synth)
         node_id = synth.node_id
         synthdef_name = synth.synthdef
@@ -137,10 +114,8 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
                 controls.append(control)
         controls = tuple(controls)
         query_tree_synth = QueryTreeSynth(
-            node_id=node_id,
-            synthdef_name=synthdef_name,
-            controls=controls,
-            )
+            node_id=node_id, synthdef_name=synthdef_name, controls=controls
+        )
         return query_tree_synth
 
     def to_dict(self):
@@ -186,13 +161,13 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
 
         """
         result = {
-            'node_id': self.node_id,
-            'synthdef': self.synthdef_name,
-            'controls': {}
-            }
+            "node_id": self.node_id,
+            "synthdef": self.synthdef_name,
+            "controls": {},
+        }
         for control in self.controls:
             name = control.control_name_or_index
-            result['controls'][name] = control.control_value
+            result["controls"][name] = control.control_value
         return result
 
     ### PUBLIC PROPERTIES ###

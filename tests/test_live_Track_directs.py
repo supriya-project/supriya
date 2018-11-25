@@ -1,17 +1,20 @@
+import time
+
+import uqbar.strings
+
 import supriya.live
 import supriya.realtime
-import time
-import uqbar.strings
 
 
 def test_01(server):
     server = supriya.realtime.Server().boot()
     mixer = supriya.live.Mixer(channel_count=2, cue_channel_count=1)
-    track = mixer.add_track('foo')
+    track = mixer.add_track("foo")
     track.add_direct_in([(0, 0), (1, 1)])
     track.add_direct_out([(0, 1), (1, 0)])
     mixer.allocate()
-    assert str(server) == uqbar.strings.normalize("""
+    assert str(server) == uqbar.strings.normalize(
+        """
         NODE TREE 0 group
             1 group
                 1000 group
@@ -51,11 +54,13 @@ def test_01(server):
                         1013 group
                         1014 mixer/direct/0:2
                             in_: 21.0, out: 0.0, gate: 1.0, lag: 0.1
-        """)
+        """
+    )
     track.remove_direct_in()
     track.remove_direct_out()
     time.sleep(0.25)
-    assert str(server) == uqbar.strings.normalize("""
+    assert str(server) == uqbar.strings.normalize(
+        """
         NODE TREE 0 group
             1 group
                 1000 group
@@ -91,4 +96,5 @@ def test_01(server):
                         1013 group
                         1014 mixer/direct/0:2
                             in_: 21.0, out: 0.0, gate: 1.0, lag: 0.1
-        """)
+        """
+    )

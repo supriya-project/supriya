@@ -1,4 +1,5 @@
 import collections
+
 from supriya import CalculationRate
 from supriya.ugens.MultiOutUGen import MultiOutUGen
 
@@ -26,19 +27,14 @@ class Rotate2(MultiOutUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Spatialization UGens'
+    __documentation_section__ = "Spatialization UGens"
 
     _default_channel_count = 2
 
     _has_settable_channel_count = False
 
-    _ordered_input_names = collections.OrderedDict([
-        ('x', None),
-        ('y', None),
-        ('position', 0),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [("x", None), ("y", None), ("position", 0)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

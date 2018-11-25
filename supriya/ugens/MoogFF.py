@@ -1,4 +1,5 @@
 import collections
+
 from supriya.enums import CalculationRate
 from supriya.ugens.Filter import Filter
 
@@ -23,14 +24,8 @@ class MoogFF(Filter):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-        ('frequency', 100),
-        ('gain', 2),
-        ('reset', 0),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [("source", None), ("frequency", 100), ("gain", 2), ("reset", 0)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

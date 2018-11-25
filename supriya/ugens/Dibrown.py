@@ -1,4 +1,5 @@
 import collections
+
 from supriya import CalculationRate
 from supriya.ugens.Dbrown import Dbrown
 
@@ -22,13 +23,8 @@ class Dibrown(Dbrown):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('minimum', 0),
-        ('maximum', 12),
-        ('step', 1),
-        ('length', float('inf')),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.DEMAND,
+    _ordered_input_names = collections.OrderedDict(
+        [("minimum", 0), ("maximum", 12), ("step", 1), ("length", float("inf"))]
     )
+
+    _valid_calculation_rates = (CalculationRate.DEMAND,)

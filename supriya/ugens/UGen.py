@@ -1,11 +1,12 @@
 import abc
 import collections
 import inspect
+from typing import Dict, Optional, Tuple, Union
+
 from supriya.synthdefs.SignalRange import SignalRange
 from supriya.synthdefs.UGenMethodMixin import UGenMethodMixin
-from supriya.ugens.UGenMeta import UGenMeta
-from typing import Dict, Optional, Tuple, Union
 from supriya.typing import UGenInputMap
+from supriya.ugens.UGenMeta import UGenMeta
 
 
 class UGen(UGenMethodMixin, metaclass=UGenMeta):
@@ -15,13 +16,9 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__: Optional[str] = 'SynthDef Internals'
+    __documentation_section__: Optional[str] = "SynthDef Internals"
 
-    __slots__ = (
-        '_inputs',
-        '_special_index',
-        '_uuid',
-    )
+    __slots__ = ("_inputs", "_special_index", "_uuid")
 
     _default_channel_count = 1
 
@@ -48,13 +45,9 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
     ### INITIALIZER ###
 
     @abc.abstractmethod
-    def __init__(
-        self,
-        calculation_rate=None,
-        special_index=0,
-        **kwargs,
-    ):
+    def __init__(self, calculation_rate=None, special_index=0, **kwargs):
         import supriya.synthdefs
+
         calculation_rate = supriya.CalculationRate.from_expr(calculation_rate)
         if self._valid_calculation_rates:
             assert calculation_rate in self._valid_calculation_rates
@@ -89,8 +82,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
         if kwargs:
             raise ValueError(kwargs)
         assert all(
-            isinstance(_, (supriya.synthdefs.OutputProxy, float))
-            for _ in self.inputs
+            isinstance(_, (supriya.synthdefs.OutputProxy, float)) for _ in self.inputs
         )
         self._validate_inputs()
         self._uuid = None
@@ -123,7 +115,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
 
         Returns integer.
         """
-        return getattr(self, '_channel_count', self._default_channel_count)
+        return getattr(self, "_channel_count", self._default_channel_count)
 
     def __repr__(self):
         """
@@ -150,17 +142,17 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
         Returns string.
         """
         import supriya.synthdefs
+
         if self.calculation_rate == supriya.CalculationRate.DEMAND:
-            return '{}()'.format(type(self).__name__)
+            return "{}()".format(type(self).__name__)
         calculation_abbreviations = {
-            supriya.CalculationRate.AUDIO: 'ar',
-            supriya.CalculationRate.CONTROL: 'kr',
-            supriya.CalculationRate.SCALAR: 'ir',
-            }
-        string = '{}.{}()'.format(
-            type(self).__name__,
-            calculation_abbreviations[self.calculation_rate]
-            )
+            supriya.CalculationRate.AUDIO: "ar",
+            supriya.CalculationRate.CONTROL: "kr",
+            supriya.CalculationRate.SCALAR: "ir",
+        }
+        string = "{}.{}()".format(
+            type(self).__name__, calculation_abbreviations[self.calculation_rate]
+        )
         return string
 
     ### PRIVATE METHODS ###
@@ -169,6 +161,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
     def _as_audio_rate_input(expr):
         import supriya.synthdefs
         import supriya.ugens
+
         if isinstance(expr, (int, float)):
             if expr == 0:
                 return supriya.ugens.Silence.ar()
@@ -179,9 +172,8 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
             return supriya.ugens.K2A.ar(source=expr)
         elif isinstance(expr, collections.Iterable):
             return supriya.synthdefs.UGenArray(
-                UGen._as_audio_rate_input(x)
-                for x in expr
-                )
+                UGen._as_audio_rate_input(x) for x in expr
+            )
         raise ValueError(expr)
 
     def _add_constant_input(self, value):
@@ -189,36 +181,37 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
 
     def _add_ugen_input(self, ugen, output_index=None):
         import supriya.synthdefs
-        #if isinstance(ugen, supriya.synthdefs.Parameter):
+
+        # if isinstance(ugen, supriya.synthdefs.Parameter):
         #    output_proxy = ugen
         if isinstance(ugen, supriya.synthdefs.OutputProxy):
             output_proxy = ugen
         else:
             output_proxy = supriya.synthdefs.OutputProxy(
-                output_index=output_index,
-                source=ugen,
-                )
+                output_index=output_index, source=ugen
+            )
         self._inputs.append(output_proxy)
 
     def _check_inputs_share_same_uuid(self):
         import supriya.synthdefs
+
         for input_ in self.inputs:
             if not isinstance(input_, supriya.synthdefs.OutputProxy):
                 continue
             if input_.source._uuid != self._uuid:
-                message = 'UGen input in different scope: {!r}'
+                message = "UGen input in different scope: {!r}"
                 message = message.format(input_.source)
                 raise ValueError(message)
 
     def _check_rate_same_as_first_input_rate(self):
         import supriya.synthdefs
-        first_input_rate = supriya.CalculationRate.from_expr(
-            self.inputs[0],
-            )
+
+        first_input_rate = supriya.CalculationRate.from_expr(self.inputs[0])
         return self.calculation_rate == first_input_rate
 
     def _check_range_of_inputs_at_audio_rate(self, start=None, stop=None):
         import supriya.synthdefs
+
         if self.calculation_rate != supriya.CalculationRate.AUDIO:
             return True
         for input_ in self.inputs[start:stop]:
@@ -229,31 +222,26 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
 
     def _configure_input(self, name, value):
         import supriya.synthdefs
+
         ugen_prototype = (
             supriya.synthdefs.OutputProxy,
             supriya.synthdefs.Parameter,
             UGen,
-            )
-        if hasattr(value, '__float__'):
+        )
+        if hasattr(value, "__float__"):
             self._add_constant_input(float(value))
         elif isinstance(value, ugen_prototype):
-            self._add_ugen_input(
-                value._get_source(),
-                value._get_output_number(),
-                )
+            self._add_ugen_input(value._get_source(), value._get_output_number())
         elif isinstance(value, tuple):
             assert self._unexpanded_input_names
             assert name in self._unexpanded_input_names
             for x in value:
-                if hasattr(x, '__float__'):
+                if hasattr(x, "__float__"):
                     self._add_constant_input(float(x))
                 elif isinstance(x, ugen_prototype):
-                    self._add_ugen_input(
-                        x._get_source(),
-                        x._get_output_number(),
-                        )
+                    self._add_ugen_input(x._get_source(), x._get_output_number())
                 else:
-                    raise Exception('{!r} {!r}'.format(value, x))
+                    raise Exception("{!r} {!r}".format(value, x))
         else:
             raise Exception(repr(value))
 
@@ -289,32 +277,25 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
 
         """
         import supriya.synthdefs
+
         dictionary = dictionary.copy()
         cached_unexpanded_inputs = {}
         if unexpanded_input_names is not None:
             for input_name in unexpanded_input_names:
                 if input_name not in dictionary:
                     continue
-                cached_unexpanded_inputs[input_name] = \
-                    dictionary[input_name]
-                del(dictionary[input_name])
+                cached_unexpanded_inputs[input_name] = dictionary[input_name]
+                del (dictionary[input_name])
         maximum_length = 1
         result = []
-        prototype = (
-            collections.Sequence,
-            UGen,
-            supriya.synthdefs.Parameter,
-            )
+        prototype = (collections.Sequence, UGen, supriya.synthdefs.Parameter)
         for name, value in dictionary.items():
             if isinstance(value, prototype) and not isinstance(value, str):
                 maximum_length = max(maximum_length, len(value))
         for i in range(maximum_length):
             result.append({})
             for name, value in dictionary.items():
-                if (
-                    isinstance(value, prototype) and
-                    not isinstance(value, str)
-                ):
+                if isinstance(value, prototype) and not isinstance(value, str):
                     value = value[i % len(value)]
                     result[i][name] = value
                 else:
@@ -325,21 +306,22 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
 
     def _get_done_action(self):
         import supriya.synthdefs
-        if 'done_action' not in self._ordered_input_names:
+
+        if "done_action" not in self._ordered_input_names:
             return None
         return supriya.synthdefs.DoneAction.from_expr(int(self.done_action))
 
     @staticmethod
     def _get_method_for_rate(cls, calculation_rate):
         import supriya.synthdefs
-        calculation_rate = supriya.CalculationRate.from_expr(
-            calculation_rate)
+
+        calculation_rate = supriya.CalculationRate.from_expr(calculation_rate)
         if calculation_rate == supriya.CalculationRate.AUDIO:
             return cls.ar
         elif calculation_rate == supriya.CalculationRate.CONTROL:
             return cls.kr
         elif calculation_rate == supriya.CalculationRate.SCALAR:
-            if hasattr(cls, 'ir'):
+            if hasattr(cls, "ir"):
                 return cls.ir
             return cls.kr
         return cls.new
@@ -361,31 +343,29 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
 
     def _is_valid_input(self, input_value):
         import supriya.synthdefs
+
         if isinstance(input_value, supriya.synthdefs.OutputProxy):
             return True
-        elif hasattr(input_value, '__float__'):
+        elif hasattr(input_value, "__float__"):
             return True
         return False
 
     @classmethod
     def _new_expanded(cls, special_index=0, **kwargs):
         import supriya.synthdefs
+
         get_signature = inspect.signature
         signature = get_signature(cls.__init__)
         input_dicts = UGen._expand_dictionary(
-            kwargs, unexpanded_input_names=cls._unexpanded_input_names)
+            kwargs, unexpanded_input_names=cls._unexpanded_input_names
+        )
         ugens = []
-        has_custom_special_index = 'special_index' in signature.parameters
+        has_custom_special_index = "special_index" in signature.parameters
         for input_dict in input_dicts:
             if has_custom_special_index:
-                ugen = cls._new_single(
-                    special_index=special_index,
-                    **input_dict
-                    )
+                ugen = cls._new_single(special_index=special_index, **input_dict)
             else:
-                ugen = cls._new_single(
-                    **input_dict
-                    )
+                ugen = cls._new_single(**input_dict)
             ugens.append(ugen)
         if len(ugens) == 1:
             return ugens[0]
@@ -403,7 +383,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
         sort_bundle = sort_bundles.get(self, None)
         if not sort_bundle or sort_bundle.descendants:
             return
-        del(sort_bundles[self])
+        del (sort_bundles[self])
         for antecedent in tuple(sort_bundle.antecedents):
             antecedent_bundle = sort_bundles.get(antecedent, None)
             if not antecedent_bundle:
@@ -418,7 +398,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
 
     @property
     def _has_done_action(self):
-        return 'done_action' in self._ordered_input_names
+        return "done_action" in self._ordered_input_names
 
     ### PUBLIC PROPERTIES ###
 

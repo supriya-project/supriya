@@ -1,4 +1,5 @@
 import collections
+
 from supriya import CalculationRate
 from supriya.ugens.LPZ1 import LPZ1
 
@@ -20,13 +21,8 @@ class HPZ1(LPZ1):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Filter UGens'
+    __documentation_section__ = "Filter UGens"
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-    ])
+    _ordered_input_names = collections.OrderedDict([("source", None)])
 
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
-    )
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

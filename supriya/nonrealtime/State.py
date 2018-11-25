@@ -1,9 +1,11 @@
 import collections
-import supriya.commands
+from typing import Dict, Tuple
+
 import uqbar.graphs
+
+import supriya.commands
 from supriya.nonrealtime.SessionObject import SessionObject
 from supriya.utils import iterate_nwise
-from typing import Dict, Tuple
 
 
 class State(SessionObject):
@@ -13,28 +15,27 @@ class State(SessionObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Session Internals'
+    __documentation_section__ = "Session Internals"
 
     __slots__ = (
-        '_transitions',
-        '_nodes_to_children',
-        '_nodes_to_parents',
-        '_offset',
-        '_session',
-        '_start_buffers',
-        '_start_nodes',
-        '_stop_buffers',
-        '_stop_nodes',
-        )
+        "_transitions",
+        "_nodes_to_children",
+        "_nodes_to_parents",
+        "_offset",
+        "_session",
+        "_start_buffers",
+        "_start_nodes",
+        "_stop_buffers",
+        "_stop_nodes",
+    )
 
-    _ordered_buffer_request_types = (
-        supriya.commands.BufferZeroRequest,
-        )
+    _ordered_buffer_request_types = (supriya.commands.BufferZeroRequest,)
 
     ### INITIALIZER ###
 
     def __init__(self, session, offset):
         from supriya.nonrealtime import Node
+
         SessionObject.__init__(self, session)
         self._transitions = collections.OrderedDict()
         self._nodes_to_children: Dict[Node, Tuple[Node]] = {}
@@ -48,10 +49,7 @@ class State(SessionObject):
     ### SPECIAL METHODS ###
 
     def __repr__(self):
-        return '<{} @{!r}>'.format(
-            type(self).__name__,
-            self.offset,
-            )
+        return "<{} @{!r}>".format(type(self).__name__, self.offset)
 
     ### PRIVATE METHODS ###
 
@@ -64,6 +62,7 @@ class State(SessionObject):
         stop_nodes=None,
     ):
         import supriya.nonrealtime
+
         if nodes_to_children is not None:
             nodes_to_children = nodes_to_children.copy()
         else:
@@ -78,11 +77,13 @@ class State(SessionObject):
         stop_nodes = stop_nodes or ()
         for stop_node in stop_nodes:
             supriya.nonrealtime.NodeAction.free_node(
-                stop_node, nodes_to_children, nodes_to_parents)
+                stop_node, nodes_to_children, nodes_to_parents
+            )
         return nodes_to_children, nodes_to_parents
 
     def _as_graphviz_graph(self):
         from supriya.nonrealtime.Synth import Synth
+
         ordered_synths = []
         cluster = uqbar.graphs.Graph(
             is_cluster=True,
@@ -90,8 +91,7 @@ class State(SessionObject):
         )
         node_mapping = {self.session.root_node: cluster}
         for parent, child in self._iterate_node_pairs(
-            self.session.root_node,
-            self._nodes_to_children,
+            self.session.root_node, self._nodes_to_children
         ):
             if isinstance(child, Synth) and child not in ordered_synths:
                 child_node = child._as_graphviz_node(self.offset)
@@ -100,8 +100,8 @@ class State(SessionObject):
                 child_node = uqbar.graphs.Graph(
                     is_cluster=True,
                     attributes={
-                        'label': child.session_id,
-                        'style': ['dashed', 'rounded'],
+                        "label": child.session_id,
+                        "style": ["dashed", "rounded"],
                     },
                 )
             node_mapping[child] = child_node
@@ -112,12 +112,9 @@ class State(SessionObject):
         return cluster, node_mapping, ordered_synths
 
     def _clone(self, new_offset):
-        if float('-inf') < self.offset:
+        if float("-inf") < self.offset:
             self.session._apply_transitions(self.offset, chain=False)
-        state = type(self)(
-            self.session,
-            new_offset,
-            )
+        state = type(self)(self.session, new_offset)
         state._nodes_to_children = self.nodes_to_children.copy()
         state._nodes_to_parents = self.nodes_to_parents.copy()
         if new_offset == self.offset:
@@ -132,9 +129,8 @@ class State(SessionObject):
         if self._nodes_to_children is not None:
             return
         previous_state = self.session._find_state_before(
-            self.offset,
-            with_node_tree=True,
-            )
+            self.offset, with_node_tree=True
+        )
         self._nodes_to_children = previous_state.nodes_to_children.copy()
         self._nodes_to_parents = previous_state.nodes_to_parents.copy()
 
@@ -144,41 +140,33 @@ class State(SessionObject):
 
     @classmethod
     def _find_first_inconsistency(
-        cls,
-        root_node,
-        nodes_to_children_one,
-        nodes_to_children_two,
-        stop_nodes,
+        cls, root_node, nodes_to_children_one, nodes_to_children_two, stop_nodes
     ):
         import supriya.nonrealtime
+
         for parent in cls._iterate_nodes(root_node, nodes_to_children_one):
             if parent in stop_nodes:
                 continue
             children_one = nodes_to_children_one.get(parent) or ()
-            children_one = [
-                node for node in children_one
-                if node not in stop_nodes
-                ]
+            children_one = [node for node in children_one if node not in stop_nodes]
             children_two = nodes_to_children_two.get(parent) or ()
             if children_one == children_two or not children_two:
                 continue
             for i, child in enumerate(children_two):
                 if not children_one:
-                    action = 'ADD_TO_HEAD'
+                    action = "ADD_TO_HEAD"
                     target = parent
                 elif len(children_one) <= i:
-                    action = 'ADD_AFTER'
+                    action = "ADD_AFTER"
                     target = children_one[i - 1]
                 elif children_one[i] is not child:
-                    action = 'ADD_BEFORE'
+                    action = "ADD_BEFORE"
                     target = children_one[i]
                 else:
                     continue
                 transition = supriya.nonrealtime.NodeAction(
-                    source=child,
-                    target=target,
-                    action=action,
-                    )
+                    source=child, target=target, action=action
+                )
                 return transition
 
     @classmethod
@@ -189,6 +177,7 @@ class State(SessionObject):
             for child in children:
                 for node in recurse(child):
                     yield node
+
         return recurse(root_node)
 
     @classmethod
@@ -199,6 +188,7 @@ class State(SessionObject):
                 yield parent, child
                 for pair in recurse(child):
                     yield pair
+
         return recurse(root_node)
 
     @classmethod
@@ -211,7 +201,7 @@ class State(SessionObject):
         stop_nodes = state_two.stop_nodes
         transitions = collections.OrderedDict()
         counter = 0
-        while (b_children != state_two.nodes_to_children):
+        while b_children != state_two.nodes_to_children:
             # print('ROUND', counter)
             # print('C-1', b_children)
             # print('C-2', state_two.nodes_to_children)
@@ -220,12 +210,12 @@ class State(SessionObject):
                 b_children,
                 state_two.nodes_to_children,
                 stop_nodes,
-                )
+            )
             if transition is not None:
                 transitions[transition.source] = transition
             b_children, b_parents = State._apply_transitions(
-                transitions, a_children, a_parents, stop_nodes,
-                )
+                transitions, a_children, a_parents, stop_nodes
+            )
             counter += 1
             if counter == 100:
                 raise Exception
@@ -237,8 +227,7 @@ class State(SessionObject):
         state = {}
         node_hierarchy = {}
         items = sorted(
-            self.nodes_to_children.items(),
-            key=lambda item: item[0].session_id,
+            self.nodes_to_children.items(), key=lambda item: item[0].session_id
         )
         for parent, children in items:
             if not children:
@@ -246,14 +235,14 @@ class State(SessionObject):
             node_hierarchy[str(parent)] = [str(child) for child in children]
         node_lifecycle = {}
         if self.start_nodes:
-            node_lifecycle['start'] = sorted(str(node) for node in self.start_nodes)
+            node_lifecycle["start"] = sorted(str(node) for node in self.start_nodes)
         if self.stop_nodes:
-            node_lifecycle['stop'] = sorted(str(node) for node in self.stop_nodes)
+            node_lifecycle["stop"] = sorted(str(node) for node in self.stop_nodes)
         if node_hierarchy:
-            state['hierarchy'] = node_hierarchy
+            state["hierarchy"] = node_hierarchy
         if node_lifecycle:
-            state['lifecycle'] = node_lifecycle
-        state['offset'] = self.offset
+            state["lifecycle"] = node_lifecycle
+        state["offset"] = self.offset
         return state
 
     ### PUBLIC PROPERTIES ###
@@ -269,17 +258,15 @@ class State(SessionObject):
         return True
 
     @property
-    def nodes_to_children(self) -> Dict[
-        'supriya.nonrealtime.Node',
-        Tuple['supriya.nonrealtime.Node'],
-    ]:
+    def nodes_to_children(
+        self
+    ) -> Dict["supriya.nonrealtime.Node", Tuple["supriya.nonrealtime.Node"]]:
         return self._nodes_to_children
 
     @property
-    def nodes_to_parents(self) -> Dict[
-        'supriya.nonrealtime.Node',
-        Tuple['supriya.nonrealtime.Node'],
-    ]:
+    def nodes_to_parents(
+        self
+    ) -> Dict["supriya.nonrealtime.Node", Tuple["supriya.nonrealtime.Node"]]:
         return self._nodes_to_parents
 
     @property

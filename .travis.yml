@@ -79,6 +79,7 @@ before_script:
 - killall scsynth
 
 script:
+- make black-check
 - make mypy
 - sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; make sanity-check"
 - sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; make pytest-travis"

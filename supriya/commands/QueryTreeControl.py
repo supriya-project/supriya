@@ -5,18 +5,11 @@ class QueryTreeControl(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_control_value',
-        '_control_name_or_index',
-        )
+    __slots__ = ("_control_value", "_control_name_or_index")
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        control_name_or_index=None,
-        control_value=None,
-        ):
+    def __init__(self, control_name_or_index=None, control_value=None):
         self._control_value = control_value
         self._control_name_or_index = control_name_or_index
 
@@ -29,7 +22,7 @@ class QueryTreeControl(SupriyaValueObject):
             value = round(value, 6)
         except Exception:
             pass
-        string = '{}: {!s}'.format(key, value)
+        string = "{}: {!s}".format(key, value)
         return string
 
     ### PUBLIC METHODS ###
@@ -37,15 +30,13 @@ class QueryTreeControl(SupriyaValueObject):
     @classmethod
     def from_control(cls, control):
         import supriya.realtime
+
         control_name = control.name
         if isinstance(control.value, supriya.realtime.Bus):
             control_value = str(control.value)
         else:
             control_value = float(control.value)
-        return cls(
-            control_value=control_value,
-            control_name_or_index=control_name,
-            )
+        return cls(control_value=control_value, control_name_or_index=control_name)
 
     ### PUBLIC PROPERTIES ###
 

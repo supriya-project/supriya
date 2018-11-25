@@ -1,4 +1,5 @@
 import threading
+
 from supriya.system.SupriyaObject import SupriyaObject
 
 
@@ -39,25 +40,21 @@ class NodeIdAllocator(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Server Internals'
+    __documentation_section__ = "Server Internals"
 
     __slots__ = (
-        '_freed_permanent_ids',
-        '_initial_node_id',
-        '_lock',
-        '_mask',
-        '_next_permanent_id',
-        '_temp',
-        '_user_id',
-        )
+        "_freed_permanent_ids",
+        "_initial_node_id",
+        "_lock",
+        "_mask",
+        "_next_permanent_id",
+        "_temp",
+        "_user_id",
+    )
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        user_id=0,
-        initial_node_id=1000,
-        ):
+    def __init__(self, user_id=0, initial_node_id=1000):
         assert user_id <= 31
         self._initial_node_id = int(initial_node_id)
         self._user_id = int(user_id)

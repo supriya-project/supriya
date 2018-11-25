@@ -1,4 +1,5 @@
 import uuid
+
 import supriya.commands
 import supriya.realtime
 from supriya.patterns.Event import Event
@@ -20,8 +21,8 @@ class SynthEvent(Event):
         synthdef=None,
         target_node=None,
         uuid=None,
-        **settings
-        ):
+        **settings,
+    ):
         if add_action is not None:
             add_action = supriya.AddAction.from_expr(add_action)
         is_stop = bool(is_stop)
@@ -38,24 +39,19 @@ class SynthEvent(Event):
             synthdef=synthdef,
             target_node=target_node,
             uuid=uuid,
-            **settings
-            )
+            **settings,
+        )
 
     ### PRIVATE METHODS ###
 
-    def _perform_nonrealtime(
-        self,
-        session,
-        uuids,
-        offset,
-        maximum_offset=None,
-        ):
+    def _perform_nonrealtime(self, session, uuids, offset, maximum_offset=None):
         import supriya.assets.synthdefs
         import supriya.nonrealtime
-        synthdef = self.get('synthdef') or supriya.assets.synthdefs.default
-        synth_uuid = self.get('uuid', uuid.uuid4())
-        if not self.get('is_stop'):
-            target_node = self['target_node']
+
+        synthdef = self.get("synthdef") or supriya.assets.synthdefs.default
+        synth_uuid = self.get("uuid", uuid.uuid4())
+        if not self.get("is_stop"):
+            target_node = self["target_node"]
             if isinstance(target_node, uuid.UUID) and target_node in uuids:
                 target_node = uuids[target_node]
             prototype = (supriya.nonrealtime.Session, supriya.nonrealtime.Node)
@@ -67,16 +63,16 @@ class SynthEvent(Event):
                 uuids,
                 realtime=False,
                 synth_parameters_only=True,
-                )
+            )
             synths = []
             with session.at(offset):
                 for dictionary in dictionaries:
                     synth = target_node.add_synth(
-                        add_action=self['add_action'],
-                        duration=float('inf'),
+                        add_action=self["add_action"],
+                        duration=float("inf"),
                         synthdef=synthdef,
-                        **dictionary
-                        )
+                        **dictionary,
+                    )
                     synths.append(synth)
             uuids[synth_uuid] = tuple(synths)
         else:
@@ -86,33 +82,28 @@ class SynthEvent(Event):
                 synth.set_duration(duration)
         return offset + self.delta
 
-    def _perform_realtime(
-        self,
-        index=0,
-        server=None,
-        timestamp=0,
-        uuids=None,
-        ):
+    def _perform_realtime(self, index=0, server=None, timestamp=0, uuids=None):
         # TODO: Should this handle multichannel expansion?
         import supriya.assets.synthdefs
         import supriya.patterns
-        node_uuid = self.get('uuid') or uuid.uuid4()
+
+        node_uuid = self.get("uuid") or uuid.uuid4()
         requests = []
-        synthdef = self.get('synthdef') or supriya.assets.synthdefs.default
-        if not self.get('is_stop'):
-            target_node_id = self.get('target_node')
+        synthdef = self.get("synthdef") or supriya.assets.synthdefs.default
+        if not self.get("is_stop"):
+            target_node_id = self.get("target_node")
             if not target_node_id:
                 target_node_id = 1
             elif isinstance(target_node_id, uuid.UUID):
                 target_node_id = list(uuids[target_node_id])[0]
-            add_action = self.get('add_action')
+            add_action = self.get("add_action")
             dictionaries = self._expand(
                 self.settings,
                 synthdef,
                 uuids,
                 realtime=False,
                 synth_parameters_only=True,
-                )
+            )
             synths = uuids[node_uuid] = {}
             for dictionary in dictionaries:
                 node_id = server.node_id_allocator.allocate_node_id()
@@ -123,20 +114,20 @@ class SynthEvent(Event):
                     node_id=node_id,
                     target_node_id=target_node_id,
                     synthdef=synthdef,
-                    **dictionary
-                    )
+                    **dictionary,
+                )
             requests.append(request)
         else:
             request = supriya.commands.NodeFreeRequest(
-                node_ids=sorted(uuids[node_uuid]),
-                )
+                node_ids=sorted(uuids[node_uuid])
+            )
             requests.append(request)
         event_product = supriya.patterns.EventProduct(
             event=self,
             index=index,
-            is_stop=self.get('is_stop'),
+            is_stop=self.get("is_stop"),
             requests=requests,
             timestamp=timestamp,
-            uuid=self['uuid'],
-            )
+            uuid=self["uuid"],
+        )
         return [event_product]

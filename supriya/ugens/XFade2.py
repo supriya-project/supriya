@@ -1,4 +1,5 @@
 import collections
+
 from supriya import CalculationRate
 from supriya.ugens.UGen import UGen
 
@@ -24,14 +25,8 @@ class XFade2(UGen):
 
     __documentation_section__ = None
 
-    _ordered_input_names = collections.OrderedDict([
-        ('in_a', None),
-        ('in_b', 0),
-        ('pan', 0),
-        ('level', 1),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [("in_a", None), ("in_b", 0), ("pan", 0), ("level", 1)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

@@ -1,6 +1,7 @@
 import collections
 import copy
 import pathlib
+
 import uqbar.strings
 import yaml
 
@@ -9,15 +10,13 @@ class ProjectSettings(collections.Mapping):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_settings',
-        )
+    __slots__ = ("_settings",)
 
     ### INITIALIZER ###
 
-    def __init__(self, yaml_path='project-settings.yml'):
+    def __init__(self, yaml_path="project-settings.yml"):
         try:
-            with open(str(yaml_path), 'r') as file_pointer:
+            with open(str(yaml_path), "r") as file_pointer:
                 self._settings = yaml.load(file_pointer.read())
         except Exception:
             self._settings = {}
@@ -39,7 +38,9 @@ class ProjectSettings(collections.Mapping):
 
     @classmethod
     def from_dummy_data(cls):
-        dummy_data = yaml.load(uqbar.strings.normalize("""
+        dummy_data = yaml.load(
+            uqbar.strings.normalize(
+                """
         composer:
             email: josiah.oberholtzer@gmail.com
             github: josiah-wolf-oberholtzer
@@ -72,12 +73,14 @@ class ProjectSettings(collections.Mapping):
             wire_buffer_count: 64
             zero_configuration: false
         title: Test Project
-        """))
+        """
+            )
+        )
         project_settings = cls()
         project_settings._settings = dummy_data
         return project_settings
 
     @classmethod
     def from_python_module(cls, path):
-        path = pathlib.Path(path).parent / 'project-settings.yml'
+        path = pathlib.Path(path).parent / "project-settings.yml"
         return cls(path)

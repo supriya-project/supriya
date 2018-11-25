@@ -81,7 +81,7 @@ class GroupDeepFreeRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_group_id',)
+    __slots__ = ("_group_id",)
 
     request_id = RequestId.GROUP_DEEP_FREE
 
@@ -99,10 +99,7 @@ class GroupDeepFreeRequest(Request):
         else:
             request_id = int(self.request_id)
         group_id = int(self.group_id)
-        message = supriya.osc.OscMessage(
-            request_id,
-            group_id,
-            )
+        message = supriya.osc.OscMessage(request_id, group_id)
         return message
 
     ### PUBLIC PROPERTIES ###

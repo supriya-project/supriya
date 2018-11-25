@@ -1,4 +1,5 @@
 import collections
+
 from supriya import CalculationRate
 from supriya.ugens.MultiOutUGen import MultiOutUGen
 
@@ -23,20 +24,14 @@ class PanB(MultiOutUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Spatialization UGens'
+    __documentation_section__ = "Spatialization UGens"
 
     _default_channel_count = 3
 
     _has_settable_channel_count = False
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-        ('azimuth', 0),
-        ('elevation', 0),
-        ('gain', 1),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [("source", None), ("azimuth", 0), ("elevation", 0), ("gain", 1)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

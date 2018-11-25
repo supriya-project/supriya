@@ -8,10 +8,7 @@ class BufferSetContiguousResponse(Response, collections.Sequence):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_buffer_id',
-        '_items',
-        )
+    __slots__ = ("_buffer_id", "_items")
 
     class Item(NamedTuple):
         sample_values: int
@@ -62,18 +59,14 @@ class BufferSetContiguousResponse(Response, collections.Sequence):
         while remainder:
             starting_sample_index = remainder[0]
             sample_count = remainder[1]
-            sample_values = tuple(remainder[2:2 + sample_count])
+            sample_values = tuple(remainder[2 : 2 + sample_count])
             item = cls.Item(
-                starting_sample_index=starting_sample_index,
-                sample_values=sample_values,
-                )
-            items.append(item)
-            remainder = remainder[2 + sample_count:]
-        items = tuple(items)
-        response = cls(
-            buffer_id=buffer_id,
-            items=items,
+                starting_sample_index=starting_sample_index, sample_values=sample_values
             )
+            items.append(item)
+            remainder = remainder[2 + sample_count :]
+        items = tuple(items)
+        response = cls(buffer_id=buffer_id, items=items)
         return response
 
     ### PUBLIC PROPERTIES ###

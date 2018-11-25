@@ -33,18 +33,13 @@ class BufferQueryRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_buffer_ids',
-        )
+    __slots__ = ("_buffer_ids",)
 
     request_id = RequestId.BUFFER_QUERY
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        buffer_ids=None,
-    ):
+    def __init__(self, buffer_ids=None):
         Request.__init__(self)
         if buffer_ids:
             buffer_ids = tuple(int(buffer_id) for buffer_id in buffer_ids)
@@ -57,9 +52,7 @@ class BufferQueryRequest(Request):
             request_id = self.request_name
         else:
             request_id = int(self.request_id)
-        contents = [
-            request_id,
-            ]
+        contents = [request_id]
         for buffer_id in self.buffer_ids:
             contents.append(buffer_id)
         message = supriya.osc.OscMessage(*contents)
@@ -74,5 +67,5 @@ class BufferQueryRequest(Request):
     @property
     def response_patterns(self):
         if 1 == len(self.buffer_ids):
-            return [['/b_info', self.buffer_ids[0]]]
+            return [["/b_info", self.buffer_ids[0]]]
         return []

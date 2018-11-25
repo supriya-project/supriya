@@ -1,10 +1,6 @@
 from supriya.system.SupriyaObject import SupriyaObject
-from supriya.time.TimespanCollectionDriver import (
-    TimespanCollectionDriver,
-    )
-from supriya.time.TimespanCollectionDriverEx import (  # type: ignore
-    TimespanCollectionDriverEx,
-    )
+from supriya.time.TimespanCollectionDriver import TimespanCollectionDriver
+from supriya.time.TimespanCollectionDriverEx import TimespanCollectionDriverEx
 from supriya.time.TimespanSimultaneity import TimespanSimultaneity
 
 
@@ -29,17 +25,11 @@ class TimespanCollection(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_driver',
-        )
+    __slots__ = ("_driver",)
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        timespans=None,
-        accelerated=None,
-    ):
+    def __init__(self, timespans=None, accelerated=None):
         if accelerated:
             self._driver = TimespanCollectionDriverEx(timespans)
         else:
@@ -203,7 +193,7 @@ class TimespanCollection(SupriyaObject):
             self.remove(old)
             self.insert(new)
         else:
-            message = 'Indices must be ints or slices, got {}'.format(i)
+            message = "Indices must be ints or slices, got {}".format(i)
             raise TypeError(message)
 
     def __sub__(self, timespan):
@@ -240,7 +230,7 @@ class TimespanCollection(SupriyaObject):
         intersection = self.find_intersection(timespan)
         self.remove(intersection)
         for intersecting_timespan in intersection:
-            for x in (intersecting_timespan - timespan):
+            for x in intersecting_timespan - timespan:
                 self.insert(x)
         return self
 
@@ -248,7 +238,7 @@ class TimespanCollection(SupriyaObject):
 
     @staticmethod
     def _is_timespan(expr):
-        if hasattr(expr, 'start_offset') and hasattr(expr, 'stop_offset'):
+        if hasattr(expr, "start_offset") and hasattr(expr, "stop_offset"):
             return True
         return False
 
@@ -310,10 +300,8 @@ class TimespanCollection(SupriyaObject):
 
         """
         if self._is_timespan(timespan_or_offset):
-            return self._driver.find_timespans_intersecting_timespan(
-                timespan_or_offset)
-        return self._driver.find_timespans_intersecting_offset(
-            timespan_or_offset)
+            return self._driver.find_timespans_intersecting_timespan(timespan_or_offset)
+        return self._driver.find_timespans_intersecting_offset(timespan_or_offset)
 
     def find_timespans_starting_at(self, offset):
         return self._driver.find_timespans_starting_at(offset)
@@ -361,7 +349,7 @@ class TimespanCollection(SupriyaObject):
             start_timespans=start_timespans,
             start_offset=offset,
             stop_timespans=stop_timespans,
-            )
+        )
         return simultaneity
 
     def get_start_offset_after(self, offset):
@@ -673,15 +661,16 @@ class TimespanCollection(SupriyaObject):
             if node.left_child is not None:
                 return recurse(node.left_child)
             return node.start_offset
+
         if self._root_node is not None:
             return recurse(self._root_node)
-        return float('-inf')
+        return float("-inf")
 
     @property
     def earliest_stop_offset(self):
         if self._root_node is not None:
             return self._root_node.stop_offset_low
-        return float('inf')
+        return float("inf")
 
     @property
     def latest_start_offset(self):
@@ -689,15 +678,16 @@ class TimespanCollection(SupriyaObject):
             if node.right_child is not None:
                 return recurse(node.right_child)
             return node.start_offset
+
         if self._root_node is not None:
             return recurse(self._root_node)
-        return float('-inf')
+        return float("-inf")
 
     @property
     def latest_stop_offset(self):
         if self._root_node is not None:
             return self._root_node.stop_offset_high
-        return float('inf')
+        return float("inf")
 
     @property
     def start_offset(self):

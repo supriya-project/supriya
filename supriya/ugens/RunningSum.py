@@ -1,4 +1,5 @@
 import collections
+
 from supriya.enums import CalculationRate
 from supriya.ugens.UGen import UGen
 
@@ -21,12 +22,8 @@ class RunningSum(UGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-        ('sample_count', 40),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [("source", None), ("sample_count", 40)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

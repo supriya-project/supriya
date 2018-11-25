@@ -1,4 +1,5 @@
 import collections
+
 from supriya import CalculationRate
 from supriya.ugens.UGen import UGen
 
@@ -19,13 +20,8 @@ class Crackle(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Noise UGens'
+    __documentation_section__ = "Noise UGens"
 
-    _ordered_input_names = collections.OrderedDict([
-        ('chaos_parameter', 1.5),
-    ])
+    _ordered_input_names = collections.OrderedDict([("chaos_parameter", 1.5)])
 
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
-    )
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

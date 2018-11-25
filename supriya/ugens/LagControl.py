@@ -1,4 +1,5 @@
 import collections
+
 from supriya.ugens.Control import Control
 from supriya.ugens.MultiOutUGen import MultiOutUGen
 
@@ -10,25 +11,17 @@ class LagControl(Control):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'UGen Internals'
+    __documentation_section__ = "UGen Internals"
 
-    _ordered_input_names = collections.OrderedDict([
-        ('lags', None),
-    ])
+    _ordered_input_names = collections.OrderedDict([("lags", None)])
 
-    _unexpanded_input_names = (
-        'lags',
-    )
+    _unexpanded_input_names = ("lags",)
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        parameters,
-        calculation_rate=None,
-        starting_control_index=0,
-    ):
+    def __init__(self, parameters, calculation_rate=None, starting_control_index=0):
         import supriya.synthdefs
+
         coerced_parameters = []
         for parameter in parameters:
             if not isinstance(parameter, supriya.synthdefs.Parameter):
@@ -37,7 +30,7 @@ class LagControl(Control):
         self._parameters = tuple(coerced_parameters)
         lags = []
         for parameter in self._parameters:
-            lag = parameter.lag or 0.
+            lag = parameter.lag or 0.0
             lags.extend([lag] * len(parameter))
         MultiOutUGen.__init__(
             self,
@@ -45,4 +38,4 @@ class LagControl(Control):
             calculation_rate=calculation_rate,
             special_index=starting_control_index,
             lags=lags,
-            )
+        )

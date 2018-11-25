@@ -1,4 +1,5 @@
 import collections
+
 from supriya.ugens.PV_ChainUGen import PV_ChainUGen
 
 
@@ -26,8 +27,6 @@ class PV_MagDiv(PV_ChainUGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('pv_chain_a', None),
-        ('pv_chain_b', None),
-        ('zeroed', 0.0001),
-    ])
+    _ordered_input_names = collections.OrderedDict(
+        [("pv_chain_a", None), ("pv_chain_b", None), ("zeroed", 0.0001)]
+    )

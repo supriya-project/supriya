@@ -1,4 +1,5 @@
 import abc
+
 from supriya.ugens.UGen import UGen
 
 
@@ -11,14 +12,10 @@ class MultiOutUGen(UGen):
 
     @abc.abstractmethod
     def __init__(
-        self,
-        calculation_rate=None,
-        special_index=0,
-        channel_count=1,
-        **kwargs
+        self, calculation_rate=None, special_index=0, channel_count=1, **kwargs
     ):
         self._channel_count = int(channel_count)
-        #if 'channel_count' in self._ordered_input_names:
+        # if 'channel_count' in self._ordered_input_names:
         #    kwargs['channel_count'] = channel_count
         UGen.__init__(
             self,
@@ -43,9 +40,9 @@ class MultiOutUGen(UGen):
     def _new_expanded(cls, special_index=0, **kwargs):
         import supriya.synthdefs
         import supriya.ugens
+
         ugen = super(MultiOutUGen, cls)._new_expanded(
-            special_index=special_index,
-            **kwargs
+            special_index=special_index, **kwargs
         )
         output_proxies = []
         if isinstance(ugen, supriya.ugens.UGen):

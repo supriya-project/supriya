@@ -45,7 +45,5 @@ class StatusRequest(Request):
             request_id = self.request_name
         else:
             request_id = int(self.request_id)
-        message = supriya.osc.OscMessage(
-            request_id,
-            )
+        message = supriya.osc.OscMessage(request_id)
         return message

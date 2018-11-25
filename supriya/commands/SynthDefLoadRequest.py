@@ -13,10 +13,7 @@ class SynthDefLoadRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_callback',
-        '_synthdef_path',
-        )
+    __slots__ = ("_callback", "_synthdef_path")
 
     request_id = RequestId.SYNTHDEF_LOAD
 
@@ -36,10 +33,7 @@ class SynthDefLoadRequest(Request):
             request_id = self.request_name
         else:
             request_id = int(self.request_id)
-        contents = [
-            request_id,
-            str(self.synthdef_path),
-            ]
+        contents = [request_id, str(self.synthdef_path)]
         if self.callback:
             contents.append(self.callback.to_osc())
         message = supriya.osc.OscMessage(*contents)
@@ -53,7 +47,7 @@ class SynthDefLoadRequest(Request):
 
     @property
     def response_patterns(self):
-        return [['/done', '/d_load']]
+        return [["/done", "/d_load"]]
 
     @property
     def synthdef_path(self):

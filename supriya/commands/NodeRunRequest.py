@@ -82,9 +82,7 @@ class NodeRunRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_node_id_run_flag_pairs',
-        )
+    __slots__ = ("_node_id_run_flag_pairs",)
 
     request_id = RequestId.NODE_RUN
 
@@ -120,8 +118,7 @@ class NodeRunRequest(Request):
         contents = [request_id]
         if self.node_id_run_flag_pairs:
             for node_id, run_flag in sorted(
-                self.node_id_run_flag_pairs,
-                key=lambda x: int(x[0]),
+                self.node_id_run_flag_pairs, key=lambda x: int(x[0])
             ):
                 contents.append(int(node_id))
                 contents.append(int(run_flag))

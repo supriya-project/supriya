@@ -2,7 +2,6 @@ from uqbar.enums import IntEnumeration
 
 
 class PhysicalControl:
-
     class Mode(IntEnumeration):
         CONTINUOUS = 0
         BOOLEAN = 1
@@ -19,8 +18,8 @@ class PhysicalControl:
         channel=0,
         group_name=None,
         has_led=False,
-        mode='continuous',
-        ):
+        mode="continuous",
+    ):
         self.device = device
         self.name = name
         self.message_type = message_type
@@ -35,12 +34,12 @@ class PhysicalControl:
 
     def set_led(self, value):
         value = int(value)
-        if self.message_type == 'note':
+        if self.message_type == "note":
             if value:
                 message = 0x90 | self.channel
             else:
                 message = 0x80 | self.channel
-        elif self.message_type == 'controller':
+        elif self.message_type == "controller":
             message = 0xB0 | self.channel
         message = [message, self.message_value, value]
         self.device.send_message(message)
@@ -57,5 +56,5 @@ class PhysicalControl:
             value /= 127
         else:
             raise Exception(value)
-        assert 0. <= value <= 1.
+        assert 0.0 <= value <= 1.0
         return value

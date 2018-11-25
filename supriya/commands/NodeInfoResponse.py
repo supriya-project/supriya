@@ -6,15 +6,15 @@ class NodeInfoResponse(Response):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_action',
-        '_head_node_id',
-        '_is_group',
-        '_next_node_id',
-        '_node_id',
-        '_parent_group_id',
-        '_previous_node_id',
-        '_tail_node_id',
-        )
+        "_action",
+        "_head_node_id",
+        "_is_group",
+        "_next_node_id",
+        "_node_id",
+        "_parent_group_id",
+        "_previous_node_id",
+        "_tail_node_id",
+    )
 
     ### INITIALIZER ###
 
@@ -31,10 +31,8 @@ class NodeInfoResponse(Response):
         osc_message=None,
     ):
         import supriya.commands
-        Response.__init__(
-            self,
-            osc_message=osc_message,
-            )
+
+        Response.__init__(self, osc_message=osc_message)
         self._action = supriya.commands.NodeAction.from_address(action)
         self._is_group = bool(is_group)
         self._head_node_id = self._coerce_node_id(head_node_id)

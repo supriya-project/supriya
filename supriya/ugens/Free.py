@@ -1,4 +1,5 @@
 import collections
+
 from supriya import CalculationRate
 from supriya.ugens.UGen import UGen
 
@@ -22,13 +23,10 @@ class Free(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Envelope Utility UGens'
+    __documentation_section__ = "Envelope Utility UGens"
 
-    _ordered_input_names = collections.OrderedDict([
-        ('trigger', 0.0),
-        ('node_id', None),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [("trigger", 0.0), ("node_id", None)]
     )
+
+    _valid_calculation_rates = (CalculationRate.CONTROL,)

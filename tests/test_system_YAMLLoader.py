@@ -1,20 +1,20 @@
-import yaml
 import pathlib
-import supriya
+
 import uqbar.strings
+import yaml
 
+import supriya
 
-base_path = pathlib.Path(supriya.__path__[0]) / 'assets' / 'devices'
+base_path = pathlib.Path(supriya.__path__[0]) / "assets" / "devices"
 
 
 def test_01():
-    path = base_path / 'Test.yml'
+    path = base_path / "Test.yml"
     manifest = supriya.system.YAMLLoader.load(path)
-    assert yaml.dump(
-        manifest,
-        default_flow_style=False,
-        indent=4
-        ) == uqbar.strings.normalize("""
+    assert (
+        yaml.dump(manifest, default_flow_style=False, indent=4)
+        == uqbar.strings.normalize(
+            """
         device:
             defaults:
                 channel: 0
@@ -101,17 +101,19 @@ def test_01():
                 mode: continuous
                 name: master_level
             port: Test Device
-        """) + '\n'
+        """
+        )
+        + "\n"
+    )
 
 
 def test_02():
-    path = base_path / 'Test-Physical.yml'
+    path = base_path / "Test-Physical.yml"
     manifest = supriya.system.YAMLLoader.load(path)
-    assert yaml.dump(
-        manifest,
-        default_flow_style=False,
-        indent=4,
-        ) == uqbar.strings.normalize("""
+    assert (
+        yaml.dump(manifest, default_flow_style=False, indent=4)
+        == uqbar.strings.normalize(
+            """
         device:
             defaults:
                 channel: 0
@@ -173,17 +175,19 @@ def test_02():
                 mode: continuous
                 name: master_level
             port: Test Device
-        """) + '\n'
+        """
+        )
+        + "\n"
+    )
 
 
 def test_03():
-    path = base_path / 'Test-Logical.yml'
+    path = base_path / "Test-Logical.yml"
     manifest = supriya.system.YAMLLoader.load(path)
-    assert yaml.dump(
-        manifest,
-        default_flow_style=False,
-        indent=4,
-        ) == uqbar.strings.normalize("""
+    assert (
+        yaml.dump(manifest, default_flow_style=False, indent=4)
+        == uqbar.strings.normalize(
+            """
         device:
             defaults:
                 channel: 0
@@ -299,4 +303,7 @@ def test_03():
                         physical_control: clip_launch_2x{{ index }}
                     name: slot
                 name: track_{{ index }}
-        """) + '\n'
+        """
+        )
+        + "\n"
+    )

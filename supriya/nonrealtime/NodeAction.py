@@ -10,22 +10,13 @@ class NodeAction(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Session Internals'
+    __documentation_section__ = "Session Internals"
 
-    __slots__ = (
-        '_source',
-        '_target',
-        '_action',
-        )
+    __slots__ = ("_source", "_target", "_action")
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        source=None,
-        action=None,
-        target=None,
-    ):
+    def __init__(self, source=None, action=None, target=None):
         if action is not None:
             action = supriya.AddAction.from_expr(action)
             assert isinstance(action, supriya.AddAction)
@@ -45,9 +36,9 @@ class NodeAction(SupriyaValueObject):
             NodeAction.free_node(child, nodes_to_children, nodes_to_parents)
         parent = nodes_to_parents.get(node, None)
         if node in nodes_to_children:
-            del(nodes_to_children[node])
+            del (nodes_to_children[node])
         if node in nodes_to_parents:
-            del(nodes_to_parents[node])
+            del (nodes_to_parents[node])
         if not parent:
             return
         children = list(nodes_to_children[parent])
@@ -63,10 +54,7 @@ class NodeAction(SupriyaValueObject):
             children = list(nodes_to_children[old_parent])
             children.remove(self.source)
             nodes_to_children[old_parent] = tuple(children) or None
-        if self.action in (
-            supriya.AddAction.ADD_AFTER,
-            supriya.AddAction.ADD_BEFORE,
-        ):
+        if self.action in (supriya.AddAction.ADD_AFTER, supriya.AddAction.ADD_BEFORE):
             new_parent = nodes_to_parents[self.target]
         else:
             new_parent = self.target
@@ -85,10 +73,7 @@ class NodeAction(SupriyaValueObject):
         nodes_to_children[new_parent] = tuple(children) or None
 
     def _to_request(self, id_mapping):
-        node_id_pair = (
-            id_mapping[self.source],
-            id_mapping[self.target],
-            )
+        node_id_pair = (id_mapping[self.source], id_mapping[self.target])
         if self.action == supriya.AddAction.ADD_TO_HEAD:
             request_class = supriya.commands.GroupHeadRequest
         elif self.action == supriya.AddAction.ADD_TO_TAIL:

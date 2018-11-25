@@ -1,4 +1,5 @@
 import abc
+
 from supriya.ugens.PseudoUGen import PseudoUGen
 
 
@@ -6,7 +7,7 @@ class LinLin(PseudoUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Line Utility UGens'
+    __documentation_section__ = "Line Utility UGens"
 
     ### INITIALIZER ###
 
@@ -25,13 +26,10 @@ class LinLin(PseudoUGen):
         output_maximum=2.0,
     ):
         import supriya.ugens
+
         scale = (output_maximum - output_minimum) / (input_maximum - input_minimum)
         offset = output_minimum - (scale * input_minimum)
-        ugen = supriya.ugens.MulAdd.new(
-            source=source,
-            multiplier=scale,
-            addend=offset,
-            )
+        ugen = supriya.ugens.MulAdd.new(source=source, multiplier=scale, addend=offset)
         return ugen
 
     @staticmethod
@@ -43,11 +41,8 @@ class LinLin(PseudoUGen):
         output_maximum=2.0,
     ):
         import supriya.ugens
+
         scale = (output_maximum - output_minimum) / (input_maximum - input_minimum)
         offset = output_minimum - (scale * input_minimum)
-        ugen = supriya.ugens.MulAdd.new(
-            source=source,
-            multiplier=scale,
-            addend=offset,
-            )
+        ugen = supriya.ugens.MulAdd.new(source=source, multiplier=scale, addend=offset)
         return ugen

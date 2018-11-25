@@ -1,7 +1,8 @@
 import pytest
-import supriya.nonrealtime
-import supriya.assets.synthdefs
 import uqbar.strings
+
+import supriya.assets.synthdefs
+import supriya.nonrealtime
 
 
 def test_01():
@@ -12,8 +13,10 @@ def test_01():
         group.add_synth(duration=20)
         session.add_group(duration=20)
     d_recv_commands = pytest.helpers.build_d_recv_commands(
-        [supriya.assets.synthdefs.default])
-    assert session.to_strings() == uqbar.strings.normalize('''
+        [supriya.assets.synthdefs.default]
+    )
+    assert session.to_strings() == uqbar.strings.normalize(
+        """
         0.0:
             NODE TREE 0 group
                 1003 group
@@ -22,20 +25,24 @@ def test_01():
                 1000 group
         20.0:
             NODE TREE 0 group
-        ''')
+        """
+    )
     assert session.to_lists() == [
-        [0.0, [
-            *d_recv_commands,
-            ['/g_new', 1000, 0, 0],
-            ['/g_new', 1001, 0, 0],
-            ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1001],
-            ['/g_new', 1003, 0, 0]]],
-        [20.0, [
-            ['/n_free', 1000, 1001, 1003],
-            ['/n_set', 1002, 'gate', 0],
-            [0]]]]
+        [
+            0.0,
+            [
+                *d_recv_commands,
+                ["/g_new", 1000, 0, 0],
+                ["/g_new", 1001, 0, 0],
+                ["/s_new", "da0982184cc8fa54cf9d288a0fe1f6ca", 1002, 0, 1001],
+                ["/g_new", 1003, 0, 0],
+            ],
+        ],
+        [20.0, [["/n_free", 1000, 1001, 1003], ["/n_set", 1002, "gate", 0], [0]]],
+    ]
     group.delete()
-    assert session.to_strings() == uqbar.strings.normalize('''
+    assert session.to_strings() == uqbar.strings.normalize(
+        """
         0.0:
             NODE TREE 0 group
                 1003 group
@@ -43,17 +50,20 @@ def test_01():
                 1000 group
         20.0:
             NODE TREE 0 group
-        ''')
+        """
+    )
     assert session.to_lists() == [
-        [0.0, [
-            *d_recv_commands,
-            ['/g_new', 1003, 0, 0],
-            ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 3, 1003],
-            ['/g_new', 1000, 3, 1002]]],
-        [20.0, [
-            ['/n_free', 1000, 1003],
-            ['/n_set', 1002, 'gate', 0],
-            [0]]]]
+        [
+            0.0,
+            [
+                *d_recv_commands,
+                ["/g_new", 1003, 0, 0],
+                ["/s_new", "da0982184cc8fa54cf9d288a0fe1f6ca", 1002, 3, 1003],
+                ["/g_new", 1000, 3, 1002],
+            ],
+        ],
+        [20.0, [["/n_free", 1000, 1003], ["/n_set", 1002, "gate", 0], [0]]],
+    ]
 
 
 def test_02():
@@ -63,10 +73,11 @@ def test_02():
         synth_a = group.add_synth(duration=20)
         synth_b = session.add_synth(duration=20)
     with session.at(5):
-        group.move_node(synth_b, 'ADD_TO_TAIL')
+        group.move_node(synth_b, "ADD_TO_TAIL")
     with session.at(15):
-        session.move_node(synth_a, 'ADD_TO_TAIL')
-    assert session.to_strings() == uqbar.strings.normalize('''
+        session.move_node(synth_a, "ADD_TO_TAIL")
+    assert session.to_strings() == uqbar.strings.normalize(
+        """
         0.0:
             NODE TREE 0 group
                 1002 default
@@ -84,24 +95,36 @@ def test_02():
                 1001 default
         20.0:
             NODE TREE 0 group
-        ''')
+        """
+    )
     d_recv_commands = pytest.helpers.build_d_recv_commands(
-        [supriya.assets.synthdefs.default])
+        [supriya.assets.synthdefs.default]
+    )
     assert session.to_lists() == [
-        [0.0, [
-            *d_recv_commands,
-            ['/g_new', 1000, 0, 0],
-            ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 1000],
-            ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 0]]],
-        [5.0, [['/g_tail', 1000, 1002]]],
-        [15.0, [['/g_tail', 0, 1001]]],
-        [20.0, [
-            ['/n_free', 1000],
-            ['/n_set', 1001, 'gate', 0],
-            ['/n_set', 1002, 'gate', 0],
-            [0]]]]
+        [
+            0.0,
+            [
+                *d_recv_commands,
+                ["/g_new", 1000, 0, 0],
+                ["/s_new", "da0982184cc8fa54cf9d288a0fe1f6ca", 1001, 0, 1000],
+                ["/s_new", "da0982184cc8fa54cf9d288a0fe1f6ca", 1002, 0, 0],
+            ],
+        ],
+        [5.0, [["/g_tail", 1000, 1002]]],
+        [15.0, [["/g_tail", 0, 1001]]],
+        [
+            20.0,
+            [
+                ["/n_free", 1000],
+                ["/n_set", 1001, "gate", 0],
+                ["/n_set", 1002, "gate", 0],
+                [0],
+            ],
+        ],
+    ]
     group.delete()
-    assert session.to_strings() == uqbar.strings.normalize('''
+    assert session.to_strings() == uqbar.strings.normalize(
+        """
         0.0:
             NODE TREE 0 group
                 1002 default
@@ -116,18 +139,21 @@ def test_02():
                 1001 default
         20.0:
             NODE TREE 0 group
-        ''')
+        """
+    )
     assert session.to_lists() == [
-        [0.0, [
-            *d_recv_commands,
-            ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 0],
-            ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 3, 1002]]],
-        [5.0, [['/n_before', 1001, 1002]]],
-        [15.0, [['/n_before', 1002, 1001]]],
-        [20.0, [
-            ['/n_set', 1001, 'gate', 0],
-            ['/n_set', 1002, 'gate', 0],
-            [0]]]]
+        [
+            0.0,
+            [
+                *d_recv_commands,
+                ["/s_new", "da0982184cc8fa54cf9d288a0fe1f6ca", 1002, 0, 0],
+                ["/s_new", "da0982184cc8fa54cf9d288a0fe1f6ca", 1001, 3, 1002],
+            ],
+        ],
+        [5.0, [["/n_before", 1001, 1002]]],
+        [15.0, [["/n_before", 1002, 1001]]],
+        [20.0, [["/n_set", 1001, "gate", 0], ["/n_set", 1002, "gate", 0], [0]]],
+    ]
 
 
 def test_03():
@@ -138,10 +164,11 @@ def test_03():
         subgroup = group.add_group(duration=20)
         synth_b = session.add_synth(duration=20, frequency=555)
     with session.at(5):
-        subgroup.move_node(synth_b, 'ADD_TO_TAIL')
+        subgroup.move_node(synth_b, "ADD_TO_TAIL")
     with session.at(15):
-        group.move_node(synth_a, 'ADD_TO_TAIL')
-    assert session.to_strings(True) == uqbar.strings.normalize('''
+        group.move_node(synth_a, "ADD_TO_TAIL")
+    assert session.to_strings(True) == uqbar.strings.normalize(
+        """
         0.0:
             NODE TREE 0 group
                 1003 default
@@ -168,29 +195,53 @@ def test_03():
                         amplitude: 0.1, frequency: 440.0, gate: 1.0, out: 0.0, pan: 0.5
         20.0:
             NODE TREE 0 group
-        ''')
+        """
+    )
     d_recv_commands = pytest.helpers.build_d_recv_commands(
-        [supriya.assets.synthdefs.default])
+        [supriya.assets.synthdefs.default]
+    )
     assert session.to_lists() == [
-        [0.0, [
-            *d_recv_commands,
-            ['/g_new', 1000, 0, 0],
-            ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 0,
-                'frequency', 444],
-            ['/g_new', 1002, 0, 1000],
-            ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1003, 0, 0,
-                'frequency', 555]]],
-        [5.0, [
-            ['/g_tail', 1002, 1003]]],
-        [15.0, [
-            ['/g_tail', 1000, 1001]]],
-        [20.0, [
-            ['/n_free', 1000, 1002],
-            ['/n_set', 1001, 'gate', 0],
-            ['/n_set', 1003, 'gate', 0],
-            [0]]]]
+        [
+            0.0,
+            [
+                *d_recv_commands,
+                ["/g_new", 1000, 0, 0],
+                [
+                    "/s_new",
+                    "da0982184cc8fa54cf9d288a0fe1f6ca",
+                    1001,
+                    0,
+                    0,
+                    "frequency",
+                    444,
+                ],
+                ["/g_new", 1002, 0, 1000],
+                [
+                    "/s_new",
+                    "da0982184cc8fa54cf9d288a0fe1f6ca",
+                    1003,
+                    0,
+                    0,
+                    "frequency",
+                    555,
+                ],
+            ],
+        ],
+        [5.0, [["/g_tail", 1002, 1003]]],
+        [15.0, [["/g_tail", 1000, 1001]]],
+        [
+            20.0,
+            [
+                ["/n_free", 1000, 1002],
+                ["/n_set", 1001, "gate", 0],
+                ["/n_set", 1003, "gate", 0],
+                [0],
+            ],
+        ],
+    ]
     group.delete()
-    assert session.to_strings(True) == uqbar.strings.normalize('''
+    assert session.to_strings(True) == uqbar.strings.normalize(
+        """
         0.0:
             NODE TREE 0 group
                 1003 default
@@ -214,26 +265,53 @@ def test_03():
                     amplitude: 0.1, frequency: 440.0, gate: 1.0, out: 0.0, pan: 0.5
         20.0:
             NODE TREE 0 group
-        ''')
+        """
+    )
     assert session.to_lists() == [
-        [0.0, [
-            *d_recv_commands,
-            ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1003, 0, 0,
-                'frequency', 555],
-            ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 3, 1003,
-                'frequency', 444],
-            ['/g_new', 1002, 3, 1001]]],
-        [5.0, [
-            ['/n_before', 1001, 1003],
-            ['/n_before', 1002, 1003],
-            ['/g_head', 1002, 1003]]],
-        [15.0, [
-            ['/n_before', 1002, 1001]]],
-        [20.0, [
-            ['/n_free', 1002],
-            ['/n_set', 1001, 'gate', 0],
-            ['/n_set', 1003, 'gate', 0],
-            [0]]]]
+        [
+            0.0,
+            [
+                *d_recv_commands,
+                [
+                    "/s_new",
+                    "da0982184cc8fa54cf9d288a0fe1f6ca",
+                    1003,
+                    0,
+                    0,
+                    "frequency",
+                    555,
+                ],
+                [
+                    "/s_new",
+                    "da0982184cc8fa54cf9d288a0fe1f6ca",
+                    1001,
+                    3,
+                    1003,
+                    "frequency",
+                    444,
+                ],
+                ["/g_new", 1002, 3, 1001],
+            ],
+        ],
+        [
+            5.0,
+            [
+                ["/n_before", 1001, 1003],
+                ["/n_before", 1002, 1003],
+                ["/g_head", 1002, 1003],
+            ],
+        ],
+        [15.0, [["/n_before", 1002, 1001]]],
+        [
+            20.0,
+            [
+                ["/n_free", 1002],
+                ["/n_set", 1001, "gate", 0],
+                ["/n_set", 1003, "gate", 0],
+                [0],
+            ],
+        ],
+    ]
 
 
 def test_04():
@@ -244,17 +322,28 @@ def test_04():
         synth_b = synth_a.add_synth(duration=10)
         synth_c = synth_b.add_synth(duration=5)
     d_recv_commands = pytest.helpers.build_d_recv_commands(
-        [supriya.assets.synthdefs.default])
+        [supriya.assets.synthdefs.default]
+    )
     assert session.to_lists() == [
-        [0.0, [
-            *d_recv_commands,
-            ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 0]]],
-        [5.0, [
-            ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 2, 1000],
-            ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 2, 1001]]],
-        [10.0, [['/n_set', 1000, 'gate', 0], ['/n_set', 1002, 'gate', 0]]],
-        [15.0, [['/n_set', 1001, 'gate', 0], [0]]]]
-    assert session.to_strings() == uqbar.strings.normalize('''
+        [
+            0.0,
+            [
+                *d_recv_commands,
+                ["/s_new", "da0982184cc8fa54cf9d288a0fe1f6ca", 1000, 0, 0],
+            ],
+        ],
+        [
+            5.0,
+            [
+                ["/s_new", "da0982184cc8fa54cf9d288a0fe1f6ca", 1001, 2, 1000],
+                ["/s_new", "da0982184cc8fa54cf9d288a0fe1f6ca", 1002, 2, 1001],
+            ],
+        ],
+        [10.0, [["/n_set", 1000, "gate", 0], ["/n_set", 1002, "gate", 0]]],
+        [15.0, [["/n_set", 1001, "gate", 0], [0]]],
+    ]
+    assert session.to_strings() == uqbar.strings.normalize(
+        """
         0.0:
             NODE TREE 0 group
                 1000 default
@@ -268,16 +357,23 @@ def test_04():
                 1001 default
         15.0:
             NODE TREE 0 group
-        ''')
+        """
+    )
     synth_a.delete()
     assert session.to_lists() == [
-        [5.0, [
-            *d_recv_commands,
-            ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 0],
-            ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 3, 1002]]],
-        [10.0, [['/n_set', 1002, 'gate', 0]]],
-        [15.0, [['/n_set', 1001, 'gate', 0], [0]]]]
-    assert session.to_strings() == uqbar.strings.normalize('''
+        [
+            5.0,
+            [
+                *d_recv_commands,
+                ["/s_new", "da0982184cc8fa54cf9d288a0fe1f6ca", 1002, 0, 0],
+                ["/s_new", "da0982184cc8fa54cf9d288a0fe1f6ca", 1001, 3, 1002],
+            ],
+        ],
+        [10.0, [["/n_set", 1002, "gate", 0]]],
+        [15.0, [["/n_set", 1001, "gate", 0], [0]]],
+    ]
+    assert session.to_strings() == uqbar.strings.normalize(
+        """
         0.0:
             NODE TREE 0 group
         5.0:
@@ -289,4 +385,5 @@ def test_04():
                 1001 default
         15.0:
             NODE TREE 0 group
-        ''')
+        """
+    )

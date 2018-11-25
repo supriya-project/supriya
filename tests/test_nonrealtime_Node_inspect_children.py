@@ -10,24 +10,21 @@ def test_01():
         one = session.add_group(duration=10)
         session.add_group(duration=10)
     with session.at(0):
-        entering, exiting, occupying, starting, stopping = \
-            one.inspect_children()
+        entering, exiting, occupying, starting, stopping = one.inspect_children()
         assert entering == ()
         assert exiting == ()
         assert occupying == ()
         assert starting == ()
         assert stopping == ()
     with session.at(5):
-        entering, exiting, occupying, starting, stopping = \
-            one.inspect_children()
+        entering, exiting, occupying, starting, stopping = one.inspect_children()
         assert entering == ()
         assert exiting == ()
         assert occupying == ()
         assert starting == ()
         assert stopping == ()
     with session.at(10):
-        entering, exiting, occupying, starting, stopping = \
-            one.inspect_children()
+        entering, exiting, occupying, starting, stopping = one.inspect_children()
         assert entering == ()
         assert exiting == ()
         assert occupying == ()
@@ -44,24 +41,21 @@ def test_02():
         one = session.add_group(duration=10)
         two = one.add_group(duration=10)
     with session.at(0):
-        entering, exiting, occupying, starting, stopping = \
-            one.inspect_children()
+        entering, exiting, occupying, starting, stopping = one.inspect_children()
         assert entering == ()
         assert exiting == ()
         assert occupying == ()
         assert starting == (two,)
         assert stopping == ()
     with session.at(5):
-        entering, exiting, occupying, starting, stopping = \
-            one.inspect_children()
+        entering, exiting, occupying, starting, stopping = one.inspect_children()
         assert entering == ()
         assert exiting == ()
         assert occupying == (two,)
         assert starting == ()
         assert stopping == ()
     with session.at(10):
-        entering, exiting, occupying, starting, stopping = \
-            one.inspect_children()
+        entering, exiting, occupying, starting, stopping = one.inspect_children()
         assert entering == ()
         assert exiting == ()
         assert occupying == ()
@@ -78,24 +72,21 @@ def test_03():
         one = session.add_group(duration=10)
         two = one.add_group(duration=5)
     with session.at(0):
-        entering, exiting, occupying, starting, stopping = \
-            one.inspect_children()
+        entering, exiting, occupying, starting, stopping = one.inspect_children()
         assert entering == ()
         assert exiting == ()
         assert occupying == ()
         assert starting == (two,)
         assert stopping == ()
     with session.at(5):
-        entering, exiting, occupying, starting, stopping = \
-            one.inspect_children()
+        entering, exiting, occupying, starting, stopping = one.inspect_children()
         assert entering == ()
         assert exiting == ()
         assert occupying == ()
         assert starting == ()
         assert stopping == (two,)
     with session.at(10):
-        entering, exiting, occupying, starting, stopping = \
-            one.inspect_children()
+        entering, exiting, occupying, starting, stopping = one.inspect_children()
         assert entering == ()
         assert exiting == ()
         assert occupying == ()
@@ -113,24 +104,21 @@ def test_04():
     with session.at(5):
         two = one.add_group(duration=5)
     with session.at(0):
-        entering, exiting, occupying, starting, stopping = \
-            one.inspect_children()
+        entering, exiting, occupying, starting, stopping = one.inspect_children()
         assert entering == ()
         assert exiting == ()
         assert occupying == ()
         assert starting == ()
         assert stopping == ()
     with session.at(5):
-        entering, exiting, occupying, starting, stopping = \
-            one.inspect_children()
+        entering, exiting, occupying, starting, stopping = one.inspect_children()
         assert entering == ()
         assert exiting == ()
         assert occupying == ()
         assert starting == (two,)
         assert stopping == ()
     with session.at(10):
-        entering, exiting, occupying, starting, stopping = \
-            one.inspect_children()
+        entering, exiting, occupying, starting, stopping = one.inspect_children()
         assert entering == ()
         assert exiting == ()
         assert occupying == ()
@@ -149,24 +137,21 @@ def test_05():
     with session.at(5):
         one.move_node(two)
     with session.at(0):
-        entering, exiting, occupying, starting, stopping = \
-            one.inspect_children()
+        entering, exiting, occupying, starting, stopping = one.inspect_children()
         assert entering == ()
         assert exiting == ()
         assert occupying == ()
         assert starting == ()
         assert stopping == ()
     with session.at(5):
-        entering, exiting, occupying, starting, stopping = \
-            one.inspect_children()
+        entering, exiting, occupying, starting, stopping = one.inspect_children()
         assert entering == (two,)
         assert exiting == ()
         assert occupying == ()
         assert starting == ()
         assert stopping == ()
     with session.at(10):
-        entering, exiting, occupying, starting, stopping = \
-            one.inspect_children()
+        entering, exiting, occupying, starting, stopping = one.inspect_children()
         assert entering == ()
         assert exiting == ()
         assert occupying == ()
@@ -185,24 +170,21 @@ def test_06():
     with session.at(5):
         session.move_node(two)
     with session.at(0):
-        entering, exiting, occupying, starting, stopping = \
-            one.inspect_children()
+        entering, exiting, occupying, starting, stopping = one.inspect_children()
         assert entering == ()
         assert exiting == ()
         assert occupying == ()
         assert starting == (two,)
         assert stopping == ()
     with session.at(5):
-        entering, exiting, occupying, starting, stopping = \
-            one.inspect_children()
+        entering, exiting, occupying, starting, stopping = one.inspect_children()
         assert entering == ()
         assert exiting == (two,)
         assert occupying == ()
         assert starting == ()
         assert stopping == ()
     with session.at(10):
-        entering, exiting, occupying, starting, stopping = \
-            one.inspect_children()
+        entering, exiting, occupying, starting, stopping = one.inspect_children()
         assert entering == ()
         assert exiting == ()
         assert occupying == ()

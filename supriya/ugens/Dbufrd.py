@@ -1,4 +1,5 @@
 import collections
+
 from supriya import CalculationRate
 from supriya.ugens.DUGen import DUGen
 
@@ -21,14 +22,10 @@ class Dbufrd(DUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Demand UGens'
+    __documentation_section__ = "Demand UGens"
 
-    _ordered_input_names = collections.OrderedDict([
-        ('buffer_id', 0),
-        ('phase', 0),
-        ('loop', 1),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.DEMAND,
+    _ordered_input_names = collections.OrderedDict(
+        [("buffer_id", 0), ("phase", 0), ("loop", 1)]
     )
+
+    _valid_calculation_rates = (CalculationRate.DEMAND,)

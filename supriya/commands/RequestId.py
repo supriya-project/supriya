@@ -76,4 +76,5 @@ class RequestId(IntEnumeration):
     @property
     def request_name(self):
         from supriya.commands import RequestName
+
         return RequestName.from_expr(self.name)

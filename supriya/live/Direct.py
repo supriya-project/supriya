@@ -1,6 +1,6 @@
 import supriya.realtime
-import supriya.ugens
 import supriya.synthdefs
+import supriya.ugens
 
 
 class Direct:
@@ -23,10 +23,8 @@ class Direct:
             source_track_count = self.track.channel_count
             target_track_count = len(self.mixer.server.audio_output_bus_group)
         synthdef = self.build_synthdef(
-            source_track_count,
-            target_track_count,
-            self.mapping,
-            )
+            source_track_count, target_track_count, self.mapping
+        )
         self._synth = supriya.realtime.Synth(synthdef=synthdef)
         if self.is_input:
             in_ = int(self.mixer.server.audio_input_bus_group)
@@ -34,8 +32,8 @@ class Direct:
         else:
             in_ = int(self.track.output_bus_group)
             out = int(self.mixer.server.audio_output_bus_group)
-        self.synth['in_'] = in_
-        self.synth['out'] = out
+        self.synth["in_"] = in_
+        self.synth["out"] = out
         if self.is_input:
             self.track.group.insert(0, self.synth)
         else:
@@ -49,31 +47,26 @@ class Direct:
     ### PUBLIC METHODS ###
 
     @staticmethod
-    def build_synthdef(
-        source_track_count,
-        target_track_count,
-        mapping,
-        ):
+    def build_synthdef(source_track_count, target_track_count, mapping):
         for in_, out in mapping:
             assert 0 <= in_ < source_track_count
             assert 0 <= out < target_track_count
         synthdef_builder = supriya.synthdefs.SynthDefBuilder(
             gate=1,
             lag=0.1,
-            in_=supriya.synthdefs.Parameter(value=0, parameter_rate='scalar'),
-            out=supriya.synthdefs.Parameter(value=0, parameter_rate='scalar'),
-            )
+            in_=supriya.synthdefs.Parameter(value=0, parameter_rate="scalar"),
+            out=supriya.synthdefs.Parameter(value=0, parameter_rate="scalar"),
+        )
         with synthdef_builder:
             source = supriya.ugens.In.ar(
-                bus=synthdef_builder['in_'],
-                channel_count=source_track_count,
-                )
+                bus=synthdef_builder["in_"], channel_count=source_track_count
+            )
             gate = supriya.ugens.Linen.kr(
-                attack_time=synthdef_builder['lag'],
+                attack_time=synthdef_builder["lag"],
                 done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
-                gate=synthdef_builder['gate'],
-                release_time=synthdef_builder['lag'],
-                )
+                gate=synthdef_builder["gate"],
+                release_time=synthdef_builder["lag"],
+            )
             source *= gate
             zero = supriya.ugens.DC.ar(0)
             mapped = []
@@ -85,15 +78,10 @@ class Direct:
                 if not out:
                     out.append(zero)
                 mapped[i] = supriya.ugens.Mix.new(out)
-            supriya.ugens.Out.ar(
-                bus=synthdef_builder['out'],
-                source=mapped,
-                )
-        name = 'mixer/direct/{}'.format(
-            ','.join(
-                '{}:{}'.format(in_, out)
-                for in_, out in mapping
-            ))
+            supriya.ugens.Out.ar(bus=synthdef_builder["out"], source=mapped)
+        name = "mixer/direct/{}".format(
+            ",".join("{}:{}".format(in_, out) for in_, out in mapping)
+        )
         return synthdef_builder.build(name=name)
 
     ### PUBLIC PROPERTIES ###

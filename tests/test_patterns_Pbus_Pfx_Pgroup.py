@@ -1,15 +1,15 @@
 import pytest
+import uqbar.strings
+
 import supriya.nonrealtime
 import supriya.patterns
 import supriya.synthdefs
 import supriya.ugens
-import uqbar.strings
-
 
 with supriya.synthdefs.SynthDefBuilder(in_=0, out=0) as builder:
-    source = supriya.ugens.In.ar(bus=builder['in_'])
+    source = supriya.ugens.In.ar(bus=builder["in_"])
     source = supriya.ugens.Limiter.ar(source=source)
-    supriya.ugens.Out.ar(bus=builder['out'], source=source)
+    supriya.ugens.Out.ar(bus=builder["out"], source=source)
 limiter_synthdef = builder.build()
 
 
@@ -18,7 +18,7 @@ pattern = supriya.patterns.Pbind(
     duration=1.0,
     frequency=supriya.patterns.Pseq([440, 660, 880], 1),
     synthdef=supriya.assets.synthdefs.default,
-    )
+)
 pattern = pattern.with_group()
 pattern = pattern.with_effect(synthdef=limiter_synthdef)
 pattern = pattern.with_bus()
@@ -27,9 +27,9 @@ pattern = pattern.with_bus()
 def test___iter__():
     events = list(pattern)
     assert pytest.helpers.get_objects_as_string(
-        events,
-        replace_uuids=True,
-    ) == uqbar.strings.normalize('''
+        events, replace_uuids=True
+    ) == uqbar.strings.normalize(
+        """
         CompositeEvent(
             events=(
                 BusEvent(
@@ -148,41 +148,104 @@ def test___iter__():
                 ),
             is_stop=True,
             )
-        ''')
+        """
+    )
 
 
 def test_nonrealtime():
     session = supriya.nonrealtime.Session()
     with session.at(0):
         final_offset = session.inscribe(pattern)
-    d_recv_commands = pytest.helpers.build_d_recv_commands([
-        supriya.assets.synthdefs.system_link_audio_2,
-        supriya.assets.synthdefs.default,
-        limiter_synthdef,
-        ])
+    d_recv_commands = pytest.helpers.build_d_recv_commands(
+        [
+            supriya.assets.synthdefs.system_link_audio_2,
+            supriya.assets.synthdefs.default,
+            limiter_synthdef,
+        ]
+    )
     assert session.to_lists() == [
-        [0.0, [
-            *d_recv_commands,
-            ['/g_new', 1000, 0, 0],
-            ['/s_new', supriya.assets.synthdefs.system_link_audio_2.anonymous_name, 1001, 3, 1000,
-                'fade_time', 0.25, 'in_', 16],
-            ['/s_new', limiter_synthdef.anonymous_name, 1002, 1, 1000,
-                'in_', 16.0, 'out', 16.0],
-            ['/g_new', 1003, 0, 1000],
-            ['/s_new', supriya.assets.synthdefs.default.anonymous_name, 1004, 0, 1003,
-                'amplitude', 1.0, 'frequency', 440, 'out', 16]]],
-        [1.0, [
-            ['/s_new', supriya.assets.synthdefs.default.anonymous_name, 1005, 0, 1003,
-                'amplitude', 1.0, 'frequency', 660, 'out', 16],
-            ['/n_set', 1004, 'gate', 0]]],
-        [2.0, [
-            ['/s_new', supriya.assets.synthdefs.default.anonymous_name, 1006, 0, 1003,
-                'amplitude', 1.0, 'frequency', 880, 'out', 16],
-            ['/n_set', 1005, 'gate', 0]]],
-        [3.0, [
-            ['/n_set', 1001, 'gate', 0],
-            ['/n_set', 1006, 'gate', 0]]],
-        [3.25, [
-            ['/n_free', 1000, 1002, 1003],
-            [0]]]]
+        [
+            0.0,
+            [
+                *d_recv_commands,
+                ["/g_new", 1000, 0, 0],
+                [
+                    "/s_new",
+                    supriya.assets.synthdefs.system_link_audio_2.anonymous_name,
+                    1001,
+                    3,
+                    1000,
+                    "fade_time",
+                    0.25,
+                    "in_",
+                    16,
+                ],
+                [
+                    "/s_new",
+                    limiter_synthdef.anonymous_name,
+                    1002,
+                    1,
+                    1000,
+                    "in_",
+                    16.0,
+                    "out",
+                    16.0,
+                ],
+                ["/g_new", 1003, 0, 1000],
+                [
+                    "/s_new",
+                    supriya.assets.synthdefs.default.anonymous_name,
+                    1004,
+                    0,
+                    1003,
+                    "amplitude",
+                    1.0,
+                    "frequency",
+                    440,
+                    "out",
+                    16,
+                ],
+            ],
+        ],
+        [
+            1.0,
+            [
+                [
+                    "/s_new",
+                    supriya.assets.synthdefs.default.anonymous_name,
+                    1005,
+                    0,
+                    1003,
+                    "amplitude",
+                    1.0,
+                    "frequency",
+                    660,
+                    "out",
+                    16,
+                ],
+                ["/n_set", 1004, "gate", 0],
+            ],
+        ],
+        [
+            2.0,
+            [
+                [
+                    "/s_new",
+                    supriya.assets.synthdefs.default.anonymous_name,
+                    1006,
+                    0,
+                    1003,
+                    "amplitude",
+                    1.0,
+                    "frequency",
+                    880,
+                    "out",
+                    16,
+                ],
+                ["/n_set", 1005, "gate", 0],
+            ],
+        ],
+        [3.0, [["/n_set", 1001, "gate", 0], ["/n_set", 1006, "gate", 0]]],
+        [3.25, [["/n_free", 1000, 1002, 1003], [0]]],
+    ]
     assert final_offset == 3.25

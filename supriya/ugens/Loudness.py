@@ -1,4 +1,5 @@
 import collections
+
 from supriya import CalculationRate
 from supriya.ugens.UGen import UGen
 
@@ -23,14 +24,10 @@ class Loudness(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Machine Listening UGens'
+    __documentation_section__ = "Machine Listening UGens"
 
-    _ordered_input_names = collections.OrderedDict([
-        ('pv_chain', None),
-        ('smask', 0.25),
-        ('tmask', 1),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [("pv_chain", None), ("smask", 0.25), ("tmask", 1)]
     )
+
+    _valid_calculation_rates = (CalculationRate.CONTROL,)

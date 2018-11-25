@@ -1,5 +1,6 @@
 import copy
 import types
+
 from supriya.system.SupriyaObject import SupriyaObject
 
 
@@ -191,18 +192,18 @@ class SynthDefFactory(SupriyaObject):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_channel_count',
-        '_feedback_loop',
-        '_gate',
-        '_initial_state',
-        '_input',
-        '_output',
-        '_parameter_blocks',
-        '_parameters',
-        '_rand_id',
-        '_signal_blocks',
-        '_silence_detection',
-        )
+        "_channel_count",
+        "_feedback_loop",
+        "_gate",
+        "_initial_state",
+        "_input",
+        "_output",
+        "_parameter_blocks",
+        "_parameters",
+        "_rand_id",
+        "_signal_blocks",
+        "_silence_detection",
+    )
 
     ### INITIALIZER ###
 
@@ -226,61 +227,55 @@ class SynthDefFactory(SupriyaObject):
     def _setup_parameters_and_state(self, builder, state, kwargs):
         import supriya.synthdefs
         import supriya.ugens
-        state['channel_count'] = self._channel_count
+
+        state["channel_count"] = self._channel_count
         state.update(kwargs)
         for parameter_block in self._parameter_blocks:
             parameter_block(builder, state)
         if self._rand_id:
-            builder._add_parameter('rand_id', self._rand_id, 'SCALAR')
-            supriya.ugens.RandID.ir(rand_id=builder['rand_id'])
+            builder._add_parameter("rand_id", self._rand_id, "SCALAR")
+            supriya.ugens.RandID.ir(rand_id=builder["rand_id"])
         if self._gate:
-            builder._add_parameter('gate', 1, 'TRIGGER')
-            state['gate'] = supriya.ugens.Linen.kr(
-                attack_time=self._gate['attack_time'],
+            builder._add_parameter("gate", 1, "TRIGGER")
+            state["gate"] = supriya.ugens.Linen.kr(
+                attack_time=self._gate["attack_time"],
                 done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
-                gate=builder['gate'],
-                release_time=self._gate['release_time'],
-                )
+                gate=builder["gate"],
+                release_time=self._gate["release_time"],
+            )
         if self._output or self._input:
-            builder._add_parameter('out', 0, 'SCALAR')
-        if (
-            self._output.get('windowed') or
-            self._input.get('windowed')
-        ):
-            builder._add_parameter('duration', 1, 'SCALAR')
-            state['line'] = supriya.ugens.Line.kr(
+            builder._add_parameter("out", 0, "SCALAR")
+        if self._output.get("windowed") or self._input.get("windowed"):
+            builder._add_parameter("duration", 1, "SCALAR")
+            state["line"] = supriya.ugens.Line.kr(
                 done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
-                duration=builder['duration'],
-                )
-            state['window'] = state['line'].hanning_window()
-        if (
-            not self._output.get('windowed') and
-            self._output.get('crossfaded')
-        ):
-            builder._add_parameter('crossfade', 0, 'CONTROL')
-        if self._output.get('leveled'):
-            builder._add_parameter('level', 1, 'CONTROL')
+                duration=builder["duration"],
+            )
+            state["window"] = state["line"].hanning_window()
+        if not self._output.get("windowed") and self._output.get("crossfaded"):
+            builder._add_parameter("crossfade", 0, "CONTROL")
+        if self._output.get("leveled"):
+            builder._add_parameter("level", 1, "CONTROL")
         for key, value in self._parameters:
             builder._add_parameter(key, value)
 
     def _build_input(self, builder, state):
         import supriya.ugens
+
         if not self._input:
             return
         source = supriya.ugens.In.ar(
-            bus=builder['out'],
-            channel_count=state['channel_count'],
-            )
-        if self._input.get('windowed'):
-            source *= state['window']
+            bus=builder["out"], channel_count=state["channel_count"]
+        )
+        if self._input.get("windowed"):
+            source *= state["window"]
         return source
 
     def _build_feedback_loop_input(self, builder, source, state):
         import supriya.ugens
+
         if self._feedback_loop:
-            local_in = supriya.ugens.LocalIn.ar(
-                channel_count=state['channel_count'],
-                )
+            local_in = supriya.ugens.LocalIn.ar(channel_count=state["channel_count"])
             if source is None:
                 source = local_in
             else:
@@ -289,60 +284,58 @@ class SynthDefFactory(SupriyaObject):
 
     def _build_feedback_loop_output(self, builder, source, state):
         import supriya.ugens
+
         if not self._feedback_loop:
             return
         if isinstance(self._feedback_loop, types.FunctionType):
             source = self._feedback_loop(builder, source, state)
-        supriya.ugens.LocalOut.ar(
-            source=source,
-            )
+        supriya.ugens.LocalOut.ar(source=source)
 
     def _build_output(self, builder, source, state):
         import supriya.ugens
+
         if not self._output:
             return
-        crossfaded = self._output.get('crossfaded')
-        replacing = self._output.get('replacing')
-        windowed = self._output.get('windowed')
-        gate = state.get('gate')
-        if self._output.get('leveled') and not crossfaded:
-            source *= builder['level']
+        crossfaded = self._output.get("crossfaded")
+        replacing = self._output.get("replacing")
+        windowed = self._output.get("windowed")
+        gate = state.get("gate")
+        if self._output.get("leveled") and not crossfaded:
+            source *= builder["level"]
         out_class = supriya.ugens.Out
-        kwargs = dict(
-            bus=builder['out'],
-            source=source,
-            )
+        kwargs = dict(bus=builder["out"], source=source)
         if replacing:
             out_class = supriya.ugens.ReplaceOut
         if crossfaded:
             out_class = supriya.ugens.XOut
             if windowed:
-                window = state['window']
-                if self._output.get('leveled'):
-                    window *= builder['level']
-                kwargs['crossfade'] = window
+                window = state["window"]
+                if self._output.get("leveled"):
+                    window *= builder["level"]
+                kwargs["crossfade"] = window
             else:
-                kwargs['crossfade'] = builder['crossfade']
+                kwargs["crossfade"] = builder["crossfade"]
             if gate:
-                kwargs['crossfade'] *= gate
+                kwargs["crossfade"] *= gate
         elif windowed:
-            window = state['window']
-            kwargs['source'] *= window
+            window = state["window"]
+            kwargs["source"] *= window
             if gate:
-                kwargs['source'] *= gate
+                kwargs["source"] *= gate
         elif gate:
-            kwargs['source'] *= gate
+            kwargs["source"] *= gate
         out_class.ar(**kwargs)
 
     def _build_silence_detection(self, builder, source, state):
         import supriya.synthdefs
         import supriya.ugens
+
         if not self._silence_detection:
             return
         supriya.ugens.DetectSilence.kr(
             done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
             source=supriya.ugens.Mix.new(source),
-            )
+        )
 
     def _clone(self):
         clone = type(self)()
@@ -358,6 +351,7 @@ class SynthDefFactory(SupriyaObject):
         Build the SynthDef.
         """
         import supriya.synthdefs
+
         builder = supriya.synthdefs.SynthDefBuilder()
         state = self._initial_state.copy()
         with builder:
@@ -709,11 +703,7 @@ class SynthDefFactory(SupriyaObject):
             clone._feedback_loop = True
         return clone
 
-    def with_gate(
-        self,
-        attack_time=0.02,
-        release_time=0.02,
-    ):
+    def with_gate(self, attack_time=0.02, release_time=0.02):
         """
         Return a new factory configured with a gate.
 
@@ -801,9 +791,8 @@ class SynthDefFactory(SupriyaObject):
         """
         clone = self._clone()
         clone._gate.update(
-            attack_time=float(attack_time),
-            release_time=float(release_time),
-            )
+            attack_time=float(attack_time), release_time=float(release_time)
+        )
         return clone
 
     def with_initial_state(self, **state):
@@ -910,10 +899,7 @@ class SynthDefFactory(SupriyaObject):
         clone._initial_state.update(**state)
         return clone
 
-    def with_input(
-        self,
-        windowed=False,
-    ):
+    def with_input(self, windowed=False):
         """
         Return a new factory configured with a bus input.
 
@@ -1103,17 +1089,11 @@ class SynthDefFactory(SupriyaObject):
 
         """
         clone = self._clone()
-        clone._input.update(
-            windowed=bool(windowed),
-            )
+        clone._input.update(windowed=bool(windowed))
         return clone
 
     def with_output(
-        self,
-        crossfaded=False,
-        leveled=False,
-        replacing=False,
-        windowed=False,
+        self, crossfaded=False, leveled=False, replacing=False, windowed=False
     ):
         """
         Return a new factory configured with a bus output.
@@ -1527,7 +1507,7 @@ class SynthDefFactory(SupriyaObject):
             leveled=bool(leveled),
             replacing=bool(replacing),
             windowed=bool(windowed),
-            )
+        )
         return clone
 
     def with_parameter_block(self, block_function):

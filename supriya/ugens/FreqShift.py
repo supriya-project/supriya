@@ -1,4 +1,5 @@
 import collections
+
 from supriya import CalculationRate
 from supriya.ugens.UGen import UGen
 
@@ -23,12 +24,8 @@ class FreqShift(UGen):
 
     __documentation_section__ = None
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-        ('frequency', 0.0),
-        ('phase', 0.0),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
+    _ordered_input_names = collections.OrderedDict(
+        [("source", None), ("frequency", 0.0), ("phase", 0.0)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO,)

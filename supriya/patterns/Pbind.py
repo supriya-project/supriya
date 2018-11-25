@@ -1,4 +1,5 @@
 import collections
+
 from supriya.patterns.EventPattern import EventPattern
 
 
@@ -90,21 +91,17 @@ class Pbind(EventPattern):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_patterns',
-        '_synthdef',
-        )
+    __slots__ = ("_patterns", "_synthdef")
 
     ### INITIALIZER ###
 
     def __init__(self, synthdef=None, **patterns):
         import supriya.patterns
         import supriya.synthdefs
-        assert isinstance(synthdef, (
-            supriya.synthdefs.SynthDef,
-            supriya.patterns.Pattern,
-            type(None),
-            ))
+
+        assert isinstance(
+            synthdef, (supriya.synthdefs.SynthDef, supriya.patterns.Pattern, type(None))
+        )
         self._synthdef = synthdef
         self._patterns = tuple(sorted(patterns.items()))
 
@@ -117,6 +114,7 @@ class Pbind(EventPattern):
 
     def _coerce_pattern_pairs(self, patterns):
         import supriya.patterns
+
         patterns = dict(patterns)
         for name, pattern in sorted(patterns.items()):
             if not isinstance(pattern, supriya.patterns.Pattern):
@@ -125,7 +123,7 @@ class Pbind(EventPattern):
         synthdef = self.synthdef
         if not isinstance(synthdef, supriya.patterns.Pattern):
             synthdef = supriya.patterns.Pseq([synthdef], None)
-        patterns['synthdef'] = iter(synthdef)
+        patterns["synthdef"] = iter(synthdef)
         return patterns
 
     def _iterate(self, state=None):
@@ -151,11 +149,9 @@ class Pbind(EventPattern):
     @property
     def is_infinite(self):
         import supriya.patterns
+
         for _, value in self._patterns:
-            if (
-                isinstance(value, supriya.patterns.Pattern) and
-                not value.is_infinite
-            ):
+            if isinstance(value, supriya.patterns.Pattern) and not value.is_infinite:
                 return False
             elif isinstance(value, collections.Sequence):
                 return False

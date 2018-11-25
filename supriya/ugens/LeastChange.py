@@ -1,4 +1,5 @@
 import collections
+
 from supriya.enums import CalculationRate
 from supriya.ugens.MostChange import MostChange
 
@@ -20,12 +21,6 @@ class LeastChange(MostChange):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('a', 0),
-        ('b', 0),
-    ])
+    _ordered_input_names = collections.OrderedDict([("a", 0), ("b", 0)])
 
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
-    )
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

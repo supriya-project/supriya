@@ -1,9 +1,10 @@
 import inspect
+
 import uqbar.cli
 
 
 class SupriyaScript(uqbar.cli.CLIAggregator):
-    '''`SupriyaScript` is the commandline entry-point to the Supriya
+    """`SupriyaScript` is the commandline entry-point to the Supriya
     developer scripts catalog.
 
     Can be accessed on the commandline via `ajv`:
@@ -18,18 +19,19 @@ class SupriyaScript(uqbar.cli.CLIAggregator):
 
         supriya project --help
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
-    config_name = '.supriyarc'
-    short_description = 'Entry-point to Supriya developer scripts catalog.'
+    config_name = ".supriyarc"
+    short_description = "Entry-point to Supriya developer scripts catalog."
 
     ### PUBLIC PROPERTIES ###
 
     @property
     def cli_classes(self):
         import supriya.cli
+
         classes = []
         for name in sorted(dir(supriya.cli)):
             obj = getattr(supriya.cli, name)

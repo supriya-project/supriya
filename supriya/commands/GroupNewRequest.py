@@ -84,9 +84,7 @@ class GroupNewRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_items',
-        )
+    __slots__ = ("_items",)
 
     class Item(typing.NamedTuple):
         add_action: int = 0
@@ -100,6 +98,7 @@ class GroupNewRequest(Request):
     def __init__(self, items=None):
         # TODO: Support multi-group allocation
         import supriya.realtime
+
         Request.__init__(self)
         if items:
             if not isinstance(items, collections.Sequence):
@@ -111,7 +110,7 @@ class GroupNewRequest(Request):
                     add_action=add_action,
                     node_id=node_id,
                     target_node_id=target_node_id,
-                    )
+                )
         self._items = items
 
     ### PRIVATE METHODS ###
@@ -132,7 +131,7 @@ class GroupNewRequest(Request):
                 node_id=node_id,
                 node_id_is_permanent=group.node_id_is_permanent,
                 server=server,
-                )
+            )
             target_node._move_node(add_action=item.add_action, node=group)
 
     ### PUBLIC METHODS ###
@@ -159,7 +158,4 @@ class GroupNewRequest(Request):
     @property
     def response_patterns(self):
         if len(self.items) == 1:
-            return [[
-                '/n_go',
-                int(self.items[0].node_id),
-                ]]
+            return [["/n_go", int(self.items[0].node_id)]]

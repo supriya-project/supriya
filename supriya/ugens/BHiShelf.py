@@ -1,4 +1,5 @@
 import collections
+
 from supriya import CalculationRate
 from supriya.ugens.BEQSuite import BEQSuite
 
@@ -23,13 +24,8 @@ class BHiShelf(BEQSuite):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-        ('frequency', 1200),
-        ('reciprocal_of_s', 1),
-        ('gain', 0),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
+    _ordered_input_names = collections.OrderedDict(
+        [("source", None), ("frequency", 1200), ("reciprocal_of_s", 1), ("gain", 0)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO,)

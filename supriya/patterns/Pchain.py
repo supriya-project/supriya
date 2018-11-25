@@ -9,14 +9,13 @@ class Pchain(EventPattern):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_patterns',
-        )
+    __slots__ = ("_patterns",)
 
     ### INITIALIZER ###
 
     def __init__(self, patterns):
         import supriya.patterns
+
         assert all(isinstance(_, supriya.patterns.EventPattern) for _ in patterns)
         assert patterns
         self._patterns = tuple(patterns)

@@ -57,15 +57,15 @@ class BufferGenerateRequest(Request):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_amplitudes',
-        '_as_wavetable',
-        '_buffer_id',
-        '_command_name',
-        '_frequencies',
-        '_phases',
-        '_should_clear_first',
-        '_should_normalize',
-        )
+        "_amplitudes",
+        "_as_wavetable",
+        "_buffer_id",
+        "_command_name",
+        "_frequencies",
+        "_phases",
+        "_should_clear_first",
+        "_should_normalize",
+    )
 
     request_id = RequestId.BUFFER_GENERATE
 
@@ -84,12 +84,7 @@ class BufferGenerateRequest(Request):
     ):
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
-        assert command_name in (
-            'cheby',
-            'sine1',
-            'sine2',
-            'sine3',
-            )
+        assert command_name in ("cheby", "sine1", "sine2", "sine3")
         self._command_name = command_name
         if as_wavetable is not None:
             as_wavetable = bool(as_wavetable)
@@ -102,20 +97,20 @@ class BufferGenerateRequest(Request):
         self._should_normalize = should_normalize
         self._frequencies = None
         self._phases = None
-        if command_name in ('cheby', 'sine1'):
+        if command_name in ("cheby", "sine1"):
             if not isinstance(amplitudes, collections.Sequence):
                 amplitudes = (amplitudes,)
             amplitudes = tuple(float(_) for _ in amplitudes)
             assert len(amplitudes)
             self._amplitudes = amplitudes
-        if command_name == 'sine2':
+        if command_name == "sine2":
             amplitudes = tuple(float(_) for _ in amplitudes)
             frequencies = tuple(float(_) for _ in frequencies)
             assert 0 < len(amplitudes)
             assert len(amplitudes) == len(frequencies)
             self._amplitudes = amplitudes
             self._frequencies = frequencies
-        if command_name == 'sine3':
+        if command_name == "sine3":
             amplitudes = tuple(float(_) for _ in amplitudes)
             frequencies = tuple(float(_) for _ in frequencies)
             phases = tuple(float(_) for _ in phases)
@@ -133,29 +128,14 @@ class BufferGenerateRequest(Request):
         else:
             request_id = int(self.request_id)
         buffer_id = int(self.buffer_id)
-        contents = [
-            request_id,
-            buffer_id,
-            self.command_name,
-            self.flags,
-            ]
-        if self.command_name in (
-            'cheby',
-            'sine1',
-        ):
+        contents = [request_id, buffer_id, self.command_name, self.flags]
+        if self.command_name in ("cheby", "sine1"):
             coefficients = self.amplitudes
-        elif self.command_name == 'sine2':
-            coefficients = zip(
-                self.amplitudes,
-                self.frequencies,
-                )
+        elif self.command_name == "sine2":
+            coefficients = zip(self.amplitudes, self.frequencies)
             coefficients = tuple(coefficients)
-        elif self.command_name == 'sine3':
-            coefficients = zip(
-                self.amplitudes,
-                self.frequencies,
-                self.phases,
-                )
+        elif self.command_name == "sine3":
+            coefficients = zip(self.amplitudes, self.frequencies, self.phases)
             coefficients = tuple(coefficients)
         coefficients = utils.flatten_iterable(coefficients)
         contents.extend(coefficients)
@@ -173,7 +153,7 @@ class BufferGenerateRequest(Request):
         should_normalize=True,
         should_clear_first=True,
     ):
-        command_name = 'cheby'
+        command_name = "cheby"
         request = cls(
             amplitudes=amplitudes,
             as_wavetable=as_wavetable,
@@ -181,7 +161,7 @@ class BufferGenerateRequest(Request):
             command_name=command_name,
             should_clear_first=should_clear_first,
             should_normalize=should_normalize,
-            )
+        )
         return request
 
     @classmethod
@@ -193,7 +173,7 @@ class BufferGenerateRequest(Request):
         should_normalize=True,
         should_clear_first=True,
     ):
-        command_name = 'sine1'
+        command_name = "sine1"
         request = cls(
             amplitudes=amplitudes,
             as_wavetable=as_wavetable,
@@ -201,7 +181,7 @@ class BufferGenerateRequest(Request):
             command_name=command_name,
             should_clear_first=should_clear_first,
             should_normalize=should_normalize,
-            )
+        )
         return request
 
     @classmethod
@@ -214,7 +194,7 @@ class BufferGenerateRequest(Request):
         should_normalize=True,
         should_clear_first=True,
     ):
-        command_name = 'sine2'
+        command_name = "sine2"
         request = cls(
             amplitudes=amplitudes,
             as_wavetable=as_wavetable,
@@ -223,7 +203,7 @@ class BufferGenerateRequest(Request):
             frequencies=frequencies,
             should_clear_first=should_clear_first,
             should_normalize=should_normalize,
-            )
+        )
         return request
 
     @classmethod
@@ -237,7 +217,7 @@ class BufferGenerateRequest(Request):
         should_normalize=True,
         should_clear_first=True,
     ):
-        command_name = 'sine3'
+        command_name = "sine3"
         request = cls(
             amplitudes=amplitudes,
             as_wavetable=as_wavetable,
@@ -247,7 +227,7 @@ class BufferGenerateRequest(Request):
             phases=phases,
             should_clear_first=should_clear_first,
             should_normalize=should_normalize,
-            )
+        )
         return request
 
     ### PUBLIC PROPERTIES ###
@@ -270,11 +250,13 @@ class BufferGenerateRequest(Request):
 
     @property
     def flags(self):
-        flags = sum((
-            1 * int(bool(self.should_normalize)),
-            2 * int(bool(self.as_wavetable)),
-            4 * int(bool(self.should_clear_first)),
-            ))
+        flags = sum(
+            (
+                1 * int(bool(self.should_normalize)),
+                2 * int(bool(self.as_wavetable)),
+                4 * int(bool(self.should_clear_first)),
+            )
+        )
         return flags
 
     @property
@@ -287,7 +269,7 @@ class BufferGenerateRequest(Request):
 
     @property
     def response_patterns(self):
-        return [['/done', '/b_gen', self.buffer_id]]
+        return [["/done", "/b_gen", self.buffer_id]]
 
     @property
     def should_clear_first(self):

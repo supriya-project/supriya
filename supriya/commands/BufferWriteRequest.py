@@ -44,15 +44,15 @@ class BufferWriteRequest(Request):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_buffer_id',
-        '_callback',
-        '_file_path',
-        '_frame_count',
-        '_header_format',
-        '_leave_open',
-        '_sample_format',
-        '_starting_frame',
-        )
+        "_buffer_id",
+        "_callback",
+        "_file_path",
+        "_frame_count",
+        "_header_format",
+        "_leave_open",
+        "_sample_format",
+        "_starting_frame",
+    )
 
     request_id = RequestId.BUFFER_WRITE
 
@@ -64,12 +64,13 @@ class BufferWriteRequest(Request):
         callback=None,
         file_path=None,
         frame_count=None,
-        header_format='aiff',
+        header_format="aiff",
         leave_open=False,
-        sample_format='int24',
+        sample_format="int24",
         starting_frame=None,
     ):
         import supriya.soundfiles
+
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
         if callback is not None:
@@ -81,11 +82,9 @@ class BufferWriteRequest(Request):
         frame_count = int(frame_count)
         assert -1 <= frame_count
         self._frame_count = frame_count
-        self._header_format = supriya.soundfiles.HeaderFormat.from_expr(
-            header_format)
+        self._header_format = supriya.soundfiles.HeaderFormat.from_expr(header_format)
         self._leave_open = bool(leave_open)
-        self._sample_format = supriya.soundfiles.SampleFormat.from_expr(
-            sample_format)
+        self._sample_format = supriya.soundfiles.SampleFormat.from_expr(sample_format)
         if starting_frame is None:
             starting_frame = 0
         starting_frame = int(starting_frame)
@@ -112,7 +111,7 @@ class BufferWriteRequest(Request):
             self.frame_count,
             self.starting_frame,
             leave_open,
-            ]
+        ]
         if self.callback:
             contents.append(self.callback.to_osc())
         message = supriya.osc.OscMessage(*contents)

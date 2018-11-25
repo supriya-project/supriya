@@ -1,4 +1,5 @@
 import collections
+
 from supriya import CalculationRate
 from supriya.ugens.MultiOutUGen import MultiOutUGen
 
@@ -32,17 +33,17 @@ class Warp1(MultiOutUGen):
 
     _has_settable_channel_count = True
 
-    _ordered_input_names = collections.OrderedDict([
-        ('buffer_id', 0),
-        ('pointer', 0),
-        ('frequency_scaling', 1),
-        ('window_size', 0.2),
-        ('envelope_buffer_id', -1),
-        ('overlaps', 8),
-        ('window_rand_ratio', 0),
-        ('interpolation', 1),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
+    _ordered_input_names = collections.OrderedDict(
+        [
+            ("buffer_id", 0),
+            ("pointer", 0),
+            ("frequency_scaling", 1),
+            ("window_size", 0.2),
+            ("envelope_buffer_id", -1),
+            ("overlaps", 8),
+            ("window_rand_ratio", 0),
+            ("interpolation", 1),
+        ]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO,)

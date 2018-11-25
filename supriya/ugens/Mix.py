@@ -118,7 +118,7 @@ class Mix(PseudoUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Utility UGens'
+    __documentation_section__ = "Utility UGens"
 
     ### PUBLIC METHODS ###
 
@@ -126,6 +126,7 @@ class Mix(PseudoUGen):
     def new(cls, sources):
         import supriya.synthdefs
         import supriya.ugens
+
         flattened_sources = []
         for source in sources:
             if isinstance(source, supriya.synthdefs.UGenArray):
@@ -292,9 +293,10 @@ class Mix(PseudoUGen):
 
         """
         import supriya.synthdefs
+
         mixes, parts = [], []
         for i in range(0, len(sources), channel_count):
-            parts.append(sources[i:i + channel_count])
+            parts.append(sources[i : i + channel_count])
         for columns in zip(*parts):
             mixes.append(cls.new(columns))
         return supriya.synthdefs.UGenArray(mixes)

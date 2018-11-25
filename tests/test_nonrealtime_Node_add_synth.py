@@ -1,4 +1,5 @@
 import pytest
+
 import supriya.assets.synthdefs
 import supriya.nonrealtime
 
@@ -69,5 +70,5 @@ def test_06():
     with session.at(0):
         synth = session.add_synth()
     assert synth.synthdef == supriya.assets.synthdefs.default
-    assert synth.duration == float('inf')
-    assert synth.start_offset == 0.
+    assert synth.duration == float("inf")
+    assert synth.start_offset == 0.0

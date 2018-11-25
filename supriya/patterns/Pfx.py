@@ -1,4 +1,5 @@
 import uuid
+
 from supriya.patterns.EventPattern import EventPattern
 
 
@@ -6,23 +7,13 @@ class Pfx(EventPattern):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_pattern',
-        '_release_time',
-        '_settings',
-        '_synthdef',
-        )
+    __slots__ = ("_pattern", "_release_time", "_settings", "_synthdef")
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        pattern,
-        synthdef,
-        release_time=0.25,
-        **settings
-        ):
+    def __init__(self, pattern, synthdef, release_time=0.25, **settings):
         import supriya.synthdefs
+
         self._pattern = pattern
         assert isinstance(synthdef, supriya.synthdefs.SynthDef)
         self._synthdef = synthdef
@@ -38,16 +29,16 @@ class Pfx(EventPattern):
 
     def _setup_peripherals(self, initial_expr, state):
         import supriya.patterns
+
         start_synth_event = supriya.patterns.SynthEvent(
-            add_action='ADD_TO_TAIL',
+            add_action="ADD_TO_TAIL",
             synthdef=self.synthdef,
-            uuid=state['synth_uuid'],
-            **self.settings
-            )
+            uuid=state["synth_uuid"],
+            **self.settings,
+        )
         stop_synth_event = supriya.patterns.SynthEvent(
-            uuid=state['synth_uuid'],
-            is_stop=True,
-            )
+            uuid=state["synth_uuid"], is_stop=True
+        )
         peripheral_starts = [start_synth_event]
         peripheral_stops = []
         delta = self._release_time or 0
@@ -57,9 +48,7 @@ class Pfx(EventPattern):
         return peripheral_starts, peripheral_stops
 
     def _setup_state(self):
-        return {
-            'synth_uuid': uuid.uuid4(),
-            }
+        return {"synth_uuid": uuid.uuid4()}
 
     ### PUBLIC PROPERTIES ###
 

@@ -1,5 +1,6 @@
 import abc
 import collections
+
 from supriya import CalculationRate
 from supriya.system.SupriyaObject import SupriyaObject
 

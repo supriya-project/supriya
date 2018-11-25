@@ -1,6 +1,7 @@
+import uqbar.strings
+
 import supriya.assets.synthdefs
 import supriya.realtime
-import uqbar.strings
 
 
 def test_01(server):
@@ -26,13 +27,15 @@ def test_01(server):
     assert synth_a not in group_b
 
     server_state = str(server.query_remote_nodes())
-    assert server_state == uqbar.strings.normalize('''
+    assert server_state == uqbar.strings.normalize(
+        """
         NODE TREE 0 group
             1 group
                 1001 group
                 1000 group
                     1002 test
-        ''')
+        """
+    )
 
     group_b.append(synth_a)
     assert synthdef.is_allocated
@@ -42,13 +45,15 @@ def test_01(server):
     assert synth_a not in group_a
 
     server_state = str(server.query_remote_nodes())
-    assert server_state == uqbar.strings.normalize('''
+    assert server_state == uqbar.strings.normalize(
+        """
         NODE TREE 0 group
             1 group
                 1001 group
                     1002 test
                 1000 group
-        ''')
+        """
+    )
 
     synth_b = supriya.realtime.Synth(synthdef)
     assert not synth_b.is_allocated
@@ -59,11 +64,13 @@ def test_01(server):
     assert synth_b.parent is group_b
 
     server_state = str(server.query_remote_nodes())
-    assert server_state == uqbar.strings.normalize('''
+    assert server_state == uqbar.strings.normalize(
+        """
         NODE TREE 0 group
             1 group
                 1001 group
                     1002 test
                     1003 test
                 1000 group
-        ''')
+        """
+    )

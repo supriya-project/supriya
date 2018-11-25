@@ -1,4 +1,5 @@
 import collections
+
 from supriya import CalculationRate
 from supriya.ugens.Filter import Filter
 
@@ -21,13 +22,8 @@ class LagUD(Filter):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-        ('lag_time_up', 0.1),
-        ('lag_time_down', 0.1),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [("source", None), ("lag_time_up", 0.1), ("lag_time_down", 0.1)]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

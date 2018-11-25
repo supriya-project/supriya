@@ -9,15 +9,15 @@ def test_SynthDefCompiler_basic_01():
         sine_two = supriya.ugens.SinOsc.ar(frequency=440)
         sines = sine_one * sine_two
         supriya.ugens.Out.ar(bus=0, source=sines)
-    py_synthdef = builder.build('foo')
+    py_synthdef = builder.build("foo")
     py_compiled_synthdef = py_synthdef.compile()
 
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
-        'foo',
-        'Out.ar(0, SinOsc.ar(freq: 420) * SinOsc.ar(freq: 440))',
-        )
+        "foo", "Out.ar(0, SinOsc.ar(freq: 420) * SinOsc.ar(freq: 440))"
+    )
     sc_compiled_synthdef = sc_synthdef.compile()
 
+    # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
@@ -71,6 +71,7 @@ def test_SynthDefCompiler_basic_01():
                             b'\x00\x00\x00\x00'
                 b'\x00\x00',
         )
+    # fmt: on
 
     assert sc_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef == test_compiled_synthdef
@@ -82,15 +83,15 @@ def test_SynthDefCompiler_basic_02():
         sine = supriya.ugens.SinOsc.ar()
         sine = -sine
         supriya.ugens.Out.ar(bus=99, source=sine)
-    py_synthdef = builder.build('test')
+    py_synthdef = builder.build("test")
     py_compiled_synthdef = py_synthdef.compile()
 
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
-        'test',
-        'Out.ar(99, SinOsc.ar(freq: 440).neg)',
-        )
+        "test", "Out.ar(99, SinOsc.ar(freq: 440).neg)"
+    )
     sc_compiled_synthdef = sc_synthdef.compile()
 
+    # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
@@ -132,6 +133,7 @@ def test_SynthDefCompiler_basic_02():
                             b'\x00\x00\x00\x00'
                 b'\x00\x00',
         )
+    # fmt: on
 
     assert sc_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef == test_compiled_synthdef
@@ -140,19 +142,20 @@ def test_SynthDefCompiler_basic_02():
 def test_SynthDefCompiler_basic_03():
 
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
-        'test',
-        r'''
+        "test",
+        r"""
         Out.ar(0, In.ar(8, 2))
-        '''
-        )
+        """,
+    )
     sc_compiled_synthdef = sc_synthdef.compile()
 
     with supriya.synthdefs.SynthDefBuilder() as builder:
         inputs = supriya.ugens.In.ar(bus=8, channel_count=2)
         supriya.ugens.Out.ar(bus=0, source=inputs)
-    py_synthdef = builder.build('test')
+    py_synthdef = builder.build("test")
     py_compiled_synthdef = py_synthdef.compile()
 
+    # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
@@ -186,29 +189,31 @@ def test_SynthDefCompiler_basic_03():
                             b'\x00\x00\x00\x01'
                 b'\x00\x00',
         )
+    # fmt: on
 
     assert sc_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
 def test_SynthDefCompiler_basic_04():
-    r'''FreeSelf.
-    '''
+    r"""FreeSelf.
+    """
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
-        'test',
-        r'''
+        "test",
+        r"""
         Out.ar(0, FreeSelf.kr(SinOsc.ar()))
-        '''
-        )
+        """,
+    )
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
 
     with supriya.synthdefs.SynthDefBuilder() as builder:
         sin_osc = supriya.ugens.SinOsc.ar()
         supriya.ugens.FreeSelf.kr(sin_osc)
         supriya.ugens.Out.ar(bus=0, source=sin_osc)
-    py_synthdef = builder.build('test')
+    py_synthdef = builder.build("test")
     py_compiled_synthdef = py_synthdef.compile()
 
+    # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
@@ -249,6 +254,7 @@ def test_SynthDefCompiler_basic_04():
                             b'\x00\x00\x00\x00'
                 b'\x00\x00',
         )
+    # fmt: on
 
     assert sc_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef == test_compiled_synthdef
@@ -260,18 +266,18 @@ def test_SynthDefCompiler_basic_05():
         source = supriya.ugens.In.ar(bus=8, channel_count=2)
         supriya.ugens.DetectSilence.ar(source=source)
         supriya.ugens.Out.ar(bus=0, source=source)
-    py_synthdef = builder.build('DetectSilenceTest')
+    py_synthdef = builder.build("DetectSilenceTest")
     py_compiled_synthdef = py_synthdef.compile()
 
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
-        'DetectSilenceTest',
-        r'''
+        "DetectSilenceTest",
+        r"""
         var source, detect_silence, out;
         source = In.ar(8, 2);
         detect_silence = DetectSilence.ar(source);
         out = Out.ar(0, source);
-        '''
-        )
+        """,
+    )
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
 
     assert sc_compiled_synthdef == py_compiled_synthdef

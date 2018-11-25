@@ -1,4 +1,5 @@
 import collections
+
 from supriya.synthdefs.ParameterRate import ParameterRate
 from supriya.synthdefs.UGenMethodMixin import UGenMethodMixin
 from supriya.system.SupriyaValueObject import SupriyaValueObject
@@ -8,17 +9,17 @@ class Parameter(UGenMethodMixin, SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Main Classes'
+    __documentation_section__ = "Main Classes"
 
     __slots__ = (
-        '_lag',
-        '_name',
-        '_parameter_rate',
-        '_range',
-        '_unit',
-        '_uuid',
-        '_value',
-        )
+        "_lag",
+        "_name",
+        "_parameter_rate",
+        "_range",
+        "_unit",
+        "_uuid",
+        "_value",
+    )
 
     ### INITIALIZER ###
 
@@ -30,17 +31,17 @@ class Parameter(UGenMethodMixin, SupriyaValueObject):
         range_=None,
         unit=None,
         value=None,
-        ):
+    ):
         import supriya.synthdefs
-        #assert name
+
+        # assert name
         if lag is not None:
             lag = float(lag)
         self._lag = lag
         if name is not None:
             name = str(name)
         self._name = name
-        self._parameter_rate = supriya.synthdefs.ParameterRate.from_expr(
-            parameter_rate)
+        self._parameter_rate = supriya.synthdefs.ParameterRate.from_expr(parameter_rate)
         if range_ is not None:
             assert isinstance(range_, supriya.synthdefs.Range)
         self._range = range_
@@ -79,6 +80,7 @@ class Parameter(UGenMethodMixin, SupriyaValueObject):
     @property
     def calculation_rate(self):
         import supriya.synthdefs
+
         return supriya.CalculationRate.from_expr(self)
 
     @property

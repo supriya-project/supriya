@@ -1,4 +1,5 @@
 import collections
+
 from supriya.ugens.PV_ChainUGen import PV_ChainUGen
 
 
@@ -24,8 +25,6 @@ class PV_PhaseShift(PV_ChainUGen):
 
     ### CLASS VARIABLES ###
 
-    _ordered_input_names = collections.OrderedDict([
-        ('pv_chain', None),
-        ('shift', None),
-        ('integrate', 0),
-    ])
+    _ordered_input_names = collections.OrderedDict(
+        [("pv_chain", None), ("shift", None), ("integrate", 0)]
+    )

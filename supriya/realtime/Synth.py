@@ -63,13 +63,9 @@ class Synth(Node):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Main Classes'
+    __documentation_section__ = "Main Classes"
 
-    __slots__ = (
-        '_control_interface',
-        '_register_controls',
-        '_synthdef',
-        )
+    __slots__ = ("_control_interface", "_register_controls", "_synthdef")
 
     ### INITIALIZER ###
 
@@ -79,23 +75,19 @@ class Synth(Node):
         name=None,
         register_controls=None,
         node_id_is_permanent=False,
-        **kwargs
+        **kwargs,
     ):
         import supriya.assets.synthdefs
         import supriya.realtime
         import supriya.synthdefs
-        Node.__init__(
-            self,
-            name=name,
-            node_id_is_permanent=node_id_is_permanent,
-            )
+
+        Node.__init__(self, name=name, node_id_is_permanent=node_id_is_permanent)
         synthdef = synthdef or supriya.assets.synthdefs.default
         assert isinstance(synthdef, supriya.synthdefs.SynthDef)
         self._synthdef = synthdef
         self._control_interface = supriya.realtime.SynthInterface(
-            client=self,
-            synthdef=self._synthdef,
-            )
+            client=self, synthdef=self._synthdef
+        )
         if register_controls is not None:
             register_controls = bool(register_controls)
         self._register_controls = register_controls
@@ -113,36 +105,31 @@ class Synth(Node):
         result = []
         node_id = self.node_id
         if node_id is None:
-            node_id = '???'
+            node_id = "???"
         if self.name:
-            string = '{node_id} {synthdef} ({name})'
+            string = "{node_id} {synthdef} ({name})"
         else:
-            string = '{node_id} {synthdef}'
+            string = "{node_id} {synthdef}"
         string = string.format(
-            name=self.name,
-            node_id=node_id,
-            synthdef=self.synthdef.actual_name,
-            )
+            name=self.name, node_id=node_id, synthdef=self.synthdef.actual_name
+        )
         result.append(string)
         control_pieces = []
         controls = sorted(self.controls, key=lambda x: x.name)
         for control in controls:
-            control_piece = '{}: {!s}'.format(
-                control.name,
-                control.value,
-                )
+            control_piece = "{}: {!s}".format(control.name, control.value)
             control_pieces.append(control_piece)
-        control_pieces = '    ' + ', '.join(control_pieces)
+        control_pieces = "    " + ", ".join(control_pieces)
         result.append(control_pieces)
-        result = '\n'.join(result)
+        result = "\n".join(result)
         return result
 
     ### PRIVATE METHODS ###
 
     def _unregister_with_local_server(self):
         node_id = Node._unregister_with_local_server(self)
-        if 'gate' in self.controls:
-            self.controls['gate'].reset()
+        if "gate" in self.controls:
+            self.controls["gate"].reset()
         return node_id
 
     ### PUBLIC METHODS ###
@@ -157,6 +144,7 @@ class Synth(Node):
     ):
         import supriya.commands
         import supriya.realtime
+
         if self.is_allocated:
             return
         self._node_id_is_permanent = bool(node_id_is_permanent)
@@ -171,7 +159,7 @@ class Synth(Node):
             synthdef=self.synthdef,
             target_node_id=target_node.node_id,
             **settings,
-            )
+        )
         requests = [synth_request, *map_requests]
         paused_nodes = set()
         synthdefs = set()
@@ -182,8 +170,8 @@ class Synth(Node):
         return self._allocate(paused_nodes, requests, server, synthdefs)
 
     def release(self):
-        if 'gate' in self.controls:
-            self['gate'] = 0
+        if "gate" in self.controls:
+            self["gate"] = 0
         else:
             self.free()
 

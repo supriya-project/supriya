@@ -3,14 +3,13 @@ import socketserver
 import threading
 import time
 import typing
+
 from supriya.osc.OscBundle import OscBundle
 from supriya.osc.OscMessage import OscMessage
 
 
 class OscIO:
-
     class Capture:
-
         def __init__(self, osc_io):
             self.osc_io = osc_io
             self.osc_messages = []
@@ -33,26 +32,27 @@ class OscIO:
         pass
 
     class OscHandler(socketserver.BaseRequestHandler):
-
         def handle(self):
             data = self.request[0]
             message = OscMessage.from_datagram(data)
             debug_osc = self.server.io_instance.debug_osc
             debug_udp = self.server.io_instance.debug_udp
-            if message.address != '/status.reply':
+            if message.address != "/status.reply":
                 for capture in self.server.io_instance.captures:
-                    capture.osc_messages.append(('R', message))
+                    capture.osc_messages.append(("R", message))
                 if debug_osc:
-                    print('RECV', '{:0.6f}'.format(time.time()), message.to_list())
+                    print("RECV", "{:0.6f}".format(time.time()), message.to_list())
                     if debug_udp:
                         for line in str(message).splitlines():
-                            print('    ' + line)
+                            print("    " + line)
             # TODO: Is it worth the additional thread creation?
             response = None
             for callback in self.server.io_instance.match(message):
                 if callback.parse_response:
                     if response is None:
-                        handler = self.server.io_instance.response_handlers.get(message.address)
+                        handler = self.server.io_instance.response_handlers.get(
+                            message.address
+                        )
                         if handler:
                             response = handler.from_osc_message(message)
                     args = response
@@ -70,11 +70,12 @@ class OscIO:
         self,
         debug_osc=False,
         debug_udp=False,
-        ip_address='127.0.0.1',
+        ip_address="127.0.0.1",
         port=57751,
         timeout=2,
     ):
         import supriya.commands
+
         self.callbacks = {}
         self.captures = set()
         self.debug_osc = bool(debug_osc)
@@ -87,27 +88,27 @@ class OscIO:
         self.is_running = False
         self.timeout = timeout
         self.response_handlers = {
-            '/b_info': supriya.commands.BufferInfoResponse,
-            '/b_set': supriya.commands.BufferSetResponse,
-            '/b_setn': supriya.commands.BufferSetContiguousResponse,
-            '/c_set': supriya.commands.ControlBusSetResponse,
-            '/c_setn': supriya.commands.ControlBusSetContiguousResponse,
-            '/d_removed': supriya.commands.SynthDefRemovedResponse,
-            '/done': supriya.commands.DoneResponse,
-            '/fail': supriya.commands.FailResponse,
-            '/g_queryTree.reply': supriya.commands.QueryTreeResponse,
-            '/n_end': supriya.commands.NodeInfoResponse,
-            '/n_go': supriya.commands.NodeInfoResponse,
-            '/n_info': supriya.commands.NodeInfoResponse,
-            '/n_move': supriya.commands.NodeInfoResponse,
-            '/n_off': supriya.commands.NodeInfoResponse,
-            '/n_on': supriya.commands.NodeInfoResponse,
-            '/n_set': supriya.commands.NodeSetResponse,
-            '/n_setn': supriya.commands.NodeSetContiguousResponse,
-            '/status.reply': supriya.commands.StatusResponse,
-            '/synced': supriya.commands.SyncedResponse,
-            '/tr': supriya.commands.TriggerResponse,
-            }
+            "/b_info": supriya.commands.BufferInfoResponse,
+            "/b_set": supriya.commands.BufferSetResponse,
+            "/b_setn": supriya.commands.BufferSetContiguousResponse,
+            "/c_set": supriya.commands.ControlBusSetResponse,
+            "/c_setn": supriya.commands.ControlBusSetContiguousResponse,
+            "/d_removed": supriya.commands.SynthDefRemovedResponse,
+            "/done": supriya.commands.DoneResponse,
+            "/fail": supriya.commands.FailResponse,
+            "/g_queryTree.reply": supriya.commands.QueryTreeResponse,
+            "/n_end": supriya.commands.NodeInfoResponse,
+            "/n_go": supriya.commands.NodeInfoResponse,
+            "/n_info": supriya.commands.NodeInfoResponse,
+            "/n_move": supriya.commands.NodeInfoResponse,
+            "/n_off": supriya.commands.NodeInfoResponse,
+            "/n_on": supriya.commands.NodeInfoResponse,
+            "/n_set": supriya.commands.NodeSetResponse,
+            "/n_setn": supriya.commands.NodeSetContiguousResponse,
+            "/status.reply": supriya.commands.StatusResponse,
+            "/synced": supriya.commands.SyncedResponse,
+            "/tr": supriya.commands.TriggerResponse,
+        }
 
     ### SPECIAL METHODS ###
 
@@ -125,14 +126,10 @@ class OscIO:
             if port:
                 self.port = port
             self.server = self.OscServer(
-                (self.ip_address, self.port),
-                self.OscHandler,
-                bind_and_activate=False,
+                (self.ip_address, self.port), self.OscHandler, bind_and_activate=False
             )
             self.server.io_instance = self
-            self.server_thread = threading.Thread(
-                target=self.server.serve_forever,
-            )
+            self.server_thread = threading.Thread(target=self.server.serve_forever)
             self.server_thread.daemon = True
             self.server_thread.start()
             self.is_running = True
@@ -257,12 +254,12 @@ class OscIO:
         as_list = message.to_list()
         if as_list != [2]:  # /status
             for capture in self.captures:
-                capture.osc_messages.append(('S', message))
+                capture.osc_messages.append(("S", message))
             if self.debug_osc:
-                print('SEND', '{:0.6f}'.format(time.time()), message.to_list())
+                print("SEND", "{:0.6f}".format(time.time()), message.to_list())
                 if self.debug_udp:
                     for line in str(message).splitlines():
-                        print('    ' + line)
+                        print("    " + line)
         datagram = message.to_datagram()
         self.server.socket.sendto(datagram, (self.ip_address, self.port))
 
@@ -305,6 +302,7 @@ class OscIO:
             {}
 
         """
+
         def delete(pattern, original_callback_map):
             key = pattern.pop(0)
             if key not in original_callback_map:
@@ -316,5 +314,6 @@ class OscIO:
                 callbacks.remove(callback)
             if not callbacks and not callback_map:
                 original_callback_map.pop(key)
+
         with self.lock:
             delete(list(callback.pattern), self.callbacks)

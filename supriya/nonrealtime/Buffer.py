@@ -1,4 +1,5 @@
 import bisect
+
 import supriya.commands
 from supriya.nonrealtime.SessionObject import SessionObject
 
@@ -10,20 +11,20 @@ class Buffer(SessionObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Session Objects'
+    __documentation_section__ = "Session Objects"
 
     __slots__ = (
-        '_buffer_group',
-        '_channel_count',
-        '_duration',
-        '_events',
-        '_frame_count',
-        '_session',
-        '_session_id',
-        '_start_offset',
-        '_file_path',
-        '_starting_frame',
-        )
+        "_buffer_group",
+        "_channel_count",
+        "_duration",
+        "_events",
+        "_frame_count",
+        "_session",
+        "_session_id",
+        "_start_offset",
+        "_file_path",
+        "_starting_frame",
+    )
 
     ### INITIALIZER ###
 
@@ -38,8 +39,9 @@ class Buffer(SessionObject):
         start_offset=None,
         file_path=None,
         starting_frame=None,
-        ):
+    ):
         import supriya.nonrealtime
+
         SessionObject.__init__(self, session)
         self._events = {}
         self._session_id = int(session_id)
@@ -49,7 +51,7 @@ class Buffer(SessionObject):
         start_offset = start_offset or 0
         self._start_offset = float(start_offset)
         if duration is None:
-            duration = float('inf')
+            duration = float("inf")
         self._duration = duration
         if file_path is not None:
             starting_frame = int(starting_frame or 0)
@@ -85,9 +87,7 @@ class Buffer(SessionObject):
 
     def close(self, offset=None):
         event_type = supriya.commands.BufferCloseRequest
-        event_kwargs = dict(
-            buffer_id=self,
-            )
+        event_kwargs = dict(buffer_id=self)
         self._set_event(event_type, event_kwargs, offset=offset)
 
     def copy_from(
@@ -97,7 +97,7 @@ class Buffer(SessionObject):
         source_starting_frame=None,
         target_starting_frame=None,
         offset=None,
-        ):
+    ):
         event_type = supriya.commands.BufferCopyRequest
         event_kwargs = dict(
             frame_count=frame_count,
@@ -105,7 +105,7 @@ class Buffer(SessionObject):
             source_starting_frame=source_starting_frame,
             target_buffer_id=self,
             target_starting_frame=target_starting_frame,
-            )
+        )
         self._set_event(event_type, event_kwargs, offset=offset)
 
     def copy_to(
@@ -115,7 +115,7 @@ class Buffer(SessionObject):
         source_starting_frame=None,
         target_starting_frame=None,
         offset=None,
-        ):
+    ):
         event_type = supriya.commands.BufferCopyRequest
         event_kwargs = dict(
             frame_count=frame_count,
@@ -123,19 +123,14 @@ class Buffer(SessionObject):
             source_starting_frame=source_starting_frame,
             target_buffer_id=target_buffer_id,
             target_starting_frame=target_starting_frame,
-            )
+        )
         self._set_event(event_type, event_kwargs, offset=offset)
 
-    def fill(
-        self,
-        index_count_value_triples=None,
-        offset=None,
-        ):
+    def fill(self, index_count_value_triples=None, offset=None):
         event_type = supriya.commands.BufferFillRequest
         event_kwargs = dict(
-            buffer_id=self,
-            index_count_value_triples=index_count_value_triples,
-            )
+            buffer_id=self, index_count_value_triples=index_count_value_triples
+        )
         self._set_event(event_type, event_kwargs, offset=offset)
 
     def fill_via_chebyshev(
@@ -145,16 +140,16 @@ class Buffer(SessionObject):
         should_normalize=True,
         should_clear_first=True,
         offset=None,
-        ):
+    ):
         event_type = supriya.commands.BufferGenerateRequest
         event_kwargs = dict(
             amplitudes=tuple(float(_) for _ in amplitudes),
             as_wavetable=bool(as_wavetable),
             buffer_id=self,
-            command_name='cheby',
+            command_name="cheby",
             should_clear_first=bool(should_clear_first),
             should_normalize=bool(should_normalize),
-            )
+        )
         self._set_event(event_type, event_kwargs, offset=offset)
 
     def fill_via_sine_1(
@@ -164,16 +159,16 @@ class Buffer(SessionObject):
         should_clear_first=True,
         should_normalize=True,
         offset=None,
-        ):
+    ):
         event_type = supriya.commands.BufferGenerateRequest
         event_kwargs = dict(
             amplitudes=tuple(float(_) for _ in amplitudes),
             as_wavetable=bool(as_wavetable),
             buffer_id=self,
-            command_name='sine1',
+            command_name="sine1",
             should_clear_first=bool(should_clear_first),
             should_normalize=bool(should_normalize),
-            )
+        )
         self._set_event(event_type, event_kwargs, offset=offset)
 
     def fill_via_sine_2(
@@ -184,17 +179,17 @@ class Buffer(SessionObject):
         should_clear_first=True,
         should_normalize=True,
         offset=None,
-        ):
+    ):
         event_type = supriya.commands.BufferGenerateRequest
         event_kwargs = dict(
             amplitudes=tuple(float(_) for _ in amplitudes),
             as_wavetable=bool(as_wavetable),
             buffer_id=self,
-            command_name='sine2',
+            command_name="sine2",
             frequencies=tuple(float(_) for _ in frequencies),
             should_clear_first=bool(should_clear_first),
             should_normalize=bool(should_normalize),
-            )
+        )
         self._set_event(event_type, event_kwargs, offset=offset)
 
     def fill_via_sine_3(
@@ -206,18 +201,18 @@ class Buffer(SessionObject):
         should_clear_first=True,
         should_normalize=True,
         offset=None,
-        ):
+    ):
         event_type = supriya.commands.BufferGenerateRequest
         event_kwargs = dict(
             amplitudes=tuple(float(_) for _ in amplitudes),
             as_wavetable=bool(as_wavetable),
             buffer_id=self,
-            command_name='sine3',
+            command_name="sine3",
             frequencies=tuple(float(_) for _ in frequencies),
             phases=tuple(float(_) for _ in phases),
             should_clear_first=bool(should_clear_first),
             should_normalize=bool(should_normalize),
-            )
+        )
         self._set_event(event_type, event_kwargs, offset=offset)
 
     def read(
@@ -229,7 +224,7 @@ class Buffer(SessionObject):
         starting_frame_in_buffer=None,
         starting_frame_in_file=None,
         offset=None,
-        ):
+    ):
         event_type = supriya.commands.BufferReadRequest
         # need to optionally coerce to BufferReadChannelRequest on compile
         event_kwargs = dict(
@@ -240,43 +235,29 @@ class Buffer(SessionObject):
             leave_open=leave_open,
             starting_frame_in_buffer=starting_frame_in_buffer,
             starting_frame_in_file=starting_frame_in_file,
-            )
+        )
         self._set_event(event_type, event_kwargs, offset=offset)
 
-    def set(
-        self,
-        index_value_pairs=None,
-        offset=None,
-        ):
+    def set(self, index_value_pairs=None, offset=None):
         event_type = supriya.commands.BufferSetRequest
-        event_kwargs = dict(
-            buffer_id=self,
-            index_value_pairs=index_value_pairs,
-            )
+        event_kwargs = dict(buffer_id=self, index_value_pairs=index_value_pairs)
         self._set_event(event_type, event_kwargs, offset=offset)
 
-    def set_contiguous(
-        self,
-        index_values_pairs=None,
-        offset=None,
-        ):
+    def set_contiguous(self, index_values_pairs=None, offset=None):
         event_type = supriya.commands.BufferSetContiguousRequest
-        event_kwargs = dict(
-            buffer_id=self,
-            index_values_pairs=index_values_pairs,
-            )
+        event_kwargs = dict(buffer_id=self, index_values_pairs=index_values_pairs)
         self._set_event(event_type, event_kwargs, offset=offset)
 
     def write(
         self,
         file_path,
         frame_count=None,
-        header_format='aiff',
+        header_format="aiff",
         leave_open=False,
-        sample_format='int24',
+        sample_format="int24",
         starting_frame=None,
         offset=None,
-        ):
+    ):
         event_type = supriya.commands.BufferWriteRequest
         event_kwargs = dict(
             buffer_id=self,
@@ -286,14 +267,12 @@ class Buffer(SessionObject):
             leave_open=leave_open,
             sample_format=sample_format,
             starting_frame=starting_frame,
-            )
+        )
         self._set_event(event_type, event_kwargs, offset=offset)
 
     def zero(self, offset=None):
         event_type = supriya.commands.BufferZeroRequest
-        event_kwargs = dict(
-            buffer_id=self,
-            )
+        event_kwargs = dict(buffer_id=self)
         self._set_event(event_type, event_kwargs, offset=offset)
 
     ### PUBLIC PROPERTIES ###

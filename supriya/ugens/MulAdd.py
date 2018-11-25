@@ -1,4 +1,5 @@
 import collections
+
 from supriya import CalculationRate
 from supriya.ugens.UGen import UGen
 
@@ -22,39 +23,27 @@ class MulAdd(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Basic Operator UGens'
+    __documentation_section__ = "Basic Operator UGens"
 
-    _ordered_input_names = collections.OrderedDict([
-        ('source', None),
-        ('multiplier', 1.0),
-        ('addend', 0.0),
-    ])
+    _ordered_input_names = collections.OrderedDict(
+        [("source", None), ("multiplier", 1.0), ("addend", 0.0)]
+    )
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        addend=0.0,
-        multiplier=1.0,
-        calculation_rate=None,
-        source=None,
-    ):
+    def __init__(self, addend=0.0, multiplier=1.0, calculation_rate=None, source=None):
         UGen.__init__(
             self,
             addend=addend,
             multiplier=multiplier,
             calculation_rate=calculation_rate,
             source=source,
-            )
+        )
 
     ### PRIVATE METHODS ###
 
     @staticmethod
-    def _inputs_are_valid(
-        source,
-        multiplier,
-        addend,
-    ):
+    def _inputs_are_valid(source, multiplier, addend):
         if CalculationRate.from_expr(source) == CalculationRate.AUDIO:
             return True
         if CalculationRate.from_expr(source) == CalculationRate.CONTROL:
@@ -71,11 +60,7 @@ class MulAdd(UGen):
 
     @classmethod
     def _new_single(
-        cls,
-        addend=None,
-        multiplier=None,
-        calculation_rate=None,
-        source=None,
+        cls, addend=None, multiplier=None, calculation_rate=None, source=None
     ):
         if multiplier == 0.0:
             return addend
@@ -98,25 +83,20 @@ class MulAdd(UGen):
                 multiplier=multiplier,
                 calculation_rate=calculation_rate,
                 source=source,
-                )
+            )
         if cls._inputs_are_valid(multiplier, source, addend):
             return cls(
                 addend=addend,
                 multiplier=source,
                 calculation_rate=calculation_rate,
                 source=multiplier,
-                )
+            )
         return (source * multiplier) + addend
 
     ### PUBLIC METHODS ###
 
     @classmethod
-    def new(
-        cls,
-        source=None,
-        multiplier=1.0,
-        addend=0.0,
-    ):
+    def new(cls, source=None, multiplier=1.0, addend=0.0):
         """
         Constructs a multiplication / addition ugen.
 
@@ -136,12 +116,15 @@ class MulAdd(UGen):
         Returns ugen graph.
         """
         import supriya.synthdefs
+
         # TODO: handle case of array as source
-        calculation_rate = supriya.CalculationRate.from_expr((source, multiplier, addend))
+        calculation_rate = supriya.CalculationRate.from_expr(
+            (source, multiplier, addend)
+        )
         ugen = cls._new_expanded(
             addend=addend,
             multiplier=multiplier,
             calculation_rate=calculation_rate,
             source=source,
-            )
+        )
         return ugen

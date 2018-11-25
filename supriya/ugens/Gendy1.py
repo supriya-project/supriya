@@ -1,4 +1,5 @@
 import collections
+
 from supriya import CalculationRate
 from supriya.ugens.UGen import UGen
 
@@ -28,25 +29,24 @@ class Gendy1(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Noise UGens'
+    __documentation_section__ = "Noise UGens"
 
-    _ordered_input_names = collections.OrderedDict([
-        ('ampdist', 1),
-        ('durdist', 1),
-        ('adparam', 1),
-        ('ddparam', 1),
-        ('minfrequency', 440),
-        ('maxfrequency', 660),
-        ('ampscale', 0.5),
-        ('durscale', 0.5),
-        ('init_cps', 12),
-        ('knum', None),
-    ])
-
-    _valid_calculation_rates = (
-        CalculationRate.AUDIO,
-        CalculationRate.CONTROL,
+    _ordered_input_names = collections.OrderedDict(
+        [
+            ("ampdist", 1),
+            ("durdist", 1),
+            ("adparam", 1),
+            ("ddparam", 1),
+            ("minfrequency", 440),
+            ("maxfrequency", 660),
+            ("ampscale", 0.5),
+            ("durscale", 0.5),
+            ("init_cps", 12),
+            ("knum", None),
+        ]
     )
+
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
     ### INITIALIZER ###
 
@@ -79,4 +79,4 @@ class Gendy1(UGen):
             knum=knum,
             maxfrequency=maxfrequency,
             minfrequency=minfrequency,
-            )
+        )

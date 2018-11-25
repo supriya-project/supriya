@@ -7,10 +7,7 @@ class NodeSetResponse(Response):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_items',
-        '_node_id',
-        )
+    __slots__ = ("_items", "_node_id")
 
     class Item(NamedTuple):
         control_index_or_name: Union[int, str]
@@ -18,12 +15,7 @@ class NodeSetResponse(Response):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        node_id=None,
-        items=None,
-        osc_message=None,
-    ):
+    def __init__(self, node_id=None, items=None, osc_message=None):
         Response.__init__(self, osc_message=osc_message)
         self._items = items
         self._node_id = node_id
@@ -53,10 +45,7 @@ class NodeSetResponse(Response):
         for group in cls._group_items(remainder, 2):
             item = cls.Item(*group)
             items.append(item)
-        response = cls(
-            node_id=node_id,
-            items=tuple(items),
-            )
+        response = cls(node_id=node_id, items=tuple(items))
         return response
 
     ### PUBLIC PROPERTIES ###
