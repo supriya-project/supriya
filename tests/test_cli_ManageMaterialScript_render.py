@@ -151,9 +151,9 @@ def test_python_error_on_render(cli_paths):
             Importing test_project.materials.test_material.definition
         Traceback (most recent call last):
             File ".../supriya/cli/ProjectSectionScript.py", line ..., in _render_object
-            **kwargs
+            **kwargs,
             File ".../supriya/soundfiles/render.py", line ..., in render
-            **kwargs
+            **kwargs,
             File
             ".../test_project/test_project/materials/test_material/definition.py", line ..., in __render__
             raise TypeError('This is fake.')
