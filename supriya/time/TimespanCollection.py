@@ -1,8 +1,6 @@
 from supriya.system.SupriyaObject import SupriyaObject
 from supriya.time.TimespanCollectionDriver import TimespanCollectionDriver
-from supriya.time.TimespanCollectionDriverEx import (
-    TimespanCollectionDriverEx,
-)
+from supriya.time.TimespanCollectionDriverEx import TimespanCollectionDriverEx
 from supriya.time.TimespanSimultaneity import TimespanSimultaneity
 
 
