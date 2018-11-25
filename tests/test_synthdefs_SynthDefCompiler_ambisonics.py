@@ -1,3 +1,4 @@
+# flake8: noqa
 import supriya.synthdefs
 import supriya.ugens
 
@@ -103,7 +104,7 @@ def test_SynthDefCompiler_ambisonics_01():
                             b'\x00\x00\x00\x03'
                                 b'\x00\x00\x00\x03'
                 b'\x00\x00'
-        )
+    )
     # fmt: on
 
     assert sc_compiled_synthdef == test_compiled_synthdef

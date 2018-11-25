@@ -132,7 +132,7 @@ class Application:
             source = self._lookup_nested_object(
                 self, source_name[1:], namespaces=namespaces
             )
-        except:
+        except Exception:
             print(source_name)
             raise
         binding = supriya.system.bind(source, target, target_range=target_range)
@@ -250,7 +250,7 @@ class Application:
         try:
             for device in self.devices.values():
                 device.open_port()
-        except:
+        except Exception:
             traceback.print_exc()
             for device in self.devices.values():
                 device.open_port(virtual=True)

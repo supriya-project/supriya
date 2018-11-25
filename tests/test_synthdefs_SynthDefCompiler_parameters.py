@@ -1,3 +1,4 @@
+# flake8: noqa
 import supriya.synthdefs
 import supriya.ugens
 
@@ -70,7 +71,7 @@ def test_SynthDefCompiler_parameters_01():
                             b'\x00\x00\x00\x01'
                             b'\x00\x00\x00\x00'
                 b'\x00\x00',
-        )
+    )
     # fmt: on
 
     assert sc_compiled_synthdef == test_compiled_synthdef
@@ -157,7 +158,7 @@ def test_SynthDefCompiler_parameters_02():
                             b'\x00\x00\x00\x01'
                             b'\x00\x00\x00\x00'
                 b'\x00\x00',
-        )
+    )
     # fmt: on
 
     assert sc_compiled_synthdef == test_compiled_synthdef
@@ -275,7 +276,7 @@ def test_SynthDefCompiler_parameters_03():
                             b'\x00\x00\x00\x02'
                             b'\x00\x00\x00\x00'
                 b'\x00\x00',
-        )
+    )
     # fmt: on
 
     assert sc_compiled_synthdef == test_compiled_synthdef
@@ -479,7 +480,7 @@ def test_SynthDefCompiler_parameters_04():
                             b'\x00\x00\x00\x08'
                             b'\x00\x00\x00\x00'
                 b'\x00\x00'
-        )
+    )
     # fmt: on
 
     assert sc_compiled_synthdef == test_compiled_synthdef
@@ -607,7 +608,7 @@ def test_SynthDefCompiler_parameters_05():
                             b'\x00\x00\x00\x04'
                                 b'\x00\x00\x00\x00'
                 b'\x00\x00'
-        )
+    )
     # fmt: on
 
     assert sc_compiled_synthdef == test_compiled_synthdef
@@ -746,7 +747,7 @@ def test_SynthDefCompiler_parameters_06():
                             b'\x00\x00\x00\x04'
                                 b'\x00\x00\x00\x00'
                 b'\x00\x00'
-        )
+    )
     # fmt: on
 
     assert sc_compiled_synthdef == test_compiled_synthdef
