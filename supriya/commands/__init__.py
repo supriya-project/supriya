@@ -50,13 +50,13 @@ from .NodeCommandRequest import NodeCommandRequest  # noqa
 from .NodeFillRequest import NodeFillRequest  # noqa
 from .NodeFreeRequest import NodeFreeRequest  # noqa
 from .NodeInfoResponse import NodeInfoResponse  # noqa
-from .NodeMapToAudioBusContiguousRequest import (
+from .NodeMapToAudioBusContiguousRequest import (  # noqa
     NodeMapToAudioBusContiguousRequest,
-)  # noqa
+)
 from .NodeMapToAudioBusRequest import NodeMapToAudioBusRequest  # noqa
-from .NodeMapToControlBusContiguousRequest import (
+from .NodeMapToControlBusContiguousRequest import (  # noqa
     NodeMapToControlBusContiguousRequest,
-)  # noqa
+)
 from .NodeMapToControlBusRequest import NodeMapToControlBusRequest  # noqa
 from .NodeOrderRequest import NodeOrderRequest  # noqa
 from .NodeQueryRequest import NodeQueryRequest  # noqa

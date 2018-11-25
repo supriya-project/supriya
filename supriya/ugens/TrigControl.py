@@ -1,6 +1,3 @@
-import collections
-
-from supriya import CalculationRate
 from supriya.ugens.Control import Control
 
 

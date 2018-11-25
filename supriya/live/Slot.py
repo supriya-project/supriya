@@ -1,8 +1,5 @@
 import abc
 
-import supriya.realtime
-import supriya.synthdefs
-
 
 class Slot:
 
