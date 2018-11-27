@@ -15,57 +15,17 @@ env:
     AUDIODEV=null
     CC=gcc
     CXX=g++
+    MYPYPATH=/tmp/typehints
     PATH=/usr/lib/ccache:$PATH
 
 before_install:
 - pip install --target /tmp/typehints --no-deps uqbar>=0.2.15
-- export MYPYPATH=/tmp/typehints
-- git clone -q https://github.com/supercollider/supercollider.git
-- cd $TRAVIS_BUILD_DIR/supercollider &&
-    git checkout Version-3.10.0-rc1 &&
-    git submodule -q init &&
-    git submodule -q update &&
-    mkdir BUILD &&
-    cd BUILD
-- sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
-- sudo add-apt-repository --yes ppa:beineri/opt-qt551-trusty
-- sudo apt-get -qq update
-- sudo apt-get -qq install --yes
-    alsa-oss
-    alsa-utils
-    build-essential
-    espeak
-    g++-4.9
-    gcc-4.9
-    graphviz 
-    jackd2
-    libasound2-dev
-    libavahi-client-dev
-    libfftw3-dev
-    libicu-dev
-    libjack-jackd2-dev
-    libreadline6-dev
-    libsndfile1-dev
-    libudev-dev
-    libxt-dev
-    pkg-config
-- sudo update-alternatives
-    --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 60
-    --slave /usr/bin/g++ g++ /usr/bin/g++-4.9
-- sudo update-alternatives --auto gcc
-- cmake
-    --debug-output
-    -DCMAKE_BUILD_TYPE=Release
-    -DSC_EL=OFF
-    -DSC_IDE=OFF
-    -DSC_QT=OFF
-    $TRAVIS_BUILD_DIR/supercollider > /dev/null
-- sudo make install > /dev/null
-- cd $TRAVIS_BUILD_DIR
+- sudo make -C .travis/ install-scsynth-deps
+- sudo make -C .travis/ install-scsynth
 - scsynth -v
 - sudo usermod -a -G audio travis
-- sudo bash -E .travis/prep-dummy-soundcard.sh
-- mkdir -p /home/travis/.local/share/SuperCollider/synthdefs
+- sudo make -C .travis/ prep-dummy-soundcard
+- ls -l /home/travis/.local/share/
 
 install:
 - pip install -e .
@@ -81,8 +41,8 @@ before_script:
 script:
 - make black-check
 - make mypy
-- sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; make sanity-check"
-- sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; make pytest-travis"
+- sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; make -C .travis/ sanity-check"
+- sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; make -C .travis/ pytest"
 
 notifications:
   email: false
