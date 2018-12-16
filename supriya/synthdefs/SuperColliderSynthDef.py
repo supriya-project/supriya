@@ -1,7 +1,9 @@
 import os
-import shutil
+import pathlib
 import subprocess
 import tempfile
+
+import uqbar.io
 
 from supriya.system.SupriyaObject import SupriyaObject
 
@@ -21,40 +23,53 @@ class SuperColliderSynthDef(SupriyaObject):
         self._body = body
         self._rates = rates
 
-    ### PUBLIC METHODS ###
+    ### PRIVATE METHODS ###
 
-    def compile(self):
-        directory_path = tempfile.mkdtemp()
+    def _build_sc_input(self, directory_path):
         input_ = []
         input_.append("(")
         input_.append("a = SynthDef(")
-        input_.append(r"    \{}, {{".format(self.name))
+        input_.append("    \\{}, {{".format(self.name))
         for line in self.body.splitlines():
             input_.append("    " + line)
         if self.rates:
             input_.append("}}, {});".format(list(self.rates)))
         else:
             input_.append("});")
+        input_.append('"Defined SynthDef".postln;')
         input_.append('a.writeDefFile("{}");'.format(directory_path))
+        input_.append('"Wrote SynthDef".postln;')
         input_.append("0.exit;")
         input_.append(")")
         input_ = "\n".join(input_)
-        sc_file_name = "{}.sc".format(self.name)
-        sc_file_path = os.path.join(directory_path, sc_file_name)
-        synthdef_file_name = "{}.scsyndef".format(self.name)
-        synthdef_file_path = os.path.join(directory_path, synthdef_file_name)
-        with open(sc_file_path, "w") as f:
-            f.write(input_)
-        command = ["sclang", sc_file_path]
-        subprocess.call(
-            command,
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-        )
-        with open(synthdef_file_path, "rb") as f:
-            result = f.read()
-        shutil.rmtree(directory_path)
+        return input_
+
+    ### PUBLIC METHODS ###
+
+    def compile(self):
+        sclang_candidates = uqbar.io.find_executable("sclang")
+        if not sclang_candidates:
+            raise RuntimeError("Cannot find sclang")
+        sclang_path = sclang_candidates[0]
+        prefix = None
+        if os.environ.get("CI") == "true":
+            prefix = str(pathlib.Path.home()) + os.path.sep
+        with tempfile.TemporaryDirectory(prefix=prefix) as directory:
+            directory_path = pathlib.Path(directory)
+            sc_input = self._build_sc_input(directory_path)
+            print(sc_input)
+            sc_file_name = "{}.sc".format(self.name)
+            sc_file_path = directory_path / sc_file_name
+            synthdef_file_name = "{}.scsyndef".format(self.name)
+            synthdef_file_path = directory_path / synthdef_file_name
+            with sc_file_path.open("w") as file_pointer:
+                file_pointer.write(sc_input)
+            command = " ".join([str(sclang_path), "-D", str(sc_file_path)])
+            subprocess.run(
+                command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
+            )
+            with synthdef_file_path.open("rb") as file_pointer:
+                result = file_pointer.read()
         return bytes(result)
 
     ### PUBLIC PROPERTIES ###

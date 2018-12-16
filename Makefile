@@ -38,15 +38,6 @@ pytest:
 		tests/ \
 		supriya/
 
-pytest-travis:
-	pytest \
-		--durations=100 \
-		--profile \
-		--timeout=60 \
-		tests/test_realtime_Server_boot.py \
-		tests/ \
-		supriya/
-
 pytest-x:
 	rm -Rf htmlcov/
 	pytest \
@@ -63,6 +54,3 @@ pytest-x:
 reformat:
 	make isort
 	make black-reformat
-
-sanity-check:
-	python -c 'import supriya; server = supriya.Server().boot(); print(server); server.quit()'
