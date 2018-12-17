@@ -3,8 +3,7 @@ import supriya.ugens
 
 
 def _build_default_synthdef():
-
-    """
+    r"""
     SynthDef(\default, { arg out=0, freq=440, amp=0.1, pan=0, gate=1;
         var z;
         z = LPF.ar(

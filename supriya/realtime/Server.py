@@ -232,15 +232,15 @@ class Server(SupriyaObject):
         if not self.is_running:
             raise supriya.exceptions.ServerOffline
         if isinstance(item, str):
-            match = re.match("b(?P<id>\d+)", item)
+            match = re.match(r"b(?P<id>\d+)", item)
             if match:
                 id_ = int(match.groupdict()["id"])
                 return supriya.realtime.Buffer(id_).allocate(server=self)
-            match = re.match("c(?P<id>\d+)", item)
+            match = re.match(r"c(?P<id>\d+)", item)
             if match:
                 id_ = int(match.groupdict()["id"])
                 return supriya.realtime.Bus(id_, "control").allocate(server=self)
-            match = re.match("a(?P<id>\d+)", item)
+            match = re.match(r"a(?P<id>\d+)", item)
             if match:
                 id_ = int(match.groupdict()["id"])
                 return supriya.realtime.Bus(id_, "audio").allocate(server=self)
