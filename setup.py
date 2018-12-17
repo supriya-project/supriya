@@ -17,6 +17,7 @@ install_requires = [
 extras_require = {
     'test': [
         'black',
+        'flake8',
         'isort',
         'mypy',
         'pytest >= 3.6.0',

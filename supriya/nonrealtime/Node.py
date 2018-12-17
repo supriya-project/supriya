@@ -1,6 +1,6 @@
 import bisect
 import collections
-from typing import Any, Dict, List, Optional, Set, Tuple, Union
+from typing import Dict, List, Optional, Set, Tuple, Union
 
 import supriya  # noqa
 from supriya import utils

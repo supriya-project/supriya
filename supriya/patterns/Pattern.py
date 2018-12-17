@@ -287,7 +287,7 @@ class Pattern(SupriyaValueObject):
         for key, value in dict_.items():
             if key == "type":
                 continue
-            if isinstance(value, str) and re.match("\$\w+\.\w+", value):
+            if isinstance(value, str) and re.match(r"\$\w+\.\w+", value):
                 namespace, name = value.split(".")
                 namespace = namespaces[namespace[1:]]
                 if isinstance(namespace, BindableNamespace):

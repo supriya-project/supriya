@@ -293,7 +293,7 @@ class SynthDef(ServerObjectProxy):
         result = {
             "synthdef": {
                 "name": self.actual_name,
-                #'hash': self.anonymous_name,
+                # 'hash': self.anonymous_name,
                 "ugens": ugens,
             }
         }

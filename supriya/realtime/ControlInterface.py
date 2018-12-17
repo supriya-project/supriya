@@ -14,7 +14,7 @@ class ControlInterface(SupriyaObject):
 
     __slots__ = ("_synth_controls", "_client")
 
-    _bus_pattern = re.compile("(?P<type>c|a)(?P<id>\d+)")
+    _bus_pattern = re.compile(r"(?P<type>c|a)(?P<id>\d+)")
 
     ### SPECIAL METHODS ###
 

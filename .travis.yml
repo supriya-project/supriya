@@ -40,6 +40,7 @@ before_script:
 
 script:
 - make black-check
+- make flake8
 - make mypy
 - sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; make -C .travis/ sanity-check"
 - sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; make -C .travis/ pytest"

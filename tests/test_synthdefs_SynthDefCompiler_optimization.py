@@ -1,3 +1,4 @@
+# flake8: noqa
 import supriya.synthdefs
 import supriya.ugens
 
@@ -58,7 +59,7 @@ def test_SynthDefCompiler_optimization_01():
                             b'\x00\x00\x00\x00'
                                 b'\x00\x00\x00\x00'
                 b'\x00\x00'
-        )
+    )
     # fmt: on
 
     assert sc_compiled_synthdef == test_compiled_synthdef

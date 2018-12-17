@@ -320,7 +320,7 @@ def test_04():
         synth_a = session.add_synth(duration=10)
     with session.at(5):
         synth_b = synth_a.add_synth(duration=10)
-        synth_c = synth_b.add_synth(duration=5)
+        synth_b.add_synth(duration=5)
     d_recv_commands = pytest.helpers.build_d_recv_commands(
         [supriya.assets.synthdefs.default]
     )

@@ -1,7 +1,7 @@
 import abc
 import collections
 import inspect
-from typing import Dict, Optional, Tuple, Union
+from typing import Optional, Tuple
 
 from supriya.synthdefs.SignalRange import SignalRange
 from supriya.synthdefs.UGenMethodMixin import UGenMethodMixin

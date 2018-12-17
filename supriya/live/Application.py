@@ -56,7 +56,7 @@ class Application:
 
     @classmethod
     def _lookup_file_paths(cls, path):
-        match = re.match("([\w]+:)?(.+)", path)
+        match = re.match(r"([\w]+:)?(.+)", path)
         if not match:
             raise ValueError
         module_name, path = match.groups()
@@ -72,7 +72,7 @@ class Application:
 
     @classmethod
     def _lookup_importable_object(cls, name):
-        match = re.match("\w+(\.\w+)+:\w+", name)
+        match = re.match(r"\w+(\.\w+)+:\w+", name)
         if not match:
             raise ValueError
         module_path, _, name = name.partition(":")
@@ -132,7 +132,7 @@ class Application:
             source = self._lookup_nested_object(
                 self, source_name[1:], namespaces=namespaces
             )
-        except:
+        except Exception:
             print(source_name)
             raise
         binding = supriya.system.bind(source, target, target_range=target_range)
@@ -250,7 +250,7 @@ class Application:
         try:
             for device in self.devices.values():
                 device.open_port()
-        except:
+        except Exception:
             traceback.print_exc()
             for device in self.devices.values():
                 device.open_port(virtual=True)
