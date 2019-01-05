@@ -1,10 +1,10 @@
 .PHONY: docs
 
 black-check:
-	black --py36 --check --diff supriya/ tests/
+	black --py36 --check --diff supriya/ tests/ *.py
 
 black-reformat:
-	black --py36 supriya/ tests/
+	black --py36 supriya/ tests/ *.py
 
 clean:
 	find . -name '*.pyc' | xargs rm

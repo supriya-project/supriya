@@ -6,7 +6,6 @@ import shutil
 import tempfile
 
 import yaml
-
 from supriya.realtime.ServerObjectProxy import ServerObjectProxy
 
 

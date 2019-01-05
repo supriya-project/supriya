@@ -5,10 +5,10 @@ from unittest import mock
 import pytest
 import uqbar.io
 import uqbar.strings
-import yaml
 
 import supriya.cli
 import supriya.nonrealtime
+import yaml
 
 
 def test_missing_material(cli_paths):

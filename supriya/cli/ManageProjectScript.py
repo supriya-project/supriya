@@ -4,8 +4,8 @@ import sys
 
 import uqbar.io
 import uqbar.strings
-import yaml
 
+import yaml
 from supriya.cli.ProjectPackageScript import ProjectPackageScript
 
 

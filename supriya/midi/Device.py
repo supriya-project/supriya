@@ -4,9 +4,9 @@ import logging
 import pathlib
 import threading
 
-import rtmidi  # type: ignore
 import uqbar.containers
 
+import rtmidi  # type: ignore
 from supriya.midi.LogicalControl import LogicalControl
 from supriya.midi.LogicalControlMode import LogicalControlMode
 from supriya.midi.LogicalView import LogicalView
