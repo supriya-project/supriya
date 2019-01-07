@@ -28,6 +28,12 @@ class OscIO:
         def __len__(self):
             return len(self.osc_messages)
 
+        @property
+        def sent_messages(self):
+            return (
+                osc_message for label, osc_message in self.osc_messages if label == "S"
+            )
+
     class OscServer(socketserver.ThreadingMixIn, socketserver.UDPServer):
         pass
 

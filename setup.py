@@ -15,7 +15,7 @@ install_requires = [
 ]
 
 extras_require = {
-    "ipython": ["jupyter", "rise"],
+    "ipython": ["abjad-ext-ipython", "jupyter", "rise"],
     "test": [
         "black",
         "flake8",

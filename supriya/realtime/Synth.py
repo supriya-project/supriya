@@ -174,6 +174,7 @@ class Synth(Node):
             self["gate"] = 0
         else:
             self.free()
+        return self
 
     ### PUBLIC PROPERTIES ###
 

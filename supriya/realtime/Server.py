@@ -800,6 +800,10 @@ class Server(SupriyaObject):
         PubSub.notify("server-quit")
         return self
 
+    def restart(self):
+        self.quit()
+        self.boot()
+
     def send_message(self, message):
         if not message or not self.is_running:
             return
