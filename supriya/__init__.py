@@ -14,7 +14,6 @@ if not output_path.exists():
 
 config = configparser.ConfigParser()
 config.read_dict({"core": {"editor": "vim", "scsynth": "scsynth"}})
-
 config_path = pathlib.Path(appdirs.user_config_dir("supriya", "supriya"))
 config_path = config_path / "supriya.cfg"
 if not config_path.exists():
@@ -24,7 +23,6 @@ if not config_path.exists():
             config.write(file_pointer, True)
     except IOError:
         pass
-
 with config_path.open() as file_pointer:
     config.read_file(file_pointer)
 
@@ -118,5 +116,8 @@ from supriya.synthdefs import (  # noqa
 )
 from supriya.system import Assets, Bindable, Binding, bind  # noqa
 from supriya.soundfiles import Say  # noqa
-from abjad.top import graph  # noqa
+
+# from abjad.top import graph  # noqa
+from supriya import assets  # noqa
+from supriya.graphing import graph  # noqa
 from supriya._version import __version__, __version_info__  # noqa
