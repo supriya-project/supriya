@@ -23,7 +23,15 @@ flake8:
 	flake8 --ignore=E203,E266,E501,W503 --isolated --max-line-length=88 supriya/ tests/
 
 isort:
-	isort --multi-line 1 --recursive --thirdparty uqbar --thirdparty abjad --trailing-comma --use-parentheses -y supriya/ tests/
+	isort \
+		--multi-line 1 \
+		--recursive \
+		--thirdparty abjad \
+		--thirdparty uqbar \
+		--thirdparty yaml \
+		--trailing-comma \
+		--use-parentheses -y \
+		supriya/ tests/ *.py
 
 mypy:
 	mypy --ignore-missing-imports supriya

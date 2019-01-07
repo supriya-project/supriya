@@ -1,8 +1,10 @@
-import abjad
 import os
-import pytest
 import signal
 import subprocess
+
+import abjad
+import pytest
+
 import supriya
 
 

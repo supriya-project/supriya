@@ -1,7 +1,7 @@
 import uqbar.strings
+import yaml
 
 import supriya.patterns
-import yaml
 
 
 def test_01():

@@ -2,7 +2,6 @@ import copy
 import pathlib
 
 import jinja2
-
 import yaml
 
 
