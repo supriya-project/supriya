@@ -1,6 +1,7 @@
 import collections
 
 from supriya.synthdefs.ParameterRate import ParameterRate
+from supriya.synthdefs.SignalRange import SignalRange
 from supriya.synthdefs.UGenMethodMixin import UGenMethodMixin
 from supriya.system.SupriyaValueObject import SupriyaValueObject
 
@@ -106,6 +107,10 @@ class Parameter(UGenMethodMixin, SupriyaValueObject):
     @property
     def range_(self):
         return self._range
+
+    @property
+    def signal_range(self):
+        SignalRange.BIPOLAR
 
     @property
     def unit(self):

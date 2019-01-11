@@ -68,5 +68,9 @@ class OutputProxy(UGenMethodMixin):
         return self._output_index
 
     @property
+    def signal_range(self):
+        return self.source.signal_range
+
+    @property
     def source(self):
         return self._source

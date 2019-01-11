@@ -78,9 +78,15 @@ class Envelope(SupriyaValueObject):
 
     ### PUBLIC METHODS ###
 
+    def ar(self, **kwargs):
+        from supriya.ugens import EnvGen
+
+        kwargs["envelope"] = self
+        return EnvGen.ar(**kwargs)
+
     @staticmethod
-    def asr(attack_time=0.01, release_time=1.0, amplitude=1.0, curve=-4.0):
-        amplitudes = (0, float(amplitude), 0)
+    def asr(attack_time=0.01, sustain=1.0, release_time=1.0, curve=-4.0):
+        amplitudes = (0, float(sustain), 0)
         durations = (float(attack_time), float(release_time))
         curves = (float(curve),)
         release_node = 1
@@ -115,6 +121,12 @@ class Envelope(SupriyaValueObject):
             loop_node=loop_node,
             offset=offset,
         )
+
+    def kr(self, **kwargs):
+        from supriya.ugens import EnvGen
+
+        kwargs["envelope"] = self
+        return EnvGen.kr(**kwargs)
 
     @staticmethod
     def percussive(attack_time=0.01, release_time=1.0, amplitude=1.0, curve=-4.0):

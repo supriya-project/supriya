@@ -33,5 +33,9 @@ class UGenArray(UGenMethodMixin, collections.Sequence):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def signal_range(self):
+        return max(_.signal_range for _ in self)
+
+    @property
     def ugens(self):
         return self._ugens
