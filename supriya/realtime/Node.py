@@ -1,5 +1,7 @@
 import abc
 
+import uqbar.graphs
+import uqbar.strings
 from uqbar.containers import UniqueTreeNode
 
 from supriya import AddAction
@@ -26,6 +28,11 @@ class Node(ServerObjectProxy, UniqueTreeNode):
 
     def __float__(self):
         return float(self.node_id)
+
+    def __graph__(self):
+        graph = uqbar.graphs.Graph()
+        graph.append(self._as_graphviz_node())
+        return graph
 
     def __int__(self):
         return int(self.node_id)
@@ -73,11 +80,23 @@ class Node(ServerObjectProxy, UniqueTreeNode):
         request.communicate(server=server, sync=True)
         return self
 
+    def _as_graphviz_node(self):
+        node = uqbar.graphs.Node(name=self._get_graphviz_name())
+        return node
+
     def _as_node_target(self):
         return self
 
     def _cache_control_interface(self):
         return self._control_interface.as_dict()
+
+    def _get_graphviz_name(self):
+        parts = [uqbar.strings.to_dash_case(type(self).__name__)]
+        if self.is_allocated:
+            parts.append(str(self.node_id))
+        else:
+            parts.extend(str(_) for _ in self.graph_order)
+        return "-".join(parts)
 
     def _handle_response(self, response):
         import supriya.commands

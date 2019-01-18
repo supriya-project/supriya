@@ -295,26 +295,7 @@ class Server(SupriyaObject):
 
         """
 
-        def recurse(graph, parent_graphviz_node, parent_server_node):
-            if not isinstance(parent_server_node, supriya.realtime.Group):
-                return
-            for child_server_node in parent_server_node:
-                if isinstance(child_server_node, supriya.realtime.Group):
-                    name = "Group {}".format(child_server_node.node_id)
-                else:
-                    name = "Synth {}".format(child_server_node.node_id)
-                child_graphviz_node = uqbar.graphs.Node(name=name)
-                graph.append(child_graphviz_node)
-                parent_graphviz_node.attach(child_graphviz_node)
-                recurse(graph, child_graphviz_node, child_server_node)
-
-        import supriya.realtime
-
-        graph = uqbar.graphs.Graph(name="server")
-        root_graphviz_node = uqbar.graphs.Node(name="Root Node")
-        graph.append(root_graphviz_node)
-        recurse(graph, root_graphviz_node, self.root_node)
-        return graph
+        return self.root_node.__graph__()
 
     def __repr__(self):
         if not self.is_running:
