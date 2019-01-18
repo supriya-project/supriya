@@ -125,6 +125,7 @@ class Mix(PseudoUGen):
     @classmethod
     def _flatten_sources(cls, sources):
         import supriya.synthdefs
+
         flattened_sources = []
         for source in sources:
             if isinstance(source, supriya.synthdefs.UGenArray):

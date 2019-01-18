@@ -41,7 +41,7 @@ def _build_synthdef():
             )
             widths.append(LFNoise2.kr(frequency=3).range(0.3, 0.7))
         source = Pulse.ar(frequency=frequencies, width=widths)
-        # source = Splay.ar(source=source)
+        source = Splay.ar(source=source)
         for _ in range(3):
             source = LPF.ar(source=source, frequency=builder["filter_frequency"])
         source *= Envelope.asr(attack_time=3, sustain=1, release_time=3, curve=-4).ar(

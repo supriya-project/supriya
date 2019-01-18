@@ -65,3 +65,9 @@ pytest-x:
 reformat:
 	make isort
 	make black-reformat
+
+test:
+	make black-check
+	make flake8
+	make mypy
+	make pytest

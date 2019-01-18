@@ -303,6 +303,7 @@ class SynthDef(ServerObjectProxy):
 
     @staticmethod
     def _allocate_synthdefs(synthdefs, server):
+        # TODO: Should sync be configurable here?
         import supriya.commands
 
         d_recv_synthdef_groups = []

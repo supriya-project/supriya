@@ -30,9 +30,9 @@ class OscIO:
 
         @property
         def sent_messages(self):
-            return (
+            return [
                 osc_message for label, osc_message in self.osc_messages if label == "S"
-            )
+            ]
 
     class OscServer(socketserver.ThreadingMixIn, socketserver.UDPServer):
         pass
