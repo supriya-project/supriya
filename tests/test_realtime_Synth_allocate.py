@@ -13,7 +13,7 @@ def test_allocate_synthdef(server):
     assert synth_a not in server
     with server.osc_io.capture() as transcript:
         synth_a.allocate()
-    assert list(transcript) == [
+    assert [(_.label, _.message) for _ in transcript] == [
         (
             "S",
             supriya.osc.OscMessage(
@@ -51,7 +51,7 @@ def test_no_reallocate_synthdef(server):
     assert synth_b not in server
     with server.osc_io.capture() as transcript:
         synth_b.allocate()
-    assert list(transcript) == [
+    assert [(_.label, _.message) for _ in transcript] == [
         ("S", supriya.osc.OscMessage(9, "test", 1001, 0, 1)),
         ("R", supriya.osc.OscMessage("/n_go", 1001, 1, -1, 1000, 0)),
     ]
@@ -97,7 +97,7 @@ def test_replace(server):
     )
     with server.osc_io.capture() as transcript:
         synth_b.allocate(add_action="replace", target_node=synth_a)
-    assert list(transcript) == [
+    assert [(_.label, _.message) for _ in transcript] == [
         (
             "S",
             supriya.osc.OscMessage(
@@ -217,7 +217,7 @@ def test_mapping(server):
     # Allocate and verify messaging and server state
     with server.osc_io.capture() as transcript:
         synth.allocate()
-    assert list(transcript) == [
+    assert [(_.label, _.message) for _ in transcript] == [
         (
             "S",
             supriya.osc.OscMessage(
@@ -249,7 +249,7 @@ def test_mapping(server):
     # Allocate and verify messaging and server state
     with server.osc_io.capture() as transcript:
         synth.allocate()
-    assert list(transcript) == [
+    assert [(_.label, _.message) for _ in transcript] == [
         (
             "S",
             supriya.osc.OscBundle(

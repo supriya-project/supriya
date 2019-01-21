@@ -52,6 +52,7 @@ class Server(SupriyaObject):
         "_control_bus_proxies",
         "_debug_subprocess",
         "_debug_osc",
+        "_debug_request_names",
         "_debug_udp",
         "_default_group",
         "_ip_address",
@@ -148,6 +149,7 @@ class Server(SupriyaObject):
         ### DEBUG ###
 
         self.debug_osc = False
+        self.debug_request_names = False
         self.debug_subprocess = False
         self.debug_udp = False
 
@@ -785,10 +787,12 @@ class Server(SupriyaObject):
         self.quit()
         self.boot()
 
-    def send_message(self, message):
+    def send_message(self, message, with_request_name=False):
         if not message or not self.is_running:
             return
-        self._osc_io.send(message)
+        self._osc_io.send(
+            message, with_request_name=with_request_name or self.debug_request_names
+        )
 
     def sync(self, sync_id=None):
         import supriya.commands
@@ -831,6 +835,14 @@ class Server(SupriyaObject):
     def debug_osc(self, expr):
         self._debug_osc = bool(expr)
         self._osc_io.debug_osc = self.debug_osc
+
+    @property
+    def debug_request_names(self):
+        return self._debug_request_names
+
+    @debug_request_names.setter
+    def debug_request_names(self, expr):
+        self._debug_request_names = bool(expr)
 
     @property
     def debug_subprocess(self):

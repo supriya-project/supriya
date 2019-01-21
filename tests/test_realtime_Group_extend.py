@@ -17,7 +17,7 @@ def test_noop(server):
     assert str(server.query_local_nodes(include_controls=True)) == server_state
     with server.osc_io.capture() as transcript:
         group.extend([])
-    assert list(transcript) == []
+    assert [(_.label, _.message) for _ in transcript] == []
     server_state = str(server.query_remote_nodes(True))
     assert server_state == uqbar.strings.normalize(
         """
@@ -56,7 +56,7 @@ def test_allocate_nested(server):
             supriya.osc.OscMessage(9, "test", 1002, 3, 1001, "amplitude", 0.0),
         )
     )
-    assert list(transcript) == [
+    assert [(_.label, _.message) for _ in transcript] == [
         (
             "S",
             supriya.osc.OscMessage(
@@ -96,7 +96,7 @@ def test_extend_unallocated(server):
             supriya.osc.OscMessage(9, "test", 1002, 3, 1001, "amplitude", 0.0),
         )
     )
-    assert list(transcript) == [
+    assert [(_.label, _.message) for _ in transcript] == [
         (
             "S",
             supriya.osc.OscMessage(5, supriya.assets.synthdefs.test.compile(), bundle),
@@ -138,7 +138,7 @@ def test_extend_allocate_nested_and_move(server):
             supriya.osc.OscMessage(19, 1000, 1002),
         )
     )
-    assert list(transcript) == [
+    assert [(_.label, _.message) for _ in transcript] == [
         (
             "S",
             supriya.osc.OscMessage(5, supriya.assets.synthdefs.test.compile(), bundle),
