@@ -18,7 +18,7 @@ class Requestable(SupriyaValueObject):
 
     ### PRIVATE METHODS ###
 
-    def _get_response_pattern_and_message(self, server):
+    def _get_response_pattern_and_requestable(self, server):
         raise NotImplementedError
 
     def _handle_async(self, sync, server):
@@ -47,7 +47,9 @@ class Requestable(SupriyaValueObject):
         # handle non-sync
         if self._handle_async(sync, server):
             return
-        response_pattern, message = self._get_response_pattern_and_message(server)
+        response_pattern, requestable = self._get_response_pattern_and_requestable(
+            server
+        )
         start_time = time.time()
         timed_out = False
         with self.condition:
@@ -57,7 +59,7 @@ class Requestable(SupriyaValueObject):
                 once=True,
                 parse_response=True,
             )
-            server.send_message(message)
+            server.send_message(requestable)
             while self.response is None:
                 self.condition.wait(timeout)
                 current_time = time.time()

@@ -160,7 +160,7 @@ class SynthDefReceiveRequest(Request):
         compiled_synthdefs = bytearray(compiled_synthdefs)
         contents = [request_id, compiled_synthdefs]
         if self.callback:
-            contents.append(self.callback.to_osc())
+            contents.append(self.callback.to_osc(with_request_name=with_request_name))
         message = supriya.osc.OscMessage(*contents)
         return message
 
