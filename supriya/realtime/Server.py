@@ -276,19 +276,19 @@ class Server(SupriyaObject):
             >>> graph = server.__graph__()
             >>> print(format(graph, 'graphviz'))
             digraph server {
-                "Root Node";
-                "Group 1";
-                "Group 1000";
-                "Synth 1001";
-                "Group 1002";
-                "Synth 1003";
-                "Synth 1004";
-                "Root Node" -> "Group 1";
-                "Group 1" -> "Group 1000";
-                "Group 1000" -> "Synth 1001";
-                "Group 1000" -> "Group 1002";
-                "Group 1002" -> "Synth 1003";
-                "Group 1002" -> "Synth 1004";
+                "root-node-0";
+                "group-1";
+                "group-1000";
+                "synth-1001";
+                "group-1002";
+                "synth-1003";
+                "synth-1004";
+                "root-node-0" -> "group-1";
+                "group-1" -> "group-1000";
+                "group-1000" -> "synth-1001";
+                "group-1000" -> "group-1002";
+                "group-1002" -> "synth-1003";
+                "group-1002" -> "synth-1004";
             }
 
         ::

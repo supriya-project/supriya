@@ -74,7 +74,7 @@ class SynthDefReceiveRequest(Request):
     ::
 
         >>> for entry in transcript:
-        ...     entry
+        ...     (entry.label, entry.message)
         ...
         ('S', OscMessage(5, bytearray(b'SCgf...example...'), OscBundle(
             contents=(

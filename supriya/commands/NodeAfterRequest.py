@@ -46,7 +46,7 @@ class NodeAfterRequest(MoveRequest):
         ...     _ = server.sync()
         ...
         >>> for entry in transcript:
-        ...     entry
+        ...     (entry.label, entry.message)
         ...
         ('S', OscMessage(19, 1000, 1004, 1001, 1005))
         ('S', OscMessage(52, 0))
