@@ -275,7 +275,7 @@ class Server(SupriyaObject):
 
             >>> graph = server.__graph__()
             >>> print(format(graph, 'graphviz'))
-            digraph server {
+            digraph G {
                 "root-node-0";
                 "group-1";
                 "group-1000";

@@ -98,6 +98,9 @@ class Synth(Node):
     def __getitem__(self, item):
         return self._control_interface[item].value
 
+    def __iter__(self):
+        return iter(self._control_interface)
+
     def __setitem__(self, items, values):
         self.controls.__setitem__(items, values)
 
@@ -115,8 +118,7 @@ class Synth(Node):
         )
         result.append(string)
         control_pieces = []
-        controls = sorted(self.controls, key=lambda x: x.name)
-        for control in controls:
+        for control in [self.controls[name] for name in sorted(self)]:
             control_piece = "{}: {!s}".format(control.name, control.value)
             control_pieces.append(control_piece)
         control_pieces = "    " + ", ".join(control_pieces)
