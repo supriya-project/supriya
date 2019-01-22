@@ -47,17 +47,14 @@ class GroupInterface(ControlInterface):
         return self._group_controls[item]
 
     def __iter__(self):
-        return iter(self._group_controls)
+        return iter(sorted(self._group_controls))
 
     def __len__(self):
         return len(self._group_controls)
 
     def __repr__(self):
         class_name = type(self).__name__
-        return "<{}: {!r}>".format(
-            class_name,
-            self.client,
-        )
+        return "<{}: {!r}>".format(class_name, self.client)
 
     def __setitem__(self, items, values):
         import supriya.realtime

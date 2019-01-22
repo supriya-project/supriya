@@ -38,13 +38,11 @@ class SynthInterface(ControlInterface):
         if isinstance(item, str):
             return self._synth_control_map[item]
         elif isinstance(item, collections.Iterable):
-            return tuple(
-                self._synth_control_map[x] for x in item
-            )
+            return tuple(self._synth_control_map[x] for x in item)
         raise ValueError
 
     def __iter__(self):
-        return iter(self._synth_control_map)
+        return iter(sorted(self._synth_control_map))
 
     def __len__(self):
         return len(self._synth_control_map)
@@ -61,10 +59,7 @@ class SynthInterface(ControlInterface):
 
         """
         class_name = type(self).__name__
-        return "<{}: {!r}>".format(
-            class_name,
-            self.client,
-        )
+        return "<{}: {!r}>".format(class_name, self.client)
 
     def __setitem__(self, items, values):
         import supriya.realtime

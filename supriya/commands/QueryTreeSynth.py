@@ -111,7 +111,8 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
         if include_controls:
             for control_name in synth:
                 control = supriya.commands.QueryTreeControl.from_control(
-                    synth.controls[control_name])
+                    synth.controls[control_name]
+                )
                 controls.append(control)
         query_tree_synth = QueryTreeSynth(
             node_id=node_id, synthdef_name=synthdef_name, controls=tuple(controls)
