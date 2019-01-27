@@ -2,7 +2,7 @@ from supriya.synthdefs import Envelope, Parameter, SynthDefBuilder
 from supriya.ugens import LPF, Balance2, LFNoise2, Out, Pulse, Splay
 
 
-"""
+r"""
 (
 SynthDef(\pad, {
     var snd, freq;
