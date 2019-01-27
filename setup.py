@@ -15,18 +15,18 @@ install_requires = [
 ]
 
 extras_require = {
-    "ipython": ["abjad-ext-ipython", "jupyter", "rise"],
+    "ipython": ["jupyter", "rise"],
     "test": [
         "black",
         "flake8",
         "isort",
-        "mypy",
-        "pytest >= 3.6.0",
-        "pytest-cov",
-        "pytest-helpers-namespace",
-        "pytest-profiling",
-        "pytest-rerunfailures>=5.0",
-        "pytest-timeout >= 1.2.0",
+        "mypy >= 0.660",
+        "pytest >= 4.1.0",
+        "pytest-cov >= 2.6.0",
+        "pytest-helpers-namespace >= 2019.1.8",
+        "pytest-profiling >= 1.4.0",
+        "pytest-rerunfailures >= 6.0",
+        "pytest-timeout >= 1.3.0",
     ],
 }
 
