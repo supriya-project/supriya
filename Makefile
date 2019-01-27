@@ -44,7 +44,6 @@ pytest:
 		--cov-report=term \
 		--cov=supriya/ \
 		--durations=20 \
-		--profile \
 		--timeout=60 \
 		tests/ \
 		supriya/
