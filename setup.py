@@ -10,7 +10,7 @@ install_requires = [
     "python-rtmidi",
     "tornado",
     "tqdm",
-    "uqbar >= 0.2.15",
+    "uqbar >= 0.2.16",
     "wavefile",
 ]
 
