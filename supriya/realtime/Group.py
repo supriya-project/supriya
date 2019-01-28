@@ -117,6 +117,11 @@ class Group(Node, UniqueTreeContainer):
 
     ### PRIVATE METHODS ###
 
+    def _as_graphviz_node(self):
+        node = super()._as_graphviz_node()
+        node.attributes["fillcolor"] = "lightsteelblue2"
+        return node
+
     @staticmethod
     def _iterate_setitem_expr(group, expr, start=0):
         import supriya.realtime

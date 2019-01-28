@@ -128,6 +128,11 @@ class Synth(Node):
 
     ### PRIVATE METHODS ###
 
+    def _as_graphviz_node(self):
+        node = super()._as_graphviz_node()
+        node.attributes["fillcolor"] = "lightgoldenrod2"
+        return node
+
     def _unregister_with_local_server(self):
         node_id = Node._unregister_with_local_server(self)
         if "gate" in self.controls:

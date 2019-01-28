@@ -30,8 +30,30 @@ class Node(ServerObjectProxy, UniqueTreeNode):
         return float(self.node_id)
 
     def __graph__(self):
-        graph = uqbar.graphs.Graph()
-        graph.append(self._as_graphviz_node())
+        graph = uqbar.graphs.Graph(
+            attributes={
+                "bgcolor": "transparent",
+                "color": "lightslategrey",
+                "dpi": 72,
+                "fontname": "Arial",
+                "outputorder": "edgesfirst",
+                "overlap": "prism",
+                "penwidth": 2,
+                "rankdir": "TB",
+                "ranksep": 0.5,
+                "splines": "spline",
+                "style": ("dotted", "rounded"),
+            },
+            edge_attributes={"penwidth": 2},
+            node_attributes={
+                "fontname": "Arial",
+                "fontsize": 12,
+                "penwidth": 2,
+                "shape": "Mrecord",
+                "style": ("filled", "rounded"),
+            },
+            children=[self._as_graphviz_node()],
+        )
         return graph
 
     def __int__(self):
@@ -82,6 +104,16 @@ class Node(ServerObjectProxy, UniqueTreeNode):
 
     def _as_graphviz_node(self):
         node = uqbar.graphs.Node(name=self._get_graphviz_name())
+        group = uqbar.graphs.RecordGroup()
+        group.append(uqbar.graphs.RecordField(label=type(self).__name__))
+        if self.name:
+            group.append(uqbar.graphs.RecordField(label="name: " + self.name))
+        if self.node_id is not None:
+            label = "id: " + str(self.node_id)
+        else:
+            label = "id: " + "-".join(str(_) for _ in (0,) + self.graph_order)
+        group.append(uqbar.graphs.RecordField(label=label))
+        node.append(group)
         return node
 
     def _as_node_target(self):
