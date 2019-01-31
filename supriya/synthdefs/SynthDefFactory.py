@@ -232,7 +232,7 @@ class SynthDefFactory(SupriyaObject):
         state.update(kwargs)
         for parameter_block in self._parameter_blocks:
             parameter_block(builder, state)
-        if self._rand_id:
+        if self._rand_id is not None:
             builder._add_parameter("rand_id", self._rand_id, "SCALAR")
             supriya.ugens.RandID.ir(rand_id=builder["rand_id"])
         if self._gate:

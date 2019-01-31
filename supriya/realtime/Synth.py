@@ -157,6 +157,8 @@ class Synth(Node):
         self._node_id_is_permanent = bool(node_id_is_permanent)
         target_node = Node.expr_as_target(target_node)
         server = target_node.server
+        if not server.is_running:
+            raise supriya.exceptions.ServerOffline
         self.controls._set(**kwargs)
         # TODO: Map requests aren't necessary during /s_new
         settings, map_requests = self.controls._make_synth_new_settings()

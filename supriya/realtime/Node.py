@@ -1,4 +1,6 @@
 import abc
+import pathlib
+import tempfile
 
 import uqbar.graphs
 import uqbar.strings
@@ -82,6 +84,7 @@ class Node(ServerObjectProxy, UniqueTreeNode):
 
     def _allocate(self, paused_nodes, requests, server, synthdefs):
         import supriya.commands
+        from supriya.synthdefs import SynthDefCompiler
 
         if paused_nodes:
             requests.append(
@@ -96,9 +99,19 @@ class Node(ServerObjectProxy, UniqueTreeNode):
         else:
             request = requests[0]
         if synthdefs:
-            request = supriya.commands.SynthDefReceiveRequest(
+            synthdef_request = supriya.commands.SynthDefReceiveRequest(
                 synthdefs=synthdefs, callback=request
             )
+            if len(SynthDefCompiler.compile_synthdefs(synthdefs)) > 8192:
+                directory_path = pathlib.Path(tempfile.mkdtemp())
+                synthdef_request = supriya.commands.SynthDefLoadDirectoryRequest(
+                    directory_path=directory_path, callback=request
+                )
+                for synthdef in synthdefs:
+                    file_name = "{}.scsyndef".format(synthdef.anonymous_name)
+                    synthdef_path = directory_path / file_name
+                    synthdef_path.write_bytes(synthdef.compile())
+            request = synthdef_request
         request.communicate(server=server, sync=True)
         return self
 
@@ -253,12 +266,14 @@ class Node(ServerObjectProxy, UniqueTreeNode):
         import supriya.realtime
 
         if expr is None:
-            return Node.expr_as_target(supriya.realtime.Server())
-        elif hasattr(expr, "_as_node_target"):
+            expr = Node.expr_as_target(supriya.realtime.Server.get_default_server())
+        if hasattr(expr, "_as_node_target"):
             return expr._as_node_target()
-        elif isinstance(expr, (float, int)):
+        if isinstance(expr, (float, int)):
             server = supriya.realtime.Server.get_default_server()
             return server._nodes[int(expr)]
+        if expr is None:
+            raise supriya.exceptions.ServerOffline
         raise TypeError(expr)
 
     def free(self):

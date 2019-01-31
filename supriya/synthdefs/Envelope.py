@@ -84,8 +84,8 @@ class Envelope(SupriyaValueObject):
         kwargs["envelope"] = self
         return EnvGen.ar(**kwargs)
 
-    @staticmethod
-    def asr(attack_time=0.01, sustain=1.0, release_time=1.0, curve=-4.0):
+    @classmethod
+    def asr(cls, attack_time=0.01, sustain=1.0, release_time=1.0, curve=-4.0):
         amplitudes = (0, float(sustain), 0)
         durations = (float(attack_time), float(release_time))
         curves = (float(curve),)
@@ -128,8 +128,8 @@ class Envelope(SupriyaValueObject):
         kwargs["envelope"] = self
         return EnvGen.kr(**kwargs)
 
-    @staticmethod
-    def percussive(attack_time=0.01, release_time=1.0, amplitude=1.0, curve=-4.0):
+    @classmethod
+    def percussive(cls, attack_time=0.01, release_time=1.0, amplitude=1.0, curve=-4.0):
         """
         Make a percussion envelope.
 
@@ -151,6 +151,15 @@ class Envelope(SupriyaValueObject):
         """
         amplitudes = (0, float(amplitude), 0)
         durations = (float(attack_time), float(release_time))
+        curves = (float(curve),)
+        return Envelope(amplitudes=amplitudes, durations=durations, curves=curves)
+
+    @classmethod
+    def linen(
+        cls, attack_time=0.01, sustain_time=1.0, release_time=1.0, level=1.0, curve=1
+    ):
+        amplitudes = (0, level, level, 0)
+        durations = (attack_time, sustain_time, release_time)
         curves = (float(curve),)
         return Envelope(amplitudes=amplitudes, durations=durations, curves=curves)
 
@@ -198,8 +207,8 @@ class Envelope(SupriyaValueObject):
                 result.append(curve)
         return result
 
-    @staticmethod
-    def triangle(duration=1.0, amplitude=1.0):
+    @classmethod
+    def triangle(cls, duration=1.0, amplitude=1.0):
         """
         Make a triangle envelope.
 
