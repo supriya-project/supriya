@@ -15,7 +15,12 @@ install_requires = [
 ]
 
 extras_require = {
-    "ipython": ["jupyter", "rise"],
+    "ipython": [
+        "jupyter",
+        "jupyter_contrib_nbextensions",
+        "jupyter_nbextensions_configurator",
+        "rise",
+    ],
     "test": [
         "black",
         "flake8",
