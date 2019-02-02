@@ -23,6 +23,8 @@ from supriya.commands import (
     BufferSetRequest,
     BufferWriteRequest,
     BufferZeroRequest,
+    NothingRequest,
+    RequestBundle,
 )
 from supriya.nonrealtime.SessionObject import SessionObject
 from supriya.nonrealtime.Synth import Synth
@@ -978,6 +980,13 @@ class Session:
         return state
 
     def _to_non_xrefd_osc_bundles(self, duration=None):
+        osc_bundles = []
+        request_bundles = self._to_non_xrefd_request_bundles(duration=duration)
+        for request_bundle in request_bundles:
+            osc_bundles.append(request_bundle.to_osc(True))
+        return osc_bundles
+
+    def _to_non_xrefd_request_bundles(self, duration=None):
         id_mapping = self._build_id_mapping()
         if self.duration == float("inf"):
             assert duration is not None and 0 < duration < float("inf")
@@ -989,11 +998,11 @@ class Session:
         buffer_settings = self._collect_buffer_settings(id_mapping)
         bus_settings = self._collect_bus_settings(id_mapping)
         is_last_offset = False
-        osc_bundles = []
+        request_bundles = []
         buffer_open_states = {}
         visited_synthdefs = set()
         for offset in offsets:
-            osc_messages = []
+            requests = []
             if offset == duration:
                 is_last_offset = True
             requests = self._collect_requests_at_offset(
@@ -1006,17 +1015,17 @@ class Session:
                 offset,
                 visited_synthdefs,
             )
-            osc_messages.extend(_.to_osc(True) for _ in requests)
             if is_last_offset:
-                osc_messages.append(supriya.osc.OscMessage(0))
-            if osc_messages:
-                osc_bundle = supriya.osc.OscBundle(
-                    timestamp=float(offset), contents=osc_messages
+                requests.append(NothingRequest())
+            if requests:
+                request_bundle = RequestBundle(
+                    contents=requests,
+                    timestamp=float(offset),
                 )
-                osc_bundles.append(osc_bundle)
+                request_bundles.append(request_bundle)
             if is_last_offset:
                 break
-        return osc_bundles
+        return request_bundles
 
     ### PUBLIC METHODS ###
 

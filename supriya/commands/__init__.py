@@ -66,6 +66,7 @@ from .NodeSetContiguousResponse import NodeSetContiguousResponse  # noqa
 from .NodeSetRequest import NodeSetRequest  # noqa
 from .NodeSetResponse import NodeSetResponse  # noqa
 from .NodeTraceRequest import NodeTraceRequest  # noqa
+from .NothingRequest import NothingRequest  # noqa
 from .NotifyRequest import NotifyRequest  # noqa
 from .ParallelGroupNewRequest import ParallelGroupNewRequest  # noqa
 from .QueryTreeControl import QueryTreeControl  # noqa
