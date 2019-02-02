@@ -6,10 +6,6 @@ import sys
 import supriya
 
 
-def graph(graphable, format_="pdf", layout="dot", verbose=False):
-    return Grapher(graphable, format_=format_, layout=layout, verbose=verbose)()
-
-
 class Grapher:
 
     ### CLASS VARIABLES ###
@@ -85,3 +81,46 @@ class Grapher:
         if not verbose:
             kwargs.update(stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         subprocess.run(command, **kwargs)
+
+
+class Player:
+
+    ### INITIALIZER ###
+
+    def __init__(self, renderable, **kwargs):
+        self.renderable = renderable
+        self.render_kwargs = kwargs
+
+    ### SPECIAL METHODS ###
+
+    def __call__(self):
+        output_path = self.render()
+        self.open_output_path(output_path)
+        return output_path
+
+    ### PUBLIC METHODS ###
+
+    def open_output_path(self, output_path):
+        viewer = "open -a 'QuickTime Plauer'"
+        if sys.platform.lower().startswith("linux"):
+            viewer = "xdg-open"
+        subprocess.run(f"{viewer} {output_path}", shell=True, check=True)
+
+    def render(self):
+        return self.renderable.__render__(**self.render_kwargs)
+
+
+def graph(graphable, format_="pdf", layout="dot", verbose=False):
+    return Grapher(graphable, format_=format_, layout=layout, verbose=verbose)()
+
+
+def play(renderable, **kwargs):
+    return Player(renderable, **kwargs)()
+
+
+def render(renderable, output_file_path=None, render_directory_path=None, **kwargs):
+    return renderable.__render__(
+        output_file_path=output_file_path,
+        render_directory_path=render_directory_path,
+        **kwargs,
+    )

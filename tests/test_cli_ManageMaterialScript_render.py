@@ -152,7 +152,7 @@ def test_python_error_on_render(cli_paths):
         Traceback (most recent call last):
             File ".../supriya/cli/ProjectSectionScript.py", line ..., in _render_object
             **kwargs,
-            File ".../supriya/soundfiles/render.py", line ..., in render
+            File ".../supriya/io.py", line ..., in render
             **kwargs,
             File
             ".../test_project/test_project/materials/test_material/definition.py", line ..., in __render__

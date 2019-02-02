@@ -83,6 +83,7 @@ def import_structured_package(path, namespace, remove=True, verbose=False):
         del (namespace[this_name])
 
 
+from supriya._version import __version__, __version_info__  # noqa
 from supriya.enums import AddAction, CalculationRate  # noqa
 from supriya import utils  # noqa
 from supriya.midi import Device  # noqa
@@ -101,8 +102,6 @@ from supriya.soundfiles import (  # noqa
     HeaderFormat,
     SampleFormat,
     SoundFile,
-    play,
-    render,
 )
 from supriya.synthdefs import (  # noqa
     DoneAction,
@@ -116,8 +115,5 @@ from supriya.synthdefs import (  # noqa
 )
 from supriya.system import Assets, Bindable, Binding, bind  # noqa
 from supriya.soundfiles import Say  # noqa
-
-# from abjad.top import graph  # noqa
+from supriya.io import graph, play, render  # noqa
 from supriya import assets  # noqa
-from supriya.graphing import graph  # noqa
-from supriya._version import __version__, __version_info__  # noqa

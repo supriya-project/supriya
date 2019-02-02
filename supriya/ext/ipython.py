@@ -1,12 +1,15 @@
 from xml.dom import minidom  # type: ignore
 
-import IPython.core.display  # type: ignore
+from IPython.core.display import display, display_svg  # type: ignore
+from IPython.display import Audio  # type: ignore
 
-from supriya.graphing import Grapher
+from supriya.io import Grapher, Player
+from supriya.soundfiles import HeaderFormat
 
 
 def load_ipython_extension(ipython):
     patch_grapher()
+    patch_player()
 
 
 def patch_grapher():
@@ -33,7 +36,20 @@ def patch_grapher():
             svg_element.setAttribute("width", width)
         svg_element.setAttribute("preserveAspectRatio", "xMinYMin")
         contents = document.toprettyxml()
-        IPython.core.display.display_svg(contents, raw=True)
+        display_svg(contents, raw=True)
 
     Grapher.get_format = get_format
     Grapher.open_output_path = open_output_path
+
+
+def patch_player():
+    def render(self):
+        render_kwargs = self.render_kwargs
+        render_kwargs["header_format"] = HeaderFormat.WAV
+        return self.renderable.__render__(**render_kwargs)
+
+    def open_output_path(self, output_path):
+        display(Audio(filename=str(output_path)))
+
+    Player.open_output_path = open_output_path
+    Player.render = render
