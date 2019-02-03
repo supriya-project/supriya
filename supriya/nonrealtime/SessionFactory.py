@@ -15,6 +15,10 @@ class SessionFactory:
 
     ### SPECIAL METHODS ###
 
+    def __render__(self, **kwargs):
+        session = self.__session__()
+        return session.__render__(**kwargs)
+
     @abc.abstractmethod
     def __session__(self):
         raise NotImplementedError

@@ -101,7 +101,7 @@ class Player:
     ### PUBLIC METHODS ###
 
     def open_output_path(self, output_path):
-        viewer = "open -a 'QuickTime Plauer'"
+        viewer = "open -a 'QuickTime Player'"
         if sys.platform.lower().startswith("linux"):
             viewer = "xdg-open"
         subprocess.run(f"{viewer} {output_path}", shell=True, check=True)

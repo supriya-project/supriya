@@ -244,6 +244,8 @@ class SessionRenderer(SupriyaObject):
                     continue
                 else:
                     progress_bar.write("WARNING: {}".format(output))
+                    if output.startswith("alloc failed"):
+                        return -6
         return process.poll()
 
     def _collect_prerender_tuples(self, session, duration=None):
@@ -311,7 +313,7 @@ class SessionRenderer(SupriyaObject):
         server_options = session._options
         server_options = utils.new(server_options, **kwargs)
         memory_size = server_options.memory_size
-        for factor in range(1, 4):
+        for factor in range(1, 6):
             command = self._build_render_command(
                 input_file_path,
                 output_file_path,
