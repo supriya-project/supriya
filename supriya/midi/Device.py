@@ -4,7 +4,11 @@ import logging
 import pathlib
 import threading
 
-import rtmidi  # type: ignore
+try:
+    import rtmidi  # type: ignore
+except ImportError:
+    # TODO: Implement log warning
+    pass
 import uqbar.containers
 
 from supriya.midi.LogicalControl import LogicalControl

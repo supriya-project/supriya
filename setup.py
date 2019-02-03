@@ -6,12 +6,9 @@ install_requires = [
     "abjad == 3.0.0",
     "appdirs",
     "cython",
-    "numpy",
-    "python-rtmidi",
     "tornado",
     "tqdm",
     "uqbar >= 0.2.16",
-    "wavefile",
 ]
 
 extras_require = {
@@ -21,6 +18,8 @@ extras_require = {
         "jupyter_nbextensions_configurator",
         "rise",
     ],
+    "midi": ["python-rtmidi"],
+    "wave": ["wavefile"],
     "test": [
         "black",
         "flake8",
@@ -52,11 +51,7 @@ classifiers = [
     "Topic :: Multimedia :: Sound/Audio :: Sound Synthesis",
 ]
 
-entry_points = {
-    "console_scripts": [
-        "supriya = supriya.cli.run_supriya:run_supriya"
-    ]
-}
+entry_points = {"console_scripts": ["supriya = supriya.cli.run_supriya:run_supriya"]}
 
 keywords = [
     "audio",
