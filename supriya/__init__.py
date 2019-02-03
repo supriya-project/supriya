@@ -98,11 +98,7 @@ from supriya.realtime import (  # noqa
     Server,
     Synth,
 )
-from supriya.soundfiles import (  # noqa
-    HeaderFormat,
-    SampleFormat,
-    SoundFile,
-)
+from supriya.soundfiles import HeaderFormat, SampleFormat, SoundFile  # noqa
 from supriya.synthdefs import (  # noqa
     DoneAction,
     Envelope,
