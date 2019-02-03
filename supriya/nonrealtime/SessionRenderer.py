@@ -4,7 +4,6 @@ import pathlib
 import shutil
 import struct
 import subprocess
-import sys
 
 import tqdm  # type: ignore
 import uqbar.containers
@@ -321,7 +320,12 @@ class SessionRenderer(SupriyaObject):
                 server_options=server_options,
             )
             self._report("    Command: {}".format(command))
-            exit_code = self._stream_subprocess(command, session.duration)
+            try:
+                exit_code = self._stream_subprocess(command, session.duration)
+            except KeyboardInterrupt:
+                if output_file_path.exists():
+                    output_file_path.unlink()
+                raise
             server_options = utils.new(
                 server_options, memory_size=memory_size * (2 ** factor)
             )
@@ -455,17 +459,13 @@ class SessionRenderer(SupriyaObject):
                     osc_file_path = renderable_prefix.with_suffix(".osc")
                     input_file_path = self.session_input_paths.get(session)
                     self._write_datagram(osc_file_path, datagram)
-                    try:
-                        exit_code = self._render_datagram(
-                            session,
-                            input_file_path,
-                            output_file_path,
-                            osc_file_path,
-                            **kwargs,
-                        )
-                    except Exception:
-                        output_file_path.unlink()
-                        sys.exit(1)
+                    exit_code = self._render_datagram(
+                        session,
+                        input_file_path,
+                        output_file_path,
+                        osc_file_path,
+                        **kwargs,
+                    )
                     if exit_code:
                         self._report("    SuperCollider errored!")
                         raise NonrealtimeRenderError(exit_code)

@@ -131,6 +131,7 @@ class Session:
         input_=None,
         name=None,
         padding=None,
+        **kwargs,
     ):
         import supriya.nonrealtime
 
@@ -1019,8 +1020,7 @@ class Session:
                 requests.append(NothingRequest())
             if requests:
                 request_bundle = RequestBundle(
-                    contents=requests,
-                    timestamp=float(offset),
+                    contents=requests, timestamp=float(offset)
                 )
                 request_bundles.append(request_bundle)
             if is_last_offset:

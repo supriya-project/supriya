@@ -102,6 +102,7 @@ from supriya.soundfiles import HeaderFormat, SampleFormat, SoundFile  # noqa
 from supriya.synthdefs import (  # noqa
     DoneAction,
     Envelope,
+    EnvelopeShape,
     Parameter,
     ParameterRate,
     Range,
