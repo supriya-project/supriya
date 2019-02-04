@@ -89,15 +89,7 @@ class Say(SupriyaValueObject):
             except ValueError:
                 relative_file_path = output_file_path
         if print_transcript:
-            print("    Rendering {}".format(relative_file_path))
-        if output_file_path.exists():
-            if print_transcript:
-                print(
-                    "        Skipping {}. File already exists.".format(
-                        relative_file_path
-                    )
-                )
-            return output_file_path
+            print("Rendering {}".format(relative_file_path))
         if uqbar.io.find_executable("say"):
             command_parts = ["say"]
             command_parts.extend(["-o", str(relative_file_path)])
@@ -108,11 +100,17 @@ class Say(SupriyaValueObject):
         command_parts.append(shlex.quote(self.text))
         command = " ".join(command_parts)
         if print_transcript:
-            print("        Command: {}".format(command))
+            print("    Command: {}".format(command))
+        if output_file_path.exists():
+            if print_transcript:
+                print(
+                    "    Skipping {}. File already exists.".format(relative_file_path)
+                )
+            return output_file_path
         exit_code = subprocess.call(command, shell=True)
         if print_transcript:
             print(
-                "        Rendered {} with exit code {}.".format(
+                "    Rendered {} with exit code {}.".format(
                     relative_file_path, exit_code
                 )
             )

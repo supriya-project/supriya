@@ -303,6 +303,7 @@ class SynthDef(ServerObjectProxy):
 
     @staticmethod
     def _allocate_synthdefs(synthdefs, server):
+        # TODO: Should sync be configurable here?
         import supriya.commands
 
         d_recv_synthdef_groups = []
@@ -643,17 +644,6 @@ class SynthDef(ServerObjectProxy):
         """
         import supriya.realtime
 
-        if target_node is not None:
-            target_node = supriya.realtime.Node.expr_as_target(target_node)
-            server = target_node.server
-        else:
-            server = supriya.realtime.Server.get_default_server()
-            target_node = supriya.realtime.Node.expr_as_target(server)
-        if not server.is_running:
-            server.boot()
-        if not self.is_allocated:
-            self.allocate(server=server)
-            self.server.sync()
         synth = supriya.realtime.Synth(self, **kwargs)
         synth.allocate(add_action=add_action, sync=True, target_node=target_node)
         return synth

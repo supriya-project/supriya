@@ -61,7 +61,7 @@ def test_2(server):
     with server.osc_io.capture() as transcript:
         request.communicate()
         server.sync()
-    assert list(transcript) == [
+    assert [(_.label, _.message) for _ in transcript] == [
         ("S", supriya.osc.OscMessage(21, 1001, 0, 1000, 1002, 0, 1001)),
         ("S", supriya.osc.OscMessage(52, 0)),
         ("R", supriya.osc.OscMessage("/n_go", 1001, 1000, -1, -1, 1, -1, -1)),
@@ -113,7 +113,7 @@ def test_3(server):
     with server.osc_io.capture() as transcript:
         request.communicate()
         server.sync()
-    assert list(transcript) == [
+    assert [(_.label, _.message) for _ in transcript] == [
         ("S", supriya.osc.OscMessage(21, 1001, 0, 1000, 1002, 0, 1001)),
         ("S", supriya.osc.OscMessage(52, 0)),
         ("R", supriya.osc.OscMessage("/n_go", 1001, 1000, -1, -1, 1, -1, -1)),

@@ -2,6 +2,7 @@ import collections
 import copy
 from typing import Optional
 
+from supriya.synthdefs.SignalRange import SignalRange
 from supriya.system.SupriyaObject import SupriyaObject
 
 
@@ -2929,6 +2930,16 @@ class UGenMethodMixin(SupriyaObject):
         return supriya.synthdefs.UGenMethodMixin._compute_binary_op(
             self, expr, supriya.synthdefs.BinaryOperator.POWER
         )
+
+    def range(self, minimum=0.0, maximum=1.0):
+        if self.signal_range == SignalRange.BIPOLAR:
+            return self.scale(-1, 1, minimum, maximum)
+        return self.scale(0, 1, minimum, maximum)
+
+    def exponential_range(self, minimum=0.01, maximum=1.0):
+        if self.signal_range == SignalRange.BIPOLAR:
+            return self.linexp(-1, 1, minimum, maximum)
+        return self.linexp(0, 1, minimum, maximum)
 
     def ratio_to_semitones(self):
         """

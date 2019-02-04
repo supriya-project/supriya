@@ -32,14 +32,14 @@ def test_01(server):
     local_state = str(server.query_local_nodes())
     assert local_state == remote_state
 
-    with server.osc_io.capture() as capture:
+    with server.osc_io.capture() as transcript:
         osc_message = supriya.osc.OscMessage(
             "/n_after", synth_b.node_id, synth_a.node_id
         )
         server.send_message(osc_message)
         server.sync()
 
-    assert list(capture) == [
+    assert [(_.label, _.message) for _ in transcript] == [
         ("S", supriya.osc.OscMessage("/n_after", 1003, 1002)),
         ("S", supriya.osc.OscMessage(52, 0)),
         ("R", supriya.osc.OscMessage("/n_move", 1003, 1000, 1002, -1, 0)),
@@ -60,14 +60,14 @@ def test_01(server):
     local_state = str(server.query_local_nodes())
     assert local_state == remote_state
 
-    with server.osc_io.capture() as capture:
+    with server.osc_io.capture() as transcript:
         osc_message = supriya.osc.OscMessage(
             "/n_order", 0, group_b.node_id, synth_b.node_id, synth_a.node_id
         )
         server.send_message(osc_message)
         server.sync()
 
-    assert list(capture) == [
+    assert [(_.label, _.message) for _ in transcript] == [
         ("S", supriya.osc.OscMessage("/n_order", 0, 1001, 1003, 1002)),
         ("S", supriya.osc.OscMessage(52, 1)),
         ("R", supriya.osc.OscMessage("/n_move", 1003, 1001, -1, -1, 0)),

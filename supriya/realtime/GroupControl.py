@@ -14,6 +14,21 @@ class GroupControl:
 
     ### SPECIAL METHODS ###
 
+    def __repr__(self):
+        class_name = type(self).__name__
+        calculation_rates = sorted(
+            set(
+                synth.controls[self.name].calculation_rate
+                for synth in self.client._synth_controls["amplitude"]
+            )
+        )
+        return '<{}: {!r} "{}" [{}]>'.format(
+            class_name,
+            self.client.client,
+            self.name,
+            ", ".join(_.token for _ in calculation_rates),
+        )
+
     def __str__(self):
         return self.name
 
@@ -22,7 +37,7 @@ class GroupControl:
     def _map_to_bus(self, bus):
         pass
 
-    def _set_to_number(self, value):
+    def _set_to_number(self, number):
         pass
 
     def _unmap(self):
@@ -31,24 +46,7 @@ class GroupControl:
     ### PUBLIC METHODS ###
 
     def set(self, expr):
-        import supriya.commands
-        import supriya.realtime
-        import supriya.synthdefs
-
-        if isinstance(expr, supriya.realtime.Bus):
-            if expr.calculation_rate == supriya.CalculationRate.CONTROL:
-                request = supriya.commands.NodeMapToControlBusRequest(
-                    self.node, **{self.name: expr}
-                )
-            else:
-                request = supriya.commands.NodeMapToAudioBusRequest(
-                    self.node, **{self.name: expr}
-                )
-        else:
-            expr = float(expr)
-            request = supriya.commands.NodeSetRequest(self.node, **{self.name: expr})
-        if self.node.is_allocated:
-            request.communicate(server=self.node.server)
+        self._client[self.name] = expr
 
     ### PUBLIC PROPERTIES ###
 

@@ -15,39 +15,51 @@ class SynthInterface(ControlInterface):
         import supriya.realtime
         import supriya.synthdefs
 
+        assert isinstance(synthdef, supriya.synthdefs.SynthDef)
         self._client = client
         synth_controls = []
         synth_control_map = collections.OrderedDict()
-        if synthdef is not None:
-            assert isinstance(synthdef, supriya.synthdefs.SynthDef)
-            for index, parameter in synthdef.indexed_parameters:
-                synth_control = supriya.realtime.SynthControl.from_parameter(
-                    parameter, client=self, index=index
-                )
-                synth_controls.append(synth_control)
-                synth_control_map[synth_control.name] = synth_control
-            self._synth_controls = tuple(synth_controls)
+        for index, parameter in synthdef.indexed_parameters:
+            synth_control = supriya.realtime.SynthControl.from_parameter(
+                parameter, client=self, index=index
+            )
+            synth_controls.append(synth_control)
+            synth_control_map[synth_control.name] = synth_control
+        self._synth_controls = tuple(synth_controls)
         self._synth_control_map = synth_control_map
         self._synthdef = synthdef or self._client.synthdef
 
     ### SPECIAL METHODS ###
 
     def __contains__(self, item):
-        if isinstance(item, str):
-            return item in self._synth_control_map
-        return False
+        return item in self._synth_control_map
 
     def __getitem__(self, item):
-        if isinstance(item, (int, slice)):
-            return self._synth_controls[item]
-        elif isinstance(item, str):
+        if isinstance(item, str):
             return self._synth_control_map[item]
-        elif isinstance(item, tuple):
-            result = []
-            for x in item:
-                result.append(self.__getitem__(x))
-            return tuple(result)
-        return ValueError(item)
+        elif isinstance(item, collections.Iterable):
+            return tuple(self._synth_control_map[x] for x in item)
+        raise ValueError
+
+    def __iter__(self):
+        return iter(sorted(self._synth_control_map))
+
+    def __len__(self):
+        return len(self._synth_control_map)
+
+    def __repr__(self):
+        """
+        Get interpreter representation of synth interface.
+
+        ::
+
+            >>> synth = supriya.Synth()
+            >>> print(repr(synth.controls))
+            <SynthInterface: <- Synth: ???>>
+
+        """
+        class_name = type(self).__name__
+        return "<{}: {!r}>".format(class_name, self.client)
 
     def __setitem__(self, items, values):
         import supriya.realtime
@@ -68,19 +80,34 @@ class SynthInterface(ControlInterface):
         )
 
     def __str__(self):
+        """
+        Get string representation of synth interface.
+
+        ::
+
+            >>> synth = supriya.Synth()
+            >>> print(str(synth.controls))
+            <- Synth: ???>: (default)
+                (kr) amplitude: 0.1
+                (kr) frequency: 440.0
+                (kr) gate:      1.0
+                (ir) out:       0.0
+                (kr) pan:       0.5
+
+        """
         result = []
         string = "{}: ({})".format(repr(self.client), self.synthdef.actual_name)
         result.append(string)
         maximum_length = 0
-        for synth_control in self:
-            maximum_length = max(maximum_length, len(synth_control.name))
+        control_names = sorted(self)
+        maximum_length = max(maximum_length, max(len(_) for _ in control_names))
         maximum_length += 1
-        for synth_control in sorted(self, key=lambda x: x.name):
-            name = synth_control.name
+        for control_name in control_names:
+            synth_control = self[control_name]
             value = str(synth_control.value)
-            spacing = " " * (maximum_length - len(name))
+            spacing = " " * (maximum_length - len(control_name))
             string = "    ({}) {}:{}{}".format(
-                synth_control.calculation_rate.token, name, spacing, value
+                synth_control.calculation_rate.token, control_name, spacing, value
             )
             result.append(string)
         result = "\n".join(result)
@@ -125,7 +152,8 @@ class SynthInterface(ControlInterface):
     def as_dict(self):
         result = {}
         if self.client.register_controls is None or self.client.register_controls:
-            for control in self:
+            for control_name in self:
+                control = self[control_name]
                 result[control.name] = set([self.client])
         return result
 

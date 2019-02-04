@@ -1,10 +1,10 @@
 .PHONY: docs
 
 black-check:
-	black --py36 --check --diff supriya/ tests/
+	black --py36 --check --diff supriya/ tests/ *.py
 
 black-reformat:
-	black --py36 supriya/ tests/
+	black --py36 supriya/ tests/ *.py
 
 clean:
 	find . -name '*.pyc' | xargs rm
@@ -23,7 +23,15 @@ flake8:
 	flake8 --ignore=E203,E266,E501,W503 --isolated --max-line-length=88 supriya/ tests/
 
 isort:
-	isort --multi-line 1 --recursive --thirdparty uqbar --thirdparty abjad --trailing-comma --use-parentheses -y supriya/ tests/
+	isort \
+		--multi-line 1 \
+		--recursive \
+		--thirdparty abjad \
+		--thirdparty uqbar \
+		--thirdparty yaml \
+		--trailing-comma \
+		--use-parentheses -y \
+		supriya/ tests/ *.py
 
 mypy:
 	mypy --ignore-missing-imports supriya
@@ -36,7 +44,6 @@ pytest:
 		--cov-report=term \
 		--cov=supriya/ \
 		--durations=20 \
-		--profile \
 		--timeout=60 \
 		tests/ \
 		supriya/
@@ -57,3 +64,9 @@ pytest-x:
 reformat:
 	make isort
 	make black-reformat
+
+test:
+	make black-check
+	make flake8
+	make mypy
+	make pytest

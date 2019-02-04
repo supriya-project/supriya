@@ -51,6 +51,15 @@ class Group(Node, UniqueTreeContainer):
 
     ### SPECIAL METHODS ###
 
+    def __graph__(self):
+        graph = super().__graph__()
+        parent_node = graph[self._get_graphviz_name()]
+        for child in self:
+            graph.extend(child.__graph__())
+            child_node = graph[child._get_graphviz_name()]
+            parent_node.attach(child_node)
+        return graph
+
     def __setitem__(self, i, expr):
         """
         Sets `expr` in self at index `i`.
@@ -107,6 +116,11 @@ class Group(Node, UniqueTreeContainer):
         return "\n".join(result)
 
     ### PRIVATE METHODS ###
+
+    def _as_graphviz_node(self):
+        node = super()._as_graphviz_node()
+        node.attributes["fillcolor"] = "lightsteelblue2"
+        return node
 
     @staticmethod
     def _iterate_setitem_expr(group, expr, start=0):

@@ -59,6 +59,16 @@ class SynthControl:
     def __call__(self, expr):
         return self.set(expr)
 
+    def __repr__(self):
+        class_name = type(self).__name__
+        return '<{}: {!r} "{}": {} [{}]>'.format(
+            class_name,
+            self.client.client,
+            self.name,
+            self.value,
+            self.calculation_rate.token,
+        )
+
     def __str__(self):
         return self.name
 

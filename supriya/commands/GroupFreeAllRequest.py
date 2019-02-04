@@ -48,7 +48,7 @@ class GroupFreeAllRequest(Request):
     ::
 
         >>> for entry in transcript:
-        ...     entry
+        ...     (entry.label, entry.message)
         ...
         ('S', OscMessage(24, 1000))
         ('S', OscMessage(52, 2))

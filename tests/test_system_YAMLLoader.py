@@ -47,11 +47,6 @@ def test_01():
             -   - 1
                 - 2
                 - 3
-                - 4
-                - 5
-                - 6
-                - 7
-                - 8
             physical_controls:
             -   channel:
                 - 0

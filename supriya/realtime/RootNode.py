@@ -15,6 +15,13 @@ class RootNode(Group):
         super().__init__()
         self._server = server
 
+    ### PRIVATE METHODS ###
+
+    def _as_graphviz_node(self):
+        node = super()._as_graphviz_node()
+        node.attributes["fillcolor"] = "lightsalmon2"
+        return node
+
     ### PUBLIC METHODS ###
 
     def allocate(self):

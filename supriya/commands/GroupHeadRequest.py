@@ -42,7 +42,7 @@ class GroupHeadRequest(MoveRequest):
     ::
 
         >>> for entry in transcript:
-        ...     entry
+        ...     (entry.label, entry.message)
         ...
         ('S', OscMessage(22, 1000, 1001))
         ('S', OscMessage(52, 1))

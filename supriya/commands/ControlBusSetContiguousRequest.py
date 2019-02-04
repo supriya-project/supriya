@@ -40,7 +40,7 @@ class ControlBusSetContiguousRequest(Request):
     ::
 
         >>> for entry in transcript:
-        ...     entry
+        ...     (entry.label, entry.message)
         ...
         ('S', OscMessage(26, 0, 3, 0.1, 0.2, 0.3, 4, 3, 0.4, 0.5, 0.6))
         ('S', OscMessage(52, 0))

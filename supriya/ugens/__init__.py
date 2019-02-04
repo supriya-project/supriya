@@ -319,6 +319,7 @@ from .SoundIn import SoundIn  # noqa
 from .SpecCentroid import SpecCentroid  # noqa
 from .SpecFlatness import SpecFlatness  # noqa
 from .SpecPcile import SpecPcile  # noqa
+from .Splay import Splay  # noqa
 from .Spring import Spring  # noqa
 from .StandardL import StandardL  # noqa
 from .StandardN import StandardN  # noqa

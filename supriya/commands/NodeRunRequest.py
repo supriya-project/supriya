@@ -35,7 +35,7 @@ class NodeRunRequest(Request):
         ...     _ = server.sync()
         ...
         >>> for entry in transcript:
-        ...     entry
+        ...     (entry.label, entry.message)
         ...
         ('S', OscMessage(12, 1000, 1, 1001, 0))
         ('S', OscMessage(52, 0))
@@ -65,7 +65,7 @@ class NodeRunRequest(Request):
         ...     _ = server.sync()
         ...
         >>> for entry in transcript:
-        ...     entry
+        ...     (entry.label, entry.message)
         ...
         ('S', OscMessage(12, 1000, 0, 1001, 1))
         ('S', OscMessage(52, 1))

@@ -1,2 +1,0 @@
-Sessions: Non-realtime Synthesis
-================================

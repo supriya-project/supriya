@@ -120,12 +120,11 @@ class Mix(PseudoUGen):
 
     __documentation_section__ = "Utility UGens"
 
-    ### PUBLIC METHODS ###
+    ### PRIVATE METHODS ###
 
     @classmethod
-    def new(cls, sources):
+    def _flatten_sources(cls, sources):
         import supriya.synthdefs
-        import supriya.ugens
 
         flattened_sources = []
         for source in sources:
@@ -133,7 +132,16 @@ class Mix(PseudoUGen):
                 flattened_sources.extend(source)
             else:
                 flattened_sources.append(source)
-        sources = supriya.synthdefs.UGenArray(flattened_sources)
+        return supriya.synthdefs.UGenArray(flattened_sources)
+
+    ### PUBLIC METHODS ###
+
+    @classmethod
+    def new(cls, sources):
+        import supriya.synthdefs
+        import supriya.ugens
+
+        sources = cls._flatten_sources(sources)
         summed_sources = []
         for part in utils.group_iterable_by_count(sources, 4):
             if len(part) == 4:
@@ -294,6 +302,7 @@ class Mix(PseudoUGen):
         """
         import supriya.synthdefs
 
+        sources = cls._flatten_sources(sources)
         mixes, parts = [], []
         for i in range(0, len(sources), channel_count):
             parts.append(sources[i : i + channel_count])

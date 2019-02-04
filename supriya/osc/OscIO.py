@@ -4,29 +4,69 @@ import threading
 import time
 import typing
 
+from supriya.commands.Requestable import Requestable
+from supriya.commands.Response import Response
 from supriya.osc.OscBundle import OscBundle
 from supriya.osc.OscMessage import OscMessage
 
 
 class OscIO:
+    class CaptureEntry(typing.NamedTuple):
+        timestamp: float
+        label: str
+        message: typing.Union[OscMessage, OscBundle]
+        command: typing.Optional[typing.Union[Requestable, Response]]
+
     class Capture:
         def __init__(self, osc_io):
             self.osc_io = osc_io
-            self.osc_messages = []
+            self.messages = []
 
         def __enter__(self):
             self.osc_io.captures.add(self)
-            self.osc_messages[:] = []
+            self.messages[:] = []
             return self
 
         def __exit__(self, exc_type, exc_value, traceback):
             self.osc_io.captures.remove(self)
 
         def __iter__(self):
-            return iter(self.osc_messages)
+            return iter(self.messages)
 
         def __len__(self):
-            return len(self.osc_messages)
+            return len(self.messages)
+
+        @property
+        def received_messages(self):
+            return [
+                (timestamp, osc_message)
+                for timestamp, label, osc_message, _ in self.messages
+                if label == "R"
+            ]
+
+        @property
+        def requests(self):
+            return [
+                (timestamp, command)
+                for timestamp, label, _, command in self.messages
+                if label == "S" and command is not None
+            ]
+
+        @property
+        def responses(self):
+            return [
+                (timestamp, command)
+                for timestamp, label, _, command in self.messages
+                if label == "R" and command is not None
+            ]
+
+        @property
+        def sent_messages(self):
+            return [
+                (timestamp, osc_message)
+                for timestamp, label, osc_message, _ in self.messages
+                if label == "S"
+            ]
 
     class OscServer(socketserver.ThreadingMixIn, socketserver.UDPServer):
         pass
@@ -37,14 +77,6 @@ class OscIO:
             message = OscMessage.from_datagram(data)
             debug_osc = self.server.io_instance.debug_osc
             debug_udp = self.server.io_instance.debug_udp
-            if message.address != "/status.reply":
-                for capture in self.server.io_instance.captures:
-                    capture.osc_messages.append(("R", message))
-                if debug_osc:
-                    print("RECV", "{:0.6f}".format(time.time()), message.to_list())
-                    if debug_udp:
-                        for line in str(message).splitlines():
-                            print("    " + line)
             # TODO: Is it worth the additional thread creation?
             response = None
             for callback in self.server.io_instance.match(message):
@@ -59,6 +91,21 @@ class OscIO:
                 else:
                     args = message
                 callback.procedure(args)
+            if message.address != "/status.reply":
+                for capture in self.server.io_instance.captures:
+                    capture.messages.append(
+                        OscIO.CaptureEntry(
+                            timestamp=time.time(),
+                            label="R",
+                            message=message,
+                            command=response,
+                        )
+                    )
+                if debug_osc:
+                    print("RECV", "{:0.6f}".format(time.time()), message.to_list())
+                    if debug_udp:
+                        for line in str(message).splitlines():
+                            print("    " + line)
 
     class OscCallback(typing.NamedTuple):
         pattern: typing.Tuple[typing.Union[str, int, float], ...]
@@ -235,11 +282,13 @@ class OscIO:
             callbacks.append(callback)
         return callback
 
-    def send(self, message):
-        # TODO: only accept request(bundle) objects, and convert all others to
-        #       request(bundle) here
+    def send(self, message, with_request_name=False):
         if not self.is_running:
             raise RuntimeError
+        request = None
+        if isinstance(message, Requestable):
+            request = message
+            message = message.to_osc(with_request_name=with_request_name)
         prototype = (str, collections.Iterable, OscBundle, OscMessage)
         if not isinstance(message, prototype):
             raise ValueError(message)
@@ -247,14 +296,16 @@ class OscIO:
             message = OscMessage(message)
         elif isinstance(message, collections.Iterable):
             message = OscMessage(*message)
-        elif isinstance(message, tuple):
-            if not len(message):
-                raise ValueError(message)
-            message = OscMessage(message[0], *message[1:])
-        as_list = message.to_list()
-        if as_list != [2]:  # /status
+        if not (isinstance(message, OscMessage) and message.address in (2, "/status")):
             for capture in self.captures:
-                capture.osc_messages.append(("S", message))
+                capture.messages.append(
+                    OscIO.CaptureEntry(
+                        timestamp=time.time(),
+                        label="S",
+                        message=message,
+                        command=request,
+                    )
+                )
             if self.debug_osc:
                 print("SEND", "{:0.6f}".format(time.time()), message.to_list())
                 if self.debug_udp:

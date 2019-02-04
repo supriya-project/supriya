@@ -20,7 +20,7 @@ def test_01(server):
     server.sync()
 
     assert buffer_group_one.is_allocated
-    assert buffer_group_one.buffer_id is 0
+    assert buffer_group_one.buffer_id == 0
     assert buffer_group_one.server is server
     assert len(buffer_group_one) == 4
     for i, buffer_ in enumerate(buffer_group_one):
@@ -48,7 +48,7 @@ def test_01(server):
     server.sync()
 
     assert buffer_group_two.is_allocated
-    assert buffer_group_two.buffer_id is 4
+    assert buffer_group_two.buffer_id == 4
     assert buffer_group_two.server is server
     assert len(buffer_group_two) == 4
     for i, buffer_ in enumerate(buffer_group_two):

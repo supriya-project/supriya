@@ -98,6 +98,9 @@ class Synth(Node):
     def __getitem__(self, item):
         return self._control_interface[item].value
 
+    def __iter__(self):
+        return iter(self._control_interface)
+
     def __setitem__(self, items, values):
         self.controls.__setitem__(items, values)
 
@@ -115,8 +118,7 @@ class Synth(Node):
         )
         result.append(string)
         control_pieces = []
-        controls = sorted(self.controls, key=lambda x: x.name)
-        for control in controls:
+        for control in [self.controls[name] for name in sorted(self)]:
             control_piece = "{}: {!s}".format(control.name, control.value)
             control_pieces.append(control_piece)
         control_pieces = "    " + ", ".join(control_pieces)
@@ -125,6 +127,11 @@ class Synth(Node):
         return result
 
     ### PRIVATE METHODS ###
+
+    def _as_graphviz_node(self):
+        node = super()._as_graphviz_node()
+        node.attributes["fillcolor"] = "lightgoldenrod2"
+        return node
 
     def _unregister_with_local_server(self):
         node_id = Node._unregister_with_local_server(self)
@@ -150,6 +157,8 @@ class Synth(Node):
         self._node_id_is_permanent = bool(node_id_is_permanent)
         target_node = Node.expr_as_target(target_node)
         server = target_node.server
+        if not server.is_running:
+            raise supriya.exceptions.ServerOffline
         self.controls._set(**kwargs)
         # TODO: Map requests aren't necessary during /s_new
         settings, map_requests = self.controls._make_synth_new_settings()
@@ -174,6 +183,7 @@ class Synth(Node):
             self["gate"] = 0
         else:
             self.free()
+        return self
 
     ### PUBLIC PROPERTIES ###
 

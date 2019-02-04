@@ -29,7 +29,8 @@ before_install:
 
 install:
 - pip install -e .
-- pip install -e .[test]
+- python -c "import supriya"
+- pip install -e .[accelerated,ipython,midi,test,wave]
 
 before_script:
 - sudo -E su $USER -c "jackd -r -ddummy -r44100 -p1024" &

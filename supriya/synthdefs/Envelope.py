@@ -78,9 +78,15 @@ class Envelope(SupriyaValueObject):
 
     ### PUBLIC METHODS ###
 
-    @staticmethod
-    def asr(attack_time=0.01, release_time=1.0, amplitude=1.0, curve=-4.0):
-        amplitudes = (0, float(amplitude), 0)
+    def ar(self, **kwargs):
+        from supriya.ugens import EnvGen
+
+        kwargs["envelope"] = self
+        return EnvGen.ar(**kwargs)
+
+    @classmethod
+    def asr(cls, attack_time=0.01, sustain=1.0, release_time=1.0, curve=-4.0):
+        amplitudes = (0, float(sustain), 0)
         durations = (float(attack_time), float(release_time))
         curves = (float(curve),)
         release_node = 1
@@ -116,8 +122,14 @@ class Envelope(SupriyaValueObject):
             offset=offset,
         )
 
-    @staticmethod
-    def percussive(attack_time=0.01, release_time=1.0, amplitude=1.0, curve=-4.0):
+    def kr(self, **kwargs):
+        from supriya.ugens import EnvGen
+
+        kwargs["envelope"] = self
+        return EnvGen.kr(**kwargs)
+
+    @classmethod
+    def percussive(cls, attack_time=0.01, release_time=1.0, amplitude=1.0, curve=-4.0):
         """
         Make a percussion envelope.
 
@@ -139,6 +151,15 @@ class Envelope(SupriyaValueObject):
         """
         amplitudes = (0, float(amplitude), 0)
         durations = (float(attack_time), float(release_time))
+        curves = (float(curve),)
+        return Envelope(amplitudes=amplitudes, durations=durations, curves=curves)
+
+    @classmethod
+    def linen(
+        cls, attack_time=0.01, sustain_time=1.0, release_time=1.0, level=1.0, curve=1
+    ):
+        amplitudes = (0, level, level, 0)
+        durations = (attack_time, sustain_time, release_time)
         curves = (float(curve),)
         return Envelope(amplitudes=amplitudes, durations=durations, curves=curves)
 
@@ -186,8 +207,8 @@ class Envelope(SupriyaValueObject):
                 result.append(curve)
         return result
 
-    @staticmethod
-    def triangle(duration=1.0, amplitude=1.0):
+    @classmethod
+    def triangle(cls, duration=1.0, amplitude=1.0):
         """
         Make a triangle envelope.
 

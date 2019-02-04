@@ -52,6 +52,7 @@ class Server(SupriyaObject):
         "_control_bus_proxies",
         "_debug_subprocess",
         "_debug_osc",
+        "_debug_request_names",
         "_debug_udp",
         "_default_group",
         "_ip_address",
@@ -148,6 +149,7 @@ class Server(SupriyaObject):
         ### DEBUG ###
 
         self.debug_osc = False
+        self.debug_request_names = False
         self.debug_subprocess = False
         self.debug_udp = False
 
@@ -273,20 +275,44 @@ class Server(SupriyaObject):
 
             >>> graph = server.__graph__()
             >>> print(format(graph, 'graphviz'))
-            digraph server {
-                "Root Node";
-                "Group 1";
-                "Group 1000";
-                "Synth 1001";
-                "Group 1002";
-                "Synth 1003";
-                "Synth 1004";
-                "Root Node" -> "Group 1";
-                "Group 1" -> "Group 1000";
-                "Group 1000" -> "Synth 1001";
-                "Group 1000" -> "Group 1002";
-                "Group 1002" -> "Synth 1003";
-                "Group 1002" -> "Synth 1004";
+            digraph G {
+                graph [bgcolor=transparent,
+                    color=lightslategrey,
+                    dpi=72,
+                    fontname=Arial,
+                    outputorder=edgesfirst,
+                    overlap=prism,
+                    penwidth=2,
+                    rankdir=TB,
+                    ranksep=0.5,
+                    splines=spline,
+                    style="dotted, rounded"];
+                node [fontname=Arial,
+                    fontsize=12,
+                    penwidth=2,
+                    shape=Mrecord,
+                    style="filled, rounded"];
+                edge [penwidth=2];
+                "root-node-0" [fillcolor=lightsalmon2,
+                    label="{ <f_0_0> RootNode | <f_0_1> id: 0 }"];
+                "group-1" [fillcolor=lightsteelblue2,
+                    label="{ <f_0_0> Group | <f_0_1> id: 1 }"];
+                "group-1000" [fillcolor=lightsteelblue2,
+                    label="{ <f_0_0> Group | <f_0_1> id: 1000 }"];
+                "synth-1001" [fillcolor=lightgoldenrod2,
+                    label="{ <f_0_0> Synth | <f_0_1> id: 1001 }"];
+                "group-1002" [fillcolor=lightsteelblue2,
+                    label="{ <f_0_0> Group | <f_0_1> id: 1002 }"];
+                "synth-1003" [fillcolor=lightgoldenrod2,
+                    label="{ <f_0_0> Synth | <f_0_1> id: 1003 }"];
+                "synth-1004" [fillcolor=lightgoldenrod2,
+                    label="{ <f_0_0> Synth | <f_0_1> id: 1004 }"];
+                "root-node-0" -> "group-1";
+                "group-1" -> "group-1000";
+                "group-1000" -> "synth-1001";
+                "group-1000" -> "group-1002";
+                "group-1002" -> "synth-1003";
+                "group-1002" -> "synth-1004";
             }
 
         ::
@@ -295,26 +321,7 @@ class Server(SupriyaObject):
 
         """
 
-        def recurse(graph, parent_graphviz_node, parent_server_node):
-            if not isinstance(parent_server_node, supriya.realtime.Group):
-                return
-            for child_server_node in parent_server_node:
-                if isinstance(child_server_node, supriya.realtime.Group):
-                    name = "Group {}".format(child_server_node.node_id)
-                else:
-                    name = "Synth {}".format(child_server_node.node_id)
-                child_graphviz_node = uqbar.graphs.Node(name=name)
-                graph.append(child_graphviz_node)
-                parent_graphviz_node.attach(child_graphviz_node)
-                recurse(graph, child_graphviz_node, child_server_node)
-
-        import supriya.realtime
-
-        graph = uqbar.graphs.Graph(name="server")
-        root_graphviz_node = uqbar.graphs.Node(name="Root Node")
-        graph.append(root_graphviz_node)
-        recurse(graph, root_graphviz_node, self.root_node)
-        return graph
+        return self.root_node.__graph__()
 
     def __repr__(self):
         if not self.is_running:
@@ -800,10 +807,17 @@ class Server(SupriyaObject):
         PubSub.notify("server-quit")
         return self
 
-    def send_message(self, message):
+    def reboot(self):
+        self.quit()
+        self.boot()
+        return self
+
+    def send_message(self, message, with_request_name=False):
         if not message or not self.is_running:
             return
-        self._osc_io.send(message)
+        self._osc_io.send(
+            message, with_request_name=with_request_name or self.debug_request_names
+        )
 
     def sync(self, sync_id=None):
         import supriya.commands
@@ -846,6 +860,14 @@ class Server(SupriyaObject):
     def debug_osc(self, expr):
         self._debug_osc = bool(expr)
         self._osc_io.debug_osc = self.debug_osc
+
+    @property
+    def debug_request_names(self):
+        return self._debug_request_names
+
+    @debug_request_names.setter
+    def debug_request_names(self, expr):
+        self._debug_request_names = bool(expr)
 
     @property
     def debug_subprocess(self):

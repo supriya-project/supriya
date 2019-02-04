@@ -18,12 +18,6 @@ class ControlInterface(SupriyaObject):
 
     ### SPECIAL METHODS ###
 
-    def __iter__(self):
-        return iter(self._synth_controls)
-
-    def __len__(self):
-        return len(self._synth_controls)
-
     @abc.abstractmethod
     def __setitem__(self, items, values):
         raise NotImplementedError
@@ -31,6 +25,7 @@ class ControlInterface(SupriyaObject):
     ### PRIVATE METHODS ###
 
     def _set(self, **settings):
+        # TODO: Reimplement as _apply_local() on request classes
         import supriya.commands
         import supriya.realtime
         import supriya.synthdefs

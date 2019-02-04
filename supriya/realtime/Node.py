@@ -1,5 +1,9 @@
 import abc
+import pathlib
+import tempfile
 
+import uqbar.graphs
+import uqbar.strings
 from uqbar.containers import UniqueTreeNode
 
 from supriya import AddAction
@@ -27,6 +31,33 @@ class Node(ServerObjectProxy, UniqueTreeNode):
     def __float__(self):
         return float(self.node_id)
 
+    def __graph__(self):
+        graph = uqbar.graphs.Graph(
+            attributes={
+                "bgcolor": "transparent",
+                "color": "lightslategrey",
+                "dpi": 72,
+                "fontname": "Arial",
+                "outputorder": "edgesfirst",
+                "overlap": "prism",
+                "penwidth": 2,
+                "rankdir": "TB",
+                "ranksep": 0.5,
+                "splines": "spline",
+                "style": ("dotted", "rounded"),
+            },
+            edge_attributes={"penwidth": 2},
+            node_attributes={
+                "fontname": "Arial",
+                "fontsize": 12,
+                "penwidth": 2,
+                "shape": "Mrecord",
+                "style": ("filled", "rounded"),
+            },
+            children=[self._as_graphviz_node()],
+        )
+        return graph
+
     def __int__(self):
         return int(self.node_id)
 
@@ -53,6 +84,7 @@ class Node(ServerObjectProxy, UniqueTreeNode):
 
     def _allocate(self, paused_nodes, requests, server, synthdefs):
         import supriya.commands
+        from supriya.synthdefs import SynthDefCompiler
 
         if paused_nodes:
             requests.append(
@@ -67,17 +99,49 @@ class Node(ServerObjectProxy, UniqueTreeNode):
         else:
             request = requests[0]
         if synthdefs:
-            request = supriya.commands.SynthDefReceiveRequest(
+            synthdef_request = supriya.commands.SynthDefReceiveRequest(
                 synthdefs=synthdefs, callback=request
             )
+            if len(SynthDefCompiler.compile_synthdefs(synthdefs)) > 8192:
+                directory_path = pathlib.Path(tempfile.mkdtemp())
+                synthdef_request = supriya.commands.SynthDefLoadDirectoryRequest(
+                    directory_path=directory_path, callback=request
+                )
+                for synthdef in synthdefs:
+                    file_name = "{}.scsyndef".format(synthdef.anonymous_name)
+                    synthdef_path = directory_path / file_name
+                    synthdef_path.write_bytes(synthdef.compile())
+            request = synthdef_request
         request.communicate(server=server, sync=True)
         return self
+
+    def _as_graphviz_node(self):
+        node = uqbar.graphs.Node(name=self._get_graphviz_name())
+        group = uqbar.graphs.RecordGroup()
+        group.append(uqbar.graphs.RecordField(label=type(self).__name__))
+        if self.name:
+            group.append(uqbar.graphs.RecordField(label="name: " + self.name))
+        if self.node_id is not None:
+            label = "id: " + str(self.node_id)
+        else:
+            label = "id: " + "-".join(str(_) for _ in (0,) + self.graph_order)
+        group.append(uqbar.graphs.RecordField(label=label))
+        node.append(group)
+        return node
 
     def _as_node_target(self):
         return self
 
     def _cache_control_interface(self):
         return self._control_interface.as_dict()
+
+    def _get_graphviz_name(self):
+        parts = [uqbar.strings.to_dash_case(type(self).__name__)]
+        if self.is_allocated:
+            parts.append(str(self.node_id))
+        else:
+            parts.extend(str(_) for _ in self.graph_order)
+        return "-".join(parts)
 
     def _handle_response(self, response):
         import supriya.commands
@@ -202,12 +266,14 @@ class Node(ServerObjectProxy, UniqueTreeNode):
         import supriya.realtime
 
         if expr is None:
-            return Node.expr_as_target(supriya.realtime.Server())
-        elif hasattr(expr, "_as_node_target"):
+            expr = Node.expr_as_target(supriya.realtime.Server.get_default_server())
+        if hasattr(expr, "_as_node_target"):
             return expr._as_node_target()
-        elif isinstance(expr, (float, int)):
+        if isinstance(expr, (float, int)):
             server = supriya.realtime.Server.get_default_server()
             return server._nodes[int(expr)]
+        if expr is None:
+            raise supriya.exceptions.ServerOffline
         raise TypeError(expr)
 
     def free(self):

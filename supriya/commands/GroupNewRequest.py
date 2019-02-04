@@ -54,7 +54,7 @@ class GroupNewRequest(Request):
     ::
 
         >>> for entry in transcript:
-        ...     entry
+        ...     (entry.label, entry.message)
         ...
         ('S', OscMessage(21, 1001, 1, 1, 1002, 0, 1001))
         ('S', OscMessage(52, 0))

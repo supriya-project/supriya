@@ -22,7 +22,7 @@ def test_01(server):
     server.sync()
 
     assert bus_group_one.is_allocated
-    assert bus_group_one.bus_id is 0
+    assert bus_group_one.bus_id == 0
     assert bus_group_one.server is server
     assert len(bus_group_one) == 4
     for i, bus in enumerate(bus_group_one):
@@ -50,7 +50,7 @@ def test_01(server):
     server.sync()
 
     assert bus_group_two.is_allocated
-    assert bus_group_two.bus_id is 4
+    assert bus_group_two.bus_id == 4
     assert bus_group_two.server is server
     assert len(bus_group_two) == 4
     for i, bus in enumerate(bus_group_two):

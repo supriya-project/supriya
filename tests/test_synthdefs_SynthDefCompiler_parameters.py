@@ -1,4 +1,6 @@
 # flake8: noqa
+import uqbar.strings
+
 import supriya.synthdefs
 import supriya.ugens
 
@@ -752,3 +754,29 @@ def test_SynthDefCompiler_parameters_06():
 
     assert sc_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef == test_compiled_synthdef
+
+
+def test_SynthDefCompiler_parameters_07():
+    builder = supriya.SynthDefBuilder(amplitude=0, bus=0, frequency=440)
+    with builder:
+        sine = supriya.ugens.SinOsc.ar(frequency=builder["frequency"])
+        source = sine * builder["amplitude"]
+        supriya.ugens.Out.ar(bus=builder["bus"], source=source)
+    synthdef = builder.build(name="simple_sine")
+    assert uqbar.strings.normalize(str(synthdef)) == uqbar.strings.normalize(
+        """
+        synthdef:
+            name: simple_sine
+            ugens:
+            -   Control.kr: null
+            -   SinOsc.ar:
+                    frequency: Control.kr[2:frequency]
+                    phase: 0.0
+            -   BinaryOpUGen(MULTIPLICATION).ar:
+                    left: SinOsc.ar[0]
+                    right: Control.kr[0:amplitude]
+            -   Out.ar:
+                    bus: Control.kr[1:bus]
+                    source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
+        """
+    )

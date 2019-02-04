@@ -1,9 +1,14 @@
+try:
+    import pyximport  # type: ignore
+
+    pyximport.install(language_level=3)
+    del pyximport
+except ImportError:
+    pass
+
 import appdirs  # type: ignore
 import configparser  # noqa
 import pathlib  # noqa
-import pyximport  # type: ignore
-
-pyximport.install(language_level=3)
 
 output_path = pathlib.Path(appdirs.user_cache_dir("supriya", "supriya"))
 if not output_path.exists():
@@ -14,7 +19,6 @@ if not output_path.exists():
 
 config = configparser.ConfigParser()
 config.read_dict({"core": {"editor": "vim", "scsynth": "scsynth"}})
-
 config_path = pathlib.Path(appdirs.user_config_dir("supriya", "supriya"))
 config_path = config_path / "supriya.cfg"
 if not config_path.exists():
@@ -24,14 +28,12 @@ if not config_path.exists():
             config.write(file_pointer, True)
     except IOError:
         pass
-
 with config_path.open() as file_pointer:
     config.read_file(file_pointer)
 
 del appdirs
 del configparser
 del pathlib
-del pyximport
 
 
 def import_structured_package(path, namespace, remove=True, verbose=False):
@@ -85,6 +87,7 @@ def import_structured_package(path, namespace, remove=True, verbose=False):
         del (namespace[this_name])
 
 
+from supriya._version import __version__, __version_info__  # noqa
 from supriya.enums import AddAction, CalculationRate  # noqa
 from supriya import utils  # noqa
 from supriya.midi import Device  # noqa
@@ -99,16 +102,11 @@ from supriya.realtime import (  # noqa
     Server,
     Synth,
 )
-from supriya.soundfiles import (  # noqa
-    HeaderFormat,
-    SampleFormat,
-    SoundFile,
-    play,
-    render,
-)
+from supriya.soundfiles import HeaderFormat, SampleFormat, SoundFile  # noqa
 from supriya.synthdefs import (  # noqa
     DoneAction,
     Envelope,
+    EnvelopeShape,
     Parameter,
     ParameterRate,
     Range,
@@ -118,5 +116,5 @@ from supriya.synthdefs import (  # noqa
 )
 from supriya.system import Assets, Bindable, Binding, bind  # noqa
 from supriya.soundfiles import Say  # noqa
-from abjad.top import graph  # noqa
-from supriya._version import __version__, __version_info__  # noqa
+from supriya.io import graph, play, render  # noqa
+from supriya import assets  # noqa

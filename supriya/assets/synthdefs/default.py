@@ -68,4 +68,4 @@ def _build_default_synthdef():
 
 default = _build_default_synthdef()
 
-__all__ = ("default",)
+__all__ = ["default"]

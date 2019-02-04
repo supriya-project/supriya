@@ -1,0 +1,11 @@
+.rise-enabled .rendered_html {
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+}
+
+.cell svg {
+    width: 80vw !important;
+    height: 66vh !important;
+    max-height: 100% !important;
+    max-width: 100% !important;
+}

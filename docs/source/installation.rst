@@ -11,11 +11,32 @@ Install Supriya from its `GitHub`_ repository, via `git
 
     ~$ git clone https://github.com/josiah-wolf-oberholtzer/supriya.git 
     ~$ cd supriya
-    supriya$ sudo pip install -e .
+    supriya$ pip install -e .
 
-You may need to install `libsndfile`_ in order to install some of `Supriya`_'s
-dependencies, such as `wavefile`_. On OSX, you can get `libsndfile`_ via
-`HomeBrew`. On Linux, consult your package manager.
+Install Optional Dependencies
+-----------------------------
+
+With `Cython`_ support::
+
+    supriya$ pip install -e .[accelerated]
+
+With `IPython`_ support::
+
+    supriya$ pip install -e .[ipython]
+
+With MIDI support (via `python-rtmidi`_)::
+
+    supriya$ pip install -e .[midi]
+
+With soundfile support (via `libsndfile`_ and `wavefile`_)::
+
+    supriya$ pip install -e .[wave]
+
+On OSX, you can get `libsndfile`_ via `HomeBrew`. On Linux, consult your package manager.
+
+With test dependencies::
+
+    supriya$ pip install -e .[test]
 
 Install SuperCollider
 `````````````````````
