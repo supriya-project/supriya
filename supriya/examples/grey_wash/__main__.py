@@ -1,5 +1,5 @@
 from supriya import play
-from supriya.examples.grey_wash import composite, project_settings
+from . import composite, project_settings
 
 if __name__ == "__main__":
     play(
