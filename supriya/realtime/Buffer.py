@@ -1002,6 +1002,12 @@ class Buffer(ServerObjectProxy):
         response = self.get_contiguous(index_count_pairs=index_count_pairs)
         return response
 
+    def normalize(self, as_wavetable=None, new_maximum=1.0, sync=False):
+        request = supriya.commands.BufferNormalizeRequest(
+            as_wavetable=as_wavetable, buffer_id=self, new_maximum=new_maximum
+        )
+        request.communicate(server=self.server, sync=sync)
+
     def play(
         self, add_action=None, bus=0, level=1, loop=False, rate=1, target_node=None
     ):
