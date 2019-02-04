@@ -1,6 +1,8 @@
+import subprocess
 from xml.dom import minidom  # type: ignore
 
 from IPython.core.display import display, display_svg  # type: ignore
+
 from IPython.display import Audio  # type: ignore
 
 from supriya.io import Grapher, Player
@@ -44,9 +46,13 @@ def patch_grapher():
 
 def patch_player():
     def render(self):
-        render_kwargs = self.render_kwargs
-        render_kwargs["header_format"] = HeaderFormat.WAV
-        return self.renderable.__render__(**render_kwargs)
+        output_path = self.renderable.__render__(**self.render_kwargs)
+        if output_path.suffix in (".aif", ".aiff"):
+            new_output_path = output_path.with_suffix(".wav")
+            command = "ffmpeg -i {} {}".format(output_path, new_output_path)
+            subprocess.call(command, shell=True)
+            return new_output_path
+        return output_path
 
     def open_output_path(self, output_path):
         display(Audio(filename=str(output_path)))
