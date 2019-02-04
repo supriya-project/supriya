@@ -2,7 +2,6 @@ import subprocess
 from xml.dom import minidom  # type: ignore
 
 from IPython.core.display import display, display_svg  # type: ignore
-
 from IPython.display import Audio  # type: ignore
 
 from supriya.io import Grapher, Player

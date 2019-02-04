@@ -269,7 +269,9 @@ class SynthDefFactory(SupriyaObject):
         parameter = builder["out"]
         if self._input.get("private"):
             parameter = builder["in_"]
-        source = supriya.ugens.In.ar(bus=parameter, channel_count=state["channel_count"])
+        source = supriya.ugens.In.ar(
+            bus=parameter, channel_count=state["channel_count"]
+        )
         if self._input.get("windowed"):
             source *= state["window"]
         return source

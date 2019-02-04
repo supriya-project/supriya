@@ -75,7 +75,11 @@ class Say(SupriyaValueObject):
     ### SPECIAL METHODS ###
 
     def __render__(
-        self, output_file_path=None, render_directory_path=None, print_transcript=None, **kwargs
+        self,
+        output_file_path=None,
+        render_directory_path=None,
+        print_transcript=None,
+        **kwargs,
     ):
         output_file_path = self._build_output_file_path(
             output_file_path=output_file_path,
