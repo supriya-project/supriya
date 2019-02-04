@@ -245,6 +245,8 @@ class SynthDefFactory(SupriyaObject):
             )
         if self._output or self._input:
             builder._add_parameter("out", 0, "SCALAR")
+        if self._input.get("private"):
+            builder._add_parameter("in_", 0, "SCALAR")
         if self._output.get("windowed") or self._input.get("windowed"):
             builder._add_parameter("duration", 1, "SCALAR")
             state["line"] = supriya.ugens.Line.kr(
@@ -264,9 +266,10 @@ class SynthDefFactory(SupriyaObject):
 
         if not self._input:
             return
-        source = supriya.ugens.In.ar(
-            bus=builder["out"], channel_count=state["channel_count"]
-        )
+        parameter = builder["out"]
+        if self._input.get("private"):
+            parameter = builder["in_"]
+        source = supriya.ugens.In.ar(bus=parameter, channel_count=state["channel_count"])
         if self._input.get("windowed"):
             source *= state["window"]
         return source
@@ -899,7 +902,7 @@ class SynthDefFactory(SupriyaObject):
         clone._initial_state.update(**state)
         return clone
 
-    def with_input(self, windowed=False):
+    def with_input(self, private=False, windowed=False):
         """
         Return a new factory configured with a bus input.
 
@@ -970,6 +973,51 @@ class SynthDefFactory(SupriyaObject):
                             source: AllpassC.ar/0[0]
                     -   Out.ar:
                             bus: Control.ir[0:out]
+                            source[0]: AllpassC.ar/1[0]
+
+        ..  container:: example
+
+            Configure the factory with a private bus input:
+
+            ::
+
+                >>> factory = factory.with_input(private=True)
+                >>> synthdef = factory.build()
+                >>> graph(synthdef)  # doctest: +SKIP
+
+            ::
+
+                >>> print(synthdef)
+                synthdef:
+                    name: ...
+                    ugens:
+                    -   Control.ir: null
+                    -   In.ar:
+                            bus: Control.ir[0:in_]
+                    -   ExpRand.ir/0:
+                            maximum: 0.1
+                            minimum: 0.01
+                    -   ExpRand.ir/1:
+                            maximum: 0.1
+                            minimum: 0.01
+                    -   AllpassC.ar/0:
+                            decay_time: ExpRand.ir/0[0]
+                            delay_time: ExpRand.ir/1[0]
+                            maximum_delay_time: 0.1
+                            source: In.ar[0]
+                    -   ExpRand.ir/2:
+                            maximum: 0.1
+                            minimum: 0.01
+                    -   ExpRand.ir/3:
+                            maximum: 0.1
+                            minimum: 0.01
+                    -   AllpassC.ar/1:
+                            decay_time: ExpRand.ir/2[0]
+                            delay_time: ExpRand.ir/3[0]
+                            maximum_delay_time: 0.1
+                            source: AllpassC.ar/0[0]
+                    -   Out.ar:
+                            bus: Control.ir[1:out]
                             source[0]: AllpassC.ar/1[0]
 
         ..  container:: example
@@ -1089,7 +1137,7 @@ class SynthDefFactory(SupriyaObject):
 
         """
         clone = self._clone()
-        clone._input.update(windowed=bool(windowed))
+        clone._input.update(private=bool(private), windowed=bool(windowed))
         return clone
 
     def with_output(
