@@ -72,9 +72,9 @@ master_doc = 'index'
 project = u'Supriya'
 copyright = u'2014, Josiah Wolf Oberholtzer'
 
-version = '0.1'
+version = supriya.__version__
 
-release = '0.1'
+release = supriya.__version__
 
 exclude_patterns = []
 

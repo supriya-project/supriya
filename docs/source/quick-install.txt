@@ -13,5 +13,5 @@ Run the tests to make sure everything's OK::
 
     supriya$ pytest
 
-Consult our installation instructions for detailed help on getting Abjad,
+Consult our installation instructions for detailed help on getting Supriya,
 setting it up, and installing any additional dependencies like `Graphviz`_.

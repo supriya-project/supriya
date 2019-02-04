@@ -50,7 +50,7 @@ Run the tests to make sure everything's OK::
 
     supriya$ pytest
 
-Consult our installation instructions for detailed help on getting Abjad,
+Consult our installation instructions for detailed help on getting Supriya,
 setting it up, and installing any additional dependencies like `Graphviz`_.
 
 
@@ -148,7 +148,7 @@ Quit the server::
     <Server: offline>
 
 
-..  _GitHub: https://github.com/Abjad/abjad
+..  _GitHub: https://github.com/josiah-wolf-oberholtzer/supriya
 ..  _Graphviz: http://graphviz.org/
 ..  _Homebrew: http://brew.sh/
 ..  _PyPI: https://pypi.python.org/pypi

@@ -53,7 +53,7 @@ Install Graphviz (optional)
 Supriya uses `Graphviz`_, an open-source graph visualization library, to create
 graphs of rhythm-trees and other tree structures, and to create visualizations
 of class hierarchies for its documentation. Graphviz is not necessary for
-creating notation with Abjad.
+making sounds with Supriya.
 
 To install `Graphviz`_ on Debian and Ubuntu::
 

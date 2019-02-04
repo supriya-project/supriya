@@ -1,5 +1,5 @@
 ..  _Cython: https://cython.org/
-..  _GitHub: https://github.com/Abjad/abjad
+..  _GitHub: https://github.com/josiah-wolf-oberholtzer/supriya
 ..  _Graphviz: http://graphviz.org/
 ..  _Homebrew: http://brew.sh/
 ..  _IPython: https://ipython.org/
