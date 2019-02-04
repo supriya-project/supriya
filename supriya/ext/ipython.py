@@ -5,7 +5,6 @@ from IPython.core.display import display, display_svg  # type: ignore
 from IPython.display import Audio  # type: ignore
 
 from supriya.io import Grapher, Player
-from supriya.soundfiles import HeaderFormat
 
 
 def load_ipython_extension(ipython):

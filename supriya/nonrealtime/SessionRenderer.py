@@ -440,8 +440,6 @@ class SessionRenderer(SupriyaObject):
 
         extension = ".{}".format(self.header_format.name.lower())
         if output_file_path is not None:
-            raise ValueError(output_file_path)
-            print("OFP?", output_file_path)
             output_file_path = pathlib.Path(output_file_path)
             output_file_path = output_file_path.expanduser().absolute()
         original_output_file_path = output_file_path
