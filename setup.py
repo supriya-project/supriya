@@ -1,5 +1,22 @@
 #!/usr/bin/env python
+import pathlib
+
 import setuptools
+
+package_name = "supriya"
+
+
+def read_version():
+    root_path = pathlib.Path(__file__).parent
+    version_path = root_path / package_name / "_version.py"
+    with version_path.open() as file_pointer:
+        file_contents = file_pointer.read()
+    local_dict = {}
+    exec(file_contents, None, local_dict)
+    return local_dict["__version__"]
+
+
+version = read_version()
 
 install_requires = [
     "PyYAML",
@@ -44,9 +61,8 @@ classifiers = [
     "Natural Language :: English",
     "Operating System :: MacOS",
     "Operating System :: POSIX",
-    "Programming Language :: Python :: 3.3",
-    "Programming Language :: Python :: 3.4",
-    "Programming Language :: Python :: 3.5",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
     "Topic :: Artistic Software",
     "Topic :: Multimedia :: Sound/Audio :: Sound Synthesis",
 ]
@@ -79,6 +95,6 @@ if __name__ == "__main__":
         name="supriya",
         packages=["supriya"],
         url="https://github.com/josiah-wolf-oberholtzer/supriya",
-        version="0.1",
+        version=version,
         zip_safe=False,
     )

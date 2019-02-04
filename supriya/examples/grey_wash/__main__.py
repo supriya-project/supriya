@@ -1,4 +1,5 @@
 from supriya import play
+
 from . import composite, project_settings
 
 if __name__ == "__main__":
