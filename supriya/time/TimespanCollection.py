@@ -1,6 +1,5 @@
 from supriya.system.SupriyaObject import SupriyaObject
 from supriya.time.TimespanCollectionDriver import TimespanCollectionDriver
-from supriya.time.TimespanCollectionDriverEx import TimespanCollectionDriverEx
 from supriya.time.TimespanSimultaneity import TimespanSimultaneity
 
 
@@ -29,11 +28,15 @@ class TimespanCollection(SupriyaObject):
 
     ### INITIALIZER ###
 
-    def __init__(self, timespans=None, accelerated=None):
+    def __init__(self, timespans=None, accelerated=True):
+        self._driver = TimespanCollectionDriver(timespans)
         if accelerated:
-            self._driver = TimespanCollectionDriverEx(timespans)
-        else:
-            self._driver = TimespanCollectionDriver(timespans)
+            try:
+                import pyximport  # noqa
+                from supriya.time.TimespanCollectionDriverEx import TimespanCollectionDriverEx
+                self._driver = TimespanCollectionDriverEx(timespans)
+            except (ImportError, ModuleNotFoundError):
+                pass
 
     ### SPECIAL METHODS ###
 

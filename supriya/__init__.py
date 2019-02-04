@@ -1,9 +1,13 @@
+try:
+    import pyximport  # type: ignore
+    pyximport.install(language_level=3)
+    del pyximport
+except ImportError:
+    pass
+
 import appdirs  # type: ignore
 import configparser  # noqa
 import pathlib  # noqa
-import pyximport  # type: ignore
-
-pyximport.install(language_level=3)
 
 output_path = pathlib.Path(appdirs.user_cache_dir("supriya", "supriya"))
 if not output_path.exists():
@@ -29,7 +33,6 @@ with config_path.open() as file_pointer:
 del appdirs
 del configparser
 del pathlib
-del pyximport
 
 
 def import_structured_package(path, namespace, remove=True, verbose=False):

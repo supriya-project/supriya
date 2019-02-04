@@ -5,13 +5,13 @@ install_requires = [
     "PyYAML",
     "abjad == 3.0.0",
     "appdirs",
-    "cython",
     "tornado",
     "tqdm",
     "uqbar >= 0.2.16",
 ]
 
 extras_require = {
+    "accelerated": ["cython"],
     "ipython": [
         "jupyter",
         "jupyter_contrib_nbextensions",
