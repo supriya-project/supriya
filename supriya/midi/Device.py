@@ -4,17 +4,19 @@ import logging
 import pathlib
 import threading
 
-try:
-    import rtmidi  # type: ignore
-except ImportError:
-    # TODO: Implement log warning
-    pass
 import uqbar.containers
 
 from supriya.midi.LogicalControl import LogicalControl
 from supriya.midi.LogicalControlMode import LogicalControlMode
 from supriya.midi.LogicalView import LogicalView
 from supriya.midi.PhysicalControl import PhysicalControl
+
+try:
+    import rtmidi  # type: ignore
+except ImportError:
+    # TODO: Implement log warning
+    pass
+
 
 logging.basicConfig(
     format="%(asctime)s [%(name)s] [%(levelname)s] %(message)s", level="INFO"
