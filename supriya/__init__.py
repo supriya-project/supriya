@@ -1,5 +1,6 @@
 try:
     import pyximport  # type: ignore
+
     pyximport.install(language_level=3)
     del pyximport
 except ImportError:

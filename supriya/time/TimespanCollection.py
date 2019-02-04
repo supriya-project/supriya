@@ -33,7 +33,10 @@ class TimespanCollection(SupriyaObject):
         if accelerated:
             try:
                 import pyximport  # noqa
-                from supriya.time.TimespanCollectionDriverEx import TimespanCollectionDriverEx
+                from supriya.time.TimespanCollectionDriverEx import (
+                    TimespanCollectionDriverEx,
+                )
+
                 self._driver = TimespanCollectionDriverEx(timespans)
             except (ImportError, ModuleNotFoundError):
                 pass
