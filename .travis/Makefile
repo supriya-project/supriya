@@ -82,7 +82,6 @@ pytest:
 	cd ${TRAVIS_BUILD_DIR} && \
 	pytest \
 		--durations=100 \
-		--profile \
 		--timeout=60 \
 		tests/test_realtime_Server_boot.py \
 		tests/test_synthdefs_SynthDefCompiler_basic.py \
