@@ -42,7 +42,7 @@ Get Supriya from `GitHub`_::
 
     ~$ git clone https://github.com/josiah-wolf-oberholtzer/supriya.git
     ~$ cd supriya
-    supriya$ sudo pip install -e .
+    supriya$ pip install -e .
 
 Get `SuperCollider`_ from http://supercollider.github.io/.
 
