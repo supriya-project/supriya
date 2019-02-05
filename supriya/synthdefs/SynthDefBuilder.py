@@ -140,7 +140,16 @@ class SynthDefBuilder(SupriyaObject):
 
     def build(self, name=None, optimize=True):
         import supriya.synthdefs
+        import supriya.ugens
 
+        # Calling build() creates controls each time, so strip out
+        # previously created ones. This could be made cleaner by preventing
+        # Control subclasses from being aggregated into SynthDefBuilders in
+        # the first place.
+
+        self._ugens[:] = [
+            ugen for ugen in self._ugens if not isinstance(ugen, supriya.ugens.Control)
+        ]
         name = self.name or name
         with self:
             ugens = list(self._parameters.values()) + list(self._ugens)

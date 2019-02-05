@@ -1,5 +1,5 @@
 import uuid
-from typing import Dict, Tuple
+from typing import Dict, List, Tuple
 
 import supriya.realtime
 from supriya.commands import GroupNewRequest
@@ -55,6 +55,15 @@ class Group(Node):
         return offset + max(duration, delta)
 
     ### PUBLIC METHODS ###
+
+    @SessionObject.require_offset
+    def get_children(self, offset: float = None) -> List["Node"]:
+        state = self.session._find_state_at(offset, clone_if_missing=True)
+        if not state.nodes_to_children:
+            state = self.session._find_state_before(state.offset, True)
+        elif self.stop_offset == state.offset:
+            state = self.session._find_state_before(state.offset, True)
+        return list(state.nodes_to_children.get(self) or [])
 
     @SessionObject.require_offset
     def inscribe(

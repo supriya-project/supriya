@@ -780,3 +780,33 @@ def test_SynthDefCompiler_parameters_07():
                     source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
         """
     )
+
+
+def test_SynthDefCompiler_building_is_idempotent():
+    builder = supriya.SynthDefBuilder(amplitude=0, bus=0, frequency=440)
+    with builder as builder:
+        sine = supriya.ugens.SinOsc.ar(frequency=builder["frequency"])
+        source = sine * builder["amplitude"]
+        supriya.ugens.Out.ar(bus=builder["bus"], source=source)
+    synthdef_a = builder.build()
+    synthdef_b = builder.build()
+    synthdef_c = builder.build()
+    assert uqbar.strings.normalize(str(synthdef_a)) == uqbar.strings.normalize(
+        """
+        synthdef:
+            name: 937772273a43d21bcd7b9f096f42648a
+            ugens:
+            -   Control.kr: null
+            -   SinOsc.ar:
+                    frequency: Control.kr[2:frequency]
+                    phase: 0.0
+            -   BinaryOpUGen(MULTIPLICATION).ar:
+                    left: SinOsc.ar[0]
+                    right: Control.kr[0:amplitude]
+            -   Out.ar:
+                    bus: Control.kr[1:bus]
+                    source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
+        """
+    )
+    assert str(synthdef_a) == str(synthdef_b)
+    assert str(synthdef_b) == str(synthdef_c)
