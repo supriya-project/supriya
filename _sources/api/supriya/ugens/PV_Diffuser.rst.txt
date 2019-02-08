@@ -1,0 +1,367 @@
+.. _supriya--ugens--PV-Diffuser:
+
+PV_Diffuser
+===========
+
+.. automodule:: supriya.ugens.PV_Diffuser
+
+.. currentmodule:: supriya.ugens.PV_Diffuser
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.PV_Diffuser
+
+.. autoclass:: PV_Diffuser
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      new
+      pv_chain
+      trigger
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.__add__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.__div__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.__le__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.__len__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.__str__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.as_int
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.clip
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.cubed
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.distort
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.exponential
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.floor
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.lag
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.log
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.log10
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.log2
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.maximum
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.minimum
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.power
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.range
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.scale
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.sign
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.softclip
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.square_root
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.squared
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.sum
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.tanh
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.transpose
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_Diffuser.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: PV_Diffuser.new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Diffuser.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Diffuser.fft_size
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Diffuser.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Diffuser.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Diffuser.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Diffuser.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Diffuser.outputs
+
+   .. autoattribute:: PV_Diffuser.pv_chain
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Diffuser.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Diffuser.special_index
+
+   .. autoattribute:: PV_Diffuser.trigger

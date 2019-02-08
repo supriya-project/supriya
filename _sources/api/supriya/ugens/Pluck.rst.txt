@@ -1,0 +1,375 @@
+.. _supriya--ugens--Pluck:
+
+Pluck
+=====
+
+.. automodule:: supriya.ugens.Pluck
+
+.. currentmodule:: supriya.ugens.Pluck
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Pluck
+
+.. autoclass:: Pluck
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      coefficient
+      decay_time
+      delay_time
+      maximum_delay_time
+      source
+      trigger
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.clip
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.distort
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.floor
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.lag
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.log
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.log10
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.log2
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.power
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.range
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.scale
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.sign
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.squared
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.sum
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Pluck.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Pluck.ar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Pluck.calculation_rate
+
+   .. autoattribute:: Pluck.coefficient
+
+   .. autoattribute:: Pluck.decay_time
+
+   .. autoattribute:: Pluck.delay_time
+
+   .. container:: inherited
+
+      .. autoattribute:: Pluck.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Pluck.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Pluck.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Pluck.is_output_ugen
+
+   .. autoattribute:: Pluck.maximum_delay_time
+
+   .. container:: inherited
+
+      .. autoattribute:: Pluck.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Pluck.signal_range
+
+   .. autoattribute:: Pluck.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Pluck.special_index
+
+   .. autoattribute:: Pluck.trigger

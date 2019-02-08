@@ -1,0 +1,372 @@
+.. _supriya--ugens--MoogFF:
+
+MoogFF
+======
+
+.. automodule:: supriya.ugens.MoogFF
+
+.. currentmodule:: supriya.ugens.MoogFF
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.MoogFF
+
+.. autoclass:: MoogFF
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      frequency
+      gain
+      kr
+      reset
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.__add__
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.__div__
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.__le__
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.__len__
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.__str__
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.as_int
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.clip
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.cubed
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.distort
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.exponential
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.floor
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.lag
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.log
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.log10
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.log2
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.maximum
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.minimum
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.power
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.range
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.scale
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.sign
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.softclip
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.square_root
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.squared
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.sum
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.tanh
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.transpose
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: MoogFF.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: MoogFF.ar
+
+   .. automethod:: MoogFF.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: MoogFF.calculation_rate
+
+   .. autoattribute:: MoogFF.frequency
+
+   .. autoattribute:: MoogFF.gain
+
+   .. container:: inherited
+
+      .. autoattribute:: MoogFF.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: MoogFF.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: MoogFF.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: MoogFF.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: MoogFF.outputs
+
+   .. autoattribute:: MoogFF.reset
+
+   .. container:: inherited
+
+      .. autoattribute:: MoogFF.signal_range
+
+   .. autoattribute:: MoogFF.source
+
+   .. container:: inherited
+
+      .. autoattribute:: MoogFF.special_index

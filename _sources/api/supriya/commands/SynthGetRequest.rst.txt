@@ -1,0 +1,95 @@
+.. _supriya--commands--SynthGetRequest:
+
+SynthGetRequest
+===============
+
+.. automodule:: supriya.commands.SynthGetRequest
+
+.. currentmodule:: supriya.commands.SynthGetRequest
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.SynthGetRequest
+
+.. autoclass:: SynthGetRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      request_id
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SynthGetRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: SynthGetRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: SynthGetRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: SynthGetRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SynthGetRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: SynthGetRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: SynthGetRequest.to_list
+
+   .. automethod:: SynthGetRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthGetRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthGetRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthGetRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthGetRequest.response_patterns

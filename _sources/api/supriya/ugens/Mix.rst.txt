@@ -1,0 +1,50 @@
+.. _supriya--ugens--Mix:
+
+Mix
+===
+
+.. automodule:: supriya.ugens.Mix
+
+.. currentmodule:: supriya.ugens.Mix
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Mix
+
+.. autoclass:: Mix
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      multichannel
+      new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Mix.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Mix.multichannel
+
+   .. automethod:: Mix.new

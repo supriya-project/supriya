@@ -1,0 +1,70 @@
+.. _supriya--live--Slot:
+
+Slot
+====
+
+.. automodule:: supriya.live.Slot
+
+.. currentmodule:: supriya.live.Slot
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.live.Slot
+
+.. autoclass:: Slot
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __getitem__
+      __setitem__
+      bindable_namespace
+      group
+      is_allocated
+      name
+      synth
+      synth_kwargs
+      synthdef
+      track
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: Slot.__getitem__
+
+   .. automethod:: Slot.__setitem__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Slot.bindable_namespace
+
+   .. autoattribute:: Slot.group
+
+   .. autoattribute:: Slot.is_allocated
+
+   .. autoattribute:: Slot.name
+
+   .. autoattribute:: Slot.synth
+
+   .. autoattribute:: Slot.synth_kwargs
+
+   .. autoattribute:: Slot.synthdef
+
+   .. autoattribute:: Slot.track

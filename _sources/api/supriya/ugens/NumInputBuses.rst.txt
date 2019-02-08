@@ -1,0 +1,357 @@
+.. _supriya--ugens--NumInputBuses:
+
+NumInputBuses
+=============
+
+.. automodule:: supriya.ugens.NumInputBuses
+
+.. currentmodule:: supriya.ugens.NumInputBuses
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.NumInputBuses
+
+.. autoclass:: NumInputBuses
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ir
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.__add__
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.__div__
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.__le__
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.__len__
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.__str__
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.as_int
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.clip
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.cubed
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.distort
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.exponential
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.floor
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.lag
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.log
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.log10
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.log2
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.maximum
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.minimum
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.power
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.range
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.scale
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.sign
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.softclip
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.square_root
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.squared
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.sum
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.tanh
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.transpose
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: NumInputBuses.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: NumInputBuses.ir
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: NumInputBuses.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: NumInputBuses.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: NumInputBuses.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: NumInputBuses.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: NumInputBuses.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: NumInputBuses.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: NumInputBuses.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: NumInputBuses.special_index

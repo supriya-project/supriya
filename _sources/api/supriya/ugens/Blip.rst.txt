@@ -1,0 +1,366 @@
+.. _supriya--ugens--Blip:
+
+Blip
+====
+
+.. automodule:: supriya.ugens.Blip
+
+.. currentmodule:: supriya.ugens.Blip
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Blip
+
+.. autoclass:: Blip
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      frequency
+      harmonic_count
+      kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Blip.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Blip.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Blip.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Blip.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Blip.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Blip.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Blip.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Blip.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Blip.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Blip.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Blip.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Blip.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Blip.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Blip.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Blip.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Blip.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Blip.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Blip.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Blip.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Blip.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Blip.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Blip.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Blip.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Blip.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Blip.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Blip.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Blip.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Blip.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Blip.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Blip.clip
+
+   .. container:: inherited
+
+      .. automethod:: Blip.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Blip.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Blip.distort
+
+   .. container:: inherited
+
+      .. automethod:: Blip.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Blip.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Blip.floor
+
+   .. container:: inherited
+
+      .. automethod:: Blip.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Blip.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Blip.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Blip.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Blip.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Blip.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Blip.lag
+
+   .. container:: inherited
+
+      .. automethod:: Blip.log
+
+   .. container:: inherited
+
+      .. automethod:: Blip.log10
+
+   .. container:: inherited
+
+      .. automethod:: Blip.log2
+
+   .. container:: inherited
+
+      .. automethod:: Blip.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Blip.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Blip.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Blip.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Blip.power
+
+   .. container:: inherited
+
+      .. automethod:: Blip.range
+
+   .. container:: inherited
+
+      .. automethod:: Blip.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Blip.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Blip.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Blip.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Blip.scale
+
+   .. container:: inherited
+
+      .. automethod:: Blip.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Blip.sign
+
+   .. container:: inherited
+
+      .. automethod:: Blip.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Blip.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Blip.squared
+
+   .. container:: inherited
+
+      .. automethod:: Blip.sum
+
+   .. container:: inherited
+
+      .. automethod:: Blip.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Blip.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Blip.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Blip.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Blip.ar
+
+   .. automethod:: Blip.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Blip.calculation_rate
+
+   .. autoattribute:: Blip.frequency
+
+   .. autoattribute:: Blip.harmonic_count
+
+   .. container:: inherited
+
+      .. autoattribute:: Blip.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Blip.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Blip.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Blip.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Blip.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Blip.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: Blip.special_index

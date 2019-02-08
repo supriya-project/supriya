@@ -1,0 +1,366 @@
+.. _supriya--ugens--BBandPass:
+
+BBandPass
+=========
+
+.. automodule:: supriya.ugens.BBandPass
+
+.. currentmodule:: supriya.ugens.BBandPass
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.BBandPass
+
+.. autoclass:: BBandPass
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      bandwidth
+      frequency
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.__add__
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.__div__
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.__le__
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.__len__
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.__str__
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.as_int
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.clip
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.cubed
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.distort
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.exponential
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.floor
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.lag
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.log
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.log10
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.log2
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.maximum
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.minimum
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.power
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.range
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.scale
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.sign
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.softclip
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.square_root
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.squared
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.sum
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.tanh
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.transpose
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BBandPass.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: BBandPass.ar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BBandPass.bandwidth
+
+   .. container:: inherited
+
+      .. autoattribute:: BBandPass.calculation_rate
+
+   .. autoattribute:: BBandPass.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: BBandPass.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: BBandPass.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BBandPass.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BBandPass.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BBandPass.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BBandPass.signal_range
+
+   .. autoattribute:: BBandPass.source
+
+   .. container:: inherited
+
+      .. autoattribute:: BBandPass.special_index

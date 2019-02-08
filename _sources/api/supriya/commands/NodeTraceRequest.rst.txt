@@ -1,0 +1,95 @@
+.. _supriya--commands--NodeTraceRequest:
+
+NodeTraceRequest
+================
+
+.. automodule:: supriya.commands.NodeTraceRequest
+
+.. currentmodule:: supriya.commands.NodeTraceRequest
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.NodeTraceRequest
+
+.. autoclass:: NodeTraceRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      request_id
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: NodeTraceRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: NodeTraceRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: NodeTraceRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: NodeTraceRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: NodeTraceRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: NodeTraceRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: NodeTraceRequest.to_list
+
+   .. automethod:: NodeTraceRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: NodeTraceRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: NodeTraceRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: NodeTraceRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: NodeTraceRequest.response_patterns

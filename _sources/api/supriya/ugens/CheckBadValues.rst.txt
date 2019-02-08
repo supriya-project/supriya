@@ -1,0 +1,369 @@
+.. _supriya--ugens--CheckBadValues:
+
+CheckBadValues
+==============
+
+.. automodule:: supriya.ugens.CheckBadValues
+
+.. currentmodule:: supriya.ugens.CheckBadValues
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.CheckBadValues
+
+.. autoclass:: CheckBadValues
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      post_mode
+      source
+      ugen_id
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__add__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__div__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__le__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__len__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__str__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.as_int
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.clip
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.cubed
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.distort
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.exponential
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.floor
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.lag
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.log
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.log10
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.log2
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.maximum
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.minimum
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.power
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.range
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.scale
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.sign
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.softclip
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.square_root
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.squared
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.sum
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.tanh
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.transpose
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: CheckBadValues.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: CheckBadValues.ar
+
+   .. automethod:: CheckBadValues.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: CheckBadValues.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: CheckBadValues.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: CheckBadValues.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: CheckBadValues.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: CheckBadValues.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: CheckBadValues.outputs
+
+   .. autoattribute:: CheckBadValues.post_mode
+
+   .. container:: inherited
+
+      .. autoattribute:: CheckBadValues.signal_range
+
+   .. autoattribute:: CheckBadValues.source
+
+   .. container:: inherited
+
+      .. autoattribute:: CheckBadValues.special_index
+
+   .. autoattribute:: CheckBadValues.ugen_id

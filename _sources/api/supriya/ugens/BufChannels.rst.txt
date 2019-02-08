@@ -1,0 +1,363 @@
+.. _supriya--ugens--BufChannels:
+
+BufChannels
+===========
+
+.. automodule:: supriya.ugens.BufChannels
+
+.. currentmodule:: supriya.ugens.BufChannels
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.BufChannels
+
+.. autoclass:: BufChannels
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      buffer_id
+      ir
+      kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.__add__
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.__div__
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.__le__
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.__len__
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.__str__
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.as_int
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.clip
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.cubed
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.distort
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.exponential
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.floor
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.lag
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.log
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.log10
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.log2
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.maximum
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.minimum
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.power
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.range
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.scale
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.sign
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.softclip
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.square_root
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.squared
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.sum
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.tanh
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.transpose
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BufChannels.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: BufChannels.ir
+
+   .. automethod:: BufChannels.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufChannels.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: BufChannels.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: BufChannels.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: BufChannels.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BufChannels.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BufChannels.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BufChannels.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BufChannels.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: BufChannels.special_index

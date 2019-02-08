@@ -1,0 +1,53 @@
+.. _supriya--cli--ProjectSectionScript:
+
+ProjectSectionScript
+====================
+
+.. automodule:: supriya.cli.ProjectSectionScript
+
+.. currentmodule:: supriya.cli.ProjectSectionScript
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.cli.ProjectSectionScript
+
+.. autoclass:: ProjectSectionScript
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ProjectSectionScript.__call__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: ProjectSectionScript.argument_parser
+
+   .. container:: inherited
+
+      .. autoattribute:: ProjectSectionScript.formatted_help
+
+   .. container:: inherited
+
+      .. autoattribute:: ProjectSectionScript.formatted_usage
+
+   .. container:: inherited
+
+      .. autoattribute:: ProjectSectionScript.formatted_version
+
+   .. container:: inherited
+
+      .. autoattribute:: ProjectSectionScript.program_name

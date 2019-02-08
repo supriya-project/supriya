@@ -1,207 +1,380 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Supriya by Pulgama</title>
-
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>Supriya</h1>
-        <p>A Python interface to SuperCollider</p>
-
-        <p class="view"><a href="https://github.com/Pulgama/supriya">View the Project on GitHub <small>Pulgama/supriya</small></a></p>
 
 
-        <ul>
-          <li><a href="https://github.com/Pulgama/supriya/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/Pulgama/supriya/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/Pulgama/supriya">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h1>
-<a name="supriya" class="anchor" href="#supriya"><span class="octicon octicon-link"></span></a>supriya</h1>
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Supriya (0.2.0) &mdash; Supriya 0.2.0 documentation</title>
+  
 
-<p>A Python interface to SuperCollider.</p>
+  
+  
+  
+  
 
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="installation.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">Supriya API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Supriya (0.2.0)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="supriya-release">
+<span id="index"></span><h1>Supriya (0.2.0)<a class="headerlink" href="#supriya-release" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://github.com/josiah-wolf-oberholtzer/supriya">GitHub</a> |
+<a class="reference external" href="https://pypi.python.org/pypi">PyPI</a> |
+<a class="reference external" href="http://supriya.mbrsi.org/">Documentation</a> |
+<a class="reference external" href="https://github.com/josiah-wolf-oberholtzer/supriya/issues">Issue Tracker</a> |
+<a class="reference external" href="http://groups.google.com/group/supriya-dev">Mailing list</a> |</p>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/josiah-wolf-oberholtzer/supriya">Supriya</a> is a <a class="reference external" href="https://www.python.org/">Python</a> interface to <a class="reference external" href="http://supercollider.github.io/">SuperCollider</a>.</p>
 <p>Supriya lets you:</p>
-
-<ul>
-<li>  boot and communicate with SuperCollider's <code>scsynth</code> synthesis server</li>
-<li>  construct and compile <code>SynthDef</code> unit generator graphs in native Python code</li>
-<li>  build and control graphs of synthesizers and synthesizer groups</li>
-<li>  object-model <code>scysnth</code> OSC communications explicitly via <code>Request</code> and
-<code>Response</code> classes</li>
-<li>  schedule synthesizer events and patterns</li>
+<ul class="simple">
+<li>boot and communicate with <a class="reference external" href="http://supercollider.github.io/">SuperCollider</a>’s <code class="docutils literal notranslate"><span class="pre">scsynth</span></code> synthesis server</li>
+<li>construct and compile <code class="docutils literal notranslate"><span class="pre">SynthDef</span></code> unit generator graphs in native Python code</li>
+<li>build and control graphs of synthesizers and synthesizer groups</li>
+<li>object-model <code class="docutils literal notranslate"><span class="pre">scysnth</span></code> OSC communications explicitly via <code class="docutils literal notranslate"><span class="pre">Request</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Response</span></code> classes</li>
+<li>compile non-realtime synthesis scores via Supriya’s
+<code class="docutils literal notranslate"><span class="pre">nonrealtimetools.Session</span></code> class</li>
 </ul>
-
-<p>Documentation is available at <a href="http://supriya.readthedocs.org/en/latest/">http://supriya.readthedocs.org/en/latest/</a>.</p>
-
-<p>Please note: this project is still under <strong>heavy</strong> development, is <strong>not</strong> yet
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This project is still under <strong>heavy</strong> development, is <strong>not</strong> yet
 stable, and is <strong>not</strong> yet intended for deployment in the field.</p>
-
-<p>Send compliments or complaints to <a href="mailto:josiah.oberholtzer@gmail.com">josiah.oberholtzer@gmail.com</a>, or register
-an issue at <a href="https://github.com/Pulgama/supriya/issues">https://github.com/Pulgama/supriya/issues</a>.</p>
-
-<p>Compatible with Python 2.7, 3.3 and 3.4.</p>
-
-<p>Basta.</p>
-
-<p><img src="images/graph.png" alt="SynthDef Graph"></p>
-
-<h2>
-<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
-
-<p>To install, simply clone <strong>supriya</strong> and run the included <code>setup.py</code>:</p>
-
-<pre><code>~$ git clone https://github.com/Pulgama/supriya.git
+</div>
+<p>Send compliments or complaints to <a class="reference external" href="mailto:josiah&#46;oberholtzer&#37;&#52;&#48;gmail&#46;com">josiah<span>&#46;</span>oberholtzer<span>&#64;</span>gmail<span>&#46;</span>com</a>, or register
+an issue at <a class="reference external" href="https://github.com/josiah-wolf-oberholtzer/supriya/issues">https://github.com/josiah-wolf-oberholtzer/supriya/issues</a>.</p>
+<p>Supriya is compatible with Python 3.3+ only.</p>
+<img alt="_images/graph.png" class="align-center" src="_images/graph.png" />
+</div>
+<div class="section" id="quickstart">
+<h2>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="get-supriya-and-supercollider">
+<h3>1. Get Supriya and SuperCollider<a class="headerlink" href="#get-supriya-and-supercollider" title="Permalink to this headline">¶</a></h3>
+<p>Get Supriya from <a class="reference external" href="https://github.com/josiah-wolf-oberholtzer/supriya">GitHub</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>~$ git clone https://github.com/josiah-wolf-oberholtzer/supriya.git
 ~$ cd supriya
-supriya$ sudo python setup.py install
-</code></pre>
-
-<p>To run the test suite:</p>
-
-<pre><code>supriya$ tox 
-</code></pre>
-
-<h2>
-<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h2>
-
-<p>Make sure that SuperCollider is installed, and that <code>scsynth</code> is available from
-the command-line. <strong>supriya</strong> targets SuperCollider 3.6.5 and above, although
-it may work with earlier versions as well.</p>
-
-<pre><code>~$ scsynth -h
-supercollider_synth  options:
-...
-</code></pre>
-
-<p>SuperCollider may be found at <a href="http://supercollider.sourceforge.net/">http://supercollider.sourceforge.net/</a> for all
-platforms. Alternatively, many Linux distributions will allow you to install
-SuperCollider via their package manager.</p>
-
-<p><strong>supriya</strong> has the following Python dependencies for all Python versions:</p>
-
+supriya$ sudo pip install -e .
+</pre></div>
+</div>
+<p>Get <a class="reference external" href="http://supercollider.github.io/">SuperCollider</a> from <a class="reference external" href="http://supercollider.github.io/">http://supercollider.github.io/</a>.</p>
+<p>Run the tests to make sure everything’s OK:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>supriya$ pytest
+</pre></div>
+</div>
+<p>Consult our installation instructions for detailed help on getting Supriya,
+setting it up, and installing any additional dependencies like <a class="reference external" href="http://graphviz.org/">Graphviz</a>.</p>
+<div class="toctree-wrapper compound">
 <ul>
-<li><code>abjad</code></li>
-<li><code>numpy</code></li>
-<li><code>pexpect</code></li>
-<li><code>pytest</code></li>
-<li><code>rtmidi-python</code></li>
-<li><code>sphinx_rtd_theme</code></li>
-<li><code>sphinx</code></li>
-<li><code>tox</code></li>
-<li><code>wavefile</code></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#install-supriya">Install Supriya</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#install-optional-dependencies">Install Optional Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#virtual-environments">Virtual environments</a></li>
 </ul>
-
-<p>Additionally, <strong>supriya</strong> requires <code>funcsigs</code> with Python 2.7, and <code>enum34</code> for
-both Python 2.7 and Python 3.3.</p>
-
-<p><code>python-wavefile</code> requires that <code>libsndfile</code> be installed. Source for
-<code>libsndfile</code> for OSX platforms may be found at
-<a href="http://www.mega-nerd.com/libsndfile/#Download">http://www.mega-nerd.com/libsndfile/#Download</a>.</p>
-
-<p>When installed via the included <code>setup.py</code> file (<code>sudo python setup.py
-install</code>) all of the above dependencies will be installed automatically.</p>
-
-<p><strong>supriya</strong> has not been tested with Python 3.x versions earlier than 3.3.</p>
-
-<h2>
-<a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example</h2>
-
-<p>Import packages from <strong>supriya</strong>:</p>
-
-<pre><code>&gt;&gt;&gt; from supriya import servertools
-&gt;&gt;&gt; from supriya import synthdeftools
-&gt;&gt;&gt; from supriya import ugentools
-</code></pre>
-
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="make-some-noise">
+<h3>2. Make some noise<a class="headerlink" href="#make-some-noise" title="Permalink to this headline">¶</a></h3>
+<p>Start your Python interpreter and import Supriya:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supriya</span> <span class="k">import</span> <span class="o">*</span>
+</pre></div>
+</div>
 <p>Boot the SuperCollider server:</p>
-
-<pre><code>&gt;&gt;&gt; server = servertools.Server()
-&gt;&gt;&gt; server.boot()
-&lt;Server: udp://127.0.0.1:57751, 8i8o&gt;
-</code></pre>
-
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">servertools</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="go">&lt;Server: udp://127.0.0.1:57751, 8i8o&gt;</span>
+</pre></div>
+</div>
 <p>Create and allocate a group:</p>
-
-<pre><code>&gt;&gt;&gt; group = servertools.Group().allocate()
-</code></pre>
-
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">group</span> <span class="o">=</span> <span class="n">servertools</span><span class="o">.</span><span class="n">Group</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+</pre></div>
+</div>
 <p>Make a synthesizer definition and send it to the server:</p>
-
-<pre><code>&gt;&gt;&gt; synthdef_builder = synthdeftools.SynthDefBuilder(
-...     amplitude=0.0,
-...     frequency=440.0,
-...     )
-&gt;&gt;&gt; sin_osc = ugentools.SinOsc.ar(
-...     frequency=synthdef_builder['frequency'],
-...     )
-&gt;&gt;&gt; sin_osc *= synthdef_builder['amplitude']
-&gt;&gt;&gt; out = ugentools.Out.ar(
-...     bus=(0, 1),
-...     source=sin_osc,
-...     )
-&gt;&gt;&gt; synthdef_builder.add_ugen(out)
-&gt;&gt;&gt; synthdef = synthdef_builder.build().allocate(sync=True)
-</code></pre>
-
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">builder</span> <span class="o">=</span> <span class="n">synthdeftools</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">amplitude</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">frequency</span><span class="o">=</span><span class="mf">440.0</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">gate</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">builder</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">source</span> <span class="o">=</span> <span class="n">ugentools</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">frequency</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s1">&#39;frequency&#39;</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">)</span>
+<span class="gp">... </span>    <span class="n">envelope</span> <span class="o">=</span> <span class="n">ugentools</span><span class="o">.</span><span class="n">EnvGen</span><span class="o">.</span><span class="n">kr</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">done_action</span><span class="o">=</span><span class="n">synthdeftools</span><span class="o">.</span><span class="n">DoneAction</span><span class="o">.</span><span class="n">FREE_SYNTH</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="n">envelope</span><span class="o">=</span><span class="n">synthdeftools</span><span class="o">.</span><span class="n">Envelope</span><span class="o">.</span><span class="n">asr</span><span class="p">(),</span>
+<span class="gp">... </span>        <span class="n">gate</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s1">&#39;gate&#39;</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">)</span>
+<span class="gp">... </span>    <span class="n">source</span> <span class="o">=</span> <span class="n">source</span> <span class="o">*</span> <span class="n">builder</span><span class="p">[</span><span class="s1">&#39;amplitude&#39;</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="n">source</span> <span class="o">=</span> <span class="n">source</span> <span class="o">*</span> <span class="n">envelope</span>
+<span class="gp">... </span>    <span class="n">out</span> <span class="o">=</span> <span class="n">ugentools</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
+<span class="gp">... </span>        <span class="n">bus</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="p">)</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+</pre></div>
+</div>
 <p>Synchronize with the server:</p>
-
-<pre><code>&gt;&gt;&gt; server.sync()
-&lt;Server: udp://127.0.0.1:57751, 8i8o&gt;
-</code></pre>
-
-<p>Create a synthesizer with the previously defined synthesizer definition, and
-allocate it on the server as a child of the previously created group:</p>
-
-<pre><code>&gt;&gt;&gt; synth = servertools.Synth(synthdef)
-&gt;&gt;&gt; synth.allocate(target_node=group)
-&lt;Synth: 1001&gt;
-</code></pre>
-
-<p>Query the server's node tree:</p>
-
-<pre><code>&gt;&gt;&gt; response = server.query_remote_nodes(include_controls=True)
-&gt;&gt;&gt; print(response)
-NODE TREE 0 group
-    1 group
-        1000 group
-            1001 f1c3ea5063065be20688f82b415c1108
-                amplitude: 0.0, frequency: 440.0
-</code></pre>
-
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
+<span class="go">&lt;Server: udp://127.0.0.1:57751, 8i8o&gt;</span>
+</pre></div>
+</div>
+<p>Create a synthesizer with the previously defined synthesizer definition:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span> <span class="o">=</span> <span class="n">servertools</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span>
+<span class="go">&lt;Synth: ???&gt;</span>
+</pre></div>
+</div>
+<p>Allocate it on the server as a child of the previously created group:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">group</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">synth</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span>
+<span class="go">&lt;Synth: 1001&gt;</span>
+</pre></div>
+</div>
+<p>Query the server’s node tree:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">response</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">query_remote_nodes</span><span class="p">(</span><span class="n">include_controls</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="go">NODE TREE 0 group</span>
+<span class="go">    1 group</span>
+<span class="go">        1000 group</span>
+<span class="go">            1001 f1c3ea5063065be20688f82b415c1108</span>
+<span class="go">                amplitude: 0.0, frequency: 440.0</span>
+</pre></div>
+</div>
+<p>Bind a MIDI controller to the synth’s controls:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">korg</span> <span class="o">=</span> <span class="n">miditools</span><span class="o">.</span><span class="n">Device</span><span class="p">(</span><span class="s1">&#39;NanoKontrol2&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">korg</span><span class="o">.</span><span class="n">open_port</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="n">korg</span><span class="p">[</span><span class="s1">&#39;fader_1&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">target</span> <span class="o">=</span> <span class="n">synth</span><span class="o">.</span><span class="n">controls</span><span class="p">[</span><span class="s1">&#39;frequency&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bind</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">range_</span><span class="o">=</span><span class="n">Range</span><span class="p">(</span><span class="mi">110</span><span class="p">,</span> <span class="mi">880</span><span class="p">),</span> <span class="n">exponent</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+<span class="go">Binding()</span>
+</pre></div>
+</div>
+<p>Release the synth:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+</pre></div>
+</div>
 <p>Quit the server:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+<span class="go">&lt;Server: offline&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="supriya-api">
+<h2>Supriya API<a class="headerlink" href="#supriya-api" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">Supriya API</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
 
-<pre><code>&gt;&gt;&gt; server.quit()
-&lt;Server: offline&gt;
-</code></pre>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/Pulgama">Pulgama</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
     </div>
-    <script src="javascripts/scale.fix.js"></script>
-              <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            try {
-              var pageTracker = _gat._getTracker("UA-56256911-2");
-            pageTracker._trackPageview();
-            } catch(err) {}
-          </script>
+  
 
-  </body>
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
 </html>

@@ -1,0 +1,363 @@
+.. _supriya--ugens--Dstutter:
+
+Dstutter
+========
+
+.. automodule:: supriya.ugens.Dstutter
+
+.. currentmodule:: supriya.ugens.Dstutter
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Dstutter
+
+.. autoclass:: Dstutter
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      n
+      new
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.clip
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.distort
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.floor
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.lag
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.log
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.log10
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.log2
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.power
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.range
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.scale
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.sign
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.squared
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.sum
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Dstutter.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Dstutter.new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Dstutter.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Dstutter.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Dstutter.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Dstutter.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Dstutter.is_output_ugen
+
+   .. autoattribute:: Dstutter.n
+
+   .. container:: inherited
+
+      .. autoattribute:: Dstutter.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Dstutter.signal_range
+
+   .. autoattribute:: Dstutter.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Dstutter.special_index

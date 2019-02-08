@@ -1,0 +1,366 @@
+.. _supriya--ugens--LPF:
+
+LPF
+===
+
+.. automodule:: supriya.ugens.LPF
+
+.. currentmodule:: supriya.ugens.LPF
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.LPF
+
+.. autoclass:: LPF
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      frequency
+      kr
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: LPF.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: LPF.__add__
+
+   .. container:: inherited
+
+      .. automethod:: LPF.__div__
+
+   .. container:: inherited
+
+      .. automethod:: LPF.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: LPF.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: LPF.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: LPF.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: LPF.__le__
+
+   .. container:: inherited
+
+      .. automethod:: LPF.__len__
+
+   .. container:: inherited
+
+      .. automethod:: LPF.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: LPF.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: LPF.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: LPF.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: LPF.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: LPF.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: LPF.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: LPF.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: LPF.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: LPF.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: LPF.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: LPF.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: LPF.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: LPF.__str__
+
+   .. container:: inherited
+
+      .. automethod:: LPF.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: LPF.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: LPF.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: LPF.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: LPF.as_int
+
+   .. container:: inherited
+
+      .. automethod:: LPF.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: LPF.clip
+
+   .. container:: inherited
+
+      .. automethod:: LPF.cubed
+
+   .. container:: inherited
+
+      .. automethod:: LPF.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: LPF.distort
+
+   .. container:: inherited
+
+      .. automethod:: LPF.exponential
+
+   .. container:: inherited
+
+      .. automethod:: LPF.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: LPF.floor
+
+   .. container:: inherited
+
+      .. automethod:: LPF.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: LPF.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: LPF.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: LPF.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: LPF.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: LPF.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: LPF.lag
+
+   .. container:: inherited
+
+      .. automethod:: LPF.log
+
+   .. container:: inherited
+
+      .. automethod:: LPF.log10
+
+   .. container:: inherited
+
+      .. automethod:: LPF.log2
+
+   .. container:: inherited
+
+      .. automethod:: LPF.maximum
+
+   .. container:: inherited
+
+      .. automethod:: LPF.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: LPF.minimum
+
+   .. container:: inherited
+
+      .. automethod:: LPF.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: LPF.power
+
+   .. container:: inherited
+
+      .. automethod:: LPF.range
+
+   .. container:: inherited
+
+      .. automethod:: LPF.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: LPF.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: LPF.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: LPF.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: LPF.scale
+
+   .. container:: inherited
+
+      .. automethod:: LPF.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: LPF.sign
+
+   .. container:: inherited
+
+      .. automethod:: LPF.softclip
+
+   .. container:: inherited
+
+      .. automethod:: LPF.square_root
+
+   .. container:: inherited
+
+      .. automethod:: LPF.squared
+
+   .. container:: inherited
+
+      .. automethod:: LPF.sum
+
+   .. container:: inherited
+
+      .. automethod:: LPF.tanh
+
+   .. container:: inherited
+
+      .. automethod:: LPF.transpose
+
+   .. container:: inherited
+
+      .. automethod:: LPF.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: LPF.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: LPF.ar
+
+   .. automethod:: LPF.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: LPF.calculation_rate
+
+   .. autoattribute:: LPF.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: LPF.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: LPF.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: LPF.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: LPF.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: LPF.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: LPF.signal_range
+
+   .. autoattribute:: LPF.source
+
+   .. container:: inherited
+
+      .. autoattribute:: LPF.special_index

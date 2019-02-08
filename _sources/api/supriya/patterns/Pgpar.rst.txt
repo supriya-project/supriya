@@ -1,0 +1,149 @@
+.. _supriya--patterns--Pgpar:
+
+Pgpar
+=====
+
+.. automodule:: supriya.patterns.Pgpar
+
+.. currentmodule:: supriya.patterns.Pgpar
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.patterns.Pgpar
+
+.. autoclass:: Pgpar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      release_time
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pgpar.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Pgpar.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: Pgpar.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Pgpar.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: Pgpar.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: Pgpar.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: Pgpar.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Pgpar.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Pgpar.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Pgpar.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Pgpar.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Pgpar.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Pgpar.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Pgpar.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Pgpar.__sub__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pgpar.play
+
+   .. container:: inherited
+
+      .. automethod:: Pgpar.with_bus
+
+   .. container:: inherited
+
+      .. automethod:: Pgpar.with_effect
+
+   .. container:: inherited
+
+      .. automethod:: Pgpar.with_group
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pgpar.from_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Pgpar.arity
+
+   .. container:: inherited
+
+      .. autoattribute:: Pgpar.is_infinite
+
+   .. container:: inherited
+
+      .. autoattribute:: Pgpar.patterns
+
+   .. autoattribute:: Pgpar.release_time

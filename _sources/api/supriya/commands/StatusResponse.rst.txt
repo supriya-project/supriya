@@ -1,0 +1,104 @@
+.. _supriya--commands--StatusResponse:
+
+StatusResponse
+==============
+
+.. automodule:: supriya.commands.StatusResponse
+
+.. currentmodule:: supriya.commands.StatusResponse
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.StatusResponse
+
+.. autoclass:: StatusResponse
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      actual_sample_rate
+      average_cpu_usage
+      from_osc_message
+      group_count
+      peak_cpu_usage
+      synth_count
+      synthdef_count
+      target_sample_rate
+      to_dict
+      ugen_count
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: StatusResponse.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: StatusResponse.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: StatusResponse.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: StatusResponse.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: StatusResponse.to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: StatusResponse.from_osc_message
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: StatusResponse.actual_sample_rate
+
+   .. autoattribute:: StatusResponse.average_cpu_usage
+
+   .. autoattribute:: StatusResponse.group_count
+
+   .. container:: inherited
+
+      .. autoattribute:: StatusResponse.osc_message
+
+   .. autoattribute:: StatusResponse.peak_cpu_usage
+
+   .. autoattribute:: StatusResponse.synth_count
+
+   .. autoattribute:: StatusResponse.synthdef_count
+
+   .. autoattribute:: StatusResponse.target_sample_rate
+
+   .. autoattribute:: StatusResponse.ugen_count

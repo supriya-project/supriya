@@ -1,0 +1,378 @@
+.. _supriya--ugens--FFT:
+
+FFT
+===
+
+.. automodule:: supriya.ugens.FFT
+
+.. currentmodule:: supriya.ugens.FFT
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.FFT
+
+.. autoclass:: FFT
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      active
+      buffer_id
+      fft_size
+      hop
+      new
+      source
+      window_size
+      window_type
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: FFT.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: FFT.__add__
+
+   .. container:: inherited
+
+      .. automethod:: FFT.__div__
+
+   .. container:: inherited
+
+      .. automethod:: FFT.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: FFT.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: FFT.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: FFT.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: FFT.__le__
+
+   .. container:: inherited
+
+      .. automethod:: FFT.__len__
+
+   .. container:: inherited
+
+      .. automethod:: FFT.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: FFT.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: FFT.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: FFT.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: FFT.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: FFT.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: FFT.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: FFT.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: FFT.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: FFT.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: FFT.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: FFT.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: FFT.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: FFT.__str__
+
+   .. container:: inherited
+
+      .. automethod:: FFT.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: FFT.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: FFT.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: FFT.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: FFT.as_int
+
+   .. container:: inherited
+
+      .. automethod:: FFT.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: FFT.clip
+
+   .. container:: inherited
+
+      .. automethod:: FFT.cubed
+
+   .. container:: inherited
+
+      .. automethod:: FFT.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: FFT.distort
+
+   .. container:: inherited
+
+      .. automethod:: FFT.exponential
+
+   .. container:: inherited
+
+      .. automethod:: FFT.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: FFT.floor
+
+   .. container:: inherited
+
+      .. automethod:: FFT.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: FFT.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: FFT.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: FFT.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: FFT.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: FFT.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: FFT.lag
+
+   .. container:: inherited
+
+      .. automethod:: FFT.log
+
+   .. container:: inherited
+
+      .. automethod:: FFT.log10
+
+   .. container:: inherited
+
+      .. automethod:: FFT.log2
+
+   .. container:: inherited
+
+      .. automethod:: FFT.maximum
+
+   .. container:: inherited
+
+      .. automethod:: FFT.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: FFT.minimum
+
+   .. container:: inherited
+
+      .. automethod:: FFT.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: FFT.power
+
+   .. container:: inherited
+
+      .. automethod:: FFT.range
+
+   .. container:: inherited
+
+      .. automethod:: FFT.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: FFT.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: FFT.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: FFT.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: FFT.scale
+
+   .. container:: inherited
+
+      .. automethod:: FFT.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: FFT.sign
+
+   .. container:: inherited
+
+      .. automethod:: FFT.softclip
+
+   .. container:: inherited
+
+      .. automethod:: FFT.square_root
+
+   .. container:: inherited
+
+      .. automethod:: FFT.squared
+
+   .. container:: inherited
+
+      .. automethod:: FFT.sum
+
+   .. container:: inherited
+
+      .. automethod:: FFT.tanh
+
+   .. container:: inherited
+
+      .. automethod:: FFT.transpose
+
+   .. container:: inherited
+
+      .. automethod:: FFT.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: FFT.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: FFT.new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: FFT.active
+
+   .. autoattribute:: FFT.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: FFT.calculation_rate
+
+   .. autoattribute:: FFT.fft_size
+
+   .. container:: inherited
+
+      .. autoattribute:: FFT.has_done_flag
+
+   .. autoattribute:: FFT.hop
+
+   .. container:: inherited
+
+      .. autoattribute:: FFT.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: FFT.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: FFT.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: FFT.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: FFT.signal_range
+
+   .. autoattribute:: FFT.source
+
+   .. container:: inherited
+
+      .. autoattribute:: FFT.special_index
+
+   .. autoattribute:: FFT.window_size
+
+   .. autoattribute:: FFT.window_type

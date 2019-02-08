@@ -1,0 +1,95 @@
+.. _supriya--commands--SynthDefFreeAllRequest:
+
+SynthDefFreeAllRequest
+======================
+
+.. automodule:: supriya.commands.SynthDefFreeAllRequest
+
+.. currentmodule:: supriya.commands.SynthDefFreeAllRequest
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.SynthDefFreeAllRequest
+
+.. autoclass:: SynthDefFreeAllRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      request_id
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefFreeAllRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefFreeAllRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefFreeAllRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefFreeAllRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefFreeAllRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefFreeAllRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefFreeAllRequest.to_list
+
+   .. automethod:: SynthDefFreeAllRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthDefFreeAllRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthDefFreeAllRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthDefFreeAllRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthDefFreeAllRequest.response_patterns

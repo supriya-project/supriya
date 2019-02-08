@@ -1,0 +1,123 @@
+.. _supriya--patterns--Pseed:
+
+Pseed
+=====
+
+.. automodule:: supriya.patterns.Pseed
+
+.. currentmodule:: supriya.patterns.Pseed
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.patterns.Pseed
+
+.. autoclass:: Pseed
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      arity
+      is_infinite
+      pattern
+      seed
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pseed.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Pseed.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: Pseed.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Pseed.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: Pseed.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: Pseed.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: Pseed.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Pseed.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Pseed.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Pseed.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Pseed.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Pseed.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Pseed.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Pseed.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Pseed.__sub__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pseed.from_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Pseed.arity
+
+   .. autoattribute:: Pseed.is_infinite
+
+   .. autoattribute:: Pseed.pattern
+
+   .. autoattribute:: Pseed.seed

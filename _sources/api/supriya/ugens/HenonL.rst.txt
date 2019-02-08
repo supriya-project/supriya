@@ -1,0 +1,372 @@
+.. _supriya--ugens--HenonL:
+
+HenonL
+======
+
+.. automodule:: supriya.ugens.HenonL
+
+.. currentmodule:: supriya.ugens.HenonL
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.HenonL
+
+.. autoclass:: HenonL
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      a
+      ar
+      b
+      frequency
+      x_0
+      x_1
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.__add__
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.__div__
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.__le__
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.__len__
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.__str__
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.as_int
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.clip
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.cubed
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.distort
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.exponential
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.floor
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.lag
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.log
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.log10
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.log2
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.maximum
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.minimum
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.power
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.range
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.scale
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.sign
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.softclip
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.square_root
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.squared
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.sum
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.tanh
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.transpose
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: HenonL.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: HenonL.ar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: HenonL.a
+
+   .. autoattribute:: HenonL.b
+
+   .. container:: inherited
+
+      .. autoattribute:: HenonL.calculation_rate
+
+   .. autoattribute:: HenonL.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: HenonL.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: HenonL.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: HenonL.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: HenonL.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: HenonL.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: HenonL.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: HenonL.special_index
+
+   .. autoattribute:: HenonL.x_0
+
+   .. autoattribute:: HenonL.x_1

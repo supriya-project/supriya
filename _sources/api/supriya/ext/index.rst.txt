@@ -1,0 +1,30 @@
+.. _supriya--ext:
+
+ext
+===
+
+.. automodule:: supriya.ext
+
+.. currentmodule:: supriya.ext
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ext
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Subpackages
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   ipython
+
+.. autosummary::
+   :nosignatures:
+
+   ipython

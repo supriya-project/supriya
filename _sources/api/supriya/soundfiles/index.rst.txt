@@ -1,0 +1,55 @@
+.. _supriya--soundfiles:
+
+soundfiles
+==========
+
+.. automodule:: supriya.soundfiles
+
+.. currentmodule:: supriya.soundfiles
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.soundfiles
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   Frame
+   Say
+   Signal
+   SoundFile
+
+.. autosummary::
+   :nosignatures:
+
+   ~Frame.Frame
+   ~Say.Say
+   ~Signal.Signal
+   ~SoundFile.SoundFile
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Enumerations
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   HeaderFormat
+   SampleFormat
+
+.. autosummary::
+   :nosignatures:
+
+   ~HeaderFormat.HeaderFormat
+   ~SampleFormat.SampleFormat

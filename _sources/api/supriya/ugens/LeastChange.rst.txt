@@ -1,0 +1,366 @@
+.. _supriya--ugens--LeastChange:
+
+LeastChange
+===========
+
+.. automodule:: supriya.ugens.LeastChange
+
+.. currentmodule:: supriya.ugens.LeastChange
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.LeastChange
+
+.. autoclass:: LeastChange
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      a
+      ar
+      b
+      kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__add__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__div__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__le__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__len__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__str__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.as_int
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.clip
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.cubed
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.distort
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.exponential
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.floor
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.lag
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.log
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.log10
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.log2
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.maximum
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.minimum
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.power
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.range
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.scale
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.sign
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.softclip
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.square_root
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.squared
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.sum
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.tanh
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.transpose
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: LeastChange.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: LeastChange.ar
+
+   .. automethod:: LeastChange.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: LeastChange.a
+
+   .. autoattribute:: LeastChange.b
+
+   .. container:: inherited
+
+      .. autoattribute:: LeastChange.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: LeastChange.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: LeastChange.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: LeastChange.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: LeastChange.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: LeastChange.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: LeastChange.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: LeastChange.special_index

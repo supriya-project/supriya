@@ -1,0 +1,97 @@
+.. _supriya--commands--BufferQueryRequest:
+
+BufferQueryRequest
+==================
+
+.. automodule:: supriya.commands.BufferQueryRequest
+
+.. currentmodule:: supriya.commands.BufferQueryRequest
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.BufferQueryRequest
+
+.. autoclass:: BufferQueryRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      buffer_ids
+      request_id
+      response_patterns
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferQueryRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferQueryRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: BufferQueryRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferQueryRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferQueryRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: BufferQueryRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: BufferQueryRequest.to_list
+
+   .. automethod:: BufferQueryRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferQueryRequest.buffer_ids
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferQueryRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferQueryRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferQueryRequest.response
+
+   .. autoattribute:: BufferQueryRequest.response_patterns

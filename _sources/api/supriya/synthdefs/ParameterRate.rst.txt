@@ -1,0 +1,32 @@
+.. _supriya--synthdefs--ParameterRate:
+
+ParameterRate
+=============
+
+.. automodule:: supriya.synthdefs.ParameterRate
+
+.. currentmodule:: supriya.synthdefs.ParameterRate
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.synthdefs.ParameterRate
+
+.. autoclass:: ParameterRate
+   :members:
+   :undoc-members:
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      AUDIO
+      CONTROL
+      SCALAR
+      TRIGGER

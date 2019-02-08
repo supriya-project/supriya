@@ -1,0 +1,336 @@
+.. _supriya--ugens--BufInfoUGenBase:
+
+BufInfoUGenBase
+===============
+
+.. automodule:: supriya.ugens.BufInfoUGenBase
+
+.. currentmodule:: supriya.ugens.BufInfoUGenBase
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.BufInfoUGenBase
+
+.. autoclass:: BufInfoUGenBase
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.__add__
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.__div__
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.__le__
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.__len__
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.__str__
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.as_int
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.clip
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.cubed
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.distort
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.exponential
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.floor
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.lag
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.log
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.log10
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.log2
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.maximum
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.minimum
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.power
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.range
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.scale
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.sign
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.softclip
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.square_root
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.squared
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.sum
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.tanh
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.transpose
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BufInfoUGenBase.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: BufInfoUGenBase.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: BufInfoUGenBase.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: BufInfoUGenBase.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BufInfoUGenBase.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BufInfoUGenBase.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BufInfoUGenBase.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BufInfoUGenBase.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: BufInfoUGenBase.special_index

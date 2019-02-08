@@ -1,0 +1,369 @@
+.. _supriya--ugens--BHiShelf:
+
+BHiShelf
+========
+
+.. automodule:: supriya.ugens.BHiShelf
+
+.. currentmodule:: supriya.ugens.BHiShelf
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.BHiShelf
+
+.. autoclass:: BHiShelf
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      frequency
+      gain
+      reciprocal_of_s
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.__add__
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.__div__
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.__le__
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.__len__
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.__str__
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.as_int
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.clip
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.cubed
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.distort
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.exponential
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.floor
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.lag
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.log
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.log10
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.log2
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.maximum
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.minimum
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.power
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.range
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.scale
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.sign
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.softclip
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.square_root
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.squared
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.sum
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.tanh
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.transpose
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BHiShelf.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: BHiShelf.ar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: BHiShelf.calculation_rate
+
+   .. autoattribute:: BHiShelf.frequency
+
+   .. autoattribute:: BHiShelf.gain
+
+   .. container:: inherited
+
+      .. autoattribute:: BHiShelf.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: BHiShelf.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BHiShelf.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BHiShelf.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BHiShelf.outputs
+
+   .. autoattribute:: BHiShelf.reciprocal_of_s
+
+   .. container:: inherited
+
+      .. autoattribute:: BHiShelf.signal_range
+
+   .. autoattribute:: BHiShelf.source
+
+   .. container:: inherited
+
+      .. autoattribute:: BHiShelf.special_index

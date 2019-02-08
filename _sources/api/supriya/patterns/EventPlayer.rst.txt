@@ -1,0 +1,50 @@
+.. _supriya--patterns--EventPlayer:
+
+EventPlayer
+===========
+
+.. automodule:: supriya.patterns.EventPlayer
+
+.. currentmodule:: supriya.patterns.EventPlayer
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.patterns.EventPlayer
+
+.. autoclass:: EventPlayer
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      event_template
+      pattern
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: EventPlayer.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: EventPlayer.event_template
+
+   .. autoattribute:: EventPlayer.pattern

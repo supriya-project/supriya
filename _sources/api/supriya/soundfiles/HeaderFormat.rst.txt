@@ -1,0 +1,33 @@
+.. _supriya--soundfiles--HeaderFormat:
+
+HeaderFormat
+============
+
+.. automodule:: supriya.soundfiles.HeaderFormat
+
+.. currentmodule:: supriya.soundfiles.HeaderFormat
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.soundfiles.HeaderFormat
+
+.. autoclass:: HeaderFormat
+   :members:
+   :undoc-members:
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      AIFF
+      IRCAM
+      NEXT
+      RAW
+      WAV

@@ -1,0 +1,95 @@
+.. _supriya--commands--SynthNoidRequest:
+
+SynthNoidRequest
+================
+
+.. automodule:: supriya.commands.SynthNoidRequest
+
+.. currentmodule:: supriya.commands.SynthNoidRequest
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.SynthNoidRequest
+
+.. autoclass:: SynthNoidRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      request_id
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SynthNoidRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: SynthNoidRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: SynthNoidRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: SynthNoidRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SynthNoidRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: SynthNoidRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: SynthNoidRequest.to_list
+
+   .. automethod:: SynthNoidRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthNoidRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthNoidRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthNoidRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthNoidRequest.response_patterns

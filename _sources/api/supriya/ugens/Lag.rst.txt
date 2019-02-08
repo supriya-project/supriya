@@ -1,0 +1,366 @@
+.. _supriya--ugens--Lag:
+
+Lag
+===
+
+.. automodule:: supriya.ugens.Lag
+
+.. currentmodule:: supriya.ugens.Lag
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Lag
+
+.. autoclass:: Lag
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      lag_time
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Lag.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Lag.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Lag.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Lag.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Lag.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Lag.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Lag.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Lag.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Lag.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Lag.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Lag.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Lag.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Lag.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Lag.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Lag.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Lag.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Lag.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Lag.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Lag.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Lag.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Lag.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Lag.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Lag.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Lag.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Lag.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Lag.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Lag.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Lag.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Lag.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Lag.clip
+
+   .. container:: inherited
+
+      .. automethod:: Lag.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Lag.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Lag.distort
+
+   .. container:: inherited
+
+      .. automethod:: Lag.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Lag.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Lag.floor
+
+   .. container:: inherited
+
+      .. automethod:: Lag.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Lag.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Lag.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Lag.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Lag.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Lag.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Lag.lag
+
+   .. container:: inherited
+
+      .. automethod:: Lag.log
+
+   .. container:: inherited
+
+      .. automethod:: Lag.log10
+
+   .. container:: inherited
+
+      .. automethod:: Lag.log2
+
+   .. container:: inherited
+
+      .. automethod:: Lag.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Lag.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Lag.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Lag.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Lag.power
+
+   .. container:: inherited
+
+      .. automethod:: Lag.range
+
+   .. container:: inherited
+
+      .. automethod:: Lag.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Lag.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Lag.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Lag.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Lag.scale
+
+   .. container:: inherited
+
+      .. automethod:: Lag.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Lag.sign
+
+   .. container:: inherited
+
+      .. automethod:: Lag.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Lag.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Lag.squared
+
+   .. container:: inherited
+
+      .. automethod:: Lag.sum
+
+   .. container:: inherited
+
+      .. automethod:: Lag.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Lag.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Lag.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Lag.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Lag.ar
+
+   .. automethod:: Lag.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Lag.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Lag.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Lag.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Lag.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Lag.is_output_ugen
+
+   .. autoattribute:: Lag.lag_time
+
+   .. container:: inherited
+
+      .. autoattribute:: Lag.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Lag.signal_range
+
+   .. autoattribute:: Lag.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Lag.special_index

@@ -1,0 +1,95 @@
+.. _supriya--commands--ErrorRequest:
+
+ErrorRequest
+============
+
+.. automodule:: supriya.commands.ErrorRequest
+
+.. currentmodule:: supriya.commands.ErrorRequest
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.ErrorRequest
+
+.. autoclass:: ErrorRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      request_id
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ErrorRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: ErrorRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: ErrorRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: ErrorRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ErrorRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: ErrorRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: ErrorRequest.to_list
+
+   .. automethod:: ErrorRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: ErrorRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: ErrorRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: ErrorRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: ErrorRequest.response_patterns

@@ -1,0 +1,530 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nonrealtime &mdash; Supriya 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="SessionFactory" href="SessionFactory.html" />
+    <link rel="prev" title="LogicalControlMode" href="../midi/LogicalControlMode.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Supriya API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../cli/index.html">cli</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../live/index.html">live</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">nonrealtime</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="SessionFactory.html">SessionFactory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Session.html">Session</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DoNotPropagate.html">DoNotPropagate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NodeAction.html">NodeAction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SessionObject.html">SessionObject</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SessionRenderer.html">SessionRenderer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="State.html">State</a></li>
+<li class="toctree-l4"><a class="reference internal" href="AudioInputBusGroup.html">AudioInputBusGroup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="AudioOutputBusGroup.html">AudioOutputBusGroup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Buffer.html">Buffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BufferGroup.html">BufferGroup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Bus.html">Bus</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BusGroup.html">BusGroup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Group.html">Group</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Moment.html">Moment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Node.html">Node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="RootNode.html">RootNode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Synth.html">Synth</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../soundfiles/index.html">soundfiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../system/index.html">system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Supriya API</a> &raquo;</li>
+        
+          <li><a href="../index.html">supriya</a> &raquo;</li>
+        
+      <li>nonrealtime</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/supriya/nonrealtime/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-supriya.nonrealtime">
+<span id="nonrealtime"></span><span id="supriya-nonrealtime"></span><h1>nonrealtime<a class="headerlink" href="#module-supriya.nonrealtime" title="Permalink to this headline">¶</a></h1>
+<p>Tools for working in non-realtime.</p>
+<div class="svg-container docutils container">
+<div class="graphviz"><object data="../../../_images/inheritance-afc8b07aef351f3393ddef986c39a0a360216c43.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">digraph InheritanceGraph {
+	graph [bgcolor=transparent,
+		color=lightsteelblue2,
+		fontname=Arial,
+		fontsize=10,
+		outputorder=edgesfirst,
+		overlap=prism,
+		penwidth=2,
+		rankdir=LR,
+		splines=spline,
+		style=&quot;dashed, rounded&quot;,
+		truecolor=true
+	];
+	node [colorscheme=pastel19,
+		fontname=Arial,
+		fontsize=10,
+		height=0,
+		penwidth=2,
+		shape=box,
+		style=&quot;filled, rounded&quot;,
+		width=0
+	];
+	edge [color=lightslategrey,
+		penwidth=1
+	];
+	subgraph cluster_builtins {
+		graph [label=builtins];
+		node [color=1];
+		&quot;builtins.object&quot;		 [URL=&quot;https://docs.python.org/3.6/library/functions.html#object&quot;,
+			color=1,
+			label=object,
+			target=_top];
+	}
+	subgraph &quot;cluster_supriya.nonrealtime&quot; {
+		graph [label=&quot;supriya.nonrealtime&quot;];
+		node [color=2];
+		&quot;supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup&quot;		 [URL=&quot;../api/supriya/nonrealtime/AudioInputBusGroup.html#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Audio\nInput\nBus\nGroup&quot;,
+			target=_top];
+		&quot;supriya.nonrealtime.AudioOutputBusGroup.AudioOutputBusGroup&quot;		 [URL=&quot;../api/supriya/nonrealtime/AudioOutputBusGroup.html#supriya.nonrealtime.AudioOutputBusGroup.AudioOutputBusGroup&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Audio\nOutput\nBus\nGroup&quot;,
+			target=_top];
+		&quot;supriya.nonrealtime.Buffer.Buffer&quot;		 [URL=&quot;../api/supriya/nonrealtime/Buffer.html#supriya.nonrealtime.Buffer.Buffer&quot;,
+			color=black,
+			fontcolor=white,
+			label=Buffer,
+			target=_top];
+		&quot;supriya.nonrealtime.BufferGroup.BufferGroup&quot;		 [URL=&quot;../api/supriya/nonrealtime/BufferGroup.html#supriya.nonrealtime.BufferGroup.BufferGroup&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Buffer\nGroup&quot;,
+			target=_top];
+		&quot;supriya.nonrealtime.Bus.Bus&quot;		 [URL=&quot;../api/supriya/nonrealtime/Bus.html#supriya.nonrealtime.Bus.Bus&quot;,
+			color=black,
+			fontcolor=white,
+			label=Bus,
+			target=_top];
+		&quot;supriya.nonrealtime.BusGroup.BusGroup&quot;		 [URL=&quot;../api/supriya/nonrealtime/BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Bus\nGroup&quot;,
+			target=_top];
+		&quot;supriya.nonrealtime.BusGroup.BusGroup&quot; -&gt; &quot;supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup&quot;		 [minlen=1];
+		&quot;supriya.nonrealtime.BusGroup.BusGroup&quot; -&gt; &quot;supriya.nonrealtime.AudioOutputBusGroup.AudioOutputBusGroup&quot;		 [minlen=2];
+		&quot;supriya.nonrealtime.DoNotPropagate.DoNotPropagate&quot;		 [URL=&quot;../api/supriya/nonrealtime/DoNotPropagate.html#supriya.nonrealtime.DoNotPropagate.DoNotPropagate&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Do\nNot\nPropagate&quot;,
+			target=_top];
+		&quot;supriya.nonrealtime.Group.Group&quot;		 [URL=&quot;../api/supriya/nonrealtime/Group.html#supriya.nonrealtime.Group.Group&quot;,
+			color=black,
+			fontcolor=white,
+			label=Group,
+			target=_top];
+		&quot;supriya.nonrealtime.RootNode.RootNode&quot;		 [URL=&quot;../api/supriya/nonrealtime/RootNode.html#supriya.nonrealtime.RootNode.RootNode&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Root\nNode&quot;,
+			target=_top];
+		&quot;supriya.nonrealtime.Group.Group&quot; -&gt; &quot;supriya.nonrealtime.RootNode.RootNode&quot;		 [minlen=1];
+		&quot;supriya.nonrealtime.Moment.Moment&quot;		 [URL=&quot;../api/supriya/nonrealtime/Moment.html#supriya.nonrealtime.Moment.Moment&quot;,
+			color=black,
+			fontcolor=white,
+			label=Moment,
+			target=_top];
+		&quot;supriya.nonrealtime.Node.Node&quot;		 [URL=&quot;../api/supriya/nonrealtime/Node.html#supriya.nonrealtime.Node.Node&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Node&quot;,
+			target=_top];
+		&quot;supriya.nonrealtime.Node.Node&quot; -&gt; &quot;supriya.nonrealtime.Group.Group&quot;		 [minlen=1];
+		&quot;supriya.nonrealtime.Synth.Synth&quot;		 [URL=&quot;../api/supriya/nonrealtime/Synth.html#supriya.nonrealtime.Synth.Synth&quot;,
+			color=black,
+			fontcolor=white,
+			label=Synth,
+			target=_top];
+		&quot;supriya.nonrealtime.Node.Node&quot; -&gt; &quot;supriya.nonrealtime.Synth.Synth&quot;		 [minlen=2];
+		&quot;supriya.nonrealtime.NodeAction.NodeAction&quot;		 [URL=&quot;../api/supriya/nonrealtime/NodeAction.html#supriya.nonrealtime.NodeAction.NodeAction&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Node\nAction&quot;,
+			target=_top];
+		&quot;supriya.nonrealtime.Session.Session&quot;		 [URL=&quot;../api/supriya/nonrealtime/Session.html#supriya.nonrealtime.Session.Session&quot;,
+			color=black,
+			fontcolor=white,
+			label=Session,
+			target=_top];
+		&quot;supriya.nonrealtime.SessionFactory.SessionFactory&quot;		 [URL=&quot;../api/supriya/nonrealtime/SessionFactory.html#supriya.nonrealtime.SessionFactory.SessionFactory&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Session\nFactory&quot;,
+			target=_top];
+		&quot;supriya.nonrealtime.SessionObject.SessionObject&quot;		 [URL=&quot;../api/supriya/nonrealtime/SessionObject.html#supriya.nonrealtime.SessionObject.SessionObject&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Session\nObject&quot;,
+			shape=oval,
+			style=&quot;bold, filled&quot;,
+			target=_top];
+		&quot;supriya.nonrealtime.SessionObject.SessionObject&quot; -&gt; &quot;supriya.nonrealtime.Buffer.Buffer&quot;		 [minlen=1];
+		&quot;supriya.nonrealtime.SessionObject.SessionObject&quot; -&gt; &quot;supriya.nonrealtime.BufferGroup.BufferGroup&quot;		 [minlen=2];
+		&quot;supriya.nonrealtime.SessionObject.SessionObject&quot; -&gt; &quot;supriya.nonrealtime.Bus.Bus&quot;		 [minlen=1];
+		&quot;supriya.nonrealtime.SessionObject.SessionObject&quot; -&gt; &quot;supriya.nonrealtime.BusGroup.BusGroup&quot;;
+		&quot;supriya.nonrealtime.SessionObject.SessionObject&quot; -&gt; &quot;supriya.nonrealtime.Moment.Moment&quot;		 [minlen=2];
+		&quot;supriya.nonrealtime.SessionObject.SessionObject&quot; -&gt; &quot;supriya.nonrealtime.Node.Node&quot;;
+		&quot;supriya.nonrealtime.State.State&quot;		 [URL=&quot;../api/supriya/nonrealtime/State.html#supriya.nonrealtime.State.State&quot;,
+			color=black,
+			fontcolor=white,
+			label=State,
+			target=_top];
+		&quot;supriya.nonrealtime.SessionObject.SessionObject&quot; -&gt; &quot;supriya.nonrealtime.State.State&quot;		 [minlen=1];
+		&quot;supriya.nonrealtime.SessionRenderer.SessionRenderer&quot;		 [URL=&quot;../api/supriya/nonrealtime/SessionRenderer.html#supriya.nonrealtime.SessionRenderer.SessionRenderer&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Session\nRenderer&quot;,
+			target=_top];
+	}
+	subgraph &quot;cluster_supriya.system&quot; {
+		graph [label=&quot;supriya.system&quot;];
+		node [color=3];
+		&quot;supriya.system.SupriyaObject.SupriyaObject&quot;		 [URL=&quot;../api/supriya/nonrealtime/../system/SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject&quot;,
+			color=3,
+			label=&quot;Supriya\nObject&quot;,
+			target=_top];
+		&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;		 [URL=&quot;../api/supriya/nonrealtime/../system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject&quot;,
+			color=3,
+			label=&quot;Supriya\nValue\nObject&quot;,
+			target=_top];
+		&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;		 [minlen=2];
+	}
+	&quot;builtins.object&quot; -&gt; &quot;supriya.nonrealtime.DoNotPropagate.DoNotPropagate&quot;	 [minlen=1];
+	&quot;builtins.object&quot; -&gt; &quot;supriya.nonrealtime.Session.Session&quot;	 [minlen=2];
+	&quot;builtins.object&quot; -&gt; &quot;supriya.nonrealtime.SessionFactory.SessionFactory&quot;	 [minlen=1];
+	&quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject.SupriyaObject&quot;;
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.nonrealtime.SessionObject.SessionObject&quot;;
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.nonrealtime.SessionRenderer.SessionRenderer&quot;	 [minlen=1];
+	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.nonrealtime.NodeAction.NodeAction&quot;	 [minlen=1];
+}</p></object></div>
+</div>
+<hr/><p class="section-header rubric">Classes</p>
+<div class="toctree-wrapper compound">
+</div>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="SessionFactory.html#supriya.nonrealtime.SessionFactory.SessionFactory" title="supriya.nonrealtime.SessionFactory.SessionFactory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SessionFactory</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="section-header rubric">Non-realtime Session</p>
+<div class="toctree-wrapper compound">
+</div>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="Session.html#supriya.nonrealtime.Session.Session" title="supriya.nonrealtime.Session.Session"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session</span></code></a></td>
+<td>A non-realtime session.</td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="section-header rubric">Session Internals</p>
+<div class="toctree-wrapper compound">
+</div>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="DoNotPropagate.html#supriya.nonrealtime.DoNotPropagate.DoNotPropagate" title="supriya.nonrealtime.DoNotPropagate.DoNotPropagate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DoNotPropagate</span></code></a></td>
+<td>Context manager which prevents propagation of node hierarchy changes across states.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="NodeAction.html#supriya.nonrealtime.NodeAction.NodeAction" title="supriya.nonrealtime.NodeAction.NodeAction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeAction</span></code></a></td>
+<td>A non-realtime state transition.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="SessionObject.html#supriya.nonrealtime.SessionObject.SessionObject" title="supriya.nonrealtime.SessionObject.SessionObject"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SessionObject</span></code></a></td>
+<td>A non-realtime session object, analogous to ServerObjectProxy.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="SessionRenderer.html#supriya.nonrealtime.SessionRenderer.SessionRenderer" title="supriya.nonrealtime.SessionRenderer.SessionRenderer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SessionRenderer</span></code></a></td>
+<td>Renders non-realtime sessions as audio files.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="State.html#supriya.nonrealtime.State.State" title="supriya.nonrealtime.State.State"><code class="xref py py-obj docutils literal notranslate"><span class="pre">State</span></code></a></td>
+<td>A non-realtime state.</td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="section-header rubric">Session Objects</p>
+<div class="toctree-wrapper compound">
+</div>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="AudioInputBusGroup.html#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup" title="supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AudioInputBusGroup</span></code></a></td>
+<td>A non-realtime audio input bus group.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="AudioOutputBusGroup.html#supriya.nonrealtime.AudioOutputBusGroup.AudioOutputBusGroup" title="supriya.nonrealtime.AudioOutputBusGroup.AudioOutputBusGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AudioOutputBusGroup</span></code></a></td>
+<td>A non-realtime audio output bus group.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Buffer.html#supriya.nonrealtime.Buffer.Buffer" title="supriya.nonrealtime.Buffer.Buffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Buffer</span></code></a></td>
+<td>A non-realtime buffer.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="BufferGroup.html#supriya.nonrealtime.BufferGroup.BufferGroup" title="supriya.nonrealtime.BufferGroup.BufferGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferGroup</span></code></a></td>
+<td>A non-realtime buffer group.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Bus.html#supriya.nonrealtime.Bus.Bus" title="supriya.nonrealtime.Bus.Bus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Bus</span></code></a></td>
+<td>A non-realtime bus.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BusGroup</span></code></a></td>
+<td>A non-realtime bus group.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Group.html#supriya.nonrealtime.Group.Group" title="supriya.nonrealtime.Group.Group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Group</span></code></a></td>
+<td>A non-realtime group.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="Moment.html#supriya.nonrealtime.Moment.Moment" title="supriya.nonrealtime.Moment.Moment"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Moment</span></code></a></td>
+<td>A moment-in-time referencing a singleton non-realtime state.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Node.html#supriya.nonrealtime.Node.Node" title="supriya.nonrealtime.Node.Node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Node</span></code></a></td>
+<td>A non-realtime node.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="RootNode.html#supriya.nonrealtime.RootNode.RootNode" title="supriya.nonrealtime.RootNode.RootNode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RootNode</span></code></a></td>
+<td>A non-realtime root node.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Synth.html#supriya.nonrealtime.Synth.Synth" title="supriya.nonrealtime.Synth.Synth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Synth</span></code></a></td>
+<td>A non-realtime synth.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="SessionFactory.html" class="btn btn-neutral float-right" title="SessionFactory" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../midi/LogicalControlMode.html" class="btn btn-neutral" title="LogicalControlMode" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

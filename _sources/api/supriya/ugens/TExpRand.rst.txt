@@ -1,0 +1,361 @@
+.. _supriya--ugens--TExpRand:
+
+TExpRand
+========
+
+.. automodule:: supriya.ugens.TExpRand
+
+.. currentmodule:: supriya.ugens.TExpRand
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.TExpRand
+
+.. autoclass:: TExpRand
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      maximum
+      minimum
+      trigger
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.__add__
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.__div__
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.__le__
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.__len__
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.__str__
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.as_int
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.clip
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.cubed
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.distort
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.exponential
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.floor
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.lag
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.log
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.log10
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.log2
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.power
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.range
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.scale
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.sign
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.softclip
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.square_root
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.squared
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.sum
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.tanh
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.transpose
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: TExpRand.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: TExpRand.ar
+
+   .. automethod:: TExpRand.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: TExpRand.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: TExpRand.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: TExpRand.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: TExpRand.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: TExpRand.is_output_ugen
+
+   .. autoattribute:: TExpRand.maximum
+
+   .. autoattribute:: TExpRand.minimum
+
+   .. container:: inherited
+
+      .. autoattribute:: TExpRand.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: TExpRand.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: TExpRand.special_index
+
+   .. autoattribute:: TExpRand.trigger

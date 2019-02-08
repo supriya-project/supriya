@@ -1,0 +1,94 @@
+.. _supriya--commands--QuitRequest:
+
+QuitRequest
+===========
+
+.. automodule:: supriya.commands.QuitRequest
+
+.. currentmodule:: supriya.commands.QuitRequest
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.QuitRequest
+
+.. autoclass:: QuitRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      request_id
+      response_patterns
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: QuitRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: QuitRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: QuitRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: QuitRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: QuitRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: QuitRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: QuitRequest.to_list
+
+   .. automethod:: QuitRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: QuitRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: QuitRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: QuitRequest.response
+
+   .. autoattribute:: QuitRequest.response_patterns

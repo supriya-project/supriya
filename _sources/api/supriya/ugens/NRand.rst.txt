@@ -1,0 +1,358 @@
+.. _supriya--ugens--NRand:
+
+NRand
+=====
+
+.. automodule:: supriya.ugens.NRand
+
+.. currentmodule:: supriya.ugens.NRand
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.NRand
+
+.. autoclass:: NRand
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ir
+      maximum
+      minimum
+      n
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: NRand.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: NRand.__add__
+
+   .. container:: inherited
+
+      .. automethod:: NRand.__div__
+
+   .. container:: inherited
+
+      .. automethod:: NRand.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: NRand.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: NRand.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: NRand.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: NRand.__le__
+
+   .. container:: inherited
+
+      .. automethod:: NRand.__len__
+
+   .. container:: inherited
+
+      .. automethod:: NRand.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: NRand.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: NRand.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: NRand.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: NRand.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: NRand.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: NRand.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: NRand.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: NRand.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: NRand.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: NRand.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: NRand.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: NRand.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: NRand.__str__
+
+   .. container:: inherited
+
+      .. automethod:: NRand.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: NRand.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: NRand.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: NRand.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: NRand.as_int
+
+   .. container:: inherited
+
+      .. automethod:: NRand.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: NRand.clip
+
+   .. container:: inherited
+
+      .. automethod:: NRand.cubed
+
+   .. container:: inherited
+
+      .. automethod:: NRand.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: NRand.distort
+
+   .. container:: inherited
+
+      .. automethod:: NRand.exponential
+
+   .. container:: inherited
+
+      .. automethod:: NRand.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: NRand.floor
+
+   .. container:: inherited
+
+      .. automethod:: NRand.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: NRand.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: NRand.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: NRand.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: NRand.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: NRand.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: NRand.lag
+
+   .. container:: inherited
+
+      .. automethod:: NRand.log
+
+   .. container:: inherited
+
+      .. automethod:: NRand.log10
+
+   .. container:: inherited
+
+      .. automethod:: NRand.log2
+
+   .. container:: inherited
+
+      .. automethod:: NRand.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: NRand.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: NRand.power
+
+   .. container:: inherited
+
+      .. automethod:: NRand.range
+
+   .. container:: inherited
+
+      .. automethod:: NRand.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: NRand.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: NRand.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: NRand.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: NRand.scale
+
+   .. container:: inherited
+
+      .. automethod:: NRand.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: NRand.sign
+
+   .. container:: inherited
+
+      .. automethod:: NRand.softclip
+
+   .. container:: inherited
+
+      .. automethod:: NRand.square_root
+
+   .. container:: inherited
+
+      .. automethod:: NRand.squared
+
+   .. container:: inherited
+
+      .. automethod:: NRand.sum
+
+   .. container:: inherited
+
+      .. automethod:: NRand.tanh
+
+   .. container:: inherited
+
+      .. automethod:: NRand.transpose
+
+   .. container:: inherited
+
+      .. automethod:: NRand.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: NRand.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: NRand.ir
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: NRand.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: NRand.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: NRand.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: NRand.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: NRand.is_output_ugen
+
+   .. autoattribute:: NRand.maximum
+
+   .. autoattribute:: NRand.minimum
+
+   .. autoattribute:: NRand.n
+
+   .. container:: inherited
+
+      .. autoattribute:: NRand.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: NRand.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: NRand.special_index

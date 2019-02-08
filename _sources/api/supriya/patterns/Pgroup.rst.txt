@@ -1,0 +1,146 @@
+.. _supriya--patterns--Pgroup:
+
+Pgroup
+======
+
+.. automodule:: supriya.patterns.Pgroup
+
+.. currentmodule:: supriya.patterns.Pgroup
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.patterns.Pgroup
+
+.. autoclass:: Pgroup
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      arity
+      is_infinite
+      pattern
+      release_time
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.__sub__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.play
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.with_bus
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.with_effect
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.with_group
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pgroup.from_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Pgroup.arity
+
+   .. autoattribute:: Pgroup.is_infinite
+
+   .. autoattribute:: Pgroup.pattern
+
+   .. autoattribute:: Pgroup.release_time

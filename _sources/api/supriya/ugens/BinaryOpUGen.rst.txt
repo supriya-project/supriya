@@ -1,0 +1,366 @@
+.. _supriya--ugens--BinaryOpUGen:
+
+BinaryOpUGen
+============
+
+.. automodule:: supriya.ugens.BinaryOpUGen
+
+.. currentmodule:: supriya.ugens.BinaryOpUGen
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.BinaryOpUGen
+
+.. autoclass:: BinaryOpUGen
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      left
+      new
+      operator
+      right
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.__add__
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.__div__
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.__le__
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.__len__
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.__str__
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.as_int
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.clip
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.cubed
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.distort
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.exponential
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.floor
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.lag
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.log
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.log10
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.log2
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.maximum
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.minimum
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.power
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.range
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.scale
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.sign
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.softclip
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.square_root
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.squared
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.sum
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.tanh
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.transpose
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BinaryOpUGen.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: BinaryOpUGen.new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: BinaryOpUGen.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: BinaryOpUGen.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: BinaryOpUGen.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BinaryOpUGen.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BinaryOpUGen.is_output_ugen
+
+   .. autoattribute:: BinaryOpUGen.left
+
+   .. autoattribute:: BinaryOpUGen.operator
+
+   .. container:: inherited
+
+      .. autoattribute:: BinaryOpUGen.outputs
+
+   .. autoattribute:: BinaryOpUGen.right
+
+   .. container:: inherited
+
+      .. autoattribute:: BinaryOpUGen.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: BinaryOpUGen.special_index

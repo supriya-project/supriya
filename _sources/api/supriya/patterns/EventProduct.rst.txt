@@ -1,0 +1,47 @@
+.. _supriya--patterns--EventProduct:
+
+EventProduct
+============
+
+.. automodule:: supriya.patterns.EventProduct
+
+.. currentmodule:: supriya.patterns.EventProduct
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.patterns.EventProduct
+
+.. autoclass:: EventProduct
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __eq__
+      __lt__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: EventProduct.__copy__
+
+   .. automethod:: EventProduct.__eq__
+
+   .. automethod:: EventProduct.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: EventProduct.__repr__

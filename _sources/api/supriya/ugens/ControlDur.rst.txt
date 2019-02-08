@@ -1,0 +1,357 @@
+.. _supriya--ugens--ControlDur:
+
+ControlDur
+==========
+
+.. automodule:: supriya.ugens.ControlDur
+
+.. currentmodule:: supriya.ugens.ControlDur
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.ControlDur
+
+.. autoclass:: ControlDur
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ir
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.__add__
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.__div__
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.__le__
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.__len__
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.__str__
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.as_int
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.clip
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.cubed
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.distort
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.exponential
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.floor
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.lag
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.log
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.log10
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.log2
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.maximum
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.minimum
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.power
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.range
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.scale
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.sign
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.softclip
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.square_root
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.squared
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.sum
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.tanh
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.transpose
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: ControlDur.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: ControlDur.ir
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: ControlDur.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: ControlDur.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: ControlDur.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: ControlDur.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: ControlDur.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: ControlDur.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: ControlDur.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: ControlDur.special_index

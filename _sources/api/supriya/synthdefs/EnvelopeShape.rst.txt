@@ -1,0 +1,36 @@
+.. _supriya--synthdefs--EnvelopeShape:
+
+EnvelopeShape
+=============
+
+.. automodule:: supriya.synthdefs.EnvelopeShape
+
+.. currentmodule:: supriya.synthdefs.EnvelopeShape
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.synthdefs.EnvelopeShape
+
+.. autoclass:: EnvelopeShape
+   :members:
+   :undoc-members:
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      CUBED
+      CUSTOM
+      EXPONENTIAL
+      LINEAR
+      SINE
+      SQUARED
+      STEP
+      WELCH

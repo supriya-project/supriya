@@ -1,0 +1,369 @@
+.. _supriya--ugens--APF:
+
+APF
+===
+
+.. automodule:: supriya.ugens.APF
+
+.. currentmodule:: supriya.ugens.APF
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.APF
+
+.. autoclass:: APF
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      frequency
+      kr
+      radius
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: APF.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: APF.__add__
+
+   .. container:: inherited
+
+      .. automethod:: APF.__div__
+
+   .. container:: inherited
+
+      .. automethod:: APF.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: APF.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: APF.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: APF.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: APF.__le__
+
+   .. container:: inherited
+
+      .. automethod:: APF.__len__
+
+   .. container:: inherited
+
+      .. automethod:: APF.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: APF.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: APF.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: APF.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: APF.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: APF.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: APF.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: APF.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: APF.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: APF.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: APF.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: APF.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: APF.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: APF.__str__
+
+   .. container:: inherited
+
+      .. automethod:: APF.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: APF.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: APF.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: APF.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: APF.as_int
+
+   .. container:: inherited
+
+      .. automethod:: APF.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: APF.clip
+
+   .. container:: inherited
+
+      .. automethod:: APF.cubed
+
+   .. container:: inherited
+
+      .. automethod:: APF.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: APF.distort
+
+   .. container:: inherited
+
+      .. automethod:: APF.exponential
+
+   .. container:: inherited
+
+      .. automethod:: APF.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: APF.floor
+
+   .. container:: inherited
+
+      .. automethod:: APF.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: APF.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: APF.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: APF.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: APF.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: APF.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: APF.lag
+
+   .. container:: inherited
+
+      .. automethod:: APF.log
+
+   .. container:: inherited
+
+      .. automethod:: APF.log10
+
+   .. container:: inherited
+
+      .. automethod:: APF.log2
+
+   .. container:: inherited
+
+      .. automethod:: APF.maximum
+
+   .. container:: inherited
+
+      .. automethod:: APF.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: APF.minimum
+
+   .. container:: inherited
+
+      .. automethod:: APF.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: APF.power
+
+   .. container:: inherited
+
+      .. automethod:: APF.range
+
+   .. container:: inherited
+
+      .. automethod:: APF.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: APF.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: APF.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: APF.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: APF.scale
+
+   .. container:: inherited
+
+      .. automethod:: APF.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: APF.sign
+
+   .. container:: inherited
+
+      .. automethod:: APF.softclip
+
+   .. container:: inherited
+
+      .. automethod:: APF.square_root
+
+   .. container:: inherited
+
+      .. automethod:: APF.squared
+
+   .. container:: inherited
+
+      .. automethod:: APF.sum
+
+   .. container:: inherited
+
+      .. automethod:: APF.tanh
+
+   .. container:: inherited
+
+      .. automethod:: APF.transpose
+
+   .. container:: inherited
+
+      .. automethod:: APF.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: APF.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: APF.ar
+
+   .. automethod:: APF.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: APF.calculation_rate
+
+   .. autoattribute:: APF.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: APF.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: APF.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: APF.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: APF.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: APF.outputs
+
+   .. autoattribute:: APF.radius
+
+   .. container:: inherited
+
+      .. autoattribute:: APF.signal_range
+
+   .. autoattribute:: APF.source
+
+   .. container:: inherited
+
+      .. autoattribute:: APF.special_index

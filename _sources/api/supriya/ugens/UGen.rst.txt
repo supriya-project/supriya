@@ -1,0 +1,336 @@
+.. _supriya--ugens--UGen:
+
+UGen
+====
+
+.. automodule:: supriya.ugens.UGen
+
+.. currentmodule:: supriya.ugens.UGen
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.UGen
+
+.. autoclass:: UGen
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __getitem__
+      __len__
+      __repr__
+      calculation_rate
+      has_done_flag
+      inputs
+      is_input_ugen
+      is_output_ugen
+      outputs
+      signal_range
+      special_index
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: UGen.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: UGen.__add__
+
+   .. container:: inherited
+
+      .. automethod:: UGen.__div__
+
+   .. container:: inherited
+
+      .. automethod:: UGen.__ge__
+
+   .. automethod:: UGen.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: UGen.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: UGen.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: UGen.__le__
+
+   .. automethod:: UGen.__len__
+
+   .. container:: inherited
+
+      .. automethod:: UGen.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: UGen.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: UGen.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: UGen.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: UGen.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: UGen.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: UGen.__rdiv__
+
+   .. automethod:: UGen.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: UGen.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: UGen.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: UGen.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: UGen.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: UGen.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: UGen.__str__
+
+   .. container:: inherited
+
+      .. automethod:: UGen.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: UGen.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: UGen.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: UGen.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: UGen.as_int
+
+   .. container:: inherited
+
+      .. automethod:: UGen.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: UGen.clip
+
+   .. container:: inherited
+
+      .. automethod:: UGen.cubed
+
+   .. container:: inherited
+
+      .. automethod:: UGen.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: UGen.distort
+
+   .. container:: inherited
+
+      .. automethod:: UGen.exponential
+
+   .. container:: inherited
+
+      .. automethod:: UGen.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: UGen.floor
+
+   .. container:: inherited
+
+      .. automethod:: UGen.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: UGen.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: UGen.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: UGen.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: UGen.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: UGen.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: UGen.lag
+
+   .. container:: inherited
+
+      .. automethod:: UGen.log
+
+   .. container:: inherited
+
+      .. automethod:: UGen.log10
+
+   .. container:: inherited
+
+      .. automethod:: UGen.log2
+
+   .. container:: inherited
+
+      .. automethod:: UGen.maximum
+
+   .. container:: inherited
+
+      .. automethod:: UGen.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: UGen.minimum
+
+   .. container:: inherited
+
+      .. automethod:: UGen.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: UGen.power
+
+   .. container:: inherited
+
+      .. automethod:: UGen.range
+
+   .. container:: inherited
+
+      .. automethod:: UGen.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: UGen.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: UGen.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: UGen.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: UGen.scale
+
+   .. container:: inherited
+
+      .. automethod:: UGen.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: UGen.sign
+
+   .. container:: inherited
+
+      .. automethod:: UGen.softclip
+
+   .. container:: inherited
+
+      .. automethod:: UGen.square_root
+
+   .. container:: inherited
+
+      .. automethod:: UGen.squared
+
+   .. container:: inherited
+
+      .. automethod:: UGen.sum
+
+   .. container:: inherited
+
+      .. automethod:: UGen.tanh
+
+   .. container:: inherited
+
+      .. automethod:: UGen.transpose
+
+   .. container:: inherited
+
+      .. automethod:: UGen.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: UGen.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: UGen.calculation_rate
+
+   .. autoattribute:: UGen.has_done_flag
+
+   .. autoattribute:: UGen.inputs
+
+   .. autoattribute:: UGen.is_input_ugen
+
+   .. autoattribute:: UGen.is_output_ugen
+
+   .. autoattribute:: UGen.outputs
+
+   .. autoattribute:: UGen.signal_range
+
+   .. autoattribute:: UGen.special_index

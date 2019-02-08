@@ -1,0 +1,366 @@
+.. _supriya--ugens--Trig:
+
+Trig
+====
+
+.. automodule:: supriya.ugens.Trig
+
+.. currentmodule:: supriya.ugens.Trig
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Trig
+
+.. autoclass:: Trig
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      duration
+      kr
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Trig.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Trig.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Trig.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Trig.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Trig.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Trig.clip
+
+   .. container:: inherited
+
+      .. automethod:: Trig.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Trig.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Trig.distort
+
+   .. container:: inherited
+
+      .. automethod:: Trig.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Trig.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Trig.floor
+
+   .. container:: inherited
+
+      .. automethod:: Trig.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Trig.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Trig.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Trig.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Trig.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Trig.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Trig.lag
+
+   .. container:: inherited
+
+      .. automethod:: Trig.log
+
+   .. container:: inherited
+
+      .. automethod:: Trig.log10
+
+   .. container:: inherited
+
+      .. automethod:: Trig.log2
+
+   .. container:: inherited
+
+      .. automethod:: Trig.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Trig.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Trig.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Trig.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Trig.power
+
+   .. container:: inherited
+
+      .. automethod:: Trig.range
+
+   .. container:: inherited
+
+      .. automethod:: Trig.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Trig.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Trig.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Trig.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Trig.scale
+
+   .. container:: inherited
+
+      .. automethod:: Trig.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Trig.sign
+
+   .. container:: inherited
+
+      .. automethod:: Trig.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Trig.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Trig.squared
+
+   .. container:: inherited
+
+      .. automethod:: Trig.sum
+
+   .. container:: inherited
+
+      .. automethod:: Trig.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Trig.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Trig.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Trig.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Trig.ar
+
+   .. automethod:: Trig.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Trig.calculation_rate
+
+   .. autoattribute:: Trig.duration
+
+   .. container:: inherited
+
+      .. autoattribute:: Trig.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Trig.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Trig.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Trig.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Trig.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Trig.signal_range
+
+   .. autoattribute:: Trig.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Trig.special_index

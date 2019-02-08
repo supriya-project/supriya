@@ -1,0 +1,95 @@
+.. _supriya--commands--NodeMapToControlBusContiguousRequest:
+
+NodeMapToControlBusContiguousRequest
+====================================
+
+.. automodule:: supriya.commands.NodeMapToControlBusContiguousRequest
+
+.. currentmodule:: supriya.commands.NodeMapToControlBusContiguousRequest
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.NodeMapToControlBusContiguousRequest
+
+.. autoclass:: NodeMapToControlBusContiguousRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      request_id
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: NodeMapToControlBusContiguousRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: NodeMapToControlBusContiguousRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: NodeMapToControlBusContiguousRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: NodeMapToControlBusContiguousRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: NodeMapToControlBusContiguousRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: NodeMapToControlBusContiguousRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: NodeMapToControlBusContiguousRequest.to_list
+
+   .. automethod:: NodeMapToControlBusContiguousRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: NodeMapToControlBusContiguousRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: NodeMapToControlBusContiguousRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: NodeMapToControlBusContiguousRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: NodeMapToControlBusContiguousRequest.response_patterns

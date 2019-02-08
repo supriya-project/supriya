@@ -1,0 +1,940 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>RequestId &mdash; Supriya 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="RequestName" href="RequestName.html" />
+    <link rel="prev" title="NodeAction" href="NodeAction.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Supriya API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../cli/index.html">cli</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">commands</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="MoveRequest.html">MoveRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Request.html">Request</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BufferAllocateReadChannelRequest.html">BufferAllocateReadChannelRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BufferAllocateReadRequest.html">BufferAllocateReadRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BufferAllocateRequest.html">BufferAllocateRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BufferCloseRequest.html">BufferCloseRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BufferCopyRequest.html">BufferCopyRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BufferFillRequest.html">BufferFillRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BufferFreeRequest.html">BufferFreeRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BufferGenerateRequest.html">BufferGenerateRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BufferGetContiguousRequest.html">BufferGetContiguousRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BufferGetRequest.html">BufferGetRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BufferInfoResponse.html">BufferInfoResponse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BufferNormalizeRequest.html">BufferNormalizeRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BufferQueryRequest.html">BufferQueryRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BufferReadChannelRequest.html">BufferReadChannelRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BufferReadRequest.html">BufferReadRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BufferSetContiguousRequest.html">BufferSetContiguousRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BufferSetContiguousResponse.html">BufferSetContiguousResponse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BufferSetRequest.html">BufferSetRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BufferSetResponse.html">BufferSetResponse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BufferWriteRequest.html">BufferWriteRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BufferZeroRequest.html">BufferZeroRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ClearScheduleRequest.html">ClearScheduleRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CommandRequest.html">CommandRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ControlBusFillRequest.html">ControlBusFillRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ControlBusGetContiguousRequest.html">ControlBusGetContiguousRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ControlBusGetRequest.html">ControlBusGetRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ControlBusSetContiguousRequest.html">ControlBusSetContiguousRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ControlBusSetContiguousResponse.html">ControlBusSetContiguousResponse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ControlBusSetRequest.html">ControlBusSetRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ControlBusSetResponse.html">ControlBusSetResponse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DoneResponse.html">DoneResponse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DumpOscRequest.html">DumpOscRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ErrorRequest.html">ErrorRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="FailResponse.html">FailResponse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="GroupDeepFreeRequest.html">GroupDeepFreeRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="GroupDumpTreeRequest.html">GroupDumpTreeRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="GroupFreeAllRequest.html">GroupFreeAllRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="GroupHeadRequest.html">GroupHeadRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="GroupNewRequest.html">GroupNewRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="GroupQueryTreeRequest.html">GroupQueryTreeRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="GroupTailRequest.html">GroupTailRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NodeAfterRequest.html">NodeAfterRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NodeBeforeRequest.html">NodeBeforeRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NodeCommandRequest.html">NodeCommandRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NodeFillRequest.html">NodeFillRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NodeFreeRequest.html">NodeFreeRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NodeInfoResponse.html">NodeInfoResponse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NodeMapToAudioBusContiguousRequest.html">NodeMapToAudioBusContiguousRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NodeMapToAudioBusRequest.html">NodeMapToAudioBusRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NodeMapToControlBusContiguousRequest.html">NodeMapToControlBusContiguousRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NodeMapToControlBusRequest.html">NodeMapToControlBusRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NodeOrderRequest.html">NodeOrderRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NodeQueryRequest.html">NodeQueryRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NodeRunRequest.html">NodeRunRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NodeSetContiguousRequest.html">NodeSetContiguousRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NodeSetContiguousResponse.html">NodeSetContiguousResponse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NodeSetRequest.html">NodeSetRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NodeSetResponse.html">NodeSetResponse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NodeTraceRequest.html">NodeTraceRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NothingRequest.html">NothingRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NotifyRequest.html">NotifyRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ParallelGroupNewRequest.html">ParallelGroupNewRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="QueryTreeControl.html">QueryTreeControl</a></li>
+<li class="toctree-l4"><a class="reference internal" href="QueryTreeGroup.html">QueryTreeGroup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="QueryTreeResponse.html">QueryTreeResponse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="QueryTreeSynth.html">QueryTreeSynth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="QuitRequest.html">QuitRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="RequestBundle.html">RequestBundle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Requestable.html">Requestable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Response.html">Response</a></li>
+<li class="toctree-l4"><a class="reference internal" href="StatusRequest.html">StatusRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="StatusResponse.html">StatusResponse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SyncRequest.html">SyncRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SyncedResponse.html">SyncedResponse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SynthDefFreeAllRequest.html">SynthDefFreeAllRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SynthDefFreeRequest.html">SynthDefFreeRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SynthDefLoadDirectoryRequest.html">SynthDefLoadDirectoryRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SynthDefLoadRequest.html">SynthDefLoadRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SynthDefReceiveRequest.html">SynthDefReceiveRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SynthDefRemovedResponse.html">SynthDefRemovedResponse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SynthGetContiguousRequest.html">SynthGetContiguousRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SynthGetRequest.html">SynthGetRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SynthNewRequest.html">SynthNewRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SynthNewargsRequest.html">SynthNewargsRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SynthNoidRequest.html">SynthNoidRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="TriggerResponse.html">TriggerResponse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="UgenCommandRequest.html">UgenCommandRequest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NodeAction.html">NodeAction</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">RequestId</a></li>
+<li class="toctree-l4"><a class="reference internal" href="RequestName.html">RequestName</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../live/index.html">live</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../soundfiles/index.html">soundfiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../system/index.html">system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Supriya API</a> &raquo;</li>
+        
+          <li><a href="../index.html">supriya</a> &raquo;</li>
+        
+          <li><a href="index.html">commands</a> &raquo;</li>
+        
+      <li>RequestId</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/supriya/commands/RequestId.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-supriya.commands.RequestId">
+<span id="requestid"></span><span id="supriya-commands-requestid"></span><h1>RequestId<a class="headerlink" href="#module-supriya.commands.RequestId" title="Permalink to this headline">¶</a></h1>
+<div class="svg-container docutils container">
+<div class="graphviz"><object data="../../../_images/inheritance-6cdd8f1dc486445e6b51dd14a699cd9d232fa1a1.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">digraph InheritanceGraph {
+    graph [bgcolor=transparent,
+        color=lightsteelblue2,
+        fontname=Arial,
+        fontsize=10,
+        outputorder=edgesfirst,
+        overlap=prism,
+        penwidth=2,
+        rankdir=LR,
+        splines=spline,
+        style=&quot;dashed, rounded&quot;,
+        truecolor=true];
+    node [colorscheme=pastel19,
+        fontname=Arial,
+        fontsize=10,
+        height=0,
+        penwidth=2,
+        shape=box,
+        style=&quot;filled, rounded&quot;,
+        width=0];
+    edge [color=lightslategrey,
+        penwidth=1];
+    subgraph cluster_builtins {
+        graph [label=builtins];
+        node [color=1];
+        &quot;builtins.int&quot; [URL=&quot;https://docs.python.org/3.6/library/functions.html#int&quot;,
+            label=int,
+            target=_top];
+        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3.6/library/functions.html#object&quot;,
+            label=object,
+            target=_top];
+        &quot;builtins.object&quot; -&gt; &quot;builtins.int&quot;;
+    }
+    subgraph cluster_enum {
+        graph [label=enum];
+        node [color=2];
+        &quot;enum.Enum&quot; [URL=&quot;https://docs.python.org/3.6/library/enum.html#enum.Enum&quot;,
+            label=Enum,
+            target=_top];
+        &quot;enum.IntEnum&quot; [URL=&quot;https://docs.python.org/3.6/library/enum.html#enum.IntEnum&quot;,
+            label=&quot;Int\nEnum&quot;,
+            target=_top];
+        &quot;enum.Enum&quot; -&gt; &quot;enum.IntEnum&quot;;
+    }
+    subgraph &quot;cluster_supriya.commands&quot; {
+        graph [label=&quot;supriya.commands&quot;];
+        node [color=3];
+        &quot;supriya.commands.RequestId.RequestId&quot; [URL=&quot;../api/supriya/commands/RequestId.html#supriya.commands.RequestId.RequestId&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Request\nId&quot;,
+            target=_top];
+    }
+    subgraph &quot;cluster_uqbar.enums&quot; {
+        graph [label=&quot;uqbar.enums&quot;];
+        node [color=4];
+        &quot;uqbar.enums.IntEnumeration&quot; [label=&quot;Int\nEnumeration&quot;];
+    }
+    &quot;builtins.int&quot; -&gt; &quot;enum.IntEnum&quot;;
+    &quot;builtins.object&quot; -&gt; &quot;enum.Enum&quot;;
+    &quot;enum.IntEnum&quot; -&gt; &quot;uqbar.enums.IntEnumeration&quot;;
+    &quot;uqbar.enums.IntEnumeration&quot; -&gt; &quot;supriya.commands.RequestId.RequestId&quot;;
+}</p></object></div>
+</div>
+<dl class="class">
+<dt id="supriya.commands.RequestId.RequestId">
+<em class="property">class </em><code class="descclassname">supriya.commands.RequestId.</code><code class="descname">RequestId</code><a class="reference internal" href="../../../_modules/supriya/commands/RequestId.html#RequestId"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.RequestId.RequestId" title="Permalink to this definition">¶</a></dt>
+<dd><p>An enumeration of scsynth request ids.</p>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.BUFFER_ALLOCATE" title="supriya.commands.RequestId.RequestId.BUFFER_ALLOCATE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BUFFER_ALLOCATE</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.BUFFER_ALLOCATE_READ" title="supriya.commands.RequestId.RequestId.BUFFER_ALLOCATE_READ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BUFFER_ALLOCATE_READ</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.BUFFER_ALLOCATE_READ_CHANNEL" title="supriya.commands.RequestId.RequestId.BUFFER_ALLOCATE_READ_CHANNEL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BUFFER_ALLOCATE_READ_CHANNEL</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.BUFFER_CLOSE" title="supriya.commands.RequestId.RequestId.BUFFER_CLOSE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BUFFER_CLOSE</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.BUFFER_FILL" title="supriya.commands.RequestId.RequestId.BUFFER_FILL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BUFFER_FILL</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.BUFFER_FREE" title="supriya.commands.RequestId.RequestId.BUFFER_FREE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BUFFER_FREE</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.BUFFER_GENERATE" title="supriya.commands.RequestId.RequestId.BUFFER_GENERATE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BUFFER_GENERATE</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.BUFFER_GET" title="supriya.commands.RequestId.RequestId.BUFFER_GET"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BUFFER_GET</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.BUFFER_GET_CONTIGUOUS" title="supriya.commands.RequestId.RequestId.BUFFER_GET_CONTIGUOUS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BUFFER_GET_CONTIGUOUS</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.BUFFER_QUERY" title="supriya.commands.RequestId.RequestId.BUFFER_QUERY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BUFFER_QUERY</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.BUFFER_READ" title="supriya.commands.RequestId.RequestId.BUFFER_READ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BUFFER_READ</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.BUFFER_READ_CHANNEL" title="supriya.commands.RequestId.RequestId.BUFFER_READ_CHANNEL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BUFFER_READ_CHANNEL</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.BUFFER_SET" title="supriya.commands.RequestId.RequestId.BUFFER_SET"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BUFFER_SET</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.BUFFER_SET_CONTIGUOUS" title="supriya.commands.RequestId.RequestId.BUFFER_SET_CONTIGUOUS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BUFFER_SET_CONTIGUOUS</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.BUFFER_WRITE" title="supriya.commands.RequestId.RequestId.BUFFER_WRITE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BUFFER_WRITE</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.BUFFER_ZERO" title="supriya.commands.RequestId.RequestId.BUFFER_ZERO"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BUFFER_ZERO</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.CLEAR_SCHEDULE" title="supriya.commands.RequestId.RequestId.CLEAR_SCHEDULE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CLEAR_SCHEDULE</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.COMMAND" title="supriya.commands.RequestId.RequestId.COMMAND"><code class="xref py py-obj docutils literal notranslate"><span class="pre">COMMAND</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.CONTROL_BUS_FILL" title="supriya.commands.RequestId.RequestId.CONTROL_BUS_FILL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CONTROL_BUS_FILL</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.CONTROL_BUS_GET" title="supriya.commands.RequestId.RequestId.CONTROL_BUS_GET"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CONTROL_BUS_GET</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.CONTROL_BUS_GET_CONTIGUOUS" title="supriya.commands.RequestId.RequestId.CONTROL_BUS_GET_CONTIGUOUS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CONTROL_BUS_GET_CONTIGUOUS</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.CONTROL_BUS_SET" title="supriya.commands.RequestId.RequestId.CONTROL_BUS_SET"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CONTROL_BUS_SET</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.CONTROL_BUS_SET_CONTIGUOUS" title="supriya.commands.RequestId.RequestId.CONTROL_BUS_SET_CONTIGUOUS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CONTROL_BUS_SET_CONTIGUOUS</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.DUMP_OSC" title="supriya.commands.RequestId.RequestId.DUMP_OSC"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DUMP_OSC</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.ERROR" title="supriya.commands.RequestId.RequestId.ERROR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ERROR</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.GROUP_DEEP_FREE" title="supriya.commands.RequestId.RequestId.GROUP_DEEP_FREE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GROUP_DEEP_FREE</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.GROUP_DUMP_TREE" title="supriya.commands.RequestId.RequestId.GROUP_DUMP_TREE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GROUP_DUMP_TREE</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.GROUP_FREE_ALL" title="supriya.commands.RequestId.RequestId.GROUP_FREE_ALL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GROUP_FREE_ALL</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.GROUP_HEAD" title="supriya.commands.RequestId.RequestId.GROUP_HEAD"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GROUP_HEAD</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.GROUP_NEW" title="supriya.commands.RequestId.RequestId.GROUP_NEW"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GROUP_NEW</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.GROUP_QUERY_TREE" title="supriya.commands.RequestId.RequestId.GROUP_QUERY_TREE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GROUP_QUERY_TREE</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.GROUP_TAIL" title="supriya.commands.RequestId.RequestId.GROUP_TAIL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GROUP_TAIL</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.NODE_AFTER" title="supriya.commands.RequestId.RequestId.NODE_AFTER"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NODE_AFTER</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.NODE_BEFORE" title="supriya.commands.RequestId.RequestId.NODE_BEFORE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NODE_BEFORE</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.NODE_COMMAND" title="supriya.commands.RequestId.RequestId.NODE_COMMAND"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NODE_COMMAND</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.NODE_FILL" title="supriya.commands.RequestId.RequestId.NODE_FILL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NODE_FILL</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.NODE_FREE" title="supriya.commands.RequestId.RequestId.NODE_FREE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NODE_FREE</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.NODE_MAP_TO_AUDIO_BUS" title="supriya.commands.RequestId.RequestId.NODE_MAP_TO_AUDIO_BUS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NODE_MAP_TO_AUDIO_BUS</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.NODE_MAP_TO_AUDIO_BUS_CONTIGUOUS" title="supriya.commands.RequestId.RequestId.NODE_MAP_TO_AUDIO_BUS_CONTIGUOUS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NODE_MAP_TO_AUDIO_BUS_CONTIGUOUS</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.NODE_MAP_TO_CONTROL_BUS" title="supriya.commands.RequestId.RequestId.NODE_MAP_TO_CONTROL_BUS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NODE_MAP_TO_CONTROL_BUS</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.NODE_MAP_TO_CONTROL_BUS_CONTIGUOUS" title="supriya.commands.RequestId.RequestId.NODE_MAP_TO_CONTROL_BUS_CONTIGUOUS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NODE_MAP_TO_CONTROL_BUS_CONTIGUOUS</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.NODE_ORDER" title="supriya.commands.RequestId.RequestId.NODE_ORDER"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NODE_ORDER</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.NODE_QUERY" title="supriya.commands.RequestId.RequestId.NODE_QUERY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NODE_QUERY</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.NODE_RUN" title="supriya.commands.RequestId.RequestId.NODE_RUN"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NODE_RUN</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.NODE_SET" title="supriya.commands.RequestId.RequestId.NODE_SET"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NODE_SET</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.NODE_SET_CONTIGUOUS" title="supriya.commands.RequestId.RequestId.NODE_SET_CONTIGUOUS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NODE_SET_CONTIGUOUS</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.NODE_TRACE" title="supriya.commands.RequestId.RequestId.NODE_TRACE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NODE_TRACE</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.NOTHING" title="supriya.commands.RequestId.RequestId.NOTHING"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NOTHING</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.NOTIFY" title="supriya.commands.RequestId.RequestId.NOTIFY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NOTIFY</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.PARALLEL_GROUP_NEW" title="supriya.commands.RequestId.RequestId.PARALLEL_GROUP_NEW"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PARALLEL_GROUP_NEW</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.QUIT" title="supriya.commands.RequestId.RequestId.QUIT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QUIT</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.STATUS" title="supriya.commands.RequestId.RequestId.STATUS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">STATUS</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.SYNC" title="supriya.commands.RequestId.RequestId.SYNC"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SYNC</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.SYNTHDEF_FREE" title="supriya.commands.RequestId.RequestId.SYNTHDEF_FREE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SYNTHDEF_FREE</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.SYNTHDEF_FREE_ALL" title="supriya.commands.RequestId.RequestId.SYNTHDEF_FREE_ALL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SYNTHDEF_FREE_ALL</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.SYNTHDEF_LOAD" title="supriya.commands.RequestId.RequestId.SYNTHDEF_LOAD"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SYNTHDEF_LOAD</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.SYNTHDEF_LOAD_DIR" title="supriya.commands.RequestId.RequestId.SYNTHDEF_LOAD_DIR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SYNTHDEF_LOAD_DIR</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.SYNTHDEF_RECEIVE" title="supriya.commands.RequestId.RequestId.SYNTHDEF_RECEIVE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SYNTHDEF_RECEIVE</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.SYNTH_GET" title="supriya.commands.RequestId.RequestId.SYNTH_GET"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SYNTH_GET</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.SYNTH_GET_CONTIGUOUS" title="supriya.commands.RequestId.RequestId.SYNTH_GET_CONTIGUOUS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SYNTH_GET_CONTIGUOUS</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.SYNTH_NEW" title="supriya.commands.RequestId.RequestId.SYNTH_NEW"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SYNTH_NEW</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.SYNTH_NEWARGS" title="supriya.commands.RequestId.RequestId.SYNTH_NEWARGS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SYNTH_NEWARGS</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.SYNTH_NOID" title="supriya.commands.RequestId.RequestId.SYNTH_NOID"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SYNTH_NOID</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.commands.RequestId.RequestId.UGEN_COMMAND" title="supriya.commands.RequestId.RequestId.UGEN_COMMAND"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UGEN_COMMAND</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.BUFFER_ALLOCATE">
+<code class="descname">BUFFER_ALLOCATE</code><em class="property"> = 28</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.BUFFER_ALLOCATE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.BUFFER_ALLOCATE_READ">
+<code class="descname">BUFFER_ALLOCATE_READ</code><em class="property"> = 29</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.BUFFER_ALLOCATE_READ" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.BUFFER_ALLOCATE_READ_CHANNEL">
+<code class="descname">BUFFER_ALLOCATE_READ_CHANNEL</code><em class="property"> = 54</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.BUFFER_ALLOCATE_READ_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.BUFFER_CLOSE">
+<code class="descname">BUFFER_CLOSE</code><em class="property"> = 33</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.BUFFER_CLOSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.BUFFER_FILL">
+<code class="descname">BUFFER_FILL</code><em class="property"> = 37</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.BUFFER_FILL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.BUFFER_FREE">
+<code class="descname">BUFFER_FREE</code><em class="property"> = 32</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.BUFFER_FREE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.BUFFER_GENERATE">
+<code class="descname">BUFFER_GENERATE</code><em class="property"> = 38</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.BUFFER_GENERATE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.BUFFER_GET">
+<code class="descname">BUFFER_GET</code><em class="property"> = 42</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.BUFFER_GET" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.BUFFER_GET_CONTIGUOUS">
+<code class="descname">BUFFER_GET_CONTIGUOUS</code><em class="property"> = 43</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.BUFFER_GET_CONTIGUOUS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.BUFFER_QUERY">
+<code class="descname">BUFFER_QUERY</code><em class="property"> = 47</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.BUFFER_QUERY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.BUFFER_READ">
+<code class="descname">BUFFER_READ</code><em class="property"> = 30</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.BUFFER_READ" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.BUFFER_READ_CHANNEL">
+<code class="descname">BUFFER_READ_CHANNEL</code><em class="property"> = 55</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.BUFFER_READ_CHANNEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.BUFFER_SET">
+<code class="descname">BUFFER_SET</code><em class="property"> = 35</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.BUFFER_SET" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.BUFFER_SET_CONTIGUOUS">
+<code class="descname">BUFFER_SET_CONTIGUOUS</code><em class="property"> = 36</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.BUFFER_SET_CONTIGUOUS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.BUFFER_WRITE">
+<code class="descname">BUFFER_WRITE</code><em class="property"> = 31</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.BUFFER_WRITE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.BUFFER_ZERO">
+<code class="descname">BUFFER_ZERO</code><em class="property"> = 34</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.BUFFER_ZERO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.CLEAR_SCHEDULE">
+<code class="descname">CLEAR_SCHEDULE</code><em class="property"> = 51</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.CLEAR_SCHEDULE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.COMMAND">
+<code class="descname">COMMAND</code><em class="property"> = 4</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.COMMAND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.CONTROL_BUS_FILL">
+<code class="descname">CONTROL_BUS_FILL</code><em class="property"> = 27</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.CONTROL_BUS_FILL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.CONTROL_BUS_GET">
+<code class="descname">CONTROL_BUS_GET</code><em class="property"> = 40</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.CONTROL_BUS_GET" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.CONTROL_BUS_GET_CONTIGUOUS">
+<code class="descname">CONTROL_BUS_GET_CONTIGUOUS</code><em class="property"> = 41</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.CONTROL_BUS_GET_CONTIGUOUS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.CONTROL_BUS_SET">
+<code class="descname">CONTROL_BUS_SET</code><em class="property"> = 25</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.CONTROL_BUS_SET" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.CONTROL_BUS_SET_CONTIGUOUS">
+<code class="descname">CONTROL_BUS_SET_CONTIGUOUS</code><em class="property"> = 26</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.CONTROL_BUS_SET_CONTIGUOUS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.DUMP_OSC">
+<code class="descname">DUMP_OSC</code><em class="property"> = 39</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.DUMP_OSC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.ERROR">
+<code class="descname">ERROR</code><em class="property"> = 58</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.ERROR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.GROUP_DEEP_FREE">
+<code class="descname">GROUP_DEEP_FREE</code><em class="property"> = 50</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.GROUP_DEEP_FREE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.GROUP_DUMP_TREE">
+<code class="descname">GROUP_DUMP_TREE</code><em class="property"> = 56</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.GROUP_DUMP_TREE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.GROUP_FREE_ALL">
+<code class="descname">GROUP_FREE_ALL</code><em class="property"> = 24</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.GROUP_FREE_ALL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.GROUP_HEAD">
+<code class="descname">GROUP_HEAD</code><em class="property"> = 22</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.GROUP_HEAD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.GROUP_NEW">
+<code class="descname">GROUP_NEW</code><em class="property"> = 21</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.GROUP_NEW" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.GROUP_QUERY_TREE">
+<code class="descname">GROUP_QUERY_TREE</code><em class="property"> = 57</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.GROUP_QUERY_TREE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.GROUP_TAIL">
+<code class="descname">GROUP_TAIL</code><em class="property"> = 23</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.GROUP_TAIL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.NODE_AFTER">
+<code class="descname">NODE_AFTER</code><em class="property"> = 19</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.NODE_AFTER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.NODE_BEFORE">
+<code class="descname">NODE_BEFORE</code><em class="property"> = 18</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.NODE_BEFORE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.NODE_COMMAND">
+<code class="descname">NODE_COMMAND</code><em class="property"> = 13</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.NODE_COMMAND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.NODE_FILL">
+<code class="descname">NODE_FILL</code><em class="property"> = 17</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.NODE_FILL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.NODE_FREE">
+<code class="descname">NODE_FREE</code><em class="property"> = 11</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.NODE_FREE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.NODE_MAP_TO_AUDIO_BUS">
+<code class="descname">NODE_MAP_TO_AUDIO_BUS</code><em class="property"> = 60</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.NODE_MAP_TO_AUDIO_BUS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.NODE_MAP_TO_AUDIO_BUS_CONTIGUOUS">
+<code class="descname">NODE_MAP_TO_AUDIO_BUS_CONTIGUOUS</code><em class="property"> = 61</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.NODE_MAP_TO_AUDIO_BUS_CONTIGUOUS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.NODE_MAP_TO_CONTROL_BUS">
+<code class="descname">NODE_MAP_TO_CONTROL_BUS</code><em class="property"> = 14</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.NODE_MAP_TO_CONTROL_BUS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.NODE_MAP_TO_CONTROL_BUS_CONTIGUOUS">
+<code class="descname">NODE_MAP_TO_CONTROL_BUS_CONTIGUOUS</code><em class="property"> = 48</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.NODE_MAP_TO_CONTROL_BUS_CONTIGUOUS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.NODE_ORDER">
+<code class="descname">NODE_ORDER</code><em class="property"> = 62</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.NODE_ORDER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.NODE_QUERY">
+<code class="descname">NODE_QUERY</code><em class="property"> = 46</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.NODE_QUERY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.NODE_RUN">
+<code class="descname">NODE_RUN</code><em class="property"> = 12</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.NODE_RUN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.NODE_SET">
+<code class="descname">NODE_SET</code><em class="property"> = 15</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.NODE_SET" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.NODE_SET_CONTIGUOUS">
+<code class="descname">NODE_SET_CONTIGUOUS</code><em class="property"> = 16</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.NODE_SET_CONTIGUOUS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.NODE_TRACE">
+<code class="descname">NODE_TRACE</code><em class="property"> = 10</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.NODE_TRACE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.NOTHING">
+<code class="descname">NOTHING</code><em class="property"> = 0</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.NOTHING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.NOTIFY">
+<code class="descname">NOTIFY</code><em class="property"> = 1</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.NOTIFY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.PARALLEL_GROUP_NEW">
+<code class="descname">PARALLEL_GROUP_NEW</code><em class="property"> = 63</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.PARALLEL_GROUP_NEW" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.QUIT">
+<code class="descname">QUIT</code><em class="property"> = 3</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.QUIT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.STATUS">
+<code class="descname">STATUS</code><em class="property"> = 2</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.STATUS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.SYNC">
+<code class="descname">SYNC</code><em class="property"> = 52</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.SYNC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.SYNTHDEF_FREE">
+<code class="descname">SYNTHDEF_FREE</code><em class="property"> = 53</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.SYNTHDEF_FREE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.SYNTHDEF_FREE_ALL">
+<code class="descname">SYNTHDEF_FREE_ALL</code><em class="property"> = 8</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.SYNTHDEF_FREE_ALL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.SYNTHDEF_LOAD">
+<code class="descname">SYNTHDEF_LOAD</code><em class="property"> = 6</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.SYNTHDEF_LOAD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.SYNTHDEF_LOAD_DIR">
+<code class="descname">SYNTHDEF_LOAD_DIR</code><em class="property"> = 7</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.SYNTHDEF_LOAD_DIR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.SYNTHDEF_RECEIVE">
+<code class="descname">SYNTHDEF_RECEIVE</code><em class="property"> = 5</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.SYNTHDEF_RECEIVE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.SYNTH_GET">
+<code class="descname">SYNTH_GET</code><em class="property"> = 44</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.SYNTH_GET" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.SYNTH_GET_CONTIGUOUS">
+<code class="descname">SYNTH_GET_CONTIGUOUS</code><em class="property"> = 45</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.SYNTH_GET_CONTIGUOUS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.SYNTH_NEW">
+<code class="descname">SYNTH_NEW</code><em class="property"> = 9</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.SYNTH_NEW" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.SYNTH_NEWARGS">
+<code class="descname">SYNTH_NEWARGS</code><em class="property"> = 59</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.SYNTH_NEWARGS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.SYNTH_NOID">
+<code class="descname">SYNTH_NOID</code><em class="property"> = 49</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.SYNTH_NOID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.UGEN_COMMAND">
+<code class="descname">UGEN_COMMAND</code><em class="property"> = 20</em><a class="headerlink" href="#supriya.commands.RequestId.RequestId.UGEN_COMMAND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.commands.RequestId.RequestId.request_name">
+<code class="descname">request_name</code><a class="headerlink" href="#supriya.commands.RequestId.RequestId.request_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="RequestName.html" class="btn btn-neutral float-right" title="RequestName" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="NodeAction.html" class="btn btn-neutral" title="NodeAction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

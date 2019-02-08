@@ -1,0 +1,363 @@
+.. _supriya--ugens--BufRateScale:
+
+BufRateScale
+============
+
+.. automodule:: supriya.ugens.BufRateScale
+
+.. currentmodule:: supriya.ugens.BufRateScale
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.BufRateScale
+
+.. autoclass:: BufRateScale
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      buffer_id
+      ir
+      kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.__add__
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.__div__
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.__le__
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.__len__
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.__str__
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.as_int
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.clip
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.cubed
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.distort
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.exponential
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.floor
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.lag
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.log
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.log10
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.log2
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.maximum
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.minimum
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.power
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.range
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.scale
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.sign
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.softclip
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.square_root
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.squared
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.sum
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.tanh
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.transpose
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BufRateScale.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: BufRateScale.ir
+
+   .. automethod:: BufRateScale.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufRateScale.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: BufRateScale.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: BufRateScale.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: BufRateScale.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BufRateScale.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BufRateScale.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BufRateScale.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BufRateScale.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: BufRateScale.special_index

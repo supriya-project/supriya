@@ -1,0 +1,115 @@
+.. _supriya--commands--BufferReadRequest:
+
+BufferReadRequest
+=================
+
+.. automodule:: supriya.commands.BufferReadRequest
+
+.. currentmodule:: supriya.commands.BufferReadRequest
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.BufferReadRequest
+
+.. autoclass:: BufferReadRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      buffer_id
+      callback
+      file_path
+      frame_count
+      leave_open
+      request_id
+      response_patterns
+      starting_frame_in_buffer
+      starting_frame_in_file
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadRequest.to_list
+
+   .. automethod:: BufferReadRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferReadRequest.buffer_id
+
+   .. autoattribute:: BufferReadRequest.callback
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferReadRequest.condition
+
+   .. autoattribute:: BufferReadRequest.file_path
+
+   .. autoattribute:: BufferReadRequest.frame_count
+
+   .. autoattribute:: BufferReadRequest.leave_open
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferReadRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferReadRequest.response
+
+   .. autoattribute:: BufferReadRequest.response_patterns
+
+   .. autoattribute:: BufferReadRequest.starting_frame_in_buffer
+
+   .. autoattribute:: BufferReadRequest.starting_frame_in_file

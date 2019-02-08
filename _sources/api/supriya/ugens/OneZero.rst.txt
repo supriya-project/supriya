@@ -1,0 +1,366 @@
+.. _supriya--ugens--OneZero:
+
+OneZero
+=======
+
+.. automodule:: supriya.ugens.OneZero
+
+.. currentmodule:: supriya.ugens.OneZero
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.OneZero
+
+.. autoclass:: OneZero
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      coefficient
+      kr
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.__add__
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.__div__
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.__le__
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.__len__
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.__str__
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.as_int
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.clip
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.cubed
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.distort
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.exponential
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.floor
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.lag
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.log
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.log10
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.log2
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.maximum
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.minimum
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.power
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.range
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.scale
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.sign
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.softclip
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.square_root
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.squared
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.sum
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.tanh
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.transpose
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: OneZero.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: OneZero.ar
+
+   .. automethod:: OneZero.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: OneZero.calculation_rate
+
+   .. autoattribute:: OneZero.coefficient
+
+   .. container:: inherited
+
+      .. autoattribute:: OneZero.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: OneZero.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: OneZero.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: OneZero.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: OneZero.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: OneZero.signal_range
+
+   .. autoattribute:: OneZero.source
+
+   .. container:: inherited
+
+      .. autoattribute:: OneZero.special_index

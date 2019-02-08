@@ -1,0 +1,358 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>supriya.system.Binding &mdash; Supriya 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">Supriya API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../supriya.html">supriya</a> &raquo;</li>
+        
+      <li>supriya.system.Binding</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for supriya.system.Binding</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="kn">from</span> <span class="nn">supriya</span> <span class="k">import</span> <span class="n">utils</span>
+
+
+<div class="viewcode-block" id="Binding"><a class="viewcode-back" href="../../../api/supriya/system/Binding.html#supriya.system.Binding.Binding">[docs]</a><span class="k">class</span> <span class="nc">Binding</span><span class="p">:</span>
+
+    <span class="c1"># TODO: This class needs deterministic hashing, to prevent unnecessary</span>
+    <span class="c1">#       rebinding in Bindable&#39;s incoming/outgoing_bindings sets.</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;clip_maximum&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;clip_minimum&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;exponent&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source_range&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;symmetric&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;target&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;target_range&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">source</span><span class="p">,</span>
+        <span class="n">target</span><span class="p">,</span>
+        <span class="n">source_range</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">target_range</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">clip_minimum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">clip_maximum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">exponent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">symmetric</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
+
+        <span class="c1"># import supriya.system</span>
+        <span class="c1"># assert isinstance(source, supriya.system.Bindable), source</span>
+        <span class="c1"># assert isinstance(target, supriya.system.Bindable), target</span>
+        <span class="c1"># self.source = source</span>
+        <span class="c1"># self.target = target</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">source_range</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="vm">__self__</span><span class="p">,</span> <span class="s2">&quot;range_&quot;</span><span class="p">):</span>
+                <span class="n">source_range</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="vm">__self__</span><span class="o">.</span><span class="n">range_</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">source_range</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+        <span class="n">source_range</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">Range</span><span class="p">(</span><span class="n">source_range</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">source_range</span><span class="o">.</span><span class="n">minimum</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">):</span>
+            <span class="n">source_range</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">source_range</span><span class="p">,</span> <span class="n">minimum</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">source_range</span><span class="o">.</span><span class="n">maximum</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">):</span>
+            <span class="n">source_range</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">source_range</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source_range</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">Range</span><span class="p">(</span><span class="n">source_range</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">target_range</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="s2">&quot;__self__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="vm">__self__</span><span class="p">,</span> <span class="s2">&quot;range_&quot;</span>
+            <span class="p">):</span>
+                <span class="n">target_range</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="vm">__self__</span><span class="o">.</span><span class="n">range_</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">target_range</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+        <span class="n">target_range</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">Range</span><span class="p">(</span><span class="n">target_range</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">target_range</span><span class="o">.</span><span class="n">minimum</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">):</span>
+            <span class="n">target_range</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">target_range</span><span class="p">,</span> <span class="n">minimum</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">target_range</span><span class="o">.</span><span class="n">maximum</span> <span class="o">==</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">):</span>
+            <span class="n">target_range</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">target_range</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_range</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">Range</span><span class="p">(</span><span class="n">target_range</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clip_maximum</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">clip_maximum</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clip_minimum</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">clip_minimum</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">exponent</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">exponent</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exponent</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">exponent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">symmetric</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">symmetric</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">outgoing_bindings</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">incoming_bindings</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="Binding.is_class_instance"><a class="viewcode-back" href="../../../api/supriya/system/Binding.html#supriya.system.Binding.Binding.is_class_instance">[docs]</a>    <span class="k">def</span> <span class="nf">is_class_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">object_</span><span class="p">,</span> <span class="s2">&quot;__class__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
+            <span class="s2">&quot;__dict__&quot;</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">object_</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">object_</span><span class="p">,</span> <span class="s2">&quot;__slots__&quot;</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Binding.patch"><a class="viewcode-back" href="../../../api/supriya/system/Binding.html#supriya.system.Binding.Binding.patch">[docs]</a>    <span class="k">def</span> <span class="nf">patch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.system</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">object_</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">Bindable</span><span class="p">):</span>
+            <span class="k">pass</span>
+        <span class="k">elif</span> <span class="n">callable</span><span class="p">(</span><span class="n">object_</span><span class="p">):</span>
+            <span class="n">object_</span> <span class="o">=</span> <span class="n">object_</span><span class="o">.</span><span class="fm">__call__</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">object_</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">Bindable</span><span class="p">),</span> <span class="n">object_</span>
+        <span class="k">return</span> <span class="n">object_</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_class_instance</span><span class="p">(</span><span class="n">object_</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">object_</span><span class="p">,</span> <span class="s2">&quot;__call__&quot;</span><span class="p">):</span>
+            <span class="n">instance</span> <span class="o">=</span> <span class="n">object_</span>
+            <span class="n">class_</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">object_</span><span class="p">)</span>
+            <span class="n">method_name</span> <span class="o">=</span> <span class="s2">&quot;__call__&quot;</span>
+        <span class="k">elif</span> <span class="n">inspect</span><span class="o">.</span><span class="n">ismethod</span><span class="p">(</span><span class="n">object_</span><span class="p">):</span>
+            <span class="n">instance</span> <span class="o">=</span> <span class="n">object_</span><span class="o">.</span><span class="vm">__self__</span>
+            <span class="n">class_</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+            <span class="n">method_name</span> <span class="o">=</span> <span class="n">object_</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">object_</span><span class="p">)</span>
+        <span class="n">function</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">method_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">Bindable</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">function</span>
+        <span class="n">function</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">class_</span><span class="p">,</span> <span class="n">method_name</span><span class="p">)</span>
+        <span class="n">bindable</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">Bindable</span><span class="p">(</span><span class="n">function</span><span class="p">)</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">class_</span><span class="p">,</span> <span class="n">method_name</span><span class="p">,</span> <span class="n">bindable</span><span class="p">)</span>
+        <span class="n">bindable</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">method_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">bindable</span></div>
+
+<div class="viewcode-block" id="Binding.perform_mapping"><a class="viewcode-back" href="../../../api/supriya/system/Binding.html#supriya.system.Binding.Binding.perform_mapping">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">perform_mapping</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">input_range</span><span class="p">,</span> <span class="n">output_range</span><span class="p">,</span> <span class="n">exponent</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">symmetric</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span> <span class="o">-</span> <span class="n">input_range</span><span class="o">.</span><span class="n">minimum</span><span class="p">)</span> <span class="o">/</span> <span class="n">input_range</span><span class="o">.</span><span class="n">width</span>
+        <span class="k">if</span> <span class="n">exponent</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">symmetric</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="nb">pow</span><span class="p">((</span><span class="n">value</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">exponent</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span>
+            <span class="k">elif</span> <span class="n">symmetric</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">value</span> <span class="o">*</span> <span class="mi">2</span><span class="p">),</span> <span class="n">exponent</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">exponent</span><span class="p">)</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span> <span class="o">*</span> <span class="n">output_range</span><span class="o">.</span><span class="n">width</span><span class="p">)</span> <span class="o">+</span> <span class="n">output_range</span><span class="o">.</span><span class="n">minimum</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="Binding.perform_outgoing"><a class="viewcode-back" href="../../../api/supriya/system/Binding.html#supriya.system.Binding.Binding.perform_outgoing">[docs]</a>    <span class="k">def</span> <span class="nf">perform_outgoing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">forbid_reentrancy</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">perform_mapping</span><span class="p">(</span>
+            <span class="n">value</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">source_range</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">target_range</span><span class="p">,</span>
+            <span class="n">exponent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">exponent</span><span class="p">,</span>
+            <span class="n">symmetric</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">symmetric</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Binding.perform_incoming"><a class="viewcode-back" href="../../../api/supriya/system/Binding.html#supriya.system.Binding.Binding.perform_incoming">[docs]</a>    <span class="k">def</span> <span class="nf">perform_incoming</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># TODO: handle exponent and symmetric in reverse</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">forbid_reentrancy</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">perform_mapping</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_range</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_range</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Binding.unbind"><a class="viewcode-back" href="../../../api/supriya/system/Binding.html#supriya.system.Binding.Binding.unbind">[docs]</a>    <span class="k">def</span> <span class="nf">unbind</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">outgoing_bindings</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">incoming_bindings</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

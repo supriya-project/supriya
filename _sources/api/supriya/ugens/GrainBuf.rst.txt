@@ -1,0 +1,388 @@
+.. _supriya--ugens--GrainBuf:
+
+GrainBuf
+========
+
+.. automodule:: supriya.ugens.GrainBuf
+
+.. currentmodule:: supriya.ugens.GrainBuf
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.GrainBuf
+
+.. autoclass:: GrainBuf
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      buffer_id
+      duration
+      envelope_buffer_id
+      interpolate
+      maximum_overlap
+      pan
+      position
+      rate
+      trigger
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.__add__
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.__div__
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.__le__
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.__len__
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.__str__
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.as_int
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.clip
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.cubed
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.distort
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.exponential
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.floor
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.lag
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.log
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.log10
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.log2
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.maximum
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.minimum
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.power
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.range
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.scale
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.sign
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.softclip
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.square_root
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.squared
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.sum
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.tanh
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.transpose
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: GrainBuf.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: GrainBuf.ar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: GrainBuf.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: GrainBuf.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: GrainBuf.channel_count
+
+   .. autoattribute:: GrainBuf.duration
+
+   .. autoattribute:: GrainBuf.envelope_buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: GrainBuf.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: GrainBuf.inputs
+
+   .. autoattribute:: GrainBuf.interpolate
+
+   .. container:: inherited
+
+      .. autoattribute:: GrainBuf.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: GrainBuf.is_output_ugen
+
+   .. autoattribute:: GrainBuf.maximum_overlap
+
+   .. container:: inherited
+
+      .. autoattribute:: GrainBuf.outputs
+
+   .. autoattribute:: GrainBuf.pan
+
+   .. autoattribute:: GrainBuf.position
+
+   .. autoattribute:: GrainBuf.rate
+
+   .. container:: inherited
+
+      .. autoattribute:: GrainBuf.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: GrainBuf.special_index
+
+   .. autoattribute:: GrainBuf.trigger

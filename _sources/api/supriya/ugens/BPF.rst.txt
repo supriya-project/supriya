@@ -1,0 +1,369 @@
+.. _supriya--ugens--BPF:
+
+BPF
+===
+
+.. automodule:: supriya.ugens.BPF
+
+.. currentmodule:: supriya.ugens.BPF
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.BPF
+
+.. autoclass:: BPF
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      frequency
+      kr
+      reciprocal_of_q
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BPF.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: BPF.__add__
+
+   .. container:: inherited
+
+      .. automethod:: BPF.__div__
+
+   .. container:: inherited
+
+      .. automethod:: BPF.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: BPF.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: BPF.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: BPF.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: BPF.__le__
+
+   .. container:: inherited
+
+      .. automethod:: BPF.__len__
+
+   .. container:: inherited
+
+      .. automethod:: BPF.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: BPF.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: BPF.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: BPF.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: BPF.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: BPF.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: BPF.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: BPF.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: BPF.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: BPF.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: BPF.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: BPF.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: BPF.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: BPF.__str__
+
+   .. container:: inherited
+
+      .. automethod:: BPF.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: BPF.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BPF.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: BPF.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: BPF.as_int
+
+   .. container:: inherited
+
+      .. automethod:: BPF.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: BPF.clip
+
+   .. container:: inherited
+
+      .. automethod:: BPF.cubed
+
+   .. container:: inherited
+
+      .. automethod:: BPF.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: BPF.distort
+
+   .. container:: inherited
+
+      .. automethod:: BPF.exponential
+
+   .. container:: inherited
+
+      .. automethod:: BPF.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: BPF.floor
+
+   .. container:: inherited
+
+      .. automethod:: BPF.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: BPF.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: BPF.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: BPF.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: BPF.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BPF.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BPF.lag
+
+   .. container:: inherited
+
+      .. automethod:: BPF.log
+
+   .. container:: inherited
+
+      .. automethod:: BPF.log10
+
+   .. container:: inherited
+
+      .. automethod:: BPF.log2
+
+   .. container:: inherited
+
+      .. automethod:: BPF.maximum
+
+   .. container:: inherited
+
+      .. automethod:: BPF.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BPF.minimum
+
+   .. container:: inherited
+
+      .. automethod:: BPF.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BPF.power
+
+   .. container:: inherited
+
+      .. automethod:: BPF.range
+
+   .. container:: inherited
+
+      .. automethod:: BPF.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: BPF.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: BPF.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BPF.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: BPF.scale
+
+   .. container:: inherited
+
+      .. automethod:: BPF.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: BPF.sign
+
+   .. container:: inherited
+
+      .. automethod:: BPF.softclip
+
+   .. container:: inherited
+
+      .. automethod:: BPF.square_root
+
+   .. container:: inherited
+
+      .. automethod:: BPF.squared
+
+   .. container:: inherited
+
+      .. automethod:: BPF.sum
+
+   .. container:: inherited
+
+      .. automethod:: BPF.tanh
+
+   .. container:: inherited
+
+      .. automethod:: BPF.transpose
+
+   .. container:: inherited
+
+      .. automethod:: BPF.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BPF.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: BPF.ar
+
+   .. automethod:: BPF.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: BPF.calculation_rate
+
+   .. autoattribute:: BPF.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: BPF.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: BPF.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BPF.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BPF.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BPF.outputs
+
+   .. autoattribute:: BPF.reciprocal_of_q
+
+   .. container:: inherited
+
+      .. autoattribute:: BPF.signal_range
+
+   .. autoattribute:: BPF.source
+
+   .. container:: inherited
+
+      .. autoattribute:: BPF.special_index

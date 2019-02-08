@@ -1,0 +1,366 @@
+.. _supriya--ugens--BHiPass:
+
+BHiPass
+=======
+
+.. automodule:: supriya.ugens.BHiPass
+
+.. currentmodule:: supriya.ugens.BHiPass
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.BHiPass
+
+.. autoclass:: BHiPass
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      frequency
+      reciprocal_of_q
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.__add__
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.__div__
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.__le__
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.__len__
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.__str__
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.as_int
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.clip
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.cubed
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.distort
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.exponential
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.floor
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.lag
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.log
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.log10
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.log2
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.maximum
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.minimum
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.power
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.range
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.scale
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.sign
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.softclip
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.square_root
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.squared
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.sum
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.tanh
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.transpose
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BHiPass.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: BHiPass.ar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: BHiPass.calculation_rate
+
+   .. autoattribute:: BHiPass.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: BHiPass.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: BHiPass.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BHiPass.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BHiPass.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BHiPass.outputs
+
+   .. autoattribute:: BHiPass.reciprocal_of_q
+
+   .. container:: inherited
+
+      .. autoattribute:: BHiPass.signal_range
+
+   .. autoattribute:: BHiPass.source
+
+   .. container:: inherited
+
+      .. autoattribute:: BHiPass.special_index

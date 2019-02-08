@@ -1,0 +1,381 @@
+.. _supriya--ugens--Onsets:
+
+Onsets
+======
+
+.. automodule:: supriya.ugens.Onsets
+
+.. currentmodule:: supriya.ugens.Onsets
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Onsets
+
+.. autoclass:: Onsets
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ODFType
+      floor
+      kr
+      medianspan
+      mingap
+      odftype
+      pv_chain
+      rawodf
+      relaxtime
+      threshold
+      whtype
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.clip
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.distort
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.lag
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.log
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.log10
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.log2
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.power
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.range
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.scale
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.sign
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.squared
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.sum
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Onsets.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Onsets.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Onsets.calculation_rate
+
+   .. autoattribute:: Onsets.floor
+
+   .. container:: inherited
+
+      .. autoattribute:: Onsets.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Onsets.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Onsets.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Onsets.is_output_ugen
+
+   .. autoattribute:: Onsets.medianspan
+
+   .. autoattribute:: Onsets.mingap
+
+   .. autoattribute:: Onsets.odftype
+
+   .. container:: inherited
+
+      .. autoattribute:: Onsets.outputs
+
+   .. autoattribute:: Onsets.pv_chain
+
+   .. autoattribute:: Onsets.rawodf
+
+   .. autoattribute:: Onsets.relaxtime
+
+   .. container:: inherited
+
+      .. autoattribute:: Onsets.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: Onsets.special_index
+
+   .. autoattribute:: Onsets.threshold
+
+   .. autoattribute:: Onsets.whtype

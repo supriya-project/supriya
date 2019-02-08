@@ -1,0 +1,42 @@
+.. _supriya--system--YAMLLoader:
+
+YAMLLoader
+==========
+
+.. automodule:: supriya.system.YAMLLoader
+
+.. currentmodule:: supriya.system.YAMLLoader
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.system.YAMLLoader
+
+.. autoclass:: YAMLLoader
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      load
+      merge
+      resolve_templating
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: YAMLLoader.load
+
+   .. automethod:: YAMLLoader.merge
+
+   .. automethod:: YAMLLoader.resolve_templating

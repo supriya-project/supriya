@@ -1,0 +1,369 @@
+.. _supriya--ugens--Ringz:
+
+Ringz
+=====
+
+.. automodule:: supriya.ugens.Ringz
+
+.. currentmodule:: supriya.ugens.Ringz
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Ringz
+
+.. autoclass:: Ringz
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      decay_time
+      frequency
+      kr
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.clip
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.distort
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.floor
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.lag
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.log
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.log10
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.log2
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.power
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.range
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.scale
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.sign
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.squared
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.sum
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Ringz.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Ringz.ar
+
+   .. automethod:: Ringz.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Ringz.calculation_rate
+
+   .. autoattribute:: Ringz.decay_time
+
+   .. autoattribute:: Ringz.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: Ringz.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Ringz.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Ringz.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Ringz.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Ringz.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Ringz.signal_range
+
+   .. autoattribute:: Ringz.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Ringz.special_index

@@ -1,0 +1,69 @@
+.. _supriya--commands--Response:
+
+Response
+========
+
+.. automodule:: supriya.commands.Response
+
+.. currentmodule:: supriya.commands.Response
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.Response
+
+.. autoclass:: Response
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      osc_message
+      to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Response.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: Response.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: Response.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: Response.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: Response.to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Response.osc_message

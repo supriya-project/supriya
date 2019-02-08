@@ -1,0 +1,366 @@
+.. _supriya--ugens--Dunique:
+
+Dunique
+=======
+
+.. automodule:: supriya.ugens.Dunique
+
+.. currentmodule:: supriya.ugens.Dunique
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Dunique
+
+.. autoclass:: Dunique
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      max_buffer_size
+      new
+      protected
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.clip
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.distort
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.floor
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.lag
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.log
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.log10
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.log2
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.power
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.range
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.scale
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.sign
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.squared
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.sum
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Dunique.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Dunique.new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Dunique.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Dunique.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Dunique.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Dunique.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Dunique.is_output_ugen
+
+   .. autoattribute:: Dunique.max_buffer_size
+
+   .. container:: inherited
+
+      .. autoattribute:: Dunique.outputs
+
+   .. autoattribute:: Dunique.protected
+
+   .. container:: inherited
+
+      .. autoattribute:: Dunique.signal_range
+
+   .. autoattribute:: Dunique.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Dunique.special_index

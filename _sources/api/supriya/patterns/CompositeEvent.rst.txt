@@ -1,0 +1,72 @@
+.. _supriya--patterns--CompositeEvent:
+
+CompositeEvent
+==============
+
+.. automodule:: supriya.patterns.CompositeEvent
+
+.. currentmodule:: supriya.patterns.CompositeEvent
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.patterns.CompositeEvent
+
+.. autoclass:: CompositeEvent
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: CompositeEvent.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: CompositeEvent.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: CompositeEvent.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: CompositeEvent.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: CompositeEvent.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: CompositeEvent.as_dict
+
+   .. container:: inherited
+
+      .. automethod:: CompositeEvent.get
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: CompositeEvent.delta
+
+   .. container:: inherited
+
+      .. autoattribute:: CompositeEvent.settings

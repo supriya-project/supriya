@@ -1,0 +1,175 @@
+.. _supriya--realtime--Server:
+
+Server
+======
+
+.. automodule:: supriya.realtime.Server
+
+.. currentmodule:: supriya.realtime.Server
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.realtime.Server
+
+.. autoclass:: Server
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __contains__
+      __enter__
+      __exit__
+      __getitem__
+      __graph__
+      __new__
+      __repr__
+      __str__
+      audio_bus_allocator
+      audio_input_bus_group
+      audio_output_bus_group
+      boot
+      buffer_allocator
+      control_bus_allocator
+      debug_osc
+      debug_request_names
+      debug_subprocess
+      debug_udp
+      default_group
+      get_default_server
+      ip_address
+      is_running
+      latency
+      meters
+      next_sync_id
+      node_id_allocator
+      osc_io
+      port
+      query_local_nodes
+      query_remote_nodes
+      quit
+      reboot
+      recorder
+      root_node
+      send_message
+      server_options
+      status
+      sync
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: Server.__contains__
+
+   .. automethod:: Server.__enter__
+
+   .. automethod:: Server.__exit__
+
+   .. automethod:: Server.__getitem__
+
+   .. automethod:: Server.__graph__
+
+   .. automethod:: Server.__new__
+
+   .. automethod:: Server.__repr__
+
+   .. automethod:: Server.__str__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: Server.boot
+
+   .. automethod:: Server.query_local_nodes
+
+   .. automethod:: Server.query_remote_nodes
+
+   .. automethod:: Server.quit
+
+   .. automethod:: Server.reboot
+
+   .. automethod:: Server.send_message
+
+   .. automethod:: Server.sync
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Server.get_default_server
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read/write properties
+      :class: class-header
+
+   .. autoattribute:: Server.debug_osc
+
+   .. autoattribute:: Server.debug_request_names
+
+   .. autoattribute:: Server.debug_subprocess
+
+   .. autoattribute:: Server.debug_udp
+
+   .. autoattribute:: Server.latency
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Server.audio_bus_allocator
+
+   .. autoattribute:: Server.audio_input_bus_group
+
+   .. autoattribute:: Server.audio_output_bus_group
+
+   .. autoattribute:: Server.buffer_allocator
+
+   .. autoattribute:: Server.control_bus_allocator
+
+   .. autoattribute:: Server.default_group
+
+   .. autoattribute:: Server.ip_address
+
+   .. autoattribute:: Server.is_running
+
+   .. autoattribute:: Server.meters
+
+   .. autoattribute:: Server.next_sync_id
+
+   .. autoattribute:: Server.node_id_allocator
+
+   .. autoattribute:: Server.osc_io
+
+   .. autoattribute:: Server.port
+
+   .. autoattribute:: Server.recorder
+
+   .. autoattribute:: Server.root_node
+
+   .. autoattribute:: Server.server_options
+
+   .. autoattribute:: Server.status

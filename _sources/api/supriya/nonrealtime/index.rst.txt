@@ -1,0 +1,109 @@
+.. _supriya--nonrealtime:
+
+nonrealtime
+===========
+
+.. automodule:: supriya.nonrealtime
+
+.. currentmodule:: supriya.nonrealtime
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.nonrealtime
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   SessionFactory
+
+.. autosummary::
+   :nosignatures:
+
+   ~SessionFactory.SessionFactory
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Non-realtime Session
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   Session
+
+.. autosummary::
+   :nosignatures:
+
+   ~Session.Session
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Session Internals
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   DoNotPropagate
+   NodeAction
+   SessionObject
+   SessionRenderer
+   State
+
+.. autosummary::
+   :nosignatures:
+
+   ~DoNotPropagate.DoNotPropagate
+   ~NodeAction.NodeAction
+   ~SessionObject.SessionObject
+   ~SessionRenderer.SessionRenderer
+   ~State.State
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Session Objects
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   AudioInputBusGroup
+   AudioOutputBusGroup
+   Buffer
+   BufferGroup
+   Bus
+   BusGroup
+   Group
+   Moment
+   Node
+   RootNode
+   Synth
+
+.. autosummary::
+   :nosignatures:
+
+   ~AudioInputBusGroup.AudioInputBusGroup
+   ~AudioOutputBusGroup.AudioOutputBusGroup
+   ~Buffer.Buffer
+   ~BufferGroup.BufferGroup
+   ~Bus.Bus
+   ~BusGroup.BusGroup
+   ~Group.Group
+   ~Moment.Moment
+   ~Node.Node
+   ~RootNode.RootNode
+   ~Synth.Synth

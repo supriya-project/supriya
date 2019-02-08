@@ -1,0 +1,367 @@
+.. _supriya--ugens--PV-Min:
+
+PV_Min
+======
+
+.. automodule:: supriya.ugens.PV_Min
+
+.. currentmodule:: supriya.ugens.PV_Min
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.PV_Min
+
+.. autoclass:: PV_Min
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      new
+      pv_chain_a
+      pv_chain_b
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.__add__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.__div__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.__le__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.__len__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.__str__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.as_int
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.clip
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.cubed
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.distort
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.exponential
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.floor
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.lag
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.log
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.log10
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.log2
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.maximum
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.minimum
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.power
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.range
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.scale
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.sign
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.softclip
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.square_root
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.squared
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.sum
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.tanh
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.transpose
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_Min.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: PV_Min.new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Min.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Min.fft_size
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Min.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Min.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Min.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Min.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Min.outputs
+
+   .. autoattribute:: PV_Min.pv_chain_a
+
+   .. autoattribute:: PV_Min.pv_chain_b
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Min.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Min.special_index

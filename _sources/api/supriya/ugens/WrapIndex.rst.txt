@@ -1,0 +1,366 @@
+.. _supriya--ugens--WrapIndex:
+
+WrapIndex
+=========
+
+.. automodule:: supriya.ugens.WrapIndex
+
+.. currentmodule:: supriya.ugens.WrapIndex
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.WrapIndex
+
+.. autoclass:: WrapIndex
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      buffer_id
+      kr
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.__add__
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.__div__
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.__le__
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.__len__
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.__str__
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.as_int
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.clip
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.cubed
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.distort
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.exponential
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.floor
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.lag
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.log
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.log10
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.log2
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.maximum
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.minimum
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.power
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.range
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.scale
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.sign
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.softclip
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.square_root
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.squared
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.sum
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.tanh
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.transpose
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: WrapIndex.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: WrapIndex.ar
+
+   .. automethod:: WrapIndex.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: WrapIndex.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: WrapIndex.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: WrapIndex.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: WrapIndex.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: WrapIndex.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: WrapIndex.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: WrapIndex.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: WrapIndex.signal_range
+
+   .. autoattribute:: WrapIndex.source
+
+   .. container:: inherited
+
+      .. autoattribute:: WrapIndex.special_index

@@ -1,0 +1,373 @@
+.. _supriya--ugens--PV-RandWipe:
+
+PV_RandWipe
+===========
+
+.. automodule:: supriya.ugens.PV_RandWipe
+
+.. currentmodule:: supriya.ugens.PV_RandWipe
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.PV_RandWipe
+
+.. autoclass:: PV_RandWipe
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      new
+      pv_chain_a
+      pv_chain_b
+      trigger
+      wipe
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.__add__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.__div__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.__le__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.__len__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.__str__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.as_int
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.clip
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.cubed
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.distort
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.exponential
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.floor
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.lag
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.log
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.log10
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.log2
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.maximum
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.minimum
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.power
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.range
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.scale
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.sign
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.softclip
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.square_root
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.squared
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.sum
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.tanh
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.transpose
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_RandWipe.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: PV_RandWipe.new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_RandWipe.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_RandWipe.fft_size
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_RandWipe.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_RandWipe.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_RandWipe.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_RandWipe.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_RandWipe.outputs
+
+   .. autoattribute:: PV_RandWipe.pv_chain_a
+
+   .. autoattribute:: PV_RandWipe.pv_chain_b
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_RandWipe.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_RandWipe.special_index
+
+   .. autoattribute:: PV_RandWipe.trigger
+
+   .. autoattribute:: PV_RandWipe.wipe

@@ -1,0 +1,937 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>supriya.commands.QueryTreeResponse &mdash; Supriya 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">Supriya API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../supriya.html">supriya</a> &raquo;</li>
+        
+      <li>supriya.commands.QueryTreeResponse</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for supriya.commands.QueryTreeResponse</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">supriya.commands.Response</span> <span class="k">import</span> <span class="n">Response</span>
+
+
+<div class="viewcode-block" id="QueryTreeResponse"><a class="viewcode-back" href="../../../api/supriya/commands/QueryTreeResponse.html#supriya.commands.QueryTreeResponse.QueryTreeResponse">[docs]</a><span class="k">class</span> <span class="nc">QueryTreeResponse</span><span class="p">(</span><span class="n">Response</span><span class="p">):</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_node_id&quot;</span><span class="p">,</span> <span class="s2">&quot;_query_tree_group&quot;</span><span class="p">)</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">osc_message</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">query_tree_group</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">Response</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">osc_message</span><span class="o">=</span><span class="n">osc_message</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_node_id</span> <span class="o">=</span> <span class="n">node_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_query_tree_group</span> <span class="o">=</span> <span class="n">query_tree_group</span>
+
+    <span class="c1">### SPECIAL METHODS ###</span>
+
+<div class="viewcode-block" id="QueryTreeResponse.__str__"><a class="viewcode-back" href="../../../api/supriya/commands/QueryTreeResponse.html#supriya.commands.QueryTreeResponse.QueryTreeResponse.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_query_tree_group</span><span class="p">)</span></div>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="QueryTreeResponse.from_osc_message"><a class="viewcode-back" href="../../../api/supriya/commands/QueryTreeResponse.html#supriya.commands.QueryTreeResponse.QueryTreeResponse.from_osc_message">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_osc_message</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">osc_message</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create response from OSC message.</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; message = supriya.osc.OscMessage(&#39;/g_queryTree.reply&#39;, 0, 0, 1, 1, 2, 1001, 0, 1000, 1, 1002, 0)</span>
+<span class="sd">            &gt;&gt;&gt; supriya.commands.QueryTreeResponse.from_osc_message(message)</span>
+<span class="sd">            QueryTreeResponse(</span>
+<span class="sd">                node_id=0,</span>
+<span class="sd">                query_tree_group=QueryTreeGroup(</span>
+<span class="sd">                    children=(</span>
+<span class="sd">                        QueryTreeGroup(</span>
+<span class="sd">                            children=(</span>
+<span class="sd">                                QueryTreeGroup(</span>
+<span class="sd">                                    children=(),</span>
+<span class="sd">                                    node_id=1001,</span>
+<span class="sd">                                    ),</span>
+<span class="sd">                                QueryTreeGroup(</span>
+<span class="sd">                                    children=(</span>
+<span class="sd">                                        QueryTreeGroup(</span>
+<span class="sd">                                            children=(),</span>
+<span class="sd">                                            node_id=1002,</span>
+<span class="sd">                                            ),</span>
+<span class="sd">                                        ),</span>
+<span class="sd">                                    node_id=1000,</span>
+<span class="sd">                                    ),</span>
+<span class="sd">                                ),</span>
+<span class="sd">                            node_id=1,</span>
+<span class="sd">                            ),</span>
+<span class="sd">                        ),</span>
+<span class="sd">                    node_id=0,</span>
+<span class="sd">                    ),</span>
+<span class="sd">                )</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; print(supriya.commands.QueryTreeResponse.from_osc_message(message))</span>
+<span class="sd">            NODE TREE 0 group</span>
+<span class="sd">                1 group</span>
+<span class="sd">                    1001 group</span>
+<span class="sd">                    1000 group</span>
+<span class="sd">                        1002 group</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">recurse</span><span class="p">(</span><span class="n">contents</span><span class="p">,</span> <span class="n">control_flag</span><span class="p">):</span>
+            <span class="n">node_id</span> <span class="o">=</span> <span class="n">contents</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">child_count</span> <span class="o">=</span> <span class="n">contents</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">child_count</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">controls</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">synthdef_name</span> <span class="o">=</span> <span class="n">contents</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">control_flag</span><span class="p">:</span>
+                    <span class="n">control_count</span> <span class="o">=</span> <span class="n">contents</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">control_count</span><span class="p">):</span>
+                        <span class="n">control_name_or_index</span> <span class="o">=</span> <span class="n">contents</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                        <span class="n">control_value</span> <span class="o">=</span> <span class="n">contents</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                        <span class="n">control</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">QueryTreeControl</span><span class="p">(</span>
+                            <span class="n">control_name_or_index</span><span class="o">=</span><span class="n">control_name_or_index</span><span class="p">,</span>
+                            <span class="n">control_value</span><span class="o">=</span><span class="n">control_value</span><span class="p">,</span>
+                        <span class="p">)</span>
+                        <span class="n">controls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">control</span><span class="p">)</span>
+                <span class="n">controls</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">controls</span><span class="p">)</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">QueryTreeSynth</span><span class="p">(</span>
+                    <span class="n">node_id</span><span class="o">=</span><span class="n">node_id</span><span class="p">,</span> <span class="n">synthdef_name</span><span class="o">=</span><span class="n">synthdef_name</span><span class="p">,</span> <span class="n">controls</span><span class="o">=</span><span class="n">controls</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">children</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">child_count</span><span class="p">):</span>
+                    <span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">recurse</span><span class="p">(</span><span class="n">contents</span><span class="p">,</span> <span class="n">control_flag</span><span class="p">))</span>
+                <span class="n">children</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">children</span><span class="p">)</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">QueryTreeGroup</span><span class="p">(</span>
+                    <span class="n">node_id</span><span class="o">=</span><span class="n">node_id</span><span class="p">,</span> <span class="n">children</span><span class="o">=</span><span class="n">children</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="n">result</span>
+
+        <span class="kn">import</span> <span class="nn">supriya.commands</span>
+
+        <span class="n">contents</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">osc_message</span><span class="o">.</span><span class="n">contents</span><span class="p">)</span>
+        <span class="n">control_flag</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">contents</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="n">query_tree_group</span> <span class="o">=</span> <span class="n">recurse</span><span class="p">(</span><span class="n">contents</span><span class="p">,</span> <span class="n">control_flag</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">node_id</span><span class="o">=</span><span class="n">query_tree_group</span><span class="o">.</span><span class="n">node_id</span><span class="p">,</span> <span class="n">query_tree_group</span><span class="o">=</span><span class="n">query_tree_group</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span></div>
+
+<div class="viewcode-block" id="QueryTreeResponse.to_dict"><a class="viewcode-back" href="../../../api/supriya/commands/QueryTreeResponse.html#supriya.commands.QueryTreeResponse.QueryTreeResponse.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert QueryTreeResponse to JSON-serializable dictionary.</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; query_tree_response = supriya.commands.QueryTreeResponse(</span>
+<span class="sd">            ...     node_id=0,</span>
+<span class="sd">            ...     query_tree_group=supriya.commands.QueryTreeGroup(</span>
+<span class="sd">            ...         node_id=0,</span>
+<span class="sd">            ...         children=(</span>
+<span class="sd">            ...             supriya.commands.QueryTreeGroup(</span>
+<span class="sd">            ...                 node_id=1,</span>
+<span class="sd">            ...                 children=(</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeGroup(</span>
+<span class="sd">            ...                         node_id=1002,</span>
+<span class="sd">            ...                         children=(</span>
+<span class="sd">            ...                             supriya.commands.QueryTreeSynth(</span>
+<span class="sd">            ...                                 node_id=1105,</span>
+<span class="sd">            ...                                 synthdef_name=&#39;dca557070c6b57164557041ac746fb3f&#39;,</span>
+<span class="sd">            ...                                 controls=(</span>
+<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                         control_name_or_index=&#39;damping&#39;,</span>
+<span class="sd">            ...                                         control_value=0.06623425334692,</span>
+<span class="sd">            ...                                         ),</span>
+<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                         control_name_or_index=&#39;duration&#39;,</span>
+<span class="sd">            ...                                         control_value=3.652155876159668,</span>
+<span class="sd">            ...                                         ),</span>
+<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                         control_name_or_index=&#39;level&#39;,</span>
+<span class="sd">            ...                                         control_value=0.894767701625824,</span>
+<span class="sd">            ...                                         ),</span>
+<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                         control_name_or_index=&#39;out&#39;,</span>
+<span class="sd">            ...                                         control_value=16.0,</span>
+<span class="sd">            ...                                         ),</span>
+<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                         control_name_or_index=&#39;room_size&#39;,</span>
+<span class="sd">            ...                                         control_value=0.918643176555634,</span>
+<span class="sd">            ...                                         ),</span>
+<span class="sd">            ...                                     ),</span>
+<span class="sd">            ...                                 ),</span>
+<span class="sd">            ...                             supriya.commands.QueryTreeSynth(</span>
+<span class="sd">            ...                                 node_id=1098,</span>
+<span class="sd">            ...                                 synthdef_name=&#39;cc754c63533fdcf412a44ef6adb1a8f0&#39;,</span>
+<span class="sd">            ...                                 controls=(</span>
+<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                         control_name_or_index=&#39;duration&#39;,</span>
+<span class="sd">            ...                                         control_value=5.701356887817383,</span>
+<span class="sd">            ...                                         ),</span>
+<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                         control_name_or_index=&#39;level&#39;,</span>
+<span class="sd">            ...                                         control_value=0.959683060646057,</span>
+<span class="sd">            ...                                         ),</span>
+<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                         control_name_or_index=&#39;out&#39;,</span>
+<span class="sd">            ...                                         control_value=16.0,</span>
+<span class="sd">            ...                                         ),</span>
+<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                         control_name_or_index=&#39;pitch_dispersion&#39;,</span>
+<span class="sd">            ...                                         control_value=0.040342573076487,</span>
+<span class="sd">            ...                                         ),</span>
+<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                         control_name_or_index=&#39;pitch_shift&#39;,</span>
+<span class="sd">            ...                                         control_value=10.517594337463379,</span>
+<span class="sd">            ...                                         ),</span>
+<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                         control_name_or_index=&#39;time_dispersion&#39;,</span>
+<span class="sd">            ...                                         control_value=0.666014134883881,</span>
+<span class="sd">            ...                                         ),</span>
+<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                         control_name_or_index=&#39;window_size&#39;,</span>
+<span class="sd">            ...                                         control_value=1.014111995697021,</span>
+<span class="sd">            ...                                         ),</span>
+<span class="sd">            ...                                     ),</span>
+<span class="sd">            ...                                 ),</span>
+<span class="sd">            ...                             supriya.commands.QueryTreeSynth(</span>
+<span class="sd">            ...                                 node_id=1096,</span>
+<span class="sd">            ...                                 synthdef_name=&#39;5cb6fb104ee1dc44d6b300e13112d37a&#39;,</span>
+<span class="sd">            ...                                 controls=(</span>
+<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                         control_name_or_index=&#39;duration&#39;,</span>
+<span class="sd">            ...                                         control_value=5.892660140991211,</span>
+<span class="sd">            ...                                         ),</span>
+<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                         control_name_or_index=&#39;level&#39;,</span>
+<span class="sd">            ...                                         control_value=0.159362614154816,</span>
+<span class="sd">            ...                                         ),</span>
+<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                         control_name_or_index=&#39;out&#39;,</span>
+<span class="sd">            ...                                         control_value=16.0,</span>
+<span class="sd">            ...                                         ),</span>
+<span class="sd">            ...                                     ),</span>
+<span class="sd">            ...                                 ),</span>
+<span class="sd">            ...                             supriya.commands.QueryTreeSynth(</span>
+<span class="sd">            ...                                 node_id=1010,</span>
+<span class="sd">            ...                                 synthdef_name=&#39;da0982184cc8fa54cf9d288a0fe1f6ca&#39;,</span>
+<span class="sd">            ...                                 controls=(</span>
+<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                         control_name_or_index=&#39;out&#39;,</span>
+<span class="sd">            ...                                         control_value=16.0,</span>
+<span class="sd">            ...                                         ),</span>
+<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                         control_name_or_index=&#39;amplitude&#39;,</span>
+<span class="sd">            ...                                         control_value=0.846831738948822,</span>
+<span class="sd">            ...                                         ),</span>
+<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                         control_name_or_index=&#39;frequency&#39;,</span>
+<span class="sd">            ...                                         control_value=1522.9603271484375,</span>
+<span class="sd">            ...                                         ),</span>
+<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                         control_name_or_index=&#39;gate&#39;,</span>
+<span class="sd">            ...                                         control_value=0.0,</span>
+<span class="sd">            ...                                         ),</span>
+<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                         control_name_or_index=&#39;pan&#39;,</span>
+<span class="sd">            ...                                         control_value=0.733410477638245,</span>
+<span class="sd">            ...                                         ),</span>
+<span class="sd">            ...                                     ),</span>
+<span class="sd">            ...                                 ),</span>
+<span class="sd">            ...                             ),</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeSynth(</span>
+<span class="sd">            ...                         node_id=1003,</span>
+<span class="sd">            ...                         synthdef_name=&#39;454b69a7c505ddecc5b39762d291a5ec&#39;,</span>
+<span class="sd">            ...                         controls=(</span>
+<span class="sd">            ...                             supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                 control_name_or_index=&#39;done_action&#39;,</span>
+<span class="sd">            ...                                 control_value=2.0,</span>
+<span class="sd">            ...                                 ),</span>
+<span class="sd">            ...                             supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                 control_name_or_index=&#39;fade_time&#39;,</span>
+<span class="sd">            ...                                 control_value=0.019999999552965,</span>
+<span class="sd">            ...                                 ),</span>
+<span class="sd">            ...                             supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                 control_name_or_index=&#39;gate&#39;,</span>
+<span class="sd">            ...                                 control_value=1.0,</span>
+<span class="sd">            ...                                 ),</span>
+<span class="sd">            ...                             supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                 control_name_or_index=&#39;in_&#39;,</span>
+<span class="sd">            ...                                 control_value=16.0,</span>
+<span class="sd">            ...                                 ),</span>
+<span class="sd">            ...                             supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                 control_name_or_index=&#39;out&#39;,</span>
+<span class="sd">            ...                                 control_value=0.0,</span>
+<span class="sd">            ...                                 ),</span>
+<span class="sd">            ...                             ),</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     ),</span>
+<span class="sd">            ...                 ),</span>
+<span class="sd">            ...             supriya.commands.QueryTreeSynth(</span>
+<span class="sd">            ...                 node_id=1000,</span>
+<span class="sd">            ...                 synthdef_name=&#39;72696657e1216698c415e704ea8ab9a2&#39;,</span>
+<span class="sd">            ...                 controls=(</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_1_clamp_time&#39;,</span>
+<span class="sd">            ...                         control_value=0.009999999776483,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_1_postgain&#39;,</span>
+<span class="sd">            ...                         control_value=1.0,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_1_pregain&#39;,</span>
+<span class="sd">            ...                         control_value=6.0,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_1_relax_time&#39;,</span>
+<span class="sd">            ...                         control_value=0.100000001490116,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_1_slope_above&#39;,</span>
+<span class="sd">            ...                         control_value=1.0,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_1_slope_below&#39;,</span>
+<span class="sd">            ...                         control_value=1.0,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_1_threshold&#39;,</span>
+<span class="sd">            ...                         control_value=0.0,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_2_clamp_time&#39;,</span>
+<span class="sd">            ...                         control_value=0.009999999776483,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_2_postgain&#39;,</span>
+<span class="sd">            ...                         control_value=1.0,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_2_pregain&#39;,</span>
+<span class="sd">            ...                         control_value=3.0,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_2_relax_time&#39;,</span>
+<span class="sd">            ...                         control_value=0.100000001490116,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_2_slope_above&#39;,</span>
+<span class="sd">            ...                         control_value=0.5,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_2_slope_below&#39;,</span>
+<span class="sd">            ...                         control_value=1.0,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_2_threshold&#39;,</span>
+<span class="sd">            ...                         control_value=-6.0,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_3_clamp_time&#39;,</span>
+<span class="sd">            ...                         control_value=0.009999999776483,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_3_postgain&#39;,</span>
+<span class="sd">            ...                         control_value=1.0,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_3_pregain&#39;,</span>
+<span class="sd">            ...                         control_value=-3.0,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_3_relax_time&#39;,</span>
+<span class="sd">            ...                         control_value=0.100000001490116,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_3_slope_above&#39;,</span>
+<span class="sd">            ...                         control_value=0.25,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_3_slope_below&#39;,</span>
+<span class="sd">            ...                         control_value=1.0,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_3_threshold&#39;,</span>
+<span class="sd">            ...                         control_value=-12.0,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_4_clamp_time&#39;,</span>
+<span class="sd">            ...                         control_value=0.009999999776483,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_4_postgain&#39;,</span>
+<span class="sd">            ...                         control_value=1.0,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_4_pregain&#39;,</span>
+<span class="sd">            ...                         control_value=-3.0,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_4_relax_time&#39;,</span>
+<span class="sd">            ...                         control_value=0.100000001490116,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_4_slope_above&#39;,</span>
+<span class="sd">            ...                         control_value=0.125,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_4_slope_below&#39;,</span>
+<span class="sd">            ...                         control_value=1.0,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;band_4_threshold&#39;,</span>
+<span class="sd">            ...                         control_value=-18.0,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;frequency_1&#39;,</span>
+<span class="sd">            ...                         control_value=200.0,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;frequency_2&#39;,</span>
+<span class="sd">            ...                         control_value=2000.0,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;frequency_3&#39;,</span>
+<span class="sd">            ...                         control_value=5000.0,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;in_&#39;,</span>
+<span class="sd">            ...                         control_value=0.0,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;out&#39;,</span>
+<span class="sd">            ...                         control_value=0.0,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     ),</span>
+<span class="sd">            ...                 ),</span>
+<span class="sd">            ...             supriya.commands.QueryTreeSynth(</span>
+<span class="sd">            ...                 node_id=1001,</span>
+<span class="sd">            ...                 synthdef_name=&#39;c1aa521afab5b0c0ce3d744690951649&#39;,</span>
+<span class="sd">            ...                 controls=(</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;level&#39;,</span>
+<span class="sd">            ...                         control_value=1.0,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                         control_name_or_index=&#39;out&#39;,</span>
+<span class="sd">            ...                         control_value=0.0,</span>
+<span class="sd">            ...                         ),</span>
+<span class="sd">            ...                     ),</span>
+<span class="sd">            ...                 ),</span>
+<span class="sd">            ...             ),</span>
+<span class="sd">            ...         ),</span>
+<span class="sd">            ...     )</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; import json</span>
+<span class="sd">            &gt;&gt;&gt; result = query_tree_response.to_dict()</span>
+<span class="sd">            &gt;&gt;&gt; result = json.dumps(</span>
+<span class="sd">            ...     result,</span>
+<span class="sd">            ...     indent=4,</span>
+<span class="sd">            ...     separators=(&#39;,&#39;, &#39;: &#39;),</span>
+<span class="sd">            ...     sort_keys=True,</span>
+<span class="sd">            ...     )</span>
+<span class="sd">            &gt;&gt;&gt; print(result)</span>
+<span class="sd">            {</span>
+<span class="sd">                &quot;server_tree&quot;: {</span>
+<span class="sd">                    &quot;children&quot;: [</span>
+<span class="sd">                        {</span>
+<span class="sd">                            &quot;children&quot;: [</span>
+<span class="sd">                                {</span>
+<span class="sd">                                    &quot;children&quot;: [</span>
+<span class="sd">                                        {</span>
+<span class="sd">                                            &quot;controls&quot;: {</span>
+<span class="sd">                                                &quot;damping&quot;: 0.06623425334692,</span>
+<span class="sd">                                                &quot;duration&quot;: 3.652155876159668,</span>
+<span class="sd">                                                &quot;level&quot;: 0.894767701625824,</span>
+<span class="sd">                                                &quot;out&quot;: 16.0,</span>
+<span class="sd">                                                &quot;room_size&quot;: 0.918643176555634</span>
+<span class="sd">                                            },</span>
+<span class="sd">                                            &quot;node_id&quot;: 1105,</span>
+<span class="sd">                                            &quot;synthdef&quot;: &quot;dca557070c6b57164557041ac746fb3f&quot;</span>
+<span class="sd">                                        },</span>
+<span class="sd">                                        {</span>
+<span class="sd">                                            &quot;controls&quot;: {</span>
+<span class="sd">                                                &quot;duration&quot;: 5.701356887817383,</span>
+<span class="sd">                                                &quot;level&quot;: 0.959683060646057,</span>
+<span class="sd">                                                &quot;out&quot;: 16.0,</span>
+<span class="sd">                                                &quot;pitch_dispersion&quot;: 0.040342573076487,</span>
+<span class="sd">                                                &quot;pitch_shift&quot;: 10.517594337463379,</span>
+<span class="sd">                                                &quot;time_dispersion&quot;: 0.666014134883881,</span>
+<span class="sd">                                                &quot;window_size&quot;: 1.014111995697021</span>
+<span class="sd">                                            },</span>
+<span class="sd">                                            &quot;node_id&quot;: 1098,</span>
+<span class="sd">                                            &quot;synthdef&quot;: &quot;cc754c63533fdcf412a44ef6adb1a8f0&quot;</span>
+<span class="sd">                                        },</span>
+<span class="sd">                                        {</span>
+<span class="sd">                                            &quot;controls&quot;: {</span>
+<span class="sd">                                                &quot;duration&quot;: 5.892660140991211,</span>
+<span class="sd">                                                &quot;level&quot;: 0.159362614154816,</span>
+<span class="sd">                                                &quot;out&quot;: 16.0</span>
+<span class="sd">                                            },</span>
+<span class="sd">                                            &quot;node_id&quot;: 1096,</span>
+<span class="sd">                                            &quot;synthdef&quot;: &quot;5cb6fb104ee1dc44d6b300e13112d37a&quot;</span>
+<span class="sd">                                        },</span>
+<span class="sd">                                        {</span>
+<span class="sd">                                            &quot;controls&quot;: {</span>
+<span class="sd">                                                &quot;amplitude&quot;: 0.846831738948822,</span>
+<span class="sd">                                                &quot;frequency&quot;: 1522.9603271484375,</span>
+<span class="sd">                                                &quot;gate&quot;: 0.0,</span>
+<span class="sd">                                                &quot;out&quot;: 16.0,</span>
+<span class="sd">                                                &quot;pan&quot;: 0.733410477638245</span>
+<span class="sd">                                            },</span>
+<span class="sd">                                            &quot;node_id&quot;: 1010,</span>
+<span class="sd">                                            &quot;synthdef&quot;: &quot;da0982184cc8fa54cf9d288a0fe1f6ca&quot;</span>
+<span class="sd">                                        }</span>
+<span class="sd">                                    ],</span>
+<span class="sd">                                    &quot;node_id&quot;: 1002</span>
+<span class="sd">                                },</span>
+<span class="sd">                                {</span>
+<span class="sd">                                    &quot;controls&quot;: {</span>
+<span class="sd">                                        &quot;done_action&quot;: 2.0,</span>
+<span class="sd">                                        &quot;fade_time&quot;: 0.019999999552965,</span>
+<span class="sd">                                        &quot;gate&quot;: 1.0,</span>
+<span class="sd">                                        &quot;in_&quot;: 16.0,</span>
+<span class="sd">                                        &quot;out&quot;: 0.0</span>
+<span class="sd">                                    },</span>
+<span class="sd">                                    &quot;node_id&quot;: 1003,</span>
+<span class="sd">                                    &quot;synthdef&quot;: &quot;454b69a7c505ddecc5b39762d291a5ec&quot;</span>
+<span class="sd">                                }</span>
+<span class="sd">                            ],</span>
+<span class="sd">                            &quot;node_id&quot;: 1</span>
+<span class="sd">                        },</span>
+<span class="sd">                        {</span>
+<span class="sd">                            &quot;controls&quot;: {</span>
+<span class="sd">                                &quot;band_1_clamp_time&quot;: 0.009999999776483,</span>
+<span class="sd">                                &quot;band_1_postgain&quot;: 1.0,</span>
+<span class="sd">                                &quot;band_1_pregain&quot;: 6.0,</span>
+<span class="sd">                                &quot;band_1_relax_time&quot;: 0.100000001490116,</span>
+<span class="sd">                                &quot;band_1_slope_above&quot;: 1.0,</span>
+<span class="sd">                                &quot;band_1_slope_below&quot;: 1.0,</span>
+<span class="sd">                                &quot;band_1_threshold&quot;: 0.0,</span>
+<span class="sd">                                &quot;band_2_clamp_time&quot;: 0.009999999776483,</span>
+<span class="sd">                                &quot;band_2_postgain&quot;: 1.0,</span>
+<span class="sd">                                &quot;band_2_pregain&quot;: 3.0,</span>
+<span class="sd">                                &quot;band_2_relax_time&quot;: 0.100000001490116,</span>
+<span class="sd">                                &quot;band_2_slope_above&quot;: 0.5,</span>
+<span class="sd">                                &quot;band_2_slope_below&quot;: 1.0,</span>
+<span class="sd">                                &quot;band_2_threshold&quot;: -6.0,</span>
+<span class="sd">                                &quot;band_3_clamp_time&quot;: 0.009999999776483,</span>
+<span class="sd">                                &quot;band_3_postgain&quot;: 1.0,</span>
+<span class="sd">                                &quot;band_3_pregain&quot;: -3.0,</span>
+<span class="sd">                                &quot;band_3_relax_time&quot;: 0.100000001490116,</span>
+<span class="sd">                                &quot;band_3_slope_above&quot;: 0.25,</span>
+<span class="sd">                                &quot;band_3_slope_below&quot;: 1.0,</span>
+<span class="sd">                                &quot;band_3_threshold&quot;: -12.0,</span>
+<span class="sd">                                &quot;band_4_clamp_time&quot;: 0.009999999776483,</span>
+<span class="sd">                                &quot;band_4_postgain&quot;: 1.0,</span>
+<span class="sd">                                &quot;band_4_pregain&quot;: -3.0,</span>
+<span class="sd">                                &quot;band_4_relax_time&quot;: 0.100000001490116,</span>
+<span class="sd">                                &quot;band_4_slope_above&quot;: 0.125,</span>
+<span class="sd">                                &quot;band_4_slope_below&quot;: 1.0,</span>
+<span class="sd">                                &quot;band_4_threshold&quot;: -18.0,</span>
+<span class="sd">                                &quot;frequency_1&quot;: 200.0,</span>
+<span class="sd">                                &quot;frequency_2&quot;: 2000.0,</span>
+<span class="sd">                                &quot;frequency_3&quot;: 5000.0,</span>
+<span class="sd">                                &quot;in_&quot;: 0.0,</span>
+<span class="sd">                                &quot;out&quot;: 0.0</span>
+<span class="sd">                            },</span>
+<span class="sd">                            &quot;node_id&quot;: 1000,</span>
+<span class="sd">                            &quot;synthdef&quot;: &quot;72696657e1216698c415e704ea8ab9a2&quot;</span>
+<span class="sd">                        },</span>
+<span class="sd">                        {</span>
+<span class="sd">                            &quot;controls&quot;: {</span>
+<span class="sd">                                &quot;level&quot;: 1.0,</span>
+<span class="sd">                                &quot;out&quot;: 0.0</span>
+<span class="sd">                            },</span>
+<span class="sd">                            &quot;node_id&quot;: 1001,</span>
+<span class="sd">                            &quot;synthdef&quot;: &quot;c1aa521afab5b0c0ce3d744690951649&quot;</span>
+<span class="sd">                        }</span>
+<span class="sd">                    ],</span>
+<span class="sd">                    &quot;node_id&quot;: 0</span>
+<span class="sd">                }</span>
+<span class="sd">            }</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; result = query_tree_response.to_dict(flat=True)</span>
+<span class="sd">            &gt;&gt;&gt; result = json.dumps(</span>
+<span class="sd">            ...     result,</span>
+<span class="sd">            ...     indent=4,</span>
+<span class="sd">            ...     separators=(&#39;,&#39;, &#39;: &#39;),</span>
+<span class="sd">            ...     sort_keys=True,</span>
+<span class="sd">            ...     )</span>
+<span class="sd">            &gt;&gt;&gt; print(result)</span>
+<span class="sd">            {</span>
+<span class="sd">                &quot;server_tree&quot;: [</span>
+<span class="sd">                    {</span>
+<span class="sd">                        &quot;children&quot;: [</span>
+<span class="sd">                            1,</span>
+<span class="sd">                            1000,</span>
+<span class="sd">                            1001</span>
+<span class="sd">                        ],</span>
+<span class="sd">                        &quot;node_id&quot;: 0,</span>
+<span class="sd">                        &quot;parent&quot;: null</span>
+<span class="sd">                    },</span>
+<span class="sd">                    {</span>
+<span class="sd">                        &quot;children&quot;: [</span>
+<span class="sd">                            1002,</span>
+<span class="sd">                            1003</span>
+<span class="sd">                        ],</span>
+<span class="sd">                        &quot;node_id&quot;: 1,</span>
+<span class="sd">                        &quot;parent&quot;: 0</span>
+<span class="sd">                    },</span>
+<span class="sd">                    {</span>
+<span class="sd">                        &quot;children&quot;: [</span>
+<span class="sd">                            1105,</span>
+<span class="sd">                            1098,</span>
+<span class="sd">                            1096,</span>
+<span class="sd">                            1010</span>
+<span class="sd">                        ],</span>
+<span class="sd">                        &quot;node_id&quot;: 1002,</span>
+<span class="sd">                        &quot;parent&quot;: 1</span>
+<span class="sd">                    },</span>
+<span class="sd">                    {</span>
+<span class="sd">                        &quot;controls&quot;: {</span>
+<span class="sd">                            &quot;damping&quot;: 0.06623425334692,</span>
+<span class="sd">                            &quot;duration&quot;: 3.652155876159668,</span>
+<span class="sd">                            &quot;level&quot;: 0.894767701625824,</span>
+<span class="sd">                            &quot;out&quot;: 16.0,</span>
+<span class="sd">                            &quot;room_size&quot;: 0.918643176555634</span>
+<span class="sd">                        },</span>
+<span class="sd">                        &quot;node_id&quot;: 1105,</span>
+<span class="sd">                        &quot;parent&quot;: 1002,</span>
+<span class="sd">                        &quot;synthdef&quot;: &quot;dca557070c6b57164557041ac746fb3f&quot;</span>
+<span class="sd">                    },</span>
+<span class="sd">                    {</span>
+<span class="sd">                        &quot;controls&quot;: {</span>
+<span class="sd">                            &quot;duration&quot;: 5.701356887817383,</span>
+<span class="sd">                            &quot;level&quot;: 0.959683060646057,</span>
+<span class="sd">                            &quot;out&quot;: 16.0,</span>
+<span class="sd">                            &quot;pitch_dispersion&quot;: 0.040342573076487,</span>
+<span class="sd">                            &quot;pitch_shift&quot;: 10.517594337463379,</span>
+<span class="sd">                            &quot;time_dispersion&quot;: 0.666014134883881,</span>
+<span class="sd">                            &quot;window_size&quot;: 1.014111995697021</span>
+<span class="sd">                        },</span>
+<span class="sd">                        &quot;node_id&quot;: 1098,</span>
+<span class="sd">                        &quot;parent&quot;: 1002,</span>
+<span class="sd">                        &quot;synthdef&quot;: &quot;cc754c63533fdcf412a44ef6adb1a8f0&quot;</span>
+<span class="sd">                    },</span>
+<span class="sd">                    {</span>
+<span class="sd">                        &quot;controls&quot;: {</span>
+<span class="sd">                            &quot;duration&quot;: 5.892660140991211,</span>
+<span class="sd">                            &quot;level&quot;: 0.159362614154816,</span>
+<span class="sd">                            &quot;out&quot;: 16.0</span>
+<span class="sd">                        },</span>
+<span class="sd">                        &quot;node_id&quot;: 1096,</span>
+<span class="sd">                        &quot;parent&quot;: 1002,</span>
+<span class="sd">                        &quot;synthdef&quot;: &quot;5cb6fb104ee1dc44d6b300e13112d37a&quot;</span>
+<span class="sd">                    },</span>
+<span class="sd">                    {</span>
+<span class="sd">                        &quot;controls&quot;: {</span>
+<span class="sd">                            &quot;amplitude&quot;: 0.846831738948822,</span>
+<span class="sd">                            &quot;frequency&quot;: 1522.9603271484375,</span>
+<span class="sd">                            &quot;gate&quot;: 0.0,</span>
+<span class="sd">                            &quot;out&quot;: 16.0,</span>
+<span class="sd">                            &quot;pan&quot;: 0.733410477638245</span>
+<span class="sd">                        },</span>
+<span class="sd">                        &quot;node_id&quot;: 1010,</span>
+<span class="sd">                        &quot;parent&quot;: 1002,</span>
+<span class="sd">                        &quot;synthdef&quot;: &quot;da0982184cc8fa54cf9d288a0fe1f6ca&quot;</span>
+<span class="sd">                    },</span>
+<span class="sd">                    {</span>
+<span class="sd">                        &quot;controls&quot;: {</span>
+<span class="sd">                            &quot;done_action&quot;: 2.0,</span>
+<span class="sd">                            &quot;fade_time&quot;: 0.019999999552965,</span>
+<span class="sd">                            &quot;gate&quot;: 1.0,</span>
+<span class="sd">                            &quot;in_&quot;: 16.0,</span>
+<span class="sd">                            &quot;out&quot;: 0.0</span>
+<span class="sd">                        },</span>
+<span class="sd">                        &quot;node_id&quot;: 1003,</span>
+<span class="sd">                        &quot;parent&quot;: 1,</span>
+<span class="sd">                        &quot;synthdef&quot;: &quot;454b69a7c505ddecc5b39762d291a5ec&quot;</span>
+<span class="sd">                    },</span>
+<span class="sd">                    {</span>
+<span class="sd">                        &quot;controls&quot;: {</span>
+<span class="sd">                            &quot;band_1_clamp_time&quot;: 0.009999999776483,</span>
+<span class="sd">                            &quot;band_1_postgain&quot;: 1.0,</span>
+<span class="sd">                            &quot;band_1_pregain&quot;: 6.0,</span>
+<span class="sd">                            &quot;band_1_relax_time&quot;: 0.100000001490116,</span>
+<span class="sd">                            &quot;band_1_slope_above&quot;: 1.0,</span>
+<span class="sd">                            &quot;band_1_slope_below&quot;: 1.0,</span>
+<span class="sd">                            &quot;band_1_threshold&quot;: 0.0,</span>
+<span class="sd">                            &quot;band_2_clamp_time&quot;: 0.009999999776483,</span>
+<span class="sd">                            &quot;band_2_postgain&quot;: 1.0,</span>
+<span class="sd">                            &quot;band_2_pregain&quot;: 3.0,</span>
+<span class="sd">                            &quot;band_2_relax_time&quot;: 0.100000001490116,</span>
+<span class="sd">                            &quot;band_2_slope_above&quot;: 0.5,</span>
+<span class="sd">                            &quot;band_2_slope_below&quot;: 1.0,</span>
+<span class="sd">                            &quot;band_2_threshold&quot;: -6.0,</span>
+<span class="sd">                            &quot;band_3_clamp_time&quot;: 0.009999999776483,</span>
+<span class="sd">                            &quot;band_3_postgain&quot;: 1.0,</span>
+<span class="sd">                            &quot;band_3_pregain&quot;: -3.0,</span>
+<span class="sd">                            &quot;band_3_relax_time&quot;: 0.100000001490116,</span>
+<span class="sd">                            &quot;band_3_slope_above&quot;: 0.25,</span>
+<span class="sd">                            &quot;band_3_slope_below&quot;: 1.0,</span>
+<span class="sd">                            &quot;band_3_threshold&quot;: -12.0,</span>
+<span class="sd">                            &quot;band_4_clamp_time&quot;: 0.009999999776483,</span>
+<span class="sd">                            &quot;band_4_postgain&quot;: 1.0,</span>
+<span class="sd">                            &quot;band_4_pregain&quot;: -3.0,</span>
+<span class="sd">                            &quot;band_4_relax_time&quot;: 0.100000001490116,</span>
+<span class="sd">                            &quot;band_4_slope_above&quot;: 0.125,</span>
+<span class="sd">                            &quot;band_4_slope_below&quot;: 1.0,</span>
+<span class="sd">                            &quot;band_4_threshold&quot;: -18.0,</span>
+<span class="sd">                            &quot;frequency_1&quot;: 200.0,</span>
+<span class="sd">                            &quot;frequency_2&quot;: 2000.0,</span>
+<span class="sd">                            &quot;frequency_3&quot;: 5000.0,</span>
+<span class="sd">                            &quot;in_&quot;: 0.0,</span>
+<span class="sd">                            &quot;out&quot;: 0.0</span>
+<span class="sd">                        },</span>
+<span class="sd">                        &quot;node_id&quot;: 1000,</span>
+<span class="sd">                        &quot;parent&quot;: 0,</span>
+<span class="sd">                        &quot;synthdef&quot;: &quot;72696657e1216698c415e704ea8ab9a2&quot;</span>
+<span class="sd">                    },</span>
+<span class="sd">                    {</span>
+<span class="sd">                        &quot;controls&quot;: {</span>
+<span class="sd">                            &quot;level&quot;: 1.0,</span>
+<span class="sd">                            &quot;out&quot;: 0.0</span>
+<span class="sd">                        },</span>
+<span class="sd">                        &quot;node_id&quot;: 1001,</span>
+<span class="sd">                        &quot;parent&quot;: 0,</span>
+<span class="sd">                        &quot;synthdef&quot;: &quot;c1aa521afab5b0c0ce3d744690951649&quot;</span>
+<span class="sd">                    }</span>
+<span class="sd">                ]</span>
+<span class="sd">            }</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">recurse</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">parent_node_id</span><span class="p">,</span> <span class="n">nodes</span><span class="p">):</span>
+            <span class="k">if</span> <span class="s2">&quot;synthdef&quot;</span> <span class="ow">in</span> <span class="n">node</span><span class="p">:</span>
+                <span class="n">node</span><span class="p">[</span><span class="s2">&quot;parent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent_node_id</span>
+                <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">group</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;node_id&quot;</span><span class="p">:</span> <span class="n">node</span><span class="p">[</span><span class="s2">&quot;node_id&quot;</span><span class="p">],</span>
+                    <span class="s2">&quot;parent&quot;</span><span class="p">:</span> <span class="n">parent_node_id</span><span class="p">,</span>
+                    <span class="s2">&quot;children&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;node_id&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">node</span><span class="p">[</span><span class="s2">&quot;children&quot;</span><span class="p">]],</span>
+                <span class="p">}</span>
+                <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">node</span><span class="p">[</span><span class="s2">&quot;children&quot;</span><span class="p">]:</span>
+                    <span class="n">recurse</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">node</span><span class="p">[</span><span class="s2">&quot;node_id&quot;</span><span class="p">],</span> <span class="n">nodes</span><span class="p">)</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query_tree_group</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">flat</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;server_tree&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">}</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">recurse</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">nodes</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;server_tree&quot;</span><span class="p">:</span> <span class="n">nodes</span><span class="p">}</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">node_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">query_tree_group</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_tree_group</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+.. _supriya--utils--repeat-sequence-to-length:
+
+repeat_sequence_to_length
+=========================
+
+.. automodule:: supriya.utils.repeat_sequence_to_length
+
+.. currentmodule:: supriya.utils.repeat_sequence_to_length
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.utils.repeat_sequence_to_length
+
+.. autofunction:: repeat_sequence_to_length

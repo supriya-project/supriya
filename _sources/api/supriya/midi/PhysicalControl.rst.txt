@@ -1,0 +1,40 @@
+.. _supriya--midi--PhysicalControl:
+
+PhysicalControl
+===============
+
+.. automodule:: supriya.midi.PhysicalControl
+
+.. currentmodule:: supriya.midi.PhysicalControl
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.midi.PhysicalControl
+
+.. autoclass:: PhysicalControl
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      Mode
+      handle_incoming_value
+      set_led
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: PhysicalControl.handle_incoming_value
+
+   .. automethod:: PhysicalControl.set_led

@@ -1,0 +1,366 @@
+.. _supriya--ugens--FSinOsc:
+
+FSinOsc
+=======
+
+.. automodule:: supriya.ugens.FSinOsc
+
+.. currentmodule:: supriya.ugens.FSinOsc
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.FSinOsc
+
+.. autoclass:: FSinOsc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      frequency
+      initial_phase
+      kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.__add__
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.__div__
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.__le__
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.__len__
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.__str__
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.as_int
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.clip
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.cubed
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.distort
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.exponential
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.floor
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.lag
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.log
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.log10
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.log2
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.maximum
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.minimum
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.power
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.range
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.scale
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.sign
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.softclip
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.square_root
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.squared
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.sum
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.tanh
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.transpose
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: FSinOsc.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: FSinOsc.ar
+
+   .. automethod:: FSinOsc.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: FSinOsc.calculation_rate
+
+   .. autoattribute:: FSinOsc.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: FSinOsc.has_done_flag
+
+   .. autoattribute:: FSinOsc.initial_phase
+
+   .. container:: inherited
+
+      .. autoattribute:: FSinOsc.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: FSinOsc.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: FSinOsc.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: FSinOsc.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: FSinOsc.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: FSinOsc.special_index

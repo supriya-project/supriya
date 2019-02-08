@@ -1,0 +1,36 @@
+.. _supriya--system--SupriyaObject:
+
+SupriyaObject
+=============
+
+.. automodule:: supriya.system.SupriyaObject
+
+.. currentmodule:: supriya.system.SupriyaObject
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.system.SupriyaObject
+
+.. autoclass:: SupriyaObject
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: SupriyaObject.__repr__

@@ -1,0 +1,375 @@
+.. _supriya--ugens--Poll:
+
+Poll
+====
+
+.. automodule:: supriya.ugens.Poll
+
+.. currentmodule:: supriya.ugens.Poll
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Poll
+
+.. autoclass:: Poll
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      label
+      new
+      source
+      trigger
+      trigger_id
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Poll.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Poll.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Poll.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Poll.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Poll.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Poll.clip
+
+   .. container:: inherited
+
+      .. automethod:: Poll.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Poll.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Poll.distort
+
+   .. container:: inherited
+
+      .. automethod:: Poll.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Poll.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Poll.floor
+
+   .. container:: inherited
+
+      .. automethod:: Poll.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Poll.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Poll.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Poll.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Poll.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Poll.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Poll.lag
+
+   .. container:: inherited
+
+      .. automethod:: Poll.log
+
+   .. container:: inherited
+
+      .. automethod:: Poll.log10
+
+   .. container:: inherited
+
+      .. automethod:: Poll.log2
+
+   .. container:: inherited
+
+      .. automethod:: Poll.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Poll.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Poll.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Poll.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Poll.power
+
+   .. container:: inherited
+
+      .. automethod:: Poll.range
+
+   .. container:: inherited
+
+      .. automethod:: Poll.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Poll.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Poll.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Poll.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Poll.scale
+
+   .. container:: inherited
+
+      .. automethod:: Poll.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Poll.sign
+
+   .. container:: inherited
+
+      .. automethod:: Poll.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Poll.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Poll.squared
+
+   .. container:: inherited
+
+      .. automethod:: Poll.sum
+
+   .. container:: inherited
+
+      .. automethod:: Poll.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Poll.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Poll.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Poll.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Poll.ar
+
+   .. automethod:: Poll.kr
+
+   .. automethod:: Poll.new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Poll.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Poll.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Poll.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Poll.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Poll.is_output_ugen
+
+   .. autoattribute:: Poll.label
+
+   .. container:: inherited
+
+      .. autoattribute:: Poll.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Poll.signal_range
+
+   .. autoattribute:: Poll.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Poll.special_index
+
+   .. autoattribute:: Poll.trigger
+
+   .. autoattribute:: Poll.trigger_id

@@ -1,0 +1,35 @@
+.. _supriya--synthdefs--Unit:
+
+Unit
+====
+
+.. automodule:: supriya.synthdefs.Unit
+
+.. currentmodule:: supriya.synthdefs.Unit
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.synthdefs.Unit
+
+.. autoclass:: Unit
+   :members:
+   :undoc-members:
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      AMPLITUDE
+      DECIBELS
+      HERTZ
+      MILLISECONDS
+      SECONDS
+      SEMITONES
+      UNDEFINED

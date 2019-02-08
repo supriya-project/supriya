@@ -1,0 +1,366 @@
+.. _supriya--ugens--KeyTrack:
+
+KeyTrack
+========
+
+.. automodule:: supriya.ugens.KeyTrack
+
+.. currentmodule:: supriya.ugens.KeyTrack
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.KeyTrack
+
+.. autoclass:: KeyTrack
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      chroma_leak
+      key_decay
+      kr
+      pv_chain
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.__add__
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.__div__
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.__le__
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.__len__
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.__str__
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.as_int
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.clip
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.cubed
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.distort
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.exponential
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.floor
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.lag
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.log
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.log10
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.log2
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.maximum
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.minimum
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.power
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.range
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.scale
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.sign
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.softclip
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.square_root
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.squared
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.sum
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.tanh
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.transpose
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: KeyTrack.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: KeyTrack.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: KeyTrack.calculation_rate
+
+   .. autoattribute:: KeyTrack.chroma_leak
+
+   .. container:: inherited
+
+      .. autoattribute:: KeyTrack.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: KeyTrack.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: KeyTrack.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: KeyTrack.is_output_ugen
+
+   .. autoattribute:: KeyTrack.key_decay
+
+   .. container:: inherited
+
+      .. autoattribute:: KeyTrack.outputs
+
+   .. autoattribute:: KeyTrack.pv_chain
+
+   .. container:: inherited
+
+      .. autoattribute:: KeyTrack.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: KeyTrack.special_index

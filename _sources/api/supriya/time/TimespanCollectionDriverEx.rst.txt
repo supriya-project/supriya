@@ -1,0 +1,82 @@
+.. _supriya--time--TimespanCollectionDriverEx:
+
+TimespanCollectionDriverEx
+==========================
+
+.. automodule:: supriya.time.TimespanCollectionDriverEx
+
+.. currentmodule:: supriya.time.TimespanCollectionDriverEx
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.time.TimespanCollectionDriverEx
+
+.. autoclass:: TimespanCollectionDriverEx
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __contains__
+      __getitem__
+      __iter__
+      __len__
+      __new__
+      find_timespans_intersecting_offset
+      find_timespans_intersecting_timespan
+      find_timespans_starting_at
+      find_timespans_stopping_at
+      get_start_offset_after
+      get_start_offset_before
+      index
+      insert
+      remove
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: TimespanCollectionDriverEx.__contains__
+
+   .. automethod:: TimespanCollectionDriverEx.__getitem__
+
+   .. automethod:: TimespanCollectionDriverEx.__iter__
+
+   .. automethod:: TimespanCollectionDriverEx.__len__
+
+   .. automethod:: TimespanCollectionDriverEx.__new__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: TimespanCollectionDriverEx.find_timespans_intersecting_offset
+
+   .. automethod:: TimespanCollectionDriverEx.find_timespans_intersecting_timespan
+
+   .. automethod:: TimespanCollectionDriverEx.find_timespans_starting_at
+
+   .. automethod:: TimespanCollectionDriverEx.find_timespans_stopping_at
+
+   .. automethod:: TimespanCollectionDriverEx.get_start_offset_after
+
+   .. automethod:: TimespanCollectionDriverEx.get_start_offset_before
+
+   .. automethod:: TimespanCollectionDriverEx.index
+
+   .. automethod:: TimespanCollectionDriverEx.insert
+
+   .. automethod:: TimespanCollectionDriverEx.remove

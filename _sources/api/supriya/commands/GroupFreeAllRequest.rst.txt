@@ -1,0 +1,98 @@
+.. _supriya--commands--GroupFreeAllRequest:
+
+GroupFreeAllRequest
+===================
+
+.. automodule:: supriya.commands.GroupFreeAllRequest
+
+.. currentmodule:: supriya.commands.GroupFreeAllRequest
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.GroupFreeAllRequest
+
+.. autoclass:: GroupFreeAllRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      group_id
+      request_id
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: GroupFreeAllRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: GroupFreeAllRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: GroupFreeAllRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: GroupFreeAllRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: GroupFreeAllRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: GroupFreeAllRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: GroupFreeAllRequest.to_list
+
+   .. automethod:: GroupFreeAllRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupFreeAllRequest.condition
+
+   .. autoattribute:: GroupFreeAllRequest.group_id
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupFreeAllRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupFreeAllRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupFreeAllRequest.response_patterns

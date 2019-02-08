@@ -1,0 +1,87 @@
+.. _supriya--system--BindableNamespace:
+
+BindableNamespace
+=================
+
+.. automodule:: supriya.system.BindableNamespace
+
+.. currentmodule:: supriya.system.BindableNamespace
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.system.BindableNamespace
+
+.. autoclass:: BindableNamespace
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ProxyProxy
+      __getitem__
+      __iter__
+      __len__
+      __setitem__
+      proxies
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BindableNamespace.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: BindableNamespace.__eq__
+
+   .. automethod:: BindableNamespace.__getitem__
+
+   .. automethod:: BindableNamespace.__iter__
+
+   .. automethod:: BindableNamespace.__len__
+
+   .. automethod:: BindableNamespace.__setitem__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BindableNamespace.get
+
+   .. container:: inherited
+
+      .. automethod:: BindableNamespace.items
+
+   .. container:: inherited
+
+      .. automethod:: BindableNamespace.keys
+
+   .. container:: inherited
+
+      .. automethod:: BindableNamespace.values
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BindableNamespace.proxies

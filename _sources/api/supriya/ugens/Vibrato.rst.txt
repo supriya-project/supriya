@@ -1,0 +1,384 @@
+.. _supriya--ugens--Vibrato:
+
+Vibrato
+=======
+
+.. automodule:: supriya.ugens.Vibrato
+
+.. currentmodule:: supriya.ugens.Vibrato
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Vibrato
+
+.. autoclass:: Vibrato
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      delay
+      depth
+      depth_variation
+      frequency
+      initial_phase
+      kr
+      onset
+      rate
+      rate_variation
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.clip
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.distort
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.floor
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.lag
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.log
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.log10
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.log2
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.power
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.range
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.scale
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.sign
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.squared
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.sum
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Vibrato.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Vibrato.ar
+
+   .. automethod:: Vibrato.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Vibrato.calculation_rate
+
+   .. autoattribute:: Vibrato.delay
+
+   .. autoattribute:: Vibrato.depth
+
+   .. autoattribute:: Vibrato.depth_variation
+
+   .. autoattribute:: Vibrato.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: Vibrato.has_done_flag
+
+   .. autoattribute:: Vibrato.initial_phase
+
+   .. container:: inherited
+
+      .. autoattribute:: Vibrato.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Vibrato.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Vibrato.is_output_ugen
+
+   .. autoattribute:: Vibrato.onset
+
+   .. container:: inherited
+
+      .. autoattribute:: Vibrato.outputs
+
+   .. autoattribute:: Vibrato.rate
+
+   .. autoattribute:: Vibrato.rate_variation
+
+   .. container:: inherited
+
+      .. autoattribute:: Vibrato.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: Vibrato.special_index

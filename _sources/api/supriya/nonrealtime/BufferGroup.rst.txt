@@ -1,0 +1,102 @@
+.. _supriya--nonrealtime--BufferGroup:
+
+BufferGroup
+===========
+
+.. automodule:: supriya.nonrealtime.BufferGroup
+
+.. currentmodule:: supriya.nonrealtime.BufferGroup
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.nonrealtime.BufferGroup
+
+.. autoclass:: BufferGroup
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __contains__
+      __getitem__
+      __iter__
+      __len__
+      buffer_count
+      buffers
+      channel_count
+      duration
+      frame_count
+      index
+      start_offset
+      stop_offset
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: BufferGroup.__contains__
+
+   .. automethod:: BufferGroup.__getitem__
+
+   .. automethod:: BufferGroup.__iter__
+
+   .. automethod:: BufferGroup.__len__
+
+   .. container:: inherited
+
+      .. automethod:: BufferGroup.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: BufferGroup.index
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferGroup.require_offset
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferGroup.buffer_count
+
+   .. autoattribute:: BufferGroup.buffers
+
+   .. autoattribute:: BufferGroup.channel_count
+
+   .. autoattribute:: BufferGroup.duration
+
+   .. autoattribute:: BufferGroup.frame_count
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferGroup.session
+
+   .. autoattribute:: BufferGroup.start_offset
+
+   .. autoattribute:: BufferGroup.stop_offset

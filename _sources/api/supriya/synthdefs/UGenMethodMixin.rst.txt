@@ -1,0 +1,236 @@
+.. _supriya--synthdefs--UGenMethodMixin:
+
+UGenMethodMixin
+===============
+
+.. automodule:: supriya.synthdefs.UGenMethodMixin
+
+.. currentmodule:: supriya.synthdefs.UGenMethodMixin
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.synthdefs.UGenMethodMixin
+
+.. autoclass:: UGenMethodMixin
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __abs__
+      __add__
+      __div__
+      __ge__
+      __graph__
+      __gt__
+      __le__
+      __lt__
+      __mod__
+      __mul__
+      __neg__
+      __pow__
+      __radd__
+      __rdiv__
+      __rmod__
+      __rmul__
+      __rpow__
+      __rsub__
+      __rtruediv__
+      __str__
+      __sub__
+      __truediv__
+      absolute_difference
+      amplitude_to_db
+      as_int
+      ceiling
+      clip
+      cubed
+      db_to_amplitude
+      distort
+      exponential
+      exponential_range
+      floor
+      fractional_part
+      hanning_window
+      hz_to_midi
+      hz_to_octave
+      is_equal_to
+      is_not_equal_to
+      lag
+      log
+      log10
+      log2
+      maximum
+      midi_to_hz
+      minimum
+      octave_to_hz
+      power
+      range
+      ratio_to_semitones
+      reciprocal
+      rectangle_window
+      s_curve
+      scale
+      semitones_to_ratio
+      sign
+      softclip
+      square_root
+      squared
+      sum
+      tanh
+      transpose
+      triangle_window
+      welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: UGenMethodMixin.__abs__
+
+   .. automethod:: UGenMethodMixin.__add__
+
+   .. automethod:: UGenMethodMixin.__div__
+
+   .. automethod:: UGenMethodMixin.__ge__
+
+   .. automethod:: UGenMethodMixin.__graph__
+
+   .. automethod:: UGenMethodMixin.__gt__
+
+   .. automethod:: UGenMethodMixin.__le__
+
+   .. automethod:: UGenMethodMixin.__lt__
+
+   .. automethod:: UGenMethodMixin.__mod__
+
+   .. automethod:: UGenMethodMixin.__mul__
+
+   .. automethod:: UGenMethodMixin.__neg__
+
+   .. automethod:: UGenMethodMixin.__pow__
+
+   .. automethod:: UGenMethodMixin.__radd__
+
+   .. automethod:: UGenMethodMixin.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: UGenMethodMixin.__repr__
+
+   .. automethod:: UGenMethodMixin.__rmod__
+
+   .. automethod:: UGenMethodMixin.__rmul__
+
+   .. automethod:: UGenMethodMixin.__rpow__
+
+   .. automethod:: UGenMethodMixin.__rsub__
+
+   .. automethod:: UGenMethodMixin.__rtruediv__
+
+   .. automethod:: UGenMethodMixin.__str__
+
+   .. automethod:: UGenMethodMixin.__sub__
+
+   .. automethod:: UGenMethodMixin.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: UGenMethodMixin.absolute_difference
+
+   .. automethod:: UGenMethodMixin.amplitude_to_db
+
+   .. automethod:: UGenMethodMixin.as_int
+
+   .. automethod:: UGenMethodMixin.ceiling
+
+   .. automethod:: UGenMethodMixin.clip
+
+   .. automethod:: UGenMethodMixin.cubed
+
+   .. automethod:: UGenMethodMixin.db_to_amplitude
+
+   .. automethod:: UGenMethodMixin.distort
+
+   .. automethod:: UGenMethodMixin.exponential
+
+   .. automethod:: UGenMethodMixin.exponential_range
+
+   .. automethod:: UGenMethodMixin.floor
+
+   .. automethod:: UGenMethodMixin.fractional_part
+
+   .. automethod:: UGenMethodMixin.hanning_window
+
+   .. automethod:: UGenMethodMixin.hz_to_midi
+
+   .. automethod:: UGenMethodMixin.hz_to_octave
+
+   .. automethod:: UGenMethodMixin.is_equal_to
+
+   .. automethod:: UGenMethodMixin.is_not_equal_to
+
+   .. automethod:: UGenMethodMixin.lag
+
+   .. automethod:: UGenMethodMixin.log
+
+   .. automethod:: UGenMethodMixin.log10
+
+   .. automethod:: UGenMethodMixin.log2
+
+   .. automethod:: UGenMethodMixin.maximum
+
+   .. automethod:: UGenMethodMixin.midi_to_hz
+
+   .. automethod:: UGenMethodMixin.minimum
+
+   .. automethod:: UGenMethodMixin.octave_to_hz
+
+   .. automethod:: UGenMethodMixin.power
+
+   .. automethod:: UGenMethodMixin.range
+
+   .. automethod:: UGenMethodMixin.ratio_to_semitones
+
+   .. automethod:: UGenMethodMixin.reciprocal
+
+   .. automethod:: UGenMethodMixin.rectangle_window
+
+   .. automethod:: UGenMethodMixin.s_curve
+
+   .. automethod:: UGenMethodMixin.scale
+
+   .. automethod:: UGenMethodMixin.semitones_to_ratio
+
+   .. automethod:: UGenMethodMixin.sign
+
+   .. automethod:: UGenMethodMixin.softclip
+
+   .. automethod:: UGenMethodMixin.square_root
+
+   .. automethod:: UGenMethodMixin.squared
+
+   .. automethod:: UGenMethodMixin.sum
+
+   .. automethod:: UGenMethodMixin.tanh
+
+   .. automethod:: UGenMethodMixin.transpose
+
+   .. automethod:: UGenMethodMixin.triangle_window
+
+   .. automethod:: UGenMethodMixin.welch_window

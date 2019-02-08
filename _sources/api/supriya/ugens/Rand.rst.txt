@@ -1,0 +1,355 @@
+.. _supriya--ugens--Rand:
+
+Rand
+====
+
+.. automodule:: supriya.ugens.Rand
+
+.. currentmodule:: supriya.ugens.Rand
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Rand
+
+.. autoclass:: Rand
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ir
+      maximum
+      minimum
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Rand.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Rand.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Rand.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Rand.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Rand.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Rand.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Rand.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Rand.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Rand.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Rand.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Rand.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Rand.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Rand.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Rand.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Rand.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Rand.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Rand.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Rand.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Rand.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Rand.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Rand.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Rand.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Rand.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Rand.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Rand.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Rand.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Rand.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Rand.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Rand.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Rand.clip
+
+   .. container:: inherited
+
+      .. automethod:: Rand.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Rand.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Rand.distort
+
+   .. container:: inherited
+
+      .. automethod:: Rand.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Rand.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Rand.floor
+
+   .. container:: inherited
+
+      .. automethod:: Rand.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Rand.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Rand.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Rand.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Rand.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Rand.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Rand.lag
+
+   .. container:: inherited
+
+      .. automethod:: Rand.log
+
+   .. container:: inherited
+
+      .. automethod:: Rand.log10
+
+   .. container:: inherited
+
+      .. automethod:: Rand.log2
+
+   .. container:: inherited
+
+      .. automethod:: Rand.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Rand.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Rand.power
+
+   .. container:: inherited
+
+      .. automethod:: Rand.range
+
+   .. container:: inherited
+
+      .. automethod:: Rand.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Rand.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Rand.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Rand.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Rand.scale
+
+   .. container:: inherited
+
+      .. automethod:: Rand.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Rand.sign
+
+   .. container:: inherited
+
+      .. automethod:: Rand.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Rand.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Rand.squared
+
+   .. container:: inherited
+
+      .. automethod:: Rand.sum
+
+   .. container:: inherited
+
+      .. automethod:: Rand.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Rand.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Rand.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Rand.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Rand.ir
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Rand.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Rand.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Rand.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Rand.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Rand.is_output_ugen
+
+   .. autoattribute:: Rand.maximum
+
+   .. autoattribute:: Rand.minimum
+
+   .. container:: inherited
+
+      .. autoattribute:: Rand.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Rand.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: Rand.special_index

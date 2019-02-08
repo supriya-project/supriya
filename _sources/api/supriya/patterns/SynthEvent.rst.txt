@@ -1,0 +1,72 @@
+.. _supriya--patterns--SynthEvent:
+
+SynthEvent
+==========
+
+.. automodule:: supriya.patterns.SynthEvent
+
+.. currentmodule:: supriya.patterns.SynthEvent
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.patterns.SynthEvent
+
+.. autoclass:: SynthEvent
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SynthEvent.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: SynthEvent.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: SynthEvent.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: SynthEvent.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: SynthEvent.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SynthEvent.as_dict
+
+   .. container:: inherited
+
+      .. automethod:: SynthEvent.get
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthEvent.delta
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthEvent.settings

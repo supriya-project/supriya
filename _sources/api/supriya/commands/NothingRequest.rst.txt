@@ -1,0 +1,95 @@
+.. _supriya--commands--NothingRequest:
+
+NothingRequest
+==============
+
+.. automodule:: supriya.commands.NothingRequest
+
+.. currentmodule:: supriya.commands.NothingRequest
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.NothingRequest
+
+.. autoclass:: NothingRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      request_id
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: NothingRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: NothingRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: NothingRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: NothingRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: NothingRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: NothingRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: NothingRequest.to_list
+
+   .. automethod:: NothingRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: NothingRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: NothingRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: NothingRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: NothingRequest.response_patterns

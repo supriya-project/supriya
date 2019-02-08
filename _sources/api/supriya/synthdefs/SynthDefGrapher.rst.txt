@@ -1,0 +1,36 @@
+.. _supriya--synthdefs--SynthDefGrapher:
+
+SynthDefGrapher
+===============
+
+.. automodule:: supriya.synthdefs.SynthDefGrapher
+
+.. currentmodule:: supriya.synthdefs.SynthDefGrapher
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.synthdefs.SynthDefGrapher
+
+.. autoclass:: SynthDefGrapher
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      graph
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: SynthDefGrapher.graph

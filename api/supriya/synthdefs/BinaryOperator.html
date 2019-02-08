@@ -1,0 +1,744 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>BinaryOperator &mdash; Supriya 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="DoneAction" href="DoneAction.html" />
+    <link rel="prev" title="SynthDefGrapher" href="SynthDefGrapher.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Supriya API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../cli/index.html">cli</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../live/index.html">live</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../soundfiles/index.html">soundfiles</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">synthdefs</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="SynthDefFactory.html">SynthDefFactory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SynthDefGrapher.html">SynthDefGrapher</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">BinaryOperator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DoneAction.html">DoneAction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="EnvelopeShape.html">EnvelopeShape</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ParameterRate.html">ParameterRate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SignalRange.html">SignalRange</a></li>
+<li class="toctree-l4"><a class="reference internal" href="UnaryOperator.html">UnaryOperator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Unit.html">Unit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Envelope.html">Envelope</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Parameter.html">Parameter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Range.html">Range</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SynthDef.html">SynthDef</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SynthDefBuilder.html">SynthDefBuilder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="OutputProxy.html">OutputProxy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SuperColliderSynthDef.html">SuperColliderSynthDef</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SynthDefCompiler.html">SynthDefCompiler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SynthDefDecompiler.html">SynthDefDecompiler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="UGenArray.html">UGenArray</a></li>
+<li class="toctree-l4"><a class="reference internal" href="UGenMethodMixin.html">UGenMethodMixin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="UGenSortBundle.html">UGenSortBundle</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../system/index.html">system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Supriya API</a> &raquo;</li>
+        
+          <li><a href="../index.html">supriya</a> &raquo;</li>
+        
+          <li><a href="index.html">synthdefs</a> &raquo;</li>
+        
+      <li>BinaryOperator</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/supriya/synthdefs/BinaryOperator.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-supriya.synthdefs.BinaryOperator">
+<span id="binaryoperator"></span><span id="supriya-synthdefs-binaryoperator"></span><h1>BinaryOperator<a class="headerlink" href="#module-supriya.synthdefs.BinaryOperator" title="Permalink to this headline">¶</a></h1>
+<div class="svg-container docutils container">
+<div class="graphviz"><object data="../../../_images/inheritance-f8f0bf52a61b5267239ecc849098c756c90ba9f9.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">digraph InheritanceGraph {
+    graph [bgcolor=transparent,
+        color=lightsteelblue2,
+        fontname=Arial,
+        fontsize=10,
+        outputorder=edgesfirst,
+        overlap=prism,
+        penwidth=2,
+        rankdir=LR,
+        splines=spline,
+        style=&quot;dashed, rounded&quot;,
+        truecolor=true];
+    node [colorscheme=pastel19,
+        fontname=Arial,
+        fontsize=10,
+        height=0,
+        penwidth=2,
+        shape=box,
+        style=&quot;filled, rounded&quot;,
+        width=0];
+    edge [color=lightslategrey,
+        penwidth=1];
+    subgraph cluster_builtins {
+        graph [label=builtins];
+        node [color=1];
+        &quot;builtins.int&quot; [URL=&quot;https://docs.python.org/3.6/library/functions.html#int&quot;,
+            label=int,
+            target=_top];
+        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3.6/library/functions.html#object&quot;,
+            label=object,
+            target=_top];
+        &quot;builtins.object&quot; -&gt; &quot;builtins.int&quot;;
+    }
+    subgraph cluster_enum {
+        graph [label=enum];
+        node [color=2];
+        &quot;enum.Enum&quot; [URL=&quot;https://docs.python.org/3.6/library/enum.html#enum.Enum&quot;,
+            label=Enum,
+            target=_top];
+        &quot;enum.IntEnum&quot; [URL=&quot;https://docs.python.org/3.6/library/enum.html#enum.IntEnum&quot;,
+            label=&quot;Int\nEnum&quot;,
+            target=_top];
+        &quot;enum.Enum&quot; -&gt; &quot;enum.IntEnum&quot;;
+    }
+    subgraph &quot;cluster_supriya.synthdefs&quot; {
+        graph [label=&quot;supriya.synthdefs&quot;];
+        node [color=3];
+        &quot;supriya.synthdefs.BinaryOperator.BinaryOperator&quot; [URL=&quot;../api/supriya/synthdefs/BinaryOperator.html#supriya.synthdefs.BinaryOperator.BinaryOperator&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Binary\nOperator&quot;,
+            target=_top];
+    }
+    subgraph &quot;cluster_uqbar.enums&quot; {
+        graph [label=&quot;uqbar.enums&quot;];
+        node [color=4];
+        &quot;uqbar.enums.IntEnumeration&quot; [label=&quot;Int\nEnumeration&quot;];
+    }
+    &quot;builtins.int&quot; -&gt; &quot;enum.IntEnum&quot;;
+    &quot;builtins.object&quot; -&gt; &quot;enum.Enum&quot;;
+    &quot;enum.IntEnum&quot; -&gt; &quot;uqbar.enums.IntEnumeration&quot;;
+    &quot;uqbar.enums.IntEnumeration&quot; -&gt; &quot;supriya.synthdefs.BinaryOperator.BinaryOperator&quot;;
+}</p></object></div>
+</div>
+<dl class="class">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator">
+<em class="property">class </em><code class="descclassname">supriya.synthdefs.BinaryOperator.</code><code class="descname">BinaryOperator</code><a class="reference internal" href="../../../_modules/supriya/synthdefs/BinaryOperator.html#BinaryOperator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator" title="Permalink to this definition">¶</a></dt>
+<dd><p>An enumeration.</p>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.ABSOLUTE_DIFFERENCE" title="supriya.synthdefs.BinaryOperator.BinaryOperator.ABSOLUTE_DIFFERENCE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ABSOLUTE_DIFFERENCE</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.ADDITION" title="supriya.synthdefs.BinaryOperator.BinaryOperator.ADDITION"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ADDITION</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.AMCLIP" title="supriya.synthdefs.BinaryOperator.BinaryOperator.AMCLIP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AMCLIP</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.ATAN2" title="supriya.synthdefs.BinaryOperator.BinaryOperator.ATAN2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ATAN2</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.BIT_AND" title="supriya.synthdefs.BinaryOperator.BinaryOperator.BIT_AND"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BIT_AND</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.BIT_OR" title="supriya.synthdefs.BinaryOperator.BinaryOperator.BIT_OR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BIT_OR</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.BIT_XOR" title="supriya.synthdefs.BinaryOperator.BinaryOperator.BIT_XOR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BIT_XOR</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.CLIP2" title="supriya.synthdefs.BinaryOperator.BinaryOperator.CLIP2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CLIP2</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.DIFFERENCE_OF_SQUARES" title="supriya.synthdefs.BinaryOperator.BinaryOperator.DIFFERENCE_OF_SQUARES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DIFFERENCE_OF_SQUARES</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.EQUAL" title="supriya.synthdefs.BinaryOperator.BinaryOperator.EQUAL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EQUAL</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.EXCESS" title="supriya.synthdefs.BinaryOperator.BinaryOperator.EXCESS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EXCESS</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.EXPRANDRANGE" title="supriya.synthdefs.BinaryOperator.BinaryOperator.EXPRANDRANGE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EXPRANDRANGE</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.FILL" title="supriya.synthdefs.BinaryOperator.BinaryOperator.FILL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FILL</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.FIRST_ARG" title="supriya.synthdefs.BinaryOperator.BinaryOperator.FIRST_ARG"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FIRST_ARG</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.FLOAT_DIVISION" title="supriya.synthdefs.BinaryOperator.BinaryOperator.FLOAT_DIVISION"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FLOAT_DIVISION</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.FOLD2" title="supriya.synthdefs.BinaryOperator.BinaryOperator.FOLD2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FOLD2</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.GREATER_THAN" title="supriya.synthdefs.BinaryOperator.BinaryOperator.GREATER_THAN"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GREATER_THAN</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.GREATER_THAN_OR_EQUAL" title="supriya.synthdefs.BinaryOperator.BinaryOperator.GREATER_THAN_OR_EQUAL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GREATER_THAN_OR_EQUAL</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.GREATEST_COMMON_DIVISOR" title="supriya.synthdefs.BinaryOperator.BinaryOperator.GREATEST_COMMON_DIVISOR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GREATEST_COMMON_DIVISOR</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.HYPOT" title="supriya.synthdefs.BinaryOperator.BinaryOperator.HYPOT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HYPOT</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.HYPOTX" title="supriya.synthdefs.BinaryOperator.BinaryOperator.HYPOTX"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HYPOTX</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.INTEGER_DIVISION" title="supriya.synthdefs.BinaryOperator.BinaryOperator.INTEGER_DIVISION"><code class="xref py py-obj docutils literal notranslate"><span class="pre">INTEGER_DIVISION</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.LEAST_COMMON_MULTIPLE" title="supriya.synthdefs.BinaryOperator.BinaryOperator.LEAST_COMMON_MULTIPLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LEAST_COMMON_MULTIPLE</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.LESS_THAN" title="supriya.synthdefs.BinaryOperator.BinaryOperator.LESS_THAN"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LESS_THAN</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.LESS_THAN_OR_EQUAL" title="supriya.synthdefs.BinaryOperator.BinaryOperator.LESS_THAN_OR_EQUAL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LESS_THAN_OR_EQUAL</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.MAXIMUM" title="supriya.synthdefs.BinaryOperator.BinaryOperator.MAXIMUM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MAXIMUM</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.MINIMUM" title="supriya.synthdefs.BinaryOperator.BinaryOperator.MINIMUM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MINIMUM</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.MODULO" title="supriya.synthdefs.BinaryOperator.BinaryOperator.MODULO"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MODULO</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.MULTIPLICATION" title="supriya.synthdefs.BinaryOperator.BinaryOperator.MULTIPLICATION"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MULTIPLICATION</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.NOT_EQUAL" title="supriya.synthdefs.BinaryOperator.BinaryOperator.NOT_EQUAL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NOT_EQUAL</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.POWER" title="supriya.synthdefs.BinaryOperator.BinaryOperator.POWER"><code class="xref py py-obj docutils literal notranslate"><span class="pre">POWER</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.RANDRANGE" title="supriya.synthdefs.BinaryOperator.BinaryOperator.RANDRANGE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RANDRANGE</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.RING1" title="supriya.synthdefs.BinaryOperator.BinaryOperator.RING1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RING1</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.RING2" title="supriya.synthdefs.BinaryOperator.BinaryOperator.RING2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RING2</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.RING3" title="supriya.synthdefs.BinaryOperator.BinaryOperator.RING3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RING3</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.RING4" title="supriya.synthdefs.BinaryOperator.BinaryOperator.RING4"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RING4</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.ROUND" title="supriya.synthdefs.BinaryOperator.BinaryOperator.ROUND"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ROUND</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.ROUND_UP" title="supriya.synthdefs.BinaryOperator.BinaryOperator.ROUND_UP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ROUND_UP</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.SCALE_NEG" title="supriya.synthdefs.BinaryOperator.BinaryOperator.SCALE_NEG"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SCALE_NEG</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.SHIFT_LEFT" title="supriya.synthdefs.BinaryOperator.BinaryOperator.SHIFT_LEFT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SHIFT_LEFT</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.SHIFT_RIGHT" title="supriya.synthdefs.BinaryOperator.BinaryOperator.SHIFT_RIGHT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SHIFT_RIGHT</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.SQUARE_OF_DIFFERENCE" title="supriya.synthdefs.BinaryOperator.BinaryOperator.SQUARE_OF_DIFFERENCE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SQUARE_OF_DIFFERENCE</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.SQUARE_OF_SUM" title="supriya.synthdefs.BinaryOperator.BinaryOperator.SQUARE_OF_SUM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SQUARE_OF_SUM</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.SUBTRACTION" title="supriya.synthdefs.BinaryOperator.BinaryOperator.SUBTRACTION"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SUBTRACTION</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.SUM_OF_SQUARES" title="supriya.synthdefs.BinaryOperator.BinaryOperator.SUM_OF_SQUARES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SUM_OF_SQUARES</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.THRESHOLD" title="supriya.synthdefs.BinaryOperator.BinaryOperator.THRESHOLD"><code class="xref py py-obj docutils literal notranslate"><span class="pre">THRESHOLD</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.TRUNCATION" title="supriya.synthdefs.BinaryOperator.BinaryOperator.TRUNCATION"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TRUNCATION</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.UNSIGNED_SHIFT" title="supriya.synthdefs.BinaryOperator.BinaryOperator.UNSIGNED_SHIFT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UNSIGNED_SHIFT</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.WRAP2" title="supriya.synthdefs.BinaryOperator.BinaryOperator.WRAP2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WRAP2</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.ABSOLUTE_DIFFERENCE">
+<code class="descname">ABSOLUTE_DIFFERENCE</code><em class="property"> = 38</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.ABSOLUTE_DIFFERENCE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.ADDITION">
+<code class="descname">ADDITION</code><em class="property"> = 0</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.ADDITION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.AMCLIP">
+<code class="descname">AMCLIP</code><em class="property"> = 40</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.AMCLIP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.ATAN2">
+<code class="descname">ATAN2</code><em class="property"> = 22</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.ATAN2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.BIT_AND">
+<code class="descname">BIT_AND</code><em class="property"> = 14</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.BIT_AND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.BIT_OR">
+<code class="descname">BIT_OR</code><em class="property"> = 15</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.BIT_OR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.BIT_XOR">
+<code class="descname">BIT_XOR</code><em class="property"> = 16</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.BIT_XOR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.CLIP2">
+<code class="descname">CLIP2</code><em class="property"> = 42</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.CLIP2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.DIFFERENCE_OF_SQUARES">
+<code class="descname">DIFFERENCE_OF_SQUARES</code><em class="property"> = 34</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.DIFFERENCE_OF_SQUARES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.EQUAL">
+<code class="descname">EQUAL</code><em class="property"> = 6</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.EQUAL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.EXCESS">
+<code class="descname">EXCESS</code><em class="property"> = 43</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.EXCESS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.EXPRANDRANGE">
+<code class="descname">EXPRANDRANGE</code><em class="property"> = 48</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.EXPRANDRANGE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.FILL">
+<code class="descname">FILL</code><em class="property"> = 29</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.FILL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.FIRST_ARG">
+<code class="descname">FIRST_ARG</code><em class="property"> = 46</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.FIRST_ARG" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.FLOAT_DIVISION">
+<code class="descname">FLOAT_DIVISION</code><em class="property"> = 4</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.FLOAT_DIVISION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.FOLD2">
+<code class="descname">FOLD2</code><em class="property"> = 44</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.FOLD2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.GREATER_THAN">
+<code class="descname">GREATER_THAN</code><em class="property"> = 9</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.GREATER_THAN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.GREATER_THAN_OR_EQUAL">
+<code class="descname">GREATER_THAN_OR_EQUAL</code><em class="property"> = 11</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.GREATER_THAN_OR_EQUAL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.GREATEST_COMMON_DIVISOR">
+<code class="descname">GREATEST_COMMON_DIVISOR</code><em class="property"> = 18</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.GREATEST_COMMON_DIVISOR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.HYPOT">
+<code class="descname">HYPOT</code><em class="property"> = 23</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.HYPOT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.HYPOTX">
+<code class="descname">HYPOTX</code><em class="property"> = 24</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.HYPOTX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.INTEGER_DIVISION">
+<code class="descname">INTEGER_DIVISION</code><em class="property"> = 3</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.INTEGER_DIVISION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.LEAST_COMMON_MULTIPLE">
+<code class="descname">LEAST_COMMON_MULTIPLE</code><em class="property"> = 17</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.LEAST_COMMON_MULTIPLE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.LESS_THAN">
+<code class="descname">LESS_THAN</code><em class="property"> = 8</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.LESS_THAN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.LESS_THAN_OR_EQUAL">
+<code class="descname">LESS_THAN_OR_EQUAL</code><em class="property"> = 10</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.LESS_THAN_OR_EQUAL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.MAXIMUM">
+<code class="descname">MAXIMUM</code><em class="property"> = 13</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.MAXIMUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.MINIMUM">
+<code class="descname">MINIMUM</code><em class="property"> = 12</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.MINIMUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.MODULO">
+<code class="descname">MODULO</code><em class="property"> = 5</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.MODULO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.MULTIPLICATION">
+<code class="descname">MULTIPLICATION</code><em class="property"> = 2</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.MULTIPLICATION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.NOT_EQUAL">
+<code class="descname">NOT_EQUAL</code><em class="property"> = 7</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.NOT_EQUAL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.POWER">
+<code class="descname">POWER</code><em class="property"> = 25</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.POWER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.RANDRANGE">
+<code class="descname">RANDRANGE</code><em class="property"> = 47</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.RANDRANGE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.RING1">
+<code class="descname">RING1</code><em class="property"> = 30</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.RING1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.RING2">
+<code class="descname">RING2</code><em class="property"> = 31</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.RING2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.RING3">
+<code class="descname">RING3</code><em class="property"> = 32</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.RING3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.RING4">
+<code class="descname">RING4</code><em class="property"> = 33</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.RING4" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.ROUND">
+<code class="descname">ROUND</code><em class="property"> = 19</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.ROUND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.ROUND_UP">
+<code class="descname">ROUND_UP</code><em class="property"> = 20</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.ROUND_UP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.SCALE_NEG">
+<code class="descname">SCALE_NEG</code><em class="property"> = 41</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.SCALE_NEG" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.SHIFT_LEFT">
+<code class="descname">SHIFT_LEFT</code><em class="property"> = 26</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.SHIFT_LEFT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.SHIFT_RIGHT">
+<code class="descname">SHIFT_RIGHT</code><em class="property"> = 27</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.SHIFT_RIGHT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.SQUARE_OF_DIFFERENCE">
+<code class="descname">SQUARE_OF_DIFFERENCE</code><em class="property"> = 37</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.SQUARE_OF_DIFFERENCE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.SQUARE_OF_SUM">
+<code class="descname">SQUARE_OF_SUM</code><em class="property"> = 36</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.SQUARE_OF_SUM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.SUBTRACTION">
+<code class="descname">SUBTRACTION</code><em class="property"> = 1</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.SUBTRACTION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.SUM_OF_SQUARES">
+<code class="descname">SUM_OF_SQUARES</code><em class="property"> = 35</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.SUM_OF_SQUARES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.THRESHOLD">
+<code class="descname">THRESHOLD</code><em class="property"> = 39</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.THRESHOLD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.TRUNCATION">
+<code class="descname">TRUNCATION</code><em class="property"> = 21</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.TRUNCATION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.UNSIGNED_SHIFT">
+<code class="descname">UNSIGNED_SHIFT</code><em class="property"> = 28</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.UNSIGNED_SHIFT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.synthdefs.BinaryOperator.BinaryOperator.WRAP2">
+<code class="descname">WRAP2</code><em class="property"> = 45</em><a class="headerlink" href="#supriya.synthdefs.BinaryOperator.BinaryOperator.WRAP2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="DoneAction.html" class="btn btn-neutral float-right" title="DoneAction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="SynthDefGrapher.html" class="btn btn-neutral" title="SynthDefGrapher" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

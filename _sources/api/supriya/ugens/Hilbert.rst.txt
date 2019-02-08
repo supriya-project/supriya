@@ -1,0 +1,364 @@
+.. _supriya--ugens--Hilbert:
+
+Hilbert
+=======
+
+.. automodule:: supriya.ugens.Hilbert
+
+.. currentmodule:: supriya.ugens.Hilbert
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Hilbert
+
+.. autoclass:: Hilbert
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.clip
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.distort
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.floor
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.lag
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.log
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.log10
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.log2
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.power
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.range
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.scale
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.sign
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.squared
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.sum
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Hilbert.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Hilbert.ar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Hilbert.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Hilbert.channel_count
+
+   .. container:: inherited
+
+      .. autoattribute:: Hilbert.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Hilbert.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Hilbert.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Hilbert.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Hilbert.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Hilbert.signal_range
+
+   .. autoattribute:: Hilbert.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Hilbert.special_index

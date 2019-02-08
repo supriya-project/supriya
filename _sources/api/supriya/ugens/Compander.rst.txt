@@ -1,0 +1,378 @@
+.. _supriya--ugens--Compander:
+
+Compander
+=========
+
+.. automodule:: supriya.ugens.Compander
+
+.. currentmodule:: supriya.ugens.Compander
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Compander
+
+.. autoclass:: Compander
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      clamp_time
+      control
+      relax_time
+      slope_above
+      slope_below
+      source
+      threshold
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Compander.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Compander.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Compander.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Compander.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Compander.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Compander.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Compander.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Compander.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Compander.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Compander.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Compander.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Compander.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Compander.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Compander.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Compander.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Compander.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Compander.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Compander.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Compander.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Compander.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Compander.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Compander.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Compander.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Compander.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Compander.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Compander.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Compander.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Compander.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Compander.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Compander.clip
+
+   .. container:: inherited
+
+      .. automethod:: Compander.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Compander.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Compander.distort
+
+   .. container:: inherited
+
+      .. automethod:: Compander.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Compander.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Compander.floor
+
+   .. container:: inherited
+
+      .. automethod:: Compander.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Compander.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Compander.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Compander.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Compander.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Compander.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Compander.lag
+
+   .. container:: inherited
+
+      .. automethod:: Compander.log
+
+   .. container:: inherited
+
+      .. automethod:: Compander.log10
+
+   .. container:: inherited
+
+      .. automethod:: Compander.log2
+
+   .. container:: inherited
+
+      .. automethod:: Compander.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Compander.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Compander.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Compander.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Compander.power
+
+   .. container:: inherited
+
+      .. automethod:: Compander.range
+
+   .. container:: inherited
+
+      .. automethod:: Compander.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Compander.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Compander.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Compander.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Compander.scale
+
+   .. container:: inherited
+
+      .. automethod:: Compander.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Compander.sign
+
+   .. container:: inherited
+
+      .. automethod:: Compander.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Compander.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Compander.squared
+
+   .. container:: inherited
+
+      .. automethod:: Compander.sum
+
+   .. container:: inherited
+
+      .. automethod:: Compander.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Compander.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Compander.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Compander.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Compander.ar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Compander.calculation_rate
+
+   .. autoattribute:: Compander.clamp_time
+
+   .. autoattribute:: Compander.control
+
+   .. container:: inherited
+
+      .. autoattribute:: Compander.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Compander.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Compander.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Compander.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Compander.outputs
+
+   .. autoattribute:: Compander.relax_time
+
+   .. container:: inherited
+
+      .. autoattribute:: Compander.signal_range
+
+   .. autoattribute:: Compander.slope_above
+
+   .. autoattribute:: Compander.slope_below
+
+   .. autoattribute:: Compander.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Compander.special_index
+
+   .. autoattribute:: Compander.threshold

@@ -1,0 +1,357 @@
+.. _supriya--ugens--NumAudioBuses:
+
+NumAudioBuses
+=============
+
+.. automodule:: supriya.ugens.NumAudioBuses
+
+.. currentmodule:: supriya.ugens.NumAudioBuses
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.NumAudioBuses
+
+.. autoclass:: NumAudioBuses
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ir
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.__add__
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.__div__
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.__le__
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.__len__
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.__str__
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.as_int
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.clip
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.cubed
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.distort
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.exponential
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.floor
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.lag
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.log
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.log10
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.log2
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.maximum
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.minimum
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.power
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.range
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.scale
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.sign
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.softclip
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.square_root
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.squared
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.sum
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.tanh
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.transpose
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: NumAudioBuses.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: NumAudioBuses.ir
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: NumAudioBuses.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: NumAudioBuses.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: NumAudioBuses.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: NumAudioBuses.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: NumAudioBuses.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: NumAudioBuses.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: NumAudioBuses.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: NumAudioBuses.special_index

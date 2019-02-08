@@ -1,0 +1,115 @@
+.. _supriya--synthdefs:
+
+synthdefs
+=========
+
+.. automodule:: supriya.synthdefs
+
+.. currentmodule:: supriya.synthdefs
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.synthdefs
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   SynthDefFactory
+   SynthDefGrapher
+
+.. autosummary::
+   :nosignatures:
+
+   ~SynthDefFactory.SynthDefFactory
+   ~SynthDefGrapher.SynthDefGrapher
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Enumerations
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   BinaryOperator
+   DoneAction
+   EnvelopeShape
+   ParameterRate
+   SignalRange
+   UnaryOperator
+   Unit
+
+.. autosummary::
+   :nosignatures:
+
+   ~BinaryOperator.BinaryOperator
+   ~DoneAction.DoneAction
+   ~EnvelopeShape.EnvelopeShape
+   ~ParameterRate.ParameterRate
+   ~SignalRange.SignalRange
+   ~UnaryOperator.UnaryOperator
+   ~Unit.Unit
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Main Classes
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   Envelope
+   Parameter
+   Range
+   SynthDef
+   SynthDefBuilder
+
+.. autosummary::
+   :nosignatures:
+
+   ~Envelope.Envelope
+   ~Parameter.Parameter
+   ~Range.Range
+   ~SynthDef.SynthDef
+   ~SynthDefBuilder.SynthDefBuilder
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: SynthDef Internals
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   OutputProxy
+   SuperColliderSynthDef
+   SynthDefCompiler
+   SynthDefDecompiler
+   UGenArray
+   UGenMethodMixin
+   UGenSortBundle
+
+.. autosummary::
+   :nosignatures:
+
+   ~OutputProxy.OutputProxy
+   ~SuperColliderSynthDef.SuperColliderSynthDef
+   ~SynthDefCompiler.SynthDefCompiler
+   ~SynthDefDecompiler.SynthDefDecompiler
+   ~UGenArray.UGenArray
+   ~UGenMethodMixin.UGenMethodMixin
+   ~UGenSortBundle.UGenSortBundle

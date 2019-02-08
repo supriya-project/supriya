@@ -1,0 +1,336 @@
+.. _supriya--ugens--WidthFirstUGen:
+
+WidthFirstUGen
+==============
+
+.. automodule:: supriya.ugens.WidthFirstUGen
+
+.. currentmodule:: supriya.ugens.WidthFirstUGen
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.WidthFirstUGen
+
+.. autoclass:: WidthFirstUGen
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.__add__
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.__div__
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.__le__
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.__len__
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.__str__
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.as_int
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.clip
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.cubed
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.distort
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.exponential
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.floor
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.lag
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.log
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.log10
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.log2
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.maximum
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.minimum
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.power
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.range
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.scale
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.sign
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.softclip
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.square_root
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.squared
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.sum
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.tanh
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.transpose
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: WidthFirstUGen.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: WidthFirstUGen.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: WidthFirstUGen.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: WidthFirstUGen.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: WidthFirstUGen.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: WidthFirstUGen.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: WidthFirstUGen.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: WidthFirstUGen.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: WidthFirstUGen.special_index

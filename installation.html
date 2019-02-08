@@ -1,0 +1,318 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation &mdash; Supriya 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Supriya API" href="api/index.html" />
+    <link rel="prev" title="Supriya (0.2.0)" href="index.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">Supriya API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Installation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>Supriya works on OSX and Unix/Linux with Python 3.3+.</p>
+<div class="section" id="install-supriya">
+<h2>Install Supriya<a class="headerlink" href="#install-supriya" title="Permalink to this headline">¶</a></h2>
+<p>Install Supriya from its <a class="reference external" href="https://github.com/josiah-wolf-oberholtzer/supriya">GitHub</a> repository, via <a class="reference external" href="https://git-scm.com/">git</a> and <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>~$ git clone https://github.com/josiah-wolf-oberholtzer/supriya.git
+~$ cd supriya
+supriya$ pip install -e .
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-optional-dependencies">
+<h2>Install Optional Dependencies<a class="headerlink" href="#install-optional-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>With <a class="reference external" href="https://cython.org/">Cython</a> support:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>supriya$ pip install -e .[accelerated]
+</pre></div>
+</div>
+<p>With <a class="reference external" href="https://ipython.org/">IPython</a> support:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>supriya$ pip install -e .[ipython]
+</pre></div>
+</div>
+<p>With MIDI support (via <a class="reference external" href="https://github.com/SpotlightKid/python-rtmidi">python-rtmidi</a>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>supriya$ pip install -e .[midi]
+</pre></div>
+</div>
+<p>With soundfile support (via <a class="reference external" href="http://www.mega-nerd.com/libsndfile/">libsndfile</a> and <a class="reference external" href="https://pypi.python.org/pypi/wavefile/">wavefile</a>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>supriya$ pip install -e .[wave]
+</pre></div>
+</div>
+<p>On OSX, you can get <a class="reference external" href="http://www.mega-nerd.com/libsndfile/">libsndfile</a> via <cite>HomeBrew</cite>. On Linux, consult your package manager.</p>
+<p>With test dependencies:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>supriya$ pip install -e .[test]
+</pre></div>
+</div>
+<div class="section" id="install-supercollider">
+<h3>Install SuperCollider<a class="headerlink" href="#install-supercollider" title="Permalink to this headline">¶</a></h3>
+<p>Supriya uses <a class="reference external" href="http://supercollider.github.io/">SuperCollider</a> as its synthesis engine. <a class="reference external" href="http://supercollider.github.io/">SuperCollider</a> is
+available on OSX, Linux and Windows (although Supriya has not been tested on
+Windows).</p>
+<p>You can download <a class="reference external" href="http://supercollider.github.io/">SuperCollider</a> from <a class="reference external" href="http://supercollider.github.io/">http://supercollider.github.io/</a>.</p>
+</div>
+<div class="section" id="install-graphviz-optional">
+<h3>Install Graphviz (optional)<a class="headerlink" href="#install-graphviz-optional" title="Permalink to this headline">¶</a></h3>
+<p>Supriya uses <a class="reference external" href="http://graphviz.org/">Graphviz</a>, an open-source graph visualization library, to create
+graphs of rhythm-trees and other tree structures, and to create visualizations
+of class hierarchies for its documentation. Graphviz is not necessary for
+making sounds with Supriya.</p>
+<p>To install <a class="reference external" href="http://graphviz.org/">Graphviz</a> on Debian and Ubuntu:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>~$ sudo apt-get install graphviz
+</pre></div>
+</div>
+<p>To install <a class="reference external" href="http://graphviz.org/">Graphviz</a> on OSX via <a class="reference external" href="http://brew.sh/">Homebrew</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>~$ brew install graphviz
+</pre></div>
+</div>
+<p>Once you have install <a class="reference external" href="http://graphviz.org/">Graphviz</a>, test if <a class="reference external" href="http://graphviz.org/">Graphviz</a> is callable from your
+command-line by running the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~$ dot -V
+dot - graphviz version <span class="m">2</span>.38.0 <span class="o">(</span><span class="m">20140413</span>.2041<span class="o">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="virtual-environments">
+<h2>Virtual environments<a class="headerlink" href="#virtual-environments" title="Permalink to this headline">¶</a></h2>
+<p>We strongly recommend installing Supriya into a virtual environment, especially
+if you intend to hack on Supriya’s own source code. Virtual environments allow
+you to isolate <a class="reference external" href="https://www.python.org/">Python</a> packages from your systems global collection of
+packages. They also allow you to install Python packages without <code class="docutils literal notranslate"><span class="pre">sudo</span></code>. The
+<a class="reference external" href="https://readthedocs.org/projects/virtualenv/">virtualenv</a> package provides tools for creating Python virtual environments,
+and the <a class="reference external" href="https://virtualenvwrapper.readthedocs.org/en/latest/">virtualenvwrapper</a> package provides additional tools which make
+working with virtual environments incredibly easy.</p>
+<p>To install and setup <a class="reference external" href="https://readthedocs.org/projects/virtualenv/">virtualenv</a> and <a class="reference external" href="https://virtualenvwrapper.readthedocs.org/en/latest/">virtualenvwrapper</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>~$ pip install virtualenvwrapper
+...
+~$ mkdir -p $WORKON_HOME
+~$ export WORKON_HOME=~/.virtualenvs
+~$ source /usr/local/bin/virtualenvwrapper.sh
+</pre></div>
+</div>
+<p>Make the last two lines teaching your shell about the virtual environment
+tools “sticky” by adding them to your profile:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>~$ echo &quot;export WORKON_HOME=~/.virtualenvs&quot; &gt;&gt; ~/.profile
+~$ echo &quot;source /usr/local/bin/virtualenvwrapper.sh&quot; &gt;&gt; ~/.profile
+</pre></div>
+</div>
+<p>With the virtual environment tools installed, create and activate a virtual
+environment. You can now install supriya into that environment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>~$ mkvirtualenv my-supriya-env
+...
+(my-supriya-env) ~$ git clone https://github.com/josiah-wolf-oberholtzer/supriya.git
+(my-supriya-env) ~$ cd supriya
+(my-supriya-env) supriya$ pip install -e &quot;.[development]&quot;
+</pre></div>
+</div>
+<p>See the <a class="reference external" href="https://virtualenvwrapper.readthedocs.org/en/latest/">virtualenvwrapper</a> documentation for instructions on how to use the
+provided tools for working creating, deleting, activating and deactivating
+virtual environments: <code class="docutils literal notranslate"><span class="pre">mkvirtualenv</span></code>, <code class="docutils literal notranslate"><span class="pre">rmvirtualenv</span></code>, <code class="docutils literal notranslate"><span class="pre">workon</span></code> and
+<code class="docutils literal notranslate"><span class="pre">deactivate</span></code>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api/index.html" class="btn btn-neutral float-right" title="Supriya API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Supriya (0.2.0)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

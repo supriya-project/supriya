@@ -1,0 +1,622 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>patterns &mdash; Supriya 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Event" href="Event.html" />
+    <link rel="prev" title="OscMessage" href="../osc/OscMessage.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Supriya API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../cli/index.html">cli</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../live/index.html">live</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">patterns</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Event.html">Event</a></li>
+<li class="toctree-l4"><a class="reference internal" href="EventPattern.html">EventPattern</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Pattern.html">Pattern</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BusEvent.html">BusEvent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Clock.html">Clock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CompositeEvent.html">CompositeEvent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="EventPlayer.html">EventPlayer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="EventProduct.html">EventProduct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="GroupEvent.html">GroupEvent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NoteEvent.html">NoteEvent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NullEvent.html">NullEvent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Pbind.html">Pbind</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Pbindf.html">Pbindf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Pbinop.html">Pbinop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Pbus.html">Pbus</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Pchain.html">Pchain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Pfx.html">Pfx</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Pgpar.html">Pgpar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Pgroup.html">Pgroup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Pmono.html">Pmono</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Pn.html">Pn</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Ppar.html">Ppar</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Prand.html">Prand</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Pseed.html">Pseed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Pseq.html">Pseq</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Pwhite.html">Pwhite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="RandomNumberGenerator.html">RandomNumberGenerator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="RealtimeEventPlayer.html">RealtimeEventPlayer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SynthEvent.html">SynthEvent</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../soundfiles/index.html">soundfiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../system/index.html">system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Supriya API</a> &raquo;</li>
+        
+          <li><a href="../index.html">supriya</a> &raquo;</li>
+        
+      <li>patterns</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/supriya/patterns/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-supriya.patterns">
+<span id="patterns"></span><span id="supriya-patterns"></span><h1>patterns<a class="headerlink" href="#module-supriya.patterns" title="Permalink to this headline">¶</a></h1>
+<p>Tools for modeling patterns.</p>
+<div class="svg-container docutils container">
+<div class="graphviz"><object data="../../../_images/inheritance-5c4f989128a937f43d156d9d7ef489a591675772.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">digraph InheritanceGraph {
+	graph [bgcolor=transparent,
+		color=lightsteelblue2,
+		fontname=Arial,
+		fontsize=10,
+		outputorder=edgesfirst,
+		overlap=prism,
+		penwidth=2,
+		rankdir=LR,
+		splines=spline,
+		style=&quot;dashed, rounded&quot;,
+		truecolor=true
+	];
+	node [colorscheme=pastel19,
+		fontname=Arial,
+		fontsize=10,
+		height=0,
+		penwidth=2,
+		shape=box,
+		style=&quot;filled, rounded&quot;,
+		width=0
+	];
+	edge [color=lightslategrey,
+		penwidth=1
+	];
+	subgraph cluster_builtins {
+		graph [label=builtins];
+		node [color=1];
+		&quot;builtins.object&quot;		 [URL=&quot;https://docs.python.org/3.6/library/functions.html#object&quot;,
+			color=1,
+			label=object,
+			target=_top];
+	}
+	subgraph &quot;cluster_supriya.patterns&quot; {
+		graph [label=&quot;supriya.patterns&quot;];
+		node [color=2];
+		&quot;supriya.patterns.BusEvent.BusEvent&quot;		 [URL=&quot;../api/supriya/patterns/BusEvent.html#supriya.patterns.BusEvent.BusEvent&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Bus\nEvent&quot;,
+			target=_top];
+		&quot;supriya.patterns.Clock.Clock&quot;		 [URL=&quot;../api/supriya/patterns/Clock.html#supriya.patterns.Clock.Clock&quot;,
+			color=black,
+			fontcolor=white,
+			label=Clock,
+			target=_top];
+		&quot;supriya.patterns.CompositeEvent.CompositeEvent&quot;		 [URL=&quot;../api/supriya/patterns/CompositeEvent.html#supriya.patterns.CompositeEvent.CompositeEvent&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Composite\nEvent&quot;,
+			target=_top];
+		&quot;supriya.patterns.Event.Event&quot;		 [URL=&quot;../api/supriya/patterns/Event.html#supriya.patterns.Event.Event&quot;,
+			color=black,
+			fontcolor=white,
+			label=Event,
+			shape=oval,
+			style=&quot;bold, filled&quot;,
+			target=_top];
+		&quot;supriya.patterns.Event.Event&quot; -&gt; &quot;supriya.patterns.BusEvent.BusEvent&quot;		 [minlen=1];
+		&quot;supriya.patterns.Event.Event&quot; -&gt; &quot;supriya.patterns.CompositeEvent.CompositeEvent&quot;		 [minlen=2];
+		&quot;supriya.patterns.GroupEvent.GroupEvent&quot;		 [URL=&quot;../api/supriya/patterns/GroupEvent.html#supriya.patterns.GroupEvent.GroupEvent&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Group\nEvent&quot;,
+			target=_top];
+		&quot;supriya.patterns.Event.Event&quot; -&gt; &quot;supriya.patterns.GroupEvent.GroupEvent&quot;		 [minlen=1];
+		&quot;supriya.patterns.NoteEvent.NoteEvent&quot;		 [URL=&quot;../api/supriya/patterns/NoteEvent.html#supriya.patterns.NoteEvent.NoteEvent&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Note\nEvent&quot;,
+			target=_top];
+		&quot;supriya.patterns.Event.Event&quot; -&gt; &quot;supriya.patterns.NoteEvent.NoteEvent&quot;		 [minlen=2];
+		&quot;supriya.patterns.NullEvent.NullEvent&quot;		 [URL=&quot;../api/supriya/patterns/NullEvent.html#supriya.patterns.NullEvent.NullEvent&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Null\nEvent&quot;,
+			target=_top];
+		&quot;supriya.patterns.Event.Event&quot; -&gt; &quot;supriya.patterns.NullEvent.NullEvent&quot;		 [minlen=1];
+		&quot;supriya.patterns.SynthEvent.SynthEvent&quot;		 [URL=&quot;../api/supriya/patterns/SynthEvent.html#supriya.patterns.SynthEvent.SynthEvent&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Synth\nEvent&quot;,
+			target=_top];
+		&quot;supriya.patterns.Event.Event&quot; -&gt; &quot;supriya.patterns.SynthEvent.SynthEvent&quot;		 [minlen=2];
+		&quot;supriya.patterns.EventPattern.EventPattern&quot;		 [URL=&quot;../api/supriya/patterns/EventPattern.html#supriya.patterns.EventPattern.EventPattern&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Event\nPattern&quot;,
+			shape=oval,
+			style=&quot;bold, filled&quot;,
+			target=_top];
+		&quot;supriya.patterns.Pbind.Pbind&quot;		 [URL=&quot;../api/supriya/patterns/Pbind.html#supriya.patterns.Pbind.Pbind&quot;,
+			color=black,
+			fontcolor=white,
+			label=Pbind,
+			target=_top];
+		&quot;supriya.patterns.EventPattern.EventPattern&quot; -&gt; &quot;supriya.patterns.Pbind.Pbind&quot;		 [minlen=1];
+		&quot;supriya.patterns.Pbindf.Pbindf&quot;		 [URL=&quot;../api/supriya/patterns/Pbindf.html#supriya.patterns.Pbindf.Pbindf&quot;,
+			color=black,
+			fontcolor=white,
+			label=Pbindf,
+			target=_top];
+		&quot;supriya.patterns.EventPattern.EventPattern&quot; -&gt; &quot;supriya.patterns.Pbindf.Pbindf&quot;		 [minlen=2];
+		&quot;supriya.patterns.Pbus.Pbus&quot;		 [URL=&quot;../api/supriya/patterns/Pbus.html#supriya.patterns.Pbus.Pbus&quot;,
+			color=black,
+			fontcolor=white,
+			label=Pbus,
+			target=_top];
+		&quot;supriya.patterns.EventPattern.EventPattern&quot; -&gt; &quot;supriya.patterns.Pbus.Pbus&quot;		 [minlen=1];
+		&quot;supriya.patterns.Pchain.Pchain&quot;		 [URL=&quot;../api/supriya/patterns/Pchain.html#supriya.patterns.Pchain.Pchain&quot;,
+			color=black,
+			fontcolor=white,
+			label=Pchain,
+			target=_top];
+		&quot;supriya.patterns.EventPattern.EventPattern&quot; -&gt; &quot;supriya.patterns.Pchain.Pchain&quot;		 [minlen=2];
+		&quot;supriya.patterns.Pfx.Pfx&quot;		 [URL=&quot;../api/supriya/patterns/Pfx.html#supriya.patterns.Pfx.Pfx&quot;,
+			color=black,
+			fontcolor=white,
+			label=Pfx,
+			target=_top];
+		&quot;supriya.patterns.EventPattern.EventPattern&quot; -&gt; &quot;supriya.patterns.Pfx.Pfx&quot;		 [minlen=1];
+		&quot;supriya.patterns.Pgroup.Pgroup&quot;		 [URL=&quot;../api/supriya/patterns/Pgroup.html#supriya.patterns.Pgroup.Pgroup&quot;,
+			color=black,
+			fontcolor=white,
+			label=Pgroup,
+			target=_top];
+		&quot;supriya.patterns.EventPattern.EventPattern&quot; -&gt; &quot;supriya.patterns.Pgroup.Pgroup&quot;		 [minlen=2];
+		&quot;supriya.patterns.Pn.Pn&quot;		 [URL=&quot;../api/supriya/patterns/Pn.html#supriya.patterns.Pn.Pn&quot;,
+			color=black,
+			fontcolor=white,
+			label=Pn,
+			target=_top];
+		&quot;supriya.patterns.EventPattern.EventPattern&quot; -&gt; &quot;supriya.patterns.Pn.Pn&quot;		 [minlen=1];
+		&quot;supriya.patterns.Ppar.Ppar&quot;		 [URL=&quot;../api/supriya/patterns/Ppar.html#supriya.patterns.Ppar.Ppar&quot;,
+			color=black,
+			fontcolor=white,
+			label=Ppar,
+			target=_top];
+		&quot;supriya.patterns.EventPattern.EventPattern&quot; -&gt; &quot;supriya.patterns.Ppar.Ppar&quot;		 [minlen=2];
+		&quot;supriya.patterns.EventPlayer.EventPlayer&quot;		 [URL=&quot;../api/supriya/patterns/EventPlayer.html#supriya.patterns.EventPlayer.EventPlayer&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Event\nPlayer&quot;,
+			target=_top];
+		&quot;supriya.patterns.RealtimeEventPlayer.RealtimeEventPlayer&quot;		 [URL=&quot;../api/supriya/patterns/RealtimeEventPlayer.html#supriya.patterns.RealtimeEventPlayer.RealtimeEventPlayer&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Realtime\nEvent\nPlayer&quot;,
+			target=_top];
+		&quot;supriya.patterns.EventPlayer.EventPlayer&quot; -&gt; &quot;supriya.patterns.RealtimeEventPlayer.RealtimeEventPlayer&quot;		 [minlen=1];
+		&quot;supriya.patterns.EventProduct.EventProduct&quot;		 [URL=&quot;../api/supriya/patterns/EventProduct.html#supriya.patterns.EventProduct.EventProduct&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Event\nProduct&quot;,
+			target=_top];
+		&quot;supriya.patterns.Pattern.Pattern&quot;		 [URL=&quot;../api/supriya/patterns/Pattern.html#supriya.patterns.Pattern.Pattern&quot;,
+			color=black,
+			fontcolor=white,
+			label=Pattern,
+			shape=oval,
+			style=&quot;bold, filled&quot;,
+			target=_top];
+		&quot;supriya.patterns.Pattern.Pattern&quot; -&gt; &quot;supriya.patterns.EventPattern.EventPattern&quot;;
+		&quot;supriya.patterns.Pbinop.Pbinop&quot;		 [URL=&quot;../api/supriya/patterns/Pbinop.html#supriya.patterns.Pbinop.Pbinop&quot;,
+			color=black,
+			fontcolor=white,
+			label=Pbinop,
+			target=_top];
+		&quot;supriya.patterns.Pattern.Pattern&quot; -&gt; &quot;supriya.patterns.Pbinop.Pbinop&quot;		 [minlen=1];
+		&quot;supriya.patterns.Pseed.Pseed&quot;		 [URL=&quot;../api/supriya/patterns/Pseed.html#supriya.patterns.Pseed.Pseed&quot;,
+			color=black,
+			fontcolor=white,
+			label=Pseed,
+			target=_top];
+		&quot;supriya.patterns.Pattern.Pattern&quot; -&gt; &quot;supriya.patterns.Pseed.Pseed&quot;		 [minlen=2];
+		&quot;supriya.patterns.Pseq.Pseq&quot;		 [URL=&quot;../api/supriya/patterns/Pseq.html#supriya.patterns.Pseq.Pseq&quot;,
+			color=black,
+			fontcolor=white,
+			label=Pseq,
+			target=_top];
+		&quot;supriya.patterns.Pattern.Pattern&quot; -&gt; &quot;supriya.patterns.Pseq.Pseq&quot;		 [minlen=1];
+		&quot;supriya.patterns.Pwhite.Pwhite&quot;		 [URL=&quot;../api/supriya/patterns/Pwhite.html#supriya.patterns.Pwhite.Pwhite&quot;,
+			color=black,
+			fontcolor=white,
+			label=Pwhite,
+			target=_top];
+		&quot;supriya.patterns.Pattern.Pattern&quot; -&gt; &quot;supriya.patterns.Pwhite.Pwhite&quot;		 [minlen=2];
+		&quot;supriya.patterns.Pmono.Pmono&quot;		 [URL=&quot;../api/supriya/patterns/Pmono.html#supriya.patterns.Pmono.Pmono&quot;,
+			color=black,
+			fontcolor=white,
+			label=Pmono,
+			target=_top];
+		&quot;supriya.patterns.Pbind.Pbind&quot; -&gt; &quot;supriya.patterns.Pmono.Pmono&quot;		 [minlen=1];
+		&quot;supriya.patterns.Pgpar.Pgpar&quot;		 [URL=&quot;../api/supriya/patterns/Pgpar.html#supriya.patterns.Pgpar.Pgpar&quot;,
+			color=black,
+			fontcolor=white,
+			label=Pgpar,
+			target=_top];
+		&quot;supriya.patterns.Ppar.Ppar&quot; -&gt; &quot;supriya.patterns.Pgpar.Pgpar&quot;		 [minlen=1];
+		&quot;supriya.patterns.Prand.Prand&quot;		 [URL=&quot;../api/supriya/patterns/Prand.html#supriya.patterns.Prand.Prand&quot;,
+			color=black,
+			fontcolor=white,
+			label=Prand,
+			target=_top];
+		&quot;supriya.patterns.Pseq.Pseq&quot; -&gt; &quot;supriya.patterns.Prand.Prand&quot;		 [minlen=1];
+		&quot;supriya.patterns.RandomNumberGenerator.RandomNumberGenerator&quot;		 [URL=&quot;../api/supriya/patterns/RandomNumberGenerator.html#supriya.patterns.RandomNumberGenerator.RandomNumberGenerator&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Random\nNumber\nGenerator&quot;,
+			target=_top];
+	}
+	subgraph &quot;cluster_supriya.system&quot; {
+		graph [label=&quot;supriya.system&quot;];
+		node [color=3];
+		&quot;supriya.system.SupriyaObject.SupriyaObject&quot;		 [URL=&quot;../api/supriya/patterns/../system/SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject&quot;,
+			color=3,
+			label=&quot;Supriya\nObject&quot;,
+			target=_top];
+		&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;		 [URL=&quot;../api/supriya/patterns/../system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject&quot;,
+			color=3,
+			label=&quot;Supriya\nValue\nObject&quot;,
+			target=_top];
+		&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;;
+	}
+	&quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject.SupriyaObject&quot;	 [minlen=1];
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.patterns.Clock.Clock&quot;	 [minlen=1];
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.patterns.EventPlayer.EventPlayer&quot;	 [minlen=2];
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.patterns.RandomNumberGenerator.RandomNumberGenerator&quot;	 [minlen=1];
+	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.patterns.Event.Event&quot;;
+	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.patterns.EventProduct.EventProduct&quot;	 [minlen=1];
+	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.patterns.Pattern.Pattern&quot;;
+}</p></object></div>
+</div>
+<hr/><p class="section-header rubric">Abstract Classes</p>
+<div class="toctree-wrapper compound">
+</div>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="Event.html#supriya.patterns.Event.Event" title="supriya.patterns.Event.Event"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Event</span></code></a></td>
+<td>An abstract event.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="EventPattern.html#supriya.patterns.EventPattern.EventPattern" title="supriya.patterns.EventPattern.EventPattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EventPattern</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Pattern.html#supriya.patterns.Pattern.Pattern" title="supriya.patterns.Pattern.Pattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pattern</span></code></a></td>
+<td>Pattern base class.</td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="section-header rubric">Classes</p>
+<div class="toctree-wrapper compound">
+</div>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="BusEvent.html#supriya.patterns.BusEvent.BusEvent" title="supriya.patterns.BusEvent.BusEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BusEvent</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="Clock.html#supriya.patterns.Clock.Clock" title="supriya.patterns.Clock.Clock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Clock</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="CompositeEvent.html#supriya.patterns.CompositeEvent.CompositeEvent" title="supriya.patterns.CompositeEvent.CompositeEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CompositeEvent</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="EventPlayer.html#supriya.patterns.EventPlayer.EventPlayer" title="supriya.patterns.EventPlayer.EventPlayer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EventPlayer</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="EventProduct.html#supriya.patterns.EventProduct.EventProduct" title="supriya.patterns.EventProduct.EventProduct"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EventProduct</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="GroupEvent.html#supriya.patterns.GroupEvent.GroupEvent" title="supriya.patterns.GroupEvent.GroupEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GroupEvent</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="NoteEvent.html#supriya.patterns.NoteEvent.NoteEvent" title="supriya.patterns.NoteEvent.NoteEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NoteEvent</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="NullEvent.html#supriya.patterns.NullEvent.NullEvent" title="supriya.patterns.NullEvent.NullEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NullEvent</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Pbind.html#supriya.patterns.Pbind.Pbind" title="supriya.patterns.Pbind.Pbind"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pbind</span></code></a></td>
+<td>A pattern binding.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="Pbindf.html#supriya.patterns.Pbindf.Pbindf" title="supriya.patterns.Pbindf.Pbindf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pbindf</span></code></a></td>
+<td>Overwrites keys in an event pattern.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Pbinop.html#supriya.patterns.Pbinop.Pbinop" title="supriya.patterns.Pbinop.Pbinop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pbinop</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="Pbus.html#supriya.patterns.Pbus.Pbus" title="supriya.patterns.Pbus.Pbus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pbus</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Pchain.html#supriya.patterns.Pchain.Pchain" title="supriya.patterns.Pchain.Pchain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pchain</span></code></a></td>
+<td>Chains patterns.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="Pfx.html#supriya.patterns.Pfx.Pfx" title="supriya.patterns.Pfx.Pfx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pfx</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Pgpar.html#supriya.patterns.Pgpar.Pgpar" title="supriya.patterns.Pgpar.Pgpar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pgpar</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="Pgroup.html#supriya.patterns.Pgroup.Pgroup" title="supriya.patterns.Pgroup.Pgroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pgroup</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Pmono.html#supriya.patterns.Pmono.Pmono" title="supriya.patterns.Pmono.Pmono"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pmono</span></code></a></td>
+<td>A monophonic pattern.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="Pn.html#supriya.patterns.Pn.Pn" title="supriya.patterns.Pn.Pn"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pn</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Ppar.html#supriya.patterns.Ppar.Ppar" title="supriya.patterns.Ppar.Ppar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Ppar</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="Prand.html#supriya.patterns.Prand.Prand" title="supriya.patterns.Prand.Prand"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Prand</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Pseed.html#supriya.patterns.Pseed.Pseed" title="supriya.patterns.Pseed.Pseed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseed</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="Pseq.html#supriya.patterns.Pseq.Pseq" title="supriya.patterns.Pseq.Pseq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pseq</span></code></a></td>
+<td>A sequence pattern.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="Pwhite.html#supriya.patterns.Pwhite.Pwhite" title="supriya.patterns.Pwhite.Pwhite"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pwhite</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="RandomNumberGenerator.html#supriya.patterns.RandomNumberGenerator.RandomNumberGenerator" title="supriya.patterns.RandomNumberGenerator.RandomNumberGenerator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomNumberGenerator</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="RealtimeEventPlayer.html#supriya.patterns.RealtimeEventPlayer.RealtimeEventPlayer" title="supriya.patterns.RealtimeEventPlayer.RealtimeEventPlayer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RealtimeEventPlayer</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="SynthEvent.html#supriya.patterns.SynthEvent.SynthEvent" title="supriya.patterns.SynthEvent.SynthEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthEvent</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Event.html" class="btn btn-neutral float-right" title="Event" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../osc/OscMessage.html" class="btn btn-neutral" title="OscMessage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

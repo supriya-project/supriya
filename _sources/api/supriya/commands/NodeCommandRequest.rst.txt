@@ -1,0 +1,95 @@
+.. _supriya--commands--NodeCommandRequest:
+
+NodeCommandRequest
+==================
+
+.. automodule:: supriya.commands.NodeCommandRequest
+
+.. currentmodule:: supriya.commands.NodeCommandRequest
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.NodeCommandRequest
+
+.. autoclass:: NodeCommandRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      request_id
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: NodeCommandRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: NodeCommandRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: NodeCommandRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: NodeCommandRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: NodeCommandRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: NodeCommandRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: NodeCommandRequest.to_list
+
+   .. automethod:: NodeCommandRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: NodeCommandRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: NodeCommandRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: NodeCommandRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: NodeCommandRequest.response_patterns

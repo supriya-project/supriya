@@ -1,0 +1,75 @@
+.. _supriya--commands--QueryTreeControl:
+
+QueryTreeControl
+================
+
+.. automodule:: supriya.commands.QueryTreeControl
+
+.. currentmodule:: supriya.commands.QueryTreeControl
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.QueryTreeControl
+
+.. autoclass:: QueryTreeControl
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __str__
+      control_name_or_index
+      control_value
+      from_control
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeControl.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeControl.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeControl.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeControl.__repr__
+
+   .. automethod:: QueryTreeControl.__str__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: QueryTreeControl.from_control
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: QueryTreeControl.control_name_or_index
+
+   .. autoattribute:: QueryTreeControl.control_value

@@ -1,0 +1,36 @@
+.. _supriya--time:
+
+time
+====
+
+.. automodule:: supriya.time
+
+.. currentmodule:: supriya.time
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.time
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   TimespanCollection
+   TimespanCollectionDriver
+   TimespanCollectionDriverEx
+   TimespanSimultaneity
+
+.. autosummary::
+   :nosignatures:
+
+   ~TimespanCollection.TimespanCollection
+   ~TimespanCollectionDriver.TimespanCollectionDriver
+   ~TimespanCollectionDriverEx.TimespanCollectionDriverEx
+   ~TimespanSimultaneity.TimespanSimultaneity

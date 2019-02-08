@@ -1,0 +1,369 @@
+.. _supriya--ugens--Spring:
+
+Spring
+======
+
+.. automodule:: supriya.ugens.Spring
+
+.. currentmodule:: supriya.ugens.Spring
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Spring
+
+.. autoclass:: Spring
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      damping
+      kr
+      source
+      spring
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Spring.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Spring.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Spring.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Spring.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Spring.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Spring.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Spring.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Spring.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Spring.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Spring.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Spring.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Spring.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Spring.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Spring.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Spring.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Spring.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Spring.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Spring.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Spring.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Spring.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Spring.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Spring.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Spring.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Spring.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Spring.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Spring.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Spring.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Spring.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Spring.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Spring.clip
+
+   .. container:: inherited
+
+      .. automethod:: Spring.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Spring.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Spring.distort
+
+   .. container:: inherited
+
+      .. automethod:: Spring.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Spring.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Spring.floor
+
+   .. container:: inherited
+
+      .. automethod:: Spring.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Spring.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Spring.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Spring.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Spring.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Spring.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Spring.lag
+
+   .. container:: inherited
+
+      .. automethod:: Spring.log
+
+   .. container:: inherited
+
+      .. automethod:: Spring.log10
+
+   .. container:: inherited
+
+      .. automethod:: Spring.log2
+
+   .. container:: inherited
+
+      .. automethod:: Spring.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Spring.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Spring.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Spring.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Spring.power
+
+   .. container:: inherited
+
+      .. automethod:: Spring.range
+
+   .. container:: inherited
+
+      .. automethod:: Spring.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Spring.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Spring.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Spring.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Spring.scale
+
+   .. container:: inherited
+
+      .. automethod:: Spring.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Spring.sign
+
+   .. container:: inherited
+
+      .. automethod:: Spring.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Spring.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Spring.squared
+
+   .. container:: inherited
+
+      .. automethod:: Spring.sum
+
+   .. container:: inherited
+
+      .. automethod:: Spring.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Spring.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Spring.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Spring.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Spring.ar
+
+   .. automethod:: Spring.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Spring.calculation_rate
+
+   .. autoattribute:: Spring.damping
+
+   .. container:: inherited
+
+      .. autoattribute:: Spring.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Spring.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Spring.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Spring.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Spring.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Spring.signal_range
+
+   .. autoattribute:: Spring.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Spring.special_index
+
+   .. autoattribute:: Spring.spring

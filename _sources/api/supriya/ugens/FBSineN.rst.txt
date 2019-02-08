@@ -1,0 +1,378 @@
+.. _supriya--ugens--FBSineN:
+
+FBSineN
+=======
+
+.. automodule:: supriya.ugens.FBSineN
+
+.. currentmodule:: supriya.ugens.FBSineN
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.FBSineN
+
+.. autoclass:: FBSineN
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      a
+      ar
+      c
+      fb
+      frequency
+      im
+      xi
+      yi
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.__add__
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.__div__
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.__le__
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.__len__
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.__str__
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.as_int
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.clip
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.cubed
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.distort
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.exponential
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.floor
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.lag
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.log
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.log10
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.log2
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.maximum
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.minimum
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.power
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.range
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.scale
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.sign
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.softclip
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.square_root
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.squared
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.sum
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.tanh
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.transpose
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: FBSineN.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: FBSineN.ar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: FBSineN.a
+
+   .. autoattribute:: FBSineN.c
+
+   .. container:: inherited
+
+      .. autoattribute:: FBSineN.calculation_rate
+
+   .. autoattribute:: FBSineN.fb
+
+   .. autoattribute:: FBSineN.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: FBSineN.has_done_flag
+
+   .. autoattribute:: FBSineN.im
+
+   .. container:: inherited
+
+      .. autoattribute:: FBSineN.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: FBSineN.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: FBSineN.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: FBSineN.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: FBSineN.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: FBSineN.special_index
+
+   .. autoattribute:: FBSineN.xi
+
+   .. autoattribute:: FBSineN.yi

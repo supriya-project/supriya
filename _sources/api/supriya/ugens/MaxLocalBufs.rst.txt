@@ -1,0 +1,359 @@
+.. _supriya--ugens--MaxLocalBufs:
+
+MaxLocalBufs
+============
+
+.. automodule:: supriya.ugens.MaxLocalBufs
+
+.. currentmodule:: supriya.ugens.MaxLocalBufs
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.MaxLocalBufs
+
+.. autoclass:: MaxLocalBufs
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      increment
+      ir
+      maximum
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.__add__
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.__div__
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.__le__
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.__len__
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.__str__
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.as_int
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.clip
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.cubed
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.distort
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.exponential
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.floor
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.hz_to_octave
+
+   .. automethod:: MaxLocalBufs.increment
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.lag
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.log
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.log10
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.log2
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.minimum
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.power
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.range
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.scale
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.sign
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.softclip
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.square_root
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.squared
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.sum
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.tanh
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.transpose
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: MaxLocalBufs.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: MaxLocalBufs.ir
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: MaxLocalBufs.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: MaxLocalBufs.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: MaxLocalBufs.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: MaxLocalBufs.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: MaxLocalBufs.is_output_ugen
+
+   .. autoattribute:: MaxLocalBufs.maximum
+
+   .. container:: inherited
+
+      .. autoattribute:: MaxLocalBufs.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: MaxLocalBufs.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: MaxLocalBufs.special_index

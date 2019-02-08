@@ -1,0 +1,372 @@
+.. _supriya--ugens--BufDelayL:
+
+BufDelayL
+=========
+
+.. automodule:: supriya.ugens.BufDelayL
+
+.. currentmodule:: supriya.ugens.BufDelayL
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.BufDelayL
+
+.. autoclass:: BufDelayL
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      buffer_id
+      delay_time
+      kr
+      maximum_delay_time
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.__add__
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.__div__
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.__le__
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.__len__
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.__str__
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.as_int
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.clip
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.cubed
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.distort
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.exponential
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.floor
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.lag
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.log
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.log10
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.log2
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.maximum
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.minimum
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.power
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.range
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.scale
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.sign
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.softclip
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.square_root
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.squared
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.sum
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.tanh
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.transpose
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BufDelayL.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: BufDelayL.ar
+
+   .. automethod:: BufDelayL.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufDelayL.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: BufDelayL.calculation_rate
+
+   .. autoattribute:: BufDelayL.delay_time
+
+   .. container:: inherited
+
+      .. autoattribute:: BufDelayL.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: BufDelayL.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BufDelayL.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BufDelayL.is_output_ugen
+
+   .. autoattribute:: BufDelayL.maximum_delay_time
+
+   .. container:: inherited
+
+      .. autoattribute:: BufDelayL.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BufDelayL.signal_range
+
+   .. autoattribute:: BufDelayL.source
+
+   .. container:: inherited
+
+      .. autoattribute:: BufDelayL.special_index

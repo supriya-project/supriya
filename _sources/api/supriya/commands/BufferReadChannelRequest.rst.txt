@@ -1,0 +1,125 @@
+.. _supriya--commands--BufferReadChannelRequest:
+
+BufferReadChannelRequest
+========================
+
+.. automodule:: supriya.commands.BufferReadChannelRequest
+
+.. currentmodule:: supriya.commands.BufferReadChannelRequest
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.BufferReadChannelRequest
+
+.. autoclass:: BufferReadChannelRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      channel_indices
+      request_id
+      response_patterns
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadChannelRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadChannelRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadChannelRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadChannelRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadChannelRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadChannelRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: BufferReadChannelRequest.to_list
+
+   .. automethod:: BufferReadChannelRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferReadChannelRequest.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferReadChannelRequest.callback
+
+   .. autoattribute:: BufferReadChannelRequest.channel_indices
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferReadChannelRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferReadChannelRequest.file_path
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferReadChannelRequest.frame_count
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferReadChannelRequest.leave_open
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferReadChannelRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferReadChannelRequest.response
+
+   .. autoattribute:: BufferReadChannelRequest.response_patterns
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferReadChannelRequest.starting_frame_in_buffer
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferReadChannelRequest.starting_frame_in_file

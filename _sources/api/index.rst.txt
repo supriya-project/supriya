@@ -1,0 +1,1532 @@
+Supriya API
+===========
+
+.. toctree::
+   :hidden:
+
+   supriya/index
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: :ref:`supriya <supriya>`
+   :class: section-header
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Functions
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.import_structured_package
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: :ref:`supriya.cli <supriya--cli>`
+   :class: section-header
+
+Tools for Supriya's project maintenance scripts.
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Abstract Classes
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.cli.ProjectPackageScript.ProjectPackageScript
+   ~supriya.cli.ProjectSectionScript.ProjectSectionScript
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.cli.ManageAssetScript.ManageAssetScript
+   ~supriya.cli.ManageMaterialScript.ManageMaterialScript
+   ~supriya.cli.ManageProjectScript.ManageProjectScript
+   ~supriya.cli.ManageSessionScript.ManageSessionScript
+   ~supriya.cli.ManageSynthDefScript.ManageSynthDefScript
+   ~supriya.cli.ProjectManager.ProjectManager
+   ~supriya.cli.ProjectSettings.ProjectSettings
+   ~supriya.cli.SupriyaScript.SupriyaScript
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Functions
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.cli.run_supriya.run_supriya
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: :ref:`supriya.commands <supriya--commands>`
+   :class: section-header
+
+Tools for object-modeling OSC responses received from ``scsynth``.
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Abstract Classes
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.commands.MoveRequest.MoveRequest
+   ~supriya.commands.Request.Request
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest
+   ~supriya.commands.BufferAllocateReadRequest.BufferAllocateReadRequest
+   ~supriya.commands.BufferAllocateRequest.BufferAllocateRequest
+   ~supriya.commands.BufferCloseRequest.BufferCloseRequest
+   ~supriya.commands.BufferCopyRequest.BufferCopyRequest
+   ~supriya.commands.BufferFillRequest.BufferFillRequest
+   ~supriya.commands.BufferFreeRequest.BufferFreeRequest
+   ~supriya.commands.BufferGenerateRequest.BufferGenerateRequest
+   ~supriya.commands.BufferGetContiguousRequest.BufferGetContiguousRequest
+   ~supriya.commands.BufferGetRequest.BufferGetRequest
+   ~supriya.commands.BufferInfoResponse.BufferInfoResponse
+   ~supriya.commands.BufferNormalizeRequest.BufferNormalizeRequest
+   ~supriya.commands.BufferQueryRequest.BufferQueryRequest
+   ~supriya.commands.BufferReadChannelRequest.BufferReadChannelRequest
+   ~supriya.commands.BufferReadRequest.BufferReadRequest
+   ~supriya.commands.BufferSetContiguousRequest.BufferSetContiguousRequest
+   ~supriya.commands.BufferSetContiguousResponse.BufferSetContiguousResponse
+   ~supriya.commands.BufferSetRequest.BufferSetRequest
+   ~supriya.commands.BufferSetResponse.BufferSetResponse
+   ~supriya.commands.BufferWriteRequest.BufferWriteRequest
+   ~supriya.commands.BufferZeroRequest.BufferZeroRequest
+   ~supriya.commands.ClearScheduleRequest.ClearScheduleRequest
+   ~supriya.commands.CommandRequest.CommandRequest
+   ~supriya.commands.ControlBusFillRequest.ControlBusFillRequest
+   ~supriya.commands.ControlBusGetContiguousRequest.ControlBusGetContiguousRequest
+   ~supriya.commands.ControlBusGetRequest.ControlBusGetRequest
+   ~supriya.commands.ControlBusSetContiguousRequest.ControlBusSetContiguousRequest
+   ~supriya.commands.ControlBusSetContiguousResponse.ControlBusSetContiguousResponse
+   ~supriya.commands.ControlBusSetRequest.ControlBusSetRequest
+   ~supriya.commands.ControlBusSetResponse.ControlBusSetResponse
+   ~supriya.commands.DoneResponse.DoneResponse
+   ~supriya.commands.DumpOscRequest.DumpOscRequest
+   ~supriya.commands.ErrorRequest.ErrorRequest
+   ~supriya.commands.FailResponse.FailResponse
+   ~supriya.commands.GroupDeepFreeRequest.GroupDeepFreeRequest
+   ~supriya.commands.GroupDumpTreeRequest.GroupDumpTreeRequest
+   ~supriya.commands.GroupFreeAllRequest.GroupFreeAllRequest
+   ~supriya.commands.GroupHeadRequest.GroupHeadRequest
+   ~supriya.commands.GroupNewRequest.GroupNewRequest
+   ~supriya.commands.GroupQueryTreeRequest.GroupQueryTreeRequest
+   ~supriya.commands.GroupTailRequest.GroupTailRequest
+   ~supriya.commands.NodeAfterRequest.NodeAfterRequest
+   ~supriya.commands.NodeBeforeRequest.NodeBeforeRequest
+   ~supriya.commands.NodeCommandRequest.NodeCommandRequest
+   ~supriya.commands.NodeFillRequest.NodeFillRequest
+   ~supriya.commands.NodeFreeRequest.NodeFreeRequest
+   ~supriya.commands.NodeInfoResponse.NodeInfoResponse
+   ~supriya.commands.NodeMapToAudioBusContiguousRequest.NodeMapToAudioBusContiguousRequest
+   ~supriya.commands.NodeMapToAudioBusRequest.NodeMapToAudioBusRequest
+   ~supriya.commands.NodeMapToControlBusContiguousRequest.NodeMapToControlBusContiguousRequest
+   ~supriya.commands.NodeMapToControlBusRequest.NodeMapToControlBusRequest
+   ~supriya.commands.NodeOrderRequest.NodeOrderRequest
+   ~supriya.commands.NodeQueryRequest.NodeQueryRequest
+   ~supriya.commands.NodeRunRequest.NodeRunRequest
+   ~supriya.commands.NodeSetContiguousRequest.NodeSetContiguousRequest
+   ~supriya.commands.NodeSetContiguousResponse.NodeSetContiguousResponse
+   ~supriya.commands.NodeSetRequest.NodeSetRequest
+   ~supriya.commands.NodeSetResponse.NodeSetResponse
+   ~supriya.commands.NodeTraceRequest.NodeTraceRequest
+   ~supriya.commands.NothingRequest.NothingRequest
+   ~supriya.commands.NotifyRequest.NotifyRequest
+   ~supriya.commands.ParallelGroupNewRequest.ParallelGroupNewRequest
+   ~supriya.commands.QueryTreeControl.QueryTreeControl
+   ~supriya.commands.QueryTreeGroup.QueryTreeGroup
+   ~supriya.commands.QueryTreeResponse.QueryTreeResponse
+   ~supriya.commands.QueryTreeSynth.QueryTreeSynth
+   ~supriya.commands.QuitRequest.QuitRequest
+   ~supriya.commands.RequestBundle.RequestBundle
+   ~supriya.commands.Requestable.Requestable
+   ~supriya.commands.Response.Response
+   ~supriya.commands.StatusRequest.StatusRequest
+   ~supriya.commands.StatusResponse.StatusResponse
+   ~supriya.commands.SyncRequest.SyncRequest
+   ~supriya.commands.SyncedResponse.SyncedResponse
+   ~supriya.commands.SynthDefFreeAllRequest.SynthDefFreeAllRequest
+   ~supriya.commands.SynthDefFreeRequest.SynthDefFreeRequest
+   ~supriya.commands.SynthDefLoadDirectoryRequest.SynthDefLoadDirectoryRequest
+   ~supriya.commands.SynthDefLoadRequest.SynthDefLoadRequest
+   ~supriya.commands.SynthDefReceiveRequest.SynthDefReceiveRequest
+   ~supriya.commands.SynthDefRemovedResponse.SynthDefRemovedResponse
+   ~supriya.commands.SynthGetContiguousRequest.SynthGetContiguousRequest
+   ~supriya.commands.SynthGetRequest.SynthGetRequest
+   ~supriya.commands.SynthNewRequest.SynthNewRequest
+   ~supriya.commands.SynthNewargsRequest.SynthNewargsRequest
+   ~supriya.commands.SynthNoidRequest.SynthNoidRequest
+   ~supriya.commands.TriggerResponse.TriggerResponse
+   ~supriya.commands.UgenCommandRequest.UgenCommandRequest
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Enumerations
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.commands.NodeAction.NodeAction
+   ~supriya.commands.RequestId.RequestId
+   ~supriya.commands.RequestName.RequestName
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: :ref:`supriya.enums <supriya--enums>`
+   :class: section-header
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Enumerations
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.enums.AddAction
+   ~supriya.enums.CalculationRate
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: :ref:`supriya.exceptions <supriya--exceptions>`
+   :class: section-header
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Exceptions
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.exceptions.AlreadyAllocated
+   ~supriya.exceptions.BufferAlreadyAllocated
+   ~supriya.exceptions.BufferNotAllocated
+   ~supriya.exceptions.BusAlreadyAllocated
+   ~supriya.exceptions.BusNotAllocated
+   ~supriya.exceptions.IncompatibleRate
+   ~supriya.exceptions.NodeAlreadyAllocated
+   ~supriya.exceptions.NodeNotAllocated
+   ~supriya.exceptions.NonrealtimeOutputMissing
+   ~supriya.exceptions.NonrealtimeRenderError
+   ~supriya.exceptions.NotAllocated
+   ~supriya.exceptions.RequestTimeout
+   ~supriya.exceptions.ServerCannotBoot
+   ~supriya.exceptions.ServerOffline
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: :ref:`supriya.ext <supriya--ext>`
+   :class: section-header
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: :ref:`supriya.ext.ipython <supriya--ext--ipython>`
+   :class: section-header
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Functions
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ext.ipython.load_ipython_extension
+   ~supriya.ext.ipython.patch_grapher
+   ~supriya.ext.ipython.patch_player
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: :ref:`supriya.io <supriya--io>`
+   :class: section-header
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.io.Grapher
+   ~supriya.io.Player
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Functions
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.io.graph
+   ~supriya.io.play
+   ~supriya.io.render
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: :ref:`supriya.live <supriya--live>`
+   :class: section-header
+
+Tools for performing live, including models of virtual mixers, instruments and
+performance applications.
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.live.Application.Application
+   ~supriya.live.AutoPatternSlot.AutoPatternSlot
+   ~supriya.live.Direct.Direct
+   ~supriya.live.Mixer.Mixer
+   ~supriya.live.PatternSlot.PatternSlot
+   ~supriya.live.Send.Send
+   ~supriya.live.SendManager.SendManager
+   ~supriya.live.Slot.Slot
+   ~supriya.live.SynthSlot.SynthSlot
+   ~supriya.live.Track.Track
+   ~supriya.live.TriggerPatternSlot.TriggerPatternSlot
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: :ref:`supriya.midi <supriya--midi>`
+   :class: section-header
+
+Tools for sending, receiving and responding to MIDI messages.
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.midi.ControllerChangeMessage.ControllerChangeMessage
+   ~supriya.midi.Device.Device
+   ~supriya.midi.LogicalControl.LogicalControl
+   ~supriya.midi.LogicalView.LogicalView
+   ~supriya.midi.MidiMessage.MidiMessage
+   ~supriya.midi.NoteOffMessage.NoteOffMessage
+   ~supriya.midi.NoteOnMessage.NoteOnMessage
+   ~supriya.midi.PhysicalControl.PhysicalControl
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Enumerations
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.midi.LogicalControlMode.LogicalControlMode
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: :ref:`supriya.nonrealtime <supriya--nonrealtime>`
+   :class: section-header
+
+Tools for working in non-realtime.
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.nonrealtime.SessionFactory.SessionFactory
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Non-realtime Session
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.nonrealtime.Session.Session
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Session Internals
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.nonrealtime.DoNotPropagate.DoNotPropagate
+   ~supriya.nonrealtime.NodeAction.NodeAction
+   ~supriya.nonrealtime.SessionObject.SessionObject
+   ~supriya.nonrealtime.SessionRenderer.SessionRenderer
+   ~supriya.nonrealtime.State.State
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Session Objects
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup
+   ~supriya.nonrealtime.AudioOutputBusGroup.AudioOutputBusGroup
+   ~supriya.nonrealtime.Buffer.Buffer
+   ~supriya.nonrealtime.BufferGroup.BufferGroup
+   ~supriya.nonrealtime.Bus.Bus
+   ~supriya.nonrealtime.BusGroup.BusGroup
+   ~supriya.nonrealtime.Group.Group
+   ~supriya.nonrealtime.Moment.Moment
+   ~supriya.nonrealtime.Node.Node
+   ~supriya.nonrealtime.RootNode.RootNode
+   ~supriya.nonrealtime.Synth.Synth
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: :ref:`supriya.osc <supriya--osc>`
+   :class: section-header
+
+Tools for sending, receiving and handling OSC messages.
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.osc.OscBundle.OscBundle
+   ~supriya.osc.OscCallback.OscCallback
+   ~supriya.osc.OscIO.OscIO
+   ~supriya.osc.OscMessage.OscMessage
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Functions
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.osc.format_datagram
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: :ref:`supriya.patterns <supriya--patterns>`
+   :class: section-header
+
+Tools for modeling patterns.
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Abstract Classes
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.patterns.Event.Event
+   ~supriya.patterns.EventPattern.EventPattern
+   ~supriya.patterns.Pattern.Pattern
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.patterns.BusEvent.BusEvent
+   ~supriya.patterns.Clock.Clock
+   ~supriya.patterns.CompositeEvent.CompositeEvent
+   ~supriya.patterns.EventPlayer.EventPlayer
+   ~supriya.patterns.EventProduct.EventProduct
+   ~supriya.patterns.GroupEvent.GroupEvent
+   ~supriya.patterns.NoteEvent.NoteEvent
+   ~supriya.patterns.NullEvent.NullEvent
+   ~supriya.patterns.Pbind.Pbind
+   ~supriya.patterns.Pbindf.Pbindf
+   ~supriya.patterns.Pbinop.Pbinop
+   ~supriya.patterns.Pbus.Pbus
+   ~supriya.patterns.Pchain.Pchain
+   ~supriya.patterns.Pfx.Pfx
+   ~supriya.patterns.Pgpar.Pgpar
+   ~supriya.patterns.Pgroup.Pgroup
+   ~supriya.patterns.Pmono.Pmono
+   ~supriya.patterns.Pn.Pn
+   ~supriya.patterns.Ppar.Ppar
+   ~supriya.patterns.Prand.Prand
+   ~supriya.patterns.Pseed.Pseed
+   ~supriya.patterns.Pseq.Pseq
+   ~supriya.patterns.Pwhite.Pwhite
+   ~supriya.patterns.RandomNumberGenerator.RandomNumberGenerator
+   ~supriya.patterns.RealtimeEventPlayer.RealtimeEventPlayer
+   ~supriya.patterns.SynthEvent.SynthEvent
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: :ref:`supriya.realtime <supriya--realtime>`
+   :class: section-header
+
+Tools for interacting with and modeling objects on the SuperCollider
+``scsynth`` synthesis server.
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Abstract Classes
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.realtime.Node.Node
+   ~supriya.realtime.ServerObjectProxy.ServerObjectProxy
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Main Classes
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.realtime.Buffer.Buffer
+   ~supriya.realtime.BufferGroup.BufferGroup
+   ~supriya.realtime.Bus.Bus
+   ~supriya.realtime.BusGroup.BusGroup
+   ~supriya.realtime.Group.Group
+   ~supriya.realtime.Server.Server
+   ~supriya.realtime.ServerOptions.ServerOptions
+   ~supriya.realtime.Synth.Synth
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Server Internals
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.realtime.AudioInputBusGroup.AudioInputBusGroup
+   ~supriya.realtime.AudioOutputBusGroup.AudioOutputBusGroup
+   ~supriya.realtime.Block.Block
+   ~supriya.realtime.BlockAllocator.BlockAllocator
+   ~supriya.realtime.BufferProxy.BufferProxy
+   ~supriya.realtime.BusProxy.BusProxy
+   ~supriya.realtime.ControlInterface.ControlInterface
+   ~supriya.realtime.GroupControl.GroupControl
+   ~supriya.realtime.GroupInterface.GroupInterface
+   ~supriya.realtime.NodeIdAllocator.NodeIdAllocator
+   ~supriya.realtime.RootNode.RootNode
+   ~supriya.realtime.ServerMeters.ServerMeters
+   ~supriya.realtime.ServerRecorder.ServerRecorder
+   ~supriya.realtime.StatusWatcher.StatusWatcher
+   ~supriya.realtime.SynthControl.SynthControl
+   ~supriya.realtime.SynthInterface.SynthInterface
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: :ref:`supriya.soundfiles <supriya--soundfiles>`
+   :class: section-header
+
+Tools for interacting with soundfiles.
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.soundfiles.Frame.Frame
+   ~supriya.soundfiles.Say.Say
+   ~supriya.soundfiles.Signal.Signal
+   ~supriya.soundfiles.SoundFile.SoundFile
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Enumerations
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.soundfiles.HeaderFormat.HeaderFormat
+   ~supriya.soundfiles.SampleFormat.SampleFormat
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: :ref:`supriya.synthdefs <supriya--synthdefs>`
+   :class: section-header
+
+Tools for constructing and compiling synthesizer definitions (SynthDefs).
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.synthdefs.SynthDefFactory.SynthDefFactory
+   ~supriya.synthdefs.SynthDefGrapher.SynthDefGrapher
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Enumerations
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.synthdefs.BinaryOperator.BinaryOperator
+   ~supriya.synthdefs.DoneAction.DoneAction
+   ~supriya.synthdefs.EnvelopeShape.EnvelopeShape
+   ~supriya.synthdefs.ParameterRate.ParameterRate
+   ~supriya.synthdefs.SignalRange.SignalRange
+   ~supriya.synthdefs.UnaryOperator.UnaryOperator
+   ~supriya.synthdefs.Unit.Unit
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Main Classes
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.synthdefs.Envelope.Envelope
+   ~supriya.synthdefs.Parameter.Parameter
+   ~supriya.synthdefs.Range.Range
+   ~supriya.synthdefs.SynthDef.SynthDef
+   ~supriya.synthdefs.SynthDefBuilder.SynthDefBuilder
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: SynthDef Internals
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.synthdefs.OutputProxy.OutputProxy
+   ~supriya.synthdefs.SuperColliderSynthDef.SuperColliderSynthDef
+   ~supriya.synthdefs.SynthDefCompiler.SynthDefCompiler
+   ~supriya.synthdefs.SynthDefDecompiler.SynthDefDecompiler
+   ~supriya.synthdefs.UGenArray.UGenArray
+   ~supriya.synthdefs.UGenMethodMixin.UGenMethodMixin
+   ~supriya.synthdefs.UGenSortBundle.UGenSortBundle
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: :ref:`supriya.system <supriya--system>`
+   :class: section-header
+
+Low-level system tools and various base classes.
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.system.Assets.Assets
+   ~supriya.system.Bindable.Bindable
+   ~supriya.system.BindableFloat.BindableFloat
+   ~supriya.system.BindableNamespace.BindableNamespace
+   ~supriya.system.Binding.Binding
+   ~supriya.system.SupriyaObject.SupriyaObject
+   ~supriya.system.SupriyaValueObject.SupriyaValueObject
+   ~supriya.system.YAMLLoader.YAMLLoader
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Functions
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.system.bind.bind
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Server Internals
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.system.PubSub.PubSub
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: :ref:`supriya.time <supriya--time>`
+   :class: section-header
+
+Tools for modeling overlapping time structures with timespans.
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.time.TimespanCollection.TimespanCollection
+   ~supriya.time.TimespanCollectionDriver.TimespanCollectionDriver
+   ~supriya.time.TimespanCollectionDriverEx.TimespanCollectionDriverEx
+   ~supriya.time.TimespanSimultaneity.TimespanSimultaneity
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: :ref:`supriya.ugens <supriya--ugens>`
+   :class: section-header
+
+Tools for modeling unit generators (UGens).
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Abstract Classes
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.PseudoUGen.PseudoUGen
+   ~supriya.ugens.PureMultiOutUGen.PureMultiOutUGen
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Ambisonics UGens
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.DecodeB2.DecodeB2
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Analysis UGens
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.ZeroCrossing.ZeroCrossing
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Basic Operator UGens
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.BinaryOpUGen.BinaryOpUGen
+   ~supriya.ugens.MulAdd.MulAdd
+   ~supriya.ugens.Sum3.Sum3
+   ~supriya.ugens.Sum4.Sum4
+   ~supriya.ugens.UnaryOpUGen.UnaryOpUGen
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Buffer UGens
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.BufChannels.BufChannels
+   ~supriya.ugens.BufDur.BufDur
+   ~supriya.ugens.BufFrames.BufFrames
+   ~supriya.ugens.BufInfoUGenBase.BufInfoUGenBase
+   ~supriya.ugens.BufRateScale.BufRateScale
+   ~supriya.ugens.BufRd.BufRd
+   ~supriya.ugens.BufSampleRate.BufSampleRate
+   ~supriya.ugens.BufSamples.BufSamples
+   ~supriya.ugens.BufWr.BufWr
+   ~supriya.ugens.ClearBuf.ClearBuf
+   ~supriya.ugens.LocalBuf.LocalBuf
+   ~supriya.ugens.MaxLocalBufs.MaxLocalBufs
+   ~supriya.ugens.PlayBuf.PlayBuf
+   ~supriya.ugens.RecordBuf.RecordBuf
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Chaos UGens
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.CuspL.CuspL
+   ~supriya.ugens.CuspN.CuspN
+   ~supriya.ugens.FBSineC.FBSineC
+   ~supriya.ugens.FBSineL.FBSineL
+   ~supriya.ugens.FBSineN.FBSineN
+   ~supriya.ugens.GbmanL.GbmanL
+   ~supriya.ugens.GbmanN.GbmanN
+   ~supriya.ugens.HenonC.HenonC
+   ~supriya.ugens.HenonL.HenonL
+   ~supriya.ugens.HenonN.HenonN
+   ~supriya.ugens.LatoocarfianC.LatoocarfianC
+   ~supriya.ugens.LatoocarfianL.LatoocarfianL
+   ~supriya.ugens.LatoocarfianN.LatoocarfianN
+   ~supriya.ugens.LinCongC.LinCongC
+   ~supriya.ugens.LinCongL.LinCongL
+   ~supriya.ugens.LinCongN.LinCongN
+   ~supriya.ugens.LorenzL.LorenzL
+   ~supriya.ugens.QuadC.QuadC
+   ~supriya.ugens.QuadL.QuadL
+   ~supriya.ugens.QuadN.QuadN
+   ~supriya.ugens.StandardL.StandardL
+   ~supriya.ugens.StandardN.StandardN
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.Convolution2.Convolution2
+   ~supriya.ugens.Convolution2L.Convolution2L
+   ~supriya.ugens.Convolution3.Convolution3
+   ~supriya.ugens.DiskIn.DiskIn
+   ~supriya.ugens.Duty.Duty
+   ~supriya.ugens.FSinOsc.FSinOsc
+   ~supriya.ugens.FreqShift.FreqShift
+   ~supriya.ugens.GrainBuf.GrainBuf
+   ~supriya.ugens.GrainIn.GrainIn
+   ~supriya.ugens.Pulse.Pulse
+   ~supriya.ugens.SyncSaw.SyncSaw
+   ~supriya.ugens.UGenMeta.UGenMeta
+   ~supriya.ugens.VDiskIn.VDiskIn
+   ~supriya.ugens.VOsc.VOsc
+   ~supriya.ugens.VOsc3.VOsc3
+   ~supriya.ugens.Vibrato.Vibrato
+   ~supriya.ugens.Warp1.Warp1
+   ~supriya.ugens.XFade2.XFade2
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Delay UGens
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.AllpassC.AllpassC
+   ~supriya.ugens.AllpassL.AllpassL
+   ~supriya.ugens.AllpassN.AllpassN
+   ~supriya.ugens.BufAllpassC.BufAllpassC
+   ~supriya.ugens.BufAllpassL.BufAllpassL
+   ~supriya.ugens.BufAllpassN.BufAllpassN
+   ~supriya.ugens.BufCombC.BufCombC
+   ~supriya.ugens.BufCombL.BufCombL
+   ~supriya.ugens.BufCombN.BufCombN
+   ~supriya.ugens.BufDelayC.BufDelayC
+   ~supriya.ugens.BufDelayL.BufDelayL
+   ~supriya.ugens.BufDelayN.BufDelayN
+   ~supriya.ugens.CombC.CombC
+   ~supriya.ugens.CombL.CombL
+   ~supriya.ugens.CombN.CombN
+   ~supriya.ugens.DelTapRd.DelTapRd
+   ~supriya.ugens.DelTapWr.DelTapWr
+   ~supriya.ugens.Delay1.Delay1
+   ~supriya.ugens.Delay2.Delay2
+   ~supriya.ugens.DelayC.DelayC
+   ~supriya.ugens.DelayL.DelayL
+   ~supriya.ugens.DelayN.DelayN
+   ~supriya.ugens.Pluck.Pluck
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Demand UGens
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.DUGen.DUGen
+   ~supriya.ugens.Dbrown.Dbrown
+   ~supriya.ugens.Dbufrd.Dbufrd
+   ~supriya.ugens.Dbufwr.Dbufwr
+   ~supriya.ugens.Demand.Demand
+   ~supriya.ugens.Dgeom.Dgeom
+   ~supriya.ugens.Dibrown.Dibrown
+   ~supriya.ugens.Diwhite.Diwhite
+   ~supriya.ugens.Drand.Drand
+   ~supriya.ugens.Dreset.Dreset
+   ~supriya.ugens.Dseq.Dseq
+   ~supriya.ugens.Dser.Dser
+   ~supriya.ugens.Dseries.Dseries
+   ~supriya.ugens.Dshuf.Dshuf
+   ~supriya.ugens.Dstutter.Dstutter
+   ~supriya.ugens.Dswitch.Dswitch
+   ~supriya.ugens.Dswitch1.Dswitch1
+   ~supriya.ugens.Dunique.Dunique
+   ~supriya.ugens.Dwhite.Dwhite
+   ~supriya.ugens.Dwrand.Dwrand
+   ~supriya.ugens.Dxrand.Dxrand
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Disk I/O UGens
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.DiskOut.DiskOut
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Dynamics UGens
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.Amplitude.Amplitude
+   ~supriya.ugens.Compander.Compander
+   ~supriya.ugens.CompanderD.CompanderD
+   ~supriya.ugens.Limiter.Limiter
+   ~supriya.ugens.Normalizer.Normalizer
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Envelope Utility UGens
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.DetectSilence.DetectSilence
+   ~supriya.ugens.Done.Done
+   ~supriya.ugens.EnvGen.EnvGen
+   ~supriya.ugens.Free.Free
+   ~supriya.ugens.FreeSelf.FreeSelf
+   ~supriya.ugens.FreeSelfWhenDone.FreeSelfWhenDone
+   ~supriya.ugens.Linen.Linen
+   ~supriya.ugens.Pause.Pause
+   ~supriya.ugens.PauseSelf.PauseSelf
+   ~supriya.ugens.PauseSelfWhenDone.PauseSelfWhenDone
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: FFT UGens
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.Convolution.Convolution
+   ~supriya.ugens.FFT.FFT
+   ~supriya.ugens.IFFT.IFFT
+   ~supriya.ugens.PV_Add.PV_Add
+   ~supriya.ugens.PV_BinScramble.PV_BinScramble
+   ~supriya.ugens.PV_BinShift.PV_BinShift
+   ~supriya.ugens.PV_BinWipe.PV_BinWipe
+   ~supriya.ugens.PV_BrickWall.PV_BrickWall
+   ~supriya.ugens.PV_ChainUGen.PV_ChainUGen
+   ~supriya.ugens.PV_ConformalMap.PV_ConformalMap
+   ~supriya.ugens.PV_Conj.PV_Conj
+   ~supriya.ugens.PV_Copy.PV_Copy
+   ~supriya.ugens.PV_CopyPhase.PV_CopyPhase
+   ~supriya.ugens.PV_Diffuser.PV_Diffuser
+   ~supriya.ugens.PV_Div.PV_Div
+   ~supriya.ugens.PV_HainsworthFoote.PV_HainsworthFoote
+   ~supriya.ugens.PV_JensenAndersen.PV_JensenAndersen
+   ~supriya.ugens.PV_LocalMax.PV_LocalMax
+   ~supriya.ugens.PV_MagAbove.PV_MagAbove
+   ~supriya.ugens.PV_MagBelow.PV_MagBelow
+   ~supriya.ugens.PV_MagClip.PV_MagClip
+   ~supriya.ugens.PV_MagDiv.PV_MagDiv
+   ~supriya.ugens.PV_MagFreeze.PV_MagFreeze
+   ~supriya.ugens.PV_MagMul.PV_MagMul
+   ~supriya.ugens.PV_MagNoise.PV_MagNoise
+   ~supriya.ugens.PV_MagShift.PV_MagShift
+   ~supriya.ugens.PV_MagSmear.PV_MagSmear
+   ~supriya.ugens.PV_MagSquared.PV_MagSquared
+   ~supriya.ugens.PV_Max.PV_Max
+   ~supriya.ugens.PV_Min.PV_Min
+   ~supriya.ugens.PV_Mul.PV_Mul
+   ~supriya.ugens.PV_PhaseShift.PV_PhaseShift
+   ~supriya.ugens.PV_PhaseShift270.PV_PhaseShift270
+   ~supriya.ugens.PV_PhaseShift90.PV_PhaseShift90
+   ~supriya.ugens.PV_RandComb.PV_RandComb
+   ~supriya.ugens.PV_RandWipe.PV_RandWipe
+   ~supriya.ugens.PV_RectComb.PV_RectComb
+   ~supriya.ugens.PV_RectComb2.PV_RectComb2
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Filter UGens
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.APF.APF
+   ~supriya.ugens.BAllPass.BAllPass
+   ~supriya.ugens.BBandPass.BBandPass
+   ~supriya.ugens.BBandStop.BBandStop
+   ~supriya.ugens.BEQSuite.BEQSuite
+   ~supriya.ugens.BHiCut.BHiCut
+   ~supriya.ugens.BHiPass.BHiPass
+   ~supriya.ugens.BHiShelf.BHiShelf
+   ~supriya.ugens.BLowCut.BLowCut
+   ~supriya.ugens.BLowPass.BLowPass
+   ~supriya.ugens.BLowShelf.BLowShelf
+   ~supriya.ugens.BPF.BPF
+   ~supriya.ugens.BPZ2.BPZ2
+   ~supriya.ugens.BPeakEQ.BPeakEQ
+   ~supriya.ugens.BRF.BRF
+   ~supriya.ugens.BRZ2.BRZ2
+   ~supriya.ugens.Changed.Changed
+   ~supriya.ugens.Decay.Decay
+   ~supriya.ugens.Decay2.Decay2
+   ~supriya.ugens.FOS.FOS
+   ~supriya.ugens.Filter.Filter
+   ~supriya.ugens.Formlet.Formlet
+   ~supriya.ugens.HPF.HPF
+   ~supriya.ugens.HPZ1.HPZ1
+   ~supriya.ugens.HPZ2.HPZ2
+   ~supriya.ugens.Integrator.Integrator
+   ~supriya.ugens.Klank.Klank
+   ~supriya.ugens.LPF.LPF
+   ~supriya.ugens.LPZ1.LPZ1
+   ~supriya.ugens.LPZ2.LPZ2
+   ~supriya.ugens.Lag.Lag
+   ~supriya.ugens.Lag2.Lag2
+   ~supriya.ugens.Lag2UD.Lag2UD
+   ~supriya.ugens.Lag3.Lag3
+   ~supriya.ugens.Lag3UD.Lag3UD
+   ~supriya.ugens.LagUD.LagUD
+   ~supriya.ugens.LeakDC.LeakDC
+   ~supriya.ugens.Median.Median
+   ~supriya.ugens.MidEQ.MidEQ
+   ~supriya.ugens.MoogFF.MoogFF
+   ~supriya.ugens.OnePole.OnePole
+   ~supriya.ugens.OneZero.OneZero
+   ~supriya.ugens.RHPF.RHPF
+   ~supriya.ugens.RLPF.RLPF
+   ~supriya.ugens.Ramp.Ramp
+   ~supriya.ugens.Ringz.Ringz
+   ~supriya.ugens.SOS.SOS
+   ~supriya.ugens.Slew.Slew
+   ~supriya.ugens.Slope.Slope
+   ~supriya.ugens.TwoPole.TwoPole
+   ~supriya.ugens.TwoZero.TwoZero
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Info UGens
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.BlockSize.BlockSize
+   ~supriya.ugens.ControlDur.ControlDur
+   ~supriya.ugens.ControlRate.ControlRate
+   ~supriya.ugens.InfoUGenBase.InfoUGenBase
+   ~supriya.ugens.NumAudioBuses.NumAudioBuses
+   ~supriya.ugens.NumBuffers.NumBuffers
+   ~supriya.ugens.NumControlBuses.NumControlBuses
+   ~supriya.ugens.NumInputBuses.NumInputBuses
+   ~supriya.ugens.NumOutputBuses.NumOutputBuses
+   ~supriya.ugens.NumRunningSynths.NumRunningSynths
+   ~supriya.ugens.RadiansPerSample.RadiansPerSample
+   ~supriya.ugens.SampleDur.SampleDur
+   ~supriya.ugens.SampleRate.SampleRate
+   ~supriya.ugens.SubsampleOffset.SubsampleOffset
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Input/Output UGens
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.In.In
+   ~supriya.ugens.InFeedback.InFeedback
+   ~supriya.ugens.LocalIn.LocalIn
+   ~supriya.ugens.LocalOut.LocalOut
+   ~supriya.ugens.OffsetOut.OffsetOut
+   ~supriya.ugens.Out.Out
+   ~supriya.ugens.ReplaceOut.ReplaceOut
+   ~supriya.ugens.SoundIn.SoundIn
+   ~supriya.ugens.XOut.XOut
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Line Utility UGens
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.AmpComp.AmpComp
+   ~supriya.ugens.AmpCompA.AmpCompA
+   ~supriya.ugens.LinExp.LinExp
+   ~supriya.ugens.LinLin.LinLin
+   ~supriya.ugens.Line.Line
+   ~supriya.ugens.XLine.XLine
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Machine Listening UGens
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.BeatTrack.BeatTrack
+   ~supriya.ugens.BeatTrack2.BeatTrack2
+   ~supriya.ugens.KeyTrack.KeyTrack
+   ~supriya.ugens.Loudness.Loudness
+   ~supriya.ugens.MFCC.MFCC
+   ~supriya.ugens.Onsets.Onsets
+   ~supriya.ugens.SpecCentroid.SpecCentroid
+   ~supriya.ugens.SpecFlatness.SpecFlatness
+   ~supriya.ugens.SpecPcile.SpecPcile
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Noise UGens
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.BrownNoise.BrownNoise
+   ~supriya.ugens.ClipNoise.ClipNoise
+   ~supriya.ugens.CoinGate.CoinGate
+   ~supriya.ugens.Crackle.Crackle
+   ~supriya.ugens.Dust.Dust
+   ~supriya.ugens.Dust2.Dust2
+   ~supriya.ugens.ExpRand.ExpRand
+   ~supriya.ugens.Gendy1.Gendy1
+   ~supriya.ugens.Gendy2.Gendy2
+   ~supriya.ugens.Gendy3.Gendy3
+   ~supriya.ugens.GrayNoise.GrayNoise
+   ~supriya.ugens.Hasher.Hasher
+   ~supriya.ugens.IRand.IRand
+   ~supriya.ugens.LFClipNoise.LFClipNoise
+   ~supriya.ugens.LFDClipNoise.LFDClipNoise
+   ~supriya.ugens.LFDNoise0.LFDNoise0
+   ~supriya.ugens.LFDNoise1.LFDNoise1
+   ~supriya.ugens.LFDNoise3.LFDNoise3
+   ~supriya.ugens.LFNoise0.LFNoise0
+   ~supriya.ugens.LFNoise1.LFNoise1
+   ~supriya.ugens.LFNoise2.LFNoise2
+   ~supriya.ugens.LinRand.LinRand
+   ~supriya.ugens.Logistic.Logistic
+   ~supriya.ugens.MantissaMask.MantissaMask
+   ~supriya.ugens.NRand.NRand
+   ~supriya.ugens.PinkNoise.PinkNoise
+   ~supriya.ugens.Rand.Rand
+   ~supriya.ugens.RandID.RandID
+   ~supriya.ugens.RandSeed.RandSeed
+   ~supriya.ugens.TExpRand.TExpRand
+   ~supriya.ugens.TIRand.TIRand
+   ~supriya.ugens.TRand.TRand
+   ~supriya.ugens.TWindex.TWindex
+   ~supriya.ugens.WhiteNoise.WhiteNoise
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Oscillator UGens
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.Blip.Blip
+   ~supriya.ugens.COsc.COsc
+   ~supriya.ugens.Impulse.Impulse
+   ~supriya.ugens.LFCub.LFCub
+   ~supriya.ugens.LFGauss.LFGauss
+   ~supriya.ugens.LFPar.LFPar
+   ~supriya.ugens.LFPulse.LFPulse
+   ~supriya.ugens.LFSaw.LFSaw
+   ~supriya.ugens.LFTri.LFTri
+   ~supriya.ugens.Saw.Saw
+   ~supriya.ugens.SinOsc.SinOsc
+   ~supriya.ugens.VarSaw.VarSaw
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Physical Modelling UGens
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.Ball.Ball
+   ~supriya.ugens.Spring.Spring
+   ~supriya.ugens.TBall.TBall
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Pitchshift UGens
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.PitchShift.PitchShift
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Reverb UGens
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.FreeVerb.FreeVerb
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Spatialization UGens
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.Balance2.Balance2
+   ~supriya.ugens.BiPanB2.BiPanB2
+   ~supriya.ugens.Pan2.Pan2
+   ~supriya.ugens.Pan4.Pan4
+   ~supriya.ugens.PanAz.PanAz
+   ~supriya.ugens.PanB.PanB
+   ~supriya.ugens.PanB2.PanB2
+   ~supriya.ugens.Rotate2.Rotate2
+   ~supriya.ugens.Splay.Splay
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: SynthDef Internals
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.DemandEnvGen.DemandEnvGen
+   ~supriya.ugens.Hilbert.Hilbert
+   ~supriya.ugens.HilbertFIR.HilbertFIR
+   ~supriya.ugens.Index.Index
+   ~supriya.ugens.LeastChange.LeastChange
+   ~supriya.ugens.MostChange.MostChange
+   ~supriya.ugens.MultiOutUGen.MultiOutUGen
+   ~supriya.ugens.PureUGen.PureUGen
+   ~supriya.ugens.RunningSum.RunningSum
+   ~supriya.ugens.Select.Select
+   ~supriya.ugens.Sweep.Sweep
+   ~supriya.ugens.UGen.UGen
+   ~supriya.ugens.WidthFirstUGen.WidthFirstUGen
+   ~supriya.ugens.WrapIndex.WrapIndex
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Trigger Utility UGens
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.Clip.Clip
+   ~supriya.ugens.Fold.Fold
+   ~supriya.ugens.Gate.Gate
+   ~supriya.ugens.InRange.InRange
+   ~supriya.ugens.Latch.Latch
+   ~supriya.ugens.Peak.Peak
+   ~supriya.ugens.PeakFollower.PeakFollower
+   ~supriya.ugens.Phasor.Phasor
+   ~supriya.ugens.RunningMax.RunningMax
+   ~supriya.ugens.RunningMin.RunningMin
+   ~supriya.ugens.Schmidt.Schmidt
+   ~supriya.ugens.TDelay.TDelay
+   ~supriya.ugens.ToggleFF.ToggleFF
+   ~supriya.ugens.Trig.Trig
+   ~supriya.ugens.Trig1.Trig1
+   ~supriya.ugens.Wrap.Wrap
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: UGen Internals
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.AudioControl.AudioControl
+   ~supriya.ugens.Control.Control
+   ~supriya.ugens.LagControl.LagControl
+   ~supriya.ugens.TrigControl.TrigControl
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: User Interaction UGens
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.MouseButton.MouseButton
+   ~supriya.ugens.MouseX.MouseX
+   ~supriya.ugens.MouseY.MouseY
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Utility UGens
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ugens.A2K.A2K
+   ~supriya.ugens.CheckBadValues.CheckBadValues
+   ~supriya.ugens.DC.DC
+   ~supriya.ugens.DegreeToKey.DegreeToKey
+   ~supriya.ugens.K2A.K2A
+   ~supriya.ugens.Mix.Mix
+   ~supriya.ugens.Poll.Poll
+   ~supriya.ugens.SendPeakRMS.SendPeakRMS
+   ~supriya.ugens.Silence.Silence
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: :ref:`supriya.utils <supriya--utils>`
+   :class: section-header
+
+Utility functions.
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Functions
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.utils.flatten_iterable.flatten_iterable
+   ~supriya.utils.group_iterable_by_count.group_iterable_by_count
+   ~supriya.utils.iterate_nwise.iterate_nwise
+   ~supriya.utils.new.new
+   ~supriya.utils.repeat_sequence_to_length.repeat_sequence_to_length
+   ~supriya.utils.zip_sequences.zip_sequences

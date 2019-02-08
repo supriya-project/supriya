@@ -1,0 +1,367 @@
+.. _supriya--ugens--PV-MagMul:
+
+PV_MagMul
+=========
+
+.. automodule:: supriya.ugens.PV_MagMul
+
+.. currentmodule:: supriya.ugens.PV_MagMul
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.PV_MagMul
+
+.. autoclass:: PV_MagMul
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      new
+      pv_chain_a
+      pv_chain_b
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.__add__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.__div__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.__le__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.__len__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.__str__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.as_int
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.clip
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.cubed
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.distort
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.exponential
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.floor
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.lag
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.log
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.log10
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.log2
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.maximum
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.minimum
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.power
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.range
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.scale
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.sign
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.softclip
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.square_root
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.squared
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.sum
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.tanh
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.transpose
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagMul.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: PV_MagMul.new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagMul.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagMul.fft_size
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagMul.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagMul.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagMul.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagMul.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagMul.outputs
+
+   .. autoattribute:: PV_MagMul.pv_chain_a
+
+   .. autoattribute:: PV_MagMul.pv_chain_b
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagMul.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagMul.special_index

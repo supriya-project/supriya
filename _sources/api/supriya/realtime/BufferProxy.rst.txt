@@ -1,0 +1,83 @@
+.. _supriya--realtime--BufferProxy:
+
+BufferProxy
+===========
+
+.. automodule:: supriya.realtime.BufferProxy
+
+.. currentmodule:: supriya.realtime.BufferProxy
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.realtime.BufferProxy
+
+.. autoclass:: BufferProxy
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __float__
+      __int__
+      buffer_id
+      channel_count
+      duration_in_seconds
+      frame_count
+      sample_count
+      sample_rate
+      server
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferProxy.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferProxy.__eq__
+
+   .. automethod:: BufferProxy.__float__
+
+   .. container:: inherited
+
+      .. automethod:: BufferProxy.__hash__
+
+   .. automethod:: BufferProxy.__int__
+
+   .. container:: inherited
+
+      .. automethod:: BufferProxy.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferProxy.buffer_id
+
+   .. autoattribute:: BufferProxy.channel_count
+
+   .. autoattribute:: BufferProxy.duration_in_seconds
+
+   .. autoattribute:: BufferProxy.frame_count
+
+   .. autoattribute:: BufferProxy.sample_count
+
+   .. autoattribute:: BufferProxy.sample_rate
+
+   .. autoattribute:: BufferProxy.server

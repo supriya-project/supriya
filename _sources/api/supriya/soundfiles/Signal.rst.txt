@@ -1,0 +1,43 @@
+.. _supriya--soundfiles--Signal:
+
+Signal
+======
+
+.. automodule:: supriya.soundfiles.Signal
+
+.. currentmodule:: supriya.soundfiles.Signal
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.soundfiles.Signal
+
+.. autoclass:: Signal
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __getitem__
+      __len__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: Signal.__getitem__
+
+   .. automethod:: Signal.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Signal.__repr__

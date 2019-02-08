@@ -1,0 +1,95 @@
+.. _supriya--commands--ClearScheduleRequest:
+
+ClearScheduleRequest
+====================
+
+.. automodule:: supriya.commands.ClearScheduleRequest
+
+.. currentmodule:: supriya.commands.ClearScheduleRequest
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.ClearScheduleRequest
+
+.. autoclass:: ClearScheduleRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      request_id
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ClearScheduleRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: ClearScheduleRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: ClearScheduleRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: ClearScheduleRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ClearScheduleRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: ClearScheduleRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: ClearScheduleRequest.to_list
+
+   .. automethod:: ClearScheduleRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: ClearScheduleRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: ClearScheduleRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: ClearScheduleRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: ClearScheduleRequest.response_patterns

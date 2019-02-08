@@ -1,0 +1,321 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>supriya.commands.RequestBundle &mdash; Supriya 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">Supriya API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../supriya.html">supriya</a> &raquo;</li>
+        
+      <li>supriya.commands.RequestBundle</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for supriya.commands.RequestBundle</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">threading</span>
+
+<span class="kn">import</span> <span class="nn">supriya.osc</span>
+<span class="kn">from</span> <span class="nn">supriya.commands.Requestable</span> <span class="k">import</span> <span class="n">Requestable</span>
+
+
+<div class="viewcode-block" id="RequestBundle"><a class="viewcode-back" href="../../../api/supriya/commands/RequestBundle.html#supriya.commands.RequestBundle.RequestBundle">[docs]</a><span class="k">class</span> <span class="nc">RequestBundle</span><span class="p">(</span><span class="n">Requestable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A Request bundle.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; request_one = supriya.commands.BufferAllocateRequest(</span>
+<span class="sd">        ...     buffer_id=23,</span>
+<span class="sd">        ...     frame_count=512,</span>
+<span class="sd">        ...     channel_count=1,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        &gt;&gt;&gt; request_two = supriya.commands.BufferAllocateRequest(</span>
+<span class="sd">        ...     buffer_id=24,</span>
+<span class="sd">        ...     frame_count=512,</span>
+<span class="sd">        ...     channel_count=1,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        &gt;&gt;&gt; request_bundle = supriya.commands.RequestBundle(</span>
+<span class="sd">        ...     timestamp=10.5,</span>
+<span class="sd">        ...     contents=[request_one, request_two],</span>
+<span class="sd">        ...     )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; request_bundle.to_osc(True)</span>
+<span class="sd">        OscBundle(</span>
+<span class="sd">            contents=(</span>
+<span class="sd">                OscMessage(&#39;/b_alloc&#39;, 23, 512, 1),</span>
+<span class="sd">                OscMessage(&#39;/b_alloc&#39;, 24, 512, 1),</span>
+<span class="sd">                ),</span>
+<span class="sd">            timestamp=10.5,</span>
+<span class="sd">            )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; request_bundle.to_list(True)</span>
+<span class="sd">        [10.5, [[&#39;/b_alloc&#39;, 23, 512, 1], [&#39;/b_alloc&#39;, 24, 512, 1]]]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_contents&quot;</span><span class="p">,</span> <span class="s2">&quot;_timestamp&quot;</span><span class="p">)</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timestamp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">contents</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.commands</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_condition</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Condition</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_timestamp</span> <span class="o">=</span> <span class="n">timestamp</span>
+        <span class="k">if</span> <span class="n">contents</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">prototype</span> <span class="o">=</span> <span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">Request</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+            <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">prototype</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">contents</span><span class="p">)</span>
+            <span class="n">contents</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">contents</span> <span class="o">=</span> <span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_contents</span> <span class="o">=</span> <span class="n">contents</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_response</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="k">def</span> <span class="nf">_get_response_pattern_and_requestable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
+        <span class="n">sync_id</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">next_sync_id</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">contents</span><span class="p">)</span>
+        <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">SyncRequest</span><span class="p">(</span><span class="n">sync_id</span><span class="o">=</span><span class="n">sync_id</span><span class="p">))</span>
+        <span class="n">request_bundle</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="n">contents</span><span class="o">=</span><span class="n">contents</span><span class="p">)</span>
+        <span class="n">response_pattern</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;/synced&quot;</span><span class="p">,</span> <span class="n">sync_id</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">response_pattern</span><span class="p">,</span> <span class="n">request_bundle</span>
+
+    <span class="k">def</span> <span class="nf">_handle_async</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sync</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">sync</span><span class="p">:</span>
+            <span class="n">server</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">_linearize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">contents</span><span class="p">:</span>
+            <span class="k">yield from</span> <span class="n">x</span><span class="o">.</span><span class="n">_linearize</span><span class="p">()</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="RequestBundle.to_datagram"><a class="viewcode-back" href="../../../api/supriya/commands/RequestBundle.html#supriya.commands.RequestBundle.RequestBundle.to_datagram">[docs]</a>    <span class="k">def</span> <span class="nf">to_datagram</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span><span class="o">.</span><span class="n">to_datagram</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="RequestBundle.to_list"><a class="viewcode-back" href="../../../api/supriya/commands/RequestBundle.html#supriya.commands.RequestBundle.RequestBundle.to_list">[docs]</a>    <span class="k">def</span> <span class="nf">to_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">with_request_name</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_osc</span><span class="p">(</span><span class="n">with_request_name</span><span class="p">)</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="RequestBundle.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/RequestBundle.html#supriya.commands.RequestBundle.RequestBundle.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">with_request_name</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">contents</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)):</span>
+                <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">to_osc</span><span class="p">(</span><span class="n">with_request_name</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">to_osc</span><span class="p">(</span><span class="n">with_request_name</span><span class="p">))</span>
+        <span class="n">bundle</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscBundle</span><span class="p">(</span><span class="n">timestamp</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">contents</span><span class="o">=</span><span class="n">contents</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">bundle</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">condition</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_condition</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">contents</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_contents</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">timestamp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timestamp</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

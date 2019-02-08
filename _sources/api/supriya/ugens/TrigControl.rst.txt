@@ -1,0 +1,363 @@
+.. _supriya--ugens--TrigControl:
+
+TrigControl
+===========
+
+.. automodule:: supriya.ugens.TrigControl
+
+.. currentmodule:: supriya.ugens.TrigControl
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.TrigControl
+
+.. autoclass:: TrigControl
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.__add__
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.__div__
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.__le__
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.__len__
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.__str__
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.as_int
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.clip
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.cubed
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.distort
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.exponential
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.floor
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.lag
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.log
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.log10
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.log2
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.maximum
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.minimum
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.power
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.range
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.scale
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.sign
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.softclip
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.square_root
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.squared
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.sum
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.tanh
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.transpose
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: TrigControl.new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: TrigControl.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: TrigControl.channel_count
+
+   .. container:: inherited
+
+      .. autoattribute:: TrigControl.controls
+
+   .. container:: inherited
+
+      .. autoattribute:: TrigControl.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: TrigControl.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: TrigControl.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: TrigControl.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: TrigControl.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: TrigControl.parameters
+
+   .. container:: inherited
+
+      .. autoattribute:: TrigControl.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: TrigControl.special_index
+
+   .. container:: inherited
+
+      .. autoattribute:: TrigControl.starting_control_index

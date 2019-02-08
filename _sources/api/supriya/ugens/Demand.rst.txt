@@ -1,0 +1,373 @@
+.. _supriya--ugens--Demand:
+
+Demand
+======
+
+.. automodule:: supriya.ugens.Demand
+
+.. currentmodule:: supriya.ugens.Demand
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Demand
+
+.. autoclass:: Demand
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      reset
+      source
+      trigger
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Demand.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Demand.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Demand.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Demand.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Demand.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Demand.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Demand.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Demand.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Demand.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Demand.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Demand.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Demand.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Demand.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Demand.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Demand.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Demand.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Demand.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Demand.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Demand.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Demand.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Demand.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Demand.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Demand.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Demand.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Demand.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Demand.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Demand.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Demand.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Demand.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Demand.clip
+
+   .. container:: inherited
+
+      .. automethod:: Demand.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Demand.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Demand.distort
+
+   .. container:: inherited
+
+      .. automethod:: Demand.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Demand.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Demand.floor
+
+   .. container:: inherited
+
+      .. automethod:: Demand.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Demand.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Demand.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Demand.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Demand.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Demand.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Demand.lag
+
+   .. container:: inherited
+
+      .. automethod:: Demand.log
+
+   .. container:: inherited
+
+      .. automethod:: Demand.log10
+
+   .. container:: inherited
+
+      .. automethod:: Demand.log2
+
+   .. container:: inherited
+
+      .. automethod:: Demand.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Demand.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Demand.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Demand.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Demand.power
+
+   .. container:: inherited
+
+      .. automethod:: Demand.range
+
+   .. container:: inherited
+
+      .. automethod:: Demand.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Demand.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Demand.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Demand.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Demand.scale
+
+   .. container:: inherited
+
+      .. automethod:: Demand.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Demand.sign
+
+   .. container:: inherited
+
+      .. automethod:: Demand.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Demand.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Demand.squared
+
+   .. container:: inherited
+
+      .. automethod:: Demand.sum
+
+   .. container:: inherited
+
+      .. automethod:: Demand.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Demand.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Demand.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Demand.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Demand.ar
+
+   .. automethod:: Demand.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Demand.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Demand.channel_count
+
+   .. container:: inherited
+
+      .. autoattribute:: Demand.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Demand.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Demand.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Demand.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Demand.outputs
+
+   .. autoattribute:: Demand.reset
+
+   .. container:: inherited
+
+      .. autoattribute:: Demand.signal_range
+
+   .. autoattribute:: Demand.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Demand.special_index
+
+   .. autoattribute:: Demand.trigger

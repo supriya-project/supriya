@@ -1,0 +1,369 @@
+.. _supriya--ugens--LagUD:
+
+LagUD
+=====
+
+.. automodule:: supriya.ugens.LagUD
+
+.. currentmodule:: supriya.ugens.LagUD
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.LagUD
+
+.. autoclass:: LagUD
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      lag_time_down
+      lag_time_up
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.__add__
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.__div__
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.__le__
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.__len__
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.__str__
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.as_int
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.clip
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.cubed
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.distort
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.exponential
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.floor
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.lag
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.log
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.log10
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.log2
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.maximum
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.minimum
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.power
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.range
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.scale
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.sign
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.softclip
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.square_root
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.squared
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.sum
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.tanh
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.transpose
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: LagUD.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: LagUD.ar
+
+   .. automethod:: LagUD.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: LagUD.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: LagUD.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: LagUD.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: LagUD.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: LagUD.is_output_ugen
+
+   .. autoattribute:: LagUD.lag_time_down
+
+   .. autoattribute:: LagUD.lag_time_up
+
+   .. container:: inherited
+
+      .. autoattribute:: LagUD.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: LagUD.signal_range
+
+   .. autoattribute:: LagUD.source
+
+   .. container:: inherited
+
+      .. autoattribute:: LagUD.special_index

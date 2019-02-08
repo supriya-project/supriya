@@ -1,0 +1,366 @@
+.. _supriya--ugens--Loudness:
+
+Loudness
+========
+
+.. automodule:: supriya.ugens.Loudness
+
+.. currentmodule:: supriya.ugens.Loudness
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Loudness
+
+.. autoclass:: Loudness
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      kr
+      pv_chain
+      smask
+      tmask
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.clip
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.distort
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.floor
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.lag
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.log
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.log10
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.log2
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.power
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.range
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.scale
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.sign
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.squared
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.sum
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Loudness.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Loudness.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Loudness.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Loudness.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Loudness.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Loudness.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Loudness.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Loudness.outputs
+
+   .. autoattribute:: Loudness.pv_chain
+
+   .. container:: inherited
+
+      .. autoattribute:: Loudness.signal_range
+
+   .. autoattribute:: Loudness.smask
+
+   .. container:: inherited
+
+      .. autoattribute:: Loudness.special_index
+
+   .. autoattribute:: Loudness.tmask

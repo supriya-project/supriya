@@ -1,0 +1,31 @@
+.. _supriya--midi--LogicalControlMode:
+
+LogicalControlMode
+==================
+
+.. automodule:: supriya.midi.LogicalControlMode
+
+.. currentmodule:: supriya.midi.LogicalControlMode
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.midi.LogicalControlMode
+
+.. autoclass:: LogicalControlMode
+   :members:
+   :undoc-members:
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      CONTINUOUS
+      TOGGLE
+      TRIGGER

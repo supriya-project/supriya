@@ -1,0 +1,15 @@
+.. _supriya--system--bind:
+
+bind
+====
+
+.. automodule:: supriya.system.bind
+
+.. currentmodule:: supriya.system.bind
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.system.bind
+
+.. autofunction:: bind

@@ -1,0 +1,94 @@
+.. _supriya--realtime--ServerMeters:
+
+ServerMeters
+============
+
+.. automodule:: supriya.realtime.ServerMeters
+
+.. currentmodule:: supriya.realtime.ServerMeters
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.realtime.ServerMeters
+
+.. autoclass:: ServerMeters
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      allocate
+      free
+      input_count
+      input_meter_command
+      input_meter_synthdef
+      make_meter_synthdef
+      notify
+      output_count
+      output_meter_command
+      output_meter_synthdef
+      server
+      to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ServerMeters.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: ServerMeters.allocate
+
+   .. automethod:: ServerMeters.free
+
+   .. automethod:: ServerMeters.notify
+
+   .. automethod:: ServerMeters.to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: ServerMeters.make_meter_synthdef
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: ServerMeters.input_count
+
+   .. autoattribute:: ServerMeters.input_meter_command
+
+   .. autoattribute:: ServerMeters.input_meter_synthdef
+
+   .. autoattribute:: ServerMeters.output_count
+
+   .. autoattribute:: ServerMeters.output_meter_command
+
+   .. autoattribute:: ServerMeters.output_meter_synthdef
+
+   .. autoattribute:: ServerMeters.server

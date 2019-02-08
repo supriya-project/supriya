@@ -1,0 +1,369 @@
+.. _supriya--ugens--Decay2:
+
+Decay2
+======
+
+.. automodule:: supriya.ugens.Decay2
+
+.. currentmodule:: supriya.ugens.Decay2
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Decay2
+
+.. autoclass:: Decay2
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      attack_time
+      decay_time
+      kr
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.clip
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.distort
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.floor
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.lag
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.log
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.log10
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.log2
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.power
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.range
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.scale
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.sign
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.squared
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.sum
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Decay2.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Decay2.ar
+
+   .. automethod:: Decay2.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Decay2.attack_time
+
+   .. container:: inherited
+
+      .. autoattribute:: Decay2.calculation_rate
+
+   .. autoattribute:: Decay2.decay_time
+
+   .. container:: inherited
+
+      .. autoattribute:: Decay2.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Decay2.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Decay2.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Decay2.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Decay2.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Decay2.signal_range
+
+   .. autoattribute:: Decay2.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Decay2.special_index

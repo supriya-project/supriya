@@ -1,0 +1,366 @@
+.. _supriya--ugens--LFPar:
+
+LFPar
+=====
+
+.. automodule:: supriya.ugens.LFPar
+
+.. currentmodule:: supriya.ugens.LFPar
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.LFPar
+
+.. autoclass:: LFPar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      frequency
+      initial_phase
+      kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.__add__
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.__div__
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.__le__
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.__len__
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.__str__
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.as_int
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.clip
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.cubed
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.distort
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.exponential
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.floor
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.lag
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.log
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.log10
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.log2
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.maximum
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.minimum
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.power
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.range
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.scale
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.sign
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.softclip
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.square_root
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.squared
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.sum
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.tanh
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.transpose
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: LFPar.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: LFPar.ar
+
+   .. automethod:: LFPar.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: LFPar.calculation_rate
+
+   .. autoattribute:: LFPar.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: LFPar.has_done_flag
+
+   .. autoattribute:: LFPar.initial_phase
+
+   .. container:: inherited
+
+      .. autoattribute:: LFPar.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: LFPar.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: LFPar.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: LFPar.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: LFPar.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: LFPar.special_index

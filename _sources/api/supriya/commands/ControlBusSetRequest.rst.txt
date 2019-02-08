@@ -1,0 +1,98 @@
+.. _supriya--commands--ControlBusSetRequest:
+
+ControlBusSetRequest
+====================
+
+.. automodule:: supriya.commands.ControlBusSetRequest
+
+.. currentmodule:: supriya.commands.ControlBusSetRequest
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.ControlBusSetRequest
+
+.. autoclass:: ControlBusSetRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      index_value_pairs
+      request_id
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusSetRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusSetRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusSetRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusSetRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusSetRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusSetRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusSetRequest.to_list
+
+   .. automethod:: ControlBusSetRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: ControlBusSetRequest.condition
+
+   .. autoattribute:: ControlBusSetRequest.index_value_pairs
+
+   .. container:: inherited
+
+      .. autoattribute:: ControlBusSetRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: ControlBusSetRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: ControlBusSetRequest.response_patterns

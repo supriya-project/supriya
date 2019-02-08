@@ -1,0 +1,369 @@
+.. _supriya--ugens--BHiCut:
+
+BHiCut
+======
+
+.. automodule:: supriya.ugens.BHiCut
+
+.. currentmodule:: supriya.ugens.BHiCut
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.BHiCut
+
+.. autoclass:: BHiCut
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      frequency
+      max_order
+      order
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.__add__
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.__div__
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.__le__
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.__len__
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.__str__
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.as_int
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.clip
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.cubed
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.distort
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.exponential
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.floor
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.lag
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.log
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.log10
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.log2
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.maximum
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.minimum
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.power
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.range
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.scale
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.sign
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.softclip
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.square_root
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.squared
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.sum
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.tanh
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.transpose
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BHiCut.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: BHiCut.ar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: BHiCut.calculation_rate
+
+   .. autoattribute:: BHiCut.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: BHiCut.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: BHiCut.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BHiCut.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BHiCut.is_output_ugen
+
+   .. autoattribute:: BHiCut.max_order
+
+   .. autoattribute:: BHiCut.order
+
+   .. container:: inherited
+
+      .. autoattribute:: BHiCut.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BHiCut.signal_range
+
+   .. autoattribute:: BHiCut.source
+
+   .. container:: inherited
+
+      .. autoattribute:: BHiCut.special_index

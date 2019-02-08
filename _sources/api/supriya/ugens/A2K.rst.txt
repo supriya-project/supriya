@@ -1,0 +1,360 @@
+.. _supriya--ugens--A2K:
+
+A2K
+===
+
+.. automodule:: supriya.ugens.A2K
+
+.. currentmodule:: supriya.ugens.A2K
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.A2K
+
+.. autoclass:: A2K
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      kr
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: A2K.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: A2K.__add__
+
+   .. container:: inherited
+
+      .. automethod:: A2K.__div__
+
+   .. container:: inherited
+
+      .. automethod:: A2K.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: A2K.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: A2K.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: A2K.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: A2K.__le__
+
+   .. container:: inherited
+
+      .. automethod:: A2K.__len__
+
+   .. container:: inherited
+
+      .. automethod:: A2K.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: A2K.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: A2K.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: A2K.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: A2K.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: A2K.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: A2K.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: A2K.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: A2K.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: A2K.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: A2K.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: A2K.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: A2K.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: A2K.__str__
+
+   .. container:: inherited
+
+      .. automethod:: A2K.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: A2K.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: A2K.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: A2K.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: A2K.as_int
+
+   .. container:: inherited
+
+      .. automethod:: A2K.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: A2K.clip
+
+   .. container:: inherited
+
+      .. automethod:: A2K.cubed
+
+   .. container:: inherited
+
+      .. automethod:: A2K.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: A2K.distort
+
+   .. container:: inherited
+
+      .. automethod:: A2K.exponential
+
+   .. container:: inherited
+
+      .. automethod:: A2K.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: A2K.floor
+
+   .. container:: inherited
+
+      .. automethod:: A2K.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: A2K.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: A2K.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: A2K.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: A2K.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: A2K.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: A2K.lag
+
+   .. container:: inherited
+
+      .. automethod:: A2K.log
+
+   .. container:: inherited
+
+      .. automethod:: A2K.log10
+
+   .. container:: inherited
+
+      .. automethod:: A2K.log2
+
+   .. container:: inherited
+
+      .. automethod:: A2K.maximum
+
+   .. container:: inherited
+
+      .. automethod:: A2K.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: A2K.minimum
+
+   .. container:: inherited
+
+      .. automethod:: A2K.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: A2K.power
+
+   .. container:: inherited
+
+      .. automethod:: A2K.range
+
+   .. container:: inherited
+
+      .. automethod:: A2K.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: A2K.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: A2K.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: A2K.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: A2K.scale
+
+   .. container:: inherited
+
+      .. automethod:: A2K.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: A2K.sign
+
+   .. container:: inherited
+
+      .. automethod:: A2K.softclip
+
+   .. container:: inherited
+
+      .. automethod:: A2K.square_root
+
+   .. container:: inherited
+
+      .. automethod:: A2K.squared
+
+   .. container:: inherited
+
+      .. automethod:: A2K.sum
+
+   .. container:: inherited
+
+      .. automethod:: A2K.tanh
+
+   .. container:: inherited
+
+      .. automethod:: A2K.transpose
+
+   .. container:: inherited
+
+      .. automethod:: A2K.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: A2K.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: A2K.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: A2K.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: A2K.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: A2K.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: A2K.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: A2K.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: A2K.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: A2K.signal_range
+
+   .. autoattribute:: A2K.source
+
+   .. container:: inherited
+
+      .. autoattribute:: A2K.special_index

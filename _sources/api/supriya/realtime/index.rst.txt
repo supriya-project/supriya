@@ -1,0 +1,110 @@
+.. _supriya--realtime:
+
+realtime
+========
+
+.. automodule:: supriya.realtime
+
+.. currentmodule:: supriya.realtime
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.realtime
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Abstract Classes
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   Node
+   ServerObjectProxy
+
+.. autosummary::
+   :nosignatures:
+
+   ~Node.Node
+   ~ServerObjectProxy.ServerObjectProxy
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Main Classes
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   Buffer
+   BufferGroup
+   Bus
+   BusGroup
+   Group
+   Server
+   ServerOptions
+   Synth
+
+.. autosummary::
+   :nosignatures:
+
+   ~Buffer.Buffer
+   ~BufferGroup.BufferGroup
+   ~Bus.Bus
+   ~BusGroup.BusGroup
+   ~Group.Group
+   ~Server.Server
+   ~ServerOptions.ServerOptions
+   ~Synth.Synth
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Server Internals
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   AudioInputBusGroup
+   AudioOutputBusGroup
+   Block
+   BlockAllocator
+   BufferProxy
+   BusProxy
+   ControlInterface
+   GroupControl
+   GroupInterface
+   NodeIdAllocator
+   RootNode
+   ServerMeters
+   ServerRecorder
+   StatusWatcher
+   SynthControl
+   SynthInterface
+
+.. autosummary::
+   :nosignatures:
+
+   ~AudioInputBusGroup.AudioInputBusGroup
+   ~AudioOutputBusGroup.AudioOutputBusGroup
+   ~Block.Block
+   ~BlockAllocator.BlockAllocator
+   ~BufferProxy.BufferProxy
+   ~BusProxy.BusProxy
+   ~ControlInterface.ControlInterface
+   ~GroupControl.GroupControl
+   ~GroupInterface.GroupInterface
+   ~NodeIdAllocator.NodeIdAllocator
+   ~RootNode.RootNode
+   ~ServerMeters.ServerMeters
+   ~ServerRecorder.ServerRecorder
+   ~StatusWatcher.StatusWatcher
+   ~SynthControl.SynthControl
+   ~SynthInterface.SynthInterface

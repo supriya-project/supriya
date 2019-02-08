@@ -1,0 +1,364 @@
+.. _supriya--ugens--InRange:
+
+InRange
+=======
+
+.. automodule:: supriya.ugens.InRange
+
+.. currentmodule:: supriya.ugens.InRange
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.InRange
+
+.. autoclass:: InRange
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      ir
+      kr
+      maximum
+      minimum
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__add__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__div__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__le__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__len__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__str__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: InRange.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: InRange.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: InRange.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: InRange.as_int
+
+   .. container:: inherited
+
+      .. automethod:: InRange.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: InRange.clip
+
+   .. container:: inherited
+
+      .. automethod:: InRange.cubed
+
+   .. container:: inherited
+
+      .. automethod:: InRange.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: InRange.distort
+
+   .. container:: inherited
+
+      .. automethod:: InRange.exponential
+
+   .. container:: inherited
+
+      .. automethod:: InRange.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: InRange.floor
+
+   .. container:: inherited
+
+      .. automethod:: InRange.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: InRange.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: InRange.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: InRange.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: InRange.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: InRange.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: InRange.lag
+
+   .. container:: inherited
+
+      .. automethod:: InRange.log
+
+   .. container:: inherited
+
+      .. automethod:: InRange.log10
+
+   .. container:: inherited
+
+      .. automethod:: InRange.log2
+
+   .. container:: inherited
+
+      .. automethod:: InRange.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: InRange.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: InRange.power
+
+   .. container:: inherited
+
+      .. automethod:: InRange.range
+
+   .. container:: inherited
+
+      .. automethod:: InRange.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: InRange.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: InRange.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: InRange.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: InRange.scale
+
+   .. container:: inherited
+
+      .. automethod:: InRange.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: InRange.sign
+
+   .. container:: inherited
+
+      .. automethod:: InRange.softclip
+
+   .. container:: inherited
+
+      .. automethod:: InRange.square_root
+
+   .. container:: inherited
+
+      .. automethod:: InRange.squared
+
+   .. container:: inherited
+
+      .. automethod:: InRange.sum
+
+   .. container:: inherited
+
+      .. automethod:: InRange.tanh
+
+   .. container:: inherited
+
+      .. automethod:: InRange.transpose
+
+   .. container:: inherited
+
+      .. automethod:: InRange.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: InRange.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: InRange.ar
+
+   .. automethod:: InRange.ir
+
+   .. automethod:: InRange.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: InRange.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: InRange.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: InRange.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: InRange.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: InRange.is_output_ugen
+
+   .. autoattribute:: InRange.maximum
+
+   .. autoattribute:: InRange.minimum
+
+   .. container:: inherited
+
+      .. autoattribute:: InRange.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: InRange.signal_range
+
+   .. autoattribute:: InRange.source
+
+   .. container:: inherited
+
+      .. autoattribute:: InRange.special_index

@@ -1,0 +1,363 @@
+.. _supriya--ugens--DiskOut:
+
+DiskOut
+=======
+
+.. automodule:: supriya.ugens.DiskOut
+
+.. currentmodule:: supriya.ugens.DiskOut
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.DiskOut
+
+.. autoclass:: DiskOut
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      buffer_id
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.__add__
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.__div__
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.__le__
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.__len__
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.__str__
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.as_int
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.clip
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.cubed
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.distort
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.exponential
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.floor
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.lag
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.log
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.log10
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.log2
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.maximum
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.minimum
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.power
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.range
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.scale
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.sign
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.softclip
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.square_root
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.squared
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.sum
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.tanh
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.transpose
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: DiskOut.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: DiskOut.ar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: DiskOut.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: DiskOut.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: DiskOut.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: DiskOut.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: DiskOut.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: DiskOut.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: DiskOut.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: DiskOut.signal_range
+
+   .. autoattribute:: DiskOut.source
+
+   .. container:: inherited
+
+      .. autoattribute:: DiskOut.special_index

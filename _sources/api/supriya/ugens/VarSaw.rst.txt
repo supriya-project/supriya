@@ -1,0 +1,369 @@
+.. _supriya--ugens--VarSaw:
+
+VarSaw
+======
+
+.. automodule:: supriya.ugens.VarSaw
+
+.. currentmodule:: supriya.ugens.VarSaw
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.VarSaw
+
+.. autoclass:: VarSaw
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      frequency
+      initial_phase
+      kr
+      width
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.__add__
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.__div__
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.__le__
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.__len__
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.__str__
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.as_int
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.clip
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.cubed
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.distort
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.exponential
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.floor
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.lag
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.log
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.log10
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.log2
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.maximum
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.minimum
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.power
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.range
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.scale
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.sign
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.softclip
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.square_root
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.squared
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.sum
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.tanh
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.transpose
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: VarSaw.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: VarSaw.ar
+
+   .. automethod:: VarSaw.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: VarSaw.calculation_rate
+
+   .. autoattribute:: VarSaw.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: VarSaw.has_done_flag
+
+   .. autoattribute:: VarSaw.initial_phase
+
+   .. container:: inherited
+
+      .. autoattribute:: VarSaw.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: VarSaw.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: VarSaw.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: VarSaw.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: VarSaw.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: VarSaw.special_index
+
+   .. autoattribute:: VarSaw.width

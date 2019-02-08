@@ -1,0 +1,367 @@
+.. _supriya--ugens--PV-MagAbove:
+
+PV_MagAbove
+===========
+
+.. automodule:: supriya.ugens.PV_MagAbove
+
+.. currentmodule:: supriya.ugens.PV_MagAbove
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.PV_MagAbove
+
+.. autoclass:: PV_MagAbove
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      new
+      pv_chain
+      threshold
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.__add__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.__div__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.__le__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.__len__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.__str__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.as_int
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.clip
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.cubed
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.distort
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.exponential
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.floor
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.lag
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.log
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.log10
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.log2
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.maximum
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.minimum
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.power
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.range
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.scale
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.sign
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.softclip
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.square_root
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.squared
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.sum
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.tanh
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.transpose
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagAbove.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: PV_MagAbove.new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagAbove.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagAbove.fft_size
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagAbove.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagAbove.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagAbove.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagAbove.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagAbove.outputs
+
+   .. autoattribute:: PV_MagAbove.pv_chain
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagAbove.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagAbove.special_index
+
+   .. autoattribute:: PV_MagAbove.threshold

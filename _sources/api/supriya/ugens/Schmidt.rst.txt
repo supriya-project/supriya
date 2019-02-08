@@ -1,0 +1,361 @@
+.. _supriya--ugens--Schmidt:
+
+Schmidt
+=======
+
+.. automodule:: supriya.ugens.Schmidt
+
+.. currentmodule:: supriya.ugens.Schmidt
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Schmidt
+
+.. autoclass:: Schmidt
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      maximum
+      minimum
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.clip
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.distort
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.floor
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.lag
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.log
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.log10
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.log2
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.power
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.range
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.scale
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.sign
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.squared
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.sum
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Schmidt.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Schmidt.ar
+
+   .. automethod:: Schmidt.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Schmidt.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Schmidt.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Schmidt.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Schmidt.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Schmidt.is_output_ugen
+
+   .. autoattribute:: Schmidt.maximum
+
+   .. autoattribute:: Schmidt.minimum
+
+   .. container:: inherited
+
+      .. autoattribute:: Schmidt.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Schmidt.signal_range
+
+   .. autoattribute:: Schmidt.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Schmidt.special_index

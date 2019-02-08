@@ -1,0 +1,473 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Mixer &mdash; Supriya 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="PatternSlot" href="PatternSlot.html" />
+    <link rel="prev" title="Direct" href="Direct.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Supriya API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../cli/index.html">cli</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">live</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="Application.html">Application</a></li>
+<li class="toctree-l4"><a class="reference internal" href="AutoPatternSlot.html">AutoPatternSlot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Direct.html">Direct</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Mixer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="PatternSlot.html">PatternSlot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Send.html">Send</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SendManager.html">SendManager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Slot.html">Slot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SynthSlot.html">SynthSlot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Track.html">Track</a></li>
+<li class="toctree-l4"><a class="reference internal" href="TriggerPatternSlot.html">TriggerPatternSlot</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../soundfiles/index.html">soundfiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../system/index.html">system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Supriya API</a> &raquo;</li>
+        
+          <li><a href="../index.html">supriya</a> &raquo;</li>
+        
+          <li><a href="index.html">live</a> &raquo;</li>
+        
+      <li>Mixer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/supriya/live/Mixer.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-supriya.live.Mixer">
+<span id="mixer"></span><span id="supriya-live-mixer"></span><h1>Mixer<a class="headerlink" href="#module-supriya.live.Mixer" title="Permalink to this headline">¶</a></h1>
+<div class="svg-container docutils container">
+<div class="graphviz"><object data="../../../_images/inheritance-d79ea109c1d21a7a494998a4fc9de1450a3916c3.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">digraph InheritanceGraph {
+    graph [bgcolor=transparent,
+        color=lightsteelblue2,
+        fontname=Arial,
+        fontsize=10,
+        outputorder=edgesfirst,
+        overlap=prism,
+        penwidth=2,
+        rankdir=LR,
+        splines=spline,
+        style=&quot;dashed, rounded&quot;,
+        truecolor=true];
+    node [colorscheme=pastel19,
+        fontname=Arial,
+        fontsize=10,
+        height=0,
+        penwidth=2,
+        shape=box,
+        style=&quot;filled, rounded&quot;,
+        width=0];
+    edge [color=lightslategrey,
+        penwidth=1];
+    subgraph cluster_builtins {
+        graph [label=builtins];
+        node [color=1];
+        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3.6/library/functions.html#object&quot;,
+            label=object,
+            target=_top];
+    }
+    subgraph &quot;cluster_supriya.live&quot; {
+        graph [label=&quot;supriya.live&quot;];
+        node [color=2];
+        &quot;supriya.live.Mixer.Mixer&quot; [URL=&quot;../api/supriya/live/Mixer.html#supriya.live.Mixer.Mixer&quot;,
+            color=black,
+            fontcolor=white,
+            label=Mixer,
+            target=_top];
+    }
+    &quot;builtins.object&quot; -&gt; &quot;supriya.live.Mixer.Mixer&quot;;
+}</p></object></div>
+</div>
+<dl class="class">
+<dt id="supriya.live.Mixer.Mixer">
+<em class="property">class </em><code class="descclassname">supriya.live.Mixer.</code><code class="descname">Mixer</code><span class="sig-paren">(</span><em>channel_count=2</em>, <em>cue_channel_count=2</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/live/Mixer.html#Mixer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.live.Mixer.Mixer" title="Permalink to this definition">¶</a></dt>
+<dd><hr/><p class="class-header rubric">Attributes Summary</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.live.Mixer.Mixer.__getitem__" title="supriya.live.Mixer.Mixer.__getitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__getitem__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.live.Mixer.Mixer.__iter__" title="supriya.live.Mixer.Mixer.__iter__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__iter__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.live.Mixer.Mixer.__len__" title="supriya.live.Mixer.Mixer.__len__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__len__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.live.Mixer.Mixer.add_track" title="supriya.live.Mixer.Mixer.add_track"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_track</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.live.Mixer.Mixer.allocate" title="supriya.live.Mixer.Mixer.allocate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">allocate</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.live.Mixer.Mixer.allow_multiple" title="supriya.live.Mixer.Mixer.allow_multiple"><code class="xref py py-obj docutils literal notranslate"><span class="pre">allow_multiple</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.live.Mixer.Mixer.channel_count" title="supriya.live.Mixer.Mixer.channel_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">channel_count</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.live.Mixer.Mixer.cue_channel_count" title="supriya.live.Mixer.Mixer.cue_channel_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cue_channel_count</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.live.Mixer.Mixer.cue_track" title="supriya.live.Mixer.Mixer.cue_track"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cue_track</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.live.Mixer.Mixer.free" title="supriya.live.Mixer.Mixer.free"><code class="xref py py-obj docutils literal notranslate"><span class="pre">free</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.live.Mixer.Mixer.group" title="supriya.live.Mixer.Mixer.group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">group</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.live.Mixer.Mixer.is_allocated" title="supriya.live.Mixer.Mixer.is_allocated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_allocated</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.live.Mixer.Mixer.is_allowing_multiple" title="supriya.live.Mixer.Mixer.is_allowing_multiple"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_allowing_multiple</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.live.Mixer.Mixer.lookup" title="supriya.live.Mixer.Mixer.lookup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lookup</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.live.Mixer.Mixer.master_track" title="supriya.live.Mixer.Mixer.master_track"><code class="xref py py-obj docutils literal notranslate"><span class="pre">master_track</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.live.Mixer.Mixer.remove_track" title="supriya.live.Mixer.Mixer.remove_track"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_track</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.live.Mixer.Mixer.server" title="supriya.live.Mixer.Mixer.server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">server</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.live.Mixer.Mixer.track_group" title="supriya.live.Mixer.Mixer.track_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">track_group</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.live.Mixer.Mixer.tracks" title="supriya.live.Mixer.Mixer.tracks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tracks</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<dl class="method">
+<dt id="supriya.live.Mixer.Mixer.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/live/Mixer.html#Mixer.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.live.Mixer.Mixer.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supriya.live.Mixer.Mixer.__iter__">
+<code class="descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/live/Mixer.html#Mixer.__iter__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.live.Mixer.Mixer.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supriya.live.Mixer.Mixer.__len__">
+<code class="descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/live/Mixer.html#Mixer.__len__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.live.Mixer.Mixer.__len__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Methods</p>
+<dl class="method">
+<dt id="supriya.live.Mixer.Mixer.add_track">
+<code class="descname">add_track</code><span class="sig-paren">(</span><em>name</em>, <em>channel_count=None</em>, <em>index=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/live/Mixer.html#Mixer.add_track"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.live.Mixer.Mixer.add_track" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supriya.live.Mixer.Mixer.allocate">
+<code class="descname">allocate</code><span class="sig-paren">(</span><em>server=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/live/Mixer.html#Mixer.allocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.live.Mixer.Mixer.allocate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supriya.live.Mixer.Mixer.allow_multiple">
+<code class="descname">allow_multiple</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/live/Mixer.html#Mixer.allow_multiple"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.live.Mixer.Mixer.allow_multiple" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supriya.live.Mixer.Mixer.free">
+<code class="descname">free</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/live/Mixer.html#Mixer.free"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.live.Mixer.Mixer.free" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supriya.live.Mixer.Mixer.lookup">
+<code class="descname">lookup</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/live/Mixer.html#Mixer.lookup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.live.Mixer.Mixer.lookup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supriya.live.Mixer.Mixer.remove_track">
+<code class="descname">remove_track</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/live/Mixer.html#Mixer.remove_track"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.live.Mixer.Mixer.remove_track" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<dl class="attribute">
+<dt id="supriya.live.Mixer.Mixer.channel_count">
+<code class="descname">channel_count</code><a class="headerlink" href="#supriya.live.Mixer.Mixer.channel_count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.live.Mixer.Mixer.cue_channel_count">
+<code class="descname">cue_channel_count</code><a class="headerlink" href="#supriya.live.Mixer.Mixer.cue_channel_count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.live.Mixer.Mixer.cue_track">
+<code class="descname">cue_track</code><a class="headerlink" href="#supriya.live.Mixer.Mixer.cue_track" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.live.Mixer.Mixer.group">
+<code class="descname">group</code><a class="headerlink" href="#supriya.live.Mixer.Mixer.group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.live.Mixer.Mixer.is_allocated">
+<code class="descname">is_allocated</code><a class="headerlink" href="#supriya.live.Mixer.Mixer.is_allocated" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.live.Mixer.Mixer.is_allowing_multiple">
+<code class="descname">is_allowing_multiple</code><a class="headerlink" href="#supriya.live.Mixer.Mixer.is_allowing_multiple" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.live.Mixer.Mixer.master_track">
+<code class="descname">master_track</code><a class="headerlink" href="#supriya.live.Mixer.Mixer.master_track" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.live.Mixer.Mixer.server">
+<code class="descname">server</code><a class="headerlink" href="#supriya.live.Mixer.Mixer.server" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.live.Mixer.Mixer.track_group">
+<code class="descname">track_group</code><a class="headerlink" href="#supriya.live.Mixer.Mixer.track_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.live.Mixer.Mixer.tracks">
+<code class="descname">tracks</code><a class="headerlink" href="#supriya.live.Mixer.Mixer.tracks" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="PatternSlot.html" class="btn btn-neutral float-right" title="PatternSlot" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Direct.html" class="btn btn-neutral" title="Direct" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

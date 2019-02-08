@@ -1,0 +1,363 @@
+.. _supriya--ugens--Dser:
+
+Dser
+====
+
+.. automodule:: supriya.ugens.Dser
+
+.. currentmodule:: supriya.ugens.Dser
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Dser
+
+.. autoclass:: Dser
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      new
+      repeats
+      sequence
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Dser.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Dser.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Dser.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Dser.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Dser.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Dser.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Dser.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Dser.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Dser.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Dser.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Dser.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Dser.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Dser.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Dser.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Dser.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Dser.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Dser.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Dser.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Dser.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Dser.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Dser.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Dser.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Dser.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Dser.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Dser.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Dser.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Dser.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Dser.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Dser.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Dser.clip
+
+   .. container:: inherited
+
+      .. automethod:: Dser.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Dser.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Dser.distort
+
+   .. container:: inherited
+
+      .. automethod:: Dser.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Dser.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Dser.floor
+
+   .. container:: inherited
+
+      .. automethod:: Dser.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Dser.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Dser.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Dser.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Dser.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Dser.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Dser.lag
+
+   .. container:: inherited
+
+      .. automethod:: Dser.log
+
+   .. container:: inherited
+
+      .. automethod:: Dser.log10
+
+   .. container:: inherited
+
+      .. automethod:: Dser.log2
+
+   .. container:: inherited
+
+      .. automethod:: Dser.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Dser.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Dser.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Dser.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Dser.power
+
+   .. container:: inherited
+
+      .. automethod:: Dser.range
+
+   .. container:: inherited
+
+      .. automethod:: Dser.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Dser.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Dser.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Dser.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Dser.scale
+
+   .. container:: inherited
+
+      .. automethod:: Dser.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Dser.sign
+
+   .. container:: inherited
+
+      .. automethod:: Dser.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Dser.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Dser.squared
+
+   .. container:: inherited
+
+      .. automethod:: Dser.sum
+
+   .. container:: inherited
+
+      .. automethod:: Dser.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Dser.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Dser.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Dser.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Dser.new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Dser.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Dser.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Dser.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Dser.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Dser.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Dser.outputs
+
+   .. autoattribute:: Dser.repeats
+
+   .. autoattribute:: Dser.sequence
+
+   .. container:: inherited
+
+      .. autoattribute:: Dser.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: Dser.special_index

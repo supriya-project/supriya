@@ -1,0 +1,97 @@
+.. _supriya--commands--BufferCloseRequest:
+
+BufferCloseRequest
+==================
+
+.. automodule:: supriya.commands.BufferCloseRequest
+
+.. currentmodule:: supriya.commands.BufferCloseRequest
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.BufferCloseRequest
+
+.. autoclass:: BufferCloseRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      buffer_id
+      request_id
+      response_patterns
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferCloseRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferCloseRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: BufferCloseRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferCloseRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferCloseRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: BufferCloseRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: BufferCloseRequest.to_list
+
+   .. automethod:: BufferCloseRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferCloseRequest.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferCloseRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferCloseRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferCloseRequest.response
+
+   .. autoattribute:: BufferCloseRequest.response_patterns

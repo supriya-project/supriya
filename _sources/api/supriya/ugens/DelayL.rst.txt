@@ -1,0 +1,369 @@
+.. _supriya--ugens--DelayL:
+
+DelayL
+======
+
+.. automodule:: supriya.ugens.DelayL
+
+.. currentmodule:: supriya.ugens.DelayL
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.DelayL
+
+.. autoclass:: DelayL
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      delay_time
+      kr
+      maximum_delay_time
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.__add__
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.__div__
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.__le__
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.__len__
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.__str__
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.as_int
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.clip
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.cubed
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.distort
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.exponential
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.floor
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.lag
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.log
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.log10
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.log2
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.maximum
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.minimum
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.power
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.range
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.scale
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.sign
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.softclip
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.square_root
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.squared
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.sum
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.tanh
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.transpose
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: DelayL.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: DelayL.ar
+
+   .. automethod:: DelayL.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: DelayL.calculation_rate
+
+   .. autoattribute:: DelayL.delay_time
+
+   .. container:: inherited
+
+      .. autoattribute:: DelayL.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: DelayL.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: DelayL.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: DelayL.is_output_ugen
+
+   .. autoattribute:: DelayL.maximum_delay_time
+
+   .. container:: inherited
+
+      .. autoattribute:: DelayL.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: DelayL.signal_range
+
+   .. autoattribute:: DelayL.source
+
+   .. container:: inherited
+
+      .. autoattribute:: DelayL.special_index

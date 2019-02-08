@@ -1,0 +1,101 @@
+.. _supriya--nonrealtime--State:
+
+State
+=====
+
+.. automodule:: supriya.nonrealtime.State
+
+.. currentmodule:: supriya.nonrealtime.State
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.nonrealtime.State
+
+.. autoclass:: State
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __repr__
+      is_sparse
+      nodes_to_children
+      nodes_to_parents
+      offset
+      overlap_buffers
+      overlap_nodes
+      report
+      start_buffers
+      start_nodes
+      stop_buffers
+      stop_nodes
+      transitions
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: State.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: State.report
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: State.require_offset
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: State.is_sparse
+
+   .. autoattribute:: State.nodes_to_children
+
+   .. autoattribute:: State.nodes_to_parents
+
+   .. autoattribute:: State.offset
+
+   .. autoattribute:: State.overlap_buffers
+
+   .. autoattribute:: State.overlap_nodes
+
+   .. container:: inherited
+
+      .. autoattribute:: State.session
+
+   .. autoattribute:: State.start_buffers
+
+   .. autoattribute:: State.start_nodes
+
+   .. autoattribute:: State.stop_buffers
+
+   .. autoattribute:: State.stop_nodes
+
+   .. autoattribute:: State.transitions

@@ -1,0 +1,360 @@
+.. _supriya--ugens--ClearBuf:
+
+ClearBuf
+========
+
+.. automodule:: supriya.ugens.ClearBuf
+
+.. currentmodule:: supriya.ugens.ClearBuf
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.ClearBuf
+
+.. autoclass:: ClearBuf
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      buffer_id
+      ir
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.__add__
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.__div__
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.__le__
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.__len__
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.__str__
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.as_int
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.clip
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.cubed
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.distort
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.exponential
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.floor
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.lag
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.log
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.log10
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.log2
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.maximum
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.minimum
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.power
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.range
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.scale
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.sign
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.softclip
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.square_root
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.squared
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.sum
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.tanh
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.transpose
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: ClearBuf.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: ClearBuf.ir
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: ClearBuf.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: ClearBuf.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: ClearBuf.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: ClearBuf.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: ClearBuf.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: ClearBuf.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: ClearBuf.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: ClearBuf.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: ClearBuf.special_index

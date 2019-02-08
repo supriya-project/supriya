@@ -1,0 +1,364 @@
+.. _supriya--ugens--PV-MagNoise:
+
+PV_MagNoise
+===========
+
+.. automodule:: supriya.ugens.PV_MagNoise
+
+.. currentmodule:: supriya.ugens.PV_MagNoise
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.PV_MagNoise
+
+.. autoclass:: PV_MagNoise
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      new
+      pv_chain
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.__add__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.__div__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.__le__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.__len__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.__str__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.as_int
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.clip
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.cubed
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.distort
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.exponential
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.floor
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.lag
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.log
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.log10
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.log2
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.maximum
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.minimum
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.power
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.range
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.scale
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.sign
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.softclip
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.square_root
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.squared
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.sum
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.tanh
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.transpose
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagNoise.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: PV_MagNoise.new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagNoise.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagNoise.fft_size
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagNoise.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagNoise.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagNoise.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagNoise.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagNoise.outputs
+
+   .. autoattribute:: PV_MagNoise.pv_chain
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagNoise.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagNoise.special_index

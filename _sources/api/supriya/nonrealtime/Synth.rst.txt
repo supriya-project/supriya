@@ -1,0 +1,135 @@
+.. _supriya--nonrealtime--Synth:
+
+Synth
+=====
+
+.. automodule:: supriya.nonrealtime.Synth
+
+.. currentmodule:: supriya.nonrealtime.Synth
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.nonrealtime.Synth
+
+.. autoclass:: Synth
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __str__
+      synth_kwargs
+      synthdef
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Synth.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Synth.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Synth.__setitem__
+
+   .. automethod:: Synth.__str__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Synth.add_group
+
+   .. container:: inherited
+
+      .. automethod:: Synth.add_synth
+
+   .. container:: inherited
+
+      .. automethod:: Synth.delete
+
+   .. container:: inherited
+
+      .. automethod:: Synth.get_parent
+
+   .. container:: inherited
+
+      .. automethod:: Synth.get_parentage
+
+   .. container:: inherited
+
+      .. automethod:: Synth.inspect_children
+
+   .. container:: inherited
+
+      .. automethod:: Synth.move_node
+
+   .. container:: inherited
+
+      .. automethod:: Synth.set_duration
+
+   .. container:: inherited
+
+      .. automethod:: Synth.split
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Synth.require_offset
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Synth.duration
+
+   .. container:: inherited
+
+      .. autoattribute:: Synth.session
+
+   .. container:: inherited
+
+      .. autoattribute:: Synth.session_id
+
+   .. container:: inherited
+
+      .. autoattribute:: Synth.start_offset
+
+   .. container:: inherited
+
+      .. autoattribute:: Synth.stop_offset
+
+   .. autoattribute:: Synth.synth_kwargs
+
+   .. autoattribute:: Synth.synthdef

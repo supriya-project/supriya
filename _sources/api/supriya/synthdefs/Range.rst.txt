@@ -1,0 +1,63 @@
+.. _supriya--synthdefs--Range:
+
+Range
+=====
+
+.. automodule:: supriya.synthdefs.Range
+
+.. currentmodule:: supriya.synthdefs.Range
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.synthdefs.Range
+
+.. autoclass:: Range
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      maximum
+      minimum
+      scale
+      width
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Range.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Range.scale
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Range.maximum
+
+   .. autoattribute:: Range.minimum
+
+   .. autoattribute:: Range.width

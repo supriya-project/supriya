@@ -1,0 +1,363 @@
+.. _supriya--ugens--LFDClipNoise:
+
+LFDClipNoise
+============
+
+.. automodule:: supriya.ugens.LFDClipNoise
+
+.. currentmodule:: supriya.ugens.LFDClipNoise
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.LFDClipNoise
+
+.. autoclass:: LFDClipNoise
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      frequency
+      kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.__add__
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.__div__
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.__le__
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.__len__
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.__str__
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.as_int
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.clip
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.cubed
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.distort
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.exponential
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.floor
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.lag
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.log
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.log10
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.log2
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.maximum
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.minimum
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.power
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.range
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.scale
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.sign
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.softclip
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.square_root
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.squared
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.sum
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.tanh
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.transpose
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: LFDClipNoise.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: LFDClipNoise.ar
+
+   .. automethod:: LFDClipNoise.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: LFDClipNoise.calculation_rate
+
+   .. autoattribute:: LFDClipNoise.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: LFDClipNoise.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: LFDClipNoise.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: LFDClipNoise.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: LFDClipNoise.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: LFDClipNoise.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: LFDClipNoise.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: LFDClipNoise.special_index

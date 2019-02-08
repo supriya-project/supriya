@@ -1,0 +1,111 @@
+.. _supriya--commands--ControlBusSetResponse:
+
+ControlBusSetResponse
+=====================
+
+.. automodule:: supriya.commands.ControlBusSetResponse
+
+.. currentmodule:: supriya.commands.ControlBusSetResponse
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.ControlBusSetResponse
+
+.. autoclass:: ControlBusSetResponse
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      Item
+      __getitem__
+      __len__
+      from_osc_message
+      items
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusSetResponse.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusSetResponse.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusSetResponse.__eq__
+
+   .. automethod:: ControlBusSetResponse.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusSetResponse.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusSetResponse.__iter__
+
+   .. automethod:: ControlBusSetResponse.__len__
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusSetResponse.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusSetResponse.__reversed__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusSetResponse.count
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusSetResponse.index
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusSetResponse.to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: ControlBusSetResponse.from_osc_message
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: ControlBusSetResponse.items
+
+   .. container:: inherited
+
+      .. autoattribute:: ControlBusSetResponse.osc_message

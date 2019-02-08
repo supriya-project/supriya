@@ -1,0 +1,387 @@
+.. _supriya--ugens--RecordBuf:
+
+RecordBuf
+=========
+
+.. automodule:: supriya.ugens.RecordBuf
+
+.. currentmodule:: supriya.ugens.RecordBuf
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.RecordBuf
+
+.. autoclass:: RecordBuf
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      buffer_id
+      done_action
+      kr
+      loop
+      offset
+      preexisting_level
+      record_level
+      run
+      source
+      trigger
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.__add__
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.__div__
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.__le__
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.__len__
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.__str__
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.as_int
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.clip
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.cubed
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.distort
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.exponential
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.floor
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.lag
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.log
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.log10
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.log2
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.maximum
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.minimum
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.power
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.range
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.scale
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.sign
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.softclip
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.square_root
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.squared
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.sum
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.tanh
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.transpose
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: RecordBuf.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: RecordBuf.ar
+
+   .. automethod:: RecordBuf.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: RecordBuf.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: RecordBuf.calculation_rate
+
+   .. autoattribute:: RecordBuf.done_action
+
+   .. container:: inherited
+
+      .. autoattribute:: RecordBuf.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: RecordBuf.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: RecordBuf.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: RecordBuf.is_output_ugen
+
+   .. autoattribute:: RecordBuf.loop
+
+   .. autoattribute:: RecordBuf.offset
+
+   .. container:: inherited
+
+      .. autoattribute:: RecordBuf.outputs
+
+   .. autoattribute:: RecordBuf.preexisting_level
+
+   .. autoattribute:: RecordBuf.record_level
+
+   .. autoattribute:: RecordBuf.run
+
+   .. container:: inherited
+
+      .. autoattribute:: RecordBuf.signal_range
+
+   .. autoattribute:: RecordBuf.source
+
+   .. container:: inherited
+
+      .. autoattribute:: RecordBuf.special_index
+
+   .. autoattribute:: RecordBuf.trigger

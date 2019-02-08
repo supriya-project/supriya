@@ -1,0 +1,100 @@
+.. _supriya--commands--SynthDefLoadRequest:
+
+SynthDefLoadRequest
+===================
+
+.. automodule:: supriya.commands.SynthDefLoadRequest
+
+.. currentmodule:: supriya.commands.SynthDefLoadRequest
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.SynthDefLoadRequest
+
+.. autoclass:: SynthDefLoadRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      callback
+      request_id
+      response_patterns
+      synthdef_path
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefLoadRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefLoadRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefLoadRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefLoadRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefLoadRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefLoadRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefLoadRequest.to_list
+
+   .. automethod:: SynthDefLoadRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: SynthDefLoadRequest.callback
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthDefLoadRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthDefLoadRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthDefLoadRequest.response
+
+   .. autoattribute:: SynthDefLoadRequest.response_patterns
+
+   .. autoattribute:: SynthDefLoadRequest.synthdef_path

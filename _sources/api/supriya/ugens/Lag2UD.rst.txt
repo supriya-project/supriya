@@ -1,0 +1,369 @@
+.. _supriya--ugens--Lag2UD:
+
+Lag2UD
+======
+
+.. automodule:: supriya.ugens.Lag2UD
+
+.. currentmodule:: supriya.ugens.Lag2UD
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Lag2UD
+
+.. autoclass:: Lag2UD
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      lag_time_d
+      lag_time_u
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.clip
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.distort
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.floor
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.lag
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.log
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.log10
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.log2
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.power
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.range
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.scale
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.sign
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.squared
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.sum
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Lag2UD.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Lag2UD.ar
+
+   .. automethod:: Lag2UD.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Lag2UD.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Lag2UD.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Lag2UD.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Lag2UD.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Lag2UD.is_output_ugen
+
+   .. autoattribute:: Lag2UD.lag_time_d
+
+   .. autoattribute:: Lag2UD.lag_time_u
+
+   .. container:: inherited
+
+      .. autoattribute:: Lag2UD.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Lag2UD.signal_range
+
+   .. autoattribute:: Lag2UD.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Lag2UD.special_index

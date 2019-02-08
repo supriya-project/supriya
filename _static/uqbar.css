@@ -1,0 +1,73 @@
+p.rubric.section-header {
+    font-family: "Roboto Slab", "ff-tisa-web-pro", "Georgia", Arial, sans-serif;
+    font-size: 125%;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+p.rubric.class-header {
+    font-family: "Roboto Slab", "ff-tisa-web-pro", "Georgia", Arial, sans-serif;
+    font-size: 100%;
+    font-weight: 700;
+    margin-bottom: 24px !important;
+}
+
+.rst-content table.field-list td.field-body > a {
+    line-height: 24px;
+}
+
+.rst-content table.field-list td.field-body > p {
+    line-height: 24px;
+}
+
+.rst-content table.field-list td.field-body > p > a {
+    font-size: 90%;
+}
+
+.svg-container {
+    margin-bottom: 24px;
+}
+
+.svg-container > object {
+    max-width: 100%;
+    height: auto;
+}
+
+div.example {
+    -moz-border-radius: 2px;
+    -moz-box-shadow: 0px 0px 10px #eee;
+    -webkit-border-radius: 2px;
+    -webkit-box-shadow: 0px 0px 10px #eee;
+    border-radius: 2px;
+    border: 1px solid #ddd;
+    box-shadow: 0px 0px 10px #eee;
+    margin-bottom: 24px;
+    padding: 24px;
+    }
+
+div.example :last-child {
+    margin-bottom: 0;
+    }
+
+tt.attribute {
+    color: #fff;
+    font-size: 0.75em;
+    margin: 0 1em 0 0;
+    padding: 0.5em;
+    }
+
+tt.abstract {
+    background-color: #666;
+    }
+
+tt.classmethod {
+    background-color: #c96;
+    }
+
+tt.inherited {
+    background-color: #6cc;
+    }
+
+tt.staticmethod {
+    background-color: #69c;
+    }

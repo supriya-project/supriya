@@ -1,0 +1,431 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>uqbar.cli.CLIAggregator &mdash; Supriya 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">Supriya API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>uqbar.cli.CLIAggregator</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for uqbar.cli.CLIAggregator</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">abc</span>
+
+<span class="kn">from</span> <span class="nn">uqbar.cli.CLI</span> <span class="k">import</span> <span class="n">CLI</span>
+
+
+<span class="k">class</span> <span class="nc">CLIAggregator</span><span class="p">(</span><span class="n">CLI</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Aggregates CLI scripts.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import uqbar.cli</span>
+<span class="sd">        &gt;&gt;&gt; class ExampleAggregator(uqbar.cli.CLIAggregator):</span>
+<span class="sd">        ...     @property</span>
+<span class="sd">        ...     def cli_classes(self):</span>
+<span class="sd">        ...         return []</span>
+<span class="sd">        ...</span>
+<span class="sd">        &gt;&gt;&gt; script = ExampleAggregator()</span>
+<span class="sd">        &gt;&gt;&gt; try:</span>
+<span class="sd">        ...     script(&#39;--help&#39;)</span>
+<span class="sd">        ... except SystemExit:</span>
+<span class="sd">        ...     pass</span>
+<span class="sd">        ...</span>
+<span class="sd">        usage: example-aggregator [-h] [--version] {help,list} ...</span>
+<span class="sd">        &lt;BLANKLINE&gt;</span>
+<span class="sd">        optional arguments:</span>
+<span class="sd">          -h, --help   show this help message and exit</span>
+<span class="sd">          --version    show program&#39;s version number and exit</span>
+<span class="sd">        &lt;BLANKLINE&gt;</span>
+<span class="sd">        subcommands:</span>
+<span class="sd">          {help,list}</span>
+<span class="sd">            help       print subcommand help</span>
+<span class="sd">            list       list subcommands</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+
+    <span class="c1">### SPECIAL METHODS ###</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arguments</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">arguments</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">arguments</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">argument_parser</span><span class="o">.</span><span class="n">parse_known_args</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">arguments</span> <span class="o">=</span> <span class="n">arguments</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;must be str, list, tuple or none: </span><span class="si">{!r}</span><span class="s2">.&quot;</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+            <span class="n">arguments</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">argument_parser</span><span class="o">.</span><span class="n">parse_known_args</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_process_args</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="k">def</span> <span class="nf">_handle_help_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unknown_args</span><span class="p">):</span>
+        <span class="n">aliases</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_aliases</span>
+        <span class="n">program_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_program_names</span>
+        <span class="n">cli_class</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">unknown_args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+            <span class="ow">and</span> <span class="n">unknown_args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">aliases</span>
+            <span class="ow">and</span> <span class="n">unknown_args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">aliases</span><span class="p">[</span><span class="n">unknown_args</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="p">):</span>
+            <span class="n">cli_class</span> <span class="o">=</span> <span class="n">aliases</span><span class="p">[</span><span class="n">unknown_args</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">unknown_args</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="k">elif</span> <span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">unknown_args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+            <span class="ow">and</span> <span class="n">unknown_args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">aliases</span>
+            <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">aliases</span><span class="p">[</span><span class="n">unknown_args</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="nb">dict</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="n">cli_class</span> <span class="o">=</span> <span class="n">aliases</span><span class="p">[</span><span class="n">unknown_args</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">unknown_args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">unknown_args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">program_names</span><span class="p">:</span>
+            <span class="n">cli_class</span> <span class="o">=</span> <span class="n">program_names</span><span class="p">[</span><span class="n">unknown_args</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">unknown_args</span><span class="p">):</span>
+            <span class="bp">self</span><span class="p">([</span><span class="s2">&quot;--help&quot;</span><span class="p">])</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">cli_class</span><span class="p">:</span>
+            <span class="n">instance</span> <span class="o">=</span> <span class="n">cli_class</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">formatted_help</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cannot resolve </span><span class="si">{}</span><span class="s2"> to subcommand.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unknown_args</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_handle_list_command</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">by_scripting_group</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">cli_class</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_classes</span><span class="p">:</span>
+            <span class="n">instance</span> <span class="o">=</span> <span class="n">cli_class</span><span class="p">()</span>
+            <span class="n">scripting_group</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="s2">&quot;scripting_group&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">group</span> <span class="o">=</span> <span class="n">by_scripting_group</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">scripting_group</span><span class="p">,</span> <span class="p">[])</span>
+            <span class="n">group</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">()</span>
+        <span class="k">if</span> <span class="kc">None</span> <span class="ow">in</span> <span class="n">by_scripting_group</span><span class="p">:</span>
+            <span class="n">group</span> <span class="o">=</span> <span class="n">by_scripting_group</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">alias</span><span class="p">):</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">alias</span><span class="p">,</span> <span class="n">instance</span><span class="o">.</span><span class="n">short_description</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">group</span><span class="p">,</span> <span class="n">instances</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">by_scripting_group</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[</span><span class="si">{}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">group</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">instances</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">alias</span><span class="p">):</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;    </span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">instance</span><span class="o">.</span><span class="n">alias</span><span class="p">,</span> <span class="n">instance</span><span class="o">.</span><span class="n">short_description</span>
+                <span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_process_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
+        <span class="n">arguments</span><span class="p">,</span> <span class="n">unknown_args</span> <span class="o">=</span> <span class="n">arguments</span>
+        <span class="k">if</span> <span class="n">arguments</span><span class="o">.</span><span class="n">subparser_name</span> <span class="o">==</span> <span class="s2">&quot;help&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_handle_help_command</span><span class="p">(</span><span class="n">unknown_args</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="o">.</span><span class="n">subparser_name</span> <span class="o">==</span> <span class="s2">&quot;list&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_handle_list_command</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="s2">&quot;subsubparser_name&quot;</span><span class="p">):</span>
+                <span class="n">cli_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_aliases</span><span class="p">[</span><span class="n">arguments</span><span class="o">.</span><span class="n">subparser_name</span><span class="p">][</span>
+                    <span class="n">arguments</span><span class="o">.</span><span class="n">subsubparser_name</span>
+                <span class="p">]</span>
+            <span class="k">elif</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="s2">&quot;subparser_name&quot;</span><span class="p">):</span>
+                <span class="n">cli_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_aliases</span><span class="p">[</span><span class="n">arguments</span><span class="o">.</span><span class="n">subparser_name</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="s2">&quot;subparser_name&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="p">([</span><span class="s2">&quot;--help&quot;</span><span class="p">])</span>
+                <span class="k">return</span>
+            <span class="n">instance</span> <span class="o">=</span> <span class="n">cli_class</span><span class="p">()</span>
+            <span class="n">instance</span><span class="p">(</span><span class="n">unknown_args</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_setup_argument_parser</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">):</span>
+        <span class="n">subparsers</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_subparsers</span><span class="p">(</span><span class="n">dest</span><span class="o">=</span><span class="s2">&quot;subparser_name&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;subcommands&quot;</span><span class="p">)</span>
+        <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="n">add_help</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;print subcommand help&quot;</span><span class="p">)</span>
+        <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span><span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="n">add_help</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;list subcommands&quot;</span><span class="p">)</span>
+        <span class="n">alias_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_aliases</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">alias_map</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">alias_map</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">cli_class</span> <span class="o">=</span> <span class="n">alias_map</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                <span class="n">instance</span> <span class="o">=</span> <span class="n">cli_class</span><span class="p">()</span>
+                <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span>
+                    <span class="n">key</span><span class="p">,</span> <span class="n">add_help</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="n">instance</span><span class="o">.</span><span class="n">short_description</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">subkeys</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">alias_map</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+                <span class="n">group_subparser</span> <span class="o">=</span> <span class="n">subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span>
+                    <span class="n">key</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;{{</span><span class="si">{}</span><span class="s2">}} subcommand(s)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subkeys</span><span class="p">))</span>
+                <span class="p">)</span>
+                <span class="n">group_subparsers</span> <span class="o">=</span> <span class="n">group_subparser</span><span class="o">.</span><span class="n">add_subparsers</span><span class="p">(</span>
+                    <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;subsubparser_name&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">),</span>
+                    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> subcommands&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">),</span>
+                <span class="p">)</span>
+                <span class="k">for</span> <span class="n">subkey</span> <span class="ow">in</span> <span class="n">subkeys</span><span class="p">:</span>
+                    <span class="n">cli_class</span> <span class="o">=</span> <span class="n">alias_map</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">subkey</span><span class="p">]</span>
+                    <span class="n">instance</span> <span class="o">=</span> <span class="n">cli_class</span><span class="p">()</span>
+                    <span class="n">group_subparsers</span><span class="o">.</span><span class="n">add_parser</span><span class="p">(</span>
+                        <span class="n">subkey</span><span class="p">,</span> <span class="n">add_help</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="n">instance</span><span class="o">.</span><span class="n">short_description</span>
+                    <span class="p">)</span>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cli_aliases</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Developer script aliases.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">scripting_groups</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">aliases</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">cli_class</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_classes</span><span class="p">:</span>
+            <span class="n">instance</span> <span class="o">=</span> <span class="n">cli_class</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="s2">&quot;alias&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+                <span class="n">scripting_group</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="s2">&quot;scripting_group&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">scripting_group</span><span class="p">:</span>
+                    <span class="n">scripting_groups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">scripting_group</span><span class="p">)</span>
+                    <span class="n">entry</span> <span class="o">=</span> <span class="p">(</span><span class="n">scripting_group</span><span class="p">,</span> <span class="n">instance</span><span class="o">.</span><span class="n">alias</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">scripting_group</span><span class="p">,)</span> <span class="ow">in</span> <span class="n">aliases</span><span class="p">:</span>
+                        <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;alias conflict between scripting group&quot;</span>
+                        <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot; </span><span class="si">{!r}</span><span class="s2"> and </span><span class="si">{}</span><span class="s2">&quot;</span>
+                        <span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">scripting_group</span><span class="p">,</span> <span class="n">aliases</span><span class="p">[(</span><span class="n">scripting_group</span><span class="p">,)]</span><span class="o">.</span><span class="vm">__name__</span>
+                        <span class="p">)</span>
+                        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">aliases</span><span class="p">:</span>
+                        <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;alias conflict between </span><span class="si">{}</span><span class="s2"> and </span><span class="si">{}</span><span class="s2">&quot;</span>
+                        <span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">aliases</span><span class="p">[</span><span class="n">entry</span><span class="p">]</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">cli_class</span><span class="o">.</span><span class="vm">__name__</span>
+                        <span class="p">)</span>
+                        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+                    <span class="n">aliases</span><span class="p">[</span><span class="n">entry</span><span class="p">]</span> <span class="o">=</span> <span class="n">cli_class</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">entry</span> <span class="o">=</span> <span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">alias</span><span class="p">,)</span>
+                    <span class="k">if</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">scripting_groups</span><span class="p">:</span>
+                        <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;alias conflict between </span><span class="si">{}</span><span class="s2">&quot;</span>
+                        <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot; and scripting group </span><span class="si">{!r}</span><span class="s2">&quot;</span>
+                        <span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cli_class</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">instance</span><span class="o">.</span><span class="n">alias</span><span class="p">)</span>
+                        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">aliases</span><span class="p">:</span>
+                        <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;alias conflict be </span><span class="si">{}</span><span class="s2"> and </span><span class="si">{}</span><span class="s2">&quot;</span>
+                        <span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cli_class</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">aliases</span><span class="p">[</span><span class="n">entry</span><span class="p">])</span>
+                        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+                    <span class="n">aliases</span><span class="p">[(</span><span class="n">instance</span><span class="o">.</span><span class="n">alias</span><span class="p">,)]</span> <span class="o">=</span> <span class="n">cli_class</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">instance</span><span class="o">.</span><span class="n">program_name</span> <span class="ow">in</span> <span class="n">scripting_groups</span><span class="p">:</span>
+                    <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Alias conflict between </span><span class="si">{}</span><span class="s2">&quot;</span>
+                    <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot; and scripting group </span><span class="si">{!r}</span><span class="s2">&quot;</span>
+                    <span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cli_class</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">instance</span><span class="o">.</span><span class="n">program_name</span><span class="p">)</span>
+                    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+                <span class="n">aliases</span><span class="p">[(</span><span class="n">instance</span><span class="o">.</span><span class="n">program_name</span><span class="p">,)]</span> <span class="o">=</span> <span class="n">cli_class</span>
+        <span class="n">alias_map</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">aliases</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">alias_map</span><span class="p">[</span><span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">alias_map</span><span class="p">:</span>
+                    <span class="n">alias_map</span><span class="p">[</span><span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="n">alias_map</span><span class="p">[</span><span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="n">alias_map</span>
+
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractproperty</span>
+    <span class="k">def</span> <span class="nf">cli_classes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Developer scripts classes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cli_program_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Developer script program names.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">program_names</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">cli_class</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cli_classes</span><span class="p">:</span>
+            <span class="n">instance</span> <span class="o">=</span> <span class="n">cli_class</span><span class="p">()</span>
+            <span class="n">program_names</span><span class="p">[</span><span class="n">instance</span><span class="o">.</span><span class="n">program_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">cli_class</span>
+        <span class="k">return</span> <span class="n">program_names</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

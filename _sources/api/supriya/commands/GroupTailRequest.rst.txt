@@ -1,0 +1,100 @@
+.. _supriya--commands--GroupTailRequest:
+
+GroupTailRequest
+================
+
+.. automodule:: supriya.commands.GroupTailRequest
+
+.. currentmodule:: supriya.commands.GroupTailRequest
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.GroupTailRequest
+
+.. autoclass:: GroupTailRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      request_id
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: GroupTailRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: GroupTailRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: GroupTailRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: GroupTailRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: GroupTailRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: GroupTailRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: GroupTailRequest.to_list
+
+   .. container:: inherited
+
+      .. automethod:: GroupTailRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupTailRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupTailRequest.node_id_pairs
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupTailRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupTailRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupTailRequest.response_patterns

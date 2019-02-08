@@ -1,0 +1,138 @@
+.. _supriya--patterns--EventPattern:
+
+EventPattern
+============
+
+.. automodule:: supriya.patterns.EventPattern
+
+.. currentmodule:: supriya.patterns.EventPattern
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.patterns.EventPattern
+
+.. autoclass:: EventPattern
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      play
+      with_bus
+      with_effect
+      with_group
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: EventPattern.__add__
+
+   .. container:: inherited
+
+      .. automethod:: EventPattern.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: EventPattern.__div__
+
+   .. container:: inherited
+
+      .. automethod:: EventPattern.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: EventPattern.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: EventPattern.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: EventPattern.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: EventPattern.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: EventPattern.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: EventPattern.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: EventPattern.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: EventPattern.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: EventPattern.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: EventPattern.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: EventPattern.__sub__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: EventPattern.play
+
+   .. automethod:: EventPattern.with_bus
+
+   .. automethod:: EventPattern.with_effect
+
+   .. automethod:: EventPattern.with_group
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: EventPattern.from_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: EventPattern.arity
+
+   .. container:: inherited
+
+      .. autoattribute:: EventPattern.is_infinite

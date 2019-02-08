@@ -1,0 +1,84 @@
+.. _supriya--commands--SyncedResponse:
+
+SyncedResponse
+==============
+
+.. automodule:: supriya.commands.SyncedResponse
+
+.. currentmodule:: supriya.commands.SyncedResponse
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.SyncedResponse
+
+.. autoclass:: SyncedResponse
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      from_osc_message
+      sync_id
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SyncedResponse.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: SyncedResponse.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: SyncedResponse.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: SyncedResponse.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SyncedResponse.to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: SyncedResponse.from_osc_message
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: SyncedResponse.osc_message
+
+   .. autoattribute:: SyncedResponse.sync_id

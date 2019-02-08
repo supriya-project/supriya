@@ -1,0 +1,15 @@
+.. _supriya--cli--run-supriya:
+
+run_supriya
+===========
+
+.. automodule:: supriya.cli.run_supriya
+
+.. currentmodule:: supriya.cli.run_supriya
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.cli.run_supriya
+
+.. autofunction:: run_supriya

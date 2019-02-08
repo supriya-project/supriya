@@ -1,0 +1,143 @@
+.. _supriya--patterns--Pchain:
+
+Pchain
+======
+
+.. automodule:: supriya.patterns.Pchain
+
+.. currentmodule:: supriya.patterns.Pchain
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.patterns.Pchain
+
+.. autoclass:: Pchain
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      arity
+      is_infinite
+      patterns
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pchain.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Pchain.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: Pchain.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Pchain.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: Pchain.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: Pchain.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: Pchain.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Pchain.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Pchain.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Pchain.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Pchain.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Pchain.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Pchain.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Pchain.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Pchain.__sub__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pchain.play
+
+   .. container:: inherited
+
+      .. automethod:: Pchain.with_bus
+
+   .. container:: inherited
+
+      .. automethod:: Pchain.with_effect
+
+   .. container:: inherited
+
+      .. automethod:: Pchain.with_group
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pchain.from_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Pchain.arity
+
+   .. autoattribute:: Pchain.is_infinite
+
+   .. autoattribute:: Pchain.patterns

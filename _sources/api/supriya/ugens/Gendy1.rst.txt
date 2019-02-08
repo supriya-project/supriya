@@ -1,0 +1,390 @@
+.. _supriya--ugens--Gendy1:
+
+Gendy1
+======
+
+.. automodule:: supriya.ugens.Gendy1
+
+.. currentmodule:: supriya.ugens.Gendy1
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Gendy1
+
+.. autoclass:: Gendy1
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      adparam
+      ampdist
+      ampscale
+      ar
+      ddparam
+      durdist
+      durscale
+      init_cps
+      knum
+      kr
+      maxfrequency
+      minfrequency
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.clip
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.distort
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.floor
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.lag
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.log
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.log10
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.log2
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.power
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.range
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.scale
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.sign
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.squared
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.sum
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Gendy1.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Gendy1.ar
+
+   .. automethod:: Gendy1.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Gendy1.adparam
+
+   .. autoattribute:: Gendy1.ampdist
+
+   .. autoattribute:: Gendy1.ampscale
+
+   .. container:: inherited
+
+      .. autoattribute:: Gendy1.calculation_rate
+
+   .. autoattribute:: Gendy1.ddparam
+
+   .. autoattribute:: Gendy1.durdist
+
+   .. autoattribute:: Gendy1.durscale
+
+   .. container:: inherited
+
+      .. autoattribute:: Gendy1.has_done_flag
+
+   .. autoattribute:: Gendy1.init_cps
+
+   .. container:: inherited
+
+      .. autoattribute:: Gendy1.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Gendy1.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Gendy1.is_output_ugen
+
+   .. autoattribute:: Gendy1.knum
+
+   .. autoattribute:: Gendy1.maxfrequency
+
+   .. autoattribute:: Gendy1.minfrequency
+
+   .. container:: inherited
+
+      .. autoattribute:: Gendy1.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Gendy1.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: Gendy1.special_index

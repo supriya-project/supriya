@@ -1,0 +1,64 @@
+.. _supriya--live--Application:
+
+Application
+===========
+
+.. automodule:: supriya.live.Application
+
+.. currentmodule:: supriya.live.Application
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.live.Application
+
+.. autoclass:: Application
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      bindings
+      boot
+      buffers
+      devices
+      manifest
+      mixer
+      quit
+      server
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: Application.boot
+
+   .. automethod:: Application.quit
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Application.bindings
+
+   .. autoattribute:: Application.buffers
+
+   .. autoattribute:: Application.devices
+
+   .. autoattribute:: Application.manifest
+
+   .. autoattribute:: Application.mixer
+
+   .. autoattribute:: Application.server

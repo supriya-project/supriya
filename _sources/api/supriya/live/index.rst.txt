@@ -1,0 +1,50 @@
+.. _supriya--live:
+
+live
+====
+
+.. automodule:: supriya.live
+
+.. currentmodule:: supriya.live
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.live
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   Application
+   AutoPatternSlot
+   Direct
+   Mixer
+   PatternSlot
+   Send
+   SendManager
+   Slot
+   SynthSlot
+   Track
+   TriggerPatternSlot
+
+.. autosummary::
+   :nosignatures:
+
+   ~Application.Application
+   ~AutoPatternSlot.AutoPatternSlot
+   ~Direct.Direct
+   ~Mixer.Mixer
+   ~PatternSlot.PatternSlot
+   ~Send.Send
+   ~SendManager.SendManager
+   ~Slot.Slot
+   ~SynthSlot.SynthSlot
+   ~Track.Track
+   ~TriggerPatternSlot.TriggerPatternSlot

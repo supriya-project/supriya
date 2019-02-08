@@ -1,0 +1,77 @@
+.. _supriya--cli--SupriyaScript:
+
+SupriyaScript
+=============
+
+.. automodule:: supriya.cli.SupriyaScript
+
+.. currentmodule:: supriya.cli.SupriyaScript
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.cli.SupriyaScript
+
+.. autoclass:: SupriyaScript
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      cli_classes
+      config_name
+      short_description
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SupriyaScript.__call__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: SupriyaScript.argument_parser
+
+   .. container:: inherited
+
+      .. autoattribute:: SupriyaScript.cli_aliases
+
+   .. autoattribute:: SupriyaScript.cli_classes
+
+   .. container:: inherited
+
+      .. autoattribute:: SupriyaScript.cli_program_names
+
+   .. container:: inherited
+
+      .. autoattribute:: SupriyaScript.formatted_help
+
+   .. container:: inherited
+
+      .. autoattribute:: SupriyaScript.formatted_usage
+
+   .. container:: inherited
+
+      .. autoattribute:: SupriyaScript.formatted_version
+
+   .. container:: inherited
+
+      .. autoattribute:: SupriyaScript.program_name

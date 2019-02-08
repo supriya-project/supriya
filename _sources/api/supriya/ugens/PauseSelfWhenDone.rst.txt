@@ -1,0 +1,360 @@
+.. _supriya--ugens--PauseSelfWhenDone:
+
+PauseSelfWhenDone
+=================
+
+.. automodule:: supriya.ugens.PauseSelfWhenDone
+
+.. currentmodule:: supriya.ugens.PauseSelfWhenDone
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.PauseSelfWhenDone
+
+.. autoclass:: PauseSelfWhenDone
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      kr
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.__add__
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.__div__
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.__le__
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.__len__
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.__str__
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.as_int
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.clip
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.cubed
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.distort
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.exponential
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.floor
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.lag
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.log
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.log10
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.log2
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.maximum
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.minimum
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.power
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.range
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.scale
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.sign
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.softclip
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.square_root
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.squared
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.sum
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.tanh
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.transpose
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PauseSelfWhenDone.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: PauseSelfWhenDone.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: PauseSelfWhenDone.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: PauseSelfWhenDone.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: PauseSelfWhenDone.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: PauseSelfWhenDone.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PauseSelfWhenDone.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PauseSelfWhenDone.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: PauseSelfWhenDone.signal_range
+
+   .. autoattribute:: PauseSelfWhenDone.source
+
+   .. container:: inherited
+
+      .. autoattribute:: PauseSelfWhenDone.special_index

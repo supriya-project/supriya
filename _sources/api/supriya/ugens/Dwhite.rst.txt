@@ -1,0 +1,358 @@
+.. _supriya--ugens--Dwhite:
+
+Dwhite
+======
+
+.. automodule:: supriya.ugens.Dwhite
+
+.. currentmodule:: supriya.ugens.Dwhite
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Dwhite
+
+.. autoclass:: Dwhite
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      length
+      maximum
+      minimum
+      new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.clip
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.distort
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.floor
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.lag
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.log
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.log10
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.log2
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.power
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.range
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.scale
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.sign
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.squared
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.sum
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Dwhite.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Dwhite.new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Dwhite.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Dwhite.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Dwhite.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Dwhite.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Dwhite.is_output_ugen
+
+   .. autoattribute:: Dwhite.length
+
+   .. autoattribute:: Dwhite.maximum
+
+   .. autoattribute:: Dwhite.minimum
+
+   .. container:: inherited
+
+      .. autoattribute:: Dwhite.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Dwhite.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: Dwhite.special_index

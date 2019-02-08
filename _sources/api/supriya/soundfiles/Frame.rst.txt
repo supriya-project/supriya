@@ -1,0 +1,80 @@
+.. _supriya--soundfiles--Frame:
+
+Frame
+=====
+
+.. automodule:: supriya.soundfiles.Frame
+
+.. currentmodule:: supriya.soundfiles.Frame
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.soundfiles.Frame
+
+.. autoclass:: Frame
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __getitem__
+      __len__
+      channel_count
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Frame.__contains__
+
+   .. automethod:: Frame.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Frame.__iter__
+
+   .. automethod:: Frame.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Frame.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Frame.__reversed__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Frame.count
+
+   .. container:: inherited
+
+      .. automethod:: Frame.index
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Frame.channel_count

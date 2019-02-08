@@ -1,0 +1,393 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PatternSlot &mdash; Supriya 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Send" href="Send.html" />
+    <link rel="prev" title="Mixer" href="Mixer.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Supriya API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../cli/index.html">cli</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">live</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="Application.html">Application</a></li>
+<li class="toctree-l4"><a class="reference internal" href="AutoPatternSlot.html">AutoPatternSlot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Direct.html">Direct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Mixer.html">Mixer</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">PatternSlot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Send.html">Send</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SendManager.html">SendManager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Slot.html">Slot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SynthSlot.html">SynthSlot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Track.html">Track</a></li>
+<li class="toctree-l4"><a class="reference internal" href="TriggerPatternSlot.html">TriggerPatternSlot</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../soundfiles/index.html">soundfiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../system/index.html">system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Supriya API</a> &raquo;</li>
+        
+          <li><a href="../index.html">supriya</a> &raquo;</li>
+        
+          <li><a href="index.html">live</a> &raquo;</li>
+        
+      <li>PatternSlot</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/supriya/live/PatternSlot.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-supriya.live.PatternSlot">
+<span id="patternslot"></span><span id="supriya-live-patternslot"></span><h1>PatternSlot<a class="headerlink" href="#module-supriya.live.PatternSlot" title="Permalink to this headline">¶</a></h1>
+<div class="svg-container docutils container">
+<div class="graphviz"><object data="../../../_images/inheritance-8c40f31ce314ec51526c4cb3c2d1f533c1746dc9.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">digraph InheritanceGraph {
+    graph [bgcolor=transparent,
+        color=lightsteelblue2,
+        fontname=Arial,
+        fontsize=10,
+        outputorder=edgesfirst,
+        overlap=prism,
+        penwidth=2,
+        rankdir=LR,
+        splines=spline,
+        style=&quot;dashed, rounded&quot;,
+        truecolor=true];
+    node [colorscheme=pastel19,
+        fontname=Arial,
+        fontsize=10,
+        height=0,
+        penwidth=2,
+        shape=box,
+        style=&quot;filled, rounded&quot;,
+        width=0];
+    edge [color=lightslategrey,
+        penwidth=1];
+    subgraph cluster_builtins {
+        graph [label=builtins];
+        node [color=1];
+        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3.6/library/functions.html#object&quot;,
+            label=object,
+            target=_top];
+    }
+    subgraph &quot;cluster_supriya.live&quot; {
+        graph [label=&quot;supriya.live&quot;];
+        node [color=2];
+        &quot;supriya.live.AutoPatternSlot.AutoPatternSlot&quot; [URL=&quot;../api/supriya/live/AutoPatternSlot.html#supriya.live.AutoPatternSlot.AutoPatternSlot&quot;,
+            label=&quot;Auto\nPattern\nSlot&quot;,
+            target=_top];
+        &quot;supriya.live.PatternSlot.PatternSlot&quot; [URL=&quot;../api/supriya/live/PatternSlot.html#supriya.live.PatternSlot.PatternSlot&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Pattern\nSlot&quot;,
+            target=_top];
+        &quot;supriya.live.Slot.Slot&quot; [URL=&quot;../api/supriya/live/Slot.html#supriya.live.Slot.Slot&quot;,
+            label=Slot,
+            target=_top];
+        &quot;supriya.live.TriggerPatternSlot.TriggerPatternSlot&quot; [URL=&quot;../api/supriya/live/TriggerPatternSlot.html#supriya.live.TriggerPatternSlot.TriggerPatternSlot&quot;,
+            label=&quot;Trigger\nPattern\nSlot&quot;,
+            target=_top];
+        &quot;supriya.live.PatternSlot.PatternSlot&quot; -&gt; &quot;supriya.live.AutoPatternSlot.AutoPatternSlot&quot;;
+        &quot;supriya.live.PatternSlot.PatternSlot&quot; -&gt; &quot;supriya.live.TriggerPatternSlot.TriggerPatternSlot&quot;;
+        &quot;supriya.live.Slot.Slot&quot; -&gt; &quot;supriya.live.PatternSlot.PatternSlot&quot;;
+    }
+    &quot;builtins.object&quot; -&gt; &quot;supriya.live.Slot.Slot&quot;;
+}</p></object></div>
+</div>
+<dl class="class">
+<dt id="supriya.live.PatternSlot.PatternSlot">
+<em class="property">class </em><code class="descclassname">supriya.live.PatternSlot.</code><code class="descname">PatternSlot</code><span class="sig-paren">(</span><em>name</em>, <em>track</em>, <em>synthdef</em>, <em>pattern</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/live/PatternSlot.html#PatternSlot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.live.PatternSlot.PatternSlot" title="Permalink to this definition">¶</a></dt>
+<dd><hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="method">
+<dt id="supriya.live.PatternSlot.PatternSlot.__getitem__">
+<code class="descclassname">(<a class="reference internal" href="Slot.html#supriya.live.Slot.Slot" title="supriya.live.Slot.Slot"><code class="descclassname docutils literal notranslate"><span class="pre">Slot</span></code></a>).</code><code class="descname">__getitem__</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.live.PatternSlot.PatternSlot.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="method">
+<dt id="supriya.live.PatternSlot.PatternSlot.__setitem__">
+<code class="descclassname">(<a class="reference internal" href="Slot.html#supriya.live.Slot.Slot" title="supriya.live.Slot.Slot"><code class="descclassname docutils literal notranslate"><span class="pre">Slot</span></code></a>).</code><code class="descname">__setitem__</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.live.PatternSlot.PatternSlot.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Read-only properties</p>
+<div class="inherited docutils container">
+<dl class="attribute">
+<dt id="supriya.live.PatternSlot.PatternSlot.bindable_namespace">
+<code class="descclassname">(<a class="reference internal" href="Slot.html#supriya.live.Slot.Slot" title="supriya.live.Slot.Slot"><code class="descclassname docutils literal notranslate"><span class="pre">Slot</span></code></a>).</code><code class="descname">bindable_namespace</code><a class="headerlink" href="#supriya.live.PatternSlot.PatternSlot.bindable_namespace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="attribute">
+<dt id="supriya.live.PatternSlot.PatternSlot.group">
+<code class="descclassname">(<a class="reference internal" href="Slot.html#supriya.live.Slot.Slot" title="supriya.live.Slot.Slot"><code class="descclassname docutils literal notranslate"><span class="pre">Slot</span></code></a>).</code><code class="descname">group</code><a class="headerlink" href="#supriya.live.PatternSlot.PatternSlot.group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="attribute">
+<dt id="supriya.live.PatternSlot.PatternSlot.is_allocated">
+<code class="descclassname">(<a class="reference internal" href="Slot.html#supriya.live.Slot.Slot" title="supriya.live.Slot.Slot"><code class="descclassname docutils literal notranslate"><span class="pre">Slot</span></code></a>).</code><code class="descname">is_allocated</code><a class="headerlink" href="#supriya.live.PatternSlot.PatternSlot.is_allocated" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="attribute">
+<dt id="supriya.live.PatternSlot.PatternSlot.name">
+<code class="descclassname">(<a class="reference internal" href="Slot.html#supriya.live.Slot.Slot" title="supriya.live.Slot.Slot"><code class="descclassname docutils literal notranslate"><span class="pre">Slot</span></code></a>).</code><code class="descname">name</code><a class="headerlink" href="#supriya.live.PatternSlot.PatternSlot.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="attribute">
+<dt id="supriya.live.PatternSlot.PatternSlot.synth">
+<code class="descclassname">(<a class="reference internal" href="Slot.html#supriya.live.Slot.Slot" title="supriya.live.Slot.Slot"><code class="descclassname docutils literal notranslate"><span class="pre">Slot</span></code></a>).</code><code class="descname">synth</code><a class="headerlink" href="#supriya.live.PatternSlot.PatternSlot.synth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="attribute">
+<dt id="supriya.live.PatternSlot.PatternSlot.synth_kwargs">
+<code class="descclassname">(<a class="reference internal" href="Slot.html#supriya.live.Slot.Slot" title="supriya.live.Slot.Slot"><code class="descclassname docutils literal notranslate"><span class="pre">Slot</span></code></a>).</code><code class="descname">synth_kwargs</code><a class="headerlink" href="#supriya.live.PatternSlot.PatternSlot.synth_kwargs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="attribute">
+<dt id="supriya.live.PatternSlot.PatternSlot.synthdef">
+<code class="descclassname">(<a class="reference internal" href="Slot.html#supriya.live.Slot.Slot" title="supriya.live.Slot.Slot"><code class="descclassname docutils literal notranslate"><span class="pre">Slot</span></code></a>).</code><code class="descname">synthdef</code><a class="headerlink" href="#supriya.live.PatternSlot.PatternSlot.synthdef" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="attribute">
+<dt id="supriya.live.PatternSlot.PatternSlot.track">
+<code class="descclassname">(<a class="reference internal" href="Slot.html#supriya.live.Slot.Slot" title="supriya.live.Slot.Slot"><code class="descclassname docutils literal notranslate"><span class="pre">Slot</span></code></a>).</code><code class="descname">track</code><a class="headerlink" href="#supriya.live.PatternSlot.PatternSlot.track" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Send.html" class="btn btn-neutral float-right" title="Send" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Mixer.html" class="btn btn-neutral" title="Mixer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

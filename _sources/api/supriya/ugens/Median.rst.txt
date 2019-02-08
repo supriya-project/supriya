@@ -1,0 +1,366 @@
+.. _supriya--ugens--Median:
+
+Median
+======
+
+.. automodule:: supriya.ugens.Median
+
+.. currentmodule:: supriya.ugens.Median
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Median
+
+.. autoclass:: Median
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      length
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Median.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Median.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Median.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Median.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Median.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Median.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Median.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Median.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Median.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Median.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Median.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Median.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Median.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Median.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Median.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Median.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Median.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Median.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Median.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Median.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Median.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Median.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Median.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Median.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Median.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Median.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Median.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Median.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Median.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Median.clip
+
+   .. container:: inherited
+
+      .. automethod:: Median.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Median.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Median.distort
+
+   .. container:: inherited
+
+      .. automethod:: Median.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Median.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Median.floor
+
+   .. container:: inherited
+
+      .. automethod:: Median.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Median.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Median.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Median.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Median.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Median.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Median.lag
+
+   .. container:: inherited
+
+      .. automethod:: Median.log
+
+   .. container:: inherited
+
+      .. automethod:: Median.log10
+
+   .. container:: inherited
+
+      .. automethod:: Median.log2
+
+   .. container:: inherited
+
+      .. automethod:: Median.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Median.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Median.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Median.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Median.power
+
+   .. container:: inherited
+
+      .. automethod:: Median.range
+
+   .. container:: inherited
+
+      .. automethod:: Median.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Median.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Median.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Median.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Median.scale
+
+   .. container:: inherited
+
+      .. automethod:: Median.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Median.sign
+
+   .. container:: inherited
+
+      .. automethod:: Median.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Median.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Median.squared
+
+   .. container:: inherited
+
+      .. automethod:: Median.sum
+
+   .. container:: inherited
+
+      .. automethod:: Median.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Median.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Median.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Median.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Median.ar
+
+   .. automethod:: Median.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Median.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Median.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Median.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Median.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Median.is_output_ugen
+
+   .. autoattribute:: Median.length
+
+   .. container:: inherited
+
+      .. autoattribute:: Median.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Median.signal_range
+
+   .. autoattribute:: Median.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Median.special_index

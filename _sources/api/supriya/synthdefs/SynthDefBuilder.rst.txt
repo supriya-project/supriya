@@ -1,0 +1,69 @@
+.. _supriya--synthdefs--SynthDefBuilder:
+
+SynthDefBuilder
+===============
+
+.. automodule:: supriya.synthdefs.SynthDefBuilder
+
+.. currentmodule:: supriya.synthdefs.SynthDefBuilder
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.synthdefs.SynthDefBuilder
+
+.. autoclass:: SynthDefBuilder
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __enter__
+      __exit__
+      __getitem__
+      build
+      name
+      poll_ugen
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: SynthDefBuilder.__enter__
+
+   .. automethod:: SynthDefBuilder.__exit__
+
+   .. automethod:: SynthDefBuilder.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefBuilder.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: SynthDefBuilder.build
+
+   .. automethod:: SynthDefBuilder.poll_ugen
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: SynthDefBuilder.name

@@ -1,0 +1,126 @@
+.. _supriya--patterns--Pwhite:
+
+Pwhite
+======
+
+.. automodule:: supriya.patterns.Pwhite
+
+.. currentmodule:: supriya.patterns.Pwhite
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.patterns.Pwhite
+
+.. autoclass:: Pwhite
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      arity
+      is_infinite
+      maximum
+      minimum
+      repetitions
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pwhite.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Pwhite.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: Pwhite.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Pwhite.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: Pwhite.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: Pwhite.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: Pwhite.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Pwhite.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Pwhite.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Pwhite.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Pwhite.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Pwhite.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Pwhite.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Pwhite.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Pwhite.__sub__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pwhite.from_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Pwhite.arity
+
+   .. autoattribute:: Pwhite.is_infinite
+
+   .. autoattribute:: Pwhite.maximum
+
+   .. autoattribute:: Pwhite.minimum
+
+   .. autoattribute:: Pwhite.repetitions

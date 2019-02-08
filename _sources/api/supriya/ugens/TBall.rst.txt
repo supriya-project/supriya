@@ -1,0 +1,372 @@
+.. _supriya--ugens--TBall:
+
+TBall
+=====
+
+.. automodule:: supriya.ugens.TBall
+
+.. currentmodule:: supriya.ugens.TBall
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.TBall
+
+.. autoclass:: TBall
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      damping
+      friction
+      gravity
+      kr
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: TBall.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: TBall.__add__
+
+   .. container:: inherited
+
+      .. automethod:: TBall.__div__
+
+   .. container:: inherited
+
+      .. automethod:: TBall.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: TBall.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: TBall.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: TBall.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: TBall.__le__
+
+   .. container:: inherited
+
+      .. automethod:: TBall.__len__
+
+   .. container:: inherited
+
+      .. automethod:: TBall.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: TBall.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: TBall.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: TBall.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: TBall.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: TBall.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: TBall.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: TBall.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: TBall.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: TBall.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: TBall.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: TBall.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: TBall.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: TBall.__str__
+
+   .. container:: inherited
+
+      .. automethod:: TBall.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: TBall.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: TBall.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: TBall.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: TBall.as_int
+
+   .. container:: inherited
+
+      .. automethod:: TBall.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: TBall.clip
+
+   .. container:: inherited
+
+      .. automethod:: TBall.cubed
+
+   .. container:: inherited
+
+      .. automethod:: TBall.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: TBall.distort
+
+   .. container:: inherited
+
+      .. automethod:: TBall.exponential
+
+   .. container:: inherited
+
+      .. automethod:: TBall.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: TBall.floor
+
+   .. container:: inherited
+
+      .. automethod:: TBall.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: TBall.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: TBall.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: TBall.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: TBall.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: TBall.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: TBall.lag
+
+   .. container:: inherited
+
+      .. automethod:: TBall.log
+
+   .. container:: inherited
+
+      .. automethod:: TBall.log10
+
+   .. container:: inherited
+
+      .. automethod:: TBall.log2
+
+   .. container:: inherited
+
+      .. automethod:: TBall.maximum
+
+   .. container:: inherited
+
+      .. automethod:: TBall.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: TBall.minimum
+
+   .. container:: inherited
+
+      .. automethod:: TBall.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: TBall.power
+
+   .. container:: inherited
+
+      .. automethod:: TBall.range
+
+   .. container:: inherited
+
+      .. automethod:: TBall.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: TBall.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: TBall.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: TBall.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: TBall.scale
+
+   .. container:: inherited
+
+      .. automethod:: TBall.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: TBall.sign
+
+   .. container:: inherited
+
+      .. automethod:: TBall.softclip
+
+   .. container:: inherited
+
+      .. automethod:: TBall.square_root
+
+   .. container:: inherited
+
+      .. automethod:: TBall.squared
+
+   .. container:: inherited
+
+      .. automethod:: TBall.sum
+
+   .. container:: inherited
+
+      .. automethod:: TBall.tanh
+
+   .. container:: inherited
+
+      .. automethod:: TBall.transpose
+
+   .. container:: inherited
+
+      .. automethod:: TBall.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: TBall.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: TBall.ar
+
+   .. automethod:: TBall.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: TBall.calculation_rate
+
+   .. autoattribute:: TBall.damping
+
+   .. autoattribute:: TBall.friction
+
+   .. autoattribute:: TBall.gravity
+
+   .. container:: inherited
+
+      .. autoattribute:: TBall.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: TBall.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: TBall.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: TBall.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: TBall.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: TBall.signal_range
+
+   .. autoattribute:: TBall.source
+
+   .. container:: inherited
+
+      .. autoattribute:: TBall.special_index

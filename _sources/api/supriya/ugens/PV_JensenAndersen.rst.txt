@@ -1,0 +1,382 @@
+.. _supriya--ugens--PV-JensenAndersen:
+
+PV_JensenAndersen
+=================
+
+.. automodule:: supriya.ugens.PV_JensenAndersen
+
+.. currentmodule:: supriya.ugens.PV_JensenAndersen
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.PV_JensenAndersen
+
+.. autoclass:: PV_JensenAndersen
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      new
+      prophfc
+      prophfe
+      propsc
+      propsf
+      pv_chain
+      threshold
+      waittime
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.__add__
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.__div__
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.__le__
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.__len__
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.__str__
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.as_int
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.clip
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.cubed
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.distort
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.exponential
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.floor
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.lag
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.log
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.log10
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.log2
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.maximum
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.minimum
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.power
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.range
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.scale
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.sign
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.softclip
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.square_root
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.squared
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.sum
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.tanh
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.transpose
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_JensenAndersen.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: PV_JensenAndersen.new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_JensenAndersen.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_JensenAndersen.fft_size
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_JensenAndersen.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_JensenAndersen.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_JensenAndersen.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_JensenAndersen.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_JensenAndersen.outputs
+
+   .. autoattribute:: PV_JensenAndersen.prophfc
+
+   .. autoattribute:: PV_JensenAndersen.prophfe
+
+   .. autoattribute:: PV_JensenAndersen.propsc
+
+   .. autoattribute:: PV_JensenAndersen.propsf
+
+   .. autoattribute:: PV_JensenAndersen.pv_chain
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_JensenAndersen.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_JensenAndersen.special_index
+
+   .. autoattribute:: PV_JensenAndersen.threshold
+
+   .. autoattribute:: PV_JensenAndersen.waittime

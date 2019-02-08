@@ -1,0 +1,350 @@
+.. _supriya--ugens--PV-ChainUGen:
+
+PV_ChainUGen
+============
+
+.. automodule:: supriya.ugens.PV_ChainUGen
+
+.. currentmodule:: supriya.ugens.PV_ChainUGen
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.PV_ChainUGen
+
+.. autoclass:: PV_ChainUGen
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      fft_size
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.__add__
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.__div__
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.__le__
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.__len__
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.__str__
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.as_int
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.clip
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.cubed
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.distort
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.exponential
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.floor
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.lag
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.log
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.log10
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.log2
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.maximum
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.minimum
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.power
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.range
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.scale
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.sign
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.softclip
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.square_root
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.squared
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.sum
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.tanh
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.transpose
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_ChainUGen.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_ChainUGen.calculation_rate
+
+   .. autoattribute:: PV_ChainUGen.fft_size
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_ChainUGen.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_ChainUGen.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_ChainUGen.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_ChainUGen.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_ChainUGen.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_ChainUGen.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_ChainUGen.special_index

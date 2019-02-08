@@ -1,0 +1,106 @@
+.. _supriya--patterns--Pattern:
+
+Pattern
+=======
+
+.. automodule:: supriya.patterns.Pattern
+
+.. currentmodule:: supriya.patterns.Pattern
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.patterns.Pattern
+
+.. autoclass:: Pattern
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      PatternState
+      __add__
+      __div__
+      __iter__
+      __mul__
+      __pow__
+      __radd__
+      __rdiv__
+      __rmul__
+      __rpow__
+      __rsub__
+      __sub__
+      arity
+      from_dict
+      is_infinite
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: Pattern.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Pattern.__copy__
+
+   .. automethod:: Pattern.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Pattern.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: Pattern.__hash__
+
+   .. automethod:: Pattern.__iter__
+
+   .. automethod:: Pattern.__mul__
+
+   .. automethod:: Pattern.__pow__
+
+   .. automethod:: Pattern.__radd__
+
+   .. automethod:: Pattern.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Pattern.__repr__
+
+   .. automethod:: Pattern.__rmul__
+
+   .. automethod:: Pattern.__rpow__
+
+   .. automethod:: Pattern.__rsub__
+
+   .. automethod:: Pattern.__sub__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Pattern.from_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Pattern.arity
+
+   .. autoattribute:: Pattern.is_infinite

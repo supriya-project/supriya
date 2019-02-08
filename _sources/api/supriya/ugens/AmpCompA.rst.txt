@@ -1,0 +1,375 @@
+.. _supriya--ugens--AmpCompA:
+
+AmpCompA
+========
+
+.. automodule:: supriya.ugens.AmpCompA
+
+.. currentmodule:: supriya.ugens.AmpCompA
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.AmpCompA
+
+.. autoclass:: AmpCompA
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      frequency
+      ir
+      kr
+      min_amp
+      root
+      root_amp
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.__add__
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.__div__
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.__le__
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.__len__
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.__str__
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.as_int
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.clip
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.cubed
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.distort
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.exponential
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.floor
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.lag
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.log
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.log10
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.log2
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.maximum
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.minimum
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.power
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.range
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.scale
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.sign
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.softclip
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.square_root
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.squared
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.sum
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.tanh
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.transpose
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: AmpCompA.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: AmpCompA.ar
+
+   .. automethod:: AmpCompA.ir
+
+   .. automethod:: AmpCompA.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: AmpCompA.calculation_rate
+
+   .. autoattribute:: AmpCompA.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: AmpCompA.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: AmpCompA.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: AmpCompA.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: AmpCompA.is_output_ugen
+
+   .. autoattribute:: AmpCompA.min_amp
+
+   .. container:: inherited
+
+      .. autoattribute:: AmpCompA.outputs
+
+   .. autoattribute:: AmpCompA.root
+
+   .. autoattribute:: AmpCompA.root_amp
+
+   .. container:: inherited
+
+      .. autoattribute:: AmpCompA.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: AmpCompA.special_index

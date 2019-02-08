@@ -1,0 +1,366 @@
+.. _supriya--ugens--BBandStop:
+
+BBandStop
+=========
+
+.. automodule:: supriya.ugens.BBandStop
+
+.. currentmodule:: supriya.ugens.BBandStop
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.BBandStop
+
+.. autoclass:: BBandStop
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      bandwidth
+      frequency
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.__add__
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.__div__
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.__le__
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.__len__
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.__str__
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.as_int
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.clip
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.cubed
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.distort
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.exponential
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.floor
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.lag
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.log
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.log10
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.log2
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.maximum
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.minimum
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.power
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.range
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.scale
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.sign
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.softclip
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.square_root
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.squared
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.sum
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.tanh
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.transpose
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BBandStop.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: BBandStop.ar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BBandStop.bandwidth
+
+   .. container:: inherited
+
+      .. autoattribute:: BBandStop.calculation_rate
+
+   .. autoattribute:: BBandStop.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: BBandStop.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: BBandStop.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BBandStop.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BBandStop.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BBandStop.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BBandStop.signal_range
+
+   .. autoattribute:: BBandStop.source
+
+   .. container:: inherited
+
+      .. autoattribute:: BBandStop.special_index

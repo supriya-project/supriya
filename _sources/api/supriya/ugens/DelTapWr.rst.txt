@@ -1,0 +1,366 @@
+.. _supriya--ugens--DelTapWr:
+
+DelTapWr
+========
+
+.. automodule:: supriya.ugens.DelTapWr
+
+.. currentmodule:: supriya.ugens.DelTapWr
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.DelTapWr
+
+.. autoclass:: DelTapWr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      buffer_id
+      kr
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.__add__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.__div__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.__le__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.__len__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.__str__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.as_int
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.clip
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.cubed
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.distort
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.exponential
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.floor
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.lag
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.log
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.log10
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.log2
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.maximum
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.minimum
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.power
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.range
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.scale
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.sign
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.softclip
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.square_root
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.squared
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.sum
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.tanh
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.transpose
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: DelTapWr.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: DelTapWr.ar
+
+   .. automethod:: DelTapWr.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: DelTapWr.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: DelTapWr.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: DelTapWr.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: DelTapWr.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: DelTapWr.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: DelTapWr.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: DelTapWr.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: DelTapWr.signal_range
+
+   .. autoattribute:: DelTapWr.source
+
+   .. container:: inherited
+
+      .. autoattribute:: DelTapWr.special_index

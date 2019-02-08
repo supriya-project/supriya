@@ -1,0 +1,372 @@
+.. _supriya--ugens--PitchShift:
+
+PitchShift
+==========
+
+.. automodule:: supriya.ugens.PitchShift
+
+.. currentmodule:: supriya.ugens.PitchShift
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.PitchShift
+
+.. autoclass:: PitchShift
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      pitch_dispersion
+      pitch_ratio
+      source
+      time_dispersion
+      window_size
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.__add__
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.__div__
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.__le__
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.__len__
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.__str__
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.as_int
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.clip
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.cubed
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.distort
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.exponential
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.floor
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.lag
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.log
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.log10
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.log2
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.maximum
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.minimum
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.power
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.range
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.scale
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.sign
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.softclip
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.square_root
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.squared
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.sum
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.tanh
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.transpose
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PitchShift.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: PitchShift.ar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: PitchShift.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: PitchShift.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: PitchShift.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: PitchShift.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PitchShift.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PitchShift.outputs
+
+   .. autoattribute:: PitchShift.pitch_dispersion
+
+   .. autoattribute:: PitchShift.pitch_ratio
+
+   .. container:: inherited
+
+      .. autoattribute:: PitchShift.signal_range
+
+   .. autoattribute:: PitchShift.source
+
+   .. container:: inherited
+
+      .. autoattribute:: PitchShift.special_index
+
+   .. autoattribute:: PitchShift.time_dispersion
+
+   .. autoattribute:: PitchShift.window_size

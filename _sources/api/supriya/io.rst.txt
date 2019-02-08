@@ -1,0 +1,136 @@
+.. _supriya--io:
+
+io
+==
+
+.. automodule:: supriya.io
+
+.. currentmodule:: supriya.io
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.io
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~Grapher
+   ~Player
+
+.. autoclass:: Grapher
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __call__
+      get_format
+      get_graphviz_string
+      get_layout
+      get_render_command
+      get_render_prefix
+      open_output_path
+      persist_graphviz_string
+      run_command
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: Grapher.__call__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: Grapher.get_format
+
+   .. automethod:: Grapher.get_graphviz_string
+
+   .. automethod:: Grapher.get_layout
+
+   .. automethod:: Grapher.get_render_command
+
+   .. automethod:: Grapher.get_render_prefix
+
+   .. automethod:: Grapher.open_output_path
+
+   .. automethod:: Grapher.persist_graphviz_string
+
+   .. automethod:: Grapher.run_command
+
+.. autoclass:: Player
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __call__
+      open_output_path
+      render
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: Player.__call__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: Player.open_output_path
+
+   .. automethod:: Player.render
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Functions
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~graph
+   ~play
+   ~render
+
+.. autofunction:: graph
+
+.. autofunction:: play
+
+.. autofunction:: render

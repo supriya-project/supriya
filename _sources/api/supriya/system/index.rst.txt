@@ -1,0 +1,78 @@
+.. _supriya--system:
+
+system
+======
+
+.. automodule:: supriya.system
+
+.. currentmodule:: supriya.system
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.system
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   Assets
+   Bindable
+   BindableFloat
+   BindableNamespace
+   Binding
+   SupriyaObject
+   SupriyaValueObject
+   YAMLLoader
+
+.. autosummary::
+   :nosignatures:
+
+   ~Assets.Assets
+   ~Bindable.Bindable
+   ~BindableFloat.BindableFloat
+   ~BindableNamespace.BindableNamespace
+   ~Binding.Binding
+   ~SupriyaObject.SupriyaObject
+   ~SupriyaValueObject.SupriyaValueObject
+   ~YAMLLoader.YAMLLoader
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Functions
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   bind
+
+.. autosummary::
+   :nosignatures:
+
+   ~bind.bind
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Server Internals
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   PubSub
+
+.. autosummary::
+   :nosignatures:
+
+   ~PubSub.PubSub

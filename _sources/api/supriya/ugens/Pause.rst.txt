@@ -1,0 +1,363 @@
+.. _supriya--ugens--Pause:
+
+Pause
+=====
+
+.. automodule:: supriya.ugens.Pause
+
+.. currentmodule:: supriya.ugens.Pause
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Pause
+
+.. autoclass:: Pause
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      kr
+      node_id
+      trigger
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pause.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Pause.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Pause.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Pause.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Pause.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Pause.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Pause.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Pause.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Pause.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Pause.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Pause.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Pause.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Pause.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Pause.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Pause.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Pause.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Pause.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Pause.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Pause.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Pause.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Pause.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Pause.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Pause.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Pause.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Pause.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pause.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Pause.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Pause.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Pause.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Pause.clip
+
+   .. container:: inherited
+
+      .. automethod:: Pause.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Pause.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Pause.distort
+
+   .. container:: inherited
+
+      .. automethod:: Pause.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Pause.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Pause.floor
+
+   .. container:: inherited
+
+      .. automethod:: Pause.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Pause.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Pause.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Pause.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Pause.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Pause.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Pause.lag
+
+   .. container:: inherited
+
+      .. automethod:: Pause.log
+
+   .. container:: inherited
+
+      .. automethod:: Pause.log10
+
+   .. container:: inherited
+
+      .. automethod:: Pause.log2
+
+   .. container:: inherited
+
+      .. automethod:: Pause.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Pause.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Pause.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Pause.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Pause.power
+
+   .. container:: inherited
+
+      .. automethod:: Pause.range
+
+   .. container:: inherited
+
+      .. automethod:: Pause.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Pause.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Pause.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Pause.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Pause.scale
+
+   .. container:: inherited
+
+      .. automethod:: Pause.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Pause.sign
+
+   .. container:: inherited
+
+      .. automethod:: Pause.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Pause.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Pause.squared
+
+   .. container:: inherited
+
+      .. automethod:: Pause.sum
+
+   .. container:: inherited
+
+      .. automethod:: Pause.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Pause.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Pause.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Pause.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Pause.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Pause.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Pause.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Pause.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Pause.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Pause.is_output_ugen
+
+   .. autoattribute:: Pause.node_id
+
+   .. container:: inherited
+
+      .. autoattribute:: Pause.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Pause.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: Pause.special_index
+
+   .. autoattribute:: Pause.trigger

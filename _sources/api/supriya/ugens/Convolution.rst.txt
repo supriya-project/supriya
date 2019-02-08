@@ -1,0 +1,366 @@
+.. _supriya--ugens--Convolution:
+
+Convolution
+===========
+
+.. automodule:: supriya.ugens.Convolution
+
+.. currentmodule:: supriya.ugens.Convolution
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Convolution
+
+.. autoclass:: Convolution
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      framesize
+      kernel
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.clip
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.distort
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.floor
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.lag
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.log
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.log10
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.log2
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.power
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.range
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.scale
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.sign
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.squared
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.sum
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Convolution.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Convolution.ar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Convolution.calculation_rate
+
+   .. autoattribute:: Convolution.framesize
+
+   .. container:: inherited
+
+      .. autoattribute:: Convolution.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Convolution.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Convolution.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Convolution.is_output_ugen
+
+   .. autoattribute:: Convolution.kernel
+
+   .. container:: inherited
+
+      .. autoattribute:: Convolution.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Convolution.signal_range
+
+   .. autoattribute:: Convolution.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Convolution.special_index

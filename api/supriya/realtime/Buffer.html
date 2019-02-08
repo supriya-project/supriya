@@ -1,0 +1,1567 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Buffer &mdash; Supriya 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="BufferGroup" href="BufferGroup.html" />
+    <link rel="prev" title="ServerObjectProxy" href="ServerObjectProxy.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Supriya API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../cli/index.html">cli</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../live/index.html">live</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">realtime</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="Node.html">Node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ServerObjectProxy.html">ServerObjectProxy</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Buffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BufferGroup.html">BufferGroup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Bus.html">Bus</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BusGroup.html">BusGroup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Group.html">Group</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Server.html">Server</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ServerOptions.html">ServerOptions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Synth.html">Synth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="AudioInputBusGroup.html">AudioInputBusGroup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="AudioOutputBusGroup.html">AudioOutputBusGroup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Block.html">Block</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BlockAllocator.html">BlockAllocator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BufferProxy.html">BufferProxy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BusProxy.html">BusProxy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ControlInterface.html">ControlInterface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="GroupControl.html">GroupControl</a></li>
+<li class="toctree-l4"><a class="reference internal" href="GroupInterface.html">GroupInterface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NodeIdAllocator.html">NodeIdAllocator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="RootNode.html">RootNode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ServerMeters.html">ServerMeters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ServerRecorder.html">ServerRecorder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="StatusWatcher.html">StatusWatcher</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SynthControl.html">SynthControl</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SynthInterface.html">SynthInterface</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../soundfiles/index.html">soundfiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../system/index.html">system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Supriya API</a> &raquo;</li>
+        
+          <li><a href="../index.html">supriya</a> &raquo;</li>
+        
+          <li><a href="index.html">realtime</a> &raquo;</li>
+        
+      <li>Buffer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/supriya/realtime/Buffer.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-supriya.realtime.Buffer">
+<span id="buffer"></span><span id="supriya-realtime-buffer"></span><h1>Buffer<a class="headerlink" href="#module-supriya.realtime.Buffer" title="Permalink to this headline">¶</a></h1>
+<div class="svg-container docutils container">
+<div class="graphviz"><object data="../../../_images/inheritance-ef48f8921eb8b18b71f52006c5993ff1dd6512f6.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">digraph InheritanceGraph {
+    graph [bgcolor=transparent,
+        color=lightsteelblue2,
+        fontname=Arial,
+        fontsize=10,
+        outputorder=edgesfirst,
+        overlap=prism,
+        penwidth=2,
+        rankdir=LR,
+        splines=spline,
+        style=&quot;dashed, rounded&quot;,
+        truecolor=true];
+    node [colorscheme=pastel19,
+        fontname=Arial,
+        fontsize=10,
+        height=0,
+        penwidth=2,
+        shape=box,
+        style=&quot;filled, rounded&quot;,
+        width=0];
+    edge [color=lightslategrey,
+        penwidth=1];
+    subgraph cluster_builtins {
+        graph [label=builtins];
+        node [color=1];
+        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3.6/library/functions.html#object&quot;,
+            label=object,
+            target=_top];
+    }
+    subgraph &quot;cluster_supriya.realtime&quot; {
+        graph [label=&quot;supriya.realtime&quot;];
+        node [color=2];
+        &quot;supriya.realtime.Buffer.Buffer&quot; [URL=&quot;../api/supriya/realtime/Buffer.html#supriya.realtime.Buffer.Buffer&quot;,
+            color=black,
+            fontcolor=white,
+            label=Buffer,
+            target=_top];
+        &quot;supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot; [URL=&quot;../api/supriya/realtime/ServerObjectProxy.html#supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot;,
+            label=&quot;Server\nObject\nProxy&quot;,
+            shape=oval,
+            style=bold,
+            target=_top];
+        &quot;supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot; -&gt; &quot;supriya.realtime.Buffer.Buffer&quot;;
+    }
+    subgraph &quot;cluster_supriya.system&quot; {
+        graph [label=&quot;supriya.system&quot;];
+        node [color=3];
+        &quot;supriya.system.SupriyaObject.SupriyaObject&quot; [URL=&quot;../api/supriya/realtime/../system/SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject&quot;,
+            label=&quot;Supriya\nObject&quot;,
+            target=_top];
+    }
+    &quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject.SupriyaObject&quot;;
+    &quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot;;
+}</p></object></div>
+</div>
+<dl class="class">
+<dt id="supriya.realtime.Buffer.Buffer">
+<em class="property">class </em><code class="descclassname">supriya.realtime.Buffer.</code><code class="descname">Buffer</code><span class="sig-paren">(</span><em>buffer_group_or_index=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/Buffer.html#Buffer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.Buffer.Buffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A buffer.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span>
+<span class="go">&lt;- Buffer: ???&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">8192</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span>
+<span class="go">&lt;Server: udp://127.0.0.1:57751, 8i8o&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span>
+<span class="go">&lt;+ Buffer: 0&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span>
+<span class="go">&lt;- Buffer: ???&gt;</span>
+</pre></div>
+</div>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.__float__" title="supriya.realtime.Buffer.Buffer.__float__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__float__</span></code></a></td>
+<td>Gets float representation of buffer.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.__int__" title="supriya.realtime.Buffer.Buffer.__int__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__int__</span></code></a></td>
+<td>Gets integer representation of buffer.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.__repr__" title="supriya.realtime.Buffer.Buffer.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></td>
+<td>Gets interpreter representation of buffer.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.allocate" title="supriya.realtime.Buffer.Buffer.allocate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">allocate</span></code></a></td>
+<td>Allocates buffer on <cite>server</cite>.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.allocate_from_file" title="supriya.realtime.Buffer.Buffer.allocate_from_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">allocate_from_file</span></code></a></td>
+<td>Allocates buffer on <cite>server</cite> with contents read from <cite>file_path</cite>.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.buffer_group" title="supriya.realtime.Buffer.Buffer.buffer_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">buffer_group</span></code></a></td>
+<td>Gets buffer group.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.buffer_id" title="supriya.realtime.Buffer.Buffer.buffer_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">buffer_id</span></code></a></td>
+<td>Gets buffer id.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.channel_count" title="supriya.realtime.Buffer.Buffer.channel_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">channel_count</span></code></a></td>
+<td>Gets channel count.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.close" title="supriya.realtime.Buffer.Buffer.close"><code class="xref py py-obj docutils literal notranslate"><span class="pre">close</span></code></a></td>
+<td>Closes buffer, if it was open during a read or write process by the DiskIn or DiskOut UGens.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.copy_from" title="supriya.realtime.Buffer.Buffer.copy_from"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy_from</span></code></a></td>
+<td>Copies data from another buffer into this buffer.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.copy_to" title="supriya.realtime.Buffer.Buffer.copy_to"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy_to</span></code></a></td>
+<td>Copies data in this buffer into another buffer.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.duration_in_seconds" title="supriya.realtime.Buffer.Buffer.duration_in_seconds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">duration_in_seconds</span></code></a></td>
+<td>Gets duration in seconds.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.fill" title="supriya.realtime.Buffer.Buffer.fill"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fill</span></code></a></td>
+<td>Fills contiguous blocks of samples with values.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.fill_via_chebyshev" title="supriya.realtime.Buffer.Buffer.fill_via_chebyshev"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fill_via_chebyshev</span></code></a></td>
+<td>Fills buffer with Chebyshev polynomial.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.fill_via_sine_1" title="supriya.realtime.Buffer.Buffer.fill_via_sine_1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fill_via_sine_1</span></code></a></td>
+<td>Fills buffer with sum of sinusoids via <cite>/b_gen sine1</cite>.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.fill_via_sine_2" title="supriya.realtime.Buffer.Buffer.fill_via_sine_2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fill_via_sine_2</span></code></a></td>
+<td>Fills buffer with sum of sinusoids via <cite>/b_gen sine2</cite>.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.fill_via_sine_3" title="supriya.realtime.Buffer.Buffer.fill_via_sine_3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fill_via_sine_3</span></code></a></td>
+<td>Fills buffer with sum of sinusoids via <cite>/b_gen sine3</cite>.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.frame_count" title="supriya.realtime.Buffer.Buffer.frame_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">frame_count</span></code></a></td>
+<td>Gets frame count.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.free" title="supriya.realtime.Buffer.Buffer.free"><code class="xref py py-obj docutils literal notranslate"><span class="pre">free</span></code></a></td>
+<td>Frees buffer.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.get" title="supriya.realtime.Buffer.Buffer.get"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get</span></code></a></td>
+<td>Gets sample values at <cite>indices</cite>.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.get_contiguous" title="supriya.realtime.Buffer.Buffer.get_contiguous"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_contiguous</span></code></a></td>
+<td>Gets contiguous sample values.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.get_frame" title="supriya.realtime.Buffer.Buffer.get_frame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_frame</span></code></a></td>
+<td>Gets frames at <cite>frame_ids</cite>.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.is_allocated" title="supriya.realtime.Buffer.Buffer.is_allocated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_allocated</span></code></a></td>
+<td>Is true if buffer is allocated.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.normalize" title="supriya.realtime.Buffer.Buffer.normalize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">normalize</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.play" title="supriya.realtime.Buffer.Buffer.play"><code class="xref py py-obj docutils literal notranslate"><span class="pre">play</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.query" title="supriya.realtime.Buffer.Buffer.query"><code class="xref py py-obj docutils literal notranslate"><span class="pre">query</span></code></a></td>
+<td>Queries buffer.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.read" title="supriya.realtime.Buffer.Buffer.read"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read</span></code></a></td>
+<td>Reads contents of <cite>file_path</cite> into buffer.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.sample_count" title="supriya.realtime.Buffer.Buffer.sample_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sample_count</span></code></a></td>
+<td>Gets sample count.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.sample_rate" title="supriya.realtime.Buffer.Buffer.sample_rate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sample_rate</span></code></a></td>
+<td>Gets sample-rate.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.server" title="supriya.realtime.Buffer.Buffer.server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">server</span></code></a></td>
+<td>Gets associated server.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.set" title="supriya.realtime.Buffer.Buffer.set"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set</span></code></a></td>
+<td>Sets samples.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.set_contiguous" title="supriya.realtime.Buffer.Buffer.set_contiguous"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_contiguous</span></code></a></td>
+<td>Sets contiguous blocks of samples.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.write" title="supriya.realtime.Buffer.Buffer.write"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write</span></code></a></td>
+<td>Writes buffer to disk.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.realtime.Buffer.Buffer.zero" title="supriya.realtime.Buffer.Buffer.zero"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zero</span></code></a></td>
+<td>Zero all samples in buffer.</td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<dl class="method">
+<dt id="supriya.realtime.Buffer.Buffer.__float__">
+<code class="descname">__float__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/Buffer.html#Buffer.__float__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.__float__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets float representation of buffer.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span>
+<span class="go">&lt;+ Buffer: 0&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">float</span><span class="p">(</span><span class="n">buffer_one</span><span class="p">)</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span>
+<span class="go">&lt;+ Buffer: 1&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">float</span><span class="p">(</span><span class="n">buffer_two</span><span class="p">)</span>
+<span class="go">1.0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">buffer_one</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">buffer_two</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_three = supriya.realtime.Buffer()
+&gt;&gt;&gt; float(buffer_three)
+Traceback (most recent call last):
+...
+supriya.exceptions.BufferNotAllocated
+</pre></div>
+</div>
+<p>Returns float.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supriya.realtime.Buffer.Buffer.__int__">
+<code class="descname">__int__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/Buffer.html#Buffer.__int__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.__int__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets integer representation of buffer.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span>
+<span class="go">&lt;+ Buffer: 0&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">buffer_one</span><span class="p">)</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span>
+<span class="go">&lt;+ Buffer: 1&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">buffer_two</span><span class="p">)</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">buffer_one</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">buffer_two</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_three = supriya.realtime.Buffer()
+&gt;&gt;&gt; int(buffer_three)
+Traceback (most recent call last):
+...
+supriya.exceptions.BufferNotAllocated
+</pre></div>
+</div>
+<p>Returns integer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supriya.realtime.Buffer.Buffer.__repr__">
+<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/Buffer.html#Buffer.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets interpreter representation of buffer.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">repr</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
+<span class="go">&#39;&lt;- Buffer: ???&gt;&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">repr</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
+<span class="go">&#39;&lt;+ Buffer: 0&gt;&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">repr</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
+<span class="go">&#39;&lt;- Buffer: ???&gt;&#39;</span>
+</pre></div>
+</div>
+<p>Returns string.</p>
+</dd></dl>
+
+<hr/><p class="class-header rubric">Methods</p>
+<dl class="method">
+<dt id="supriya.realtime.Buffer.Buffer.allocate">
+<code class="descname">allocate</code><span class="sig-paren">(</span><em>channel_count=1</em>, <em>frame_count=1</em>, <em>server=None</em>, <em>sync=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/Buffer.html#Buffer.allocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.allocate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allocates buffer on <cite>server</cite>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
+<span class="go">BufferInfoResponse(</span>
+<span class="go">    items=(</span>
+<span class="go">        Item(buffer_id=0, frame_count=1, channel_count=1, sample_rate=44100.0),</span>
+<span class="go">        ),</span>
+<span class="go">    )</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
+<span class="go">BufferInfoResponse(</span>
+<span class="go">    items=(</span>
+<span class="go">        Item(buffer_id=1, frame_count=16, channel_count=1, sample_rate=44100.0),</span>
+<span class="go">        ),</span>
+<span class="go">    )</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_three</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_three</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
+<span class="go">BufferInfoResponse(</span>
+<span class="go">    items=(</span>
+<span class="go">        Item(buffer_id=2, frame_count=32, channel_count=2, sample_rate=44100.0),</span>
+<span class="go">        ),</span>
+<span class="go">    )</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_three.allocate()
+Traceback (most recent call last):
+...
+supriya.exceptions.BufferAlreadyAllocated
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">buffer_one</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">buffer_two</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_three</span> <span class="o">=</span> <span class="n">buffer_three</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Returns buffer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supriya.realtime.Buffer.Buffer.allocate_from_file">
+<code class="descname">allocate_from_file</code><span class="sig-paren">(</span><em>file_path</em>, <em>channel_indices=None</em>, <em>callback=None</em>, <em>frame_count=None</em>, <em>server=None</em>, <em>starting_frame=None</em>, <em>sync=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/Buffer.html#Buffer.allocate_from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.allocate_from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allocates buffer on <cite>server</cite> with contents read from <cite>file_path</cite>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate_from_file</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">Assets</span><span class="p">[</span><span class="s1">&#39;audio/pulse_44100sr_16bit_octo.wav&#39;</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
+<span class="go">BufferInfoResponse(</span>
+<span class="go">    items=(</span>
+<span class="go">        Item(buffer_id=0, frame_count=8, channel_count=8, sample_rate=44100.0),</span>
+<span class="go">        ),</span>
+<span class="go">    )</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate_from_file</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">Assets</span><span class="p">[</span><span class="s1">&#39;audio/pulse_44100sr_16bit_octo.wav&#39;</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="n">channel_indices</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">starting_frame</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
+<span class="go">BufferInfoResponse(</span>
+<span class="go">    items=(</span>
+<span class="go">        Item(buffer_id=1, frame_count=4, channel_count=2, sample_rate=44100.0),</span>
+<span class="go">        ),</span>
+<span class="go">    )</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">buffer_two</span><span class="o">.</span><span class="n">frame_count</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">buffer_two</span><span class="o">.</span><span class="n">get_frame</span><span class="p">(</span><span class="n">frame_id</span><span class="p">)</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="go">OrderedDict([(0, (0.0, 0.0))])</span>
+<span class="go">OrderedDict([(2, (0.0, 0.0))])</span>
+<span class="go">OrderedDict([(4, (0.999969482421875, 0.0))])</span>
+<span class="go">OrderedDict([(6, (0.0, 0.999969482421875))])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_two.allocate()
+Traceback (most recent call last):
+...
+supriya.exceptions.BufferAlreadyAllocated
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">buffer_one</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">buffer_two</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Returns buffer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supriya.realtime.Buffer.Buffer.close">
+<code class="descname">close</code><span class="sig-paren">(</span><em>sync=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/Buffer.html#Buffer.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes buffer, if it was open during a read or write process by
+the DiskIn or DiskOut UGens.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">channel_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">read</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">Assets</span><span class="p">[</span><span class="s1">&#39;audio/pulse_44100sr_16bit_octo.wav&#39;</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="n">leave_open</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.close()
+Traceback (most recent call last):
+...
+supriya.exceptions.BufferNotAllocated
+</pre></div>
+</div>
+<p>Returns none.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supriya.realtime.Buffer.Buffer.copy_from">
+<code class="descname">copy_from</code><span class="sig-paren">(</span><em>frame_count=None</em>, <em>source_buffer_id=None</em>, <em>source_starting_frame=None</em>, <em>target_starting_frame=None</em>, <em>sync=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/Buffer.html#Buffer.copy_from"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.copy_from" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copies data from another buffer into this buffer.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">fill</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span><span class="o">.</span><span class="n">copy_from</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">source_buffer_id</span><span class="o">=</span><span class="n">buffer_one</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">target_starting_frame</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)])</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
+<span class="go">OrderedDict([(0, (0.0, 0.5, 0.5, 0.0))])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">buffer_one</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">buffer_two</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_one.copy_from(source_buffer_id=666)
+Traceback (most recent call last):
+...
+supriya.exceptions.BufferNotAllocated
+</pre></div>
+</div>
+<p>Returns none.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supriya.realtime.Buffer.Buffer.copy_to">
+<code class="descname">copy_to</code><span class="sig-paren">(</span><em>frame_count=None</em>, <em>source_starting_frame=None</em>, <em>target_buffer_id=None</em>, <em>target_starting_frame=None</em>, <em>sync=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/Buffer.html#Buffer.copy_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.copy_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copies data in this buffer into another buffer.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">fill</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">copy_to</span><span class="p">(</span><span class="n">target_buffer_id</span><span class="o">=</span><span class="n">buffer_two</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)])</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
+<span class="go">OrderedDict([(0, (0.5, 0.5, 0.5, 0.5))])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">buffer_one</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">buffer_two</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_one.copy_to(target_buffer_id=666)
+Traceback (most recent call last):
+...
+supriya.exceptions.BufferNotAllocated
+</pre></div>
+</div>
+<p>Returns none.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supriya.realtime.Buffer.Buffer.fill">
+<code class="descname">fill</code><span class="sig-paren">(</span><em>index_count_value_triples=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/Buffer.html#Buffer.fill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.fill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fills contiguous blocks of samples with values.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)])</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
+<span class="go">OrderedDict([(0, (0.5, 0.5, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0))])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.fill()
+Traceback (most recent call last):
+...
+supriya.exceptions.BufferNotAllocated
+</pre></div>
+</div>
+<p>Returns none.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supriya.realtime.Buffer.Buffer.fill_via_chebyshev">
+<code class="descname">fill_via_chebyshev</code><span class="sig-paren">(</span><em>amplitudes</em>, <em>as_wavetable=True</em>, <em>should_normalize=True</em>, <em>should_clear_first=True</em>, <em>sync=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/Buffer.html#Buffer.fill_via_chebyshev"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.fill_via_chebyshev" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fills buffer with Chebyshev polynomial.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_chebyshev</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">amplitudes</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">as_wavetable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)])</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()[</span><span class="mi">0</span><span class="p">]:</span>
+<span class="gp">... </span>    <span class="n">x</span>
+<span class="gp">...</span>
+<span class="go">-0.2133333384990692</span>
+<span class="go">-0.03999999910593033</span>
+<span class="go">4.7369516864363795e-17</span>
+<span class="go">-0.013333333656191826</span>
+<span class="go">0.0</span>
+<span class="go">0.12000000476837158</span>
+<span class="go">0.4266666769981384</span>
+<span class="go">1.0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.fill_via_chebyshev(amplitudes=(1, 0.5, 0.25))
+Traceback (most recent call last):
+...
+supriya.exceptions.BufferNotAllocated
+</pre></div>
+</div>
+<p>Returns none.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supriya.realtime.Buffer.Buffer.fill_via_sine_1">
+<code class="descname">fill_via_sine_1</code><span class="sig-paren">(</span><em>amplitudes=None</em>, <em>as_wavetable=True</em>, <em>should_clear_first=True</em>, <em>should_normalize=True</em>, <em>sync=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/Buffer.html#Buffer.fill_via_sine_1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.fill_via_sine_1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fills buffer with sum of sinusoids via <cite>/b_gen sine1</cite>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_sine_1</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">amplitudes</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">as_wavetable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)])</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()[</span><span class="mi">0</span><span class="p">]:</span>
+<span class="gp">... </span>    <span class="n">x</span>
+<span class="gp">...</span>
+<span class="go">0.0</span>
+<span class="go">1.0</span>
+<span class="go">0.0</span>
+<span class="go">0.17157284915447235</span>
+<span class="go">1.014530602374735e-16</span>
+<span class="go">-0.17157284915447235</span>
+<span class="go">0.0</span>
+<span class="go">-1.0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.fill_via_sine_1(amplitudes=(1, 1, 1))
+Traceback (most recent call last):
+...
+supriya.exceptions.BufferNotAllocated
+</pre></div>
+</div>
+<p>Returns none.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supriya.realtime.Buffer.Buffer.fill_via_sine_2">
+<code class="descname">fill_via_sine_2</code><span class="sig-paren">(</span><em>amplitudes</em>, <em>frequencies</em>, <em>as_wavetable=True</em>, <em>should_clear_first=True</em>, <em>should_normalize=True</em>, <em>sync=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/Buffer.html#Buffer.fill_via_sine_2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.fill_via_sine_2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fills buffer with sum of sinusoids via <cite>/b_gen sine2</cite>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_sine_2</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">amplitudes</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">as_wavetable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">frequencies</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)])</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()[</span><span class="mi">0</span><span class="p">]:</span>
+<span class="gp">... </span>    <span class="n">x</span>
+<span class="gp">...</span>
+<span class="go">0.0</span>
+<span class="go">0.46657732129096985</span>
+<span class="go">0.8170253038406372</span>
+<span class="go">0.9893794655799866</span>
+<span class="go">1.0</span>
+<span class="go">0.9250487685203552</span>
+<span class="go">0.8511532545089722</span>
+<span class="go">0.8245751261711121</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.fill_via_sine_2(
+...     amplitudes=(1, 0.5, 0.25),
+...     frequencies=(1, 2, 4),
+...     )
+Traceback (most recent call last):
+...
+supriya.exceptions.BufferNotAllocated
+</pre></div>
+</div>
+<p>Returns none.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supriya.realtime.Buffer.Buffer.fill_via_sine_3">
+<code class="descname">fill_via_sine_3</code><span class="sig-paren">(</span><em>amplitudes</em>, <em>frequencies</em>, <em>phases</em>, <em>as_wavetable=True</em>, <em>should_clear_first=True</em>, <em>should_normalize=True</em>, <em>sync=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/Buffer.html#Buffer.fill_via_sine_3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.fill_via_sine_3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fills buffer with sum of sinusoids via <cite>/b_gen sine3</cite>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">fill_via_sine_3</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">amplitudes</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">as_wavetable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">frequencies</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">phases</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)])</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()[</span><span class="mi">0</span><span class="p">]:</span>
+<span class="gp">... </span>    <span class="n">x</span>
+<span class="gp">...</span>
+<span class="go">0.21980325877666473</span>
+<span class="go">0.6533028483390808</span>
+<span class="go">0.9323374032974243</span>
+<span class="go">1.0</span>
+<span class="go">0.8886302709579468</span>
+<span class="go">0.6973193287849426</span>
+<span class="go">0.5352014899253845</span>
+<span class="go">0.46329957246780396</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.fill_via_sine_3(
+...     amplitudes=(1, 0.5, 0.25),
+...     frequencies=(1, 2, 3),
+...     phases=(0, 0.5, 0),
+...     )
+Traceback (most recent call last):
+...
+supriya.exceptions.BufferNotAllocated
+</pre></div>
+</div>
+<p>Returns none.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supriya.realtime.Buffer.Buffer.free">
+<code class="descname">free</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; supriya.realtime.Buffer.Buffer<a class="reference internal" href="../../../_modules/supriya/realtime/Buffer.html#Buffer.free"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.free" title="Permalink to this definition">¶</a></dt>
+<dd><p>Frees buffer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supriya.realtime.Buffer.Buffer.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>indices=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/Buffer.html#Buffer.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets sample values at <cite>indices</cite>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">response</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">indices</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">response</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
+<span class="go">OrderedDict([(1, 0.0), (2, 0.0)])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.get()
+Traceback (most recent call last):
+...
+supriya.exceptions.BufferNotAllocated
+</pre></div>
+</div>
+<p>Returns buffer-set response.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supriya.realtime.Buffer.Buffer.get_contiguous">
+<code class="descname">get_contiguous</code><span class="sig-paren">(</span><em>index_count_pairs=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/Buffer.html#Buffer.get_contiguous"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.get_contiguous" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets contiguous sample values.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">response</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">index_count_pairs</span><span class="o">=</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">response</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
+<span class="go">OrderedDict([(0, (0.0, 0.0)), (1, (0.0, 0.0, 0.0))])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.get_contiguous()
+Traceback (most recent call last):
+...
+supriya.exceptions.BufferNotAllocated
+</pre></div>
+</div>
+<p>Returns buffer-set-contiguous response.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supriya.realtime.Buffer.Buffer.get_frame">
+<code class="descname">get_frame</code><span class="sig-paren">(</span><em>frame_ids=None</em>, <em>completion_callback=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/Buffer.html#Buffer.get_frame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.get_frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets frames at <cite>frame_ids</cite>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate_from_file</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">Assets</span><span class="p">[</span><span class="s1">&#39;audio/pulse_44100sr_16bit_octo.wav&#39;</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">buffer_</span><span class="o">.</span><span class="n">frame_count</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">buffer_</span><span class="o">.</span><span class="n">get_frame</span><span class="p">(</span><span class="n">frame_id</span><span class="p">)</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="go">OrderedDict([(0, (0.999969482421875, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0))])</span>
+<span class="go">OrderedDict([(8, (0.0, 0.999969482421875, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0))])</span>
+<span class="go">OrderedDict([(16, (0.0, 0.0, 0.999969482421875, 0.0, 0.0, 0.0, 0.0, 0.0))])</span>
+<span class="go">OrderedDict([(24, (0.0, 0.0, 0.0, 0.999969482421875, 0.0, 0.0, 0.0, 0.0))])</span>
+<span class="go">OrderedDict([(32, (0.0, 0.0, 0.0, 0.0, 0.999969482421875, 0.0, 0.0, 0.0))])</span>
+<span class="go">OrderedDict([(40, (0.0, 0.0, 0.0, 0.0, 0.0, 0.999969482421875, 0.0, 0.0))])</span>
+<span class="go">OrderedDict([(48, (0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.999969482421875, 0.0))])</span>
+<span class="go">OrderedDict([(56, (0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.999969482421875))])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.get_frame()
+Traceback (most recent call last):
+...
+supriya.exceptions.BufferNotAllocated
+</pre></div>
+</div>
+<p>Returns buffer-set-contiguous response.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supriya.realtime.Buffer.Buffer.normalize">
+<code class="descname">normalize</code><span class="sig-paren">(</span><em>as_wavetable=None</em>, <em>new_maximum=1.0</em>, <em>sync=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/Buffer.html#Buffer.normalize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.normalize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supriya.realtime.Buffer.Buffer.play">
+<code class="descname">play</code><span class="sig-paren">(</span><em>add_action=None</em>, <em>bus=0</em>, <em>level=1</em>, <em>loop=False</em>, <em>rate=1</em>, <em>target_node=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/Buffer.html#Buffer.play"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.play" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supriya.realtime.Buffer.Buffer.query">
+<code class="descname">query</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/Buffer.html#Buffer.query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Queries buffer.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">query</span><span class="p">()</span>
+<span class="go">BufferInfoResponse(</span>
+<span class="go">    items=(</span>
+<span class="go">        Item(buffer_id=0, frame_count=16, channel_count=2, sample_rate=44100.0),</span>
+<span class="go">        ),</span>
+<span class="go">    )</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.query()
+Traceback (most recent call last):
+...
+supriya.exceptions.BufferNotAllocated
+</pre></div>
+</div>
+<p>Returns buffer-info response.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supriya.realtime.Buffer.Buffer.read">
+<code class="descname">read</code><span class="sig-paren">(</span><em>file_path</em>, <em>channel_indices=None</em>, <em>callback=None</em>, <em>frame_count=None</em>, <em>leave_open=None</em>, <em>starting_frame_in_buffer=None</em>, <em>starting_frame_in_file=None</em>, <em>sync=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/Buffer.html#Buffer.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads contents of <cite>file_path</cite> into buffer.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">buffer_</span><span class="o">.</span><span class="n">frame_count</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">buffer_</span><span class="o">.</span><span class="n">get_frame</span><span class="p">(</span><span class="n">frame_id</span><span class="p">)</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="go">OrderedDict([(0, (0.0, 0.0))])</span>
+<span class="go">OrderedDict([(2, (0.0, 0.0))])</span>
+<span class="go">OrderedDict([(4, (0.0, 0.0))])</span>
+<span class="go">OrderedDict([(6, (0.0, 0.0))])</span>
+<span class="go">OrderedDict([(8, (0.0, 0.0))])</span>
+<span class="go">OrderedDict([(10, (0.0, 0.0))])</span>
+<span class="go">OrderedDict([(12, (0.0, 0.0))])</span>
+<span class="go">OrderedDict([(14, (0.0, 0.0))])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">file_path</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">Assets</span><span class="p">[</span><span class="s1">&#39;audio/pulse_44100sr_16bit_octo.wav&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">channel_indices</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">frame_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">buffer_</span><span class="o">.</span><span class="n">frame_count</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">buffer_</span><span class="o">.</span><span class="n">get_frame</span><span class="p">(</span><span class="n">frame_id</span><span class="p">)</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="go">OrderedDict([(0, (0.999969482421875, 0.0))])</span>
+<span class="go">OrderedDict([(2, (0.0, 0.999969482421875))])</span>
+<span class="go">OrderedDict([(4, (0.0, 0.0))])</span>
+<span class="go">OrderedDict([(6, (0.0, 0.0))])</span>
+<span class="go">OrderedDict([(8, (0.0, 0.0))])</span>
+<span class="go">OrderedDict([(10, (0.0, 0.0))])</span>
+<span class="go">OrderedDict([(12, (0.0, 0.0))])</span>
+<span class="go">OrderedDict([(14, (0.0, 0.0))])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.read(file_path)
+Traceback (most recent call last):
+...
+supriya.exceptions.BufferNotAllocated
+</pre></div>
+</div>
+<p>Returns none.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supriya.realtime.Buffer.Buffer.set">
+<code class="descname">set</code><span class="sig-paren">(</span><em>index_value_pairs=None</em>, <em>sync=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/Buffer.html#Buffer.set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets samples.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">set</span><span class="p">([</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)])</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">(0.25, 0.5, 0.0, 0.0, 0.75, 1.0, 0.0, 0.0)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.set()
+Traceback (most recent call last):
+...
+supriya.exceptions.BufferNotAllocated
+</pre></div>
+</div>
+<p>Returns none.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supriya.realtime.Buffer.Buffer.set_contiguous">
+<code class="descname">set_contiguous</code><span class="sig-paren">(</span><em>index_values_pairs=None</em>, <em>sync=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/Buffer.html#Buffer.set_contiguous"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.set_contiguous" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets contiguous blocks of samples.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">set_contiguous</span><span class="p">([</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]),</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]),</span>
+<span class="gp">... </span>    <span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)])</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">(0.0, 1.0, 2.0, 3.0, -3.0, 2.0, -1.0, 0.0)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.set_contiguous()
+Traceback (most recent call last):
+...
+supriya.exceptions.BufferNotAllocated
+</pre></div>
+</div>
+<p>Returns none.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supriya.realtime.Buffer.Buffer.write">
+<code class="descname">write</code><span class="sig-paren">(</span><em>file_path</em>, <em>callback=None</em>, <em>frame_count=None</em>, <em>header_format='aiff'</em>, <em>leave_open=False</em>, <em>sample_format='int24'</em>, <em>starting_frame=None</em>, <em>sync=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/Buffer.html#Buffer.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes buffer to disk.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate_from_file</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">Assets</span><span class="p">[</span><span class="s1">&#39;audio/pulse_44100sr_16bit_octo.wav&#39;</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="n">channel_indices</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,),</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)])</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">(0.999969482421875, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;temp.wav&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">file_path</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">header_format</span><span class="o">=</span><span class="s1">&#39;wav&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate_from_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)])</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">(0.999969482421875, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">buffer_one</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">buffer_two</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_one.write(file_path=file_path)
+Traceback (most recent call last):
+...
+supriya.exceptions.BufferNotAllocated
+</pre></div>
+</div>
+<p>Returns none.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supriya.realtime.Buffer.Buffer.zero">
+<code class="descname">zero</code><span class="sig-paren">(</span><em>callback=None</em>, <em>sync=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/Buffer.html#Buffer.zero"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.zero" title="Permalink to this definition">¶</a></dt>
+<dd><p>Zero all samples in buffer.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">set_contiguous</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">index_values_pairs</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">))],</span>
+<span class="gp">... </span>    <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)])</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
+<span class="go">OrderedDict([(0, (1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0))])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">get_contiguous</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">)])</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span>
+<span class="go">OrderedDict([(0, (0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0))])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; buffer_.zero()
+Traceback (most recent call last):
+...
+supriya.exceptions.BufferNotAllocated
+</pre></div>
+</div>
+<p>Returns none.</p>
+</dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<dl class="attribute">
+<dt id="supriya.realtime.Buffer.Buffer.buffer_group">
+<code class="descname">buffer_group</code><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.buffer_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets buffer group.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">buffer_group</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">BufferGroup</span><span class="p">(</span><span class="n">buffer_count</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_group</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="go">&lt;+ BufferGroup{1}: 1&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">buffer_group</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span><span class="o">.</span><span class="n">buffer_group</span> <span class="ow">is</span> <span class="n">buffer_group</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">buffer_one</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">buffer_group</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_group</span> <span class="o">=</span> <span class="n">buffer_group</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span><span class="o">.</span><span class="n">buffer_group</span> <span class="ow">is</span> <span class="n">buffer_group</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Returns BufferGroup or none.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.realtime.Buffer.Buffer.buffer_id">
+<code class="descname">buffer_id</code><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.buffer_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets buffer id.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">buffer_id</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">BufferGroup</span><span class="p">(</span><span class="n">buffer_count</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">buffer_</span> <span class="ow">in</span> <span class="n">buffer_group</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">buffer_</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">None</span>
+<span class="go">None</span>
+<span class="go">None</span>
+<span class="go">None</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">buffer_one</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">buffer_id</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_group</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="go">&lt;+ BufferGroup{4}: 1&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">buffer_</span> <span class="ow">in</span>  <span class="n">buffer_group</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">buffer_</span><span class="o">.</span><span class="n">buffer_id</span>
+<span class="gp">...</span>
+<span class="go">1</span>
+<span class="go">2</span>
+<span class="go">3</span>
+<span class="go">4</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">buffer_one</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">buffer_id</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_group</span> <span class="o">=</span> <span class="n">buffer_group</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">buffer_</span> <span class="ow">in</span> <span class="n">buffer_group</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">buffer_</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">None</span>
+<span class="go">None</span>
+<span class="go">None</span>
+<span class="go">None</span>
+</pre></div>
+</div>
+<p>Returns integer or none.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.realtime.Buffer.Buffer.channel_count">
+<code class="descname">channel_count</code><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.channel_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets channel count.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">channel_count</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">channel_count</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span><span class="o">.</span><span class="n">channel_count</span>
+<span class="go">4</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">buffer_one</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">buffer_two</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Returns integer.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.realtime.Buffer.Buffer.duration_in_seconds">
+<code class="descname">duration_in_seconds</code><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.duration_in_seconds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets duration in seconds.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">duration_in_seconds</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">44100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">duration_in_seconds</span>
+<span class="go">1.0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">duration_in_seconds</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+<p>Returns float.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.realtime.Buffer.Buffer.frame_count">
+<code class="descname">frame_count</code><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.frame_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets frame count.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">frame_count</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">frame_count</span>
+<span class="go">512</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">frame_count</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+<p>Returns integer.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.realtime.Buffer.Buffer.is_allocated">
+<code class="descname">is_allocated</code><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.is_allocated" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is true if buffer is allocated. Otherwise false.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">is_allocated</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">is_allocated</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">is_allocated</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>Returns boolean</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.realtime.Buffer.Buffer.sample_count">
+<code class="descname">sample_count</code><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.sample_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets sample count.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_three</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">channel_count</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">frame_count</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">sample_count</span>
+<span class="go">16</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span><span class="o">.</span><span class="n">sample_count</span>
+<span class="go">32</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_three</span><span class="o">.</span><span class="n">sample_count</span>
+<span class="go">128</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span> <span class="o">=</span> <span class="n">buffer_one</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span> <span class="o">=</span> <span class="n">buffer_two</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_three</span> <span class="o">=</span> <span class="n">buffer_three</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_one</span><span class="o">.</span><span class="n">sample_count</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_two</span><span class="o">.</span><span class="n">sample_count</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_three</span><span class="o">.</span><span class="n">sample_count</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+<p>Returns integer.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.realtime.Buffer.Buffer.sample_rate">
+<code class="descname">sample_rate</code><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.sample_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets sample-rate.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">sample_rate</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">sample_rate</span>
+<span class="go">44100.0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">sample_rate</span>
+<span class="go">0</span>
+</pre></div>
+</div>
+<p>Returns float.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.realtime.Buffer.Buffer.server">
+<code class="descname">server</code><a class="headerlink" href="#supriya.realtime.Buffer.Buffer.server" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets associated server.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">server</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">frame_count</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">server</span> <span class="ow">is</span> <span class="n">server</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span> <span class="o">=</span> <span class="n">buffer_</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">buffer_</span><span class="o">.</span><span class="n">server</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Returns server or none.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="BufferGroup.html" class="btn btn-neutral float-right" title="BufferGroup" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ServerObjectProxy.html" class="btn btn-neutral" title="ServerObjectProxy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,1160 @@
+.. _supriya--ugens:
+
+ugens
+=====
+
+.. automodule:: supriya.ugens
+
+.. currentmodule:: supriya.ugens
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Abstract Classes
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   PseudoUGen
+   PureMultiOutUGen
+
+.. autosummary::
+   :nosignatures:
+
+   ~PseudoUGen.PseudoUGen
+   ~PureMultiOutUGen.PureMultiOutUGen
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Ambisonics UGens
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   DecodeB2
+
+.. autosummary::
+   :nosignatures:
+
+   ~DecodeB2.DecodeB2
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Analysis UGens
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   ZeroCrossing
+
+.. autosummary::
+   :nosignatures:
+
+   ~ZeroCrossing.ZeroCrossing
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Basic Operator UGens
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   BinaryOpUGen
+   MulAdd
+   Sum3
+   Sum4
+   UnaryOpUGen
+
+.. autosummary::
+   :nosignatures:
+
+   ~BinaryOpUGen.BinaryOpUGen
+   ~MulAdd.MulAdd
+   ~Sum3.Sum3
+   ~Sum4.Sum4
+   ~UnaryOpUGen.UnaryOpUGen
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Buffer UGens
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   BufChannels
+   BufDur
+   BufFrames
+   BufInfoUGenBase
+   BufRateScale
+   BufRd
+   BufSampleRate
+   BufSamples
+   BufWr
+   ClearBuf
+   LocalBuf
+   MaxLocalBufs
+   PlayBuf
+   RecordBuf
+
+.. autosummary::
+   :nosignatures:
+
+   ~BufChannels.BufChannels
+   ~BufDur.BufDur
+   ~BufFrames.BufFrames
+   ~BufInfoUGenBase.BufInfoUGenBase
+   ~BufRateScale.BufRateScale
+   ~BufRd.BufRd
+   ~BufSampleRate.BufSampleRate
+   ~BufSamples.BufSamples
+   ~BufWr.BufWr
+   ~ClearBuf.ClearBuf
+   ~LocalBuf.LocalBuf
+   ~MaxLocalBufs.MaxLocalBufs
+   ~PlayBuf.PlayBuf
+   ~RecordBuf.RecordBuf
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Chaos UGens
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   CuspL
+   CuspN
+   FBSineC
+   FBSineL
+   FBSineN
+   GbmanL
+   GbmanN
+   HenonC
+   HenonL
+   HenonN
+   LatoocarfianC
+   LatoocarfianL
+   LatoocarfianN
+   LinCongC
+   LinCongL
+   LinCongN
+   LorenzL
+   QuadC
+   QuadL
+   QuadN
+   StandardL
+   StandardN
+
+.. autosummary::
+   :nosignatures:
+
+   ~CuspL.CuspL
+   ~CuspN.CuspN
+   ~FBSineC.FBSineC
+   ~FBSineL.FBSineL
+   ~FBSineN.FBSineN
+   ~GbmanL.GbmanL
+   ~GbmanN.GbmanN
+   ~HenonC.HenonC
+   ~HenonL.HenonL
+   ~HenonN.HenonN
+   ~LatoocarfianC.LatoocarfianC
+   ~LatoocarfianL.LatoocarfianL
+   ~LatoocarfianN.LatoocarfianN
+   ~LinCongC.LinCongC
+   ~LinCongL.LinCongL
+   ~LinCongN.LinCongN
+   ~LorenzL.LorenzL
+   ~QuadC.QuadC
+   ~QuadL.QuadL
+   ~QuadN.QuadN
+   ~StandardL.StandardL
+   ~StandardN.StandardN
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   Convolution2
+   Convolution2L
+   Convolution3
+   DiskIn
+   Duty
+   FSinOsc
+   FreqShift
+   GrainBuf
+   GrainIn
+   Pulse
+   SyncSaw
+   UGenMeta
+   VDiskIn
+   VOsc
+   VOsc3
+   Vibrato
+   Warp1
+   XFade2
+
+.. autosummary::
+   :nosignatures:
+
+   ~Convolution2.Convolution2
+   ~Convolution2L.Convolution2L
+   ~Convolution3.Convolution3
+   ~DiskIn.DiskIn
+   ~Duty.Duty
+   ~FSinOsc.FSinOsc
+   ~FreqShift.FreqShift
+   ~GrainBuf.GrainBuf
+   ~GrainIn.GrainIn
+   ~Pulse.Pulse
+   ~SyncSaw.SyncSaw
+   ~UGenMeta.UGenMeta
+   ~VDiskIn.VDiskIn
+   ~VOsc.VOsc
+   ~VOsc3.VOsc3
+   ~Vibrato.Vibrato
+   ~Warp1.Warp1
+   ~XFade2.XFade2
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Delay UGens
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   AllpassC
+   AllpassL
+   AllpassN
+   BufAllpassC
+   BufAllpassL
+   BufAllpassN
+   BufCombC
+   BufCombL
+   BufCombN
+   BufDelayC
+   BufDelayL
+   BufDelayN
+   CombC
+   CombL
+   CombN
+   DelTapRd
+   DelTapWr
+   Delay1
+   Delay2
+   DelayC
+   DelayL
+   DelayN
+   Pluck
+
+.. autosummary::
+   :nosignatures:
+
+   ~AllpassC.AllpassC
+   ~AllpassL.AllpassL
+   ~AllpassN.AllpassN
+   ~BufAllpassC.BufAllpassC
+   ~BufAllpassL.BufAllpassL
+   ~BufAllpassN.BufAllpassN
+   ~BufCombC.BufCombC
+   ~BufCombL.BufCombL
+   ~BufCombN.BufCombN
+   ~BufDelayC.BufDelayC
+   ~BufDelayL.BufDelayL
+   ~BufDelayN.BufDelayN
+   ~CombC.CombC
+   ~CombL.CombL
+   ~CombN.CombN
+   ~DelTapRd.DelTapRd
+   ~DelTapWr.DelTapWr
+   ~Delay1.Delay1
+   ~Delay2.Delay2
+   ~DelayC.DelayC
+   ~DelayL.DelayL
+   ~DelayN.DelayN
+   ~Pluck.Pluck
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Demand UGens
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   DUGen
+   Dbrown
+   Dbufrd
+   Dbufwr
+   Demand
+   Dgeom
+   Dibrown
+   Diwhite
+   Drand
+   Dreset
+   Dseq
+   Dser
+   Dseries
+   Dshuf
+   Dstutter
+   Dswitch
+   Dswitch1
+   Dunique
+   Dwhite
+   Dwrand
+   Dxrand
+
+.. autosummary::
+   :nosignatures:
+
+   ~DUGen.DUGen
+   ~Dbrown.Dbrown
+   ~Dbufrd.Dbufrd
+   ~Dbufwr.Dbufwr
+   ~Demand.Demand
+   ~Dgeom.Dgeom
+   ~Dibrown.Dibrown
+   ~Diwhite.Diwhite
+   ~Drand.Drand
+   ~Dreset.Dreset
+   ~Dseq.Dseq
+   ~Dser.Dser
+   ~Dseries.Dseries
+   ~Dshuf.Dshuf
+   ~Dstutter.Dstutter
+   ~Dswitch.Dswitch
+   ~Dswitch1.Dswitch1
+   ~Dunique.Dunique
+   ~Dwhite.Dwhite
+   ~Dwrand.Dwrand
+   ~Dxrand.Dxrand
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Disk I/O UGens
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   DiskOut
+
+.. autosummary::
+   :nosignatures:
+
+   ~DiskOut.DiskOut
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Dynamics UGens
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   Amplitude
+   Compander
+   CompanderD
+   Limiter
+   Normalizer
+
+.. autosummary::
+   :nosignatures:
+
+   ~Amplitude.Amplitude
+   ~Compander.Compander
+   ~CompanderD.CompanderD
+   ~Limiter.Limiter
+   ~Normalizer.Normalizer
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Envelope Utility UGens
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   DetectSilence
+   Done
+   EnvGen
+   Free
+   FreeSelf
+   FreeSelfWhenDone
+   Linen
+   Pause
+   PauseSelf
+   PauseSelfWhenDone
+
+.. autosummary::
+   :nosignatures:
+
+   ~DetectSilence.DetectSilence
+   ~Done.Done
+   ~EnvGen.EnvGen
+   ~Free.Free
+   ~FreeSelf.FreeSelf
+   ~FreeSelfWhenDone.FreeSelfWhenDone
+   ~Linen.Linen
+   ~Pause.Pause
+   ~PauseSelf.PauseSelf
+   ~PauseSelfWhenDone.PauseSelfWhenDone
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: FFT UGens
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   Convolution
+   FFT
+   IFFT
+   PV_Add
+   PV_BinScramble
+   PV_BinShift
+   PV_BinWipe
+   PV_BrickWall
+   PV_ChainUGen
+   PV_ConformalMap
+   PV_Conj
+   PV_Copy
+   PV_CopyPhase
+   PV_Diffuser
+   PV_Div
+   PV_HainsworthFoote
+   PV_JensenAndersen
+   PV_LocalMax
+   PV_MagAbove
+   PV_MagBelow
+   PV_MagClip
+   PV_MagDiv
+   PV_MagFreeze
+   PV_MagMul
+   PV_MagNoise
+   PV_MagShift
+   PV_MagSmear
+   PV_MagSquared
+   PV_Max
+   PV_Min
+   PV_Mul
+   PV_PhaseShift
+   PV_PhaseShift270
+   PV_PhaseShift90
+   PV_RandComb
+   PV_RandWipe
+   PV_RectComb
+   PV_RectComb2
+
+.. autosummary::
+   :nosignatures:
+
+   ~Convolution.Convolution
+   ~FFT.FFT
+   ~IFFT.IFFT
+   ~PV_Add.PV_Add
+   ~PV_BinScramble.PV_BinScramble
+   ~PV_BinShift.PV_BinShift
+   ~PV_BinWipe.PV_BinWipe
+   ~PV_BrickWall.PV_BrickWall
+   ~PV_ChainUGen.PV_ChainUGen
+   ~PV_ConformalMap.PV_ConformalMap
+   ~PV_Conj.PV_Conj
+   ~PV_Copy.PV_Copy
+   ~PV_CopyPhase.PV_CopyPhase
+   ~PV_Diffuser.PV_Diffuser
+   ~PV_Div.PV_Div
+   ~PV_HainsworthFoote.PV_HainsworthFoote
+   ~PV_JensenAndersen.PV_JensenAndersen
+   ~PV_LocalMax.PV_LocalMax
+   ~PV_MagAbove.PV_MagAbove
+   ~PV_MagBelow.PV_MagBelow
+   ~PV_MagClip.PV_MagClip
+   ~PV_MagDiv.PV_MagDiv
+   ~PV_MagFreeze.PV_MagFreeze
+   ~PV_MagMul.PV_MagMul
+   ~PV_MagNoise.PV_MagNoise
+   ~PV_MagShift.PV_MagShift
+   ~PV_MagSmear.PV_MagSmear
+   ~PV_MagSquared.PV_MagSquared
+   ~PV_Max.PV_Max
+   ~PV_Min.PV_Min
+   ~PV_Mul.PV_Mul
+   ~PV_PhaseShift.PV_PhaseShift
+   ~PV_PhaseShift270.PV_PhaseShift270
+   ~PV_PhaseShift90.PV_PhaseShift90
+   ~PV_RandComb.PV_RandComb
+   ~PV_RandWipe.PV_RandWipe
+   ~PV_RectComb.PV_RectComb
+   ~PV_RectComb2.PV_RectComb2
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Filter UGens
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   APF
+   BAllPass
+   BBandPass
+   BBandStop
+   BEQSuite
+   BHiCut
+   BHiPass
+   BHiShelf
+   BLowCut
+   BLowPass
+   BLowShelf
+   BPF
+   BPZ2
+   BPeakEQ
+   BRF
+   BRZ2
+   Changed
+   Decay
+   Decay2
+   FOS
+   Filter
+   Formlet
+   HPF
+   HPZ1
+   HPZ2
+   Integrator
+   Klank
+   LPF
+   LPZ1
+   LPZ2
+   Lag
+   Lag2
+   Lag2UD
+   Lag3
+   Lag3UD
+   LagUD
+   LeakDC
+   Median
+   MidEQ
+   MoogFF
+   OnePole
+   OneZero
+   RHPF
+   RLPF
+   Ramp
+   Ringz
+   SOS
+   Slew
+   Slope
+   TwoPole
+   TwoZero
+
+.. autosummary::
+   :nosignatures:
+
+   ~APF.APF
+   ~BAllPass.BAllPass
+   ~BBandPass.BBandPass
+   ~BBandStop.BBandStop
+   ~BEQSuite.BEQSuite
+   ~BHiCut.BHiCut
+   ~BHiPass.BHiPass
+   ~BHiShelf.BHiShelf
+   ~BLowCut.BLowCut
+   ~BLowPass.BLowPass
+   ~BLowShelf.BLowShelf
+   ~BPF.BPF
+   ~BPZ2.BPZ2
+   ~BPeakEQ.BPeakEQ
+   ~BRF.BRF
+   ~BRZ2.BRZ2
+   ~Changed.Changed
+   ~Decay.Decay
+   ~Decay2.Decay2
+   ~FOS.FOS
+   ~Filter.Filter
+   ~Formlet.Formlet
+   ~HPF.HPF
+   ~HPZ1.HPZ1
+   ~HPZ2.HPZ2
+   ~Integrator.Integrator
+   ~Klank.Klank
+   ~LPF.LPF
+   ~LPZ1.LPZ1
+   ~LPZ2.LPZ2
+   ~Lag.Lag
+   ~Lag2.Lag2
+   ~Lag2UD.Lag2UD
+   ~Lag3.Lag3
+   ~Lag3UD.Lag3UD
+   ~LagUD.LagUD
+   ~LeakDC.LeakDC
+   ~Median.Median
+   ~MidEQ.MidEQ
+   ~MoogFF.MoogFF
+   ~OnePole.OnePole
+   ~OneZero.OneZero
+   ~RHPF.RHPF
+   ~RLPF.RLPF
+   ~Ramp.Ramp
+   ~Ringz.Ringz
+   ~SOS.SOS
+   ~Slew.Slew
+   ~Slope.Slope
+   ~TwoPole.TwoPole
+   ~TwoZero.TwoZero
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Info UGens
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   BlockSize
+   ControlDur
+   ControlRate
+   InfoUGenBase
+   NumAudioBuses
+   NumBuffers
+   NumControlBuses
+   NumInputBuses
+   NumOutputBuses
+   NumRunningSynths
+   RadiansPerSample
+   SampleDur
+   SampleRate
+   SubsampleOffset
+
+.. autosummary::
+   :nosignatures:
+
+   ~BlockSize.BlockSize
+   ~ControlDur.ControlDur
+   ~ControlRate.ControlRate
+   ~InfoUGenBase.InfoUGenBase
+   ~NumAudioBuses.NumAudioBuses
+   ~NumBuffers.NumBuffers
+   ~NumControlBuses.NumControlBuses
+   ~NumInputBuses.NumInputBuses
+   ~NumOutputBuses.NumOutputBuses
+   ~NumRunningSynths.NumRunningSynths
+   ~RadiansPerSample.RadiansPerSample
+   ~SampleDur.SampleDur
+   ~SampleRate.SampleRate
+   ~SubsampleOffset.SubsampleOffset
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Input/Output UGens
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   In
+   InFeedback
+   LocalIn
+   LocalOut
+   OffsetOut
+   Out
+   ReplaceOut
+   SoundIn
+   XOut
+
+.. autosummary::
+   :nosignatures:
+
+   ~In.In
+   ~InFeedback.InFeedback
+   ~LocalIn.LocalIn
+   ~LocalOut.LocalOut
+   ~OffsetOut.OffsetOut
+   ~Out.Out
+   ~ReplaceOut.ReplaceOut
+   ~SoundIn.SoundIn
+   ~XOut.XOut
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Line Utility UGens
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   AmpComp
+   AmpCompA
+   LinExp
+   LinLin
+   Line
+   XLine
+
+.. autosummary::
+   :nosignatures:
+
+   ~AmpComp.AmpComp
+   ~AmpCompA.AmpCompA
+   ~LinExp.LinExp
+   ~LinLin.LinLin
+   ~Line.Line
+   ~XLine.XLine
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Machine Listening UGens
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   BeatTrack
+   BeatTrack2
+   KeyTrack
+   Loudness
+   MFCC
+   Onsets
+   SpecCentroid
+   SpecFlatness
+   SpecPcile
+
+.. autosummary::
+   :nosignatures:
+
+   ~BeatTrack.BeatTrack
+   ~BeatTrack2.BeatTrack2
+   ~KeyTrack.KeyTrack
+   ~Loudness.Loudness
+   ~MFCC.MFCC
+   ~Onsets.Onsets
+   ~SpecCentroid.SpecCentroid
+   ~SpecFlatness.SpecFlatness
+   ~SpecPcile.SpecPcile
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Noise UGens
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   BrownNoise
+   ClipNoise
+   CoinGate
+   Crackle
+   Dust
+   Dust2
+   ExpRand
+   Gendy1
+   Gendy2
+   Gendy3
+   GrayNoise
+   Hasher
+   IRand
+   LFClipNoise
+   LFDClipNoise
+   LFDNoise0
+   LFDNoise1
+   LFDNoise3
+   LFNoise0
+   LFNoise1
+   LFNoise2
+   LinRand
+   Logistic
+   MantissaMask
+   NRand
+   PinkNoise
+   Rand
+   RandID
+   RandSeed
+   TExpRand
+   TIRand
+   TRand
+   TWindex
+   WhiteNoise
+
+.. autosummary::
+   :nosignatures:
+
+   ~BrownNoise.BrownNoise
+   ~ClipNoise.ClipNoise
+   ~CoinGate.CoinGate
+   ~Crackle.Crackle
+   ~Dust.Dust
+   ~Dust2.Dust2
+   ~ExpRand.ExpRand
+   ~Gendy1.Gendy1
+   ~Gendy2.Gendy2
+   ~Gendy3.Gendy3
+   ~GrayNoise.GrayNoise
+   ~Hasher.Hasher
+   ~IRand.IRand
+   ~LFClipNoise.LFClipNoise
+   ~LFDClipNoise.LFDClipNoise
+   ~LFDNoise0.LFDNoise0
+   ~LFDNoise1.LFDNoise1
+   ~LFDNoise3.LFDNoise3
+   ~LFNoise0.LFNoise0
+   ~LFNoise1.LFNoise1
+   ~LFNoise2.LFNoise2
+   ~LinRand.LinRand
+   ~Logistic.Logistic
+   ~MantissaMask.MantissaMask
+   ~NRand.NRand
+   ~PinkNoise.PinkNoise
+   ~Rand.Rand
+   ~RandID.RandID
+   ~RandSeed.RandSeed
+   ~TExpRand.TExpRand
+   ~TIRand.TIRand
+   ~TRand.TRand
+   ~TWindex.TWindex
+   ~WhiteNoise.WhiteNoise
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Oscillator UGens
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   Blip
+   COsc
+   Impulse
+   LFCub
+   LFGauss
+   LFPar
+   LFPulse
+   LFSaw
+   LFTri
+   Saw
+   SinOsc
+   VarSaw
+
+.. autosummary::
+   :nosignatures:
+
+   ~Blip.Blip
+   ~COsc.COsc
+   ~Impulse.Impulse
+   ~LFCub.LFCub
+   ~LFGauss.LFGauss
+   ~LFPar.LFPar
+   ~LFPulse.LFPulse
+   ~LFSaw.LFSaw
+   ~LFTri.LFTri
+   ~Saw.Saw
+   ~SinOsc.SinOsc
+   ~VarSaw.VarSaw
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Physical Modelling UGens
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   Ball
+   Spring
+   TBall
+
+.. autosummary::
+   :nosignatures:
+
+   ~Ball.Ball
+   ~Spring.Spring
+   ~TBall.TBall
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Pitchshift UGens
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   PitchShift
+
+.. autosummary::
+   :nosignatures:
+
+   ~PitchShift.PitchShift
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Reverb UGens
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   FreeVerb
+
+.. autosummary::
+   :nosignatures:
+
+   ~FreeVerb.FreeVerb
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Spatialization UGens
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   Balance2
+   BiPanB2
+   Pan2
+   Pan4
+   PanAz
+   PanB
+   PanB2
+   Rotate2
+   Splay
+
+.. autosummary::
+   :nosignatures:
+
+   ~Balance2.Balance2
+   ~BiPanB2.BiPanB2
+   ~Pan2.Pan2
+   ~Pan4.Pan4
+   ~PanAz.PanAz
+   ~PanB.PanB
+   ~PanB2.PanB2
+   ~Rotate2.Rotate2
+   ~Splay.Splay
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: SynthDef Internals
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   DemandEnvGen
+   Hilbert
+   HilbertFIR
+   LeastChange
+   MostChange
+   MultiOutUGen
+   PureUGen
+   RunningSum
+   Select
+   Sweep
+   UGen
+   WidthFirstUGen
+   WrapIndex
+   _Index
+
+.. autosummary::
+   :nosignatures:
+
+   ~DemandEnvGen.DemandEnvGen
+   ~Hilbert.Hilbert
+   ~HilbertFIR.HilbertFIR
+   ~Index.Index
+   ~LeastChange.LeastChange
+   ~MostChange.MostChange
+   ~MultiOutUGen.MultiOutUGen
+   ~PureUGen.PureUGen
+   ~RunningSum.RunningSum
+   ~Select.Select
+   ~Sweep.Sweep
+   ~UGen.UGen
+   ~WidthFirstUGen.WidthFirstUGen
+   ~WrapIndex.WrapIndex
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Trigger Utility UGens
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   Clip
+   Fold
+   Gate
+   InRange
+   Latch
+   Peak
+   PeakFollower
+   Phasor
+   RunningMax
+   RunningMin
+   Schmidt
+   TDelay
+   ToggleFF
+   Trig
+   Trig1
+   Wrap
+
+.. autosummary::
+   :nosignatures:
+
+   ~Clip.Clip
+   ~Fold.Fold
+   ~Gate.Gate
+   ~InRange.InRange
+   ~Latch.Latch
+   ~Peak.Peak
+   ~PeakFollower.PeakFollower
+   ~Phasor.Phasor
+   ~RunningMax.RunningMax
+   ~RunningMin.RunningMin
+   ~Schmidt.Schmidt
+   ~TDelay.TDelay
+   ~ToggleFF.ToggleFF
+   ~Trig.Trig
+   ~Trig1.Trig1
+   ~Wrap.Wrap
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: UGen Internals
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   AudioControl
+   Control
+   LagControl
+   TrigControl
+
+.. autosummary::
+   :nosignatures:
+
+   ~AudioControl.AudioControl
+   ~Control.Control
+   ~LagControl.LagControl
+   ~TrigControl.TrigControl
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: User Interaction UGens
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   MouseButton
+   MouseX
+   MouseY
+
+.. autosummary::
+   :nosignatures:
+
+   ~MouseButton.MouseButton
+   ~MouseX.MouseX
+   ~MouseY.MouseY
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Utility UGens
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   A2K
+   CheckBadValues
+   DC
+   DegreeToKey
+   K2A
+   Mix
+   Poll
+   SendPeakRMS
+   Silence
+
+.. autosummary::
+   :nosignatures:
+
+   ~A2K.A2K
+   ~CheckBadValues.CheckBadValues
+   ~DC.DC
+   ~DegreeToKey.DegreeToKey
+   ~K2A.K2A
+   ~Mix.Mix
+   ~Poll.Poll
+   ~SendPeakRMS.SendPeakRMS
+   ~Silence.Silence

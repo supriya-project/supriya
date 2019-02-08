@@ -1,0 +1,93 @@
+.. _supriya--commands--Request:
+
+Request
+=======
+
+.. automodule:: supriya.commands.Request
+
+.. currentmodule:: supriya.commands.Request
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.Request
+
+.. autoclass:: Request
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      request_id
+      request_name
+      response_patterns
+      to_datagram
+      to_list
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Request.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: Request.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: Request.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: Request.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Request.communicate
+
+   .. automethod:: Request.to_datagram
+
+   .. automethod:: Request.to_list
+
+   .. automethod:: Request.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Request.condition
+
+   .. autoattribute:: Request.request_id
+
+   .. autoattribute:: Request.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: Request.response
+
+   .. autoattribute:: Request.response_patterns

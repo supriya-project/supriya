@@ -1,0 +1,338 @@
+.. _supriya--synthdefs--UGenArray:
+
+UGenArray
+=========
+
+.. automodule:: supriya.synthdefs.UGenArray
+
+.. currentmodule:: supriya.synthdefs.UGenArray
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.synthdefs.UGenArray
+
+.. autoclass:: UGenArray
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __getitem__
+      __len__
+      __repr__
+      signal_range
+      ugens
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.__add__
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.__div__
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.__ge__
+
+   .. automethod:: UGenArray.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.__le__
+
+   .. automethod:: UGenArray.__len__
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.__rdiv__
+
+   .. automethod:: UGenArray.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.__reversed__
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.__str__
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.as_int
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.clip
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.count
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.cubed
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.distort
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.exponential
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.floor
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.index
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.lag
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.log
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.log10
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.log2
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.maximum
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.minimum
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.power
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.range
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.scale
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.sign
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.softclip
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.square_root
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.squared
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.sum
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.tanh
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.transpose
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: UGenArray.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: UGenArray.signal_range
+
+   .. autoattribute:: UGenArray.ugens

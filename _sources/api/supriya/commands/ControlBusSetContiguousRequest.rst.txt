@@ -1,0 +1,98 @@
+.. _supriya--commands--ControlBusSetContiguousRequest:
+
+ControlBusSetContiguousRequest
+==============================
+
+.. automodule:: supriya.commands.ControlBusSetContiguousRequest
+
+.. currentmodule:: supriya.commands.ControlBusSetContiguousRequest
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.ControlBusSetContiguousRequest
+
+.. autoclass:: ControlBusSetContiguousRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      index_values_pairs
+      request_id
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusSetContiguousRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusSetContiguousRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusSetContiguousRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusSetContiguousRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusSetContiguousRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusSetContiguousRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusSetContiguousRequest.to_list
+
+   .. automethod:: ControlBusSetContiguousRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: ControlBusSetContiguousRequest.condition
+
+   .. autoattribute:: ControlBusSetContiguousRequest.index_values_pairs
+
+   .. container:: inherited
+
+      .. autoattribute:: ControlBusSetContiguousRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: ControlBusSetContiguousRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: ControlBusSetContiguousRequest.response_patterns

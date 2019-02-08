@@ -1,0 +1,149 @@
+.. _supriya--patterns--Pn:
+
+Pn
+==
+
+.. automodule:: supriya.patterns.Pn
+
+.. currentmodule:: supriya.patterns.Pn
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.patterns.Pn
+
+.. autoclass:: Pn
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      arity
+      is_infinite
+      key
+      pattern
+      repetitions
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pn.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Pn.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: Pn.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Pn.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: Pn.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: Pn.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: Pn.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Pn.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Pn.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Pn.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Pn.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Pn.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Pn.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Pn.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Pn.__sub__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pn.play
+
+   .. container:: inherited
+
+      .. automethod:: Pn.with_bus
+
+   .. container:: inherited
+
+      .. automethod:: Pn.with_effect
+
+   .. container:: inherited
+
+      .. automethod:: Pn.with_group
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pn.from_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Pn.arity
+
+   .. autoattribute:: Pn.is_infinite
+
+   .. autoattribute:: Pn.key
+
+   .. autoattribute:: Pn.pattern
+
+   .. autoattribute:: Pn.repetitions

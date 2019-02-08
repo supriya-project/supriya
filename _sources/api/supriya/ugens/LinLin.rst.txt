@@ -1,0 +1,50 @@
+.. _supriya--ugens--LinLin:
+
+LinLin
+======
+
+.. automodule:: supriya.ugens.LinLin
+
+.. currentmodule:: supriya.ugens.LinLin
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.LinLin
+
+.. autoclass:: LinLin
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: LinLin.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: LinLin.ar
+
+   .. automethod:: LinLin.kr

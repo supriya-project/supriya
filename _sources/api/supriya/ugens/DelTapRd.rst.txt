@@ -1,0 +1,372 @@
+.. _supriya--ugens--DelTapRd:
+
+DelTapRd
+========
+
+.. automodule:: supriya.ugens.DelTapRd
+
+.. currentmodule:: supriya.ugens.DelTapRd
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.DelTapRd
+
+.. autoclass:: DelTapRd
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      buffer_id
+      delay_time
+      interpolation
+      kr
+      phase
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.__add__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.__div__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.__le__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.__len__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.__str__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.as_int
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.clip
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.cubed
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.distort
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.exponential
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.floor
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.lag
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.log
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.log10
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.log2
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.maximum
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.minimum
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.power
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.range
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.scale
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.sign
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.softclip
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.square_root
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.squared
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.sum
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.tanh
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.transpose
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: DelTapRd.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: DelTapRd.ar
+
+   .. automethod:: DelTapRd.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: DelTapRd.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: DelTapRd.calculation_rate
+
+   .. autoattribute:: DelTapRd.delay_time
+
+   .. container:: inherited
+
+      .. autoattribute:: DelTapRd.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: DelTapRd.inputs
+
+   .. autoattribute:: DelTapRd.interpolation
+
+   .. container:: inherited
+
+      .. autoattribute:: DelTapRd.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: DelTapRd.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: DelTapRd.outputs
+
+   .. autoattribute:: DelTapRd.phase
+
+   .. container:: inherited
+
+      .. autoattribute:: DelTapRd.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: DelTapRd.special_index

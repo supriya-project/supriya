@@ -1,0 +1,77 @@
+.. _supriya--live--Send:
+
+Send
+====
+
+.. automodule:: supriya.live.Send
+
+.. currentmodule:: supriya.live.Send
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.live.Send
+
+.. autoclass:: Send
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __call__
+      build_synthdef
+      gain
+      is_allocated
+      mixer
+      source_track
+      source_track_count
+      synth
+      target_track
+      target_track_count
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: Send.__call__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Send.build_synthdef
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Send.gain
+
+   .. autoattribute:: Send.is_allocated
+
+   .. autoattribute:: Send.mixer
+
+   .. autoattribute:: Send.source_track
+
+   .. autoattribute:: Send.source_track_count
+
+   .. autoattribute:: Send.synth
+
+   .. autoattribute:: Send.target_track
+
+   .. autoattribute:: Send.target_track_count

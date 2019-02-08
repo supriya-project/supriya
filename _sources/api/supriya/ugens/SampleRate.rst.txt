@@ -1,0 +1,357 @@
+.. _supriya--ugens--SampleRate:
+
+SampleRate
+==========
+
+.. automodule:: supriya.ugens.SampleRate
+
+.. currentmodule:: supriya.ugens.SampleRate
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.SampleRate
+
+.. autoclass:: SampleRate
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ir
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.__add__
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.__div__
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.__le__
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.__len__
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.__str__
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.as_int
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.clip
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.cubed
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.distort
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.exponential
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.floor
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.lag
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.log
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.log10
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.log2
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.maximum
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.minimum
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.power
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.range
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.scale
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.sign
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.softclip
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.square_root
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.squared
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.sum
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.tanh
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.transpose
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: SampleRate.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: SampleRate.ir
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: SampleRate.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: SampleRate.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: SampleRate.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: SampleRate.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: SampleRate.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: SampleRate.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: SampleRate.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: SampleRate.special_index

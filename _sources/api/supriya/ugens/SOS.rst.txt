@@ -1,0 +1,378 @@
+.. _supriya--ugens--SOS:
+
+SOS
+===
+
+.. automodule:: supriya.ugens.SOS
+
+.. currentmodule:: supriya.ugens.SOS
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.SOS
+
+.. autoclass:: SOS
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      a_0
+      a_1
+      a_2
+      ar
+      b_1
+      b_2
+      kr
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SOS.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: SOS.__add__
+
+   .. container:: inherited
+
+      .. automethod:: SOS.__div__
+
+   .. container:: inherited
+
+      .. automethod:: SOS.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: SOS.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: SOS.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: SOS.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: SOS.__le__
+
+   .. container:: inherited
+
+      .. automethod:: SOS.__len__
+
+   .. container:: inherited
+
+      .. automethod:: SOS.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: SOS.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: SOS.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: SOS.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: SOS.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: SOS.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: SOS.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: SOS.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: SOS.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: SOS.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: SOS.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: SOS.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: SOS.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: SOS.__str__
+
+   .. container:: inherited
+
+      .. automethod:: SOS.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: SOS.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SOS.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: SOS.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: SOS.as_int
+
+   .. container:: inherited
+
+      .. automethod:: SOS.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: SOS.clip
+
+   .. container:: inherited
+
+      .. automethod:: SOS.cubed
+
+   .. container:: inherited
+
+      .. automethod:: SOS.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: SOS.distort
+
+   .. container:: inherited
+
+      .. automethod:: SOS.exponential
+
+   .. container:: inherited
+
+      .. automethod:: SOS.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: SOS.floor
+
+   .. container:: inherited
+
+      .. automethod:: SOS.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: SOS.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: SOS.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: SOS.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: SOS.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: SOS.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: SOS.lag
+
+   .. container:: inherited
+
+      .. automethod:: SOS.log
+
+   .. container:: inherited
+
+      .. automethod:: SOS.log10
+
+   .. container:: inherited
+
+      .. automethod:: SOS.log2
+
+   .. container:: inherited
+
+      .. automethod:: SOS.maximum
+
+   .. container:: inherited
+
+      .. automethod:: SOS.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: SOS.minimum
+
+   .. container:: inherited
+
+      .. automethod:: SOS.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: SOS.power
+
+   .. container:: inherited
+
+      .. automethod:: SOS.range
+
+   .. container:: inherited
+
+      .. automethod:: SOS.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: SOS.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: SOS.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: SOS.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: SOS.scale
+
+   .. container:: inherited
+
+      .. automethod:: SOS.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: SOS.sign
+
+   .. container:: inherited
+
+      .. automethod:: SOS.softclip
+
+   .. container:: inherited
+
+      .. automethod:: SOS.square_root
+
+   .. container:: inherited
+
+      .. automethod:: SOS.squared
+
+   .. container:: inherited
+
+      .. automethod:: SOS.sum
+
+   .. container:: inherited
+
+      .. automethod:: SOS.tanh
+
+   .. container:: inherited
+
+      .. automethod:: SOS.transpose
+
+   .. container:: inherited
+
+      .. automethod:: SOS.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: SOS.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: SOS.ar
+
+   .. automethod:: SOS.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: SOS.a_0
+
+   .. autoattribute:: SOS.a_1
+
+   .. autoattribute:: SOS.a_2
+
+   .. autoattribute:: SOS.b_1
+
+   .. autoattribute:: SOS.b_2
+
+   .. container:: inherited
+
+      .. autoattribute:: SOS.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: SOS.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: SOS.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: SOS.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: SOS.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: SOS.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: SOS.signal_range
+
+   .. autoattribute:: SOS.source
+
+   .. container:: inherited
+
+      .. autoattribute:: SOS.special_index

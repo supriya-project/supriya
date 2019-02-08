@@ -1,0 +1,336 @@
+.. _supriya--ugens--InfoUGenBase:
+
+InfoUGenBase
+============
+
+.. automodule:: supriya.ugens.InfoUGenBase
+
+.. currentmodule:: supriya.ugens.InfoUGenBase
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.InfoUGenBase
+
+.. autoclass:: InfoUGenBase
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.__add__
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.__div__
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.__le__
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.__len__
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.__str__
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.as_int
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.clip
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.cubed
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.distort
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.exponential
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.floor
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.lag
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.log
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.log10
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.log2
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.maximum
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.minimum
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.power
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.range
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.scale
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.sign
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.softclip
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.square_root
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.squared
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.sum
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.tanh
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.transpose
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: InfoUGenBase.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: InfoUGenBase.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: InfoUGenBase.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: InfoUGenBase.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: InfoUGenBase.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: InfoUGenBase.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: InfoUGenBase.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: InfoUGenBase.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: InfoUGenBase.special_index

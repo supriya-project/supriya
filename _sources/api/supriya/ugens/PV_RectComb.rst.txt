@@ -1,0 +1,373 @@
+.. _supriya--ugens--PV-RectComb:
+
+PV_RectComb
+===========
+
+.. automodule:: supriya.ugens.PV_RectComb
+
+.. currentmodule:: supriya.ugens.PV_RectComb
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.PV_RectComb
+
+.. autoclass:: PV_RectComb
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      new
+      num_teeth
+      phase
+      pv_chain
+      width
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.__add__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.__div__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.__le__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.__len__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.__str__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.as_int
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.clip
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.cubed
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.distort
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.exponential
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.floor
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.lag
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.log
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.log10
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.log2
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.maximum
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.minimum
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.power
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.range
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.scale
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.sign
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.softclip
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.square_root
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.squared
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.sum
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.tanh
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.transpose
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_RectComb.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: PV_RectComb.new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_RectComb.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_RectComb.fft_size
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_RectComb.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_RectComb.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_RectComb.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_RectComb.is_output_ugen
+
+   .. autoattribute:: PV_RectComb.num_teeth
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_RectComb.outputs
+
+   .. autoattribute:: PV_RectComb.phase
+
+   .. autoattribute:: PV_RectComb.pv_chain
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_RectComb.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_RectComb.special_index
+
+   .. autoattribute:: PV_RectComb.width

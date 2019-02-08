@@ -1,0 +1,66 @@
+.. _supriya--cli--ManageAssetScript:
+
+ManageAssetScript
+=================
+
+.. automodule:: supriya.cli.ManageAssetScript
+
+.. currentmodule:: supriya.cli.ManageAssetScript
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.cli.ManageAssetScript
+
+.. autoclass:: ManageAssetScript
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      alias
+      short_description
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ManageAssetScript.__call__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: ManageAssetScript.argument_parser
+
+   .. container:: inherited
+
+      .. autoattribute:: ManageAssetScript.formatted_help
+
+   .. container:: inherited
+
+      .. autoattribute:: ManageAssetScript.formatted_usage
+
+   .. container:: inherited
+
+      .. autoattribute:: ManageAssetScript.formatted_version
+
+   .. container:: inherited
+
+      .. autoattribute:: ManageAssetScript.program_name

@@ -1,0 +1,372 @@
+.. _supriya--ugens--Klank:
+
+Klank
+=====
+
+.. automodule:: supriya.ugens.Klank
+
+.. currentmodule:: supriya.ugens.Klank
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Klank
+
+.. autoclass:: Klank
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      decay_scale
+      frequency_offset
+      frequency_scale
+      source
+      specifications
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Klank.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Klank.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Klank.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Klank.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Klank.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Klank.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Klank.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Klank.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Klank.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Klank.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Klank.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Klank.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Klank.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Klank.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Klank.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Klank.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Klank.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Klank.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Klank.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Klank.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Klank.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Klank.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Klank.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Klank.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Klank.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Klank.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Klank.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Klank.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Klank.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Klank.clip
+
+   .. container:: inherited
+
+      .. automethod:: Klank.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Klank.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Klank.distort
+
+   .. container:: inherited
+
+      .. automethod:: Klank.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Klank.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Klank.floor
+
+   .. container:: inherited
+
+      .. automethod:: Klank.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Klank.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Klank.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Klank.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Klank.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Klank.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Klank.lag
+
+   .. container:: inherited
+
+      .. automethod:: Klank.log
+
+   .. container:: inherited
+
+      .. automethod:: Klank.log10
+
+   .. container:: inherited
+
+      .. automethod:: Klank.log2
+
+   .. container:: inherited
+
+      .. automethod:: Klank.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Klank.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Klank.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Klank.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Klank.power
+
+   .. container:: inherited
+
+      .. automethod:: Klank.range
+
+   .. container:: inherited
+
+      .. automethod:: Klank.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Klank.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Klank.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Klank.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Klank.scale
+
+   .. container:: inherited
+
+      .. automethod:: Klank.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Klank.sign
+
+   .. container:: inherited
+
+      .. automethod:: Klank.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Klank.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Klank.squared
+
+   .. container:: inherited
+
+      .. automethod:: Klank.sum
+
+   .. container:: inherited
+
+      .. automethod:: Klank.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Klank.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Klank.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Klank.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Klank.ar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Klank.calculation_rate
+
+   .. autoattribute:: Klank.decay_scale
+
+   .. autoattribute:: Klank.frequency_offset
+
+   .. autoattribute:: Klank.frequency_scale
+
+   .. container:: inherited
+
+      .. autoattribute:: Klank.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Klank.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Klank.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Klank.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Klank.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Klank.signal_range
+
+   .. autoattribute:: Klank.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Klank.special_index
+
+   .. autoattribute:: Klank.specifications

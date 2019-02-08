@@ -1,0 +1,77 @@
+.. _supriya--synthdefs--BinaryOperator:
+
+BinaryOperator
+==============
+
+.. automodule:: supriya.synthdefs.BinaryOperator
+
+.. currentmodule:: supriya.synthdefs.BinaryOperator
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.synthdefs.BinaryOperator
+
+.. autoclass:: BinaryOperator
+   :members:
+   :undoc-members:
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ABSOLUTE_DIFFERENCE
+      ADDITION
+      AMCLIP
+      ATAN2
+      BIT_AND
+      BIT_OR
+      BIT_XOR
+      CLIP2
+      DIFFERENCE_OF_SQUARES
+      EQUAL
+      EXCESS
+      EXPRANDRANGE
+      FILL
+      FIRST_ARG
+      FLOAT_DIVISION
+      FOLD2
+      GREATER_THAN
+      GREATER_THAN_OR_EQUAL
+      GREATEST_COMMON_DIVISOR
+      HYPOT
+      HYPOTX
+      INTEGER_DIVISION
+      LEAST_COMMON_MULTIPLE
+      LESS_THAN
+      LESS_THAN_OR_EQUAL
+      MAXIMUM
+      MINIMUM
+      MODULO
+      MULTIPLICATION
+      NOT_EQUAL
+      POWER
+      RANDRANGE
+      RING1
+      RING2
+      RING3
+      RING4
+      ROUND
+      ROUND_UP
+      SCALE_NEG
+      SHIFT_LEFT
+      SHIFT_RIGHT
+      SQUARE_OF_DIFFERENCE
+      SQUARE_OF_SUM
+      SUBTRACTION
+      SUM_OF_SQUARES
+      THRESHOLD
+      TRUNCATION
+      UNSIGNED_SHIFT
+      WRAP2

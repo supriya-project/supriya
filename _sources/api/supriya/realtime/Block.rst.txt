@@ -1,0 +1,330 @@
+.. _supriya--realtime--Block:
+
+Block
+=====
+
+.. automodule:: supriya.realtime.Block
+
+.. currentmodule:: supriya.realtime.Block
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.realtime.Block
+
+.. autoclass:: Block
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      used
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Block.__and__
+
+   .. container:: inherited
+
+      .. automethod:: Block.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: Block.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: Block.__format__
+
+   .. container:: inherited
+
+      .. automethod:: Block.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Block.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Block.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: Block.__illustrate__
+
+   .. container:: inherited
+
+      .. automethod:: Block.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Block.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Block.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Block.__or__
+
+   .. container:: inherited
+
+      .. automethod:: Block.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Block.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Block.__xor__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Block.contains_timespan_improperly
+
+   .. container:: inherited
+
+      .. automethod:: Block.curtails_timespan
+
+   .. container:: inherited
+
+      .. automethod:: Block.delays_timespan
+
+   .. container:: inherited
+
+      .. automethod:: Block.divide_by_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Block.get_overlap_with_timespan
+
+   .. container:: inherited
+
+      .. automethod:: Block.happens_during_timespan
+
+   .. container:: inherited
+
+      .. automethod:: Block.intersects_timespan
+
+   .. container:: inherited
+
+      .. automethod:: Block.is_congruent_to_timespan
+
+   .. container:: inherited
+
+      .. automethod:: Block.is_tangent_to_timespan
+
+   .. container:: inherited
+
+      .. automethod:: Block.overlaps_all_of_timespan
+
+   .. container:: inherited
+
+      .. automethod:: Block.overlaps_only_start_of_timespan
+
+   .. container:: inherited
+
+      .. automethod:: Block.overlaps_only_stop_of_timespan
+
+   .. container:: inherited
+
+      .. automethod:: Block.overlaps_start_of_timespan
+
+   .. container:: inherited
+
+      .. automethod:: Block.overlaps_stop_of_timespan
+
+   .. container:: inherited
+
+      .. automethod:: Block.reflect
+
+   .. container:: inherited
+
+      .. automethod:: Block.round_offsets
+
+   .. container:: inherited
+
+      .. automethod:: Block.scale
+
+   .. container:: inherited
+
+      .. automethod:: Block.set_duration
+
+   .. container:: inherited
+
+      .. automethod:: Block.set_offsets
+
+   .. container:: inherited
+
+      .. automethod:: Block.split_at_offset
+
+   .. container:: inherited
+
+      .. automethod:: Block.split_at_offsets
+
+   .. container:: inherited
+
+      .. automethod:: Block.starts_after_offset
+
+   .. container:: inherited
+
+      .. automethod:: Block.starts_after_timespan_starts
+
+   .. container:: inherited
+
+      .. automethod:: Block.starts_after_timespan_stops
+
+   .. container:: inherited
+
+      .. automethod:: Block.starts_at_offset
+
+   .. container:: inherited
+
+      .. automethod:: Block.starts_at_or_after_offset
+
+   .. container:: inherited
+
+      .. automethod:: Block.starts_before_offset
+
+   .. container:: inherited
+
+      .. automethod:: Block.starts_before_or_at_offset
+
+   .. container:: inherited
+
+      .. automethod:: Block.starts_before_timespan_starts
+
+   .. container:: inherited
+
+      .. automethod:: Block.starts_before_timespan_stops
+
+   .. container:: inherited
+
+      .. automethod:: Block.starts_during_timespan
+
+   .. container:: inherited
+
+      .. automethod:: Block.starts_when_timespan_starts
+
+   .. container:: inherited
+
+      .. automethod:: Block.starts_when_timespan_stops
+
+   .. container:: inherited
+
+      .. automethod:: Block.stops_after_offset
+
+   .. container:: inherited
+
+      .. automethod:: Block.stops_after_timespan_starts
+
+   .. container:: inherited
+
+      .. automethod:: Block.stops_after_timespan_stops
+
+   .. container:: inherited
+
+      .. automethod:: Block.stops_at_offset
+
+   .. container:: inherited
+
+      .. automethod:: Block.stops_at_or_after_offset
+
+   .. container:: inherited
+
+      .. automethod:: Block.stops_before_offset
+
+   .. container:: inherited
+
+      .. automethod:: Block.stops_before_or_at_offset
+
+   .. container:: inherited
+
+      .. automethod:: Block.stops_before_timespan_starts
+
+   .. container:: inherited
+
+      .. automethod:: Block.stops_before_timespan_stops
+
+   .. container:: inherited
+
+      .. automethod:: Block.stops_during_timespan
+
+   .. container:: inherited
+
+      .. automethod:: Block.stops_when_timespan_starts
+
+   .. container:: inherited
+
+      .. automethod:: Block.stops_when_timespan_stops
+
+   .. container:: inherited
+
+      .. automethod:: Block.stretch
+
+   .. container:: inherited
+
+      .. automethod:: Block.translate
+
+   .. container:: inherited
+
+      .. automethod:: Block.translate_offsets
+
+   .. container:: inherited
+
+      .. automethod:: Block.trisects_timespan
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Block.axis
+
+   .. container:: inherited
+
+      .. autoattribute:: Block.duration
+
+   .. container:: inherited
+
+      .. autoattribute:: Block.is_well_formed
+
+   .. container:: inherited
+
+      .. autoattribute:: Block.offsets
+
+   .. container:: inherited
+
+      .. autoattribute:: Block.start_offset
+
+   .. container:: inherited
+
+      .. autoattribute:: Block.stop_offset
+
+   .. autoattribute:: Block.used

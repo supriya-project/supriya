@@ -1,0 +1,363 @@
+.. _supriya--ugens--OffsetOut:
+
+OffsetOut
+=========
+
+.. automodule:: supriya.ugens.OffsetOut
+
+.. currentmodule:: supriya.ugens.OffsetOut
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.OffsetOut
+
+.. autoclass:: OffsetOut
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      bus
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.__add__
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.__div__
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.__le__
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.__len__
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.__str__
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.as_int
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.clip
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.cubed
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.distort
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.exponential
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.floor
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.lag
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.log
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.log10
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.log2
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.maximum
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.minimum
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.power
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.range
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.scale
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.sign
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.softclip
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.square_root
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.squared
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.sum
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.tanh
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.transpose
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: OffsetOut.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: OffsetOut.ar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: OffsetOut.bus
+
+   .. container:: inherited
+
+      .. autoattribute:: OffsetOut.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: OffsetOut.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: OffsetOut.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: OffsetOut.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: OffsetOut.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: OffsetOut.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: OffsetOut.signal_range
+
+   .. autoattribute:: OffsetOut.source
+
+   .. container:: inherited
+
+      .. autoattribute:: OffsetOut.special_index

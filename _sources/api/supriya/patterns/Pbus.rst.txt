@@ -1,0 +1,152 @@
+.. _supriya--patterns--Pbus:
+
+Pbus
+====
+
+.. automodule:: supriya.patterns.Pbus
+
+.. currentmodule:: supriya.patterns.Pbus
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.patterns.Pbus
+
+.. autoclass:: Pbus
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      arity
+      calculation_rate
+      channel_count
+      is_infinite
+      pattern
+      release_time
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.__sub__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.play
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.with_bus
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.with_effect
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.with_group
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pbus.from_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Pbus.arity
+
+   .. autoattribute:: Pbus.calculation_rate
+
+   .. autoattribute:: Pbus.channel_count
+
+   .. autoattribute:: Pbus.is_infinite
+
+   .. autoattribute:: Pbus.pattern
+
+   .. autoattribute:: Pbus.release_time

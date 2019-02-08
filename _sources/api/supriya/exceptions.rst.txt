@@ -1,0 +1,66 @@
+.. _supriya--exceptions:
+
+exceptions
+==========
+
+.. automodule:: supriya.exceptions
+
+.. currentmodule:: supriya.exceptions
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.exceptions
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Exceptions
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~AlreadyAllocated
+   ~BufferAlreadyAllocated
+   ~BufferNotAllocated
+   ~BusAlreadyAllocated
+   ~BusNotAllocated
+   ~IncompatibleRate
+   ~NodeAlreadyAllocated
+   ~NodeNotAllocated
+   ~NonrealtimeOutputMissing
+   ~NonrealtimeRenderError
+   ~NotAllocated
+   ~RequestTimeout
+   ~ServerCannotBoot
+   ~ServerOffline
+
+.. autoexception:: AlreadyAllocated
+
+.. autoexception:: BufferAlreadyAllocated
+
+.. autoexception:: BufferNotAllocated
+
+.. autoexception:: BusAlreadyAllocated
+
+.. autoexception:: BusNotAllocated
+
+.. autoexception:: IncompatibleRate
+
+.. autoexception:: NodeAlreadyAllocated
+
+.. autoexception:: NodeNotAllocated
+
+.. autoexception:: NonrealtimeOutputMissing
+
+.. autoexception:: NonrealtimeRenderError
+
+.. autoexception:: NotAllocated
+
+.. autoexception:: RequestTimeout
+
+.. autoexception:: ServerCannotBoot
+
+.. autoexception:: ServerOffline

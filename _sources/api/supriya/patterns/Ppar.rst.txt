@@ -1,0 +1,143 @@
+.. _supriya--patterns--Ppar:
+
+Ppar
+====
+
+.. automodule:: supriya.patterns.Ppar
+
+.. currentmodule:: supriya.patterns.Ppar
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.patterns.Ppar
+
+.. autoclass:: Ppar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      arity
+      is_infinite
+      patterns
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Ppar.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Ppar.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: Ppar.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Ppar.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: Ppar.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: Ppar.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: Ppar.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Ppar.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Ppar.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Ppar.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Ppar.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Ppar.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Ppar.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Ppar.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Ppar.__sub__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Ppar.play
+
+   .. container:: inherited
+
+      .. automethod:: Ppar.with_bus
+
+   .. container:: inherited
+
+      .. automethod:: Ppar.with_effect
+
+   .. container:: inherited
+
+      .. automethod:: Ppar.with_group
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Ppar.from_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Ppar.arity
+
+   .. autoattribute:: Ppar.is_infinite
+
+   .. autoattribute:: Ppar.patterns

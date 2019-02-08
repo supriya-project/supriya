@@ -1,0 +1,910 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>supriya.time.TimespanCollection &mdash; Supriya 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">Supriya API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../supriya.html">supriya</a> &raquo;</li>
+        
+      <li>supriya.time.TimespanCollection</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for supriya.time.TimespanCollection</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">supriya.system.SupriyaObject</span> <span class="k">import</span> <span class="n">SupriyaObject</span>
+<span class="kn">from</span> <span class="nn">supriya.time.TimespanCollectionDriver</span> <span class="k">import</span> <span class="n">TimespanCollectionDriver</span>
+<span class="kn">from</span> <span class="nn">supriya.time.TimespanSimultaneity</span> <span class="k">import</span> <span class="n">TimespanSimultaneity</span>
+
+
+<div class="viewcode-block" id="TimespanCollection"><a class="viewcode-back" href="../../../api/supriya/time/TimespanCollection.html#supriya.time.TimespanCollection.TimespanCollection">[docs]</a><span class="k">class</span> <span class="nc">TimespanCollection</span><span class="p">(</span><span class="n">SupriyaObject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A mutable always-sorted collection of timespans.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import abjad.timespans</span>
+<span class="sd">        &gt;&gt;&gt; import supriya.time</span>
+<span class="sd">        &gt;&gt;&gt; timespans = (</span>
+<span class="sd">        ...     abjad.timespans.Timespan(0, 3),</span>
+<span class="sd">        ...     abjad.timespans.Timespan(1, 3),</span>
+<span class="sd">        ...     abjad.timespans.Timespan(1, 2),</span>
+<span class="sd">        ...     abjad.timespans.Timespan(2, 5),</span>
+<span class="sd">        ...     abjad.timespans.Timespan(6, 9),</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        &gt;&gt;&gt; timespan_collection = supriya.time.TimespanCollection(timespans)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_driver&quot;</span><span class="p">,)</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timespans</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">accelerated</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_driver</span> <span class="o">=</span> <span class="n">TimespanCollectionDriver</span><span class="p">(</span><span class="n">timespans</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">accelerated</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="kn">import</span> <span class="nn">pyximport</span>  <span class="c1"># noqa</span>
+                <span class="kn">from</span> <span class="nn">supriya.time.TimespanCollectionDriverEx</span> <span class="k">import</span> <span class="p">(</span>
+                    <span class="n">TimespanCollectionDriverEx</span><span class="p">,</span>
+                <span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">_driver</span> <span class="o">=</span> <span class="n">TimespanCollectionDriverEx</span><span class="p">(</span><span class="n">timespans</span><span class="p">)</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="n">ModuleNotFoundError</span><span class="p">):</span>
+                <span class="k">pass</span>
+
+    <span class="c1">### SPECIAL METHODS ###</span>
+
+<div class="viewcode-block" id="TimespanCollection.__and__"><a class="viewcode-back" href="../../../api/supriya/time/TimespanCollection.html#supriya.time.TimespanCollection.TimespanCollection.__and__">[docs]</a>    <span class="k">def</span> <span class="nf">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timespan</span><span class="p">):</span>
+        <span class="n">new_timespans</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">current_timespan</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">[:]:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">current_timespan</span> <span class="o">&amp;</span> <span class="n">timespan</span>
+            <span class="n">new_timespans</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">[:]</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">new_timespans</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="TimespanCollection.__contains__"><a class="viewcode-back" href="../../../api/supriya/time/TimespanCollection.html#supriya.time.TimespanCollection.TimespanCollection.__contains__">[docs]</a>    <span class="k">def</span> <span class="nf">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timespan</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Is true if this timespan collection contains `timespan`. Otherwise</span>
+<span class="sd">        false.</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; import abjad.timespans</span>
+<span class="sd">            &gt;&gt;&gt; timespans = (</span>
+<span class="sd">            ...     abjad.timespans.Timespan(0, 3),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(1, 3),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(1, 2),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(2, 5),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(6, 9),</span>
+<span class="sd">            ...     )</span>
+<span class="sd">            &gt;&gt;&gt; timespan_collection = supriya.time.TimespanCollection(timespans)</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; timespans[0] in timespan_collection</span>
+<span class="sd">            True</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; abjad.timespans.Timespan(-1, 100) in timespan_collection</span>
+<span class="sd">            False</span>
+
+<span class="sd">        Returns boolean.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">timespan</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_driver</span></div>
+
+<div class="viewcode-block" id="TimespanCollection.__getitem__"><a class="viewcode-back" href="../../../api/supriya/time/TimespanCollection.html#supriya.time.TimespanCollection.TimespanCollection.__getitem__">[docs]</a>    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets timespan at index `item`.</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; import abjad.timespans</span>
+<span class="sd">            &gt;&gt;&gt; timespans = (</span>
+<span class="sd">            ...     abjad.timespans.Timespan(0, 3),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(1, 3),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(1, 2),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(2, 5),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(6, 9),</span>
+<span class="sd">            ...     )</span>
+<span class="sd">            &gt;&gt;&gt; timespan_collection = supriya.time.TimespanCollection(timespans)</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; timespan_collection[-1]</span>
+<span class="sd">            Timespan(start_offset=Offset(6, 1), stop_offset=Offset(9, 1))</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; for timespan in timespan_collection[:3]:</span>
+<span class="sd">            ...     timespan</span>
+<span class="sd">            ...</span>
+<span class="sd">            Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))</span>
+<span class="sd">            Timespan(start_offset=Offset(1, 1), stop_offset=Offset(2, 1))</span>
+<span class="sd">            Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1))</span>
+
+<span class="sd">        Returns timespan or timespans.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_driver</span><span class="p">[</span><span class="n">item</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="TimespanCollection.__iter__"><a class="viewcode-back" href="../../../api/supriya/time/TimespanCollection.html#supriya.time.TimespanCollection.TimespanCollection.__iter__">[docs]</a>    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Iterates timespans in this timespan collection.</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; import abjad.timespans</span>
+<span class="sd">            &gt;&gt;&gt; timespans = (</span>
+<span class="sd">            ...     abjad.timespans.Timespan(0, 3),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(1, 3),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(1, 2),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(2, 5),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(6, 9),</span>
+<span class="sd">            ...     )</span>
+<span class="sd">            &gt;&gt;&gt; timespan_collection = supriya.time.TimespanCollection(timespans)</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; for timespan in timespan_collection:</span>
+<span class="sd">            ...     timespan</span>
+<span class="sd">            ...</span>
+<span class="sd">            Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))</span>
+<span class="sd">            Timespan(start_offset=Offset(1, 1), stop_offset=Offset(2, 1))</span>
+<span class="sd">            Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1))</span>
+<span class="sd">            Timespan(start_offset=Offset(2, 1), stop_offset=Offset(5, 1))</span>
+<span class="sd">            Timespan(start_offset=Offset(6, 1), stop_offset=Offset(9, 1))</span>
+
+<span class="sd">        Returns generator.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_driver</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TimespanCollection.__len__"><a class="viewcode-back" href="../../../api/supriya/time/TimespanCollection.html#supriya.time.TimespanCollection.TimespanCollection.__len__">[docs]</a>    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets length of this timespan collection.</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; import abjad.timespans</span>
+<span class="sd">            &gt;&gt;&gt; timespans = (</span>
+<span class="sd">            ...     abjad.timespans.Timespan(0, 3),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(1, 3),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(1, 2),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(2, 5),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(6, 9),</span>
+<span class="sd">            ...     )</span>
+<span class="sd">            &gt;&gt;&gt; timespan_collection = supriya.time.TimespanCollection(timespans)</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; len(timespan_collection)</span>
+<span class="sd">            5</span>
+
+<span class="sd">        Returns integer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_driver</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TimespanCollection.__setitem__"><a class="viewcode-back" href="../../../api/supriya/time/TimespanCollection.html#supriya.time.TimespanCollection.TimespanCollection.__setitem__">[docs]</a>    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">new</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets timespans at index `i` to `new`.</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; import abjad.timespans</span>
+<span class="sd">            &gt;&gt;&gt; timespans = (</span>
+<span class="sd">            ...     abjad.timespans.Timespan(0, 3),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(1, 3),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(1, 2),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(2, 5),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(6, 9),</span>
+<span class="sd">            ...     )</span>
+<span class="sd">            &gt;&gt;&gt; timespan_collection = supriya.time.TimespanCollection(timespans)</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; timespan_collection[:3] = [abjad.timespans.Timespan(100, 200)]</span>
+
+<span class="sd">        Returns none.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)):</span>
+            <span class="n">old</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">old</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Indices must be ints or slices, got </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TimespanCollection.__sub__"><a class="viewcode-back" href="../../../api/supriya/time/TimespanCollection.html#supriya.time.TimespanCollection.TimespanCollection.__sub__">[docs]</a>    <span class="k">def</span> <span class="nf">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timespan</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete material that intersects `timespan`:</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; import abjad.timespans</span>
+<span class="sd">            &gt;&gt;&gt; timespan_collection = supriya.time.TimespanCollection([</span>
+<span class="sd">            ...     abjad.timespans.Timespan(0, 16),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(5, 12),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(-2, 8),</span>
+<span class="sd">            ...     ])</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; timespan = abjad.timespans.Timespan(5, 10)</span>
+<span class="sd">            &gt;&gt;&gt; result = timespan_collection - timespan</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; for timespan in timespan_collection:</span>
+<span class="sd">            ...     timespan</span>
+<span class="sd">            ...</span>
+<span class="sd">            Timespan(start_offset=Offset(-2, 1), stop_offset=Offset(5, 1))</span>
+<span class="sd">            Timespan(start_offset=Offset(0, 1), stop_offset=Offset(5, 1))</span>
+<span class="sd">            Timespan(start_offset=Offset(10, 1), stop_offset=Offset(12, 1))</span>
+<span class="sd">            Timespan(start_offset=Offset(10, 1), stop_offset=Offset(16, 1))</span>
+
+<span class="sd">        Operates in place and returns timespan collection.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_timespan</span><span class="p">(</span><span class="n">timespan</span><span class="p">)</span>
+        <span class="n">intersection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_intersection</span><span class="p">(</span><span class="n">timespan</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">intersection</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">intersecting_timespan</span> <span class="ow">in</span> <span class="n">intersection</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">intersecting_timespan</span> <span class="o">-</span> <span class="n">timespan</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_is_timespan</span><span class="p">(</span><span class="n">expr</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="s2">&quot;start_offset&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="s2">&quot;stop_offset&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="TimespanCollection.find_intersection"><a class="viewcode-back" href="../../../api/supriya/time/TimespanCollection.html#supriya.time.TimespanCollection.TimespanCollection.find_intersection">[docs]</a>    <span class="k">def</span> <span class="nf">find_intersection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timespan_or_offset</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Find timespans intersecting a timespan or offset.</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            Finds timespans overlapping `offset`.</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; import abjad.timespans</span>
+<span class="sd">                &gt;&gt;&gt; timespans = (</span>
+<span class="sd">                ...     abjad.timespans.Timespan(0, 3),</span>
+<span class="sd">                ...     abjad.timespans.Timespan(1, 3),</span>
+<span class="sd">                ...     abjad.timespans.Timespan(1, 2),</span>
+<span class="sd">                ...     abjad.timespans.Timespan(2, 5),</span>
+<span class="sd">                ...     abjad.timespans.Timespan(6, 9),</span>
+<span class="sd">                ...     )</span>
+<span class="sd">                &gt;&gt;&gt; timespan_collection = supriya.time.TimespanCollection(timespans)</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; for x in timespan_collection.find_intersection(1.5):</span>
+<span class="sd">                ...     x</span>
+<span class="sd">                ...</span>
+<span class="sd">                Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))</span>
+<span class="sd">                Timespan(start_offset=Offset(1, 1), stop_offset=Offset(2, 1))</span>
+<span class="sd">                Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1))</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            Finds timespans overlapping `timespan`.</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; timespans = (</span>
+<span class="sd">                ...     abjad.timespans.Timespan(0, 3),</span>
+<span class="sd">                ...     abjad.timespans.Timespan(1, 3),</span>
+<span class="sd">                ...     abjad.timespans.Timespan(1, 2),</span>
+<span class="sd">                ...     abjad.timespans.Timespan(2, 5),</span>
+<span class="sd">                ...     abjad.timespans.Timespan(6, 9),</span>
+<span class="sd">                ...     )</span>
+<span class="sd">                &gt;&gt;&gt; timespan_collection = supriya.time.TimespanCollection(timespans)</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; timespan = abjad.timespans.Timespan(2, 4)</span>
+<span class="sd">                &gt;&gt;&gt; for x in timespan_collection.find_intersection(timespan):</span>
+<span class="sd">                ...     x</span>
+<span class="sd">                ...</span>
+<span class="sd">                Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))</span>
+<span class="sd">                Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1))</span>
+<span class="sd">                Timespan(start_offset=Offset(2, 1), stop_offset=Offset(5, 1))</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_timespan</span><span class="p">(</span><span class="n">timespan_or_offset</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_driver</span><span class="o">.</span><span class="n">find_timespans_intersecting_timespan</span><span class="p">(</span><span class="n">timespan_or_offset</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_driver</span><span class="o">.</span><span class="n">find_timespans_intersecting_offset</span><span class="p">(</span><span class="n">timespan_or_offset</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TimespanCollection.find_timespans_starting_at"><a class="viewcode-back" href="../../../api/supriya/time/TimespanCollection.html#supriya.time.TimespanCollection.TimespanCollection.find_timespans_starting_at">[docs]</a>    <span class="k">def</span> <span class="nf">find_timespans_starting_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_driver</span><span class="o">.</span><span class="n">find_timespans_starting_at</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TimespanCollection.find_timespans_stopping_at"><a class="viewcode-back" href="../../../api/supriya/time/TimespanCollection.html#supriya.time.TimespanCollection.TimespanCollection.find_timespans_stopping_at">[docs]</a>    <span class="k">def</span> <span class="nf">find_timespans_stopping_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_driver</span><span class="o">.</span><span class="n">find_timespans_stopping_at</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TimespanCollection.get_simultaneity_at"><a class="viewcode-back" href="../../../api/supriya/time/TimespanCollection.html#supriya.time.TimespanCollection.TimespanCollection.get_simultaneity_at">[docs]</a>    <span class="k">def</span> <span class="nf">get_simultaneity_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets simultaneity at `offset`.</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; import abjad.timespans</span>
+<span class="sd">            &gt;&gt;&gt; timespans = (</span>
+<span class="sd">            ...     abjad.timespans.Timespan(0, 3),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(1, 3),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(1, 2),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(2, 5),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(6, 9),</span>
+<span class="sd">            ...     )</span>
+<span class="sd">            &gt;&gt;&gt; timespan_collection = supriya.time.TimespanCollection(timespans)</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; timespan_collection.get_simultaneity_at(1)</span>
+<span class="sd">            &lt;TimespanSimultaneity(1 &lt;&lt;3&gt;&gt;)&gt;</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; timespan_collection.get_simultaneity_at(6.5)</span>
+<span class="sd">            &lt;TimespanSimultaneity(6.5 &lt;&lt;1&gt;&gt;)&gt;</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">stop_timespans</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_timespans_stopping_at</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+        <span class="n">start_timespans</span><span class="p">,</span> <span class="n">overlap_timespans</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">timespan</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_intersection</span><span class="p">(</span><span class="n">offset</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">timespan</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">==</span> <span class="n">offset</span><span class="p">:</span>
+                <span class="n">start_timespans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">timespan</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">overlap_timespans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">timespan</span><span class="p">)</span>
+        <span class="n">simultaneity</span> <span class="o">=</span> <span class="n">TimespanSimultaneity</span><span class="p">(</span>
+            <span class="n">timespan_collection</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">overlap_timespans</span><span class="o">=</span><span class="n">overlap_timespans</span><span class="p">,</span>
+            <span class="n">start_timespans</span><span class="o">=</span><span class="n">start_timespans</span><span class="p">,</span>
+            <span class="n">start_offset</span><span class="o">=</span><span class="n">offset</span><span class="p">,</span>
+            <span class="n">stop_timespans</span><span class="o">=</span><span class="n">stop_timespans</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">simultaneity</span></div>
+
+<div class="viewcode-block" id="TimespanCollection.get_start_offset_after"><a class="viewcode-back" href="../../../api/supriya/time/TimespanCollection.html#supriya.time.TimespanCollection.TimespanCollection.get_start_offset_after">[docs]</a>    <span class="k">def</span> <span class="nf">get_start_offset_after</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets start offst in this timespan collection after `offset`.</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; import abjad.timespans</span>
+<span class="sd">            &gt;&gt;&gt; timespans = (</span>
+<span class="sd">            ...     abjad.timespans.Timespan(0, 3),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(1, 3),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(1, 2),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(2, 5),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(6, 9),</span>
+<span class="sd">            ...     )</span>
+<span class="sd">            &gt;&gt;&gt; timespan_collection = supriya.time.TimespanCollection(timespans)</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; timespan_collection.get_start_offset_after(-1)</span>
+<span class="sd">            0.0</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; timespan_collection.get_start_offset_after(0)</span>
+<span class="sd">            1.0</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; timespan_collection.get_start_offset_after(1)</span>
+<span class="sd">            2.0</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; timespan_collection.get_start_offset_after(2)</span>
+<span class="sd">            6.0</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; timespan_collection.get_start_offset_after(6) is None</span>
+<span class="sd">            True</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_driver</span><span class="o">.</span><span class="n">get_start_offset_after</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">offset</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TimespanCollection.get_start_offset_before"><a class="viewcode-back" href="../../../api/supriya/time/TimespanCollection.html#supriya.time.TimespanCollection.TimespanCollection.get_start_offset_before">[docs]</a>    <span class="k">def</span> <span class="nf">get_start_offset_before</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets start offst in this timespan collection before `offset`.</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; import abjad.timespans</span>
+<span class="sd">            &gt;&gt;&gt; timespans = (</span>
+<span class="sd">            ...     abjad.timespans.Timespan(0, 3),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(1, 3),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(1, 2),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(2, 5),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(6, 9),</span>
+<span class="sd">            ...     )</span>
+<span class="sd">            &gt;&gt;&gt; timespan_collection = supriya.time.TimespanCollection(timespans)</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; timespan_collection.get_start_offset_before(7)</span>
+<span class="sd">            6.0</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; timespan_collection.get_start_offset_before(6)</span>
+<span class="sd">            2.0</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; timespan_collection.get_start_offset_before(2)</span>
+<span class="sd">            1.0</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; timespan_collection.get_start_offset_before(1)</span>
+<span class="sd">            0.0</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; timespan_collection.get_start_offset_before(0) is None</span>
+<span class="sd">            True</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_driver</span><span class="o">.</span><span class="n">get_start_offset_before</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">offset</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TimespanCollection.index"><a class="viewcode-back" href="../../../api/supriya/time/TimespanCollection.html#supriya.time.TimespanCollection.TimespanCollection.index">[docs]</a>    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timespan</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_driver</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">timespan</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TimespanCollection.insert"><a class="viewcode-back" href="../../../api/supriya/time/TimespanCollection.html#supriya.time.TimespanCollection.TimespanCollection.insert">[docs]</a>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timespans</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Inserts `timespans` into this timespan collection.</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; import abjad.timespans</span>
+<span class="sd">            &gt;&gt;&gt; timespan_collection = supriya.time.TimespanCollection()</span>
+<span class="sd">            &gt;&gt;&gt; timespan_collection.insert(abjad.timespans.Timespan(1, 3))</span>
+<span class="sd">            &gt;&gt;&gt; timespan_collection.insert((</span>
+<span class="sd">            ...     abjad.timespans.Timespan(0, 4),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(2, 6),</span>
+<span class="sd">            ...     ))</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; for x in timespan_collection:</span>
+<span class="sd">            ...     x</span>
+<span class="sd">            ...</span>
+<span class="sd">            Timespan(start_offset=Offset(0, 1), stop_offset=Offset(4, 1))</span>
+<span class="sd">            Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1))</span>
+<span class="sd">            Timespan(start_offset=Offset(2, 1), stop_offset=Offset(6, 1))</span>
+
+<span class="sd">        `timespans` may be a single timespan or an iterable of timespans.</span>
+
+<span class="sd">        Returns none.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_driver</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">timespans</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TimespanCollection.iterate_simultaneities"><a class="viewcode-back" href="../../../api/supriya/time/TimespanCollection.html#supriya.time.TimespanCollection.TimespanCollection.iterate_simultaneities">[docs]</a>    <span class="k">def</span> <span class="nf">iterate_simultaneities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Iterates simultaneities in this timespan collection.</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; import abjad.timespans</span>
+<span class="sd">            &gt;&gt;&gt; timespans = (</span>
+<span class="sd">            ...     abjad.timespans.Timespan(0, 3),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(1, 3),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(1, 2),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(2, 5),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(6, 9),</span>
+<span class="sd">            ...     )</span>
+<span class="sd">            &gt;&gt;&gt; timespan_collection = supriya.time.TimespanCollection(timespans)</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; for x in timespan_collection.iterate_simultaneities():</span>
+<span class="sd">            ...     x</span>
+<span class="sd">            ...</span>
+<span class="sd">            &lt;TimespanSimultaneity(0.0 &lt;&lt;1&gt;&gt;)&gt;</span>
+<span class="sd">            &lt;TimespanSimultaneity(1.0 &lt;&lt;3&gt;&gt;)&gt;</span>
+<span class="sd">            &lt;TimespanSimultaneity(2.0 &lt;&lt;3&gt;&gt;)&gt;</span>
+<span class="sd">            &lt;TimespanSimultaneity(6.0 &lt;&lt;1&gt;&gt;)&gt;</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; for x in timespan_collection.iterate_simultaneities(</span>
+<span class="sd">            ...     reverse=True):</span>
+<span class="sd">            ...     x</span>
+<span class="sd">            ...</span>
+<span class="sd">            &lt;TimespanSimultaneity(6.0 &lt;&lt;1&gt;&gt;)&gt;</span>
+<span class="sd">            &lt;TimespanSimultaneity(2.0 &lt;&lt;3&gt;&gt;)&gt;</span>
+<span class="sd">            &lt;TimespanSimultaneity(1.0 &lt;&lt;3&gt;&gt;)&gt;</span>
+<span class="sd">            &lt;TimespanSimultaneity(0.0 &lt;&lt;1&gt;&gt;)&gt;</span>
+
+<span class="sd">        Returns generator.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">reverse</span><span class="p">:</span>
+            <span class="n">start_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">latest_start_offset</span>
+            <span class="n">simultaneity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_simultaneity_at</span><span class="p">(</span><span class="n">start_offset</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">simultaneity</span>
+            <span class="n">simultaneity</span> <span class="o">=</span> <span class="n">simultaneity</span><span class="o">.</span><span class="n">previous_simultaneity</span>
+            <span class="k">while</span> <span class="n">simultaneity</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">simultaneity</span>
+                <span class="n">simultaneity</span> <span class="o">=</span> <span class="n">simultaneity</span><span class="o">.</span><span class="n">previous_simultaneity</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">start_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">earliest_start_offset</span>
+            <span class="n">simultaneity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_simultaneity_at</span><span class="p">(</span><span class="n">start_offset</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">simultaneity</span>
+            <span class="n">simultaneity</span> <span class="o">=</span> <span class="n">simultaneity</span><span class="o">.</span><span class="n">next_simultaneity</span>
+            <span class="k">while</span> <span class="n">simultaneity</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">simultaneity</span>
+                <span class="n">simultaneity</span> <span class="o">=</span> <span class="n">simultaneity</span><span class="o">.</span><span class="n">next_simultaneity</span></div>
+
+<div class="viewcode-block" id="TimespanCollection.iterate_simultaneities_nwise"><a class="viewcode-back" href="../../../api/supriya/time/TimespanCollection.html#supriya.time.TimespanCollection.TimespanCollection.iterate_simultaneities_nwise">[docs]</a>    <span class="k">def</span> <span class="nf">iterate_simultaneities_nwise</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Iterates simultaneities in this timespan collection in groups of</span>
+<span class="sd">        `n`.</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; import abjad.timespans</span>
+<span class="sd">            &gt;&gt;&gt; timespans = (</span>
+<span class="sd">            ...     abjad.timespans.Timespan(0, 3),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(1, 3),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(1, 2),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(2, 5),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(6, 9),</span>
+<span class="sd">            ...     )</span>
+<span class="sd">            &gt;&gt;&gt; timespan_collection = supriya.time.TimespanCollection(timespans)</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; for x in timespan_collection.iterate_simultaneities_nwise(n=2):</span>
+<span class="sd">            ...     x</span>
+<span class="sd">            ...</span>
+<span class="sd">            [&lt;TimespanSimultaneity(0.0 &lt;&lt;1&gt;&gt;)&gt;, &lt;TimespanSimultaneity(1.0 &lt;&lt;3&gt;&gt;)&gt;]</span>
+<span class="sd">            [&lt;TimespanSimultaneity(1.0 &lt;&lt;3&gt;&gt;)&gt;, &lt;TimespanSimultaneity(2.0 &lt;&lt;3&gt;&gt;)&gt;]</span>
+<span class="sd">            [&lt;TimespanSimultaneity(2.0 &lt;&lt;3&gt;&gt;)&gt;, &lt;TimespanSimultaneity(6.0 &lt;&lt;1&gt;&gt;)&gt;]</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; for x in timespan_collection.iterate_simultaneities_nwise(</span>
+<span class="sd">            ...     n=2, reverse=True):</span>
+<span class="sd">            ...     x</span>
+<span class="sd">            ...</span>
+<span class="sd">            [&lt;TimespanSimultaneity(2.0 &lt;&lt;3&gt;&gt;)&gt;, &lt;TimespanSimultaneity(6.0 &lt;&lt;1&gt;&gt;)&gt;]</span>
+<span class="sd">            [&lt;TimespanSimultaneity(1.0 &lt;&lt;3&gt;&gt;)&gt;, &lt;TimespanSimultaneity(2.0 &lt;&lt;3&gt;&gt;)&gt;]</span>
+<span class="sd">            [&lt;TimespanSimultaneity(0.0 &lt;&lt;1&gt;&gt;)&gt;, &lt;TimespanSimultaneity(1.0 &lt;&lt;3&gt;&gt;)&gt;]</span>
+
+<span class="sd">        Returns generator.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">n</span>
+        <span class="k">if</span> <span class="n">reverse</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">simultaneity</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterate_simultaneities</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+                <span class="n">simultaneities</span> <span class="o">=</span> <span class="p">[</span><span class="n">simultaneity</span><span class="p">]</span>
+                <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">simultaneities</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+                    <span class="n">next_simultaneity</span> <span class="o">=</span> <span class="n">simultaneities</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">next_simultaneity</span>
+                    <span class="k">if</span> <span class="n">next_simultaneity</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">break</span>
+                    <span class="n">simultaneities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">next_simultaneity</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">simultaneities</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span><span class="p">:</span>
+                    <span class="k">yield</span> <span class="n">simultaneities</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">simultaneity</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterate_simultaneities</span><span class="p">():</span>
+                <span class="n">simultaneities</span> <span class="o">=</span> <span class="p">[</span><span class="n">simultaneity</span><span class="p">]</span>
+                <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">simultaneities</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+                    <span class="n">previous_simultaneity</span> <span class="o">=</span> <span class="n">simultaneities</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">previous_simultaneity</span>
+                    <span class="k">if</span> <span class="n">previous_simultaneity</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">break</span>
+                    <span class="n">simultaneities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">previous_simultaneity</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">simultaneities</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span><span class="p">:</span>
+                    <span class="k">yield</span> <span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">simultaneities</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="TimespanCollection.remove"><a class="viewcode-back" href="../../../api/supriya/time/TimespanCollection.html#supriya.time.TimespanCollection.TimespanCollection.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timespans</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Removes timespans from this timespan collection.</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; import abjad.timespans</span>
+<span class="sd">            &gt;&gt;&gt; timespans = (</span>
+<span class="sd">            ...     abjad.timespans.Timespan(0, 3),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(1, 3),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(1, 2),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(2, 5),</span>
+<span class="sd">            ...     abjad.timespans.Timespan(6, 9),</span>
+<span class="sd">            ...     )</span>
+<span class="sd">            &gt;&gt;&gt; timespan_collection = supriya.time.TimespanCollection(timespans)</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; timespan_collection.remove(timespans[1:-1])</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; for timespan in timespan_collection:</span>
+<span class="sd">            ...     timespan</span>
+<span class="sd">            ...</span>
+<span class="sd">            Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))</span>
+<span class="sd">            Timespan(start_offset=Offset(6, 1), stop_offset=Offset(9, 1))</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_driver</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">timespans</span><span class="p">)</span></div>
+
+    <span class="c1">### PRIVATE PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_root_node</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_driver</span><span class="o">.</span><span class="n">_root_node</span>
+
+    <span class="nd">@_root_node</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">_root_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_driver</span><span class="o">.</span><span class="n">_root_node</span> <span class="o">=</span> <span class="n">node</span>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">all_offsets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">offsets</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">timespan</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">offsets</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">timespan</span><span class="o">.</span><span class="n">start_offset</span><span class="p">)</span>
+            <span class="n">offsets</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">timespan</span><span class="o">.</span><span class="n">stop_offset</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">offsets</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">all_start_offsets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">start_offsets</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">timespan</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">start_offsets</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">timespan</span><span class="o">.</span><span class="n">start_offset</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">start_offsets</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">all_stop_offsets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">stop_offsets</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">timespan</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">stop_offsets</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">timespan</span><span class="o">.</span><span class="n">stop_offset</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">stop_offsets</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">earliest_start_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">recurse</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left_child</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">recurse</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left_child</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">start_offset</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">recurse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">earliest_stop_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="o">.</span><span class="n">stop_offset_low</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">latest_start_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">recurse</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right_child</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">recurse</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right_child</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">start_offset</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">recurse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">latest_stop_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="o">.</span><span class="n">stop_offset_high</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">start_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">earliest_start_offset</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">stop_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">latest_stop_offset</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,369 @@
+.. _supriya--ugens--VOsc:
+
+VOsc
+====
+
+.. automodule:: supriya.ugens.VOsc
+
+.. currentmodule:: supriya.ugens.VOsc
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.VOsc
+
+.. autoclass:: VOsc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      buffer_id
+      frequency
+      kr
+      phase
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.__add__
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.__div__
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.__le__
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.__len__
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.__str__
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.as_int
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.clip
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.cubed
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.distort
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.exponential
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.floor
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.lag
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.log
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.log10
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.log2
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.maximum
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.minimum
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.power
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.range
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.scale
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.sign
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.softclip
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.square_root
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.squared
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.sum
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.tanh
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.transpose
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: VOsc.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: VOsc.ar
+
+   .. automethod:: VOsc.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: VOsc.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: VOsc.calculation_rate
+
+   .. autoattribute:: VOsc.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: VOsc.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: VOsc.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: VOsc.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: VOsc.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: VOsc.outputs
+
+   .. autoattribute:: VOsc.phase
+
+   .. container:: inherited
+
+      .. autoattribute:: VOsc.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: VOsc.special_index

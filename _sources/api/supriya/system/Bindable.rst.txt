@@ -1,0 +1,45 @@
+.. _supriya--system--Bindable:
+
+Bindable
+========
+
+.. automodule:: supriya.system.Bindable
+
+.. currentmodule:: supriya.system.Bindable
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.system.Bindable
+
+.. autoclass:: Bindable
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __call__
+      __enter__
+      __exit__
+      __get__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: Bindable.__call__
+
+   .. automethod:: Bindable.__enter__
+
+   .. automethod:: Bindable.__exit__
+
+   .. automethod:: Bindable.__get__

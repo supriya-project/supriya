@@ -1,0 +1,53 @@
+.. _supriya--realtime--NodeIdAllocator:
+
+NodeIdAllocator
+===============
+
+.. automodule:: supriya.realtime.NodeIdAllocator
+
+.. currentmodule:: supriya.realtime.NodeIdAllocator
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.realtime.NodeIdAllocator
+
+.. autoclass:: NodeIdAllocator
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      allocate_node_id
+      allocate_permanent_node_id
+      free_permanent_node_id
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: NodeIdAllocator.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: NodeIdAllocator.allocate_node_id
+
+   .. automethod:: NodeIdAllocator.allocate_permanent_node_id
+
+   .. automethod:: NodeIdAllocator.free_permanent_node_id

@@ -1,0 +1,141 @@
+.. _supriya--realtime--Node:
+
+Node
+====
+
+.. automodule:: supriya.realtime.Node
+
+.. currentmodule:: supriya.realtime.Node
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.realtime.Node
+
+.. autoclass:: Node
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __float__
+      __graph__
+      __int__
+      __repr__
+      expr_as_target
+      free
+      is_allocated
+      is_paused
+      node_id
+      node_id_is_permanent
+      pause
+      unpause
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: Node.__float__
+
+   .. automethod:: Node.__graph__
+
+   .. automethod:: Node.__int__
+
+   .. automethod:: Node.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Node.allocate
+
+   .. automethod:: Node.free
+
+   .. automethod:: Node.pause
+
+   .. container:: inherited
+
+      .. automethod:: Node.precede_by
+
+   .. container:: inherited
+
+      .. automethod:: Node.replace_with
+
+   .. container:: inherited
+
+      .. automethod:: Node.succeed_by
+
+   .. automethod:: Node.unpause
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Node.expr_as_target
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read/write properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Node.name
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Node.depth
+
+   .. container:: inherited
+
+      .. autoattribute:: Node.graph_order
+
+   .. autoattribute:: Node.is_allocated
+
+   .. autoattribute:: Node.is_paused
+
+   .. autoattribute:: Node.node_id
+
+   .. autoattribute:: Node.node_id_is_permanent
+
+   .. container:: inherited
+
+      .. autoattribute:: Node.parent
+
+   .. container:: inherited
+
+      .. autoattribute:: Node.parentage
+
+   .. container:: inherited
+
+      .. autoattribute:: Node.root
+
+   .. container:: inherited
+
+      .. autoattribute:: Node.server

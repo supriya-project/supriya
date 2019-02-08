@@ -1,0 +1,101 @@
+.. _supriya--patterns:
+
+patterns
+========
+
+.. automodule:: supriya.patterns
+
+.. currentmodule:: supriya.patterns
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.patterns
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Abstract Classes
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   Event
+   EventPattern
+   Pattern
+
+.. autosummary::
+   :nosignatures:
+
+   ~Event.Event
+   ~EventPattern.EventPattern
+   ~Pattern.Pattern
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   BusEvent
+   Clock
+   CompositeEvent
+   EventPlayer
+   EventProduct
+   GroupEvent
+   NoteEvent
+   NullEvent
+   Pbind
+   Pbindf
+   Pbinop
+   Pbus
+   Pchain
+   Pfx
+   Pgpar
+   Pgroup
+   Pmono
+   Pn
+   Ppar
+   Prand
+   Pseed
+   Pseq
+   Pwhite
+   RandomNumberGenerator
+   RealtimeEventPlayer
+   SynthEvent
+
+.. autosummary::
+   :nosignatures:
+
+   ~BusEvent.BusEvent
+   ~Clock.Clock
+   ~CompositeEvent.CompositeEvent
+   ~EventPlayer.EventPlayer
+   ~EventProduct.EventProduct
+   ~GroupEvent.GroupEvent
+   ~NoteEvent.NoteEvent
+   ~NullEvent.NullEvent
+   ~Pbind.Pbind
+   ~Pbindf.Pbindf
+   ~Pbinop.Pbinop
+   ~Pbus.Pbus
+   ~Pchain.Pchain
+   ~Pfx.Pfx
+   ~Pgpar.Pgpar
+   ~Pgroup.Pgroup
+   ~Pmono.Pmono
+   ~Pn.Pn
+   ~Ppar.Ppar
+   ~Prand.Prand
+   ~Pseed.Pseed
+   ~Pseq.Pseq
+   ~Pwhite.Pwhite
+   ~RandomNumberGenerator.RandomNumberGenerator
+   ~RealtimeEventPlayer.RealtimeEventPlayer
+   ~SynthEvent.SynthEvent

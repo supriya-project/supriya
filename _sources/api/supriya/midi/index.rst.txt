@@ -1,0 +1,61 @@
+.. _supriya--midi:
+
+midi
+====
+
+.. automodule:: supriya.midi
+
+.. currentmodule:: supriya.midi
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.midi
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   ControllerChangeMessage
+   Device
+   LogicalControl
+   LogicalView
+   MidiMessage
+   NoteOffMessage
+   NoteOnMessage
+   PhysicalControl
+
+.. autosummary::
+   :nosignatures:
+
+   ~ControllerChangeMessage.ControllerChangeMessage
+   ~Device.Device
+   ~LogicalControl.LogicalControl
+   ~LogicalView.LogicalView
+   ~MidiMessage.MidiMessage
+   ~NoteOffMessage.NoteOffMessage
+   ~NoteOnMessage.NoteOnMessage
+   ~PhysicalControl.PhysicalControl
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Enumerations
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   LogicalControlMode
+
+.. autosummary::
+   :nosignatures:
+
+   ~LogicalControlMode.LogicalControlMode

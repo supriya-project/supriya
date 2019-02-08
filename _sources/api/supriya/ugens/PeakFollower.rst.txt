@@ -1,0 +1,366 @@
+.. _supriya--ugens--PeakFollower:
+
+PeakFollower
+============
+
+.. automodule:: supriya.ugens.PeakFollower
+
+.. currentmodule:: supriya.ugens.PeakFollower
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.PeakFollower
+
+.. autoclass:: PeakFollower
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      decay
+      kr
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__add__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__div__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__le__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__len__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__str__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.as_int
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.clip
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.cubed
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.distort
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.exponential
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.floor
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.lag
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.log
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.log10
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.log2
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.maximum
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.minimum
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.power
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.range
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.scale
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.sign
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.softclip
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.square_root
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.squared
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.sum
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.tanh
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.transpose
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PeakFollower.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: PeakFollower.ar
+
+   .. automethod:: PeakFollower.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: PeakFollower.calculation_rate
+
+   .. autoattribute:: PeakFollower.decay
+
+   .. container:: inherited
+
+      .. autoattribute:: PeakFollower.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: PeakFollower.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: PeakFollower.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PeakFollower.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PeakFollower.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: PeakFollower.signal_range
+
+   .. autoattribute:: PeakFollower.source
+
+   .. container:: inherited
+
+      .. autoattribute:: PeakFollower.special_index

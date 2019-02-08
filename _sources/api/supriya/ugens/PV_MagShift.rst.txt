@@ -1,0 +1,370 @@
+.. _supriya--ugens--PV-MagShift:
+
+PV_MagShift
+===========
+
+.. automodule:: supriya.ugens.PV_MagShift
+
+.. currentmodule:: supriya.ugens.PV_MagShift
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.PV_MagShift
+
+.. autoclass:: PV_MagShift
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      new
+      pv_chain
+      shift
+      stretch
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.__add__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.__div__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.__le__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.__len__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.__str__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.as_int
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.clip
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.cubed
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.distort
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.exponential
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.floor
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.lag
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.log
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.log10
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.log2
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.maximum
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.minimum
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.power
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.range
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.scale
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.sign
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.softclip
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.square_root
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.squared
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.sum
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.tanh
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.transpose
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_MagShift.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: PV_MagShift.new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagShift.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagShift.fft_size
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagShift.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagShift.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagShift.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagShift.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagShift.outputs
+
+   .. autoattribute:: PV_MagShift.pv_chain
+
+   .. autoattribute:: PV_MagShift.shift
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagShift.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_MagShift.special_index
+
+   .. autoattribute:: PV_MagShift.stretch

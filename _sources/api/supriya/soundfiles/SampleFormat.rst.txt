@@ -1,0 +1,36 @@
+.. _supriya--soundfiles--SampleFormat:
+
+SampleFormat
+============
+
+.. automodule:: supriya.soundfiles.SampleFormat
+
+.. currentmodule:: supriya.soundfiles.SampleFormat
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.soundfiles.SampleFormat
+
+.. autoclass:: SampleFormat
+   :members:
+   :undoc-members:
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ALAW
+      DOUBLE
+      FLOAT
+      INT16
+      INT24
+      INT32
+      INT8
+      MULAW

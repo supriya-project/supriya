@@ -1,0 +1,372 @@
+.. _supriya--ugens--Line:
+
+Line
+====
+
+.. automodule:: supriya.ugens.Line
+
+.. currentmodule:: supriya.ugens.Line
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Line
+
+.. autoclass:: Line
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      done_action
+      duration
+      kr
+      start
+      stop
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Line.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Line.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Line.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Line.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Line.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Line.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Line.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Line.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Line.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Line.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Line.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Line.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Line.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Line.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Line.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Line.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Line.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Line.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Line.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Line.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Line.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Line.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Line.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Line.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Line.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Line.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Line.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Line.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Line.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Line.clip
+
+   .. container:: inherited
+
+      .. automethod:: Line.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Line.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Line.distort
+
+   .. container:: inherited
+
+      .. automethod:: Line.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Line.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Line.floor
+
+   .. container:: inherited
+
+      .. automethod:: Line.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Line.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Line.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Line.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Line.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Line.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Line.lag
+
+   .. container:: inherited
+
+      .. automethod:: Line.log
+
+   .. container:: inherited
+
+      .. automethod:: Line.log10
+
+   .. container:: inherited
+
+      .. automethod:: Line.log2
+
+   .. container:: inherited
+
+      .. automethod:: Line.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Line.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Line.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Line.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Line.power
+
+   .. container:: inherited
+
+      .. automethod:: Line.range
+
+   .. container:: inherited
+
+      .. automethod:: Line.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Line.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Line.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Line.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Line.scale
+
+   .. container:: inherited
+
+      .. automethod:: Line.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Line.sign
+
+   .. container:: inherited
+
+      .. automethod:: Line.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Line.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Line.squared
+
+   .. container:: inherited
+
+      .. automethod:: Line.sum
+
+   .. container:: inherited
+
+      .. automethod:: Line.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Line.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Line.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Line.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Line.ar
+
+   .. automethod:: Line.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Line.calculation_rate
+
+   .. autoattribute:: Line.done_action
+
+   .. autoattribute:: Line.duration
+
+   .. container:: inherited
+
+      .. autoattribute:: Line.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Line.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Line.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Line.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Line.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Line.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: Line.special_index
+
+   .. autoattribute:: Line.start
+
+   .. autoattribute:: Line.stop

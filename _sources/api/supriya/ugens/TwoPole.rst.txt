@@ -1,0 +1,369 @@
+.. _supriya--ugens--TwoPole:
+
+TwoPole
+=======
+
+.. automodule:: supriya.ugens.TwoPole
+
+.. currentmodule:: supriya.ugens.TwoPole
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.TwoPole
+
+.. autoclass:: TwoPole
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      frequency
+      kr
+      radius
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.__add__
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.__div__
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.__le__
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.__len__
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.__str__
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.as_int
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.clip
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.cubed
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.distort
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.exponential
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.floor
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.lag
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.log
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.log10
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.log2
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.maximum
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.minimum
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.power
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.range
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.scale
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.sign
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.softclip
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.square_root
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.squared
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.sum
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.tanh
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.transpose
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: TwoPole.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: TwoPole.ar
+
+   .. automethod:: TwoPole.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: TwoPole.calculation_rate
+
+   .. autoattribute:: TwoPole.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: TwoPole.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: TwoPole.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: TwoPole.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: TwoPole.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: TwoPole.outputs
+
+   .. autoattribute:: TwoPole.radius
+
+   .. container:: inherited
+
+      .. autoattribute:: TwoPole.signal_range
+
+   .. autoattribute:: TwoPole.source
+
+   .. container:: inherited
+
+      .. autoattribute:: TwoPole.special_index

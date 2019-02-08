@@ -1,0 +1,366 @@
+.. _supriya--ugens--TDelay:
+
+TDelay
+======
+
+.. automodule:: supriya.ugens.TDelay
+
+.. currentmodule:: supriya.ugens.TDelay
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.TDelay
+
+.. autoclass:: TDelay
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      duration
+      kr
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__add__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__div__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__le__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__len__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__str__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.as_int
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.clip
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.cubed
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.distort
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.exponential
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.floor
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.lag
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.log
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.log10
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.log2
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.maximum
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.minimum
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.power
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.range
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.scale
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.sign
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.softclip
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.square_root
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.squared
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.sum
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.tanh
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.transpose
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: TDelay.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: TDelay.ar
+
+   .. automethod:: TDelay.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: TDelay.calculation_rate
+
+   .. autoattribute:: TDelay.duration
+
+   .. container:: inherited
+
+      .. autoattribute:: TDelay.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: TDelay.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: TDelay.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: TDelay.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: TDelay.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: TDelay.signal_range
+
+   .. autoattribute:: TDelay.source
+
+   .. container:: inherited
+
+      .. autoattribute:: TDelay.special_index

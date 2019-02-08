@@ -1,0 +1,367 @@
+.. _supriya--ugens--BeatTrack:
+
+BeatTrack
+=========
+
+.. automodule:: supriya.ugens.BeatTrack
+
+.. currentmodule:: supriya.ugens.BeatTrack
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.BeatTrack
+
+.. autoclass:: BeatTrack
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      kr
+      lock
+      pv_chain
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.__add__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.__div__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.__le__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.__len__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.__str__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.as_int
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.clip
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.cubed
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.distort
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.exponential
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.floor
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.lag
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.log
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.log10
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.log2
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.maximum
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.minimum
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.power
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.range
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.scale
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.sign
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.softclip
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.square_root
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.squared
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.sum
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.tanh
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.transpose
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: BeatTrack.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: BeatTrack.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: BeatTrack.channel_count
+
+   .. container:: inherited
+
+      .. autoattribute:: BeatTrack.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: BeatTrack.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BeatTrack.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BeatTrack.is_output_ugen
+
+   .. autoattribute:: BeatTrack.lock
+
+   .. container:: inherited
+
+      .. autoattribute:: BeatTrack.outputs
+
+   .. autoattribute:: BeatTrack.pv_chain
+
+   .. container:: inherited
+
+      .. autoattribute:: BeatTrack.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: BeatTrack.special_index

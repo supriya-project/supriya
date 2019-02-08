@@ -1,0 +1,369 @@
+.. _supriya--ugens--LFPulse:
+
+LFPulse
+=======
+
+.. automodule:: supriya.ugens.LFPulse
+
+.. currentmodule:: supriya.ugens.LFPulse
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.LFPulse
+
+.. autoclass:: LFPulse
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      frequency
+      initial_phase
+      kr
+      width
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.__add__
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.__div__
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.__le__
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.__len__
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.__str__
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.as_int
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.clip
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.cubed
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.distort
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.exponential
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.floor
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.lag
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.log
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.log10
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.log2
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.maximum
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.minimum
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.power
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.range
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.scale
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.sign
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.softclip
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.square_root
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.squared
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.sum
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.tanh
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.transpose
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: LFPulse.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: LFPulse.ar
+
+   .. automethod:: LFPulse.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: LFPulse.calculation_rate
+
+   .. autoattribute:: LFPulse.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: LFPulse.has_done_flag
+
+   .. autoattribute:: LFPulse.initial_phase
+
+   .. container:: inherited
+
+      .. autoattribute:: LFPulse.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: LFPulse.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: LFPulse.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: LFPulse.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: LFPulse.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: LFPulse.special_index
+
+   .. autoattribute:: LFPulse.width

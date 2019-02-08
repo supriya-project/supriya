@@ -1,0 +1,363 @@
+.. _supriya--ugens--DC:
+
+DC
+==
+
+.. automodule:: supriya.ugens.DC
+
+.. currentmodule:: supriya.ugens.DC
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.DC
+
+.. autoclass:: DC
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: DC.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: DC.__add__
+
+   .. container:: inherited
+
+      .. automethod:: DC.__div__
+
+   .. container:: inherited
+
+      .. automethod:: DC.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: DC.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: DC.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: DC.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: DC.__le__
+
+   .. container:: inherited
+
+      .. automethod:: DC.__len__
+
+   .. container:: inherited
+
+      .. automethod:: DC.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: DC.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: DC.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: DC.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: DC.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: DC.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: DC.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: DC.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: DC.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: DC.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: DC.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: DC.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: DC.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: DC.__str__
+
+   .. container:: inherited
+
+      .. automethod:: DC.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: DC.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: DC.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: DC.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: DC.as_int
+
+   .. container:: inherited
+
+      .. automethod:: DC.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: DC.clip
+
+   .. container:: inherited
+
+      .. automethod:: DC.cubed
+
+   .. container:: inherited
+
+      .. automethod:: DC.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: DC.distort
+
+   .. container:: inherited
+
+      .. automethod:: DC.exponential
+
+   .. container:: inherited
+
+      .. automethod:: DC.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: DC.floor
+
+   .. container:: inherited
+
+      .. automethod:: DC.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: DC.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: DC.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: DC.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: DC.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: DC.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: DC.lag
+
+   .. container:: inherited
+
+      .. automethod:: DC.log
+
+   .. container:: inherited
+
+      .. automethod:: DC.log10
+
+   .. container:: inherited
+
+      .. automethod:: DC.log2
+
+   .. container:: inherited
+
+      .. automethod:: DC.maximum
+
+   .. container:: inherited
+
+      .. automethod:: DC.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: DC.minimum
+
+   .. container:: inherited
+
+      .. automethod:: DC.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: DC.power
+
+   .. container:: inherited
+
+      .. automethod:: DC.range
+
+   .. container:: inherited
+
+      .. automethod:: DC.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: DC.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: DC.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: DC.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: DC.scale
+
+   .. container:: inherited
+
+      .. automethod:: DC.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: DC.sign
+
+   .. container:: inherited
+
+      .. automethod:: DC.softclip
+
+   .. container:: inherited
+
+      .. automethod:: DC.square_root
+
+   .. container:: inherited
+
+      .. automethod:: DC.squared
+
+   .. container:: inherited
+
+      .. automethod:: DC.sum
+
+   .. container:: inherited
+
+      .. automethod:: DC.tanh
+
+   .. container:: inherited
+
+      .. automethod:: DC.transpose
+
+   .. container:: inherited
+
+      .. automethod:: DC.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: DC.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: DC.ar
+
+   .. automethod:: DC.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: DC.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: DC.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: DC.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: DC.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: DC.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: DC.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: DC.signal_range
+
+   .. autoattribute:: DC.source
+
+   .. container:: inherited
+
+      .. autoattribute:: DC.special_index

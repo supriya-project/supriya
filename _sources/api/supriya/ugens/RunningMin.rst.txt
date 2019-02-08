@@ -1,0 +1,366 @@
+.. _supriya--ugens--RunningMin:
+
+RunningMin
+==========
+
+.. automodule:: supriya.ugens.RunningMin
+
+.. currentmodule:: supriya.ugens.RunningMin
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.RunningMin
+
+.. autoclass:: RunningMin
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      source
+      trigger
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__add__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__div__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__le__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__len__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__str__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.as_int
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.clip
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.cubed
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.distort
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.exponential
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.floor
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.lag
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.log
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.log10
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.log2
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.maximum
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.minimum
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.power
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.range
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.scale
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.sign
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.softclip
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.square_root
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.squared
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.sum
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.tanh
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.transpose
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: RunningMin.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: RunningMin.ar
+
+   .. automethod:: RunningMin.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: RunningMin.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: RunningMin.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: RunningMin.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: RunningMin.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: RunningMin.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: RunningMin.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: RunningMin.signal_range
+
+   .. autoattribute:: RunningMin.source
+
+   .. container:: inherited
+
+      .. autoattribute:: RunningMin.special_index
+
+   .. autoattribute:: RunningMin.trigger

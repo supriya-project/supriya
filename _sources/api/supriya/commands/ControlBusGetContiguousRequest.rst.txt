@@ -1,0 +1,97 @@
+.. _supriya--commands--ControlBusGetContiguousRequest:
+
+ControlBusGetContiguousRequest
+==============================
+
+.. automodule:: supriya.commands.ControlBusGetContiguousRequest
+
+.. currentmodule:: supriya.commands.ControlBusGetContiguousRequest
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.ControlBusGetContiguousRequest
+
+.. autoclass:: ControlBusGetContiguousRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      index_count_pairs
+      request_id
+      response_patterns
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusGetContiguousRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusGetContiguousRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusGetContiguousRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusGetContiguousRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusGetContiguousRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusGetContiguousRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: ControlBusGetContiguousRequest.to_list
+
+   .. automethod:: ControlBusGetContiguousRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: ControlBusGetContiguousRequest.condition
+
+   .. autoattribute:: ControlBusGetContiguousRequest.index_count_pairs
+
+   .. container:: inherited
+
+      .. autoattribute:: ControlBusGetContiguousRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: ControlBusGetContiguousRequest.response
+
+   .. autoattribute:: ControlBusGetContiguousRequest.response_patterns

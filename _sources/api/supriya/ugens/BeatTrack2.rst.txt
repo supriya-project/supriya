@@ -1,0 +1,379 @@
+.. _supriya--ugens--BeatTrack2:
+
+BeatTrack2
+==========
+
+.. automodule:: supriya.ugens.BeatTrack2
+
+.. currentmodule:: supriya.ugens.BeatTrack2
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.BeatTrack2
+
+.. autoclass:: BeatTrack2
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      bus_index
+      feature_count
+      kr
+      lock
+      phase_accuracy
+      weighting_scheme
+      window_size
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.__add__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.__div__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.__le__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.__len__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.__str__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.as_int
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.clip
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.cubed
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.distort
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.exponential
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.floor
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.lag
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.log
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.log10
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.log2
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.maximum
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.minimum
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.power
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.range
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.scale
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.sign
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.softclip
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.square_root
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.squared
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.sum
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.tanh
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.transpose
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BeatTrack2.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: BeatTrack2.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BeatTrack2.bus_index
+
+   .. container:: inherited
+
+      .. autoattribute:: BeatTrack2.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: BeatTrack2.channel_count
+
+   .. autoattribute:: BeatTrack2.feature_count
+
+   .. container:: inherited
+
+      .. autoattribute:: BeatTrack2.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: BeatTrack2.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BeatTrack2.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BeatTrack2.is_output_ugen
+
+   .. autoattribute:: BeatTrack2.lock
+
+   .. container:: inherited
+
+      .. autoattribute:: BeatTrack2.outputs
+
+   .. autoattribute:: BeatTrack2.phase_accuracy
+
+   .. container:: inherited
+
+      .. autoattribute:: BeatTrack2.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: BeatTrack2.special_index
+
+   .. autoattribute:: BeatTrack2.weighting_scheme
+
+   .. autoattribute:: BeatTrack2.window_size

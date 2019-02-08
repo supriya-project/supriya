@@ -1,0 +1,372 @@
+.. _supriya--ugens--LinCongL:
+
+LinCongL
+========
+
+.. automodule:: supriya.ugens.LinCongL
+
+.. currentmodule:: supriya.ugens.LinCongL
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.LinCongL
+
+.. autoclass:: LinCongL
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      a
+      ar
+      c
+      frequency
+      m
+      xi
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.__add__
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.__div__
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.__le__
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.__len__
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.__str__
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.as_int
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.clip
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.cubed
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.distort
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.exponential
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.floor
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.lag
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.log
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.log10
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.log2
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.maximum
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.minimum
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.power
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.range
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.scale
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.sign
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.softclip
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.square_root
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.squared
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.sum
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.tanh
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.transpose
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: LinCongL.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: LinCongL.ar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: LinCongL.a
+
+   .. autoattribute:: LinCongL.c
+
+   .. container:: inherited
+
+      .. autoattribute:: LinCongL.calculation_rate
+
+   .. autoattribute:: LinCongL.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: LinCongL.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: LinCongL.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: LinCongL.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: LinCongL.is_output_ugen
+
+   .. autoattribute:: LinCongL.m
+
+   .. container:: inherited
+
+      .. autoattribute:: LinCongL.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: LinCongL.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: LinCongL.special_index
+
+   .. autoattribute:: LinCongL.xi

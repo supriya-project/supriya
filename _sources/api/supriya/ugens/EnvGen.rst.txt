@@ -1,0 +1,378 @@
+.. _supriya--ugens--EnvGen:
+
+EnvGen
+======
+
+.. automodule:: supriya.ugens.EnvGen
+
+.. currentmodule:: supriya.ugens.EnvGen
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.EnvGen
+
+.. autoclass:: EnvGen
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      done_action
+      envelope
+      gate
+      kr
+      level_bias
+      level_scale
+      time_scale
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.__add__
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.__div__
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.__le__
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.__len__
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.__str__
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.as_int
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.clip
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.cubed
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.distort
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.exponential
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.floor
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.lag
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.log
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.log10
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.log2
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.maximum
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.minimum
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.power
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.range
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.scale
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.sign
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.softclip
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.square_root
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.squared
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.sum
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.tanh
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.transpose
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: EnvGen.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: EnvGen.ar
+
+   .. automethod:: EnvGen.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: EnvGen.calculation_rate
+
+   .. autoattribute:: EnvGen.done_action
+
+   .. autoattribute:: EnvGen.envelope
+
+   .. autoattribute:: EnvGen.gate
+
+   .. container:: inherited
+
+      .. autoattribute:: EnvGen.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: EnvGen.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: EnvGen.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: EnvGen.is_output_ugen
+
+   .. autoattribute:: EnvGen.level_bias
+
+   .. autoattribute:: EnvGen.level_scale
+
+   .. container:: inherited
+
+      .. autoattribute:: EnvGen.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: EnvGen.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: EnvGen.special_index
+
+   .. autoattribute:: EnvGen.time_scale

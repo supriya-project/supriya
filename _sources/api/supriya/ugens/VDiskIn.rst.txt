@@ -1,0 +1,373 @@
+.. _supriya--ugens--VDiskIn:
+
+VDiskIn
+=======
+
+.. automodule:: supriya.ugens.VDiskIn
+
+.. currentmodule:: supriya.ugens.VDiskIn
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.VDiskIn
+
+.. autoclass:: VDiskIn
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      buffer_id
+      loop
+      rate
+      send_id
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.__add__
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.__div__
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.__le__
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.__len__
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.__str__
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.as_int
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.clip
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.cubed
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.distort
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.exponential
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.floor
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.lag
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.log
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.log10
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.log2
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.maximum
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.minimum
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.power
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.range
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.scale
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.sign
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.softclip
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.square_root
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.squared
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.sum
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.tanh
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.transpose
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: VDiskIn.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: VDiskIn.ar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: VDiskIn.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: VDiskIn.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: VDiskIn.channel_count
+
+   .. container:: inherited
+
+      .. autoattribute:: VDiskIn.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: VDiskIn.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: VDiskIn.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: VDiskIn.is_output_ugen
+
+   .. autoattribute:: VDiskIn.loop
+
+   .. container:: inherited
+
+      .. autoattribute:: VDiskIn.outputs
+
+   .. autoattribute:: VDiskIn.rate
+
+   .. autoattribute:: VDiskIn.send_id
+
+   .. container:: inherited
+
+      .. autoattribute:: VDiskIn.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: VDiskIn.special_index

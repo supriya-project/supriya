@@ -1,0 +1,363 @@
+.. _supriya--ugens--Dseq:
+
+Dseq
+====
+
+.. automodule:: supriya.ugens.Dseq
+
+.. currentmodule:: supriya.ugens.Dseq
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Dseq
+
+.. autoclass:: Dseq
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      new
+      repeats
+      sequence
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.clip
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.distort
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.floor
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.lag
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.log
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.log10
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.log2
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.power
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.range
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.scale
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.sign
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.squared
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.sum
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Dseq.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Dseq.new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Dseq.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Dseq.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Dseq.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Dseq.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Dseq.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Dseq.outputs
+
+   .. autoattribute:: Dseq.repeats
+
+   .. autoattribute:: Dseq.sequence
+
+   .. container:: inherited
+
+      .. autoattribute:: Dseq.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: Dseq.special_index

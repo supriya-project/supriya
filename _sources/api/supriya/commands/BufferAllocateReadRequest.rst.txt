@@ -1,0 +1,113 @@
+.. _supriya--commands--BufferAllocateReadRequest:
+
+BufferAllocateReadRequest
+=========================
+
+.. automodule:: supriya.commands.BufferAllocateReadRequest
+
+.. currentmodule:: supriya.commands.BufferAllocateReadRequest
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.BufferAllocateReadRequest
+
+.. autoclass:: BufferAllocateReadRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      buffer_id
+      callback
+      file_path
+      frame_count
+      request_id
+      response_patterns
+      starting_frame
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateReadRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateReadRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateReadRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateReadRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateReadRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateReadRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: BufferAllocateReadRequest.to_list
+
+   .. automethod:: BufferAllocateReadRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferAllocateReadRequest.buffer_id
+
+   .. autoattribute:: BufferAllocateReadRequest.callback
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferAllocateReadRequest.channel_count
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferAllocateReadRequest.condition
+
+   .. autoattribute:: BufferAllocateReadRequest.file_path
+
+   .. autoattribute:: BufferAllocateReadRequest.frame_count
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferAllocateReadRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferAllocateReadRequest.response
+
+   .. autoattribute:: BufferAllocateReadRequest.response_patterns
+
+   .. autoattribute:: BufferAllocateReadRequest.starting_frame

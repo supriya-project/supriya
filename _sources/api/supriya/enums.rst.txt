@@ -1,0 +1,65 @@
+.. _supriya--enums:
+
+enums
+=====
+
+.. automodule:: supriya.enums
+
+.. currentmodule:: supriya.enums
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.enums
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Enumerations
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~AddAction
+   ~CalculationRate
+
+.. autoclass:: AddAction
+   :members:
+   :undoc-members:
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ADD_AFTER
+      ADD_BEFORE
+      ADD_TO_HEAD
+      ADD_TO_TAIL
+      REPLACE
+
+.. autoclass:: CalculationRate
+   :members:
+   :undoc-members:
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      AUDIO
+      CONTROL
+      DEMAND
+      SCALAR

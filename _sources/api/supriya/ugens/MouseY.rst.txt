@@ -1,0 +1,357 @@
+.. _supriya--ugens--MouseY:
+
+MouseY
+======
+
+.. automodule:: supriya.ugens.MouseY
+
+.. currentmodule:: supriya.ugens.MouseY
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.MouseY
+
+.. autoclass:: MouseY
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      kr
+      lag
+      maximum
+      minimum
+      warp
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.__add__
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.__div__
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.__le__
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.__len__
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.__str__
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.as_int
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.clip
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.cubed
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.distort
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.exponential
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.floor
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.log
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.log10
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.log2
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.power
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.range
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.scale
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.sign
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.softclip
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.square_root
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.squared
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.sum
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.tanh
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.transpose
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: MouseY.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: MouseY.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: MouseY.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: MouseY.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: MouseY.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: MouseY.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: MouseY.is_output_ugen
+
+   .. autoattribute:: MouseY.lag
+
+   .. autoattribute:: MouseY.maximum
+
+   .. autoattribute:: MouseY.minimum
+
+   .. container:: inherited
+
+      .. autoattribute:: MouseY.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: MouseY.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: MouseY.special_index
+
+   .. autoattribute:: MouseY.warp

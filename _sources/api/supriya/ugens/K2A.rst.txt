@@ -1,0 +1,360 @@
+.. _supriya--ugens--K2A:
+
+K2A
+===
+
+.. automodule:: supriya.ugens.K2A
+
+.. currentmodule:: supriya.ugens.K2A
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.K2A
+
+.. autoclass:: K2A
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: K2A.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: K2A.__add__
+
+   .. container:: inherited
+
+      .. automethod:: K2A.__div__
+
+   .. container:: inherited
+
+      .. automethod:: K2A.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: K2A.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: K2A.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: K2A.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: K2A.__le__
+
+   .. container:: inherited
+
+      .. automethod:: K2A.__len__
+
+   .. container:: inherited
+
+      .. automethod:: K2A.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: K2A.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: K2A.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: K2A.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: K2A.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: K2A.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: K2A.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: K2A.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: K2A.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: K2A.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: K2A.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: K2A.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: K2A.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: K2A.__str__
+
+   .. container:: inherited
+
+      .. automethod:: K2A.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: K2A.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: K2A.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: K2A.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: K2A.as_int
+
+   .. container:: inherited
+
+      .. automethod:: K2A.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: K2A.clip
+
+   .. container:: inherited
+
+      .. automethod:: K2A.cubed
+
+   .. container:: inherited
+
+      .. automethod:: K2A.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: K2A.distort
+
+   .. container:: inherited
+
+      .. automethod:: K2A.exponential
+
+   .. container:: inherited
+
+      .. automethod:: K2A.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: K2A.floor
+
+   .. container:: inherited
+
+      .. automethod:: K2A.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: K2A.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: K2A.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: K2A.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: K2A.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: K2A.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: K2A.lag
+
+   .. container:: inherited
+
+      .. automethod:: K2A.log
+
+   .. container:: inherited
+
+      .. automethod:: K2A.log10
+
+   .. container:: inherited
+
+      .. automethod:: K2A.log2
+
+   .. container:: inherited
+
+      .. automethod:: K2A.maximum
+
+   .. container:: inherited
+
+      .. automethod:: K2A.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: K2A.minimum
+
+   .. container:: inherited
+
+      .. automethod:: K2A.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: K2A.power
+
+   .. container:: inherited
+
+      .. automethod:: K2A.range
+
+   .. container:: inherited
+
+      .. automethod:: K2A.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: K2A.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: K2A.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: K2A.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: K2A.scale
+
+   .. container:: inherited
+
+      .. automethod:: K2A.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: K2A.sign
+
+   .. container:: inherited
+
+      .. automethod:: K2A.softclip
+
+   .. container:: inherited
+
+      .. automethod:: K2A.square_root
+
+   .. container:: inherited
+
+      .. automethod:: K2A.squared
+
+   .. container:: inherited
+
+      .. automethod:: K2A.sum
+
+   .. container:: inherited
+
+      .. automethod:: K2A.tanh
+
+   .. container:: inherited
+
+      .. automethod:: K2A.transpose
+
+   .. container:: inherited
+
+      .. automethod:: K2A.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: K2A.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: K2A.ar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: K2A.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: K2A.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: K2A.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: K2A.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: K2A.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: K2A.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: K2A.signal_range
+
+   .. autoattribute:: K2A.source
+
+   .. container:: inherited
+
+      .. autoattribute:: K2A.special_index

@@ -1,0 +1,110 @@
+.. _supriya--nonrealtime--Node:
+
+Node
+====
+
+.. automodule:: supriya.nonrealtime.Node
+
+.. currentmodule:: supriya.nonrealtime.Node
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.nonrealtime.Node
+
+.. autoclass:: Node
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __getitem__
+      __repr__
+      __setitem__
+      add_group
+      add_synth
+      delete
+      duration
+      get_parent
+      get_parentage
+      inspect_children
+      move_node
+      session_id
+      set_duration
+      split
+      start_offset
+      stop_offset
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: Node.__getitem__
+
+   .. automethod:: Node.__repr__
+
+   .. automethod:: Node.__setitem__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: Node.add_group
+
+   .. automethod:: Node.add_synth
+
+   .. automethod:: Node.delete
+
+   .. automethod:: Node.get_parent
+
+   .. automethod:: Node.get_parentage
+
+   .. automethod:: Node.inspect_children
+
+   .. automethod:: Node.move_node
+
+   .. automethod:: Node.set_duration
+
+   .. automethod:: Node.split
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Node.require_offset
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Node.duration
+
+   .. container:: inherited
+
+      .. autoattribute:: Node.session
+
+   .. autoattribute:: Node.session_id
+
+   .. autoattribute:: Node.start_offset
+
+   .. autoattribute:: Node.stop_offset

@@ -1,0 +1,372 @@
+.. _supriya--ugens--MidEQ:
+
+MidEQ
+=====
+
+.. automodule:: supriya.ugens.MidEQ
+
+.. currentmodule:: supriya.ugens.MidEQ
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.MidEQ
+
+.. autoclass:: MidEQ
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      db
+      frequency
+      kr
+      reciprocal_of_q
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.__add__
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.__div__
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.__le__
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.__len__
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.__str__
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.as_int
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.clip
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.cubed
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.distort
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.exponential
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.floor
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.lag
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.log
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.log10
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.log2
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.maximum
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.minimum
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.power
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.range
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.scale
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.sign
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.softclip
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.square_root
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.squared
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.sum
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.tanh
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.transpose
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: MidEQ.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: MidEQ.ar
+
+   .. automethod:: MidEQ.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: MidEQ.calculation_rate
+
+   .. autoattribute:: MidEQ.db
+
+   .. autoattribute:: MidEQ.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: MidEQ.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: MidEQ.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: MidEQ.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: MidEQ.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: MidEQ.outputs
+
+   .. autoattribute:: MidEQ.reciprocal_of_q
+
+   .. container:: inherited
+
+      .. autoattribute:: MidEQ.signal_range
+
+   .. autoattribute:: MidEQ.source
+
+   .. container:: inherited
+
+      .. autoattribute:: MidEQ.special_index

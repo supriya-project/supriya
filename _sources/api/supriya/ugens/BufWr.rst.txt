@@ -1,0 +1,371 @@
+.. _supriya--ugens--BufWr:
+
+BufWr
+=====
+
+.. automodule:: supriya.ugens.BufWr
+
+.. currentmodule:: supriya.ugens.BufWr
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.BufWr
+
+.. autoclass:: BufWr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      buffer_id
+      has_done_flag
+      kr
+      loop
+      phase
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.__add__
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.__div__
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.__le__
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.__len__
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.__str__
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.as_int
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.clip
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.cubed
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.distort
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.exponential
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.floor
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.lag
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.log
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.log10
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.log2
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.maximum
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.minimum
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.power
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.range
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.scale
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.sign
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.softclip
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.square_root
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.squared
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.sum
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.tanh
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.transpose
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BufWr.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: BufWr.ar
+
+   .. automethod:: BufWr.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufWr.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: BufWr.calculation_rate
+
+   .. autoattribute:: BufWr.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: BufWr.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BufWr.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BufWr.is_output_ugen
+
+   .. autoattribute:: BufWr.loop
+
+   .. container:: inherited
+
+      .. autoattribute:: BufWr.outputs
+
+   .. autoattribute:: BufWr.phase
+
+   .. container:: inherited
+
+      .. autoattribute:: BufWr.signal_range
+
+   .. autoattribute:: BufWr.source
+
+   .. container:: inherited
+
+      .. autoattribute:: BufWr.special_index

@@ -1,0 +1,375 @@
+.. _supriya--ugens--LinExp:
+
+LinExp
+======
+
+.. automodule:: supriya.ugens.LinExp
+
+.. currentmodule:: supriya.ugens.LinExp
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.LinExp
+
+.. autoclass:: LinExp
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      input_maximum
+      input_minimum
+      kr
+      output_maximum
+      output_minimum
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.__add__
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.__div__
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.__le__
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.__len__
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.__str__
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.as_int
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.clip
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.cubed
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.distort
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.exponential
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.floor
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.lag
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.log
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.log10
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.log2
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.maximum
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.minimum
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.power
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.range
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.scale
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.sign
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.softclip
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.square_root
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.squared
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.sum
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.tanh
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.transpose
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: LinExp.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: LinExp.ar
+
+   .. automethod:: LinExp.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: LinExp.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: LinExp.has_done_flag
+
+   .. autoattribute:: LinExp.input_maximum
+
+   .. autoattribute:: LinExp.input_minimum
+
+   .. container:: inherited
+
+      .. autoattribute:: LinExp.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: LinExp.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: LinExp.is_output_ugen
+
+   .. autoattribute:: LinExp.output_maximum
+
+   .. autoattribute:: LinExp.output_minimum
+
+   .. container:: inherited
+
+      .. autoattribute:: LinExp.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: LinExp.signal_range
+
+   .. autoattribute:: LinExp.source
+
+   .. container:: inherited
+
+      .. autoattribute:: LinExp.special_index

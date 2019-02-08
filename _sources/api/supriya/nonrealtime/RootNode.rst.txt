@@ -1,0 +1,134 @@
+.. _supriya--nonrealtime--RootNode:
+
+RootNode
+========
+
+.. automodule:: supriya.nonrealtime.RootNode
+
+.. currentmodule:: supriya.nonrealtime.RootNode
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.nonrealtime.RootNode
+
+.. autoclass:: RootNode
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __str__
+      duration
+      start_offset
+      stop_offset
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: RootNode.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: RootNode.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: RootNode.__setitem__
+
+   .. automethod:: RootNode.__str__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: RootNode.add_group
+
+   .. container:: inherited
+
+      .. automethod:: RootNode.add_synth
+
+   .. container:: inherited
+
+      .. automethod:: RootNode.delete
+
+   .. container:: inherited
+
+      .. automethod:: RootNode.get_children
+
+   .. container:: inherited
+
+      .. automethod:: RootNode.get_parent
+
+   .. container:: inherited
+
+      .. automethod:: RootNode.get_parentage
+
+   .. container:: inherited
+
+      .. automethod:: RootNode.inscribe
+
+   .. container:: inherited
+
+      .. automethod:: RootNode.inspect_children
+
+   .. container:: inherited
+
+      .. automethod:: RootNode.move_node
+
+   .. container:: inherited
+
+      .. automethod:: RootNode.set_duration
+
+   .. container:: inherited
+
+      .. automethod:: RootNode.split
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: RootNode.require_offset
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: RootNode.duration
+
+   .. container:: inherited
+
+      .. autoattribute:: RootNode.session
+
+   .. container:: inherited
+
+      .. autoattribute:: RootNode.session_id
+
+   .. autoattribute:: RootNode.start_offset
+
+   .. autoattribute:: RootNode.stop_offset

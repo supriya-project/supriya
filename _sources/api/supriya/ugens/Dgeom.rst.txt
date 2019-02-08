@@ -1,0 +1,366 @@
+.. _supriya--ugens--Dgeom:
+
+Dgeom
+=====
+
+.. automodule:: supriya.ugens.Dgeom
+
+.. currentmodule:: supriya.ugens.Dgeom
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Dgeom
+
+.. autoclass:: Dgeom
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      grow
+      length
+      new
+      start
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.clip
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.distort
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.floor
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.lag
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.log
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.log10
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.log2
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.power
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.range
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.scale
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.sign
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.squared
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.sum
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Dgeom.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Dgeom.new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Dgeom.calculation_rate
+
+   .. autoattribute:: Dgeom.grow
+
+   .. container:: inherited
+
+      .. autoattribute:: Dgeom.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Dgeom.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Dgeom.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Dgeom.is_output_ugen
+
+   .. autoattribute:: Dgeom.length
+
+   .. container:: inherited
+
+      .. autoattribute:: Dgeom.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Dgeom.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: Dgeom.special_index
+
+   .. autoattribute:: Dgeom.start

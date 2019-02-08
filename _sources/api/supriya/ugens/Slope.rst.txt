@@ -1,0 +1,363 @@
+.. _supriya--ugens--Slope:
+
+Slope
+=====
+
+.. automodule:: supriya.ugens.Slope
+
+.. currentmodule:: supriya.ugens.Slope
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Slope
+
+.. autoclass:: Slope
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Slope.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Slope.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Slope.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Slope.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Slope.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Slope.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Slope.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Slope.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Slope.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Slope.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Slope.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Slope.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Slope.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Slope.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Slope.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Slope.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Slope.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Slope.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Slope.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Slope.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Slope.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Slope.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Slope.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Slope.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Slope.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Slope.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Slope.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Slope.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Slope.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Slope.clip
+
+   .. container:: inherited
+
+      .. automethod:: Slope.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Slope.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Slope.distort
+
+   .. container:: inherited
+
+      .. automethod:: Slope.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Slope.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Slope.floor
+
+   .. container:: inherited
+
+      .. automethod:: Slope.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Slope.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Slope.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Slope.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Slope.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Slope.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Slope.lag
+
+   .. container:: inherited
+
+      .. automethod:: Slope.log
+
+   .. container:: inherited
+
+      .. automethod:: Slope.log10
+
+   .. container:: inherited
+
+      .. automethod:: Slope.log2
+
+   .. container:: inherited
+
+      .. automethod:: Slope.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Slope.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Slope.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Slope.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Slope.power
+
+   .. container:: inherited
+
+      .. automethod:: Slope.range
+
+   .. container:: inherited
+
+      .. automethod:: Slope.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Slope.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Slope.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Slope.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Slope.scale
+
+   .. container:: inherited
+
+      .. automethod:: Slope.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Slope.sign
+
+   .. container:: inherited
+
+      .. automethod:: Slope.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Slope.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Slope.squared
+
+   .. container:: inherited
+
+      .. automethod:: Slope.sum
+
+   .. container:: inherited
+
+      .. automethod:: Slope.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Slope.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Slope.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Slope.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Slope.ar
+
+   .. automethod:: Slope.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Slope.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Slope.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Slope.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Slope.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Slope.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Slope.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Slope.signal_range
+
+   .. autoattribute:: Slope.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Slope.special_index

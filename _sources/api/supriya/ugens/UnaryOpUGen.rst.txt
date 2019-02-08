@@ -1,0 +1,363 @@
+.. _supriya--ugens--UnaryOpUGen:
+
+UnaryOpUGen
+===========
+
+.. automodule:: supriya.ugens.UnaryOpUGen
+
+.. currentmodule:: supriya.ugens.UnaryOpUGen
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.UnaryOpUGen
+
+.. autoclass:: UnaryOpUGen
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      new
+      operator
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.__add__
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.__div__
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.__le__
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.__len__
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.__str__
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.as_int
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.clip
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.cubed
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.distort
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.exponential
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.floor
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.lag
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.log
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.log10
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.log2
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.maximum
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.minimum
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.power
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.range
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.scale
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.sign
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.softclip
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.square_root
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.squared
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.sum
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.tanh
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.transpose
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: UnaryOpUGen.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: UnaryOpUGen.new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: UnaryOpUGen.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: UnaryOpUGen.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: UnaryOpUGen.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: UnaryOpUGen.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: UnaryOpUGen.is_output_ugen
+
+   .. autoattribute:: UnaryOpUGen.operator
+
+   .. container:: inherited
+
+      .. autoattribute:: UnaryOpUGen.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: UnaryOpUGen.signal_range
+
+   .. autoattribute:: UnaryOpUGen.source
+
+   .. container:: inherited
+
+      .. autoattribute:: UnaryOpUGen.special_index

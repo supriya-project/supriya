@@ -1,0 +1,360 @@
+.. _supriya--ugens--FreeSelfWhenDone:
+
+FreeSelfWhenDone
+================
+
+.. automodule:: supriya.ugens.FreeSelfWhenDone
+
+.. currentmodule:: supriya.ugens.FreeSelfWhenDone
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.FreeSelfWhenDone
+
+.. autoclass:: FreeSelfWhenDone
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      kr
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.__add__
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.__div__
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.__le__
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.__len__
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.__str__
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.as_int
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.clip
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.cubed
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.distort
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.exponential
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.floor
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.lag
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.log
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.log10
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.log2
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.maximum
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.minimum
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.power
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.range
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.scale
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.sign
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.softclip
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.square_root
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.squared
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.sum
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.tanh
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.transpose
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: FreeSelfWhenDone.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: FreeSelfWhenDone.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: FreeSelfWhenDone.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: FreeSelfWhenDone.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: FreeSelfWhenDone.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: FreeSelfWhenDone.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: FreeSelfWhenDone.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: FreeSelfWhenDone.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: FreeSelfWhenDone.signal_range
+
+   .. autoattribute:: FreeSelfWhenDone.source
+
+   .. container:: inherited
+
+      .. autoattribute:: FreeSelfWhenDone.special_index

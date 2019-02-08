@@ -1,0 +1,363 @@
+.. _supriya--ugens--LocalOut:
+
+LocalOut
+========
+
+.. automodule:: supriya.ugens.LocalOut
+
+.. currentmodule:: supriya.ugens.LocalOut
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.LocalOut
+
+.. autoclass:: LocalOut
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.__add__
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.__div__
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.__le__
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.__len__
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.__str__
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.as_int
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.clip
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.cubed
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.distort
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.exponential
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.floor
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.lag
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.log
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.log10
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.log2
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.maximum
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.minimum
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.power
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.range
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.scale
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.sign
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.softclip
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.square_root
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.squared
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.sum
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.tanh
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.transpose
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: LocalOut.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: LocalOut.ar
+
+   .. automethod:: LocalOut.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: LocalOut.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: LocalOut.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: LocalOut.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: LocalOut.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: LocalOut.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: LocalOut.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: LocalOut.signal_range
+
+   .. autoattribute:: LocalOut.source
+
+   .. container:: inherited
+
+      .. autoattribute:: LocalOut.special_index

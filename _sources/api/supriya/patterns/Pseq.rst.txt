@@ -1,0 +1,123 @@
+.. _supriya--patterns--Pseq:
+
+Pseq
+====
+
+.. automodule:: supriya.patterns.Pseq
+
+.. currentmodule:: supriya.patterns.Pseq
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.patterns.Pseq
+
+.. autoclass:: Pseq
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      arity
+      is_infinite
+      repetitions
+      sequence
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pseq.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Pseq.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: Pseq.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Pseq.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: Pseq.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: Pseq.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: Pseq.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Pseq.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Pseq.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Pseq.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Pseq.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Pseq.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Pseq.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Pseq.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Pseq.__sub__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pseq.from_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Pseq.arity
+
+   .. autoattribute:: Pseq.is_infinite
+
+   .. autoattribute:: Pseq.repetitions
+
+   .. autoattribute:: Pseq.sequence

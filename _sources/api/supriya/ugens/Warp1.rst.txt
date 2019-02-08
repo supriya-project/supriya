@@ -1,0 +1,385 @@
+.. _supriya--ugens--Warp1:
+
+Warp1
+=====
+
+.. automodule:: supriya.ugens.Warp1
+
+.. currentmodule:: supriya.ugens.Warp1
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Warp1
+
+.. autoclass:: Warp1
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      buffer_id
+      envelope_buffer_id
+      frequency_scaling
+      interpolation
+      overlaps
+      pointer
+      window_rand_ratio
+      window_size
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.clip
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.distort
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.floor
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.lag
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.log
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.log10
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.log2
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.power
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.range
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.scale
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.sign
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.squared
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.sum
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Warp1.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Warp1.ar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Warp1.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: Warp1.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Warp1.channel_count
+
+   .. autoattribute:: Warp1.envelope_buffer_id
+
+   .. autoattribute:: Warp1.frequency_scaling
+
+   .. container:: inherited
+
+      .. autoattribute:: Warp1.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Warp1.inputs
+
+   .. autoattribute:: Warp1.interpolation
+
+   .. container:: inherited
+
+      .. autoattribute:: Warp1.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Warp1.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Warp1.outputs
+
+   .. autoattribute:: Warp1.overlaps
+
+   .. autoattribute:: Warp1.pointer
+
+   .. container:: inherited
+
+      .. autoattribute:: Warp1.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: Warp1.special_index
+
+   .. autoattribute:: Warp1.window_rand_ratio
+
+   .. autoattribute:: Warp1.window_size

@@ -1,0 +1,363 @@
+.. _supriya--ugens--BufSampleRate:
+
+BufSampleRate
+=============
+
+.. automodule:: supriya.ugens.BufSampleRate
+
+.. currentmodule:: supriya.ugens.BufSampleRate
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.BufSampleRate
+
+.. autoclass:: BufSampleRate
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      buffer_id
+      ir
+      kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.__add__
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.__div__
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.__le__
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.__len__
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.__str__
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.as_int
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.clip
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.cubed
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.distort
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.exponential
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.floor
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.lag
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.log
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.log10
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.log2
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.maximum
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.minimum
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.power
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.range
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.scale
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.sign
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.softclip
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.square_root
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.squared
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.sum
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.tanh
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.transpose
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BufSampleRate.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: BufSampleRate.ir
+
+   .. automethod:: BufSampleRate.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufSampleRate.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: BufSampleRate.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: BufSampleRate.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: BufSampleRate.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BufSampleRate.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BufSampleRate.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BufSampleRate.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BufSampleRate.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: BufSampleRate.special_index

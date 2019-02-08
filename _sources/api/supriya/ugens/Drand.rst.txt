@@ -1,0 +1,363 @@
+.. _supriya--ugens--Drand:
+
+Drand
+=====
+
+.. automodule:: supriya.ugens.Drand
+
+.. currentmodule:: supriya.ugens.Drand
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Drand
+
+.. autoclass:: Drand
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      new
+      repeats
+      sequence
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Drand.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Drand.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Drand.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Drand.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Drand.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Drand.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Drand.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Drand.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Drand.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Drand.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Drand.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Drand.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Drand.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Drand.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Drand.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Drand.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Drand.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Drand.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Drand.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Drand.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Drand.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Drand.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Drand.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Drand.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Drand.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Drand.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Drand.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Drand.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Drand.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Drand.clip
+
+   .. container:: inherited
+
+      .. automethod:: Drand.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Drand.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Drand.distort
+
+   .. container:: inherited
+
+      .. automethod:: Drand.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Drand.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Drand.floor
+
+   .. container:: inherited
+
+      .. automethod:: Drand.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Drand.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Drand.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Drand.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Drand.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Drand.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Drand.lag
+
+   .. container:: inherited
+
+      .. automethod:: Drand.log
+
+   .. container:: inherited
+
+      .. automethod:: Drand.log10
+
+   .. container:: inherited
+
+      .. automethod:: Drand.log2
+
+   .. container:: inherited
+
+      .. automethod:: Drand.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Drand.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Drand.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Drand.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Drand.power
+
+   .. container:: inherited
+
+      .. automethod:: Drand.range
+
+   .. container:: inherited
+
+      .. automethod:: Drand.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Drand.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Drand.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Drand.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Drand.scale
+
+   .. container:: inherited
+
+      .. automethod:: Drand.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Drand.sign
+
+   .. container:: inherited
+
+      .. automethod:: Drand.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Drand.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Drand.squared
+
+   .. container:: inherited
+
+      .. automethod:: Drand.sum
+
+   .. container:: inherited
+
+      .. automethod:: Drand.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Drand.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Drand.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Drand.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Drand.new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Drand.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Drand.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Drand.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Drand.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Drand.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Drand.outputs
+
+   .. autoattribute:: Drand.repeats
+
+   .. autoattribute:: Drand.sequence
+
+   .. container:: inherited
+
+      .. autoattribute:: Drand.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: Drand.special_index

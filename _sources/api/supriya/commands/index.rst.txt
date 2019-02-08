@@ -1,0 +1,242 @@
+.. _supriya--commands:
+
+commands
+========
+
+.. automodule:: supriya.commands
+
+.. currentmodule:: supriya.commands
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Abstract Classes
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   MoveRequest
+   Request
+
+.. autosummary::
+   :nosignatures:
+
+   ~MoveRequest.MoveRequest
+   ~Request.Request
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   BufferAllocateReadChannelRequest
+   BufferAllocateReadRequest
+   BufferAllocateRequest
+   BufferCloseRequest
+   BufferCopyRequest
+   BufferFillRequest
+   BufferFreeRequest
+   BufferGenerateRequest
+   BufferGetContiguousRequest
+   BufferGetRequest
+   BufferInfoResponse
+   BufferNormalizeRequest
+   BufferQueryRequest
+   BufferReadChannelRequest
+   BufferReadRequest
+   BufferSetContiguousRequest
+   BufferSetContiguousResponse
+   BufferSetRequest
+   BufferSetResponse
+   BufferWriteRequest
+   BufferZeroRequest
+   ClearScheduleRequest
+   CommandRequest
+   ControlBusFillRequest
+   ControlBusGetContiguousRequest
+   ControlBusGetRequest
+   ControlBusSetContiguousRequest
+   ControlBusSetContiguousResponse
+   ControlBusSetRequest
+   ControlBusSetResponse
+   DoneResponse
+   DumpOscRequest
+   ErrorRequest
+   FailResponse
+   GroupDeepFreeRequest
+   GroupDumpTreeRequest
+   GroupFreeAllRequest
+   GroupHeadRequest
+   GroupNewRequest
+   GroupQueryTreeRequest
+   GroupTailRequest
+   NodeAfterRequest
+   NodeBeforeRequest
+   NodeCommandRequest
+   NodeFillRequest
+   NodeFreeRequest
+   NodeInfoResponse
+   NodeMapToAudioBusContiguousRequest
+   NodeMapToAudioBusRequest
+   NodeMapToControlBusContiguousRequest
+   NodeMapToControlBusRequest
+   NodeOrderRequest
+   NodeQueryRequest
+   NodeRunRequest
+   NodeSetContiguousRequest
+   NodeSetContiguousResponse
+   NodeSetRequest
+   NodeSetResponse
+   NodeTraceRequest
+   NothingRequest
+   NotifyRequest
+   ParallelGroupNewRequest
+   QueryTreeControl
+   QueryTreeGroup
+   QueryTreeResponse
+   QueryTreeSynth
+   QuitRequest
+   RequestBundle
+   Requestable
+   Response
+   StatusRequest
+   StatusResponse
+   SyncRequest
+   SyncedResponse
+   SynthDefFreeAllRequest
+   SynthDefFreeRequest
+   SynthDefLoadDirectoryRequest
+   SynthDefLoadRequest
+   SynthDefReceiveRequest
+   SynthDefRemovedResponse
+   SynthGetContiguousRequest
+   SynthGetRequest
+   SynthNewRequest
+   SynthNewargsRequest
+   SynthNoidRequest
+   TriggerResponse
+   UgenCommandRequest
+
+.. autosummary::
+   :nosignatures:
+
+   ~BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest
+   ~BufferAllocateReadRequest.BufferAllocateReadRequest
+   ~BufferAllocateRequest.BufferAllocateRequest
+   ~BufferCloseRequest.BufferCloseRequest
+   ~BufferCopyRequest.BufferCopyRequest
+   ~BufferFillRequest.BufferFillRequest
+   ~BufferFreeRequest.BufferFreeRequest
+   ~BufferGenerateRequest.BufferGenerateRequest
+   ~BufferGetContiguousRequest.BufferGetContiguousRequest
+   ~BufferGetRequest.BufferGetRequest
+   ~BufferInfoResponse.BufferInfoResponse
+   ~BufferNormalizeRequest.BufferNormalizeRequest
+   ~BufferQueryRequest.BufferQueryRequest
+   ~BufferReadChannelRequest.BufferReadChannelRequest
+   ~BufferReadRequest.BufferReadRequest
+   ~BufferSetContiguousRequest.BufferSetContiguousRequest
+   ~BufferSetContiguousResponse.BufferSetContiguousResponse
+   ~BufferSetRequest.BufferSetRequest
+   ~BufferSetResponse.BufferSetResponse
+   ~BufferWriteRequest.BufferWriteRequest
+   ~BufferZeroRequest.BufferZeroRequest
+   ~ClearScheduleRequest.ClearScheduleRequest
+   ~CommandRequest.CommandRequest
+   ~ControlBusFillRequest.ControlBusFillRequest
+   ~ControlBusGetContiguousRequest.ControlBusGetContiguousRequest
+   ~ControlBusGetRequest.ControlBusGetRequest
+   ~ControlBusSetContiguousRequest.ControlBusSetContiguousRequest
+   ~ControlBusSetContiguousResponse.ControlBusSetContiguousResponse
+   ~ControlBusSetRequest.ControlBusSetRequest
+   ~ControlBusSetResponse.ControlBusSetResponse
+   ~DoneResponse.DoneResponse
+   ~DumpOscRequest.DumpOscRequest
+   ~ErrorRequest.ErrorRequest
+   ~FailResponse.FailResponse
+   ~GroupDeepFreeRequest.GroupDeepFreeRequest
+   ~GroupDumpTreeRequest.GroupDumpTreeRequest
+   ~GroupFreeAllRequest.GroupFreeAllRequest
+   ~GroupHeadRequest.GroupHeadRequest
+   ~GroupNewRequest.GroupNewRequest
+   ~GroupQueryTreeRequest.GroupQueryTreeRequest
+   ~GroupTailRequest.GroupTailRequest
+   ~NodeAfterRequest.NodeAfterRequest
+   ~NodeBeforeRequest.NodeBeforeRequest
+   ~NodeCommandRequest.NodeCommandRequest
+   ~NodeFillRequest.NodeFillRequest
+   ~NodeFreeRequest.NodeFreeRequest
+   ~NodeInfoResponse.NodeInfoResponse
+   ~NodeMapToAudioBusContiguousRequest.NodeMapToAudioBusContiguousRequest
+   ~NodeMapToAudioBusRequest.NodeMapToAudioBusRequest
+   ~NodeMapToControlBusContiguousRequest.NodeMapToControlBusContiguousRequest
+   ~NodeMapToControlBusRequest.NodeMapToControlBusRequest
+   ~NodeOrderRequest.NodeOrderRequest
+   ~NodeQueryRequest.NodeQueryRequest
+   ~NodeRunRequest.NodeRunRequest
+   ~NodeSetContiguousRequest.NodeSetContiguousRequest
+   ~NodeSetContiguousResponse.NodeSetContiguousResponse
+   ~NodeSetRequest.NodeSetRequest
+   ~NodeSetResponse.NodeSetResponse
+   ~NodeTraceRequest.NodeTraceRequest
+   ~NothingRequest.NothingRequest
+   ~NotifyRequest.NotifyRequest
+   ~ParallelGroupNewRequest.ParallelGroupNewRequest
+   ~QueryTreeControl.QueryTreeControl
+   ~QueryTreeGroup.QueryTreeGroup
+   ~QueryTreeResponse.QueryTreeResponse
+   ~QueryTreeSynth.QueryTreeSynth
+   ~QuitRequest.QuitRequest
+   ~RequestBundle.RequestBundle
+   ~Requestable.Requestable
+   ~Response.Response
+   ~StatusRequest.StatusRequest
+   ~StatusResponse.StatusResponse
+   ~SyncRequest.SyncRequest
+   ~SyncedResponse.SyncedResponse
+   ~SynthDefFreeAllRequest.SynthDefFreeAllRequest
+   ~SynthDefFreeRequest.SynthDefFreeRequest
+   ~SynthDefLoadDirectoryRequest.SynthDefLoadDirectoryRequest
+   ~SynthDefLoadRequest.SynthDefLoadRequest
+   ~SynthDefReceiveRequest.SynthDefReceiveRequest
+   ~SynthDefRemovedResponse.SynthDefRemovedResponse
+   ~SynthGetContiguousRequest.SynthGetContiguousRequest
+   ~SynthGetRequest.SynthGetRequest
+   ~SynthNewRequest.SynthNewRequest
+   ~SynthNewargsRequest.SynthNewargsRequest
+   ~SynthNoidRequest.SynthNoidRequest
+   ~TriggerResponse.TriggerResponse
+   ~UgenCommandRequest.UgenCommandRequest
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Enumerations
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   NodeAction
+   RequestId
+   RequestName
+
+.. autosummary::
+   :nosignatures:
+
+   ~NodeAction.NodeAction
+   ~RequestId.RequestId
+   ~RequestName.RequestName

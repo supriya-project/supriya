@@ -1,0 +1,366 @@
+.. _supriya--ugens--Gate:
+
+Gate
+====
+
+.. automodule:: supriya.ugens.Gate
+
+.. currentmodule:: supriya.ugens.Gate
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Gate
+
+.. autoclass:: Gate
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      source
+      trigger
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Gate.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Gate.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Gate.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Gate.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Gate.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Gate.clip
+
+   .. container:: inherited
+
+      .. automethod:: Gate.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Gate.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Gate.distort
+
+   .. container:: inherited
+
+      .. automethod:: Gate.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Gate.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Gate.floor
+
+   .. container:: inherited
+
+      .. automethod:: Gate.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Gate.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Gate.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Gate.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Gate.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Gate.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Gate.lag
+
+   .. container:: inherited
+
+      .. automethod:: Gate.log
+
+   .. container:: inherited
+
+      .. automethod:: Gate.log10
+
+   .. container:: inherited
+
+      .. automethod:: Gate.log2
+
+   .. container:: inherited
+
+      .. automethod:: Gate.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Gate.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Gate.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Gate.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Gate.power
+
+   .. container:: inherited
+
+      .. automethod:: Gate.range
+
+   .. container:: inherited
+
+      .. automethod:: Gate.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Gate.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Gate.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Gate.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Gate.scale
+
+   .. container:: inherited
+
+      .. automethod:: Gate.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Gate.sign
+
+   .. container:: inherited
+
+      .. automethod:: Gate.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Gate.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Gate.squared
+
+   .. container:: inherited
+
+      .. automethod:: Gate.sum
+
+   .. container:: inherited
+
+      .. automethod:: Gate.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Gate.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Gate.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Gate.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Gate.ar
+
+   .. automethod:: Gate.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Gate.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Gate.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Gate.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Gate.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Gate.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Gate.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Gate.signal_range
+
+   .. autoattribute:: Gate.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Gate.special_index
+
+   .. autoattribute:: Gate.trigger

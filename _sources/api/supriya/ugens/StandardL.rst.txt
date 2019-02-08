@@ -1,0 +1,369 @@
+.. _supriya--ugens--StandardL:
+
+StandardL
+=========
+
+.. automodule:: supriya.ugens.StandardL
+
+.. currentmodule:: supriya.ugens.StandardL
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.StandardL
+
+.. autoclass:: StandardL
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      frequency
+      k
+      xi
+      yi
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.__add__
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.__div__
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.__le__
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.__len__
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.__str__
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.as_int
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.clip
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.cubed
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.distort
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.exponential
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.floor
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.lag
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.log
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.log10
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.log2
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.maximum
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.minimum
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.power
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.range
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.scale
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.sign
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.softclip
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.square_root
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.squared
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.sum
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.tanh
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.transpose
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: StandardL.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: StandardL.ar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: StandardL.calculation_rate
+
+   .. autoattribute:: StandardL.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: StandardL.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: StandardL.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: StandardL.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: StandardL.is_output_ugen
+
+   .. autoattribute:: StandardL.k
+
+   .. container:: inherited
+
+      .. autoattribute:: StandardL.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: StandardL.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: StandardL.special_index
+
+   .. autoattribute:: StandardL.xi
+
+   .. autoattribute:: StandardL.yi

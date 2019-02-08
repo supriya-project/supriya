@@ -1,0 +1,363 @@
+.. _supriya--ugens--ToggleFF:
+
+ToggleFF
+========
+
+.. automodule:: supriya.ugens.ToggleFF
+
+.. currentmodule:: supriya.ugens.ToggleFF
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.ToggleFF
+
+.. autoclass:: ToggleFF
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      trigger
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__add__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__div__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__le__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__len__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__str__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.as_int
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.clip
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.cubed
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.distort
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.exponential
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.floor
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.lag
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.log
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.log10
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.log2
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.maximum
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.minimum
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.power
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.range
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.scale
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.sign
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.softclip
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.square_root
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.squared
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.sum
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.tanh
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.transpose
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: ToggleFF.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: ToggleFF.ar
+
+   .. automethod:: ToggleFF.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: ToggleFF.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: ToggleFF.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: ToggleFF.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: ToggleFF.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: ToggleFF.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: ToggleFF.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: ToggleFF.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: ToggleFF.special_index
+
+   .. autoattribute:: ToggleFF.trigger

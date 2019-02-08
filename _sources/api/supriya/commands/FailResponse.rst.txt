@@ -1,0 +1,87 @@
+.. _supriya--commands--FailResponse:
+
+FailResponse
+============
+
+.. automodule:: supriya.commands.FailResponse
+
+.. currentmodule:: supriya.commands.FailResponse
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.FailResponse
+
+.. autoclass:: FailResponse
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      failed_command
+      failure_reason
+      from_osc_message
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: FailResponse.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: FailResponse.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: FailResponse.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: FailResponse.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: FailResponse.to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: FailResponse.from_osc_message
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: FailResponse.failed_command
+
+   .. autoattribute:: FailResponse.failure_reason
+
+   .. container:: inherited
+
+      .. autoattribute:: FailResponse.osc_message

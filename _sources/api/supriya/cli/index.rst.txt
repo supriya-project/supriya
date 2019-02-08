@@ -1,0 +1,80 @@
+.. _supriya--cli:
+
+cli
+===
+
+.. automodule:: supriya.cli
+
+.. currentmodule:: supriya.cli
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.cli
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Abstract Classes
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   ProjectPackageScript
+   ProjectSectionScript
+
+.. autosummary::
+   :nosignatures:
+
+   ~ProjectPackageScript.ProjectPackageScript
+   ~ProjectSectionScript.ProjectSectionScript
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   ManageAssetScript
+   ManageMaterialScript
+   ManageProjectScript
+   ManageSessionScript
+   ManageSynthDefScript
+   ProjectManager
+   ProjectSettings
+   SupriyaScript
+
+.. autosummary::
+   :nosignatures:
+
+   ~ManageAssetScript.ManageAssetScript
+   ~ManageMaterialScript.ManageMaterialScript
+   ~ManageProjectScript.ManageProjectScript
+   ~ManageSessionScript.ManageSessionScript
+   ~ManageSynthDefScript.ManageSynthDefScript
+   ~ProjectManager.ProjectManager
+   ~ProjectSettings.ProjectSettings
+   ~SupriyaScript.SupriyaScript
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Functions
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   run_supriya
+
+.. autosummary::
+   :nosignatures:
+
+   ~run_supriya.run_supriya

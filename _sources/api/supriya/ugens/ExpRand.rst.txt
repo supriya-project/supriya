@@ -1,0 +1,355 @@
+.. _supriya--ugens--ExpRand:
+
+ExpRand
+=======
+
+.. automodule:: supriya.ugens.ExpRand
+
+.. currentmodule:: supriya.ugens.ExpRand
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.ExpRand
+
+.. autoclass:: ExpRand
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ir
+      maximum
+      minimum
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.__add__
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.__div__
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.__le__
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.__len__
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.__str__
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.as_int
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.clip
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.cubed
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.distort
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.exponential
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.floor
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.lag
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.log
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.log10
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.log2
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.power
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.range
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.scale
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.sign
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.softclip
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.square_root
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.squared
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.sum
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.tanh
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.transpose
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: ExpRand.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: ExpRand.ir
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: ExpRand.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: ExpRand.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: ExpRand.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: ExpRand.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: ExpRand.is_output_ugen
+
+   .. autoattribute:: ExpRand.maximum
+
+   .. autoattribute:: ExpRand.minimum
+
+   .. container:: inherited
+
+      .. autoattribute:: ExpRand.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: ExpRand.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: ExpRand.special_index

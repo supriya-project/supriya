@@ -1,0 +1,36 @@
+.. _supriya--cli--ProjectManager:
+
+ProjectManager
+==============
+
+.. automodule:: supriya.cli.ProjectManager
+
+.. currentmodule:: supriya.cli.ProjectManager
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.cli.ProjectManager
+
+.. autoclass:: ProjectManager
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      import_section_objects
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: ProjectManager.import_section_objects

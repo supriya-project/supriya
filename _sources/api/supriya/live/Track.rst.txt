@@ -1,0 +1,189 @@
+.. _supriya--live--Track:
+
+Track
+=====
+
+.. automodule:: supriya.live.Track
+
+.. currentmodule:: supriya.live.Track
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.live.Track
+
+.. autoclass:: Track
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __getitem__
+      __iter__
+      __len__
+      add_auto_pattern_slot
+      add_direct_in
+      add_direct_out
+      add_send
+      add_synth_slot
+      add_trigger_pattern_slot
+      build_input_synthdef
+      build_output_synthdef
+      channel_count
+      cue_synth
+      direct_in
+      direct_out
+      gain
+      get_cue
+      get_gain
+      get_mute
+      get_solo
+      group
+      input_bus_group
+      input_levels
+      input_synth
+      instrument_group
+      is_allocated
+      is_cued
+      is_muted
+      is_soloed
+      mixer
+      name
+      output_bus_group
+      output_synth
+      postfader_levels
+      prefader_levels
+      remove_direct_in
+      remove_direct_out
+      remove_send
+      send
+      send_group
+      set_cue
+      set_gain
+      set_mute
+      set_solo
+      synth_kwargs
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: Track.__getitem__
+
+   .. automethod:: Track.__iter__
+
+   .. automethod:: Track.__len__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: Track.add_auto_pattern_slot
+
+   .. automethod:: Track.add_direct_in
+
+   .. automethod:: Track.add_direct_out
+
+   .. automethod:: Track.add_send
+
+   .. automethod:: Track.add_synth_slot
+
+   .. automethod:: Track.add_trigger_pattern_slot
+
+   .. automethod:: Track.get_cue
+
+   .. automethod:: Track.get_gain
+
+   .. automethod:: Track.get_mute
+
+   .. automethod:: Track.get_solo
+
+   .. automethod:: Track.remove_direct_in
+
+   .. automethod:: Track.remove_direct_out
+
+   .. automethod:: Track.remove_send
+
+   .. automethod:: Track.set_cue
+
+   .. automethod:: Track.set_gain
+
+   .. automethod:: Track.set_mute
+
+   .. automethod:: Track.set_solo
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Track.build_input_synthdef
+
+   .. automethod:: Track.build_output_synthdef
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Track.channel_count
+
+   .. autoattribute:: Track.cue_synth
+
+   .. autoattribute:: Track.direct_in
+
+   .. autoattribute:: Track.direct_out
+
+   .. autoattribute:: Track.gain
+
+   .. autoattribute:: Track.group
+
+   .. autoattribute:: Track.input_bus_group
+
+   .. autoattribute:: Track.input_levels
+
+   .. autoattribute:: Track.input_synth
+
+   .. autoattribute:: Track.instrument_group
+
+   .. autoattribute:: Track.is_allocated
+
+   .. autoattribute:: Track.is_cued
+
+   .. autoattribute:: Track.is_muted
+
+   .. autoattribute:: Track.is_soloed
+
+   .. autoattribute:: Track.mixer
+
+   .. autoattribute:: Track.name
+
+   .. autoattribute:: Track.output_bus_group
+
+   .. autoattribute:: Track.output_synth
+
+   .. autoattribute:: Track.postfader_levels
+
+   .. autoattribute:: Track.prefader_levels
+
+   .. autoattribute:: Track.send
+
+   .. autoattribute:: Track.send_group
+
+   .. autoattribute:: Track.synth_kwargs

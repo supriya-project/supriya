@@ -1,0 +1,518 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>BusGroup &mdash; Supriya 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Group" href="Group.html" />
+    <link rel="prev" title="Bus" href="Bus.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Supriya API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../cli/index.html">cli</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../live/index.html">live</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">nonrealtime</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="SessionFactory.html">SessionFactory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Session.html">Session</a></li>
+<li class="toctree-l4"><a class="reference internal" href="DoNotPropagate.html">DoNotPropagate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NodeAction.html">NodeAction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SessionObject.html">SessionObject</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SessionRenderer.html">SessionRenderer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="State.html">State</a></li>
+<li class="toctree-l4"><a class="reference internal" href="AudioInputBusGroup.html">AudioInputBusGroup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="AudioOutputBusGroup.html">AudioOutputBusGroup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Buffer.html">Buffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="BufferGroup.html">BufferGroup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Bus.html">Bus</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">BusGroup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Group.html">Group</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Moment.html">Moment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Node.html">Node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="RootNode.html">RootNode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Synth.html">Synth</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../soundfiles/index.html">soundfiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../system/index.html">system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Supriya API</a> &raquo;</li>
+        
+          <li><a href="../index.html">supriya</a> &raquo;</li>
+        
+          <li><a href="index.html">nonrealtime</a> &raquo;</li>
+        
+      <li>BusGroup</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/supriya/nonrealtime/BusGroup.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-supriya.nonrealtime.BusGroup">
+<span id="busgroup"></span><span id="supriya-nonrealtime-busgroup"></span><h1>BusGroup<a class="headerlink" href="#module-supriya.nonrealtime.BusGroup" title="Permalink to this headline">¶</a></h1>
+<div class="svg-container docutils container">
+<div class="graphviz"><object data="../../../_images/inheritance-17c1b8521bb6b38deaf9781c4ee2c208778fef15.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">digraph InheritanceGraph {
+    graph [bgcolor=transparent,
+        color=lightsteelblue2,
+        fontname=Arial,
+        fontsize=10,
+        outputorder=edgesfirst,
+        overlap=prism,
+        penwidth=2,
+        rankdir=LR,
+        splines=spline,
+        style=&quot;dashed, rounded&quot;,
+        truecolor=true];
+    node [colorscheme=pastel19,
+        fontname=Arial,
+        fontsize=10,
+        height=0,
+        penwidth=2,
+        shape=box,
+        style=&quot;filled, rounded&quot;,
+        width=0];
+    edge [color=lightslategrey,
+        penwidth=1];
+    subgraph cluster_builtins {
+        graph [label=builtins];
+        node [color=1];
+        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3.6/library/functions.html#object&quot;,
+            label=object,
+            target=_top];
+    }
+    subgraph &quot;cluster_supriya.nonrealtime&quot; {
+        graph [label=&quot;supriya.nonrealtime&quot;];
+        node [color=2];
+        &quot;supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup&quot; [URL=&quot;../api/supriya/nonrealtime/AudioInputBusGroup.html#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup&quot;,
+            label=&quot;Audio\nInput\nBus\nGroup&quot;,
+            target=_top];
+        &quot;supriya.nonrealtime.AudioOutputBusGroup.AudioOutputBusGroup&quot; [URL=&quot;../api/supriya/nonrealtime/AudioOutputBusGroup.html#supriya.nonrealtime.AudioOutputBusGroup.AudioOutputBusGroup&quot;,
+            label=&quot;Audio\nOutput\nBus\nGroup&quot;,
+            target=_top];
+        &quot;supriya.nonrealtime.BusGroup.BusGroup&quot; [URL=&quot;../api/supriya/nonrealtime/BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Bus\nGroup&quot;,
+            target=_top];
+        &quot;supriya.nonrealtime.SessionObject.SessionObject&quot; [URL=&quot;../api/supriya/nonrealtime/SessionObject.html#supriya.nonrealtime.SessionObject.SessionObject&quot;,
+            label=&quot;Session\nObject&quot;,
+            shape=oval,
+            style=bold,
+            target=_top];
+        &quot;supriya.nonrealtime.BusGroup.BusGroup&quot; -&gt; &quot;supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup&quot;;
+        &quot;supriya.nonrealtime.BusGroup.BusGroup&quot; -&gt; &quot;supriya.nonrealtime.AudioOutputBusGroup.AudioOutputBusGroup&quot;;
+        &quot;supriya.nonrealtime.SessionObject.SessionObject&quot; -&gt; &quot;supriya.nonrealtime.BusGroup.BusGroup&quot;;
+    }
+    subgraph &quot;cluster_supriya.system&quot; {
+        graph [label=&quot;supriya.system&quot;];
+        node [color=3];
+        &quot;supriya.system.SupriyaObject.SupriyaObject&quot; [URL=&quot;../api/supriya/nonrealtime/../system/SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject&quot;,
+            label=&quot;Supriya\nObject&quot;,
+            target=_top];
+    }
+    &quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject.SupriyaObject&quot;;
+    &quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.nonrealtime.SessionObject.SessionObject&quot;;
+}</p></object></div>
+</div>
+<dl class="class">
+<dt id="supriya.nonrealtime.BusGroup.BusGroup">
+<em class="property">class </em><code class="descclassname">supriya.nonrealtime.BusGroup.</code><code class="descname">BusGroup</code><span class="sig-paren">(</span><em>session</em>, <em>bus_count=1</em>, <em>calculation_rate=None</em>, <em>session_id=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/BusGroup.html#BusGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.BusGroup.BusGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>A non-realtime bus group.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.nonrealtime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">session</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">nonrealtime</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bus_group</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">add_bus_group</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">bus_group</span><span class="p">))</span>
+<span class="go">&lt;BusGroup(</span>
+<span class="go">    &lt;Session&gt;,</span>
+<span class="go">    bus_count=3,</span>
+<span class="go">    calculation_rate=CalculationRate.CONTROL,</span>
+<span class="go">    session_id=0,</span>
+<span class="go">    )&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">bus_group</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_</span><span class="p">(</span><span class="mf">0.333</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">bus_group</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">bus_group</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_</span><span class="p">(</span><span class="mf">0.666</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">bus_group</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span>
+<span class="gp">...</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">offset</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="n">offset</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="n">values</span> <span class="o">=</span> <span class="n">bus_group</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">0 [0.0, 0.0, 0.0]</span>
+<span class="go">1 [0.333, 0.0, 0.0]</span>
+<span class="go">2 [0.333, 0.0, 0.0]</span>
+<span class="go">3 [0.5, 0.5, 0.5]</span>
+<span class="go">4 [0.5, 0.5, 0.5]</span>
+<span class="go">5 [0.5, 0.666, 0.75]</span>
+<span class="go">6 [0.5, 0.666, 0.75]</span>
+</pre></div>
+</div>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.BusGroup.BusGroup.__contains__" title="supriya.nonrealtime.BusGroup.BusGroup.__contains__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__contains__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.nonrealtime.BusGroup.BusGroup.__getitem__" title="supriya.nonrealtime.BusGroup.BusGroup.__getitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__getitem__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.BusGroup.BusGroup.__iter__" title="supriya.nonrealtime.BusGroup.BusGroup.__iter__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__iter__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.nonrealtime.BusGroup.BusGroup.__len__" title="supriya.nonrealtime.BusGroup.BusGroup.__len__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__len__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.BusGroup.BusGroup.__repr__" title="supriya.nonrealtime.BusGroup.BusGroup.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></td>
+<td>Return repr(self).</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.nonrealtime.BusGroup.BusGroup.__str__" title="supriya.nonrealtime.BusGroup.BusGroup.__str__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__str__</span></code></a></td>
+<td>Return str(self).</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.BusGroup.BusGroup.bus_count" title="supriya.nonrealtime.BusGroup.BusGroup.bus_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bus_count</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.nonrealtime.BusGroup.BusGroup.buses" title="supriya.nonrealtime.BusGroup.BusGroup.buses"><code class="xref py py-obj docutils literal notranslate"><span class="pre">buses</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.BusGroup.BusGroup.calculation_rate" title="supriya.nonrealtime.BusGroup.BusGroup.calculation_rate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculation_rate</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.nonrealtime.BusGroup.BusGroup.fill" title="supriya.nonrealtime.BusGroup.BusGroup.fill"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fill</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.BusGroup.BusGroup.get" title="supriya.nonrealtime.BusGroup.BusGroup.get"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.nonrealtime.BusGroup.BusGroup.get_map_symbol" title="supriya.nonrealtime.BusGroup.BusGroup.get_map_symbol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_map_symbol</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.BusGroup.BusGroup.index" title="supriya.nonrealtime.BusGroup.BusGroup.index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.nonrealtime.BusGroup.BusGroup.session_id" title="supriya.nonrealtime.BusGroup.BusGroup.session_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">session_id</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<dl class="method">
+<dt id="supriya.nonrealtime.BusGroup.BusGroup.__contains__">
+<code class="descname">__contains__</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/BusGroup.html#BusGroup.__contains__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.BusGroup.BusGroup.__contains__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supriya.nonrealtime.BusGroup.BusGroup.__getitem__">
+<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/BusGroup.html#BusGroup.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.BusGroup.BusGroup.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supriya.nonrealtime.BusGroup.BusGroup.__iter__">
+<code class="descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/BusGroup.html#BusGroup.__iter__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.BusGroup.BusGroup.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supriya.nonrealtime.BusGroup.BusGroup.__len__">
+<code class="descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/BusGroup.html#BusGroup.__len__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.BusGroup.BusGroup.__len__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supriya.nonrealtime.BusGroup.BusGroup.__repr__">
+<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/BusGroup.html#BusGroup.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.BusGroup.BusGroup.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supriya.nonrealtime.BusGroup.BusGroup.__str__">
+<code class="descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/BusGroup.html#BusGroup.__str__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.BusGroup.BusGroup.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return str(self).</p>
+</dd></dl>
+
+<hr/><p class="class-header rubric">Methods</p>
+<dl class="method">
+<dt id="supriya.nonrealtime.BusGroup.BusGroup.fill">
+<code class="descname">fill</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/BusGroup.html#BusGroup.fill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.BusGroup.BusGroup.fill" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supriya.nonrealtime.BusGroup.BusGroup.get">
+<code class="descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/BusGroup.html#BusGroup.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.BusGroup.BusGroup.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supriya.nonrealtime.BusGroup.BusGroup.get_map_symbol">
+<code class="descname">get_map_symbol</code><span class="sig-paren">(</span><em>bus_id</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/BusGroup.html#BusGroup.get_map_symbol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.BusGroup.BusGroup.get_map_symbol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supriya.nonrealtime.BusGroup.BusGroup.index">
+<code class="descname">index</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/BusGroup.html#BusGroup.index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.BusGroup.BusGroup.index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Class &amp; static methods</p>
+<div class="inherited docutils container">
+<dl class="staticmethod">
+<dt id="supriya.nonrealtime.BusGroup.BusGroup.require_offset">
+<em class="property">static </em><code class="descclassname">(<a class="reference internal" href="SessionObject.html#supriya.nonrealtime.SessionObject.SessionObject" title="supriya.nonrealtime.SessionObject.SessionObject"><code class="descclassname docutils literal notranslate"><span class="pre">SessionObject</span></code></a>).</code><code class="descname">require_offset</code><span class="sig-paren">(</span><em>function</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.BusGroup.BusGroup.require_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Read-only properties</p>
+<dl class="attribute">
+<dt id="supriya.nonrealtime.BusGroup.BusGroup.bus_count">
+<code class="descname">bus_count</code><a class="headerlink" href="#supriya.nonrealtime.BusGroup.BusGroup.bus_count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.nonrealtime.BusGroup.BusGroup.buses">
+<code class="descname">buses</code><a class="headerlink" href="#supriya.nonrealtime.BusGroup.BusGroup.buses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.nonrealtime.BusGroup.BusGroup.calculation_rate">
+<code class="descname">calculation_rate</code><a class="headerlink" href="#supriya.nonrealtime.BusGroup.BusGroup.calculation_rate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="attribute">
+<dt id="supriya.nonrealtime.BusGroup.BusGroup.session">
+<code class="descclassname">(<a class="reference internal" href="SessionObject.html#supriya.nonrealtime.SessionObject.SessionObject" title="supriya.nonrealtime.SessionObject.SessionObject"><code class="descclassname docutils literal notranslate"><span class="pre">SessionObject</span></code></a>).</code><code class="descname">session</code><a class="headerlink" href="#supriya.nonrealtime.BusGroup.BusGroup.session" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="attribute">
+<dt id="supriya.nonrealtime.BusGroup.BusGroup.session_id">
+<code class="descname">session_id</code><a class="headerlink" href="#supriya.nonrealtime.BusGroup.BusGroup.session_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Group.html" class="btn btn-neutral float-right" title="Group" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Bus.html" class="btn btn-neutral" title="Bus" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,369 @@
+.. _supriya--ugens--BRF:
+
+BRF
+===
+
+.. automodule:: supriya.ugens.BRF
+
+.. currentmodule:: supriya.ugens.BRF
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.BRF
+
+.. autoclass:: BRF
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      frequency
+      kr
+      reciprocal_of_q
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BRF.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: BRF.__add__
+
+   .. container:: inherited
+
+      .. automethod:: BRF.__div__
+
+   .. container:: inherited
+
+      .. automethod:: BRF.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: BRF.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: BRF.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: BRF.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: BRF.__le__
+
+   .. container:: inherited
+
+      .. automethod:: BRF.__len__
+
+   .. container:: inherited
+
+      .. automethod:: BRF.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: BRF.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: BRF.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: BRF.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: BRF.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: BRF.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: BRF.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: BRF.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: BRF.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: BRF.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: BRF.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: BRF.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: BRF.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: BRF.__str__
+
+   .. container:: inherited
+
+      .. automethod:: BRF.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: BRF.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BRF.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: BRF.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: BRF.as_int
+
+   .. container:: inherited
+
+      .. automethod:: BRF.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: BRF.clip
+
+   .. container:: inherited
+
+      .. automethod:: BRF.cubed
+
+   .. container:: inherited
+
+      .. automethod:: BRF.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: BRF.distort
+
+   .. container:: inherited
+
+      .. automethod:: BRF.exponential
+
+   .. container:: inherited
+
+      .. automethod:: BRF.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: BRF.floor
+
+   .. container:: inherited
+
+      .. automethod:: BRF.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: BRF.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: BRF.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: BRF.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: BRF.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BRF.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BRF.lag
+
+   .. container:: inherited
+
+      .. automethod:: BRF.log
+
+   .. container:: inherited
+
+      .. automethod:: BRF.log10
+
+   .. container:: inherited
+
+      .. automethod:: BRF.log2
+
+   .. container:: inherited
+
+      .. automethod:: BRF.maximum
+
+   .. container:: inherited
+
+      .. automethod:: BRF.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BRF.minimum
+
+   .. container:: inherited
+
+      .. automethod:: BRF.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BRF.power
+
+   .. container:: inherited
+
+      .. automethod:: BRF.range
+
+   .. container:: inherited
+
+      .. automethod:: BRF.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: BRF.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: BRF.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BRF.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: BRF.scale
+
+   .. container:: inherited
+
+      .. automethod:: BRF.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: BRF.sign
+
+   .. container:: inherited
+
+      .. automethod:: BRF.softclip
+
+   .. container:: inherited
+
+      .. automethod:: BRF.square_root
+
+   .. container:: inherited
+
+      .. automethod:: BRF.squared
+
+   .. container:: inherited
+
+      .. automethod:: BRF.sum
+
+   .. container:: inherited
+
+      .. automethod:: BRF.tanh
+
+   .. container:: inherited
+
+      .. automethod:: BRF.transpose
+
+   .. container:: inherited
+
+      .. automethod:: BRF.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BRF.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: BRF.ar
+
+   .. automethod:: BRF.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: BRF.calculation_rate
+
+   .. autoattribute:: BRF.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: BRF.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: BRF.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BRF.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BRF.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BRF.outputs
+
+   .. autoattribute:: BRF.reciprocal_of_q
+
+   .. container:: inherited
+
+      .. autoattribute:: BRF.signal_range
+
+   .. autoattribute:: BRF.source
+
+   .. container:: inherited
+
+      .. autoattribute:: BRF.special_index

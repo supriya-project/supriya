@@ -1,0 +1,65 @@
+.. _supriya--nonrealtime--SessionFactory:
+
+SessionFactory
+==============
+
+.. automodule:: supriya.nonrealtime.SessionFactory
+
+.. currentmodule:: supriya.nonrealtime.SessionFactory
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.nonrealtime.SessionFactory
+
+.. autoclass:: SessionFactory
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __render__
+      __session__
+      from_project_settings
+      input_bus_channel_count
+      options
+      output_bus_channel_count
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: SessionFactory.__render__
+
+   .. automethod:: SessionFactory.__session__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: SessionFactory.from_project_settings
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: SessionFactory.input_bus_channel_count
+
+   .. autoattribute:: SessionFactory.options
+
+   .. autoattribute:: SessionFactory.output_bus_channel_count

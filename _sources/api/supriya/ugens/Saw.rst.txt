@@ -1,0 +1,363 @@
+.. _supriya--ugens--Saw:
+
+Saw
+===
+
+.. automodule:: supriya.ugens.Saw
+
+.. currentmodule:: supriya.ugens.Saw
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Saw
+
+.. autoclass:: Saw
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      frequency
+      kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Saw.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Saw.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Saw.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Saw.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Saw.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Saw.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Saw.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Saw.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Saw.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Saw.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Saw.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Saw.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Saw.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Saw.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Saw.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Saw.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Saw.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Saw.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Saw.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Saw.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Saw.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Saw.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Saw.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Saw.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Saw.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Saw.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Saw.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Saw.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Saw.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Saw.clip
+
+   .. container:: inherited
+
+      .. automethod:: Saw.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Saw.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Saw.distort
+
+   .. container:: inherited
+
+      .. automethod:: Saw.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Saw.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Saw.floor
+
+   .. container:: inherited
+
+      .. automethod:: Saw.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Saw.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Saw.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Saw.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Saw.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Saw.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Saw.lag
+
+   .. container:: inherited
+
+      .. automethod:: Saw.log
+
+   .. container:: inherited
+
+      .. automethod:: Saw.log10
+
+   .. container:: inherited
+
+      .. automethod:: Saw.log2
+
+   .. container:: inherited
+
+      .. automethod:: Saw.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Saw.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Saw.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Saw.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Saw.power
+
+   .. container:: inherited
+
+      .. automethod:: Saw.range
+
+   .. container:: inherited
+
+      .. automethod:: Saw.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Saw.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Saw.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Saw.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Saw.scale
+
+   .. container:: inherited
+
+      .. automethod:: Saw.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Saw.sign
+
+   .. container:: inherited
+
+      .. automethod:: Saw.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Saw.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Saw.squared
+
+   .. container:: inherited
+
+      .. automethod:: Saw.sum
+
+   .. container:: inherited
+
+      .. automethod:: Saw.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Saw.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Saw.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Saw.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Saw.ar
+
+   .. automethod:: Saw.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Saw.calculation_rate
+
+   .. autoattribute:: Saw.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: Saw.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Saw.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Saw.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Saw.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Saw.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Saw.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: Saw.special_index

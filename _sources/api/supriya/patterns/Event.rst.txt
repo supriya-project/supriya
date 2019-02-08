@@ -1,0 +1,78 @@
+.. _supriya--patterns--Event:
+
+Event
+=====
+
+.. automodule:: supriya.patterns.Event
+
+.. currentmodule:: supriya.patterns.Event
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.patterns.Event
+
+.. autoclass:: Event
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __getitem__
+      as_dict
+      delta
+      get
+      settings
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Event.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: Event.__eq__
+
+   .. automethod:: Event.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Event.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: Event.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: Event.as_dict
+
+   .. automethod:: Event.get
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Event.delta
+
+   .. autoattribute:: Event.settings

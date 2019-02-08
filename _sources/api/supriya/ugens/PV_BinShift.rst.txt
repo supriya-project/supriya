@@ -1,0 +1,373 @@
+.. _supriya--ugens--PV-BinShift:
+
+PV_BinShift
+===========
+
+.. automodule:: supriya.ugens.PV_BinShift
+
+.. currentmodule:: supriya.ugens.PV_BinShift
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.PV_BinShift
+
+.. autoclass:: PV_BinShift
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      interpolate
+      new
+      pv_chain
+      shift
+      stretch
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.__add__
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.__div__
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.__le__
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.__len__
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.__str__
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.as_int
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.clip
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.cubed
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.distort
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.exponential
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.floor
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.lag
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.log
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.log10
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.log2
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.maximum
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.minimum
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.power
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.range
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.scale
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.sign
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.softclip
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.square_root
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.squared
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.sum
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.tanh
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.transpose
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_BinShift.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: PV_BinShift.new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_BinShift.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_BinShift.fft_size
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_BinShift.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_BinShift.inputs
+
+   .. autoattribute:: PV_BinShift.interpolate
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_BinShift.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_BinShift.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_BinShift.outputs
+
+   .. autoattribute:: PV_BinShift.pv_chain
+
+   .. autoattribute:: PV_BinShift.shift
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_BinShift.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_BinShift.special_index
+
+   .. autoattribute:: PV_BinShift.stretch

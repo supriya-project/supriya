@@ -1,0 +1,50 @@
+.. _supriya--osc:
+
+osc
+===
+
+.. automodule:: supriya.osc
+
+.. currentmodule:: supriya.osc
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.osc
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   OscBundle
+   OscCallback
+   OscIO
+   OscMessage
+
+.. autosummary::
+   :nosignatures:
+
+   ~OscBundle.OscBundle
+   ~OscCallback.OscCallback
+   ~OscIO.OscIO
+   ~OscMessage.OscMessage
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Functions
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~format_datagram
+
+.. autofunction:: format_datagram

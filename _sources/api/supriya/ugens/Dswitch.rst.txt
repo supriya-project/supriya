@@ -1,0 +1,363 @@
+.. _supriya--ugens--Dswitch:
+
+Dswitch
+=======
+
+.. automodule:: supriya.ugens.Dswitch
+
+.. currentmodule:: supriya.ugens.Dswitch
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Dswitch
+
+.. autoclass:: Dswitch
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      index
+      new
+      sequence
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.clip
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.distort
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.floor
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.lag
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.log
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.log10
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.log2
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.power
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.range
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.scale
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.sign
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.squared
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.sum
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Dswitch.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Dswitch.new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Dswitch.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Dswitch.has_done_flag
+
+   .. autoattribute:: Dswitch.index
+
+   .. container:: inherited
+
+      .. autoattribute:: Dswitch.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Dswitch.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Dswitch.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Dswitch.outputs
+
+   .. autoattribute:: Dswitch.sequence
+
+   .. container:: inherited
+
+      .. autoattribute:: Dswitch.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: Dswitch.special_index

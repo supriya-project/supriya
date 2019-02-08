@@ -1,0 +1,89 @@
+.. _supriya--commands--QueryTreeResponse:
+
+QueryTreeResponse
+=================
+
+.. automodule:: supriya.commands.QueryTreeResponse
+
+.. currentmodule:: supriya.commands.QueryTreeResponse
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.QueryTreeResponse
+
+.. autoclass:: QueryTreeResponse
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __str__
+      from_osc_message
+      node_id
+      query_tree_group
+      to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeResponse.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeResponse.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeResponse.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeResponse.__repr__
+
+   .. automethod:: QueryTreeResponse.__str__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: QueryTreeResponse.to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: QueryTreeResponse.from_osc_message
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: QueryTreeResponse.node_id
+
+   .. container:: inherited
+
+      .. autoattribute:: QueryTreeResponse.osc_message
+
+   .. autoattribute:: QueryTreeResponse.query_tree_group

@@ -1,0 +1,366 @@
+.. _supriya--ugens--Limiter:
+
+Limiter
+=======
+
+.. automodule:: supriya.ugens.Limiter
+
+.. currentmodule:: supriya.ugens.Limiter
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Limiter
+
+.. autoclass:: Limiter
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      duration
+      level
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.clip
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.distort
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.floor
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.lag
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.log
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.log10
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.log2
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.power
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.range
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.scale
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.sign
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.squared
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.sum
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Limiter.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Limiter.ar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Limiter.calculation_rate
+
+   .. autoattribute:: Limiter.duration
+
+   .. container:: inherited
+
+      .. autoattribute:: Limiter.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Limiter.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Limiter.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Limiter.is_output_ugen
+
+   .. autoattribute:: Limiter.level
+
+   .. container:: inherited
+
+      .. autoattribute:: Limiter.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Limiter.signal_range
+
+   .. autoattribute:: Limiter.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Limiter.special_index

@@ -1,0 +1,336 @@
+.. _supriya--ugens--BEQSuite:
+
+BEQSuite
+========
+
+.. automodule:: supriya.ugens.BEQSuite
+
+.. currentmodule:: supriya.ugens.BEQSuite
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.BEQSuite
+
+.. autoclass:: BEQSuite
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.__add__
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.__div__
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.__le__
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.__len__
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.__str__
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.as_int
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.clip
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.cubed
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.distort
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.exponential
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.floor
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.lag
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.log
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.log10
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.log2
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.maximum
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.minimum
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.power
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.range
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.scale
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.sign
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.softclip
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.square_root
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.squared
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.sum
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.tanh
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.transpose
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BEQSuite.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: BEQSuite.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: BEQSuite.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: BEQSuite.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BEQSuite.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BEQSuite.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BEQSuite.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BEQSuite.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: BEQSuite.special_index

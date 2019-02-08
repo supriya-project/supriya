@@ -1,0 +1,375 @@
+.. _supriya--ugens--BufAllpassN:
+
+BufAllpassN
+===========
+
+.. automodule:: supriya.ugens.BufAllpassN
+
+.. currentmodule:: supriya.ugens.BufAllpassN
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.BufAllpassN
+
+.. autoclass:: BufAllpassN
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      buffer_id
+      decay_time
+      delay_time
+      kr
+      maximum_delay_time
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.__add__
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.__div__
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.__le__
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.__len__
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.__str__
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.as_int
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.clip
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.cubed
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.distort
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.exponential
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.floor
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.lag
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.log
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.log10
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.log2
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.maximum
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.minimum
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.power
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.range
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.scale
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.sign
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.softclip
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.square_root
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.squared
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.sum
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.tanh
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.transpose
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BufAllpassN.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: BufAllpassN.ar
+
+   .. automethod:: BufAllpassN.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufAllpassN.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: BufAllpassN.calculation_rate
+
+   .. autoattribute:: BufAllpassN.decay_time
+
+   .. autoattribute:: BufAllpassN.delay_time
+
+   .. container:: inherited
+
+      .. autoattribute:: BufAllpassN.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: BufAllpassN.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BufAllpassN.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BufAllpassN.is_output_ugen
+
+   .. autoattribute:: BufAllpassN.maximum_delay_time
+
+   .. container:: inherited
+
+      .. autoattribute:: BufAllpassN.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BufAllpassN.signal_range
+
+   .. autoattribute:: BufAllpassN.source
+
+   .. container:: inherited
+
+      .. autoattribute:: BufAllpassN.special_index

@@ -1,0 +1,117 @@
+.. _supriya--commands--QueryTreeGroup:
+
+QueryTreeGroup
+==============
+
+.. automodule:: supriya.commands.QueryTreeGroup
+
+.. currentmodule:: supriya.commands.QueryTreeGroup
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.QueryTreeGroup
+
+.. autoclass:: QueryTreeGroup
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __getitem__
+      __len__
+      __str__
+      children
+      extra
+      from_group
+      from_state
+      node_id
+      to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeGroup.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeGroup.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeGroup.__eq__
+
+   .. automethod:: QueryTreeGroup.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeGroup.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeGroup.__iter__
+
+   .. automethod:: QueryTreeGroup.__len__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeGroup.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeGroup.__reversed__
+
+   .. automethod:: QueryTreeGroup.__str__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeGroup.count
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeGroup.index
+
+   .. automethod:: QueryTreeGroup.to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: QueryTreeGroup.from_group
+
+   .. automethod:: QueryTreeGroup.from_state
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: QueryTreeGroup.children
+
+   .. autoattribute:: QueryTreeGroup.extra
+
+   .. autoattribute:: QueryTreeGroup.node_id

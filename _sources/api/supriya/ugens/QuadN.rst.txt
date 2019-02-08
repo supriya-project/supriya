@@ -1,0 +1,372 @@
+.. _supriya--ugens--QuadN:
+
+QuadN
+=====
+
+.. automodule:: supriya.ugens.QuadN
+
+.. currentmodule:: supriya.ugens.QuadN
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.QuadN
+
+.. autoclass:: QuadN
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      a
+      ar
+      b
+      c
+      frequency
+      xi
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.__add__
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.__div__
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.__le__
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.__len__
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.__str__
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.as_int
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.clip
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.cubed
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.distort
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.exponential
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.floor
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.lag
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.log
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.log10
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.log2
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.maximum
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.minimum
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.power
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.range
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.scale
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.sign
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.softclip
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.square_root
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.squared
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.sum
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.tanh
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.transpose
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: QuadN.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: QuadN.ar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: QuadN.a
+
+   .. autoattribute:: QuadN.b
+
+   .. autoattribute:: QuadN.c
+
+   .. container:: inherited
+
+      .. autoattribute:: QuadN.calculation_rate
+
+   .. autoattribute:: QuadN.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: QuadN.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: QuadN.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: QuadN.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: QuadN.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: QuadN.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: QuadN.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: QuadN.special_index
+
+   .. autoattribute:: QuadN.xi

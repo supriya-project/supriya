@@ -1,0 +1,360 @@
+.. _supriya--ugens--Done:
+
+Done
+====
+
+.. automodule:: supriya.ugens.Done
+
+.. currentmodule:: supriya.ugens.Done
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Done
+
+.. autoclass:: Done
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      kr
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Done.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Done.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Done.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Done.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Done.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Done.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Done.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Done.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Done.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Done.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Done.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Done.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Done.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Done.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Done.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Done.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Done.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Done.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Done.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Done.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Done.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Done.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Done.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Done.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Done.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Done.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Done.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Done.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Done.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Done.clip
+
+   .. container:: inherited
+
+      .. automethod:: Done.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Done.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Done.distort
+
+   .. container:: inherited
+
+      .. automethod:: Done.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Done.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Done.floor
+
+   .. container:: inherited
+
+      .. automethod:: Done.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Done.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Done.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Done.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Done.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Done.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Done.lag
+
+   .. container:: inherited
+
+      .. automethod:: Done.log
+
+   .. container:: inherited
+
+      .. automethod:: Done.log10
+
+   .. container:: inherited
+
+      .. automethod:: Done.log2
+
+   .. container:: inherited
+
+      .. automethod:: Done.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Done.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Done.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Done.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Done.power
+
+   .. container:: inherited
+
+      .. automethod:: Done.range
+
+   .. container:: inherited
+
+      .. automethod:: Done.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Done.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Done.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Done.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Done.scale
+
+   .. container:: inherited
+
+      .. automethod:: Done.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Done.sign
+
+   .. container:: inherited
+
+      .. automethod:: Done.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Done.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Done.squared
+
+   .. container:: inherited
+
+      .. automethod:: Done.sum
+
+   .. container:: inherited
+
+      .. automethod:: Done.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Done.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Done.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Done.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Done.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Done.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: Done.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Done.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Done.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Done.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Done.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Done.signal_range
+
+   .. autoattribute:: Done.source
+
+   .. container:: inherited
+
+      .. autoattribute:: Done.special_index

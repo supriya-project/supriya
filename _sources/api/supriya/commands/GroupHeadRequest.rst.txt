@@ -1,0 +1,100 @@
+.. _supriya--commands--GroupHeadRequest:
+
+GroupHeadRequest
+================
+
+.. automodule:: supriya.commands.GroupHeadRequest
+
+.. currentmodule:: supriya.commands.GroupHeadRequest
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.GroupHeadRequest
+
+.. autoclass:: GroupHeadRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      request_id
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: GroupHeadRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: GroupHeadRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: GroupHeadRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: GroupHeadRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: GroupHeadRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: GroupHeadRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: GroupHeadRequest.to_list
+
+   .. container:: inherited
+
+      .. automethod:: GroupHeadRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupHeadRequest.condition
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupHeadRequest.node_id_pairs
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupHeadRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupHeadRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupHeadRequest.response_patterns

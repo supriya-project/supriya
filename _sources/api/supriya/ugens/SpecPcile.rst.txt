@@ -1,0 +1,366 @@
+.. _supriya--ugens--SpecPcile:
+
+SpecPcile
+=========
+
+.. automodule:: supriya.ugens.SpecPcile
+
+.. currentmodule:: supriya.ugens.SpecPcile
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.SpecPcile
+
+.. autoclass:: SpecPcile
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      fraction
+      interpolate
+      kr
+      pv_chain
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.__add__
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.__div__
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.__le__
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.__len__
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.__str__
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.as_int
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.clip
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.cubed
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.distort
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.exponential
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.floor
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.lag
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.log
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.log10
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.log2
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.maximum
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.minimum
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.power
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.range
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.scale
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.sign
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.softclip
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.square_root
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.squared
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.sum
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.tanh
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.transpose
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: SpecPcile.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: SpecPcile.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: SpecPcile.calculation_rate
+
+   .. autoattribute:: SpecPcile.fraction
+
+   .. container:: inherited
+
+      .. autoattribute:: SpecPcile.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: SpecPcile.inputs
+
+   .. autoattribute:: SpecPcile.interpolate
+
+   .. container:: inherited
+
+      .. autoattribute:: SpecPcile.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: SpecPcile.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: SpecPcile.outputs
+
+   .. autoattribute:: SpecPcile.pv_chain
+
+   .. container:: inherited
+
+      .. autoattribute:: SpecPcile.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: SpecPcile.special_index

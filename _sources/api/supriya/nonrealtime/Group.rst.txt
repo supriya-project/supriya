@@ -1,0 +1,135 @@
+.. _supriya--nonrealtime--Group:
+
+Group
+=====
+
+.. automodule:: supriya.nonrealtime.Group
+
+.. currentmodule:: supriya.nonrealtime.Group
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.nonrealtime.Group
+
+.. autoclass:: Group
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __str__
+      get_children
+      inscribe
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Group.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Group.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Group.__setitem__
+
+   .. automethod:: Group.__str__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Group.add_group
+
+   .. container:: inherited
+
+      .. automethod:: Group.add_synth
+
+   .. container:: inherited
+
+      .. automethod:: Group.delete
+
+   .. automethod:: Group.get_children
+
+   .. container:: inherited
+
+      .. automethod:: Group.get_parent
+
+   .. container:: inherited
+
+      .. automethod:: Group.get_parentage
+
+   .. automethod:: Group.inscribe
+
+   .. container:: inherited
+
+      .. automethod:: Group.inspect_children
+
+   .. container:: inherited
+
+      .. automethod:: Group.move_node
+
+   .. container:: inherited
+
+      .. automethod:: Group.set_duration
+
+   .. container:: inherited
+
+      .. automethod:: Group.split
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Group.require_offset
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Group.duration
+
+   .. container:: inherited
+
+      .. autoattribute:: Group.session
+
+   .. container:: inherited
+
+      .. autoattribute:: Group.session_id
+
+   .. container:: inherited
+
+      .. autoattribute:: Group.start_offset
+
+   .. container:: inherited
+
+      .. autoattribute:: Group.stop_offset

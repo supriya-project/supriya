@@ -1,0 +1,737 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>supriya.nonrealtime.Node &mdash; Supriya 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">Supriya API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../supriya.html">supriya</a> &raquo;</li>
+        
+      <li>supriya.nonrealtime.Node</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for supriya.nonrealtime.Node</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">bisect</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">supriya</span>  <span class="c1"># noqa</span>
+<span class="kn">from</span> <span class="nn">supriya</span> <span class="k">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">supriya.nonrealtime.NodeAction</span> <span class="k">import</span> <span class="n">NodeAction</span>
+<span class="kn">from</span> <span class="nn">supriya.nonrealtime.SessionObject</span> <span class="k">import</span> <span class="n">SessionObject</span>
+<span class="kn">from</span> <span class="nn">supriya.nonrealtime.State</span> <span class="k">import</span> <span class="n">State</span>
+
+
+<div class="viewcode-block" id="Node"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/Node.html#supriya.nonrealtime.Group.Node">[docs]</a><span class="k">class</span> <span class="nc">Node</span><span class="p">(</span><span class="n">SessionObject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A non-realtime node.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">__documentation_section__</span> <span class="o">=</span> <span class="s2">&quot;Session Objects&quot;</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_duration&quot;</span><span class="p">,</span> <span class="s2">&quot;_events&quot;</span><span class="p">,</span> <span class="s2">&quot;_session&quot;</span><span class="p">,</span> <span class="s2">&quot;_session_id&quot;</span><span class="p">,</span> <span class="s2">&quot;_start_offset&quot;</span><span class="p">)</span>
+
+    <span class="n">_valid_add_actions</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">()</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">session</span><span class="p">,</span>
+        <span class="n">session_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">start_offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">SessionObject</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">session_id</span><span class="p">)</span>
+        <span class="n">start_offset</span> <span class="o">=</span> <span class="n">start_offset</span> <span class="ow">or</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start_offset</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">start_offset</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">duration</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">duration</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_duration</span> <span class="o">=</span> <span class="n">duration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_events</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1">### SPECIAL METHODS ###</span>
+
+<div class="viewcode-block" id="Node.__repr__"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/Node.html#supriya.nonrealtime.Group.Node.__repr__">[docs]</a>    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;&lt;</span><span class="si">{}</span><span class="s2"> #</span><span class="si">{}</span><span class="s2"> @</span><span class="si">{}</span><span class="s2">:</span><span class="si">{}</span><span class="s2">&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_offset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_offset</span>
+        <span class="p">)</span></div>
+
+    <span class="c1">### SPECIAL METHODS ###</span>
+
+<div class="viewcode-block" id="Node.__getitem__"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/Node.html#supriya.nonrealtime.Group.Node.__getitem__">[docs]</a>    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_active_moments</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_active_moments</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">offset</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_at_offset</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span> <span class="ow">or</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="Node.__setitem__"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/Node.html#supriya.nonrealtime.Group.Node.__setitem__">[docs]</a>    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">item</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="s2">&quot;supriya.nonrealtime.Bus&quot;</span><span class="p">,</span> <span class="s2">&quot;supriya.nonrealtime.BusGroup&quot;</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">supriya.nonrealtime</span>
+
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_active_moments</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_active_moments</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">offset</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">nonrealtime</span><span class="o">.</span><span class="n">Bus</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">nonrealtime</span><span class="o">.</span><span class="n">BusGroup</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_at_offset</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="k">def</span> <span class="nf">_add_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="s2">&quot;Node&quot;</span><span class="p">,</span> <span class="n">add_action</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Node&quot;</span><span class="p">:</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_find_state_at</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">start_offset</span><span class="p">,</span> <span class="n">clone_if_missing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">start_nodes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">nodes_to_children</span><span class="p">:</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">nodes_to_children</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_find_state_at</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">stop_offset</span><span class="p">,</span> <span class="n">clone_if_missing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">stop_nodes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">move_node</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">add_action</span><span class="o">=</span><span class="n">add_action</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_apply_transitions</span><span class="p">([</span><span class="n">node</span><span class="o">.</span><span class="n">start_offset</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">stop_offset</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">node</span>
+
+    <span class="k">def</span> <span class="nf">_collect_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">id_mapping</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">persistent</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">settings</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">persistent</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_events</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_at_offset</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="ow">or</span> <span class="mf">0.0</span>
+                <span class="k">if</span> <span class="n">id_mapping</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">id_mapping</span><span class="p">:</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">id_mapping</span><span class="p">[</span><span class="n">value</span><span class="p">]</span>
+                <span class="n">settings</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">events</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_events</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">events</span> <span class="o">=</span> <span class="n">events</span><span class="p">[:]</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">event_offset</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">events</span><span class="p">):</span>
+                    <span class="c1"># TODO: This is dreadfully inefficient.</span>
+                    <span class="k">if</span> <span class="n">id_mapping</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">id_mapping</span><span class="p">:</span>
+                        <span class="n">value</span> <span class="o">=</span> <span class="n">id_mapping</span><span class="p">[</span><span class="n">value</span><span class="p">]</span>
+                        <span class="n">events</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">event_offset</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="n">bisect</span><span class="o">.</span><span class="n">bisect_left</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">index</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">event_offset</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">offset</span> <span class="o">==</span> <span class="n">event_offset</span><span class="p">:</span>
+                    <span class="n">settings</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="n">settings</span>
+
+    <span class="k">def</span> <span class="nf">_fixup_duration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_duration</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">old_duration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_duration</span>
+        <span class="k">if</span> <span class="n">old_duration</span> <span class="o">==</span> <span class="n">new_duration</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stop_offset</span><span class="p">,</span> <span class="n">propagate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">moment</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span> <span class="ow">in</span> <span class="n">moment</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">stop_nodes</span><span class="p">:</span>
+                <span class="n">moment</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">stop_nodes</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">moment</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">_sparsify</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_duration</span> <span class="o">=</span> <span class="n">new_duration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stop_offset</span><span class="p">,</span> <span class="n">propagate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">moment</span><span class="p">:</span>
+            <span class="n">moment</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">stop_nodes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_fixup_events</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_node</span><span class="p">:</span> <span class="s2">&quot;Node&quot;</span><span class="p">,</span> <span class="n">split_offset</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">left_events</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">right_events</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">events</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_events</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">offset</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">offset</span> <span class="o">&lt;</span> <span class="n">split_offset</span><span class="p">:</span>
+                    <span class="n">left_events</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">offset</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">right_events</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">offset</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">events</span> <span class="ow">in</span> <span class="n">left_events</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">right_events</span> <span class="ow">and</span> <span class="n">right_events</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">split_offset</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">event</span> <span class="o">=</span> <span class="p">(</span><span class="n">split_offset</span><span class="p">,</span> <span class="n">events</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">right_events</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_events</span> <span class="o">=</span> <span class="n">left_events</span>
+        <span class="n">new_node</span><span class="o">.</span><span class="n">_events</span> <span class="o">=</span> <span class="n">right_events</span>
+
+    <span class="k">def</span> <span class="nf">_fixup_node_actions</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">new_node</span><span class="p">:</span> <span class="s2">&quot;Node&quot;</span><span class="p">,</span> <span class="n">start_offset</span><span class="p">:</span> <span class="s2">&quot;float&quot;</span><span class="p">,</span> <span class="n">stop_offset</span><span class="p">:</span> <span class="s2">&quot;float&quot;</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">offset</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">states</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">offset</span> <span class="o">&lt;</span> <span class="n">start_offset</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">elif</span> <span class="n">stop_offset</span> <span class="o">&lt;</span> <span class="n">offset</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">transitions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="n">offset</span><span class="p">]</span><span class="o">.</span><span class="n">transitions</span>
+            <span class="k">if</span> <span class="bp">self</span> <span class="ow">in</span> <span class="n">transitions</span><span class="p">:</span>
+                <span class="n">transitions</span><span class="p">[</span><span class="n">new_node</span><span class="p">]</span> <span class="o">=</span> <span class="n">transitions</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">transitions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="n">new_node</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">if</span> <span class="n">action</span><span class="o">.</span><span class="n">target</span> <span class="ow">is</span> <span class="bp">self</span><span class="p">:</span>
+                    <span class="n">action</span><span class="o">.</span><span class="n">_target</span> <span class="o">=</span> <span class="n">new_node</span>
+
+    <span class="k">def</span> <span class="nf">_get_at_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Relative to Node start offset.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">events</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_events</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">events</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">bisect</span><span class="o">.</span><span class="n">bisect_left</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">index</span><span class="p">:</span>
+            <span class="n">old_offset</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">old_offset</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">old_offset</span> <span class="o">==</span> <span class="n">offset</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">value</span>
+        <span class="n">index</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">_set_at_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Relative to Synth start offset.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">offset</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_offset</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_offset</span> <span class="o">&lt;=</span> <span class="n">offset</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">events</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_events</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="n">new_event</span> <span class="o">=</span> <span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">events</span><span class="p">:</span>
+            <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_event</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">bisect</span><span class="o">.</span><span class="n">bisect_left</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">new_event</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">index</span><span class="p">:</span>
+            <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_event</span><span class="p">)</span>
+        <span class="n">old_offset</span><span class="p">,</span> <span class="n">old_value</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">old_offset</span> <span class="o">==</span> <span class="n">offset</span><span class="p">:</span>
+            <span class="n">events</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">events</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">new_event</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_split</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">split_offset</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">new_nodes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">split_occupiers</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">split_traversers</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">]:</span>
+        <span class="kn">import</span> <span class="nn">supriya.nonrealtime</span>
+
+        <span class="n">new_nodes</span> <span class="o">=</span> <span class="n">new_nodes</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="n">split_offset</span><span class="p">]</span>
+        <span class="n">entering</span><span class="p">,</span> <span class="n">exiting</span><span class="p">,</span> <span class="n">occupying</span><span class="p">,</span> <span class="n">starting</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inspect_children</span><span class="p">()</span>
+        <span class="n">children</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">nodes_to_children</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="ow">or</span> <span class="p">()</span>
+        <span class="n">start_offset</span><span class="p">,</span> <span class="n">stop_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_offset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_offset</span>
+        <span class="k">if</span> <span class="n">start_offset</span> <span class="o">&lt;</span> <span class="n">split_offset</span> <span class="o">&lt;</span> <span class="n">stop_offset</span><span class="p">:</span>
+            <span class="n">old_actions</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">transitions</span>
+            <span class="n">new_duration</span> <span class="o">=</span> <span class="n">stop_offset</span> <span class="o">-</span> <span class="n">split_offset</span>
+            <span class="k">with</span> <span class="n">supriya</span><span class="o">.</span><span class="n">nonrealtime</span><span class="o">.</span><span class="n">DoNotPropagate</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">nonrealtime</span><span class="o">.</span><span class="n">Synth</span><span class="p">):</span>
+                    <span class="n">new_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span>
+                        <span class="n">add_action</span><span class="o">=</span><span class="s2">&quot;ADD_BEFORE&quot;</span><span class="p">,</span>
+                        <span class="n">duration</span><span class="o">=</span><span class="n">new_duration</span><span class="p">,</span>
+                        <span class="n">synthdef</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">synthdef</span><span class="p">,</span>
+                        <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_synth_kwargs</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">new_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_group</span><span class="p">(</span>
+                        <span class="n">add_action</span><span class="o">=</span><span class="s2">&quot;ADD_BEFORE&quot;</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="n">new_duration</span>
+                    <span class="p">)</span>
+            <span class="n">new_nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_node</span><span class="p">)</span>
+            <span class="n">new_actions</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">,</span> <span class="n">NodeAction</span><span class="p">]</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">new_nodes</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="n">new_node</span> <span class="ow">and</span> <span class="bp">self</span> <span class="ow">in</span> <span class="n">old_actions</span><span class="p">:</span>
+                    <span class="n">old_actions</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                    <span class="n">action</span> <span class="o">=</span> <span class="n">old_actions</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+                    <span class="n">new_actions</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">new_node</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">new_actions</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">old_actions</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">children</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">old_actions</span><span class="p">:</span>
+                    <span class="n">old_actions</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">nonrealtime</span><span class="o">.</span><span class="n">NodeAction</span><span class="p">(</span>
+                    <span class="n">source</span><span class="o">=</span><span class="n">child</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">new_node</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;ADD_TO_TAIL&quot;</span>
+                <span class="p">)</span>
+                <span class="n">new_actions</span><span class="p">[</span><span class="n">child</span><span class="p">]</span> <span class="o">=</span> <span class="n">action</span>
+            <span class="n">new_actions</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">old_actions</span><span class="p">)</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">_transitions</span> <span class="o">=</span> <span class="n">new_actions</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fixup_events</span><span class="p">(</span><span class="n">new_node</span><span class="p">,</span> <span class="n">split_offset</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fixup_duration</span><span class="p">(</span><span class="n">split_offset</span> <span class="o">-</span> <span class="n">start_offset</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fixup_node_actions</span><span class="p">(</span><span class="n">new_node</span><span class="p">,</span> <span class="n">split_offset</span><span class="p">,</span> <span class="n">stop_offset</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_apply_transitions</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">new_node</span><span class="o">.</span><span class="n">start_offset</span><span class="p">,</span> <span class="n">new_node</span><span class="o">.</span><span class="n">stop_offset</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_node</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span> <span class="o">+</span> <span class="n">exiting</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="p">(</span><span class="n">split_occupiers</span> <span class="ow">and</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">occupying</span><span class="p">)</span>
+                <span class="ow">or</span> <span class="p">(</span><span class="n">split_traversers</span> <span class="ow">and</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">entering</span><span class="p">)</span>
+                <span class="ow">or</span> <span class="p">(</span><span class="n">split_traversers</span> <span class="ow">and</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">exiting</span><span class="p">)</span>
+            <span class="p">):</span>
+                <span class="n">child</span><span class="o">.</span><span class="n">_split</span><span class="p">(</span>
+                    <span class="n">split_offset</span><span class="p">,</span>
+                    <span class="n">new_nodes</span><span class="o">=</span><span class="n">new_nodes</span><span class="p">,</span>
+                    <span class="n">split_occupiers</span><span class="o">=</span><span class="n">split_occupiers</span><span class="p">,</span>
+                    <span class="n">split_traversers</span><span class="o">=</span><span class="n">split_traversers</span><span class="p">,</span>
+                <span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="c1">### CONSTRUCTORS ###</span>
+
+<div class="viewcode-block" id="Node.add_group"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/Node.html#supriya.nonrealtime.Group.Node.add_group">[docs]</a>    <span class="nd">@SessionObject</span><span class="o">.</span><span class="n">require_offset</span>
+    <span class="k">def</span> <span class="nf">add_group</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">add_action</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;supriya.nonrealtime.Group&quot;</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">supriya.nonrealtime</span>
+
+        <span class="k">if</span> <span class="n">add_action</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">add_action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_valid_add_actions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">add_action</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">add_action</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">add_action</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_valid_add_actions</span>
+        <span class="n">session_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_get_next_session_id</span><span class="p">(</span><span class="s2">&quot;node&quot;</span><span class="p">)</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">nonrealtime</span><span class="o">.</span><span class="n">Group</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="n">duration</span><span class="p">,</span> <span class="n">session_id</span><span class="o">=</span><span class="n">session_id</span><span class="p">,</span> <span class="n">start_offset</span><span class="o">=</span><span class="n">offset</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_node</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">add_action</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">node</span></div>
+
+<div class="viewcode-block" id="Node.add_synth"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/Node.html#supriya.nonrealtime.Group.Node.add_synth">[docs]</a>    <span class="nd">@SessionObject</span><span class="o">.</span><span class="n">require_offset</span>
+    <span class="k">def</span> <span class="nf">add_synth</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">add_action</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">synthdef</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">synth_kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;supriya.nonrealtime.Synth&quot;</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">supriya.assets.synthdefs</span>
+        <span class="kn">import</span> <span class="nn">supriya.nonrealtime</span>
+
+        <span class="k">if</span> <span class="n">add_action</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">add_action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_valid_add_actions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">add_action</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">add_action</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">add_action</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_valid_add_actions</span>
+        <span class="n">session_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_get_next_session_id</span><span class="p">(</span><span class="s2">&quot;node&quot;</span><span class="p">)</span>
+        <span class="n">synthdef</span> <span class="o">=</span> <span class="n">synthdef</span> <span class="ow">or</span> <span class="n">supriya</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">default</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">nonrealtime</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">,</span>
+            <span class="n">session_id</span><span class="o">=</span><span class="n">session_id</span><span class="p">,</span>
+            <span class="n">duration</span><span class="o">=</span><span class="n">duration</span><span class="p">,</span>
+            <span class="n">start_offset</span><span class="o">=</span><span class="n">offset</span><span class="p">,</span>
+            <span class="n">synthdef</span><span class="o">=</span><span class="n">synthdef</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">synth_kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_node</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">add_action</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">node</span></div>
+
+    <span class="c1">### MUTATORS ###</span>
+
+<div class="viewcode-block" id="Node.move_node"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/Node.html#supriya.nonrealtime.Group.Node.move_node">[docs]</a>    <span class="nd">@SessionObject</span><span class="o">.</span><span class="n">require_offset</span>
+    <span class="k">def</span> <span class="nf">move_node</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="s2">&quot;Node&quot;</span><span class="p">,</span> <span class="n">add_action</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Node&quot;</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">supriya.nonrealtime</span>
+
+        <span class="n">state</span><span class="p">:</span> <span class="n">State</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">active_moments</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">state</span>
+        <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">nodes_to_parents</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">_desparsify</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">nodes_to_parents</span> <span class="ow">and</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parentage</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t add parent as a child.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">add_action</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">add_action</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_valid_add_actions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">add_action</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">add_action</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">add_action</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_valid_add_actions</span>
+        <span class="n">node_action</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">nonrealtime</span><span class="o">.</span><span class="n">NodeAction</span><span class="p">(</span>
+            <span class="n">source</span><span class="o">=</span><span class="n">node</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="n">add_action</span>
+        <span class="p">)</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">transitions</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="o">=</span> <span class="n">node_action</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_apply_transitions</span><span class="p">([</span><span class="n">state</span><span class="o">.</span><span class="n">offset</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">stop_offset</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">node</span></div>
+
+<div class="viewcode-block" id="Node.delete"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/Node.html#supriya.nonrealtime.Group.Node.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">start_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_find_state_at</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_offset</span><span class="p">)</span>
+        <span class="n">start_state</span><span class="o">.</span><span class="n">start_nodes</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">stop_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_find_state_at</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stop_offset</span><span class="p">)</span>
+        <span class="n">stop_state</span><span class="o">.</span><span class="n">stop_nodes</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">start_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_find_state_before</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">start_offset</span><span class="p">,</span> <span class="n">with_node_tree</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">offset</span>
+        <span class="k">for</span> <span class="n">state_one</span><span class="p">,</span> <span class="n">state_two</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_iterate_state_pairs</span><span class="p">(</span>
+            <span class="n">start_offset</span><span class="p">,</span> <span class="n">with_node_tree</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">):</span>
+            <span class="n">state_two</span><span class="o">.</span><span class="n">_desparsify</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span> <span class="ow">in</span> <span class="n">state_two</span><span class="o">.</span><span class="n">nodes_to_children</span><span class="p">:</span>
+                <span class="n">parent</span> <span class="o">=</span> <span class="n">state_two</span><span class="o">.</span><span class="n">nodes_to_parents</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+                <span class="n">inner_children</span> <span class="o">=</span> <span class="n">state_two</span><span class="o">.</span><span class="n">nodes_to_children</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="ow">or</span> <span class="p">()</span>
+                <span class="n">outer_children</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">state_two</span><span class="o">.</span><span class="n">nodes_to_children</span><span class="p">[</span><span class="n">parent</span><span class="p">])</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="n">outer_children</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+                <span class="n">outer_children</span><span class="p">[</span><span class="n">index</span> <span class="p">:</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">inner_children</span>
+                <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">inner_children</span><span class="p">:</span>
+                    <span class="n">state_two</span><span class="o">.</span><span class="n">nodes_to_parents</span><span class="p">[</span><span class="n">child</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent</span>
+                <span class="n">state_two</span><span class="o">.</span><span class="n">nodes_to_children</span><span class="p">[</span><span class="n">parent</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">outer_children</span><span class="p">)</span> <span class="ow">or</span> <span class="kc">None</span>
+            <span class="n">state_two</span><span class="o">.</span><span class="n">_transitions</span> <span class="o">=</span> <span class="n">state_two</span><span class="o">.</span><span class="n">_rebuild_transitions</span><span class="p">(</span>
+                <span class="n">state_one</span><span class="p">,</span> <span class="n">state_two</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">state_two</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_offset</span><span class="p">:</span>
+                <span class="k">break</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_apply_transitions</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">start_offset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_offset</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Node.set_duration"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/Node.html#supriya.nonrealtime.Group.Node.set_duration">[docs]</a>    <span class="k">def</span> <span class="nf">set_duration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_duration</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">clip_children</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Node&quot;</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="nn">supriya.nonrealtime</span>
+
+        <span class="k">assert</span> <span class="n">new_duration</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="o">==</span> <span class="n">new_duration</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">if</span> <span class="n">new_duration</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">:</span>
+            <span class="n">split_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">+</span> <span class="n">new_duration</span>
+            <span class="k">if</span> <span class="n">clip_children</span><span class="p">:</span>
+                <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="n">split_offset</span><span class="p">)</span> <span class="k">as</span> <span class="n">moment</span><span class="p">:</span>
+                    <span class="n">old_node</span><span class="p">,</span> <span class="n">new_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
+                        <span class="n">split_occupiers</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">split_traversers</span><span class="o">=</span><span class="kc">True</span>
+                    <span class="p">)</span>
+                    <span class="n">state</span> <span class="o">=</span> <span class="n">moment</span><span class="o">.</span><span class="n">state</span>
+                    <span class="n">children</span> <span class="o">=</span> <span class="nb">reversed</span><span class="p">(</span>
+                        <span class="nb">list</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">_iterate_nodes</span><span class="p">(</span><span class="n">new_node</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">nodes_to_children</span><span class="p">))</span>
+                    <span class="p">)</span>
+                    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
+                        <span class="n">child</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="n">split_offset</span><span class="p">):</span>
+                    <span class="n">old_node</span><span class="p">,</span> <span class="n">new_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
+                        <span class="n">split_occupiers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">split_traversers</span><span class="o">=</span><span class="kc">False</span>
+                    <span class="p">)</span>
+                    <span class="n">new_node</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_find_state_at</span><span class="p">(</span><span class="n">new_node</span><span class="o">.</span><span class="n">stop_offset</span><span class="p">)</span><span class="o">.</span><span class="n">_sparsify</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">old_node</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">old_stop_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_offset</span>
+            <span class="n">new_stop_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">+</span> <span class="n">new_duration</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="n">old_stop_offset</span><span class="p">,</span> <span class="n">propagate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">moment</span><span class="p">:</span>
+                <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parent</span><span class="p">()</span>
+                <span class="n">moment</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">stop_nodes</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+                <span class="n">moment</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">_sparsify</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fixup_duration</span><span class="p">(</span><span class="n">new_duration</span><span class="p">)</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="n">old_stop_offset</span><span class="p">,</span> <span class="n">propagate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">moment</span><span class="p">:</span>
+                <span class="n">moment</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">_sparsify</span><span class="p">()</span>
+            <span class="k">while</span> <span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">parent</span><span class="o">.</span><span class="n">stop_offset</span> <span class="o">&lt;</span> <span class="n">new_stop_offset</span><span class="p">:</span>
+                <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">stop_offset</span><span class="p">,</span> <span class="n">propagate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">moment</span><span class="p">:</span>
+                    <span class="n">action</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">nonrealtime</span><span class="o">.</span><span class="n">NodeAction</span><span class="p">(</span>
+                        <span class="n">source</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">parent</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;ADD_BEFORE&quot;</span>
+                    <span class="p">)</span>
+                    <span class="n">moment</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">transitions</span><span class="p">[</span><span class="bp">self</span><span class="p">]</span> <span class="o">=</span> <span class="n">action</span>
+                    <span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">get_parent</span><span class="p">()</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="n">new_stop_offset</span><span class="p">,</span> <span class="n">propagate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">moment</span><span class="p">:</span>
+                <span class="n">moment</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">stop_nodes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_offset</span><span class="p">,</span> <span class="n">propagate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">moment</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_apply_transitions</span><span class="p">(</span><span class="n">moment</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">offset</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_apply_transitions</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">start_offset</span><span class="p">,</span> <span class="n">old_stop_offset</span><span class="p">,</span> <span class="n">new_stop_offset</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="Node.split"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/Node.html#supriya.nonrealtime.Group.Node.split">[docs]</a>    <span class="nd">@SessionObject</span><span class="o">.</span><span class="n">require_offset</span>
+    <span class="k">def</span> <span class="nf">split</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">split_occupiers</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">split_traversers</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">offset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">active_moments</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_apply_transitions</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">offset</span><span class="p">)</span>
+        <span class="n">shards</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span><span class="p">(</span>
+            <span class="n">offset</span><span class="p">,</span> <span class="n">split_occupiers</span><span class="o">=</span><span class="n">split_occupiers</span><span class="p">,</span> <span class="n">split_traversers</span><span class="o">=</span><span class="n">split_traversers</span>
+        <span class="p">)</span>
+        <span class="n">stop_offset</span> <span class="o">=</span> <span class="n">shards</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">stop_offset</span>
+        <span class="k">while</span> <span class="n">state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">state</span><span class="o">.</span><span class="n">offset</span> <span class="o">&lt;=</span> <span class="n">stop_offset</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_apply_transitions</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">offset</span><span class="p">)</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_find_state_after</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">offset</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">shards</span></div>
+
+    <span class="c1">### RELATIONS ###</span>
+
+<div class="viewcode-block" id="Node.inspect_children"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/Node.html#supriya.nonrealtime.Group.Node.inspect_children">[docs]</a>    <span class="nd">@SessionObject</span><span class="o">.</span><span class="n">require_offset</span>
+    <span class="k">def</span> <span class="nf">inspect_children</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span>
+        <span class="n">Tuple</span><span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">Tuple</span><span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">Tuple</span><span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">Tuple</span><span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+        <span class="n">Tuple</span><span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+    <span class="p">]:</span>
+        <span class="n">this_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_find_state_at</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">clone_if_missing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">prev_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_find_state_before</span><span class="p">(</span><span class="n">this_state</span><span class="o">.</span><span class="n">offset</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">prev_state</span><span class="o">.</span><span class="n">_desparsify</span><span class="p">()</span>
+        <span class="n">this_state</span><span class="o">.</span><span class="n">_desparsify</span><span class="p">()</span>
+        <span class="n">prev_children</span> <span class="o">=</span> <span class="n">prev_state</span><span class="o">.</span><span class="n">nodes_to_children</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="ow">or</span> <span class="p">()</span>
+        <span class="n">this_children</span> <span class="o">=</span> <span class="n">this_state</span><span class="o">.</span><span class="n">nodes_to_children</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="ow">or</span> <span class="p">()</span>
+        <span class="n">entering</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">exiting</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">occupying</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">starting</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">stopping</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">prev_children</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">stop_offset</span> <span class="o">==</span> <span class="n">offset</span><span class="p">:</span>
+                <span class="n">stopping</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">this_children</span><span class="p">:</span>
+                <span class="n">occupying</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">exiting</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">this_children</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">==</span> <span class="n">offset</span><span class="p">:</span>
+                <span class="n">starting</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">stop_offset</span> <span class="o">==</span> <span class="n">offset</span><span class="p">:</span>
+                <span class="n">stopping</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">prev_children</span><span class="p">:</span>
+                <span class="n">occupying</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">entering</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">entering</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">session_id</span><span class="p">)),</span>
+            <span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">exiting</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">session_id</span><span class="p">)),</span>
+            <span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">occupying</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">session_id</span><span class="p">)),</span>
+            <span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">starting</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">session_id</span><span class="p">)),</span>
+            <span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">stopping</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">session_id</span><span class="p">)),</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Node.get_parent"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/Node.html#supriya.nonrealtime.Group.Node.get_parent">[docs]</a>    <span class="nd">@SessionObject</span><span class="o">.</span><span class="n">require_offset</span>
+    <span class="k">def</span> <span class="nf">get_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">]:</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_find_state_at</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">clone_if_missing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">state</span><span class="o">.</span><span class="n">nodes_to_children</span><span class="p">:</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_find_state_before</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">offset</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_offset</span> <span class="o">==</span> <span class="n">state</span><span class="o">.</span><span class="n">offset</span><span class="p">:</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_find_state_before</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">offset</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">state</span><span class="o">.</span><span class="n">nodes_to_parents</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Node.get_parentage"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/Node.html#supriya.nonrealtime.Group.Node.get_parentage">[docs]</a>    <span class="nd">@SessionObject</span><span class="o">.</span><span class="n">require_offset</span>
+    <span class="k">def</span> <span class="nf">get_parentage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">]:</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_find_state_at</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">clone_if_missing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">state</span><span class="o">.</span><span class="n">nodes_to_children</span><span class="p">:</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_find_state_before</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">offset</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="n">parentage</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span><span class="p">]</span>
+        <span class="k">while</span> <span class="n">state</span><span class="o">.</span><span class="n">nodes_to_parents</span><span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">parent</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">nodes_to_parents</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+            <span class="n">parentage</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">parent</span>
+        <span class="k">return</span> <span class="n">parentage</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">duration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_duration</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">session_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">start_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_offset</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">stop_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

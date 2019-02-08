@@ -1,0 +1,363 @@
+.. _supriya--ugens--Dust:
+
+Dust
+====
+
+.. automodule:: supriya.ugens.Dust
+
+.. currentmodule:: supriya.ugens.Dust
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.Dust
+
+.. autoclass:: Dust
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      density
+      kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Dust.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: Dust.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Dust.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Dust.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Dust.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Dust.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Dust.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Dust.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Dust.__len__
+
+   .. container:: inherited
+
+      .. automethod:: Dust.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Dust.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: Dust.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Dust.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: Dust.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Dust.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Dust.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Dust.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Dust.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: Dust.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Dust.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Dust.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Dust.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: Dust.__str__
+
+   .. container:: inherited
+
+      .. automethod:: Dust.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Dust.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Dust.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: Dust.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: Dust.as_int
+
+   .. container:: inherited
+
+      .. automethod:: Dust.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: Dust.clip
+
+   .. container:: inherited
+
+      .. automethod:: Dust.cubed
+
+   .. container:: inherited
+
+      .. automethod:: Dust.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: Dust.distort
+
+   .. container:: inherited
+
+      .. automethod:: Dust.exponential
+
+   .. container:: inherited
+
+      .. automethod:: Dust.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: Dust.floor
+
+   .. container:: inherited
+
+      .. automethod:: Dust.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: Dust.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: Dust.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: Dust.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: Dust.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Dust.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: Dust.lag
+
+   .. container:: inherited
+
+      .. automethod:: Dust.log
+
+   .. container:: inherited
+
+      .. automethod:: Dust.log10
+
+   .. container:: inherited
+
+      .. automethod:: Dust.log2
+
+   .. container:: inherited
+
+      .. automethod:: Dust.maximum
+
+   .. container:: inherited
+
+      .. automethod:: Dust.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Dust.minimum
+
+   .. container:: inherited
+
+      .. automethod:: Dust.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: Dust.power
+
+   .. container:: inherited
+
+      .. automethod:: Dust.range
+
+   .. container:: inherited
+
+      .. automethod:: Dust.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: Dust.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: Dust.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Dust.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: Dust.scale
+
+   .. container:: inherited
+
+      .. automethod:: Dust.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: Dust.sign
+
+   .. container:: inherited
+
+      .. automethod:: Dust.softclip
+
+   .. container:: inherited
+
+      .. automethod:: Dust.square_root
+
+   .. container:: inherited
+
+      .. automethod:: Dust.squared
+
+   .. container:: inherited
+
+      .. automethod:: Dust.sum
+
+   .. container:: inherited
+
+      .. automethod:: Dust.tanh
+
+   .. container:: inherited
+
+      .. automethod:: Dust.transpose
+
+   .. container:: inherited
+
+      .. automethod:: Dust.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: Dust.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Dust.ar
+
+   .. automethod:: Dust.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Dust.calculation_rate
+
+   .. autoattribute:: Dust.density
+
+   .. container:: inherited
+
+      .. autoattribute:: Dust.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: Dust.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Dust.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Dust.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: Dust.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: Dust.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: Dust.special_index

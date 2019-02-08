@@ -1,0 +1,369 @@
+.. _supriya--ugens--DegreeToKey:
+
+DegreeToKey
+===========
+
+.. automodule:: supriya.ugens.DegreeToKey
+
+.. currentmodule:: supriya.ugens.DegreeToKey
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.DegreeToKey
+
+.. autoclass:: DegreeToKey
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      buffer_id
+      kr
+      octave
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.__add__
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.__div__
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.__le__
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.__len__
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.__str__
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.as_int
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.clip
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.cubed
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.distort
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.exponential
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.floor
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.lag
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.log
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.log10
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.log2
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.maximum
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.minimum
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.power
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.range
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.scale
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.sign
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.softclip
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.square_root
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.squared
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.sum
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.tanh
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.transpose
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: DegreeToKey.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: DegreeToKey.ar
+
+   .. automethod:: DegreeToKey.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: DegreeToKey.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: DegreeToKey.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: DegreeToKey.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: DegreeToKey.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: DegreeToKey.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: DegreeToKey.is_output_ugen
+
+   .. autoattribute:: DegreeToKey.octave
+
+   .. container:: inherited
+
+      .. autoattribute:: DegreeToKey.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: DegreeToKey.signal_range
+
+   .. autoattribute:: DegreeToKey.source
+
+   .. container:: inherited
+
+      .. autoattribute:: DegreeToKey.special_index

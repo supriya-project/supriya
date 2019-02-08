@@ -1,0 +1,34 @@
+.. _supriya--commands--NodeAction:
+
+NodeAction
+==========
+
+.. automodule:: supriya.commands.NodeAction
+
+.. currentmodule:: supriya.commands.NodeAction
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.NodeAction
+
+.. autoclass:: NodeAction
+   :members:
+   :undoc-members:
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      NODE_ACTIVATED
+      NODE_CREATED
+      NODE_DEACTIVATED
+      NODE_MOVED
+      NODE_QUERIED
+      NODE_REMOVED

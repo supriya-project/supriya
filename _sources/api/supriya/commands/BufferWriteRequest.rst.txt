@@ -1,0 +1,119 @@
+.. _supriya--commands--BufferWriteRequest:
+
+BufferWriteRequest
+==================
+
+.. automodule:: supriya.commands.BufferWriteRequest
+
+.. currentmodule:: supriya.commands.BufferWriteRequest
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.BufferWriteRequest
+
+.. autoclass:: BufferWriteRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      buffer_id
+      callback
+      file_path
+      frame_count
+      header_format
+      leave_open
+      request_id
+      sample_format
+      starting_frame
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferWriteRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferWriteRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: BufferWriteRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferWriteRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferWriteRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: BufferWriteRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: BufferWriteRequest.to_list
+
+   .. automethod:: BufferWriteRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferWriteRequest.buffer_id
+
+   .. autoattribute:: BufferWriteRequest.callback
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferWriteRequest.condition
+
+   .. autoattribute:: BufferWriteRequest.file_path
+
+   .. autoattribute:: BufferWriteRequest.frame_count
+
+   .. autoattribute:: BufferWriteRequest.header_format
+
+   .. autoattribute:: BufferWriteRequest.leave_open
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferWriteRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferWriteRequest.response
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferWriteRequest.response_patterns
+
+   .. autoattribute:: BufferWriteRequest.sample_format
+
+   .. autoattribute:: BufferWriteRequest.starting_frame

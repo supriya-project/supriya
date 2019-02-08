@@ -1,0 +1,376 @@
+.. _supriya--ugens--PV-HainsworthFoote:
+
+PV_HainsworthFoote
+==================
+
+.. automodule:: supriya.ugens.PV_HainsworthFoote
+
+.. currentmodule:: supriya.ugens.PV_HainsworthFoote
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.PV_HainsworthFoote
+
+.. autoclass:: PV_HainsworthFoote
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      new
+      propf
+      proph
+      pv_chain
+      threshold
+      waittime
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.__add__
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.__div__
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.__le__
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.__len__
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.__str__
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.as_int
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.clip
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.cubed
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.distort
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.exponential
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.floor
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.lag
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.log
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.log10
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.log2
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.maximum
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.minimum
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.power
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.range
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.scale
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.sign
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.softclip
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.square_root
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.squared
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.sum
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.tanh
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.transpose
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_HainsworthFoote.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: PV_HainsworthFoote.new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_HainsworthFoote.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_HainsworthFoote.fft_size
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_HainsworthFoote.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_HainsworthFoote.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_HainsworthFoote.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_HainsworthFoote.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_HainsworthFoote.outputs
+
+   .. autoattribute:: PV_HainsworthFoote.propf
+
+   .. autoattribute:: PV_HainsworthFoote.proph
+
+   .. autoattribute:: PV_HainsworthFoote.pv_chain
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_HainsworthFoote.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_HainsworthFoote.special_index
+
+   .. autoattribute:: PV_HainsworthFoote.threshold
+
+   .. autoattribute:: PV_HainsworthFoote.waittime

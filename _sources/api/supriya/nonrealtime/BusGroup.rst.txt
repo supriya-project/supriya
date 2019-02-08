@@ -1,0 +1,104 @@
+.. _supriya--nonrealtime--BusGroup:
+
+BusGroup
+========
+
+.. automodule:: supriya.nonrealtime.BusGroup
+
+.. currentmodule:: supriya.nonrealtime.BusGroup
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.nonrealtime.BusGroup
+
+.. autoclass:: BusGroup
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __contains__
+      __getitem__
+      __iter__
+      __len__
+      __repr__
+      __str__
+      bus_count
+      buses
+      calculation_rate
+      fill
+      get
+      get_map_symbol
+      index
+      session_id
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: BusGroup.__contains__
+
+   .. automethod:: BusGroup.__getitem__
+
+   .. automethod:: BusGroup.__iter__
+
+   .. automethod:: BusGroup.__len__
+
+   .. automethod:: BusGroup.__repr__
+
+   .. automethod:: BusGroup.__str__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: BusGroup.fill
+
+   .. automethod:: BusGroup.get
+
+   .. automethod:: BusGroup.get_map_symbol
+
+   .. automethod:: BusGroup.index
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BusGroup.require_offset
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BusGroup.bus_count
+
+   .. autoattribute:: BusGroup.buses
+
+   .. autoattribute:: BusGroup.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: BusGroup.session
+
+   .. autoattribute:: BusGroup.session_id

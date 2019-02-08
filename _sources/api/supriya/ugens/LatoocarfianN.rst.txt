@@ -1,0 +1,378 @@
+.. _supriya--ugens--LatoocarfianN:
+
+LatoocarfianN
+=============
+
+.. automodule:: supriya.ugens.LatoocarfianN
+
+.. currentmodule:: supriya.ugens.LatoocarfianN
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.LatoocarfianN
+
+.. autoclass:: LatoocarfianN
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      a
+      ar
+      b
+      c
+      d
+      frequency
+      xi
+      yi
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.__add__
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.__div__
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.__le__
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.__len__
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.__str__
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.as_int
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.clip
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.cubed
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.distort
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.exponential
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.floor
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.lag
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.log
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.log10
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.log2
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.maximum
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.minimum
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.power
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.range
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.scale
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.sign
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.softclip
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.square_root
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.squared
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.sum
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.tanh
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.transpose
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: LatoocarfianN.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: LatoocarfianN.ar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: LatoocarfianN.a
+
+   .. autoattribute:: LatoocarfianN.b
+
+   .. autoattribute:: LatoocarfianN.c
+
+   .. container:: inherited
+
+      .. autoattribute:: LatoocarfianN.calculation_rate
+
+   .. autoattribute:: LatoocarfianN.d
+
+   .. autoattribute:: LatoocarfianN.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: LatoocarfianN.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: LatoocarfianN.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: LatoocarfianN.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: LatoocarfianN.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: LatoocarfianN.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: LatoocarfianN.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: LatoocarfianN.special_index
+
+   .. autoattribute:: LatoocarfianN.xi
+
+   .. autoattribute:: LatoocarfianN.yi

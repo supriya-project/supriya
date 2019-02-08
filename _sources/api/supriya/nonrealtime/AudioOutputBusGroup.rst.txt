@@ -1,0 +1,107 @@
+.. _supriya--nonrealtime--AudioOutputBusGroup:
+
+AudioOutputBusGroup
+===================
+
+.. automodule:: supriya.nonrealtime.AudioOutputBusGroup
+
+.. currentmodule:: supriya.nonrealtime.AudioOutputBusGroup
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.nonrealtime.AudioOutputBusGroup
+
+.. autoclass:: AudioOutputBusGroup
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: AudioOutputBusGroup.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: AudioOutputBusGroup.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: AudioOutputBusGroup.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: AudioOutputBusGroup.__len__
+
+   .. container:: inherited
+
+      .. automethod:: AudioOutputBusGroup.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: AudioOutputBusGroup.__str__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: AudioOutputBusGroup.fill
+
+   .. container:: inherited
+
+      .. automethod:: AudioOutputBusGroup.get
+
+   .. container:: inherited
+
+      .. automethod:: AudioOutputBusGroup.get_map_symbol
+
+   .. container:: inherited
+
+      .. automethod:: AudioOutputBusGroup.index
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: AudioOutputBusGroup.require_offset
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioOutputBusGroup.bus_count
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioOutputBusGroup.buses
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioOutputBusGroup.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioOutputBusGroup.session
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioOutputBusGroup.session_id

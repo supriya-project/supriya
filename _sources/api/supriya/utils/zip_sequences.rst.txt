@@ -1,0 +1,15 @@
+.. _supriya--utils--zip-sequences:
+
+zip_sequences
+=============
+
+.. automodule:: supriya.utils.zip_sequences
+
+.. currentmodule:: supriya.utils.zip_sequences
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.utils.zip_sequences
+
+.. autofunction:: zip_sequences

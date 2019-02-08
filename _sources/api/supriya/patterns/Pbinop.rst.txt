@@ -1,0 +1,126 @@
+.. _supriya--patterns--Pbinop:
+
+Pbinop
+======
+
+.. automodule:: supriya.patterns.Pbinop
+
+.. currentmodule:: supriya.patterns.Pbinop
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.patterns.Pbinop
+
+.. autoclass:: Pbinop
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      arity
+      expr_one
+      expr_two
+      is_infinite
+      operator
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pbinop.__add__
+
+   .. container:: inherited
+
+      .. automethod:: Pbinop.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: Pbinop.__div__
+
+   .. container:: inherited
+
+      .. automethod:: Pbinop.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: Pbinop.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: Pbinop.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: Pbinop.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: Pbinop.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: Pbinop.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: Pbinop.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: Pbinop.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Pbinop.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: Pbinop.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: Pbinop.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: Pbinop.__sub__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Pbinop.from_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Pbinop.arity
+
+   .. autoattribute:: Pbinop.expr_one
+
+   .. autoattribute:: Pbinop.expr_two
+
+   .. autoattribute:: Pbinop.is_infinite
+
+   .. autoattribute:: Pbinop.operator

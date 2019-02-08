@@ -1,0 +1,363 @@
+.. _supriya--ugens--HPZ1:
+
+HPZ1
+====
+
+.. automodule:: supriya.ugens.HPZ1
+
+.. currentmodule:: supriya.ugens.HPZ1
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.HPZ1
+
+.. autoclass:: HPZ1
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.__add__
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.__div__
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.__le__
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.__len__
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.__str__
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.as_int
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.clip
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.cubed
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.distort
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.exponential
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.floor
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.lag
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.log
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.log10
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.log2
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.maximum
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.minimum
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.power
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.range
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.scale
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.sign
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.softclip
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.square_root
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.squared
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.sum
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.tanh
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.transpose
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: HPZ1.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: HPZ1.ar
+
+   .. automethod:: HPZ1.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: HPZ1.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: HPZ1.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: HPZ1.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: HPZ1.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: HPZ1.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: HPZ1.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: HPZ1.signal_range
+
+   .. autoattribute:: HPZ1.source
+
+   .. container:: inherited
+
+      .. autoattribute:: HPZ1.special_index

@@ -1,0 +1,117 @@
+.. _supriya--commands--BufferSetContiguousResponse:
+
+BufferSetContiguousResponse
+===========================
+
+.. automodule:: supriya.commands.BufferSetContiguousResponse
+
+.. currentmodule:: supriya.commands.BufferSetContiguousResponse
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.BufferSetContiguousResponse
+
+.. autoclass:: BufferSetContiguousResponse
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      Item
+      __getitem__
+      __len__
+      as_dict
+      buffer_id
+      from_osc_message
+      items
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousResponse.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousResponse.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousResponse.__eq__
+
+   .. automethod:: BufferSetContiguousResponse.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousResponse.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousResponse.__iter__
+
+   .. automethod:: BufferSetContiguousResponse.__len__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousResponse.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousResponse.__reversed__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: BufferSetContiguousResponse.as_dict
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousResponse.count
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousResponse.index
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetContiguousResponse.to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: BufferSetContiguousResponse.from_osc_message
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferSetContiguousResponse.buffer_id
+
+   .. autoattribute:: BufferSetContiguousResponse.items
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferSetContiguousResponse.osc_message

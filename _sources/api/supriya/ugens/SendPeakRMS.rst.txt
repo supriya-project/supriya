@@ -1,0 +1,375 @@
+.. _supriya--ugens--SendPeakRMS:
+
+SendPeakRMS
+===========
+
+.. automodule:: supriya.ugens.SendPeakRMS
+
+.. currentmodule:: supriya.ugens.SendPeakRMS
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.SendPeakRMS
+
+.. autoclass:: SendPeakRMS
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      command_name
+      kr
+      peak_lag
+      reply_id
+      reply_rate
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__add__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__div__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__le__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__len__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__str__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.as_int
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.clip
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.cubed
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.distort
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.exponential
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.floor
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.lag
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.log
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.log10
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.log2
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.maximum
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.minimum
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.power
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.range
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.scale
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.sign
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.softclip
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.square_root
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.squared
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.sum
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.tanh
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.transpose
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: SendPeakRMS.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: SendPeakRMS.ar
+
+   .. automethod:: SendPeakRMS.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: SendPeakRMS.calculation_rate
+
+   .. autoattribute:: SendPeakRMS.command_name
+
+   .. container:: inherited
+
+      .. autoattribute:: SendPeakRMS.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: SendPeakRMS.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: SendPeakRMS.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: SendPeakRMS.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: SendPeakRMS.outputs
+
+   .. autoattribute:: SendPeakRMS.peak_lag
+
+   .. autoattribute:: SendPeakRMS.reply_id
+
+   .. autoattribute:: SendPeakRMS.reply_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: SendPeakRMS.signal_range
+
+   .. autoattribute:: SendPeakRMS.source
+
+   .. container:: inherited
+
+      .. autoattribute:: SendPeakRMS.special_index

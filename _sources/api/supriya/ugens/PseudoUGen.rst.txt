@@ -1,0 +1,26 @@
+.. _supriya--ugens--PseudoUGen:
+
+PseudoUGen
+==========
+
+.. automodule:: supriya.ugens.PseudoUGen
+
+.. currentmodule:: supriya.ugens.PseudoUGen
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.PseudoUGen
+
+.. autoclass:: PseudoUGen
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PseudoUGen.__repr__

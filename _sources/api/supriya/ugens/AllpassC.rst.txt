@@ -1,0 +1,372 @@
+.. _supriya--ugens--AllpassC:
+
+AllpassC
+========
+
+.. automodule:: supriya.ugens.AllpassC
+
+.. currentmodule:: supriya.ugens.AllpassC
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.AllpassC
+
+.. autoclass:: AllpassC
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      decay_time
+      delay_time
+      kr
+      maximum_delay_time
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.__add__
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.__div__
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.__le__
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.__len__
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.__str__
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.as_int
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.clip
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.cubed
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.distort
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.exponential
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.floor
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.lag
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.log
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.log10
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.log2
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.maximum
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.minimum
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.power
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.range
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.scale
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.sign
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.softclip
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.square_root
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.squared
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.sum
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.tanh
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.transpose
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: AllpassC.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: AllpassC.ar
+
+   .. automethod:: AllpassC.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: AllpassC.calculation_rate
+
+   .. autoattribute:: AllpassC.decay_time
+
+   .. autoattribute:: AllpassC.delay_time
+
+   .. container:: inherited
+
+      .. autoattribute:: AllpassC.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: AllpassC.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: AllpassC.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: AllpassC.is_output_ugen
+
+   .. autoattribute:: AllpassC.maximum_delay_time
+
+   .. container:: inherited
+
+      .. autoattribute:: AllpassC.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: AllpassC.signal_range
+
+   .. autoattribute:: AllpassC.source
+
+   .. container:: inherited
+
+      .. autoattribute:: AllpassC.special_index

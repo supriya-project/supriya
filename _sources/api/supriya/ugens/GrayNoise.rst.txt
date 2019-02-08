@@ -1,0 +1,360 @@
+.. _supriya--ugens--GrayNoise:
+
+GrayNoise
+=========
+
+.. automodule:: supriya.ugens.GrayNoise
+
+.. currentmodule:: supriya.ugens.GrayNoise
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.GrayNoise
+
+.. autoclass:: GrayNoise
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.__add__
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.__div__
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.__le__
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.__len__
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.__str__
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.as_int
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.clip
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.cubed
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.distort
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.exponential
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.floor
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.lag
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.log
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.log10
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.log2
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.maximum
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.minimum
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.power
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.range
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.scale
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.sign
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.softclip
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.square_root
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.squared
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.sum
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.tanh
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.transpose
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: GrayNoise.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: GrayNoise.ar
+
+   .. automethod:: GrayNoise.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: GrayNoise.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: GrayNoise.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: GrayNoise.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: GrayNoise.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: GrayNoise.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: GrayNoise.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: GrayNoise.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: GrayNoise.special_index

@@ -1,0 +1,112 @@
+.. _supriya--ugens--UGenMeta:
+
+UGenMeta
+========
+
+.. automodule:: supriya.ugens.UGenMeta
+
+.. currentmodule:: supriya.ugens.UGenMeta
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.UGenMeta
+
+.. autoclass:: UGenMeta
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __new__
+      compile
+      constructor_template
+      get_channel_count
+      initializer_template
+      make_constructor
+      make_initializer
+      make_property
+      rateless_constructor_template
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: UGenMeta.__call__
+
+   .. container:: inherited
+
+      .. automethod:: UGenMeta.__delattr__
+
+   .. container:: inherited
+
+      .. automethod:: UGenMeta.__dir__
+
+   .. container:: inherited
+
+      .. automethod:: UGenMeta.__instancecheck__
+
+   .. automethod:: UGenMeta.__new__
+
+   .. container:: inherited
+
+      .. automethod:: UGenMeta.__prepare__
+
+   .. container:: inherited
+
+      .. automethod:: UGenMeta.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: UGenMeta.__setattr__
+
+   .. container:: inherited
+
+      .. automethod:: UGenMeta.__subclasscheck__
+
+   .. container:: inherited
+
+      .. automethod:: UGenMeta.__subclasses__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: UGenMeta.mro
+
+   .. container:: inherited
+
+      .. automethod:: UGenMeta.register
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: UGenMeta.compile
+
+   .. automethod:: UGenMeta.get_channel_count
+
+   .. automethod:: UGenMeta.make_constructor
+
+   .. automethod:: UGenMeta.make_initializer
+
+   .. automethod:: UGenMeta.make_property

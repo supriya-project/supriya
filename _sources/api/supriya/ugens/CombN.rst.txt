@@ -1,0 +1,372 @@
+.. _supriya--ugens--CombN:
+
+CombN
+=====
+
+.. automodule:: supriya.ugens.CombN
+
+.. currentmodule:: supriya.ugens.CombN
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.CombN
+
+.. autoclass:: CombN
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      decay_time
+      delay_time
+      kr
+      maximum_delay_time
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: CombN.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: CombN.__add__
+
+   .. container:: inherited
+
+      .. automethod:: CombN.__div__
+
+   .. container:: inherited
+
+      .. automethod:: CombN.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: CombN.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: CombN.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: CombN.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: CombN.__le__
+
+   .. container:: inherited
+
+      .. automethod:: CombN.__len__
+
+   .. container:: inherited
+
+      .. automethod:: CombN.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: CombN.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: CombN.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: CombN.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: CombN.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: CombN.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: CombN.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: CombN.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: CombN.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: CombN.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: CombN.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: CombN.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: CombN.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: CombN.__str__
+
+   .. container:: inherited
+
+      .. automethod:: CombN.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: CombN.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: CombN.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: CombN.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: CombN.as_int
+
+   .. container:: inherited
+
+      .. automethod:: CombN.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: CombN.clip
+
+   .. container:: inherited
+
+      .. automethod:: CombN.cubed
+
+   .. container:: inherited
+
+      .. automethod:: CombN.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: CombN.distort
+
+   .. container:: inherited
+
+      .. automethod:: CombN.exponential
+
+   .. container:: inherited
+
+      .. automethod:: CombN.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: CombN.floor
+
+   .. container:: inherited
+
+      .. automethod:: CombN.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: CombN.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: CombN.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: CombN.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: CombN.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: CombN.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: CombN.lag
+
+   .. container:: inherited
+
+      .. automethod:: CombN.log
+
+   .. container:: inherited
+
+      .. automethod:: CombN.log10
+
+   .. container:: inherited
+
+      .. automethod:: CombN.log2
+
+   .. container:: inherited
+
+      .. automethod:: CombN.maximum
+
+   .. container:: inherited
+
+      .. automethod:: CombN.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: CombN.minimum
+
+   .. container:: inherited
+
+      .. automethod:: CombN.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: CombN.power
+
+   .. container:: inherited
+
+      .. automethod:: CombN.range
+
+   .. container:: inherited
+
+      .. automethod:: CombN.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: CombN.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: CombN.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: CombN.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: CombN.scale
+
+   .. container:: inherited
+
+      .. automethod:: CombN.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: CombN.sign
+
+   .. container:: inherited
+
+      .. automethod:: CombN.softclip
+
+   .. container:: inherited
+
+      .. automethod:: CombN.square_root
+
+   .. container:: inherited
+
+      .. automethod:: CombN.squared
+
+   .. container:: inherited
+
+      .. automethod:: CombN.sum
+
+   .. container:: inherited
+
+      .. automethod:: CombN.tanh
+
+   .. container:: inherited
+
+      .. automethod:: CombN.transpose
+
+   .. container:: inherited
+
+      .. automethod:: CombN.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: CombN.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: CombN.ar
+
+   .. automethod:: CombN.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: CombN.calculation_rate
+
+   .. autoattribute:: CombN.decay_time
+
+   .. autoattribute:: CombN.delay_time
+
+   .. container:: inherited
+
+      .. autoattribute:: CombN.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: CombN.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: CombN.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: CombN.is_output_ugen
+
+   .. autoattribute:: CombN.maximum_delay_time
+
+   .. container:: inherited
+
+      .. autoattribute:: CombN.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: CombN.signal_range
+
+   .. autoattribute:: CombN.source
+
+   .. container:: inherited
+
+      .. autoattribute:: CombN.special_index

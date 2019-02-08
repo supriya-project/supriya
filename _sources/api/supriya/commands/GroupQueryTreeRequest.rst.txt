@@ -1,0 +1,100 @@
+.. _supriya--commands--GroupQueryTreeRequest:
+
+GroupQueryTreeRequest
+=====================
+
+.. automodule:: supriya.commands.GroupQueryTreeRequest
+
+.. currentmodule:: supriya.commands.GroupQueryTreeRequest
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.GroupQueryTreeRequest
+
+.. autoclass:: GroupQueryTreeRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      include_controls
+      node_id
+      request_id
+      response_patterns
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: GroupQueryTreeRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: GroupQueryTreeRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: GroupQueryTreeRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: GroupQueryTreeRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: GroupQueryTreeRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: GroupQueryTreeRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: GroupQueryTreeRequest.to_list
+
+   .. automethod:: GroupQueryTreeRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupQueryTreeRequest.condition
+
+   .. autoattribute:: GroupQueryTreeRequest.include_controls
+
+   .. autoattribute:: GroupQueryTreeRequest.node_id
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupQueryTreeRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupQueryTreeRequest.response
+
+   .. autoattribute:: GroupQueryTreeRequest.response_patterns

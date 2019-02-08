@@ -1,0 +1,495 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cli &mdash; Supriya 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="ProjectPackageScript" href="ProjectPackageScript.html" />
+    <link rel="prev" title="supriya" href="../index.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Supriya API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">cli</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ProjectPackageScript.html">ProjectPackageScript</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ProjectSectionScript.html">ProjectSectionScript</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ManageAssetScript.html">ManageAssetScript</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ManageMaterialScript.html">ManageMaterialScript</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ManageProjectScript.html">ManageProjectScript</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ManageSessionScript.html">ManageSessionScript</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ManageSynthDefScript.html">ManageSynthDefScript</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ProjectManager.html">ProjectManager</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ProjectSettings.html">ProjectSettings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="SupriyaScript.html">SupriyaScript</a></li>
+<li class="toctree-l4"><a class="reference internal" href="run_supriya.html">run_supriya</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../live/index.html">live</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../soundfiles/index.html">soundfiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../system/index.html">system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Supriya API</a> &raquo;</li>
+        
+          <li><a href="../index.html">supriya</a> &raquo;</li>
+        
+      <li>cli</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/supriya/cli/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-supriya.cli">
+<span id="cli"></span><span id="supriya-cli"></span><h1>cli<a class="headerlink" href="#module-supriya.cli" title="Permalink to this headline">¶</a></h1>
+<p>Tools for Supriya’s project maintenance scripts.</p>
+<div class="svg-container docutils container">
+<div class="graphviz"><object data="../../../_images/inheritance-65e07f6bbd876c9898f9e8d451fc0f74d58fb4dd.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">digraph InheritanceGraph {
+	graph [bgcolor=transparent,
+		color=lightsteelblue2,
+		fontname=Arial,
+		fontsize=10,
+		outputorder=edgesfirst,
+		overlap=prism,
+		penwidth=2,
+		rankdir=LR,
+		splines=spline,
+		style=&quot;dashed, rounded&quot;,
+		truecolor=true
+	];
+	node [colorscheme=pastel19,
+		fontname=Arial,
+		fontsize=10,
+		height=0,
+		penwidth=2,
+		shape=box,
+		style=&quot;filled, rounded&quot;,
+		width=0
+	];
+	edge [color=lightslategrey,
+		penwidth=1
+	];
+	subgraph cluster_abc {
+		graph [label=abc];
+		node [color=1];
+		&quot;abc.ABC&quot;		 [URL=&quot;https://docs.python.org/3.6/library/abc.html#abc.ABC&quot;,
+			color=1,
+			label=ABC,
+			target=_top];
+	}
+	subgraph cluster_builtins {
+		graph [label=builtins];
+		node [color=2];
+		&quot;builtins.object&quot;		 [URL=&quot;https://docs.python.org/3.6/library/functions.html#object&quot;,
+			color=2,
+			label=object,
+			target=_top];
+	}
+	subgraph &quot;cluster_collections.abc&quot; {
+		graph [label=&quot;collections.abc&quot;];
+		node [color=3];
+		&quot;collections.abc.Collection&quot;		 [URL=&quot;https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Collection&quot;,
+			color=3,
+			label=Collection,
+			shape=oval,
+			style=bold,
+			target=_top];
+		&quot;collections.abc.Mapping&quot;		 [URL=&quot;https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Mapping&quot;,
+			color=3,
+			label=Mapping,
+			shape=oval,
+			style=bold,
+			target=_top];
+		&quot;collections.abc.Collection&quot; -&gt; &quot;collections.abc.Mapping&quot;		 [minlen=1];
+		&quot;collections.abc.Container&quot;		 [URL=&quot;https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Container&quot;,
+			color=3,
+			label=Container,
+			shape=oval,
+			style=bold,
+			target=_top];
+		&quot;collections.abc.Container&quot; -&gt; &quot;collections.abc.Collection&quot;;
+		&quot;collections.abc.Iterable&quot;		 [URL=&quot;https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Iterable&quot;,
+			color=3,
+			label=Iterable,
+			shape=oval,
+			style=bold,
+			target=_top];
+		&quot;collections.abc.Iterable&quot; -&gt; &quot;collections.abc.Collection&quot;;
+		&quot;collections.abc.Sized&quot;		 [URL=&quot;https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Sized&quot;,
+			color=3,
+			label=Sized,
+			shape=oval,
+			style=bold,
+			target=_top];
+		&quot;collections.abc.Sized&quot; -&gt; &quot;collections.abc.Collection&quot;;
+	}
+	subgraph &quot;cluster_supriya.cli&quot; {
+		graph [label=&quot;supriya.cli&quot;];
+		node [color=4];
+		&quot;supriya.cli.ManageAssetScript.ManageAssetScript&quot;		 [URL=&quot;../api/supriya/cli/ManageAssetScript.html#supriya.cli.ManageAssetScript.ManageAssetScript&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Manage\nAsset\nScript&quot;,
+			target=_top];
+		&quot;supriya.cli.ManageMaterialScript.ManageMaterialScript&quot;		 [URL=&quot;../api/supriya/cli/ManageMaterialScript.html#supriya.cli.ManageMaterialScript.ManageMaterialScript&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Manage\nMaterial\nScript&quot;,
+			target=_top];
+		&quot;supriya.cli.ManageProjectScript.ManageProjectScript&quot;		 [URL=&quot;../api/supriya/cli/ManageProjectScript.html#supriya.cli.ManageProjectScript.ManageProjectScript&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Manage\nProject\nScript&quot;,
+			target=_top];
+		&quot;supriya.cli.ManageSessionScript.ManageSessionScript&quot;		 [URL=&quot;../api/supriya/cli/ManageSessionScript.html#supriya.cli.ManageSessionScript.ManageSessionScript&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Manage\nSession\nScript&quot;,
+			target=_top];
+		&quot;supriya.cli.ManageSynthDefScript.ManageSynthDefScript&quot;		 [URL=&quot;../api/supriya/cli/ManageSynthDefScript.html#supriya.cli.ManageSynthDefScript.ManageSynthDefScript&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Manage\nSynth\nDef\nScript&quot;,
+			target=_top];
+		&quot;supriya.cli.ProjectManager.ProjectManager&quot;		 [URL=&quot;../api/supriya/cli/ProjectManager.html#supriya.cli.ProjectManager.ProjectManager&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Project\nManager&quot;,
+			target=_top];
+		&quot;supriya.cli.ProjectPackageScript.ProjectPackageScript&quot;		 [URL=&quot;../api/supriya/cli/ProjectPackageScript.html#supriya.cli.ProjectPackageScript.ProjectPackageScript&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Project\nPackage\nScript&quot;,
+			shape=oval,
+			style=&quot;bold, filled&quot;,
+			target=_top];
+		&quot;supriya.cli.ProjectPackageScript.ProjectPackageScript&quot; -&gt; &quot;supriya.cli.ManageAssetScript.ManageAssetScript&quot;		 [minlen=1];
+		&quot;supriya.cli.ProjectPackageScript.ProjectPackageScript&quot; -&gt; &quot;supriya.cli.ManageProjectScript.ManageProjectScript&quot;		 [minlen=2];
+		&quot;supriya.cli.ProjectPackageScript.ProjectPackageScript&quot; -&gt; &quot;supriya.cli.ManageSynthDefScript.ManageSynthDefScript&quot;		 [minlen=1];
+		&quot;supriya.cli.ProjectSectionScript.ProjectSectionScript&quot;		 [URL=&quot;../api/supriya/cli/ProjectSectionScript.html#supriya.cli.ProjectSectionScript.ProjectSectionScript&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Project\nSection\nScript&quot;,
+			shape=oval,
+			style=&quot;bold, filled&quot;,
+			target=_top];
+		&quot;supriya.cli.ProjectPackageScript.ProjectPackageScript&quot; -&gt; &quot;supriya.cli.ProjectSectionScript.ProjectSectionScript&quot;;
+		&quot;supriya.cli.ProjectSectionScript.ProjectSectionScript&quot; -&gt; &quot;supriya.cli.ManageMaterialScript.ManageMaterialScript&quot;		 [minlen=1];
+		&quot;supriya.cli.ProjectSectionScript.ProjectSectionScript&quot; -&gt; &quot;supriya.cli.ManageSessionScript.ManageSessionScript&quot;		 [minlen=2];
+		&quot;supriya.cli.ProjectSettings.ProjectSettings&quot;		 [URL=&quot;../api/supriya/cli/ProjectSettings.html#supriya.cli.ProjectSettings.ProjectSettings&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Project\nSettings&quot;,
+			target=_top];
+		&quot;supriya.cli.SupriyaScript.SupriyaScript&quot;		 [URL=&quot;../api/supriya/cli/SupriyaScript.html#supriya.cli.SupriyaScript.SupriyaScript&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Supriya\nScript&quot;,
+			target=_top];
+	}
+	subgraph &quot;cluster_uqbar.cli&quot; {
+		graph [label=&quot;uqbar.cli&quot;];
+		node [color=5];
+		&quot;uqbar.cli.CLI.CLI&quot;		 [color=5,
+			label=CLI,
+			shape=oval,
+			style=bold];
+		&quot;uqbar.cli.CLIAggregator.CLIAggregator&quot;		 [color=5,
+			label=CLIAggregator,
+			shape=oval,
+			style=bold];
+		&quot;uqbar.cli.CLI.CLI&quot; -&gt; &quot;uqbar.cli.CLIAggregator.CLIAggregator&quot;		 [minlen=1];
+	}
+	&quot;abc.ABC&quot; -&gt; &quot;uqbar.cli.CLI.CLI&quot;;
+	&quot;builtins.object&quot; -&gt; &quot;abc.ABC&quot;	 [minlen=1];
+	&quot;builtins.object&quot; -&gt; &quot;collections.abc.Container&quot;	 [minlen=2];
+	&quot;builtins.object&quot; -&gt; &quot;collections.abc.Iterable&quot;	 [minlen=1];
+	&quot;builtins.object&quot; -&gt; &quot;collections.abc.Sized&quot;	 [minlen=2];
+	&quot;builtins.object&quot; -&gt; &quot;supriya.cli.ProjectManager.ProjectManager&quot;	 [minlen=1];
+	&quot;collections.abc.Mapping&quot; -&gt; &quot;supriya.cli.ProjectSettings.ProjectSettings&quot;	 [minlen=1];
+	&quot;uqbar.cli.CLI.CLI&quot; -&gt; &quot;supriya.cli.ProjectPackageScript.ProjectPackageScript&quot;;
+	&quot;uqbar.cli.CLIAggregator.CLIAggregator&quot; -&gt; &quot;supriya.cli.SupriyaScript.SupriyaScript&quot;	 [minlen=1];
+}</p></object></div>
+</div>
+<hr/><p class="section-header rubric">Abstract Classes</p>
+<div class="toctree-wrapper compound">
+</div>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="ProjectPackageScript.html#supriya.cli.ProjectPackageScript.ProjectPackageScript" title="supriya.cli.ProjectPackageScript.ProjectPackageScript"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ProjectPackageScript</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="ProjectSectionScript.html#supriya.cli.ProjectSectionScript.ProjectSectionScript" title="supriya.cli.ProjectSectionScript.ProjectSectionScript"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ProjectSectionScript</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="section-header rubric">Classes</p>
+<div class="toctree-wrapper compound">
+</div>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="ManageAssetScript.html#supriya.cli.ManageAssetScript.ManageAssetScript" title="supriya.cli.ManageAssetScript.ManageAssetScript"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ManageAssetScript</span></code></a></td>
+<td>Manages project package assets.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="ManageMaterialScript.html#supriya.cli.ManageMaterialScript.ManageMaterialScript" title="supriya.cli.ManageMaterialScript.ManageMaterialScript"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ManageMaterialScript</span></code></a></td>
+<td>Manages project package materials.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="ManageProjectScript.html#supriya.cli.ManageProjectScript.ManageProjectScript" title="supriya.cli.ManageProjectScript.ManageProjectScript"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ManageProjectScript</span></code></a></td>
+<td>Manages project packages.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="ManageSessionScript.html#supriya.cli.ManageSessionScript.ManageSessionScript" title="supriya.cli.ManageSessionScript.ManageSessionScript"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ManageSessionScript</span></code></a></td>
+<td>Manages project package sessions.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="ManageSynthDefScript.html#supriya.cli.ManageSynthDefScript.ManageSynthDefScript" title="supriya.cli.ManageSynthDefScript.ManageSynthDefScript"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ManageSynthDefScript</span></code></a></td>
+<td>Manages project package synthdefs.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="ProjectManager.html#supriya.cli.ProjectManager.ProjectManager" title="supriya.cli.ProjectManager.ProjectManager"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ProjectManager</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="ProjectSettings.html#supriya.cli.ProjectSettings.ProjectSettings" title="supriya.cli.ProjectSettings.ProjectSettings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ProjectSettings</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="SupriyaScript.html#supriya.cli.SupriyaScript.SupriyaScript" title="supriya.cli.SupriyaScript.SupriyaScript"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SupriyaScript</span></code></a></td>
+<td><cite>SupriyaScript</cite> is the commandline entry-point to the Supriya developer scripts catalog.</td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="section-header rubric">Functions</p>
+<div class="toctree-wrapper compound">
+</div>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="run_supriya.html#supriya.cli.run_supriya.run_supriya" title="supriya.cli.run_supriya.run_supriya"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_supriya</span></code></a></td>
+<td>Entry point for setuptools.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ProjectPackageScript.html" class="btn btn-neutral float-right" title="ProjectPackageScript" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral" title="supriya" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

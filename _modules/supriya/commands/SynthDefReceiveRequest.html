@@ -1,0 +1,389 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>supriya.commands.SynthDefReceiveRequest &mdash; Supriya 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">Supriya API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../supriya.html">supriya</a> &raquo;</li>
+        
+      <li>supriya.commands.SynthDefReceiveRequest</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for supriya.commands.SynthDefReceiveRequest</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">supriya.commands.Request</span> <span class="k">import</span> <span class="n">Request</span>
+<span class="kn">from</span> <span class="nn">supriya.commands.RequestBundle</span> <span class="k">import</span> <span class="n">RequestBundle</span>
+<span class="kn">from</span> <span class="nn">supriya.commands.RequestId</span> <span class="k">import</span> <span class="n">RequestId</span>
+
+
+<div class="viewcode-block" id="SynthDefReceiveRequest"><a class="viewcode-back" href="../../../api/supriya/commands/SynthDefReceiveRequest.html#supriya.commands.SynthDefReceiveRequest.SynthDefReceiveRequest">[docs]</a><span class="k">class</span> <span class="nc">SynthDefReceiveRequest</span><span class="p">(</span><span class="n">Request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A /d_recv request.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import supriya</span>
+<span class="sd">        &gt;&gt;&gt; server = supriya.Server().boot()</span>
+
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; with supriya.SynthDefBuilder(out=0, value=0.5) as builder:</span>
+<span class="sd">        ...     _ = supriya.ugens.Out.ar(</span>
+<span class="sd">        ...         bus=builder[&#39;out&#39;],</span>
+<span class="sd">        ...         source=supriya.ugens.DC.ar(builder[&#39;value&#39;]),</span>
+<span class="sd">        ...         )</span>
+<span class="sd">        ...</span>
+<span class="sd">        &gt;&gt;&gt; synthdef = builder.build(name=&#39;example&#39;)</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; synthdef in server</span>
+<span class="sd">        False</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; print(server.query_remote_nodes())</span>
+<span class="sd">        NODE TREE 0 group</span>
+<span class="sd">            1 group</span>
+
+<span class="sd">    Allocate a synthdef, then allocate a new group and allocate a synth in that</span>
+<span class="sd">    group using the newly allocated synthdef:</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; request = supriya.commands.SynthDefReceiveRequest(</span>
+<span class="sd">        ...     synthdefs=[synthdef],</span>
+<span class="sd">        ...     callback=supriya.commands.RequestBundle(</span>
+<span class="sd">        ...         contents=[</span>
+<span class="sd">        ...             supriya.commands.GroupNewRequest(</span>
+<span class="sd">        ...                 items=[</span>
+<span class="sd">        ...                     supriya.commands.GroupNewRequest.Item(</span>
+<span class="sd">        ...                         node_id=1000,</span>
+<span class="sd">        ...                         target_node_id=1,</span>
+<span class="sd">        ...                         ),</span>
+<span class="sd">        ...                     ],</span>
+<span class="sd">        ...                 ),</span>
+<span class="sd">        ...             supriya.commands.SynthNewRequest(</span>
+<span class="sd">        ...                 node_id=1001,</span>
+<span class="sd">        ...                 synthdef=synthdef,</span>
+<span class="sd">        ...                 target_node_id=1000,</span>
+<span class="sd">        ...                 ),</span>
+<span class="sd">        ...             ],</span>
+<span class="sd">        ...         ),</span>
+<span class="sd">        ...     )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; with server.osc_io.capture() as transcript:</span>
+<span class="sd">        ...     response = request.communicate(server=server)</span>
+<span class="sd">        ...     _ = server.sync()</span>
+<span class="sd">        ...</span>
+<span class="sd">        &gt;&gt;&gt; response</span>
+<span class="sd">        DoneResponse(</span>
+<span class="sd">            action=(&#39;/d_recv&#39;,),</span>
+<span class="sd">            )</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; for entry in transcript:</span>
+<span class="sd">        ...     (entry.label, entry.message)</span>
+<span class="sd">        ...</span>
+<span class="sd">        (&#39;S&#39;, OscMessage(5, bytearray(b&#39;SCgf...example...&#39;), OscBundle(</span>
+<span class="sd">            contents=(</span>
+<span class="sd">                OscMessage(21, 1000, 0, 1),</span>
+<span class="sd">                OscMessage(9, &#39;example&#39;, 1001, 0, 1000),</span>
+<span class="sd">                ),</span>
+<span class="sd">            )))</span>
+<span class="sd">        (&#39;R&#39;, OscMessage(&#39;/n_go&#39;, 1000, 1, -1, -1, 1, -1, -1))</span>
+<span class="sd">        (&#39;R&#39;, OscMessage(&#39;/n_go&#39;, 1001, 1000, -1, -1, 0))</span>
+<span class="sd">        (&#39;R&#39;, OscMessage(&#39;/done&#39;, &#39;/d_recv&#39;))</span>
+<span class="sd">        (&#39;S&#39;, OscMessage(52, 0))</span>
+<span class="sd">        (&#39;R&#39;, OscMessage(&#39;/synced&#39;, 0))</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; print(server.query_remote_nodes(True))</span>
+<span class="sd">        NODE TREE 0 group</span>
+<span class="sd">            1 group</span>
+<span class="sd">                1000 group</span>
+<span class="sd">                    1001 example</span>
+<span class="sd">                        out: 0.0, value: 0.5</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; print(server.query_local_nodes(True))</span>
+<span class="sd">        NODE TREE 0 group</span>
+<span class="sd">            1 group</span>
+<span class="sd">                1000 group</span>
+<span class="sd">                    1001 example</span>
+<span class="sd">                        out: 0.0, value: 0.5</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; synthdef in server</span>
+<span class="sd">        True</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_callback&quot;</span><span class="p">,</span> <span class="s2">&quot;_synthdefs&quot;</span><span class="p">,</span> <span class="s2">&quot;_use_anonymous_names&quot;</span><span class="p">)</span>
+
+    <span class="n">request_id</span> <span class="o">=</span> <span class="n">RequestId</span><span class="o">.</span><span class="n">SYNTHDEF_RECEIVE</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">synthdefs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_anonymous_names</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
+
+        <span class="n">Request</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="p">(</span><span class="n">Request</span><span class="p">,</span> <span class="n">RequestBundle</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_callback</span> <span class="o">=</span> <span class="n">callback</span>
+        <span class="k">if</span> <span class="n">synthdefs</span><span class="p">:</span>
+            <span class="n">prototype</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDef</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">synthdefs</span><span class="p">,</span> <span class="n">prototype</span><span class="p">):</span>
+                <span class="n">synthdefs</span> <span class="o">=</span> <span class="p">(</span><span class="n">synthdefs</span><span class="p">,)</span>
+            <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">prototype</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">synthdefs</span><span class="p">)</span>
+            <span class="n">synthdefs</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">synthdefs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_synthdefs</span> <span class="o">=</span> <span class="n">synthdefs</span>
+        <span class="k">if</span> <span class="n">use_anonymous_names</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">use_anonymous_names</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">use_anonymous_names</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_use_anonymous_names</span> <span class="o">=</span> <span class="n">use_anonymous_names</span>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="k">def</span> <span class="nf">_apply_local</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">synthdef</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">synthdefs</span><span class="p">:</span>
+            <span class="n">synthdef</span><span class="o">.</span><span class="n">_register_with_local_server</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="SynthDefReceiveRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/SynthDefReceiveRequest.html#supriya.commands.SynthDefReceiveRequest.SynthDefReceiveRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">with_request_name</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
+
+        <span class="k">if</span> <span class="n">with_request_name</span><span class="p">:</span>
+            <span class="n">request_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_name</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">request_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request_id</span><span class="p">)</span>
+        <span class="n">compiled_synthdefs</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDefCompiler</span><span class="o">.</span><span class="n">compile_synthdefs</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">synthdefs</span><span class="p">,</span> <span class="n">use_anonymous_names</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">use_anonymous_names</span>
+        <span class="p">)</span>
+        <span class="n">compiled_synthdefs</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">compiled_synthdefs</span><span class="p">)</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="p">[</span><span class="n">request_id</span><span class="p">,</span> <span class="n">compiled_synthdefs</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="p">:</span>
+            <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="o">.</span><span class="n">to_osc</span><span class="p">(</span><span class="n">with_request_name</span><span class="o">=</span><span class="n">with_request_name</span><span class="p">))</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="o">*</span><span class="n">contents</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">message</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_callback</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">response_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[[</span><span class="s2">&quot;/done&quot;</span><span class="p">,</span> <span class="s2">&quot;/d_recv&quot;</span><span class="p">]]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">synthdefs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_synthdefs</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">use_anonymous_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_use_anonymous_names</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

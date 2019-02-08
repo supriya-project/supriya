@@ -1,0 +1,363 @@
+.. _supriya--ugens--LFDNoise1:
+
+LFDNoise1
+=========
+
+.. automodule:: supriya.ugens.LFDNoise1
+
+.. currentmodule:: supriya.ugens.LFDNoise1
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.LFDNoise1
+
+.. autoclass:: LFDNoise1
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      frequency
+      kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.__add__
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.__div__
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.__le__
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.__len__
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.__str__
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.as_int
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.clip
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.cubed
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.distort
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.exponential
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.floor
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.lag
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.log
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.log10
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.log2
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.maximum
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.minimum
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.power
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.range
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.scale
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.sign
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.softclip
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.square_root
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.squared
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.sum
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.tanh
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.transpose
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: LFDNoise1.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: LFDNoise1.ar
+
+   .. automethod:: LFDNoise1.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: LFDNoise1.calculation_rate
+
+   .. autoattribute:: LFDNoise1.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: LFDNoise1.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: LFDNoise1.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: LFDNoise1.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: LFDNoise1.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: LFDNoise1.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: LFDNoise1.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: LFDNoise1.special_index

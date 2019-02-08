@@ -1,0 +1,367 @@
+.. _supriya--ugens--PV-Max:
+
+PV_Max
+======
+
+.. automodule:: supriya.ugens.PV_Max
+
+.. currentmodule:: supriya.ugens.PV_Max
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.PV_Max
+
+.. autoclass:: PV_Max
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      new
+      pv_chain_a
+      pv_chain_b
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.__add__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.__div__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.__le__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.__len__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.__str__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.as_int
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.clip
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.cubed
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.distort
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.exponential
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.floor
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.lag
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.log
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.log10
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.log2
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.maximum
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.minimum
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.power
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.range
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.scale
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.sign
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.softclip
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.square_root
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.squared
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.sum
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.tanh
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.transpose
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: PV_Max.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: PV_Max.new
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Max.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Max.fft_size
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Max.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Max.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Max.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Max.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Max.outputs
+
+   .. autoattribute:: PV_Max.pv_chain_a
+
+   .. autoattribute:: PV_Max.pv_chain_b
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Max.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: PV_Max.special_index

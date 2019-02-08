@@ -1,0 +1,70 @@
+.. _supriya--midi--NoteOnMessage:
+
+NoteOnMessage
+=============
+
+.. automodule:: supriya.midi.NoteOnMessage
+
+.. currentmodule:: supriya.midi.NoteOnMessage
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.midi.NoteOnMessage
+
+.. autoclass:: NoteOnMessage
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      note_number
+      velocity
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: NoteOnMessage.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: NoteOnMessage.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: NoteOnMessage.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: NoteOnMessage.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: NoteOnMessage.channel_number
+
+   .. autoattribute:: NoteOnMessage.note_number
+
+   .. container:: inherited
+
+      .. autoattribute:: NoteOnMessage.timestamp
+
+   .. autoattribute:: NoteOnMessage.velocity

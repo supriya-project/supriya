@@ -1,0 +1,43 @@
+.. _supriya--synthdefs--DoneAction:
+
+DoneAction
+==========
+
+.. automodule:: supriya.synthdefs.DoneAction
+
+.. currentmodule:: supriya.synthdefs.DoneAction
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.synthdefs.DoneAction
+
+.. autoclass:: DoneAction
+   :members:
+   :undoc-members:
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      FREE_SYNTH
+      FREE_SYNTH_AND_ALL_FOLLOWING_NODES_IN_GROUP
+      FREE_SYNTH_AND_ALL_PRECEDING_NODES_IN_GROUP
+      FREE_SYNTH_AND_ALL_SIBLING_NODES
+      FREE_SYNTH_AND_DEEPFREE_FOLLOWING_NODE
+      FREE_SYNTH_AND_DEEPFREE_PRECEDING_NODE
+      FREE_SYNTH_AND_ENCLOSING_GROUP
+      FREE_SYNTH_AND_FOLLOWING_NODE
+      FREE_SYNTH_AND_FREEALL_FOLLOWING_NODE
+      FREE_SYNTH_AND_FREEALL_PRECEDING_NODE
+      FREE_SYNTH_AND_PAUSE_FOLLOWING_NODE
+      FREE_SYNTH_AND_PAUSE_PRECEDING_NODE
+      FREE_SYNTH_AND_PRECEDING_NODE
+      NOTHING
+      PAUSE_SYNTH

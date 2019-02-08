@@ -1,0 +1,50 @@
+.. _supriya--synthdefs--SynthDefDecompiler:
+
+SynthDefDecompiler
+==================
+
+.. automodule:: supriya.synthdefs.SynthDefDecompiler
+
+.. currentmodule:: supriya.synthdefs.SynthDefDecompiler
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.synthdefs.SynthDefDecompiler
+
+.. autoclass:: SynthDefDecompiler
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      decompile_synthdef
+      decompile_synthdefs
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefDecompiler.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: SynthDefDecompiler.decompile_synthdef
+
+   .. automethod:: SynthDefDecompiler.decompile_synthdefs

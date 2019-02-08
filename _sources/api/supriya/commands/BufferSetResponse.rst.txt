@@ -1,0 +1,117 @@
+.. _supriya--commands--BufferSetResponse:
+
+BufferSetResponse
+=================
+
+.. automodule:: supriya.commands.BufferSetResponse
+
+.. currentmodule:: supriya.commands.BufferSetResponse
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.BufferSetResponse
+
+.. autoclass:: BufferSetResponse
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      Item
+      __getitem__
+      __len__
+      as_dict
+      buffer_id
+      from_osc_message
+      items
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetResponse.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetResponse.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetResponse.__eq__
+
+   .. automethod:: BufferSetResponse.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetResponse.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetResponse.__iter__
+
+   .. automethod:: BufferSetResponse.__len__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetResponse.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetResponse.__reversed__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: BufferSetResponse.as_dict
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetResponse.count
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetResponse.index
+
+   .. container:: inherited
+
+      .. automethod:: BufferSetResponse.to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: BufferSetResponse.from_osc_message
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferSetResponse.buffer_id
+
+   .. autoattribute:: BufferSetResponse.items
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferSetResponse.osc_message

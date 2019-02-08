@@ -1,0 +1,103 @@
+.. _supriya--commands--BufferNormalizeRequest:
+
+BufferNormalizeRequest
+======================
+
+.. automodule:: supriya.commands.BufferNormalizeRequest
+
+.. currentmodule:: supriya.commands.BufferNormalizeRequest
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.commands.BufferNormalizeRequest
+
+.. autoclass:: BufferNormalizeRequest
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      as_wavetable
+      buffer_id
+      new_maximum
+      request_id
+      response_patterns
+      to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferNormalizeRequest.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: BufferNormalizeRequest.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: BufferNormalizeRequest.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: BufferNormalizeRequest.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferNormalizeRequest.communicate
+
+   .. container:: inherited
+
+      .. automethod:: BufferNormalizeRequest.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: BufferNormalizeRequest.to_list
+
+   .. automethod:: BufferNormalizeRequest.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferNormalizeRequest.as_wavetable
+
+   .. autoattribute:: BufferNormalizeRequest.buffer_id
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferNormalizeRequest.condition
+
+   .. autoattribute:: BufferNormalizeRequest.new_maximum
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferNormalizeRequest.request_name
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferNormalizeRequest.response
+
+   .. autoattribute:: BufferNormalizeRequest.response_patterns

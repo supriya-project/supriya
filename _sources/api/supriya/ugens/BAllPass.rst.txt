@@ -1,0 +1,366 @@
+.. _supriya--ugens--BAllPass:
+
+BAllPass
+========
+
+.. automodule:: supriya.ugens.BAllPass
+
+.. currentmodule:: supriya.ugens.BAllPass
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.BAllPass
+
+.. autoclass:: BAllPass
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      frequency
+      reciprocal_of_q
+      source
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.__add__
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.__div__
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.__le__
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.__len__
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.__str__
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.as_int
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.clip
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.cubed
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.distort
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.exponential
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.floor
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.lag
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.log
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.log10
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.log2
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.maximum
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.minimum
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.power
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.range
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.scale
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.sign
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.softclip
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.square_root
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.squared
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.sum
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.tanh
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.transpose
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: BAllPass.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: BAllPass.ar
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: BAllPass.calculation_rate
+
+   .. autoattribute:: BAllPass.frequency
+
+   .. container:: inherited
+
+      .. autoattribute:: BAllPass.has_done_flag
+
+   .. container:: inherited
+
+      .. autoattribute:: BAllPass.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: BAllPass.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BAllPass.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: BAllPass.outputs
+
+   .. autoattribute:: BAllPass.reciprocal_of_q
+
+   .. container:: inherited
+
+      .. autoattribute:: BAllPass.signal_range
+
+   .. autoattribute:: BAllPass.source
+
+   .. container:: inherited
+
+      .. autoattribute:: BAllPass.special_index
