@@ -1,10 +1,17 @@
-.PHONY: docs
+.PHONY: build docs gh-pages
+
+errors = E123,E203,E265,E266,E501,W503
+origin := $(shell git config --get remote.origin.url)
+paths = supriya/ tests/ *.py
 
 black-check:
-	black --py36 --check --diff supriya/ tests/ *.py
+	black --py36 --check --diff ${paths}
 
 black-reformat:
-	black --py36 supriya/ tests/ *.py
+	black --py36 ${paths}
+
+build:
+	python setup.py sdist
 
 clean:
 	find . -name '*.pyc' | xargs rm
@@ -14,13 +21,13 @@ clean:
 	rm -Rif build/
 	rm -Rif dist/
 	rm -Rif prof/
-	rm -Rif supriya.egg-info/
+	rm -Rif *.egg-info/
 
 docs:
 	make -C docs/ html
 
 flake8:
-	flake8 --ignore=E203,E266,E501,W503 --isolated --max-line-length=88 supriya/ tests/
+	flake8 --max-line-length=90 --isolated --ignore=${errors} ${paths}
 
 isort:
 	isort \
@@ -31,7 +38,7 @@ isort:
 		--thirdparty yaml \
 		--trailing-comma \
 		--use-parentheses -y \
-		supriya/ tests/ *.py
+		${paths}
 
 mypy:
 	mypy --ignore-missing-imports supriya
@@ -45,8 +52,7 @@ pytest:
 		--cov=supriya/ \
 		--durations=20 \
 		--timeout=60 \
-		tests/ \
-		supriya/
+		${paths}
 
 pytest-x:
 	rm -Rf htmlcov/
@@ -58,12 +64,16 @@ pytest-x:
 		--cov=supriya/ \
 		--durations=20 \
 		--timeout=60 \
-		tests/ \
-		supriya/
+		${paths}
 
 reformat:
 	make isort
 	make black-reformat
+
+release:
+	make clean
+	make build
+	twine upload dist/*.tar.gz
 
 test:
 	make black-check
