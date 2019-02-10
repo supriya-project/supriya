@@ -86,7 +86,7 @@ Make a synthesizer definition and send it to the server::
     ...         frequency=builder['frequency'],
     ...         )
     ...     envelope = supriya.ugens.EnvGen.kr(
-    ...         done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
+    ...         done_action=supriya.DoneAction.FREE_SYNTH,
     ...         envelope=supriya.synthdefs.Envelope.asr(),
     ...         gate=builder['gate'],
     ...         )

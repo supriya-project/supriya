@@ -53,7 +53,7 @@ class EnvGen(UGen):
         import supriya.synthdefs
 
         if not isinstance(done_action, supriya.synthdefs.Parameter):
-            done_action = supriya.synthdefs.DoneAction.from_expr(done_action)
+            done_action = supriya.DoneAction.from_expr(done_action)
         if envelope is None:
             envelope = supriya.synthdefs.Envelope()
         assert isinstance(envelope, supriya.synthdefs.Envelope)

@@ -2,7 +2,6 @@
 Tools for constructing and compiling synthesizer definitions (SynthDefs).
 """
 from .BinaryOperator import BinaryOperator  # noqa
-from .DoneAction import DoneAction  # noqa
 from .Envelope import Envelope  # noqa
 from .EnvelopeShape import EnvelopeShape  # noqa
 from .OutputProxy import OutputProxy  # noqa

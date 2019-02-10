@@ -13,7 +13,7 @@ class DetectSilence(Filter):
         >>> source = supriya.ugens.WhiteNoise.ar()
         >>> source *= supriya.ugens.Line.kr(start=1, stop=0)
         >>> detect_silence = supriya.ugens.DetectSilence.kr(
-        ...     done_action=DoneAction.FREE_SYNTH,
+        ...     done_action=supriya.DoneAction.FREE_SYNTH,
         ...     source=source,
         ...     threshold=0.0001,
         ...     time=1.0,

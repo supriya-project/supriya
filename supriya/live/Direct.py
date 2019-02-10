@@ -63,7 +63,7 @@ class Direct:
             )
             gate = supriya.ugens.Linen.kr(
                 attack_time=synthdef_builder["lag"],
-                done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
+                done_action=supriya.DoneAction.FREE_SYNTH,
                 gate=synthdef_builder["gate"],
                 release_time=synthdef_builder["lag"],
             )

@@ -40,7 +40,7 @@ class Line(UGen):
     ):
         import supriya.synthdefs
 
-        done_action = supriya.synthdefs.DoneAction.from_expr(int(done_action))
+        done_action = supriya.DoneAction.from_expr(int(done_action))
         return super(Line, cls)._new_expanded(
             calculation_rate=calculation_rate,
             done_action=done_action,

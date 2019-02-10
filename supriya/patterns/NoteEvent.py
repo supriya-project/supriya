@@ -194,7 +194,7 @@ class NoteEvent(Event):
                 request = supriya.commands.NodeSetRequest(node_id=node_id, gate=0)
                 requests.append(request)
         elif any(
-            x >= supriya.synthdefs.DoneAction.FREE_SYNTH for x in synthdef.done_actions
+            x >= supriya.DoneAction.FREE_SYNTH for x in synthdef.done_actions
         ):
             pass
         else:

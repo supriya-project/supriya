@@ -91,6 +91,7 @@ from supriya._version import __version__, __version_info__  # noqa
 from supriya.enums import (  # noqa
     AddAction,
     CalculationRate,
+    DoneAction,
     NodeAction,
     RequestId,
     RequestName,
@@ -110,7 +111,6 @@ from supriya.realtime import (  # noqa
 )
 from supriya.soundfiles import HeaderFormat, SampleFormat, SoundFile  # noqa
 from supriya.synthdefs import (  # noqa
-    DoneAction,
     Envelope,
     EnvelopeShape,
     Parameter,

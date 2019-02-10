@@ -53,7 +53,7 @@ def _build_default_synthdef():
         )
         linen = supriya.ugens.Linen.kr(
             attack_time=0.01,
-            done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
+            done_action=supriya.DoneAction.FREE_SYNTH,
             gate=builder["gate"],
             release_time=0.3,
             sustain_level=0.7,
