@@ -1,6 +1,7 @@
 import subprocess
 from xml.dom import minidom  # type: ignore
 
+import uqbar.io
 from IPython.core.display import display, display_svg  # type: ignore
 from IPython.display import Audio  # type: ignore
 
@@ -45,11 +46,19 @@ def patch_grapher():
 def patch_player():
     def render(self):
         output_path = self.renderable.__render__(**self.render_kwargs)
-        if output_path.suffix in (".aif", ".aiff"):
+        if (
+            uqbar.io.find_executable("ffmpeg") and
+            output_path.suffix in (".aif", ".aiff")
+        ):
             new_output_path = output_path.with_suffix(".wav")
             command = "ffmpeg -i {} {}".format(output_path, new_output_path)
             subprocess.call(command, shell=True)
-            return new_output_path
+            output_path = new_output_path
+        if uqbar.io.find_executable("lame"):
+            new_output_path = output_path.with_suffix(".mp3")
+            command = "lame -V2 {} {}".format(output_path, new_output_path)
+            subprocess.call(command, shell=True)
+            output_path = new_output_path
         return output_path
 
     def open_output_path(self, output_path):
