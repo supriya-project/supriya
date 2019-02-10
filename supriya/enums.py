@@ -114,3 +114,30 @@ class CalculationRate(IntEnumeration):
         elif self == CalculationRate.AUDIO:
             return "ar"
         return "new"
+
+
+class NodeAction(IntEnumeration):
+
+    ### CLASS VARIABLES ###
+
+    NODE_CREATED = 0
+    NODE_REMOVED = 1
+    NODE_ACTIVATED = 2
+    NODE_DEACTIVATED = 3
+    NODE_MOVED = 4
+    NODE_QUERIED = 5
+
+    ### PUBLIC METHODS ###
+
+    @classmethod
+    def from_address(cls, address):
+        addresses = {
+            "/n_end": cls.NODE_REMOVED,
+            "/n_go": cls.NODE_CREATED,
+            "/n_info": cls.NODE_QUERIED,
+            "/n_move": cls.NODE_MOVED,
+            "/n_off": cls.NODE_DEACTIVATED,
+            "/n_on": cls.NODE_ACTIVATED,
+        }
+        action = addresses[address]
+        return action

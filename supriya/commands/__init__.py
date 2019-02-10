@@ -43,7 +43,6 @@ from .GroupNewRequest import GroupNewRequest  # noqa
 from .GroupQueryTreeRequest import GroupQueryTreeRequest  # noqa
 from .GroupTailRequest import GroupTailRequest  # noqa
 from .MoveRequest import MoveRequest  # noqa
-from .NodeAction import NodeAction  # noqa
 from .NodeAfterRequest import NodeAfterRequest  # noqa
 from .NodeBeforeRequest import NodeBeforeRequest  # noqa
 from .NodeCommandRequest import NodeCommandRequest  # noqa

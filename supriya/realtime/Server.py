@@ -13,6 +13,7 @@ import uqbar.io
 
 import supriya.exceptions
 from supriya import utils
+from supriya.enums import NodeAction
 from supriya.system import PubSub
 from supriya.system.SupriyaObject import SupriyaObject
 
@@ -392,7 +393,6 @@ class Server(SupriyaObject):
                 bus_proxy._value = value
 
     def _handle_node_info_response(self, response):
-        from supriya.commands import NodeAction
         from supriya.realtime import Group, Synth
 
         with self._lock:
