@@ -17,7 +17,7 @@ build:
 
 clean:
 	find . -name '*.pyc' | xargs rm
-	rm -Rif .cache/
+	rm -Rif .*cache/
 	rm -Rif .tox/
 	rm -Rif __pycache__
 	rm -Rif build/

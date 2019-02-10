@@ -93,9 +93,11 @@ from supriya.enums import (  # noqa
     BinaryOperator,
     CalculationRate,
     DoneAction,
+    HeaderFormat,
     NodeAction,
     RequestId,
     RequestName,
+    SampleFormat,
     UnaryOperator,
 )
 from supriya import utils  # noqa
@@ -111,7 +113,7 @@ from supriya.realtime import (  # noqa
     Server,
     Synth,
 )
-from supriya.soundfiles import HeaderFormat, SampleFormat, SoundFile  # noqa
+from supriya.soundfiles import SoundFile  # noqa
 from supriya.synthdefs import (  # noqa
     Envelope,
     EnvelopeShape,

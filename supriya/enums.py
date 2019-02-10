@@ -205,6 +205,37 @@ class DoneAction(IntEnumeration):
     FREE_SYNTH_AND_ENCLOSING_GROUP = 14
 
 
+class HeaderFormat(IntEnumeration):
+    """
+    An enumeration of soundfile header formats.
+
+    ::
+
+        >>> supriya.HeaderFormat.AIFF
+        HeaderFormat.AIFF
+
+    ::
+
+        >>> supriya.HeaderFormat.from_expr('wav')
+        HeaderFormat.WAV
+
+    ::
+
+        >>> header_format = supriya.HeaderFormat.from_expr('wav')
+        >>> header_format.name.lower()
+        'wav'
+
+    """
+
+    ### CLASS VARIABLES ###
+
+    AIFF = 0
+    IRCAM = 1
+    NEXT = 2
+    RAW = 3
+    WAV = 4
+
+
 class NodeAction(IntEnumeration):
 
     ### CLASS VARIABLES ###
@@ -386,6 +417,40 @@ class RequestName(StrictEnumeration):
     @property
     def request_id(self):
         return RequestId.from_expr(self.name)
+
+
+class SampleFormat(IntEnumeration):
+    """
+    An enumeration of soundfile sample formats.
+
+    ::
+
+        >>> supriya.SampleFormat.INT24
+        SampleFormat.INT24
+
+    ::
+
+        >>> supriya.SampleFormat.from_expr('float')
+        SampleFormat.FLOAT
+
+    ::
+
+        >>> sample_format = supriya.SampleFormat.INT24
+        >>> sample_format.name.lower()
+        'int24'
+
+    """
+
+    ### CLASS VARIABLES ###
+
+    INT24 = 0
+    ALAW = 1
+    DOUBLE = 2
+    FLOAT = 3
+    INT8 = 4
+    INT16 = 5
+    INT32 = 6
+    MULAW = 7
 
 
 class UnaryOperator(IntEnumeration):
