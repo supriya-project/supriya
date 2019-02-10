@@ -250,8 +250,7 @@ class SynthDefFactory(SupriyaObject):
         if self._output.get("windowed") or self._input.get("windowed"):
             builder._add_parameter("duration", 1, "SCALAR")
             state["line"] = supriya.ugens.Line.kr(
-                done_action=supriya.DoneAction.FREE_SYNTH,
-                duration=builder["duration"],
+                done_action=supriya.DoneAction.FREE_SYNTH, duration=builder["duration"]
             )
             state["window"] = state["line"].hanning_window()
         if not self._output.get("windowed") and self._output.get("crossfaded"):

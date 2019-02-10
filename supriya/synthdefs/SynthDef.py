@@ -215,14 +215,10 @@ class SynthDef(ServerObjectProxy):
             for ugen in self._ugens:
                 parts = [type(ugen).__name__]
                 if isinstance(ugen, supriya.ugens.BinaryOpUGen):
-                    ugen_op = BinaryOperator.from_expr(
-                        ugen.special_index
-                    )
+                    ugen_op = BinaryOperator.from_expr(ugen.special_index)
                     parts.append("(" + ugen_op.name + ")")
                 elif isinstance(ugen, supriya.ugens.UnaryOpUGen):
-                    ugen_op = UnaryOperator.from_expr(
-                        ugen.special_index
-                    )
+                    ugen_op = UnaryOperator.from_expr(ugen.special_index)
                     parts.append("(" + ugen_op.name + ")")
                 parts.append("." + ugen.calculation_rate.token)
                 key = (type(ugen), ugen.calculation_rate, ugen.special_index)
