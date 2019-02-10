@@ -3,7 +3,7 @@ import collections
 import inspect
 from typing import Optional, Tuple
 
-from supriya.synthdefs.SignalRange import SignalRange
+from supriya import SignalRange
 from supriya.synthdefs.UGenMethodMixin import UGenMethodMixin
 from supriya.typing import UGenInputMap
 from supriya.ugens.UGenMeta import UGenMeta

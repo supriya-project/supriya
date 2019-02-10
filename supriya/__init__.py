@@ -95,10 +95,13 @@ from supriya.enums import (  # noqa
     DoneAction,
     HeaderFormat,
     NodeAction,
+    ParameterRate,
     RequestId,
     RequestName,
     SampleFormat,
+    SignalRange,
     UnaryOperator,
+    Unit,
 )
 from supriya import utils  # noqa
 from supriya.midi import Device  # noqa
@@ -118,7 +121,6 @@ from supriya.synthdefs import (  # noqa
     Envelope,
     EnvelopeShape,
     Parameter,
-    ParameterRate,
     Range,
     SynthDef,
     SynthDefBuilder,

@@ -27,7 +27,7 @@ def _build_default_synthdef():
         frequency=440,
         gate=1,
         out=supriya.synthdefs.Parameter(
-            parameter_rate=supriya.synthdefs.ParameterRate.SCALAR, value=0
+            parameter_rate=supriya.ParameterRate.SCALAR, value=0
         ),
         pan=0.5,
     )

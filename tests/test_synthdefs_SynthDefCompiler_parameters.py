@@ -3,6 +3,7 @@ import uqbar.strings
 
 import supriya.synthdefs
 import supriya.ugens
+from supriya import ParameterRate
 
 
 def test_SynthDefCompiler_parameters_01():
@@ -26,9 +27,7 @@ def test_SynthDefCompiler_parameters_01():
         (
             0,
             supriya.synthdefs.Parameter(
-                name="freq",
-                parameter_rate=supriya.synthdefs.ParameterRate.CONTROL,
-                value=440.0,
+                name="freq", parameter_rate=ParameterRate.CONTROL, value=440.0
             ),
         ),
     )
@@ -101,17 +100,13 @@ def test_SynthDefCompiler_parameters_02():
         (
             0,
             supriya.synthdefs.Parameter(
-                name="freq",
-                parameter_rate=supriya.synthdefs.ParameterRate.CONTROL,
-                value=1200.0,
+                name="freq", parameter_rate=ParameterRate.CONTROL, value=1200.0
             ),
         ),
         (
             1,
             supriya.synthdefs.Parameter(
-                name="out",
-                parameter_rate=supriya.synthdefs.ParameterRate.CONTROL,
-                value=23.0,
+                name="out", parameter_rate=ParameterRate.CONTROL, value=23.0
             ),
         ),
     )
@@ -196,25 +191,19 @@ def test_SynthDefCompiler_parameters_03():
         (
             0,
             supriya.synthdefs.Parameter(
-                name="damping",
-                parameter_rate=supriya.synthdefs.ParameterRate.CONTROL,
-                value=0.1,
+                name="damping", parameter_rate=ParameterRate.CONTROL, value=0.1
             ),
         ),
         (
             1,
             supriya.synthdefs.Parameter(
-                name="delay_time",
-                parameter_rate=supriya.synthdefs.ParameterRate.CONTROL,
-                value=1.0,
+                name="delay_time", parameter_rate=ParameterRate.CONTROL, value=1.0
             ),
         ),
         (
             2,
             supriya.synthdefs.Parameter(
-                name="room_size",
-                parameter_rate=supriya.synthdefs.ParameterRate.CONTROL,
-                value=0.9,
+                name="room_size", parameter_rate=ParameterRate.CONTROL, value=0.9
             ),
         ),
     )
@@ -325,41 +314,31 @@ def test_SynthDefCompiler_parameters_04():
         (
             3,
             supriya.synthdefs.Parameter(
-                name="a_phase",
-                parameter_rate=supriya.synthdefs.ParameterRate.AUDIO,
-                value=0.0,
+                name="a_phase", parameter_rate=ParameterRate.AUDIO, value=0.0
             ),
         ),
         (
             4,
             supriya.synthdefs.Parameter(
-                name="freq",
-                parameter_rate=supriya.synthdefs.ParameterRate.CONTROL,
-                value=440.0,
+                name="freq", parameter_rate=ParameterRate.CONTROL, value=440.0
             ),
         ),
         (
             0,
             supriya.synthdefs.Parameter(
-                name="i_decay_time",
-                parameter_rate=supriya.synthdefs.ParameterRate.SCALAR,
-                value=1.0,
+                name="i_decay_time", parameter_rate=ParameterRate.SCALAR, value=1.0
             ),
         ),
         (
             1,
             supriya.synthdefs.Parameter(
-                name="t_trig_a",
-                parameter_rate=supriya.synthdefs.ParameterRate.TRIGGER,
-                value=0.0,
+                name="t_trig_a", parameter_rate=ParameterRate.TRIGGER, value=0.0
             ),
         ),
         (
             2,
             supriya.synthdefs.Parameter(
-                name="t_trig_b",
-                parameter_rate=supriya.synthdefs.ParameterRate.TRIGGER,
-                value=0.0,
+                name="t_trig_b", parameter_rate=ParameterRate.TRIGGER, value=0.0
             ),
         ),
     )
@@ -505,17 +484,13 @@ def test_SynthDefCompiler_parameters_05():
         (
             0,
             supriya.synthdefs.Parameter(
-                name="amp",
-                parameter_rate=supriya.synthdefs.ParameterRate.CONTROL,
-                value=0.1,
+                name="amp", parameter_rate=ParameterRate.CONTROL, value=0.1
             ),
         ),
         (
             1,
             supriya.synthdefs.Parameter(
-                name="freqs",
-                parameter_rate=supriya.synthdefs.ParameterRate.CONTROL,
-                value=(300.0, 400.0),
+                name="freqs", parameter_rate=ParameterRate.CONTROL, value=(300.0, 400.0)
             ),
         ),
     )
@@ -635,9 +610,7 @@ def test_SynthDefCompiler_parameters_06():
         (
             0,
             supriya.synthdefs.Parameter(
-                name="amp",
-                parameter_rate=supriya.synthdefs.ParameterRate.CONTROL,
-                value=0.1,
+                name="amp", parameter_rate=ParameterRate.CONTROL, value=0.1
             ),
         ),
         (
@@ -645,7 +618,7 @@ def test_SynthDefCompiler_parameters_06():
             supriya.synthdefs.Parameter(
                 lag=0.5,
                 name="freqs",
-                parameter_rate=supriya.synthdefs.ParameterRate.CONTROL,
+                parameter_rate=ParameterRate.CONTROL,
                 value=(300.0, 400.0),
             ),
         ),

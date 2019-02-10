@@ -763,7 +763,7 @@ class Session:
     def _collect_node_set_requests(self, id_mapping, node_settings):
         import supriya.nonrealtime
 
-        scalar_rate = supriya.synthdefs.ParameterRate.SCALAR
+        scalar_rate = supriya.ParameterRate.SCALAR
         requests = []
         bus_prototype = (
             supriya.nonrealtime.Bus,

@@ -263,6 +263,19 @@ class NodeAction(IntEnumeration):
         return action
 
 
+class ParameterRate(IntEnumeration):
+    """
+    An enumeration of synthdef control rates.
+    """
+
+    ### CLASS VARIABLES ###
+
+    AUDIO = 2
+    CONTROL = 3
+    SCALAR = 0
+    TRIGGER = 1
+
+
 class RequestId(IntEnumeration):
     """
     An enumeration of scsynth request ids.
@@ -453,6 +466,28 @@ class SampleFormat(IntEnumeration):
     MULAW = 7
 
 
+class SignalRange(IntEnumeration):
+    """
+    An enumeration of scsynth UGen signal ranges.
+
+    ::
+
+        >>> supriya.SignalRange.UNIPOLAR
+        SignalRange.UNIPOLAR
+
+    ::
+
+        >>> supriya.SignalRange.from_expr('bipolar')
+        SignalRange.BIPOLAR
+
+    """
+
+    ### CLASS VARIABLES ###
+
+    UNIPOLAR = 0
+    BIPOLAR = 1
+
+
 class UnaryOperator(IntEnumeration):
 
     ### CLASS VARIABLES ###
@@ -511,3 +546,16 @@ class UnaryOperator(IntEnumeration):
     THRU = 47
     TRIANGLE_WINDOW = 51
     WELCH_WINDOW = 50
+
+
+class Unit(IntEnumeration):
+
+    ### CLASS VARIABLES ###
+
+    UNDEFINED = 0
+    DECIBELS = 1
+    AMPLITUDE = 2
+    SECONDS = 3
+    MILLISECONDS = 4
+    HERTZ = 5
+    SEMITONES = 6

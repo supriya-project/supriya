@@ -7,7 +7,7 @@ import tempfile
 
 import yaml
 
-from supriya import BinaryOperator, UnaryOperator
+from supriya import BinaryOperator, ParameterRate, UnaryOperator
 from supriya.realtime.ServerObjectProxy import ServerObjectProxy
 
 
@@ -353,10 +353,10 @@ class SynthDef(ServerObjectProxy):
         audio_parameters = []
         control_parameters = []
         mapping = {
-            supriya.synthdefs.ParameterRate.AUDIO: audio_parameters,
-            supriya.synthdefs.ParameterRate.CONTROL: control_parameters,
-            supriya.synthdefs.ParameterRate.SCALAR: scalar_parameters,
-            supriya.synthdefs.ParameterRate.TRIGGER: trigger_parameters,
+            ParameterRate.AUDIO: audio_parameters,
+            ParameterRate.CONTROL: control_parameters,
+            ParameterRate.SCALAR: scalar_parameters,
+            ParameterRate.TRIGGER: trigger_parameters,
         }
         for parameter in parameters:
             mapping[parameter.parameter_rate].append(parameter)

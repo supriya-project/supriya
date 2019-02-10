@@ -2,8 +2,7 @@ import collections
 import copy
 from typing import Optional
 
-from supriya import BinaryOperator, UnaryOperator
-from supriya.synthdefs.SignalRange import SignalRange
+from supriya import BinaryOperator, SignalRange, UnaryOperator
 from supriya.system.SupriyaObject import SupriyaObject
 
 
