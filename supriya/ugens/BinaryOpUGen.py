@@ -1,5 +1,6 @@
 import collections
 
+from supriya import BinaryOperator
 from supriya.ugens.PureUGen import PureUGen
 
 
@@ -48,11 +49,9 @@ class BinaryOpUGen(PureUGen):
     def _new_single(
         cls, calculation_rate=None, special_index=None, left=None, right=None
     ):
-        import supriya.synthdefs
-
         a = left
         b = right
-        if special_index == supriya.synthdefs.BinaryOperator.MULTIPLICATION:
+        if special_index == BinaryOperator.MULTIPLICATION:
             if a == 0:
                 return 0
             if b == 0:
@@ -65,17 +64,17 @@ class BinaryOpUGen(PureUGen):
                 return a
             if b == -1:
                 return -a
-        if special_index == supriya.synthdefs.BinaryOperator.ADDITION:
+        if special_index == BinaryOperator.ADDITION:
             if a == 0:
                 return b
             if b == 0:
                 return a
-        if special_index == supriya.synthdefs.BinaryOperator.SUBTRACTION:
+        if special_index == BinaryOperator.SUBTRACTION:
             if a == 0:
                 return -b
             if b == 0:
                 return a
-        if special_index == supriya.synthdefs.BinaryOperator.FLOAT_DIVISION:
+        if special_index == BinaryOperator.FLOAT_DIVISION:
             if b == 1:
                 return a
             if b == -1:
@@ -105,6 +104,4 @@ class BinaryOpUGen(PureUGen):
 
         Returns binary operator.
         """
-        import supriya.synthdefs
-
-        return supriya.synthdefs.BinaryOperator(self.special_index)
+        return BinaryOperator(self.special_index)

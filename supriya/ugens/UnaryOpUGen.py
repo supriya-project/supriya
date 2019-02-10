@@ -1,5 +1,6 @@
 import collections
 
+from supriya import UnaryOperator
 from supriya.ugens.PureUGen import PureUGen
 
 
@@ -53,6 +54,4 @@ class UnaryOpUGen(PureUGen):
 
         Returns unary operator.
         """
-        import supriya.synthdefs
-
-        return supriya.synthdefs.UnaryOperator(self.special_index)
+        return UnaryOperator(self.special_index)

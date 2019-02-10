@@ -2,6 +2,7 @@ import collections
 import copy
 from typing import Optional
 
+from supriya import BinaryOperator, UnaryOperator
 from supriya.synthdefs.SignalRange import SignalRange
 from supriya.system.SupriyaObject import SupriyaObject
 
@@ -89,7 +90,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return UGenMethodMixin._compute_unary_op(
-            self, supriya.synthdefs.UnaryOperator.ABSOLUTE_VALUE
+            self, UnaryOperator.ABSOLUTE_VALUE
         )
 
     def __add__(self, expr):
@@ -205,7 +206,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return UGenMethodMixin._compute_binary_op(
-            self, expr, supriya.synthdefs.BinaryOperator.ADDITION
+            self, expr, BinaryOperator.ADDITION
         )
 
     def __div__(self, expr):
@@ -321,7 +322,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return UGenMethodMixin._compute_binary_op(
-            self, expr, supriya.synthdefs.BinaryOperator.FLOAT_DIVISION
+            self, expr, BinaryOperator.FLOAT_DIVISION
         )
 
     def __graph__(self):
@@ -447,7 +448,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return UGenMethodMixin._compute_binary_op(
-            self, expr, supriya.synthdefs.BinaryOperator.GREATER_THAN_OR_EQUAL
+            self, expr, BinaryOperator.GREATER_THAN_OR_EQUAL
         )
 
     def __gt__(self, expr):
@@ -563,7 +564,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return UGenMethodMixin._compute_binary_op(
-            self, expr, supriya.synthdefs.BinaryOperator.GREATER_THAN
+            self, expr, BinaryOperator.GREATER_THAN
         )
 
     def __le__(self, expr):
@@ -679,7 +680,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return UGenMethodMixin._compute_binary_op(
-            self, expr, supriya.synthdefs.BinaryOperator.LESS_THAN_OR_EQUAL
+            self, expr, BinaryOperator.LESS_THAN_OR_EQUAL
         )
 
     def __lt__(self, expr):
@@ -795,7 +796,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return UGenMethodMixin._compute_binary_op(
-            self, expr, supriya.synthdefs.BinaryOperator.LESS_THAN
+            self, expr, BinaryOperator.LESS_THAN
         )
 
     def __mod__(self, expr):
@@ -911,7 +912,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return UGenMethodMixin._compute_binary_op(
-            self, expr, supriya.synthdefs.BinaryOperator.MODULO
+            self, expr, BinaryOperator.MODULO
         )
 
     def __mul__(self, expr):
@@ -1027,7 +1028,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return UGenMethodMixin._compute_binary_op(
-            self, expr, supriya.synthdefs.BinaryOperator.MULTIPLICATION
+            self, expr, BinaryOperator.MULTIPLICATION
         )
 
     def __neg__(self):
@@ -1103,7 +1104,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return UGenMethodMixin._compute_unary_op(
-            self, supriya.synthdefs.UnaryOperator.NEGATIVE
+            self, UnaryOperator.NEGATIVE
         )
 
     def __pow__(self, expr):
@@ -1219,7 +1220,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return UGenMethodMixin._compute_binary_op(
-            self, expr, supriya.synthdefs.BinaryOperator.POWER
+            self, expr, BinaryOperator.POWER
         )
 
     def __rpow__(self, expr):
@@ -1303,7 +1304,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return UGenMethodMixin._compute_binary_op(
-            expr, self, supriya.synthdefs.BinaryOperator.POWER
+            expr, self, BinaryOperator.POWER
         )
 
     def __radd__(self, expr):
@@ -1387,7 +1388,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return UGenMethodMixin._compute_binary_op(
-            expr, self, supriya.synthdefs.BinaryOperator.ADDITION
+            expr, self, BinaryOperator.ADDITION
         )
 
     def __rdiv__(self, expr):
@@ -1471,7 +1472,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return UGenMethodMixin._compute_binary_op(
-            expr, self, supriya.synthdefs.BinaryOperator.FLOAT_DIVISION
+            expr, self, BinaryOperator.FLOAT_DIVISION
         )
 
     def __rmod__(self, expr):
@@ -1555,7 +1556,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return UGenMethodMixin._compute_binary_op(
-            expr, self, supriya.synthdefs.BinaryOperator.FLOAT_DIVISION
+            expr, self, BinaryOperator.FLOAT_DIVISION
         )
 
     def __rmul__(self, expr):
@@ -1639,7 +1640,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return UGenMethodMixin._compute_binary_op(
-            expr, self, supriya.synthdefs.BinaryOperator.MULTIPLICATION
+            expr, self, BinaryOperator.MULTIPLICATION
         )
 
     def __rsub__(self, expr):
@@ -1723,7 +1724,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return UGenMethodMixin._compute_binary_op(
-            expr, self, supriya.synthdefs.BinaryOperator.SUBTRACTION
+            expr, self, BinaryOperator.SUBTRACTION
         )
 
     def __str__(self):
@@ -1881,7 +1882,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return UGenMethodMixin._compute_binary_op(
-            self, expr, supriya.synthdefs.BinaryOperator.SUBTRACTION
+            self, expr, BinaryOperator.SUBTRACTION
         )
 
     __truediv__ = __div__
@@ -1932,7 +1933,7 @@ class UGenMethodMixin(SupriyaObject):
         if not isinstance(right, collections.Sequence):
             right = (right,)
         dictionary = {"left": left, "right": right}
-        operator = supriya.synthdefs.BinaryOperator.from_expr(operator)
+        operator = BinaryOperator.from_expr(operator)
         special_index = operator.value
         for expanded_dict in supriya.ugens.UGen._expand_dictionary(dictionary):
             left = expanded_dict["left"]
@@ -2000,7 +2001,7 @@ class UGenMethodMixin(SupriyaObject):
         result = []
         if not isinstance(source, collections.Sequence):
             source = (source,)
-        operator = supriya.synthdefs.UnaryOperator.from_expr(operator)
+        operator = UnaryOperator.from_expr(operator)
         special_index = operator.value
         for single_source in source:
             calculation_rate = supriya.CalculationRate.from_expr(single_source)
@@ -2175,7 +2176,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return supriya.synthdefs.UGenMethodMixin._compute_binary_op(
-            self, expr, supriya.synthdefs.BinaryOperator.ABSOLUTE_DIFFERENCE
+            self, expr, BinaryOperator.ABSOLUTE_DIFFERENCE
         )
 
     def amplitude_to_db(self):
@@ -2208,14 +2209,14 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return self._compute_unary_op(
-            self, supriya.synthdefs.UnaryOperator.AMPLITUDE_TO_DB
+            self, UnaryOperator.AMPLITUDE_TO_DB
         )
 
     def as_int(self):
         import supriya.synthdefs
 
         return supriya.synthdefs.UGenMethodMixin._compute_unary_op(
-            self, supriya.synthdefs.UnaryOperator.AS_INT
+            self, UnaryOperator.AS_INT
         )
 
     def ceiling(self):
@@ -2240,7 +2241,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return supriya.synthdefs.UGenMethodMixin._compute_unary_op(
-            self, supriya.synthdefs.UnaryOperator.CEILING
+            self, UnaryOperator.CEILING
         )
 
     def clip(self, minimum, maximum):
@@ -2344,7 +2345,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return supriya.synthdefs.UGenMethodMixin._compute_unary_op(
-            self, supriya.synthdefs.UnaryOperator.CUBED
+            self, UnaryOperator.CUBED
         )
 
     def db_to_amplitude(self):
@@ -2377,7 +2378,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return self._compute_unary_op(
-            self, supriya.synthdefs.UnaryOperator.DB_TO_AMPLITUDE
+            self, UnaryOperator.DB_TO_AMPLITUDE
         )
 
     def distort(self):
@@ -2402,7 +2403,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return supriya.synthdefs.UGenMethodMixin._compute_unary_op(
-            self, supriya.synthdefs.UnaryOperator.DISTORT
+            self, UnaryOperator.DISTORT
         )
 
     def exponential(self):
@@ -2427,7 +2428,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return supriya.synthdefs.UGenMethodMixin._compute_unary_op(
-            self, supriya.synthdefs.UnaryOperator.EXPONENTIAL
+            self, UnaryOperator.EXPONENTIAL
         )
 
     def floor(self):
@@ -2452,7 +2453,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return supriya.synthdefs.UGenMethodMixin._compute_unary_op(
-            self, supriya.synthdefs.UnaryOperator.FLOOR
+            self, UnaryOperator.FLOOR
         )
 
     def fractional_part(self):
@@ -2477,7 +2478,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return supriya.synthdefs.UGenMethodMixin._compute_unary_op(
-            self, supriya.synthdefs.UnaryOperator.FRACTIONAL_PART
+            self, UnaryOperator.FRACTIONAL_PART
         )
 
     def hanning_window(self):
@@ -2511,7 +2512,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return self._compute_unary_op(
-            self, supriya.synthdefs.UnaryOperator.HANNING_WINDOW
+            self, UnaryOperator.HANNING_WINDOW
         )
 
     def hz_to_midi(self):
@@ -2543,7 +2544,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         import supriya.synthdefs
 
-        return self._compute_unary_op(self, supriya.synthdefs.UnaryOperator.HZ_TO_MIDI)
+        return self._compute_unary_op(self, UnaryOperator.HZ_TO_MIDI)
 
     def hz_to_octave(self):
         """
@@ -2575,7 +2576,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return self._compute_unary_op(
-            self, supriya.synthdefs.UnaryOperator.HZ_TO_OCTAVE
+            self, UnaryOperator.HZ_TO_OCTAVE
         )
 
     def is_equal_to(self, expr):
@@ -2604,7 +2605,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return supriya.synthdefs.UGenMethodMixin._compute_binary_op(
-            self, expr, supriya.synthdefs.BinaryOperator.EQUAL
+            self, expr, BinaryOperator.EQUAL
         )
 
     def is_not_equal_to(self, expr):
@@ -2633,7 +2634,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return supriya.synthdefs.UGenMethodMixin._compute_binary_op(
-            self, expr, supriya.synthdefs.BinaryOperator.NOT_EQUAL
+            self, expr, BinaryOperator.NOT_EQUAL
         )
 
     def lag(self, lag_time=0.5):
@@ -2727,7 +2728,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return supriya.synthdefs.UGenMethodMixin._compute_unary_op(
-            self, supriya.synthdefs.UnaryOperator.LOG
+            self, UnaryOperator.LOG
         )
 
     def log2(self):
@@ -2752,7 +2753,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return supriya.synthdefs.UGenMethodMixin._compute_unary_op(
-            self, supriya.synthdefs.UnaryOperator.LOG2
+            self, UnaryOperator.LOG2
         )
 
     def log10(self):
@@ -2777,7 +2778,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return supriya.synthdefs.UGenMethodMixin._compute_unary_op(
-            self, supriya.synthdefs.UnaryOperator.LOG10
+            self, UnaryOperator.LOG10
         )
 
     def maximum(self, expr):
@@ -2806,7 +2807,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return supriya.synthdefs.UGenMethodMixin._compute_binary_op(
-            self, expr, supriya.synthdefs.BinaryOperator.MAXIMUM
+            self, expr, BinaryOperator.MAXIMUM
         )
 
     def midi_to_hz(self):
@@ -2838,7 +2839,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         import supriya.synthdefs
 
-        return self._compute_unary_op(self, supriya.synthdefs.UnaryOperator.MIDI_TO_HZ)
+        return self._compute_unary_op(self, UnaryOperator.MIDI_TO_HZ)
 
     def minimum(self, expr):
         """
@@ -2866,7 +2867,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return supriya.synthdefs.UGenMethodMixin._compute_binary_op(
-            self, expr, supriya.synthdefs.BinaryOperator.MINIMUM
+            self, expr, BinaryOperator.MINIMUM
         )
 
     def octave_to_hz(self):
@@ -2899,7 +2900,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return self._compute_unary_op(
-            self, supriya.synthdefs.UnaryOperator.OCTAVE_TO_HZ
+            self, UnaryOperator.OCTAVE_TO_HZ
         )
 
     def power(self, expr):
@@ -2928,7 +2929,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return supriya.synthdefs.UGenMethodMixin._compute_binary_op(
-            self, expr, supriya.synthdefs.BinaryOperator.POWER
+            self, expr, BinaryOperator.POWER
         )
 
     def range(self, minimum=0.0, maximum=1.0):
@@ -2971,7 +2972,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return self._compute_unary_op(
-            self, supriya.synthdefs.UnaryOperator.RATIO_TO_SEMITONES
+            self, UnaryOperator.RATIO_TO_SEMITONES
         )
 
     def rectangle_window(self):
@@ -3005,7 +3006,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return self._compute_unary_op(
-            self, supriya.synthdefs.UnaryOperator.RECTANGLE_WINDOW
+            self, UnaryOperator.RECTANGLE_WINDOW
         )
 
     def reciprocal(self):
@@ -3038,7 +3039,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         import supriya.synthdefs
 
-        return self._compute_unary_op(self, supriya.synthdefs.UnaryOperator.RECIPROCAL)
+        return self._compute_unary_op(self, UnaryOperator.RECIPROCAL)
 
     def s_curve(self):
         """
@@ -3070,7 +3071,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         import supriya.synthdefs
 
-        return self._compute_unary_op(self, supriya.synthdefs.UnaryOperator.S_CURVE)
+        return self._compute_unary_op(self, UnaryOperator.S_CURVE)
 
     def scale(
         self,
@@ -3198,7 +3199,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return self._compute_unary_op(
-            self, supriya.synthdefs.UnaryOperator.SEMITONES_TO_RATIO
+            self, UnaryOperator.SEMITONES_TO_RATIO
         )
 
     def sign(self):
@@ -3231,7 +3232,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         import supriya.synthdefs
 
-        return self._compute_unary_op(self, supriya.synthdefs.UnaryOperator.SIGN)
+        return self._compute_unary_op(self, UnaryOperator.SIGN)
 
     def softclip(self):
         """
@@ -3240,7 +3241,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return supriya.synthdefs.UGenMethodMixin._compute_unary_op(
-            self, supriya.synthdefs.UnaryOperator.SOFTCLIP
+            self, UnaryOperator.SOFTCLIP
         )
 
     def square_root(self):
@@ -3250,7 +3251,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return supriya.synthdefs.UGenMethodMixin._compute_unary_op(
-            self, supriya.synthdefs.UnaryOperator.SQUARE_ROOT
+            self, UnaryOperator.SQUARE_ROOT
         )
 
     def squared(self):
@@ -3260,7 +3261,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return supriya.synthdefs.UGenMethodMixin._compute_unary_op(
-            self, supriya.synthdefs.UnaryOperator.SQUARED
+            self, UnaryOperator.SQUARED
         )
 
     def sum(self):
@@ -3358,7 +3359,7 @@ class UGenMethodMixin(SupriyaObject):
         """
         import supriya.synthdefs
 
-        return self._compute_unary_op(self, supriya.synthdefs.UnaryOperator.TANH)
+        return self._compute_unary_op(self, UnaryOperator.TANH)
 
     def transpose(self, semitones):
         """
@@ -3433,7 +3434,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return self._compute_unary_op(
-            self, supriya.synthdefs.UnaryOperator.TRIANGLE_WINDOW
+            self, UnaryOperator.TRIANGLE_WINDOW
         )
 
     def welch_window(self):
@@ -3467,5 +3468,5 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.synthdefs
 
         return self._compute_unary_op(
-            self, supriya.synthdefs.UnaryOperator.WELCH_WINDOW
+            self, UnaryOperator.WELCH_WINDOW
         )

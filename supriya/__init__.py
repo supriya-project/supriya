@@ -90,11 +90,13 @@ def import_structured_package(path, namespace, remove=True, verbose=False):
 from supriya._version import __version__, __version_info__  # noqa
 from supriya.enums import (  # noqa
     AddAction,
+    BinaryOperator,
     CalculationRate,
     DoneAction,
     NodeAction,
     RequestId,
     RequestName,
+    UnaryOperator,
 )
 from supriya import utils  # noqa
 from supriya.midi import Device  # noqa

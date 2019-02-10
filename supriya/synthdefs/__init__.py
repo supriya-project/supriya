@@ -1,7 +1,6 @@
 """
 Tools for constructing and compiling synthesizer definitions (SynthDefs).
 """
-from .BinaryOperator import BinaryOperator  # noqa
 from .Envelope import Envelope  # noqa
 from .EnvelopeShape import EnvelopeShape  # noqa
 from .OutputProxy import OutputProxy  # noqa
@@ -19,5 +18,4 @@ from .SynthDefGrapher import SynthDefGrapher  # noqa
 from .UGenArray import UGenArray  # noqa
 from .UGenMethodMixin import UGenMethodMixin  # noqa
 from .UGenSortBundle import UGenSortBundle  # noqa
-from .UnaryOperator import UnaryOperator  # noqa
 from .Unit import Unit  # noqa

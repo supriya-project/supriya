@@ -1,5 +1,7 @@
 import uqbar.graphs
 
+from supriya import BinaryOperator, UnaryOperator
+
 
 class SynthDefGrapher:
     r"""
@@ -170,10 +172,10 @@ class SynthDefGrapher:
         label_template = r"{name}\n({calculation_rate})"
         operator = None
         if isinstance(ugen, supriya.ugens.BinaryOpUGen):
-            operator = supriya.synthdefs.BinaryOperator(ugen.special_index).name
+            operator = BinaryOperator(ugen.special_index).name
             label_template = r"{name}\n[{operator}]\n({calculation_rate})"
         elif isinstance(ugen, supriya.ugens.UnaryOpUGen):
-            operator = supriya.synthdefs.UnaryOperator(ugen.special_index).name
+            operator = UnaryOperator(ugen.special_index).name
             label_template = r"{name}\n[{operator}]\n({calculation_rate})"
         title_field = uqbar.graphs.RecordField(
             label=label_template.format(
