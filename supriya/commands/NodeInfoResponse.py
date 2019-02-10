@@ -31,8 +31,6 @@ class NodeInfoResponse(Response):
         tail_node_id=None,
         osc_message=None,
     ):
-        import supriya.commands
-
         Response.__init__(self, osc_message=osc_message)
         self._action = NodeAction.from_address(action)
         self._is_group = bool(is_group)
