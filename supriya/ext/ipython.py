@@ -46,6 +46,7 @@ def patch_grapher():
 def patch_player():
     def render(self):
         output_path = self.renderable.__render__(**self.render_kwargs)
+        # HTML5 Audio element can't display AIFFs properly, but can WAVE:
         if (
             uqbar.io.find_executable("ffmpeg") and
             output_path.suffix in (".aif", ".aiff")
@@ -54,6 +55,7 @@ def patch_player():
             command = "ffmpeg -i {} {}".format(output_path, new_output_path)
             subprocess.call(command, shell=True)
             output_path = new_output_path
+        # Convert to MP3 if possible for smaller file sizes:
         if uqbar.io.find_executable("lame"):
             new_output_path = output_path.with_suffix(".mp3")
             command = "lame -V2 {} {}".format(output_path, new_output_path)
