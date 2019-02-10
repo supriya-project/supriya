@@ -5,7 +5,7 @@ import uqbar.graphs
 import supriya.realtime
 from supriya.commands import SynthNewRequest
 from supriya.nonrealtime.Node import Node
-from supriya.nonrealtime.NodeAction import NodeAction
+from supriya.nonrealtime.NodeTransition import NodeTransition
 from supriya.nonrealtime.SessionObject import SessionObject
 
 
@@ -66,7 +66,10 @@ class Synth(Node):
         return super()._get_at_offset(offset=offset, item=item) or default
 
     def _to_request(
-        self, action: NodeAction, id_mapping: Dict[SessionObject, int], **synth_kwargs
+        self,
+        action: NodeTransition,
+        id_mapping: Dict[SessionObject, int],
+        **synth_kwargs,
     ) -> SynthNewRequest:
         import supriya.nonrealtime
 

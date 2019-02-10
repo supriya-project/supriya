@@ -11,7 +11,7 @@ from .DoNotPropagate import DoNotPropagate  # noqa
 from .Group import Group  # noqa
 from .Moment import Moment  # noqa
 from .Node import Node  # noqa
-from .NodeAction import NodeAction  # noqa
+from .NodeTransition import NodeTransition  # noqa
 from .RootNode import RootNode  # noqa
 from .Session import Session  # noqa
 from .SessionFactory import SessionFactory  # noqa
