@@ -75,8 +75,6 @@ from .QueryTreeSynth import QueryTreeSynth  # noqa
 from .QuitRequest import QuitRequest  # noqa
 from .Request import Request  # noqa
 from .RequestBundle import RequestBundle  # noqa
-from .RequestId import RequestId  # noqa
-from .RequestName import RequestName  # noqa
 from .Requestable import Requestable  # noqa
 from .Response import Response  # noqa
 from .StatusRequest import StatusRequest  # noqa

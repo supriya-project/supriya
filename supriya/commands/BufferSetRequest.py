@@ -1,6 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
-from supriya.commands.RequestId import RequestId
+from supriya.enums import RequestId
 
 
 class BufferSetRequest(Request):
@@ -36,7 +36,7 @@ class BufferSetRequest(Request):
 
     ::
 
-        >>> message.address == supriya.commands.RequestId.BUFFER_SET
+        >>> message.address == supriya.RequestId.BUFFER_SET
         True
 
     """

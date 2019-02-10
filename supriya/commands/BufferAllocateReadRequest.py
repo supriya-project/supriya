@@ -1,6 +1,6 @@
 import supriya.osc
 from supriya.commands.BufferAllocateRequest import BufferAllocateRequest
-from supriya.commands.RequestId import RequestId
+from supriya.enums import RequestId
 
 
 class BufferAllocateReadRequest(BufferAllocateRequest):
@@ -28,7 +28,7 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
 
     ::
 
-        >>> message.address == supriya.commands.RequestId.BUFFER_ALLOCATE_READ
+        >>> message.address == supriya.RequestId.BUFFER_ALLOCATE_READ
         True
 
     """

@@ -88,7 +88,13 @@ def import_structured_package(path, namespace, remove=True, verbose=False):
 
 
 from supriya._version import __version__, __version_info__  # noqa
-from supriya.enums import AddAction, CalculationRate  # noqa
+from supriya.enums import (  # noqa
+    AddAction,
+    CalculationRate,
+    NodeAction,
+    RequestId,
+    RequestName,
+)
 from supriya import utils  # noqa
 from supriya.midi import Device  # noqa
 from supriya.live import Application, Mixer  # noqa

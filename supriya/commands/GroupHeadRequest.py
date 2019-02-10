@@ -1,5 +1,5 @@
 from supriya.commands.MoveRequest import MoveRequest
-from supriya.commands.RequestId import RequestId
+from supriya.enums import RequestId
 
 
 class GroupHeadRequest(MoveRequest):

@@ -1,6 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
-from supriya.commands.RequestId import RequestId
+from supriya.enums import RequestId
 
 
 class StatusRequest(Request):
@@ -22,7 +22,7 @@ class StatusRequest(Request):
 
     ::
 
-        >>> message.address == supriya.commands.RequestId.STATUS
+        >>> message.address == supriya.RequestId.STATUS
         True
 
     """

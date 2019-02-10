@@ -2,7 +2,7 @@ import collections
 
 import supriya.osc
 from supriya.commands.BufferAllocateReadRequest import BufferAllocateReadRequest
-from supriya.commands.RequestId import RequestId
+from supriya.enums import RequestId
 
 
 class BufferAllocateReadChannelRequest(BufferAllocateReadRequest):
@@ -32,7 +32,7 @@ class BufferAllocateReadChannelRequest(BufferAllocateReadRequest):
 
     ::
 
-        >>> message.address == supriya.commands.RequestId.BUFFER_ALLOCATE_READ_CHANNEL
+        >>> message.address == supriya.RequestId.BUFFER_ALLOCATE_READ_CHANNEL
         True
 
     """

@@ -1,5 +1,5 @@
-from supriya.enums import NodeAction
 from supriya.commands.Response import Response
+from supriya.enums import NodeAction
 
 
 class NodeInfoResponse(Response):
