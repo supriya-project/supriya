@@ -1,4 +1,4 @@
-from supriya import utils
+from supriya import EnvelopeShape, utils
 from supriya.system.SupriyaValueObject import SupriyaValueObject
 
 
@@ -42,8 +42,6 @@ class Envelope(SupriyaValueObject):
         loop_node=None,
         offset=None,
     ):
-        import supriya.synthdefs
-
         assert len(amplitudes)
         assert len(durations) and len(durations) == (len(amplitudes) - 1)
         amplitudes = list(amplitudes)
@@ -54,7 +52,7 @@ class Envelope(SupriyaValueObject):
         for i, duration in enumerate(durations):
             if isinstance(duration, int):
                 durations[i] = float(duration)
-        if isinstance(curves, (int, float, str, supriya.synthdefs.EnvelopeShape)):
+        if isinstance(curves, (int, float, str, EnvelopeShape)):
             curves = (curves,)
         elif curves is None:
             curves = ()
@@ -164,8 +162,6 @@ class Envelope(SupriyaValueObject):
         return Envelope(amplitudes=amplitudes, durations=durations, curves=curves)
 
     def serialize(self, for_interpolation=False):
-        import supriya.synthdefs
-
         result = []
         if for_interpolation:
             result.append(self.offset or 0)
@@ -174,8 +170,8 @@ class Envelope(SupriyaValueObject):
             result.append(self.duration)
             for amplitude, duration, curve in self._envelope_segments:
                 result.append(duration)
-                if isinstance(curve, (supriya.synthdefs.EnvelopeShape, str)):
-                    shape = supriya.synthdefs.EnvelopeShape.from_expr(curve)
+                if isinstance(curve, (EnvelopeShape, str)):
+                    shape = EnvelopeShape.from_expr(curve)
                     shape = int(shape)
                     curve = 0.0
                 else:
@@ -197,8 +193,8 @@ class Envelope(SupriyaValueObject):
             for amplitude, duration, curve in self._envelope_segments:
                 result.append(amplitude)
                 result.append(duration)
-                if isinstance(curve, str):
-                    shape = supriya.synthdefs.EnvelopeShape.from_expr(curve)
+                if isinstance(curve, (EnvelopeShape, str)):
+                    shape = EnvelopeShape.from_expr(curve)
                     shape = int(shape)
                     curve = 0.0
                 else:

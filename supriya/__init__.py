@@ -93,6 +93,7 @@ from supriya.enums import (  # noqa
     BinaryOperator,
     CalculationRate,
     DoneAction,
+    EnvelopeShape,
     HeaderFormat,
     NodeAction,
     ParameterRate,
@@ -119,7 +120,6 @@ from supriya.realtime import (  # noqa
 from supriya.soundfiles import SoundFile  # noqa
 from supriya.synthdefs import (  # noqa
     Envelope,
-    EnvelopeShape,
     Parameter,
     Range,
     SynthDef,

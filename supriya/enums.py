@@ -205,6 +205,20 @@ class DoneAction(IntEnumeration):
     FREE_SYNTH_AND_ENCLOSING_GROUP = 14
 
 
+class EnvelopeShape(IntEnumeration):
+
+    ### CLASS VARIABLES ###
+
+    CUBED = 7
+    CUSTOM = 5
+    EXPONENTIAL = 2
+    LINEAR = 1
+    SINE = 3
+    SQUARED = 6
+    STEP = 0
+    WELCH = 4
+
+
 class HeaderFormat(IntEnumeration):
     """
     An enumeration of soundfile header formats.

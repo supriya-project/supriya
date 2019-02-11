@@ -2,7 +2,6 @@
 Tools for constructing and compiling synthesizer definitions (SynthDefs).
 """
 from .Envelope import Envelope  # noqa
-from .EnvelopeShape import EnvelopeShape  # noqa
 from .OutputProxy import OutputProxy  # noqa
 from .Parameter import Parameter  # noqa
 from .Range import Range  # noqa
