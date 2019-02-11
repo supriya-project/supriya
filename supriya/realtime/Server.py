@@ -57,6 +57,7 @@ class Server(SupriyaObject):
         "_debug_udp",
         "_default_group",
         "_ip_address",
+        "_is_owner",
         "_is_running",
         "_latency",
         "_lock",
@@ -121,6 +122,7 @@ class Server(SupriyaObject):
 
         ### SERVER PROCESS ###
 
+        self._is_owner = False
         self._is_running = False
         self._server_options = supriya.realtime.ServerOptions()
         self._server_process = None
@@ -532,10 +534,19 @@ class Server(SupriyaObject):
             system_synthdefs.append(system_synthdef)
         supriya.synthdefs.SynthDef._allocate_synthdefs(system_synthdefs, self)
 
-    def _teardown(self):
+    def _teardown_prepare(self):
+        PubSub.notify("server-quitting")
+        if self.recorder.is_recording:
+            self.recorder.stop()
+
+    def _teardown_complete(self):
+        self._osc_io.quit()
         self._teardown_proxies()
         self._teardown_allocators()
         self._teardown_status_watcher()
+        self._is_owner = False
+        self._is_running = False
+        PubSub.notify("server-quit")
 
     def _teardown_allocators(self):
         self._audio_bus_allocator = None
@@ -638,16 +649,36 @@ class Server(SupriyaObject):
                 pass
             raise
         self._is_running = True
+        self._is_owner = True
         self._server_options = server_options
         self._setup()
         PubSub.notify("server-booted")
         return self
 
     @classmethod
-    def get_default_server(cls):
-        if cls._default_server is None:
-            cls._default_server = cls()
-        return cls._default_server
+    def connect(cls, ip_address="127.0.0.1", port=57751):
+        server = cls(ip_address=ip_address, port=port)
+        if server.is_running:
+            return server
+        server._is_owner = False
+        return server
+
+    def disconnect(self, force=False):
+        if not self.is_running:
+            raise supriya.exceptions.ServerOffline
+        if self._is_owner and not force:
+            raise supriya.exceptions.OwnedServerShutdown(
+                "Cannot disconnect from owned server with force flag."
+            )
+        self._teardown_prepare()
+        self._teardown_complete()
+        return self
+
+    @staticmethod
+    def get_default_server():
+        if Server._default_server is None:
+            Server._default_server = Server()
+        return Server._default_server
 
     @classmethod
     def kill(cls):
@@ -805,22 +836,20 @@ class Server(SupriyaObject):
         response = request.communicate(server=self)
         return response.query_tree_group
 
-    def quit(self):
+    def quit(self, force=False):
         import supriya.commands
 
         if not self.is_running:
             return
-        PubSub.notify("server-quitting")
-        if self.recorder.is_recording:
-            self.recorder.stop()
-        request = supriya.commands.QuitRequest()
-        request.communicate(server=self)
-        self._is_running = False
+        if not self._is_owner and not force:
+            raise supriya.exceptions.UnownedServerShutdown(
+                "Cannot quit unowned server without force flag."
+            )
+        self._teardown_prepare()
+        supriya.commands.QuitRequest().communicate(server=self)
         if not self._server_process.terminate():
             self._server_process.wait()
-        self._osc_io.quit()
-        self._teardown()
-        PubSub.notify("server-quit")
+        self._teardown_complete()
         return self
 
     def reboot(self, server_options=None, **kwargs):
