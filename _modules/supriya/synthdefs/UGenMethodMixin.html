@@ -156,7 +156,7 @@
 <span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Optional</span>
 
-<span class="kn">from</span> <span class="nn">supriya.synthdefs.SignalRange</span> <span class="k">import</span> <span class="n">SignalRange</span>
+<span class="kn">from</span> <span class="nn">supriya</span> <span class="k">import</span> <span class="n">BinaryOperator</span><span class="p">,</span> <span class="n">SignalRange</span><span class="p">,</span> <span class="n">UnaryOperator</span>
 <span class="kn">from</span> <span class="nn">supriya.system.SupriyaObject</span> <span class="k">import</span> <span class="n">SupriyaObject</span>
 
 
@@ -240,11 +240,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">ABSOLUTE_VALUE</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">ABSOLUTE_VALUE</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.__add__"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.__add__">[docs]</a>    <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -356,11 +352,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">BinaryOperator</span><span class="o">.</span><span class="n">ADDITION</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">BinaryOperator</span><span class="o">.</span><span class="n">ADDITION</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.__div__"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.__div__">[docs]</a>    <span class="k">def</span> <span class="nf">__div__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -472,10 +464,8 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
         <span class="k">return</span> <span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">BinaryOperator</span><span class="o">.</span><span class="n">FLOAT_DIVISION</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">BinaryOperator</span><span class="o">.</span><span class="n">FLOAT_DIVISION</span>
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.__graph__"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.__graph__">[docs]</a>    <span class="k">def</span> <span class="nf">__graph__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -598,10 +588,8 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
         <span class="k">return</span> <span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">BinaryOperator</span><span class="o">.</span><span class="n">GREATER_THAN_OR_EQUAL</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">BinaryOperator</span><span class="o">.</span><span class="n">GREATER_THAN_OR_EQUAL</span>
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.__gt__"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.__gt__">[docs]</a>    <span class="k">def</span> <span class="nf">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
@@ -714,10 +702,8 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
         <span class="k">return</span> <span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">BinaryOperator</span><span class="o">.</span><span class="n">GREATER_THAN</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">BinaryOperator</span><span class="o">.</span><span class="n">GREATER_THAN</span>
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.__le__"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.__le__">[docs]</a>    <span class="k">def</span> <span class="nf">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
@@ -830,10 +816,8 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
         <span class="k">return</span> <span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">BinaryOperator</span><span class="o">.</span><span class="n">LESS_THAN_OR_EQUAL</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">BinaryOperator</span><span class="o">.</span><span class="n">LESS_THAN_OR_EQUAL</span>
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.__lt__"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.__lt__">[docs]</a>    <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
@@ -946,11 +930,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">BinaryOperator</span><span class="o">.</span><span class="n">LESS_THAN</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">BinaryOperator</span><span class="o">.</span><span class="n">LESS_THAN</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.__mod__"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.__mod__">[docs]</a>    <span class="k">def</span> <span class="nf">__mod__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -1062,11 +1042,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">BinaryOperator</span><span class="o">.</span><span class="n">MODULO</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">BinaryOperator</span><span class="o">.</span><span class="n">MODULO</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.__mul__"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.__mul__">[docs]</a>    <span class="k">def</span> <span class="nf">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -1178,10 +1154,8 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
         <span class="k">return</span> <span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">BinaryOperator</span><span class="o">.</span><span class="n">MULTIPLICATION</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">BinaryOperator</span><span class="o">.</span><span class="n">MULTIPLICATION</span>
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.__neg__"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.__neg__">[docs]</a>    <span class="k">def</span> <span class="nf">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1254,11 +1228,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">NEGATIVE</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">NEGATIVE</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.__pow__"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.__pow__">[docs]</a>    <span class="k">def</span> <span class="nf">__pow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -1370,11 +1340,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">BinaryOperator</span><span class="o">.</span><span class="n">POWER</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">BinaryOperator</span><span class="o">.</span><span class="n">POWER</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.__rpow__"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.__rpow__">[docs]</a>    <span class="k">def</span> <span class="nf">__rpow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -1454,11 +1420,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span>
-            <span class="n">expr</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">BinaryOperator</span><span class="o">.</span><span class="n">POWER</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">BinaryOperator</span><span class="o">.</span><span class="n">POWER</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.__radd__"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.__radd__">[docs]</a>    <span class="k">def</span> <span class="nf">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -1538,11 +1500,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span>
-            <span class="n">expr</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">BinaryOperator</span><span class="o">.</span><span class="n">ADDITION</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">BinaryOperator</span><span class="o">.</span><span class="n">ADDITION</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.__rdiv__"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.__rdiv__">[docs]</a>    <span class="k">def</span> <span class="nf">__rdiv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -1622,10 +1580,8 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
         <span class="k">return</span> <span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span>
-            <span class="n">expr</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">BinaryOperator</span><span class="o">.</span><span class="n">FLOAT_DIVISION</span>
+            <span class="n">expr</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">BinaryOperator</span><span class="o">.</span><span class="n">FLOAT_DIVISION</span>
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.__rmod__"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.__rmod__">[docs]</a>    <span class="k">def</span> <span class="nf">__rmod__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
@@ -1706,10 +1662,8 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
         <span class="k">return</span> <span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span>
-            <span class="n">expr</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">BinaryOperator</span><span class="o">.</span><span class="n">FLOAT_DIVISION</span>
+            <span class="n">expr</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">BinaryOperator</span><span class="o">.</span><span class="n">FLOAT_DIVISION</span>
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.__rmul__"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.__rmul__">[docs]</a>    <span class="k">def</span> <span class="nf">__rmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
@@ -1790,10 +1744,8 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
         <span class="k">return</span> <span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span>
-            <span class="n">expr</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">BinaryOperator</span><span class="o">.</span><span class="n">MULTIPLICATION</span>
+            <span class="n">expr</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">BinaryOperator</span><span class="o">.</span><span class="n">MULTIPLICATION</span>
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.__rsub__"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.__rsub__">[docs]</a>    <span class="k">def</span> <span class="nf">__rsub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
@@ -1874,10 +1826,8 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
         <span class="k">return</span> <span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span>
-            <span class="n">expr</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">BinaryOperator</span><span class="o">.</span><span class="n">SUBTRACTION</span>
+            <span class="n">expr</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">BinaryOperator</span><span class="o">.</span><span class="n">SUBTRACTION</span>
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.__str__"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -2032,10 +1982,8 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
         <span class="k">return</span> <span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">BinaryOperator</span><span class="o">.</span><span class="n">SUBTRACTION</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">BinaryOperator</span><span class="o">.</span><span class="n">SUBTRACTION</span>
         <span class="p">)</span></div>
 
     <span class="fm">__truediv__</span> <span class="o">=</span> <span class="n">__div__</span>
@@ -2056,7 +2004,6 @@
             <span class="k">if</span> <span class="n">ugen</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_ugens</span><span class="p">:</span>
                 <span class="n">all_ugens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>
 
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
         <span class="kn">import</span> <span class="nn">supriya.ugens</span>
 
         <span class="n">builder</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">()</span>
@@ -2086,7 +2033,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">right</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Sequence</span><span class="p">):</span>
             <span class="n">right</span> <span class="o">=</span> <span class="p">(</span><span class="n">right</span><span class="p">,)</span>
         <span class="n">dictionary</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;left&quot;</span><span class="p">:</span> <span class="n">left</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">:</span> <span class="n">right</span><span class="p">}</span>
-        <span class="n">operator</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">BinaryOperator</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">operator</span><span class="p">)</span>
+        <span class="n">operator</span> <span class="o">=</span> <span class="n">BinaryOperator</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">operator</span><span class="p">)</span>
         <span class="n">special_index</span> <span class="o">=</span> <span class="n">operator</span><span class="o">.</span><span class="n">value</span>
         <span class="k">for</span> <span class="n">expanded_dict</span> <span class="ow">in</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">UGen</span><span class="o">.</span><span class="n">_expand_dictionary</span><span class="p">(</span><span class="n">dictionary</span><span class="p">):</span>
             <span class="n">left</span> <span class="o">=</span> <span class="n">expanded_dict</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span>
@@ -2154,7 +2101,7 @@
         <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Sequence</span><span class="p">):</span>
             <span class="n">source</span> <span class="o">=</span> <span class="p">(</span><span class="n">source</span><span class="p">,)</span>
-        <span class="n">operator</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">operator</span><span class="p">)</span>
+        <span class="n">operator</span> <span class="o">=</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">operator</span><span class="p">)</span>
         <span class="n">special_index</span> <span class="o">=</span> <span class="n">operator</span><span class="o">.</span><span class="n">value</span>
         <span class="k">for</span> <span class="n">single_source</span> <span class="ow">in</span> <span class="n">source</span><span class="p">:</span>
             <span class="n">calculation_rate</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">single_source</span><span class="p">)</span>
@@ -2326,11 +2273,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">BinaryOperator</span><span class="o">.</span><span class="n">ABSOLUTE_DIFFERENCE</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">BinaryOperator</span><span class="o">.</span><span class="n">ABSOLUTE_DIFFERENCE</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.amplitude_to_db"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.amplitude_to_db">[docs]</a>    <span class="k">def</span> <span class="nf">amplitude_to_db</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -2359,18 +2302,10 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">AMPLITUDE_TO_DB</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">AMPLITUDE_TO_DB</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.as_int"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.as_int">[docs]</a>    <span class="k">def</span> <span class="nf">as_int</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">AS_INT</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">AS_INT</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.ceiling"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.ceiling">[docs]</a>    <span class="k">def</span> <span class="nf">ceiling</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -2391,11 +2326,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">CEILING</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">CEILING</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.clip"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.clip">[docs]</a>    <span class="k">def</span> <span class="nf">clip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">minimum</span><span class="p">,</span> <span class="n">maximum</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -2495,11 +2426,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">CUBED</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">CUBED</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.db_to_amplitude"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.db_to_amplitude">[docs]</a>    <span class="k">def</span> <span class="nf">db_to_amplitude</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -2528,11 +2455,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">DB_TO_AMPLITUDE</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">DB_TO_AMPLITUDE</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.distort"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.distort">[docs]</a>    <span class="k">def</span> <span class="nf">distort</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -2553,11 +2476,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">DISTORT</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">DISTORT</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.exponential"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.exponential">[docs]</a>    <span class="k">def</span> <span class="nf">exponential</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -2578,11 +2497,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">EXPONENTIAL</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">EXPONENTIAL</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.floor"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.floor">[docs]</a>    <span class="k">def</span> <span class="nf">floor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -2603,11 +2518,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">FLOOR</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">FLOOR</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.fractional_part"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.fractional_part">[docs]</a>    <span class="k">def</span> <span class="nf">fractional_part</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -2628,11 +2539,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">FRACTIONAL_PART</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">FRACTIONAL_PART</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.hanning_window"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.hanning_window">[docs]</a>    <span class="k">def</span> <span class="nf">hanning_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -2662,11 +2569,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">HANNING_WINDOW</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">HANNING_WINDOW</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.hz_to_midi"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.hz_to_midi">[docs]</a>    <span class="k">def</span> <span class="nf">hz_to_midi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -2695,9 +2598,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">HZ_TO_MIDI</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">HZ_TO_MIDI</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.hz_to_octave"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.hz_to_octave">[docs]</a>    <span class="k">def</span> <span class="nf">hz_to_octave</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -2726,11 +2627,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">HZ_TO_OCTAVE</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">HZ_TO_OCTAVE</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.is_equal_to"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.is_equal_to">[docs]</a>    <span class="k">def</span> <span class="nf">is_equal_to</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -2755,11 +2652,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">BinaryOperator</span><span class="o">.</span><span class="n">EQUAL</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">BinaryOperator</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.is_not_equal_to"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.is_not_equal_to">[docs]</a>    <span class="k">def</span> <span class="nf">is_not_equal_to</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -2784,11 +2677,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">BinaryOperator</span><span class="o">.</span><span class="n">NOT_EQUAL</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">BinaryOperator</span><span class="o">.</span><span class="n">NOT_EQUAL</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.lag"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.lag">[docs]</a>    <span class="k">def</span> <span class="nf">lag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lag_time</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -2878,11 +2767,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">LOG</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">LOG</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.log2"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.log2">[docs]</a>    <span class="k">def</span> <span class="nf">log2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -2903,11 +2788,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">LOG2</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">LOG2</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.log10"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.log10">[docs]</a>    <span class="k">def</span> <span class="nf">log10</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -2928,11 +2809,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">LOG10</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">LOG10</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.maximum"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.maximum">[docs]</a>    <span class="k">def</span> <span class="nf">maximum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -2957,11 +2834,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">BinaryOperator</span><span class="o">.</span><span class="n">MAXIMUM</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">BinaryOperator</span><span class="o">.</span><span class="n">MAXIMUM</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.midi_to_hz"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.midi_to_hz">[docs]</a>    <span class="k">def</span> <span class="nf">midi_to_hz</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -2990,9 +2863,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">MIDI_TO_HZ</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">MIDI_TO_HZ</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.minimum"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.minimum">[docs]</a>    <span class="k">def</span> <span class="nf">minimum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -3017,11 +2888,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">BinaryOperator</span><span class="o">.</span><span class="n">MINIMUM</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">BinaryOperator</span><span class="o">.</span><span class="n">MINIMUM</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.octave_to_hz"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.octave_to_hz">[docs]</a>    <span class="k">def</span> <span class="nf">octave_to_hz</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -3050,11 +2917,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">OCTAVE_TO_HZ</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">OCTAVE_TO_HZ</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.power"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.power">[docs]</a>    <span class="k">def</span> <span class="nf">power</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -3079,11 +2942,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">BinaryOperator</span><span class="o">.</span><span class="n">POWER</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_binary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">BinaryOperator</span><span class="o">.</span><span class="n">POWER</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.range"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.range">[docs]</a>    <span class="k">def</span> <span class="nf">range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">minimum</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">signal_range</span> <span class="o">==</span> <span class="n">SignalRange</span><span class="o">.</span><span class="n">BIPOLAR</span><span class="p">:</span>
@@ -3122,11 +2981,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">RATIO_TO_SEMITONES</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">RATIO_TO_SEMITONES</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.rectangle_window"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.rectangle_window">[docs]</a>    <span class="k">def</span> <span class="nf">rectangle_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -3156,11 +3011,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">RECTANGLE_WINDOW</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">RECTANGLE_WINDOW</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.reciprocal"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.reciprocal">[docs]</a>    <span class="k">def</span> <span class="nf">reciprocal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -3190,9 +3041,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">RECIPROCAL</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">RECIPROCAL</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.s_curve"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.s_curve">[docs]</a>    <span class="k">def</span> <span class="nf">s_curve</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -3222,9 +3071,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">S_CURVE</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">S_CURVE</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.scale"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.scale">[docs]</a>    <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -3349,11 +3196,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">SEMITONES_TO_RATIO</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">SEMITONES_TO_RATIO</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.sign"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.sign">[docs]</a>    <span class="k">def</span> <span class="nf">sign</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -3383,39 +3226,25 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">SIGN</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">SIGN</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.softclip"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.softclip">[docs]</a>    <span class="k">def</span> <span class="nf">softclip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Distorts ugen graph non-linearly.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">SOFTCLIP</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">SOFTCLIP</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.square_root"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.square_root">[docs]</a>    <span class="k">def</span> <span class="nf">square_root</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculates square root of ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">SQUARE_ROOT</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">SQUARE_ROOT</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.squared"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.squared">[docs]</a>    <span class="k">def</span> <span class="nf">squared</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculates square of ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UGenMethodMixin</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">SQUARED</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">SQUARED</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.sum"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.sum">[docs]</a>    <span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -3510,9 +3339,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">TANH</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">TANH</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.transpose"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.transpose">[docs]</a>    <span class="k">def</span> <span class="nf">transpose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">semitones</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -3584,11 +3411,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">TRIANGLE_WINDOW</span>
-        <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">TRIANGLE_WINDOW</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="UGenMethodMixin.welch_window"><a class="viewcode-back" href="../../../api/supriya/synthdefs/UGenMethodMixin.html#supriya.synthdefs.OutputProxy.UGenMethodMixin.welch_window">[docs]</a>    <span class="k">def</span> <span class="nf">welch_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -3618,11 +3441,7 @@
 
 <span class="sd">        Returns ugen graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">WELCH_WINDOW</span>
-        <span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_unary_op</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">WELCH_WINDOW</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>

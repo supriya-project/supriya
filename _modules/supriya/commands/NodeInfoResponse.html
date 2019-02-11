@@ -153,6 +153,7 @@
             
   <h1>Source code for supriya.commands.NodeInfoResponse</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">supriya.commands.Response</span> <span class="k">import</span> <span class="n">Response</span>
+<span class="kn">from</span> <span class="nn">supriya.enums</span> <span class="k">import</span> <span class="n">NodeAction</span>
 
 
 <div class="viewcode-block" id="NodeInfoResponse"><a class="viewcode-back" href="../../../api/supriya/commands/NodeInfoResponse.html#supriya.commands.NodeInfoResponse.NodeInfoResponse">[docs]</a><span class="k">class</span> <span class="nc">NodeInfoResponse</span><span class="p">(</span><span class="n">Response</span><span class="p">):</span>
@@ -184,10 +185,8 @@
         <span class="n">tail_node_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">osc_message</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="kn">import</span> <span class="nn">supriya.commands</span>
-
         <span class="n">Response</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">osc_message</span><span class="o">=</span><span class="n">osc_message</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_action</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">NodeAction</span><span class="o">.</span><span class="n">from_address</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_action</span> <span class="o">=</span> <span class="n">NodeAction</span><span class="o">.</span><span class="n">from_address</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_group</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">is_group</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_head_node_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coerce_node_id</span><span class="p">(</span><span class="n">head_node_id</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_next_node_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coerce_node_id</span><span class="p">(</span><span class="n">next_node_id</span><span class="p">)</span>

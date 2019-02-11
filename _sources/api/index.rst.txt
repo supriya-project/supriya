@@ -202,20 +202,6 @@ Tools for object-modeling OSC responses received from ``scsynth``.
 
    <hr/>
 
-.. rubric:: Enumerations
-   :class: subsection-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~supriya.commands.NodeAction.NodeAction
-   ~supriya.commands.RequestId.RequestId
-   ~supriya.commands.RequestName.RequestName
-
-.. raw:: html
-
-   <hr/>
-
 .. rubric:: :ref:`supriya.enums <supriya--enums>`
    :class: section-header
 
@@ -230,7 +216,19 @@ Tools for object-modeling OSC responses received from ``scsynth``.
    :nosignatures:
 
    ~supriya.enums.AddAction
+   ~supriya.enums.BinaryOperator
    ~supriya.enums.CalculationRate
+   ~supriya.enums.DoneAction
+   ~supriya.enums.EnvelopeShape
+   ~supriya.enums.HeaderFormat
+   ~supriya.enums.NodeAction
+   ~supriya.enums.ParameterRate
+   ~supriya.enums.RequestId
+   ~supriya.enums.RequestName
+   ~supriya.enums.SampleFormat
+   ~supriya.enums.SignalRange
+   ~supriya.enums.UnaryOperator
+   ~supriya.enums.Unit
 
 .. raw:: html
 
@@ -442,7 +440,7 @@ Tools for working in non-realtime.
    :nosignatures:
 
    ~supriya.nonrealtime.DoNotPropagate.DoNotPropagate
-   ~supriya.nonrealtime.NodeAction.NodeAction
+   ~supriya.nonrealtime.NodeTransition.NodeTransition
    ~supriya.nonrealtime.SessionObject.SessionObject
    ~supriya.nonrealtime.SessionRenderer.SessionRenderer
    ~supriya.nonrealtime.State.State
@@ -662,19 +660,6 @@ Tools for interacting with soundfiles.
 
    <hr/>
 
-.. rubric:: Enumerations
-   :class: subsection-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~supriya.soundfiles.HeaderFormat.HeaderFormat
-   ~supriya.soundfiles.SampleFormat.SampleFormat
-
-.. raw:: html
-
-   <hr/>
-
 .. rubric:: :ref:`supriya.synthdefs <supriya--synthdefs>`
    :class: section-header
 
@@ -692,24 +677,6 @@ Tools for constructing and compiling synthesizer definitions (SynthDefs).
 
    ~supriya.synthdefs.SynthDefFactory.SynthDefFactory
    ~supriya.synthdefs.SynthDefGrapher.SynthDefGrapher
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Enumerations
-   :class: subsection-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~supriya.synthdefs.BinaryOperator.BinaryOperator
-   ~supriya.synthdefs.DoneAction.DoneAction
-   ~supriya.synthdefs.EnvelopeShape.EnvelopeShape
-   ~supriya.synthdefs.ParameterRate.ParameterRate
-   ~supriya.synthdefs.SignalRange.SignalRange
-   ~supriya.synthdefs.UnaryOperator.UnaryOperator
-   ~supriya.synthdefs.Unit.Unit
 
 .. raw:: html
 

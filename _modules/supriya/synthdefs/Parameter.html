@@ -154,8 +154,7 @@
   <h1>Source code for supriya.synthdefs.Parameter</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">collections</span>
 
-<span class="kn">from</span> <span class="nn">supriya.synthdefs.ParameterRate</span> <span class="k">import</span> <span class="n">ParameterRate</span>
-<span class="kn">from</span> <span class="nn">supriya.synthdefs.SignalRange</span> <span class="k">import</span> <span class="n">SignalRange</span>
+<span class="kn">from</span> <span class="nn">supriya</span> <span class="k">import</span> <span class="n">ParameterRate</span><span class="p">,</span> <span class="n">SignalRange</span>
 <span class="kn">from</span> <span class="nn">supriya.synthdefs.UGenMethodMixin</span> <span class="k">import</span> <span class="n">UGenMethodMixin</span>
 <span class="kn">from</span> <span class="nn">supriya.system.SupriyaValueObject</span> <span class="k">import</span> <span class="n">SupriyaValueObject</span>
 
@@ -196,7 +195,7 @@
         <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_parameter_rate</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">ParameterRate</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">parameter_rate</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parameter_rate</span> <span class="o">=</span> <span class="n">ParameterRate</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">parameter_rate</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">range_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">range_</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">Range</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_range</span> <span class="o">=</span> <span class="n">range_</span>

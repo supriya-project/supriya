@@ -158,7 +158,7 @@
 <span class="kn">import</span> <span class="nn">supriya.realtime</span>
 <span class="kn">from</span> <span class="nn">supriya.commands</span> <span class="k">import</span> <span class="n">GroupNewRequest</span>
 <span class="kn">from</span> <span class="nn">supriya.nonrealtime.Node</span> <span class="k">import</span> <span class="n">Node</span>
-<span class="kn">from</span> <span class="nn">supriya.nonrealtime.NodeAction</span> <span class="k">import</span> <span class="n">NodeAction</span>
+<span class="kn">from</span> <span class="nn">supriya.nonrealtime.NodeTransition</span> <span class="k">import</span> <span class="n">NodeTransition</span>
 <span class="kn">from</span> <span class="nn">supriya.nonrealtime.SessionObject</span> <span class="k">import</span> <span class="n">SessionObject</span>
 <span class="kn">from</span> <span class="nn">supriya.patterns</span> <span class="k">import</span> <span class="n">Pattern</span>
 
@@ -189,7 +189,7 @@
     <span class="c1">### PRIVATE METHODS ###</span>
 
     <span class="k">def</span> <span class="nf">_to_request</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">NodeAction</span><span class="p">,</span> <span class="n">id_mapping</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">SessionObject</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">NodeTransition</span><span class="p">,</span> <span class="n">id_mapping</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">SessionObject</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GroupNewRequest</span><span class="p">:</span>
         <span class="n">source_id</span> <span class="o">=</span> <span class="n">id_mapping</span><span class="p">[</span><span class="n">action</span><span class="o">.</span><span class="n">source</span><span class="p">]</span>
         <span class="n">target_id</span> <span class="o">=</span> <span class="n">id_mapping</span><span class="p">[</span><span class="n">action</span><span class="o">.</span><span class="n">target</span><span class="p">]</span>

@@ -181,9 +181,6 @@
 <li class="toctree-l4"><a class="reference internal" href="SynthNoidRequest.html">SynthNoidRequest</a></li>
 <li class="toctree-l4"><a class="reference internal" href="TriggerResponse.html">TriggerResponse</a></li>
 <li class="toctree-l4"><a class="reference internal" href="UgenCommandRequest.html">UgenCommandRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NodeAction.html">NodeAction</a></li>
-<li class="toctree-l4"><a class="reference internal" href="RequestId.html">RequestId</a></li>
-<li class="toctree-l4"><a class="reference internal" href="RequestName.html">RequestName</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../enums.html">enums</a></li>
@@ -278,7 +275,7 @@
 <span id="commands"></span><span id="supriya-commands"></span><h1>commands<a class="headerlink" href="#module-supriya.commands" title="Permalink to this headline">¶</a></h1>
 <p>Tools for object-modeling OSC responses received from <code class="docutils literal notranslate"><span class="pre">scsynth</span></code>.</p>
 <div class="svg-container docutils container">
-<div class="graphviz"><object data="../../../_images/inheritance-87407362f40c0725022009e8770ec01d97a85386.svg" type="image/svg+xml" class="inheritance graphviz">
+<div class="graphviz"><object data="../../../_images/inheritance-2f1990f5df7eef0cdd96352d4e4def57d321f432.svg" type="image/svg+xml" class="inheritance graphviz">
 <p class="warning">digraph InheritanceGraph {
 	graph [bgcolor=transparent,
 		color=lightsteelblue2,
@@ -307,15 +304,10 @@
 	subgraph cluster_builtins {
 		graph [label=builtins];
 		node [color=1];
-		&quot;builtins.int&quot;		 [URL=&quot;https://docs.python.org/3.6/library/functions.html#int&quot;,
-			color=1,
-			label=int,
-			target=_top];
 		&quot;builtins.object&quot;		 [URL=&quot;https://docs.python.org/3.6/library/functions.html#object&quot;,
 			color=1,
 			label=object,
 			target=_top];
-		&quot;builtins.object&quot; -&gt; &quot;builtins.int&quot;		 [minlen=1];
 	}
 	subgraph &quot;cluster_collections.abc&quot; {
 		graph [label=&quot;collections.abc&quot;];
@@ -363,22 +355,9 @@
 			target=_top];
 		&quot;collections.abc.Sized&quot; -&gt; &quot;collections.abc.Collection&quot;;
 	}
-	subgraph cluster_enum {
-		graph [label=enum];
-		node [color=3];
-		&quot;enum.Enum&quot;		 [URL=&quot;https://docs.python.org/3.6/library/enum.html#enum.Enum&quot;,
-			color=3,
-			label=Enum,
-			target=_top];
-		&quot;enum.IntEnum&quot;		 [URL=&quot;https://docs.python.org/3.6/library/enum.html#enum.IntEnum&quot;,
-			color=3,
-			label=&quot;Int\nEnum&quot;,
-			target=_top];
-		&quot;enum.Enum&quot; -&gt; &quot;enum.IntEnum&quot;;
-	}
 	subgraph &quot;cluster_supriya.commands&quot; {
 		graph [label=&quot;supriya.commands&quot;];
-		node [color=4];
+		node [color=3];
 		&quot;supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest&quot;		 [URL=&quot;../api/supriya/commands/BufferAllocateReadChannelRequest.html#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest&quot;,
 			color=black,
 			fontcolor=white,
@@ -614,11 +593,6 @@
 			label=&quot;Node\nBefore\nRequest&quot;,
 			target=_top];
 		&quot;supriya.commands.MoveRequest.MoveRequest&quot; -&gt; &quot;supriya.commands.NodeBeforeRequest.NodeBeforeRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.NodeAction.NodeAction&quot;		 [URL=&quot;../api/supriya/commands/NodeAction.html#supriya.commands.NodeAction.NodeAction&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Node\nAction&quot;,
-			target=_top];
 		&quot;supriya.commands.NodeCommandRequest.NodeCommandRequest&quot;		 [URL=&quot;../api/supriya/commands/NodeCommandRequest.html#supriya.commands.NodeCommandRequest.NodeCommandRequest&quot;,
 			color=black,
 			fontcolor=white,
@@ -870,16 +844,6 @@
 			fontcolor=white,
 			label=&quot;Request\nBundle&quot;,
 			target=_top];
-		&quot;supriya.commands.RequestId.RequestId&quot;		 [URL=&quot;../api/supriya/commands/RequestId.html#supriya.commands.RequestId.RequestId&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Request\nId&quot;,
-			target=_top];
-		&quot;supriya.commands.RequestName.RequestName&quot;		 [URL=&quot;../api/supriya/commands/RequestName.html#supriya.commands.RequestName.RequestName&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Request\nName&quot;,
-			target=_top];
 		&quot;supriya.commands.Requestable.Requestable&quot;		 [URL=&quot;../api/supriya/commands/Requestable.html#supriya.commands.Requestable.Requestable&quot;,
 			color=black,
 			fontcolor=white,
@@ -930,47 +894,32 @@
 	}
 	subgraph &quot;cluster_supriya.system&quot; {
 		graph [label=&quot;supriya.system&quot;];
-		node [color=5];
+		node [color=4];
 		&quot;supriya.system.SupriyaObject.SupriyaObject&quot;		 [URL=&quot;../api/supriya/commands/../system/SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject&quot;,
-			color=5,
+			color=4,
 			label=&quot;Supriya\nObject&quot;,
 			target=_top];
 		&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;		 [URL=&quot;../api/supriya/commands/../system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject&quot;,
-			color=5,
+			color=4,
 			label=&quot;Supriya\nValue\nObject&quot;,
 			target=_top];
 		&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;;
 	}
-	subgraph &quot;cluster_uqbar.enums&quot; {
-		graph [label=&quot;uqbar.enums&quot;];
-		node [color=6];
-		&quot;uqbar.enums.IntEnumeration&quot;		 [color=6,
-			label=&quot;Int\nEnumeration&quot;];
-		&quot;uqbar.enums.StrictEnumeration&quot;		 [color=6,
-			label=&quot;Strict\nEnumeration&quot;];
-	}
-	&quot;builtins.int&quot; -&gt; &quot;enum.IntEnum&quot;;
-	&quot;builtins.object&quot; -&gt; &quot;collections.abc.Container&quot;	 [minlen=2];
+	&quot;builtins.object&quot; -&gt; &quot;collections.abc.Container&quot;	 [minlen=1];
 	&quot;builtins.object&quot; -&gt; &quot;collections.abc.Iterable&quot;;
-	&quot;builtins.object&quot; -&gt; &quot;collections.abc.Sized&quot;	 [minlen=3];
-	&quot;builtins.object&quot; -&gt; &quot;enum.Enum&quot;;
-	&quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject.SupriyaObject&quot;	 [minlen=1];
+	&quot;builtins.object&quot; -&gt; &quot;collections.abc.Sized&quot;	 [minlen=2];
+	&quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject.SupriyaObject&quot;	 [minlen=3];
 	&quot;collections.abc.Sequence&quot; -&gt; &quot;supriya.commands.BufferSetContiguousResponse.BufferSetContiguousResponse&quot;;
 	&quot;collections.abc.Sequence&quot; -&gt; &quot;supriya.commands.BufferSetResponse.BufferSetResponse&quot;;
 	&quot;collections.abc.Sequence&quot; -&gt; &quot;supriya.commands.ControlBusSetContiguousResponse.ControlBusSetContiguousResponse&quot;;
 	&quot;collections.abc.Sequence&quot; -&gt; &quot;supriya.commands.ControlBusSetResponse.ControlBusSetResponse&quot;;
 	&quot;collections.abc.Sequence&quot; -&gt; &quot;supriya.commands.QueryTreeGroup.QueryTreeGroup&quot;;
 	&quot;collections.abc.Sequence&quot; -&gt; &quot;supriya.commands.QueryTreeSynth.QueryTreeSynth&quot;;
-	&quot;enum.Enum&quot; -&gt; &quot;uqbar.enums.StrictEnumeration&quot;	 [minlen=1];
-	&quot;enum.IntEnum&quot; -&gt; &quot;uqbar.enums.IntEnumeration&quot;;
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.QueryTreeControl.QueryTreeControl&quot;	 [minlen=1];
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.QueryTreeGroup.QueryTreeGroup&quot;;
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.QueryTreeSynth.QueryTreeSynth&quot;;
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.Requestable.Requestable&quot;;
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.Response.Response&quot;;
-	&quot;uqbar.enums.IntEnumeration&quot; -&gt; &quot;supriya.commands.NodeAction.NodeAction&quot;	 [minlen=1];
-	&quot;uqbar.enums.IntEnumeration&quot; -&gt; &quot;supriya.commands.RequestId.RequestId&quot;	 [minlen=2];
-	&quot;uqbar.enums.StrictEnumeration&quot; -&gt; &quot;supriya.commands.RequestName.RequestName&quot;	 [minlen=1];
 }</p></object></div>
 </div>
 <hr/><p class="section-header rubric">Abstract Classes</p>
@@ -1259,26 +1208,6 @@
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="UgenCommandRequest.html#supriya.commands.UgenCommandRequest.UgenCommandRequest" title="supriya.commands.UgenCommandRequest.UgenCommandRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UgenCommandRequest</span></code></a></td>
 <td></td>
-</tr>
-</tbody>
-</table>
-<hr/><p class="section-header rubric">Enumerations</p>
-<div class="toctree-wrapper compound">
-</div>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="NodeAction.html#supriya.commands.NodeAction.NodeAction" title="supriya.commands.NodeAction.NodeAction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeAction</span></code></a></td>
-<td>An enumeration.</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="RequestId.html#supriya.commands.RequestId.RequestId" title="supriya.commands.RequestId.RequestId"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RequestId</span></code></a></td>
-<td>An enumeration of scsynth request ids.</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="RequestName.html#supriya.commands.RequestName.RequestName" title="supriya.commands.RequestName.RequestName"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RequestName</span></code></a></td>
-<td>An enumeration of scsynth request names.</td>
 </tr>
 </tbody>
 </table>

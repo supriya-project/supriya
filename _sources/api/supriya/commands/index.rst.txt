@@ -219,24 +219,3 @@ commands
    ~SynthNoidRequest.SynthNoidRequest
    ~TriggerResponse.TriggerResponse
    ~UgenCommandRequest.UgenCommandRequest
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Enumerations
-   :class: section-header
-
-.. toctree::
-   :hidden:
-
-   NodeAction
-   RequestId
-   RequestName
-
-.. autosummary::
-   :nosignatures:
-
-   ~NodeAction.NodeAction
-   ~RequestId.RequestId
-   ~RequestName.RequestName

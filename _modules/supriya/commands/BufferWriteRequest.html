@@ -153,9 +153,10 @@
             
   <h1>Source code for supriya.commands.BufferWriteRequest</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">supriya.osc</span>
+<span class="kn">from</span> <span class="nn">supriya</span> <span class="k">import</span> <span class="n">HeaderFormat</span><span class="p">,</span> <span class="n">SampleFormat</span>
 <span class="kn">from</span> <span class="nn">supriya.commands.Request</span> <span class="k">import</span> <span class="n">Request</span>
 <span class="kn">from</span> <span class="nn">supriya.commands.RequestBundle</span> <span class="k">import</span> <span class="n">RequestBundle</span>
-<span class="kn">from</span> <span class="nn">supriya.commands.RequestId</span> <span class="k">import</span> <span class="n">RequestId</span>
+<span class="kn">from</span> <span class="nn">supriya.enums</span> <span class="k">import</span> <span class="n">RequestId</span>
 
 
 <div class="viewcode-block" id="BufferWriteRequest"><a class="viewcode-back" href="../../../api/supriya/commands/BufferWriteRequest.html#supriya.commands.BufferWriteRequest.BufferWriteRequest">[docs]</a><span class="k">class</span> <span class="nc">BufferWriteRequest</span><span class="p">(</span><span class="n">Request</span><span class="p">):</span>
@@ -165,12 +166,11 @@
 <span class="sd">    ::</span>
 
 <span class="sd">        &gt;&gt;&gt; import supriya.commands</span>
-<span class="sd">        &gt;&gt;&gt; import supriya.soundfiles</span>
 <span class="sd">        &gt;&gt;&gt; request = supriya.commands.BufferWriteRequest(</span>
 <span class="sd">        ...     buffer_id=23,</span>
 <span class="sd">        ...     file_path=&#39;test.aiff&#39;,</span>
-<span class="sd">        ...     header_format=supriya.soundfiles.HeaderFormat.AIFF,</span>
-<span class="sd">        ...     sample_format=supriya.soundfiles.SampleFormat.INT24,</span>
+<span class="sd">        ...     header_format=supriya.HeaderFormat.AIFF,</span>
+<span class="sd">        ...     sample_format=supriya.SampleFormat.INT24,</span>
 <span class="sd">        ...     )</span>
 <span class="sd">        &gt;&gt;&gt; request</span>
 <span class="sd">        BufferWriteRequest(</span>
@@ -190,7 +190,7 @@
 
 <span class="sd">    ::</span>
 
-<span class="sd">        &gt;&gt;&gt; message.address == supriya.commands.RequestId.BUFFER_WRITE</span>
+<span class="sd">        &gt;&gt;&gt; message.address == supriya.RequestId.BUFFER_WRITE</span>
 <span class="sd">        True</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -223,8 +223,6 @@
         <span class="n">sample_format</span><span class="o">=</span><span class="s2">&quot;int24&quot;</span><span class="p">,</span>
         <span class="n">starting_frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="kn">import</span> <span class="nn">supriya.soundfiles</span>
-
         <span class="n">Request</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">buffer_id</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -236,9 +234,9 @@
         <span class="n">frame_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">frame_count</span><span class="p">)</span>
         <span class="k">assert</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">frame_count</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_frame_count</span> <span class="o">=</span> <span class="n">frame_count</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_header_format</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">soundfiles</span><span class="o">.</span><span class="n">HeaderFormat</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">header_format</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_header_format</span> <span class="o">=</span> <span class="n">HeaderFormat</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">header_format</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_leave_open</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">leave_open</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_sample_format</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">soundfiles</span><span class="o">.</span><span class="n">SampleFormat</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">sample_format</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sample_format</span> <span class="o">=</span> <span class="n">SampleFormat</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">sample_format</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">starting_frame</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">starting_frame</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">starting_frame</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">starting_frame</span><span class="p">)</span>

@@ -160,7 +160,7 @@
 <span class="kn">import</span> <span class="nn">uqbar.strings</span>
 <span class="kn">from</span> <span class="nn">uqbar.containers</span> <span class="k">import</span> <span class="n">UniqueTreeNode</span>
 
-<span class="kn">from</span> <span class="nn">supriya</span> <span class="k">import</span> <span class="n">AddAction</span>
+<span class="kn">from</span> <span class="nn">supriya.enums</span> <span class="k">import</span> <span class="n">AddAction</span><span class="p">,</span> <span class="n">NodeAction</span>
 <span class="kn">from</span> <span class="nn">supriya.realtime.ServerObjectProxy</span> <span class="k">import</span> <span class="n">ServerObjectProxy</span>
 
 
@@ -302,14 +302,14 @@
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">NodeInfoResponse</span><span class="p">):</span>
             <span class="k">return</span>
-        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">action</span> <span class="o">==</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">NodeAction</span><span class="o">.</span><span class="n">NODE_REMOVED</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">action</span> <span class="o">==</span> <span class="n">NodeAction</span><span class="o">.</span><span class="n">NODE_REMOVED</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_set_parent</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_unregister_with_local_server</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="n">response</span><span class="o">.</span><span class="n">action</span> <span class="o">==</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">NodeAction</span><span class="o">.</span><span class="n">NODE_ACTIVATED</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">response</span><span class="o">.</span><span class="n">action</span> <span class="o">==</span> <span class="n">NodeAction</span><span class="o">.</span><span class="n">NODE_ACTIVATED</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_is_paused</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">elif</span> <span class="n">response</span><span class="o">.</span><span class="n">action</span> <span class="o">==</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">NodeAction</span><span class="o">.</span><span class="n">NODE_DEACTIVATED</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">response</span><span class="o">.</span><span class="n">action</span> <span class="o">==</span> <span class="n">NodeAction</span><span class="o">.</span><span class="n">NODE_DEACTIVATED</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_is_paused</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="k">elif</span> <span class="n">response</span><span class="o">.</span><span class="n">action</span> <span class="o">==</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">NodeAction</span><span class="o">.</span><span class="n">NODE_MOVED</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">response</span><span class="o">.</span><span class="n">action</span> <span class="o">==</span> <span class="n">NodeAction</span><span class="o">.</span><span class="n">NODE_MOVED</span><span class="p">:</span>
             <span class="n">new_parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">_nodes</span><span class="p">[</span><span class="n">response</span><span class="o">.</span><span class="n">parent_group_id</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">new_parent</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span>
                 <span class="n">new_index</span> <span class="o">=</span> <span class="mi">0</span>

@@ -181,9 +181,6 @@
 <li class="toctree-l4"><a class="reference internal" href="SynthNoidRequest.html">SynthNoidRequest</a></li>
 <li class="toctree-l4"><a class="reference internal" href="TriggerResponse.html">TriggerResponse</a></li>
 <li class="toctree-l4"><a class="reference internal" href="UgenCommandRequest.html">UgenCommandRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NodeAction.html">NodeAction</a></li>
-<li class="toctree-l4"><a class="reference internal" href="RequestId.html">RequestId</a></li>
-<li class="toctree-l4"><a class="reference internal" href="RequestName.html">RequestName</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../enums.html">enums</a></li>
@@ -348,12 +345,11 @@
 <em class="property">class </em><code class="descclassname">supriya.commands.BufferWriteRequest.</code><code class="descname">BufferWriteRequest</code><span class="sig-paren">(</span><em>buffer_id=None</em>, <em>callback=None</em>, <em>file_path=None</em>, <em>frame_count=None</em>, <em>header_format='aiff'</em>, <em>leave_open=False</em>, <em>sample_format='int24'</em>, <em>starting_frame=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/BufferWriteRequest.html#BufferWriteRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.BufferWriteRequest.BufferWriteRequest" title="Permalink to this definition">¶</a></dt>
 <dd><p>A /b_write request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.commands</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.soundfiles</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">BufferWriteRequest</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">buffer_id</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">file_path</span><span class="o">=</span><span class="s1">&#39;test.aiff&#39;</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">header_format</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">soundfiles</span><span class="o">.</span><span class="n">HeaderFormat</span><span class="o">.</span><span class="n">AIFF</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">sample_format</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">soundfiles</span><span class="o">.</span><span class="n">SampleFormat</span><span class="o">.</span><span class="n">INT24</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">header_format</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">HeaderFormat</span><span class="o">.</span><span class="n">AIFF</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">sample_format</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">SampleFormat</span><span class="o">.</span><span class="n">INT24</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span>
 <span class="go">BufferWriteRequest(</span>
@@ -371,7 +367,7 @@
 <span class="go">OscMessage(31, 23, &#39;test.aiff&#39;, &#39;aiff&#39;, &#39;int24&#39;, -1, 0, 0)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">message</span><span class="o">.</span><span class="n">address</span> <span class="o">==</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">RequestId</span><span class="o">.</span><span class="n">BUFFER_WRITE</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">message</span><span class="o">.</span><span class="n">address</span> <span class="o">==</span> <span class="n">supriya</span><span class="o">.</span><span class="n">RequestId</span><span class="o">.</span><span class="n">BUFFER_WRITE</span>
 <span class="go">True</span>
 </pre></div>
 </div>

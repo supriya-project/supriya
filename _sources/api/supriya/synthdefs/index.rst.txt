@@ -35,35 +35,6 @@ synthdefs
 
    <hr/>
 
-.. rubric:: Enumerations
-   :class: section-header
-
-.. toctree::
-   :hidden:
-
-   BinaryOperator
-   DoneAction
-   EnvelopeShape
-   ParameterRate
-   SignalRange
-   UnaryOperator
-   Unit
-
-.. autosummary::
-   :nosignatures:
-
-   ~BinaryOperator.BinaryOperator
-   ~DoneAction.DoneAction
-   ~EnvelopeShape.EnvelopeShape
-   ~ParameterRate.ParameterRate
-   ~SignalRange.SignalRange
-   ~UnaryOperator.UnaryOperator
-   ~Unit.Unit
-
-.. raw:: html
-
-   <hr/>
-
 .. rubric:: Main Classes
    :class: section-header
 

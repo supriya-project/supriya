@@ -166,6 +166,7 @@
 <span class="kn">import</span> <span class="nn">supriya.soundfiles</span>
 <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
 <span class="kn">import</span> <span class="nn">supriya.time</span>
+<span class="kn">from</span> <span class="nn">supriya</span> <span class="k">import</span> <span class="n">HeaderFormat</span><span class="p">,</span> <span class="n">SampleFormat</span>
 <span class="kn">from</span> <span class="nn">supriya.commands</span> <span class="k">import</span> <span class="p">(</span>
     <span class="n">BufferCopyRequest</span><span class="p">,</span>
     <span class="n">BufferFillRequest</span><span class="p">,</span>
@@ -649,8 +650,8 @@
         <span class="n">input_file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">server_options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">sample_rate</span><span class="o">=</span><span class="mi">44100</span><span class="p">,</span>
-        <span class="n">header_format</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">soundfiles</span><span class="o">.</span><span class="n">HeaderFormat</span><span class="o">.</span><span class="n">AIFF</span><span class="p">,</span>
-        <span class="n">sample_format</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">soundfiles</span><span class="o">.</span><span class="n">SampleFormat</span><span class="o">.</span><span class="n">INT24</span><span class="p">,</span>
+        <span class="n">header_format</span><span class="o">=</span><span class="n">HeaderFormat</span><span class="o">.</span><span class="n">AIFF</span><span class="p">,</span>
+        <span class="n">sample_format</span><span class="o">=</span><span class="n">SampleFormat</span><span class="o">.</span><span class="n">INT24</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Builds non-realtime rendering command.</span>
@@ -674,9 +675,9 @@
             <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span>
         <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">output_filename</span><span class="p">))</span>
         <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">sample_rate</span><span class="p">)))</span>
-        <span class="n">header_format</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">soundfiles</span><span class="o">.</span><span class="n">HeaderFormat</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">header_format</span><span class="p">)</span>
+        <span class="n">header_format</span> <span class="o">=</span> <span class="n">HeaderFormat</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">header_format</span><span class="p">)</span>
         <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">header_format</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>  <span class="c1"># Must be lowercase.</span>
-        <span class="n">sample_format</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">soundfiles</span><span class="o">.</span><span class="n">SampleFormat</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">sample_format</span><span class="p">)</span>
+        <span class="n">sample_format</span> <span class="o">=</span> <span class="n">SampleFormat</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">sample_format</span><span class="p">)</span>
         <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sample_format</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>  <span class="c1"># Must be lowercase.</span>
         <span class="n">server_options</span> <span class="o">=</span> <span class="n">server_options</span><span class="o">.</span><span class="n">as_options_string</span><span class="p">(</span><span class="n">realtime</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">server_options</span><span class="p">:</span>
@@ -916,7 +917,7 @@
     <span class="k">def</span> <span class="nf">_collect_node_set_requests</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_mapping</span><span class="p">,</span> <span class="n">node_settings</span><span class="p">):</span>
         <span class="kn">import</span> <span class="nn">supriya.nonrealtime</span>
 
-        <span class="n">scalar_rate</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">ParameterRate</span><span class="o">.</span><span class="n">SCALAR</span>
+        <span class="n">scalar_rate</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ParameterRate</span><span class="o">.</span><span class="n">SCALAR</span>
         <span class="n">requests</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">bus_prototype</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">supriya</span><span class="o">.</span><span class="n">nonrealtime</span><span class="o">.</span><span class="n">Bus</span><span class="p">,</span>
@@ -1375,10 +1376,10 @@
         <span class="n">output_file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">debug</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">duration</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">header_format</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">soundfiles</span><span class="o">.</span><span class="n">HeaderFormat</span><span class="o">.</span><span class="n">AIFF</span><span class="p">,</span>
+        <span class="n">header_format</span><span class="o">=</span><span class="n">HeaderFormat</span><span class="o">.</span><span class="n">AIFF</span><span class="p">,</span>
         <span class="n">input_file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">render_directory_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">sample_format</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">soundfiles</span><span class="o">.</span><span class="n">SampleFormat</span><span class="o">.</span><span class="n">INT24</span><span class="p">,</span>
+        <span class="n">sample_format</span><span class="o">=</span><span class="n">SampleFormat</span><span class="o">.</span><span class="n">INT24</span><span class="p">,</span>
         <span class="n">sample_rate</span><span class="o">=</span><span class="mi">44100</span><span class="p">,</span>
         <span class="n">print_transcript</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">transcript_prefix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1416,8 +1417,8 @@
 <div class="viewcode-block" id="Session.to_lists"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/Session.html#supriya.nonrealtime.Session.Session.to_lists">[docs]</a>    <span class="k">def</span> <span class="nf">to_lists</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">duration</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">header_format</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">soundfiles</span><span class="o">.</span><span class="n">HeaderFormat</span><span class="o">.</span><span class="n">AIFF</span><span class="p">,</span>
-        <span class="n">sample_format</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">soundfiles</span><span class="o">.</span><span class="n">SampleFormat</span><span class="o">.</span><span class="n">INT24</span><span class="p">,</span>
+        <span class="n">header_format</span><span class="o">=</span><span class="n">HeaderFormat</span><span class="o">.</span><span class="n">AIFF</span><span class="p">,</span>
+        <span class="n">sample_format</span><span class="o">=</span><span class="n">SampleFormat</span><span class="o">.</span><span class="n">INT24</span><span class="p">,</span>
         <span class="n">sample_rate</span><span class="o">=</span><span class="mi">44100</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="kn">import</span> <span class="nn">supriya.nonrealtime</span>
@@ -1433,8 +1434,8 @@
 <div class="viewcode-block" id="Session.to_osc_bundles"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/Session.html#supriya.nonrealtime.Session.Session.to_osc_bundles">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc_bundles</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">duration</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">header_format</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">soundfiles</span><span class="o">.</span><span class="n">HeaderFormat</span><span class="o">.</span><span class="n">AIFF</span><span class="p">,</span>
-        <span class="n">sample_format</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">soundfiles</span><span class="o">.</span><span class="n">SampleFormat</span><span class="o">.</span><span class="n">INT24</span><span class="p">,</span>
+        <span class="n">header_format</span><span class="o">=</span><span class="n">HeaderFormat</span><span class="o">.</span><span class="n">AIFF</span><span class="p">,</span>
+        <span class="n">sample_format</span><span class="o">=</span><span class="n">SampleFormat</span><span class="o">.</span><span class="n">INT24</span><span class="p">,</span>
         <span class="n">sample_rate</span><span class="o">=</span><span class="mi">44100</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="kn">import</span> <span class="nn">supriya.nonrealtime</span>

@@ -157,7 +157,7 @@
 <span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
 
-<span class="kn">from</span> <span class="nn">supriya.synthdefs.SignalRange</span> <span class="k">import</span> <span class="n">SignalRange</span>
+<span class="kn">from</span> <span class="nn">supriya</span> <span class="k">import</span> <span class="n">SignalRange</span>
 <span class="kn">from</span> <span class="nn">supriya.synthdefs.UGenMethodMixin</span> <span class="k">import</span> <span class="n">UGenMethodMixin</span>
 <span class="kn">from</span> <span class="nn">supriya.typing</span> <span class="k">import</span> <span class="n">UGenInputMap</span>
 <span class="kn">from</span> <span class="nn">supriya.ugens.UGenMeta</span> <span class="k">import</span> <span class="n">UGenMeta</span>
@@ -463,7 +463,7 @@
 
         <span class="k">if</span> <span class="s2">&quot;done_action&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ordered_input_names</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
-        <span class="k">return</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">DoneAction</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">done_action</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">supriya</span><span class="o">.</span><span class="n">DoneAction</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">done_action</span><span class="p">))</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_get_method_for_rate</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="p">):</span>

@@ -161,6 +161,7 @@
 
 <span class="kn">import</span> <span class="nn">yaml</span>
 
+<span class="kn">from</span> <span class="nn">supriya</span> <span class="k">import</span> <span class="n">BinaryOperator</span><span class="p">,</span> <span class="n">ParameterRate</span><span class="p">,</span> <span class="n">UnaryOperator</span>
 <span class="kn">from</span> <span class="nn">supriya.realtime.ServerObjectProxy</span> <span class="k">import</span> <span class="n">ServerObjectProxy</span>
 
 
@@ -368,14 +369,10 @@
             <span class="k">for</span> <span class="n">ugen</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ugens</span><span class="p">:</span>
                 <span class="n">parts</span> <span class="o">=</span> <span class="p">[</span><span class="nb">type</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ugen</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">BinaryOpUGen</span><span class="p">):</span>
-                    <span class="n">ugen_op</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">BinaryOperator</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span>
-                        <span class="n">ugen</span><span class="o">.</span><span class="n">special_index</span>
-                    <span class="p">)</span>
+                    <span class="n">ugen_op</span> <span class="o">=</span> <span class="n">BinaryOperator</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">ugen</span><span class="o">.</span><span class="n">special_index</span><span class="p">)</span>
                     <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="n">ugen_op</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span><span class="p">)</span>
                 <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ugen</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">UnaryOpUGen</span><span class="p">):</span>
-                    <span class="n">ugen_op</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span>
-                        <span class="n">ugen</span><span class="o">.</span><span class="n">special_index</span>
-                    <span class="p">)</span>
+                    <span class="n">ugen_op</span> <span class="o">=</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">ugen</span><span class="o">.</span><span class="n">special_index</span><span class="p">)</span>
                     <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="n">ugen_op</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span><span class="p">)</span>
                 <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">ugen</span><span class="o">.</span><span class="n">calculation_rate</span><span class="o">.</span><span class="n">token</span><span class="p">)</span>
                 <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">ugen</span><span class="p">),</span> <span class="n">ugen</span><span class="o">.</span><span class="n">calculation_rate</span><span class="p">,</span> <span class="n">ugen</span><span class="o">.</span><span class="n">special_index</span><span class="p">)</span>
@@ -510,10 +507,10 @@
         <span class="n">audio_parameters</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">control_parameters</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">mapping</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">ParameterRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">:</span> <span class="n">audio_parameters</span><span class="p">,</span>
-            <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">ParameterRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">:</span> <span class="n">control_parameters</span><span class="p">,</span>
-            <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">ParameterRate</span><span class="o">.</span><span class="n">SCALAR</span><span class="p">:</span> <span class="n">scalar_parameters</span><span class="p">,</span>
-            <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">ParameterRate</span><span class="o">.</span><span class="n">TRIGGER</span><span class="p">:</span> <span class="n">trigger_parameters</span><span class="p">,</span>
+            <span class="n">ParameterRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">:</span> <span class="n">audio_parameters</span><span class="p">,</span>
+            <span class="n">ParameterRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">:</span> <span class="n">control_parameters</span><span class="p">,</span>
+            <span class="n">ParameterRate</span><span class="o">.</span><span class="n">SCALAR</span><span class="p">:</span> <span class="n">scalar_parameters</span><span class="p">,</span>
+            <span class="n">ParameterRate</span><span class="o">.</span><span class="n">TRIGGER</span><span class="p">:</span> <span class="n">trigger_parameters</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">:</span>
             <span class="n">mapping</span><span class="p">[</span><span class="n">parameter</span><span class="o">.</span><span class="n">parameter_rate</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parameter</span><span class="p">)</span>

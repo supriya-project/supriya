@@ -1,0 +1,85 @@
+.. _supriya--nonrealtime--NodeTransition:
+
+NodeTransition
+==============
+
+.. automodule:: supriya.nonrealtime.NodeTransition
+
+.. currentmodule:: supriya.nonrealtime.NodeTransition
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.nonrealtime.NodeTransition
+
+.. autoclass:: NodeTransition
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      action
+      apply_transform
+      free_node
+      source
+      target
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: NodeTransition.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: NodeTransition.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: NodeTransition.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: NodeTransition.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: NodeTransition.apply_transform
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: NodeTransition.free_node
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: NodeTransition.action
+
+   .. autoattribute:: NodeTransition.source
+
+   .. autoattribute:: NodeTransition.target

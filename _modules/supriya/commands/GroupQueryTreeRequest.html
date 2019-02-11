@@ -154,7 +154,7 @@
   <h1>Source code for supriya.commands.GroupQueryTreeRequest</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">supriya.osc</span>
 <span class="kn">from</span> <span class="nn">supriya.commands.Request</span> <span class="k">import</span> <span class="n">Request</span>
-<span class="kn">from</span> <span class="nn">supriya.commands.RequestId</span> <span class="k">import</span> <span class="n">RequestId</span>
+<span class="kn">from</span> <span class="nn">supriya.enums</span> <span class="k">import</span> <span class="n">RequestId</span>
 
 
 <div class="viewcode-block" id="GroupQueryTreeRequest"><a class="viewcode-back" href="../../../api/supriya/commands/GroupQueryTreeRequest.html#supriya.commands.GroupQueryTreeRequest.GroupQueryTreeRequest">[docs]</a><span class="k">class</span> <span class="nc">GroupQueryTreeRequest</span><span class="p">(</span><span class="n">Request</span><span class="p">):</span>
@@ -182,7 +182,7 @@
 
 <span class="sd">    ::</span>
 
-<span class="sd">        &gt;&gt;&gt; message.address == supriya.commands.RequestId.GROUP_QUERY_TREE</span>
+<span class="sd">        &gt;&gt;&gt; message.address == supriya.RequestId.GROUP_QUERY_TREE</span>
 <span class="sd">        True</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>

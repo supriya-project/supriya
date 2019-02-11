@@ -179,8 +179,8 @@
     <span class="k">def</span> <span class="nf">_setup_bindable_namespace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_synthdef</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">parameter</span><span class="o">.</span><span class="n">parameter_rate</span> <span class="ow">in</span> <span class="p">(</span>
-                <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">ParameterRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span>
-                <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">ParameterRate</span><span class="o">.</span><span class="n">SCALAR</span><span class="p">,</span>
+                <span class="n">supriya</span><span class="o">.</span><span class="n">ParameterRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span>
+                <span class="n">supriya</span><span class="o">.</span><span class="n">ParameterRate</span><span class="o">.</span><span class="n">SCALAR</span><span class="p">,</span>
             <span class="p">):</span>
                 <span class="k">continue</span>
             <span class="k">elif</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>

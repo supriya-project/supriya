@@ -154,6 +154,7 @@
   <h1>Source code for supriya.ugens.UnaryOpUGen</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">collections</span>
 
+<span class="kn">from</span> <span class="nn">supriya</span> <span class="k">import</span> <span class="n">UnaryOperator</span>
 <span class="kn">from</span> <span class="nn">supriya.ugens.PureUGen</span> <span class="k">import</span> <span class="n">PureUGen</span>
 
 
@@ -207,9 +208,7 @@
 
 <span class="sd">        Returns unary operator.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
-
-        <span class="k">return</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOperator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">special_index</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">UnaryOperator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">special_index</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

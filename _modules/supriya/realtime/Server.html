@@ -167,6 +167,7 @@
 
 <span class="kn">import</span> <span class="nn">supriya.exceptions</span>
 <span class="kn">from</span> <span class="nn">supriya</span> <span class="k">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">supriya.enums</span> <span class="k">import</span> <span class="n">NodeAction</span>
 <span class="kn">from</span> <span class="nn">supriya.system</span> <span class="k">import</span> <span class="n">PubSub</span>
 <span class="kn">from</span> <span class="nn">supriya.system.SupriyaObject</span> <span class="k">import</span> <span class="n">SupriyaObject</span>
 
@@ -546,7 +547,6 @@
                 <span class="n">bus_proxy</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="k">def</span> <span class="nf">_handle_node_info_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">supriya.commands</span> <span class="k">import</span> <span class="n">NodeAction</span>
         <span class="kn">from</span> <span class="nn">supriya.realtime</span> <span class="k">import</span> <span class="n">Group</span><span class="p">,</span> <span class="n">Synth</span>
 
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>

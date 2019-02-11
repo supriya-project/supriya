@@ -107,8 +107,6 @@
 <li class="toctree-l4"><a class="reference internal" href="Say.html">Say</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Signal.html">Signal</a></li>
 <li class="toctree-l4"><a class="reference internal" href="SoundFile.html">SoundFile</a></li>
-<li class="toctree-l4"><a class="reference internal" href="HeaderFormat.html">HeaderFormat</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SampleFormat.html">SampleFormat</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
@@ -192,7 +190,7 @@
 <span id="soundfiles"></span><span id="supriya-soundfiles"></span><h1>soundfiles<a class="headerlink" href="#module-supriya.soundfiles" title="Permalink to this headline">¶</a></h1>
 <p>Tools for interacting with soundfiles.</p>
 <div class="svg-container docutils container">
-<div class="graphviz"><object data="../../../_images/inheritance-de55a672f3b4903f81423280671b0f00265ffec4.svg" type="image/svg+xml" class="inheritance graphviz">
+<div class="graphviz"><object data="../../../_images/inheritance-f0e42eb0048627f1ddb291f2df79639b22f52cc9.svg" type="image/svg+xml" class="inheritance graphviz">
 <p class="warning">digraph InheritanceGraph {
 	graph [bgcolor=transparent,
 		color=lightsteelblue2,
@@ -221,15 +219,10 @@
 	subgraph cluster_builtins {
 		graph [label=builtins];
 		node [color=1];
-		&quot;builtins.int&quot;		 [URL=&quot;https://docs.python.org/3.6/library/functions.html#int&quot;,
-			color=1,
-			label=int,
-			target=_top];
 		&quot;builtins.object&quot;		 [URL=&quot;https://docs.python.org/3.6/library/functions.html#object&quot;,
 			color=1,
 			label=object,
 			target=_top];
-		&quot;builtins.object&quot; -&gt; &quot;builtins.int&quot;		 [minlen=1];
 	}
 	subgraph &quot;cluster_collections.abc&quot; {
 		graph [label=&quot;collections.abc&quot;];
@@ -277,36 +270,13 @@
 			target=_top];
 		&quot;collections.abc.Sized&quot; -&gt; &quot;collections.abc.Collection&quot;;
 	}
-	subgraph cluster_enum {
-		graph [label=enum];
-		node [color=3];
-		&quot;enum.Enum&quot;		 [URL=&quot;https://docs.python.org/3.6/library/enum.html#enum.Enum&quot;,
-			color=3,
-			label=Enum,
-			target=_top];
-		&quot;enum.IntEnum&quot;		 [URL=&quot;https://docs.python.org/3.6/library/enum.html#enum.IntEnum&quot;,
-			color=3,
-			label=&quot;Int\nEnum&quot;,
-			target=_top];
-		&quot;enum.Enum&quot; -&gt; &quot;enum.IntEnum&quot;;
-	}
 	subgraph &quot;cluster_supriya.soundfiles&quot; {
 		graph [label=&quot;supriya.soundfiles&quot;];
-		node [color=4];
+		node [color=3];
 		&quot;supriya.soundfiles.Frame.Frame&quot;		 [URL=&quot;../api/supriya/soundfiles/Frame.html#supriya.soundfiles.Frame.Frame&quot;,
 			color=black,
 			fontcolor=white,
 			label=Frame,
-			target=_top];
-		&quot;supriya.soundfiles.HeaderFormat.HeaderFormat&quot;		 [URL=&quot;../api/supriya/soundfiles/HeaderFormat.html#supriya.soundfiles.HeaderFormat.HeaderFormat&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Header\nFormat&quot;,
-			target=_top];
-		&quot;supriya.soundfiles.SampleFormat.SampleFormat&quot;		 [URL=&quot;../api/supriya/soundfiles/SampleFormat.html#supriya.soundfiles.SampleFormat.SampleFormat&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Sample\nFormat&quot;,
 			target=_top];
 		&quot;supriya.soundfiles.Say.Say&quot;		 [URL=&quot;../api/supriya/soundfiles/Say.html#supriya.soundfiles.Say.Say&quot;,
 			color=black,
@@ -326,37 +296,26 @@
 	}
 	subgraph &quot;cluster_supriya.system&quot; {
 		graph [label=&quot;supriya.system&quot;];
-		node [color=5];
+		node [color=4];
 		&quot;supriya.system.SupriyaObject.SupriyaObject&quot;		 [URL=&quot;../api/supriya/soundfiles/../system/SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject&quot;,
-			color=5,
+			color=4,
 			label=&quot;Supriya\nObject&quot;,
 			target=_top];
 		&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;		 [URL=&quot;../api/supriya/soundfiles/../system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject&quot;,
-			color=5,
+			color=4,
 			label=&quot;Supriya\nValue\nObject&quot;,
 			target=_top];
 		&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;		 [minlen=1];
 	}
-	subgraph &quot;cluster_uqbar.enums&quot; {
-		graph [label=&quot;uqbar.enums&quot;];
-		node [color=6];
-		&quot;uqbar.enums.IntEnumeration&quot;		 [color=6,
-			label=&quot;Int\nEnumeration&quot;];
-	}
-	&quot;builtins.int&quot; -&gt; &quot;enum.IntEnum&quot;;
-	&quot;builtins.object&quot; -&gt; &quot;collections.abc.Container&quot;	 [minlen=2];
+	&quot;builtins.object&quot; -&gt; &quot;collections.abc.Container&quot;	 [minlen=1];
 	&quot;builtins.object&quot; -&gt; &quot;collections.abc.Iterable&quot;;
-	&quot;builtins.object&quot; -&gt; &quot;collections.abc.Sized&quot;	 [minlen=1];
-	&quot;builtins.object&quot; -&gt; &quot;enum.Enum&quot;	 [minlen=2];
+	&quot;builtins.object&quot; -&gt; &quot;collections.abc.Sized&quot;	 [minlen=2];
 	&quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject.SupriyaObject&quot;;
 	&quot;collections.abc.Sequence&quot; -&gt; &quot;supriya.soundfiles.Frame.Frame&quot;;
-	&quot;enum.IntEnum&quot; -&gt; &quot;uqbar.enums.IntEnumeration&quot;;
 	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.soundfiles.Frame.Frame&quot;;
 	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.soundfiles.Signal.Signal&quot;	 [minlen=1];
 	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.soundfiles.SoundFile.SoundFile&quot;	 [minlen=2];
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.soundfiles.Say.Say&quot;	 [minlen=1];
-	&quot;uqbar.enums.IntEnumeration&quot; -&gt; &quot;supriya.soundfiles.HeaderFormat.HeaderFormat&quot;	 [minlen=1];
-	&quot;uqbar.enums.IntEnumeration&quot; -&gt; &quot;supriya.soundfiles.SampleFormat.SampleFormat&quot;	 [minlen=2];
 }</p></object></div>
 </div>
 <hr/><p class="section-header rubric">Classes</p>
@@ -379,23 +338,6 @@
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="SoundFile.html#supriya.soundfiles.SoundFile.SoundFile" title="supriya.soundfiles.SoundFile.SoundFile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SoundFile</span></code></a></td>
 <td></td>
-</tr>
-</tbody>
-</table>
-<hr/><p class="section-header rubric">Enumerations</p>
-<div class="toctree-wrapper compound">
-</div>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="HeaderFormat.html#supriya.soundfiles.HeaderFormat.HeaderFormat" title="supriya.soundfiles.HeaderFormat.HeaderFormat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HeaderFormat</span></code></a></td>
-<td>An enumeration of soundfile header formats.</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="SampleFormat.html#supriya.soundfiles.SampleFormat.SampleFormat" title="supriya.soundfiles.SampleFormat.SampleFormat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SampleFormat</span></code></a></td>
-<td>An enumeration of soundfile sample formats.</td>
 </tr>
 </tbody>
 </table>

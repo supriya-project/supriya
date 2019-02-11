@@ -102,7 +102,7 @@
 <li class="toctree-l4"><a class="reference internal" href="SessionFactory.html">SessionFactory</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Session.html">Session</a></li>
 <li class="toctree-l4"><a class="reference internal" href="DoNotPropagate.html">DoNotPropagate</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NodeAction.html">NodeAction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NodeTransition.html">NodeTransition</a></li>
 <li class="toctree-l4"><a class="reference internal" href="SessionObject.html">SessionObject</a></li>
 <li class="toctree-l4"><a class="reference internal" href="SessionRenderer.html">SessionRenderer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="State.html">State</a></li>
@@ -204,7 +204,7 @@
 <span id="nonrealtime"></span><span id="supriya-nonrealtime"></span><h1>nonrealtime<a class="headerlink" href="#module-supriya.nonrealtime" title="Permalink to this headline">¶</a></h1>
 <p>Tools for working in non-realtime.</p>
 <div class="svg-container docutils container">
-<div class="graphviz"><object data="../../../_images/inheritance-afc8b07aef351f3393ddef986c39a0a360216c43.svg" type="image/svg+xml" class="inheritance graphviz">
+<div class="graphviz"><object data="../../../_images/inheritance-025d2b92c4cba1627846027ddf48876c1ace0e34.svg" type="image/svg+xml" class="inheritance graphviz">
 <p class="warning">digraph InheritanceGraph {
 	graph [bgcolor=transparent,
 		color=lightsteelblue2,
@@ -306,10 +306,10 @@
 			label=Synth,
 			target=_top];
 		&quot;supriya.nonrealtime.Node.Node&quot; -&gt; &quot;supriya.nonrealtime.Synth.Synth&quot;		 [minlen=2];
-		&quot;supriya.nonrealtime.NodeAction.NodeAction&quot;		 [URL=&quot;../api/supriya/nonrealtime/NodeAction.html#supriya.nonrealtime.NodeAction.NodeAction&quot;,
+		&quot;supriya.nonrealtime.NodeTransition.NodeTransition&quot;		 [URL=&quot;../api/supriya/nonrealtime/NodeTransition.html#supriya.nonrealtime.NodeTransition.NodeTransition&quot;,
 			color=black,
 			fontcolor=white,
-			label=&quot;Node\nAction&quot;,
+			label=&quot;Node\nTransition&quot;,
 			target=_top];
 		&quot;supriya.nonrealtime.Session.Session&quot;		 [URL=&quot;../api/supriya/nonrealtime/Session.html#supriya.nonrealtime.Session.Session&quot;,
 			color=black,
@@ -365,7 +365,7 @@
 	&quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject.SupriyaObject&quot;;
 	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.nonrealtime.SessionObject.SessionObject&quot;;
 	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.nonrealtime.SessionRenderer.SessionRenderer&quot;	 [minlen=1];
-	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.nonrealtime.NodeAction.NodeAction&quot;	 [minlen=1];
+	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.nonrealtime.NodeTransition.NodeTransition&quot;	 [minlen=1];
 }</p></object></div>
 </div>
 <hr/><p class="section-header rubric">Classes</p>
@@ -408,7 +408,7 @@
 <tr class="row-odd"><td><a class="reference internal" href="DoNotPropagate.html#supriya.nonrealtime.DoNotPropagate.DoNotPropagate" title="supriya.nonrealtime.DoNotPropagate.DoNotPropagate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DoNotPropagate</span></code></a></td>
 <td>Context manager which prevents propagation of node hierarchy changes across states.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="NodeAction.html#supriya.nonrealtime.NodeAction.NodeAction" title="supriya.nonrealtime.NodeAction.NodeAction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeAction</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="NodeTransition.html#supriya.nonrealtime.NodeTransition.NodeTransition" title="supriya.nonrealtime.NodeTransition.NodeTransition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeTransition</span></code></a></td>
 <td>A non-realtime state transition.</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="SessionObject.html#supriya.nonrealtime.SessionObject.SessionObject" title="supriya.nonrealtime.SessionObject.SessionObject"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SessionObject</span></code></a></td>

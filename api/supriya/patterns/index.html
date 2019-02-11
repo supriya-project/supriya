@@ -215,7 +215,7 @@
 <span id="patterns"></span><span id="supriya-patterns"></span><h1>patterns<a class="headerlink" href="#module-supriya.patterns" title="Permalink to this headline">¶</a></h1>
 <p>Tools for modeling patterns.</p>
 <div class="svg-container docutils container">
-<div class="graphviz"><object data="../../../_images/inheritance-5c4f989128a937f43d156d9d7ef489a591675772.svg" type="image/svg+xml" class="inheritance graphviz">
+<div class="graphviz"><object data="../../../_images/inheritance-333c5746d2d4a996f9d5d6ff82338369a5b69fb8.svg" type="image/svg+xml" class="inheritance graphviz">
 <p class="warning">digraph InheritanceGraph {
 	graph [bgcolor=transparent,
 		color=lightsteelblue2,
@@ -241,6 +241,19 @@
 	edge [color=lightslategrey,
 		penwidth=1
 	];
+	subgraph &quot;cluster_supriya.system&quot; {
+		graph [label=&quot;supriya.system&quot;];
+		node [color=3];
+		&quot;supriya.system.SupriyaObject.SupriyaObject&quot;		 [URL=&quot;../api/supriya/patterns/../system/SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject&quot;,
+			color=3,
+			label=&quot;Supriya\nObject&quot;,
+			target=_top];
+		&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;		 [URL=&quot;../api/supriya/patterns/../system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject&quot;,
+			color=3,
+			label=&quot;Supriya\nValue\nObject&quot;,
+			target=_top];
+		&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;;
+	}
 	subgraph cluster_builtins {
 		graph [label=builtins];
 		node [color=1];
@@ -426,19 +439,6 @@
 			fontcolor=white,
 			label=&quot;Random\nNumber\nGenerator&quot;,
 			target=_top];
-	}
-	subgraph &quot;cluster_supriya.system&quot; {
-		graph [label=&quot;supriya.system&quot;];
-		node [color=3];
-		&quot;supriya.system.SupriyaObject.SupriyaObject&quot;		 [URL=&quot;../api/supriya/patterns/../system/SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject&quot;,
-			color=3,
-			label=&quot;Supriya\nObject&quot;,
-			target=_top];
-		&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;		 [URL=&quot;../api/supriya/patterns/../system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject&quot;,
-			color=3,
-			label=&quot;Supriya\nValue\nObject&quot;,
-			target=_top];
-		&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;;
 	}
 	&quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject.SupriyaObject&quot;	 [minlen=1];
 	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.patterns.Clock.Clock&quot;	 [minlen=1];

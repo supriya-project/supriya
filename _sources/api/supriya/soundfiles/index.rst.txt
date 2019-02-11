@@ -34,22 +34,3 @@ soundfiles
    ~Say.Say
    ~Signal.Signal
    ~SoundFile.SoundFile
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Enumerations
-   :class: section-header
-
-.. toctree::
-   :hidden:
-
-   HeaderFormat
-   SampleFormat
-
-.. autosummary::
-   :nosignatures:
-
-   ~HeaderFormat.HeaderFormat
-   ~SampleFormat.SampleFormat

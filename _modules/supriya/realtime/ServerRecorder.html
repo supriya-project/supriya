@@ -154,6 +154,7 @@
   <h1>Source code for supriya.realtime.ServerRecorder</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">os</span>
 
+<span class="kn">from</span> <span class="nn">supriya</span> <span class="k">import</span> <span class="n">HeaderFormat</span><span class="p">,</span> <span class="n">SampleFormat</span>
 <span class="kn">from</span> <span class="nn">supriya.system.SupriyaObject</span> <span class="k">import</span> <span class="n">SupriyaObject</span>
 
 
@@ -200,18 +201,16 @@
     <span class="c1">### INITIALIZER ###</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
-        <span class="kn">import</span> <span class="nn">supriya.soundfiles</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="n">server</span>
         <span class="n">server_options</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">server_options</span>
         <span class="c1"># setup settings</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_channel_count</span> <span class="o">=</span> <span class="n">server_options</span><span class="o">.</span><span class="n">output_bus_channel_count</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_header_format</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">soundfiles</span><span class="o">.</span><span class="n">HeaderFormat</span><span class="o">.</span><span class="n">AIFF</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_header_format</span> <span class="o">=</span> <span class="n">HeaderFormat</span><span class="o">.</span><span class="n">AIFF</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_recording</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_record_node</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_record_buffer</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_record_synthdef</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_sample_format</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">soundfiles</span><span class="o">.</span><span class="n">SampleFormat</span><span class="o">.</span><span class="n">INT24</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sample_format</span> <span class="o">=</span> <span class="n">SampleFormat</span><span class="o">.</span><span class="n">INT24</span>
         <span class="c1"># cache settings</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_current_channel_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_channel_count</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_current_file_path</span> <span class="o">=</span> <span class="kc">None</span>
@@ -223,21 +222,15 @@
     <span class="k">def</span> <span class="nf">_cache_properties</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">channel_count</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">header_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_format</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">):</span>
-        <span class="kn">import</span> <span class="nn">supriya.soundfiles</span>
-
         <span class="k">if</span> <span class="n">channel_count</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">channel_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel_count</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_current_channel_count</span> <span class="o">=</span> <span class="n">channel_count</span>
         <span class="k">if</span> <span class="n">header_format</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">header_format</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">header_format</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_current_header_format</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">soundfiles</span><span class="o">.</span><span class="n">HeaderFormat</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span>
-            <span class="n">header_format</span>
-        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_header_format</span> <span class="o">=</span> <span class="n">HeaderFormat</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">header_format</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">sample_format</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">sample_format</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_format</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_current_sample_format</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">soundfiles</span><span class="o">.</span><span class="n">SampleFormat</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span>
-            <span class="n">sample_format</span>
-        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_sample_format</span> <span class="o">=</span> <span class="n">SampleFormat</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">sample_format</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_file_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">file_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -376,9 +369,7 @@
 
     <span class="nd">@sample_format</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">sample_format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
-        <span class="kn">import</span> <span class="nn">supriya.soundfiles</span>
-
-        <span class="n">sample_format</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">soundfiles</span><span class="o">.</span><span class="n">SampleFormat</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+        <span class="n">sample_format</span> <span class="o">=</span> <span class="n">SampleFormat</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_sample_format</span> <span class="o">=</span> <span class="n">sample_format</span>
 
     <span class="nd">@property</span>
@@ -387,9 +378,7 @@
 
     <span class="nd">@header_format</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">header_format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
-        <span class="kn">import</span> <span class="nn">supriya.soundfiles</span>
-
-        <span class="n">header_format</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">soundfiles</span><span class="o">.</span><span class="n">HeaderFormat</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+        <span class="n">header_format</span> <span class="o">=</span> <span class="n">HeaderFormat</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_header_format</span> <span class="o">=</span> <span class="n">header_format</span>
 
     <span class="nd">@property</span>

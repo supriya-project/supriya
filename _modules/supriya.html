@@ -240,7 +240,22 @@
 
 
 <span class="kn">from</span> <span class="nn">supriya._version</span> <span class="k">import</span> <span class="n">__version__</span><span class="p">,</span> <span class="n">__version_info__</span>  <span class="c1"># noqa</span>
-<span class="kn">from</span> <span class="nn">supriya.enums</span> <span class="k">import</span> <span class="n">AddAction</span><span class="p">,</span> <span class="n">CalculationRate</span>  <span class="c1"># noqa</span>
+<span class="kn">from</span> <span class="nn">supriya.enums</span> <span class="k">import</span> <span class="p">(</span>  <span class="c1"># noqa</span>
+    <span class="n">AddAction</span><span class="p">,</span>
+    <span class="n">BinaryOperator</span><span class="p">,</span>
+    <span class="n">CalculationRate</span><span class="p">,</span>
+    <span class="n">DoneAction</span><span class="p">,</span>
+    <span class="n">EnvelopeShape</span><span class="p">,</span>
+    <span class="n">HeaderFormat</span><span class="p">,</span>
+    <span class="n">NodeAction</span><span class="p">,</span>
+    <span class="n">ParameterRate</span><span class="p">,</span>
+    <span class="n">RequestId</span><span class="p">,</span>
+    <span class="n">RequestName</span><span class="p">,</span>
+    <span class="n">SampleFormat</span><span class="p">,</span>
+    <span class="n">SignalRange</span><span class="p">,</span>
+    <span class="n">UnaryOperator</span><span class="p">,</span>
+    <span class="n">Unit</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">supriya</span> <span class="k">import</span> <span class="n">utils</span>  <span class="c1"># noqa</span>
 <span class="kn">from</span> <span class="nn">supriya.midi</span> <span class="k">import</span> <span class="n">Device</span>  <span class="c1"># noqa</span>
 <span class="kn">from</span> <span class="nn">supriya.live</span> <span class="k">import</span> <span class="n">Application</span><span class="p">,</span> <span class="n">Mixer</span>  <span class="c1"># noqa</span>
@@ -254,13 +269,10 @@
     <span class="n">Server</span><span class="p">,</span>
     <span class="n">Synth</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">supriya.soundfiles</span> <span class="k">import</span> <span class="n">HeaderFormat</span><span class="p">,</span> <span class="n">SampleFormat</span><span class="p">,</span> <span class="n">SoundFile</span>  <span class="c1"># noqa</span>
+<span class="kn">from</span> <span class="nn">supriya.soundfiles</span> <span class="k">import</span> <span class="n">SoundFile</span>  <span class="c1"># noqa</span>
 <span class="kn">from</span> <span class="nn">supriya.synthdefs</span> <span class="k">import</span> <span class="p">(</span>  <span class="c1"># noqa</span>
-    <span class="n">DoneAction</span><span class="p">,</span>
     <span class="n">Envelope</span><span class="p">,</span>
-    <span class="n">EnvelopeShape</span><span class="p">,</span>
     <span class="n">Parameter</span><span class="p">,</span>
-    <span class="n">ParameterRate</span><span class="p">,</span>
     <span class="n">Range</span><span class="p">,</span>
     <span class="n">SynthDef</span><span class="p">,</span>
     <span class="n">SynthDefBuilder</span><span class="p">,</span>
