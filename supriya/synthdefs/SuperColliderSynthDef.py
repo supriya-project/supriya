@@ -33,7 +33,7 @@ class SuperColliderSynthDef(SupriyaObject):
         for line in self.body.splitlines():
             input_.append("    " + line)
         if self.rates:
-            input_.append("}}, {});".format(list(self.rates)))
+            input_.append("}}, {});".format(self.rates))
         else:
             input_.append("});")
         input_.append('"Defined SynthDef".postln;')

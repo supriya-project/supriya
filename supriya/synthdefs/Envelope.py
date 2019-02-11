@@ -170,7 +170,7 @@ class Envelope(SupriyaValueObject):
             result.append(self.duration)
             for amplitude, duration, curve in self._envelope_segments:
                 result.append(duration)
-                if isinstance(curve, (EnvelopeShape, str)):
+                if isinstance(curve, str):
                     shape = EnvelopeShape.from_expr(curve)
                     shape = int(shape)
                     curve = 0.0
@@ -193,7 +193,7 @@ class Envelope(SupriyaValueObject):
             for amplitude, duration, curve in self._envelope_segments:
                 result.append(amplitude)
                 result.append(duration)
-                if isinstance(curve, (EnvelopeShape, str)):
+                if isinstance(curve, str):
                     shape = EnvelopeShape.from_expr(curve)
                     shape = int(shape)
                     curve = 0.0
