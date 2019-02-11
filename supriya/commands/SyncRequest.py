@@ -1,6 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
-from supriya.commands.RequestId import RequestId
+from supriya.enums import RequestId
 
 
 class SyncRequest(Request):
@@ -26,7 +26,7 @@ class SyncRequest(Request):
 
     ::
 
-        >>> message.address == supriya.commands.RequestId.SYNC
+        >>> message.address == supriya.RequestId.SYNC
         True
 
     """

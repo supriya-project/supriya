@@ -14,7 +14,7 @@ import supriya
 import supriya.realtime
 import supriya.soundfiles
 import supriya.system
-from supriya import utils
+from supriya import HeaderFormat, SampleFormat, utils
 from supriya.exceptions import NonrealtimeOutputMissing, NonrealtimeRenderError
 from supriya.system.SupriyaObject import SupriyaObject
 
@@ -50,16 +50,16 @@ class SessionRenderer(SupriyaObject):
     def __init__(
         self,
         session,
-        header_format=supriya.soundfiles.HeaderFormat.AIFF,
+        header_format=HeaderFormat.AIFF,
         print_transcript=None,
         render_directory_path=None,
-        sample_format=supriya.soundfiles.SampleFormat.INT24,
+        sample_format=SampleFormat.INT24,
         sample_rate=44100,
         transcript_prefix=None,
     ):
         self._session = session
 
-        self._header_format = supriya.soundfiles.HeaderFormat.from_expr(header_format)
+        self._header_format = HeaderFormat.from_expr(header_format)
 
         if print_transcript:
             print_transcript = bool(print_transcript)
@@ -71,7 +71,7 @@ class SessionRenderer(SupriyaObject):
             .absolute()
         )
 
-        self._sample_format = supriya.soundfiles.SampleFormat.from_expr(sample_format)
+        self._sample_format = SampleFormat.from_expr(sample_format)
 
         self._sample_rate = int(sample_rate)
 

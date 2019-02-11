@@ -1,6 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
-from supriya.commands.RequestId import RequestId
+from supriya.enums import RequestId
 
 
 class ControlBusFillRequest(Request):
@@ -32,7 +32,7 @@ class ControlBusFillRequest(Request):
 
     ::
 
-        >>> message.address == supriya.commands.RequestId.CONTROL_BUS_FILL
+        >>> message.address == supriya.RequestId.CONTROL_BUS_FILL
         True
 
     """

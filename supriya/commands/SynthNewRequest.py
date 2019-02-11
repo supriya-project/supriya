@@ -1,6 +1,6 @@
 from supriya import AddAction
 from supriya.commands.Request import Request
-from supriya.commands.RequestId import RequestId
+from supriya.enums import RequestId
 from supriya.realtime.Node import Node
 from supriya.realtime.Synth import Synth
 
@@ -39,7 +39,7 @@ class SynthNewRequest(Request):
 
     ::
 
-        >>> message.address == supriya.commands.RequestId.SYNTH_NEW
+        >>> message.address == supriya.RequestId.SYNTH_NEW
         True
 
     """

@@ -3,7 +3,7 @@ import supriya.realtime
 from supriya.system.SupriyaValueObject import SupriyaValueObject
 
 
-class NodeAction(SupriyaValueObject):
+class NodeTransition(SupriyaValueObject):
     """
     A non-realtime state transition.
     """
@@ -33,7 +33,7 @@ class NodeAction(SupriyaValueObject):
     def _free_node(self, nodes_to_children, nodes_to_parents):
         node = self.source
         for child in nodes_to_children.get(node, ()) or ():
-            NodeAction.free_node(child, nodes_to_children, nodes_to_parents)
+            self.free_node(child, nodes_to_children, nodes_to_parents)
         parent = nodes_to_parents.get(node, None)
         if node in nodes_to_children:
             del (nodes_to_children[node])
@@ -93,9 +93,9 @@ class NodeAction(SupriyaValueObject):
         else:
             self._move_node(nodes_to_children, nodes_to_parents)
 
-    @staticmethod
-    def free_node(node, nodes_to_children, nodes_to_parents):
-        action = NodeAction(source=node)
+    @classmethod
+    def free_node(cls, node, nodes_to_children, nodes_to_parents):
+        action = cls(source=node)
         action.apply_transform(nodes_to_children, nodes_to_parents)
 
     ### PUBLIC PROPERTIES ###

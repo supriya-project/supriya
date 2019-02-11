@@ -1,6 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
-from supriya.commands.RequestId import RequestId
+from supriya.enums import RequestId
 
 
 class BufferGetContiguousRequest(Request):
@@ -31,7 +31,7 @@ class BufferGetContiguousRequest(Request):
 
     ::
 
-        >>> message.address == supriya.commands.RequestId.BUFFER_GET_CONTIGUOUS
+        >>> message.address == supriya.RequestId.BUFFER_GET_CONTIGUOUS
         True
 
     """

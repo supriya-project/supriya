@@ -3,7 +3,7 @@ import collections
 import supriya.osc
 from supriya import utils
 from supriya.commands.Request import Request
-from supriya.commands.RequestId import RequestId
+from supriya.enums import RequestId
 
 
 class BufferGenerateRequest(Request):
@@ -49,7 +49,7 @@ class BufferGenerateRequest(Request):
 
     ::
 
-        >>> message.address == supriya.commands.RequestId.BUFFER_GENERATE
+        >>> message.address == supriya.RequestId.BUFFER_GENERATE
         True
 
     """

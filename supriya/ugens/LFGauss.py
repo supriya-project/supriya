@@ -44,7 +44,7 @@ class LFGauss(UGen):
     ):
         import supriya.synthdefs
 
-        done_action = supriya.synthdefs.DoneAction.from_expr(done_action)
+        done_action = supriya.DoneAction.from_expr(done_action)
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,

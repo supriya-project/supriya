@@ -76,7 +76,7 @@ class State(SessionObject):
             action.apply_transform(nodes_to_children, nodes_to_parents)
         stop_nodes = stop_nodes or ()
         for stop_node in stop_nodes:
-            supriya.nonrealtime.NodeAction.free_node(
+            supriya.nonrealtime.NodeTransition.free_node(
                 stop_node, nodes_to_children, nodes_to_parents
             )
         return nodes_to_children, nodes_to_parents
@@ -164,7 +164,7 @@ class State(SessionObject):
                     target = children_one[i]
                 else:
                     continue
-                transition = supriya.nonrealtime.NodeAction(
+                transition = supriya.nonrealtime.NodeTransition(
                     source=child, target=target, action=action
                 )
                 return transition

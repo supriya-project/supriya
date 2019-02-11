@@ -1,6 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
-from supriya.commands.RequestId import RequestId
+from supriya.enums import RequestId
 
 
 class NodeSetRequest(Request):
@@ -32,7 +32,7 @@ class NodeSetRequest(Request):
 
     ::
 
-        >>> message.address == supriya.commands.RequestId.NODE_SET
+        >>> message.address == supriya.RequestId.NODE_SET
         True
 
     """

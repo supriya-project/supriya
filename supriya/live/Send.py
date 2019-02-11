@@ -80,13 +80,13 @@ class Send:
                 source = supriya.ugens.Mix.multichannel(panners, target_track_count)
             gate = supriya.ugens.Linen.kr(
                 attack_time=synthdef_builder["lag"],
-                done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
+                done_action=supriya.DoneAction.FREE_SYNTH,
                 gate=synthdef_builder["gate"],
                 release_time=synthdef_builder["lag"],
             )
             active = supriya.ugens.Linen.kr(
                 attack_time=synthdef_builder["lag"],
-                done_action=supriya.synthdefs.DoneAction.NOTHING,
+                done_action=supriya.DoneAction.NOTHING,
                 gate=synthdef_builder["active"],
                 release_time=synthdef_builder["lag"],
             )

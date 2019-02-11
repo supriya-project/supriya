@@ -1,6 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
-from supriya.commands.RequestId import RequestId
+from supriya.enums import RequestId
 
 
 class NodeMapToAudioBusRequest(Request):
@@ -33,7 +33,7 @@ class NodeMapToAudioBusRequest(Request):
 
     ::
 
-        >>> message.address == supriya.commands.RequestId.NODE_MAP_TO_AUDIO_BUS
+        >>> message.address == supriya.RequestId.NODE_MAP_TO_AUDIO_BUS
         True
 
     """

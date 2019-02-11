@@ -6,7 +6,7 @@ import uqbar.graphs
 import uqbar.strings
 from uqbar.containers import UniqueTreeNode
 
-from supriya import AddAction
+from supriya.enums import AddAction, NodeAction
 from supriya.realtime.ServerObjectProxy import ServerObjectProxy
 
 
@@ -148,14 +148,14 @@ class Node(ServerObjectProxy, UniqueTreeNode):
 
         if not isinstance(response, supriya.commands.NodeInfoResponse):
             return
-        if response.action == supriya.commands.NodeAction.NODE_REMOVED:
+        if response.action == NodeAction.NODE_REMOVED:
             self._set_parent(None)
             self._unregister_with_local_server()
-        elif response.action == supriya.commands.NodeAction.NODE_ACTIVATED:
+        elif response.action == NodeAction.NODE_ACTIVATED:
             self._is_paused = False
-        elif response.action == supriya.commands.NodeAction.NODE_DEACTIVATED:
+        elif response.action == NodeAction.NODE_DEACTIVATED:
             self._is_paused = True
-        elif response.action == supriya.commands.NodeAction.NODE_MOVED:
+        elif response.action == NodeAction.NODE_MOVED:
             new_parent = self.server._nodes[response.parent_group_id]
             if new_parent is self.parent:
                 new_index = 0

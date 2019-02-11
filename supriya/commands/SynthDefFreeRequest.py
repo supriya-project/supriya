@@ -1,5 +1,5 @@
 from supriya.commands.Request import Request
-from supriya.commands.RequestId import RequestId
+from supriya.enums import RequestId
 
 
 class SynthDefFreeRequest(Request):
@@ -25,7 +25,7 @@ class SynthDefFreeRequest(Request):
 
     ::
 
-        >>> message.address == supriya.commands.RequestId.SYNTHDEF_FREE
+        >>> message.address == supriya.RequestId.SYNTHDEF_FREE
         True
 
     """

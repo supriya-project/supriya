@@ -1,21 +1,23 @@
 .PHONY: build docs gh-pages
 
+project = supriya
 errors = E123,E203,E265,E266,E501,W503
 origin := $(shell git config --get remote.origin.url)
-paths = supriya/ tests/ *.py
+formatPaths = ${project}/ tests/ *.py
+testPaths = ${project}/ tests/
 
 black-check:
-	black --py36 --check --diff ${paths}
+	black --py36 --check --diff ${formatPaths}
 
 black-reformat:
-	black --py36 ${paths}
+	black --py36 ${formatPaths}
 
 build:
 	python setup.py sdist
 
 clean:
 	find . -name '*.pyc' | xargs rm
-	rm -Rif .cache/
+	rm -Rif .*cache/
 	rm -Rif .tox/
 	rm -Rif __pycache__
 	rm -Rif build/
@@ -27,7 +29,7 @@ docs:
 	make -C docs/ html
 
 flake8:
-	flake8 --max-line-length=90 --isolated --ignore=${errors} ${paths}
+	flake8 --max-line-length=90 --isolated --ignore=${errors} ${formatPaths}
 
 isort:
 	isort \
@@ -38,10 +40,10 @@ isort:
 		--thirdparty yaml \
 		--trailing-comma \
 		--use-parentheses -y \
-		${paths}
+		${formatPaths}
 
 mypy:
-	mypy --ignore-missing-imports supriya
+	mypy --ignore-missing-imports ${project}/
 
 pytest:
 	rm -Rf htmlcov/
@@ -52,7 +54,7 @@ pytest:
 		--cov=supriya/ \
 		--durations=20 \
 		--timeout=60 \
-		${paths}
+		${testPaths}
 
 pytest-x:
 	rm -Rf htmlcov/
@@ -64,7 +66,7 @@ pytest-x:
 		--cov=supriya/ \
 		--durations=20 \
 		--timeout=60 \
-		${paths}
+		${testPaths}
 
 reformat:
 	make isort

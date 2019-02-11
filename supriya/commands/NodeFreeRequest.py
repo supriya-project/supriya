@@ -2,7 +2,7 @@ import collections
 
 import supriya.osc
 from supriya.commands.Request import Request
-from supriya.commands.RequestId import RequestId
+from supriya.enums import RequestId
 
 
 class NodeFreeRequest(Request):
@@ -28,7 +28,7 @@ class NodeFreeRequest(Request):
 
     ::
 
-        >>> message.address == supriya.commands.RequestId.NODE_FREE
+        >>> message.address == supriya.RequestId.NODE_FREE
         True
 
     """

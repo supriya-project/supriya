@@ -239,7 +239,7 @@ class SynthDefFactory(SupriyaObject):
             builder._add_parameter("gate", 1, "TRIGGER")
             state["gate"] = supriya.ugens.Linen.kr(
                 attack_time=self._gate["attack_time"],
-                done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
+                done_action=supriya.DoneAction.FREE_SYNTH,
                 gate=builder["gate"],
                 release_time=self._gate["release_time"],
             )
@@ -250,8 +250,7 @@ class SynthDefFactory(SupriyaObject):
         if self._output.get("windowed") or self._input.get("windowed"):
             builder._add_parameter("duration", 1, "SCALAR")
             state["line"] = supriya.ugens.Line.kr(
-                done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
-                duration=builder["duration"],
+                done_action=supriya.DoneAction.FREE_SYNTH, duration=builder["duration"]
             )
             state["window"] = state["line"].hanning_window()
         if not self._output.get("windowed") and self._output.get("crossfaded"):
@@ -338,7 +337,7 @@ class SynthDefFactory(SupriyaObject):
         if not self._silence_detection:
             return
         supriya.ugens.DetectSilence.kr(
-            done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
+            done_action=supriya.DoneAction.FREE_SYNTH,
             source=supriya.ugens.Mix.new(source),
         )
 

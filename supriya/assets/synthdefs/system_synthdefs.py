@@ -21,10 +21,7 @@ def _build_link_audio_synthdef(channel_count):
         envelope = supriya.synthdefs.Envelope(
             amplitudes=[start_value, 1.0, 0.0],
             durations=[1.0, 1.0],
-            curves=[
-                supriya.synthdefs.EnvelopeShape.SINE,
-                -supriya.synthdefs.EnvelopeShape.SINE,
-            ],
+            curves=[supriya.EnvelopeShape.SINE, -supriya.EnvelopeShape.SINE],
             release_node=1.0,
         )
         envelope = supriya.ugens.EnvGen.kr(
@@ -58,7 +55,7 @@ def _build_link_control_synthdef(channel_count):
         envelope = supriya.synthdefs.Envelope(
             amplitudes=[start_value, 1.0, 0.0],
             durations=[1.0, 1.0],
-            curves=supriya.synthdefs.EnvelopeShape.LINEAR,
+            curves=supriya.EnvelopeShape.LINEAR,
             release_node=1.0,
         )
         envelope = supriya.ugens.EnvGen.kr(

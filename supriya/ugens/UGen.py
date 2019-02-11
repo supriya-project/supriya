@@ -3,7 +3,7 @@ import collections
 import inspect
 from typing import Optional, Tuple
 
-from supriya.synthdefs.SignalRange import SignalRange
+from supriya import SignalRange
 from supriya.synthdefs.UGenMethodMixin import UGenMethodMixin
 from supriya.typing import UGenInputMap
 from supriya.ugens.UGenMeta import UGenMeta
@@ -309,7 +309,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
 
         if "done_action" not in self._ordered_input_names:
             return None
-        return supriya.synthdefs.DoneAction.from_expr(int(self.done_action))
+        return supriya.DoneAction.from_expr(int(self.done_action))
 
     @staticmethod
     def _get_method_for_rate(cls, calculation_rate):

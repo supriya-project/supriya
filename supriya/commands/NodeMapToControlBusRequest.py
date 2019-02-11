@@ -1,6 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
-from supriya.commands.RequestId import RequestId
+from supriya.enums import RequestId
 
 
 class NodeMapToControlBusRequest(Request):
@@ -33,7 +33,7 @@ class NodeMapToControlBusRequest(Request):
 
     ::
 
-        >>> message.address == supriya.commands.RequestId.NODE_MAP_TO_CONTROL_BUS
+        >>> message.address == supriya.RequestId.NODE_MAP_TO_CONTROL_BUS
         True
 
     """

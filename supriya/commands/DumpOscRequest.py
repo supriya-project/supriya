@@ -1,6 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
-from supriya.commands.RequestId import RequestId
+from supriya.enums import RequestId
 
 
 class DumpOscRequest(Request):
@@ -24,7 +24,7 @@ class DumpOscRequest(Request):
 
     ::
 
-        >>> message.address == supriya.commands.RequestId.DUMP_OSC
+        >>> message.address == supriya.RequestId.DUMP_OSC
         True
 
     """

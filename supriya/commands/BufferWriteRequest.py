@@ -1,7 +1,8 @@
 import supriya.osc
+from supriya import HeaderFormat, SampleFormat
 from supriya.commands.Request import Request
 from supriya.commands.RequestBundle import RequestBundle
-from supriya.commands.RequestId import RequestId
+from supriya.enums import RequestId
 
 
 class BufferWriteRequest(Request):
@@ -11,12 +12,11 @@ class BufferWriteRequest(Request):
     ::
 
         >>> import supriya.commands
-        >>> import supriya.soundfiles
         >>> request = supriya.commands.BufferWriteRequest(
         ...     buffer_id=23,
         ...     file_path='test.aiff',
-        ...     header_format=supriya.soundfiles.HeaderFormat.AIFF,
-        ...     sample_format=supriya.soundfiles.SampleFormat.INT24,
+        ...     header_format=supriya.HeaderFormat.AIFF,
+        ...     sample_format=supriya.SampleFormat.INT24,
         ...     )
         >>> request
         BufferWriteRequest(
@@ -36,7 +36,7 @@ class BufferWriteRequest(Request):
 
     ::
 
-        >>> message.address == supriya.commands.RequestId.BUFFER_WRITE
+        >>> message.address == supriya.RequestId.BUFFER_WRITE
         True
 
     """
@@ -69,8 +69,6 @@ class BufferWriteRequest(Request):
         sample_format="int24",
         starting_frame=None,
     ):
-        import supriya.soundfiles
-
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
         if callback is not None:
@@ -82,9 +80,9 @@ class BufferWriteRequest(Request):
         frame_count = int(frame_count)
         assert -1 <= frame_count
         self._frame_count = frame_count
-        self._header_format = supriya.soundfiles.HeaderFormat.from_expr(header_format)
+        self._header_format = HeaderFormat.from_expr(header_format)
         self._leave_open = bool(leave_open)
-        self._sample_format = supriya.soundfiles.SampleFormat.from_expr(sample_format)
+        self._sample_format = SampleFormat.from_expr(sample_format)
         if starting_frame is None:
             starting_frame = 0
         starting_frame = int(starting_frame)

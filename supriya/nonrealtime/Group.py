@@ -4,7 +4,7 @@ from typing import Dict, List, Tuple
 import supriya.realtime
 from supriya.commands import GroupNewRequest
 from supriya.nonrealtime.Node import Node
-from supriya.nonrealtime.NodeAction import NodeAction
+from supriya.nonrealtime.NodeTransition import NodeTransition
 from supriya.nonrealtime.SessionObject import SessionObject
 from supriya.patterns import Pattern
 
@@ -35,7 +35,7 @@ class Group(Node):
     ### PRIVATE METHODS ###
 
     def _to_request(
-        self, action: NodeAction, id_mapping: Dict[SessionObject, int]
+        self, action: NodeTransition, id_mapping: Dict[SessionObject, int]
     ) -> GroupNewRequest:
         source_id = id_mapping[action.source]
         target_id = id_mapping[action.target]

@@ -4,7 +4,7 @@ from typing import Dict, List, Optional, Set, Tuple, Union
 
 import supriya  # noqa
 from supriya import utils
-from supriya.nonrealtime.NodeAction import NodeAction
+from supriya.nonrealtime.NodeTransition import NodeTransition
 from supriya.nonrealtime.SessionObject import SessionObject
 from supriya.nonrealtime.State import State
 
@@ -224,7 +224,7 @@ class Node(SessionObject):
                         add_action="ADD_BEFORE", duration=new_duration
                     )
             new_nodes.append(new_node)
-            new_actions: Dict["Node", NodeAction] = collections.OrderedDict()
+            new_actions: Dict["Node", NodeTransition] = collections.OrderedDict()
             for node in new_nodes:
                 if node is new_node and self in old_actions:
                     old_actions.pop(node)
@@ -235,7 +235,7 @@ class Node(SessionObject):
             for child in reversed(children):
                 if child in old_actions:
                     old_actions.pop(child)
-                action = supriya.nonrealtime.NodeAction(
+                action = supriya.nonrealtime.NodeTransition(
                     source=child, target=new_node, action="ADD_TO_TAIL"
                 )
                 new_actions[child] = action
@@ -329,7 +329,7 @@ class Node(SessionObject):
             add_action = self._valid_add_actions[0]
         add_action = supriya.AddAction.from_expr(add_action)
         assert add_action in self._valid_add_actions
-        node_action = supriya.nonrealtime.NodeAction(
+        node_action = supriya.nonrealtime.NodeTransition(
             source=node, target=self, action=add_action
         )
         state.transitions[node] = node_action
@@ -404,7 +404,7 @@ class Node(SessionObject):
                 moment.state._sparsify()
             while parent is not None and parent.stop_offset < new_stop_offset:
                 with self.session.at(parent.stop_offset, propagate=False) as moment:
-                    action = supriya.nonrealtime.NodeAction(
+                    action = supriya.nonrealtime.NodeTransition(
                         source=self, target=parent, action="ADD_BEFORE"
                     )
                     moment.state.transitions[self] = action

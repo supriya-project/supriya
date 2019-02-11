@@ -88,7 +88,22 @@ def import_structured_package(path, namespace, remove=True, verbose=False):
 
 
 from supriya._version import __version__, __version_info__  # noqa
-from supriya.enums import AddAction, CalculationRate  # noqa
+from supriya.enums import (  # noqa
+    AddAction,
+    BinaryOperator,
+    CalculationRate,
+    DoneAction,
+    EnvelopeShape,
+    HeaderFormat,
+    NodeAction,
+    ParameterRate,
+    RequestId,
+    RequestName,
+    SampleFormat,
+    SignalRange,
+    UnaryOperator,
+    Unit,
+)
 from supriya import utils  # noqa
 from supriya.midi import Device  # noqa
 from supriya.live import Application, Mixer  # noqa
@@ -102,13 +117,10 @@ from supriya.realtime import (  # noqa
     Server,
     Synth,
 )
-from supriya.soundfiles import HeaderFormat, SampleFormat, SoundFile  # noqa
+from supriya.soundfiles import SoundFile  # noqa
 from supriya.synthdefs import (  # noqa
-    DoneAction,
     Envelope,
-    EnvelopeShape,
     Parameter,
-    ParameterRate,
     Range,
     SynthDef,
     SynthDefBuilder,

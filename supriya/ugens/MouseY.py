@@ -1,7 +1,6 @@
 import collections
 
-from supriya import CalculationRate
-from supriya.synthdefs.SignalRange import SignalRange
+from supriya import CalculationRate, SignalRange
 from supriya.ugens.UGen import UGen
 
 

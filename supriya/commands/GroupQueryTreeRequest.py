@@ -1,6 +1,6 @@
 import supriya.osc
 from supriya.commands.Request import Request
-from supriya.commands.RequestId import RequestId
+from supriya.enums import RequestId
 
 
 class GroupQueryTreeRequest(Request):
@@ -28,7 +28,7 @@ class GroupQueryTreeRequest(Request):
 
     ::
 
-        >>> message.address == supriya.commands.RequestId.GROUP_QUERY_TREE
+        >>> message.address == supriya.RequestId.GROUP_QUERY_TREE
         True
 
     """

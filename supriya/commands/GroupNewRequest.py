@@ -3,7 +3,7 @@ import typing
 
 import supriya.osc
 from supriya.commands.Request import Request
-from supriya.commands.RequestId import RequestId
+from supriya.enums import RequestId
 from supriya.realtime.Group import Group
 from supriya.realtime.Node import Node
 

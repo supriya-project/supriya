@@ -1,7 +1,6 @@
 import collections
 
-from supriya.synthdefs.ParameterRate import ParameterRate
-from supriya.synthdefs.SignalRange import SignalRange
+from supriya import ParameterRate, SignalRange
 from supriya.synthdefs.UGenMethodMixin import UGenMethodMixin
 from supriya.system.SupriyaValueObject import SupriyaValueObject
 
@@ -42,7 +41,7 @@ class Parameter(UGenMethodMixin, SupriyaValueObject):
         if name is not None:
             name = str(name)
         self._name = name
-        self._parameter_rate = supriya.synthdefs.ParameterRate.from_expr(parameter_rate)
+        self._parameter_rate = ParameterRate.from_expr(parameter_rate)
         if range_ is not None:
             assert isinstance(range_, supriya.synthdefs.Range)
         self._range = range_

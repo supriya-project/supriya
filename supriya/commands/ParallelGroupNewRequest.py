@@ -1,5 +1,5 @@
 from supriya.commands.GroupNewRequest import GroupNewRequest
-from supriya.commands.RequestId import RequestId
+from supriya.enums import RequestId
 
 
 class ParallelGroupNewRequest(GroupNewRequest):

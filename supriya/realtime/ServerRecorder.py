@@ -1,5 +1,6 @@
 import os
 
+from supriya import HeaderFormat, SampleFormat
 from supriya.system.SupriyaObject import SupriyaObject
 
 
@@ -46,18 +47,16 @@ class ServerRecorder(SupriyaObject):
     ### INITIALIZER ###
 
     def __init__(self, server):
-        import supriya.soundfiles
-
         self._server = server
         server_options = server.server_options
         # setup settings
         self._channel_count = server_options.output_bus_channel_count
-        self._header_format = supriya.soundfiles.HeaderFormat.AIFF
+        self._header_format = HeaderFormat.AIFF
         self._is_recording = False
         self._record_node = None
         self._record_buffer = None
         self._record_synthdef = None
-        self._sample_format = supriya.soundfiles.SampleFormat.INT24
+        self._sample_format = SampleFormat.INT24
         # cache settings
         self._current_channel_count = self._channel_count
         self._current_file_path = None
@@ -69,21 +68,15 @@ class ServerRecorder(SupriyaObject):
     def _cache_properties(
         self, channel_count=None, header_format=None, sample_format=None
     ):
-        import supriya.soundfiles
-
         if channel_count is None:
             channel_count = self.channel_count
         self._current_channel_count = channel_count
         if header_format is None:
             header_format = self.header_format
-        self._current_header_format = supriya.soundfiles.HeaderFormat.from_expr(
-            header_format
-        )
+        self._current_header_format = HeaderFormat.from_expr(header_format)
         if sample_format is None:
             sample_format = self.sample_format
-        self._current_sample_format = supriya.soundfiles.SampleFormat.from_expr(
-            sample_format
-        )
+        self._current_sample_format = SampleFormat.from_expr(sample_format)
 
     def _get_file_path(self, file_path=None):
         if file_path is not None:
@@ -222,9 +215,7 @@ class ServerRecorder(SupriyaObject):
 
     @sample_format.setter
     def sample_format(self, expr):
-        import supriya.soundfiles
-
-        sample_format = supriya.soundfiles.SampleFormat.from_expr(expr)
+        sample_format = SampleFormat.from_expr(expr)
         self._sample_format = sample_format
 
     @property
@@ -233,9 +224,7 @@ class ServerRecorder(SupriyaObject):
 
     @header_format.setter
     def header_format(self, expr):
-        import supriya.soundfiles
-
-        header_format = supriya.soundfiles.HeaderFormat.from_expr(expr)
+        header_format = HeaderFormat.from_expr(expr)
         self._header_format = header_format
 
     @property

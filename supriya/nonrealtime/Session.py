@@ -12,6 +12,7 @@ import supriya.realtime
 import supriya.soundfiles
 import supriya.synthdefs
 import supriya.time
+from supriya import HeaderFormat, SampleFormat
 from supriya.commands import (
     BufferCopyRequest,
     BufferFillRequest,
@@ -495,8 +496,8 @@ class Session:
         input_file_path=None,
         server_options=None,
         sample_rate=44100,
-        header_format=supriya.soundfiles.HeaderFormat.AIFF,
-        sample_format=supriya.soundfiles.SampleFormat.INT24,
+        header_format=HeaderFormat.AIFF,
+        sample_format=SampleFormat.INT24,
     ):
         """
         Builds non-realtime rendering command.
@@ -520,9 +521,9 @@ class Session:
             parts.append("_")
         parts.append(os.path.expanduser(output_filename))
         parts.append(str(int(sample_rate)))
-        header_format = supriya.soundfiles.HeaderFormat.from_expr(header_format)
+        header_format = HeaderFormat.from_expr(header_format)
         parts.append(header_format.name.lower())  # Must be lowercase.
-        sample_format = supriya.soundfiles.SampleFormat.from_expr(sample_format)
+        sample_format = SampleFormat.from_expr(sample_format)
         parts.append(sample_format.name.lower())  # Must be lowercase.
         server_options = server_options.as_options_string(realtime=False)
         if server_options:
@@ -762,7 +763,7 @@ class Session:
     def _collect_node_set_requests(self, id_mapping, node_settings):
         import supriya.nonrealtime
 
-        scalar_rate = supriya.synthdefs.ParameterRate.SCALAR
+        scalar_rate = supriya.ParameterRate.SCALAR
         requests = []
         bus_prototype = (
             supriya.nonrealtime.Bus,
@@ -1221,10 +1222,10 @@ class Session:
         output_file_path=None,
         debug=None,
         duration=None,
-        header_format=supriya.soundfiles.HeaderFormat.AIFF,
+        header_format=HeaderFormat.AIFF,
         input_file_path=None,
         render_directory_path=None,
-        sample_format=supriya.soundfiles.SampleFormat.INT24,
+        sample_format=SampleFormat.INT24,
         sample_rate=44100,
         print_transcript=None,
         transcript_prefix=None,
@@ -1262,8 +1263,8 @@ class Session:
     def to_lists(
         self,
         duration=None,
-        header_format=supriya.soundfiles.HeaderFormat.AIFF,
-        sample_format=supriya.soundfiles.SampleFormat.INT24,
+        header_format=HeaderFormat.AIFF,
+        sample_format=SampleFormat.INT24,
         sample_rate=44100,
     ):
         import supriya.nonrealtime
@@ -1279,8 +1280,8 @@ class Session:
     def to_osc_bundles(
         self,
         duration=None,
-        header_format=supriya.soundfiles.HeaderFormat.AIFF,
-        sample_format=supriya.soundfiles.SampleFormat.INT24,
+        header_format=HeaderFormat.AIFF,
+        sample_format=SampleFormat.INT24,
         sample_rate=44100,
     ):
         import supriya.nonrealtime

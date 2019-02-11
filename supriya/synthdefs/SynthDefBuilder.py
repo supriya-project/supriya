@@ -22,7 +22,7 @@ class SynthDefBuilder(SupriyaObject):
         ...     frequency=440,
         ...     trigger=supriya.synthdefs.Parameter(
         ...         value=0,
-        ...         parameter_rate=supriya.synthdefs.ParameterRate.TRIGGER,
+        ...         parameter_rate=supriya.ParameterRate.TRIGGER,
         ...         ),
         ...     )
 
@@ -109,20 +109,20 @@ class SynthDefBuilder(SupriyaObject):
         elif len(args) == 2:
             name, value = args
             if not isinstance(value, supriya.synthdefs.Parameter):
-                parameter_rate = supriya.synthdefs.ParameterRate.SCALAR
+                parameter_rate = supriya.ParameterRate.SCALAR
                 if name.startswith("a_"):
-                    parameter_rate = supriya.synthdefs.ParameterRate.AUDIO
+                    parameter_rate = supriya.ParameterRate.AUDIO
                 elif name.startswith("i_"):
-                    parameter_rate = supriya.synthdefs.ParameterRate.SCALAR
+                    parameter_rate = supriya.ParameterRate.SCALAR
                 elif name.startswith("t_"):
-                    parameter_rate = supriya.synthdefs.ParameterRate.TRIGGER
+                    parameter_rate = supriya.ParameterRate.TRIGGER
                 else:
-                    parameter_rate = supriya.synthdefs.ParameterRate.CONTROL
+                    parameter_rate = supriya.ParameterRate.CONTROL
             else:
                 parameter_rate = value.parameter_rate
         elif len(args) == 3:
             name, value, parameter_rate = args
-            parameter_rate = supriya.synthdefs.ParameterRate.from_expr(parameter_rate)
+            parameter_rate = supriya.ParameterRate.from_expr(parameter_rate)
         else:
             raise ValueError(args)
         if not isinstance(value, supriya.synthdefs.Parameter):

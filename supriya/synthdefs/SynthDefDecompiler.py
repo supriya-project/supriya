@@ -1,7 +1,7 @@
 import collections
 import struct
 
-from supriya import utils
+from supriya import CalculationRate, ParameterRate, utils
 from supriya.system.SupriyaObject import SupriyaObject
 
 
@@ -17,7 +17,7 @@ class SynthDefDecompiler(SupriyaObject):
         ...     frequency=440,
         ...     trigger=supriya.synthdefs.Parameter(
         ...         value=0.,
-        ...         parameter_rate=supriya.synthdefs.ParameterRate.TRIGGER,
+        ...         parameter_rate=supriya.ParameterRate.TRIGGER,
         ...         ),
         ...     ) as builder:
         ...     sin_osc = supriya.ugens.SinOsc.ar(frequency=builder['frequency'])
@@ -271,13 +271,13 @@ class SynthDefDecompiler(SupriyaObject):
         import supriya.synthdefs
         import supriya.ugens
 
-        parameter_rate = supriya.synthdefs.ParameterRate.CONTROL
+        parameter_rate = ParameterRate.CONTROL
         if issubclass(ugen_class, supriya.ugens.TrigControl):
-            parameter_rate = supriya.synthdefs.ParameterRate.TRIGGER
-        elif calculation_rate == supriya.CalculationRate.SCALAR:
-            parameter_rate = supriya.synthdefs.ParameterRate.SCALAR
-        elif calculation_rate == supriya.CalculationRate.AUDIO:
-            parameter_rate = supriya.synthdefs.ParameterRate.AUDIO
+            parameter_rate = ParameterRate.TRIGGER
+        elif calculation_rate == CalculationRate.SCALAR:
+            parameter_rate = ParameterRate.SCALAR
+        elif calculation_rate == CalculationRate.AUDIO:
+            parameter_rate = ParameterRate.AUDIO
         parameters = []
         collected_output_count = 0
         lag = 0.0

@@ -27,7 +27,7 @@ def _build_default_synthdef():
         frequency=440,
         gate=1,
         out=supriya.synthdefs.Parameter(
-            parameter_rate=supriya.synthdefs.ParameterRate.SCALAR, value=0
+            parameter_rate=supriya.ParameterRate.SCALAR, value=0
         ),
         pan=0.5,
     )
@@ -53,7 +53,7 @@ def _build_default_synthdef():
         )
         linen = supriya.ugens.Linen.kr(
             attack_time=0.01,
-            done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
+            done_action=supriya.DoneAction.FREE_SYNTH,
             gate=builder["gate"],
             release_time=0.3,
             sustain_level=0.7,
