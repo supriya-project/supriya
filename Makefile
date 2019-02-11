@@ -31,6 +31,19 @@ docs:
 flake8:
 	flake8 --max-line-length=90 --isolated --ignore=${errors} ${formatPaths}
 
+gh-pages:
+	rm -Rf gh-pages/
+	git clone $(origin) gh-pages/
+	cd gh-pages/ && \
+		git checkout gh-pages || git checkout --orphan gh-pages
+	rsync -rtv --del --exclude=.git docs/build/html/ gh-pages/
+	cd gh-pages && \
+		touch .nojekyll && \
+		git add --all . && \
+		git commit --allow-empty -m "Update docs" && \
+		git push -u origin gh-pages
+	rm -Rf gh-pages/
+
 isort:
 	isort \
 		--multi-line 1 \
