@@ -173,7 +173,7 @@ class Bus(ServerObjectProxy):
                 >>> import supriya.realtime
                 >>> audio_bus = supriya.realtime.Bus(8, 'audio')
                 >>> ugen = audio_bus.ar()
-                >>> graph(ugen)  # doctest: +SKIP
+                >>> supriya.graph(ugen)  # doctest: +SKIP
 
             ::
 
@@ -190,7 +190,7 @@ class Bus(ServerObjectProxy):
 
                 >>> control_bus = supriya.realtime.Bus(8, 'control')
                 >>> ugen = control_bus.ar()
-                >>> graph(ugen)  # doctest: +SKIP
+                >>> supriya.graph(ugen)  # doctest: +SKIP
 
             ::
 
@@ -262,7 +262,7 @@ class Bus(ServerObjectProxy):
                 >>> import supriya.realtime
                 >>> audio_bus = supriya.realtime.Bus(8, 'audio')
                 >>> ugen = audio_bus.kr()
-                >>> graph(ugen)  # doctest: +SKIP
+                >>> supriya.graph(ugen)  # doctest: +SKIP
 
             ::
 
@@ -281,7 +281,7 @@ class Bus(ServerObjectProxy):
 
                 >>> control_bus = supriya.realtime.Bus(8, 'control')
                 >>> ugen = control_bus.kr()
-                >>> graph(ugen)  # doctest: +SKIP
+                >>> supriya.graph(ugen)  # doctest: +SKIP
 
             ::
 

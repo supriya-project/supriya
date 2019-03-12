@@ -27,7 +27,7 @@ class SynthDef(ServerObjectProxy):
 
     ::
 
-        >>> graph(synthdef)  # doctest: +SKIP
+        >>> supriya.graph(synthdef)  # doctest: +SKIP
 
     ::
 
@@ -182,7 +182,7 @@ class SynthDef(ServerObjectProxy):
 
         ::
 
-            >>> graph(synthdef)  # doctest: +SKIP
+            >>> supriya.graph(synthdef)  # doctest: +SKIP
 
         ::
 
@@ -771,7 +771,7 @@ class SynthDef(ServerObjectProxy):
 
         ::
 
-            >>> graph(synthdef)  # doctest: +SKIP
+            >>> supriya.graph(synthdef)  # doctest: +SKIP
 
         ::
 
@@ -813,7 +813,7 @@ class SynthDef(ServerObjectProxy):
 
         ::
 
-            >>> graph(synthdef)  # doctest: +SKIP
+            >>> supriya.graph(synthdef)  # doctest: +SKIP
 
         ::
 
@@ -867,7 +867,7 @@ class SynthDef(ServerObjectProxy):
 
         ::
 
-            >>> graph(synthdef)  # doctest: +SKIP
+            >>> supriya.graph(synthdef)  # doctest: +SKIP
 
         ::
 
@@ -909,7 +909,7 @@ class SynthDef(ServerObjectProxy):
 
         ::
 
-            >>> graph(synthdef)  # doctest: +SKIP
+            >>> supriya.graph(synthdef)  # doctest: +SKIP
 
         ::
 

@@ -33,7 +33,7 @@ class SynthDefFactory(SupriyaObject):
             >>> factory = factory.with_output()
             >>> factory = factory.with_signal_block(signal_block)
             >>> synthdef = factory.build()
-            >>> graph(synthdef)  # doctest: +SKIP
+            >>> supriya.graph(synthdef)  # doctest: +SKIP
 
         ::
 
@@ -75,7 +75,7 @@ class SynthDefFactory(SupriyaObject):
         ::
 
             >>> synthdef = factory.build(iterations=4)
-            >>> graph(synthdef)  # doctest: +SKIP
+            >>> supriya.graph(synthdef)  # doctest: +SKIP
 
         ::
 
@@ -139,7 +139,7 @@ class SynthDefFactory(SupriyaObject):
         ::
 
             >>> synthdef = factory.build(channel_count=2)
-            >>> graph(synthdef)  # doctest: +SKIP
+            >>> supriya.graph(synthdef)  # doctest: +SKIP
 
         ::
 
@@ -408,7 +408,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> factory = factory.with_channel_count(4)
                 >>> synthdef = factory.build()
-                >>> graph(synthdef)  # doctest: +SKIP
+                >>> supriya.graph(synthdef)  # doctest: +SKIP
 
             ::
 
@@ -485,7 +485,7 @@ class SynthDefFactory(SupriyaObject):
             ::
 
                 >>> synthdef = factory.build(channel_count=3)
-                >>> graph(synthdef)  # doctest: +SKIP
+                >>> supriya.graph(synthdef)  # doctest: +SKIP
 
             ::
 
@@ -591,7 +591,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> factory = factory.with_feedback_loop()
                 >>> synthdef = factory.build()
-                >>> graph(synthdef)  # doctest: +SKIP
+                >>> supriya.graph(synthdef)  # doctest: +SKIP
 
             ::
 
@@ -649,7 +649,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> factory = factory.with_feedback_loop(feedback_block)
                 >>> synthdef = factory.build()
-                >>> graph(synthdef)  # doctest: +SKIP
+                >>> supriya.graph(synthdef)  # doctest: +SKIP
 
             ::
 
@@ -745,7 +745,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> factory = factory.with_gate()
                 >>> synthdef = factory.build()
-                >>> graph(synthdef)  # doctest: +SKIP
+                >>> supriya.graph(synthdef)  # doctest: +SKIP
 
             ::
 
@@ -839,7 +839,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> factory = factory.with_initial_state(iterations=4)
                 >>> synthdef = factory.build()
-                >>> graph(synthdef)  # doctest: +SKIP
+                >>> supriya.graph(synthdef)  # doctest: +SKIP
 
             ::
 
@@ -939,7 +939,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> factory = factory.with_input()
                 >>> synthdef = factory.build()
-                >>> graph(synthdef)  # doctest: +SKIP
+                >>> supriya.graph(synthdef)  # doctest: +SKIP
 
             ::
 
@@ -984,7 +984,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> factory = factory.with_input(private=True)
                 >>> synthdef = factory.build()
-                >>> graph(synthdef)  # doctest: +SKIP
+                >>> supriya.graph(synthdef)  # doctest: +SKIP
 
             ::
 
@@ -1029,7 +1029,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> factory = factory.with_input(windowed=True)
                 >>> synthdef = factory.build()
-                >>> graph(synthdef)  # doctest: +SKIP
+                >>> supriya.graph(synthdef)  # doctest: +SKIP
 
             ::
 
@@ -1086,7 +1086,7 @@ class SynthDefFactory(SupriyaObject):
                 >>> factory = factory.with_input(windowed=True)
                 >>> factory = factory.with_output(windowed=True)
                 >>> synthdef = factory.build()
-                >>> graph(synthdef)  # doctest: +SKIP
+                >>> supriya.graph(synthdef)  # doctest: +SKIP
 
             ::
 
@@ -1180,7 +1180,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> factory = factory.with_output()
                 >>> synthdef = factory.build()
-                >>> graph(synthdef)  # doctest: +SKIP
+                >>> supriya.graph(synthdef)  # doctest: +SKIP
 
             ::
 
@@ -1225,7 +1225,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> factory = factory.with_output(windowed=True)
                 >>> synthdef = factory.build()
-                >>> graph(synthdef)  # doctest: +SKIP
+                >>> supriya.graph(synthdef)  # doctest: +SKIP
 
             ::
 
@@ -1280,7 +1280,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> factory = factory.with_output(crossfaded=True)
                 >>> synthdef = factory.build()
-                >>> graph(synthdef)  # doctest: +SKIP
+                >>> supriya.graph(synthdef)  # doctest: +SKIP
 
             ::
 
@@ -1328,7 +1328,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> factory = factory.with_output(leveled=True)
                 >>> synthdef = factory.build()
-                >>> graph(synthdef)  # doctest: +SKIP
+                >>> supriya.graph(synthdef)  # doctest: +SKIP
 
             ::
 
@@ -1381,7 +1381,7 @@ class SynthDefFactory(SupriyaObject):
                 ...     windowed=True,
                 ...     )
                 >>> synthdef = factory.build()
-                >>> graph(synthdef)  # doctest: +SKIP
+                >>> supriya.graph(synthdef)  # doctest: +SKIP
 
             ::
 
@@ -1438,7 +1438,7 @@ class SynthDefFactory(SupriyaObject):
                 ...     windowed=True,
                 ...     )
                 >>> synthdef = factory.build()
-                >>> graph(synthdef)  # doctest: +SKIP
+                >>> supriya.graph(synthdef)  # doctest: +SKIP
 
             ::
 
@@ -1496,7 +1496,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> factory = factory.with_input(windowed=True)
                 >>> synthdef = factory.build()
-                >>> graph(synthdef)  # doctest: +SKIP
+                >>> supriya.graph(synthdef)  # doctest: +SKIP
 
             ::
 
@@ -1637,7 +1637,7 @@ class SynthDefFactory(SupriyaObject):
                 >>> factory = factory.with_signal_block(signal_block)
                 >>> factory = factory.with_output(crossfaded=True)
                 >>> synthdef = factory.build()
-                >>> graph(synthdef)  # doctest: +SKIP
+                >>> supriya.graph(synthdef)  # doctest: +SKIP
 
             ::
 
@@ -1782,7 +1782,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> frequencies = (150, 300, 600, 1200, 2400, 4800, 9600)
                 >>> synthdef = factory.build(frequencies=frequencies)
-                >>> graph(synthdef)  # doctest: +SKIP
+                >>> supriya.graph(synthdef)  # doctest: +SKIP
 
             ::
 
@@ -2089,7 +2089,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> factory = factory.with_rand_id(rand_id=23)
                 >>> synthdef = factory.build()
-                >>> graph(synthdef)  # doctest: +SKIP
+                >>> supriya.graph(synthdef)  # doctest: +SKIP
 
             ::
 
@@ -2198,7 +2198,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> factory = factory.with_signal_block(signal_block_post)
                 >>> synthdef = factory.build()
-                >>> graph(synthdef)  # doctest: +SKIP
+                >>> supriya.graph(synthdef)  # doctest: +SKIP
 
             ::
 
@@ -2287,7 +2287,7 @@ class SynthDefFactory(SupriyaObject):
 
                 >>> factory = factory.with_silence_detection()
                 >>> synthdef = factory.build()
-                >>> graph(synthdef)  # doctest: +SKIP
+                >>> supriya.graph(synthdef)  # doctest: +SKIP
 
             ::
 
@@ -2341,7 +2341,7 @@ class SynthDefFactory(SupriyaObject):
                 ...     windowed=True,
                 ...     )
                 >>> synthdef = factory.build()
-                >>> graph(synthdef)  # doctest: +SKIP
+                >>> supriya.graph(synthdef)  # doctest: +SKIP
 
             ::
 

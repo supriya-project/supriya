@@ -43,7 +43,7 @@ class SynthDefBuilder(SupriyaObject):
     ::
 
         >>> synthdef = builder.build()
-        >>> graph(synthdef)  # doctest: +SKIP
+        >>> supriya.graph(synthdef)  # doctest: +SKIP
 
     """
 

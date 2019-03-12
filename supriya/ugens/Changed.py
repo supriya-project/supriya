@@ -12,7 +12,7 @@ class Changed(PseudoUGen):
         ...     source=source,
         ...     threshold=0,
         ...     )
-        >>> graph(changed)  # doctest: +SKIP
+        >>> supriya.graph(changed)  # doctest: +SKIP
 
     ::
 
@@ -50,7 +50,7 @@ class Changed(PseudoUGen):
             ...     source=source,
             ...     threshold=0,
             ...     )
-            >>> graph(changed)  # doctest: +SKIP
+            >>> supriya.graph(changed)  # doctest: +SKIP
 
         ::
 
@@ -87,7 +87,7 @@ class Changed(PseudoUGen):
             ...     source=source,
             ...     threshold=0,
             ...     )
-            >>> graph(changed)  # doctest: +SKIP
+            >>> supriya.graph(changed)  # doctest: +SKIP
 
         ::
 

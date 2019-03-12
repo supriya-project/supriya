@@ -34,4 +34,5 @@ uqbar_api_module_documenter_class = "uqbar.apis.SummarizingModuleDocumenter"
 uqbar_api_root_documenter_class = "uqbar.apis.SummarizingRootDocumenter"
 uqbar_api_source_paths = ["supriya"]
 uqbar_api_title = "Supriya API"
+uqbar_book_modules = ["abjad", "supriya"]
 version = "0.2.0"

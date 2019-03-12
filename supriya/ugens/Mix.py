@@ -15,7 +15,7 @@ class Mix(PseudoUGen):
             ...     mix = supriya.ugens.Mix.new(oscillators)
             ...
             >>> synthdef = builder.build(name='mix1', optimize=False)
-            >>> graph(synthdef)  # doctest: +SKIP
+            >>> supriya.graph(synthdef)  # doctest: +SKIP
 
         ::
 
@@ -51,7 +51,7 @@ class Mix(PseudoUGen):
             ...     mix = supriya.ugens.Mix.new(oscillators)
             ...
             >>> synthdef = builder.build('mix2')
-            >>> graph(synthdef)  # doctest: +SKIP
+            >>> supriya.graph(synthdef)  # doctest: +SKIP
 
         ::
 
@@ -175,7 +175,7 @@ class Mix(PseudoUGen):
                 ...     )
                 >>> mix = supriya.ugens.Mix.multichannel(panner, channel_count=4)
                 >>> out = supriya.ugens.Out.ar(bus=0, source=mix)
-                >>> graph(out)  # doctest: +SKIP
+                >>> supriya.graph(out)  # doctest: +SKIP
 
             ::
 
@@ -239,7 +239,7 @@ class Mix(PseudoUGen):
 
                 >>> mix = supriya.ugens.Mix.new(panner)
                 >>> out = supriya.ugens.Out.ar(bus=0, source=mix)
-                >>> graph(out)  # doctest: +SKIP
+                >>> supriya.graph(out)  # doctest: +SKIP
 
             ::
 

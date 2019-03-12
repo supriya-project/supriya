@@ -29,7 +29,7 @@ class SynthDefDecompiler(SupriyaObject):
         ...     out = supriya.ugens.Out.ar(bus=0, source=enveloped_sin)
         ...
         >>> synthdef = builder.build()
-        >>> graph(synthdef)  # doctest: +SKIP
+        >>> supriya.graph(synthdef)  # doctest: +SKIP
 
     ::
 
@@ -57,7 +57,7 @@ class SynthDefDecompiler(SupriyaObject):
         >>> compiled_synthdef = synthdef.compile()
         >>> sdd = supriya.synthdefs.SynthDefDecompiler
         >>> decompiled_synthdef = sdd.decompile_synthdefs(compiled_synthdef)[0]
-        >>> graph(decompiled_synthdef)  # doctest: +SKIP
+        >>> supriya.graph(decompiled_synthdef)  # doctest: +SKIP
 
     ::
 

@@ -214,7 +214,7 @@ class BusGroup(ServerObjectProxy):
                 ...     calculation_rate='audio',
                 ...     )
                 >>> ugen = audio_bus_group.ar()
-                >>> graph(ugen)  # doctest: +SKIP
+                >>> supriya.graph(ugen)  # doctest: +SKIP
 
             ::
 
@@ -235,7 +235,7 @@ class BusGroup(ServerObjectProxy):
                 ...     calculation_rate='control',
                 ...     )
                 >>> ugen = control_bus_group.ar()
-                >>> graph(ugen)  # doctest: +SKIP
+                >>> supriya.graph(ugen)  # doctest: +SKIP
 
             ::
 
@@ -380,7 +380,7 @@ class BusGroup(ServerObjectProxy):
                 ...     calculation_rate='audio',
                 ...     )
                 >>> ugen = audio_bus_group.kr()
-                >>> graph(ugen)  # doctest: +SKIP
+                >>> supriya.graph(ugen)  # doctest: +SKIP
 
             ::
 
@@ -409,7 +409,7 @@ class BusGroup(ServerObjectProxy):
                 ...     calculation_rate='control',
                 ...     )
                 >>> ugen = control_bus_group.kr()
-                >>> graph(ugen)  # doctest: +SKIP
+                >>> supriya.graph(ugen)  # doctest: +SKIP
 
             ::
 
