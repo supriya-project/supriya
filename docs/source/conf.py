@@ -8,6 +8,7 @@ extensions = [
     "sphinx.ext.intersphinx",
     "sphinx.ext.viewcode",
     "uqbar.sphinx.api",
+    "uqbar.sphinx.book",
     "uqbar.sphinx.inheritance",
     "uqbar.sphinx.style",
 ]
