@@ -34,7 +34,7 @@ class Poll(UGen):
 
         ::
 
-            >>> with SynthDefBuilder() as builder:
+            >>> with supriya.SynthDefBuilder() as builder:
             ...     sine = supriya.ugens.SinOsc.ar()
             ...     trigger = supriya.ugens.Impulse.kr(1)
             ...     poll = supriya.ugens.Poll.ar(
@@ -47,8 +47,8 @@ class Poll(UGen):
 
         ::
 
-            >>> server = Server().boot()
-            >>> synth = Synth(synthdef).allocate()
+            >>> server = supriya.Server().boot()
+            >>> synth = supriya.Synth(synthdef).allocate()
             >>> callback = server.osc_io.register(
             ...     pattern='/tr',
             ...     procedure=lambda response: print(

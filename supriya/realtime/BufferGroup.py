@@ -165,7 +165,7 @@ class BufferGroup(ServerObjectProxy):
 
         ::
 
-            >>> file_paths = Assets['audio/*mono_1s*']
+            >>> file_paths = supriya.Assets['audio/*mono_1s*']
             >>> len(file_paths)
             4
 

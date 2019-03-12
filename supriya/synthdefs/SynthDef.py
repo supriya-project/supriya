@@ -633,7 +633,7 @@ class SynthDef(ServerObjectProxy):
 
         ::
 
-            >>> server = Server().boot()
+            >>> server = supriya.Server().boot()
             >>> synthdef = supriya.assets.synthdefs.default
             >>> synth = synthdef.play()
             >>> server = server.quit()
@@ -758,7 +758,7 @@ class SynthDef(ServerObjectProxy):
 
         ::
 
-            >>> with SynthDefBuilder() as builder:
+            >>> with supriya.SynthDefBuilder() as builder:
             ...     audio_in = supriya.ugens.In.ar(channel_count=1)
             ...     control_in = supriya.ugens.In.kr(channel_count=2)
             ...     sin = supriya.ugens.SinOsc.ar(
@@ -800,7 +800,7 @@ class SynthDef(ServerObjectProxy):
 
         ::
 
-            >>> with SynthDefBuilder() as builder:
+            >>> with supriya.SynthDefBuilder() as builder:
             ...     audio_in = supriya.ugens.In.ar(channel_count=1)
             ...     control_in = supriya.ugens.In.kr(channel_count=2)
             ...     sin = supriya.ugens.SinOsc.ar(
@@ -854,7 +854,7 @@ class SynthDef(ServerObjectProxy):
 
         ::
 
-            >>> with SynthDefBuilder() as builder:
+            >>> with supriya.SynthDefBuilder() as builder:
             ...     audio_in = supriya.ugens.In.ar(channel_count=1)
             ...     control_in = supriya.ugens.In.kr(channel_count=2)
             ...     sin = supriya.ugens.SinOsc.ar(
@@ -896,7 +896,7 @@ class SynthDef(ServerObjectProxy):
 
         ::
 
-            >>> with SynthDefBuilder() as builder:
+            >>> with supriya.SynthDefBuilder() as builder:
             ...     audio_in = supriya.ugens.In.ar(channel_count=1)
             ...     control_in = supriya.ugens.In.kr(channel_count=2)
             ...     sin = supriya.ugens.SinOsc.ar(
