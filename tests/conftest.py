@@ -278,8 +278,9 @@ def create_cli_material(
         else:
             try:
                 script(command)
-            except SystemExit:
-                raise RuntimeError("SystemExit")
+            except SystemExit as exception:
+                if exception.args[0]:
+                    raise RuntimeError("SystemExit")
     material_path = inner_project_path / "materials" / material_name
     if definition_contents:
         definition_contents = uqbar.strings.normalize(definition_contents)
@@ -317,8 +318,9 @@ def create_cli_project(test_directory_path, force=False, expect_error=False):
         else:
             try:
                 script(command)
-            except SystemExit:
-                raise RuntimeError("SystemExit")
+            except SystemExit as exception:
+                if exception.args[0]:
+                    raise RuntimeError("SystemExit")
 
 
 @pytest.helpers.register
@@ -343,8 +345,9 @@ def create_cli_session(
         else:
             try:
                 script(command)
-            except SystemExit:
-                raise RuntimeError("SystemExit")
+            except SystemExit as exception:
+                if exception.args[0]:
+                    raise RuntimeError("SystemExit")
     session_path = inner_project_path / "sessions" / session_name
     if definition_contents:
         definition_contents = uqbar.strings.normalize(definition_contents)

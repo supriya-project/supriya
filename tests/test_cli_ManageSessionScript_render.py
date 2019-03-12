@@ -284,8 +284,9 @@ def test_success_all_sessions(cli_paths):
     ):
         try:
             script(command)
-        except SystemExit as e:
-            raise RuntimeError("SystemExit: {}".format(e.code))
+        except SystemExit as exception:
+            if exception.args[0]:
+                raise RuntimeError("SystemExit: {}".format(exception.code))
     pytest.helpers.compare_strings(
         r"""
         Render candidates: '*' ...
@@ -373,8 +374,9 @@ def test_success_filtered_sessions(cli_paths):
     ):
         try:
             script(command)
-        except SystemExit as e:
-            raise RuntimeError("SystemExit: {}".format(e.code))
+        except SystemExit as exception:
+            if exception.args[0]:
+                raise RuntimeError("SystemExit: {}".format(exception.code))
     pytest.helpers.compare_strings(
         r"""
         Render candidates: 'session_t*' ...
@@ -440,8 +442,9 @@ def test_success_one_session(cli_paths):
     ):
         try:
             script(command)
-        except SystemExit as e:
-            raise RuntimeError("SystemExit: {}".format(e.code))
+        except SystemExit as exception:
+            if exception.args[0]:
+                raise RuntimeError("SystemExit: {}".format(exception.code))
     pytest.helpers.compare_strings(
         r"""
         Render candidates: 'test_session' ...
@@ -572,8 +575,9 @@ def test_success_chained(cli_paths):
     ):
         try:
             script(command)
-        except SystemExit as e:
-            raise RuntimeError("SystemExit: {}".format(e.code))
+        except SystemExit as exception:
+            if exception.args[0]:
+                raise RuntimeError("SystemExit: {}".format(exception.code))
 
     pytest.helpers.compare_strings(
         r"""
@@ -692,8 +696,9 @@ def test_session_factory(cli_paths):
     ):
         try:
             script(command)
-        except SystemExit as e:
-            raise RuntimeError("SystemExit: {}".format(e.code))
+        except SystemExit as exception:
+            if exception.args[0]:
+                raise RuntimeError("SystemExit: {}".format(exception.code))
     pytest.helpers.compare_strings(
         r"""
         Render candidates: 'test_session' ...

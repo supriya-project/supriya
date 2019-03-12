@@ -64,8 +64,9 @@ def test_internal_path(cli_paths):
     ):
         try:
             script(command)
-        except SystemExit:
-            raise RuntimeError("SystemExit")
+        except SystemExit as exception:
+            if exception.args[0]:
+                raise RuntimeError("SystemExit")
     pytest.helpers.compare_strings(
         r"""
         Creating session subpackage 'test_session' ...
@@ -87,8 +88,9 @@ def test_success(cli_paths):
     ):
         try:
             script(command)
-        except SystemExit:
-            raise RuntimeError("SystemExit")
+        except SystemExit as exception:
+            if exception.args[0]:
+                raise RuntimeError("SystemExit")
     pytest.helpers.compare_strings(
         r"""
         Creating session subpackage 'test_session' ...

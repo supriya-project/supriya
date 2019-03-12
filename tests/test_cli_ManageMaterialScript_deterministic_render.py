@@ -55,8 +55,9 @@ def test_01(cli_paths):
     ):
         try:
             script(command)
-        except SystemExit as e:
-            raise RuntimeError("SystemExit: {}".format(e.code))
+        except SystemExit as exception:
+            if exception.args[0]:
+                raise RuntimeError("SystemExit: {}".format(exception.code))
     pytest.helpers.compare_strings(
         r"""
         Render candidates: 'test_material' ...
@@ -83,8 +84,9 @@ def test_01(cli_paths):
     ):
         try:
             script(command)
-        except SystemExit as e:
-            raise RuntimeError("SystemExit: {}".format(e.code))
+        except SystemExit as exception:
+            if exception.args[0]:
+                raise RuntimeError("SystemExit: {}".format(exception.code))
     pytest.helpers.compare_strings(
         r"""
         Render candidates: 'test_material' ...
@@ -110,8 +112,9 @@ def test_01(cli_paths):
     ):
         try:
             script(command)
-        except SystemExit as e:
-            raise RuntimeError("SystemExit: {}".format(e.code))
+        except SystemExit as exception:
+            if exception.args[0]:
+                raise RuntimeError("SystemExit: {}".format(exception.code))
     pytest.helpers.compare_strings(
         r"""
         Render candidates: 'test_material' ...
@@ -158,8 +161,9 @@ def test_02(cli_paths):
         with uqbar.io.DirectoryChange(cli_paths.inner_project_path):
             try:
                 script(command)
-            except SystemExit as e:
-                raise RuntimeError("SystemExit: {}".format(e.code))
+            except SystemExit as exception:
+                if exception.args[0]:
+                    raise RuntimeError("SystemExit: {}".format(exception.code))
 
     aiff_artifacts = sorted(cli_paths.renders_path.glob("*.aiff"))
     osc_artifacts = sorted(cli_paths.renders_path.glob("*.osc"))
