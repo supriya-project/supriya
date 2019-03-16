@@ -11,7 +11,7 @@ class ServerRecorder(SupriyaObject):
     ::
 
         >>> import supriya
-        >>> import tempfile, time
+        >>> import os, tempfile, time
         >>> server = supriya.Server().boot()
         >>> with tempfile.TemporaryDirectory() as tempdir:
         ...     server.recorder.start(

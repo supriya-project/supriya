@@ -3,38 +3,43 @@
 Supriya (|release|)
 ===================
 
-..  include:: links.txt
+.. include:: links.txt
 
 Introduction
 ------------
 
-..  include:: abstract.txt
+.. include:: abstract.txt
 
 Quickstart
 ----------
 
-..  include:: quick-install.txt
+.. include:: quick-install.txt
 
-..  toctree::
-    :maxdepth: 2
+.. toctree::
+   :maxdepth: 2
 
-    installation
+   installation
 
-..  include:: quick-example.txt
+.. include:: quick-example.txt
+
+Guides
+------
+
+.. toctree::
+   :glob:
+   :maxdepth: 2
+
+   realtime/index
+   synthdefs/index
+   nonrealtime/index
+   patterns/index
 
 Supriya API
 -----------
 
-..  toctree::
-    :maxdepth: 2
+.. toctree::
+   :maxdepth: 2
 
-    api/index
+   api/index
 
-Indices and tables
-==================
- 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
-..  include:: references.txt
+.. include:: references.txt

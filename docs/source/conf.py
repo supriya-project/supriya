@@ -34,5 +34,16 @@ uqbar_api_module_documenter_class = "uqbar.apis.SummarizingModuleDocumenter"
 uqbar_api_root_documenter_class = "uqbar.apis.SummarizingRootDocumenter"
 uqbar_api_source_paths = ["supriya"]
 uqbar_api_title = "Supriya API"
-uqbar_book_modules = ["abjad", "supriya"]
+uqbar_book_console_setup = """\
+import abjad
+import supriya
+""".splitlines()
+uqbar_book_console_teardown = """\
+for server in supriya.Server._servers.values():
+    server.quit()
+
+supriya.Server.kill()
+""".splitlines()
 version = "0.2.0"
+uqbar_book_strict = True
+uqbar_book_use_black = True

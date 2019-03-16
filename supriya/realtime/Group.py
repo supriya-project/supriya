@@ -66,8 +66,8 @@ class Group(Node, UniqueTreeContainer):
 
         ::
 
-            >>> group_one = Group()
-            >>> group_two = Group()
+            >>> group_one = supriya.realtime.Group()
+            >>> group_two = supriya.realtime.Group()
             >>> group_one.append(group_two)
 
         """

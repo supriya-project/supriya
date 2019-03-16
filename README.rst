@@ -19,7 +19,7 @@ Supriya lets you:
 Send compliments or complaints to josiah.oberholtzer@gmail.com, or register
 an issue at https://github.com/josiah-wolf-oberholtzer/supriya/issues.
 
-Supriya is compatible with Python 3.3+ only.
+Supriya is compatible with Python 3.6+ only.
 
 ..  image:: graph.png
     :align: center
@@ -93,7 +93,7 @@ Make a synthesizer definition and send it to the server::
     ...     source = source * builder['amplitude']
     ...     source = source * envelope
     ...     out = supriya.ugens.Out.ar(
-    ...         bus=(0, 1),
+    ...         bus=0,
     ...         source=source,
     ...         )
     ...
@@ -128,15 +128,6 @@ Query the server's node tree::
             1000 group
                 1001 f1c3ea5063065be20688f82b415c1108
                     amplitude: 0.0, frequency: 440.0
-
-Bind a MIDI controller to the synth's controls::
-
-    >>> korg = supriya.midi.Device('NanoKontrol2')
-    >>> korg.open_port(0)
-    >>> source = korg['fader_1']
-    >>> target = synth.controls['frequency']
-    >>> supriya.bind(source, target, range_=Range(110, 880), exponent=2.0)
-    Binding()
 
 Release the synth::
 

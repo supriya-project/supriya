@@ -172,7 +172,7 @@ class BufferGroup(ServerObjectProxy):
         ::
 
             >>> server = supriya.realtime.Server().boot()
-            >>> buffer_group = BufferGroup.from_file_paths(file_paths)
+            >>> buffer_group = supriya.realtime.BufferGroup.from_file_paths(file_paths)
 
         ::
 

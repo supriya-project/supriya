@@ -643,11 +643,27 @@ class Server(SupriyaObject):
         PubSub.notify("server-booted")
         return self
 
-    @staticmethod
-    def get_default_server():
-        if Server._default_server is None:
-            Server._default_server = Server()
-        return Server._default_server
+    @classmethod
+    def get_default_server(cls):
+        if cls._default_server is None:
+            cls._default_server = cls()
+        return cls._default_server
+
+    @classmethod
+    def kill(cls):
+        process = subprocess.Popen("ps -Af", shell=True, stdout=subprocess.PIPE)
+        output, _ = process.communicate()
+        output = output.decode()
+        pids = []
+        for line in output:
+            if "scsynth" not in line:
+                continue
+            parts = line.split()
+            pids.append(int(parts[1]))
+        if pids:
+            for pid in pids:
+                os.kill(pid, signal.SIGKILL)
+            raise RuntimeError("scsynth was still running: {}".format(pids))
 
     def query_local_nodes(self, include_controls=False):
         """
