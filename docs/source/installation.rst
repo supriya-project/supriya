@@ -116,4 +116,4 @@ provided tools for working creating, deleting, activating and deactivating
 virtual environments: ``mkvirtualenv``, ``rmvirtualenv``, ``workon`` and
 ``deactivate``.
 
-..  include:: references.txt
+..  include:: includes/references.txt

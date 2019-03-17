@@ -33,7 +33,7 @@ uqbar_api_member_documenter_classes = ["uqbar.apis.FunctionDocumenter", "uqbar.a
 uqbar_api_module_documenter_class = "uqbar.apis.SummarizingModuleDocumenter"
 uqbar_api_root_documenter_class = "uqbar.apis.SummarizingRootDocumenter"
 uqbar_api_source_paths = ["supriya"]
-uqbar_api_title = "Supriya API"
+uqbar_api_title = "Supriya API Reference"
 uqbar_book_console_setup = """\
 import abjad
 import supriya

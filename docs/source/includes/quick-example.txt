@@ -81,6 +81,10 @@ Query the server's node tree::
                 1001 f1c3ea5063065be20688f82b415c1108
                     amplitude: 0.0, frequency: 440.0
 
+Visualize the server's node tree::
+
+    >>> supriya.graph(server)
+
 Release the synth::
 
     >>> synth.release()
