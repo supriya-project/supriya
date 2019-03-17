@@ -3,7 +3,7 @@ import abc
 from supriya.system.SupriyaObject import SupriyaObject
 
 
-class ServerObjectProxy(SupriyaObject):
+class ServerObject(SupriyaObject):
     """
     A proxy of an object on a server.
 

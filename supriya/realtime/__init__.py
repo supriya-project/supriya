@@ -21,7 +21,7 @@ from .NodeIdAllocator import NodeIdAllocator  # noqa
 from .RootNode import RootNode  # noqa
 from .Server import Server  # noqa
 from .ServerMeters import ServerMeters  # noqa
-from .ServerObjectProxy import ServerObjectProxy  # noqa
+from .ServerObject import ServerObject  # noqa
 from .ServerOptions import ServerOptions  # noqa
 from .ServerRecorder import ServerRecorder  # noqa
 from .StatusWatcher import StatusWatcher  # noqa

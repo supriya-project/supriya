@@ -7,10 +7,10 @@ import uqbar.strings
 from uqbar.containers import UniqueTreeNode
 
 from supriya.enums import AddAction, NodeAction
-from supriya.realtime.ServerObjectProxy import ServerObjectProxy
+from supriya.realtime.ServerObject import ServerObject
 
 
-class Node(ServerObjectProxy, UniqueTreeNode):
+class Node(ServerObject, UniqueTreeNode):
 
     ### CLASS VARIABLES ###
 
@@ -20,7 +20,7 @@ class Node(ServerObjectProxy, UniqueTreeNode):
 
     @abc.abstractmethod
     def __init__(self, name=None, node_id_is_permanent=False):
-        ServerObjectProxy.__init__(self)
+        ServerObject.__init__(self)
         UniqueTreeNode.__init__(self, name=name)
         self._is_paused = False
         self._node_id = None
@@ -218,7 +218,7 @@ class Node(ServerObjectProxy, UniqueTreeNode):
                 node_id = server.node_id_allocator.allocate_node_id()
         else:
             node_id = int(node_id)
-        ServerObjectProxy.allocate(self, server=server)
+        ServerObject.allocate(self, server=server)
         self._node_id = node_id
         self._node_id_is_permanent = bool(node_id_is_permanent)
         self._server._nodes[self._node_id] = self
@@ -256,7 +256,7 @@ class Node(ServerObjectProxy, UniqueTreeNode):
                 self.server.node_id_allocator.free_permanent_node_id(self.node_id)
         self._node_id = None
         self._node_id_is_permanent = None
-        ServerObjectProxy.free(self)
+        ServerObject.free(self)
         return node_id
 
     ### PUBLIC METHODS ###

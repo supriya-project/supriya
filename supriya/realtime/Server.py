@@ -164,7 +164,7 @@ class Server(SupriyaObject):
         import supriya.realtime
         import supriya.synthdefs
 
-        if not isinstance(expr, supriya.realtime.ServerObjectProxy):
+        if not isinstance(expr, supriya.realtime.ServerObject):
             return False
         if expr.server is not self:
             return False

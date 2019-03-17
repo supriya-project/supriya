@@ -56,7 +56,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
         self._special_index = special_index
         ugenlike_prototype = (UGen, supriya.synthdefs.Parameter)
         server_id_prototype = (
-            supriya.realtime.ServerObjectProxy,
+            supriya.realtime.ServerObject,
             supriya.realtime.BusProxy,
             supriya.realtime.BufferProxy,
         )

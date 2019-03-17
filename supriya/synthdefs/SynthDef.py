@@ -8,10 +8,10 @@ import tempfile
 import yaml
 
 from supriya import BinaryOperator, ParameterRate, UnaryOperator
-from supriya.realtime.ServerObjectProxy import ServerObjectProxy
+from supriya.realtime.ServerObject import ServerObject
 
 
-class SynthDef(ServerObjectProxy):
+class SynthDef(ServerObject):
     """
     A synth definition.
 
@@ -79,7 +79,7 @@ class SynthDef(ServerObjectProxy):
         import supriya.synthdefs
         import supriya.ugens
 
-        ServerObjectProxy.__init__(self)
+        ServerObject.__init__(self)
         compiler = supriya.synthdefs.SynthDefCompiler
         self._name = name
         ugens = list(copy.deepcopy(ugens))
@@ -574,7 +574,7 @@ class SynthDef(ServerObjectProxy):
         return tuple(sort_bundles)
 
     def _register_with_local_server(self, server=None):
-        ServerObjectProxy.allocate(self, server=server)
+        ServerObject.allocate(self, server=server)
         synthdef_name = self.actual_name
         self.server._synthdefs[synthdef_name] = self
 
@@ -625,7 +625,7 @@ class SynthDef(ServerObjectProxy):
         request = supriya.commands.SynthDefFreeRequest(synthdef=self)
         if self.server.is_running:
             request.communicate(server=self.server)
-        ServerObjectProxy.free(self)
+        ServerObject.free(self)
 
     def play(self, add_action=None, target_node=None, **kwargs):
         """

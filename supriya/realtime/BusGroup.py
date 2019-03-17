@@ -1,9 +1,9 @@
 import supriya.exceptions
 from supriya import CalculationRate
-from supriya.realtime.ServerObjectProxy import ServerObjectProxy
+from supriya.realtime.ServerObject import ServerObject
 
 
-class BusGroup(ServerObjectProxy):
+class BusGroup(ServerObject):
     """
     A bus group.
 
@@ -66,7 +66,7 @@ class BusGroup(ServerObjectProxy):
     ):
         import supriya.realtime
 
-        ServerObjectProxy.__init__(self)
+        ServerObject.__init__(self)
         calculation_rate = CalculationRate.from_expr(calculation_rate)
         assert calculation_rate in (CalculationRate.AUDIO, CalculationRate.CONTROL)
         self._calculation_rate = calculation_rate
@@ -188,13 +188,13 @@ class BusGroup(ServerObjectProxy):
 
         if self.is_allocated:
             raise supriya.exceptions.BusAlreadyAllocated
-        ServerObjectProxy.allocate(self, server=server)
+        ServerObject.allocate(self, server=server)
         allocator = supriya.realtime.Bus._get_allocator(
             calculation_rate=self.calculation_rate, server=self.server
         )
         bus_id = allocator.allocate(len(self))
         if bus_id is None:
-            ServerObjectProxy.free(self)
+            ServerObject.free(self)
             raise ValueError
         self._bus_id = bus_id
         return self
@@ -332,7 +332,7 @@ class BusGroup(ServerObjectProxy):
         )
         allocator.free(self.bus_id)
         self._bus_id = None
-        ServerObjectProxy.free(self)
+        ServerObject.free(self)
         return self
 
     def get(self):
