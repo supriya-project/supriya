@@ -10,6 +10,8 @@ Introduction
 
 .. include:: includes/abstract.txt
 
+:term:`SuperCollider`
+
 Quickstart
 ----------
 
@@ -18,12 +20,16 @@ Quickstart
 .. include:: includes/quick-example.txt
 
 .. toctree::
-   :caption: Guides
-   :glob:
+   :caption: Introduction
    :maxdepth: 2
 
    installation
    concepts
+
+.. toctree::
+   :caption: Guides
+   :maxdepth: 2
+
    realtime/index
    synthdefs/index
    nonrealtime/index
@@ -37,5 +43,10 @@ Quickstart
    :maxdepth: 3
 
    api/index
+
+.. toctree::
+   :caption: Reference
+
+   glossary
 
 .. include:: includes/references.txt
