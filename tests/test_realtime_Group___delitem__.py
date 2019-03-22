@@ -36,7 +36,7 @@ def test_01(server):
         """
     )
 
-    del (group_a[-1])
+    del group_a[-1]
 
     server_state = str(server.query_remote_nodes())
     assert server_state == uqbar.strings.normalize(
@@ -52,7 +52,7 @@ def test_01(server):
         """
     )
 
-    del (group_b[1])
+    del group_b[1]
 
     server_state = str(server.query_remote_nodes())
     assert server_state == uqbar.strings.normalize(
@@ -67,7 +67,7 @@ def test_01(server):
         """
     )
 
-    del (group_a[0])
+    del group_a[0]
 
     server_state = str(server.query_remote_nodes())
     assert server_state == uqbar.strings.normalize(
@@ -81,7 +81,7 @@ def test_01(server):
         """
     )
 
-    del (group_b[1])
+    del group_b[1]
 
     server_state = str(server.query_remote_nodes())
     assert server_state == uqbar.strings.normalize(
@@ -94,7 +94,7 @@ def test_01(server):
         """
     )
 
-    del (group_a[0])
+    del group_a[0]
 
     server_state = str(server.query_remote_nodes())
     assert server_state == uqbar.strings.normalize(

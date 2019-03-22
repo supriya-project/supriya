@@ -173,7 +173,7 @@ def test_03(server):
     assert group_b is group_a[1]
     assert group_c is group_b[2]
 
-    del (group_a[-1])
+    del group_a[-1]
 
     remote_state = str(server.query_remote_nodes())
     assert remote_state == uqbar.strings.normalize(
@@ -207,7 +207,7 @@ def test_03(server):
     assert group_b is group_a[1]
     assert group_c is group_b[2]
 
-    del (group_b[1])
+    del group_b[1]
 
     remote_state = str(server.query_remote_nodes())
     assert remote_state == uqbar.strings.normalize(
@@ -240,7 +240,7 @@ def test_03(server):
     assert group_b is group_a[1]
     assert group_c is group_b[1]
 
-    del (group_a[0])
+    del group_a[0]
 
     remote_state = str(server.query_remote_nodes())
     assert remote_state == uqbar.strings.normalize(
@@ -272,7 +272,7 @@ def test_03(server):
     assert group_b is group_a[0]
     assert group_c is group_b[1]
 
-    del (group_b[1])
+    del group_b[1]
 
     remote_state = str(server.query_remote_nodes())
     assert remote_state == uqbar.strings.normalize(
@@ -303,7 +303,7 @@ def test_03(server):
     assert group_b is group_a[0]
     assert group_c not in group_b
 
-    del (group_a[0])
+    del group_a[0]
 
     remote_state = str(server.query_remote_nodes())
     assert remote_state == uqbar.strings.normalize(

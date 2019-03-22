@@ -256,7 +256,7 @@ class Buffer(ServerObject):
         buffers = self.server._buffers[buffer_id]
         buffers.remove(self)
         if not buffers:
-            del (self.server._buffers[buffer_id])
+            del self.server._buffers[buffer_id]
         return buffer_id
 
     def _unregister_with_remote_server(self, buffer_id):

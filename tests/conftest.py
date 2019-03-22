@@ -45,7 +45,7 @@ def cli_paths(tmpdir):
         if not path or not module:
             continue
         if path.startswith(package_name):
-            del (sys.modules[path])
+            del sys.modules[path]
 
 
 @pytest.fixture

@@ -589,7 +589,7 @@ class Session:
                 requests.append(close_request)
             request = supriya.commands.BufferFreeRequest(buffer_id=id_mapping[buffer_])
             requests.append(request)
-            del (buffer_open_states[id_mapping[buffer_]])
+            del buffer_open_states[id_mapping[buffer_]]
         return requests
 
     def _collect_buffer_nonlifecycle_requests(
@@ -978,7 +978,7 @@ class Session:
             return
         assert state.is_sparse
         self.offsets.remove(offset)
-        del (self.states[offset])
+        del self.states[offset]
         return state
 
     def _to_non_xrefd_osc_bundles(self, duration=None):

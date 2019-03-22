@@ -251,7 +251,7 @@ class Node(ServerObject, UniqueTreeNode):
         node_id = self.node_id
         if self.server is not None:
             if self._node_id in self._server._nodes:
-                del (self._server._nodes[self._node_id])
+                del self._server._nodes[self._node_id]
             if self.node_id_is_permanent:
                 self.server.node_id_allocator.free_permanent_node_id(self.node_id)
         self._node_id = None

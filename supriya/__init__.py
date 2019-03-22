@@ -84,7 +84,7 @@ def import_structured_package(path, namespace, remove=True, verbose=False):
     # Delete this function from the namespace
     this_name = inspect.currentframe().f_code.co_name
     if remove and this_name in namespace:
-        del (namespace[this_name])
+        del namespace[this_name]
 
 
 from supriya._version import __version__, __version_info__  # noqa

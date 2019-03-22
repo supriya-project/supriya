@@ -1,7 +1,7 @@
 """
 Tools for object-modeling OSC responses received from ``scsynth``.
 """
-from .BufferAllocateReadChannelRequest import BufferAllocateReadChannelRequest  # noqa
+from .BufferAllocateReadChannelRequest import BufferAllocateReadChannelRequest  # noqa,,
 from .BufferAllocateReadRequest import BufferAllocateReadRequest  # noqa
 from .BufferAllocateRequest import BufferAllocateRequest  # noqa
 from .BufferCloseRequest import BufferCloseRequest  # noqa
@@ -25,10 +25,10 @@ from .BufferZeroRequest import BufferZeroRequest  # noqa
 from .ClearScheduleRequest import ClearScheduleRequest  # noqa
 from .CommandRequest import CommandRequest  # noqa
 from .ControlBusFillRequest import ControlBusFillRequest  # noqa
-from .ControlBusGetContiguousRequest import ControlBusGetContiguousRequest  # noqa
+from .ControlBusGetContiguousRequest import ControlBusGetContiguousRequest  # noqa,,
 from .ControlBusGetRequest import ControlBusGetRequest  # noqa
-from .ControlBusSetContiguousRequest import ControlBusSetContiguousRequest  # noqa
-from .ControlBusSetContiguousResponse import ControlBusSetContiguousResponse  # noqa
+from .ControlBusSetContiguousRequest import ControlBusSetContiguousRequest  # noqa,,
+from .ControlBusSetContiguousResponse import ControlBusSetContiguousResponse  # noqa,,
 from .ControlBusSetRequest import ControlBusSetRequest  # noqa
 from .ControlBusSetResponse import ControlBusSetResponse  # noqa
 from .DoneResponse import DoneResponse  # noqa
@@ -74,13 +74,13 @@ from .QueryTreeResponse import QueryTreeResponse  # noqa
 from .QueryTreeSynth import QueryTreeSynth  # noqa
 from .QuitRequest import QuitRequest  # noqa
 from .Request import Request  # noqa
-from .RequestBundle import RequestBundle  # noqa
 from .Requestable import Requestable  # noqa
+from .RequestBundle import RequestBundle  # noqa
 from .Response import Response  # noqa
 from .StatusRequest import StatusRequest  # noqa
 from .StatusResponse import StatusResponse  # noqa
-from .SyncRequest import SyncRequest  # noqa
 from .SyncedResponse import SyncedResponse  # noqa
+from .SyncRequest import SyncRequest  # noqa
 from .SynthDefFreeAllRequest import SynthDefFreeAllRequest  # noqa
 from .SynthDefFreeRequest import SynthDefFreeRequest  # noqa
 from .SynthDefLoadDirectoryRequest import SynthDefLoadDirectoryRequest  # noqa
@@ -89,8 +89,8 @@ from .SynthDefReceiveRequest import SynthDefReceiveRequest  # noqa
 from .SynthDefRemovedResponse import SynthDefRemovedResponse  # noqa
 from .SynthGetContiguousRequest import SynthGetContiguousRequest  # noqa
 from .SynthGetRequest import SynthGetRequest  # noqa
-from .SynthNewRequest import SynthNewRequest  # noqa
 from .SynthNewargsRequest import SynthNewargsRequest  # noqa
+from .SynthNewRequest import SynthNewRequest  # noqa
 from .SynthNoidRequest import SynthNoidRequest  # noqa
 from .TriggerResponse import TriggerResponse  # noqa
 from .UgenCommandRequest import UgenCommandRequest  # noqa

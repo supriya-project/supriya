@@ -10,5 +10,5 @@ from .ProjectManager import ProjectManager  # noqa
 from .ProjectPackageScript import ProjectPackageScript  # noqa
 from .ProjectSectionScript import ProjectSectionScript  # noqa
 from .ProjectSettings import ProjectSettings  # noqa
-from .SupriyaScript import SupriyaScript  # noqa
 from .run_supriya import run_supriya  # noqa
+from .SupriyaScript import SupriyaScript  # noqa

@@ -621,7 +621,7 @@ class SynthDef(ServerObject):
         import supriya.commands
 
         synthdef_name = self.actual_name
-        del (self.server._synthdefs[synthdef_name])
+        del self.server._synthdefs[synthdef_name]
         request = supriya.commands.SynthDefFreeRequest(synthdef=self)
         if self.server.is_running:
             request.communicate(server=self.server)

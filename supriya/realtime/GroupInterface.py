@@ -111,8 +111,8 @@ class GroupInterface(ControlInterface):
             nodes_to_remove = control_interface_dict[control_name]
             current_nodes.difference_update(nodes_to_remove)
             if not current_nodes:
-                del (self._synth_controls[control_name])
-                del (self._group_controls[control_name])
+                del self._synth_controls[control_name]
+                del self._group_controls[control_name]
 
     def reset(self):
         self._synth_controls.clear()

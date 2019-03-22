@@ -226,7 +226,7 @@ class Pattern(SupriyaValueObject):
                     break
                 frame = frame.f_back
         finally:
-            del (frame)
+            del frame
         if identifier in cls._rngs:
             rng = cls._rngs[identifier]
         else:
