@@ -33,7 +33,7 @@ Quickstart
    realtime/index
    synthdefs/index
    nonrealtime/index
-   patterns/index
+   patterns
    osc
    midi
 

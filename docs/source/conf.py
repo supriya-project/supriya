@@ -47,4 +47,4 @@ supriya.Server.kill()
 version = "0.2.0"
 uqbar_book_strict = True
 uqbar_book_use_black = True
-uqbar_book_use_cache = False
+uqbar_book_use_cache = True
