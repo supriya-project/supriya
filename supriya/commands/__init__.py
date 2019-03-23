@@ -1,7 +1,9 @@
 """
 Tools for object-modeling OSC responses received from ``scsynth``.
 """
-from .BufferAllocateReadChannelRequest import BufferAllocateReadChannelRequest  # noqa,,
+from .BufferAllocateReadChannelRequest import (
+    BufferAllocateReadChannelRequest,
+)  # noqa,,,
 from .BufferAllocateReadRequest import BufferAllocateReadRequest  # noqa
 from .BufferAllocateRequest import BufferAllocateRequest  # noqa
 from .BufferCloseRequest import BufferCloseRequest  # noqa
@@ -25,10 +27,10 @@ from .BufferZeroRequest import BufferZeroRequest  # noqa
 from .ClearScheduleRequest import ClearScheduleRequest  # noqa
 from .CommandRequest import CommandRequest  # noqa
 from .ControlBusFillRequest import ControlBusFillRequest  # noqa
-from .ControlBusGetContiguousRequest import ControlBusGetContiguousRequest  # noqa,,
+from .ControlBusGetContiguousRequest import ControlBusGetContiguousRequest  # noqa,,,
 from .ControlBusGetRequest import ControlBusGetRequest  # noqa
-from .ControlBusSetContiguousRequest import ControlBusSetContiguousRequest  # noqa,,
-from .ControlBusSetContiguousResponse import ControlBusSetContiguousResponse  # noqa,,
+from .ControlBusSetContiguousRequest import ControlBusSetContiguousRequest  # noqa,,,
+from .ControlBusSetContiguousResponse import ControlBusSetContiguousResponse  # noqa,,,
 from .ControlBusSetRequest import ControlBusSetRequest  # noqa
 from .ControlBusSetResponse import ControlBusSetResponse  # noqa
 from .DoneResponse import DoneResponse  # noqa
@@ -49,13 +51,13 @@ from .NodeCommandRequest import NodeCommandRequest  # noqa
 from .NodeFillRequest import NodeFillRequest  # noqa
 from .NodeFreeRequest import NodeFreeRequest  # noqa
 from .NodeInfoResponse import NodeInfoResponse  # noqa
-from .NodeMapToAudioBusContiguousRequest import (  # noqa
+from .NodeMapToAudioBusContiguousRequest import (
     NodeMapToAudioBusContiguousRequest,
-)
+)  # noqa,
 from .NodeMapToAudioBusRequest import NodeMapToAudioBusRequest  # noqa
-from .NodeMapToControlBusContiguousRequest import (  # noqa
+from .NodeMapToControlBusContiguousRequest import (
     NodeMapToControlBusContiguousRequest,
-)
+)  # noqa,
 from .NodeMapToControlBusRequest import NodeMapToControlBusRequest  # noqa
 from .NodeOrderRequest import NodeOrderRequest  # noqa
 from .NodeQueryRequest import NodeQueryRequest  # noqa
