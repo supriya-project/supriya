@@ -24,12 +24,11 @@ class TimespanCollection(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ("_driver",)
-
     ### INITIALIZER ###
 
     def __init__(self, timespans=None, accelerated=True):
         self._driver = TimespanCollectionDriver(timespans)
+        self._accelerated = bool(accelerated)
         if accelerated:
             try:
                 import pyximport  # noqa
@@ -116,6 +115,9 @@ class TimespanCollection(SupriyaObject):
         """
         return self._driver[item]
 
+    def __getstate__(self):
+        return self._accelerated, tuple(self)
+
     def __iter__(self):
         """
         Iterates timespans in this timespan collection.
@@ -201,6 +203,10 @@ class TimespanCollection(SupriyaObject):
         else:
             message = "Indices must be ints or slices, got {}".format(i)
             raise TypeError(message)
+
+    def __setstate__(self, state):
+        accelerated, timespans = state
+        self.__init__(timespans=timespans, accelerated=accelerated)
 
     def __sub__(self, timespan):
         """
