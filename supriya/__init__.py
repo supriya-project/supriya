@@ -117,7 +117,7 @@ from supriya.realtime import (  # noqa
     Server,
     Synth,
 )
-from supriya.soundfiles import SoundFile  # noqa
+from supriya.soundfiles import Say, SoundFile  # noqa
 from supriya.synthdefs import (  # noqa
     Envelope,
     Parameter,
@@ -127,6 +127,5 @@ from supriya.synthdefs import (  # noqa
     SynthDefFactory,
 )
 from supriya.system import Assets, Bindable, Binding, bind  # noqa
-from supriya.soundfiles import Say  # noqa
 from supriya.io import graph, play, render  # noqa
 from supriya import assets  # noqa

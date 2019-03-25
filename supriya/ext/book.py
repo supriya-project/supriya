@@ -29,6 +29,9 @@ class RenderableProxy:
 
     template = normalize(
         """
+        <audio controls src="{file_path}">
+            Your browser does not support the <code>audio</code> element.
+        </audio>
         """
     )
 
