@@ -1,12 +1,12 @@
 try:
-    import pyximport  # type: ignore
+    import pyximport
 
     pyximport.install(language_level=3)
     del pyximport
 except ImportError:
     pass
 
-import appdirs  # type: ignore
+import appdirs
 import configparser  # noqa
 import pathlib  # noqa
 

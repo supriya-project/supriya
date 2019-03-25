@@ -10,6 +10,15 @@ from supriya.system.SupriyaValueObject import SupriyaValueObject
 
 
 class Say(SupriyaValueObject):
+    """
+    Wrapper for OSX ``say`` command.
+
+    ::
+
+        >>> say = supriya.Say("Hello world!", voice="Daniel")
+        >>> supriya.play(say)  # noqa
+
+    """
 
     ### CLASS VARIABLES ###
 
