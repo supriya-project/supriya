@@ -48,6 +48,9 @@ isort:
 	isort \
 		--multi-line 1 \
 		--recursive \
+		--skip supriya/__init__.py \
+		--skip supriya/commands/__init__.py \
+		--skip supriya/osc/__init__.py \
 		--thirdparty abjad \
 		--thirdparty uqbar \
 		--thirdparty yaml \
