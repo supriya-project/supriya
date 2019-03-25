@@ -11,6 +11,14 @@ Server lifecycle
 - disconnect
 - kill
 
+Locating server executables
+---------------------------
+
+- scsynth default on OSX
+- scsynth (in your path)
+- scsynth via config
+- scsynth via SCSYNTH_PATH
+
 Server options
 --------------
 
