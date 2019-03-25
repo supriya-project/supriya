@@ -7,6 +7,7 @@ from docutils.nodes import FixedTextElement, General, SkipNode
 from uqbar.book.extensions import Extension
 from uqbar.strings import normalize
 
+from supriya.ext import websafe_audio
 from supriya.io import Player
 
 
@@ -19,6 +20,9 @@ class PlayerExtension(Extension):
                 RenderableProxy(self.renderable, self.render_kwargs)
             ),
         )
+
+    def setup_sphinx(self, app):
+        RenderableProxy.setup_sphinx(app)
 
 
 class RenderableProxy:
@@ -38,7 +42,9 @@ class RenderableProxy:
     def to_docutils(self):
         code = "\n".join(
             textwrap.wrap(
-                base64.b64encode(pickle.dumps((self.renderable, self.render_kwargs)))
+                base64.b64encode(
+                    pickle.dumps((self.renderable, self.render_kwargs))
+                ).decode()
             )
         )
         node = self.render_block(code, code)
@@ -55,17 +61,18 @@ class RenderableProxy:
 
     @classmethod
     def render(cls, node, output_path):
+        output_path.mkdir(exist_ok=True)
         renderable, render_kwargs = pickle.loads(
             base64.b64decode("".join(node[0].split()))
         )
-        return renderable.__render__(
-            renderable, render_directory_path=output_path, **render_kwargs
+        return websafe_audio(
+            renderable.__render__(render_directory_path=output_path, **render_kwargs)
         )
 
     @staticmethod
-    def visit_graphviz_block_html(self, node):
+    def visit_render_block_html(self, node):
         absolute_file_path = RenderableProxy.render(
-            node, pathlib.Path(self.builder.outdir)
+            node, pathlib.Path(self.builder.outdir) / "_images"
         )
         relative_file_path = (
             pathlib.Path(self.builder.imgpath) / absolute_file_path.name
@@ -75,13 +82,13 @@ class RenderableProxy:
         raise SkipNode
 
     @staticmethod
-    def visit_graphviz_block_latex(self, node):
+    def visit_render_block_latex(self, node):
         raise SkipNode
 
     @staticmethod
-    def depart_graphviz_block_text(self, node):
+    def depart_render_block_text(self, node):
         self.end_state(wrap=False)
 
     @staticmethod
-    def visit_graphviz_block_text(self, node):
+    def visit_render_block_text(self, node):
         self.new_state()
