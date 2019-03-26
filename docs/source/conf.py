@@ -59,8 +59,8 @@ supriya.Server.kill()
 """.splitlines()
 
 uqbar_book_extensions = [
-    "uqbar.book.extensions.GrapherExtension",
-    "supriya.ext.book.PlayerExtension",
+    "uqbar.book.extensions.GraphExtension",
+    "supriya.ext.book.RenderExtension",
 ]
 uqbar_book_strict = True
 uqbar_book_use_black = True
