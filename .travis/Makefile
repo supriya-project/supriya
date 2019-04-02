@@ -42,6 +42,7 @@ install-scsynth-deps:
 		gcc-4.9 \
 		graphviz  \
 		jackd2 \
+		lame \
 		libasound2-dev \
 		libavahi-client-dev \
 		libfftw3-dev \

@@ -42,11 +42,11 @@ def cli_paths(tmpdir):
     if sys.path[0] != str(outer_project_path):
         sys.path.insert(0, str(outer_project_path))
     yield cli_paths
-    for path, module in tuple(sys.modules.items()):
-        if not path or not module:
+    for module_path, module in tuple(sys.modules.items()):
+        if not module_path or not module:
             continue
-        if path.startswith(package_name):
-            del sys.modules[path]
+        if module_path.startswith(package_name):
+            del sys.modules[module_path]
 
 
 @pytest.fixture
@@ -64,14 +64,14 @@ def nonrealtime_paths(tmpdir):
         render_yml_file_path=render_yml_file_path,
     )
     original_directory = pathlib.Path.cwd()
-    for path in [output_directory_path, render_directory_path]:
-        path.mkdir(parents=True, exist_ok=True)
+    for directory_path in [output_directory_path, render_directory_path]:
+        directory_path.mkdir(parents=True, exist_ok=True)
     os.chdir(test_directory_path)
     yield nonrealtime_paths
     os.chdir(original_directory)
-    for path in [output_directory_path, render_directory_path]:
-        if path.exists():
-            shutil.rmtree(path)
+    for directory_path in [output_directory_path, render_directory_path]:
+        if directory_path.exists():
+            shutil.rmtree(directory_path)
 
 
 @pytest.fixture
