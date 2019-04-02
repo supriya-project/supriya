@@ -24,7 +24,7 @@ install_requires = [
     "appdirs",
     "tornado",
     "tqdm",
-    "uqbar >= 0.2.17",
+    "uqbar >= 0.3.2",
 ]
 
 extras_require = {
