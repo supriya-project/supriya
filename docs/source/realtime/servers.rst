@@ -4,6 +4,10 @@ Servers
 Server lifecycle
 ----------------
 
+.. todo:: Handle clientID return via ``/done /notify 0 64`` for allocators
+.. todo:: Implement ``connect()`` and ``disconnect()``
+.. todo:: Use logging, not print, for debugging
+
 - boot
 - quit
 - reboot    
