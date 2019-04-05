@@ -578,7 +578,7 @@ class Server(SupriyaObject):
         while True:
             line = self._server_process.stdout.readline().decode().rstrip()
             if self.debug_subprocess and line:
-                print("Boot:", line)
+                print("BOOT", "{:0.6f}".format(time.time()), line)
             if line.startswith("SuperCollider 3 server ready"):
                 break
             elif line.startswith("ERROR:"):
@@ -617,7 +617,7 @@ class Server(SupriyaObject):
         options_string = server_options.as_options_string(self.port)
         command = "{} {}".format(scsynth_path, options_string)
         if self.debug_subprocess:
-            print("Boot:", command)
+            print("BOOT", "{:0.6f}".format(time.time()), command)
         process = self._server_process = subprocess.Popen(
             command,
             shell=True,
@@ -823,9 +823,9 @@ class Server(SupriyaObject):
         PubSub.notify("server-quit")
         return self
 
-    def reboot(self):
+    def reboot(self, server_options=None, **kwargs):
         self.quit()
-        self.boot()
+        self.boot(server_options=server_options, **kwargs)
         return self
 
     def send_message(self, message, with_request_name=False):

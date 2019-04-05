@@ -3,8 +3,8 @@ Installation
 
 Supriya works on OSX and Unix/Linux with Python 3.3+.
 
-Install Supriya
----------------
+Installing Supriya
+------------------
 
 Install Supriya from its `GitHub`_ repository, via `git
 <https://git-scm.com/>`_ and `pip`_::
@@ -13,8 +13,8 @@ Install Supriya from its `GitHub`_ repository, via `git
     ~$ cd supriya
     supriya$ pip install -e .
 
-Install Optional Dependencies
------------------------------
+Installing optional dependencies
+--------------------------------
 
 With `Cython`_ support::
 
@@ -38,8 +38,8 @@ With test dependencies::
 
     supriya$ pip install -e .[test]
 
-Install SuperCollider
-`````````````````````
+Installing SuperCollider
+````````````````````````
 
 Supriya uses `SuperCollider`_ as its synthesis engine. `SuperCollider`_ is
 available on OSX, Linux and Windows (although Supriya has not been tested on
@@ -47,8 +47,8 @@ Windows).
 
 You can download `SuperCollider`_ from http://supercollider.github.io/.
 
-Install Graphviz (optional)
-```````````````````````````
+Installing Graphviz (optional)
+``````````````````````````````
 
 Supriya uses `Graphviz`_, an open-source graph visualization library, to create
 graphs of rhythm-trees and other tree structures, and to create visualizations

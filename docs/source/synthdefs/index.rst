@@ -1,5 +1,5 @@
-SynthDefs
-=========
+Synth definitions
+=================
 
 .. toctree::
 

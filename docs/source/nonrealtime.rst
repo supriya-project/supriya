@@ -1,4 +1,4 @@
-Non-realtime Composition
+Non-realtime composition
 ========================
 
 Sessions, moments and states

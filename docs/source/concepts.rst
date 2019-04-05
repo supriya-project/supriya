@@ -1,20 +1,20 @@
-Core Concepts
+Core concepts
 =============
 
-Clients and Servers
+Clients and servers
 -------------------
 
-The Node Tree: Synths, Groups
+The node tree: synths, groups
 -----------------------------
 
-Synth Definitions and Unit Generators
+Synth definitions and unit generators
 -------------------------------------
 
-Channels, Buses, Calculation Rates
+Channels, buses, calculation rates
 ----------------------------------
 
-Buffers and Soundfiles
+Buffers and soundfiles
 ----------------------
 
-Real Time and Non-real Time
+Real time and non-real time
 ---------------------------

@@ -11,6 +11,34 @@ Server lifecycle
 - disconnect
 - kill
 
+::
+
+    >>> server = supriya.Server()
+
+::
+
+    >>> server.boot()
+
+::
+
+    >>> server.ip_address, server.port, server.is_running
+
+::
+
+    >>> supriya.Server.get_default_server() is server
+
+::
+
+    >>> server.reboot()
+
+::
+
+    >>> server.quit()
+
+::
+
+    >>> supriya.Server.kill()
+
 Locating server executables
 ---------------------------
 
@@ -28,6 +56,12 @@ Server options
 - memory size
 - object counts: buses, buffers, nodes, synthdefs
 
+::
+
+    >>> server.server_options
+    >>> server.server_options.as_options_string()
+    >>> server.reboot(memory_size=1024 * 32)
+
 Inspecting
 ----------
 
@@ -35,6 +69,34 @@ Inspecting
 - query_local_nodes
 - str()
 - status
+
+::
+
+    >>> server.boot()
+    >>> supriya.Synth().allocate(server=server)
+    >>> server.query_remote_nodes(include_controls=True)
+    >>> print(server.query_remote_nodes(include_controls=True))
+    >>> print(server.query_local_nodes(include_controls=True))
+    >>> print(server)
+    >>> server.status
+
+Metering
+--------
+
+- meters
+
+::
+
+    >>> server.meters
+
+Recording
+---------
+
+- recorder
+
+::
+
+    >>> server.recorder
 
 Debugging
 ---------
@@ -44,12 +106,23 @@ Debugging
 - debug_udp
 - debug_subprocess
 
-Metering
---------
+::
 
-- meters
+    >>> server.debug_osc = True
+    >>> server.reboot()
 
-Recording
----------
+::
 
-- recorder
+    >>> server.debug_request_names = True
+    >>> server.reboot()
+
+::
+
+    >>> server.debug_udp = True
+    >>> server.quit()
+
+::
+
+    >>> server.debug_osc = False
+    >>> server.debug_subprocess = True
+    >>> server.boot()

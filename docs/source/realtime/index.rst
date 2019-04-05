@@ -1,4 +1,4 @@
-Real-time Composition
+Real-time composition
 =====================
 
 .. toctree::

@@ -36,6 +36,7 @@ Quickstart
    patterns
    osc
    midi
+   performance
 
 .. toctree::
    :caption: API
