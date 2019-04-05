@@ -16,8 +16,8 @@ Event patterns
 - overloading
 - scheduling
 
-Structure patterns
-------------------
+Structural patterns
+-------------------
 
 - parallel
 - buses

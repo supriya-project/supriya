@@ -28,11 +28,11 @@ Quickstart
 
 .. toctree::
    :caption: Guides
-   :maxdepth: 2
+   :maxdepth: 3
 
    realtime/index
    synthdefs/index
-   nonrealtime/index
+   nonrealtime
    patterns
    osc
    midi
