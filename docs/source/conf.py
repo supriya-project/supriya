@@ -62,7 +62,7 @@ uqbar_book_extensions = [
     "uqbar.book.extensions.GraphExtension",
     "supriya.ext.book.RenderExtension",
 ]
-uqbar_book_strict = True
+uqbar_book_strict = False
 uqbar_book_use_black = True
 uqbar_book_use_cache = True
 

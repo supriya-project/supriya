@@ -10,8 +10,6 @@ Introduction
 
 .. include:: includes/abstract.txt
 
-:term:`SuperCollider`
-
 Quickstart
 ----------
 
@@ -37,6 +35,15 @@ Quickstart
    osc
    midi
    performance
+   cli
+
+.. toctree::
+   :caption: Examples
+   :glob:
+   :includehidden:
+   :maxdepth: 3
+
+   examples/*
 
 .. toctree::
    :caption: API
@@ -44,6 +51,14 @@ Quickstart
    :maxdepth: 3
 
    api/index
+
+.. toctree::
+   :caption: Developers
+   :glob:
+   :includehidden:
+   :maxdepth: 3
+
+   dev/*
 
 .. toctree::
    :caption: Reference

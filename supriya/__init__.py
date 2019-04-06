@@ -18,7 +18,7 @@ if not output_path.exists():
         pass
 
 config = configparser.ConfigParser()
-config.read_dict({"core": {"editor": "vim", "scsynth": "scsynth"}})
+config.read_dict({"core": {"editor": "vim", "scsynth_path": "scsynth"}})
 config_path = pathlib.Path(appdirs.user_config_dir("supriya", "supriya"))
 config_path = config_path / "supriya.cfg"
 if not config_path.exists():
@@ -115,6 +115,7 @@ from supriya.realtime import (  # noqa
     BusGroup,
     Group,
     Server,
+    ServerOptions,
     Synth,
 )
 from supriya.soundfiles import Say, SoundFile  # noqa

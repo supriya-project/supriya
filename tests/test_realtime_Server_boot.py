@@ -1,4 +1,6 @@
+import random
 import subprocess
+import time
 from unittest import mock
 
 import pytest
@@ -10,13 +12,11 @@ import supriya.realtime
 def test_boot():
     server = supriya.realtime.Server(port=57757)
     try:
-        for i in range(4):
-            print(i)
+        for i in range(20):
             assert not server.is_running
-            print("\tbooting...")
             server.boot()
+            time.sleep(random.random() * 2)
             assert server.is_running
-            print("\tquiting...")
             server.quit()
         assert not server.is_running
     finally:

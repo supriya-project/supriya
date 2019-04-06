@@ -124,15 +124,15 @@ class SessionRenderer(SupriyaObject):
         input_file_path,
         output_file_path,
         session_osc_file_path,
+        *,
+        scsynth_path=None,
         server_options=None,
     ):
         cwd = pathlib.Path.cwd()
+        scsynth_path = supriya.realtime.ServerOptions.find_scsynth(scsynth_path)
         server_options = server_options or supriya.realtime.ServerOptions()
         if os.environ.get("TRAVIS", None):
             server_options = utils.new(server_options, load_synthdefs=True)
-        scsynth_path = "scsynth"
-        if not uqbar.io.find_executable(scsynth_path):
-            raise RuntimeError("Cannot find scsynth")
         if session_osc_file_path.is_absolute():
             session_osc_file_path = session_osc_file_path.relative_to(cwd)
         parts = [scsynth_path, "-N", session_osc_file_path]
@@ -294,6 +294,7 @@ class SessionRenderer(SupriyaObject):
         input_file_path,
         output_file_path,
         session_osc_file_path,
+        scsynth_path=None,
         **kwargs,
     ):
         relative_session_osc_file_path = session_osc_file_path
@@ -317,6 +318,7 @@ class SessionRenderer(SupriyaObject):
                 input_file_path,
                 output_file_path,
                 session_osc_file_path,
+                scsynth_path=scsynth_path,
                 server_options=server_options,
             )
             self._report("    Command: {}".format(command))
@@ -434,6 +436,7 @@ class SessionRenderer(SupriyaObject):
         debug=None,
         duration=None,
         build_render_yml=None,
+        scsynth_path=None,
         **kwargs,
     ):
         import supriya.nonrealtime
@@ -464,6 +467,7 @@ class SessionRenderer(SupriyaObject):
                         input_file_path,
                         output_file_path,
                         osc_file_path,
+                        scsynth_path=scsynth_path,
                         **kwargs,
                     )
                     if exit_code:

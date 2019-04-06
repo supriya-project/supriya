@@ -493,11 +493,13 @@ class Session:
     def _build_render_command(
         self,
         output_filename,
+        *,
         input_file_path=None,
         server_options=None,
         sample_rate=44100,
         header_format=HeaderFormat.AIFF,
         sample_format=SampleFormat.INT24,
+        scsynth_path=None,
     ):
         """
         Builds non-realtime rendering command.
@@ -511,10 +513,8 @@ class Session:
 
         """
         server_options = server_options or supriya.realtime.ServerOptions()
-        scsynth_path = "scsynth"
-        if not uqbar.io.find_executable(scsynth_path):
-            raise RuntimeError("Cannot find scsynth")
-        parts = [scsynth_path, "-N", "{}"]
+        scsynth_path = supriya.realtime.ServerOptions.find_scsynth(scsynth_path)
+        parts = [str(scsynth_path), "-N", "{}"]
         if input_file_path:
             parts.append(os.path.expanduser(input_file_path))
         else:

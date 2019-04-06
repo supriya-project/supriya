@@ -1,6 +1,5 @@
 import atexit
 import os
-import pathlib
 import re
 import signal
 import subprocess
@@ -8,14 +7,15 @@ import threading
 import time
 from typing import Dict, Tuple
 
-import uqbar.graphs
-import uqbar.io
-
 import supriya.exceptions
 from supriya import utils
 from supriya.enums import NodeAction
 from supriya.system import PubSub
 from supriya.system.SupriyaObject import SupriyaObject
+
+# TODO: Implement connect() and disconnect()
+# TODO: Handle clientID return via [/done /notify 0 64] for allocators
+# TODO: Use logging, not printing for debugging; drop _debug_* flags
 
 
 class Server(SupriyaObject):
@@ -48,6 +48,7 @@ class Server(SupriyaObject):
         "_buffer_allocator",
         "_buffers",
         "_buffer_proxies",
+        "_client_id",
         "_control_bus_allocator",
         "_control_buses",
         "_control_bus_proxies",
@@ -122,6 +123,7 @@ class Server(SupriyaObject):
 
         ### SERVER PROCESS ###
 
+        self._client_id = 0
         self._is_owner = False
         self._is_running = False
         self._server_options = supriya.realtime.ServerOptions()
@@ -540,12 +542,12 @@ class Server(SupriyaObject):
             self.recorder.stop()
 
     def _teardown_complete(self):
+        self._is_owner = False
+        self._is_running = False
         self._osc_io.quit()
         self._teardown_proxies()
         self._teardown_allocators()
         self._teardown_status_watcher()
-        self._is_owner = False
-        self._is_running = False
         PubSub.notify("server-quit")
 
     def _teardown_allocators(self):
@@ -579,7 +581,7 @@ class Server(SupriyaObject):
         self._synthdefs.clear()
 
     def _teardown_status_watcher(self):
-        self._status_watcher.active = False
+        self._status_watcher.is_active = False
         self._status_watcher = None
         self._status = None
 
@@ -608,19 +610,9 @@ class Server(SupriyaObject):
 
         if self.is_running:
             return self
-        scsynth_path = scsynth_path or os.environ.get("SCSYNTH_PATH")
-        if not scsynth_path:
-            scsynth_path_candidates = uqbar.io.find_executable("scsynth")
-            if not scsynth_path_candidates:
-                raise RuntimeError("Cannot find scsynth")
-            scsynth_path = scsynth_path_candidates[0]
-        scsynth_path = pathlib.Path(scsynth_path).absolute()
-        if not scsynth_path.exists():
-            raise RuntimeError("{} does not exist".format(scsynth_path))
-
+        scsynth_path = supriya.realtime.ServerOptions.find_scsynth(scsynth_path)
         self._osc_io.boot(ip_address=self.ip_address, port=self.port)
         self._setup_osc_callbacks()
-
         server_options = server_options or supriya.realtime.ServerOptions()
         assert isinstance(server_options, supriya.realtime.ServerOptions)
         if kwargs:

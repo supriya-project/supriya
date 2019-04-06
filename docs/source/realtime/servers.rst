@@ -4,9 +4,21 @@ Servers
 Server lifecycle
 ----------------
 
-.. todo:: Handle clientID return via ``/done /notify 0 64`` for allocators
-.. todo:: Implement ``connect()`` and ``disconnect()``
-.. todo:: Use logging, not print, for debugging
+.. important:: 
+
+   **TODO**: Handle clientID return via ``/done /notify 0 64`` for allocators
+
+.. important:: 
+
+   **TODO**: Implement ``connect()`` and ``disconnect()``
+
+.. important::
+
+   **TODO**: Use logging, not print, for debugging
+
+.. important::
+
+   **TODO**: Harden passing ``scsynth_path`` into ``boot()``
 
 - boot
 - quit
@@ -18,29 +30,11 @@ Server lifecycle
 ::
 
     >>> server = supriya.Server()
-
-::
-
     >>> server.boot()
-
-::
-
     >>> server.ip_address, server.port, server.is_running
-
-::
-
     >>> supriya.Server.get_default_server() is server
-
-::
-
     >>> server.reboot()
-
-::
-
     >>> server.quit()
-
-::
-
     >>> supriya.Server.kill()
 
 Locating server executables
@@ -65,6 +59,17 @@ Server options
     >>> server.server_options
     >>> server.server_options.as_options_string()
     >>> server.reboot(memory_size=1024 * 32)
+    >>> options = supriya.ServerOptions(
+    ...     block_size=32,
+    ...     input_bus_channel_count=2,
+    ...     output_bus_channel_count=2,
+    ... )
+    >>> server.reboot(options)
+
+::
+
+    >>> server.reboot()
+    >>> server.server_options.input_bus_channel_count
 
 Inspecting
 ----------
@@ -92,6 +97,13 @@ Metering
 ::
 
     >>> server.meters
+    >>> supriya.graph(server)
+    >>> server.meters.allocate()
+    >>> supriya.graph(server)
+    >>> import json, time; time.sleep(1)
+    >>> print(json.dumps(server.meters.to_dict(), indent=4))
+    >>> server.meters.free()
+    >>> supriya.graph(server)
 
 Recording
 ---------

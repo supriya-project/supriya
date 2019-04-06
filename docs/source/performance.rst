@@ -1,5 +1,5 @@
-Performance constructs
-======================
+Live performance
+================
 
 Mixers
 ------

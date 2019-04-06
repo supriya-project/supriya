@@ -1,6 +1,12 @@
 import os
+import pathlib
 
+import uqbar.io
+
+import supriya
 from supriya.system.SupriyaObject import SupriyaObject
+
+# TODO: Reimplement as dataclass
 
 
 class ServerOptions(SupriyaObject):
@@ -117,6 +123,14 @@ class ServerOptions(SupriyaObject):
 
     ### PUBLIC METHODS ###
 
+    def as_dict(self):
+        options = {}
+        for name in self.__slots__:
+            value = getattr(self, name)
+            name = name.strip("_")
+            options[name] = value
+        return options
+
     def as_options_string(self, port=57110, realtime=True):
         result = []
 
@@ -204,13 +218,23 @@ class ServerOptions(SupriyaObject):
         options_string = " ".join(str(x) for x in result)
         return options_string
 
-    def as_dict(self):
-        options = {}
-        for name in self.__slots__:
-            value = getattr(self, name)
-            name = name.strip("_")
-            options[name] = value
-        return options
+    @classmethod
+    def find_scsynth(cls, scsynth_path=None):
+        scsynth_path = pathlib.Path(
+            scsynth_path
+            or os.environ.get("SCSYNTH_PATH")
+            or supriya.config.get("core", "scsynth_path")
+            or "scsynth"
+        )
+        if not scsynth_path.is_absolute():
+            scsynth_path_candidates = uqbar.io.find_executable(scsynth_path)
+            if not scsynth_path_candidates:
+                raise RuntimeError("Cannot find scsynth")
+            scsynth_path = pathlib.Path(scsynth_path_candidates[0])
+        scsynth_path = scsynth_path.absolute()
+        if not scsynth_path.exists():
+            raise RuntimeError("{} does not exist".format(scsynth_path))
+        return scsynth_path
 
     ### PUBLIC PROPERTIES ###
 

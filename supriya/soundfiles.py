@@ -1,20 +1,21 @@
 """
 Tools for interacting with soundfiles.
 """
-import os
 import hashlib
+import os
 import pathlib
 import shlex
 import subprocess
 
 import uqbar.strings
+
+import supriya
+from supriya.system import SupriyaObject, SupriyaValueObject
+
 try:
     import wavefile  # type: ignore
 except ImportError:
     pass
-
-import supriya
-from supriya.system import SupriyaObject, SupriyaValueObject
 
 
 class Say(SupriyaValueObject):

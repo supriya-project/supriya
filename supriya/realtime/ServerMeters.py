@@ -164,13 +164,15 @@ class ServerMeters(SupriyaObject):
             self.free()
 
     def to_dict(self):
+        if not self.is_allocated:
+            raise supriya.exceptions.NotAllocated(self)
         input_meter_levels, output_meter_levels = [], []
         for peak, rms in zip(
-            self._input_meter_peak_levels, self._input_meter_rms_levels
+            self._input_meter_peak_levels or [], self._input_meter_rms_levels or []
         ):
             input_meter_levels.append(dict(peak=peak, rms=rms))
         for peak, rms in zip(
-            self._output_meter_peak_levels, self._output_meter_rms_levels
+            self._output_meter_peak_levels or [], self._output_meter_rms_levels or []
         ):
             output_meter_levels.append(dict(peak=peak, rms=rms))
         result = {
@@ -186,6 +188,10 @@ class ServerMeters(SupriyaObject):
     @property
     def input_count(self):
         return self.server.server_options.input_bus_channel_count
+
+    @property
+    def is_allocated(self):
+        return self.server is not None and self._input_meter_synth in self.server
 
     @property
     def output_count(self):
