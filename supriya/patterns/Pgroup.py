@@ -1,6 +1,7 @@
 import uuid
 
-from supriya import utils
+from uqbar.objects import new
+
 from supriya.patterns.EventPattern import EventPattern
 
 
@@ -28,7 +29,7 @@ class Pgroup(EventPattern):
             kwargs = {}
             if expr.get("target_node") is None:
                 kwargs["target_node"] = state["group_uuid"]
-            expr = utils.new(expr, **kwargs)
+            expr = new(expr, **kwargs)
         return expr
 
     def _iterate(self, state=None):

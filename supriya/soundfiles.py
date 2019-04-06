@@ -25,7 +25,7 @@ class Say(SupriyaValueObject):
     ::
 
         >>> say = supriya.Say("Hello World!", voice="Daniel")
-        >>> supriya.play(say)  # noqa
+        >>> supriya.play(say)  # doctest: +SKIP
 
     """
 

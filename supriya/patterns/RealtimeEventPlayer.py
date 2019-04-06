@@ -2,10 +2,11 @@ import itertools
 import time
 from queue import PriorityQueue
 
+from uqbar.objects import new
+
 import supriya.commands
 import supriya.realtime
 import supriya.system
-from supriya import utils
 from supriya.patterns.EventPlayer import EventPlayer
 
 
@@ -68,7 +69,7 @@ class RealtimeEventPlayer(EventPlayer):
         )
         if communicate:
             osc_bundle = consolidated_bundle.to_osc()
-            osc_bundle = utils.new(
+            osc_bundle = new(
                 osc_bundle, timestamp=osc_bundle.timestamp + self._server.latency
             )
             self._server.send_message(osc_bundle)

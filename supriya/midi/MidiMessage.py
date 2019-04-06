@@ -1,4 +1,5 @@
-from supriya import utils
+from uqbar.objects import new
+
 from supriya.system.SupriyaValueObject import SupriyaValueObject
 
 
@@ -19,7 +20,7 @@ class MidiMessage(SupriyaValueObject):
     def _get_format_specification(self):
         super_class = super(SupriyaValueObject, self)
         format_specification = super_class._get_format_specification()
-        return utils.new(format_specification, repr_is_indented=False)
+        return new(format_specification, repr_is_indented=False)
 
     ### PUBLIC PROPERTIES ###
 

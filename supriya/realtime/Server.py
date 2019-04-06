@@ -7,8 +7,9 @@ import threading
 import time
 from typing import Dict, Tuple
 
+from uqbar.objects import new
+
 import supriya.exceptions
-from supriya import utils
 from supriya.enums import NodeAction
 from supriya.system import PubSub
 from supriya.system.SupriyaObject import SupriyaObject
@@ -616,7 +617,7 @@ class Server(SupriyaObject):
         server_options = server_options or supriya.realtime.ServerOptions()
         assert isinstance(server_options, supriya.realtime.ServerOptions)
         if kwargs:
-            server_options = utils.new(server_options, **kwargs)
+            server_options = new(server_options, **kwargs)
         options_string = server_options.as_options_string(self.port)
         command = "{} {}".format(scsynth_path, options_string)
         if self.debug_subprocess:

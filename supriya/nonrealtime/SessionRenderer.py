@@ -9,12 +9,13 @@ import tqdm  # type: ignore
 import uqbar.containers
 import uqbar.io
 import yaml
+from uqbar.objects import new
 
 import supriya
 import supriya.realtime
 import supriya.soundfiles
 import supriya.system
-from supriya import HeaderFormat, SampleFormat, utils
+from supriya import HeaderFormat, SampleFormat
 from supriya.exceptions import NonrealtimeOutputMissing, NonrealtimeRenderError
 from supriya.system.SupriyaObject import SupriyaObject
 
@@ -132,7 +133,7 @@ class SessionRenderer(SupriyaObject):
         scsynth_path = supriya.realtime.ServerOptions.find_scsynth(scsynth_path)
         server_options = server_options or supriya.realtime.ServerOptions()
         if os.environ.get("TRAVIS", None):
-            server_options = utils.new(server_options, load_synthdefs=True)
+            server_options = new(server_options, load_synthdefs=True)
         if session_osc_file_path.is_absolute():
             session_osc_file_path = session_osc_file_path.relative_to(cwd)
         parts = [scsynth_path, "-N", session_osc_file_path]
@@ -311,7 +312,7 @@ class SessionRenderer(SupriyaObject):
             )
             return 0
         server_options = session._options
-        server_options = utils.new(server_options, **kwargs)
+        server_options = new(server_options, **kwargs)
         memory_size = server_options.memory_size
         for factor in range(1, 6):
             command = self._build_render_command(
@@ -328,7 +329,7 @@ class SessionRenderer(SupriyaObject):
                 if output_file_path.exists():
                     output_file_path.unlink()
                 raise
-            server_options = utils.new(
+            server_options = new(
                 server_options, memory_size=memory_size * (2 ** factor)
             )
             if exit_code == -6:

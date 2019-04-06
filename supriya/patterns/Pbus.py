@@ -1,6 +1,7 @@
 import uuid
 
-from supriya import utils
+from uqbar.objects import new
+
 from supriya.patterns.EventPattern import EventPattern
 
 
@@ -51,7 +52,7 @@ class Pbus(EventPattern):
                     kwargs["out"] = state["bus_uuid"]
                 if expr.get("in_") is None and "in_" in parameter_names:
                     kwargs["in_"] = state["bus_uuid"]
-            expr = utils.new(expr, **kwargs)
+            expr = new(expr, **kwargs)
         return expr
 
     def _iterate(self, state=None):

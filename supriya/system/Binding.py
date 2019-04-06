@@ -1,7 +1,7 @@
 import inspect
 import math
 
-from supriya import utils
+from uqbar.objects import new
 
 
 class Binding:
@@ -51,9 +51,9 @@ class Binding:
                 source_range = (0.0, 1.0)
         source_range = supriya.synthdefs.Range(source_range)
         if source_range.minimum == float("-inf"):
-            source_range = utils.new(source_range, minimum=0.0)
+            source_range = new(source_range, minimum=0.0)
         if source_range.maximum == float("inf"):
-            source_range = utils.new(source_range, maximum=1.0)
+            source_range = new(source_range, maximum=1.0)
         self.source_range = supriya.synthdefs.Range(source_range)
         if target_range is None:
             if hasattr(self.target.func, "__self__") and hasattr(
@@ -64,9 +64,9 @@ class Binding:
                 target_range = (0.0, 1.0)
         target_range = supriya.synthdefs.Range(target_range)
         if target_range.minimum == float("-inf"):
-            target_range = utils.new(target_range, minimum=0.0)
+            target_range = new(target_range, minimum=0.0)
         if target_range.maximum == float("inf"):
-            target_range = utils.new(target_range, maximum=1.0)
+            target_range = new(target_range, maximum=1.0)
         self.target_range = supriya.synthdefs.Range(target_range)
         self.clip_maximum = bool(clip_maximum)
         self.clip_minimum = bool(clip_minimum)

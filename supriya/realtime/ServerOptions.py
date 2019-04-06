@@ -226,14 +226,16 @@ class ServerOptions(SupriyaObject):
             or supriya.config.get("core", "scsynth_path")
             or "scsynth"
         )
-        if not scsynth_path.is_absolute():
-            scsynth_path_candidates = uqbar.io.find_executable(scsynth_path)
-            if not scsynth_path_candidates:
-                raise RuntimeError("Cannot find scsynth")
+        scsynth_path_candidates = uqbar.io.find_executable(scsynth_path.name)
+        if not scsynth_path.is_absolute() and scsynth_path_candidates:
             scsynth_path = pathlib.Path(scsynth_path_candidates[0])
-        scsynth_path = scsynth_path.absolute()
+        scsynth_path = scsynth_path.resolve().absolute()
         if not scsynth_path.exists():
             raise RuntimeError("{} does not exist".format(scsynth_path))
+        if scsynth_path_candidates and scsynth_path == pathlib.Path(
+            scsynth_path_candidates[0]
+        ):
+            scsynth_path = pathlib.Path(scsynth_path.name)
         return scsynth_path
 
     ### PUBLIC PROPERTIES ###

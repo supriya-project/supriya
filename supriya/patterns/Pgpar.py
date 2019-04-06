@@ -1,6 +1,7 @@
 import uuid
 
-from supriya import utils
+from uqbar.objects import new
+
 from supriya.patterns.Ppar import Ppar
 
 
@@ -29,7 +30,7 @@ class Pgpar(Ppar):
         if isinstance(expr, supriya.patterns.NoteEvent) or not expr.get("is_stop"):
             if expr.get("target_node") is None:
                 kwargs["target_node"] = iterators_to_group_uuids[iterator]
-            expr = utils.new(expr, **kwargs)
+            expr = new(expr, **kwargs)
         return expr
 
     def _setup_peripherals(self, initial_expr, state):

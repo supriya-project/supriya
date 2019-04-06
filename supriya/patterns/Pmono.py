@@ -1,6 +1,7 @@
 import uuid
 
-from supriya import utils
+from uqbar.objects import new
+
 from supriya.patterns.Pbind import Pbind
 
 
@@ -104,12 +105,12 @@ class Pmono(Pbind):
             return
         for event in iterator:
             events.append(event)
-            event = utils.new(events.pop(0), uuid=synth_uuid, is_stop=False)
+            event = new(events.pop(0), uuid=synth_uuid, is_stop=False)
             should_stop = yield event
             if should_stop:
                 return
         assert len(events) == 1
         if events:
             event = events.pop()
-            event = utils.new(event, uuid=synth_uuid, is_stop=True)
+            event = new(event, uuid=synth_uuid, is_stop=True)
             yield event
