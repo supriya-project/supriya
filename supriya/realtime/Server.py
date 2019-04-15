@@ -41,44 +41,6 @@ class Server(SupriyaObject):
 
     __documentation_section__ = "Main Classes"
 
-    __slots__ = (
-        "_audio_bus_allocator",
-        "_audio_buses",
-        "_audio_input_bus_group",
-        "_audio_output_bus_group",
-        "_buffer_allocator",
-        "_buffers",
-        "_buffer_proxies",
-        "_client_id",
-        "_control_bus_allocator",
-        "_control_buses",
-        "_control_bus_proxies",
-        "_debug_subprocess",
-        "_debug_osc",
-        "_debug_request_names",
-        "_debug_udp",
-        "_default_group",
-        "_ip_address",
-        "_is_owner",
-        "_is_running",
-        "_latency",
-        "_lock",
-        "_meters",
-        "_node_id_allocator",
-        "_nodes",
-        "_osc_io",
-        "_pending_nodes",
-        "_port",
-        "_recorder",
-        "_root_node",
-        "_server_options",
-        "_server_process",
-        "_status",
-        "_status_watcher",
-        "_sync_id",
-        "_synthdefs",
-    )
-
     _default_server = None
 
     _servers: Dict[Tuple[str, int], "Server"] = {}
@@ -124,7 +86,8 @@ class Server(SupriyaObject):
 
         ### SERVER PROCESS ###
 
-        self._client_id = 0
+        self._client_id = None
+        self._max_logins = None
         self._is_owner = False
         self._is_running = False
         self._server_options = supriya.realtime.ServerOptions()
@@ -456,7 +419,8 @@ class Server(SupriyaObject):
         import supriya.commands
 
         request = supriya.commands.NotifyRequest(True)
-        request.communicate(server=self)
+        response = request.communicate(server=self)
+        self._client_id, self._max_logins = response.action[1], response.action[2]
 
     def _setup_proxies(self):
         import supriya.realtime
@@ -545,6 +509,8 @@ class Server(SupriyaObject):
     def _teardown_complete(self):
         self._is_owner = False
         self._is_running = False
+        self._client_id = None
+        self._max_logins = None
         self._osc_io.quit()
         self._teardown_proxies()
         self._teardown_allocators()
@@ -887,6 +853,10 @@ class Server(SupriyaObject):
         return self._buffer_allocator
 
     @property
+    def client_id(self):
+        return self._client_id
+
+    @property
     def control_bus_allocator(self):
         return self._control_bus_allocator
 
@@ -943,6 +913,10 @@ class Server(SupriyaObject):
     @latency.setter
     def latency(self, latency):
         self._latency = float(latency)
+
+    @property
+    def max_logins(self):
+        return self._max_logins
 
     @property
     def meters(self):
