@@ -435,8 +435,8 @@ class Session:
         return mapping
 
     def _build_id_mapping_for_buses(self):
-        input_count = self._options._input_bus_channel_count
-        output_count = self._options._output_bus_channel_count
+        input_count = self._options.input_bus_channel_count
+        output_count = self._options.output_bus_channel_count
         first_private_bus_id = input_count + output_count
         allocators = {
             supriya.CalculationRate.AUDIO: supriya.realtime.BlockAllocator(
@@ -952,10 +952,10 @@ class Session:
 
         self._buses = collections.OrderedDict()
         self._audio_input_bus_group = None
-        if self._options._input_bus_channel_count:
+        if self._options.input_bus_channel_count:
             self._audio_input_bus_group = supriya.nonrealtime.AudioInputBusGroup(self)
         self._audio_output_bus_group = None
-        if self._options._output_bus_channel_count:
+        if self._options.output_bus_channel_count:
             self._audio_output_bus_group = supriya.nonrealtime.AudioOutputBusGroup(self)
 
     def _setup_initial_states(self):

@@ -55,6 +55,7 @@ server_options:
     input_device: null
     input_stream_mask: false
     load_synthdefs: true
+    maximum_logins: 1
     maximum_node_count: 1024
     maximum_synthdef_count: 1024
     memory_locking: false
@@ -62,11 +63,14 @@ server_options:
     output_bus_channel_count: 8
     output_device: null
     output_stream_mask: false
+    password: null
     protocol: udp
     random_number_generator_count: 64
     remote_control_volume: false
     restricted_path: null
     sample_rate: null
+    threads: null
+    ugen_plugins_path: null
     verbosity: 0
     wire_buffer_count: 64
     zero_configuration: false
