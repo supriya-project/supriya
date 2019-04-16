@@ -10,7 +10,6 @@ from supriya.commands.Response import Response
 from supriya.osc.OscBundle import OscBundle
 from supriya.osc.OscMessage import OscMessage
 
-
 osc_logger = logging.getLogger("supriya.osc")
 udp_logger = logging.getLogger("supriya.udp")
 
@@ -119,12 +118,7 @@ class OscIO:
         once: bool
         parse_response: bool
 
-    def __init__(
-        self,
-        ip_address="127.0.0.1",
-        port=57751,
-        timeout=2,
-    ):
+    def __init__(self, ip_address="127.0.0.1", port=57751, timeout=2):
         import supriya.commands
 
         self.callbacks = {}

@@ -67,9 +67,7 @@ class Device:
         with self._lock:
             physical_control, value = self._process_physical_control(message, timestamp)
             logical_control = self._process_logical_control(physical_control, value)
-            logger.info(
-                "PC: {}, LC: {}".format(physical_control.name, logical_control)
-            )
+            logger.info("PC: {}, LC: {}".format(physical_control.name, logical_control))
 
     def __getitem__(self, name):
         return self.root_view[name]

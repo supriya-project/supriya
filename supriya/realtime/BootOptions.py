@@ -56,13 +56,13 @@ class BootOptions:
 
     def __post_init__(self):
         if os.environ.get("TRAVIS", None):
-            object.__setattr__(self, 'input_device', "dummy")
-            object.__setattr__(self, 'output_device', "dummy")
-            object.__setattr__(self, 'sample_rate', 44100)
+            object.__setattr__(self, "input_device", "dummy")
+            object.__setattr__(self, "output_device", "dummy")
+            object.__setattr__(self, "sample_rate", 44100)
         if self.input_bus_channel_count is None:
-            object.__setattr__(self, 'input_bus_channel_count', 8)
+            object.__setattr__(self, "input_bus_channel_count", 8)
         if self.output_bus_channel_count is None:
-            object.__setattr__(self, 'output_bus_channel_count', 8)
+            object.__setattr__(self, "output_bus_channel_count", 8)
         if self.input_bus_channel_count < 0:
             raise ValueError(self.input_bus_channel_count)
         if self.output_bus_channel_count < 0:

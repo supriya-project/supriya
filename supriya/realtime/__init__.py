@@ -6,6 +6,7 @@ from .AudioInputBusGroup import AudioInputBusGroup  # noqa
 from .AudioOutputBusGroup import AudioOutputBusGroup  # noqa
 from .Block import Block  # noqa
 from .BlockAllocator import BlockAllocator  # noqa
+from .BootOptions import BootOptions  # noqa
 from .Buffer import Buffer  # noqa
 from .BufferGroup import BufferGroup  # noqa
 from .BufferProxy import BufferProxy  # noqa
@@ -22,7 +23,6 @@ from .RootNode import RootNode  # noqa
 from .Server import Server  # noqa
 from .ServerMeters import ServerMeters  # noqa
 from .ServerObject import ServerObject  # noqa
-from .BootOptions import BootOptions  # noqa
 from .ServerRecorder import ServerRecorder  # noqa
 from .StatusWatcher import StatusWatcher  # noqa
 from .Synth import Synth  # noqa
