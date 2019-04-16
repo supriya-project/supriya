@@ -109,13 +109,13 @@ from supriya.midi import Device  # noqa
 from supriya.live import Application, Mixer  # noqa
 from supriya.nonrealtime import Session  # noqa
 from supriya.realtime import (  # noqa
+    BootOptions,
     Buffer,
     BufferGroup,
     Bus,
     BusGroup,
     Group,
     Server,
-    ServerOptions,
     Synth,
 )
 from supriya.soundfiles import Say, SoundFile  # noqa
