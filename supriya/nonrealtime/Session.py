@@ -136,7 +136,7 @@ class Session:
     ):
         import supriya.nonrealtime
 
-        self._options = supriya.realtime.ServerOptions(
+        self._options = supriya.realtime.BootOptions(
             input_bus_channel_count=input_bus_channel_count,
             output_bus_channel_count=output_bus_channel_count,
         )
@@ -512,8 +512,8 @@ class Session:
             'scsynth -N {} _ output.aiff 44100 aiff int24'
 
         """
-        server_options = server_options or supriya.realtime.ServerOptions()
-        scsynth_path = supriya.realtime.ServerOptions.find_scsynth(scsynth_path)
+        server_options = server_options or supriya.realtime.BootOptions()
+        scsynth_path = supriya.realtime.BootOptions.find_scsynth(scsynth_path)
         parts = [str(scsynth_path), "-N", "{}"]
         if input_file_path:
             parts.append(os.path.expanduser(input_file_path))
@@ -1181,7 +1181,7 @@ class Session:
         import supriya.cli
 
         assert isinstance(project_settings, supriya.cli.ProjectSettings)
-        server_options = supriya.realtime.ServerOptions(
+        server_options = supriya.realtime.BootOptions(
             **project_settings.get("server_options", {})
         )
         input_bus_channel_count = server_options.input_bus_channel_count

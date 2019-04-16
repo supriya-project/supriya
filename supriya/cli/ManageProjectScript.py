@@ -123,7 +123,7 @@ class ManageProjectScript(ProjectPackageScript):
     ):
         import supriya.realtime
 
-        server_options = supriya.realtime.ServerOptions()
+        server_options = supriya.realtime.BootOptions()
         server_options = dataclasses.asdict(server_options)
         project_settings = dict(
             server_options=server_options,

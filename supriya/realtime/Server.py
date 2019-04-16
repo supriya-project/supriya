@@ -90,7 +90,7 @@ class Server(SupriyaObject):
         self._max_logins = None
         self._is_owner = False
         self._is_running = False
-        self._server_options = supriya.realtime.ServerOptions()
+        self._server_options = supriya.realtime.BootOptions()
         self._server_process = None
         self._status = None
         self._status_watcher = None
@@ -577,11 +577,11 @@ class Server(SupriyaObject):
 
         if self.is_running:
             return self
-        scsynth_path = supriya.realtime.ServerOptions.find_scsynth(scsynth_path)
+        scsynth_path = supriya.realtime.BootOptions.find_scsynth(scsynth_path)
         self._osc_io.boot(ip_address=self.ip_address, port=self.port)
         self._setup_osc_callbacks()
-        server_options = server_options or supriya.realtime.ServerOptions()
-        assert isinstance(server_options, supriya.realtime.ServerOptions)
+        server_options = server_options or supriya.realtime.BootOptions()
+        assert isinstance(server_options, supriya.realtime.BootOptions)
         if kwargs:
             server_options = new(server_options, **kwargs)
         options_string = server_options.as_options_string(self.port)

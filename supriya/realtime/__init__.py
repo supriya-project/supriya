@@ -22,7 +22,7 @@ from .RootNode import RootNode  # noqa
 from .Server import Server  # noqa
 from .ServerMeters import ServerMeters  # noqa
 from .ServerObject import ServerObject  # noqa
-from .ServerOptions import ServerOptions  # noqa
+from .BootOptions import BootOptions  # noqa
 from .ServerRecorder import ServerRecorder  # noqa
 from .StatusWatcher import StatusWatcher  # noqa
 from .Synth import Synth  # noqa

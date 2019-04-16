@@ -27,7 +27,7 @@ def test_boot():
 def test_server_options():
     server = supriya.realtime.Server(port=57757)
     try:
-        server_options = supriya.realtime.ServerOptions(
+        server_options = supriya.realtime.BootOptions(
             memory_size=8192 * 32, load_synthdefs=False
         )
         # Default
@@ -36,7 +36,7 @@ def test_server_options():
         assert server.server_options.memory_size == 8192
         assert server.server_options.load_synthdefs is True
         server.quit()
-        # With ServerOptions
+        # With BootOptions
         server.boot(server_options=server_options)
         assert isinstance(server.server_options, type(server_options))
         assert server.server_options.memory_size == 8192 * 32
@@ -48,7 +48,7 @@ def test_server_options():
         assert server.server_options.memory_size == 8192
         assert server.server_options.load_synthdefs is False
         server.quit()
-        # With ServerOptions and **kwargs
+        # With BootOptions and **kwargs
         server.boot(load_synthdefs=False, server_options=server_options)
         assert isinstance(server.server_options, type(server_options))
         assert server.server_options.memory_size == 8192 * 32

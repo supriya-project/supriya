@@ -107,7 +107,7 @@ class TestSessionFactory:
         output_bus_channel_count=None,
         multiplier=1.0,
     ):
-        options = supriya.realtime.ServerOptions(
+        options = supriya.realtime.BootOptions(
             input_bus_channel_count=input_bus_channel_count,
             output_bus_channel_count=output_bus_channel_count,
         )

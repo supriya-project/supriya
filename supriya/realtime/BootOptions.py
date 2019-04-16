@@ -7,14 +7,14 @@ import supriya
 
 
 @dataclass(frozen=True)
-class ServerOptions:
+class BootOptions:
     """
     SuperCollider server option configuration.
 
     ::
 
         >>> import supriya.realtime
-        >>> options = supriya.realtime.ServerOptions()
+        >>> options = supriya.realtime.BootOptions()
 
     """
 
