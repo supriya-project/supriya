@@ -1,4 +1,5 @@
 import atexit
+import logging
 import os
 import re
 import signal
@@ -17,6 +18,9 @@ from supriya.system.SupriyaObject import SupriyaObject
 # TODO: Implement connect() and disconnect()
 # TODO: Handle clientID return via [/done /notify 0 64] for allocators
 # TODO: Use logging, not printing for debugging; drop _debug_* flags
+
+
+logger = logging.getLogger("supriya.server")
 
 
 class Server(SupriyaObject):
@@ -117,10 +121,7 @@ class Server(SupriyaObject):
 
         ### DEBUG ###
 
-        self.debug_osc = False
         self.debug_request_names = False
-        self.debug_subprocess = False
-        self.debug_udp = False
 
         ### REGISTER WITH ATEXIT ###
 
@@ -476,7 +477,7 @@ class Server(SupriyaObject):
         )
 
         def failed(message):
-            print("FAILED:", message)
+            logger.warn("Fail: {}".format(message))
 
         self._osc_io.register(pattern="/fail", procedure=failed)
 
@@ -557,8 +558,8 @@ class Server(SupriyaObject):
         timeout = 10
         while True:
             line = self._server_process.stdout.readline().decode().rstrip()
-            if self.debug_subprocess and line:
-                print("BOOT", "{:0.6f}".format(time.time()), line)
+            if line:
+                logger.info("Boot: {}".format(line))
             if line.startswith("SuperCollider 3 server ready"):
                 break
             elif line.startswith("ERROR:"):
@@ -586,8 +587,7 @@ class Server(SupriyaObject):
             options = new(options, **kwargs)
         options_string = options.as_options_string(self.port)
         command = "{} {}".format(scsynth_path, options_string)
-        if self.debug_subprocess:
-            print("BOOT", "{:0.6f}".format(time.time()), command)
+        logger.info("Boot: {}".format(command))
         process = self._server_process = subprocess.Popen(
             command,
             shell=True,
@@ -861,38 +861,12 @@ class Server(SupriyaObject):
         return self._control_bus_allocator
 
     @property
-    def debug_osc(self):
-        return self._debug_osc
-
-    @debug_osc.setter
-    def debug_osc(self, expr):
-        self._debug_osc = bool(expr)
-        self._osc_io.debug_osc = self.debug_osc
-
-    @property
     def debug_request_names(self):
         return self._debug_request_names
 
     @debug_request_names.setter
     def debug_request_names(self, expr):
         self._debug_request_names = bool(expr)
-
-    @property
-    def debug_subprocess(self):
-        return self._debug_subprocess
-
-    @debug_subprocess.setter
-    def debug_subprocess(self, expr):
-        self._debug_subprocess = bool(expr)
-
-    @property
-    def debug_udp(self):
-        return self._debug_udp
-
-    @debug_udp.setter
-    def debug_udp(self, expr):
-        self._debug_udp = bool(expr)
-        self._osc_io.debug_udp = self.debug_udp
 
     @property
     def default_group(self):

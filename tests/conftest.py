@@ -90,9 +90,7 @@ def server():
     server.latency = 0.0
     server.boot()
     supriya.assets.synthdefs.default.allocate(server)
-    server.debug_osc = True
     yield server
-    server.debug_osc = False
     server.quit()
     supriya.Server.kill()
 

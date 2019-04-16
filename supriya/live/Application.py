@@ -10,7 +10,7 @@ import supriya.system
 
 
 class Application:
-    def __init__(self, manifest=None, logger=None, overrides=None):
+    def __init__(self, manifest=None, overrides=None):
         import supriya
 
         manifest = manifest or {}

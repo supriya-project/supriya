@@ -1,4 +1,5 @@
 import collections
+import logging
 import socketserver
 import threading
 import time
@@ -8,6 +9,10 @@ from supriya.commands.Requestable import Requestable
 from supriya.commands.Response import Response
 from supriya.osc.OscBundle import OscBundle
 from supriya.osc.OscMessage import OscMessage
+
+
+osc_logger = logging.getLogger("supriya.osc")
+udp_logger = logging.getLogger("supriya.udp")
 
 
 class OscIO:
@@ -73,10 +78,9 @@ class OscIO:
 
     class OscHandler(socketserver.BaseRequestHandler):
         def handle(self):
+            now = time.time()
             data = self.request[0]
             message = OscMessage.from_datagram(data)
-            debug_osc = self.server.io_instance.debug_osc
-            debug_udp = self.server.io_instance.debug_udp
             # TODO: Is it worth the additional thread creation?
             response = None
             for callback in self.server.io_instance.match(message):
@@ -101,11 +105,13 @@ class OscIO:
                             command=response,
                         )
                     )
-                if debug_osc:
-                    print("RECV", "{:0.6f}".format(time.time()), message.to_list())
-                    if debug_udp:
-                        for line in str(message).splitlines():
-                            print("    " + line)
+                osc_logger.info("Recv: {:0.6f} {}".format(now, message.to_list()))
+                for line in str(message).splitlines():
+                    udp_logger.info("Recv: {:0.6f} {}".format(now, line))
+            else:
+                osc_logger.debug("Recv: {:0.6f} {}".format(now, message.to_list()))
+                for line in str(message).splitlines():
+                    udp_logger.debug("Recv: {:0.6f} {}".format(now, line))
 
     class OscCallback(typing.NamedTuple):
         pattern: typing.Tuple[typing.Union[str, int, float], ...]
@@ -115,8 +121,6 @@ class OscIO:
 
     def __init__(
         self,
-        debug_osc=False,
-        debug_udp=False,
         ip_address="127.0.0.1",
         port=57751,
         timeout=2,
@@ -125,8 +129,6 @@ class OscIO:
 
         self.callbacks = {}
         self.captures = set()
-        self.debug_osc = bool(debug_osc)
-        self.debug_udp = bool(debug_udp)
         self.ip_address = ip_address
         self.lock = threading.RLock()
         self.server = None
@@ -296,6 +298,7 @@ class OscIO:
             message = OscMessage(message)
         elif isinstance(message, collections.Iterable):
             message = OscMessage(*message)
+        now = time.time()
         if not (isinstance(message, OscMessage) and message.address in (2, "/status")):
             for capture in self.captures:
                 capture.messages.append(
@@ -306,11 +309,13 @@ class OscIO:
                         command=request,
                     )
                 )
-            if self.debug_osc:
-                print("SEND", "{:0.6f}".format(time.time()), message.to_list())
-                if self.debug_udp:
-                    for line in str(message).splitlines():
-                        print("    " + line)
+            osc_logger.info("Sent: {:0.6f} {}".format(now, message.to_list()))
+            for line in str(message).splitlines():
+                udp_logger.info("Sent: {:0.6f} {}".format(now, line))
+        else:
+            osc_logger.debug("Sent: {:0.6f} {}".format(now, message.to_list()))
+            for line in str(message).splitlines():
+                udp_logger.debug("Sent: {:0.6f} {}".format(now, line))
         datagram = message.to_datagram()
         self.server.socket.sendto(datagram, (self.ip_address, self.port))
 

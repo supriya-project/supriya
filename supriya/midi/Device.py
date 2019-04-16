@@ -18,16 +18,20 @@ except ImportError:
     pass
 
 
+"""
 logging.basicConfig(
     format="%(asctime)s [%(name)s] [%(levelname)s] %(message)s", level="INFO"
 )
+"""
+
+
+logger = logging.getLogger("supriya.midi")
 
 
 class Device:
-    def __init__(self, manifest, logger=None, overrides=None):
+    def __init__(self, manifest, overrides=None):
         import supriya
 
-        self._logger = logger or logging.getLogger(type(self).__name__)
         if isinstance(manifest, dict):
             manifest = copy.deepcopy(manifest)
             if overrides:
@@ -59,11 +63,11 @@ class Device:
     def __call__(self, message, timestamp=None):
         if timestamp is None:
             message, timestamp = message
-        self.logger.debug("MIDI I: 0x{}".format(bytearray(message).hex()))
+        logger.debug("MIDI I: 0x{}".format(bytearray(message).hex()))
         with self._lock:
             physical_control, value = self._process_physical_control(message, timestamp)
             logical_control = self._process_logical_control(physical_control, value)
-            self.logger.info(
+            logger.info(
                 "PC: {}, LC: {}".format(physical_control.name, logical_control)
             )
 
@@ -363,7 +367,7 @@ class Device:
     def close_port(self):
         self._midi_in.close_port()
         self._midi_out.close_port()
-        self.logger.info("Closed port.")
+        logger.info("Closed port.")
         return self
 
     def get_ports(self):
@@ -376,7 +380,7 @@ class Device:
         return self._midi_in.get_port_name()
 
     def open_port(self, port=None, virtual=False):
-        self.logger.info("Opening port {}".format(port))
+        logger.info("Opening port {}".format(port))
         if port is None:
             port = self._device_manifest.get("port")
             if isinstance(port, str):
@@ -413,7 +417,7 @@ class Device:
 
     def send_message(self, message):
         self._midi_out.send_message(message)
-        self.logger.debug("MIDI O: 0x{}".format(bytearray(message).hex()))
+        logger.debug("MIDI O: 0x{}".format(bytearray(message).hex()))
 
     ### PUBLIC PROPERTIES ###
 
@@ -432,10 +436,6 @@ class Device:
     @property
     def physical_controls_by_command(self):
         return self._physical_controls_by_command
-
-    @property
-    def logger(self):
-        return self._logger
 
     @property
     def root_view(self):
