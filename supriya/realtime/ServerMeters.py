@@ -187,7 +187,7 @@ class ServerMeters(SupriyaObject):
 
     @property
     def input_count(self):
-        return self.server.server_options.input_bus_channel_count
+        return self.server.options.input_bus_channel_count
 
     @property
     def is_allocated(self):
@@ -195,7 +195,7 @@ class ServerMeters(SupriyaObject):
 
     @property
     def output_count(self):
-        return self.server.server_options.output_bus_channel_count
+        return self.server.options.output_bus_channel_count
 
     @property
     def input_meter_command(self):
@@ -204,8 +204,8 @@ class ServerMeters(SupriyaObject):
     @property
     def input_meter_synthdef(self):
         return self.make_meter_synthdef(
-            channel_count=self.server.server_options.input_bus_channel_count,
-            initial_bus=self.server.server_options.output_bus_channel_count,
+            channel_count=self.server.options.input_bus_channel_count,
+            initial_bus=self.server.options.output_bus_channel_count,
             command_name=self.input_meter_command,
         )
 
@@ -216,7 +216,7 @@ class ServerMeters(SupriyaObject):
     @property
     def output_meter_synthdef(self):
         return self.make_meter_synthdef(
-            channel_count=self.server.server_options.output_bus_channel_count,
+            channel_count=self.server.options.output_bus_channel_count,
             initial_bus=0,
             command_name=self.output_meter_command,
         )

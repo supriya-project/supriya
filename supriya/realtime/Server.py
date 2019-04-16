@@ -90,7 +90,7 @@ class Server(SupriyaObject):
         self._max_logins = None
         self._is_owner = False
         self._is_running = False
-        self._server_options = supriya.realtime.BootOptions()
+        self._options = supriya.realtime.BootOptions()
         self._server_process = None
         self._status = None
         self._status_watcher = None
@@ -298,11 +298,11 @@ class Server(SupriyaObject):
         string = "<Server: {protocol}://{ip}:{port}, "
         string += "{inputs}i{outputs}o>"
         return string.format(
-            protocol=self.server_options.protocol,
+            protocol=self.options.protocol,
             ip=self.ip_address,
             port=self.port,
-            inputs=self.server_options.input_bus_channel_count,
-            outputs=self.server_options.output_bus_channel_count,
+            inputs=self.options.input_bus_channel_count,
+            outputs=self.options.output_bus_channel_count,
         )
 
     def __str__(self):
@@ -393,25 +393,25 @@ class Server(SupriyaObject):
     def _setup(self):
         self._setup_notifications()
         self._setup_status_watcher()
-        self._setup_allocators(self.server_options)
+        self._setup_allocators(self.options)
         self._setup_proxies()
         self._setup_system_synthdefs()
 
-    def _setup_allocators(self, server_options):
+    def _setup_allocators(self, options):
         import supriya.realtime
 
         self._audio_bus_allocator = supriya.realtime.BlockAllocator(
-            heap_maximum=server_options.audio_bus_channel_count,
-            heap_minimum=server_options.first_private_bus_id,
+            heap_maximum=options.audio_bus_channel_count,
+            heap_minimum=options.first_private_bus_id,
         )
         self._buffer_allocator = supriya.realtime.BlockAllocator(
-            heap_maximum=server_options.buffer_count
+            heap_maximum=options.buffer_count
         )
         self._control_bus_allocator = supriya.realtime.BlockAllocator(
-            heap_maximum=server_options.control_bus_channel_count
+            heap_maximum=options.control_bus_channel_count
         )
         self._node_id_allocator = supriya.realtime.NodeIdAllocator(
-            initial_node_id=server_options.initial_node_id
+            initial_node_id=options.initial_node_id
         )
         self._sync_id = 0
 
@@ -572,7 +572,7 @@ class Server(SupriyaObject):
 
     ### PUBLIC METHODS ###
 
-    def boot(self, scsynth_path=None, server_options=None, **kwargs):
+    def boot(self, scsynth_path=None, options=None, **kwargs):
         import supriya.realtime
 
         if self.is_running:
@@ -580,11 +580,11 @@ class Server(SupriyaObject):
         scsynth_path = supriya.realtime.BootOptions.find_scsynth(scsynth_path)
         self._osc_io.boot(ip_address=self.ip_address, port=self.port)
         self._setup_osc_callbacks()
-        server_options = server_options or supriya.realtime.BootOptions()
-        assert isinstance(server_options, supriya.realtime.BootOptions)
+        options = options or supriya.realtime.BootOptions()
+        assert isinstance(options, supriya.realtime.BootOptions)
         if kwargs:
-            server_options = new(server_options, **kwargs)
-        options_string = server_options.as_options_string(self.port)
+            options = new(options, **kwargs)
+        options_string = options.as_options_string(self.port)
         command = "{} {}".format(scsynth_path, options_string)
         if self.debug_subprocess:
             print("BOOT", "{:0.6f}".format(time.time()), command)
@@ -609,7 +609,7 @@ class Server(SupriyaObject):
             raise
         self._is_running = True
         self._is_owner = True
-        self._server_options = server_options
+        self._options = options
         self._setup()
         PubSub.notify("server-booted")
         return self
@@ -949,8 +949,8 @@ class Server(SupriyaObject):
         return self._root_node
 
     @property
-    def server_options(self):
-        return self._server_options
+    def options(self):
+        return self._options
 
     @property
     def status(self):

@@ -48,7 +48,7 @@ class ServerRecorder(SupriyaObject):
 
     def __init__(self, server):
         self._server = server
-        server_options = server.server_options
+        server_options = server.options
         # setup settings
         self._channel_count = server_options.output_bus_channel_count
         self._header_format = HeaderFormat.AIFF
