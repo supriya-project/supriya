@@ -1,9 +1,16 @@
+import logging
 import os
 import pathlib
+import signal
+import subprocess
+import time
 from dataclasses import dataclass
 
 import uqbar.io
 import supriya
+
+
+logger = logging.getLogger("supriya.server")
 
 
 @dataclass(frozen=True)
@@ -81,6 +88,19 @@ class BootOptions:
                 result.append("-t {}".format(port))
             else:
                 result.append("-u {}".format(port))
+            if self.input_device:
+                flag = "-H {}".format(self.input_device)
+                if self.output_device != self.input_device:
+                    flag = "{} {}".format(flag, self.output_device)
+                result.append(flag)
+            if self.maximum_logins != 64:
+                result.append("-l {}".format(self.maximum_logins))
+            if self.password:
+                result.append("-p {}".format(self.password))
+            if self.sample_rate is not None:
+                result.append("-S {}".format(int(self.sample_rate)))
+            if not self.zero_configuration:
+                result.append("-R 0")
         if self.audio_bus_channel_count != 128:
             result.append("-a {}".format(self.audio_bus_channel_count))
         if self.control_bus_channel_count != 4096:
@@ -105,8 +125,6 @@ class BootOptions:
             result.append("-r {}".format(self.random_number_generator_count))
         if self.wire_buffer_count != 64:
             result.append("-w {}".format(self.wire_buffer_count))
-        if realtime and self.sample_rate is not None:
-            result.append("-S {}".format(int(self.sample_rate)))
         if not self.load_synthdefs:
             result.append("-D 0")
         if self.input_stream_mask:
@@ -115,27 +133,55 @@ class BootOptions:
             result.append("-O {}".format(self.output_stream_mask))
         if 0 < self.verbosity:
             result.append("-v {}".format(self.verbosity))
-        if realtime and not self.zero_configuration:
-            result.append("-R 0")
         if self.restricted_path is not None:
             result.append("-P {}".format(self.restricted_path))
         if self.memory_locking:
             result.append("-L")
-        if realtime and self.input_device:
-            flag = "-H {}".format(self.input_device)
-            if self.output_device != self.input_device:
-                flag = "{} {}".format(flag, self.output_device)
-            result.append(flag)
-        if self.maximum_logins > 1:
-            result.append("-l {}".format(self.maximum_logins))
         if self.ugen_plugins_path:
             result.append("-U {}".format(self.ugen_plugins_path))
         if supernova and self.threads:
             result.append("-t {}".format(self.threads))
-        if self.password:
-            result.append("-p {}".format(self.password))
         options_string = " ".join(sorted(result))
         return options_string
+
+    def boot(self, scsynth_path, port):
+        options_string = self.as_options_string(port)
+        command = "{} {}".format(scsynth_path, options_string)
+        logger.info("Boot: {}".format(command))
+        process = subprocess.Popen(
+            command,
+            shell=True,
+            stderr=subprocess.STDOUT,
+            stdout=subprocess.PIPE,
+            start_new_session=True,
+        )
+        try:
+            start_time = time.time()
+            timeout = 10
+            while True:
+                line = process.stdout.readline().decode().rstrip()
+                if line:
+                    logger.info("Boot: {}".format(line))
+                if line.startswith("SuperCollider 3 server ready"):
+                    break
+                elif line.startswith("ERROR:"):
+                    raise supriya.exceptions.ServerCannotBoot(line)
+                elif line.startswith(
+                    "Exception in World_OpenUDP: bind: Address already in use"
+                ):
+                    raise supriya.exceptions.ServerCannotBoot(line)
+                elif (time.time() - start_time) > timeout:
+                    raise supriya.exceptions.ServerCannotBoot(line)
+        except supriya.exceptions.ServerCannotBoot:
+            try:
+                process_group = os.getpgid(process.pid)
+                os.killpg(process_group, signal.SIGINT)
+                process.terminate()
+                process.wait()
+            except ProcessLookupError:
+                pass
+            raise
+        return process
 
     @classmethod
     def find_scsynth(cls, scsynth_path=None):
@@ -156,6 +202,25 @@ class BootOptions:
         ):
             scsynth_path = pathlib.Path(scsynth_path.name)
         return scsynth_path
+
+    @classmethod
+    def kill(cls, supernova=False):
+        executable = "scsynth"
+        if supernova:
+            executable = "supernova"
+        process = subprocess.Popen("ps -Af", shell=True, stdout=subprocess.PIPE)
+        output, _ = process.communicate()
+        output = output.decode()
+        pids = []
+        for line in output:
+            if executable not in line:
+                continue
+            parts = line.split()
+            pids.append(int(parts[1]))
+        if pids:
+            for pid in pids:
+                os.kill(pid, signal.SIGKILL)
+            raise RuntimeError("{} was still running: {}".format(executable, pids))
 
     ### PUBLIC PROPERTIES ###
 
