@@ -3,11 +3,12 @@ import logging
 import re
 import threading
 import time
-from typing import Set, Tuple
+from typing import Set
 
 from uqbar.objects import new
 
 import supriya.exceptions
+from supriya.commands import QuitRequest
 from supriya.enums import NodeAction
 from supriya.realtime import BlockAllocator, BootOptions, NodeIdAllocator
 from supriya.system import PubSub
@@ -387,16 +388,6 @@ class Server:
             return
         synthdef._handle_response(response)
 
-    def _setup(self):
-        self._osc_io.boot(ip_address=self.ip_address, port=self.port)
-        self._setup_osc_callbacks()
-        self._setup_notifications()
-        self._setup_allocators()
-        self._setup_proxies()
-        self._setup_default_groups()
-        self._setup_status_watcher()
-        self._setup_system_synthdefs()
-
     def _setup_allocators(self):
         self._audio_bus_allocator = BlockAllocator(
             heap_maximum=self._options.audio_bus_channel_count,
@@ -496,22 +487,6 @@ class Server:
             system_synthdefs.append(system_synthdef)
         supriya.synthdefs.SynthDef._allocate_synthdefs(system_synthdefs, self)
 
-    def _teardown_prepare(self):
-        PubSub.notify("server-quitting")
-        if self.recorder.is_recording:
-            self.recorder.stop()
-
-    def _teardown_complete(self):
-        self._is_owner = False
-        self._is_running = False
-        self._client_id = None
-        self._maximum_logins = None
-        self._osc_io.quit()
-        self._teardown_proxies()
-        self._teardown_allocators()
-        self._teardown_status_watcher()
-        PubSub.notify("server-quit")
-
     def _teardown_allocators(self):
         self._audio_bus_allocator = None
         self._buffer_allocator = None
@@ -571,25 +546,37 @@ class Server:
     ### PUBLIC METHODS ###
 
     def boot(self, scsynth_path=None, options=None, **kwargs):
-        import supriya.realtime
-
         if self.is_running:
             return self
-        self._options = new(options or supriya.realtime.BootOptions(), **kwargs)
-        scsynth_path = supriya.realtime.BootOptions.find_scsynth(scsynth_path)
+        self._options = new(options or BootOptions(), **kwargs)
+        scsynth_path = BootOptions.find_scsynth(scsynth_path)
         self._server_process = self._options.boot(scsynth_path, self.port)
         self._is_owner = True
-        self._is_running = True
-        self._setup()
+        self._connect()
+        self._setup_default_groups()
+        self._setup_system_synthdefs()
         PubSub.notify("server-booted")
         return self
+
+    def _connect(self):
+        self._is_running = True
+        self._osc_io.boot(ip_address=self.ip_address, port=self.port)
+        self._setup_osc_callbacks()
+        self._setup_status_watcher()
+        self._setup_notifications()
+        self._setup_allocators()
+        self._setup_proxies()
+
+    def _rehydrate(self):
+        pass
 
     @classmethod
     def connect(cls, ip_address="127.0.0.1", port=57751):
         server = cls(ip_address=ip_address, port=port)
-        if server.is_running:
-            return server
         server._is_owner = False
+        server._connect()
+        server._rehydrate()
+        server._default_group = server._nodes[server.cliend_id]
         return server
 
     def disconnect(self, force=False):
@@ -599,8 +586,34 @@ class Server:
             raise supriya.exceptions.OwnedServerShutdown(
                 "Cannot disconnect from owned server with force flag."
             )
-        self._teardown_prepare()
-        self._teardown_complete()
+        self._disconnect()
+        return self
+
+    def _disconnect(self):
+        self._is_running = False
+        self._client_id = None
+        self._maximum_logins = None
+        self._osc_io.quit()
+        self._teardown_proxies()
+        self._teardown_allocators()
+        self._teardown_status_watcher()
+
+    def quit(self, force=False):
+        if not self.is_running:
+            return
+        if not self._is_owner and not force:
+            raise supriya.exceptions.UnownedServerShutdown(
+                "Cannot quit unowned server without force flag."
+            )
+        PubSub.notify("server-quitting")
+        if self.recorder.is_recording:
+            self.recorder.stop()
+        QuitRequest().communicate(server=self)
+        if not self._server_process.terminate():
+            self._server_process.wait()
+        self._is_owner = False
+        self._disconnect()
+        PubSub.notify("server-quit")
         return self
 
     @classmethod
@@ -752,22 +765,6 @@ class Server:
         )
         response = request.communicate(server=self)
         return response.query_tree_group
-
-    def quit(self, force=False):
-        import supriya.commands
-
-        if not self.is_running:
-            return
-        if not self._is_owner and not force:
-            raise supriya.exceptions.UnownedServerShutdown(
-                "Cannot quit unowned server without force flag."
-            )
-        self._teardown_prepare()
-        supriya.commands.QuitRequest().communicate(server=self)
-        if not self._server_process.terminate():
-            self._server_process.wait()
-        self._teardown_complete()
-        return self
 
     def reboot(self, server_options=None, **kwargs):
         self.quit()
