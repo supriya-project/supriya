@@ -2,13 +2,12 @@ import atexit
 import logging
 import re
 import threading
-import time
 from typing import Set
 
 from uqbar.objects import new
 
 import supriya.exceptions
-from supriya.commands import QuitRequest
+from supriya.commands import QueryTreeGroup, QueryTreeSynth, QuitRequest
 from supriya.enums import NodeAction
 from supriya.realtime import BlockAllocator, BootOptions, NodeIdAllocator
 from supriya.system import PubSub
@@ -122,7 +121,7 @@ class Server:
 
         ### REGISTER WITH ATEXIT ###
 
-        atexit.register(self.quit)
+        atexit.register(self._shutdown)
 
     ### SPECIAL METHODS ###
 
@@ -487,6 +486,14 @@ class Server:
             system_synthdefs.append(system_synthdef)
         supriya.synthdefs.SynthDef._allocate_synthdefs(system_synthdefs, self)
 
+    def _shutdown(self):
+        if not self.is_running:
+            return
+        elif self.is_owner:
+            self.quit()
+        else:
+            self.disconnect()
+
     def _teardown_allocators(self):
         self._audio_bus_allocator = None
         self._buffer_allocator = None
@@ -525,24 +532,6 @@ class Server:
         self._status_watcher = None
         self._status = None
 
-    def _read_scsynth_boot_output(self):
-        start_time = time.time()
-        timeout = 10
-        while True:
-            line = self._server_process.stdout.readline().decode().rstrip()
-            if line:
-                logger.info("Boot: {}".format(line))
-            if line.startswith("SuperCollider 3 server ready"):
-                break
-            elif line.startswith("ERROR:"):
-                raise supriya.exceptions.ServerCannotBoot(line)
-            elif line.startswith(
-                "Exception in World_OpenUDP: bind: Address already in use"
-            ):
-                raise supriya.exceptions.ServerCannotBoot(line)
-            elif (time.time() - start_time) > timeout:
-                raise supriya.exceptions.ServerCannotBoot(line)
-
     ### PUBLIC METHODS ###
 
     def boot(self, scsynth_path=None, options=None, **kwargs):
@@ -568,16 +557,35 @@ class Server:
         self._setup_proxies()
 
     def _rehydrate(self):
-        pass
+        from supriya.realtime import Group, Synth
 
-    @classmethod
-    def connect(cls, ip_address="127.0.0.1", port=57751):
-        server = cls(ip_address=ip_address, port=port)
-        server._is_owner = False
-        server._connect()
-        server._rehydrate()
-        server._default_group = server._nodes[server.cliend_id]
-        return server
+        def recurse(query_tree_node, node):
+            for query_tree_child in query_tree_node.children:
+                if isinstance(query_tree_child, QueryTreeGroup):
+                    group = Group()
+                    group._register_with_local_server(
+                        node_id=query_tree_child.node_id, server=self
+                    )
+                    node._children.append(group)
+                    recurse(query_tree_child, group)
+                elif isinstance(query_tree_child, QueryTreeSynth):
+                    synth = Synth()
+                    synth._register_with_local_server(
+                        node_id=query_tree_child.node_id, server=self
+                    )
+                    node._children.append(synth)
+                    for query_tree_control in query_tree_child.children:
+                        pass
+
+        recurse(self.query_remote_nodes(include_controls=True), self.root_node)
+
+    def connect(self):
+        if self.is_running:
+            return
+        self._is_owner = False
+        self._connect()
+        self._rehydrate()
+        self._default_group = self._nodes[self.client_id + 1]
 
     def disconnect(self, force=False):
         if not self.is_running:
@@ -830,6 +838,10 @@ class Server:
     @property
     def ip_address(self):
         return self._ip_address
+
+    @property
+    def is_owner(self):
+        return self._is_owner
 
     @property
     def is_running(self):

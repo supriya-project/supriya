@@ -14,8 +14,8 @@ def add_libraries(doctest_namespace):
 def server_shutdown():
     supriya.Server.kill()
     for server in supriya.Server._servers:
-        server.quit()
+        server._shutdown()
     yield
     for server in supriya.Server._servers:
-        server.quit()
+        server._shutdown()
     supriya.Server.kill()
