@@ -10,7 +10,7 @@ class ControlBusSetContiguousRequest(Request):
     ::
 
         >>> import supriya
-        >>> server = supriya.Server().boot()
+        >>> server = supriya.Server.default().boot()
         >>> request = supriya.commands.ControlBusSetContiguousRequest(
         ...     index_values_pairs=[
         ...         (0, (0.1, 0.2, 0.3)),

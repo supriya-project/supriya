@@ -27,7 +27,7 @@ class Application:
         self._setup_devices()
         self._setup_mixer()
         self._setup_bindings()
-        self._server = supriya.Server.get_default_server()
+        self._server = supriya.Server.default()
 
     ### PRIVATE METHODS ###
 

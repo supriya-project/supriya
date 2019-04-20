@@ -10,7 +10,7 @@ class Bus(ServerObject):
     ::
 
         >>> import supriya
-        >>> server = supriya.Server().boot()
+        >>> server = supriya.Server.default().boot()
         >>> bus = supriya.Bus()
         >>> bus
         <- Bus: ??? (control)>
@@ -105,7 +105,7 @@ class Bus(ServerObject):
         ::
 
             >>> import supriya
-            >>> server = supriya.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> control_bus = supriya.Bus.control().allocate()
             >>> audio_bus = supriya.Bus.audio().allocate()
 

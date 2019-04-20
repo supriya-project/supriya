@@ -15,7 +15,7 @@ class GroupNewRequest(Request):
     ::
 
         >>> import supriya
-        >>> server = supriya.Server().boot()
+        >>> server = supriya.Server.default().boot()
         >>> group = supriya.Group().allocate()
 
     ::

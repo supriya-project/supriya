@@ -9,7 +9,7 @@ class BusGroup(ServerObject):
 
     ::
 
-        >>> server = supriya.Server().boot()
+        >>> server = supriya.Server.default().boot()
         >>> bus_group = supriya.BusGroup(bus_count=4)
         >>> bus_group
         <- BusGroup{4}: ??? (control)>
@@ -112,7 +112,7 @@ class BusGroup(ServerObject):
 
         ::
 
-            >>> server = supriya.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> bus_group = supriya.BusGroup.control(4).allocate()
             >>> bus_group[0]
             <+ Bus: 0 (control)>
@@ -164,7 +164,7 @@ class BusGroup(ServerObject):
 
         ::
 
-            >>> server = supriya.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> control_bus_group = supriya.BusGroup.control(4).allocate()
             >>> audio_bus_group = supriya.BusGroup.audio(4).allocate()
 
@@ -280,7 +280,7 @@ class BusGroup(ServerObject):
 
         ::
 
-            >>> server = supriya.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> bus_group = supriya.BusGroup.control(4).allocate()
             >>> bus_group.get()
             (0.0, 0.0, 0.0, 0.0)
@@ -341,7 +341,7 @@ class BusGroup(ServerObject):
 
         ::
 
-            >>> server = supriya.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> bus_group = supriya.BusGroup().control(4).allocate()
             >>> bus_group.get()
             (0.0, 0.0, 0.0, 0.0)
@@ -438,7 +438,7 @@ class BusGroup(ServerObject):
 
         ::
 
-            >>> server = supriya.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> bus_group = supriya.BusGroup.control(4).allocate()
             >>> bus_group.get()
             (0.0, 0.0, 0.0, 0.0)

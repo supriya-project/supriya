@@ -10,7 +10,7 @@ class NodeRunRequest(Request):
     ::
 
         >>> import supriya
-        >>> server = supriya.Server().boot()
+        >>> server = supriya.Server.default().boot()
         >>> synth_a = supriya.Synth().allocate()
         >>> synth_b = supriya.Synth().allocate()
         >>> synth_a.is_paused, synth_b.is_paused

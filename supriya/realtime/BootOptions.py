@@ -7,8 +7,8 @@ import time
 from dataclasses import dataclass
 
 import uqbar.io
-import supriya
 
+import supriya
 
 logger = logging.getLogger("supriya.server")
 
@@ -212,9 +212,10 @@ class BootOptions:
         output, _ = process.communicate()
         output = output.decode()
         pids = []
-        for line in output:
+        for line in output.splitlines():
             if executable not in line:
                 continue
+            print(line)
             parts = line.split()
             pids.append(int(parts[1]))
         if pids:

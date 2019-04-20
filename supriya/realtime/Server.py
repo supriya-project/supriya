@@ -3,15 +3,14 @@ import logging
 import re
 import threading
 import time
-from typing import Dict, Tuple
+from typing import Set, Tuple
 
 from uqbar.objects import new
 
 import supriya.exceptions
 from supriya.enums import NodeAction
-from supriya.realtime import BootOptions, BlockAllocator, NodeIdAllocator
+from supriya.realtime import BlockAllocator, BootOptions, NodeIdAllocator
 from supriya.system import PubSub
-from supriya.system.SupriyaObject import SupriyaObject
 
 # TODO: Implement connect() and disconnect()
 # TODO: Handle clientID return via [/done /notify 0 64] for allocators
@@ -20,14 +19,14 @@ from supriya.system.SupriyaObject import SupriyaObject
 logger = logging.getLogger("supriya.server")
 
 
-class Server(SupriyaObject):
+class Server:
     """
     An scsynth server proxy.
 
     ::
 
         >>> import supriya.realtime
-        >>> server = supriya.realtime.Server.get_default_server()
+        >>> server = supriya.realtime.Server.default()
         >>> server.boot()
         <Server: udp://127.0.0.1:57751, 8i8o>
 
@@ -44,10 +43,11 @@ class Server(SupriyaObject):
 
     _default_server = None
 
-    _servers: Dict[Tuple[str, int], "Server"] = {}
+    _servers: Set["Server"] = set()
 
     ### CONSTRUCTOR ###
 
+    """
     def __new__(cls, ip_address="127.0.0.1", port=57751, **kwargs):
         key = (ip_address, port)
         if key not in cls._servers:
@@ -55,6 +55,7 @@ class Server(SupriyaObject):
             instance.__init__(ip_address=ip_address, port=port, **kwargs)
             cls._servers[key] = instance
         return cls._servers[key]
+    """
 
     ### INITIALIZER ###
 
@@ -63,8 +64,7 @@ class Server(SupriyaObject):
         import supriya.commands
         import supriya.realtime
 
-        if hasattr(self, "is_running") and self.is_running:
-            return
+        type(self)._servers.add(self)
 
         ### NET ADDRESS ###
 
@@ -157,7 +157,7 @@ class Server(SupriyaObject):
 
         ::
 
-            >>> server = supriya.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> supriya.Synth(name='foo').allocate()
             <+ Synth: 1000 (foo)>
 
@@ -228,7 +228,7 @@ class Server(SupriyaObject):
         ::
 
             >>> import supriya
-            >>> server = supriya.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> group = supriya.Group([
             ...     supriya.Synth(),
             ...     supriya.Group([
@@ -402,9 +402,7 @@ class Server(SupriyaObject):
             heap_maximum=self._options.audio_bus_channel_count,
             heap_minimum=self._options.first_private_bus_id,
         )
-        self._buffer_allocator = BlockAllocator(
-            heap_maximum=self._options.buffer_count
-        )
+        self._buffer_allocator = BlockAllocator(heap_maximum=self._options.buffer_count)
         self._control_bus_allocator = BlockAllocator(
             heap_maximum=self._options.control_bus_channel_count
         )
@@ -421,7 +419,9 @@ class Server(SupriyaObject):
         self._client_id, self._maximum_logins = response.action[1], response.action[2]
 
     def _setup_default_groups(self):
-        default_groups = [supriya.Group(node_id_is_permanent=True) for _ in range(self.maximum_logins)]
+        default_groups = [
+            supriya.Group(node_id_is_permanent=True) for _ in range(self.maximum_logins)
+        ]
         self.root_node.extend(default_groups)
         self._default_group = default_groups[self.client_id]
 
@@ -471,7 +471,7 @@ class Server(SupriyaObject):
         )
 
         def failed(message):
-            logger.warn("Fail: {}".format(message))
+            logger.warning("Fail: {}".format(message))
 
         self._osc_io.register(pattern="/fail", procedure=failed)
 
@@ -533,13 +533,16 @@ class Server(SupriyaObject):
             x.free()
         for x in tuple(self._synthdefs.values()):
             x.free()
-        self._control_bus_proxies = None
-        self._buffer_proxies = None
-        self._default_group = None
-        self._root_node = None
+        self._audio_buses.clear()
         self._audio_input_bus_group = None
         self._audio_output_bus_group = None
+        self._buffers.clear()
+        self._buffer_proxies.clear()
+        self._control_buses.clear()
+        self._control_bus_proxies.clear()
+        self._default_group = None
         self._nodes.clear()
+        self._root_node = None
         self._synthdefs.clear()
 
     def _teardown_status_watcher(self):
@@ -569,6 +572,7 @@ class Server(SupriyaObject):
 
     def boot(self, scsynth_path=None, options=None, **kwargs):
         import supriya.realtime
+
         if self.is_running:
             return self
         self._options = new(options or supriya.realtime.BootOptions(), **kwargs)
@@ -599,11 +603,11 @@ class Server(SupriyaObject):
         self._teardown_complete()
         return self
 
-    @staticmethod
-    def get_default_server():
-        if Server._default_server is None:
-            Server._default_server = Server()
-        return Server._default_server
+    @classmethod
+    def default(cls):
+        if cls._default_server is None:
+            cls._default_server = Server()
+        return cls._default_server
 
     @classmethod
     def kill(cls, supernova=False):
@@ -616,7 +620,7 @@ class Server(SupriyaObject):
         ::
 
             >>> import supriya.realtime
-            >>> server = supriya.realtime.Server()
+            >>> server = supriya.Server.default()
             >>> server.boot()
             <Server: udp://127.0.0.1:57751, 8i8o>
 
@@ -686,7 +690,7 @@ class Server(SupriyaObject):
         ::
 
             >>> import supriya.realtime
-            >>> server = supriya.realtime.Server()
+            >>> server = supriya.Server.default()
             >>> server.boot()
             <Server: udp://127.0.0.1:57751, 8i8o>
 

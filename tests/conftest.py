@@ -86,7 +86,7 @@ def pseudo_server():
 @pytest.fixture
 def server():
     supriya.Server.kill()
-    server = supriya.Server()
+    server = supriya.Server.default()
     server.latency = 0.0
     server.boot()
     supriya.assets.synthdefs.default.allocate(server)

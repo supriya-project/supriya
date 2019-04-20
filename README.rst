@@ -63,7 +63,7 @@ Start your Python interpreter and import Supriya::
 
 Boot the SuperCollider server::
 
-    >>> server = supriya.realtime.Server()
+    >>> server = supriya.Server.default()
     >>> server.boot()
     <Server: udp://127.0.0.1:57751, 8i8o>
 

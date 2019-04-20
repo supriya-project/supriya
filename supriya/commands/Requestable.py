@@ -37,7 +37,7 @@ class Requestable(SupriyaValueObject):
     def communicate(self, server=None, sync=True, timeout=1.0, apply_local=True):
         import supriya.realtime
 
-        server = server or supriya.realtime.Server.get_default_server()
+        server = server or supriya.realtime.Server.default()
         assert isinstance(server, supriya.realtime.Server)
         assert server.is_running
         with server._lock:

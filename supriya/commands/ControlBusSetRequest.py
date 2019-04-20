@@ -10,7 +10,7 @@ class ControlBusSetRequest(Request):
     ::
 
         >>> import supriya
-        >>> server = supriya.Server().boot()
+        >>> server = supriya.Server.default().boot()
         >>> request = supriya.commands.ControlBusSetRequest(
         ...     index_value_pairs=[
         ...         (0, 0.1),

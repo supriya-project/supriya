@@ -24,7 +24,7 @@ class RealtimeEventPlayer(EventPlayer):
         EventPlayer.__init__(self, pattern, event_template)
         clock = clock or supriya.patterns.Clock.get_default_clock()
         assert isinstance(clock, supriya.patterns.Clock)
-        self._server = server or supriya.realtime.Server.get_default_server()
+        self._server = server or supriya.realtime.Server.default()
         self._clock = clock
         self._iterator = None
         self._uuids = {}

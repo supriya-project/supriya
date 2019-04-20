@@ -10,7 +10,7 @@ class BufferGroup(ServerObject):
 
     ::
 
-        >>> server = supriya.realtime.Server().boot()
+        >>> server = supriya.Server.default().boot()
 
     ::
 
@@ -171,7 +171,7 @@ class BufferGroup(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_group = supriya.realtime.BufferGroup.from_file_paths(file_paths)
 
         ::

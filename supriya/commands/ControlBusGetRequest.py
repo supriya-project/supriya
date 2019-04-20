@@ -10,7 +10,7 @@ class ControlBusGetRequest(Request):
     ::
 
         >>> import supriya
-        >>> server = supriya.Server().boot()
+        >>> server = supriya.Server.default().boot()
         >>> request = supriya.commands.ControlBusGetRequest(
         ...     indices=(0, 4, 8, 12),
         ...     )

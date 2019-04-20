@@ -59,6 +59,7 @@ def test_boot_options():
             server.quit()
 
 
+@pytest.mark.skip("Reimplementing")
 def test_server_boot_errors():
     def check_scsynth():
         process = subprocess.Popen("ps -Af", shell=True, stdout=subprocess.PIPE)

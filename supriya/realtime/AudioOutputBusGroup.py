@@ -10,7 +10,7 @@ class AudioOutputBusGroup(BusGroup):
     ::
 
         >>> import supriya
-        >>> server = supriya.Server().boot()
+        >>> server = supriya.Server.default().boot()
         >>> bus_group = server.audio_output_bus_group
         >>> bus_group
         <+ AudioOutputBusGroup{8}: 0 (audio)>

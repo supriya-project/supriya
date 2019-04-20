@@ -10,7 +10,7 @@ class Buffer(ServerObject):
 
     ::
 
-        >>> server = supriya.realtime.Server().boot()
+        >>> server = supriya.Server.default().boot()
 
     ::
 
@@ -69,7 +69,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_one = supriya.realtime.Buffer().allocate(frame_count=8)
             >>> buffer_two = supriya.realtime.Buffer().allocate(frame_count=8)
 
@@ -118,7 +118,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_one = supriya.realtime.Buffer().allocate(frame_count=8)
             >>> buffer_two = supriya.realtime.Buffer().allocate(frame_count=8)
 
@@ -167,7 +167,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_ = supriya.realtime.Buffer()
             >>> repr(buffer_)
             '<- Buffer: ???>'
@@ -276,7 +276,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_one = supriya.realtime.Buffer().allocate()
             >>> buffer_one.query()
             BufferInfoResponse(
@@ -358,7 +358,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_one = supriya.realtime.Buffer().allocate_from_file(
             ...     supriya.system.Assets['audio/pulse_44100sr_16bit_octo.wav'],
             ...     )
@@ -433,7 +433,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_ = supriya.realtime.Buffer().allocate(
             ...     channel_count=8,
             ...     frame_count=8,
@@ -474,7 +474,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_one = supriya.realtime.Buffer().allocate(frame_count=4)
             >>> buffer_two = supriya.realtime.Buffer().allocate(frame_count=4)
             >>> buffer_one.fill([(0, 4, 0.5)])
@@ -522,7 +522,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_one = supriya.realtime.Buffer().allocate(frame_count=4)
             >>> buffer_two = supriya.realtime.Buffer().allocate(frame_count=4)
             >>> buffer_one.fill([(0, 4, 0.5)])
@@ -567,7 +567,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_ = supriya.realtime.Buffer().allocate(
             ...     frame_count=8,
             ...     server=server,
@@ -629,7 +629,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_ = supriya.realtime.Buffer().allocate(
             ...     frame_count=8,
             ...     server=server,
@@ -689,7 +689,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_ = supriya.realtime.Buffer().allocate(
             ...     frame_count=8,
             ...     server=server,
@@ -750,7 +750,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_ = supriya.realtime.Buffer().allocate(
             ...     frame_count=8,
             ...     server=server,
@@ -817,7 +817,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_ = supriya.realtime.Buffer().allocate(
             ...     frame_count=8,
             ...     server=server,
@@ -878,7 +878,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_ = supriya.realtime.Buffer().allocate(
             ...     frame_count=4,
             ...     server=server,
@@ -919,7 +919,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_ = supriya.realtime.Buffer().allocate(
             ...     frame_count=4,
             ...     server=server,
@@ -962,7 +962,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_ = supriya.realtime.Buffer().allocate_from_file(
             ...     supriya.system.Assets['audio/pulse_44100sr_16bit_octo.wav'],
             ...     )
@@ -1038,7 +1038,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_ = supriya.realtime.Buffer().allocate(
             ...     channel_count=2,
             ...     frame_count=16,
@@ -1088,7 +1088,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_ = supriya.realtime.Buffer().allocate(
             ...     channel_count=2,
             ...     frame_count=8,
@@ -1171,7 +1171,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_ = supriya.realtime.Buffer().allocate(
             ...     frame_count=8,
             ...     )
@@ -1215,7 +1215,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_ = supriya.realtime.Buffer().allocate(
             ...     frame_count=8,
             ...     )
@@ -1267,7 +1267,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_one = supriya.realtime.Buffer().allocate_from_file(
             ...     supriya.system.Assets['audio/pulse_44100sr_16bit_octo.wav'],
             ...     channel_indices=(0,),
@@ -1333,7 +1333,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_ = supriya.realtime.Buffer().allocate(
             ...     frame_count=8,
             ...     sync=True,
@@ -1391,7 +1391,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_one = supriya.realtime.Buffer().allocate(frame_count=8)
             >>> buffer_one.buffer_group is None
             True
@@ -1431,7 +1431,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_one = supriya.realtime.Buffer()
             >>> buffer_one.buffer_id is None
             True
@@ -1502,7 +1502,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_one = supriya.realtime.Buffer().allocate(
             ...     frame_count=8,
             ...     )
@@ -1543,7 +1543,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_ = supriya.realtime.Buffer()
             >>> buffer_.duration_in_seconds
             0.0
@@ -1574,7 +1574,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_ = supriya.realtime.Buffer()
             >>> buffer_.frame_count
             0
@@ -1605,7 +1605,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_one = supriya.realtime.Buffer().allocate(frame_count=16)
             >>> buffer_two = supriya.realtime.Buffer().allocate(
             ...     channel_count=2,
@@ -1666,7 +1666,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_ = supriya.realtime.Buffer()
             >>> buffer_.sample_rate
             0
@@ -1697,7 +1697,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_ = supriya.realtime.Buffer()
             >>> buffer_.is_allocated
             False
@@ -1727,7 +1727,7 @@ class Buffer(ServerObject):
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> buffer_ = supriya.realtime.Buffer()
             >>> buffer_.server is None
             True

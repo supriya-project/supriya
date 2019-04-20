@@ -9,7 +9,7 @@ class GroupHeadRequest(MoveRequest):
     ::
 
         >>> import supriya
-        >>> server = supriya.Server().boot()
+        >>> server = supriya.Server.default().boot()
         >>> group = supriya.Group().allocate()
         >>> synth = supriya.Synth().allocate()
         >>> group.extend([supriya.Group(), supriya.Group()])

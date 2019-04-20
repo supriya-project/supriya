@@ -10,7 +10,7 @@ class ServerMeters(SupriyaObject):
     ::
 
         >>> import json, supriya, time
-        >>> server = supriya.Server().boot(
+        >>> server = supriya.Server.default().boot(
         ...     input_bus_channel_count=2,
         ...     output_bus_channel_count=2,
         ...     )

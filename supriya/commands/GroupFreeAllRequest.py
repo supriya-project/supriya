@@ -10,7 +10,7 @@ class GroupFreeAllRequest(Request):
     ::
 
         >>> import supriya
-        >>> server = supriya.Server().boot()
+        >>> server = supriya.Server.default().boot()
         >>> group = supriya.Group().allocate()
         >>> group.extend([supriya.Synth(), supriya.Group()])
         >>> group[1].extend([supriya.Synth(), supriya.Group()])

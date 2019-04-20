@@ -4,7 +4,7 @@ SUPERCOLLIDER_DIR = ${TRAVIS_BUILD_DIR}/supercollider
 SUPERCOLLIDER_BUILD_DIR = $(SUPERCOLLIDER_DIR)/BUILD
 
 sanity-check:
-	python -c 'import supriya; server = supriya.Server().boot(); print(server); server.quit()'
+	python -c 'import supriya; server = supriya.Server.default().boot(); print(server); server.quit()'
 
 install-scsynth:
 	cd ${TRAVIS_BUILD_DIR} && \

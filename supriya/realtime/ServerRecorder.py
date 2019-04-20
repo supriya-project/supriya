@@ -12,7 +12,7 @@ class ServerRecorder(SupriyaObject):
 
         >>> import supriya
         >>> import os, tempfile, time
-        >>> server = supriya.Server().boot()
+        >>> server = supriya.Server.default().boot()
         >>> with tempfile.TemporaryDirectory() as tempdir:
         ...     server.recorder.start(
         ...         file_path=os.path.join(tempdir, 'example.aiff'),

@@ -266,11 +266,11 @@ class Node(ServerObject, UniqueTreeNode):
         import supriya.realtime
 
         if expr is None:
-            expr = Node.expr_as_target(supriya.realtime.Server.get_default_server())
+            expr = Node.expr_as_target(supriya.realtime.Server.default())
         if hasattr(expr, "_as_node_target"):
             return expr._as_node_target()
         if isinstance(expr, (float, int)):
-            server = supriya.realtime.Server.get_default_server()
+            server = supriya.realtime.Server.default()
             return server._nodes[int(expr)]
         if expr is None:
             raise supriya.exceptions.ServerOffline

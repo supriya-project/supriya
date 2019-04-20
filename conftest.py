@@ -13,9 +13,9 @@ def add_libraries(doctest_namespace):
 @pytest.fixture(autouse=True)
 def server_shutdown():
     supriya.Server.kill()
-    for server in supriya.Server._servers.values():
+    for server in supriya.Server._servers:
         server.quit()
     yield
-    for server in supriya.Server._servers.values():
+    for server in supriya.Server._servers:
         server.quit()
     supriya.Server.kill()

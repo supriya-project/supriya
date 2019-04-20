@@ -159,7 +159,7 @@ class Mixer:
         return track
 
     def allocate(self, server=None):
-        server = server or supriya.realtime.Server.get_default_server()
+        server = server or supriya.realtime.Server.default()
         assert isinstance(server, supriya.realtime.Server)
         assert server.is_running
         assert self.channel_count + 2 <= len(server.audio_output_bus_group)

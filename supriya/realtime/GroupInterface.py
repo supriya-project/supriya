@@ -9,7 +9,7 @@ class GroupInterface(ControlInterface):
 
     ::
 
-        >>> server = supriya.Server().boot()
+        >>> server = supriya.Server.default().boot()
         >>> group = supriya.Group().allocate()
         >>> group.extend([
         ...     supriya.Synth(synthdef=supriya.assets.synthdefs.test),

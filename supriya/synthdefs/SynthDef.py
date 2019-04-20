@@ -32,7 +32,7 @@ class SynthDef(ServerObject):
     ::
 
         >>> import supriya.realtime
-        >>> server = supriya.realtime.Server().boot()
+        >>> server = supriya.Server.default().boot()
 
     ::
 
@@ -633,7 +633,7 @@ class SynthDef(ServerObject):
 
         ::
 
-            >>> server = supriya.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> synthdef = supriya.assets.synthdefs.default
             >>> synth = synthdef.play()
             >>> server = server.quit()
