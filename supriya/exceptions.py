@@ -60,3 +60,7 @@ class OwnedServerShutdown(Exception):
 
 class UnownedServerShutdown(Exception):
     pass
+
+
+class TooManyClients(Exception):
+    pass

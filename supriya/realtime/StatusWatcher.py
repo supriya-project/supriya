@@ -47,7 +47,7 @@ class StatusWatcher(threading.Thread):
         message = request.to_osc()
         while self._is_active and self.server.is_running:
             if self.max_attempts == self.attempts:
-                self.server.quit()
+                self.server._shutdown()
                 break
             self.server.send_message(message)
             self._attempts += 1

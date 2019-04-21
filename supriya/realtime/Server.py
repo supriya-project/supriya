@@ -528,7 +528,8 @@ class Server:
         self._synthdefs.clear()
 
     def _teardown_status_watcher(self):
-        self._status_watcher.is_active = False
+        if self._status_watcher is not None:
+            self._status_watcher.is_active = False
         self._status_watcher = None
         self._status = None
 
@@ -599,6 +600,7 @@ class Server:
 
     def _disconnect(self):
         self._is_running = False
+        self._is_owner = False
         self._client_id = None
         self._maximum_logins = None
         self._osc_io.quit()
@@ -617,9 +619,8 @@ class Server:
         if self.recorder.is_recording:
             self.recorder.stop()
         QuitRequest().communicate(server=self)
-        if not self._server_process.terminate():
+        if self._server_process is not None and not self._server_process.terminate():
             self._server_process.wait()
-        self._is_owner = False
         self._disconnect()
         PubSub.notify("server-quit")
         return self

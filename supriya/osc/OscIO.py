@@ -241,7 +241,7 @@ class OscIO:
             self.server_thread = None
             self.is_running = False
 
-    def register(self, pattern, procedure, once=False, parse_response=False):
+    def register(self, pattern, procedure, *, once=False, parse_response=False):
         """
         Register a callback.
 

@@ -221,7 +221,6 @@ class BootOptions:
         if pids:
             for pid in pids:
                 os.kill(pid, signal.SIGKILL)
-            raise RuntimeError("{} was still running: {}".format(executable, pids))
 
     ### PUBLIC PROPERTIES ###
 
