@@ -70,4 +70,4 @@ class GroupQueryTreeRequest(Request):
 
     @property
     def response_patterns(self):
-        return [["/g_queryTree.reply", int(self.include_controls), self.node_id]]
+        return ["/g_queryTree.reply", int(self.include_controls), self.node_id], None

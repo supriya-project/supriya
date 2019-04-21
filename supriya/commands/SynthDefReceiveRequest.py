@@ -172,7 +172,7 @@ class SynthDefReceiveRequest(Request):
 
     @property
     def response_patterns(self):
-        return [["/done", "/d_recv"]]
+        return ["/done", "/d_recv"], None
 
     @property
     def synthdefs(self):

@@ -47,7 +47,7 @@ class SynthDefLoadDirectoryRequest(Request):
 
     @property
     def response_patterns(self):
-        return [["/done", "/d_loadDir"]]
+        return ["/done", "/d_loadDir"], None
 
     @property
     def directory_path(self):

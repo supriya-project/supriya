@@ -269,7 +269,7 @@ class BufferGenerateRequest(Request):
 
     @property
     def response_patterns(self):
-        return [["/done", "/b_gen", self.buffer_id]]
+        return ["/done", "/b_gen", self.buffer_id], None
 
     @property
     def should_clear_first(self):

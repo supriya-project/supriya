@@ -130,7 +130,7 @@ class SynthNewRequest(Request):
 
     @property
     def response_patterns(self):
-        return [["/n_go", int(self.node_id)]]
+        return ["/n_go", int(self.node_id)], None
 
     @property
     def synthdef(self):

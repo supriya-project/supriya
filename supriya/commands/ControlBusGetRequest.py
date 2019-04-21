@@ -84,4 +84,4 @@ class ControlBusGetRequest(Request):
 
     @property
     def response_patterns(self):
-        return [["/c_set"]]
+        return ["/c_set"], None

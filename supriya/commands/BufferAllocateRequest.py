@@ -94,4 +94,4 @@ class BufferAllocateRequest(Request):
 
     @property
     def response_patterns(self):
-        return [["/done", "/b_alloc", self.buffer_id]]
+        return ["/done", "/b_alloc", self.buffer_id], None

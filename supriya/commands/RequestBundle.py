@@ -65,13 +65,13 @@ class RequestBundle(Requestable):
 
     ### PRIVATE METHODS ###
 
-    def _get_response_pattern_and_requestable(self, server):
+    def _get_response_patterns_and_requestable(self, server):
         sync_id = server.next_sync_id
         contents = list(self.contents)
         contents.append(supriya.commands.SyncRequest(sync_id=sync_id))
         request_bundle = type(self)(contents=contents)
         response_pattern = ["/synced", sync_id]
-        return response_pattern, request_bundle
+        return response_pattern, None, request_bundle
 
     def _handle_async(self, sync, server):
         if not sync:

@@ -62,4 +62,4 @@ class BufferCloseRequest(Request):
 
     @property
     def response_patterns(self):
-        return [["/done", "/b_close", self.buffer_id]]
+        return ["/done", "/b_close", self.buffer_id], None

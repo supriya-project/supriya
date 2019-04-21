@@ -7,7 +7,15 @@ from typing import Set
 from uqbar.objects import new
 
 import supriya.exceptions
-from supriya.commands import QueryTreeGroup, QueryTreeSynth, QuitRequest
+from supriya.commands import (
+    FailResponse,
+    GroupQueryTreeRequest,
+    NotifyRequest,
+    QueryTreeGroup,
+    QueryTreeSynth,
+    QuitRequest,
+    SyncRequest,
+)
 from supriya.enums import NodeAction
 from supriya.realtime import BlockAllocator, BootOptions, NodeIdAllocator
 from supriya.system import PubSub
@@ -61,7 +69,6 @@ class Server:
 
     def __init__(self, ip_address="127.0.0.1", port=57751):
         import supriya.osc
-        import supriya.commands
         import supriya.realtime
 
         type(self)._servers.add(self)
@@ -402,10 +409,11 @@ class Server:
         self._sync_id = 0
 
     def _setup_notifications(self):
-        import supriya.commands
-
-        request = supriya.commands.NotifyRequest(True)
+        request = NotifyRequest(True)
         response = request.communicate(server=self)
+        if isinstance(response, FailResponse):
+            self._shutdown()
+            raise supriya.exceptions.TooManyClients
         self._client_id, self._maximum_logins = response.action[1], response.action[2]
 
     def _setup_default_groups(self):
@@ -698,9 +706,7 @@ class Server:
 
         Returns server query-tree group response.
         """
-        import supriya.commands
-
-        query_tree_group = supriya.commands.QueryTreeGroup.from_group(
+        query_tree_group = QueryTreeGroup.from_group(
             self.root_node, include_controls=include_controls
         )
         return query_tree_group
@@ -767,11 +773,7 @@ class Server:
 
         Returns server query-tree group response.
         """
-        import supriya.commands
-
-        request = supriya.commands.GroupQueryTreeRequest(
-            node_id=0, include_controls=include_controls
-        )
+        request = GroupQueryTreeRequest(node_id=0, include_controls=include_controls)
         response = request.communicate(server=self)
         return response.query_tree_group
 
@@ -788,13 +790,11 @@ class Server:
         )
 
     def sync(self, sync_id=None):
-        import supriya.commands
-
         if not self.is_running:
             return
         if sync_id is None:
             sync_id = self.next_sync_id
-        request = supriya.commands.SyncRequest(sync_id=sync_id)
+        request = SyncRequest(sync_id=sync_id)
         request.communicate(server=self)
         return self
 

@@ -73,4 +73,4 @@ class BufferGetRequest(Request):
 
     @property
     def response_patterns(self):
-        return [["/b_set", self.buffer_id], ["/fail", "/b_get"]]
+        return ["/b_set", self.buffer_id], ["/fail", "/b_get"]

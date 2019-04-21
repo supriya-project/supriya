@@ -115,8 +115,9 @@ class OscIO:
     class OscCallback(typing.NamedTuple):
         pattern: typing.Tuple[typing.Union[str, int, float], ...]
         procedure: typing.Callable
-        once: bool
-        parse_response: bool
+        failure_pattern: typing.Tuple[typing.Union[str, int, float], ...] = None
+        once: bool = False
+        parse_response: bool = False
 
     def __init__(self, ip_address="127.0.0.1", port=57751, timeout=2):
         import supriya.commands
@@ -201,15 +202,15 @@ class OscIO:
             >>> for callback in io.match(supriya.osc.OscMessage('/synced', 1)):
             ...     callback
             ...
-            OscCallback(pattern=('/synced',), procedure=<function <lambda> at 0x...>, once=False, parse_response=False)
-            OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, once=False, parse_response=False)
+            OscCallback(pattern=('/synced',), procedure=<function <lambda> at 0x...>, failure_pattern=None, once=False, parse_response=False)
+            OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, failure_pattern=None, once=False, parse_response=False)
 
         ::
 
             >>> for callback in io.match(supriya.osc.OscMessage('/synced', 2)):
             ...     callback
             ...
-            OscCallback(pattern=('/synced',), procedure=<function <lambda> at 0x...>, once=False, parse_response=False)
+            OscCallback(pattern=('/synced',), procedure=<function <lambda> at 0x...>, failure_pattern=None, once=False, parse_response=False)
 
         ::
 
@@ -241,7 +242,9 @@ class OscIO:
             self.server_thread = None
             self.is_running = False
 
-    def register(self, pattern, procedure, *, once=False, parse_response=False):
+    def register(
+        self, pattern, procedure, failure_pattern=None, once=False, parse_response=False
+    ):
         """
         Register a callback.
 
@@ -258,7 +261,7 @@ class OscIO:
             >>> import pprint
             >>> pprint.pprint(io.callbacks)
             {'/synced': ([],
-                         {1: ([OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, once=False, parse_response=False)],
+                         {1: ([OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, failure_pattern=None, once=False, parse_response=False)],
                               {})})}
 
         """
@@ -267,15 +270,20 @@ class OscIO:
         assert callable(procedure)
         callback = self.OscCallback(
             pattern=tuple(pattern),
+            failure_pattern=failure_pattern,
             procedure=procedure,
             once=bool(once),
             parse_response=bool(parse_response),
         )
+        patterns = [pattern]
+        if failure_pattern:
+            patterns.append(failure_pattern)
         with self.lock:
-            callback_map = self.callbacks
-            for item in pattern:
-                callbacks, callback_map = callback_map.setdefault(item, ([], {}))
-            callbacks.append(callback)
+            for pattern in patterns:
+                callback_map = self.callbacks
+                for item in pattern:
+                    callbacks, callback_map = callback_map.setdefault(item, ([], {}))
+                callbacks.append(callback)
         return callback
 
     def send(self, message, with_request_name=False):
@@ -333,8 +341,8 @@ class OscIO:
 
             >>> import pprint
             >>> pprint.pprint(io.callbacks)
-            {'/synced': ([OscCallback(pattern=('/synced',), procedure=<function <lambda> at 0x...>, once=False, parse_response=False)],
-                         {1: ([OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, once=False, parse_response=False)],
+            {'/synced': ([OscCallback(pattern=('/synced',), procedure=<function <lambda> at 0x...>, failure_pattern=None, once=False, parse_response=False)],
+                         {1: ([OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, failure_pattern=None, once=False, parse_response=False)],
                               {})})}
 
         ::
@@ -342,7 +350,7 @@ class OscIO:
             >>> io.unregister(other_callback)
             >>> pprint.pprint(io.callbacks)
             {'/synced': ([],
-                         {1: ([OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, once=False, parse_response=False)],
+                         {1: ([OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, failure_pattern=None, once=False, parse_response=False)],
                               {})})}
 
         ::
@@ -367,3 +375,5 @@ class OscIO:
 
         with self.lock:
             delete(list(callback.pattern), self.callbacks)
+            if callback.failure_pattern:
+                delete(list(callback.failure_pattern), self.callbacks)

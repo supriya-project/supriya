@@ -79,4 +79,4 @@ class BufferGetContiguousRequest(Request):
 
     @property
     def response_patterns(self):
-        return [["/b_setn", self.buffer_id], ["/fail", "/b_getn"]]
+        return ["/b_setn", self.buffer_id], ["/fail", "/b_getn"]

@@ -67,5 +67,5 @@ class BufferQueryRequest(Request):
     @property
     def response_patterns(self):
         if 1 == len(self.buffer_ids):
-            return [["/b_info", self.buffer_ids[0]]]
-        return []
+            return ["/b_info", self.buffer_ids[0]], None
+        return None, None

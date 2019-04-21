@@ -102,4 +102,4 @@ class ControlBusGetContiguousRequest(Request):
 
     @property
     def response_patterns(self):
-        return [["/c_setn"]]
+        return ["/c_setn"], None

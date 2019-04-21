@@ -63,4 +63,4 @@ class NotifyRequest(Request):
 
     @property
     def response_patterns(self):
-        return [["/done", "/notify"], ["/fail", "/notify"]]
+        return ["/done", "/notify"], ["/fail", "/notify"]
