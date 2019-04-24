@@ -212,20 +212,24 @@ def test_shared_resources():
         ("R", OscMessage("/done", "/d_recv")),
     ]
     # TODO: Server A doesn't actually know what this SynthDef should be.
-    assert str(server_a.query_local_nodes(True)) == normalize("""
+    assert str(server_a.query_local_nodes(True)) == normalize(
+        """
         NODE TREE 0 group
             1 group
             2 group
                 67109864 default
                     amplitude: 0.1, frequency: 440.0, gate: 1.0, out: 0.0, pan: 0.5
-    """)
-    assert str(server_b.query_local_nodes(True)) == normalize("""
+    """
+    )
+    assert str(server_b.query_local_nodes(True)) == normalize(
+        """
         NODE TREE 0 group
             1 group
             2 group
                 67109864 foo
                     frequency: 440.0
-    """)
+    """
+    )
 
 
 def test_connect_and_reconnect():
@@ -236,24 +240,28 @@ def test_connect_and_reconnect():
         server.connect()
         assert server.is_running and not server.is_owner
         assert server.client_id == 0
-        assert str(server.query_local_nodes(True)) == normalize("""
+        assert str(server.query_local_nodes(True)) == normalize(
+            """
             NODE TREE 0 group
                 1 group
                 2 group
                 3 group
                 4 group
-        """)
+        """
+        )
         server.disconnect()
         server.connect()
         assert server.is_running and not server.is_owner
         assert server.client_id == 1
-        assert str(server.query_local_nodes(True)) == normalize("""
+        assert str(server.query_local_nodes(True)) == normalize(
+            """
             NODE TREE 0 group
                 1 group
                 2 group
                 3 group
                 4 group
-        """)
+        """
+        )
     finally:
         process.terminate()
         process.wait()
