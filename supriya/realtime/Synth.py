@@ -174,7 +174,7 @@ class Synth(Node):
         synthdefs = set()
         if self.is_paused:
             paused_nodes.add(self)
-        if not self.synthdef.is_allocated:
+        if self.synthdef not in server:
             synthdefs.add(self.synthdef)
         return self._allocate(paused_nodes, requests, server, synthdefs)
 

@@ -149,7 +149,7 @@ class Group(Node, UniqueTreeContainer):
                 ) in Group._iterate_setitem_expr(outer_node, outer_node):
                     yield inner_node, inner_target_node, inner_add_action
 
-    def _collect_requests_and_synthdefs(self, expr, start=0):
+    def _collect_requests_and_synthdefs(self, expr, server, start=0):
         import supriya.commands
         import supriya.realtime
 
@@ -183,7 +183,7 @@ class Group(Node, UniqueTreeContainer):
                     )
                     requests.append(request)
                 else:
-                    if not node.synthdef.is_allocated:
+                    if node.synthdef not in server:
                         synthdefs.add(node.synthdef)
                     (settings, map_requests) = node.controls._make_synth_new_settings()
                     request = supriya.commands.SynthNewRequest(
@@ -215,7 +215,7 @@ class Group(Node, UniqueTreeContainer):
         self._children.__setitem__(slice(start, start), expr)
 
         new_nodes, paused_nodes, requests, synthdefs = self._collect_requests_and_synthdefs(
-            expr, start
+            expr, self.server, start=start
         )
         nodes_to_free = [_ for _ in old_nodes if _ not in new_nodes]
         if nodes_to_free:
@@ -279,7 +279,7 @@ class Group(Node, UniqueTreeContainer):
             paused_nodes,
             requests,
             synthdefs,
-        ) = self._collect_requests_and_synthdefs(self)
+        ) = self._collect_requests_and_synthdefs(self, server)
         requests = [group_new_request, *requests]
         if self.is_paused:
             paused_nodes.add(self)

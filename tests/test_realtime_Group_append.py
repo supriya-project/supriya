@@ -13,14 +13,14 @@ def test_01(server):
     group_b.allocate(target_node=server)
 
     synthdef = supriya.assets.synthdefs.test
-    assert not synthdef.is_allocated
+    assert synthdef not in server
 
     synth_a = supriya.realtime.Synth(synthdef)
-    assert not synthdef.is_allocated
+    assert synthdef not in server
     assert not synth_a.is_allocated
 
     group_a.append(synth_a)
-    assert synthdef.is_allocated
+    assert synthdef in server
     assert synth_a.is_allocated
     assert synth_a.parent is group_a
     assert synth_a in group_a
@@ -38,7 +38,7 @@ def test_01(server):
     )
 
     group_b.append(synth_a)
-    assert synthdef.is_allocated
+    assert synthdef in server
     assert synth_a.is_allocated
     assert synth_a.parent is group_b
     assert synth_a in group_b

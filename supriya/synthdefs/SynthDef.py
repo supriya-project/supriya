@@ -8,10 +8,9 @@ import tempfile
 import yaml
 
 from supriya import BinaryOperator, ParameterRate, UnaryOperator
-from supriya.realtime.ServerObject import ServerObject
 
 
-class SynthDef(ServerObject):
+class SynthDef:
     """
     A synth definition.
 
@@ -79,7 +78,6 @@ class SynthDef(ServerObject):
         import supriya.synthdefs
         import supriya.ugens
 
-        ServerObject.__init__(self)
         compiler = supriya.synthdefs.SynthDefCompiler
         self._name = name
         ugens = list(copy.deepcopy(ugens))
@@ -307,21 +305,20 @@ class SynthDef(ServerObject):
         d_recv_synth_group = []
         current_total = 0
         d_load_synthdefs = []
-        if synthdefs:
-            for synthdef in synthdefs:
-                # synthdef._register_with_local_server(server=server)
-                compiled = synthdef.compile()
-                if 8192 < len(compiled):
-                    d_load_synthdefs.append(synthdef)
-                elif current_total + len(compiled) < 8192:
-                    d_recv_synth_group.append(synthdef)
-                    current_total += len(compiled)
-                else:
-                    d_recv_synthdef_groups.append(d_recv_synth_group)
-                    d_recv_synth_group = [synthdef]
-                    current_total = len(compiled)
-        else:
+        if not synthdefs:
             return
+        for synthdef in synthdefs:
+            # synthdef._register_with_local_server(server=server)
+            compiled = synthdef.compile()
+            if 8192 < len(compiled):
+                d_load_synthdefs.append(synthdef)
+            elif current_total + len(compiled) < 8192:
+                d_recv_synth_group.append(synthdef)
+                current_total += len(compiled)
+            else:
+                d_recv_synthdef_groups.append(d_recv_synth_group)
+                d_recv_synth_group = [synthdef]
+                current_total = len(compiled)
         if d_recv_synth_group:
             d_recv_synthdef_groups.append(d_recv_synth_group)
         for d_recv_synth_group in d_recv_synthdef_groups:
@@ -536,14 +533,6 @@ class SynthDef(ServerObject):
         parameters = tuple(sorted(parameters, key=lambda x: x.name))
         return ugens, parameters
 
-    def _handle_response(self, response):
-        import supriya.commands
-
-        if isinstance(response, supriya.commands.SynthDefRemovedResponse):
-            if self.actual_name in self._server._synthdefs:
-                self._server._synthdefs.pop(self.actual_name)
-            self._server = None
-
     @staticmethod
     def _initialize_topological_sort(ugens):
         import supriya.synthdefs
@@ -574,9 +563,11 @@ class SynthDef(ServerObject):
         return tuple(sort_bundles)
 
     def _register_with_local_server(self, server=None):
-        ServerObject.allocate(self, server=server)
+        import supriya.realtime
+
+        server = server or supriya.realtime.Server.default()
         synthdef_name = self.actual_name
-        self.server._synthdefs[synthdef_name] = self
+        server._synthdefs[synthdef_name] = self
 
     @staticmethod
     def _remap_controls(ugens, control_mapping):
@@ -617,15 +608,16 @@ class SynthDef(ServerObject):
         )
         return result
 
-    def free(self):
+    def free(self, server=None):
         import supriya.commands
 
+        server = server or supriya.realtime.Server.default()
+        assert self in server
         synthdef_name = self.actual_name
-        del self.server._synthdefs[synthdef_name]
+        del server._synthdefs[synthdef_name]
         request = supriya.commands.SynthDefFreeRequest(synthdef=self)
-        if self.server.is_running:
-            request.communicate(server=self.server)
-        ServerObject.free(self)
+        if server.is_running:
+            request.communicate(server=server)
 
     def play(self, add_action=None, target_node=None, **kwargs):
         """

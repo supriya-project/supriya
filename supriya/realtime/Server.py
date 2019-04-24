@@ -136,18 +136,18 @@ class Server:
         import supriya.realtime
         import supriya.synthdefs
 
-        if not isinstance(expr, supriya.realtime.ServerObject):
-            return False
-        if expr.server is not self:
-            return False
         if isinstance(expr, supriya.realtime.Node):
+            if expr.server is not self:
+                return False
             node_id = expr.node_id
             if node_id in self._nodes and self._nodes[node_id] is expr:
                 return True
-        if isinstance(expr, supriya.synthdefs.SynthDef):
+        elif isinstance(expr, supriya.synthdefs.SynthDef):
             name = expr.actual_name
             if name in self._synthdefs and self._synthdefs[name] == expr:
                 return True
+        elif isinstance(expr, supriya.realtime.ServerObject):
+            return expr.server is self
         return False
 
     def __enter__(self):
@@ -389,10 +389,7 @@ class Server:
 
     def _handle_synthdef_removed_response(self, response):
         synthdef_name = response.synthdef_name
-        synthdef = self._synthdefs.get(synthdef_name)
-        if synthdef is None:
-            return
-        synthdef._handle_response(response)
+        self._synthdefs.pop(synthdef_name, None)
 
     def _setup_allocators(self):
         self._audio_bus_allocator = BlockAllocator(
@@ -520,8 +517,6 @@ class Server:
             for x in tuple(set_):
                 x.free()
         for x in tuple(self._nodes.values()):
-            x.free()
-        for x in tuple(self._synthdefs.values()):
             x.free()
         self._audio_buses.clear()
         self._audio_input_bus_group = None

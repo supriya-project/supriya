@@ -181,7 +181,7 @@ def test_x(server):
         """
     )
     synthdef = supriya.assets.synthdefs.test
-    assert not synthdef.is_allocated
+    assert synthdef not in server
     synth_a = supriya.realtime.Synth(synthdef)
     synth_b = supriya.realtime.Synth(synthdef)
     synth_c = supriya.realtime.Synth(synthdef)
