@@ -401,9 +401,9 @@ class Server:
             heap_maximum=self._options.control_bus_channel_count
         )
         self._node_id_allocator = NodeIdAllocator(
-            initial_node_id=self._options.initial_node_id
+            initial_node_id=self._options.initial_node_id, client_id=self.client_id
         )
-        self._sync_id = 0
+        self._sync_id = self.client_id << 26
 
     def _setup_notifications(self):
         request = NotifyRequest(True)
@@ -477,7 +477,7 @@ class Server:
         self._status_watcher = supriya.realtime.StatusWatcher(self)
         self._status_watcher.start()
 
-    def _setup_system_synthdefs(self):
+    def _setup_system_synthdefs(self, local_only=False):
         import supriya.assets.synthdefs
         import supriya.synthdefs
 
@@ -489,7 +489,11 @@ class Server:
             if not isinstance(system_synthdef, supriya.synthdefs.SynthDef):
                 continue
             system_synthdefs.append(system_synthdef)
-        supriya.synthdefs.SynthDef._allocate_synthdefs(system_synthdefs, self)
+        if local_only:
+            for synthdef in system_synthdefs:
+                synthdef._register_with_local_server(self)
+        else:
+            supriya.synthdefs.SynthDef._allocate_synthdefs(system_synthdefs, self)
 
     def _shutdown(self):
         if not self.is_running:
@@ -546,8 +550,6 @@ class Server:
         self._server_process = self._options.boot(scsynth_path, self.port)
         self._is_owner = True
         self._connect()
-        self._setup_default_groups()
-        self._setup_system_synthdefs()
         PubSub.notify("server-booted")
         return self
 
@@ -559,6 +561,9 @@ class Server:
         self._setup_notifications()
         self._setup_allocators()
         self._setup_proxies()
+        if self.client_id == 0:
+            self._setup_default_groups()
+            self._setup_system_synthdefs()
 
     def _rehydrate(self):
         from supriya.realtime import Group, Synth
@@ -588,8 +593,11 @@ class Server:
             return
         self._is_owner = False
         self._connect()
-        self._rehydrate()
+        if self.client_id > 0:
+            self._setup_system_synthdefs(local_only=True)
+            self._rehydrate()
         self._default_group = self._nodes[self.client_id + 1]
+        return self
 
     def disconnect(self, force=False):
         if not self.is_running:

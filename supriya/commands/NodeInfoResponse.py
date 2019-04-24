@@ -15,6 +15,7 @@ class NodeInfoResponse(Response):
         "_parent_group_id",
         "_previous_node_id",
         "_tail_node_id",
+        "_synthdef_name",
     )
 
     ### INITIALIZER ###
@@ -29,6 +30,7 @@ class NodeInfoResponse(Response):
         is_group=None,
         head_node_id=None,
         tail_node_id=None,
+        synthdef_name=None,
         osc_message=None,
     ):
         Response.__init__(self, osc_message=osc_message)
@@ -40,6 +42,7 @@ class NodeInfoResponse(Response):
         self._parent_group_id = self._coerce_node_id(parent_group_id)
         self._previous_node_id = self._coerce_node_id(previous_node_id)
         self._tail_node_id = self._coerce_node_id(tail_node_id)
+        self._synthdef_name = synthdef_name
 
     ### PRIVATE METHODS ###
 
@@ -53,7 +56,17 @@ class NodeInfoResponse(Response):
     @classmethod
     def from_osc_message(cls, osc_message):
         arguments = (osc_message.address,) + osc_message.contents
-        response = cls(*arguments)
+        response = cls(
+            action=arguments[0],
+            node_id=arguments[1],
+            parent_group_id=arguments[2],
+            previous_node_id=arguments[3],
+            next_node_id=arguments[4],
+            is_group=arguments[5],
+            head_node_id=arguments[6] if arguments[5] else None,
+            tail_node_id=arguments[7] if arguments[5] else None,
+            osc_message=osc_message,
+        )
         return response
 
     ### PUBLIC PROPERTIES ###

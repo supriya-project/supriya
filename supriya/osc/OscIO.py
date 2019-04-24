@@ -80,6 +80,14 @@ class OscIO:
             now = time.time()
             data = self.request[0]
             message = OscMessage.from_datagram(data)
+            osc_log_function = osc_logger.debug
+            udp_log_function = udp_logger.debug
+            if message.address != "/status.reply":
+                osc_log_function = osc_logger.info
+                udp_log_function = udp_logger.info
+            osc_log_function("Recv: {:0.6f} {}".format(now, message.to_list()))
+            for line in str(message).splitlines():
+                udp_log_function("Recv: {:0.6f} {}".format(now, line))
             # TODO: Is it worth the additional thread creation?
             response = None
             for callback in self.server.io_instance.match(message):
@@ -104,13 +112,6 @@ class OscIO:
                             command=response,
                         )
                     )
-                osc_logger.info("Recv: {:0.6f} {}".format(now, message.to_list()))
-                for line in str(message).splitlines():
-                    udp_logger.info("Recv: {:0.6f} {}".format(now, line))
-            else:
-                osc_logger.debug("Recv: {:0.6f} {}".format(now, message.to_list()))
-                for line in str(message).splitlines():
-                    udp_logger.debug("Recv: {:0.6f} {}".format(now, line))
 
     class OscCallback(typing.NamedTuple):
         pattern: typing.Tuple[typing.Union[str, int, float], ...]
@@ -301,7 +302,12 @@ class OscIO:
         elif isinstance(message, collections.Iterable):
             message = OscMessage(*message)
         now = time.time()
+
+        osc_log_function = osc_logger.debug
+        udp_log_function = udp_logger.debug
         if not (isinstance(message, OscMessage) and message.address in (2, "/status")):
+            osc_log_function = osc_logger.info
+            udp_log_function = udp_logger.info
             for capture in self.captures:
                 capture.messages.append(
                     OscIO.CaptureEntry(
@@ -311,13 +317,9 @@ class OscIO:
                         command=request,
                     )
                 )
-            osc_logger.info("Sent: {:0.6f} {}".format(now, message.to_list()))
-            for line in str(message).splitlines():
-                udp_logger.info("Sent: {:0.6f} {}".format(now, line))
-        else:
-            osc_logger.debug("Sent: {:0.6f} {}".format(now, message.to_list()))
-            for line in str(message).splitlines():
-                udp_logger.debug("Sent: {:0.6f} {}".format(now, line))
+        osc_log_function("Recv: {:0.6f} {}".format(now, message.to_list()))
+        for line in str(message).splitlines():
+            udp_log_function("Recv: {:0.6f} {}".format(now, line))
         datagram = message.to_datagram()
         self.server.socket.sendto(datagram, (self.ip_address, self.port))
 
