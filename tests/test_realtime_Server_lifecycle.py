@@ -75,6 +75,7 @@ def test_boot_a_and_connect_b():
     group = supriya.Group()
     group.allocate(target_node=server_a)
     assert server_a.root_node[0][0] is group
+    server_b.sync()
     assert server_b.root_node[0][0] is not group
     assert server_a.query_remote_nodes() == server_b.query_remote_nodes()
 

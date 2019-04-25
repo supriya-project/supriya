@@ -4,9 +4,10 @@ import pathlib
 import signal
 import subprocess
 import time
-from dataclasses import dataclass
+from typing import Optional
 
 import uqbar.io
+from dataclasses import dataclass
 
 import supriya
 
@@ -33,11 +34,11 @@ class BootOptions:
     block_size: int = 64
     buffer_count: int = 1024
     control_bus_channel_count: int = 4096
-    hardware_buffer_size: int = None
+    hardware_buffer_size: Optional[int] = None
     initial_node_id: int = 1000
     input_bus_channel_count: int = 8
-    input_device: str = None
-    input_stream_mask: str = False
+    input_device: Optional[str] = None
+    input_stream_mask: str = ""
     load_synthdefs: bool = True
     maximum_logins: int = 1
     maximum_node_count: int = 1024
@@ -45,16 +46,16 @@ class BootOptions:
     memory_locking: bool = False
     memory_size: int = 8192
     output_bus_channel_count: int = 8
-    output_device: str = None
-    output_stream_mask: str = False
-    password: str = None
+    output_device: Optional[str] = None
+    output_stream_mask: str = ""
+    password: Optional[str] = None
     protocol: str = "udp"
     random_number_generator_count: int = 64
     remote_control_volume: bool = False
-    restricted_path: str = None
-    sample_rate: int = None
-    threads: int = None
-    ugen_plugins_path: str = None
+    restricted_path: Optional[str] = None
+    sample_rate: Optional[int] = None
+    threads: Optional[int] = None
+    ugen_plugins_path: Optional[str] = None
     verbosity: int = 0
     wire_buffer_count: int = 64
     zero_configuration: bool = False

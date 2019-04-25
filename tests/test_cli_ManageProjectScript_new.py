@@ -53,7 +53,7 @@ server_options:
     initial_node_id: 1000
     input_bus_channel_count: 8
     input_device: null
-    input_stream_mask: false
+    input_stream_mask: ''
     load_synthdefs: true
     maximum_logins: 1
     maximum_node_count: 1024
@@ -62,7 +62,7 @@ server_options:
     memory_size: 8192
     output_bus_channel_count: 8
     output_device: null
-    output_stream_mask: false
+    output_stream_mask: ''
     password: null
     protocol: udp
     random_number_generator_count: 64

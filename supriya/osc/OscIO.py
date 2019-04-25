@@ -116,7 +116,9 @@ class OscIO:
     class OscCallback(typing.NamedTuple):
         pattern: typing.Tuple[typing.Union[str, int, float], ...]
         procedure: typing.Callable
-        failure_pattern: typing.Tuple[typing.Union[str, int, float], ...] = None
+        failure_pattern: typing.Optional[
+            typing.Tuple[typing.Union[str, int, float], ...]
+        ] = None
         once: bool = False
         parse_response: bool = False
 
