@@ -4,22 +4,6 @@ Servers
 Server lifecycle
 ----------------
 
-.. important:: 
-
-   **TODO**: Handle clientID return via ``/done /notify 0 64`` for allocators
-
-.. important:: 
-
-   **TODO**: Implement ``connect()`` and ``disconnect()``
-
-.. important::
-
-   **TODO**: Use logging, not print, for debugging
-
-.. important::
-
-   **TODO**: Harden passing ``scsynth_path`` into ``boot()``
-
 - boot
 - quit
 - reboot    
@@ -29,11 +13,12 @@ Server lifecycle
 
 ::
 
-    >>> server = supriya.Server()
-    >>> server.boot()
+    >>> server = supriya.Server.default()
+    >>> server.boot(maximum_logins=2)
     >>> server.ip_address, server.port, server.is_running
-    >>> supriya.Server.get_default_server() is server
     >>> server.reboot()
+    >>> server_two = supriya.Server().connect()
+    >>> server_two.disconnect()
     >>> server.quit()
     >>> supriya.Server.kill()
 
@@ -56,10 +41,10 @@ Server options
 
 ::
 
-    >>> server.server_options
-    >>> server.server_options.as_options_string()
+    >>> server.options
+    >>> server.options.as_options_string()
     >>> server.reboot(memory_size=1024 * 32)
-    >>> options = supriya.ServerOptions(
+    >>> options = supriya.BootOptions(
     ...     block_size=32,
     ...     input_bus_channel_count=2,
     ...     output_bus_channel_count=2,
@@ -69,7 +54,7 @@ Server options
 ::
 
     >>> server.reboot()
-    >>> server.server_options.input_bus_channel_count
+    >>> server.options.input_bus_channel_count
 
 Inspecting
 ----------
@@ -121,24 +106,3 @@ Debugging
 - debug_request_names
 - debug_udp
 - debug_subprocess
-
-::
-
-    >>> server.debug_osc = True
-    >>> server.reboot()
-
-::
-
-    >>> server.debug_request_names = True
-    >>> server.reboot()
-
-::
-
-    >>> server.debug_udp = True
-    >>> server.quit()
-
-::
-
-    >>> server.debug_osc = False
-    >>> server.debug_subprocess = True
-    >>> server.boot()
