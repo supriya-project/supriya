@@ -98,7 +98,7 @@ class ManageProjectScript(ProjectPackageScript):
         md5s = set()
         for file_path in sorted(self.inner_project_path.glob("**/render.yml")):
             with open(str(file_path), "r") as file_pointer:
-                render_yml = yaml.load(file_pointer.read())
+                render_yml = yaml.safe_load(file_pointer.read())
                 md5s.add(render_yml["render"])
                 if render_yml["source"]:
                     md5s.update(render_yml["source"])

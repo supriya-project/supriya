@@ -11,7 +11,7 @@ def test_01():
         type: Pwhite
     """
     )
-    dict_ = yaml.load(string)
+    dict_ = yaml.safe_load(string)
     pattern = supriya.patterns.Pattern.from_dict(dict_["pattern"])
     assert repr(pattern) == uqbar.strings.normalize(
         """
@@ -35,7 +35,7 @@ def test_02():
             maximum: $args.duration_max
     """
     )
-    dict_ = yaml.load(string)
+    dict_ = yaml.safe_load(string)
     namespaces = dict(
         args=dict(duration_max=11, duration_min=0.25, frequency=443, pan=0.1)
     )
@@ -73,7 +73,7 @@ def test_03():
         buffer_id: $buffers.birds
     """
     )
-    dict_ = yaml.load(string)
+    dict_ = yaml.safe_load(string)
     namespaces = dict(
         args=dict(duration_max=11, duration_min=0.25, frequency=443, pan=0.1),
         buffers=dict(birds=[1, 2, 3]),
@@ -112,7 +112,7 @@ def test_04():
             maximum: $args.duration_max
     """
     )
-    dict_ = yaml.load(string)
+    dict_ = yaml.safe_load(string)
     namespaces = dict(
         args=supriya.system.BindableNamespace(
             duration_max=11, duration_min=0.25, frequency=443, pan=0.1

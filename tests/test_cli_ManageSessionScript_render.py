@@ -645,7 +645,7 @@ def test_success_chained(cli_paths):
 
     render_yml_file_path = session_three_path / "render.yml"
     with open(str(render_yml_file_path), "r") as file_pointer:
-        render_yml = yaml.load(file_pointer.read())
+        render_yml = yaml.safe_load(file_pointer.read())
     assert render_yml == {
         "render": "session-352b87b6c1d447a5be11020a33ceadec",
         "source": [

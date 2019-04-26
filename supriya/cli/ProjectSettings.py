@@ -17,7 +17,7 @@ class ProjectSettings(collections.Mapping):
     def __init__(self, yaml_path="project-settings.yml"):
         try:
             with open(str(yaml_path), "r") as file_pointer:
-                self._settings = yaml.load(file_pointer.read())
+                self._settings = yaml.safe_load(file_pointer.read())
         except Exception:
             self._settings = {}
 
@@ -38,7 +38,7 @@ class ProjectSettings(collections.Mapping):
 
     @classmethod
     def from_dummy_data(cls):
-        dummy_data = yaml.load(
+        dummy_data = yaml.safe_load(
             uqbar.strings.normalize(
                 """
         composer:

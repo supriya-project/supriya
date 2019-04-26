@@ -11,7 +11,7 @@ class YAMLLoader:
         path = pathlib.Path(path)
         with path.open() as file_pointer:
             string = file_pointer.read()
-        manifest = yaml.load(string)
+        manifest = yaml.safe_load(string)
         if "extends" in manifest:
             extends_path = pathlib.Path(manifest["extends"])
             if not extends_path.is_absolute():
