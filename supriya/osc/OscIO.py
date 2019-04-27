@@ -1,4 +1,5 @@
 import collections
+import logging
 import socketserver
 import threading
 import time
@@ -8,6 +9,9 @@ from supriya.commands.Requestable import Requestable
 from supriya.commands.Response import Response
 from supriya.osc.OscBundle import OscBundle
 from supriya.osc.OscMessage import OscMessage
+
+osc_logger = logging.getLogger("supriya.osc")
+udp_logger = logging.getLogger("supriya.udp")
 
 
 class OscIO:
@@ -73,10 +77,17 @@ class OscIO:
 
     class OscHandler(socketserver.BaseRequestHandler):
         def handle(self):
+            now = time.time()
             data = self.request[0]
             message = OscMessage.from_datagram(data)
-            debug_osc = self.server.io_instance.debug_osc
-            debug_udp = self.server.io_instance.debug_udp
+            osc_log_function = osc_logger.debug
+            udp_log_function = udp_logger.debug
+            if message.address != "/status.reply":
+                osc_log_function = osc_logger.info
+                udp_log_function = udp_logger.info
+            osc_log_function("Recv: {:0.6f} {}".format(now, message.to_list()))
+            for line in str(message).splitlines():
+                udp_log_function("Recv: {:0.6f} {}".format(now, line))
             # TODO: Is it worth the additional thread creation?
             response = None
             for callback in self.server.io_instance.match(message):
@@ -101,32 +112,21 @@ class OscIO:
                             command=response,
                         )
                     )
-                if debug_osc:
-                    print("RECV", "{:0.6f}".format(time.time()), message.to_list())
-                    if debug_udp:
-                        for line in str(message).splitlines():
-                            print("    " + line)
 
     class OscCallback(typing.NamedTuple):
         pattern: typing.Tuple[typing.Union[str, int, float], ...]
         procedure: typing.Callable
-        once: bool
-        parse_response: bool
+        failure_pattern: typing.Optional[
+            typing.Tuple[typing.Union[str, int, float], ...]
+        ] = None
+        once: bool = False
+        parse_response: bool = False
 
-    def __init__(
-        self,
-        debug_osc=False,
-        debug_udp=False,
-        ip_address="127.0.0.1",
-        port=57751,
-        timeout=2,
-    ):
+    def __init__(self, ip_address="127.0.0.1", port=57751, timeout=2):
         import supriya.commands
 
         self.callbacks = {}
         self.captures = set()
-        self.debug_osc = bool(debug_osc)
-        self.debug_udp = bool(debug_udp)
         self.ip_address = ip_address
         self.lock = threading.RLock()
         self.server = None
@@ -205,15 +205,15 @@ class OscIO:
             >>> for callback in io.match(supriya.osc.OscMessage('/synced', 1)):
             ...     callback
             ...
-            OscCallback(pattern=('/synced',), procedure=<function <lambda> at 0x...>, once=False, parse_response=False)
-            OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, once=False, parse_response=False)
+            OscCallback(pattern=('/synced',), procedure=<function <lambda> at 0x...>, failure_pattern=None, once=False, parse_response=False)
+            OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, failure_pattern=None, once=False, parse_response=False)
 
         ::
 
             >>> for callback in io.match(supriya.osc.OscMessage('/synced', 2)):
             ...     callback
             ...
-            OscCallback(pattern=('/synced',), procedure=<function <lambda> at 0x...>, once=False, parse_response=False)
+            OscCallback(pattern=('/synced',), procedure=<function <lambda> at 0x...>, failure_pattern=None, once=False, parse_response=False)
 
         ::
 
@@ -245,7 +245,9 @@ class OscIO:
             self.server_thread = None
             self.is_running = False
 
-    def register(self, pattern, procedure, once=False, parse_response=False):
+    def register(
+        self, pattern, procedure, failure_pattern=None, once=False, parse_response=False
+    ):
         """
         Register a callback.
 
@@ -262,7 +264,7 @@ class OscIO:
             >>> import pprint
             >>> pprint.pprint(io.callbacks)
             {'/synced': ([],
-                         {1: ([OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, once=False, parse_response=False)],
+                         {1: ([OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, failure_pattern=None, once=False, parse_response=False)],
                               {})})}
 
         """
@@ -271,15 +273,20 @@ class OscIO:
         assert callable(procedure)
         callback = self.OscCallback(
             pattern=tuple(pattern),
+            failure_pattern=failure_pattern,
             procedure=procedure,
             once=bool(once),
             parse_response=bool(parse_response),
         )
+        patterns = [pattern]
+        if failure_pattern:
+            patterns.append(failure_pattern)
         with self.lock:
-            callback_map = self.callbacks
-            for item in pattern:
-                callbacks, callback_map = callback_map.setdefault(item, ([], {}))
-            callbacks.append(callback)
+            for pattern in patterns:
+                callback_map = self.callbacks
+                for item in pattern:
+                    callbacks, callback_map = callback_map.setdefault(item, ([], {}))
+                callbacks.append(callback)
         return callback
 
     def send(self, message, with_request_name=False):
@@ -296,7 +303,13 @@ class OscIO:
             message = OscMessage(message)
         elif isinstance(message, collections.Iterable):
             message = OscMessage(*message)
+        now = time.time()
+
+        osc_log_function = osc_logger.debug
+        udp_log_function = udp_logger.debug
         if not (isinstance(message, OscMessage) and message.address in (2, "/status")):
+            osc_log_function = osc_logger.info
+            udp_log_function = udp_logger.info
             for capture in self.captures:
                 capture.messages.append(
                     OscIO.CaptureEntry(
@@ -306,11 +319,9 @@ class OscIO:
                         command=request,
                     )
                 )
-            if self.debug_osc:
-                print("SEND", "{:0.6f}".format(time.time()), message.to_list())
-                if self.debug_udp:
-                    for line in str(message).splitlines():
-                        print("    " + line)
+        osc_log_function("Recv: {:0.6f} {}".format(now, message.to_list()))
+        for line in str(message).splitlines():
+            udp_log_function("Recv: {:0.6f} {}".format(now, line))
         datagram = message.to_datagram()
         self.server.socket.sendto(datagram, (self.ip_address, self.port))
 
@@ -334,8 +345,8 @@ class OscIO:
 
             >>> import pprint
             >>> pprint.pprint(io.callbacks)
-            {'/synced': ([OscCallback(pattern=('/synced',), procedure=<function <lambda> at 0x...>, once=False, parse_response=False)],
-                         {1: ([OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, once=False, parse_response=False)],
+            {'/synced': ([OscCallback(pattern=('/synced',), procedure=<function <lambda> at 0x...>, failure_pattern=None, once=False, parse_response=False)],
+                         {1: ([OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, failure_pattern=None, once=False, parse_response=False)],
                               {})})}
 
         ::
@@ -343,7 +354,7 @@ class OscIO:
             >>> io.unregister(other_callback)
             >>> pprint.pprint(io.callbacks)
             {'/synced': ([],
-                         {1: ([OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, once=False, parse_response=False)],
+                         {1: ([OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, failure_pattern=None, once=False, parse_response=False)],
                               {})})}
 
         ::
@@ -368,3 +379,5 @@ class OscIO:
 
         with self.lock:
             delete(list(callback.pattern), self.callbacks)
+            if callback.failure_pattern:
+                delete(list(callback.failure_pattern), self.callbacks)

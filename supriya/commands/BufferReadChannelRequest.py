@@ -90,4 +90,4 @@ class BufferReadChannelRequest(BufferReadRequest):
 
     @property
     def response_patterns(self):
-        return [["/done", "/b_readChannel", self.buffer_id]]
+        return ["/done", "/b_readChannel", self.buffer_id], None

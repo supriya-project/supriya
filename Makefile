@@ -7,10 +7,10 @@ formatPaths = ${project}/ tests/ *.py
 testPaths = ${project}/ tests/
 
 black-check:
-	black --py36 --check --diff ${formatPaths}
+	black --target-version py36 --check --diff ${formatPaths}
 
 black-reformat:
-	black --py36 ${formatPaths}
+	black --target-version py36 ${formatPaths}
 
 build:
 	python setup.py sdist
@@ -48,6 +48,9 @@ isort:
 	isort \
 		--multi-line 1 \
 		--recursive \
+		--skip supriya/__init__.py \
+		--skip supriya/commands/__init__.py \
+		--skip supriya/osc/__init__.py \
 		--thirdparty abjad \
 		--thirdparty uqbar \
 		--thirdparty yaml \

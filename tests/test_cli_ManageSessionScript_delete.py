@@ -57,8 +57,9 @@ def test_success(cli_paths):
     ):
         try:
             script(command)
-        except SystemExit:
-            raise RuntimeError("SystemExit")
+        except SystemExit as exception:
+            if exception.args[0]:
+                raise RuntimeError("SystemExit")
     pytest.helpers.compare_strings(
         r"""
         Deleting session subpackage 'test_session' ...

@@ -3,7 +3,8 @@ import copy
 import uuid
 from typing import List
 
-from supriya import utils
+from uqbar.objects import new
+
 from supriya.system.SupriyaObject import SupriyaObject
 
 
@@ -43,7 +44,7 @@ class SynthDefBuilder(SupriyaObject):
     ::
 
         >>> synthdef = builder.build()
-        >>> graph(synthdef)  # doctest: +SKIP
+        >>> supriya.graph(synthdef)  # doctest: +SKIP
 
     """
 
@@ -130,7 +131,7 @@ class SynthDefBuilder(SupriyaObject):
                 name=name, parameter_rate=parameter_rate, value=value
             )
         else:
-            parameter = utils.new(value, parameter_rate=parameter_rate, name=name)
+            parameter = new(value, parameter_rate=parameter_rate, name=name)
         assert parameter._uuid is None
         parameter._uuid = self._uuid
         self._parameters[name] = parameter

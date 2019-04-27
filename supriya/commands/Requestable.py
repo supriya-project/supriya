@@ -1,7 +1,10 @@
+import logging
 import threading
 import time
 
 from supriya.system.SupriyaValueObject import SupriyaValueObject
+
+logger = logging.getLogger("supriya.osc")
 
 
 class Requestable(SupriyaValueObject):
@@ -18,7 +21,7 @@ class Requestable(SupriyaValueObject):
 
     ### PRIVATE METHODS ###
 
-    def _get_response_pattern_and_requestable(self, server):
+    def _get_response_patterns_and_requestable(self, server):
         raise NotImplementedError
 
     def _handle_async(self, sync, server):
@@ -37,7 +40,7 @@ class Requestable(SupriyaValueObject):
     def communicate(self, server=None, sync=True, timeout=1.0, apply_local=True):
         import supriya.realtime
 
-        server = server or supriya.realtime.Server.get_default_server()
+        server = server or supriya.realtime.Server.default()
         assert isinstance(server, supriya.realtime.Server)
         assert server.is_running
         with server._lock:
@@ -47,18 +50,25 @@ class Requestable(SupriyaValueObject):
         # handle non-sync
         if self._handle_async(sync, server):
             return
-        response_pattern, requestable = self._get_response_pattern_and_requestable(
-            server
-        )
+        (
+            success_pattern,
+            failure_pattern,
+            requestable,
+        ) = self._get_response_patterns_and_requestable(server)
         start_time = time.time()
         timed_out = False
         with self.condition:
-            server.osc_io.register(
-                pattern=response_pattern,
-                procedure=self._set_response,
-                once=True,
-                parse_response=True,
-            )
+            try:
+                server.osc_io.register(
+                    pattern=success_pattern,
+                    failure_pattern=failure_pattern,
+                    procedure=self._set_response,
+                    once=True,
+                    parse_response=True,
+                )
+            except Exception:
+                print(self)
+                raise
             server.send_message(requestable)
             while self.response is None:
                 self.condition.wait(timeout)
@@ -68,7 +78,7 @@ class Requestable(SupriyaValueObject):
                     timed_out = True
                     break
         if timed_out:
-            print("TIMED OUT:", repr(self))
+            logger.warning("Timed out: {!r}".format(self))
             return None
         return self._response
 

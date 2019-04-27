@@ -1,4 +1,5 @@
-from supriya import utils
+from uqbar.objects import new
+
 from supriya.patterns.EventPattern import EventPattern
 
 
@@ -38,7 +39,7 @@ class Pchain(EventPattern):
                 for key, value in tuple(template_dict.items()):
                     if value is None:
                         template_dict.pop(key)
-                event = utils.new(event, **template_dict)
+                event = new(event, **template_dict)
             yield event
 
     ### PUBLIC PROPERTIES ###

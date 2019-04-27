@@ -75,3 +75,7 @@ class NodeFreeRequest(Request):
     @property
     def node_ids(self):
         return self._node_ids
+
+    @property
+    def response_patterns(self):
+        return ["/n_end", int(self.node_ids[-1])], None

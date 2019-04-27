@@ -56,7 +56,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
         self._special_index = special_index
         ugenlike_prototype = (UGen, supriya.synthdefs.Parameter)
         server_id_prototype = (
-            supriya.realtime.ServerObjectProxy,
+            supriya.realtime.ServerObject,
             supriya.realtime.BusProxy,
             supriya.realtime.BufferProxy,
         )
@@ -285,7 +285,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
                 if input_name not in dictionary:
                     continue
                 cached_unexpanded_inputs[input_name] = dictionary[input_name]
-                del (dictionary[input_name])
+                del dictionary[input_name]
         maximum_length = 1
         result = []
         prototype = (collections.Sequence, UGen, supriya.synthdefs.Parameter)
@@ -383,7 +383,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
         sort_bundle = sort_bundles.get(self, None)
         if not sort_bundle or sort_bundle.descendants:
             return
-        del (sort_bundles[self])
+        del sort_bundles[self]
         for antecedent in tuple(sort_bundle.antecedents):
             antecedent_bundle = sort_bundles.get(antecedent, None)
             if not antecedent_bundle:

@@ -52,3 +52,15 @@ class ServerCannotBoot(Exception):
 
 class ServerOffline(Exception):
     pass
+
+
+class OwnedServerShutdown(Exception):
+    pass
+
+
+class UnownedServerShutdown(Exception):
+    pass
+
+
+class TooManyClients(Exception):
+    pass

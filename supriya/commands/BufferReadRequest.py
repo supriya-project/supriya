@@ -148,7 +148,7 @@ class BufferReadRequest(Request):
 
     @property
     def response_patterns(self):
-        return [["/done", "/b_read", self.buffer_id]]
+        return ["/done", "/b_read", self.buffer_id], None
 
     @property
     def starting_frame_in_buffer(self):

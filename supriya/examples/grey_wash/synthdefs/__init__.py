@@ -6,8 +6,8 @@ from .freeverb import *  # noqa
 from .freqshift import *  # noqa
 from .lp_flicker import *  # noqa
 from .lpf_dip import *  # noqa
-from .one_shot_player import *  # noqa
 from .noise_wash import *  # noqa
+from .one_shot_player import *  # noqa
 from .pitchshift import *  # noqa
 from .player import *  # noqa
 from .warp_buffer_player import *  # noqa

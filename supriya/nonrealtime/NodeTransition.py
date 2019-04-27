@@ -36,9 +36,9 @@ class NodeTransition(SupriyaValueObject):
             self.free_node(child, nodes_to_children, nodes_to_parents)
         parent = nodes_to_parents.get(node, None)
         if node in nodes_to_children:
-            del (nodes_to_children[node])
+            del nodes_to_children[node]
         if node in nodes_to_parents:
-            del (nodes_to_parents[node])
+            del nodes_to_parents[node]
         if not parent:
             return
         children = list(nodes_to_children[parent])

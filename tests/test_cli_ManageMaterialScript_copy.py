@@ -85,8 +85,9 @@ def test_force_replace(cli_paths):
     ):
         try:
             script(command)
-        except SystemExit:
-            raise RuntimeError("SystemExit")
+        except SystemExit as exception:
+            if exception.args[0]:
+                raise RuntimeError("SystemExit")
     pytest.helpers.compare_strings(
         r"""
         Copying material subpackage 'material_one' to 'material_two' ...
@@ -113,8 +114,9 @@ def test_success(cli_paths):
     ):
         try:
             script(command)
-        except SystemExit:
-            raise RuntimeError("SystemExit")
+        except SystemExit as exception:
+            if exception.args[0]:
+                raise RuntimeError("SystemExit")
     pytest.helpers.compare_strings(
         r"""
         Copying material subpackage 'material_one' to 'material_two' ...

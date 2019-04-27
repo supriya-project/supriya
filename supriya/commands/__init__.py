@@ -1,96 +1,93 @@
+# flake8: noqa
 """
 Tools for object-modeling OSC responses received from ``scsynth``.
 """
-from .BufferAllocateReadChannelRequest import BufferAllocateReadChannelRequest  # noqa
-from .BufferAllocateReadRequest import BufferAllocateReadRequest  # noqa
-from .BufferAllocateRequest import BufferAllocateRequest  # noqa
-from .BufferCloseRequest import BufferCloseRequest  # noqa
-from .BufferCopyRequest import BufferCopyRequest  # noqa
-from .BufferFillRequest import BufferFillRequest  # noqa
-from .BufferFreeRequest import BufferFreeRequest  # noqa
-from .BufferGenerateRequest import BufferGenerateRequest  # noqa
-from .BufferGetContiguousRequest import BufferGetContiguousRequest  # noqa
-from .BufferGetRequest import BufferGetRequest  # noqa
-from .BufferInfoResponse import BufferInfoResponse  # noqa
-from .BufferNormalizeRequest import BufferNormalizeRequest  # noqa
-from .BufferQueryRequest import BufferQueryRequest  # noqa
-from .BufferReadChannelRequest import BufferReadChannelRequest  # noqa
-from .BufferReadRequest import BufferReadRequest  # noqa
-from .BufferSetContiguousRequest import BufferSetContiguousRequest  # noqa
-from .BufferSetContiguousResponse import BufferSetContiguousResponse  # noqa
-from .BufferSetRequest import BufferSetRequest  # noqa
-from .BufferSetResponse import BufferSetResponse  # noqa
-from .BufferWriteRequest import BufferWriteRequest  # noqa
-from .BufferZeroRequest import BufferZeroRequest  # noqa
-from .ClearScheduleRequest import ClearScheduleRequest  # noqa
-from .CommandRequest import CommandRequest  # noqa
-from .ControlBusFillRequest import ControlBusFillRequest  # noqa
-from .ControlBusGetContiguousRequest import ControlBusGetContiguousRequest  # noqa
-from .ControlBusGetRequest import ControlBusGetRequest  # noqa
-from .ControlBusSetContiguousRequest import ControlBusSetContiguousRequest  # noqa
-from .ControlBusSetContiguousResponse import ControlBusSetContiguousResponse  # noqa
-from .ControlBusSetRequest import ControlBusSetRequest  # noqa
-from .ControlBusSetResponse import ControlBusSetResponse  # noqa
-from .DoneResponse import DoneResponse  # noqa
-from .DumpOscRequest import DumpOscRequest  # noqa
-from .ErrorRequest import ErrorRequest  # noqa
-from .FailResponse import FailResponse  # noqa
-from .GroupDeepFreeRequest import GroupDeepFreeRequest  # noqa
-from .GroupDumpTreeRequest import GroupDumpTreeRequest  # noqa
-from .GroupFreeAllRequest import GroupFreeAllRequest  # noqa
-from .GroupHeadRequest import GroupHeadRequest  # noqa
-from .GroupNewRequest import GroupNewRequest  # noqa
-from .GroupQueryTreeRequest import GroupQueryTreeRequest  # noqa
-from .GroupTailRequest import GroupTailRequest  # noqa
-from .MoveRequest import MoveRequest  # noqa
-from .NodeAfterRequest import NodeAfterRequest  # noqa
-from .NodeBeforeRequest import NodeBeforeRequest  # noqa
-from .NodeCommandRequest import NodeCommandRequest  # noqa
-from .NodeFillRequest import NodeFillRequest  # noqa
-from .NodeFreeRequest import NodeFreeRequest  # noqa
-from .NodeInfoResponse import NodeInfoResponse  # noqa
-from .NodeMapToAudioBusContiguousRequest import (  # noqa
-    NodeMapToAudioBusContiguousRequest,
-)
-from .NodeMapToAudioBusRequest import NodeMapToAudioBusRequest  # noqa
-from .NodeMapToControlBusContiguousRequest import (  # noqa
-    NodeMapToControlBusContiguousRequest,
-)
-from .NodeMapToControlBusRequest import NodeMapToControlBusRequest  # noqa
-from .NodeOrderRequest import NodeOrderRequest  # noqa
-from .NodeQueryRequest import NodeQueryRequest  # noqa
-from .NodeRunRequest import NodeRunRequest  # noqa
-from .NodeSetContiguousRequest import NodeSetContiguousRequest  # noqa
-from .NodeSetContiguousResponse import NodeSetContiguousResponse  # noqa
-from .NodeSetRequest import NodeSetRequest  # noqa
-from .NodeSetResponse import NodeSetResponse  # noqa
-from .NodeTraceRequest import NodeTraceRequest  # noqa
-from .NothingRequest import NothingRequest  # noqa
-from .NotifyRequest import NotifyRequest  # noqa
-from .ParallelGroupNewRequest import ParallelGroupNewRequest  # noqa
-from .QueryTreeControl import QueryTreeControl  # noqa
-from .QueryTreeGroup import QueryTreeGroup  # noqa
-from .QueryTreeResponse import QueryTreeResponse  # noqa
-from .QueryTreeSynth import QueryTreeSynth  # noqa
-from .QuitRequest import QuitRequest  # noqa
-from .Request import Request  # noqa
-from .RequestBundle import RequestBundle  # noqa
-from .Requestable import Requestable  # noqa
-from .Response import Response  # noqa
-from .StatusRequest import StatusRequest  # noqa
-from .StatusResponse import StatusResponse  # noqa
-from .SyncRequest import SyncRequest  # noqa
-from .SyncedResponse import SyncedResponse  # noqa
-from .SynthDefFreeAllRequest import SynthDefFreeAllRequest  # noqa
-from .SynthDefFreeRequest import SynthDefFreeRequest  # noqa
-from .SynthDefLoadDirectoryRequest import SynthDefLoadDirectoryRequest  # noqa
-from .SynthDefLoadRequest import SynthDefLoadRequest  # noqa
-from .SynthDefReceiveRequest import SynthDefReceiveRequest  # noqa
-from .SynthDefRemovedResponse import SynthDefRemovedResponse  # noqa
-from .SynthGetContiguousRequest import SynthGetContiguousRequest  # noqa
-from .SynthGetRequest import SynthGetRequest  # noqa
-from .SynthNewRequest import SynthNewRequest  # noqa
-from .SynthNewargsRequest import SynthNewargsRequest  # noqa
-from .SynthNoidRequest import SynthNoidRequest  # noqa
-from .TriggerResponse import TriggerResponse  # noqa
-from .UgenCommandRequest import UgenCommandRequest  # noqa
+from .BufferAllocateReadChannelRequest import BufferAllocateReadChannelRequest
+from .BufferAllocateReadRequest import BufferAllocateReadRequest
+from .BufferAllocateRequest import BufferAllocateRequest
+from .BufferCloseRequest import BufferCloseRequest
+from .BufferCopyRequest import BufferCopyRequest
+from .BufferFillRequest import BufferFillRequest
+from .BufferFreeRequest import BufferFreeRequest
+from .BufferGenerateRequest import BufferGenerateRequest
+from .BufferGetContiguousRequest import BufferGetContiguousRequest
+from .BufferGetRequest import BufferGetRequest
+from .BufferInfoResponse import BufferInfoResponse
+from .BufferNormalizeRequest import BufferNormalizeRequest
+from .BufferQueryRequest import BufferQueryRequest
+from .BufferReadChannelRequest import BufferReadChannelRequest
+from .BufferReadRequest import BufferReadRequest
+from .BufferSetContiguousRequest import BufferSetContiguousRequest
+from .BufferSetContiguousResponse import BufferSetContiguousResponse
+from .BufferSetRequest import BufferSetRequest
+from .BufferSetResponse import BufferSetResponse
+from .BufferWriteRequest import BufferWriteRequest
+from .BufferZeroRequest import BufferZeroRequest
+from .ClearScheduleRequest import ClearScheduleRequest
+from .CommandRequest import CommandRequest
+from .ControlBusFillRequest import ControlBusFillRequest
+from .ControlBusGetContiguousRequest import ControlBusGetContiguousRequest
+from .ControlBusGetRequest import ControlBusGetRequest
+from .ControlBusSetContiguousRequest import ControlBusSetContiguousRequest
+from .ControlBusSetContiguousResponse import ControlBusSetContiguousResponse
+from .ControlBusSetRequest import ControlBusSetRequest
+from .ControlBusSetResponse import ControlBusSetResponse
+from .DoneResponse import DoneResponse
+from .DumpOscRequest import DumpOscRequest
+from .ErrorRequest import ErrorRequest
+from .FailResponse import FailResponse
+from .GroupDeepFreeRequest import GroupDeepFreeRequest
+from .GroupDumpTreeRequest import GroupDumpTreeRequest
+from .GroupFreeAllRequest import GroupFreeAllRequest
+from .GroupHeadRequest import GroupHeadRequest
+from .GroupNewRequest import GroupNewRequest
+from .GroupQueryTreeRequest import GroupQueryTreeRequest
+from .GroupTailRequest import GroupTailRequest
+from .MoveRequest import MoveRequest
+from .NodeAfterRequest import NodeAfterRequest
+from .NodeBeforeRequest import NodeBeforeRequest
+from .NodeCommandRequest import NodeCommandRequest
+from .NodeFillRequest import NodeFillRequest
+from .NodeFreeRequest import NodeFreeRequest
+from .NodeInfoResponse import NodeInfoResponse
+from .NodeMapToAudioBusContiguousRequest import NodeMapToAudioBusContiguousRequest
+from .NodeMapToAudioBusRequest import NodeMapToAudioBusRequest
+from .NodeMapToControlBusContiguousRequest import NodeMapToControlBusContiguousRequest
+from .NodeMapToControlBusRequest import NodeMapToControlBusRequest
+from .NodeOrderRequest import NodeOrderRequest
+from .NodeQueryRequest import NodeQueryRequest
+from .NodeRunRequest import NodeRunRequest
+from .NodeSetContiguousRequest import NodeSetContiguousRequest
+from .NodeSetContiguousResponse import NodeSetContiguousResponse
+from .NodeSetRequest import NodeSetRequest
+from .NodeSetResponse import NodeSetResponse
+from .NodeTraceRequest import NodeTraceRequest
+from .NothingRequest import NothingRequest
+from .NotifyRequest import NotifyRequest
+from .ParallelGroupNewRequest import ParallelGroupNewRequest
+from .QueryTreeControl import QueryTreeControl
+from .QueryTreeGroup import QueryTreeGroup
+from .QueryTreeResponse import QueryTreeResponse
+from .QueryTreeSynth import QueryTreeSynth
+from .QuitRequest import QuitRequest
+from .Request import Request
+from .Requestable import Requestable
+from .RequestBundle import RequestBundle
+from .Response import Response
+from .StatusRequest import StatusRequest
+from .StatusResponse import StatusResponse
+from .SyncedResponse import SyncedResponse
+from .SyncRequest import SyncRequest
+from .SynthDefFreeAllRequest import SynthDefFreeAllRequest
+from .SynthDefFreeRequest import SynthDefFreeRequest
+from .SynthDefLoadDirectoryRequest import SynthDefLoadDirectoryRequest
+from .SynthDefLoadRequest import SynthDefLoadRequest
+from .SynthDefReceiveRequest import SynthDefReceiveRequest
+from .SynthDefRemovedResponse import SynthDefRemovedResponse
+from .SynthGetContiguousRequest import SynthGetContiguousRequest
+from .SynthGetRequest import SynthGetRequest
+from .SynthNewargsRequest import SynthNewargsRequest
+from .SynthNewRequest import SynthNewRequest
+from .SynthNoidRequest import SynthNoidRequest
+from .TriggerResponse import TriggerResponse
+from .UgenCommandRequest import UgenCommandRequest

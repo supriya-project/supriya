@@ -47,7 +47,7 @@ class SynthDefLoadRequest(Request):
 
     @property
     def response_patterns(self):
-        return [["/done", "/d_load"]]
+        return ["/done", "/d_load"], None
 
     @property
     def synthdef_path(self):

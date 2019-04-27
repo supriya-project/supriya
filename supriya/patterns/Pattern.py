@@ -6,8 +6,8 @@ import re
 from typing import Dict, Generator, Iterator
 
 from uqbar.enums import IntEnumeration
+from uqbar.objects import new
 
-from supriya import utils
 from supriya.system import BindableNamespace
 from supriya.system.SupriyaValueObject import SupriyaValueObject
 
@@ -168,7 +168,7 @@ class Pattern(SupriyaValueObject):
                 self._coerce_iterator_output(child_event, state=state)
                 for child_event in expr.get("events") or ()
             ]
-            expr = utils.new(expr, events=coerced_events)
+            expr = new(expr, events=coerced_events)
         else:
             expr = self._coerce_iterator_output(expr, state=state)
         return expr
@@ -226,7 +226,7 @@ class Pattern(SupriyaValueObject):
                     break
                 frame = frame.f_back
         finally:
-            del (frame)
+            del frame
         if identifier in cls._rngs:
             rng = cls._rngs[identifier]
         else:

@@ -2,10 +2,11 @@ import itertools
 import time
 from queue import PriorityQueue
 
+from uqbar.objects import new
+
 import supriya.commands
 import supriya.realtime
 import supriya.system
-from supriya import utils
 from supriya.patterns.EventPlayer import EventPlayer
 
 
@@ -23,7 +24,7 @@ class RealtimeEventPlayer(EventPlayer):
         EventPlayer.__init__(self, pattern, event_template)
         clock = clock or supriya.patterns.Clock.get_default_clock()
         assert isinstance(clock, supriya.patterns.Clock)
-        self._server = server or supriya.realtime.Server.get_default_server()
+        self._server = server or supriya.realtime.Server.default()
         self._clock = clock
         self._iterator = None
         self._uuids = {}
@@ -68,7 +69,7 @@ class RealtimeEventPlayer(EventPlayer):
         )
         if communicate:
             osc_bundle = consolidated_bundle.to_osc()
-            osc_bundle = utils.new(
+            osc_bundle = new(
                 osc_bundle, timestamp=osc_bundle.timestamp + self._server.latency
             )
             self._server.send_message(osc_bundle)

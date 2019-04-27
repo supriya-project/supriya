@@ -33,7 +33,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -60,7 +60,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -106,7 +106,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -138,7 +138,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -182,7 +182,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -218,7 +218,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -250,7 +250,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -294,7 +294,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -342,7 +342,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -374,7 +374,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -418,7 +418,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -456,7 +456,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -488,7 +488,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -532,7 +532,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -570,7 +570,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -602,7 +602,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -646,7 +646,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -684,7 +684,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -716,7 +716,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -760,7 +760,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -796,7 +796,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -828,7 +828,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -872,7 +872,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -908,7 +908,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -940,7 +940,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -984,7 +984,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -1021,7 +1021,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -1048,7 +1048,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -1094,7 +1094,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -1126,7 +1126,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -1170,7 +1170,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -1206,7 +1206,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -1237,7 +1237,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -1286,7 +1286,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -1317,7 +1317,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -1366,7 +1366,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -1397,7 +1397,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -1448,7 +1448,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -1479,7 +1479,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -1530,7 +1530,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -1561,7 +1561,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -1612,7 +1612,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -1643,7 +1643,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -1736,7 +1736,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -1768,7 +1768,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -1812,7 +1812,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -2101,7 +2101,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -2134,7 +2134,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -2189,7 +2189,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -2216,7 +2216,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -2287,7 +2287,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -2400,7 +2400,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -2430,7 +2430,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -2459,7 +2459,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -2538,7 +2538,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -2562,7 +2562,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -2695,7 +2695,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -2749,7 +2749,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -2813,7 +2813,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -2842,7 +2842,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -2872,7 +2872,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -2902,7 +2902,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -2940,7 +2940,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -2965,7 +2965,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -3028,7 +3028,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -3057,7 +3057,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -3107,7 +3107,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -3129,7 +3129,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -3170,7 +3170,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -3200,7 +3200,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -3242,7 +3242,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 
@@ -3272,7 +3272,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> graph(result)  # doctest: +SKIP
+                >>> supriya.graph(result)  # doctest: +SKIP
 
             ::
 

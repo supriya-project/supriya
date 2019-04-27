@@ -136,7 +136,7 @@ class Session:
     ):
         import supriya.nonrealtime
 
-        self._options = supriya.realtime.ServerOptions(
+        self._options = supriya.realtime.BootOptions(
             input_bus_channel_count=input_bus_channel_count,
             output_bus_channel_count=output_bus_channel_count,
         )
@@ -435,8 +435,8 @@ class Session:
         return mapping
 
     def _build_id_mapping_for_buses(self):
-        input_count = self._options._input_bus_channel_count
-        output_count = self._options._output_bus_channel_count
+        input_count = self._options.input_bus_channel_count
+        output_count = self._options.output_bus_channel_count
         first_private_bus_id = input_count + output_count
         allocators = {
             supriya.CalculationRate.AUDIO: supriya.realtime.BlockAllocator(
@@ -493,11 +493,13 @@ class Session:
     def _build_render_command(
         self,
         output_filename,
+        *,
         input_file_path=None,
         server_options=None,
         sample_rate=44100,
         header_format=HeaderFormat.AIFF,
         sample_format=SampleFormat.INT24,
+        scsynth_path=None,
     ):
         """
         Builds non-realtime rendering command.
@@ -510,11 +512,9 @@ class Session:
             'scsynth -N {} _ output.aiff 44100 aiff int24'
 
         """
-        server_options = server_options or supriya.realtime.ServerOptions()
-        scsynth_path = "scsynth"
-        if not uqbar.io.find_executable(scsynth_path):
-            raise RuntimeError("Cannot find scsynth")
-        parts = [scsynth_path, "-N", "{}"]
+        server_options = server_options or supriya.realtime.BootOptions()
+        scsynth_path = supriya.realtime.BootOptions.find_scsynth(scsynth_path)
+        parts = [str(scsynth_path), "-N", "{}"]
         if input_file_path:
             parts.append(os.path.expanduser(input_file_path))
         else:
@@ -589,7 +589,7 @@ class Session:
                 requests.append(close_request)
             request = supriya.commands.BufferFreeRequest(buffer_id=id_mapping[buffer_])
             requests.append(request)
-            del (buffer_open_states[id_mapping[buffer_]])
+            del buffer_open_states[id_mapping[buffer_]]
         return requests
 
     def _collect_buffer_nonlifecycle_requests(
@@ -952,10 +952,10 @@ class Session:
 
         self._buses = collections.OrderedDict()
         self._audio_input_bus_group = None
-        if self._options._input_bus_channel_count:
+        if self._options.input_bus_channel_count:
             self._audio_input_bus_group = supriya.nonrealtime.AudioInputBusGroup(self)
         self._audio_output_bus_group = None
-        if self._options._output_bus_channel_count:
+        if self._options.output_bus_channel_count:
             self._audio_output_bus_group = supriya.nonrealtime.AudioOutputBusGroup(self)
 
     def _setup_initial_states(self):
@@ -978,7 +978,7 @@ class Session:
             return
         assert state.is_sparse
         self.offsets.remove(offset)
-        del (self.states[offset])
+        del self.states[offset]
         return state
 
     def _to_non_xrefd_osc_bundles(self, duration=None):
@@ -1181,7 +1181,7 @@ class Session:
         import supriya.cli
 
         assert isinstance(project_settings, supriya.cli.ProjectSettings)
-        server_options = supriya.realtime.ServerOptions(
+        server_options = supriya.realtime.BootOptions(
             **project_settings.get("server_options", {})
         )
         input_bus_channel_count = server_options.input_bus_channel_count

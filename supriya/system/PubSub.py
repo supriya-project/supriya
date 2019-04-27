@@ -25,12 +25,12 @@ class PubSub(SupriyaObject):
         if subscriber in subscribers:
             subscribers.remove(subscriber)
         if not subscribers:
-            del (cls._topics[topic])
+            del cls._topics[topic]
         topics = cls._subscribers[subscriber]
         if topic in topics:
             topics.remove(topic)
         if not topics:
-            del (cls._subscribers[subscriber])
+            del cls._subscribers[subscriber]
 
     ### PUBLIC METHODS ###
 

@@ -2,8 +2,9 @@ import bisect
 import collections
 from typing import Dict, List, Optional, Set, Tuple, Union
 
+from uqbar.objects import new
+
 import supriya  # noqa
-from supriya import utils
 from supriya.nonrealtime.NodeTransition import NodeTransition
 from supriya.nonrealtime.SessionObject import SessionObject
 from supriya.nonrealtime.State import State
@@ -229,7 +230,7 @@ class Node(SessionObject):
                 if node is new_node and self in old_actions:
                     old_actions.pop(node)
                     action = old_actions.pop(self)
-                    new_actions[node] = utils.new(action, source=new_node)
+                    new_actions[node] = new(action, source=new_node)
                 else:
                     new_actions[node] = old_actions.pop(node)
             for child in reversed(children):

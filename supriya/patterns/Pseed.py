@@ -28,7 +28,7 @@ class Pseed(Pattern):
             Pattern._rngs[identifier] = iter(rng)
             yield from self._pattern
         finally:
-            del (Pattern._rngs[identifier])
+            del Pattern._rngs[identifier]
 
     ### PUBLIC PROPERTIES ###
 

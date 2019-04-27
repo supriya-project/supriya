@@ -1,4 +1,5 @@
-from supriya import utils
+from uqbar.objects import new
+
 from supriya.patterns.EventPattern import EventPattern
 
 
@@ -28,7 +29,7 @@ class Pn(EventPattern):
             for _ in self._loop(self._repetitions):
                 for i, x in enumerate(self._pattern):
                     if i == 0:
-                        x = utils.new(x, **{self.key: True})
+                        x = new(x, **{self.key: True})
                     yield x
         else:
             for _ in self._loop(self._repetitions):

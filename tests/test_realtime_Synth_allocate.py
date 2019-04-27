@@ -7,7 +7,7 @@ import supriya.realtime
 def test_allocate_synthdef(server):
     synthdef = supriya.assets.synthdefs.test
     synth_a = supriya.realtime.Synth(synthdef=synthdef)
-    assert not synthdef.is_allocated
+    assert synthdef not in server
     assert not synth_a.is_allocated
     assert synth_a.node_id is None
     assert synth_a not in server
@@ -25,7 +25,7 @@ def test_allocate_synthdef(server):
         ("R", supriya.osc.OscMessage("/n_go", 1000, 1, -1, -1, 0)),
         ("R", supriya.osc.OscMessage("/done", "/d_recv")),
     ]
-    assert synthdef.is_allocated
+    assert synthdef in server
     assert synth_a.node_id == 1000
     assert server[1000] is synth_a
     assert synth_a in server
@@ -55,7 +55,7 @@ def test_no_reallocate_synthdef(server):
         ("S", supriya.osc.OscMessage(9, "test", 1001, 0, 1)),
         ("R", supriya.osc.OscMessage("/n_go", 1001, 1, -1, 1000, 0)),
     ]
-    assert synthdef.is_allocated
+    assert synthdef in server
     assert synth_b.node_id == 1001
     assert server[1001] is synth_b
     assert synth_b in server
@@ -82,7 +82,7 @@ def test_replace(server):
     assert server[1000] is synth_a
     assert synth_a in server
     assert synth_a.is_allocated
-    assert not synthdef.is_allocated
+    assert synthdef not in server
     assert not synth_b.is_allocated
     assert synth_b.node_id is None
     assert synth_b not in server

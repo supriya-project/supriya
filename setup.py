@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 import pathlib
+import sys
+from distutils.version import LooseVersion
 
 import setuptools
 
@@ -24,8 +26,11 @@ install_requires = [
     "appdirs",
     "tornado",
     "tqdm",
-    "uqbar >= 0.2.17",
+    "uqbar >= 0.3.2",
 ]
+
+if LooseVersion(sys.version.split()[0]) < LooseVersion("3.7.0"):
+    install_requires.append("dataclasses")
 
 extras_require = {
     "accelerated": ["cython"],

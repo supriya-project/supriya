@@ -15,7 +15,7 @@ class GroupNewRequest(Request):
     ::
 
         >>> import supriya
-        >>> server = supriya.Server().boot()
+        >>> server = supriya.Server.default().boot()
         >>> group = supriya.Group().allocate()
 
     ::
@@ -47,7 +47,7 @@ class GroupNewRequest(Request):
     ::
 
         >>> with server.osc_io.capture() as transcript:
-        ...     request.communicate(server=server)
+        ...     _ = request.communicate(server=server)
         ...     _ = server.sync()
         ...
 
@@ -57,9 +57,9 @@ class GroupNewRequest(Request):
         ...     (entry.label, entry.message)
         ...
         ('S', OscMessage(21, 1001, 1, 1, 1002, 0, 1001))
-        ('S', OscMessage(52, 0))
         ('R', OscMessage('/n_go', 1001, 1, 1000, -1, 1, -1, -1))
         ('R', OscMessage('/n_go', 1002, 1001, -1, -1, 1, -1, -1))
+        ('S', OscMessage(52, 0))
         ('R', OscMessage('/synced', 0))
 
     ::
@@ -157,5 +157,4 @@ class GroupNewRequest(Request):
 
     @property
     def response_patterns(self):
-        if len(self.items) == 1:
-            return [["/n_go", int(self.items[0].node_id)]]
+        return ["/n_go", int(self.items[-1].node_id)], None

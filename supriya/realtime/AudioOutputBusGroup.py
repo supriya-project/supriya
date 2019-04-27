@@ -10,7 +10,7 @@ class AudioOutputBusGroup(BusGroup):
     ::
 
         >>> import supriya
-        >>> server = supriya.Server().boot()
+        >>> server = supriya.Server.default().boot()
         >>> bus_group = server.audio_output_bus_group
         >>> bus_group
         <+ AudioOutputBusGroup{8}: 0 (audio)>
@@ -38,7 +38,7 @@ class AudioOutputBusGroup(BusGroup):
         assert server.is_running
         BusGroup.__init__(
             self,
-            bus_count=server.server_options.input_bus_channel_count,
+            bus_count=server.options.input_bus_channel_count,
             calculation_rate=supriya.CalculationRate.AUDIO,
         )
         self._bus_id = 0

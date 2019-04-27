@@ -107,7 +107,7 @@ class BufferCopyRequest(Request):
 
     @property
     def response_patterns(self):
-        return [["/done", "/b_gen", self.target_buffer_id]]
+        return ["/done", "/b_gen", self.target_buffer_id], None
 
     @property
     def source_buffer_id(self):

@@ -89,4 +89,4 @@ class BufferAllocateReadChannelRequest(BufferAllocateReadRequest):
 
     @property
     def response_patterns(self):
-        return [["/done", "/b_allocReadChannel", self.buffer_id]]
+        return ["/done", "/b_allocReadChannel", self.buffer_id], None

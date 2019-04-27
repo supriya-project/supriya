@@ -1,15 +1,15 @@
 import supriya.exceptions
 from supriya import CalculationRate
-from supriya.realtime.ServerObjectProxy import ServerObjectProxy
+from supriya.realtime.ServerObject import ServerObject
 
 
-class BusGroup(ServerObjectProxy):
+class BusGroup(ServerObject):
     """
     A bus group.
 
     ::
 
-        >>> server = supriya.Server().boot()
+        >>> server = supriya.Server.default().boot()
         >>> bus_group = supriya.BusGroup(bus_count=4)
         >>> bus_group
         <- BusGroup{4}: ??? (control)>
@@ -66,7 +66,7 @@ class BusGroup(ServerObjectProxy):
     ):
         import supriya.realtime
 
-        ServerObjectProxy.__init__(self)
+        ServerObject.__init__(self)
         calculation_rate = CalculationRate.from_expr(calculation_rate)
         assert calculation_rate in (CalculationRate.AUDIO, CalculationRate.CONTROL)
         self._calculation_rate = calculation_rate
@@ -112,7 +112,7 @@ class BusGroup(ServerObjectProxy):
 
         ::
 
-            >>> server = supriya.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> bus_group = supriya.BusGroup.control(4).allocate()
             >>> bus_group[0]
             <+ Bus: 0 (control)>
@@ -164,7 +164,7 @@ class BusGroup(ServerObjectProxy):
 
         ::
 
-            >>> server = supriya.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> control_bus_group = supriya.BusGroup.control(4).allocate()
             >>> audio_bus_group = supriya.BusGroup.audio(4).allocate()
 
@@ -188,13 +188,13 @@ class BusGroup(ServerObjectProxy):
 
         if self.is_allocated:
             raise supriya.exceptions.BusAlreadyAllocated
-        ServerObjectProxy.allocate(self, server=server)
+        ServerObject.allocate(self, server=server)
         allocator = supriya.realtime.Bus._get_allocator(
             calculation_rate=self.calculation_rate, server=self.server
         )
         bus_id = allocator.allocate(len(self))
         if bus_id is None:
-            ServerObjectProxy.free(self)
+            ServerObject.free(self)
             raise ValueError
         self._bus_id = bus_id
         return self
@@ -214,7 +214,7 @@ class BusGroup(ServerObjectProxy):
                 ...     calculation_rate='audio',
                 ...     )
                 >>> ugen = audio_bus_group.ar()
-                >>> graph(ugen)  # doctest: +SKIP
+                >>> supriya.graph(ugen)  # doctest: +SKIP
 
             ::
 
@@ -235,7 +235,7 @@ class BusGroup(ServerObjectProxy):
                 ...     calculation_rate='control',
                 ...     )
                 >>> ugen = control_bus_group.ar()
-                >>> graph(ugen)  # doctest: +SKIP
+                >>> supriya.graph(ugen)  # doctest: +SKIP
 
             ::
 
@@ -280,7 +280,7 @@ class BusGroup(ServerObjectProxy):
 
         ::
 
-            >>> server = supriya.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> bus_group = supriya.BusGroup.control(4).allocate()
             >>> bus_group.get()
             (0.0, 0.0, 0.0, 0.0)
@@ -332,7 +332,7 @@ class BusGroup(ServerObjectProxy):
         )
         allocator.free(self.bus_id)
         self._bus_id = None
-        ServerObjectProxy.free(self)
+        ServerObject.free(self)
         return self
 
     def get(self):
@@ -341,7 +341,7 @@ class BusGroup(ServerObjectProxy):
 
         ::
 
-            >>> server = supriya.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> bus_group = supriya.BusGroup().control(4).allocate()
             >>> bus_group.get()
             (0.0, 0.0, 0.0, 0.0)
@@ -380,7 +380,7 @@ class BusGroup(ServerObjectProxy):
                 ...     calculation_rate='audio',
                 ...     )
                 >>> ugen = audio_bus_group.kr()
-                >>> graph(ugen)  # doctest: +SKIP
+                >>> supriya.graph(ugen)  # doctest: +SKIP
 
             ::
 
@@ -409,7 +409,7 @@ class BusGroup(ServerObjectProxy):
                 ...     calculation_rate='control',
                 ...     )
                 >>> ugen = control_bus_group.kr()
-                >>> graph(ugen)  # doctest: +SKIP
+                >>> supriya.graph(ugen)  # doctest: +SKIP
 
             ::
 
@@ -438,7 +438,7 @@ class BusGroup(ServerObjectProxy):
 
         ::
 
-            >>> server = supriya.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> bus_group = supriya.BusGroup.control(4).allocate()
             >>> bus_group.get()
             (0.0, 0.0, 0.0, 0.0)

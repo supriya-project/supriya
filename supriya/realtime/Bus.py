@@ -1,16 +1,16 @@
 import supriya.exceptions
 from supriya import CalculationRate
-from supriya.realtime.ServerObjectProxy import ServerObjectProxy
+from supriya.realtime.ServerObject import ServerObject
 
 
-class Bus(ServerObjectProxy):
+class Bus(ServerObject):
     """
     A bus.
 
     ::
 
         >>> import supriya
-        >>> server = supriya.Server().boot()
+        >>> server = supriya.Server.default().boot()
         >>> bus = supriya.Bus()
         >>> bus
         <- Bus: ??? (control)>
@@ -61,7 +61,7 @@ class Bus(ServerObjectProxy):
     ):
         import supriya.realtime
 
-        ServerObjectProxy.__init__(self)
+        ServerObject.__init__(self)
         bus_group = None
         bus_id = None
         self._bus_id_was_set_manually = False
@@ -105,7 +105,7 @@ class Bus(ServerObjectProxy):
         ::
 
             >>> import supriya
-            >>> server = supriya.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> control_bus = supriya.Bus.control().allocate()
             >>> audio_bus = supriya.Bus.audio().allocate()
 
@@ -148,14 +148,14 @@ class Bus(ServerObjectProxy):
             return
         if self.is_allocated:
             raise supriya.exceptions.BusAlreadyAllocated
-        ServerObjectProxy.allocate(self, server=server)
+        ServerObject.allocate(self, server=server)
         if self.bus_id is None:
             allocator = self._get_allocator(
                 calculation_rate=self.calculation_rate, server=self.server
             )
             bus_id = allocator.allocate(1)
             if bus_id is None:
-                ServerObjectProxy.free(self)
+                ServerObject.free(self)
                 raise ValueError
             self._bus_id = bus_id
         if sync:
@@ -173,7 +173,7 @@ class Bus(ServerObjectProxy):
                 >>> import supriya.realtime
                 >>> audio_bus = supriya.realtime.Bus(8, 'audio')
                 >>> ugen = audio_bus.ar()
-                >>> graph(ugen)  # doctest: +SKIP
+                >>> supriya.graph(ugen)  # doctest: +SKIP
 
             ::
 
@@ -190,7 +190,7 @@ class Bus(ServerObjectProxy):
 
                 >>> control_bus = supriya.realtime.Bus(8, 'control')
                 >>> ugen = control_bus.ar()
-                >>> graph(ugen)  # doctest: +SKIP
+                >>> supriya.graph(ugen)  # doctest: +SKIP
 
             ::
 
@@ -232,7 +232,7 @@ class Bus(ServerObjectProxy):
             )
             allocator.free(self.bus_id)
         self._bus_id = None
-        ServerObjectProxy.free(self)
+        ServerObject.free(self)
         return self
 
     def get(self, completion_callback=None):
@@ -262,7 +262,7 @@ class Bus(ServerObjectProxy):
                 >>> import supriya.realtime
                 >>> audio_bus = supriya.realtime.Bus(8, 'audio')
                 >>> ugen = audio_bus.kr()
-                >>> graph(ugen)  # doctest: +SKIP
+                >>> supriya.graph(ugen)  # doctest: +SKIP
 
             ::
 
@@ -281,7 +281,7 @@ class Bus(ServerObjectProxy):
 
                 >>> control_bus = supriya.realtime.Bus(8, 'control')
                 >>> ugen = control_bus.kr()
-                >>> graph(ugen)  # doctest: +SKIP
+                >>> supriya.graph(ugen)  # doctest: +SKIP
 
             ::
 

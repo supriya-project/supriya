@@ -10,7 +10,7 @@ class ServerMeters(SupriyaObject):
     ::
 
         >>> import json, supriya, time
-        >>> server = supriya.Server().boot(
+        >>> server = supriya.Server.default().boot(
         ...     input_bus_channel_count=2,
         ...     output_bus_channel_count=2,
         ...     )
@@ -164,13 +164,15 @@ class ServerMeters(SupriyaObject):
             self.free()
 
     def to_dict(self):
+        if not self.is_allocated:
+            raise supriya.exceptions.NotAllocated(self)
         input_meter_levels, output_meter_levels = [], []
         for peak, rms in zip(
-            self._input_meter_peak_levels, self._input_meter_rms_levels
+            self._input_meter_peak_levels or [], self._input_meter_rms_levels or []
         ):
             input_meter_levels.append(dict(peak=peak, rms=rms))
         for peak, rms in zip(
-            self._output_meter_peak_levels, self._output_meter_rms_levels
+            self._output_meter_peak_levels or [], self._output_meter_rms_levels or []
         ):
             output_meter_levels.append(dict(peak=peak, rms=rms))
         result = {
@@ -185,11 +187,15 @@ class ServerMeters(SupriyaObject):
 
     @property
     def input_count(self):
-        return self.server.server_options.input_bus_channel_count
+        return self.server.options.input_bus_channel_count
+
+    @property
+    def is_allocated(self):
+        return self.server is not None and self._input_meter_synth in self.server
 
     @property
     def output_count(self):
-        return self.server.server_options.output_bus_channel_count
+        return self.server.options.output_bus_channel_count
 
     @property
     def input_meter_command(self):
@@ -198,8 +204,8 @@ class ServerMeters(SupriyaObject):
     @property
     def input_meter_synthdef(self):
         return self.make_meter_synthdef(
-            channel_count=self.server.server_options.input_bus_channel_count,
-            initial_bus=self.server.server_options.output_bus_channel_count,
+            channel_count=self.server.options.input_bus_channel_count,
+            initial_bus=self.server.options.output_bus_channel_count,
             command_name=self.input_meter_command,
         )
 
@@ -210,7 +216,7 @@ class ServerMeters(SupriyaObject):
     @property
     def output_meter_synthdef(self):
         return self.make_meter_synthdef(
-            channel_count=self.server.server_options.output_bus_channel_count,
+            channel_count=self.server.options.output_bus_channel_count,
             initial_bus=0,
             command_name=self.output_meter_command,
         )

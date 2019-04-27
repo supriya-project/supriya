@@ -1,12 +1,12 @@
 try:
-    import pyximport  # type: ignore
+    import pyximport
 
     pyximport.install(language_level=3)
     del pyximport
 except ImportError:
     pass
 
-import appdirs  # type: ignore
+import appdirs
 import configparser  # noqa
 import pathlib  # noqa
 
@@ -18,7 +18,7 @@ if not output_path.exists():
         pass
 
 config = configparser.ConfigParser()
-config.read_dict({"core": {"editor": "vim", "scsynth": "scsynth"}})
+config.read_dict({"core": {"editor": "vim", "scsynth_path": "scsynth"}})
 config_path = pathlib.Path(appdirs.user_config_dir("supriya", "supriya"))
 config_path = config_path / "supriya.cfg"
 if not config_path.exists():
@@ -84,7 +84,7 @@ def import_structured_package(path, namespace, remove=True, verbose=False):
     # Delete this function from the namespace
     this_name = inspect.currentframe().f_code.co_name
     if remove and this_name in namespace:
-        del (namespace[this_name])
+        del namespace[this_name]
 
 
 from supriya._version import __version__, __version_info__  # noqa
@@ -109,6 +109,7 @@ from supriya.midi import Device  # noqa
 from supriya.live import Application, Mixer  # noqa
 from supriya.nonrealtime import Session  # noqa
 from supriya.realtime import (  # noqa
+    BootOptions,
     Buffer,
     BufferGroup,
     Bus,
@@ -117,7 +118,7 @@ from supriya.realtime import (  # noqa
     Server,
     Synth,
 )
-from supriya.soundfiles import SoundFile  # noqa
+from supriya.soundfiles import Say, SoundFile  # noqa
 from supriya.synthdefs import (  # noqa
     Envelope,
     Parameter,
@@ -127,6 +128,7 @@ from supriya.synthdefs import (  # noqa
     SynthDefFactory,
 )
 from supriya.system import Assets, Bindable, Binding, bind  # noqa
-from supriya.soundfiles import Say  # noqa
 from supriya.io import graph, play, render  # noqa
 from supriya import assets  # noqa
+
+server = Server.default()

@@ -10,7 +10,7 @@ class ControlBusGetRequest(Request):
     ::
 
         >>> import supriya
-        >>> server = supriya.Server().boot()
+        >>> server = supriya.Server.default().boot()
         >>> request = supriya.commands.ControlBusGetRequest(
         ...     indices=(0, 4, 8, 12),
         ...     )
@@ -84,4 +84,4 @@ class ControlBusGetRequest(Request):
 
     @property
     def response_patterns(self):
-        return [["/c_set"]]
+        return ["/c_set"], None

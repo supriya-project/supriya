@@ -3,21 +3,21 @@
 
 Start your Python interpreter and import Supriya::
 
-    >>> from supriya import *
+    >>> import supriya
 
 Boot the SuperCollider server::
 
-    >>> server = servertools.Server()
+    >>> server = supriya.Server()
     >>> server.boot()
     <Server: udp://127.0.0.1:57751, 8i8o>
 
 Create and allocate a group::
 
-    >>> group = servertools.Group().allocate()
+    >>> group = supriya.realtime.Group().allocate()
 
-Make a synthesizer definition and send it to the server::
+Make a synthesizer definition::
 
-    >>> builder = synthdeftools.SynthDefBuilder(
+    >>> builder = supriya.SynthDefBuilder(
     ...     amplitude=1.0,
     ...     frequency=440.0,
     ...     gate=1.0,
@@ -26,25 +26,33 @@ Make a synthesizer definition and send it to the server::
 ::
 
     >>> with builder:
-    ...     source = ugentools.SinOsc.ar(
+    ...     source = supriya.ugens.SinOsc.ar(
     ...         frequency=builder['frequency'],
     ...         )
-    ...     envelope = ugentools.EnvGen.kr(
-    ...         done_action=synthdeftools.DoneAction.FREE_SYNTH,
-    ...         envelope=synthdeftools.Envelope.asr(),
+    ...     envelope = supriya.ugens.EnvGen.kr(
+    ...         done_action=supriya.DoneAction.FREE_SYNTH,
+    ...         envelope=supriya.Envelope.asr(),
     ...         gate=builder['gate'],
     ...         )
     ...     source = source * builder['amplitude']
     ...     source = source * envelope
-    ...     out = ugentools.Out.ar(
-    ...         bus=(0, 1),
+    ...     out = supriya.ugens.Out.ar(
+    ...         bus=0,
     ...         source=source,
     ...         )
     ...
 
 ::
 
-    >>> synthdef = builder.build().allocate()
+    >>> synthdef = builder.build()
+
+Visualize the SynthDef (requires `Graphviz`_)::
+    
+    >>> supriya.graph(synthdef)
+
+Allocate it on the server::
+
+    >>> synthdef.allocate()
 
 Synchronize with the server::
 
@@ -53,7 +61,7 @@ Synchronize with the server::
 
 Create a synthesizer with the previously defined synthesizer definition::
 
-    >>> synth = servertools.Synth(synthdef)
+    >>> synth = supriya.Synth(synthdef)
     >>> synth
     <Synth: ???>
 
@@ -73,14 +81,9 @@ Query the server's node tree::
                 1001 f1c3ea5063065be20688f82b415c1108
                     amplitude: 0.0, frequency: 440.0
 
-Bind a MIDI controller to the synth's controls::
+Visualize the server's node tree::
 
-    >>> korg = miditools.Device('NanoKontrol2')
-    >>> korg.open_port(0)
-    >>> source = korg['fader_1']
-    >>> target = synth.controls['frequency']
-    >>> bind(source, target, range_=Range(110, 880), exponent=2.0)
-    Binding()
+    >>> supriya.graph(server)
 
 Release the synth::
 

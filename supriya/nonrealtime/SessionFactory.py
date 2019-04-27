@@ -8,7 +8,7 @@ class SessionFactory:
     ### INITIALIZER ###
 
     def __init__(self, input_bus_channel_count=None, output_bus_channel_count=None):
-        self._options = supriya.realtime.ServerOptions(
+        self._options = supriya.realtime.BootOptions(
             input_bus_channel_count=input_bus_channel_count,
             output_bus_channel_count=output_bus_channel_count,
         )
@@ -31,7 +31,7 @@ class SessionFactory:
         import supriya.realtime
 
         assert isinstance(project_settings, supriya.cli.ProjectSettings)
-        server_options = supriya.realtime.ServerOptions(
+        server_options = supriya.realtime.BootOptions(
             **project_settings.get("server_options", {})
         )
         input_bus_channel_count = server_options.input_bus_channel_count

@@ -9,7 +9,7 @@ class NodeBeforeRequest(MoveRequest):
     ::
 
         >>> import supriya
-        >>> server = supriya.Server().boot()
+        >>> server = supriya.Server.default().boot()
         >>> group_a = supriya.Group([supriya.Group(), supriya.Group()])
         >>> group_b = supriya.Group([supriya.Group(), supriya.Group()])
         >>> synth_a = supriya.Synth()

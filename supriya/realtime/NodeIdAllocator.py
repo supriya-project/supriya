@@ -49,16 +49,16 @@ class NodeIdAllocator(SupriyaObject):
         "_mask",
         "_next_permanent_id",
         "_temp",
-        "_user_id",
+        "_client_id",
     )
 
     ### INITIALIZER ###
 
-    def __init__(self, user_id=0, initial_node_id=1000):
-        assert user_id <= 31
+    def __init__(self, client_id=0, initial_node_id=1000):
+        assert client_id <= 31
         self._initial_node_id = int(initial_node_id)
-        self._user_id = int(user_id)
-        self._mask = self._user_id << 26
+        self._client_id = int(client_id)
+        self._mask = self._client_id << 26
         self._temp = self._initial_node_id
         self._next_permanent_id = 1
         self._freed_permanent_ids = set()

@@ -33,7 +33,7 @@ class CompanderD(PseudoUGen):
                 >>> compander_d = supriya.ugens.CompanderD.ar(
                 ...     source=source,
                 ...     )
-                >>> graph(compander_d)  # doctest: +SKIP
+                >>> supriya.graph(compander_d)  # doctest: +SKIP
 
             ::
 

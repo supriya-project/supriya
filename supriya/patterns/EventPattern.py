@@ -1,6 +1,7 @@
 import uuid
 
-from supriya import utils
+from uqbar.objects import new
+
 from supriya.patterns.Pattern import Pattern
 
 
@@ -18,7 +19,7 @@ class EventPattern(Pattern):
         if not isinstance(expr, supriya.patterns.Event):
             expr = supriya.patterns.NoteEvent(**expr)
         if expr.get("uuid") is None:
-            expr = utils.new(expr, uuid=uuid.uuid4())
+            expr = new(expr, uuid=uuid.uuid4())
         return expr
 
     ### PUBLIC METHODS ###
@@ -28,9 +29,7 @@ class EventPattern(Pattern):
         import supriya.realtime
 
         event_player = supriya.patterns.RealtimeEventPlayer(
-            self,
-            clock=clock,
-            server=server or supriya.realtime.Server.get_default_server(),
+            self, clock=clock, server=server or supriya.realtime.Server.default()
         )
         event_player.start()
         return event_player

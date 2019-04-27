@@ -10,7 +10,7 @@ class StatusWatcher(threading.Thread):
 
     __documentation_section__ = "Server Internals"
 
-    __slots__ = ("_active", "_attempts", "_callback", "_server")
+    __slots__ = ("_is_active", "_attempts", "_callback", "_server")
 
     max_attempts = 5
 
@@ -21,13 +21,13 @@ class StatusWatcher(threading.Thread):
         self._attempts = 0
         self._server = server
         self._callback = None
-        self.active = True
+        self.is_active = True
         self.daemon = True
 
     ### SPECIAL METHODS ###
 
     def __call__(self, response):
-        if not self.active:
+        if not self.is_active:
             return
         if response is None:
             return
@@ -45,9 +45,9 @@ class StatusWatcher(threading.Thread):
         )
         request = supriya.commands.StatusRequest()
         message = request.to_osc()
-        while self._active:
+        while self._is_active and self.server.is_running:
             if self.max_attempts == self.attempts:
-                self.server.quit()
+                self.server._shutdown()
                 break
             self.server.send_message(message)
             self._attempts += 1
@@ -57,12 +57,12 @@ class StatusWatcher(threading.Thread):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def active(self):
-        return self._active
+    def is_active(self):
+        return self._is_active
 
-    @active.setter
-    def active(self, expr):
-        self._active = bool(expr)
+    @is_active.setter
+    def is_active(self, expr):
+        self._is_active = bool(expr)
 
     @property
     def attempts(self):

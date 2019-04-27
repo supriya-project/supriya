@@ -7,7 +7,6 @@ import supriya.realtime
 
 
 def test_01(server):
-    server = supriya.realtime.Server().boot()
     mixer = supriya.live.Mixer(channel_count=2, cue_channel_count=1)
     track = mixer.add_track("foo")
     track.add_direct_in([(0, 0), (1, 1)])

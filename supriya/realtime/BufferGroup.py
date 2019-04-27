@@ -1,16 +1,16 @@
 import os
 
 import supriya.exceptions
-from supriya.realtime.ServerObjectProxy import ServerObjectProxy
+from supriya.realtime.ServerObject import ServerObject
 
 
-class BufferGroup(ServerObjectProxy):
+class BufferGroup(ServerObject):
     """
     A buffer group.
 
     ::
 
-        >>> server = supriya.realtime.Server().boot()
+        >>> server = supriya.Server.default().boot()
 
     ::
 
@@ -45,7 +45,7 @@ class BufferGroup(ServerObjectProxy):
     def __init__(self, buffer_count=1):
         import supriya.realtime
 
-        ServerObjectProxy.__init__(self)
+        ServerObject.__init__(self)
         self._buffer_id = None
         buffer_count = int(buffer_count)
         assert 0 < buffer_count
@@ -101,11 +101,11 @@ class BufferGroup(ServerObjectProxy):
     ### PRIVATE METHODS ###
 
     def _register_with_local_server(self, server):
-        ServerObjectProxy.allocate(self, server=server)
+        ServerObject.allocate(self, server=server)
         allocator = self.server.buffer_allocator
         buffer_id = allocator.allocate(len(self))
         if buffer_id is None:
-            ServerObjectProxy.free(self)
+            ServerObject.free(self)
             raise ValueError
         self._buffer_id = buffer_id
         for buffer_ in self:
@@ -152,7 +152,7 @@ class BufferGroup(ServerObjectProxy):
         buffer_id = self.buffer_id
         self._buffer_id = None
         self.server.buffer_allocator.free(buffer_id)
-        ServerObjectProxy.free(self)
+        ServerObject.free(self)
         return self
 
     def index(self, item):
@@ -165,14 +165,14 @@ class BufferGroup(ServerObjectProxy):
 
         ::
 
-            >>> file_paths = Assets['audio/*mono_1s*']
+            >>> file_paths = supriya.Assets['audio/*mono_1s*']
             >>> len(file_paths)
             4
 
         ::
 
-            >>> server = supriya.realtime.Server().boot()
-            >>> buffer_group = BufferGroup.from_file_paths(file_paths)
+            >>> server = supriya.Server.default().boot()
+            >>> buffer_group = supriya.realtime.BufferGroup.from_file_paths(file_paths)
 
         ::
 

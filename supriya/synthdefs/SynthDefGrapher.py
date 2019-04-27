@@ -16,7 +16,7 @@ class SynthDefGrapher:
 
         ::
 
-            >>> graph(result)  # doctest: +SKIP
+            >>> supriya.graph(result)  # doctest: +SKIP
 
         ::
 

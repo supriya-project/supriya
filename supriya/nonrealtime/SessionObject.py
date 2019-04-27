@@ -6,7 +6,7 @@ from supriya.system.SupriyaObject import SupriyaObject
 
 class SessionObject(SupriyaObject):
     """
-    A non-realtime session object, analogous to ServerObjectProxy.
+    A non-realtime session object, analogous to ServerObject.
     """
 
     ### CLASS VARIABLES ###

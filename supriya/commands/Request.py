@@ -16,12 +16,12 @@ class Request(Requestable):
     def _apply_local(self, server):
         pass
 
-    def _get_response_pattern_and_requestable(self, server):
-        response_pattern = self.response_patterns[0]
-        return response_pattern, self
+    def _get_response_patterns_and_requestable(self, server):
+        success_pattern, failure_pattern = self.response_patterns
+        return success_pattern, failure_pattern, self
 
     def _handle_async(self, sync, server):
-        if not sync or not self.response_patterns:
+        if not sync or self.response_patterns[0] is None:
             message = self.to_osc()
             server.send_message(message)
             return True
@@ -53,7 +53,7 @@ class Request(Requestable):
 
     @property
     def response_patterns(self):
-        return []
+        return None, None
 
     @property
     @abc.abstractmethod

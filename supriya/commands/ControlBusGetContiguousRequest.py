@@ -10,7 +10,7 @@ class ControlBusGetContiguousRequest(Request):
     ::
 
         >>> import supriya
-        >>> server = supriya.Server().boot()
+        >>> server = supriya.Server.default().boot()
         >>> request = supriya.commands.ControlBusGetContiguousRequest(
         ...     index_count_pairs=[
         ...         (0, 2),
@@ -102,4 +102,4 @@ class ControlBusGetContiguousRequest(Request):
 
     @property
     def response_patterns(self):
-        return [["/c_setn"]]
+        return ["/c_setn"], None

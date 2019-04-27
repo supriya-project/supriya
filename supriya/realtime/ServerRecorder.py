@@ -11,8 +11,8 @@ class ServerRecorder(SupriyaObject):
     ::
 
         >>> import supriya
-        >>> import tempfile, time
-        >>> server = supriya.Server().boot()
+        >>> import os, tempfile, time
+        >>> server = supriya.Server.default().boot()
         >>> with tempfile.TemporaryDirectory() as tempdir:
         ...     server.recorder.start(
         ...         file_path=os.path.join(tempdir, 'example.aiff'),
@@ -48,7 +48,7 @@ class ServerRecorder(SupriyaObject):
 
     def __init__(self, server):
         self._server = server
-        server_options = server.server_options
+        server_options = server.options
         # setup settings
         self._channel_count = server_options.output_bus_channel_count
         self._header_format = HeaderFormat.AIFF

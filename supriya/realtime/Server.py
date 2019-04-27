@@ -1,31 +1,40 @@
 import atexit
-import os
-import pathlib
+import logging
 import re
-import signal
-import subprocess
 import threading
-import time
-from typing import Dict, Tuple
+from typing import Set
 
-import uqbar.graphs
-import uqbar.io
+from uqbar.objects import new
 
 import supriya.exceptions
-from supriya import utils
+from supriya.commands import (
+    FailResponse,
+    GroupQueryTreeRequest,
+    NotifyRequest,
+    QueryTreeGroup,
+    QueryTreeSynth,
+    QuitRequest,
+    SyncRequest,
+)
 from supriya.enums import NodeAction
+from supriya.realtime import BlockAllocator, BootOptions, NodeIdAllocator
 from supriya.system import PubSub
-from supriya.system.SupriyaObject import SupriyaObject
+
+# TODO: Implement connect() and disconnect()
+# TODO: Handle clientID return via [/done /notify 0 64] for allocators
 
 
-class Server(SupriyaObject):
+logger = logging.getLogger("supriya.server")
+
+
+class Server:
     """
     An scsynth server proxy.
 
     ::
 
         >>> import supriya.realtime
-        >>> server = supriya.realtime.Server.get_default_server()
+        >>> server = supriya.realtime.Server.default()
         >>> server.boot()
         <Server: udp://127.0.0.1:57751, 8i8o>
 
@@ -40,48 +49,13 @@ class Server(SupriyaObject):
 
     __documentation_section__ = "Main Classes"
 
-    __slots__ = (
-        "_audio_bus_allocator",
-        "_audio_buses",
-        "_audio_input_bus_group",
-        "_audio_output_bus_group",
-        "_buffer_allocator",
-        "_buffers",
-        "_buffer_proxies",
-        "_control_bus_allocator",
-        "_control_buses",
-        "_control_bus_proxies",
-        "_debug_subprocess",
-        "_debug_osc",
-        "_debug_request_names",
-        "_debug_udp",
-        "_default_group",
-        "_ip_address",
-        "_is_running",
-        "_latency",
-        "_lock",
-        "_meters",
-        "_node_id_allocator",
-        "_nodes",
-        "_osc_io",
-        "_pending_nodes",
-        "_port",
-        "_recorder",
-        "_root_node",
-        "_server_options",
-        "_server_process",
-        "_status",
-        "_status_watcher",
-        "_sync_id",
-        "_synthdefs",
-    )
-
     _default_server = None
 
-    _servers: Dict[Tuple[str, int], "Server"] = {}
+    _servers: Set["Server"] = set()
 
     ### CONSTRUCTOR ###
 
+    """
     def __new__(cls, ip_address="127.0.0.1", port=57751, **kwargs):
         key = (ip_address, port)
         if key not in cls._servers:
@@ -89,16 +63,15 @@ class Server(SupriyaObject):
             instance.__init__(ip_address=ip_address, port=port, **kwargs)
             cls._servers[key] = instance
         return cls._servers[key]
+    """
 
     ### INITIALIZER ###
 
     def __init__(self, ip_address="127.0.0.1", port=57751):
         import supriya.osc
-        import supriya.commands
         import supriya.realtime
 
-        if hasattr(self, "is_running") and self.is_running:
-            return
+        type(self)._servers.add(self)
 
         ### NET ADDRESS ###
 
@@ -121,8 +94,11 @@ class Server(SupriyaObject):
 
         ### SERVER PROCESS ###
 
+        self._client_id = None
+        self._maximum_logins = None
+        self._is_owner = False
         self._is_running = False
-        self._server_options = supriya.realtime.ServerOptions()
+        self._options = BootOptions()
         self._server_process = None
         self._status = None
         self._status_watcher = None
@@ -144,19 +120,15 @@ class Server(SupriyaObject):
         self._control_bus_proxies = {}
         self._control_buses = {}
         self._nodes = {}
-        self._pending_nodes = {}
         self._synthdefs = {}
 
         ### DEBUG ###
 
-        self.debug_osc = False
         self.debug_request_names = False
-        self.debug_subprocess = False
-        self.debug_udp = False
 
         ### REGISTER WITH ATEXIT ###
 
-        atexit.register(self.quit)
+        atexit.register(self._shutdown)
 
     ### SPECIAL METHODS ###
 
@@ -164,18 +136,18 @@ class Server(SupriyaObject):
         import supriya.realtime
         import supriya.synthdefs
 
-        if not isinstance(expr, supriya.realtime.ServerObjectProxy):
-            return False
-        if expr.server is not self:
-            return False
         if isinstance(expr, supriya.realtime.Node):
+            if expr.server is not self:
+                return False
             node_id = expr.node_id
             if node_id in self._nodes and self._nodes[node_id] is expr:
                 return True
-        if isinstance(expr, supriya.synthdefs.SynthDef):
+        elif isinstance(expr, supriya.synthdefs.SynthDef):
             name = expr.actual_name
             if name in self._synthdefs and self._synthdefs[name] == expr:
                 return True
+        elif isinstance(expr, supriya.realtime.ServerObject):
+            return expr.server is self
         return False
 
     def __enter__(self):
@@ -192,7 +164,7 @@ class Server(SupriyaObject):
 
         ::
 
-            >>> server = supriya.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> supriya.Synth(name='foo').allocate()
             <+ Synth: 1000 (foo)>
 
@@ -263,7 +235,7 @@ class Server(SupriyaObject):
         ::
 
             >>> import supriya
-            >>> server = supriya.Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> group = supriya.Group([
             ...     supriya.Synth(),
             ...     supriya.Group([
@@ -330,11 +302,11 @@ class Server(SupriyaObject):
         string = "<Server: {protocol}://{ip}:{port}, "
         string += "{inputs}i{outputs}o>"
         return string.format(
-            protocol=self.server_options.protocol,
+            protocol=self.options.protocol,
             ip=self.ip_address,
             port=self.port,
-            inputs=self.server_options.input_bus_channel_count,
-            outputs=self.server_options.output_bus_channel_count,
+            inputs=self.options.input_bus_channel_count,
+            outputs=self.options.output_bus_channel_count,
         )
 
     def __str__(self):
@@ -417,57 +389,44 @@ class Server(SupriyaObject):
 
     def _handle_synthdef_removed_response(self, response):
         synthdef_name = response.synthdef_name
-        synthdef = self._synthdefs.get(synthdef_name)
-        if synthdef is None:
-            return
-        synthdef._handle_response(response)
+        self._synthdefs.pop(synthdef_name, None)
 
-    def _setup(self):
-        self._setup_notifications()
-        self._setup_status_watcher()
-        self._setup_allocators(self.server_options)
-        self._setup_proxies()
-        self._setup_system_synthdefs()
-
-    def _setup_allocators(self, server_options):
-        import supriya.realtime
-
-        self._audio_bus_allocator = supriya.realtime.BlockAllocator(
-            heap_maximum=server_options.audio_bus_channel_count,
-            heap_minimum=server_options.first_private_bus_id,
+    def _setup_allocators(self):
+        self._audio_bus_allocator = BlockAllocator(
+            heap_maximum=self._options.audio_bus_channel_count,
+            heap_minimum=self._options.first_private_bus_id,
         )
-        self._buffer_allocator = supriya.realtime.BlockAllocator(
-            heap_maximum=server_options.buffer_count
+        self._buffer_allocator = BlockAllocator(heap_maximum=self._options.buffer_count)
+        self._control_bus_allocator = BlockAllocator(
+            heap_maximum=self._options.control_bus_channel_count
         )
-        self._control_bus_allocator = supriya.realtime.BlockAllocator(
-            heap_maximum=server_options.control_bus_channel_count
+        self._node_id_allocator = NodeIdAllocator(
+            initial_node_id=self._options.initial_node_id, client_id=self.client_id
         )
-        self._node_id_allocator = supriya.realtime.NodeIdAllocator(
-            initial_node_id=server_options.initial_node_id
-        )
-        self._sync_id = 0
+        self._sync_id = self.client_id << 26
 
     def _setup_notifications(self):
-        import supriya.commands
+        request = NotifyRequest(True)
+        response = request.communicate(server=self)
+        if isinstance(response, FailResponse):
+            self._shutdown()
+            raise supriya.exceptions.TooManyClients
+        self._client_id, self._maximum_logins = response.action[1], response.action[2]
 
-        request = supriya.commands.NotifyRequest(True)
-        request.communicate(server=self)
+    def _setup_default_groups(self):
+        default_groups = [
+            supriya.Group(node_id_is_permanent=True) for _ in range(self.maximum_logins)
+        ]
+        self.root_node.extend(default_groups)
+        self._default_group = default_groups[self.client_id]
 
     def _setup_proxies(self):
         import supriya.realtime
 
-        self._pending_nodes = {}
         self._audio_input_bus_group = supriya.realtime.AudioInputBusGroup(self)
         self._audio_output_bus_group = supriya.realtime.AudioOutputBusGroup(self)
         self._root_node = supriya.realtime.RootNode(server=self)
         self._nodes[0] = self._root_node
-        default_group = supriya.realtime.Group()
-        default_group.allocate(
-            add_action=supriya.AddAction.ADD_TO_HEAD,
-            node_id_is_permanent=True,
-            target_node=self.root_node,
-        )
-        self._default_group = default_group
 
     def _setup_osc_callbacks(self):
         self._osc_io.register(
@@ -507,7 +466,7 @@ class Server(SupriyaObject):
         )
 
         def failed(message):
-            print("FAILED:", message)
+            logger.warning("Fail: {}".format(message))
 
         self._osc_io.register(pattern="/fail", procedure=failed)
 
@@ -518,7 +477,7 @@ class Server(SupriyaObject):
         self._status_watcher = supriya.realtime.StatusWatcher(self)
         self._status_watcher.start()
 
-    def _setup_system_synthdefs(self):
+    def _setup_system_synthdefs(self, local_only=False):
         import supriya.assets.synthdefs
         import supriya.synthdefs
 
@@ -530,12 +489,19 @@ class Server(SupriyaObject):
             if not isinstance(system_synthdef, supriya.synthdefs.SynthDef):
                 continue
             system_synthdefs.append(system_synthdef)
-        supriya.synthdefs.SynthDef._allocate_synthdefs(system_synthdefs, self)
+        if local_only:
+            for synthdef in system_synthdefs:
+                synthdef._register_with_local_server(self)
+        else:
+            supriya.synthdefs.SynthDef._allocate_synthdefs(system_synthdefs, self)
 
-    def _teardown(self):
-        self._teardown_proxies()
-        self._teardown_allocators()
-        self._teardown_status_watcher()
+    def _shutdown(self):
+        if not self.is_running:
+            return
+        elif self.is_owner:
+            self.quit()
+        else:
+            self.disconnect()
 
     def _teardown_allocators(self):
         self._audio_bus_allocator = None
@@ -556,98 +522,129 @@ class Server(SupriyaObject):
                 x.free()
         for x in tuple(self._nodes.values()):
             x.free()
-        for x in tuple(self._synthdefs.values()):
-            x.free()
-        self._control_bus_proxies = None
-        self._buffer_proxies = None
-        self._default_group = None
-        self._root_node = None
+        self._audio_buses.clear()
         self._audio_input_bus_group = None
         self._audio_output_bus_group = None
+        self._buffers.clear()
+        self._buffer_proxies.clear()
+        self._control_buses.clear()
+        self._control_bus_proxies.clear()
+        self._default_group = None
         self._nodes.clear()
+        self._root_node = None
         self._synthdefs.clear()
 
     def _teardown_status_watcher(self):
-        self._status_watcher.active = False
+        if self._status_watcher is not None:
+            self._status_watcher.is_active = False
         self._status_watcher = None
         self._status = None
 
-    def _read_scsynth_boot_output(self):
-        start_time = time.time()
-        timeout = 10
-        while True:
-            line = self._server_process.stdout.readline().decode().rstrip()
-            if self.debug_subprocess and line:
-                print("Boot:", line)
-            if line.startswith("SuperCollider 3 server ready"):
-                break
-            elif line.startswith("ERROR:"):
-                raise supriya.exceptions.ServerCannotBoot(line)
-            elif line.startswith(
-                "Exception in World_OpenUDP: bind: Address already in use"
-            ):
-                raise supriya.exceptions.ServerCannotBoot(line)
-            elif (time.time() - start_time) > timeout:
-                raise supriya.exceptions.ServerCannotBoot(line)
-
     ### PUBLIC METHODS ###
 
-    def boot(self, scsynth_path=None, server_options=None, **kwargs):
-        import supriya.realtime
-
+    def boot(self, scsynth_path=None, options=None, **kwargs):
         if self.is_running:
             return self
-        scsynth_path = scsynth_path or os.environ.get("SCSYNTH_PATH")
-        if not scsynth_path:
-            scsynth_path_candidates = uqbar.io.find_executable("scsynth")
-            if not scsynth_path_candidates:
-                raise RuntimeError("Cannot find scsynth")
-            scsynth_path = scsynth_path_candidates[0]
-        scsynth_path = pathlib.Path(scsynth_path).absolute()
-        if not scsynth_path.exists():
-            raise RuntimeError("{} does not exist".format(scsynth_path))
-
-        self._osc_io.boot(ip_address=self.ip_address, port=self.port)
-        self._setup_osc_callbacks()
-
-        server_options = server_options or supriya.realtime.ServerOptions()
-        assert isinstance(server_options, supriya.realtime.ServerOptions)
-        if kwargs:
-            server_options = utils.new(server_options, **kwargs)
-        options_string = server_options.as_options_string(self.port)
-        command = "{} {}".format(scsynth_path, options_string)
-        if self.debug_subprocess:
-            print("Boot:", command)
-        process = self._server_process = subprocess.Popen(
-            command,
-            shell=True,
-            stderr=subprocess.STDOUT,
-            stdout=subprocess.PIPE,
-            start_new_session=True,
-        )
-        try:
-            self._read_scsynth_boot_output()
-        except supriya.exceptions.ServerCannotBoot:
-            self._osc_io.quit()
-            try:
-                process_group = os.getpgid(process.pid)
-                os.killpg(process_group, signal.SIGINT)
-                process.terminate()
-                process.wait()
-            except ProcessLookupError:
-                pass
-            raise
-        self._is_running = True
-        self._server_options = server_options
-        self._setup()
+        self._options = new(options or BootOptions(), **kwargs)
+        scsynth_path = BootOptions.find_scsynth(scsynth_path)
+        self._server_process = self._options.boot(scsynth_path, self.port)
+        self._is_owner = True
+        self._connect()
         PubSub.notify("server-booted")
         return self
 
-    @staticmethod
-    def get_default_server():
-        if Server._default_server is None:
-            Server._default_server = Server()
-        return Server._default_server
+    def _connect(self):
+        self._is_running = True
+        self._osc_io.boot(ip_address=self.ip_address, port=self.port)
+        self._setup_osc_callbacks()
+        self._setup_status_watcher()
+        self._setup_notifications()
+        self._setup_allocators()
+        self._setup_proxies()
+        if self.client_id == 0:
+            self._setup_default_groups()
+            self._setup_system_synthdefs()
+
+    def _rehydrate(self):
+        from supriya.realtime import Group, Synth
+
+        def recurse(query_tree_node, node):
+            for query_tree_child in query_tree_node.children:
+                if isinstance(query_tree_child, QueryTreeGroup):
+                    group = Group()
+                    group._register_with_local_server(
+                        node_id=query_tree_child.node_id, server=self
+                    )
+                    node._children.append(group)
+                    recurse(query_tree_child, group)
+                elif isinstance(query_tree_child, QueryTreeSynth):
+                    synth = Synth()
+                    synth._register_with_local_server(
+                        node_id=query_tree_child.node_id, server=self
+                    )
+                    node._children.append(synth)
+                    for query_tree_control in query_tree_child.children:
+                        pass
+
+        recurse(self.query_remote_nodes(include_controls=True), self.root_node)
+
+    def connect(self):
+        if self.is_running:
+            return
+        self._is_owner = False
+        self._connect()
+        if self.client_id > 0:
+            self._setup_system_synthdefs(local_only=True)
+            self._rehydrate()
+        self._default_group = self._nodes[self.client_id + 1]
+        return self
+
+    def disconnect(self, force=False):
+        if not self.is_running:
+            raise supriya.exceptions.ServerOffline
+        if self._is_owner and not force:
+            raise supriya.exceptions.OwnedServerShutdown(
+                "Cannot disconnect from owned server with force flag."
+            )
+        self._disconnect()
+        return self
+
+    def _disconnect(self):
+        self._is_running = False
+        self._is_owner = False
+        self._client_id = None
+        self._maximum_logins = None
+        self._osc_io.quit()
+        self._teardown_proxies()
+        self._teardown_allocators()
+        self._teardown_status_watcher()
+
+    def quit(self, force=False):
+        if not self.is_running:
+            return
+        if not self._is_owner and not force:
+            raise supriya.exceptions.UnownedServerShutdown(
+                "Cannot quit unowned server without force flag."
+            )
+        PubSub.notify("server-quitting")
+        if self.recorder.is_recording:
+            self.recorder.stop()
+        QuitRequest().communicate(server=self)
+        if self._server_process is not None and not self._server_process.terminate():
+            self._server_process.wait()
+        self._disconnect()
+        PubSub.notify("server-quit")
+        return self
+
+    @classmethod
+    def default(cls):
+        if cls._default_server is None:
+            cls._default_server = Server()
+        return cls._default_server
+
+    @classmethod
+    def kill(cls, supernova=False):
+        BootOptions.kill(supernova=supernova)
 
     def query_local_nodes(self, include_controls=False):
         """
@@ -656,7 +653,7 @@ class Server(SupriyaObject):
         ::
 
             >>> import supriya.realtime
-            >>> server = supriya.realtime.Server()
+            >>> server = supriya.Server.default()
             >>> server.boot()
             <Server: udp://127.0.0.1:57751, 8i8o>
 
@@ -712,9 +709,7 @@ class Server(SupriyaObject):
 
         Returns server query-tree group response.
         """
-        import supriya.commands
-
-        query_tree_group = supriya.commands.QueryTreeGroup.from_group(
+        query_tree_group = QueryTreeGroup.from_group(
             self.root_node, include_controls=include_controls
         )
         return query_tree_group
@@ -726,7 +721,7 @@ class Server(SupriyaObject):
         ::
 
             >>> import supriya.realtime
-            >>> server = supriya.realtime.Server()
+            >>> server = supriya.Server.default()
             >>> server.boot()
             <Server: udp://127.0.0.1:57751, 8i8o>
 
@@ -781,35 +776,13 @@ class Server(SupriyaObject):
 
         Returns server query-tree group response.
         """
-        import supriya.commands
-
-        request = supriya.commands.GroupQueryTreeRequest(
-            node_id=0, include_controls=include_controls
-        )
+        request = GroupQueryTreeRequest(node_id=0, include_controls=include_controls)
         response = request.communicate(server=self)
         return response.query_tree_group
 
-    def quit(self):
-        import supriya.commands
-
-        if not self.is_running:
-            return
-        PubSub.notify("server-quitting")
-        if self.recorder.is_recording:
-            self.recorder.stop()
-        request = supriya.commands.QuitRequest()
-        request.communicate(server=self)
-        self._is_running = False
-        if not self._server_process.terminate():
-            self._server_process.wait()
-        self._osc_io.quit()
-        self._teardown()
-        PubSub.notify("server-quit")
-        return self
-
-    def reboot(self):
+    def reboot(self, server_options=None, **kwargs):
         self.quit()
-        self.boot()
+        self.boot(server_options=server_options, **kwargs)
         return self
 
     def send_message(self, message, with_request_name=False):
@@ -820,13 +793,11 @@ class Server(SupriyaObject):
         )
 
     def sync(self, sync_id=None):
-        import supriya.commands
-
         if not self.is_running:
             return
         if sync_id is None:
             sync_id = self.next_sync_id
-        request = supriya.commands.SyncRequest(sync_id=sync_id)
+        request = SyncRequest(sync_id=sync_id)
         request.communicate(server=self)
         return self
 
@@ -849,17 +820,12 @@ class Server(SupriyaObject):
         return self._buffer_allocator
 
     @property
-    def control_bus_allocator(self):
-        return self._control_bus_allocator
+    def client_id(self):
+        return self._client_id
 
     @property
-    def debug_osc(self):
-        return self._debug_osc
-
-    @debug_osc.setter
-    def debug_osc(self, expr):
-        self._debug_osc = bool(expr)
-        self._osc_io.debug_osc = self.debug_osc
+    def control_bus_allocator(self):
+        return self._control_bus_allocator
 
     @property
     def debug_request_names(self):
@@ -870,29 +836,16 @@ class Server(SupriyaObject):
         self._debug_request_names = bool(expr)
 
     @property
-    def debug_subprocess(self):
-        return self._debug_subprocess
-
-    @debug_subprocess.setter
-    def debug_subprocess(self, expr):
-        self._debug_subprocess = bool(expr)
-
-    @property
-    def debug_udp(self):
-        return self._debug_udp
-
-    @debug_udp.setter
-    def debug_udp(self, expr):
-        self._debug_udp = bool(expr)
-        self._osc_io.debug_udp = self.debug_udp
-
-    @property
     def default_group(self):
         return self._default_group
 
     @property
     def ip_address(self):
         return self._ip_address
+
+    @property
+    def is_owner(self):
+        return self._is_owner
 
     @property
     def is_running(self):
@@ -905,6 +858,10 @@ class Server(SupriyaObject):
     @latency.setter
     def latency(self, latency):
         self._latency = float(latency)
+
+    @property
+    def maximum_logins(self):
+        return self._maximum_logins
 
     @property
     def meters(self):
@@ -937,8 +894,8 @@ class Server(SupriyaObject):
         return self._root_node
 
     @property
-    def server_options(self):
-        return self._server_options
+    def options(self):
+        return self._options
 
     @property
     def status(self):

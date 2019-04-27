@@ -1,6 +1,7 @@
 import collections
 
-from supriya import utils
+from uqbar.objects import new
+
 from supriya.patterns.EventPattern import EventPattern
 
 
@@ -58,7 +59,7 @@ class Pbindf(EventPattern):
                     template_dict[name] = next(key_iterator)
                 except StopIteration:
                     continue
-            expr = utils.new(expr, **template_dict)
+            expr = new(expr, **template_dict)
             should_stop = yield expr
 
     ### PUBLIC PROPERTIES ###

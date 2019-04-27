@@ -23,8 +23,9 @@ def test_success(cli_paths):
         ):
             try:
                 script(command)
-            except SystemExit as e:
-                raise RuntimeError("SystemExit: {}".format(e.code))
+            except SystemExit as exception:
+                if exception.args[0]:
+                    raise RuntimeError("SystemExit: {}".format(exception.code))
     pytest.helpers.compare_strings(
         r"""
         Edit candidates: 'test_material' ...

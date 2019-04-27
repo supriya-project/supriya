@@ -284,8 +284,9 @@ def test_success_all_materials(cli_paths):
     ):
         try:
             script(command)
-        except SystemExit as e:
-            raise RuntimeError("SystemExit: {}".format(e.code))
+        except SystemExit as exception:
+            if exception.args[0]:
+                raise RuntimeError("SystemExit: {}".format(exception.code))
     pytest.helpers.compare_strings(
         r"""
         Render candidates: '*' ...
@@ -373,8 +374,9 @@ def test_success_filtered_materials(cli_paths):
     ):
         try:
             script(command)
-        except SystemExit as e:
-            raise RuntimeError("SystemExit: {}".format(e.code))
+        except SystemExit as exception:
+            if exception.args[0]:
+                raise RuntimeError("SystemExit: {}".format(exception.code))
     pytest.helpers.compare_strings(
         r"""
         Render candidates: 'material_t*' ...
@@ -440,8 +442,9 @@ def test_success_one_material(cli_paths):
     ):
         try:
             script(command)
-        except SystemExit as e:
-            raise RuntimeError("SystemExit: {}".format(e.code))
+        except SystemExit as exception:
+            if exception.args[0]:
+                raise RuntimeError("SystemExit: {}".format(exception.code))
     pytest.helpers.compare_strings(
         r"""
         Render candidates: 'test_material' ...
@@ -572,8 +575,9 @@ def test_success_chained(cli_paths):
     ):
         try:
             script(command)
-        except SystemExit as e:
-            raise RuntimeError("SystemExit: {}".format(e.code))
+        except SystemExit as exception:
+            if exception.args[0]:
+                raise RuntimeError("SystemExit: {}".format(exception.code))
 
     pytest.helpers.compare_strings(
         r"""
@@ -641,7 +645,7 @@ def test_success_chained(cli_paths):
 
     render_yml_file_path = material_three_path / "render.yml"
     with render_yml_file_path.open() as file_pointer:
-        render_yml = yaml.load(file_pointer.read())
+        render_yml = yaml.safe_load(file_pointer.read())
     assert render_yml == {
         "render": "session-352b87b6c1d447a5be11020a33ceadec",
         "source": [

@@ -73,4 +73,4 @@ class BufferZeroRequest(Request):
 
     @property
     def response_patterns(self):
-        return [["/done", "/b_zero", self.buffer_id]]
+        return ["/done", "/b_zero", self.buffer_id], None

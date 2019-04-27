@@ -78,4 +78,4 @@ class BufferNormalizeRequest(Request):
 
     @property
     def response_patterns(self):
-        return [["/done", "/b_gen", self.buffer_id]]
+        return ["/done", "/b_gen", self.buffer_id], None

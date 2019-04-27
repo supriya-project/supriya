@@ -8,10 +8,9 @@ import tempfile
 import yaml
 
 from supriya import BinaryOperator, ParameterRate, UnaryOperator
-from supriya.realtime.ServerObjectProxy import ServerObjectProxy
 
 
-class SynthDef(ServerObjectProxy):
+class SynthDef:
     """
     A synth definition.
 
@@ -27,12 +26,12 @@ class SynthDef(ServerObjectProxy):
 
     ::
 
-        >>> graph(synthdef)  # doctest: +SKIP
+        >>> supriya.graph(synthdef)  # doctest: +SKIP
 
     ::
 
         >>> import supriya.realtime
-        >>> server = supriya.realtime.Server().boot()
+        >>> server = supriya.Server.default().boot()
 
     ::
 
@@ -79,7 +78,6 @@ class SynthDef(ServerObjectProxy):
         import supriya.synthdefs
         import supriya.ugens
 
-        ServerObjectProxy.__init__(self)
         compiler = supriya.synthdefs.SynthDefCompiler
         self._name = name
         ugens = list(copy.deepcopy(ugens))
@@ -182,7 +180,7 @@ class SynthDef(ServerObjectProxy):
 
         ::
 
-            >>> graph(synthdef)  # doctest: +SKIP
+            >>> supriya.graph(synthdef)  # doctest: +SKIP
 
         ::
 
@@ -307,21 +305,20 @@ class SynthDef(ServerObjectProxy):
         d_recv_synth_group = []
         current_total = 0
         d_load_synthdefs = []
-        if synthdefs:
-            for synthdef in synthdefs:
-                # synthdef._register_with_local_server(server=server)
-                compiled = synthdef.compile()
-                if 8192 < len(compiled):
-                    d_load_synthdefs.append(synthdef)
-                elif current_total + len(compiled) < 8192:
-                    d_recv_synth_group.append(synthdef)
-                    current_total += len(compiled)
-                else:
-                    d_recv_synthdef_groups.append(d_recv_synth_group)
-                    d_recv_synth_group = [synthdef]
-                    current_total = len(compiled)
-        else:
+        if not synthdefs:
             return
+        for synthdef in synthdefs:
+            # synthdef._register_with_local_server(server=server)
+            compiled = synthdef.compile()
+            if 8192 < len(compiled):
+                d_load_synthdefs.append(synthdef)
+            elif current_total + len(compiled) < 8192:
+                d_recv_synth_group.append(synthdef)
+                current_total += len(compiled)
+            else:
+                d_recv_synthdef_groups.append(d_recv_synth_group)
+                d_recv_synth_group = [synthdef]
+                current_total = len(compiled)
         if d_recv_synth_group:
             d_recv_synthdef_groups.append(d_recv_synth_group)
         for d_recv_synth_group in d_recv_synthdef_groups:
@@ -536,14 +533,6 @@ class SynthDef(ServerObjectProxy):
         parameters = tuple(sorted(parameters, key=lambda x: x.name))
         return ugens, parameters
 
-    def _handle_response(self, response):
-        import supriya.commands
-
-        if isinstance(response, supriya.commands.SynthDefRemovedResponse):
-            if self.actual_name in self._server._synthdefs:
-                self._server._synthdefs.pop(self.actual_name)
-            self._server = None
-
     @staticmethod
     def _initialize_topological_sort(ugens):
         import supriya.synthdefs
@@ -574,9 +563,11 @@ class SynthDef(ServerObjectProxy):
         return tuple(sort_bundles)
 
     def _register_with_local_server(self, server=None):
-        ServerObjectProxy.allocate(self, server=server)
+        import supriya.realtime
+
+        server = server or supriya.realtime.Server.default()
         synthdef_name = self.actual_name
-        self.server._synthdefs[synthdef_name] = self
+        server._synthdefs[synthdef_name] = self
 
     @staticmethod
     def _remap_controls(ugens, control_mapping):
@@ -617,15 +608,16 @@ class SynthDef(ServerObjectProxy):
         )
         return result
 
-    def free(self):
+    def free(self, server=None):
         import supriya.commands
 
+        server = server or supriya.realtime.Server.default()
+        assert self in server
         synthdef_name = self.actual_name
-        del (self.server._synthdefs[synthdef_name])
+        del server._synthdefs[synthdef_name]
         request = supriya.commands.SynthDefFreeRequest(synthdef=self)
-        if self.server.is_running:
-            request.communicate(server=self.server)
-        ServerObjectProxy.free(self)
+        if server.is_running:
+            request.communicate(server=server)
 
     def play(self, add_action=None, target_node=None, **kwargs):
         """
@@ -633,7 +625,7 @@ class SynthDef(ServerObjectProxy):
 
         ::
 
-            >>> server = Server().boot()
+            >>> server = supriya.Server.default().boot()
             >>> synthdef = supriya.assets.synthdefs.default
             >>> synth = synthdef.play()
             >>> server = server.quit()
@@ -758,7 +750,7 @@ class SynthDef(ServerObjectProxy):
 
         ::
 
-            >>> with SynthDefBuilder() as builder:
+            >>> with supriya.SynthDefBuilder() as builder:
             ...     audio_in = supriya.ugens.In.ar(channel_count=1)
             ...     control_in = supriya.ugens.In.kr(channel_count=2)
             ...     sin = supriya.ugens.SinOsc.ar(
@@ -771,7 +763,7 @@ class SynthDef(ServerObjectProxy):
 
         ::
 
-            >>> graph(synthdef)  # doctest: +SKIP
+            >>> supriya.graph(synthdef)  # doctest: +SKIP
 
         ::
 
@@ -800,7 +792,7 @@ class SynthDef(ServerObjectProxy):
 
         ::
 
-            >>> with SynthDefBuilder() as builder:
+            >>> with supriya.SynthDefBuilder() as builder:
             ...     audio_in = supriya.ugens.In.ar(channel_count=1)
             ...     control_in = supriya.ugens.In.kr(channel_count=2)
             ...     sin = supriya.ugens.SinOsc.ar(
@@ -813,7 +805,7 @@ class SynthDef(ServerObjectProxy):
 
         ::
 
-            >>> graph(synthdef)  # doctest: +SKIP
+            >>> supriya.graph(synthdef)  # doctest: +SKIP
 
         ::
 
@@ -854,7 +846,7 @@ class SynthDef(ServerObjectProxy):
 
         ::
 
-            >>> with SynthDefBuilder() as builder:
+            >>> with supriya.SynthDefBuilder() as builder:
             ...     audio_in = supriya.ugens.In.ar(channel_count=1)
             ...     control_in = supriya.ugens.In.kr(channel_count=2)
             ...     sin = supriya.ugens.SinOsc.ar(
@@ -867,7 +859,7 @@ class SynthDef(ServerObjectProxy):
 
         ::
 
-            >>> graph(synthdef)  # doctest: +SKIP
+            >>> supriya.graph(synthdef)  # doctest: +SKIP
 
         ::
 
@@ -896,7 +888,7 @@ class SynthDef(ServerObjectProxy):
 
         ::
 
-            >>> with SynthDefBuilder() as builder:
+            >>> with supriya.SynthDefBuilder() as builder:
             ...     audio_in = supriya.ugens.In.ar(channel_count=1)
             ...     control_in = supriya.ugens.In.kr(channel_count=2)
             ...     sin = supriya.ugens.SinOsc.ar(
@@ -909,7 +901,7 @@ class SynthDef(ServerObjectProxy):
 
         ::
 
-            >>> graph(synthdef)  # doctest: +SKIP
+            >>> supriya.graph(synthdef)  # doctest: +SKIP
 
         ::
 

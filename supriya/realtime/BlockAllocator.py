@@ -1,6 +1,7 @@
 import threading
 
-from supriya import utils
+from uqbar.objects import new
+
 from supriya.system.SupriyaObject import SupriyaObject
 
 
@@ -81,15 +82,13 @@ class BlockAllocator(SupriyaObject):
                 split_offset = free_block.start_offset + desired_block_size
                 self._free_heap.remove(free_block)
                 if desired_block_size < free_block.duration:
-                    new_free_block = utils.new(
+                    new_free_block = new(
                         free_block, start_offset=split_offset, used=False
                     )
                     self._free_heap.insert(new_free_block)
-                    used_block = utils.new(
-                        free_block, stop_offset=split_offset, used=True
-                    )
+                    used_block = new(free_block, stop_offset=split_offset, used=True)
                 else:
-                    used_block = utils.new(free_block, used=True)
+                    used_block = new(free_block, used=True)
                 self._used_heap.insert(used_block)
                 block_id = used_block.start_offset
         return block_id

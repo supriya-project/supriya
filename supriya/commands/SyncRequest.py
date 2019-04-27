@@ -58,7 +58,7 @@ class SyncRequest(Request):
 
     @property
     def response_patterns(self):
-        return [["/synced", self.sync_id]]
+        return ["/synced", self.sync_id], None
 
     @property
     def sync_id(self):

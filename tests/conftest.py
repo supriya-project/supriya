@@ -9,6 +9,7 @@ import types
 import jinja2
 import pytest
 import uqbar.io
+from sphinx.testing.path import path
 
 import supriya.cli
 
@@ -41,11 +42,11 @@ def cli_paths(tmpdir):
     if sys.path[0] != str(outer_project_path):
         sys.path.insert(0, str(outer_project_path))
     yield cli_paths
-    for path, module in tuple(sys.modules.items()):
-        if not path or not module:
+    for module_path, module in tuple(sys.modules.items()):
+        if not module_path or not module:
             continue
-        if path.startswith(package_name):
-            del (sys.modules[path])
+        if module_path.startswith(package_name):
+            del sys.modules[module_path]
 
 
 @pytest.fixture
@@ -63,14 +64,14 @@ def nonrealtime_paths(tmpdir):
         render_yml_file_path=render_yml_file_path,
     )
     original_directory = pathlib.Path.cwd()
-    for path in [output_directory_path, render_directory_path]:
-        path.mkdir(parents=True, exist_ok=True)
+    for directory_path in [output_directory_path, render_directory_path]:
+        directory_path.mkdir(parents=True, exist_ok=True)
     os.chdir(test_directory_path)
     yield nonrealtime_paths
     os.chdir(original_directory)
-    for path in [output_directory_path, render_directory_path]:
-        if path.exists():
-            shutil.rmtree(path)
+    for directory_path in [output_directory_path, render_directory_path]:
+        if directory_path.exists():
+            shutil.rmtree(directory_path)
 
 
 @pytest.fixture
@@ -84,16 +85,14 @@ def pseudo_server():
 
 @pytest.fixture
 def server():
-    pytest.helpers.kill_scsynth()
-    server = supriya.Server()
+    supriya.Server.kill()
+    server = supriya.Server.default()
     server.latency = 0.0
     server.boot()
     supriya.assets.synthdefs.default.allocate(server)
-    server.debug_osc = True
     yield server
-    server.debug_osc = False
     server.quit()
-    pytest.helpers.kill_scsynth()
+    supriya.Server.kill()
 
 
 # ### DATA ### #
@@ -106,7 +105,7 @@ class TestSessionFactory:
         output_bus_channel_count=None,
         multiplier=1.0,
     ):
-        options = supriya.realtime.ServerOptions(
+        options = supriya.realtime.BootOptions(
             input_bus_channel_count=input_bus_channel_count,
             output_bus_channel_count=output_bus_channel_count,
         )
@@ -278,8 +277,9 @@ def create_cli_material(
         else:
             try:
                 script(command)
-            except SystemExit:
-                raise RuntimeError("SystemExit")
+            except SystemExit as exception:
+                if exception.args[0]:
+                    raise RuntimeError("SystemExit")
     material_path = inner_project_path / "materials" / material_name
     if definition_contents:
         definition_contents = uqbar.strings.normalize(definition_contents)
@@ -317,8 +317,9 @@ def create_cli_project(test_directory_path, force=False, expect_error=False):
         else:
             try:
                 script(command)
-            except SystemExit:
-                raise RuntimeError("SystemExit")
+            except SystemExit as exception:
+                if exception.args[0]:
+                    raise RuntimeError("SystemExit")
 
 
 @pytest.helpers.register
@@ -343,8 +344,9 @@ def create_cli_session(
         else:
             try:
                 script(command)
-            except SystemExit:
-                raise RuntimeError("SystemExit")
+            except SystemExit as exception:
+                if exception.args[0]:
+                    raise RuntimeError("SystemExit")
     session_path = inner_project_path / "sessions" / session_name
     if definition_contents:
         definition_contents = uqbar.strings.normalize(definition_contents)
@@ -592,3 +594,28 @@ def setup_pattern_send(pattern, iterations):
     except StopIteration:
         pass
     return events
+
+
+pytest_plugins = "sphinx.testing.fixtures"
+
+
+collect_ignore = ["roots"]
+
+
+@pytest.fixture(scope="session")
+def remove_sphinx_projects(sphinx_test_tempdir):
+    # Even upon exception, remove any directory from temp area
+    # which looks like a Sphinx project. This ONLY runs once.
+    roots_path = pathlib.Path(sphinx_test_tempdir)
+    for d in roots_path.iterdir():
+        if d.is_dir():
+            if pathlib.Path(d, "_build").exists():
+                # This directory is a Sphinx project, remove it
+                shutil.rmtree(str(d))
+    yield
+
+
+@pytest.fixture()
+def rootdir(remove_sphinx_projects):
+    roots = path(os.path.dirname(__file__) or ".").abspath() / "roots"
+    yield roots

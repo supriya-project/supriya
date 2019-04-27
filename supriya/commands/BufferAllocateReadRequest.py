@@ -108,7 +108,7 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
 
     @property
     def response_patterns(self):
-        return [["/done", "/b_allocRead", self.buffer_id]]
+        return ["/done", "/b_allocRead", self.buffer_id], None
 
     @property
     def starting_frame(self):
