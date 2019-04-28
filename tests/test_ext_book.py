@@ -1,4 +1,3 @@
-import os
 import pathlib
 import shutil
 
@@ -48,8 +47,7 @@ def test_sphinx_book_html(app, status, warning, rm_dirs):
         "session-d536a6a4819769a80987605aa31b86ae.osc",
     ]
     # Only the played session is converted to WAV
-    if not os.environ.get("TRAVIS", None):
-        assert wav_file_names == ["session-d536a6a4819769a80987605aa31b86ae.wav"]
+    assert wav_file_names == ["session-d536a6a4819769a80987605aa31b86ae.wav"]
 
 
 @pytest.mark.sphinx("text", testroot="book")

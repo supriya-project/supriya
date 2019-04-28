@@ -1,42 +1,64 @@
 language: python
-
+dist: xenial
 sudo: required
-
 cache:
-  directories:
-  - $HOME/.ccache
-  - $HOME/.cache/pip
-
+  - pip
+  - directories:
+    - $HOME/.ccache
 python:
   - 3.6
-
 env:
   global:
     AUDIODEV=null
     CC=gcc
+    CCACHE_COMPRESS=1
+    CCACHE_SLOPPINESS=pch_defines,time_macros
     CXX=g++
     MYPYPATH=/tmp/typehints
     PATH=/usr/lib/ccache:$PATH
+    SUPERCOLLIDER_VERSION=Version-3.10.2
+    USE_CCACHE=1
+addons:
+  apt:
+    packages:
+      - alsa-oss
+      - alsa-utils
+      - build-essential
+      - cmake
+      - espeak
+      - ffmpeg
+      - g++-4.9
+      - gcc-4.9
+      - graphviz 
+      - jackd2
+      - lame
+      - libasound2-dev
+      - libavahi-client-dev
+      - libfftw3-dev
+      - libicu-dev
+      - libjack-jackd2-dev
+      - libreadline6-dev
+      - libsndfile1-dev
+      - libudev-dev
+      - libxt-dev
+      - pkg-config
 
 before_install:
-- pip install --target /tmp/typehints --no-deps uqbar>=0.2.15
-- sudo make -C .travis/ install-scsynth-deps
-- sudo make -C .travis/ install-scsynth
+- make -C .travis/ get-type-hints
+- make -C .travis/ setup-audio
+- make -C .travis/ install-scsynth
 - scsynth -v
-- sudo usermod -a -G audio travis
-- sudo make -C .travis/ prep-dummy-soundcard
-- ls -l /home/travis/.local/share/
 
 install:
 - pip install -e .
-- python -c "import supriya"
+- python -c "import supriya"  # import is possible without optional dependencies
 - pip install -e .[accelerated,ipython,midi,test,wave]
 
 before_script:
 - sudo -E su $USER -c "jackd -r -ddummy -r44100 -p1024" &
-- sleep 5 # give jackd time to start
+- sleep 5  # give jackd time to start
 - sudo -E su $USER -c "scsynth -D 0 -H dummy -R 0 -u 57110" &
-- sleep 5 # give jackd time to start
+- sleep 5  # give jackd time to start
 - killall scsynth
 
 script:
