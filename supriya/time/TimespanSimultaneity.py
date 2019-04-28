@@ -52,6 +52,7 @@ class TimespanSimultaneity(SupriyaObject):
         Gets the next simultaneity in this simultaneity's timespan
         collection.
         """
+        # TODO: This doesn't take into account stop offsets
         tree = self._timespan_collection
         if tree is None:
             return None
@@ -86,6 +87,7 @@ class TimespanSimultaneity(SupriyaObject):
         Gets the previous simultaneity in this simultaneity's timespan
         collection.
         """
+        # TODO: This doesn't take into account stop offsets
         tree = self._timespan_collection
         if tree is None:
             return None

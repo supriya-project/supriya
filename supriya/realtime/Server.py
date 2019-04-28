@@ -780,9 +780,9 @@ class Server:
         response = request.communicate(server=self)
         return response.query_tree_group
 
-    def reboot(self, server_options=None, **kwargs):
+    def reboot(self, options=None, **kwargs):
         self.quit()
-        self.boot(server_options=server_options, **kwargs)
+        self.boot(options=options, **kwargs)
         return self
 
     def send_message(self, message, with_request_name=False):

@@ -22,9 +22,7 @@ def test_01(server):
     assert application.mixer.cue_channel_count == 2
     assert len(application.mixer) == 4
     assert "track-a" in application.mixer
-    assert "slot-one" in application.mixer["track-a"]
     assert "track-b" in application.mixer
-    assert "slot-two" in application.mixer["track-b"]
 
 
 def test_02(server):
@@ -58,4 +56,4 @@ def test_03(server):
     assert sorted(mixer["track-c"].send) == ["master"]
     assert sorted(mixer["track-d"].send) == ["master"]
     # Binding
-    assert len(application.bindings) == 5
+    assert len(application.bindings) == 4

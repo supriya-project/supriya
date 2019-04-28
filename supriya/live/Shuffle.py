@@ -1,0 +1,2 @@
+class Shuffle:
+    pass

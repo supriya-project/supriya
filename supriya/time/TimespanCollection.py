@@ -364,6 +364,43 @@ class TimespanCollection(SupriyaObject):
         )
         return simultaneity
 
+    def get_offset_after(self, offset):
+        """
+        Gets first start or stop offset after ``offset``, otherwise None.
+
+        ::
+
+            >>> import abjad.timespans
+            >>> timespans = (
+            ...     abjad.timespans.Timespan(0, 3),
+            ...     abjad.timespans.Timespan(1, 3),
+            ...     abjad.timespans.Timespan(1, 2),
+            ...     abjad.timespans.Timespan(2, 5),
+            ...     abjad.timespans.Timespan(6, 9),
+            ...     )
+            >>> timespan_collection = supriya.time.TimespanCollection(timespans)
+
+        ::
+
+            >>> for i in range(-1, 11):
+            ...     print(i, timespan_collection.get_offset_after(i))
+            ...
+            -1 0.0
+            0 1.0
+            1 2.0
+            2 3.0
+            3 5.0
+            4 5.0
+            5 6.0
+            6 9.0
+            7 9.0
+            8 9.0
+            9 None
+            10 None
+
+        """
+        return self._driver.get_offset_after(float(offset))
+
     def get_start_offset_after(self, offset):
         """
         Gets start offst in this timespan collection after `offset`.

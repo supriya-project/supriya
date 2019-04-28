@@ -2,12 +2,9 @@ import supriya.realtime
 import supriya.synthdefs
 import supriya.system
 import supriya.ugens
-from supriya.live.AutoPatternSlot import AutoPatternSlot
 from supriya.live.Direct import Direct
 from supriya.live.Send import Send
 from supriya.live.SendManager import SendManager
-from supriya.live.SynthSlot import SynthSlot
-from supriya.live.TriggerPatternSlot import TriggerPatternSlot
 from supriya.system.Bindable import Bindable
 
 
@@ -41,8 +38,6 @@ class Track:
         self._input_levels = None
         self._prefader_levels = None
         self._postfader_levels = None
-        self._slots = []
-        self._slots_by_name = {}
 
         self._group = supriya.realtime.Group(name=name)
         self._input_synth = supriya.realtime.Synth(
@@ -78,28 +73,7 @@ class Track:
 
     ### SPECIAL METHODS ###
 
-    def __getitem__(self, key):
-        if isinstance(key, int):
-            return self._slots[key]
-        return self._slots_by_name[key]
-
-    def __len__(self):
-        return len(self._slots)
-
-    def __iter__(self):
-        for slot in self._slots:
-            yield slot.name
-
     ### PRIVATE METHODS ###
-
-    def _add_slot(self, slot):
-        if slot.name in self._slots_by_name:
-            raise ValueError
-        self._slots.append(slot)
-        self._slots_by_name[slot.name] = slot
-        if self.is_allocated:
-            slot._allocate()
-        return slot
 
     def _allocate_buses(self):
         self.input_bus_group.allocate()
@@ -121,8 +95,6 @@ class Track:
             send._allocate()
         self.mixer._levels_mapping[self.input_synth.node_id] = self
         self.mixer._levels_mapping[self.output_synth.node_id] = self
-        for slot in self._slots:
-            slot._allocate()
         if self.direct_in is not None:
             self.direct_in._allocate()
         if self.direct_out is not None:
@@ -132,8 +104,6 @@ class Track:
         return self.instrument_group
 
     def _free(self):
-        for slot in self._slots:
-            slot._free()
         if self.cue_synth:
             self.cue_synth.release()
         for send in tuple(self._incoming_sends.values()):
@@ -148,12 +118,6 @@ class Track:
         pass
 
     ### PUBLIC METHODS ###
-
-    def add_auto_pattern_slot(self, name, pattern=None, synthdef=None, **kwargs):
-        slot = AutoPatternSlot(
-            name=name, track=self, synthdef=synthdef, pattern=pattern, **kwargs
-        )
-        return self._add_slot(slot)
 
     def add_direct_in(self, mapping):
         if not mapping:
@@ -199,16 +163,6 @@ class Track:
         if self.mixer.is_allocated:
             send._allocate()
         return send
-
-    def add_synth_slot(self, name, synthdef=None, **kwargs):
-        slot = SynthSlot(name=name, track=self, synthdef=synthdef, **kwargs)
-        return self._add_slot(slot)
-
-    def add_trigger_pattern_slot(self, name, pattern=None, synthdef=None, **kwargs):
-        slot = TriggerPatternSlot(
-            name=name, track=self, synthdef=synthdef, pattern=pattern, **kwargs
-        )
-        return self._add_slot(slot)
 
     @staticmethod
     def build_input_synthdef(channel_count):

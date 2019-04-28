@@ -147,13 +147,13 @@ class Application:
         for track_spec in mixer_spec.get("tracks", []):
             track = self._mixer[track_spec["name"]]
             bind_specs = track_spec.get("bind") or {}
-            for target_name, bind_spec in bind_specs.items():
-                self._setup_binding(track, track_spec, target_name, bind_spec)
-            slot_specs = track_spec.get("slots") or []
-            for slot_spec in slot_specs:
-                slot = track[slot_spec["name"]]
-                for target_name, bind_spec in slot_spec.get("bind", {}).items():
-                    self._setup_binding(slot, slot_spec, target_name, bind_spec)
+            # for target_name, bind_spec in bind_specs.items():
+            #    self._setup_binding(track, track_spec, target_name, bind_spec)
+            # slot_specs = track_spec.get("slots") or []
+            # for slot_spec in slot_specs:
+            #    slot = track[slot_spec["name"]]
+            #    for target_name, bind_spec in slot_spec.get("bind", {}).items():
+            #        self._setup_binding(slot, slot_spec, target_name, bind_spec)
             send_specs = track_spec.get("sends") or []
             for send_spec in send_specs:
                 target_name = send_spec.get("name")

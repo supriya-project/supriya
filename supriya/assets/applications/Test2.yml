@@ -15,7 +15,6 @@ application:
     cue_channel_count: 2
     tracks:
       - name: track-a
-        slots: ~
         sends:
           - name: track-c
             bind: 
@@ -27,7 +26,6 @@ application:
               range: [-96.0, 0.0]
         bind: ~
       - name: track-b
-        slots: ~
         sends:
           - name: track-c
             bind: 
@@ -39,11 +37,9 @@ application:
               range: [-72.0, 0.0]
         bind: ~
       - name: track-c
-        slots: ~
         sends: ~
         bind: ~
       - name: track-d
-        slots: ~
         sends: ~
         bind: ~
       - name: master

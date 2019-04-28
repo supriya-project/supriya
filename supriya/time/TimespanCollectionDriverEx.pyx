@@ -302,11 +302,63 @@ cdef class TimespanCollectionDriverEx:
                     node.right_child, offset))
         return result
 
+    cdef float _recurse_get_offset_after(
+        self,
+        _CNode node,
+        float offset,
+        int depth=1,
+    ):
+        if node is None:
+            # print(("    " * depth) + "None")
+            return offset
+        result = offset
+        # print(("    " * depth) + "Node: {} {} {}".format(node.start_offset, node.stop_offset_low, node.stop_offset_high))
+        if node.start_offset > offset:
+            # print(("    " * depth) + "After")
+            result = node.start_offset
+            if offset < node.stop_offset_low < result:
+                result = node.stop_offset_low
+            # print(("    " * depth) + "Checking Left")
+            candidate = self._recurse_get_offset_after(node.left_child, offset, depth + 1)
+            if offset != result:
+                if offset < candidate < result:
+                    result = candidate
+            elif offset < candidate:
+                result = candidate
+        elif node.start_offset <= offset and (
+            node.stop_offset_high > offset or node.stop_offset_high > offset
+        ):
+            # print(("    " * depth) + "Before or Equal")
+            for timespan in node.payload:
+                if timespan.stop_offset > offset:
+                    result = timespan.stop_offset
+                    # print(("    " * depth) + "Found: {}".format(result))
+                    break
+            # print(("    " * depth) + "Checking Right")
+            candidate = self._recurse_get_offset_after(node.right_child, offset, depth + 1)
+            if offset != result:
+                if offset < candidate < result:
+                    result = candidate
+            elif offset < candidate:
+                result = candidate
+            # print(("    " * depth) + "Checking Left")
+            candidate = self._recurse_get_offset_after(node.left_child, offset, depth + 1)
+            if offset != result:
+                if offset < candidate < result:
+                    result = candidate
+            elif offset < candidate:
+                result = candidate
+        else:
+            # print(("    " * depth) + "Nope")
+            pass
+        # print(("    " * depth) + "Result: {}".format(result))
+        return result
+
     cdef _CNode _recurse_get_start_offset_after(
         self,
         _CNode node,
         float offset,
-        ):
+    ):
         result = None
         if node is None:
             return result
@@ -322,7 +374,7 @@ cdef class TimespanCollectionDriverEx:
         self,
         _CNode node,
         float offset,
-        ):
+    ):
         result = None
         if node is None:
             return result
@@ -602,6 +654,15 @@ cdef class TimespanCollectionDriverEx:
         ctimespans = self._recurse_find_timespans_intersecting_timespan(
             self._root_node, ctimespan)
         return self._unbox_ctimespans(ctimespans)
+
+    def get_offset_after(self, offset):
+        # print("Searching for: {}".format(offset))
+        result = None
+        if self._root_node is not None:
+            result = self._recurse_get_offset_after(self._root_node, offset)
+            if result == offset:
+                result = None
+        return result
 
     def get_start_offset_after(self, offset):
         node = self._recurse_get_start_offset_after(self._root_node, offset)

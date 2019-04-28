@@ -439,3 +439,42 @@ def test_remove(accelerated):
         Timespan(start_offset=0, stop_offset=3),
         Timespan(start_offset=6, stop_offset=9),
     ]
+
+
+def test_get_offset_after():
+    timespans = [
+        Timespan(0, 3),
+        Timespan(1, 3),
+        Timespan(1, 2),
+        Timespan(2, 5),
+        Timespan(5, 10),
+        Timespan(5, 12),
+        Timespan(6, 9),
+        Timespan(13, 15),
+    ]
+    expected = [
+        (-2, 0.0),
+        (-1, 0.0),
+        (0, 1.0),
+        (1, 2.0),
+        (2, 3.0),
+        (3, 5.0),
+        (4, 5.0),
+        (5, 6.0),
+        (6, 9.0),
+        (7, 9.0),
+        (8, 9.0),
+        (9, 10.0),
+        (10, 12.0),
+        (11, 12.0),
+        (12, 13.0),
+        (13, 15.0),
+        (14, 15.0),
+        (15, None),
+        (16, None),
+    ]
+    for _ in range(10):
+        timespan_collection = supriya.time.TimespanCollection(timespans)
+        actual = [(i, timespan_collection.get_offset_after(i)) for i in range(-2, 17)]
+        assert actual == expected
+        random.shuffle(timespans)
