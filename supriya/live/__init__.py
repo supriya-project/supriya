@@ -1,6 +1,12 @@
 """
 Tools for performing live, including models of virtual mixers, instruments and
 performance applications.
+
+MIDI -> Track -> DeviceChain -> RequestBundle
+Transport -> Track -> Clip -> DeviceChain -> RequestBundle
+Transport -> Track -> Clip -> DeviceChain[...] -> DeviceChain[Arpeggiator] -> Transport
+Transport -> DeviceChain[Arpeggiator] -> DeviceChain[...] -> RequestBundle
+
 """
 from .Application import Application  # noqa
 from .AudioEffect import AudioEffect  # noqa

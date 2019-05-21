@@ -50,7 +50,7 @@ Quickstart
    :includehidden:
    :maxdepth: 3
 
-   api/index
+   api/supriya/index
 
 .. toctree::
    :caption: Developers

@@ -68,8 +68,8 @@ class Clip:
         offset: float = 0.0
         local_offset: float = 0.0
         next_offset: Optional[float] = None
-        start_notes: Tuple[Note] = ()
-        stop_notes: Tuple[Note] = ()
+        start_notes: Optional[Tuple[Note]] = None
+        stop_notes: Optional[Tuple[Note]] = None
 
     def __init__(self, *, notes=None, duration=4, is_looping=True, parent=None):
         self._duration = duration
