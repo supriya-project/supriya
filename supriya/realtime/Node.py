@@ -1,10 +1,12 @@
 import abc
+import collections
 import pathlib
 import tempfile
 
 import uqbar.graphs
 import uqbar.strings
 from uqbar.containers import UniqueTreeNode
+from uqbar.objects import new
 
 from supriya.enums import AddAction, NodeAction
 from supriya.realtime.ServerObject import ServerObject
@@ -84,7 +86,6 @@ class Node(ServerObject, UniqueTreeNode):
 
     def _allocate(self, paused_nodes, requests, server, synthdefs):
         import supriya.commands
-        from supriya.synthdefs import SynthDefCompiler
 
         if paused_nodes:
             requests.append(
@@ -98,21 +99,27 @@ class Node(ServerObject, UniqueTreeNode):
             request = supriya.commands.RequestBundle(contents=requests)
         else:
             request = requests[0]
+        requests[:] = [request]
         if synthdefs:
             synthdef_request = supriya.commands.SynthDefReceiveRequest(
-                synthdefs=synthdefs, callback=request
+                synthdefs=synthdefs, callback=requests[0]
             )
-            if len(SynthDefCompiler.compile_synthdefs(synthdefs)) > 8192:
+            if len(synthdef_request.to_datagram(with_placeholders=True)) > 8192:
                 directory_path = pathlib.Path(tempfile.mkdtemp())
                 synthdef_request = supriya.commands.SynthDefLoadDirectoryRequest(
-                    directory_path=directory_path, callback=request
+                    directory_path=directory_path, callback=requests[0]
                 )
                 for synthdef in synthdefs:
                     file_name = "{}.scsyndef".format(synthdef.anonymous_name)
                     synthdef_path = directory_path / file_name
                     synthdef_path.write_bytes(synthdef.compile())
-            request = synthdef_request
-        request.communicate(server=server, sync=True)
+            requests[:] = [synthdef_request]
+            if len(requests[0].to_datagram(with_placeholders=True)) > 8192:
+                node_allocate_request = requests[0].callback
+                synthdef_request = new(requests[0], callback=None)
+                requests[:] = [node_allocate_request, synthdef_request]
+        for request in requests:
+            request.communicate(server=server, sync=True)
         return self
 
     def _as_graphviz_node(self):
@@ -224,28 +231,31 @@ class Node(ServerObject, UniqueTreeNode):
         self._server._nodes[self._node_id] = self
         return node_id
 
-    def _remove_control_interface_from_parentage(self, name_dictionary):
-        if self._parent is not None and name_dictionary:
-            for parent in self.parentage[1:]:
-                parent._control_interface.remove_controls(name_dictionary)
+    def _remove_control_interface_from_parentage(self, old_parent, name_dictionary):
+        if old_parent is None or not name_dictionary:
+            return
+        for parent in old_parent.parentage:
+            parent._control_interface.remove_controls(name_dictionary)
 
-    def _restore_control_interface_to_parentage(self, name_dictionary):
-        if self._parent is not None and name_dictionary:
-            for parent in self.parentage[1:]:
-                parent._control_interface.add_controls(name_dictionary)
+    def _restore_control_interface_to_parentage(self, new_parent, name_dictionary):
+        if new_parent is None or not name_dictionary:
+            return
+        for parent in new_parent.parentage:
+            parent._control_interface.add_controls(name_dictionary)
 
     def _run(self, run_flag):
         self._is_paused = not bool(run_flag)
 
     def _set_parent(self, new_parent):
+        old_parent = self._parent
         named_children = self._cache_named_children()
         control_interface = self._cache_control_interface()
-        self._remove_named_children_from_parentage(named_children)
-        self._remove_control_interface_from_parentage(control_interface)
         self._remove_from_parent()
+        self._remove_named_children_from_parentage(old_parent, named_children)
+        self._remove_control_interface_from_parentage(old_parent, control_interface)
         self._parent = new_parent
-        self._restore_named_children_to_parentage(named_children)
-        self._restore_control_interface_to_parentage(control_interface)
+        self._restore_named_children_to_parentage(new_parent, named_children)
+        self._restore_control_interface_to_parentage(new_parent, control_interface)
 
     def _unregister_with_local_server(self):
         node_id = self.node_id
@@ -298,6 +308,24 @@ class Node(ServerObject, UniqueTreeNode):
                 node_id_run_flag_pairs=((self.node_id, False),)
             )
             request.communicate(server=self.server, sync=False)
+
+    def precede_by(self, expr):
+        if not isinstance(expr, collections.Sequence):
+            expr = [expr]
+        index = self.parent.index(self)
+        self.parent[index:index] = expr
+
+    def replace_with(self, expr):
+        if not isinstance(expr, collections.Sequence):
+            expr = [expr]
+        index = self.parent.index(self)
+        self.parent[index : index + 1] = expr
+
+    def succeed_by(self, expr):
+        if not isinstance(expr, collections.Sequence):
+            expr = [expr]
+        index = self.parent.index(self)
+        self.parent[index + 1 : index + 1] = expr
 
     def unpause(self):
         import supriya.commands

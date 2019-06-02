@@ -1,5 +1,5 @@
 from abjad import Infinity, NegativeInfinity
-from abjad.timespans.Timespan import Timespan
+from abjad.timespans import Timespan
 
 
 class Block(Timespan):

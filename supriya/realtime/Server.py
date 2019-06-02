@@ -692,7 +692,7 @@ class Server:
 
         ::
 
-            >>> response = server.query_remote_nodes(include_controls=True)
+            >>> response = server.query_local_nodes(include_controls=True)
             >>> print(response)
             NODE TREE 0 group
                 1 group
@@ -760,7 +760,7 @@ class Server:
 
         ::
 
-            >>> response = server.query_local_nodes(include_controls=False)
+            >>> response = server.query_remote_nodes(include_controls=False)
             >>> print(response)
             NODE TREE 0 group
                 1 group

@@ -62,7 +62,7 @@ class BusGroup(ServerObject):
     ### INITIALIZER ###
 
     def __init__(
-        self, bus_count=1, calculation_rate=CalculationRate.CONTROL, bus_id=None
+        self, bus_count=1, calculation_rate=CalculationRate.CONTROL, *, bus_id=None
     ):
         import supriya.realtime
 

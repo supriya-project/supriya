@@ -78,7 +78,7 @@ class EventQueue(queue.PriorityQueue):
 
     ::
 
-        >>> from supriya.transport import EventQueue
+        >>> from supriya.clock import EventQueue
         >>> from dataclasses import dataclass, field
         >>> from typing import Any
 
@@ -108,7 +108,7 @@ class EventQueue(queue.PriorityQueue):
     ::
 
         >>> pq.get()
-        (0, 1, PrioritizedItem(priority=0, item='zero'))
+        (0, PrioritizedItem(priority=0, item='zero'))
 
     ::
 
@@ -118,7 +118,7 @@ class EventQueue(queue.PriorityQueue):
     ::
 
         >>> pq.get()
-        (1, 3, PrioritizedItem(priority=1, item='one'))
+        (1, PrioritizedItem(priority=1, item='one'))
 
     ::
 
@@ -127,7 +127,7 @@ class EventQueue(queue.PriorityQueue):
     ::
 
         >>> pq.get()
-        (3, 0, PrioritizedItem(priority=3, item='three'))
+        (3, PrioritizedItem(priority=3, item='three'))
 
     """
 
@@ -235,22 +235,22 @@ class Moment:
     time_signature: Tuple[int, int]
 
 
-class Transport:
+class TempoClock:
     """
-    A transport.
+    A tempo clock.
 
     ::
 
-        >>> from supriya.transport import Transport
-        >>> transport = Transport()
-        >>> transport.start()
+        >>> from supriya.clock import TempoClock
+        >>> tempo_clock = TempoClock()
+        >>> tempo_clock.start()
 
     ::
 
-        >>> def callback(moment, event, *args, **kwargs):
+        >>> def callback(curren_moment, desired_moment, event, *args, **kwargs):
         ...     print((
-        ...         f"Now: {moment.time}\t"
-        ...         f"{moment.offset}\t{event.invocations}"
+        ...         f"Now: {desired_moment.time}\t"
+        ...         f"{desired_moment.offset}\t{event.invocations}"
         ...     ))
         ...     if event.invocations < 10:
         ...         return 0.25 * (event.invocations + 1)
@@ -258,7 +258,7 @@ class Transport:
 
     ::
 
-        >>> transport.schedule(callback, schedule_at=0.5)  # doctest: +SKIP
+        >>> tempo_clock.schedule(callback, schedule_at=0.5)  # doctest: +SKIP
         Now: 1557405529.107658  503.5   0
         Now: 1557405529.232717  503.75  1
         Now: 1557405529.48273   504.25  2

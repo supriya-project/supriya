@@ -30,6 +30,11 @@ class Requestable(SupriyaValueObject):
     def _linearize(self):
         raise NotImplementedError
 
+    def _sanitize_node_id(self, node_id, with_placeholders):
+        if not isinstance(node_id, int) and with_placeholders:
+            return -1
+        return int(node_id)
+
     def _set_response(self, response):
         with self.condition:
             self._response = response
@@ -81,6 +86,16 @@ class Requestable(SupriyaValueObject):
             logger.warning("Timed out: {!r}".format(self))
             return None
         return self._response
+
+    def to_datagram(self, *, with_placeholders=False, with_request_name=False):
+        return self.to_osc(
+            with_placeholders=with_placeholders, with_request_name=with_request_name
+        ).to_datagram()
+
+    def to_list(self, *, with_placeholders=False, with_request_name=False):
+        return self.to_osc(
+            with_placeholders=with_placeholders, with_request_name=with_request_name
+        ).to_list()
 
     ### PUBLIC PROPERTIES ###
 

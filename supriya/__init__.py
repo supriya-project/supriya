@@ -128,7 +128,7 @@ from supriya.synthdefs import (  # noqa
     SynthDefFactory,
 )
 from supriya.system import Assets, Bindable, Binding, bind  # noqa
-from supriya.transport import Transport  # noqa
+from supriya.clock import TempoClock  # noqa
 from supriya.io import graph, play, render  # noqa
 from supriya import assets  # noqa
 

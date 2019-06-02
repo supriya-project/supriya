@@ -18,5 +18,5 @@ class ErrorRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, with_request_name=False):
+    def to_osc(self, *, with_placeholders=False, with_request_name=False):
         raise NotImplementedError

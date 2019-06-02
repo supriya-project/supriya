@@ -1,10 +1,11 @@
 import dataclasses
 from typing import Optional, Tuple
 
-from supriya.live.Note import Note
-from supriya.live.NoteSelector import NoteSelector
 from supriya.time import TimespanCollection
 from supriya.utils import iterate_nwise
+
+from .Note import Note
+from .NoteSelector import NoteSelector
 
 # TODO: looping, loop start and end, clip start and end
 # TODO: scheduling: this event, next event, clip stop, etc.
@@ -17,7 +18,7 @@ class Clip:
 
     ::
 
-        >>> from supriya.live import Clip, Note
+        >>> from supriya.daw import Clip, Note
 
     ::
 
@@ -71,6 +72,8 @@ class Clip:
         start_notes: Optional[Tuple[Note]] = None
         stop_notes: Optional[Tuple[Note]] = None
 
+    ### INITIALIZER ###
+
     def __init__(self, *, notes=None, duration=4, is_looping=True, parent=None):
         self._duration = duration
         self._is_looping = is_looping
@@ -78,11 +81,15 @@ class Clip:
         self._notes = TimespanCollection()
         self.add_notes(notes)
 
+    ### SPECIAL METHODS ###
+
     def __iter__(self):
         return iter(self._notes)
 
     def __len__(self):
         return len(self._notes)
+
+    ### PRIVATE METHODS ###
 
     def _by_pitch(cls, notes):
         by_pitch = {}
@@ -90,17 +97,12 @@ class Clip:
             by_pitch.setdefault(note.pitch, []).append(note)
         return by_pitch
 
-    def _rebuild_offsets(self):
-        offsets = set()
-        for note in self._notes:
-            offsets.add(note.start_offset)
-            offsets.add(note.stop_offset)
-        return tuple(sorted(offsets))
-
     def _notify_parent(self):
         if self.parent is None:
             return
         self.parent.notify()
+
+    ### PUBLIC METHODS ###
 
     def add_notes(self, notes):
         new_notes_by_pitch = self._by_pitch(list(notes))
@@ -129,13 +131,6 @@ class Clip:
                         self._notes.remove(old_note)
 
             self._notes.insert(new_notes)
-
-    def remove_notes(self, notes):
-        notes = list(notes)
-        self._notes.remove(notes)
-
-    def select(self):
-        return NoteSelector(self)
 
     def at(self, offset, start_delta=0.0, force_stop=False):
         def get_nonstart_notes(simultaneity):
@@ -198,6 +193,20 @@ class Clip:
             start_notes=tuple(start_notes),
             stop_notes=tuple(stop_notes),
         )
+
+    def fire(self):
+        if not self._parent:
+            raise RuntimeError("Parent cannot be null")
+        self.parent.fire(self)
+
+    def remove_notes(self, notes):
+        notes = list(notes)
+        self._notes.remove(notes)
+
+    def select(self):
+        return NoteSelector(self)
+
+    ### PUBLIC PROPERTIES ###
 
     @property
     def clip_start(self):

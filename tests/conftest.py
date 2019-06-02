@@ -563,7 +563,7 @@ def manual_incommunicado(pattern, timestamp=10):
         bundle, delta = player(timestamp, timestamp, communicate=False)
         if delta is not None:
             timestamp += delta
-        lists.append(bundle.to_list(True))
+        lists.append(bundle.to_list(with_request_name=True))
         deltas.append(delta)
     return lists, deltas
 

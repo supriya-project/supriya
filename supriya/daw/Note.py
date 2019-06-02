@@ -14,7 +14,7 @@ class Note:
             raise ValueError
 
     def transpose(self, transposition):
-        pass
+        return dataclasses.replace(self, self.pitch + transposition)
 
     def translate(self, start_translation=None, stop_translation=None):
         start_offset = self.start_offset + (start_translation or 0)

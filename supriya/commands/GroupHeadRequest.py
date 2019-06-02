@@ -28,7 +28,7 @@ class GroupHeadRequest(MoveRequest):
     ::
 
         >>> request = supriya.commands.GroupHeadRequest([(synth, group)])
-        >>> request.to_osc(True)
+        >>> request.to_osc(with_request_name=True)
         OscMessage('/g_head', 1000, 1001)
 
     ::

@@ -31,7 +31,7 @@ class MoveRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, with_request_name=False):
+    def to_osc(self, *, with_placeholders=False, with_request_name=False):
         if with_request_name:
             request_id = self.request_name
         else:
@@ -39,12 +39,18 @@ class MoveRequest(Request):
         contents = [request_id]
         if self.node_id_pairs:
             for node_id_pair in self.node_id_pairs:
+                target_node_id = self._sanitize_node_id(
+                    node_id_pair.target_node_id, with_placeholders
+                )
+                node_id = self._sanitize_node_id(
+                    node_id_pair.node_id, with_placeholders
+                )
                 if self._target_first:
-                    contents.append(int(node_id_pair.target_node_id))
-                    contents.append(int(node_id_pair.node_id))
+                    contents.append(target_node_id)
+                    contents.append(node_id)
                 else:
-                    contents.append(int(node_id_pair.node_id))
-                    contents.append(int(node_id_pair.target_node_id))
+                    contents.append(node_id)
+                    contents.append(target_node_id)
         message = supriya.osc.OscMessage(*contents)
         return message
 

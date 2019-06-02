@@ -36,7 +36,7 @@ class NodeAfterRequest(MoveRequest):
         ...     [synth_a, group_a[-1]],
         ...     [synth_b, group_b],
         ...     ])
-        >>> request.to_osc(True)
+        >>> request.to_osc(with_request_name=True)
         OscMessage('/n_after', 1000, 1004, 1001, 1005)
 
     ::

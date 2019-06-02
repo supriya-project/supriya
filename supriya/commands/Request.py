@@ -35,14 +35,8 @@ class Request(Requestable):
 
     ### PUBLIC METHODS ###
 
-    def to_datagram(self):
-        return self.to_osc().to_datagram()
-
-    def to_list(self, with_request_name=False):
-        return self.to_osc(with_request_name=with_request_name).to_list()
-
     @abc.abstractmethod
-    def to_osc(self, with_request_name=False):
+    def to_osc(self, *, with_placeholders=False, with_request_name=False):
         raise NotImplementedError
 
     ### PUBLIC PROPERTIES ###

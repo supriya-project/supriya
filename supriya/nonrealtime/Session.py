@@ -985,7 +985,7 @@ class Session:
         osc_bundles = []
         request_bundles = self._to_non_xrefd_request_bundles(duration=duration)
         for request_bundle in request_bundles:
-            osc_bundles.append(request_bundle.to_osc(True))
+            osc_bundles.append(request_bundle.to_osc(with_request_name=True))
         return osc_bundles
 
     def _to_non_xrefd_request_bundles(self, duration=None):
