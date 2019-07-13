@@ -26,7 +26,7 @@ install_requires = [
     "appdirs",
     "tornado",
     "tqdm",
-    "uqbar >= 0.3.2",
+    "uqbar >= 0.4.0",
 ]
 
 if LooseVersion(sys.version.split()[0]) < LooseVersion("3.7.0"):
@@ -46,13 +46,13 @@ extras_require = {
         "black",
         "flake8",
         "isort",
-        "mypy >= 0.660",
-        "pytest >= 4.1.0",
-        "pytest-cov >= 2.6.0",
+        "mypy >= 0.720",
+        "pytest >= 5.0.0",
+        "pytest-cov >= 2.7.1",
         "pytest-helpers-namespace >= 2019.1.8",
         "pytest-mock",
-        "pytest-rerunfailures >= 6.0",
-        "pytest-timeout >= 1.3.0",
+        "pytest-rerunfailures >= 7.0",
+        "pytest-timeout >= 1.3.3",
     ],
 }
 
