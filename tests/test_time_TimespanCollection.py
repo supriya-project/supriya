@@ -434,7 +434,12 @@ def test_remove(accelerated):
     timespan_collection = make_timespan_collection(
         accelerated=accelerated, populated=True
     )
-    timespan_collection.remove(timespans[1:-1])
+    assert list(timespan_collection) == sorted(timespans)
+    with pytest.raises(ValueError):
+        timespan_collection.remove(timespans[1:-1])
+    assert list(timespan_collection) == sorted(timespans)
+    for timespan in timespan_collection[1:-1]:
+        timespan_collection.remove(timespan)
     assert timespan_collection[:] == [
         Timespan(start_offset=0, stop_offset=3),
         Timespan(start_offset=6, stop_offset=9),

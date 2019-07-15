@@ -22,8 +22,6 @@ class TimespanCollection(SupriyaObject):
 
     """
 
-    ### CLASS VARIABLES ###
-
     ### INITIALIZER ###
 
     def __init__(self, timespans=None, accelerated=True):
@@ -241,12 +239,15 @@ class TimespanCollection(SupriyaObject):
 
         Operates in place and returns timespan collection.
         """
-        assert self._is_timespan(timespan)
+        if not self._is_timespan(timespan):
+            raise ValueError(timespan)
         intersection = self.find_intersection(timespan)
-        self.remove(intersection)
+        to_update = []
         for intersecting_timespan in intersection:
+            self.remove(intersecting_timespan)
             for x in intersecting_timespan - timespan:
-                self.add(x)
+                to_update.append(x)
+        self.update(to_update)
         return self
 
     ### PRIVATE METHODS ###
@@ -619,9 +620,9 @@ class TimespanCollection(SupriyaObject):
                 if len(simultaneities) == n:
                     yield list(reversed(simultaneities))
 
-    def remove(self, timespans):
+    def remove(self, timespan):
         """
-        Removes timespans from this timespan collection.
+        Removes timespan from this timespan collection.
 
         ::
 
@@ -637,7 +638,9 @@ class TimespanCollection(SupriyaObject):
 
         ::
 
-            >>> timespan_collection.remove(timespans[1:-1])
+            >>> for timespan in timespans[1:-1]:
+            ...     timespan_collection.remove(timespan)
+            ...
 
         ::
 
@@ -648,7 +651,7 @@ class TimespanCollection(SupriyaObject):
             Timespan(start_offset=Offset(6, 1), stop_offset=Offset(9, 1))
 
         """
-        self._driver.remove(timespans)
+        self._driver.remove(timespan)
 
     ### PRIVATE PROPERTIES ###
 

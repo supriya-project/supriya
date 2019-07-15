@@ -115,7 +115,8 @@ cdef class TimespanCollectionDriverEx:
     ### SPECIAL METHODS ###
 
     def __contains__(self, timespan):
-        assert self._is_timespan(timespan)
+        if not self._is_timespan(timespan):
+            raise ValueError(timespan)
         candidates = self.find_timespans_starting_at(timespan.start_offset)
         result = timespan in candidates
         return result
@@ -629,6 +630,15 @@ cdef class TimespanCollectionDriverEx:
 
     ### PUBLIC METHODS ###
 
+    def add(self, timespan):
+        if not self._is_timespan(timespan):
+            # raise ValueError(timespan)
+            return
+        ctimespan = _CTimespan.from_timespan(timespan)
+        self._insert_timespan(ctimespan)
+        self._update_indices(self._root_node, -1)
+        self._update_offsets(self._root_node)
+
     def find_timespans_starting_at(self, offset):
         results = []
         node = self._search(self._root_node, offset)
@@ -686,12 +696,11 @@ cdef class TimespanCollectionDriverEx:
         index = node.payload.index(ctimespan) + node.node_start_index
         return index
 
-    def add(self, timespan):
-        if not self._is_timespan(timespan):
-            # raise ValueError(timespan)
-            return
+    def remove(self, timespan):
+        if timespan not in self:
+            raise ValueError(timespan)
         ctimespan = _CTimespan.from_timespan(timespan)
-        self._insert_timespan(ctimespan)
+        self._remove_timespan(ctimespan)
         self._update_indices(self._root_node, -1)
         self._update_offsets(self._root_node)
 
@@ -705,16 +714,5 @@ cdef class TimespanCollectionDriverEx:
                 continue
             ctimespan = _CTimespan.from_timespan(timespan)
             self._insert_timespan(ctimespan)
-        self._update_indices(self._root_node, -1)
-        self._update_offsets(self._root_node)
-
-    def remove(self, timespans):
-        if self._is_timespan(timespans):
-            timespans = [timespans]
-        for timespan in timespans:
-            if not self._is_timespan(timespan):
-                continue
-            ctimespan = _CTimespan.from_timespan(timespan)
-            self._remove_timespan(ctimespan)
         self._update_indices(self._root_node, -1)
         self._update_offsets(self._root_node)

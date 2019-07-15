@@ -200,8 +200,8 @@ class Clip:
         self.parent.fire(self)
 
     def remove_notes(self, notes):
-        notes = list(notes)
-        self._notes.remove(notes)
+        for note in list(notes):
+            self._notes.remove(note)
 
     def select(self):
         return NoteSelector(self)
