@@ -110,8 +110,7 @@ cdef class TimespanCollectionDriverEx:
 
     def __init__(self, timespans=None):
         self._root_node = None
-        if timespans is not None and timespans:
-            self.insert(timespans)
+        self.update(timespans or [])
 
     ### SPECIAL METHODS ###
 
@@ -687,11 +686,22 @@ cdef class TimespanCollectionDriverEx:
         index = node.payload.index(ctimespan) + node.node_start_index
         return index
 
-    def insert(self, timespans):
-        if self._is_timespan(timespans):
-            timespans = [timespans]
+    def add(self, timespan):
+        if not self._is_timespan(timespan):
+            # raise ValueError(timespan)
+            return
+        ctimespan = _CTimespan.from_timespan(timespan)
+        self._insert_timespan(ctimespan)
+        self._update_indices(self._root_node, -1)
+        self._update_offsets(self._root_node)
+
+    def update(self, timespans):
+        # for timespan in timespans:
+        #     if not self._is_timespan(timespan):
+        #         raise ValueError(timespan)
         for timespan in timespans:
             if not self._is_timespan(timespan):
+                # raise ValueError(timespan)
                 continue
             ctimespan = _CTimespan.from_timespan(timespan)
             self._insert_timespan(ctimespan)

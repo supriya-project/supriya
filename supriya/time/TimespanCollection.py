@@ -496,10 +496,10 @@ class TimespanCollection(SupriyaObject):
         return self._driver.index(timespan)
 
     def add(self, timespan):
-        self._driver.insert([timespan])
+        self._driver.add(timespan)
 
     def update(self, timespans):
-        self._driver.insert(timespans)
+        self._driver.update(timespans)
 
     def iterate_simultaneities(self, reverse=False):
         """

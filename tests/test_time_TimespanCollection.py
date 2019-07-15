@@ -191,7 +191,7 @@ def test___setitem__(accelerated):
         Timespan(start_offset=1, stop_offset=3),
         Timespan(start_offset=2, stop_offset=5),
     ]
-    timespan_collection[:3] = Timespan(100, 200)
+    timespan_collection[:3] = [Timespan(100, 200)]
     assert [timespan for timespan in timespan_collection] == [
         Timespan(start_offset=1, stop_offset=3),
         Timespan(start_offset=2, stop_offset=5),
