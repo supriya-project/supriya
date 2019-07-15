@@ -64,7 +64,7 @@ class BlockAllocator(SupriyaObject):
         free_block = supriya.realtime.Block(
             start_offset=heap_minimum, stop_offset=heap_maximum, used=False
         )
-        self._free_heap.insert(free_block)
+        self._free_heap.add(free_block)
 
     ### PUBLIC METHODS ###
 
@@ -85,11 +85,11 @@ class BlockAllocator(SupriyaObject):
                     new_free_block = new(
                         free_block, start_offset=split_offset, used=False
                     )
-                    self._free_heap.insert(new_free_block)
+                    self._free_heap.add(new_free_block)
                     used_block = new(free_block, stop_offset=split_offset, used=True)
                 else:
                     used_block = new(free_block, used=True)
-                self._used_heap.insert(used_block)
+                self._used_heap.add(used_block)
                 block_id = used_block.start_offset
         return block_id
 
@@ -116,11 +116,11 @@ class BlockAllocator(SupriyaObject):
                 used_block = supriya.realtime.Block(
                     start_offset=start_offset, stop_offset=stop_offset, used=True
                 )
-                self._used_heap.insert(used_block)
+                self._used_heap.add(used_block)
                 self._free_heap.remove(free_block)
                 free_blocks = free_block - used_block
                 for free_block in free_blocks:
-                    self._free_heap.insert(free_block)
+                    self._free_heap.add(free_block)
                 block_id = index
         return block_id
 
@@ -153,7 +153,7 @@ class BlockAllocator(SupriyaObject):
             free_block = supriya.realtime.Block(
                 start_offset=start_offset, stop_offset=stop_offset, used=False
             )
-            self._free_heap.insert(free_block)
+            self._free_heap.add(free_block)
 
     ### PUBLIC PROPERTIES ###
 

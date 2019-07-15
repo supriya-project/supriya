@@ -79,7 +79,7 @@ class Node(SessionObject):
         state = self.session._find_state_at(node.stop_offset, clone_if_missing=True)
         state.stop_nodes.add(node)
         self.move_node(node, add_action=add_action)
-        self.session.nodes.insert(node)
+        self.session.nodes.add(node)
         self.session._apply_transitions([node.start_offset, node.stop_offset])
         return node
 
@@ -117,7 +117,7 @@ class Node(SessionObject):
             moment.state._sparsify()
         self.session.nodes.remove(self)
         self._duration = new_duration
-        self.session.nodes.insert(self)
+        self.session.nodes.add(self)
         with self.session.at(self.stop_offset, propagate=False) as moment:
             moment.state.stop_nodes.add(self)
 

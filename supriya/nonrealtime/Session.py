@@ -1069,7 +1069,7 @@ class Session:
         start_moment.state.start_buffers.add(buffer_)
         with self.at(buffer_.stop_offset) as stop_moment:
             stop_moment.state.stop_buffers.add(buffer_)
-        self._buffers.insert(buffer_)
+        self._buffers.add(buffer_)
         return buffer_
 
     @SessionObject.require_offset
@@ -1093,7 +1093,7 @@ class Session:
             start_offset=offset,
         )
         for buffer_ in buffer_group:
-            self._buffers.insert(buffer_)
+            self._buffers.add(buffer_)
             start_moment.state.start_buffers.add(buffer_)
         with self.at(buffer_group.stop_offset) as stop_moment:
             for buffer_ in buffer_group:

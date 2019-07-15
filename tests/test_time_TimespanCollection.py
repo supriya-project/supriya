@@ -408,8 +408,8 @@ def test_insert(accelerated):
     timespan_collection = make_timespan_collection(
         accelerated=accelerated, populated=False
     )
-    timespan_collection.insert(Timespan(1, 3))
-    timespan_collection.insert((Timespan(0, 4), Timespan(2, 6)))
+    timespan_collection.add(Timespan(1, 3))
+    timespan_collection.update((Timespan(0, 4), Timespan(2, 6)))
     assert timespan_collection[:] == [
         Timespan(start_offset=0, stop_offset=4),
         Timespan(start_offset=1, stop_offset=3),

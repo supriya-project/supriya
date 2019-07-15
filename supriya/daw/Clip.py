@@ -130,7 +130,7 @@ class Clip:
                     ):
                         self._notes.remove(old_note)
 
-            self._notes.insert(new_notes)
+            self._notes.update(new_notes)
 
     def at(self, offset, start_delta=0.0, force_stop=False):
         def get_nonstart_notes(simultaneity):

@@ -196,10 +196,13 @@ class TimespanCollection(SupriyaObject):
 
         Returns none.
         """
-        if isinstance(i, (int, slice)):
-            old = self[i]
-            self.remove(old)
-            self.insert(new)
+        if isinstance(i, int):
+            self.remove(self[i])
+            self.add(new)
+        elif isinstance(i, slice):
+            for timespan in self[i]:
+                self.remove(timespan)
+            self.update(new)
         else:
             message = "Indices must be ints or slices, got {}".format(i)
             raise TypeError(message)
@@ -243,7 +246,7 @@ class TimespanCollection(SupriyaObject):
         self.remove(intersection)
         for intersecting_timespan in intersection:
             for x in intersecting_timespan - timespan:
-                self.insert(x)
+                self.add(x)
         return self
 
     ### PRIVATE METHODS ###
@@ -492,33 +495,10 @@ class TimespanCollection(SupriyaObject):
     def index(self, timespan):
         return self._driver.index(timespan)
 
-    def insert(self, timespans):
-        """
-        Inserts `timespans` into this timespan collection.
+    def add(self, timespan):
+        self._driver.insert([timespan])
 
-        ::
-
-            >>> import abjad.timespans
-            >>> timespan_collection = supriya.time.TimespanCollection()
-            >>> timespan_collection.insert(abjad.timespans.Timespan(1, 3))
-            >>> timespan_collection.insert((
-            ...     abjad.timespans.Timespan(0, 4),
-            ...     abjad.timespans.Timespan(2, 6),
-            ...     ))
-
-        ::
-
-            >>> for x in timespan_collection:
-            ...     x
-            ...
-            Timespan(start_offset=Offset(0, 1), stop_offset=Offset(4, 1))
-            Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1))
-            Timespan(start_offset=Offset(2, 1), stop_offset=Offset(6, 1))
-
-        `timespans` may be a single timespan or an iterable of timespans.
-
-        Returns none.
-        """
+    def update(self, timespans):
         self._driver.insert(timespans)
 
     def iterate_simultaneities(self, reverse=False):
