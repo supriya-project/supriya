@@ -1,7 +1,7 @@
 import dataclasses
 from typing import Optional, Tuple
 
-from supriya.time import TimespanCollection
+from supriya.time import IntervalTree
 from supriya.utils import iterate_nwise
 
 from .Note import Note
@@ -78,7 +78,7 @@ class Clip:
         self._duration = duration
         self._is_looping = is_looping
         self._parent = parent
-        self._notes = TimespanCollection()
+        self._notes = IntervalTree()
         self.add_notes(notes)
 
     ### SPECIAL METHODS ###

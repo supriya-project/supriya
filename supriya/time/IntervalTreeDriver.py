@@ -85,7 +85,7 @@ class _CNode:
         self.subtree_stop_index = -1
 
 
-class TimespanCollectionDriver:
+class IntervalTreeDriver:
 
     ### CLASS VARIABLES ###
 
@@ -494,9 +494,9 @@ class TimespanCollectionDriver:
         ctimespan = _CTimespan.from_timespan(timespan)
         node = self._search(self._root_node, ctimespan.start_offset)
         if node is None:
-            raise ValueError("{} not in timespan collection.".format(timespan))
+            raise ValueError("{} not in interval tree.".format(timespan))
         if ctimespan not in node.payload:
-            raise ValueError("{} not in timespan collection.".format(timespan))
+            raise ValueError("{} not in interval tree.".format(timespan))
         index = node.payload.index(ctimespan) + node.node_start_index
         return index
 

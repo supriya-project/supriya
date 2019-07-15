@@ -3,13 +3,13 @@ from supriya.system.SupriyaObject import SupriyaObject
 
 class TimespanSimultaneity(SupriyaObject):
     """
-    A simultaneity of timespans in a timespan collection.
+    A simultaneity of timespans in a interval tree.
     """
 
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        "_timespan_collection",
+        "_interval_tree",
         "_overlap_timespans",
         "_start_timespans",
         "_start_offset",
@@ -20,13 +20,13 @@ class TimespanSimultaneity(SupriyaObject):
 
     def __init__(
         self,
-        timespan_collection=None,
+        interval_tree=None,
         overlap_timespans=None,
         start_timespans=None,
         start_offset=None,
         stop_timespans=None,
     ):
-        self._timespan_collection = timespan_collection
+        self._interval_tree = interval_tree
         self._start_offset = start_offset
         self._start_timespans = start_timespans
         self._stop_timespans = stop_timespans
@@ -53,7 +53,7 @@ class TimespanSimultaneity(SupriyaObject):
         collection.
         """
         # TODO: This doesn't take into account stop offsets
-        tree = self._timespan_collection
+        tree = self._interval_tree
         if tree is None:
             return None
         start_offset = tree.get_start_offset_after(self.start_offset)
@@ -65,9 +65,9 @@ class TimespanSimultaneity(SupriyaObject):
     def next_start_offset(self):
         """
         Gets the next simultaneity start offset in this simultaneity's
-        timespan collection.
+        interval tree.
         """
-        tree = self._timespan_collection
+        tree = self._interval_tree
         if tree is None:
             return None
         start_offset = tree.get_start_offset_after(self.start_offset)
@@ -88,7 +88,7 @@ class TimespanSimultaneity(SupriyaObject):
         collection.
         """
         # TODO: This doesn't take into account stop offsets
-        tree = self._timespan_collection
+        tree = self._interval_tree
         if tree is None:
             return None
         start_offset = tree.get_start_offset_before(self.start_offset)
@@ -100,9 +100,9 @@ class TimespanSimultaneity(SupriyaObject):
     def previous_start_offset(self):
         """
         Gets the previous simultaneity start offset in this simultaneity's
-        timespan collection.
+        interval tree.
         """
-        tree = self._timespan_collection
+        tree = self._interval_tree
         if tree is None:
             return None
         start_offset = tree.get_start_offset_before(self.start_offset)
@@ -132,8 +132,8 @@ class TimespanSimultaneity(SupriyaObject):
         return self._stop_timespans
 
     @property
-    def timespan_collection(self):
+    def interval_tree(self):
         """
-        Gets this simultaneity's timespan collection.
+        Gets this simultaneity's interval tree.
         """
-        return self._timespan_collection
+        return self._interval_tree

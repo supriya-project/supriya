@@ -83,7 +83,7 @@ cdef class _CNode:
         self.subtree_stop_index = -1
 
 
-cdef class TimespanCollectionDriverEx:
+cdef class IntervalTreeDriverEx:
     """
     A mutable always-sorted collection of timespans.
 
@@ -98,7 +98,7 @@ cdef class TimespanCollectionDriverEx:
         ...     abjad.timespans.Timespan(2, 5),
         ...     abjad.timespans.Timespan(6, 9),
         ...     )
-        >>> timespan_collection = supriya.time.TimespanCollectionDriverEx(timespans)
+        >>> interval_tree = supriya.time.IntervalTreeDriverEx(timespans)
 
     """
 
@@ -690,9 +690,9 @@ cdef class TimespanCollectionDriverEx:
         ctimespan = _CTimespan.from_timespan(timespan)
         node = self._search(self._root_node, ctimespan.start_offset)
         if node is None:
-            raise ValueError('{} not in timespan collection.'.format(timespan))
+            raise ValueError('{} not in interval tree.'.format(timespan))
         if ctimespan not in node.payload:
-            raise ValueError('{} not in timespan collection.'.format(timespan))
+            raise ValueError('{} not in interval tree.'.format(timespan))
         index = node.payload.index(ctimespan) + node.node_start_index
         return index
 

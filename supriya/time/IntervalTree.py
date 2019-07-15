@@ -1,9 +1,9 @@
 from supriya.system.SupriyaObject import SupriyaObject
-from supriya.time.TimespanCollectionDriver import TimespanCollectionDriver
+from supriya.time.IntervalTreeDriver import IntervalTreeDriver
 from supriya.time.TimespanSimultaneity import TimespanSimultaneity
 
 
-class TimespanCollection(SupriyaObject):
+class IntervalTree(SupriyaObject):
     """
     A mutable always-sorted collection of timespans.
 
@@ -18,23 +18,23 @@ class TimespanCollection(SupriyaObject):
         ...     abjad.timespans.Timespan(2, 5),
         ...     abjad.timespans.Timespan(6, 9),
         ...     )
-        >>> timespan_collection = supriya.time.TimespanCollection(timespans)
+        >>> interval_tree = supriya.time.IntervalTree(timespans)
 
     """
 
     ### INITIALIZER ###
 
     def __init__(self, timespans=None, accelerated=True):
-        self._driver = TimespanCollectionDriver(timespans)
+        self._driver = IntervalTreeDriver(timespans)
         self._accelerated = bool(accelerated)
         if accelerated:
             try:
                 import pyximport  # noqa
-                from supriya.time.TimespanCollectionDriverEx import (
-                    TimespanCollectionDriverEx,
+                from supriya.time.IntervalTreeDriverEx import (
+                    IntervalTreeDriverEx,
                 )
 
-                self._driver = TimespanCollectionDriverEx(timespans)
+                self._driver = IntervalTreeDriverEx(timespans)
             except (ImportError, ModuleNotFoundError):
                 pass
 
@@ -50,7 +50,7 @@ class TimespanCollection(SupriyaObject):
 
     def __contains__(self, timespan):
         """
-        Is true if this timespan collection contains `timespan`. Otherwise
+        Is true if this interval tree contains `timespan`. Otherwise
         false.
 
         ::
@@ -63,16 +63,16 @@ class TimespanCollection(SupriyaObject):
             ...     abjad.timespans.Timespan(2, 5),
             ...     abjad.timespans.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = supriya.time.TimespanCollection(timespans)
+            >>> interval_tree = supriya.time.IntervalTree(timespans)
 
         ::
 
-            >>> timespans[0] in timespan_collection
+            >>> timespans[0] in interval_tree
             True
 
         ::
 
-            >>> abjad.timespans.Timespan(-1, 100) in timespan_collection
+            >>> abjad.timespans.Timespan(-1, 100) in interval_tree
             False
 
         Returns boolean.
@@ -93,16 +93,16 @@ class TimespanCollection(SupriyaObject):
             ...     abjad.timespans.Timespan(2, 5),
             ...     abjad.timespans.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = supriya.time.TimespanCollection(timespans)
+            >>> interval_tree = supriya.time.IntervalTree(timespans)
 
         ::
 
-            >>> timespan_collection[-1]
+            >>> interval_tree[-1]
             Timespan(start_offset=Offset(6, 1), stop_offset=Offset(9, 1))
 
         ::
 
-            >>> for timespan in timespan_collection[:3]:
+            >>> for timespan in interval_tree[:3]:
             ...     timespan
             ...
             Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))
@@ -118,7 +118,7 @@ class TimespanCollection(SupriyaObject):
 
     def __iter__(self):
         """
-        Iterates timespans in this timespan collection.
+        Iterates timespans in this interval tree.
 
         ::
 
@@ -130,11 +130,11 @@ class TimespanCollection(SupriyaObject):
             ...     abjad.timespans.Timespan(2, 5),
             ...     abjad.timespans.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = supriya.time.TimespanCollection(timespans)
+            >>> interval_tree = supriya.time.IntervalTree(timespans)
 
         ::
 
-            >>> for timespan in timespan_collection:
+            >>> for timespan in interval_tree:
             ...     timespan
             ...
             Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))
@@ -149,7 +149,7 @@ class TimespanCollection(SupriyaObject):
 
     def __len__(self):
         """
-        Gets length of this timespan collection.
+        Gets length of this interval tree.
 
         ::
 
@@ -161,11 +161,11 @@ class TimespanCollection(SupriyaObject):
             ...     abjad.timespans.Timespan(2, 5),
             ...     abjad.timespans.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = supriya.time.TimespanCollection(timespans)
+            >>> interval_tree = supriya.time.IntervalTree(timespans)
 
         ::
 
-            >>> len(timespan_collection)
+            >>> len(interval_tree)
             5
 
         Returns integer.
@@ -186,11 +186,11 @@ class TimespanCollection(SupriyaObject):
             ...     abjad.timespans.Timespan(2, 5),
             ...     abjad.timespans.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = supriya.time.TimespanCollection(timespans)
+            >>> interval_tree = supriya.time.IntervalTree(timespans)
 
         ::
 
-            >>> timespan_collection[:3] = [abjad.timespans.Timespan(100, 200)]
+            >>> interval_tree[:3] = [abjad.timespans.Timespan(100, 200)]
 
         Returns none.
         """
@@ -216,7 +216,7 @@ class TimespanCollection(SupriyaObject):
         ::
 
             >>> import abjad.timespans
-            >>> timespan_collection = supriya.time.TimespanCollection([
+            >>> interval_tree = supriya.time.IntervalTree([
             ...     abjad.timespans.Timespan(0, 16),
             ...     abjad.timespans.Timespan(5, 12),
             ...     abjad.timespans.Timespan(-2, 8),
@@ -225,11 +225,11 @@ class TimespanCollection(SupriyaObject):
         ::
 
             >>> timespan = abjad.timespans.Timespan(5, 10)
-            >>> result = timespan_collection - timespan
+            >>> result = interval_tree - timespan
 
         ::
 
-            >>> for timespan in timespan_collection:
+            >>> for timespan in interval_tree:
             ...     timespan
             ...
             Timespan(start_offset=Offset(-2, 1), stop_offset=Offset(5, 1))
@@ -237,7 +237,7 @@ class TimespanCollection(SupriyaObject):
             Timespan(start_offset=Offset(10, 1), stop_offset=Offset(12, 1))
             Timespan(start_offset=Offset(10, 1), stop_offset=Offset(16, 1))
 
-        Operates in place and returns timespan collection.
+        Operates in place and returns interval tree.
         """
         if not self._is_timespan(timespan):
             raise ValueError(timespan)
@@ -278,11 +278,11 @@ class TimespanCollection(SupriyaObject):
                 ...     abjad.timespans.Timespan(2, 5),
                 ...     abjad.timespans.Timespan(6, 9),
                 ...     )
-                >>> timespan_collection = supriya.time.TimespanCollection(timespans)
+                >>> interval_tree = supriya.time.IntervalTree(timespans)
 
             ::
 
-                >>> for x in timespan_collection.find_intersection(1.5):
+                >>> for x in interval_tree.find_intersection(1.5):
                 ...     x
                 ...
                 Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))
@@ -302,12 +302,12 @@ class TimespanCollection(SupriyaObject):
                 ...     abjad.timespans.Timespan(2, 5),
                 ...     abjad.timespans.Timespan(6, 9),
                 ...     )
-                >>> timespan_collection = supriya.time.TimespanCollection(timespans)
+                >>> interval_tree = supriya.time.IntervalTree(timespans)
 
             ::
 
                 >>> timespan = abjad.timespans.Timespan(2, 4)
-                >>> for x in timespan_collection.find_intersection(timespan):
+                >>> for x in interval_tree.find_intersection(timespan):
                 ...     x
                 ...
                 Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))
@@ -339,16 +339,16 @@ class TimespanCollection(SupriyaObject):
             ...     abjad.timespans.Timespan(2, 5),
             ...     abjad.timespans.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = supriya.time.TimespanCollection(timespans)
+            >>> interval_tree = supriya.time.IntervalTree(timespans)
 
         ::
 
-            >>> timespan_collection.get_simultaneity_at(1)
+            >>> interval_tree.get_simultaneity_at(1)
             <TimespanSimultaneity(1 <<3>>)>
 
         ::
 
-            >>> timespan_collection.get_simultaneity_at(6.5)
+            >>> interval_tree.get_simultaneity_at(6.5)
             <TimespanSimultaneity(6.5 <<1>>)>
 
         """
@@ -360,7 +360,7 @@ class TimespanCollection(SupriyaObject):
             else:
                 overlap_timespans.append(timespan)
         simultaneity = TimespanSimultaneity(
-            timespan_collection=self,
+            interval_tree=self,
             overlap_timespans=overlap_timespans,
             start_timespans=start_timespans,
             start_offset=offset,
@@ -382,12 +382,12 @@ class TimespanCollection(SupriyaObject):
             ...     abjad.timespans.Timespan(2, 5),
             ...     abjad.timespans.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = supriya.time.TimespanCollection(timespans)
+            >>> interval_tree = supriya.time.IntervalTree(timespans)
 
         ::
 
             >>> for i in range(-1, 11):
-            ...     print(i, timespan_collection.get_offset_after(i))
+            ...     print(i, interval_tree.get_offset_after(i))
             ...
             -1 0.0
             0 1.0
@@ -407,7 +407,7 @@ class TimespanCollection(SupriyaObject):
 
     def get_start_offset_after(self, offset):
         """
-        Gets start offst in this timespan collection after `offset`.
+        Gets start offst in this interval tree after `offset`.
 
         ::
 
@@ -419,31 +419,31 @@ class TimespanCollection(SupriyaObject):
             ...     abjad.timespans.Timespan(2, 5),
             ...     abjad.timespans.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = supriya.time.TimespanCollection(timespans)
+            >>> interval_tree = supriya.time.IntervalTree(timespans)
 
         ::
 
-            >>> timespan_collection.get_start_offset_after(-1)
+            >>> interval_tree.get_start_offset_after(-1)
             0.0
 
         ::
 
-            >>> timespan_collection.get_start_offset_after(0)
+            >>> interval_tree.get_start_offset_after(0)
             1.0
 
         ::
 
-            >>> timespan_collection.get_start_offset_after(1)
+            >>> interval_tree.get_start_offset_after(1)
             2.0
 
         ::
 
-            >>> timespan_collection.get_start_offset_after(2)
+            >>> interval_tree.get_start_offset_after(2)
             6.0
 
         ::
 
-            >>> timespan_collection.get_start_offset_after(6) is None
+            >>> interval_tree.get_start_offset_after(6) is None
             True
 
         """
@@ -451,7 +451,7 @@ class TimespanCollection(SupriyaObject):
 
     def get_start_offset_before(self, offset):
         """
-        Gets start offst in this timespan collection before `offset`.
+        Gets start offst in this interval tree before `offset`.
 
         ::
 
@@ -463,31 +463,31 @@ class TimespanCollection(SupriyaObject):
             ...     abjad.timespans.Timespan(2, 5),
             ...     abjad.timespans.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = supriya.time.TimespanCollection(timespans)
+            >>> interval_tree = supriya.time.IntervalTree(timespans)
 
         ::
 
-            >>> timespan_collection.get_start_offset_before(7)
+            >>> interval_tree.get_start_offset_before(7)
             6.0
 
         ::
 
-            >>> timespan_collection.get_start_offset_before(6)
+            >>> interval_tree.get_start_offset_before(6)
             2.0
 
         ::
 
-            >>> timespan_collection.get_start_offset_before(2)
+            >>> interval_tree.get_start_offset_before(2)
             1.0
 
         ::
 
-            >>> timespan_collection.get_start_offset_before(1)
+            >>> interval_tree.get_start_offset_before(1)
             0.0
 
         ::
 
-            >>> timespan_collection.get_start_offset_before(0) is None
+            >>> interval_tree.get_start_offset_before(0) is None
             True
 
         """
@@ -504,7 +504,7 @@ class TimespanCollection(SupriyaObject):
 
     def iterate_simultaneities(self, reverse=False):
         """
-        Iterates simultaneities in this timespan collection.
+        Iterates simultaneities in this interval tree.
 
         ::
 
@@ -516,11 +516,11 @@ class TimespanCollection(SupriyaObject):
             ...     abjad.timespans.Timespan(2, 5),
             ...     abjad.timespans.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = supriya.time.TimespanCollection(timespans)
+            >>> interval_tree = supriya.time.IntervalTree(timespans)
 
         ::
 
-            >>> for x in timespan_collection.iterate_simultaneities():
+            >>> for x in interval_tree.iterate_simultaneities():
             ...     x
             ...
             <TimespanSimultaneity(0.0 <<1>>)>
@@ -530,7 +530,7 @@ class TimespanCollection(SupriyaObject):
 
         ::
 
-            >>> for x in timespan_collection.iterate_simultaneities(
+            >>> for x in interval_tree.iterate_simultaneities(
             ...     reverse=True):
             ...     x
             ...
@@ -561,7 +561,7 @@ class TimespanCollection(SupriyaObject):
 
     def iterate_simultaneities_nwise(self, n=3, reverse=False):
         """
-        Iterates simultaneities in this timespan collection in groups of
+        Iterates simultaneities in this interval tree in groups of
         `n`.
 
         ::
@@ -574,11 +574,11 @@ class TimespanCollection(SupriyaObject):
             ...     abjad.timespans.Timespan(2, 5),
             ...     abjad.timespans.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = supriya.time.TimespanCollection(timespans)
+            >>> interval_tree = supriya.time.IntervalTree(timespans)
 
         ::
 
-            >>> for x in timespan_collection.iterate_simultaneities_nwise(n=2):
+            >>> for x in interval_tree.iterate_simultaneities_nwise(n=2):
             ...     x
             ...
             [<TimespanSimultaneity(0.0 <<1>>)>, <TimespanSimultaneity(1.0 <<3>>)>]
@@ -587,7 +587,7 @@ class TimespanCollection(SupriyaObject):
 
         ::
 
-            >>> for x in timespan_collection.iterate_simultaneities_nwise(
+            >>> for x in interval_tree.iterate_simultaneities_nwise(
             ...     n=2, reverse=True):
             ...     x
             ...
@@ -622,7 +622,7 @@ class TimespanCollection(SupriyaObject):
 
     def remove(self, timespan):
         """
-        Removes timespan from this timespan collection.
+        Removes timespan from this interval tree.
 
         ::
 
@@ -634,17 +634,17 @@ class TimespanCollection(SupriyaObject):
             ...     abjad.timespans.Timespan(2, 5),
             ...     abjad.timespans.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = supriya.time.TimespanCollection(timespans)
+            >>> interval_tree = supriya.time.IntervalTree(timespans)
 
         ::
 
             >>> for timespan in timespans[1:-1]:
-            ...     timespan_collection.remove(timespan)
+            ...     interval_tree.remove(timespan)
             ...
 
         ::
 
-            >>> for timespan in timespan_collection:
+            >>> for timespan in interval_tree:
             ...     timespan
             ...
             Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))

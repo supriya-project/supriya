@@ -141,9 +141,9 @@ class Session:
             output_bus_channel_count=output_bus_channel_count,
         )
         self._active_moments = []
-        self._buffers = supriya.time.TimespanCollection(accelerated=True)
+        self._buffers = supriya.time.IntervalTree(accelerated=True)
         self._name = name
-        self._nodes = supriya.time.TimespanCollection(accelerated=True)
+        self._nodes = supriya.time.IntervalTree(accelerated=True)
         self._offsets = []
         self._root_node = supriya.nonrealtime.RootNode(self)
         self._session_ids = {}
