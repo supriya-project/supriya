@@ -1,4 +1,4 @@
-from supriya.live import Clip, Note
+from supriya.daw import Clip, Note
 
 notes = (
     Note(-1, 3, pitch=-2),
