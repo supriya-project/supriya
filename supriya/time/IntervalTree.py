@@ -1,6 +1,6 @@
 from supriya.system.SupriyaObject import SupriyaObject
 from supriya.time.IntervalTreeDriver import IntervalTreeDriver
-from supriya.time.TimespanSimultaneity import TimespanSimultaneity
+from supriya.time.Moment import Moment
 
 
 class IntervalTree(SupriyaObject):
@@ -325,9 +325,9 @@ class IntervalTree(SupriyaObject):
     def find_timespans_stopping_at(self, offset):
         return self._driver.find_timespans_stopping_at(offset)
 
-    def get_simultaneity_at(self, offset):
+    def get_moment_at(self, offset):
         """
-        Gets simultaneity at `offset`.
+        Gets moment at `offset`.
 
         ::
 
@@ -343,13 +343,13 @@ class IntervalTree(SupriyaObject):
 
         ::
 
-            >>> interval_tree.get_simultaneity_at(1)
-            <TimespanSimultaneity(1 <<3>>)>
+            >>> interval_tree.get_moment_at(1)
+            <Moment(1 <<3>>)>
 
         ::
 
-            >>> interval_tree.get_simultaneity_at(6.5)
-            <TimespanSimultaneity(6.5 <<1>>)>
+            >>> interval_tree.get_moment_at(6.5)
+            <Moment(6.5 <<1>>)>
 
         """
         stop_timespans = self.find_timespans_stopping_at(offset)
@@ -359,14 +359,14 @@ class IntervalTree(SupriyaObject):
                 start_timespans.append(timespan)
             else:
                 overlap_timespans.append(timespan)
-        simultaneity = TimespanSimultaneity(
+        moment = Moment(
             interval_tree=self,
             overlap_timespans=overlap_timespans,
             start_timespans=start_timespans,
             start_offset=offset,
             stop_timespans=stop_timespans,
         )
-        return simultaneity
+        return moment
 
     def get_offset_after(self, offset):
         """
@@ -523,10 +523,10 @@ class IntervalTree(SupriyaObject):
             >>> for x in interval_tree.iterate_simultaneities():
             ...     x
             ...
-            <TimespanSimultaneity(0.0 <<1>>)>
-            <TimespanSimultaneity(1.0 <<3>>)>
-            <TimespanSimultaneity(2.0 <<3>>)>
-            <TimespanSimultaneity(6.0 <<1>>)>
+            <Moment(0.0 <<1>>)>
+            <Moment(1.0 <<3>>)>
+            <Moment(2.0 <<3>>)>
+            <Moment(6.0 <<1>>)>
 
         ::
 
@@ -534,30 +534,30 @@ class IntervalTree(SupriyaObject):
             ...     reverse=True):
             ...     x
             ...
-            <TimespanSimultaneity(6.0 <<1>>)>
-            <TimespanSimultaneity(2.0 <<3>>)>
-            <TimespanSimultaneity(1.0 <<3>>)>
-            <TimespanSimultaneity(0.0 <<1>>)>
+            <Moment(6.0 <<1>>)>
+            <Moment(2.0 <<3>>)>
+            <Moment(1.0 <<3>>)>
+            <Moment(0.0 <<1>>)>
 
         Returns generator.
         """
 
         if reverse:
             start_offset = self.latest_start_offset
-            simultaneity = self.get_simultaneity_at(start_offset)
-            yield simultaneity
-            simultaneity = simultaneity.previous_simultaneity
-            while simultaneity is not None:
-                yield simultaneity
-                simultaneity = simultaneity.previous_simultaneity
+            moment = self.get_moment_at(start_offset)
+            yield moment
+            moment = moment.previous_moment
+            while moment is not None:
+                yield moment
+                moment = moment.previous_moment
         else:
             start_offset = self.earliest_start_offset
-            simultaneity = self.get_simultaneity_at(start_offset)
-            yield simultaneity
-            simultaneity = simultaneity.next_simultaneity
-            while simultaneity is not None:
-                yield simultaneity
-                simultaneity = simultaneity.next_simultaneity
+            moment = self.get_moment_at(start_offset)
+            yield moment
+            moment = moment.next_moment
+            while moment is not None:
+                yield moment
+                moment = moment.next_moment
 
     def iterate_simultaneities_nwise(self, n=3, reverse=False):
         """
@@ -581,9 +581,9 @@ class IntervalTree(SupriyaObject):
             >>> for x in interval_tree.iterate_simultaneities_nwise(n=2):
             ...     x
             ...
-            [<TimespanSimultaneity(0.0 <<1>>)>, <TimespanSimultaneity(1.0 <<3>>)>]
-            [<TimespanSimultaneity(1.0 <<3>>)>, <TimespanSimultaneity(2.0 <<3>>)>]
-            [<TimespanSimultaneity(2.0 <<3>>)>, <TimespanSimultaneity(6.0 <<1>>)>]
+            [<Moment(0.0 <<1>>)>, <Moment(1.0 <<3>>)>]
+            [<Moment(1.0 <<3>>)>, <Moment(2.0 <<3>>)>]
+            [<Moment(2.0 <<3>>)>, <Moment(6.0 <<1>>)>]
 
         ::
 
@@ -591,32 +591,32 @@ class IntervalTree(SupriyaObject):
             ...     n=2, reverse=True):
             ...     x
             ...
-            [<TimespanSimultaneity(2.0 <<3>>)>, <TimespanSimultaneity(6.0 <<1>>)>]
-            [<TimespanSimultaneity(1.0 <<3>>)>, <TimespanSimultaneity(2.0 <<3>>)>]
-            [<TimespanSimultaneity(0.0 <<1>>)>, <TimespanSimultaneity(1.0 <<3>>)>]
+            [<Moment(2.0 <<3>>)>, <Moment(6.0 <<1>>)>]
+            [<Moment(1.0 <<3>>)>, <Moment(2.0 <<3>>)>]
+            [<Moment(0.0 <<1>>)>, <Moment(1.0 <<3>>)>]
 
         Returns generator.
         """
         n = int(n)
         assert 0 < n
         if reverse:
-            for simultaneity in self.iterate_simultaneities(reverse=True):
-                simultaneities = [simultaneity]
+            for moment in self.iterate_simultaneities(reverse=True):
+                simultaneities = [moment]
                 while len(simultaneities) < n:
-                    next_simultaneity = simultaneities[-1].next_simultaneity
-                    if next_simultaneity is None:
+                    next_moment = simultaneities[-1].next_moment
+                    if next_moment is None:
                         break
-                    simultaneities.append(next_simultaneity)
+                    simultaneities.append(next_moment)
                 if len(simultaneities) == n:
                     yield simultaneities
         else:
-            for simultaneity in self.iterate_simultaneities():
-                simultaneities = [simultaneity]
+            for moment in self.iterate_simultaneities():
+                simultaneities = [moment]
                 while len(simultaneities) < n:
-                    previous_simultaneity = simultaneities[-1].previous_simultaneity
-                    if previous_simultaneity is None:
+                    previous_moment = simultaneities[-1].previous_moment
+                    if previous_moment is None:
                         break
-                    simultaneities.append(previous_simultaneity)
+                    simultaneities.append(previous_moment)
                 if len(simultaneities) == n:
                     yield list(reversed(simultaneities))
 

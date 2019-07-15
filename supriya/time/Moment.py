@@ -1,9 +1,9 @@
 from supriya.system.SupriyaObject import SupriyaObject
 
 
-class TimespanSimultaneity(SupriyaObject):
+class Moment(SupriyaObject):
     """
-    A simultaneity of timespans in a interval tree.
+    A moment of timespans in a interval tree.
     """
 
     ### CLASS VARIABLES ###
@@ -36,7 +36,7 @@ class TimespanSimultaneity(SupriyaObject):
 
     def __repr__(self):
         """
-        Gets the repr of this simultaneity.
+        Gets the repr of this moment.
         """
         return "<{}({} <<{}>>)>".format(
             type(self).__name__,
@@ -47,9 +47,9 @@ class TimespanSimultaneity(SupriyaObject):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def next_simultaneity(self):
+    def next_moment(self):
         """
-        Gets the next simultaneity in this simultaneity's timespan
+        Gets the next moment in this moment's timespan
         collection.
         """
         # TODO: This doesn't take into account stop offsets
@@ -59,12 +59,12 @@ class TimespanSimultaneity(SupriyaObject):
         start_offset = tree.get_start_offset_after(self.start_offset)
         if start_offset is None:
             return None
-        return tree.get_simultaneity_at(start_offset)
+        return tree.get_moment_at(start_offset)
 
     @property
     def next_start_offset(self):
         """
-        Gets the next simultaneity start offset in this simultaneity's
+        Gets the next moment start offset in this moment's
         interval tree.
         """
         tree = self._interval_tree
@@ -76,15 +76,15 @@ class TimespanSimultaneity(SupriyaObject):
     @property
     def overlap_timespans(self):
         """
-        Gets the timespans in this simultaneity which overlap this
-        simultaneity's start offset.
+        Gets the timespans in this moment which overlap this
+        moment's start offset.
         """
         return self._overlap_timespans
 
     @property
-    def previous_simultaneity(self):
+    def previous_moment(self):
         """
-        Gets the previous simultaneity in this simultaneity's timespan
+        Gets the previous moment in this moment's timespan
         collection.
         """
         # TODO: This doesn't take into account stop offsets
@@ -94,12 +94,12 @@ class TimespanSimultaneity(SupriyaObject):
         start_offset = tree.get_start_offset_before(self.start_offset)
         if start_offset is None:
             return None
-        return tree.get_simultaneity_at(start_offset)
+        return tree.get_moment_at(start_offset)
 
     @property
     def previous_start_offset(self):
         """
-        Gets the previous simultaneity start offset in this simultaneity's
+        Gets the previous moment start offset in this moment's
         interval tree.
         """
         tree = self._interval_tree
@@ -111,29 +111,29 @@ class TimespanSimultaneity(SupriyaObject):
     @property
     def start_offset(self):
         """
-        Gets this simultaneity's start offset.
+        Gets this moment's start offset.
         """
         return self._start_offset
 
     @property
     def start_timespans(self):
         """
-        Gets the timespans in this simultaneity which start at this
-        simultaneity's start offset.
+        Gets the timespans in this moment which start at this
+        moment's start offset.
         """
         return self._start_timespans
 
     @property
     def stop_timespans(self):
         """
-        Gets the timespans in this simultaneity which stop at this
-        simultaneity's start offset.
+        Gets the timespans in this moment which stop at this
+        moment's start offset.
         """
         return self._stop_timespans
 
     @property
     def interval_tree(self):
         """
-        Gets this simultaneity's interval tree.
+        Gets this moment's interval tree.
         """
         return self._interval_tree

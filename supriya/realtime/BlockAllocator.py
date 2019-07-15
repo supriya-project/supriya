@@ -102,11 +102,11 @@ class BlockAllocator(SupriyaObject):
         with self._lock:
             start_offset = index
             stop_offset = index + desired_block_size
-            start_cursor = self._free_heap.get_simultaneity_at(start_offset)
+            start_cursor = self._free_heap.get_moment_at(start_offset)
             starting_blocks = sorted(
                 start_cursor.start_timespans + start_cursor.overlap_timespans
             )
-            stop_cursor = self._free_heap.get_simultaneity_at(stop_offset)
+            stop_cursor = self._free_heap.get_moment_at(stop_offset)
             stop_blocks = sorted(
                 stop_cursor.overlap_timespans + stop_cursor.stop_timespans
             )
@@ -129,7 +129,7 @@ class BlockAllocator(SupriyaObject):
 
         block_id = int(block_id)
         with self._lock:
-            cursor = self._used_heap.get_simultaneity_at(block_id)
+            cursor = self._used_heap.get_moment_at(block_id)
             blocks = sorted(
                 set(cursor.start_timespans) or set(cursor.overlap_timespans)
             )

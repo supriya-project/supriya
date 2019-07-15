@@ -51,7 +51,7 @@ def make_expected_start_offsets(range_=10, timespans=None):
     return offsets
 
 
-def make_simultaneity_fixtures(range_=10, timespans=None):
+def make_moment_fixtures(range_=10, timespans=None):
     if not timespans:
         timespans = make_timespans()
     fixtures = {}
@@ -334,7 +334,7 @@ def test_find_timespans_stopping_at(accelerated):
 
 @pytest.mark.timeout(60)
 @pytest.mark.parametrize("accelerated", [True, False])
-def test_get_simultaneity_at(accelerated):
+def test_get_moment_at(accelerated):
     iterations = 100
     count, range_ = 10, 15
     for i in range(iterations):
@@ -343,17 +343,17 @@ def test_get_simultaneity_at(accelerated):
         interval_tree = make_timespan_collection(
             accelerated=accelerated, timespans=timespans
         )
-        fixtures = make_simultaneity_fixtures(range_=range_, timespans=timespans)
+        fixtures = make_moment_fixtures(range_=range_, timespans=timespans)
         for offset in range(range_):
             overlaps, starts, stops = fixtures[offset]
-            expected = supriya.time.TimespanSimultaneity(
+            expected = supriya.time.Moment(
                 overlap_timespans=overlaps,
                 start_offset=offset,
                 start_timespans=starts,
                 stop_timespans=stops,
                 interval_tree=interval_tree,
             )
-            actual = interval_tree.get_simultaneity_at(offset)
+            actual = interval_tree.get_moment_at(offset)
             assert expected.interval_tree is actual.interval_tree
             assert expected.start_offset == actual.start_offset
             assert expected.start_timespans == actual.start_timespans

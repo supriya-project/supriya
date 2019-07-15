@@ -133,13 +133,13 @@ class Clip:
             self._notes.update(new_notes)
 
     def at(self, offset, start_delta=0.0, force_stop=False):
-        def get_nonstart_notes(simultaneity):
+        def get_nonstart_notes(moment):
             stop_notes = [
-                note for note in simultaneity.stop_timespans if note.start_offset >= 0
+                note for note in moment.stop_timespans if note.start_offset >= 0
             ]
             overlap_notes = [
                 note
-                for note in simultaneity.overlap_timespans
+                for note in moment.overlap_timespans
                 if note.start_offset >= 0
             ]
             return stop_notes, overlap_notes
@@ -159,23 +159,23 @@ class Clip:
         if self.is_looping:
             count, local_offset = divmod(local_offset, self.clip_stop)
             if not local_offset:  # at the loop boundary
-                simultaneity = self._notes.get_simultaneity_at(local_offset)
-                start_notes = simultaneity.start_timespans
+                moment = self._notes.get_moment_at(local_offset)
+                start_notes = moment.start_timespans
                 overlap_notes, stop_notes = [], []
                 if count:  # at end of loop
-                    simultaneity_two = self._notes.get_simultaneity_at(self.duration)
-                    stops, overlaps = get_nonstart_notes(simultaneity_two)
+                    moment_two = self._notes.get_moment_at(self.duration)
+                    stops, overlaps = get_nonstart_notes(moment_two)
                     stop_notes.extend(stops)
                     stop_notes.extend(overlaps)
             else:  # in the middle of the loop
-                simultaneity = self._notes.get_simultaneity_at(local_offset)
-                start_notes = simultaneity.start_timespans
-                stop_notes, overlap_notes = get_nonstart_notes(simultaneity)
+                moment = self._notes.get_moment_at(local_offset)
+                start_notes = moment.start_timespans
+                stop_notes, overlap_notes = get_nonstart_notes(moment)
             loop_delta = count * self.duration
         else:  # non-looping
-            simultaneity = self._notes.get_simultaneity_at(local_offset)
-            start_notes = simultaneity.start_timespans
-            stop_notes, overlap_notes = get_nonstart_notes(simultaneity)
+            moment = self._notes.get_moment_at(local_offset)
+            start_notes = moment.start_timespans
+            stop_notes, overlap_notes = get_nonstart_notes(moment)
         # next offset could be from a pre-zero timespan, but who cares?
         next_offset = self._notes.get_offset_after(local_offset)
         if next_offset is not None:

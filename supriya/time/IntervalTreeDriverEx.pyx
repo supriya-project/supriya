@@ -1,4 +1,4 @@
-from supriya.time.TimespanSimultaneity import TimespanSimultaneity
+from supriya.time.Moment import Moment
 from supriya.system.SupriyaObject import SupriyaObject
 
 
