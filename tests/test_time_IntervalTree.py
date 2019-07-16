@@ -364,12 +364,12 @@ def test_insert(accelerated):
 
 
 @pytest.mark.parametrize("accelerated", [True, False])
-def test_iterate_simultaneities(accelerated):
+def test_iterate_moments(accelerated):
     interval_tree = make_interval_tree(accelerated=accelerated, populated=True)
-    simultaneities = list(interval_tree.iterate_simultaneities())
-    assert [x.start_offset for x in simultaneities] == [0, 1, 2, 6]
-    simultaneities = list(interval_tree.iterate_simultaneities(reverse=True))
-    assert [x.start_offset for x in simultaneities] == [6, 2, 1, 0]
+    moments = list(interval_tree.iterate_moments())
+    assert [x.start_offset for x in moments] == [0, 1, 2, 6]
+    moments = list(interval_tree.iterate_moments(reverse=True))
+    assert [x.start_offset for x in moments] == [6, 2, 1, 0]
 
 
 @pytest.mark.parametrize("accelerated", [True, False])

@@ -509,9 +509,9 @@ class IntervalTree(SupriyaObject):
     def update(self, timespans):
         self._driver.update(timespans)
 
-    def iterate_simultaneities(self, reverse=False):
+    def iterate_moments(self, reverse=False):
         """
-        Iterates simultaneities in this interval tree.
+        Iterates moments in this interval tree.
 
         ::
 
@@ -527,7 +527,7 @@ class IntervalTree(SupriyaObject):
 
         ::
 
-            >>> for x in interval_tree.iterate_simultaneities():
+            >>> for x in interval_tree.iterate_moments():
             ...     x
             ...
             <Moment(0.0 <<1>>)>
@@ -537,7 +537,7 @@ class IntervalTree(SupriyaObject):
 
         ::
 
-            >>> for x in interval_tree.iterate_simultaneities(
+            >>> for x in interval_tree.iterate_moments(
             ...     reverse=True):
             ...     x
             ...
@@ -566,9 +566,9 @@ class IntervalTree(SupriyaObject):
                 yield moment
                 moment = moment.next_moment
 
-    def iterate_simultaneities_nwise(self, n=3, reverse=False):
+    def iterate_moments_nwise(self, n=3, reverse=False):
         """
-        Iterates simultaneities in this interval tree in groups of
+        Iterates moments in this interval tree in groups of
         `n`.
 
         ::
@@ -585,7 +585,7 @@ class IntervalTree(SupriyaObject):
 
         ::
 
-            >>> for x in interval_tree.iterate_simultaneities_nwise(n=2):
+            >>> for x in interval_tree.iterate_moments_nwise(n=2):
             ...     x
             ...
             [<Moment(0.0 <<1>>)>, <Moment(1.0 <<3>>)>]
@@ -594,7 +594,7 @@ class IntervalTree(SupriyaObject):
 
         ::
 
-            >>> for x in interval_tree.iterate_simultaneities_nwise(
+            >>> for x in interval_tree.iterate_moments_nwise(
             ...     n=2, reverse=True):
             ...     x
             ...
@@ -607,25 +607,25 @@ class IntervalTree(SupriyaObject):
         n = int(n)
         assert 0 < n
         if reverse:
-            for moment in self.iterate_simultaneities(reverse=True):
-                simultaneities = [moment]
-                while len(simultaneities) < n:
-                    next_moment = simultaneities[-1].next_moment
+            for moment in self.iterate_moments(reverse=True):
+                moments = [moment]
+                while len(moments) < n:
+                    next_moment = moments[-1].next_moment
                     if next_moment is None:
                         break
-                    simultaneities.append(next_moment)
-                if len(simultaneities) == n:
-                    yield simultaneities
+                    moments.append(next_moment)
+                if len(moments) == n:
+                    yield moments
         else:
-            for moment in self.iterate_simultaneities():
-                simultaneities = [moment]
-                while len(simultaneities) < n:
-                    previous_moment = simultaneities[-1].previous_moment
+            for moment in self.iterate_moments():
+                moments = [moment]
+                while len(moments) < n:
+                    previous_moment = moments[-1].previous_moment
                     if previous_moment is None:
                         break
-                    simultaneities.append(previous_moment)
-                if len(simultaneities) == n:
-                    yield list(reversed(simultaneities))
+                    moments.append(previous_moment)
+                if len(moments) == n:
+                    yield list(reversed(moments))
 
     def remove(self, timespan):
         """
