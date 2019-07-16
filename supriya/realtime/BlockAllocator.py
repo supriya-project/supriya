@@ -106,11 +106,11 @@ class BlockAllocator(SupriyaObject):
             stop_offset = index + desired_block_size
             start_cursor = self._free_heap.get_moment_at(start_offset)
             starting_blocks = sorted(
-                start_cursor.start_timespans + start_cursor.overlap_timespans
+                start_cursor.start_intervals + start_cursor.overlap_intervals
             )
             stop_cursor = self._free_heap.get_moment_at(stop_offset)
             stop_blocks = sorted(
-                stop_cursor.overlap_timespans + stop_cursor.stop_timespans
+                stop_cursor.overlap_intervals + stop_cursor.stop_intervals
             )
             if starting_blocks == stop_blocks:
                 assert len(starting_blocks) == 1
@@ -135,20 +135,20 @@ class BlockAllocator(SupriyaObject):
         with self._lock:
             cursor = self._used_heap.get_moment_at(block_id)
             blocks = sorted(
-                set(cursor.start_timespans) or set(cursor.overlap_timespans)
+                set(cursor.start_intervals) or set(cursor.overlap_intervals)
             )
             assert len(blocks) == 1
             used_block = blocks[0]
             self._used_heap.remove(used_block)
             start_offset = used_block.start_offset
-            stopping_blocks = self._free_heap.find_timespans_stopping_at(start_offset)
+            stopping_blocks = self._free_heap.find_intervals_stopping_at(start_offset)
             if stopping_blocks:
                 assert len(stopping_blocks) == 1
                 stopping_block = stopping_blocks[0]
                 self._free_heap.remove(stopping_block)
                 start_offset = stopping_block.start_offset
             stop_offset = used_block.stop_offset
-            starting_blocks = self._free_heap.find_timespans_starting_at(stop_offset)
+            starting_blocks = self._free_heap.find_intervals_starting_at(stop_offset)
             if starting_blocks:
                 assert len(starting_blocks) == 1
                 starting_block = starting_blocks[0]
