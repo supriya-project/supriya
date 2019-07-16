@@ -138,9 +138,7 @@ class Clip:
                 note for note in moment.stop_timespans if note.start_offset >= 0
             ]
             overlap_notes = [
-                note
-                for note in moment.overlap_timespans
-                if note.start_offset >= 0
+                note for note in moment.overlap_timespans if note.start_offset >= 0
             ]
             return stop_notes, overlap_notes
 

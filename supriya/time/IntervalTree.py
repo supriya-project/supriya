@@ -1,3 +1,5 @@
+from uqbar.objects import get_repr
+
 from supriya.system.SupriyaObject import SupriyaObject
 from supriya.time.IntervalTreeDriver import IntervalTreeDriver
 from supriya.time.Moment import Moment
@@ -30,9 +32,7 @@ class IntervalTree(SupriyaObject):
         if accelerated:
             try:
                 import pyximport  # noqa
-                from supriya.time.IntervalTreeDriverEx import (
-                    IntervalTreeDriverEx,
-                )
+                from supriya.time.IntervalTreeDriverEx import IntervalTreeDriverEx
 
                 self._driver = IntervalTreeDriverEx(timespans)
             except (ImportError, ModuleNotFoundError):
@@ -171,6 +171,11 @@ class IntervalTree(SupriyaObject):
         Returns integer.
         """
         return len(self._driver)
+
+    def __repr__(self):
+        if not len(self):
+            return get_repr(self, multiline=False)
+        return get_repr(self, multiline=True)
 
     def __setitem__(self, i, new):
         """
@@ -728,3 +733,7 @@ class IntervalTree(SupriyaObject):
     @property
     def stop_offset(self):
         return self.latest_stop_offset
+
+    @property
+    def timespans(self):
+        return list(self)

@@ -1,4 +1,5 @@
 from typing import List, Tuple
+
 from supriya.realtime import Group
 
 from .Device import Device
