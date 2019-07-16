@@ -20,12 +20,7 @@ def read_version():
 
 version = read_version()
 
-install_requires = [
-    "PyYAML",
-    "appdirs",
-    "tqdm",
-    "uqbar >= 0.4.1",
-]
+install_requires = ["PyYAML", "appdirs", "tqdm", "uqbar >= 0.4.1"]
 
 if LooseVersion(sys.version.split()[0]) < LooseVersion("3.7.0"):
     install_requires.append("dataclasses")

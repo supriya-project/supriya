@@ -12,7 +12,10 @@ class Block(Interval):
     ### INITIALIZER ###
 
     def __init__(
-        self, start_offset: float = float("-inf"), stop_offset: float = float("inf"), used: bool = False
+        self,
+        start_offset: float = float("-inf"),
+        stop_offset: float = float("inf"),
+        used: bool = False,
     ):
         Interval.__init__(self, start_offset=start_offset, stop_offset=stop_offset)
         self._used = bool(used)
