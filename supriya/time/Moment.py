@@ -3,17 +3,17 @@ from supriya.system.SupriyaObject import SupriyaObject
 
 class Moment(SupriyaObject):
     """
-    A moment of timespans in a interval tree.
+    A moment of intervals in a interval tree.
     """
 
     ### CLASS VARIABLES ###
 
     __slots__ = (
         "_interval_tree",
-        "_overlap_timespans",
-        "_start_timespans",
+        "_overlap_intervals",
+        "_start_intervals",
         "_start_offset",
-        "_stop_timespans",
+        "_stop_intervals",
     )
 
     ### INITIALIZER ###
@@ -21,16 +21,16 @@ class Moment(SupriyaObject):
     def __init__(
         self,
         interval_tree=None,
-        overlap_timespans=None,
-        start_timespans=None,
+        overlap_intervals=None,
+        start_intervals=None,
         start_offset=None,
-        stop_timespans=None,
+        stop_intervals=None,
     ):
         self._interval_tree = interval_tree
         self._start_offset = start_offset
-        self._start_timespans = start_timespans
-        self._stop_timespans = stop_timespans
-        self._overlap_timespans = overlap_timespans
+        self._start_intervals = start_intervals
+        self._stop_intervals = stop_intervals
+        self._overlap_intervals = overlap_intervals
 
     ### SPECIAL METHODS ###
 
@@ -41,7 +41,7 @@ class Moment(SupriyaObject):
         return "<{}({} <<{}>>)>".format(
             type(self).__name__,
             str(self.start_offset),
-            len(self.start_timespans) + len(self.overlap_timespans),
+            len(self.start_intervals) + len(self.overlap_intervals),
         )
 
     ### PUBLIC PROPERTIES ###
@@ -49,7 +49,7 @@ class Moment(SupriyaObject):
     @property
     def next_moment(self):
         """
-        Gets the next moment in this moment's timespan
+        Gets the next moment in this moment's interval
         collection.
         """
         # TODO: This doesn't take into account stop offsets
@@ -74,17 +74,17 @@ class Moment(SupriyaObject):
         return start_offset
 
     @property
-    def overlap_timespans(self):
+    def overlap_intervals(self):
         """
-        Gets the timespans in this moment which overlap this
+        Gets the intervals in this moment which overlap this
         moment's start offset.
         """
-        return self._overlap_timespans
+        return self._overlap_intervals
 
     @property
     def previous_moment(self):
         """
-        Gets the previous moment in this moment's timespan
+        Gets the previous moment in this moment's interval
         collection.
         """
         # TODO: This doesn't take into account stop offsets
@@ -116,20 +116,20 @@ class Moment(SupriyaObject):
         return self._start_offset
 
     @property
-    def start_timespans(self):
+    def start_intervals(self):
         """
-        Gets the timespans in this moment which start at this
+        Gets the intervals in this moment which start at this
         moment's start offset.
         """
-        return self._start_timespans
+        return self._start_intervals
 
     @property
-    def stop_timespans(self):
+    def stop_intervals(self):
         """
-        Gets the timespans in this moment which stop at this
+        Gets the intervals in this moment which stop at this
         moment's start offset.
         """
-        return self._stop_timespans
+        return self._stop_intervals
 
     @property
     def interval_tree(self):

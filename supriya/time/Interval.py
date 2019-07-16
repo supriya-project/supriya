@@ -53,7 +53,7 @@ class Interval(SupriyaValueObject):
 
             >>> interval_1 & interval_2
             IntervalTree(
-                timespans=[
+                intervals=[
                     Interval(start_offset=5.0, stop_offset=10.0),
                     ],
                 )
@@ -62,7 +62,7 @@ class Interval(SupriyaValueObject):
 
             >>> interval_1 & interval_3
             IntervalTree(
-                timespans=[
+                intervals=[
                     Interval(start_offset=0.0, stop_offset=2.0),
                     ],
                 )
@@ -70,18 +70,18 @@ class Interval(SupriyaValueObject):
         ::
 
             >>> interval_1 & interval_4
-            IntervalTree(timespans=[])
+            IntervalTree(intervals=[])
 
         ::
 
             >>> interval_2 & interval_3
-            IntervalTree(timespans=[])
+            IntervalTree(intervals=[])
 
         ::
 
             >>> interval_2 & interval_4
             IntervalTree(
-                timespans=[
+                intervals=[
                     Interval(start_offset=10.0, stop_offset=12.0),
                     ],
                 )
@@ -89,7 +89,7 @@ class Interval(SupriyaValueObject):
         ::
 
             >>> interval_3 & interval_4
-            IntervalTree(timespans=[])
+            IntervalTree(intervals=[])
 
         """
         from .IntervalTree import IntervalTree
@@ -162,7 +162,7 @@ class Interval(SupriyaValueObject):
 
             >>> interval_1 | interval_2
             IntervalTree(
-                timespans=[
+                intervals=[
                     Interval(start_offset=0.0, stop_offset=12.0),
                     ],
                 )
@@ -171,7 +171,7 @@ class Interval(SupriyaValueObject):
 
             >>> interval_1 | interval_3
             IntervalTree(
-                timespans=[
+                intervals=[
                     Interval(start_offset=-2.0, stop_offset=10.0),
                     ],
                 )
@@ -180,7 +180,7 @@ class Interval(SupriyaValueObject):
 
             >>> interval_1 | interval_4
             IntervalTree(
-                timespans=[
+                intervals=[
                     Interval(start_offset=0.0, stop_offset=20.0),
                     ],
                 )
@@ -189,7 +189,7 @@ class Interval(SupriyaValueObject):
 
             >>> interval_2 | interval_3
             IntervalTree(
-                timespans=[
+                intervals=[
                     Interval(start_offset=-2.0, stop_offset=2.0),
                     Interval(start_offset=5.0, stop_offset=12.0),
                     ],
@@ -199,7 +199,7 @@ class Interval(SupriyaValueObject):
 
             >>> interval_2 | interval_4
             IntervalTree(
-                timespans=[
+                intervals=[
                     Interval(start_offset=5.0, stop_offset=20.0),
                     ],
                 )
@@ -208,7 +208,7 @@ class Interval(SupriyaValueObject):
 
             >>> interval_3 | interval_4
             IntervalTree(
-                timespans=[
+                intervals=[
                     Interval(start_offset=-2.0, stop_offset=2.0),
                     Interval(start_offset=10.0, stop_offset=20.0),
                     ],
@@ -249,13 +249,13 @@ class Interval(SupriyaValueObject):
         ::
 
             >>> interval_1 - interval_1
-            IntervalTree(timespans=[])
+            IntervalTree(intervals=[])
 
         ::
 
             >>> interval_1 - interval_2
             IntervalTree(
-                timespans=[
+                intervals=[
                     Interval(start_offset=0.0, stop_offset=5.0),
                     ],
                 )
@@ -264,7 +264,7 @@ class Interval(SupriyaValueObject):
 
             >>> interval_1 - interval_3
             IntervalTree(
-                timespans=[
+                intervals=[
                     Interval(start_offset=0.0, stop_offset=8.0),
                     ],
                 )
@@ -273,7 +273,7 @@ class Interval(SupriyaValueObject):
 
             >>> interval_1 - interval_4
             IntervalTree(
-                timespans=[
+                intervals=[
                     Interval(start_offset=0.0, stop_offset=10.0),
                     ],
                 )
@@ -282,7 +282,7 @@ class Interval(SupriyaValueObject):
 
             >>> interval_2 - interval_1
             IntervalTree(
-                timespans=[
+                intervals=[
                     Interval(start_offset=10.0, stop_offset=12.0),
                     ],
                 )
@@ -290,13 +290,13 @@ class Interval(SupriyaValueObject):
         ::
 
             >>> interval_2 - interval_2
-            IntervalTree(timespans=[])
+            IntervalTree(intervals=[])
 
         ::
 
             >>> interval_2 - interval_3
             IntervalTree(
-                timespans=[
+                intervals=[
                     Interval(start_offset=5.0, stop_offset=8.0),
                     Interval(start_offset=11.0, stop_offset=12.0),
                     ],
@@ -306,7 +306,7 @@ class Interval(SupriyaValueObject):
 
             >>> interval_2 - interval_4
             IntervalTree(
-                timespans=[
+                intervals=[
                     Interval(start_offset=5.0, stop_offset=10.0),
                     ],
                 )
@@ -315,7 +315,7 @@ class Interval(SupriyaValueObject):
 
             >>> interval_3 - interval_1
             IntervalTree(
-                timespans=[
+                intervals=[
                     Interval(start_offset=10.0, stop_offset=11.0),
                     ],
                 )
@@ -323,18 +323,18 @@ class Interval(SupriyaValueObject):
         ::
 
             >>> interval_3 - interval_2
-            IntervalTree(timespans=[])
+            IntervalTree(intervals=[])
 
         ::
 
             >>> interval_3 - interval_3
-            IntervalTree(timespans=[])
+            IntervalTree(intervals=[])
 
         ::
 
             >>> interval_3 - interval_4
             IntervalTree(
-                timespans=[
+                intervals=[
                     Interval(start_offset=8.0, stop_offset=10.0),
                     ],
                 )
@@ -343,7 +343,7 @@ class Interval(SupriyaValueObject):
 
             >>> interval_4 - interval_1
             IntervalTree(
-                timespans=[
+                intervals=[
                     Interval(start_offset=10.0, stop_offset=20.0),
                     ],
                 )
@@ -352,7 +352,7 @@ class Interval(SupriyaValueObject):
 
             >>> interval_4 - interval_2
             IntervalTree(
-                timespans=[
+                intervals=[
                     Interval(start_offset=12.0, stop_offset=20.0),
                     ],
                 )
@@ -361,7 +361,7 @@ class Interval(SupriyaValueObject):
 
             >>> interval_4 - interval_3
             IntervalTree(
-                timespans=[
+                intervals=[
                     Interval(start_offset=11.0, stop_offset=20.0),
                     ],
                 )
@@ -369,7 +369,7 @@ class Interval(SupriyaValueObject):
         ::
 
             >>> interval_4 - interval_4
-            IntervalTree(timespans=[])
+            IntervalTree(intervals=[])
 
         """
         from .IntervalTree import IntervalTree
@@ -409,7 +409,7 @@ class Interval(SupriyaValueObject):
 
             >>> interval_1 ^ interval_2
             IntervalTree(
-                timespans=[
+                intervals=[
                     Interval(start_offset=0.0, stop_offset=5.0),
                     Interval(start_offset=10.0, stop_offset=12.0),
                     ],
@@ -419,7 +419,7 @@ class Interval(SupriyaValueObject):
 
             >>> interval_1 ^ interval_3
             IntervalTree(
-                timespans=[
+                intervals=[
                     Interval(start_offset=-2.0, stop_offset=0.0),
                     Interval(start_offset=2.0, stop_offset=10.0),
                     ],
@@ -429,7 +429,7 @@ class Interval(SupriyaValueObject):
 
             >>> interval_1 ^ interval_4
             IntervalTree(
-                timespans=[
+                intervals=[
                     Interval(start_offset=0.0, stop_offset=10.0),
                     Interval(start_offset=10.0, stop_offset=20.0),
                     ],
@@ -439,7 +439,7 @@ class Interval(SupriyaValueObject):
 
             >>> interval_2 ^ interval_3
             IntervalTree(
-                timespans=[
+                intervals=[
                     Interval(start_offset=-2.0, stop_offset=2.0),
                     Interval(start_offset=5.0, stop_offset=12.0),
                     ],
@@ -449,7 +449,7 @@ class Interval(SupriyaValueObject):
 
             >>> interval_2 ^ interval_4
             IntervalTree(
-                timespans=[
+                intervals=[
                     Interval(start_offset=5.0, stop_offset=10.0),
                     Interval(start_offset=12.0, stop_offset=20.0),
                     ],
@@ -459,7 +459,7 @@ class Interval(SupriyaValueObject):
 
             >>> interval_3 ^ interval_4
             IntervalTree(
-                timespans=[
+                intervals=[
                     Interval(start_offset=-2.0, stop_offset=2.0),
                     Interval(start_offset=10.0, stop_offset=20.0),
                     ],

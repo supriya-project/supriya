@@ -8,27 +8,27 @@ from .Moment import Moment
 
 class IntervalTree(SupriyaObject):
     """
-    A mutable always-sorted collection of timespans.
+    A mutable always-sorted collection of intervals.
 
     ::
 
         >>> from supriya.time import Interval, IntervalTree
         >>> from supriya.time import Interval, IntervalTree
-        >>> timespans = (
+        >>> intervals = (
         ...     Interval(0, 3),
         ...     Interval(1, 3),
         ...     Interval(1, 2),
         ...     Interval(2, 5),
         ...     Interval(6, 9),
         ...     )
-        >>> interval_tree = IntervalTree(timespans)
+        >>> interval_tree = IntervalTree(intervals)
 
     """
 
     ### INITIALIZER ###
 
-    def __init__(self, timespans=None, accelerated=True):
-        self._driver = IntervalTreeDriver(timespans)
+    def __init__(self, intervals=None, accelerated=True):
+        self._driver = IntervalTreeDriver(intervals)
         self._accelerated = bool(accelerated)
         if not accelerated:
             return
@@ -36,40 +36,40 @@ class IntervalTree(SupriyaObject):
             import pyximport  # noqa
             from .IntervalTreeDriverEx import IntervalTreeDriverEx
 
-            self._driver = IntervalTreeDriverEx(timespans)
+            self._driver = IntervalTreeDriverEx(intervals)
         except (ImportError, ModuleNotFoundError):
             pass
 
     ### SPECIAL METHODS ###
 
-    def __and__(self, timespan):
-        new_timespans = []
-        for current_timespan in self[:]:
-            result = current_timespan & timespan
-            new_timespans.extend(result)
-        self[:] = sorted(new_timespans)
+    def __and__(self, interval):
+        new_intervals = []
+        for current_interval in self[:]:
+            result = current_interval & interval
+            new_intervals.extend(result)
+        self[:] = sorted(new_intervals)
         return self
 
-    def __contains__(self, timespan):
+    def __contains__(self, interval):
         """
-        Is true if this interval tree contains `timespan`. Otherwise
+        Is true if this interval tree contains `interval`. Otherwise
         false.
 
         ::
 
             >>> from supriya.time import Interval, IntervalTree
-            >>> timespans = (
+            >>> intervals = (
             ...     Interval(0, 3),
             ...     Interval(1, 3),
             ...     Interval(1, 2),
             ...     Interval(2, 5),
             ...     Interval(6, 9),
             ...     )
-            >>> interval_tree = IntervalTree(timespans)
+            >>> interval_tree = IntervalTree(intervals)
 
         ::
 
-            >>> timespans[0] in interval_tree
+            >>> intervals[0] in interval_tree
             True
 
         ::
@@ -79,23 +79,23 @@ class IntervalTree(SupriyaObject):
 
         Returns boolean.
         """
-        return timespan in self._driver
+        return interval in self._driver
 
     def __getitem__(self, item):
         """
-        Gets timespan at index `item`.
+        Gets interval at index `item`.
 
         ::
 
             >>> from supriya.time import Interval, IntervalTree
-            >>> timespans = (
+            >>> intervals = (
             ...     Interval(0, 3),
             ...     Interval(1, 3),
             ...     Interval(1, 2),
             ...     Interval(2, 5),
             ...     Interval(6, 9),
             ...     )
-            >>> interval_tree = IntervalTree(timespans)
+            >>> interval_tree = IntervalTree(intervals)
 
         ::
 
@@ -104,14 +104,14 @@ class IntervalTree(SupriyaObject):
 
         ::
 
-            >>> for timespan in interval_tree[:3]:
-            ...     timespan
+            >>> for interval in interval_tree[:3]:
+            ...     interval
             ...
             Interval(start_offset=0.0, stop_offset=3.0)
             Interval(start_offset=1.0, stop_offset=2.0)
             Interval(start_offset=1.0, stop_offset=3.0)
 
-        Returns timespan or timespans.
+        Returns interval or intervals.
         """
         return self._driver[item]
 
@@ -120,24 +120,24 @@ class IntervalTree(SupriyaObject):
 
     def __iter__(self):
         """
-        Iterates timespans in this interval tree.
+        Iterates intervals in this interval tree.
 
         ::
 
             >>> from supriya.time import Interval, IntervalTree
-            >>> timespans = (
+            >>> intervals = (
             ...     Interval(0, 3),
             ...     Interval(1, 3),
             ...     Interval(1, 2),
             ...     Interval(2, 5),
             ...     Interval(6, 9),
             ...     )
-            >>> interval_tree = IntervalTree(timespans)
+            >>> interval_tree = IntervalTree(intervals)
 
         ::
 
-            >>> for timespan in interval_tree:
-            ...     timespan
+            >>> for interval in interval_tree:
+            ...     interval
             ...
             Interval(start_offset=0.0, stop_offset=3.0)
             Interval(start_offset=1.0, stop_offset=2.0)
@@ -156,14 +156,14 @@ class IntervalTree(SupriyaObject):
         ::
 
             >>> from supriya.time import Interval, IntervalTree
-            >>> timespans = (
+            >>> intervals = (
             ...     Interval(0, 3),
             ...     Interval(1, 3),
             ...     Interval(1, 2),
             ...     Interval(2, 5),
             ...     Interval(6, 9),
             ...     )
-            >>> interval_tree = IntervalTree(timespans)
+            >>> interval_tree = IntervalTree(intervals)
 
         ::
 
@@ -181,19 +181,19 @@ class IntervalTree(SupriyaObject):
 
     def __setitem__(self, i, new):
         """
-        Sets timespans at index `i` to `new`.
+        Sets intervals at index `i` to `new`.
 
         ::
 
             >>> from supriya.time import Interval, IntervalTree
-            >>> timespans = (
+            >>> intervals = (
             ...     Interval(0, 3),
             ...     Interval(1, 3),
             ...     Interval(1, 2),
             ...     Interval(2, 5),
             ...     Interval(6, 9),
             ...     )
-            >>> interval_tree = IntervalTree(timespans)
+            >>> interval_tree = IntervalTree(intervals)
 
         ::
 
@@ -205,20 +205,20 @@ class IntervalTree(SupriyaObject):
             self.remove(self[i])
             self.add(new)
         elif isinstance(i, slice):
-            for timespan in self[i]:
-                self.remove(timespan)
+            for interval in self[i]:
+                self.remove(interval)
             self.update(new)
         else:
             message = "Indices must be ints or slices, got {}".format(i)
             raise TypeError(message)
 
     def __setstate__(self, state):
-        accelerated, timespans = state
-        self.__init__(timespans=timespans, accelerated=accelerated)
+        accelerated, intervals = state
+        self.__init__(intervals=intervals, accelerated=accelerated)
 
-    def __sub__(self, timespan):
+    def __sub__(self, interval):
         """
-        Delete material that intersects `timespan`:
+        Delete material that intersects `interval`:
 
         ::
 
@@ -231,13 +231,13 @@ class IntervalTree(SupriyaObject):
 
         ::
 
-            >>> timespan = Interval(5, 10)
-            >>> result = interval_tree - timespan
+            >>> interval = Interval(5, 10)
+            >>> result = interval_tree - interval
 
         ::
 
-            >>> for timespan in interval_tree:
-            ...     timespan
+            >>> for interval in interval_tree:
+            ...     interval
             ...
             Interval(start_offset=-2.0, stop_offset=5.0)
             Interval(start_offset=0.0, stop_offset=5.0)
@@ -246,13 +246,13 @@ class IntervalTree(SupriyaObject):
 
         Operates in place and returns interval tree.
         """
-        if not self._is_timespan(timespan):
-            raise ValueError(timespan)
-        intersection = self.find_intersection(timespan)
+        if not self._is_interval(interval):
+            raise ValueError(interval)
+        intersection = self.find_intersection(interval)
         to_update = []
-        for intersecting_timespan in intersection:
-            self.remove(intersecting_timespan)
-            for x in intersecting_timespan - timespan:
+        for intersecting_interval in intersection:
+            self.remove(intersecting_interval)
+            for x in intersecting_interval - interval:
                 to_update.append(x)
         self.update(to_update)
         return self
@@ -260,32 +260,32 @@ class IntervalTree(SupriyaObject):
     ### PRIVATE METHODS ###
 
     @staticmethod
-    def _is_timespan(expr):
+    def _is_interval(expr):
         if hasattr(expr, "start_offset") and hasattr(expr, "stop_offset"):
             return True
         return False
 
     ### PUBLIC METHODS ###
 
-    def find_intersection(self, timespan_or_offset):
+    def find_intersection(self, interval_or_offset):
         """
-        Find timespans intersecting a timespan or offset.
+        Find intervals intersecting a interval or offset.
 
         ..  container:: example
 
-            Finds timespans overlapping `offset`.
+            Finds intervals overlapping `offset`.
 
             ::
 
                 >>> from supriya.time import Interval, IntervalTree
-                >>> timespans = (
+                >>> intervals = (
                 ...     Interval(0, 3),
                 ...     Interval(1, 3),
                 ...     Interval(1, 2),
                 ...     Interval(2, 5),
                 ...     Interval(6, 9),
                 ...     )
-                >>> interval_tree = IntervalTree(timespans)
+                >>> interval_tree = IntervalTree(intervals)
 
             ::
 
@@ -298,23 +298,23 @@ class IntervalTree(SupriyaObject):
 
         ..  container:: example
 
-            Finds timespans overlapping `timespan`.
+            Finds intervals overlapping `interval`.
 
             ::
 
-                >>> timespans = (
+                >>> intervals = (
                 ...     Interval(0, 3),
                 ...     Interval(1, 3),
                 ...     Interval(1, 2),
                 ...     Interval(2, 5),
                 ...     Interval(6, 9),
                 ...     )
-                >>> interval_tree = IntervalTree(timespans)
+                >>> interval_tree = IntervalTree(intervals)
 
             ::
 
-                >>> timespan = Interval(2, 4)
-                >>> for x in interval_tree.find_intersection(timespan):
+                >>> interval = Interval(2, 4)
+                >>> for x in interval_tree.find_intersection(interval):
                 ...     x
                 ...
                 Interval(start_offset=0.0, stop_offset=3.0)
@@ -322,15 +322,15 @@ class IntervalTree(SupriyaObject):
                 Interval(start_offset=2.0, stop_offset=5.0)
 
         """
-        if self._is_timespan(timespan_or_offset):
-            return self._driver.find_timespans_intersecting_timespan(timespan_or_offset)
-        return self._driver.find_timespans_intersecting_offset(timespan_or_offset)
+        if self._is_interval(interval_or_offset):
+            return self._driver.find_intervals_intersecting_interval(interval_or_offset)
+        return self._driver.find_intervals_intersecting_offset(interval_or_offset)
 
-    def find_timespans_starting_at(self, offset):
-        return self._driver.find_timespans_starting_at(offset)
+    def find_intervals_starting_at(self, offset):
+        return self._driver.find_intervals_starting_at(offset)
 
-    def find_timespans_stopping_at(self, offset):
-        return self._driver.find_timespans_stopping_at(offset)
+    def find_intervals_stopping_at(self, offset):
+        return self._driver.find_intervals_stopping_at(offset)
 
     def get_moment_at(self, offset):
         """
@@ -339,14 +339,14 @@ class IntervalTree(SupriyaObject):
         ::
 
             >>> from supriya.time import Interval, IntervalTree
-            >>> timespans = (
+            >>> intervals = (
             ...     Interval(0, 3),
             ...     Interval(1, 3),
             ...     Interval(1, 2),
             ...     Interval(2, 5),
             ...     Interval(6, 9),
             ...     )
-            >>> interval_tree = IntervalTree(timespans)
+            >>> interval_tree = IntervalTree(intervals)
 
         ::
 
@@ -359,19 +359,19 @@ class IntervalTree(SupriyaObject):
             <Moment(6.5 <<1>>)>
 
         """
-        stop_timespans = self.find_timespans_stopping_at(offset)
-        start_timespans, overlap_timespans = [], []
-        for timespan in self.find_intersection(offset):
-            if timespan.start_offset == offset:
-                start_timespans.append(timespan)
+        stop_intervals = self.find_intervals_stopping_at(offset)
+        start_intervals, overlap_intervals = [], []
+        for interval in self.find_intersection(offset):
+            if interval.start_offset == offset:
+                start_intervals.append(interval)
             else:
-                overlap_timespans.append(timespan)
+                overlap_intervals.append(interval)
         moment = Moment(
             interval_tree=self,
-            overlap_timespans=overlap_timespans,
-            start_timespans=start_timespans,
+            overlap_intervals=overlap_intervals,
+            start_intervals=start_intervals,
             start_offset=offset,
-            stop_timespans=stop_timespans,
+            stop_intervals=stop_intervals,
         )
         return moment
 
@@ -382,14 +382,14 @@ class IntervalTree(SupriyaObject):
         ::
 
             >>> from supriya.time import Interval, IntervalTree
-            >>> timespans = (
+            >>> intervals = (
             ...     Interval(0, 3),
             ...     Interval(1, 3),
             ...     Interval(1, 2),
             ...     Interval(2, 5),
             ...     Interval(6, 9),
             ...     )
-            >>> interval_tree = IntervalTree(timespans)
+            >>> interval_tree = IntervalTree(intervals)
 
         ::
 
@@ -419,14 +419,14 @@ class IntervalTree(SupriyaObject):
         ::
 
             >>> from supriya.time import Interval, IntervalTree
-            >>> timespans = (
+            >>> intervals = (
             ...     Interval(0, 3),
             ...     Interval(1, 3),
             ...     Interval(1, 2),
             ...     Interval(2, 5),
             ...     Interval(6, 9),
             ...     )
-            >>> interval_tree = IntervalTree(timespans)
+            >>> interval_tree = IntervalTree(intervals)
 
         ::
 
@@ -463,14 +463,14 @@ class IntervalTree(SupriyaObject):
         ::
 
             >>> from supriya.time import Interval, IntervalTree
-            >>> timespans = (
+            >>> intervals = (
             ...     Interval(0, 3),
             ...     Interval(1, 3),
             ...     Interval(1, 2),
             ...     Interval(2, 5),
             ...     Interval(6, 9),
             ...     )
-            >>> interval_tree = IntervalTree(timespans)
+            >>> interval_tree = IntervalTree(intervals)
 
         ::
 
@@ -500,14 +500,14 @@ class IntervalTree(SupriyaObject):
         """
         return self._driver.get_start_offset_before(float(offset))
 
-    def index(self, timespan):
-        return self._driver.index(timespan)
+    def index(self, interval):
+        return self._driver.index(interval)
 
-    def add(self, timespan):
-        self._driver.add(timespan)
+    def add(self, interval):
+        self._driver.add(interval)
 
-    def update(self, timespans):
-        self._driver.update(timespans)
+    def update(self, intervals):
+        self._driver.update(intervals)
 
     def iterate_moments(self, reverse=False):
         """
@@ -516,14 +516,14 @@ class IntervalTree(SupriyaObject):
         ::
 
             >>> from supriya.time import Interval, IntervalTree
-            >>> timespans = (
+            >>> intervals = (
             ...     Interval(0, 3),
             ...     Interval(1, 3),
             ...     Interval(1, 2),
             ...     Interval(2, 5),
             ...     Interval(6, 9),
             ...     )
-            >>> interval_tree = IntervalTree(timespans)
+            >>> interval_tree = IntervalTree(intervals)
 
         ::
 
@@ -574,14 +574,14 @@ class IntervalTree(SupriyaObject):
         ::
 
             >>> from supriya.time import Interval, IntervalTree
-            >>> timespans = (
+            >>> intervals = (
             ...     Interval(0, 3),
             ...     Interval(1, 3),
             ...     Interval(1, 2),
             ...     Interval(2, 5),
             ...     Interval(6, 9),
             ...     )
-            >>> interval_tree = IntervalTree(timespans)
+            >>> interval_tree = IntervalTree(intervals)
 
         ::
 
@@ -627,38 +627,38 @@ class IntervalTree(SupriyaObject):
                 if len(moments) == n:
                     yield list(reversed(moments))
 
-    def remove(self, timespan):
+    def remove(self, interval):
         """
-        Removes timespan from this interval tree.
+        Removes interval from this interval tree.
 
         ::
 
             >>> from supriya.time import Interval, IntervalTree
-            >>> timespans = (
+            >>> intervals = (
             ...     Interval(0, 3),
             ...     Interval(1, 3),
             ...     Interval(1, 2),
             ...     Interval(2, 5),
             ...     Interval(6, 9),
             ...     )
-            >>> interval_tree = IntervalTree(timespans)
+            >>> interval_tree = IntervalTree(intervals)
 
         ::
 
-            >>> for timespan in timespans[1:-1]:
-            ...     interval_tree.remove(timespan)
+            >>> for interval in intervals[1:-1]:
+            ...     interval_tree.remove(interval)
             ...
 
         ::
 
-            >>> for timespan in interval_tree:
-            ...     timespan
+            >>> for interval in interval_tree:
+            ...     interval
             ...
             Interval(start_offset=0.0, stop_offset=3.0)
             Interval(start_offset=6.0, stop_offset=9.0)
 
         """
-        self._driver.remove(timespan)
+        self._driver.remove(interval)
 
     ### PRIVATE PROPERTIES ###
 
@@ -675,23 +675,23 @@ class IntervalTree(SupriyaObject):
     @property
     def all_offsets(self):
         offsets = set()
-        for timespan in self:
-            offsets.add(timespan.start_offset)
-            offsets.add(timespan.stop_offset)
+        for interval in self:
+            offsets.add(interval.start_offset)
+            offsets.add(interval.stop_offset)
         return tuple(sorted(offsets))
 
     @property
     def all_start_offsets(self):
         start_offsets = set()
-        for timespan in self:
-            start_offsets.add(timespan.start_offset)
+        for interval in self:
+            start_offsets.add(interval.start_offset)
         return tuple(sorted(start_offsets))
 
     @property
     def all_stop_offsets(self):
         stop_offsets = set()
-        for timespan in self:
-            stop_offsets.add(timespan.stop_offset)
+        for interval in self:
+            stop_offsets.add(interval.stop_offset)
         return tuple(sorted(stop_offsets))
 
     @property
@@ -710,6 +710,10 @@ class IntervalTree(SupriyaObject):
         if self._root_node is not None:
             return self._root_node.stop_offset_low
         return float("inf")
+
+    @property
+    def intervals(self):
+        return list(self)
 
     @property
     def latest_start_offset(self):
@@ -735,7 +739,3 @@ class IntervalTree(SupriyaObject):
     @property
     def stop_offset(self):
         return self.latest_stop_offset
-
-    @property
-    def timespans(self):
-        return list(self)

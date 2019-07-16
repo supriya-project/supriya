@@ -1,49 +1,49 @@
 from .Interval import Interval
 
 
-class _CTimespan:
+class _CInterval:
 
-    __slots__ = ("start_offset", "stop_offset", "original_timespan")
+    __slots__ = ("start_offset", "stop_offset", "original_interval")
 
-    def __init__(self, start_offset, stop_offset, original_timespan):
+    def __init__(self, start_offset, stop_offset, original_interval):
         self.start_offset = float(start_offset)
         self.stop_offset = float(stop_offset)
-        self.original_timespan = original_timespan
+        self.original_interval = original_interval
 
-    def __eq__(self, ctimespan):
-        assert isinstance(ctimespan, type(self)), ctimespan
-        if self.start_offset != ctimespan.start_offset:
+    def __eq__(self, cinterval):
+        assert isinstance(cinterval, type(self)), cinterval
+        if self.start_offset != cinterval.start_offset:
             return False
-        if self.stop_offset != ctimespan.stop_offset:
+        if self.stop_offset != cinterval.stop_offset:
             return False
-        if self.original_timespan != ctimespan.original_timespan:
+        if self.original_interval != cinterval.original_interval:
             return False
         return True
 
-    def __ne__(self, ctimespan):
-        assert isinstance(ctimespan, type(self)), ctimespan
-        return not self.__eq__(ctimespan)
+    def __ne__(self, cinterval):
+        assert isinstance(cinterval, type(self)), cinterval
+        return not self.__eq__(cinterval)
 
-    def __lt__(self, ctimespan):
-        assert isinstance(ctimespan, type(self)), ctimespan
-        if self.start_offset < ctimespan.start_offset:
+    def __lt__(self, cinterval):
+        assert isinstance(cinterval, type(self)), cinterval
+        if self.start_offset < cinterval.start_offset:
             return True
-        if self.start_offset > ctimespan.start_offset:
+        if self.start_offset > cinterval.start_offset:
             return False
-        if self.stop_offset < ctimespan.stop_offset:
+        if self.stop_offset < cinterval.stop_offset:
             return True
         return False
 
     def __repr__(self):
-        return "<_CTimespan {}:{}>".format(self.start_offset, self.stop_offset)
+        return "<_CInterval {}:{}>".format(self.start_offset, self.stop_offset)
 
     @classmethod
-    def from_timespan(cls, timespan):
-        start_offset = float(timespan.start_offset)
-        stop_offset = float(timespan.stop_offset)
-        return cls(start_offset, stop_offset, timespan)
+    def from_interval(cls, interval):
+        start_offset = float(interval.start_offset)
+        stop_offset = float(interval.stop_offset)
+        return cls(start_offset, stop_offset, interval)
 
-    def intersects_timespan(self, expr):
+    def intersects_interval(self, expr):
         return (
             expr.start_offset <= self.start_offset
             and self.start_offset < expr.stop_offset
@@ -93,17 +93,17 @@ class IntervalTreeDriver:
 
     ### INITIALIZER ###
 
-    def __init__(self, timespans=None):
+    def __init__(self, intervals=None):
         self._root_node = None
-        self.update(timespans or [])
+        self.update(intervals or [])
 
     ### SPECIAL METHODS ###
 
-    def __contains__(self, timespan):
-        if not self._is_timespan(timespan):
-            raise ValueError(timespan)
-        candidates = self.find_timespans_starting_at(timespan.start_offset)
-        result = timespan in candidates
+    def __contains__(self, interval):
+        if not self._is_interval(interval):
+            raise ValueError(interval)
+        candidates = self.find_intervals_starting_at(interval.start_offset)
+        result = interval in candidates
         return result
 
     def __getitem__(self, item):
@@ -114,15 +114,15 @@ class IntervalTreeDriver:
                 item = self._root_node.subtree_stop_index + item
             if item < 0 or self._root_node.subtree_stop_index <= item:
                 raise IndexError
-            ctimespan = self._recurse_getitem_by_index(self._root_node, item)
-            return ctimespan.original_timespan
+            cinterval = self._recurse_getitem_by_index(self._root_node, item)
+            return cinterval.original_interval
         elif isinstance(item, slice):
             if self._root_node is None:
                 return []
             indices = item.indices(self._root_node.subtree_stop_index)
             start, stop = indices[0], indices[1]
-            ctimespans = self._recurse_getitem_by_slice(self._root_node, start, stop)
-            return [ctimespan.original_timespan for ctimespan in ctimespans]
+            cintervals = self._recurse_getitem_by_slice(self._root_node, start, stop)
+            return [cinterval.original_interval for cinterval in cintervals]
         raise TypeError("Indices must be integers or slices, got {}".format(item))
 
     def __iter__(self):
@@ -135,12 +135,12 @@ class IntervalTreeDriver:
             if not stack:
                 return
             current = stack.pop()
-            for ctimespan in current.payload:
-                yield ctimespan.original_timespan
+            for cinterval in current.payload:
+                yield cinterval.original_interval
             while current.right_child is None and stack:
                 current = stack.pop()
-                for ctimespan in current.payload:
-                    yield ctimespan.original_timespan
+                for cinterval in current.payload:
+                    yield cinterval.original_interval
             current = current.right_child
 
     def __len__(self):
@@ -150,7 +150,7 @@ class IntervalTreeDriver:
 
     ### PRIVATE METHODS ###
 
-    def _get_node_ctimespan(self, node):
+    def _get_node_cinterval(self, node):
         return Interval(
             start_offset=node.start_offset, stop_offset=node.stop_offset_high
         )
@@ -166,14 +166,14 @@ class IntervalTreeDriver:
             self._set_node_right_child(node, right_child)
         return self._rebalance(node)
 
-    def _insert_timespan(self, ctimespan):
-        self._root_node = self._insert_node(self._root_node, ctimespan.start_offset)
-        node = self._search(self._root_node, ctimespan.start_offset)
-        node.payload.append(ctimespan)
+    def _insert_interval(self, cinterval):
+        self._root_node = self._insert_node(self._root_node, cinterval.start_offset)
+        node = self._search(self._root_node, cinterval.start_offset)
+        node.payload.append(cinterval)
         node.payload.sort(key=lambda x: x.stop_offset)
 
     @staticmethod
-    def _is_timespan(expr):
+    def _is_interval(expr):
         if hasattr(expr, "start_offset") and hasattr(expr, "stop_offset"):
             return True
         return False
@@ -217,70 +217,70 @@ class IntervalTreeDriver:
                 node = self._rotate_left_right(node)
         return node
 
-    def _recurse_find_timespans_intersecting_timespan(self, node, ctimespan):
+    def _recurse_find_intervals_intersecting_interval(self, node, cinterval):
         result = []
         if node is None:
             return result
-        node_timespan = self._get_node_ctimespan(node)
-        if ctimespan.intersects_timespan(node_timespan):
-            subresult = self._recurse_find_timespans_intersecting_timespan(
-                node.left_child, ctimespan
+        node_interval = self._get_node_cinterval(node)
+        if cinterval.intersects_interval(node_interval):
+            subresult = self._recurse_find_intervals_intersecting_interval(
+                node.left_child, cinterval
             )
             result.extend(subresult)
-            for candidate_timespan in node.payload:
-                if candidate_timespan.intersects_timespan(ctimespan):
-                    result.append(candidate_timespan)
-            subresult = self._recurse_find_timespans_intersecting_timespan(
-                node.right_child, ctimespan
+            for candidate_interval in node.payload:
+                if candidate_interval.intersects_interval(cinterval):
+                    result.append(candidate_interval)
+            subresult = self._recurse_find_intervals_intersecting_interval(
+                node.right_child, cinterval
             )
             result.extend(subresult)
-        elif (ctimespan.start_offset <= node.start_offset) or (
-            ctimespan.stop_offset <= node.start_offset
+        elif (cinterval.start_offset <= node.start_offset) or (
+            cinterval.stop_offset <= node.start_offset
         ):
-            subresult = self._recurse_find_timespans_intersecting_timespan(
-                node.left_child, ctimespan
+            subresult = self._recurse_find_intervals_intersecting_interval(
+                node.left_child, cinterval
             )
             result.extend(subresult)
         return result
 
-    def _recurse_find_timespans_intersecting_offset(self, node, offset):
+    def _recurse_find_intervals_intersecting_offset(self, node, offset):
         result = []
         if node is None:
             return result
         if node.start_offset <= offset < node.stop_offset_high:
-            subresult = self._recurse_find_timespans_intersecting_offset(
+            subresult = self._recurse_find_intervals_intersecting_offset(
                 node.left_child, offset
             )
             result.extend(subresult)
-            for ctimespan in node.payload:
-                if offset < ctimespan.stop_offset:
-                    result.append(ctimespan)
-            subresult = self._recurse_find_timespans_intersecting_offset(
+            for cinterval in node.payload:
+                if offset < cinterval.stop_offset:
+                    result.append(cinterval)
+            subresult = self._recurse_find_intervals_intersecting_offset(
                 node.right_child, offset
             )
             result.extend(subresult)
         elif offset <= node.start_offset:
-            subresult = self._recurse_find_timespans_intersecting_offset(
+            subresult = self._recurse_find_intervals_intersecting_offset(
                 node.left_child, offset
             )
             result.extend(subresult)
         return result
 
-    def _recurse_find_timespans_stopping_at(self, node, offset):
+    def _recurse_find_intervals_stopping_at(self, node, offset):
         result = []
         if node is None:
             return result
         if node.stop_offset_low <= offset <= node.stop_offset_high:
-            for ctimespan in node.payload:
-                if ctimespan.stop_offset == offset:
-                    result.append(ctimespan)
+            for cinterval in node.payload:
+                if cinterval.stop_offset == offset:
+                    result.append(cinterval)
             if node.left_child is not None:
                 result.extend(
-                    self._recurse_find_timespans_stopping_at(node.left_child, offset)
+                    self._recurse_find_intervals_stopping_at(node.left_child, offset)
                 )
             if node.right_child is not None:
                 result.extend(
-                    self._recurse_find_timespans_stopping_at(node.right_child, offset)
+                    self._recurse_find_intervals_stopping_at(node.right_child, offset)
                 )
         return result
 
@@ -332,16 +332,16 @@ class IntervalTreeDriver:
             result.extend(self._recurse_getitem_by_slice(node.right_child, start, stop))
         return result
 
-    def _remove_timespan(self, ctimespan, old_start_offset=None):
-        assert isinstance(ctimespan, _CTimespan)
-        start_offset = ctimespan.start_offset
+    def _remove_interval(self, cinterval, old_start_offset=None):
+        assert isinstance(cinterval, _CInterval)
+        start_offset = cinterval.start_offset
         if old_start_offset is not None:
             start_offset = old_start_offset
         node = self._search(self._root_node, start_offset)
         if node is None:
             return
-        if ctimespan in node.payload:
-            node.payload.remove(ctimespan)
+        if cinterval in node.payload:
+            node.payload.remove(cinterval)
         if not node.payload:
             self._root_node = self._remove_node(self._root_node, start_offset)
 
@@ -439,43 +439,43 @@ class IntervalTreeDriver:
 
     ### PUBLIC METHODS ###
 
-    def add(self, timespan):
-        if not self._is_timespan(timespan):
-            # raise ValueError(timespan)
+    def add(self, interval):
+        if not self._is_interval(interval):
+            # raise ValueError(interval)
             return
-        ctimespan = _CTimespan.from_timespan(timespan)
-        self._insert_timespan(ctimespan)
+        cinterval = _CInterval.from_interval(interval)
+        self._insert_interval(cinterval)
         self._update_indices(self._root_node, -1)
         self._update_offsets(self._root_node)
 
-    def find_timespans_intersecting_offset(self, offset):
+    def find_intervals_intersecting_offset(self, offset):
         offset = float(offset)
-        ctimespans = self._recurse_find_timespans_intersecting_offset(
+        cintervals = self._recurse_find_intervals_intersecting_offset(
             self._root_node, offset
         )
-        ctimespans.sort(key=lambda x: (x.start_offset, x.stop_offset))
-        return [ctimespan.original_timespan for ctimespan in ctimespans]
+        cintervals.sort(key=lambda x: (x.start_offset, x.stop_offset))
+        return [cinterval.original_interval for cinterval in cintervals]
 
-    def find_timespans_intersecting_timespan(self, timespan):
-        ctimespan = _CTimespan.from_timespan(timespan)
-        ctimespans = self._recurse_find_timespans_intersecting_timespan(
-            self._root_node, ctimespan
+    def find_intervals_intersecting_interval(self, interval):
+        cinterval = _CInterval.from_interval(interval)
+        cintervals = self._recurse_find_intervals_intersecting_interval(
+            self._root_node, cinterval
         )
-        ctimespans.sort(key=lambda x: (x.start_offset, x.stop_offset))
-        return [ctimespan.original_timespan for ctimespan in ctimespans]
+        cintervals.sort(key=lambda x: (x.start_offset, x.stop_offset))
+        return [cinterval.original_interval for cinterval in cintervals]
 
-    def find_timespans_starting_at(self, offset):
+    def find_intervals_starting_at(self, offset):
         results = []
         node = self._search(self._root_node, offset)
         if node is None:
             return results
-        results.extend(ctimespan.original_timespan for ctimespan in node.payload)
+        results.extend(cinterval.original_interval for cinterval in node.payload)
         return results
 
-    def find_timespans_stopping_at(self, offset):
-        ctimespans = self._recurse_find_timespans_stopping_at(self._root_node, offset)
-        ctimespans.sort(key=lambda x: (x.start_offset, x.stop_offset))
-        return [ctimespan.original_timespan for ctimespan in ctimespans]
+    def find_intervals_stopping_at(self, offset):
+        cintervals = self._recurse_find_intervals_stopping_at(self._root_node, offset)
+        cintervals.sort(key=lambda x: (x.start_offset, x.stop_offset))
+        return [cinterval.original_interval for cinterval in cintervals]
 
     def get_start_offset_after(self, offset):
         node = self._recurse_get_start_offset_after(self._root_node, offset)
@@ -489,34 +489,34 @@ class IntervalTreeDriver:
             return None
         return node.start_offset
 
-    def index(self, timespan):
-        assert self._is_timespan(timespan)
-        ctimespan = _CTimespan.from_timespan(timespan)
-        node = self._search(self._root_node, ctimespan.start_offset)
+    def index(self, interval):
+        assert self._is_interval(interval)
+        cinterval = _CInterval.from_interval(interval)
+        node = self._search(self._root_node, cinterval.start_offset)
         if node is None:
-            raise ValueError("{} not in interval tree.".format(timespan))
-        if ctimespan not in node.payload:
-            raise ValueError("{} not in interval tree.".format(timespan))
-        index = node.payload.index(ctimespan) + node.node_start_index
+            raise ValueError("{} not in interval tree.".format(interval))
+        if cinterval not in node.payload:
+            raise ValueError("{} not in interval tree.".format(interval))
+        index = node.payload.index(cinterval) + node.node_start_index
         return index
 
-    def remove(self, timespan):
-        if timespan not in self:
-            raise ValueError(timespan)
-        ctimespan = _CTimespan.from_timespan(timespan)
-        self._remove_timespan(ctimespan)
+    def remove(self, interval):
+        if interval not in self:
+            raise ValueError(interval)
+        cinterval = _CInterval.from_interval(interval)
+        self._remove_interval(cinterval)
         self._update_indices(self._root_node, -1)
         self._update_offsets(self._root_node)
 
-    def update(self, timespans):
-        # for timespan in timespans:
-        #     if not self._is_timespan(timespan):
-        #         raise ValueError(timespan)
-        for timespan in timespans:
-            if not self._is_timespan(timespan):
-                # raise ValueError(timespan)
+    def update(self, intervals):
+        # for interval in intervals:
+        #     if not self._is_interval(interval):
+        #         raise ValueError(interval)
+        for interval in intervals:
+            if not self._is_interval(interval):
+                # raise ValueError(interval)
                 continue
-            ctimespan = _CTimespan.from_timespan(timespan)
-            self._insert_timespan(ctimespan)
+            cinterval = _CInterval.from_interval(interval)
+            self._insert_interval(cinterval)
         self._update_indices(self._root_node, -1)
         self._update_offsets(self._root_node)
