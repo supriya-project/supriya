@@ -91,7 +91,9 @@ class BlockAllocator(SupriyaObject):
                     used_block = new(free_block, used=True)
                 self._used_heap.add(used_block)
                 block_id = used_block.start_offset
-        return block_id
+        if block_id is None:
+            return block_id
+        return int(block_id)
 
     def allocate_at(self, index=None, desired_block_size=1):
         import supriya.realtime
@@ -122,7 +124,9 @@ class BlockAllocator(SupriyaObject):
                 for free_block in free_blocks:
                     self._free_heap.add(free_block)
                 block_id = index
-        return block_id
+        if block_id is None:
+            return block_id
+        return int(block_id)
 
     def free(self, block_id):
         import supriya.realtime

@@ -26,6 +26,10 @@ class Interval(SupriyaValueObject):
     def __init__(
         self, start_offset: float = float("-inf"), stop_offset: float = float("inf")
     ):
+        if start_offset is None:
+            start_offset = float("-inf")
+        if stop_offset is None:
+            stop_offset = float("inf")
         start_offset, stop_offset = float(start_offset), float(stop_offset)
         assert start_offset <= stop_offset
         self._start_offset = start_offset

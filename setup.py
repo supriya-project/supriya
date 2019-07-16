@@ -22,9 +22,7 @@ version = read_version()
 
 install_requires = [
     "PyYAML",
-    "abjad == 3.0.0",
     "appdirs",
-    "tornado",
     "tqdm",
     "uqbar >= 0.4.0",
 ]
