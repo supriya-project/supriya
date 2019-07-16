@@ -1,8 +1,8 @@
 from uqbar.objects import get_repr
 
 from supriya.system.SupriyaObject import SupriyaObject
-from supriya.time.IntervalTreeDriver import IntervalTreeDriver
-from supriya.time.Moment import Moment
+from .Moment import Moment
+from .IntervalTreeDriver import IntervalTreeDriver
 
 
 class IntervalTree(SupriyaObject):
@@ -11,16 +11,16 @@ class IntervalTree(SupriyaObject):
 
     ::
 
-        >>> import abjad.timespans
-        >>> import supriya.time
+        >>> from supriya.time import Interval, IntervalTree
+        >>> from supriya.time import Interval, IntervalTree
         >>> timespans = (
-        ...     abjad.timespans.Timespan(0, 3),
-        ...     abjad.timespans.Timespan(1, 3),
-        ...     abjad.timespans.Timespan(1, 2),
-        ...     abjad.timespans.Timespan(2, 5),
-        ...     abjad.timespans.Timespan(6, 9),
+        ...     Interval(0, 3),
+        ...     Interval(1, 3),
+        ...     Interval(1, 2),
+        ...     Interval(2, 5),
+        ...     Interval(6, 9),
         ...     )
-        >>> interval_tree = supriya.time.IntervalTree(timespans)
+        >>> interval_tree = IntervalTree(timespans)
 
     """
 
@@ -29,14 +29,15 @@ class IntervalTree(SupriyaObject):
     def __init__(self, timespans=None, accelerated=True):
         self._driver = IntervalTreeDriver(timespans)
         self._accelerated = bool(accelerated)
-        if accelerated:
-            try:
-                import pyximport  # noqa
-                from supriya.time.IntervalTreeDriverEx import IntervalTreeDriverEx
+        if not accelerated:
+            return
+        try:
+            import pyximport  # noqa
+            from .IntervalTreeDriverEx import IntervalTreeDriverEx
 
-                self._driver = IntervalTreeDriverEx(timespans)
-            except (ImportError, ModuleNotFoundError):
-                pass
+            self._driver = IntervalTreeDriverEx(timespans)
+        except (ImportError, ModuleNotFoundError):
+            pass
 
     ### SPECIAL METHODS ###
 
@@ -55,15 +56,15 @@ class IntervalTree(SupriyaObject):
 
         ::
 
-            >>> import abjad.timespans
+            >>> from supriya.time import Interval, IntervalTree
             >>> timespans = (
-            ...     abjad.timespans.Timespan(0, 3),
-            ...     abjad.timespans.Timespan(1, 3),
-            ...     abjad.timespans.Timespan(1, 2),
-            ...     abjad.timespans.Timespan(2, 5),
-            ...     abjad.timespans.Timespan(6, 9),
+            ...     Interval(0, 3),
+            ...     Interval(1, 3),
+            ...     Interval(1, 2),
+            ...     Interval(2, 5),
+            ...     Interval(6, 9),
             ...     )
-            >>> interval_tree = supriya.time.IntervalTree(timespans)
+            >>> interval_tree = IntervalTree(timespans)
 
         ::
 
@@ -72,7 +73,7 @@ class IntervalTree(SupriyaObject):
 
         ::
 
-            >>> abjad.timespans.Timespan(-1, 100) in interval_tree
+            >>> Interval(-1, 100) in interval_tree
             False
 
         Returns boolean.
@@ -85,29 +86,29 @@ class IntervalTree(SupriyaObject):
 
         ::
 
-            >>> import abjad.timespans
+            >>> from supriya.time import Interval, IntervalTree
             >>> timespans = (
-            ...     abjad.timespans.Timespan(0, 3),
-            ...     abjad.timespans.Timespan(1, 3),
-            ...     abjad.timespans.Timespan(1, 2),
-            ...     abjad.timespans.Timespan(2, 5),
-            ...     abjad.timespans.Timespan(6, 9),
+            ...     Interval(0, 3),
+            ...     Interval(1, 3),
+            ...     Interval(1, 2),
+            ...     Interval(2, 5),
+            ...     Interval(6, 9),
             ...     )
-            >>> interval_tree = supriya.time.IntervalTree(timespans)
+            >>> interval_tree = IntervalTree(timespans)
 
         ::
 
             >>> interval_tree[-1]
-            Timespan(start_offset=Offset(6, 1), stop_offset=Offset(9, 1))
+            Interval(start_offset=6.0, stop_offset=9.0)
 
         ::
 
             >>> for timespan in interval_tree[:3]:
             ...     timespan
             ...
-            Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))
-            Timespan(start_offset=Offset(1, 1), stop_offset=Offset(2, 1))
-            Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1))
+            Interval(start_offset=0.0, stop_offset=3.0)
+            Interval(start_offset=1.0, stop_offset=2.0)
+            Interval(start_offset=1.0, stop_offset=3.0)
 
         Returns timespan or timespans.
         """
@@ -122,26 +123,26 @@ class IntervalTree(SupriyaObject):
 
         ::
 
-            >>> import abjad.timespans
+            >>> from supriya.time import Interval, IntervalTree
             >>> timespans = (
-            ...     abjad.timespans.Timespan(0, 3),
-            ...     abjad.timespans.Timespan(1, 3),
-            ...     abjad.timespans.Timespan(1, 2),
-            ...     abjad.timespans.Timespan(2, 5),
-            ...     abjad.timespans.Timespan(6, 9),
+            ...     Interval(0, 3),
+            ...     Interval(1, 3),
+            ...     Interval(1, 2),
+            ...     Interval(2, 5),
+            ...     Interval(6, 9),
             ...     )
-            >>> interval_tree = supriya.time.IntervalTree(timespans)
+            >>> interval_tree = IntervalTree(timespans)
 
         ::
 
             >>> for timespan in interval_tree:
             ...     timespan
             ...
-            Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))
-            Timespan(start_offset=Offset(1, 1), stop_offset=Offset(2, 1))
-            Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1))
-            Timespan(start_offset=Offset(2, 1), stop_offset=Offset(5, 1))
-            Timespan(start_offset=Offset(6, 1), stop_offset=Offset(9, 1))
+            Interval(start_offset=0.0, stop_offset=3.0)
+            Interval(start_offset=1.0, stop_offset=2.0)
+            Interval(start_offset=1.0, stop_offset=3.0)
+            Interval(start_offset=2.0, stop_offset=5.0)
+            Interval(start_offset=6.0, stop_offset=9.0)
 
         Returns generator.
         """
@@ -153,15 +154,15 @@ class IntervalTree(SupriyaObject):
 
         ::
 
-            >>> import abjad.timespans
+            >>> from supriya.time import Interval, IntervalTree
             >>> timespans = (
-            ...     abjad.timespans.Timespan(0, 3),
-            ...     abjad.timespans.Timespan(1, 3),
-            ...     abjad.timespans.Timespan(1, 2),
-            ...     abjad.timespans.Timespan(2, 5),
-            ...     abjad.timespans.Timespan(6, 9),
+            ...     Interval(0, 3),
+            ...     Interval(1, 3),
+            ...     Interval(1, 2),
+            ...     Interval(2, 5),
+            ...     Interval(6, 9),
             ...     )
-            >>> interval_tree = supriya.time.IntervalTree(timespans)
+            >>> interval_tree = IntervalTree(timespans)
 
         ::
 
@@ -183,19 +184,19 @@ class IntervalTree(SupriyaObject):
 
         ::
 
-            >>> import abjad.timespans
+            >>> from supriya.time import Interval, IntervalTree
             >>> timespans = (
-            ...     abjad.timespans.Timespan(0, 3),
-            ...     abjad.timespans.Timespan(1, 3),
-            ...     abjad.timespans.Timespan(1, 2),
-            ...     abjad.timespans.Timespan(2, 5),
-            ...     abjad.timespans.Timespan(6, 9),
+            ...     Interval(0, 3),
+            ...     Interval(1, 3),
+            ...     Interval(1, 2),
+            ...     Interval(2, 5),
+            ...     Interval(6, 9),
             ...     )
-            >>> interval_tree = supriya.time.IntervalTree(timespans)
+            >>> interval_tree = IntervalTree(timespans)
 
         ::
 
-            >>> interval_tree[:3] = [abjad.timespans.Timespan(100, 200)]
+            >>> interval_tree[:3] = [Interval(100, 200)]
 
         Returns none.
         """
@@ -220,16 +221,16 @@ class IntervalTree(SupriyaObject):
 
         ::
 
-            >>> import abjad.timespans
-            >>> interval_tree = supriya.time.IntervalTree([
-            ...     abjad.timespans.Timespan(0, 16),
-            ...     abjad.timespans.Timespan(5, 12),
-            ...     abjad.timespans.Timespan(-2, 8),
+            >>> from supriya.time import Interval, IntervalTree
+            >>> interval_tree = IntervalTree([
+            ...     Interval(0, 16),
+            ...     Interval(5, 12),
+            ...     Interval(-2, 8),
             ...     ])
 
         ::
 
-            >>> timespan = abjad.timespans.Timespan(5, 10)
+            >>> timespan = Interval(5, 10)
             >>> result = interval_tree - timespan
 
         ::
@@ -237,10 +238,10 @@ class IntervalTree(SupriyaObject):
             >>> for timespan in interval_tree:
             ...     timespan
             ...
-            Timespan(start_offset=Offset(-2, 1), stop_offset=Offset(5, 1))
-            Timespan(start_offset=Offset(0, 1), stop_offset=Offset(5, 1))
-            Timespan(start_offset=Offset(10, 1), stop_offset=Offset(12, 1))
-            Timespan(start_offset=Offset(10, 1), stop_offset=Offset(16, 1))
+            Interval(start_offset=-2.0, stop_offset=5.0)
+            Interval(start_offset=0.0, stop_offset=5.0)
+            Interval(start_offset=10.0, stop_offset=12.0)
+            Interval(start_offset=10.0, stop_offset=16.0)
 
         Operates in place and returns interval tree.
         """
@@ -275,24 +276,24 @@ class IntervalTree(SupriyaObject):
 
             ::
 
-                >>> import abjad.timespans
+                >>> from supriya.time import Interval, IntervalTree
                 >>> timespans = (
-                ...     abjad.timespans.Timespan(0, 3),
-                ...     abjad.timespans.Timespan(1, 3),
-                ...     abjad.timespans.Timespan(1, 2),
-                ...     abjad.timespans.Timespan(2, 5),
-                ...     abjad.timespans.Timespan(6, 9),
+                ...     Interval(0, 3),
+                ...     Interval(1, 3),
+                ...     Interval(1, 2),
+                ...     Interval(2, 5),
+                ...     Interval(6, 9),
                 ...     )
-                >>> interval_tree = supriya.time.IntervalTree(timespans)
+                >>> interval_tree = IntervalTree(timespans)
 
             ::
 
                 >>> for x in interval_tree.find_intersection(1.5):
                 ...     x
                 ...
-                Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))
-                Timespan(start_offset=Offset(1, 1), stop_offset=Offset(2, 1))
-                Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1))
+                Interval(start_offset=0.0, stop_offset=3.0)
+                Interval(start_offset=1.0, stop_offset=2.0)
+                Interval(start_offset=1.0, stop_offset=3.0)
 
         ..  container:: example
 
@@ -301,23 +302,23 @@ class IntervalTree(SupriyaObject):
             ::
 
                 >>> timespans = (
-                ...     abjad.timespans.Timespan(0, 3),
-                ...     abjad.timespans.Timespan(1, 3),
-                ...     abjad.timespans.Timespan(1, 2),
-                ...     abjad.timespans.Timespan(2, 5),
-                ...     abjad.timespans.Timespan(6, 9),
+                ...     Interval(0, 3),
+                ...     Interval(1, 3),
+                ...     Interval(1, 2),
+                ...     Interval(2, 5),
+                ...     Interval(6, 9),
                 ...     )
-                >>> interval_tree = supriya.time.IntervalTree(timespans)
+                >>> interval_tree = IntervalTree(timespans)
 
             ::
 
-                >>> timespan = abjad.timespans.Timespan(2, 4)
+                >>> timespan = Interval(2, 4)
                 >>> for x in interval_tree.find_intersection(timespan):
                 ...     x
                 ...
-                Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))
-                Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1))
-                Timespan(start_offset=Offset(2, 1), stop_offset=Offset(5, 1))
+                Interval(start_offset=0.0, stop_offset=3.0)
+                Interval(start_offset=1.0, stop_offset=3.0)
+                Interval(start_offset=2.0, stop_offset=5.0)
 
         """
         if self._is_timespan(timespan_or_offset):
@@ -336,15 +337,15 @@ class IntervalTree(SupriyaObject):
 
         ::
 
-            >>> import abjad.timespans
+            >>> from supriya.time import Interval, IntervalTree
             >>> timespans = (
-            ...     abjad.timespans.Timespan(0, 3),
-            ...     abjad.timespans.Timespan(1, 3),
-            ...     abjad.timespans.Timespan(1, 2),
-            ...     abjad.timespans.Timespan(2, 5),
-            ...     abjad.timespans.Timespan(6, 9),
+            ...     Interval(0, 3),
+            ...     Interval(1, 3),
+            ...     Interval(1, 2),
+            ...     Interval(2, 5),
+            ...     Interval(6, 9),
             ...     )
-            >>> interval_tree = supriya.time.IntervalTree(timespans)
+            >>> interval_tree = IntervalTree(timespans)
 
         ::
 
@@ -379,15 +380,15 @@ class IntervalTree(SupriyaObject):
 
         ::
 
-            >>> import abjad.timespans
+            >>> from supriya.time import Interval, IntervalTree
             >>> timespans = (
-            ...     abjad.timespans.Timespan(0, 3),
-            ...     abjad.timespans.Timespan(1, 3),
-            ...     abjad.timespans.Timespan(1, 2),
-            ...     abjad.timespans.Timespan(2, 5),
-            ...     abjad.timespans.Timespan(6, 9),
+            ...     Interval(0, 3),
+            ...     Interval(1, 3),
+            ...     Interval(1, 2),
+            ...     Interval(2, 5),
+            ...     Interval(6, 9),
             ...     )
-            >>> interval_tree = supriya.time.IntervalTree(timespans)
+            >>> interval_tree = IntervalTree(timespans)
 
         ::
 
@@ -416,15 +417,15 @@ class IntervalTree(SupriyaObject):
 
         ::
 
-            >>> import abjad.timespans
+            >>> from supriya.time import Interval, IntervalTree
             >>> timespans = (
-            ...     abjad.timespans.Timespan(0, 3),
-            ...     abjad.timespans.Timespan(1, 3),
-            ...     abjad.timespans.Timespan(1, 2),
-            ...     abjad.timespans.Timespan(2, 5),
-            ...     abjad.timespans.Timespan(6, 9),
+            ...     Interval(0, 3),
+            ...     Interval(1, 3),
+            ...     Interval(1, 2),
+            ...     Interval(2, 5),
+            ...     Interval(6, 9),
             ...     )
-            >>> interval_tree = supriya.time.IntervalTree(timespans)
+            >>> interval_tree = IntervalTree(timespans)
 
         ::
 
@@ -460,15 +461,15 @@ class IntervalTree(SupriyaObject):
 
         ::
 
-            >>> import abjad.timespans
+            >>> from supriya.time import Interval, IntervalTree
             >>> timespans = (
-            ...     abjad.timespans.Timespan(0, 3),
-            ...     abjad.timespans.Timespan(1, 3),
-            ...     abjad.timespans.Timespan(1, 2),
-            ...     abjad.timespans.Timespan(2, 5),
-            ...     abjad.timespans.Timespan(6, 9),
+            ...     Interval(0, 3),
+            ...     Interval(1, 3),
+            ...     Interval(1, 2),
+            ...     Interval(2, 5),
+            ...     Interval(6, 9),
             ...     )
-            >>> interval_tree = supriya.time.IntervalTree(timespans)
+            >>> interval_tree = IntervalTree(timespans)
 
         ::
 
@@ -513,15 +514,15 @@ class IntervalTree(SupriyaObject):
 
         ::
 
-            >>> import abjad.timespans
+            >>> from supriya.time import Interval, IntervalTree
             >>> timespans = (
-            ...     abjad.timespans.Timespan(0, 3),
-            ...     abjad.timespans.Timespan(1, 3),
-            ...     abjad.timespans.Timespan(1, 2),
-            ...     abjad.timespans.Timespan(2, 5),
-            ...     abjad.timespans.Timespan(6, 9),
+            ...     Interval(0, 3),
+            ...     Interval(1, 3),
+            ...     Interval(1, 2),
+            ...     Interval(2, 5),
+            ...     Interval(6, 9),
             ...     )
-            >>> interval_tree = supriya.time.IntervalTree(timespans)
+            >>> interval_tree = IntervalTree(timespans)
 
         ::
 
@@ -571,15 +572,15 @@ class IntervalTree(SupriyaObject):
 
         ::
 
-            >>> import abjad.timespans
+            >>> from supriya.time import Interval, IntervalTree
             >>> timespans = (
-            ...     abjad.timespans.Timespan(0, 3),
-            ...     abjad.timespans.Timespan(1, 3),
-            ...     abjad.timespans.Timespan(1, 2),
-            ...     abjad.timespans.Timespan(2, 5),
-            ...     abjad.timespans.Timespan(6, 9),
+            ...     Interval(0, 3),
+            ...     Interval(1, 3),
+            ...     Interval(1, 2),
+            ...     Interval(2, 5),
+            ...     Interval(6, 9),
             ...     )
-            >>> interval_tree = supriya.time.IntervalTree(timespans)
+            >>> interval_tree = IntervalTree(timespans)
 
         ::
 
@@ -631,15 +632,15 @@ class IntervalTree(SupriyaObject):
 
         ::
 
-            >>> import abjad.timespans
+            >>> from supriya.time import Interval, IntervalTree
             >>> timespans = (
-            ...     abjad.timespans.Timespan(0, 3),
-            ...     abjad.timespans.Timespan(1, 3),
-            ...     abjad.timespans.Timespan(1, 2),
-            ...     abjad.timespans.Timespan(2, 5),
-            ...     abjad.timespans.Timespan(6, 9),
+            ...     Interval(0, 3),
+            ...     Interval(1, 3),
+            ...     Interval(1, 2),
+            ...     Interval(2, 5),
+            ...     Interval(6, 9),
             ...     )
-            >>> interval_tree = supriya.time.IntervalTree(timespans)
+            >>> interval_tree = IntervalTree(timespans)
 
         ::
 
@@ -652,8 +653,8 @@ class IntervalTree(SupriyaObject):
             >>> for timespan in interval_tree:
             ...     timespan
             ...
-            Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))
-            Timespan(start_offset=Offset(6, 1), stop_offset=Offset(9, 1))
+            Interval(start_offset=0.0, stop_offset=3.0)
+            Interval(start_offset=6.0, stop_offset=9.0)
 
         """
         self._driver.remove(timespan)
