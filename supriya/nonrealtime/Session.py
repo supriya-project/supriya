@@ -7,11 +7,11 @@ from queue import PriorityQueue
 import uqbar.io
 
 import supriya.commands
+import supriya.intervals
 import supriya.osc
 import supriya.realtime
 import supriya.soundfiles
 import supriya.synthdefs
-import supriya.time
 from supriya import HeaderFormat, SampleFormat
 from supriya.commands import (
     BufferCopyRequest,
@@ -141,9 +141,9 @@ class Session:
             output_bus_channel_count=output_bus_channel_count,
         )
         self._active_moments = []
-        self._buffers = supriya.time.IntervalTree(accelerated=True)
+        self._buffers = supriya.intervals.IntervalTree(accelerated=True)
         self._name = name
-        self._nodes = supriya.time.IntervalTree(accelerated=True)
+        self._nodes = supriya.intervals.IntervalTree(accelerated=True)
         self._offsets = []
         self._root_node = supriya.nonrealtime.RootNode(self)
         self._session_ids = {}

@@ -1,7 +1,7 @@
 import dataclasses
 from typing import Optional, Tuple
 
-from supriya.time import IntervalTree
+from supriya.intervals import IntervalTree
 from supriya.utils import iterate_nwise
 
 from .Note import Note

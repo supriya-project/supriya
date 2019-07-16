@@ -2,6 +2,7 @@ import threading
 
 from uqbar.objects import new
 
+from supriya.intervals import IntervalTree
 from supriya.system.SupriyaObject import SupriyaObject
 
 
@@ -54,13 +55,12 @@ class BlockAllocator(SupriyaObject):
 
     def __init__(self, heap_maximum=None, heap_minimum=0):
         import supriya.realtime
-        import supriya.time
 
-        self._free_heap = supriya.time.IntervalTree(accelerated=True)
+        self._free_heap = IntervalTree(accelerated=True)
         self._heap_maximum = heap_maximum
         self._heap_minimum = heap_minimum
         self._lock = threading.Lock()
-        self._used_heap = supriya.time.IntervalTree(accelerated=True)
+        self._used_heap = IntervalTree(accelerated=True)
         free_block = supriya.realtime.Block(
             start_offset=heap_minimum, stop_offset=heap_maximum, used=False
         )

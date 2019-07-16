@@ -1,4 +1,4 @@
-from supriya.time.Interval import Interval
+from supriya.intervals.Interval import Interval
 
 
 class Block(Interval):

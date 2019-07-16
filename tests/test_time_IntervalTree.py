@@ -4,7 +4,7 @@ import random
 import pytest
 import uqbar.io
 
-from supriya.time import (
+from supriya.intervals import (
     Interval,
     IntervalTree,
     IntervalTreeDriver,

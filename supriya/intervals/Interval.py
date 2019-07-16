@@ -11,7 +11,7 @@ class Interval(SupriyaValueObject):
 
     ::
 
-        >>> from supriya.time import Interval
+        >>> from supriya.intervals import Interval
         >>> Interval(0, 10)
         Interval(start_offset=0.0, stop_offset=10.0)
 
@@ -43,7 +43,7 @@ class Interval(SupriyaValueObject):
 
         ::
 
-            >>> from supriya.time import Interval
+            >>> from supriya.intervals import Interval
             >>> interval_1 = Interval(0, 10)
             >>> interval_2 = Interval(5, 12)
             >>> interval_3 = Interval(-2, 2)
@@ -152,7 +152,7 @@ class Interval(SupriyaValueObject):
 
         ::
 
-            >>> from supriya.time import Interval
+            >>> from supriya.intervals import Interval
             >>> interval_1 = Interval(0, 10)
             >>> interval_2 = Interval(5, 12)
             >>> interval_3 = Interval(-2, 2)
@@ -240,7 +240,7 @@ class Interval(SupriyaValueObject):
 
         ::
 
-            >>> from supriya.time import Interval
+            >>> from supriya.intervals import Interval
             >>> interval_1 = Interval(0, 10)
             >>> interval_2 = Interval(5, 12)
             >>> interval_3 = Interval(8, 11)
@@ -399,7 +399,7 @@ class Interval(SupriyaValueObject):
 
         ::
 
-            >>> from supriya.time import Interval
+            >>> from supriya.intervals import Interval
             >>> interval_1 = Interval(0, 10)
             >>> interval_2 = Interval(5, 12)
             >>> interval_3 = Interval(-2, 2)
@@ -491,7 +491,7 @@ class Interval(SupriyaValueObject):
 
         ::
 
-            >>> from supriya.time import Interval
+            >>> from supriya.intervals import Interval
             >>> interval_1 = Interval(0, 10)
             >>> interval_2 = Interval(5, 15)
             >>> interval_3 = Interval(10, 15)
@@ -536,7 +536,7 @@ class Interval(SupriyaValueObject):
 
         ::
 
-            >>> from supriya.time import Interval
+            >>> from supriya.intervals import Interval
             >>> interval_1 = Interval(0, 10)
             >>> interval_2 = Interval(5, 15)
             >>> interval_3 = Interval(10, 15)
@@ -578,7 +578,7 @@ class Interval(SupriyaValueObject):
 
         ::
 
-            >>> from supriya.time import Interval
+            >>> from supriya.intervals import Interval
             >>> interval_one = Interval(0, 10)
 
             >>> interval_two = interval_one.new()
@@ -605,7 +605,7 @@ class Interval(SupriyaValueObject):
 
         ::
 
-            >>> from supriya.time import Interval
+            >>> from supriya.intervals import Interval
             >>> interval = Interval(0, 10)
             >>> for split_interval in interval.split(1, 3, 7):
             ...     split_interval
@@ -639,7 +639,7 @@ class Interval(SupriyaValueObject):
 
         ::
 
-            >>> from supriya.time import Interval
+            >>> from supriya.intervals import Interval
             >>> interval = Interval(0, 10)
 
         ::
