@@ -24,7 +24,7 @@ install_requires = [
     "PyYAML",
     "appdirs",
     "tqdm",
-    "uqbar >= 0.4.0",
+    "uqbar >= 0.4.1",
 ]
 
 if LooseVersion(sys.version.split()[0]) < LooseVersion("3.7.0"):
