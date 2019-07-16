@@ -41,7 +41,7 @@ class GroupNewRequest(Request):
         ...             ),
         ...         ],
         ...     )
-        >>> request.to_osc(True)
+        >>> request.to_osc(with_request_name=True)
         OscMessage('/g_new', 1001, 1, 1, 1002, 0, 1001)
 
     ::
@@ -136,16 +136,20 @@ class GroupNewRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, with_request_name=False):
+    def to_osc(self, *, with_placeholders=False, with_request_name=False):
         if with_request_name:
             request_id = self.request_name
         else:
             request_id = int(self.request_id)
         contents = [request_id]
         for item in self.items:
-            contents.append(int(item.node_id))
+            node_id = self._sanitize_node_id(item.node_id, with_placeholders)
+            target_node_id = self._sanitize_node_id(
+                item.target_node_id, with_placeholders
+            )
+            contents.append(node_id)
             contents.append(int(item.add_action))
-            contents.append(int(item.target_node_id))
+            contents.append(target_node_id)
         message = supriya.osc.OscMessage(*contents)
         return message
 

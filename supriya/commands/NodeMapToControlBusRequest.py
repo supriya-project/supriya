@@ -60,12 +60,12 @@ class NodeMapToControlBusRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, with_request_name=False):
+    def to_osc(self, *, with_placeholders=False, with_request_name=False):
         if with_request_name:
             request_id = self.request_name
         else:
             request_id = int(self.request_id)
-        node_id = int(self.node_id)
+        node_id = self._sanitize_node_id(self.node_id, with_placeholders)
         contents = []
         for name, bus in sorted(self._kwargs.items()):
             contents.append(name)

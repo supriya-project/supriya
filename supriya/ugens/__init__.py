@@ -310,6 +310,7 @@ from .Saw import Saw  # noqa
 from .Schmidt import Schmidt  # noqa
 from .Select import Select  # noqa
 from .SendPeakRMS import SendPeakRMS  # noqa
+from .SendTrig import SendTrig  # noqa
 from .Silence import Silence  # noqa
 from .SinOsc import SinOsc  # noqa
 from .Slew import Slew  # noqa

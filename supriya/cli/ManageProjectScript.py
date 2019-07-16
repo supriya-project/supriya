@@ -1,8 +1,8 @@
+import dataclasses
 import os
 import pathlib
 import sys
 
-import dataclasses
 import uqbar.io
 import uqbar.strings
 import yaml

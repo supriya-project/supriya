@@ -1,11 +1,11 @@
 import collections
 
-from uqbar.containers import UniqueTreeContainer
+from uqbar.containers import UniqueTreeList
 
 from supriya.realtime.Node import Node
 
 
-class Group(Node, UniqueTreeContainer):
+class Group(Node, UniqueTreeList):
     """
     A group.
 
@@ -47,7 +47,7 @@ class Group(Node, UniqueTreeContainer):
 
         self._control_interface = supriya.realtime.GroupInterface(client=self)
         Node.__init__(self, name=name, node_id_is_permanent=node_id_is_permanent)
-        UniqueTreeContainer.__init__(self, children=children, name=name)
+        UniqueTreeList.__init__(self, children=children, name=name)
 
     ### SPECIAL METHODS ###
 
@@ -72,7 +72,7 @@ class Group(Node, UniqueTreeContainer):
 
         """
         # TODO: lean on uqbar's __setitem__ more.
-        self._validate_setitem_expr(expr)
+        self._validate(expr)
         if isinstance(i, slice):
             assert isinstance(expr, collections.Sequence)
         if isinstance(i, str):
@@ -103,16 +103,15 @@ class Group(Node, UniqueTreeContainer):
         if node_id is None:
             node_id = "???"
         if self.name:
-            string = "{node_id} group ({name})"
+            string = f"{node_id} group ({self.name})"
         else:
-            string = "{node_id} group"
-        string = string.format(name=self.name, node_id=node_id)
+            string = f"{node_id} group"
         result.append(string)
         for child in self:
             assert child.parent is self
             lines = str(child).splitlines()
             for line in lines:
-                result.append("    {}".format(line))
+                result.append(f"    {line}")
         return "\n".join(result)
 
     ### PRIVATE METHODS ###
@@ -201,6 +200,7 @@ class Group(Node, UniqueTreeContainer):
 
     def _set_allocated(self, expr, start, stop):
         # TODO: Consolidate this with Group.allocate()
+        # TODO: Perform tree mutations via command apply methods, not here
         import supriya.commands
         import supriya.realtime
 
@@ -213,17 +213,15 @@ class Group(Node, UniqueTreeContainer):
                 start -= 1
             child._set_parent(self)
         self._children.__setitem__(slice(start, start), expr)
-
         new_nodes, paused_nodes, requests, synthdefs = self._collect_requests_and_synthdefs(
             expr, self.server, start=start
         )
         nodes_to_free = [_ for _ in old_nodes if _ not in new_nodes]
         if nodes_to_free:
-            requests.insert(
-                0,
+            requests.append(
                 supriya.commands.NodeFreeRequest(
                     node_ids=sorted(nodes_to_free, key=lambda x: x.node_id)
-                ),
+                )
             )
         return self._allocate(paused_nodes, requests, self.server, synthdefs)
 
@@ -241,7 +239,7 @@ class Group(Node, UniqueTreeContainer):
             child._unregister_with_local_server()
         return Node._unregister_with_local_server(self)
 
-    def _validate_setitem_expr(self, expr):
+    def _validate(self, expr):
         import supriya.realtime
 
         assert all(isinstance(_, supriya.realtime.Node) for _ in expr)

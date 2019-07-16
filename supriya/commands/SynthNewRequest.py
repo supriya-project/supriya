@@ -94,7 +94,7 @@ class SynthNewRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, with_request_name=False):
+    def to_osc(self, *, with_placeholders=False, with_request_name=False):
         import supriya.synthdefs
 
         if with_request_name:
@@ -104,9 +104,11 @@ class SynthNewRequest(Request):
         synthdef = self.synthdef
         if isinstance(synthdef, supriya.synthdefs.SynthDef):
             synthdef = synthdef.actual_name
-        node_id = int(self.node_id)
+        node_id = self._sanitize_node_id(self.node_id, with_placeholders)
         add_action = int(self.add_action)
-        target_node_id = int(self.target_node_id)
+        target_node_id = self._sanitize_node_id(self.target_node_id, with_placeholders)
+        if not isinstance(target_node_id, int) and with_placeholders:
+            target_node_id = -1
         contents = [request_id, synthdef, node_id, add_action, target_node_id]
         for key, value in self._kwargs:
             contents.append(key)

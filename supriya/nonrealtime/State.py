@@ -291,15 +291,15 @@ class State(SessionObject):
 
     @property
     def overlap_nodes(self):
-        timespan_collection = self.session._nodes
-        intersection = timespan_collection.find_intersection(self.offset)
+        interval_tree = self.session._nodes
+        intersection = interval_tree.find_intersection(self.offset)
         overlap = [_ for _ in intersection if _.start_offset < self.offset]
         return overlap
 
     @property
     def overlap_buffers(self):
-        timespan_collection = self.session._buffers
-        intersection = timespan_collection.find_intersection(self.offset)
+        interval_tree = self.session._buffers
+        intersection = interval_tree.find_intersection(self.offset)
         overlap = [_ for _ in intersection if _.start_offset < self.offset]
         return overlap
 

@@ -7,11 +7,11 @@ from queue import PriorityQueue
 import uqbar.io
 
 import supriya.commands
+import supriya.intervals
 import supriya.osc
 import supriya.realtime
 import supriya.soundfiles
 import supriya.synthdefs
-import supriya.time
 from supriya import HeaderFormat, SampleFormat
 from supriya.commands import (
     BufferCopyRequest,
@@ -141,9 +141,9 @@ class Session:
             output_bus_channel_count=output_bus_channel_count,
         )
         self._active_moments = []
-        self._buffers = supriya.time.TimespanCollection(accelerated=True)
+        self._buffers = supriya.intervals.IntervalTree(accelerated=True)
         self._name = name
-        self._nodes = supriya.time.TimespanCollection(accelerated=True)
+        self._nodes = supriya.intervals.IntervalTree(accelerated=True)
         self._offsets = []
         self._root_node = supriya.nonrealtime.RootNode(self)
         self._session_ids = {}
@@ -985,7 +985,7 @@ class Session:
         osc_bundles = []
         request_bundles = self._to_non_xrefd_request_bundles(duration=duration)
         for request_bundle in request_bundles:
-            osc_bundles.append(request_bundle.to_osc(True))
+            osc_bundles.append(request_bundle.to_osc(with_request_name=True))
         return osc_bundles
 
     def _to_non_xrefd_request_bundles(self, duration=None):
@@ -1069,7 +1069,7 @@ class Session:
         start_moment.state.start_buffers.add(buffer_)
         with self.at(buffer_.stop_offset) as stop_moment:
             stop_moment.state.stop_buffers.add(buffer_)
-        self._buffers.insert(buffer_)
+        self._buffers.add(buffer_)
         return buffer_
 
     @SessionObject.require_offset
@@ -1093,7 +1093,7 @@ class Session:
             start_offset=offset,
         )
         for buffer_ in buffer_group:
-            self._buffers.insert(buffer_)
+            self._buffers.add(buffer_)
             start_moment.state.start_buffers.add(buffer_)
         with self.at(buffer_group.stop_offset) as stop_moment:
             for buffer_ in buffer_group:

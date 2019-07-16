@@ -4,10 +4,10 @@ import pathlib
 import signal
 import subprocess
 import time
+from dataclasses import dataclass
 from typing import Optional
 
 import uqbar.io
-from dataclasses import dataclass
 
 import supriya
 

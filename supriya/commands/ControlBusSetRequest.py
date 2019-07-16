@@ -31,7 +31,7 @@ class ControlBusSetRequest(Request):
 
     ::
 
-        >>> request.to_osc(True)
+        >>> request.to_osc(with_request_name=True)
         OscMessage('/c_set', 0, 0.1, 1, 0.2, 2, 0.3, 3, 0.4)
 
     ::
@@ -83,7 +83,7 @@ class ControlBusSetRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, with_request_name=False):
+    def to_osc(self, *, with_placeholders=False, with_request_name=False):
         if with_request_name:
             request_id = self.request_name
         else:

@@ -21,7 +21,7 @@ class ControlBusGetRequest(Request):
 
     ::
 
-        >>> request.to_osc(True)
+        >>> request.to_osc(with_request_name=True)
         OscMessage('/c_get', 0, 4, 8, 12)
 
     ::
@@ -65,7 +65,7 @@ class ControlBusGetRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, with_request_name=False):
+    def to_osc(self, *, with_placeholders=False, with_request_name=False):
         if with_request_name:
             request_id = self.request_name
         else:

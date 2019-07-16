@@ -179,7 +179,7 @@ class Synth(Node):
         return self._allocate(paused_nodes, requests, server, synthdefs)
 
     def release(self):
-        if "gate" in self.controls:
+        if self.is_allocated and "gate" in self.controls:
             self["gate"] = 0
         else:
             self.free()

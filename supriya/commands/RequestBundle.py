@@ -27,7 +27,7 @@ class RequestBundle(Requestable):
 
     ::
 
-        >>> request_bundle.to_osc(True)
+        >>> request_bundle.to_osc(with_request_name=True)
         OscBundle(
             contents=(
                 OscMessage('/b_alloc', 23, 512, 1),
@@ -38,7 +38,7 @@ class RequestBundle(Requestable):
 
     ::
 
-        >>> request_bundle.to_list(True)
+        >>> request_bundle.to_list(with_request_name=True)
         [10.5, [['/b_alloc', 23, 512, 1], ['/b_alloc', 24, 512, 1]]]
 
     """
@@ -84,19 +84,23 @@ class RequestBundle(Requestable):
 
     ### PUBLIC METHODS ###
 
-    def to_datagram(self):
-        return self.to_osc().to_datagram()
-
-    def to_list(self, with_request_name=False):
-        return self.to_osc(with_request_name).to_list()
-
-    def to_osc(self, with_request_name=False):
+    def to_osc(self, *, with_placeholders=False, with_request_name=False):
         contents = []
         for x in self.contents:
             if isinstance(x, type(self)):
-                contents.append(x.to_osc(with_request_name))
+                contents.append(
+                    x.to_osc(
+                        with_placeholders=with_placeholders,
+                        with_request_name=with_request_name,
+                    )
+                )
             else:
-                contents.append(x.to_osc(with_request_name))
+                contents.append(
+                    x.to_osc(
+                        with_placeholders=with_placeholders,
+                        with_request_name=with_request_name,
+                    )
+                )
         bundle = supriya.osc.OscBundle(timestamp=self.timestamp, contents=contents)
         return bundle
 

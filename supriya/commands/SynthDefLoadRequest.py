@@ -28,14 +28,19 @@ class SynthDefLoadRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, with_request_name=False):
+    def to_osc(self, *, with_placeholders=False, with_request_name=False):
         if with_request_name:
             request_id = self.request_name
         else:
             request_id = int(self.request_id)
         contents = [request_id, str(self.synthdef_path)]
         if self.callback:
-            contents.append(self.callback.to_osc())
+            contents.append(
+                self.callback.to_osc(
+                    with_placeholders=with_placeholders,
+                    with_request_name=with_request_name,
+                )
+            )
         message = supriya.osc.OscMessage(*contents)
         return message
 

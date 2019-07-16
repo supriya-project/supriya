@@ -268,9 +268,10 @@ class SynthDefFactory(SupriyaObject):
         parameter = builder["out"]
         if self._input.get("private"):
             parameter = builder["in_"]
-        source = supriya.ugens.In.ar(
-            bus=parameter, channel_count=state["channel_count"]
-        )
+        input_class = supriya.ugens.In
+        if self._input.get("feedback"):
+            input_class = supriya.ugens.InFeedback
+        source = input_class.ar(bus=parameter, channel_count=state["channel_count"])
         if self._input.get("windowed"):
             source *= state["window"]
         return source
@@ -903,7 +904,7 @@ class SynthDefFactory(SupriyaObject):
         clone._initial_state.update(**state)
         return clone
 
-    def with_input(self, private=False, windowed=False):
+    def with_input(self, feedback=False, private=False, windowed=False):
         """
         Return a new factory configured with a bus input.
 
@@ -1138,7 +1139,9 @@ class SynthDefFactory(SupriyaObject):
 
         """
         clone = self._clone()
-        clone._input.update(private=bool(private), windowed=bool(windowed))
+        clone._input.update(
+            feedback=bool(feedback), private=bool(private), windowed=bool(windowed)
+        )
         return clone
 
     def with_output(
@@ -1557,6 +1560,17 @@ class SynthDefFactory(SupriyaObject):
             replacing=bool(replacing),
             windowed=bool(windowed),
         )
+        return clone
+
+    def with_parameters(self, **kwargs):
+        clone = self._clone()
+        parameters = dict(self._parameters)
+        for key, value in kwargs.items():
+            if key in parameters and value is None:
+                parameters.pop(key)
+            else:
+                parameters[key] = value
+        clone._parameters = sorted(tuple(parameters.items()))
         return clone
 
     def with_parameter_block(self, block_function):

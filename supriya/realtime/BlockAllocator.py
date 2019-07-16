@@ -2,6 +2,7 @@ import threading
 
 from uqbar.objects import new
 
+from supriya.intervals import IntervalTree
 from supriya.system.SupriyaObject import SupriyaObject
 
 
@@ -54,17 +55,16 @@ class BlockAllocator(SupriyaObject):
 
     def __init__(self, heap_maximum=None, heap_minimum=0):
         import supriya.realtime
-        import supriya.time
 
-        self._free_heap = supriya.time.TimespanCollection(accelerated=True)
+        self._free_heap = IntervalTree(accelerated=True)
         self._heap_maximum = heap_maximum
         self._heap_minimum = heap_minimum
         self._lock = threading.Lock()
-        self._used_heap = supriya.time.TimespanCollection(accelerated=True)
+        self._used_heap = IntervalTree(accelerated=True)
         free_block = supriya.realtime.Block(
             start_offset=heap_minimum, stop_offset=heap_maximum, used=False
         )
-        self._free_heap.insert(free_block)
+        self._free_heap.add(free_block)
 
     ### PUBLIC METHODS ###
 
@@ -85,13 +85,15 @@ class BlockAllocator(SupriyaObject):
                     new_free_block = new(
                         free_block, start_offset=split_offset, used=False
                     )
-                    self._free_heap.insert(new_free_block)
+                    self._free_heap.add(new_free_block)
                     used_block = new(free_block, stop_offset=split_offset, used=True)
                 else:
                     used_block = new(free_block, used=True)
-                self._used_heap.insert(used_block)
+                self._used_heap.add(used_block)
                 block_id = used_block.start_offset
-        return block_id
+        if block_id is None:
+            return block_id
+        return int(block_id)
 
     def allocate_at(self, index=None, desired_block_size=1):
         import supriya.realtime
@@ -102,13 +104,13 @@ class BlockAllocator(SupriyaObject):
         with self._lock:
             start_offset = index
             stop_offset = index + desired_block_size
-            start_cursor = self._free_heap.get_simultaneity_at(start_offset)
+            start_cursor = self._free_heap.get_moment_at(start_offset)
             starting_blocks = sorted(
-                start_cursor.start_timespans + start_cursor.overlap_timespans
+                start_cursor.start_intervals + start_cursor.overlap_intervals
             )
-            stop_cursor = self._free_heap.get_simultaneity_at(stop_offset)
+            stop_cursor = self._free_heap.get_moment_at(stop_offset)
             stop_blocks = sorted(
-                stop_cursor.overlap_timespans + stop_cursor.stop_timespans
+                stop_cursor.overlap_intervals + stop_cursor.stop_intervals
             )
             if starting_blocks == stop_blocks:
                 assert len(starting_blocks) == 1
@@ -116,35 +118,37 @@ class BlockAllocator(SupriyaObject):
                 used_block = supriya.realtime.Block(
                     start_offset=start_offset, stop_offset=stop_offset, used=True
                 )
-                self._used_heap.insert(used_block)
+                self._used_heap.add(used_block)
                 self._free_heap.remove(free_block)
                 free_blocks = free_block - used_block
                 for free_block in free_blocks:
-                    self._free_heap.insert(free_block)
+                    self._free_heap.add(free_block)
                 block_id = index
-        return block_id
+        if block_id is None:
+            return block_id
+        return int(block_id)
 
     def free(self, block_id):
         import supriya.realtime
 
         block_id = int(block_id)
         with self._lock:
-            cursor = self._used_heap.get_simultaneity_at(block_id)
+            cursor = self._used_heap.get_moment_at(block_id)
             blocks = sorted(
-                set(cursor.start_timespans) or set(cursor.overlap_timespans)
+                set(cursor.start_intervals) or set(cursor.overlap_intervals)
             )
             assert len(blocks) == 1
             used_block = blocks[0]
             self._used_heap.remove(used_block)
             start_offset = used_block.start_offset
-            stopping_blocks = self._free_heap.find_timespans_stopping_at(start_offset)
+            stopping_blocks = self._free_heap.find_intervals_stopping_at(start_offset)
             if stopping_blocks:
                 assert len(stopping_blocks) == 1
                 stopping_block = stopping_blocks[0]
                 self._free_heap.remove(stopping_block)
                 start_offset = stopping_block.start_offset
             stop_offset = used_block.stop_offset
-            starting_blocks = self._free_heap.find_timespans_starting_at(stop_offset)
+            starting_blocks = self._free_heap.find_intervals_starting_at(stop_offset)
             if starting_blocks:
                 assert len(starting_blocks) == 1
                 starting_block = starting_blocks[0]
@@ -153,7 +157,7 @@ class BlockAllocator(SupriyaObject):
             free_block = supriya.realtime.Block(
                 start_offset=start_offset, stop_offset=stop_offset, used=False
             )
-            self._free_heap.insert(free_block)
+            self._free_heap.add(free_block)
 
     ### PUBLIC PROPERTIES ###
 

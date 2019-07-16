@@ -25,7 +25,7 @@ class NodeRunRequest(Request):
         ...     [synth_a, True],
         ...     [synth_b, False],
         ...     ])
-        >>> request.to_osc(True)
+        >>> request.to_osc(with_request_name=True)
         OscMessage('/n_run', 1000, 1, 1001, 0)
 
     ::
@@ -55,7 +55,7 @@ class NodeRunRequest(Request):
         ...     [synth_a, False],
         ...     [synth_b, True],
         ...     ])
-        >>> request.to_osc(True)
+        >>> request.to_osc(with_request_name=True)
         OscMessage('/n_run', 1000, 0, 1001, 1)
 
     ::
@@ -110,18 +110,18 @@ class NodeRunRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, with_request_name=False):
+    def to_osc(self, *, with_placeholders=False, with_request_name=False):
         if with_request_name:
             request_id = self.request_name
         else:
             request_id = int(self.request_id)
         contents = [request_id]
-        if self.node_id_run_flag_pairs:
-            for node_id, run_flag in sorted(
-                self.node_id_run_flag_pairs, key=lambda x: int(x[0])
-            ):
-                contents.append(int(node_id))
-                contents.append(int(run_flag))
+        sanitized_pairs = []
+        for node_id, run_flag in self.node_id_run_flag_pairs or []:
+            node_id = self._sanitize_node_id(node_id, with_placeholders)
+            sanitized_pairs.append((node_id, int(run_flag)))
+        for pair in sorted(sanitized_pairs):
+            contents.extend(pair)
         message = supriya.osc.OscMessage(*contents)
         return message
 

@@ -8,6 +8,7 @@ extensions = [
     "sphinx.ext.graphviz",
     "sphinx.ext.intersphinx",
     "sphinx.ext.viewcode",
+    "sphinx_autodoc_typehints",
     "uqbar.sphinx.api",
     "uqbar.sphinx.book",
     "uqbar.sphinx.inheritance",
@@ -45,6 +46,7 @@ uqbar_api_member_documenter_classes = [
     "uqbar.apis.SummarizingClassDocumenter",
 ]
 uqbar_api_module_documenter_class = "uqbar.apis.SummarizingModuleDocumenter"
+uqbar_api_omit_root = True
 uqbar_api_root_documenter_class = "uqbar.apis.SummarizingRootDocumenter"
 uqbar_api_source_paths = supriya.__path__
 uqbar_api_title = "Supriya API Reference"

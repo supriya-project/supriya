@@ -31,7 +31,7 @@ class ControlBusGetContiguousRequest(Request):
 
     ::
 
-        >>> request.to_osc(True)
+        >>> request.to_osc(with_request_name=True)
         OscMessage('/c_getn', 0, 2, 4, 1, 8, 2, 12, 1)
 
     ::
@@ -82,7 +82,7 @@ class ControlBusGetContiguousRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, with_request_name=False):
+    def to_osc(self, *, with_placeholders=False, with_request_name=False):
         if with_request_name:
             request_id = self.request_name
         else:
