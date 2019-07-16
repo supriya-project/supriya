@@ -3,7 +3,7 @@ from typing import Optional
 from uqbar.containers import UniqueTreeNode
 
 import supriya.daw  # noqa
-from supriya import Group, Server
+from supriya.realtime import Group, Server
 
 from .DawMeta import DawMeta
 from .MixerContext import MixerContext

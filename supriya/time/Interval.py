@@ -2,7 +2,7 @@ from typing import Optional, Union
 
 from uqbar.objects import get_repr, new
 
-from supriya.system import SupriyaValueObject
+from supriya.system.SupriyaValueObject import SupriyaValueObject
 
 
 class Interval(SupriyaValueObject):

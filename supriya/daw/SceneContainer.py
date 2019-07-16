@@ -2,6 +2,8 @@ from typing import Optional
 
 from uqbar.containers import UniqueTreeList
 
+import supriya.daw  # noqa
+
 from .Scene import Scene
 
 

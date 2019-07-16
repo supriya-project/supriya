@@ -3,7 +3,7 @@ from typing import Any, Dict, Optional
 import uqbar.graphs
 
 import supriya.realtime
-from supriya.commands import SynthNewRequest
+from supriya.commands.SynthNewRequest import SynthNewRequest
 from supriya.nonrealtime.Node import Node
 from supriya.nonrealtime.NodeTransition import NodeTransition
 from supriya.nonrealtime.SessionObject import SessionObject
