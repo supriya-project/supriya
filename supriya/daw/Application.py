@@ -79,10 +79,10 @@ class Application(UniqueTreeTuple, MixerContext):
         self._server = server or Server.default()
         if not self._server.is_running:
             self._server.boot()
-        for alloc_node in reversed(self):  # type: DawNode
+        for alloc_node in reversed(list(self)):  # type: DawNode
             alloc_node._pre_allocate(self._server)
         self._node.allocate(target_node=self._server)
-        for post_alloc_node in reversed(self):  # type: DawNode
+        for post_alloc_node in reversed(list(self)):  # type: DawNode
             post_alloc_node._post_allocate()
 
     def quit(self) -> None:
@@ -90,7 +90,7 @@ class Application(UniqueTreeTuple, MixerContext):
         Quit the DAW application.
         """
         self._node.free()
-        for node in reversed(self):  # type: DawNode
+        for node in reversed(list(self)):  # type: DawNode
             node._free()
         self._server.quit()
         self._server = None

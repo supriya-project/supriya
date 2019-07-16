@@ -1,3 +1,5 @@
+from typing import Optional
+
 from supriya.realtime import Synth
 
 from .DawNode import DawNode
@@ -59,7 +61,7 @@ class Send(DawNode):
         if not DawNode._free(self):
             return False
         self.cached_target.receive._remove_incoming_send(self)
-        if self.node:
+        if self.node is not None:
             self.node.release()
         self._channel_counts = None
         return True
@@ -123,6 +125,10 @@ class Send(DawNode):
     @property
     def channel_counts(self):
         return self._channel_counts
+
+    @property
+    def node(self) -> Optional[Synth]:
+        return self._node
 
     @property
     def post_fader(self):

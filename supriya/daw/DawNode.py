@@ -3,7 +3,7 @@ from typing import Optional
 from uqbar.containers import UniqueTreeNode
 
 import supriya.daw  # noqa
-from supriya.realtime import Group, Server
+from supriya.realtime import Node, Server
 
 from .DawMeta import DawMeta
 from .MixerContext import MixerContext
@@ -125,7 +125,7 @@ class DawNode(UniqueTreeNode, metaclass=DawMeta):
         return self._channel_count
 
     @property
-    def node(self) -> Optional[Group]:
+    def node(self) -> Optional[Node]:
         return self._node
 
     @property
