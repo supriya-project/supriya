@@ -3,28 +3,14 @@ import random
 
 import pytest
 import uqbar.io
-from abjad import Timespan
 
-import supriya.time
-
-# from supriya.system import SupriyaValueObject
-# class Timespan(SupriyaValueObject):
-#
-#    def __init__( start_offset=float('-inf'), stop_offset=float('inf')):
-#        start_offset = float(start_offset)
-#        stop_offset = float(stop_offset)
-#
-#    def __eq__( expr):
-#        if not isinstance(expr, type():
-#            return False
-#        if not expr.start_offset == start_offset:
-#            return False
-#        if not expr.stop_offset == stop_offset:
-#            return False
-#        return True
-#
-#    def __hash__(:
-#        return hash((type(, start_offset, stop_offset))
+from supriya.time import (
+    Interval,
+    IntervalTree,
+    IntervalTreeDriver,
+    IntervalTreeDriverEx,
+    Moment,
+)
 
 
 def make_expected_start_offsets(range_=10, timespans=None):
@@ -73,24 +59,22 @@ def make_moment_fixtures(range_=10, timespans=None):
 
 def make_timespans():
     return [
-        Timespan(0, 3),
-        Timespan(1, 3),
-        Timespan(1, 2),
-        Timespan(2, 5),
-        Timespan(6, 9),
+        Interval(0, 3),
+        Interval(1, 3),
+        Interval(1, 2),
+        Interval(2, 5),
+        Interval(6, 9),
     ]
 
 
 def make_interval_tree(accelerated, populated=True, timespans=None):
     if populated and not timespans:
         timespans = make_timespans()
-    interval_tree = supriya.time.IntervalTree(
-        timespans=timespans, accelerated=accelerated
-    )
+    interval_tree = IntervalTree(timespans=timespans, accelerated=accelerated)
     if accelerated:
-        assert isinstance(interval_tree._driver, supriya.time.IntervalTreeDriverEx)
+        assert isinstance(interval_tree._driver, IntervalTreeDriverEx)
     else:
-        assert isinstance(interval_tree._driver, supriya.time.IntervalTreeDriver)
+        assert isinstance(interval_tree._driver, IntervalTreeDriver)
     return interval_tree
 
 
@@ -100,7 +84,7 @@ def make_random_timespans(count=10, range_=10):
     for _ in range(count):
         random.shuffle(indices)
         start_offset, stop_offset = sorted(indices[:2])
-        timespan = Timespan(start_offset=start_offset, stop_offset=stop_offset)
+        timespan = Interval(start_offset=start_offset, stop_offset=stop_offset)
         timespans.append(timespan)
     return timespans
 
@@ -110,7 +94,7 @@ def make_target_timespans(range_=10):
     timespans = []
     for pair in itertools.permutations(indices, 2):
         start_offset, stop_offset = sorted(pair)
-        target_timespan = Timespan(start_offset=start_offset, stop_offset=stop_offset)
+        target_timespan = Interval(start_offset=start_offset, stop_offset=stop_offset)
         timespans.append(target_timespan)
     return timespans
 
@@ -120,7 +104,7 @@ def test___contains__(accelerated):
     timespans = make_timespans()
     interval_tree = make_interval_tree(accelerated=accelerated, populated=True)
     assert timespans[0] in interval_tree
-    assert Timespan(-1, 100) not in interval_tree
+    assert Interval(-1, 100) not in interval_tree
     interval_tree.remove(timespans[-1])
     assert timespans[-1] not in interval_tree
 
@@ -128,11 +112,11 @@ def test___contains__(accelerated):
 @pytest.mark.parametrize("accelerated", [True, False])
 def test___getitem__(accelerated):
     interval_tree = make_interval_tree(accelerated=accelerated, populated=True)
-    assert interval_tree[-1] == Timespan(6, 9)
+    assert interval_tree[-1] == Interval(6, 9)
     assert [timespan for timespan in interval_tree[:3]] == [
-        Timespan(start_offset=0, stop_offset=3),
-        Timespan(start_offset=1, stop_offset=2),
-        Timespan(start_offset=1, stop_offset=3),
+        Interval(start_offset=0, stop_offset=3),
+        Interval(start_offset=1, stop_offset=2),
+        Interval(start_offset=1, stop_offset=3),
     ]
 
 
@@ -146,14 +130,14 @@ def test___init__(accelerated):
 def test___iter__(accelerated):
     interval_tree = make_interval_tree(accelerated=accelerated, populated=True)
     assert [timespan for timespan in interval_tree] == [
-        Timespan(start_offset=0, stop_offset=3),
-        Timespan(start_offset=1, stop_offset=2),
-        Timespan(start_offset=1, stop_offset=3),
-        Timespan(start_offset=2, stop_offset=5),
-        Timespan(start_offset=6, stop_offset=9),
+        Interval(start_offset=0, stop_offset=3),
+        Interval(start_offset=1, stop_offset=2),
+        Interval(start_offset=1, stop_offset=3),
+        Interval(start_offset=2, stop_offset=5),
+        Interval(start_offset=6, stop_offset=9),
     ]
     iterator = iter(interval_tree)
-    assert next(iterator) == Timespan(start_offset=0, stop_offset=3)
+    assert next(iterator) == Interval(start_offset=0, stop_offset=3)
 
 
 @pytest.mark.parametrize("accelerated", [True, False])
@@ -167,19 +151,19 @@ def test___len__(accelerated):
 @pytest.mark.parametrize("accelerated", [True, False])
 def test___setitem__(accelerated):
     interval_tree = make_interval_tree(accelerated=accelerated, populated=True)
-    interval_tree[-1] = Timespan(-1, 4)
+    interval_tree[-1] = Interval(-1, 4)
     assert [timespan for timespan in interval_tree] == [
-        Timespan(start_offset=-1, stop_offset=4),
-        Timespan(start_offset=0, stop_offset=3),
-        Timespan(start_offset=1, stop_offset=2),
-        Timespan(start_offset=1, stop_offset=3),
-        Timespan(start_offset=2, stop_offset=5),
+        Interval(start_offset=-1, stop_offset=4),
+        Interval(start_offset=0, stop_offset=3),
+        Interval(start_offset=1, stop_offset=2),
+        Interval(start_offset=1, stop_offset=3),
+        Interval(start_offset=2, stop_offset=5),
     ]
-    interval_tree[:3] = [Timespan(100, 200)]
+    interval_tree[:3] = [Interval(100, 200)]
     assert [timespan for timespan in interval_tree] == [
-        Timespan(start_offset=1, stop_offset=3),
-        Timespan(start_offset=2, stop_offset=5),
-        Timespan(start_offset=100, stop_offset=200),
+        Interval(start_offset=1, stop_offset=3),
+        Interval(start_offset=2, stop_offset=5),
+        Interval(start_offset=100, stop_offset=200),
     ]
 
 
@@ -187,15 +171,15 @@ def test___setitem__(accelerated):
 def test___sub__(accelerated):
     interval_tree = make_interval_tree(
         accelerated=accelerated,
-        timespans=[Timespan(0, 16), Timespan(5, 12), Timespan(-2, 8)],
+        timespans=[Interval(0, 16), Interval(5, 12), Interval(-2, 8)],
     )
-    timespan = Timespan(5, 10)
+    timespan = Interval(5, 10)
     result = interval_tree - timespan
     assert result[:] == [
-        Timespan(-2, 5),
-        Timespan(0, 5),
-        Timespan(10, 12),
-        Timespan(10, 16),
+        Interval(-2, 5),
+        Interval(0, 5),
+        Interval(10, 12),
+        Interval(10, 16),
     ]
 
 
@@ -314,7 +298,7 @@ def test_get_moment_at(accelerated):
         fixtures = make_moment_fixtures(range_=range_, timespans=timespans)
         for offset in range(range_):
             overlaps, starts, stops = fixtures[offset]
-            expected = supriya.time.Moment(
+            expected = Moment(
                 overlap_timespans=overlaps,
                 start_offset=offset,
                 start_timespans=starts,
@@ -342,7 +326,7 @@ def test_get_start_offset(accelerated):
             range_=range_, timespans=timespans
         )
         for timespan in sorted(timespans):
-            print("    Timespan:", timespan)
+            print("    Interval:", timespan)
         for offset in range(-1, range_ + 1):
             print("    Offset:", offset)
             print("        :", expected_offsets[offset])
@@ -363,19 +347,19 @@ def test_index(accelerated):
     assert interval_tree.index(timespans[3]) == 3
     assert interval_tree.index(timespans[4]) == 4
     with pytest.raises(ValueError):
-        timespan = Timespan(-100, 100)
+        timespan = Interval(-100, 100)
         interval_tree.index(timespan)
 
 
 @pytest.mark.parametrize("accelerated", [True, False])
 def test_insert(accelerated):
     interval_tree = make_interval_tree(accelerated=accelerated, populated=False)
-    interval_tree.add(Timespan(1, 3))
-    interval_tree.update((Timespan(0, 4), Timespan(2, 6)))
+    interval_tree.add(Interval(1, 3))
+    interval_tree.update((Interval(0, 4), Interval(2, 6)))
     assert interval_tree[:] == [
-        Timespan(start_offset=0, stop_offset=4),
-        Timespan(start_offset=1, stop_offset=3),
-        Timespan(start_offset=2, stop_offset=6),
+        Interval(start_offset=0, stop_offset=4),
+        Interval(start_offset=1, stop_offset=3),
+        Interval(start_offset=2, stop_offset=6),
     ]
 
 
@@ -399,21 +383,21 @@ def test_remove(accelerated):
     for timespan in interval_tree[1:-1]:
         interval_tree.remove(timespan)
     assert interval_tree[:] == [
-        Timespan(start_offset=0, stop_offset=3),
-        Timespan(start_offset=6, stop_offset=9),
+        Interval(start_offset=0, stop_offset=3),
+        Interval(start_offset=6, stop_offset=9),
     ]
 
 
 def test_get_offset_after():
     timespans = [
-        Timespan(0, 3),
-        Timespan(1, 3),
-        Timespan(1, 2),
-        Timespan(2, 5),
-        Timespan(5, 10),
-        Timespan(5, 12),
-        Timespan(6, 9),
-        Timespan(13, 15),
+        Interval(0, 3),
+        Interval(1, 3),
+        Interval(1, 2),
+        Interval(2, 5),
+        Interval(5, 10),
+        Interval(5, 12),
+        Interval(6, 9),
+        Interval(13, 15),
     ]
     expected = [
         (-2, 0.0),
@@ -437,7 +421,7 @@ def test_get_offset_after():
         (16, None),
     ]
     for _ in range(10):
-        interval_tree = supriya.time.IntervalTree(timespans)
+        interval_tree = IntervalTree(timespans)
         actual = [(i, interval_tree.get_offset_after(i)) for i in range(-2, 17)]
         assert actual == expected
         random.shuffle(timespans)

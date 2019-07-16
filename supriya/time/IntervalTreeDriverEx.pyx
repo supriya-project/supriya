@@ -86,20 +86,6 @@ cdef class _CNode:
 cdef class IntervalTreeDriverEx:
     """
     A mutable always-sorted collection of timespans.
-
-    ::
-
-        >>> import abjad.timespans
-        >>> import supriya.time
-        >>> timespans = (
-        ...     abjad.timespans.Timespan(0, 3),
-        ...     abjad.timespans.Timespan(1, 3),
-        ...     abjad.timespans.Timespan(1, 2),
-        ...     abjad.timespans.Timespan(2, 5),
-        ...     abjad.timespans.Timespan(6, 9),
-        ...     )
-        >>> interval_tree = supriya.time.IntervalTreeDriverEx(timespans)
-
     """
 
     ### CLASS VARIABLES ###

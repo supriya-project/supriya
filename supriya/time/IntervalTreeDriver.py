@@ -1,4 +1,4 @@
-import abjad.timespans
+from .Interval import Interval
 
 
 class _CTimespan:
@@ -151,7 +151,7 @@ class IntervalTreeDriver:
     ### PRIVATE METHODS ###
 
     def _get_node_ctimespan(self, node):
-        return abjad.timespans.Timespan(
+        return Interval(
             start_offset=node.start_offset, stop_offset=node.stop_offset_high
         )
 

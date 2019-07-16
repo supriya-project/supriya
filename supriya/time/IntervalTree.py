@@ -1,8 +1,9 @@
 from uqbar.objects import get_repr
 
 from supriya.system.SupriyaObject import SupriyaObject
-from .Moment import Moment
+
 from .IntervalTreeDriver import IntervalTreeDriver
+from .Moment import Moment
 
 
 class IntervalTree(SupriyaObject):
