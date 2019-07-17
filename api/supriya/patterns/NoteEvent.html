@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>NoteEvent &mdash; Supriya 0.2.0 documentation</title>
+  <title>NoteEvent &mdash; Supriya 0.3.0 documentation</title>
   
 
   
@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
@@ -32,21 +39,16 @@
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="NullEvent" href="NullEvent.html" />
     <link rel="prev" title="GroupEvent" href="GroupEvent.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -60,7 +62,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.3.0
               </div>
             
           
@@ -84,65 +86,92 @@
               
             
             
-              <ul>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Supriya API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../cli/index.html">cli</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../commands/index.html">commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../enums.html">enums</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ext/index.html">ext</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../io.html">io</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../live/index.html">live</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../midi/index.html">midi</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../osc/index.html">osc</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="index.html">patterns</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="Event.html">Event</a></li>
-<li class="toctree-l4"><a class="reference internal" href="EventPattern.html">EventPattern</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Pattern.html">Pattern</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BusEvent.html">BusEvent</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Clock.html">Clock</a></li>
-<li class="toctree-l4"><a class="reference internal" href="CompositeEvent.html">CompositeEvent</a></li>
-<li class="toctree-l4"><a class="reference internal" href="EventPlayer.html">EventPlayer</a></li>
-<li class="toctree-l4"><a class="reference internal" href="EventProduct.html">EventProduct</a></li>
-<li class="toctree-l4"><a class="reference internal" href="GroupEvent.html">GroupEvent</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">NoteEvent</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NullEvent.html">NullEvent</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Pbind.html">Pbind</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Pbindf.html">Pbindf</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Pbinop.html">Pbinop</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Pbus.html">Pbus</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Pchain.html">Pchain</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Pfx.html">Pfx</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Pgpar.html">Pgpar</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Pgroup.html">Pgroup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Pmono.html">Pmono</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Pn.html">Pn</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Ppar.html">Ppar</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Prand.html">Prand</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Pseed.html">Pseed</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Pseq.html">Pseq</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Pwhite.html">Pwhite</a></li>
-<li class="toctree-l4"><a class="reference internal" href="RandomNumberGenerator.html">RandomNumberGenerator</a></li>
-<li class="toctree-l4"><a class="reference internal" href="RealtimeEventPlayer.html">RealtimeEventPlayer</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthEvent.html">SynthEvent</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cli/index.html">cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clock.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../daw/index.html">daw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../live/index.html">live</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">patterns</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="Event.html">Event</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EventPattern.html">EventPattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Pattern.html">Pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BusEvent.html">BusEvent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Clock.html">Clock</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CompositeEvent.html">CompositeEvent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EventPlayer.html">EventPlayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="EventProduct.html">EventProduct</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GroupEvent.html">GroupEvent</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">NoteEvent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NullEvent.html">NullEvent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Pbind.html">Pbind</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Pbindf.html">Pbindf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Pbinop.html">Pbinop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Pbus.html">Pbus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Pchain.html">Pchain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Pfx.html">Pfx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Pgpar.html">Pgpar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Pgroup.html">Pgroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Pmono.html">Pmono</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Pn.html">Pn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Ppar.html">Ppar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Prand.html">Prand</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Pseed.html">Pseed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Pseq.html">Pseq</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Pwhite.html">Pwhite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="RandomNumberGenerator.html">RandomNumberGenerator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="RealtimeEventPlayer.html">RealtimeEventPlayer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthEvent.html">SynthEvent</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../soundfiles/index.html">soundfiles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../system/index.html">system</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../time/index.html">time</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
 </ul>
 </li>
 </ul>
-</li>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -187,8 +216,6 @@
   <ul class="wy-breadcrumbs">
     
       <li><a href="../../../index.html">Docs</a> &raquo;</li>
-        
-          <li><a href="../../index.html">Supriya API</a> &raquo;</li>
         
           <li><a href="../index.html">supriya</a> &raquo;</li>
         
@@ -278,19 +305,19 @@
 </div>
 <dl class="class">
 <dt id="supriya.patterns.NoteEvent.NoteEvent">
-<em class="property">class </em><code class="descclassname">supriya.patterns.NoteEvent.</code><code class="descname">NoteEvent</code><span class="sig-paren">(</span><em>add_action=None</em>, <em>delta=None</em>, <em>duration=None</em>, <em>is_stop=True</em>, <em>synthdef=None</em>, <em>target_node=None</em>, <em>uuid=None</em>, <em>**settings</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/patterns/NoteEvent.html#NoteEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.patterns.NoteEvent.NoteEvent" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">supriya.patterns.NoteEvent.</code><code class="sig-name descname">NoteEvent</code><span class="sig-paren">(</span><em class="sig-param">add_action=None</em>, <em class="sig-param">delta=None</em>, <em class="sig-param">duration=None</em>, <em class="sig-param">is_stop=True</em>, <em class="sig-param">synthdef=None</em>, <em class="sig-param">target_node=None</em>, <em class="sig-param">uuid=None</em>, <em class="sig-param">**settings</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/patterns/NoteEvent.html#NoteEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.patterns.NoteEvent.NoteEvent" title="Permalink to this definition">¶</a></dt>
 <dd><hr/><p class="class-header rubric">Special methods</p>
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.patterns.NoteEvent.NoteEvent.__copy__">
-<code class="descclassname">(<a class="reference internal" href="../system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject" title="supriya.system.SupriyaValueObject.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="descname">__copy__</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.NoteEvent.NoteEvent.__copy__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject" title="supriya.system.SupriyaValueObject.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param">*args</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.NoteEvent.NoteEvent.__copy__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.patterns.NoteEvent.NoteEvent.__eq__">
-<code class="descclassname">(<a class="reference internal" href="../system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject" title="supriya.system.SupriyaValueObject.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="descname">__eq__</code><span class="sig-paren">(</span><em>expr</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.NoteEvent.NoteEvent.__eq__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject" title="supriya.system.SupriyaValueObject.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param">expr</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.NoteEvent.NoteEvent.__eq__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return self==value.</p>
 </dd></dl>
 
@@ -298,14 +325,14 @@
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.patterns.NoteEvent.NoteEvent.__getitem__">
-<code class="descclassname">(<a class="reference internal" href="Event.html#supriya.patterns.Event.Event" title="supriya.patterns.Event.Event"><code class="descclassname docutils literal notranslate"><span class="pre">Event</span></code></a>).</code><code class="descname">__getitem__</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.NoteEvent.NoteEvent.__getitem__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="Event.html#supriya.patterns.Event.Event" title="supriya.patterns.Event.Event"><code class="descclassname docutils literal notranslate"><span class="pre">Event</span></code></a>).</code><code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param">item</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.NoteEvent.NoteEvent.__getitem__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.patterns.NoteEvent.NoteEvent.__hash__">
-<code class="descclassname">(<a class="reference internal" href="../system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject" title="supriya.system.SupriyaValueObject.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.NoteEvent.NoteEvent.__hash__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject" title="supriya.system.SupriyaValueObject.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.NoteEvent.NoteEvent.__hash__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return hash(self).</p>
 </dd></dl>
 
@@ -313,7 +340,7 @@
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.patterns.NoteEvent.NoteEvent.__repr__">
-<code class="descclassname">(<a class="reference internal" href="../system/SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject" title="supriya.system.SupriyaObject.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.NoteEvent.NoteEvent.__repr__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system/SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject" title="supriya.system.SupriyaObject.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.NoteEvent.NoteEvent.__repr__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return repr(self).</p>
 </dd></dl>
 
@@ -322,14 +349,14 @@
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.patterns.NoteEvent.NoteEvent.as_dict">
-<code class="descclassname">(<a class="reference internal" href="Event.html#supriya.patterns.Event.Event" title="supriya.patterns.Event.Event"><code class="descclassname docutils literal notranslate"><span class="pre">Event</span></code></a>).</code><code class="descname">as_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.NoteEvent.NoteEvent.as_dict" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="Event.html#supriya.patterns.Event.Event" title="supriya.patterns.Event.Event"><code class="descclassname docutils literal notranslate"><span class="pre">Event</span></code></a>).</code><code class="sig-name descname">as_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.NoteEvent.NoteEvent.as_dict" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.patterns.NoteEvent.NoteEvent.get">
-<code class="descclassname">(<a class="reference internal" href="Event.html#supriya.patterns.Event.Event" title="supriya.patterns.Event.Event"><code class="descclassname docutils literal notranslate"><span class="pre">Event</span></code></a>).</code><code class="descname">get</code><span class="sig-paren">(</span><em>item</em>, <em>default=None</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.NoteEvent.NoteEvent.get" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="Event.html#supriya.patterns.Event.Event" title="supriya.patterns.Event.Event"><code class="descclassname docutils literal notranslate"><span class="pre">Event</span></code></a>).</code><code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param">item</em>, <em class="sig-param">default=None</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.NoteEvent.NoteEvent.get" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -337,14 +364,14 @@
 <div class="inherited docutils container">
 <dl class="attribute">
 <dt id="supriya.patterns.NoteEvent.NoteEvent.delta">
-<code class="descclassname">(<a class="reference internal" href="Event.html#supriya.patterns.Event.Event" title="supriya.patterns.Event.Event"><code class="descclassname docutils literal notranslate"><span class="pre">Event</span></code></a>).</code><code class="descname">delta</code><a class="headerlink" href="#supriya.patterns.NoteEvent.NoteEvent.delta" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="Event.html#supriya.patterns.Event.Event" title="supriya.patterns.Event.Event"><code class="descclassname docutils literal notranslate"><span class="pre">Event</span></code></a>).</code><code class="sig-name descname">delta</code><a class="headerlink" href="#supriya.patterns.NoteEvent.NoteEvent.delta" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
 <dl class="attribute">
 <dt id="supriya.patterns.NoteEvent.NoteEvent.settings">
-<code class="descclassname">(<a class="reference internal" href="Event.html#supriya.patterns.Event.Event" title="supriya.patterns.Event.Event"><code class="descclassname docutils literal notranslate"><span class="pre">Event</span></code></a>).</code><code class="descname">settings</code><a class="headerlink" href="#supriya.patterns.NoteEvent.NoteEvent.settings" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="Event.html#supriya.patterns.Event.Event" title="supriya.patterns.Event.Event"><code class="descclassname docutils literal notranslate"><span class="pre">Event</span></code></a>).</code><code class="sig-name descname">settings</code><a class="headerlink" href="#supriya.patterns.NoteEvent.NoteEvent.settings" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -363,7 +390,7 @@
         <a href="NullEvent.html" class="btn btn-neutral float-right" title="NullEvent" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="GroupEvent.html" class="btn btn-neutral" title="GroupEvent" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="GroupEvent.html" class="btn btn-neutral float-left" title="GroupEvent" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -389,26 +416,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

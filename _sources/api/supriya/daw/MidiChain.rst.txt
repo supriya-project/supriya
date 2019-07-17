@@ -1,0 +1,145 @@
+.. _supriya--daw--MidiChain:
+
+MidiChain
+=========
+
+.. automodule:: supriya.daw.MidiChain
+
+.. currentmodule:: supriya.daw.MidiChain
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.daw.MidiChain
+
+.. autoclass:: MidiChain
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      device_types
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: MidiChain.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: MidiChain.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: MidiChain.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: MidiChain.__len__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: MidiChain.delete
+
+   .. container:: inherited
+
+      .. automethod:: MidiChain.depth_first
+
+   .. container:: inherited
+
+      .. automethod:: MidiChain.index
+
+   .. container:: inherited
+
+      .. automethod:: MidiChain.recurse
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read/write properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiChain.name
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiChain.application
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiChain.channel_count
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiChain.children
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiChain.default_send_target
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiChain.depth
+
+   .. autoattribute:: MidiChain.device_types
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiChain.devices
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiChain.graph_order
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiChain.mixer_context
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiChain.node
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiChain.parent
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiChain.parentage
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiChain.root
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiChain.server

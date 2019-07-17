@@ -23,13 +23,13 @@ realtime
    :hidden:
 
    Node
-   ServerObjectProxy
+   ServerObject
 
 .. autosummary::
    :nosignatures:
 
    ~Node.Node
-   ~ServerObjectProxy.ServerObjectProxy
+   ~ServerObject.ServerObject
 
 .. raw:: html
 
@@ -41,25 +41,25 @@ realtime
 .. toctree::
    :hidden:
 
+   BootOptions
    Buffer
    BufferGroup
    Bus
    BusGroup
    Group
    Server
-   ServerOptions
    Synth
 
 .. autosummary::
    :nosignatures:
 
+   ~BootOptions.BootOptions
    ~Buffer.Buffer
    ~BufferGroup.BufferGroup
    ~Bus.Bus
    ~BusGroup.BusGroup
    ~Group.Group
    ~Server.Server
-   ~ServerOptions.ServerOptions
    ~Synth.Synth
 
 .. raw:: html

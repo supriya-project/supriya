@@ -1,0 +1,78 @@
+.. _supriya--live--Clip:
+
+Clip
+====
+
+.. automodule:: supriya.live.Clip
+
+.. currentmodule:: supriya.live.Clip
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.live.Clip
+
+.. autoclass:: Clip
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      Moment
+      __iter__
+      __len__
+      add_notes
+      at
+      clip_start
+      clip_stop
+      duration
+      is_looping
+      remove_notes
+      select
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: Clip.__iter__
+
+   .. automethod:: Clip.__len__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: Clip.add_notes
+
+   .. automethod:: Clip.at
+
+   .. automethod:: Clip.remove_notes
+
+   .. automethod:: Clip.select
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Clip.clip_start
+
+   .. autoattribute:: Clip.clip_stop
+
+   .. autoattribute:: Clip.duration
+
+   .. autoattribute:: Clip.is_looping

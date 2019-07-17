@@ -1,0 +1,146 @@
+.. _supriya--daw--Application:
+
+Application
+===========
+
+.. automodule:: supriya.daw.Application
+
+.. currentmodule:: supriya.daw.Application
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.daw.Application
+
+.. autoclass:: Application
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      add_scene
+      add_track
+      boot
+      channel_count
+      cue_track
+      master_track
+      node
+      quit
+      return_tracks
+      server
+      tracks
+      transport
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Application.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: Application.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: Application.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: Application.__len__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: Application.add_scene
+
+   .. automethod:: Application.add_track
+
+   .. automethod:: Application.boot
+
+   .. container:: inherited
+
+      .. automethod:: Application.depth_first
+
+   .. container:: inherited
+
+      .. automethod:: Application.index
+
+   .. automethod:: Application.quit
+
+   .. container:: inherited
+
+      .. automethod:: Application.recurse
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read/write properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Application.name
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Application.channel_count
+
+   .. container:: inherited
+
+      .. autoattribute:: Application.children
+
+   .. autoattribute:: Application.cue_track
+
+   .. container:: inherited
+
+      .. autoattribute:: Application.depth
+
+   .. container:: inherited
+
+      .. autoattribute:: Application.graph_order
+
+   .. autoattribute:: Application.master_track
+
+   .. autoattribute:: Application.node
+
+   .. container:: inherited
+
+      .. autoattribute:: Application.parent
+
+   .. container:: inherited
+
+      .. autoattribute:: Application.parentage
+
+   .. autoattribute:: Application.return_tracks
+
+   .. container:: inherited
+
+      .. autoattribute:: Application.root
+
+   .. autoattribute:: Application.server
+
+   .. autoattribute:: Application.tracks
+
+   .. autoattribute:: Application.transport

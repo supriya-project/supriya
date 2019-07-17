@@ -35,6 +35,9 @@ Node
       node_id
       node_id_is_permanent
       pause
+      precede_by
+      replace_with
+      succeed_by
       unpause
 
    .. raw:: html
@@ -67,17 +70,11 @@ Node
 
    .. automethod:: Node.pause
 
-   .. container:: inherited
+   .. automethod:: Node.precede_by
 
-      .. automethod:: Node.precede_by
+   .. automethod:: Node.replace_with
 
-   .. container:: inherited
-
-      .. automethod:: Node.replace_with
-
-   .. container:: inherited
-
-      .. automethod:: Node.succeed_by
+   .. automethod:: Node.succeed_by
 
    .. automethod:: Node.unpause
 

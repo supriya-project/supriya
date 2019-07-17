@@ -1,0 +1,140 @@
+.. _supriya--soundfiles:
+
+soundfiles
+==========
+
+.. automodule:: supriya.soundfiles
+
+.. currentmodule:: supriya.soundfiles
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.soundfiles
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~Say
+   ~SoundFile
+
+.. autoclass:: Say
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __render__
+      text
+      voice
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Say.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: Say.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: Say.__hash__
+
+   .. automethod:: Say.__render__
+
+   .. container:: inherited
+
+      .. automethod:: Say.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Say.text
+
+   .. autoattribute:: Say.voice
+
+.. autoclass:: SoundFile
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      at_frame
+      at_percent
+      at_second
+      channel_count
+      file_path
+      frame_count
+      sample_rate
+      seconds
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SoundFile.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: SoundFile.at_frame
+
+   .. automethod:: SoundFile.at_percent
+
+   .. automethod:: SoundFile.at_second
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: SoundFile.channel_count
+
+   .. autoattribute:: SoundFile.file_path
+
+   .. autoattribute:: SoundFile.frame_count
+
+   .. autoattribute:: SoundFile.sample_rate
+
+   .. autoattribute:: SoundFile.seconds

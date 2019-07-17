@@ -1,0 +1,17 @@
+.. _supriya--daw--DeviceType:
+
+DeviceType
+==========
+
+.. automodule:: supriya.daw.DeviceType
+
+.. currentmodule:: supriya.daw.DeviceType
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.daw.DeviceType
+
+.. autoclass:: DeviceType
+   :members:
+   :undoc-members:

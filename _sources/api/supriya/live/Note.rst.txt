@@ -1,0 +1,80 @@
+.. _supriya--live--Note:
+
+Note
+====
+
+.. automodule:: supriya.live.Note
+
+.. currentmodule:: supriya.live.Note
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.live.Note
+
+.. autoclass:: Note
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __delattr__
+      __eq__
+      __ge__
+      __gt__
+      __hash__
+      __le__
+      __lt__
+      __post_init__
+      __repr__
+      __setattr__
+      pitch
+      start_offset
+      stop_offset
+      translate
+      transpose
+      velocity
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: Note.__delattr__
+
+   .. automethod:: Note.__eq__
+
+   .. automethod:: Note.__ge__
+
+   .. automethod:: Note.__gt__
+
+   .. automethod:: Note.__hash__
+
+   .. automethod:: Note.__le__
+
+   .. automethod:: Note.__lt__
+
+   .. automethod:: Note.__post_init__
+
+   .. automethod:: Note.__repr__
+
+   .. automethod:: Note.__setattr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: Note.translate
+
+   .. automethod:: Note.transpose

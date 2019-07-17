@@ -1,0 +1,100 @@
+.. _supriya--daw--SamplerDevice:
+
+SamplerDevice
+=============
+
+.. automodule:: supriya.daw.SamplerDevice
+
+.. currentmodule:: supriya.daw.SamplerDevice
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.daw.SamplerDevice
+
+.. autoclass:: SamplerDevice
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SamplerDevice.delete
+
+   .. container:: inherited
+
+      .. automethod:: SamplerDevice.next_device
+
+   .. container:: inherited
+
+      .. automethod:: SamplerDevice.perform
+
+   .. container:: inherited
+
+      .. automethod:: SamplerDevice.start
+
+   .. container:: inherited
+
+      .. automethod:: SamplerDevice.stop
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read/write properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: SamplerDevice.name
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: SamplerDevice.application
+
+   .. container:: inherited
+
+      .. autoattribute:: SamplerDevice.channel_count
+
+   .. container:: inherited
+
+      .. autoattribute:: SamplerDevice.depth
+
+   .. container:: inherited
+
+      .. autoattribute:: SamplerDevice.graph_order
+
+   .. container:: inherited
+
+      .. autoattribute:: SamplerDevice.mixer_context
+
+   .. container:: inherited
+
+      .. autoattribute:: SamplerDevice.node
+
+   .. container:: inherited
+
+      .. autoattribute:: SamplerDevice.parent
+
+   .. container:: inherited
+
+      .. autoattribute:: SamplerDevice.parentage
+
+   .. container:: inherited
+
+      .. autoattribute:: SamplerDevice.root
+
+   .. container:: inherited
+
+      .. autoattribute:: SamplerDevice.server

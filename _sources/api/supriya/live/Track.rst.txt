@@ -24,15 +24,9 @@ Track
    .. autosummary::
       :nosignatures:
 
-      __getitem__
-      __iter__
-      __len__
-      add_auto_pattern_slot
       add_direct_in
       add_direct_out
       add_send
-      add_synth_slot
-      add_trigger_pattern_slot
       build_input_synthdef
       build_output_synthdef
       channel_count
@@ -74,33 +68,14 @@ Track
 
       <hr/>
 
-   .. rubric:: Special methods
-      :class: class-header
-
-   .. automethod:: Track.__getitem__
-
-   .. automethod:: Track.__iter__
-
-   .. automethod:: Track.__len__
-
-   .. raw:: html
-
-      <hr/>
-
    .. rubric:: Methods
       :class: class-header
-
-   .. automethod:: Track.add_auto_pattern_slot
 
    .. automethod:: Track.add_direct_in
 
    .. automethod:: Track.add_direct_out
 
    .. automethod:: Track.add_send
-
-   .. automethod:: Track.add_synth_slot
-
-   .. automethod:: Track.add_trigger_pattern_slot
 
    .. automethod:: Track.get_cue
 

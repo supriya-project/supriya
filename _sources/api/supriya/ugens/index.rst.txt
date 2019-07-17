@@ -1011,6 +1011,7 @@ ugens
    PureUGen
    RunningSum
    Select
+   SendTrig
    Sweep
    UGen
    WidthFirstUGen
@@ -1030,6 +1031,7 @@ ugens
    ~PureUGen.PureUGen
    ~RunningSum.RunningSum
    ~Select.Select
+   ~SendTrig.SendTrig
    ~Sweep.Sweep
    ~UGen.UGen
    ~WidthFirstUGen.WidthFirstUGen

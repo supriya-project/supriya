@@ -1,0 +1,370 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>supriya.daw.NoteSelector &mdash; Supriya 0.3.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/supriya/index.html">supriya</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../supriya.html">supriya</a> &raquo;</li>
+        
+      <li>supriya.daw.NoteSelector</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for supriya.daw.NoteSelector</h1><div class="highlight"><pre>
+<div class="viewcode-block" id="NoteSelector"><a class="viewcode-back" href="../../../api/supriya/daw/NoteSelector.html#supriya.daw.NoteSelector.NoteSelector">[docs]</a><span></span><span class="k">class</span> <span class="nc">NoteSelector</span><span class="p">:</span>
+
+    <span class="n">_valid_operators</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">((</span><span class="s2">&quot;==&quot;</span><span class="p">,</span> <span class="s2">&quot;!=&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;=&quot;</span><span class="p">,</span> <span class="s2">&quot;&gt;=&quot;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clip</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clip</span> <span class="o">=</span> <span class="n">clip</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">filters</span> <span class="ow">or</span> <span class="p">())</span>
+
+<div class="viewcode-block" id="NoteSelector.__iter__"><a class="viewcode-back" href="../../../api/supriya/daw/NoteSelector.html#supriya.daw.NoteSelector.NoteSelector.__iter__">[docs]</a>    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clip</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">filter_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span><span class="p">:</span>
+            <span class="n">filter_name</span><span class="p">,</span> <span class="n">filter_args</span> <span class="o">=</span> <span class="n">filter_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">filter_</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="n">filter_func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">filter_name</span><span class="p">)</span>
+            <span class="n">source</span> <span class="o">=</span> <span class="n">filter_func</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="o">*</span><span class="n">filter_args</span><span class="p">)</span>
+        <span class="k">yield from</span> <span class="n">source</span></div>
+
+<div class="viewcode-block" id="NoteSelector.__and__"><a class="viewcode-back" href="../../../api/supriya/daw/NoteSelector.html#supriya.daw.NoteSelector.NoteSelector.__and__">[docs]</a>    <span class="k">def</span> <span class="nf">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selector</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="NoteSelector.__or__"><a class="viewcode-back" href="../../../api/supriya/daw/NoteSelector.html#supriya.daw.NoteSelector.NoteSelector.__or__">[docs]</a>    <span class="k">def</span> <span class="nf">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selector</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="NoteSelector.__invert__"><a class="viewcode-back" href="../../../api/supriya/daw/NoteSelector.html#supriya.daw.NoteSelector.NoteSelector.__invert__">[docs]</a>    <span class="k">def</span> <span class="nf">__invert__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="NoteSelector.__xor__"><a class="viewcode-back" href="../../../api/supriya/daw/NoteSelector.html#supriya.daw.NoteSelector.NoteSelector.__xor__">[docs]</a>    <span class="k">def</span> <span class="nf">__xor__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+    <span class="k">def</span> <span class="nf">_and_selector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">selector</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_or_selector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">selector</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_xor_selector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">selector</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_invert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_between_offsets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">start_offset</span><span class="p">,</span> <span class="n">stop_offset</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">start_offset</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">stop_offset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">note</span> <span class="ow">in</span> <span class="n">source</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">note</span><span class="o">.</span><span class="n">stop_offset</span> <span class="o">&lt;=</span> <span class="n">stop_offset</span><span class="p">:</span>
+                    <span class="k">yield</span> <span class="n">note</span>
+        <span class="k">elif</span> <span class="n">start_offset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">stop_offset</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">note</span> <span class="ow">in</span> <span class="n">source</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">start_offset</span> <span class="o">&lt;=</span> <span class="n">note</span><span class="o">.</span><span class="n">start_offset</span><span class="p">:</span>
+                    <span class="k">yield</span> <span class="n">note</span>
+        <span class="k">elif</span> <span class="n">start_offset</span> <span class="o">&lt;</span> <span class="n">stop_offset</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">note</span> <span class="ow">in</span> <span class="n">source</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="n">start_offset</span> <span class="o">&lt;=</span> <span class="n">note</span><span class="o">.</span><span class="n">start_offset</span>
+                    <span class="ow">and</span> <span class="n">note</span><span class="o">.</span><span class="n">stop_offset</span> <span class="o">&lt;=</span> <span class="n">stop_offset</span>
+                <span class="p">):</span>
+                    <span class="k">yield</span> <span class="n">note</span>
+        <span class="k">elif</span> <span class="n">stop_offset</span> <span class="o">&lt;</span> <span class="n">start_offset</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">note</span> <span class="ow">in</span> <span class="n">source</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">note</span><span class="o">.</span><span class="n">stop_offset</span> <span class="o">&lt;=</span> <span class="n">stop_offset</span> <span class="ow">or</span> <span class="n">start_offset</span> <span class="o">&lt;=</span> <span class="n">note</span><span class="o">.</span><span class="n">start_offset</span><span class="p">:</span>
+                    <span class="k">yield</span> <span class="n">note</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">yield from</span> <span class="n">source</span>
+
+    <span class="k">def</span> <span class="nf">_between_pitches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">start_pitch</span><span class="p">,</span> <span class="n">stop_pitch</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">start_pitch</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">stop_pitch</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">note</span> <span class="ow">in</span> <span class="n">source</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">note</span><span class="o">.</span><span class="n">pitch</span> <span class="o">&lt;=</span> <span class="n">stop_pitch</span><span class="p">:</span>
+                    <span class="k">yield</span> <span class="n">note</span>
+        <span class="k">elif</span> <span class="n">start_pitch</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">stop_pitch</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">note</span> <span class="ow">in</span> <span class="n">source</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">start_pitch</span> <span class="o">&lt;=</span> <span class="n">note</span><span class="o">.</span><span class="n">pitch</span><span class="p">:</span>
+                    <span class="k">yield</span> <span class="n">note</span>
+        <span class="k">elif</span> <span class="n">start_pitch</span> <span class="o">&lt;</span> <span class="n">stop_pitch</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">note</span> <span class="ow">in</span> <span class="n">source</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">start_pitch</span> <span class="o">&lt;=</span> <span class="n">note</span><span class="o">.</span><span class="n">pitch</span> <span class="o">&lt;=</span> <span class="n">stop_pitch</span><span class="p">:</span>
+                    <span class="k">yield</span> <span class="n">note</span>
+        <span class="k">elif</span> <span class="n">stop_pitch</span> <span class="o">&lt;</span> <span class="n">start_pitch</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">note</span> <span class="ow">in</span> <span class="n">source</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">note</span><span class="o">.</span><span class="n">pitch</span> <span class="o">&lt;=</span> <span class="n">stop_pitch</span> <span class="ow">or</span> <span class="n">start_pitch</span> <span class="o">&lt;=</span> <span class="n">note</span><span class="o">.</span><span class="n">pitch</span><span class="p">:</span>
+                    <span class="k">yield</span> <span class="n">note</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">yield from</span> <span class="n">source</span>
+
+    <span class="k">def</span> <span class="nf">_with_durations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">durations</span><span class="p">,</span> <span class="n">operator</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_with_pitches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">pitches</span><span class="p">,</span> <span class="n">operator</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_with_pitch_classes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">pitch_classes</span><span class="p">,</span> <span class="n">operator</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="NoteSelector.between_offsets"><a class="viewcode-back" href="../../../api/supriya/daw/NoteSelector.html#supriya.daw.NoteSelector.NoteSelector.between_offsets">[docs]</a>    <span class="k">def</span> <span class="nf">between_offsets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_offset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stop_offset</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">start_offset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">start_offset</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">start_offset</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">stop_offset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">stop_offset</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">stop_offset</span><span class="p">)</span>
+        <span class="n">filter_</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;between_offsets&quot;</span><span class="p">,</span> <span class="n">start_offset</span><span class="p">,</span> <span class="n">stop_offset</span><span class="p">)</span>
+        <span class="n">filters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span> <span class="o">+</span> <span class="p">(</span><span class="n">filter_</span><span class="p">,)</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clip</span><span class="p">,</span> <span class="n">filters</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NoteSelector.between_pitches"><a class="viewcode-back" href="../../../api/supriya/daw/NoteSelector.html#supriya.daw.NoteSelector.NoteSelector.between_pitches">[docs]</a>    <span class="k">def</span> <span class="nf">between_pitches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_pitch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stop_pitch</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">start_pitch</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">start_pitch</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">start_pitch</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">stop_pitch</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">stop_pitch</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">stop_pitch</span><span class="p">)</span>
+        <span class="n">filter_</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;between_pitches&quot;</span><span class="p">,</span> <span class="n">start_pitch</span><span class="p">,</span> <span class="n">stop_pitch</span><span class="p">)</span>
+        <span class="n">filters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span> <span class="o">+</span> <span class="p">(</span><span class="n">filter_</span><span class="p">,)</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">_clip</span><span class="p">,</span> <span class="n">filters</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NoteSelector.with_durations"><a class="viewcode-back" href="../../../api/supriya/daw/NoteSelector.html#supriya.daw.NoteSelector.NoteSelector.with_durations">[docs]</a>    <span class="k">def</span> <span class="nf">with_durations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">durations</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="s2">&quot;==&quot;</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="NoteSelector.with_pitches"><a class="viewcode-back" href="../../../api/supriya/daw/NoteSelector.html#supriya.daw.NoteSelector.NoteSelector.with_pitches">[docs]</a>    <span class="k">def</span> <span class="nf">with_pitches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pitches</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="s2">&quot;==&quot;</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="NoteSelector.with_pitch_classes"><a class="viewcode-back" href="../../../api/supriya/daw/NoteSelector.html#supriya.daw.NoteSelector.NoteSelector.with_pitch_classes">[docs]</a>    <span class="k">def</span> <span class="nf">with_pitch_classes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pitch_classes</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="s2">&quot;==&quot;</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="NoteSelector.delete"><a class="viewcode-back" href="../../../api/supriya/daw/NoteSelector.html#supriya.daw.NoteSelector.NoteSelector.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clip</span><span class="o">.</span><span class="n">remove_notes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NoteSelector.replace"><a class="viewcode-back" href="../../../api/supriya/daw/NoteSelector.html#supriya.daw.NoteSelector.NoteSelector.replace">[docs]</a>    <span class="k">def</span> <span class="nf">replace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">notes</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clip</span><span class="o">.</span><span class="n">remove_notes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clip</span><span class="o">.</span><span class="n">add_notes</span><span class="p">(</span><span class="n">notes</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NoteSelector.transpose"><a class="viewcode-back" href="../../../api/supriya/daw/NoteSelector.html#supriya.daw.NoteSelector.NoteSelector.transpose">[docs]</a>    <span class="k">def</span> <span class="nf">transpose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transposition</span><span class="p">):</span>
+        <span class="n">notes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clip</span><span class="o">.</span><span class="n">remove_notes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clip</span><span class="o">.</span><span class="n">add_notes</span><span class="p">([</span><span class="n">note</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">transposition</span><span class="p">)</span> <span class="k">for</span> <span class="n">note</span> <span class="ow">in</span> <span class="n">notes</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="NoteSelector.translate"><a class="viewcode-back" href="../../../api/supriya/daw/NoteSelector.html#supriya.daw.NoteSelector.NoteSelector.translate">[docs]</a>    <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">translation</span><span class="p">):</span>
+        <span class="n">notes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clip</span><span class="o">.</span><span class="n">remove_notes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clip</span><span class="o">.</span><span class="n">add_notes</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">note</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">translation</span><span class="p">,</span> <span class="n">translation</span><span class="p">)</span> <span class="k">for</span> <span class="n">note</span> <span class="ow">in</span> <span class="n">notes</span><span class="p">]</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="NoteSelector.translate_offsets"><a class="viewcode-back" href="../../../api/supriya/daw/NoteSelector.html#supriya.daw.NoteSelector.NoteSelector.translate_offsets">[docs]</a>    <span class="k">def</span> <span class="nf">translate_offsets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_translation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stop_translation</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">notes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clip</span><span class="o">.</span><span class="n">remove_notes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_clip</span><span class="o">.</span><span class="n">add_notes</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">note</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">start_translation</span><span class="p">,</span> <span class="n">stop_translation</span><span class="p">)</span> <span class="k">for</span> <span class="n">note</span> <span class="ow">in</span> <span class="n">notes</span><span class="p">]</span>
+        <span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -22,9 +22,25 @@ ext
 .. toctree::
    :hidden:
 
+   book
    ipython
 
 .. autosummary::
    :nosignatures:
 
+   book
    ipython
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Functions
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~websafe_audio
+
+.. autofunction:: websafe_audio

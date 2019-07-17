@@ -1,0 +1,110 @@
+.. _supriya--daw--MidiDevice:
+
+MidiDevice
+==========
+
+.. automodule:: supriya.daw.MidiDevice
+
+.. currentmodule:: supriya.daw.MidiDevice
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.daw.MidiDevice
+
+.. autoclass:: MidiDevice
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      perform
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: MidiDevice.delete
+
+   .. container:: inherited
+
+      .. automethod:: MidiDevice.next_device
+
+   .. automethod:: MidiDevice.perform
+
+   .. container:: inherited
+
+      .. automethod:: MidiDevice.start
+
+   .. container:: inherited
+
+      .. automethod:: MidiDevice.stop
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read/write properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiDevice.name
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiDevice.application
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiDevice.channel_count
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiDevice.depth
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiDevice.graph_order
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiDevice.mixer_context
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiDevice.node
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiDevice.parent
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiDevice.parentage
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiDevice.root
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiDevice.server

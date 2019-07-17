@@ -1,0 +1,170 @@
+.. _supriya--daw--InstrumentRack:
+
+InstrumentRack
+==============
+
+.. automodule:: supriya.daw.InstrumentRack
+
+.. currentmodule:: supriya.daw.InstrumentRack
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.daw.InstrumentRack
+
+.. autoclass:: InstrumentRack
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      add_chain
+      add_return_chain
+      bus_group
+      chains
+      channel_count
+      rack_output_synth
+      receive
+      return_chains
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: InstrumentRack.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: InstrumentRack.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: InstrumentRack.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: InstrumentRack.__len__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: InstrumentRack.add_chain
+
+   .. automethod:: InstrumentRack.add_return_chain
+
+   .. container:: inherited
+
+      .. automethod:: InstrumentRack.delete
+
+   .. container:: inherited
+
+      .. automethod:: InstrumentRack.depth_first
+
+   .. container:: inherited
+
+      .. automethod:: InstrumentRack.index
+
+   .. container:: inherited
+
+      .. automethod:: InstrumentRack.next_device
+
+   .. container:: inherited
+
+      .. automethod:: InstrumentRack.perform
+
+   .. container:: inherited
+
+      .. automethod:: InstrumentRack.recurse
+
+   .. container:: inherited
+
+      .. automethod:: InstrumentRack.start
+
+   .. container:: inherited
+
+      .. automethod:: InstrumentRack.stop
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read/write properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: InstrumentRack.name
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: InstrumentRack.application
+
+   .. autoattribute:: InstrumentRack.bus_group
+
+   .. autoattribute:: InstrumentRack.chains
+
+   .. autoattribute:: InstrumentRack.channel_count
+
+   .. container:: inherited
+
+      .. autoattribute:: InstrumentRack.children
+
+   .. container:: inherited
+
+      .. autoattribute:: InstrumentRack.depth
+
+   .. container:: inherited
+
+      .. autoattribute:: InstrumentRack.graph_order
+
+   .. container:: inherited
+
+      .. autoattribute:: InstrumentRack.mixer_context
+
+   .. container:: inherited
+
+      .. autoattribute:: InstrumentRack.node
+
+   .. container:: inherited
+
+      .. autoattribute:: InstrumentRack.parent
+
+   .. container:: inherited
+
+      .. autoattribute:: InstrumentRack.parentage
+
+   .. autoattribute:: InstrumentRack.rack_output_synth
+
+   .. autoattribute:: InstrumentRack.receive
+
+   .. autoattribute:: InstrumentRack.return_chains
+
+   .. container:: inherited
+
+      .. autoattribute:: InstrumentRack.root
+
+   .. container:: inherited
+
+      .. autoattribute:: InstrumentRack.server

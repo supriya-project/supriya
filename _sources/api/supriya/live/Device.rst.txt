@@ -1,0 +1,73 @@
+.. _supriya--live--Device:
+
+Device
+======
+
+.. automodule:: supriya.live.Device
+
+.. currentmodule:: supriya.live.Device
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.live.Device
+
+.. autoclass:: Device
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      activate
+      allocate
+      deactivate
+      free
+      has_audio_inputs
+      has_audio_outputs
+      has_midi_inputs
+      has_midi_outputs
+      is_active
+      perform
+      stop
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: Device.activate
+
+   .. automethod:: Device.allocate
+
+   .. automethod:: Device.deactivate
+
+   .. automethod:: Device.free
+
+   .. automethod:: Device.perform
+
+   .. automethod:: Device.stop
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Device.has_audio_inputs
+
+   .. autoattribute:: Device.has_audio_outputs
+
+   .. autoattribute:: Device.has_midi_inputs
+
+   .. autoattribute:: Device.has_midi_outputs
+
+   .. autoattribute:: Device.is_active

@@ -1,0 +1,147 @@
+.. _supriya--daw--TrackContainer:
+
+TrackContainer
+==============
+
+.. automodule:: supriya.daw.TrackContainer
+
+.. currentmodule:: supriya.daw.TrackContainer
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.daw.TrackContainer
+
+.. autoclass:: TrackContainer
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: TrackContainer.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: TrackContainer.__delitem__
+
+   .. container:: inherited
+
+      .. automethod:: TrackContainer.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: TrackContainer.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: TrackContainer.__len__
+
+   .. container:: inherited
+
+      .. automethod:: TrackContainer.__setitem__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: TrackContainer.append
+
+   .. container:: inherited
+
+      .. automethod:: TrackContainer.depth_first
+
+   .. container:: inherited
+
+      .. automethod:: TrackContainer.extend
+
+   .. container:: inherited
+
+      .. automethod:: TrackContainer.index
+
+   .. container:: inherited
+
+      .. automethod:: TrackContainer.insert
+
+   .. container:: inherited
+
+      .. automethod:: TrackContainer.pop
+
+   .. container:: inherited
+
+      .. automethod:: TrackContainer.recurse
+
+   .. container:: inherited
+
+      .. automethod:: TrackContainer.remove
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read/write properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: TrackContainer.name
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: TrackContainer.application
+
+   .. container:: inherited
+
+      .. autoattribute:: TrackContainer.channel_count
+
+   .. container:: inherited
+
+      .. autoattribute:: TrackContainer.children
+
+   .. container:: inherited
+
+      .. autoattribute:: TrackContainer.depth
+
+   .. container:: inherited
+
+      .. autoattribute:: TrackContainer.graph_order
+
+   .. container:: inherited
+
+      .. autoattribute:: TrackContainer.mixer_context
+
+   .. container:: inherited
+
+      .. autoattribute:: TrackContainer.node
+
+   .. container:: inherited
+
+      .. autoattribute:: TrackContainer.parent
+
+   .. container:: inherited
+
+      .. autoattribute:: TrackContainer.parentage
+
+   .. container:: inherited
+
+      .. autoattribute:: TrackContainer.root
+
+   .. container:: inherited
+
+      .. autoattribute:: TrackContainer.server

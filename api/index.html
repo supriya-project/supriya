@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Supriya API &mdash; Supriya 0.2.0 documentation</title>
+  <title>Supriya API Reference &mdash; Supriya 0.3.0 documentation</title>
   
 
   
@@ -17,36 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../_static/uqbar.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="supriya" href="supriya/index.html" />
-    <link rel="prev" title="Installation" href="../installation.html" /> 
-
-  
-  <script src="../_static/js/modernizr.min.js"></script>
-
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.3.0
               </div>
             
           
@@ -84,14 +84,39 @@
               
             
             
-              <ul>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../concepts.html">Core concepts</a></li>
 </ul>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Supriya API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="supriya/index.html">supriya</a></li>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">CLI tools</a></li>
 </ul>
-</li>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="supriya/index.html">supriya</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -137,7 +162,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Supriya API</li>
+      <li>Supriya API Reference</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -156,8 +181,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="supriya-api">
-<h1>Supriya API<a class="headerlink" href="#supriya-api" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="supriya-api-reference">
+<h1>Supriya API Reference<a class="headerlink" href="#supriya-api-reference" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
 <hr/><p class="section-header rubric"><a class="reference internal" href="supriya/index.html#supriya"><span class="std std-ref">supriya</span></a></p>
@@ -615,18 +640,52 @@
 <tr class="row-odd"><td><a class="reference internal" href="supriya/exceptions.html#supriya.exceptions.NotAllocated" title="supriya.exceptions.NotAllocated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NotAllocated</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="supriya/exceptions.html#supriya.exceptions.RequestTimeout" title="supriya.exceptions.RequestTimeout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RequestTimeout</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="supriya/exceptions.html#supriya.exceptions.OwnedServerShutdown" title="supriya.exceptions.OwnedServerShutdown"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OwnedServerShutdown</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="supriya/exceptions.html#supriya.exceptions.ServerCannotBoot" title="supriya.exceptions.ServerCannotBoot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ServerCannotBoot</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="supriya/exceptions.html#supriya.exceptions.RequestTimeout" title="supriya.exceptions.RequestTimeout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RequestTimeout</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="supriya/exceptions.html#supriya.exceptions.ServerOffline" title="supriya.exceptions.ServerOffline"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ServerOffline</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="supriya/exceptions.html#supriya.exceptions.ServerCannotBoot" title="supriya.exceptions.ServerCannotBoot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ServerCannotBoot</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="supriya/exceptions.html#supriya.exceptions.ServerOffline" title="supriya.exceptions.ServerOffline"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ServerOffline</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="supriya/exceptions.html#supriya.exceptions.TooManyClients" title="supriya.exceptions.TooManyClients"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TooManyClients</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="supriya/exceptions.html#supriya.exceptions.UnownedServerShutdown" title="supriya.exceptions.UnownedServerShutdown"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnownedServerShutdown</span></code></a></td>
 <td></td>
 </tr>
 </tbody>
 </table>
 <hr/><p class="section-header rubric"><a class="reference internal" href="supriya/ext/index.html#supriya-ext"><span class="std std-ref">supriya.ext</span></a></p>
+<hr/><p class="subsection-header rubric">Functions</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="supriya/ext/index.html#supriya.ext.websafe_audio" title="supriya.ext.websafe_audio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">websafe_audio</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="section-header rubric"><a class="reference internal" href="supriya/ext/book.html#supriya-ext-book"><span class="std std-ref">supriya.ext.book</span></a></p>
+<hr/><p class="subsection-header rubric">Classes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="supriya/ext/book.html#supriya.ext.book.RenderExtension" title="supriya.ext.book.RenderExtension"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RenderExtension</span></code></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <hr/><p class="section-header rubric"><a class="reference internal" href="supriya/ext/ipython.html#supriya-ext-ipython"><span class="std std-ref">supriya.ext.ipython</span></a></p>
 <hr/><p class="subsection-header rubric">Functions</p>
 <table border="1" class="longtable docutils">
@@ -638,10 +697,7 @@
 <tr class="row-odd"><td><a class="reference internal" href="supriya/ext/ipython.html#supriya.ext.ipython.load_ipython_extension" title="supriya.ext.ipython.load_ipython_extension"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_ipython_extension</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="supriya/ext/ipython.html#supriya.ext.ipython.patch_grapher" title="supriya.ext.ipython.patch_grapher"><code class="xref py py-obj docutils literal notranslate"><span class="pre">patch_grapher</span></code></a></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="supriya/ext/ipython.html#supriya.ext.ipython.patch_player" title="supriya.ext.ipython.patch_player"><code class="xref py py-obj docutils literal notranslate"><span class="pre">patch_player</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="supriya/ext/ipython.html#supriya.ext.ipython.patch_player" title="supriya.ext.ipython.patch_player"><code class="xref py py-obj docutils literal notranslate"><span class="pre">patch_player</span></code></a></td>
 <td></td>
 </tr>
 </tbody>
@@ -654,10 +710,7 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="supriya/io.html#supriya.io.Grapher" title="supriya.io.Grapher"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Grapher</span></code></a></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="supriya/io.html#supriya.io.Player" title="supriya.io.Player"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Player</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="supriya/io.html#supriya.io.Player" title="supriya.io.Player"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Player</span></code></a></td>
 <td></td>
 </tr>
 </tbody>
@@ -693,16 +746,40 @@ performance applications.</p>
 <tr class="row-odd"><td><a class="reference internal" href="supriya/live/Application.html#supriya.live.Application.Application" title="supriya.live.Application.Application"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Application</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="supriya/live/AutoPatternSlot.html#supriya.live.AutoPatternSlot.AutoPatternSlot" title="supriya.live.AutoPatternSlot.AutoPatternSlot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AutoPatternSlot</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="supriya/live/AudioEffect.html#supriya.live.AudioEffect.AudioEffect" title="supriya.live.AudioEffect.AudioEffect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AudioEffect</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="supriya/live/Direct.html#supriya.live.Direct.Direct" title="supriya.live.Direct.Direct"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Direct</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="supriya/live/Clip.html#supriya.live.Clip.Clip" title="supriya.live.Clip.Clip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Clip</span></code></a></td>
+<td>A clip.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="supriya/live/Device.html#supriya.live.Device.Device" title="supriya.live.Device.Device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Device</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="supriya/live/Mixer.html#supriya.live.Mixer.Mixer" title="supriya.live.Mixer.Mixer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Mixer</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="supriya/live/DeviceChain.html#supriya.live.DeviceChain.DeviceChain" title="supriya.live.DeviceChain.DeviceChain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeviceChain</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="supriya/live/PatternSlot.html#supriya.live.PatternSlot.PatternSlot" title="supriya.live.PatternSlot.PatternSlot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PatternSlot</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="supriya/live/Direct.html#supriya.live.Direct.Direct" title="supriya.live.Direct.Direct"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Direct</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="supriya/live/Instrument.html#supriya.live.Instrument.Instrument" title="supriya.live.Instrument.Instrument"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Instrument</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="supriya/live/MidiEffect.html#supriya.live.MidiEffect.MidiEffect" title="supriya.live.MidiEffect.MidiEffect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MidiEffect</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="supriya/live/Mixer.html#supriya.live.Mixer.Mixer" title="supriya.live.Mixer.Mixer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Mixer</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="supriya/live/Note.html#supriya.live.Note.Note" title="supriya.live.Note.Note"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Note</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="supriya/live/NoteSelector.html#supriya.live.NoteSelector.NoteSelector" title="supriya.live.NoteSelector.NoteSelector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NoteSelector</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="supriya/live/PolyphonicVoicer.html#supriya.live.PolyphonicVoicer.PolyphonicVoicer" title="supriya.live.PolyphonicVoicer.PolyphonicVoicer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PolyphonicVoicer</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="supriya/live/Rack.html#supriya.live.Rack.Rack" title="supriya.live.Rack.Rack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Rack</span></code></a></td>
 <td></td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="supriya/live/Send.html#supriya.live.Send.Send" title="supriya.live.Send.Send"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Send</span></code></a></td>
@@ -711,16 +788,10 @@ performance applications.</p>
 <tr class="row-odd"><td><a class="reference internal" href="supriya/live/SendManager.html#supriya.live.SendManager.SendManager" title="supriya.live.SendManager.SendManager"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SendManager</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="supriya/live/Slot.html#supriya.live.Slot.Slot" title="supriya.live.Slot.Slot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Slot</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="supriya/live/Shuffle.html#supriya.live.Shuffle.Shuffle" title="supriya.live.Shuffle.Shuffle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Shuffle</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="supriya/live/SynthSlot.html#supriya.live.SynthSlot.SynthSlot" title="supriya.live.SynthSlot.SynthSlot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthSlot</span></code></a></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="supriya/live/Track.html#supriya.live.Track.Track" title="supriya.live.Track.Track"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Track</span></code></a></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="supriya/live/TriggerPatternSlot.html#supriya.live.TriggerPatternSlot.TriggerPatternSlot" title="supriya.live.TriggerPatternSlot.TriggerPatternSlot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TriggerPatternSlot</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="supriya/live/Track.html#supriya.live.Track.Track" title="supriya.live.Track.Track"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Track</span></code></a></td>
 <td></td>
 </tr>
 </tbody>
@@ -812,7 +883,7 @@ performance applications.</p>
 <td>A non-realtime state transition.</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="supriya/nonrealtime/SessionObject.html#supriya.nonrealtime.SessionObject.SessionObject" title="supriya.nonrealtime.SessionObject.SessionObject"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SessionObject</span></code></a></td>
-<td>A non-realtime session object, analogous to ServerObjectProxy.</td>
+<td>A non-realtime session object, analogous to ServerObject.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="supriya/nonrealtime/SessionRenderer.html#supriya.nonrealtime.SessionRenderer.SessionRenderer" title="supriya.nonrealtime.SessionRenderer.SessionRenderer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SessionRenderer</span></code></a></td>
 <td>Renders non-realtime sessions as audio files.</td>
@@ -1019,7 +1090,7 @@ performance applications.</p>
 <tr class="row-odd"><td><a class="reference internal" href="supriya/realtime/Node.html#supriya.realtime.Node.Node" title="supriya.realtime.Node.Node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Node</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="supriya/realtime/ServerObjectProxy.html#supriya.realtime.ServerObjectProxy.ServerObjectProxy" title="supriya.realtime.ServerObjectProxy.ServerObjectProxy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ServerObjectProxy</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="supriya/realtime/ServerObject.html#supriya.realtime.ServerObject.ServerObject" title="supriya.realtime.ServerObject.ServerObject"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ServerObject</span></code></a></td>
 <td>A proxy of an object on a server.</td>
 </tr>
 </tbody>
@@ -1031,26 +1102,26 @@ performance applications.</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="supriya/realtime/Buffer.html#supriya.realtime.Buffer.Buffer" title="supriya.realtime.Buffer.Buffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Buffer</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="supriya/realtime/BootOptions.html#supriya.realtime.BootOptions.BootOptions" title="supriya.realtime.BootOptions.BootOptions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BootOptions</span></code></a></td>
+<td>SuperCollider server option configuration.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="supriya/realtime/Buffer.html#supriya.realtime.Buffer.Buffer" title="supriya.realtime.Buffer.Buffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Buffer</span></code></a></td>
 <td>A buffer.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="supriya/realtime/BufferGroup.html#supriya.realtime.BufferGroup.BufferGroup" title="supriya.realtime.BufferGroup.BufferGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferGroup</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="supriya/realtime/BufferGroup.html#supriya.realtime.BufferGroup.BufferGroup" title="supriya.realtime.BufferGroup.BufferGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferGroup</span></code></a></td>
 <td>A buffer group.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="supriya/realtime/Bus.html#supriya.realtime.Bus.Bus" title="supriya.realtime.Bus.Bus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Bus</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="supriya/realtime/Bus.html#supriya.realtime.Bus.Bus" title="supriya.realtime.Bus.Bus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Bus</span></code></a></td>
 <td>A bus.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="supriya/realtime/BusGroup.html#supriya.realtime.BusGroup.BusGroup" title="supriya.realtime.BusGroup.BusGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BusGroup</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="supriya/realtime/BusGroup.html#supriya.realtime.BusGroup.BusGroup" title="supriya.realtime.BusGroup.BusGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BusGroup</span></code></a></td>
 <td>A bus group.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="supriya/realtime/Group.html#supriya.realtime.Group.Group" title="supriya.realtime.Group.Group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Group</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="supriya/realtime/Group.html#supriya.realtime.Group.Group" title="supriya.realtime.Group.Group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Group</span></code></a></td>
 <td>A group.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="supriya/realtime/Server.html#supriya.realtime.Server.Server" title="supriya.realtime.Server.Server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Server</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="supriya/realtime/Server.html#supriya.realtime.Server.Server" title="supriya.realtime.Server.Server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Server</span></code></a></td>
 <td>An scsynth server proxy.</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="supriya/realtime/ServerOptions.html#supriya.realtime.ServerOptions.ServerOptions" title="supriya.realtime.ServerOptions.ServerOptions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ServerOptions</span></code></a></td>
-<td>SuperCollider server option configuration.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="supriya/realtime/Synth.html#supriya.realtime.Synth.Synth" title="supriya.realtime.Synth.Synth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Synth</span></code></a></td>
 <td>A synth.</td>
@@ -1114,7 +1185,7 @@ performance applications.</p>
 </tr>
 </tbody>
 </table>
-<hr/><p class="section-header rubric"><a class="reference internal" href="supriya/soundfiles/index.html#supriya-soundfiles"><span class="std std-ref">supriya.soundfiles</span></a></p>
+<hr/><p class="section-header rubric"><a class="reference internal" href="supriya/soundfiles.html#supriya-soundfiles"><span class="std std-ref">supriya.soundfiles</span></a></p>
 <p>Tools for interacting with soundfiles.</p>
 <hr/><p class="subsection-header rubric">Classes</p>
 <table border="1" class="longtable docutils">
@@ -1123,16 +1194,10 @@ performance applications.</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="supriya/soundfiles/Frame.html#supriya.soundfiles.Frame.Frame" title="supriya.soundfiles.Frame.Frame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Frame</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="supriya/soundfiles.html#supriya.soundfiles.Say" title="supriya.soundfiles.Say"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Say</span></code></a></td>
+<td>Wrapper for OSX <code class="docutils literal notranslate"><span class="pre">say</span></code> command.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="supriya/soundfiles/Say.html#supriya.soundfiles.Say.Say" title="supriya.soundfiles.Say.Say"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Say</span></code></a></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="supriya/soundfiles/Signal.html#supriya.soundfiles.Signal.Signal" title="supriya.soundfiles.Signal.Signal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Signal</span></code></a></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="supriya/soundfiles/SoundFile.html#supriya.soundfiles.SoundFile.SoundFile" title="supriya.soundfiles.SoundFile.SoundFile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SoundFile</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="supriya/soundfiles.html#supriya.soundfiles.SoundFile" title="supriya.soundfiles.SoundFile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SoundFile</span></code></a></td>
 <td></td>
 </tr>
 </tbody>
@@ -1287,6 +1352,73 @@ performance applications.</p>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="supriya/time/TimespanSimultaneity.html#supriya.time.TimespanSimultaneity.TimespanSimultaneity" title="supriya.time.TimespanSimultaneity.TimespanSimultaneity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TimespanSimultaneity</span></code></a></td>
 <td>A simultaneity of timespans in a timespan collection.</td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="section-header rubric"><a class="reference internal" href="supriya/transport.html#supriya-transport"><span class="std std-ref">supriya.transport</span></a></p>
+<hr/><p class="subsection-header rubric">Classes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="supriya/transport.html#supriya.transport.CallbackEvent" title="supriya.transport.CallbackEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CallbackEvent</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="supriya/transport.html#supriya.transport.ChangeEvent" title="supriya.transport.ChangeEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ChangeEvent</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="supriya/transport.html#supriya.transport.EventQueue" title="supriya.transport.EventQueue"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EventQueue</span></code></a></td>
+<td>A priority queue with peeking and item removal.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="supriya/transport.html#supriya.transport.Moment" title="supriya.transport.Moment"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Moment</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="supriya/transport.html#supriya.transport.SchedulerEvent" title="supriya.transport.SchedulerEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SchedulerEvent</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="supriya/transport.html#supriya.transport.Transport" title="supriya.transport.Transport"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Transport</span></code></a></td>
+<td>A transport.</td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="subsection-header rubric">Enumerations</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="supriya/transport.html#supriya.transport.EventType" title="supriya.transport.EventType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EventType</span></code></a></td>
+<td>An enumeration.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="supriya/transport.html#supriya.transport.TimeUnit" title="supriya.transport.TimeUnit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TimeUnit</span></code></a></td>
+<td>An enumeration.</td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="subsection-header rubric">Functions</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="supriya/transport.html#supriya.transport.measure_to_offset" title="supriya.transport.measure_to_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">measure_to_offset</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="supriya/transport.html#supriya.transport.offset_to_measure" title="supriya.transport.offset_to_measure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">offset_to_measure</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="supriya/transport.html#supriya.transport.offset_to_measure_offset" title="supriya.transport.offset_to_measure_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">offset_to_measure_offset</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="supriya/transport.html#supriya.transport.offset_to_seconds" title="supriya.transport.offset_to_seconds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">offset_to_seconds</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="supriya/transport.html#supriya.transport.seconds_to_offset" title="supriya.transport.seconds_to_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seconds_to_offset</span></code></a></td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -2621,7 +2753,7 @@ performance applications.</p>
 </tr>
 </tbody>
 </table>
-<hr/><p class="section-header rubric"><a class="reference internal" href="supriya/utils/index.html#supriya-utils"><span class="std std-ref">supriya.utils</span></a></p>
+<hr/><p class="section-header rubric"><a class="reference internal" href="supriya/utils.html#supriya-utils"><span class="std std-ref">supriya.utils</span></a></p>
 <p>Utility functions.</p>
 <hr/><p class="subsection-header rubric">Functions</p>
 <table border="1" class="longtable docutils">
@@ -2630,22 +2762,19 @@ performance applications.</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="supriya/utils/flatten_iterable.html#supriya.utils.flatten_iterable.flatten_iterable" title="supriya.utils.flatten_iterable.flatten_iterable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">flatten_iterable</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="supriya/utils.html#supriya.utils.flatten_iterable" title="supriya.utils.flatten_iterable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">flatten_iterable</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="supriya/utils/group_iterable_by_count.html#supriya.utils.group_iterable_by_count.group_iterable_by_count" title="supriya.utils.group_iterable_by_count.group_iterable_by_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">group_iterable_by_count</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="supriya/utils.html#supriya.utils.group_iterable_by_count" title="supriya.utils.group_iterable_by_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">group_iterable_by_count</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="supriya/utils/iterate_nwise.html#supriya.utils.iterate_nwise.iterate_nwise" title="supriya.utils.iterate_nwise.iterate_nwise"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iterate_nwise</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="supriya/utils.html#supriya.utils.iterate_nwise" title="supriya.utils.iterate_nwise"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iterate_nwise</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="supriya/utils/new.html#supriya.utils.new.new" title="supriya.utils.new.new"><code class="xref py py-obj docutils literal notranslate"><span class="pre">new</span></code></a></td>
-<td>Template an object.</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="supriya/utils/repeat_sequence_to_length.html#supriya.utils.repeat_sequence_to_length.repeat_sequence_to_length" title="supriya.utils.repeat_sequence_to_length.repeat_sequence_to_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">repeat_sequence_to_length</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="supriya/utils.html#supriya.utils.repeat_sequence_to_length" title="supriya.utils.repeat_sequence_to_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">repeat_sequence_to_length</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="supriya/utils/zip_sequences.html#supriya.utils.zip_sequences.zip_sequences" title="supriya.utils.zip_sequences.zip_sequences"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zip_sequences</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="supriya/utils.html#supriya.utils.zip_sequences" title="supriya.utils.zip_sequences"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zip_sequences</span></code></a></td>
 <td></td>
 </tr>
 </tbody>
@@ -2657,15 +2786,6 @@ performance applications.</p>
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="supriya/index.html" class="btn btn-neutral float-right" title="supriya" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../installation.html" class="btn btn-neutral" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
@@ -2689,26 +2809,16 @@ performance applications.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

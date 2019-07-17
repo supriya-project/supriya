@@ -27,8 +27,6 @@ Request
       request_id
       request_name
       response_patterns
-      to_datagram
-      to_list
       to_osc
 
    .. raw:: html
@@ -65,9 +63,13 @@ Request
 
       .. automethod:: Request.communicate
 
-   .. automethod:: Request.to_datagram
+   .. container:: inherited
 
-   .. automethod:: Request.to_list
+      .. automethod:: Request.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: Request.to_list
 
    .. automethod:: Request.to_osc
 

@@ -1,0 +1,754 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>supriya.daw.synthdefs &mdash; Supriya 0.3.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/supriya/index.html">supriya</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../supriya.html">supriya</a> &raquo;</li>
+        
+      <li>supriya.daw.synthdefs</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for supriya.daw.synthdefs</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">supriya</span> <span class="k">import</span> <span class="n">DoneAction</span>
+<span class="kn">from</span> <span class="nn">supriya.synthdefs</span> <span class="k">import</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">SynthDefBuilder</span><span class="p">,</span> <span class="n">SynthDefFactory</span><span class="p">,</span> <span class="n">UGenArray</span>
+<span class="kn">from</span> <span class="nn">supriya.ugens</span> <span class="k">import</span> <span class="n">DC</span><span class="p">,</span> <span class="n">HPZ1</span><span class="p">,</span> <span class="n">In</span><span class="p">,</span> <span class="n">Linen</span><span class="p">,</span> <span class="n">Mix</span><span class="p">,</span> <span class="n">Out</span><span class="p">,</span> <span class="n">PanAz</span><span class="p">,</span> <span class="n">SendPeakRMS</span><span class="p">,</span> <span class="n">SendTrig</span>
+
+<span class="n">factory</span> <span class="o">=</span> <span class="n">SynthDefFactory</span><span class="p">(</span><span class="n">active</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">gate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">lag</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span><span class="o">.</span><span class="n">with_output</span><span class="p">()</span><span class="o">.</span><span class="n">with_input</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">_peak_rms_block_builder</span><span class="p">(</span><span class="n">command_name</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_peak_rms_block</span><span class="p">(</span><span class="n">builder</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="n">SendPeakRMS</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">command_name</span><span class="o">=</span><span class="n">command_name</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">source</span>
+
+    <span class="k">return</span> <span class="n">_peak_rms_block</span>
+
+
+<span class="k">def</span> <span class="nf">_gate_block</span><span class="p">(</span><span class="n">builder</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+    <span class="n">gate</span> <span class="o">=</span> <span class="n">Linen</span><span class="o">.</span><span class="n">kr</span><span class="p">(</span>
+        <span class="n">attack_time</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;lag&quot;</span><span class="p">],</span>
+        <span class="n">done_action</span><span class="o">=</span><span class="n">DoneAction</span><span class="o">.</span><span class="n">FREE_SYNTH</span><span class="p">,</span>
+        <span class="n">gate</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;gate&quot;</span><span class="p">],</span>
+        <span class="n">release_time</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;lag&quot;</span><span class="p">],</span>
+    <span class="p">)</span>
+    <span class="n">active</span> <span class="o">=</span> <span class="n">Linen</span><span class="o">.</span><span class="n">kr</span><span class="p">(</span>
+        <span class="n">attack_time</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;lag&quot;</span><span class="p">],</span>
+        <span class="n">done_action</span><span class="o">=</span><span class="n">DoneAction</span><span class="o">.</span><span class="n">NOTHING</span><span class="p">,</span>
+        <span class="n">gate</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;active&quot;</span><span class="p">],</span>
+        <span class="n">release_time</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;lag&quot;</span><span class="p">],</span>
+    <span class="p">)</span>
+    <span class="n">is_active</span> <span class="o">=</span> <span class="n">active</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">trigger</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">HPZ1</span><span class="o">.</span><span class="n">kr</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="n">is_active</span><span class="p">))</span>
+    <span class="n">SendTrig</span><span class="o">.</span><span class="n">kr</span><span class="p">(</span><span class="n">trigger</span><span class="o">=</span><span class="n">trigger</span><span class="p">,</span> <span class="n">id_</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">is_active</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">source</span> <span class="o">*</span> <span class="n">gate</span> <span class="o">*</span> <span class="n">active</span>
+
+
+<span class="k">def</span> <span class="nf">_gain_block</span><span class="p">(</span><span class="n">builder</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+    <span class="n">amplitude</span> <span class="o">=</span> <span class="p">(</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;gain&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">db_to_amplitude</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;gain&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mf">96.0</span><span class="p">))</span><span class="o">.</span><span class="n">lag</span><span class="p">(</span>
+        <span class="n">builder</span><span class="p">[</span><span class="s2">&quot;lag&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">source</span> <span class="o">*</span> <span class="n">amplitude</span>
+
+
+<div class="viewcode-block" id="with_gate"><a class="viewcode-back" href="../../../api/supriya/daw/synthdefs.html#supriya.daw.synthdefs.with_gate">[docs]</a><span class="k">def</span> <span class="nf">with_gate</span><span class="p">(</span><span class="n">synthdef_builder</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">Linen</span><span class="o">.</span><span class="n">kr</span><span class="p">(</span>
+        <span class="n">attack_time</span><span class="o">=</span><span class="n">synthdef_builder</span><span class="p">[</span><span class="s2">&quot;lag&quot;</span><span class="p">],</span>
+        <span class="n">done_action</span><span class="o">=</span><span class="n">DoneAction</span><span class="o">.</span><span class="n">FREE_SYNTH</span><span class="p">,</span>
+        <span class="n">gate</span><span class="o">=</span><span class="n">synthdef_builder</span><span class="p">[</span><span class="s2">&quot;gate&quot;</span><span class="p">],</span>
+        <span class="n">release_time</span><span class="o">=</span><span class="n">synthdef_builder</span><span class="p">[</span><span class="s2">&quot;lag&quot;</span><span class="p">],</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="with_active"><a class="viewcode-back" href="../../../api/supriya/daw/synthdefs.html#supriya.daw.synthdefs.with_active">[docs]</a><span class="k">def</span> <span class="nf">with_active</span><span class="p">(</span><span class="n">synthdef_builder</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">Linen</span><span class="o">.</span><span class="n">kr</span><span class="p">(</span>
+        <span class="n">attack_time</span><span class="o">=</span><span class="n">synthdef_builder</span><span class="p">[</span><span class="s2">&quot;lag&quot;</span><span class="p">],</span>
+        <span class="n">done_action</span><span class="o">=</span><span class="n">DoneAction</span><span class="o">.</span><span class="n">NOTHING</span><span class="p">,</span>
+        <span class="n">gate</span><span class="o">=</span><span class="n">synthdef_builder</span><span class="p">[</span><span class="s2">&quot;active&quot;</span><span class="p">],</span>
+        <span class="n">release_time</span><span class="o">=</span><span class="n">synthdef_builder</span><span class="p">[</span><span class="s2">&quot;lag&quot;</span><span class="p">],</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="with_gain"><a class="viewcode-back" href="../../../api/supriya/daw/synthdefs.html#supriya.daw.synthdefs.with_gain">[docs]</a><span class="k">def</span> <span class="nf">with_gain</span><span class="p">(</span><span class="n">synthdef_builder</span><span class="p">):</span>
+    <span class="n">gate</span> <span class="o">=</span> <span class="n">with_gate</span><span class="p">(</span><span class="n">synthdef_builder</span><span class="p">)</span>
+    <span class="n">active</span> <span class="o">=</span> <span class="n">with_active</span><span class="p">(</span><span class="n">synthdef_builder</span><span class="p">)</span>
+    <span class="n">amplitude</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">synthdef_builder</span><span class="p">[</span><span class="s2">&quot;gain&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">db_to_amplitude</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="n">synthdef_builder</span><span class="p">[</span><span class="s2">&quot;gain&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mf">96.0</span><span class="p">)</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">lag</span><span class="p">(</span><span class="n">synthdef_builder</span><span class="p">[</span><span class="s2">&quot;lag&quot;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">gate</span> <span class="o">*</span> <span class="n">active</span> <span class="o">*</span> <span class="n">amplitude</span></div>
+
+
+<div class="viewcode-block" id="build_direct_synthdef"><a class="viewcode-back" href="../../../api/supriya/daw/synthdefs.html#supriya.daw.synthdefs.build_direct_synthdef">[docs]</a><span class="k">def</span> <span class="nf">build_direct_synthdef</span><span class="p">(</span><span class="n">source_track_count</span><span class="p">,</span> <span class="n">target_track_count</span><span class="p">,</span> <span class="n">mapping</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">in_</span><span class="p">,</span> <span class="n">out</span> <span class="ow">in</span> <span class="n">mapping</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">in_</span> <span class="o">&lt;</span> <span class="n">source_track_count</span>
+        <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">out</span> <span class="o">&lt;</span> <span class="n">target_track_count</span>
+    <span class="n">synthdef_builder</span> <span class="o">=</span> <span class="n">SynthDefBuilder</span><span class="p">(</span>
+        <span class="n">gate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">lag</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">in_</span><span class="o">=</span><span class="n">Parameter</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parameter_rate</span><span class="o">=</span><span class="s2">&quot;scalar&quot;</span><span class="p">),</span>
+        <span class="n">out</span><span class="o">=</span><span class="n">Parameter</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parameter_rate</span><span class="o">=</span><span class="s2">&quot;scalar&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">with</span> <span class="n">synthdef_builder</span><span class="p">:</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="n">In</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="n">synthdef_builder</span><span class="p">[</span><span class="s2">&quot;in_&quot;</span><span class="p">],</span> <span class="n">channel_count</span><span class="o">=</span><span class="n">source_track_count</span><span class="p">)</span>
+        <span class="n">gate</span> <span class="o">=</span> <span class="n">with_gate</span><span class="p">(</span><span class="n">synthdef_builder</span><span class="p">)</span>
+        <span class="n">source</span> <span class="o">*=</span> <span class="n">gate</span>
+        <span class="n">zero</span> <span class="o">=</span> <span class="n">DC</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">mapped</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">target_track_count</span><span class="p">):</span>
+            <span class="n">mapped</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
+        <span class="k">for</span> <span class="n">in_</span><span class="p">,</span> <span class="n">out</span> <span class="ow">in</span> <span class="n">mapping</span><span class="p">:</span>
+            <span class="n">mapped</span><span class="p">[</span><span class="n">out</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">source</span><span class="p">[</span><span class="n">in_</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">out</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">mapped</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">out</span><span class="p">:</span>
+                <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">zero</span><span class="p">)</span>
+            <span class="n">mapped</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Mix</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="n">synthdef_builder</span><span class="p">[</span><span class="s2">&quot;out&quot;</span><span class="p">],</span> <span class="n">source</span><span class="o">=</span><span class="n">mapped</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;mixer/direct/</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">in_</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span> <span class="k">for</span> <span class="n">in_</span><span class="p">,</span> <span class="n">out</span> <span class="ow">in</span> <span class="n">mapping</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">synthdef_builder</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="build_chain_input_synthdef"><a class="viewcode-back" href="../../../api/supriya/daw/synthdefs.html#supriya.daw.synthdefs.build_chain_input_synthdef">[docs]</a><span class="k">def</span> <span class="nf">build_chain_input_synthdef</span><span class="p">(</span><span class="n">channel_count</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Build chain input synthdef.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; from supriya.daw import synthdefs</span>
+<span class="sd">        &gt;&gt;&gt; synthdef = synthdefs.build_chain_input_synthdef(channel_count=1)</span>
+<span class="sd">        &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">        synthdef:</span>
+<span class="sd">            name: mixer/chain-input/1</span>
+<span class="sd">            ugens:</span>
+<span class="sd">            -   Control.ir: null</span>
+<span class="sd">            -   In.ar:</span>
+<span class="sd">                    bus: Control.ir[0:in_]</span>
+<span class="sd">            -   SendPeakRMS.ar:</span>
+<span class="sd">                    peak_lag: 3.0</span>
+<span class="sd">                    reply_id: 116.0</span>
+<span class="sd">                    reply_rate: 20.0</span>
+<span class="sd">            -   Control.kr: null</span>
+<span class="sd">            -   Linen.kr/0:</span>
+<span class="sd">                    attack_time: Control.kr[2:lag]</span>
+<span class="sd">                    done_action: 2.0</span>
+<span class="sd">                    gate: Control.kr[1:gate]</span>
+<span class="sd">                    release_time: Control.kr[2:lag]</span>
+<span class="sd">                    sustain_level: 1.0</span>
+<span class="sd">            -   BinaryOpUGen(MULTIPLICATION).ar/0:</span>
+<span class="sd">                    left: In.ar[0]</span>
+<span class="sd">                    right: Linen.kr/0[0]</span>
+<span class="sd">            -   Linen.kr/1:</span>
+<span class="sd">                    attack_time: Control.kr[2:lag]</span>
+<span class="sd">                    done_action: 0.0</span>
+<span class="sd">                    gate: Control.kr[0:active]</span>
+<span class="sd">                    release_time: Control.kr[2:lag]</span>
+<span class="sd">                    sustain_level: 1.0</span>
+<span class="sd">            -   BinaryOpUGen(GREATER_THAN).kr:</span>
+<span class="sd">                    left: Linen.kr/1[0]</span>
+<span class="sd">                    right: 0.0</span>
+<span class="sd">            -   HPZ1.kr:</span>
+<span class="sd">                    source: BinaryOpUGen(GREATER_THAN).kr[0]</span>
+<span class="sd">            -   UnaryOpUGen(ABSOLUTE_VALUE).kr:</span>
+<span class="sd">                    source: HPZ1.kr[0]</span>
+<span class="sd">            -   SendTrig.kr:</span>
+<span class="sd">                    id_: 0.0</span>
+<span class="sd">                    trigger: UnaryOpUGen(ABSOLUTE_VALUE).kr[0]</span>
+<span class="sd">                    value: BinaryOpUGen(GREATER_THAN).kr[0]</span>
+<span class="sd">            -   BinaryOpUGen(MULTIPLICATION).ar/1:</span>
+<span class="sd">                    left: BinaryOpUGen(MULTIPLICATION).ar/0[0]</span>
+<span class="sd">                    right: Linen.kr/1[0]</span>
+<span class="sd">            -   ReplaceOut.ar:</span>
+<span class="sd">                    bus: Control.ir[1:out]</span>
+<span class="sd">                    source[0]: BinaryOpUGen(MULTIPLICATION).ar/1[0]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">factory</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">SynthDefFactory</span><span class="p">(</span><span class="n">active</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">gate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">lag</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">with_output</span><span class="p">(</span><span class="n">replacing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">with_input</span><span class="p">(</span><span class="n">private</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">with_channel_count</span><span class="p">(</span><span class="n">channel_count</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">with_signal_block</span><span class="p">(</span><span class="n">_peak_rms_block_builder</span><span class="p">(</span><span class="s2">&quot;/levels/chain/input&quot;</span><span class="p">))</span>
+        <span class="o">.</span><span class="n">with_signal_block</span><span class="p">(</span><span class="n">_gate_block</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">factory</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;mixer/chain-input/</span><span class="si">{channel_count}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="build_chain_output_synthdef"><a class="viewcode-back" href="../../../api/supriya/daw/synthdefs.html#supriya.daw.synthdefs.build_chain_output_synthdef">[docs]</a><span class="k">def</span> <span class="nf">build_chain_output_synthdef</span><span class="p">(</span><span class="n">channel_count</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Build chain output synthdef.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; from supriya.daw import synthdefs</span>
+<span class="sd">        &gt;&gt;&gt; synthdef = synthdefs.build_chain_output_synthdef(channel_count=1)</span>
+<span class="sd">        &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">        synthdef:</span>
+<span class="sd">            name: mixer/chain-output/1</span>
+<span class="sd">            ugens:</span>
+<span class="sd">            -   Control.ir: null</span>
+<span class="sd">            -   In.ar:</span>
+<span class="sd">                    bus: Control.ir[0:in_]</span>
+<span class="sd">            -   SendPeakRMS.ar/0:</span>
+<span class="sd">                    peak_lag: 3.0</span>
+<span class="sd">                    reply_id: 114.0</span>
+<span class="sd">                    reply_rate: 20.0</span>
+<span class="sd">            -   Control.kr: null</span>
+<span class="sd">            -   Linen.kr/0:</span>
+<span class="sd">                    attack_time: Control.kr[3:lag]</span>
+<span class="sd">                    done_action: 2.0</span>
+<span class="sd">                    gate: Control.kr[2:gate]</span>
+<span class="sd">                    release_time: Control.kr[3:lag]</span>
+<span class="sd">                    sustain_level: 1.0</span>
+<span class="sd">            -   BinaryOpUGen(MULTIPLICATION).ar/0:</span>
+<span class="sd">                    left: In.ar[0]</span>
+<span class="sd">                    right: Linen.kr/0[0]</span>
+<span class="sd">            -   Linen.kr/1:</span>
+<span class="sd">                    attack_time: Control.kr[3:lag]</span>
+<span class="sd">                    done_action: 0.0</span>
+<span class="sd">                    gate: Control.kr[0:active]</span>
+<span class="sd">                    release_time: Control.kr[3:lag]</span>
+<span class="sd">                    sustain_level: 1.0</span>
+<span class="sd">            -   BinaryOpUGen(GREATER_THAN).kr/0:</span>
+<span class="sd">                    left: Linen.kr/1[0]</span>
+<span class="sd">                    right: 0.0</span>
+<span class="sd">            -   HPZ1.kr:</span>
+<span class="sd">                    source: BinaryOpUGen(GREATER_THAN).kr/0[0]</span>
+<span class="sd">            -   UnaryOpUGen(ABSOLUTE_VALUE).kr:</span>
+<span class="sd">                    source: HPZ1.kr[0]</span>
+<span class="sd">            -   SendTrig.kr:</span>
+<span class="sd">                    id_: 0.0</span>
+<span class="sd">                    trigger: UnaryOpUGen(ABSOLUTE_VALUE).kr[0]</span>
+<span class="sd">                    value: BinaryOpUGen(GREATER_THAN).kr/0[0]</span>
+<span class="sd">            -   BinaryOpUGen(MULTIPLICATION).ar/1:</span>
+<span class="sd">                    left: BinaryOpUGen(MULTIPLICATION).ar/0[0]</span>
+<span class="sd">                    right: Linen.kr/1[0]</span>
+<span class="sd">            -   UnaryOpUGen(DB_TO_AMPLITUDE).kr:</span>
+<span class="sd">                    source: Control.kr[1:gain]</span>
+<span class="sd">            -   BinaryOpUGen(GREATER_THAN).kr/1:</span>
+<span class="sd">                    left: Control.kr[1:gain]</span>
+<span class="sd">                    right: -96.0</span>
+<span class="sd">            -   BinaryOpUGen(MULTIPLICATION).kr:</span>
+<span class="sd">                    left: UnaryOpUGen(DB_TO_AMPLITUDE).kr[0]</span>
+<span class="sd">                    right: BinaryOpUGen(GREATER_THAN).kr/1[0]</span>
+<span class="sd">            -   Lag.kr:</span>
+<span class="sd">                    lag_time: Control.kr[3:lag]</span>
+<span class="sd">                    source: BinaryOpUGen(MULTIPLICATION).kr[0]</span>
+<span class="sd">            -   BinaryOpUGen(MULTIPLICATION).ar/2:</span>
+<span class="sd">                    left: BinaryOpUGen(MULTIPLICATION).ar/1[0]</span>
+<span class="sd">                    right: Lag.kr[0]</span>
+<span class="sd">            -   SendPeakRMS.ar/1:</span>
+<span class="sd">                    peak_lag: 3.0</span>
+<span class="sd">                    reply_id: 114.0</span>
+<span class="sd">                    reply_rate: 20.0</span>
+<span class="sd">            -   Out.ar:</span>
+<span class="sd">                    bus: Control.ir[1:out]</span>
+<span class="sd">                    source[0]: BinaryOpUGen(MULTIPLICATION).ar/2[0]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">factory</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">SynthDefFactory</span><span class="p">(</span><span class="n">active</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">gain</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">gate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">lag</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">with_output</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">with_input</span><span class="p">(</span><span class="n">private</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">with_channel_count</span><span class="p">(</span><span class="n">channel_count</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">with_signal_block</span><span class="p">(</span><span class="n">_peak_rms_block_builder</span><span class="p">(</span><span class="s2">&quot;/levels/chain/prefader&quot;</span><span class="p">))</span>
+        <span class="o">.</span><span class="n">with_signal_block</span><span class="p">(</span><span class="n">_gate_block</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">with_signal_block</span><span class="p">(</span><span class="n">_gain_block</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">with_signal_block</span><span class="p">(</span><span class="n">_peak_rms_block_builder</span><span class="p">(</span><span class="s2">&quot;/levels/chain/postfader&quot;</span><span class="p">))</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">factory</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;mixer/chain-output/</span><span class="si">{channel_count}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="build_rack_output_synthdef"><a class="viewcode-back" href="../../../api/supriya/daw/synthdefs.html#supriya.daw.synthdefs.build_rack_output_synthdef">[docs]</a><span class="k">def</span> <span class="nf">build_rack_output_synthdef</span><span class="p">(</span><span class="n">channel_count</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Build rack output synthdef.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; from supriya.daw import synthdefs</span>
+<span class="sd">        &gt;&gt;&gt; synthdef = synthdefs.build_rack_output_synthdef(channel_count=1)</span>
+<span class="sd">        &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">        synthdef:</span>
+<span class="sd">            name: mixer/rack-output/1</span>
+<span class="sd">            ugens:</span>
+<span class="sd">            -   Control.ir: null</span>
+<span class="sd">            -   In.ar:</span>
+<span class="sd">                    bus: Control.ir[0:in_]</span>
+<span class="sd">            -   Control.kr: null</span>
+<span class="sd">            -   Linen.kr/0:</span>
+<span class="sd">                    attack_time: Control.kr[2:lag]</span>
+<span class="sd">                    done_action: 2.0</span>
+<span class="sd">                    gate: Control.kr[1:gate]</span>
+<span class="sd">                    release_time: Control.kr[2:lag]</span>
+<span class="sd">                    sustain_level: 1.0</span>
+<span class="sd">            -   BinaryOpUGen(MULTIPLICATION).ar/0:</span>
+<span class="sd">                    left: In.ar[0]</span>
+<span class="sd">                    right: Linen.kr/0[0]</span>
+<span class="sd">            -   Linen.kr/1:</span>
+<span class="sd">                    attack_time: Control.kr[2:lag]</span>
+<span class="sd">                    done_action: 0.0</span>
+<span class="sd">                    gate: Control.kr[0:active]</span>
+<span class="sd">                    release_time: Control.kr[2:lag]</span>
+<span class="sd">                    sustain_level: 1.0</span>
+<span class="sd">            -   BinaryOpUGen(GREATER_THAN).kr:</span>
+<span class="sd">                    left: Linen.kr/1[0]</span>
+<span class="sd">                    right: 0.0</span>
+<span class="sd">            -   HPZ1.kr:</span>
+<span class="sd">                    source: BinaryOpUGen(GREATER_THAN).kr[0]</span>
+<span class="sd">            -   UnaryOpUGen(ABSOLUTE_VALUE).kr:</span>
+<span class="sd">                    source: HPZ1.kr[0]</span>
+<span class="sd">            -   SendTrig.kr:</span>
+<span class="sd">                    id_: 0.0</span>
+<span class="sd">                    trigger: UnaryOpUGen(ABSOLUTE_VALUE).kr[0]</span>
+<span class="sd">                    value: BinaryOpUGen(GREATER_THAN).kr[0]</span>
+<span class="sd">            -   BinaryOpUGen(MULTIPLICATION).ar/1:</span>
+<span class="sd">                    left: BinaryOpUGen(MULTIPLICATION).ar/0[0]</span>
+<span class="sd">                    right: Linen.kr/1[0]</span>
+<span class="sd">            -   SendPeakRMS.ar:</span>
+<span class="sd">                    peak_lag: 3.0</span>
+<span class="sd">                    reply_id: 116.0</span>
+<span class="sd">                    reply_rate: 20.0</span>
+<span class="sd">            -   ReplaceOut.ar:</span>
+<span class="sd">                    bus: Control.ir[1:out]</span>
+<span class="sd">                    source[0]: BinaryOpUGen(MULTIPLICATION).ar/1[0]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">factory</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">SynthDefFactory</span><span class="p">(</span><span class="n">active</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">gate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">lag</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">with_output</span><span class="p">(</span><span class="n">replacing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">with_input</span><span class="p">(</span><span class="n">private</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">with_channel_count</span><span class="p">(</span><span class="n">channel_count</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">with_signal_block</span><span class="p">(</span><span class="n">_gate_block</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">with_signal_block</span><span class="p">(</span><span class="n">_peak_rms_block_builder</span><span class="p">(</span><span class="s2">&quot;/levels/rack/output&quot;</span><span class="p">))</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">factory</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;mixer/rack-output/</span><span class="si">{channel_count}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="build_track_input_synthdef"><a class="viewcode-back" href="../../../api/supriya/daw/synthdefs.html#supriya.daw.synthdefs.build_track_input_synthdef">[docs]</a><span class="k">def</span> <span class="nf">build_track_input_synthdef</span><span class="p">(</span><span class="n">channel_count</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Build track input synthdef.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; from supriya.daw import synthdefs</span>
+<span class="sd">        &gt;&gt;&gt; synthdef = synthdefs.build_track_input_synthdef(channel_count=1)</span>
+<span class="sd">        &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">        synthdef:</span>
+<span class="sd">            name: mixer/track-input/1</span>
+<span class="sd">            ugens:</span>
+<span class="sd">            -   Control.ir: null</span>
+<span class="sd">            -   InFeedback.ar:</span>
+<span class="sd">                    bus: Control.ir[0:in_]</span>
+<span class="sd">            -   In.ar:</span>
+<span class="sd">                    bus: Control.ir[1:out]</span>
+<span class="sd">            -   BinaryOpUGen(ADDITION).ar:</span>
+<span class="sd">                    left: In.ar[0]</span>
+<span class="sd">                    right: InFeedback.ar[0]</span>
+<span class="sd">            -   SendPeakRMS.ar:</span>
+<span class="sd">                    peak_lag: 3.0</span>
+<span class="sd">                    reply_id: 116.0</span>
+<span class="sd">                    reply_rate: 20.0</span>
+<span class="sd">            -   Control.kr: null</span>
+<span class="sd">            -   Linen.kr/0:</span>
+<span class="sd">                    attack_time: Control.kr[3:lag]</span>
+<span class="sd">                    done_action: 2.0</span>
+<span class="sd">                    gate: Control.kr[2:gate]</span>
+<span class="sd">                    release_time: Control.kr[3:lag]</span>
+<span class="sd">                    sustain_level: 1.0</span>
+<span class="sd">            -   BinaryOpUGen(MULTIPLICATION).ar/0:</span>
+<span class="sd">                    left: BinaryOpUGen(ADDITION).ar[0]</span>
+<span class="sd">                    right: Linen.kr/0[0]</span>
+<span class="sd">            -   Linen.kr/1:</span>
+<span class="sd">                    attack_time: Control.kr[3:lag]</span>
+<span class="sd">                    done_action: 0.0</span>
+<span class="sd">                    gate: Control.kr[0:active]</span>
+<span class="sd">                    release_time: Control.kr[3:lag]</span>
+<span class="sd">                    sustain_level: 1.0</span>
+<span class="sd">            -   BinaryOpUGen(GREATER_THAN).kr/0:</span>
+<span class="sd">                    left: Linen.kr/1[0]</span>
+<span class="sd">                    right: 0.0</span>
+<span class="sd">            -   HPZ1.kr:</span>
+<span class="sd">                    source: BinaryOpUGen(GREATER_THAN).kr/0[0]</span>
+<span class="sd">            -   UnaryOpUGen(ABSOLUTE_VALUE).kr:</span>
+<span class="sd">                    source: HPZ1.kr[0]</span>
+<span class="sd">            -   SendTrig.kr:</span>
+<span class="sd">                    id_: 0.0</span>
+<span class="sd">                    trigger: UnaryOpUGen(ABSOLUTE_VALUE).kr[0]</span>
+<span class="sd">                    value: BinaryOpUGen(GREATER_THAN).kr/0[0]</span>
+<span class="sd">            -   BinaryOpUGen(MULTIPLICATION).ar/1:</span>
+<span class="sd">                    left: BinaryOpUGen(MULTIPLICATION).ar/0[0]</span>
+<span class="sd">                    right: Linen.kr/1[0]</span>
+<span class="sd">            -   UnaryOpUGen(DB_TO_AMPLITUDE).kr:</span>
+<span class="sd">                    source: Control.kr[1:gain]</span>
+<span class="sd">            -   BinaryOpUGen(GREATER_THAN).kr/1:</span>
+<span class="sd">                    left: Control.kr[1:gain]</span>
+<span class="sd">                    right: -96.0</span>
+<span class="sd">            -   BinaryOpUGen(MULTIPLICATION).kr:</span>
+<span class="sd">                    left: UnaryOpUGen(DB_TO_AMPLITUDE).kr[0]</span>
+<span class="sd">                    right: BinaryOpUGen(GREATER_THAN).kr/1[0]</span>
+<span class="sd">            -   Lag.kr:</span>
+<span class="sd">                    lag_time: Control.kr[3:lag]</span>
+<span class="sd">                    source: BinaryOpUGen(MULTIPLICATION).kr[0]</span>
+<span class="sd">            -   BinaryOpUGen(MULTIPLICATION).ar/2:</span>
+<span class="sd">                    left: BinaryOpUGen(MULTIPLICATION).ar/1[0]</span>
+<span class="sd">                    right: Lag.kr[0]</span>
+<span class="sd">            -   ReplaceOut.ar:</span>
+<span class="sd">                    bus: Control.ir[1:out]</span>
+<span class="sd">                    source[0]: BinaryOpUGen(MULTIPLICATION).ar/2[0]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">signal_block</span><span class="p">(</span><span class="n">builder</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">In</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;out&quot;</span><span class="p">],</span> <span class="n">channel_count</span><span class="o">=</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;channel_count&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="n">source</span>
+
+    <span class="n">factory</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">SynthDefFactory</span><span class="p">(</span><span class="n">active</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">gain</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">gate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">lag</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">with_output</span><span class="p">(</span><span class="n">replacing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">with_input</span><span class="p">(</span><span class="n">feedback</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">private</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">with_channel_count</span><span class="p">(</span><span class="n">channel_count</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">with_signal_block</span><span class="p">(</span><span class="n">signal_block</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">with_signal_block</span><span class="p">(</span><span class="n">_peak_rms_block_builder</span><span class="p">(</span><span class="s2">&quot;/levels/track/input&quot;</span><span class="p">))</span>
+        <span class="o">.</span><span class="n">with_signal_block</span><span class="p">(</span><span class="n">_gate_block</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">with_signal_block</span><span class="p">(</span><span class="n">_gain_block</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">factory</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;mixer/track-input/</span><span class="si">{channel_count}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="build_track_output_synthdef"><a class="viewcode-back" href="../../../api/supriya/daw/synthdefs.html#supriya.daw.synthdefs.build_track_output_synthdef">[docs]</a><span class="k">def</span> <span class="nf">build_track_output_synthdef</span><span class="p">(</span><span class="n">channel_count</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Build track output synthdef.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; from supriya.daw import synthdefs</span>
+<span class="sd">        &gt;&gt;&gt; synthdef = synthdefs.build_track_output_synthdef(channel_count=1)</span>
+<span class="sd">        &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">        synthdef:</span>
+<span class="sd">            name: mixer/track-output/1</span>
+<span class="sd">            ugens:</span>
+<span class="sd">            -   Control.ir: null</span>
+<span class="sd">            -   In.ar:</span>
+<span class="sd">                    bus: Control.ir[0:out]</span>
+<span class="sd">            -   SendPeakRMS.ar/0:</span>
+<span class="sd">                    peak_lag: 3.0</span>
+<span class="sd">                    reply_id: 114.0</span>
+<span class="sd">                    reply_rate: 20.0</span>
+<span class="sd">            -   Control.kr: null</span>
+<span class="sd">            -   Linen.kr/0:</span>
+<span class="sd">                    attack_time: Control.kr[3:lag]</span>
+<span class="sd">                    done_action: 2.0</span>
+<span class="sd">                    gate: Control.kr[2:gate]</span>
+<span class="sd">                    release_time: Control.kr[3:lag]</span>
+<span class="sd">                    sustain_level: 1.0</span>
+<span class="sd">            -   BinaryOpUGen(MULTIPLICATION).ar/0:</span>
+<span class="sd">                    left: In.ar[0]</span>
+<span class="sd">                    right: Linen.kr/0[0]</span>
+<span class="sd">            -   Linen.kr/1:</span>
+<span class="sd">                    attack_time: Control.kr[3:lag]</span>
+<span class="sd">                    done_action: 0.0</span>
+<span class="sd">                    gate: Control.kr[0:active]</span>
+<span class="sd">                    release_time: Control.kr[3:lag]</span>
+<span class="sd">                    sustain_level: 1.0</span>
+<span class="sd">            -   BinaryOpUGen(GREATER_THAN).kr/0:</span>
+<span class="sd">                    left: Linen.kr/1[0]</span>
+<span class="sd">                    right: 0.0</span>
+<span class="sd">            -   HPZ1.kr:</span>
+<span class="sd">                    source: BinaryOpUGen(GREATER_THAN).kr/0[0]</span>
+<span class="sd">            -   UnaryOpUGen(ABSOLUTE_VALUE).kr:</span>
+<span class="sd">                    source: HPZ1.kr[0]</span>
+<span class="sd">            -   SendTrig.kr:</span>
+<span class="sd">                    id_: 0.0</span>
+<span class="sd">                    trigger: UnaryOpUGen(ABSOLUTE_VALUE).kr[0]</span>
+<span class="sd">                    value: BinaryOpUGen(GREATER_THAN).kr/0[0]</span>
+<span class="sd">            -   BinaryOpUGen(MULTIPLICATION).ar/1:</span>
+<span class="sd">                    left: BinaryOpUGen(MULTIPLICATION).ar/0[0]</span>
+<span class="sd">                    right: Linen.kr/1[0]</span>
+<span class="sd">            -   UnaryOpUGen(DB_TO_AMPLITUDE).kr:</span>
+<span class="sd">                    source: Control.kr[1:gain]</span>
+<span class="sd">            -   BinaryOpUGen(GREATER_THAN).kr/1:</span>
+<span class="sd">                    left: Control.kr[1:gain]</span>
+<span class="sd">                    right: -96.0</span>
+<span class="sd">            -   BinaryOpUGen(MULTIPLICATION).kr:</span>
+<span class="sd">                    left: UnaryOpUGen(DB_TO_AMPLITUDE).kr[0]</span>
+<span class="sd">                    right: BinaryOpUGen(GREATER_THAN).kr/1[0]</span>
+<span class="sd">            -   Lag.kr:</span>
+<span class="sd">                    lag_time: Control.kr[3:lag]</span>
+<span class="sd">                    source: BinaryOpUGen(MULTIPLICATION).kr[0]</span>
+<span class="sd">            -   BinaryOpUGen(MULTIPLICATION).ar/2:</span>
+<span class="sd">                    left: BinaryOpUGen(MULTIPLICATION).ar/1[0]</span>
+<span class="sd">                    right: Lag.kr[0]</span>
+<span class="sd">            -   SendPeakRMS.ar/1:</span>
+<span class="sd">                    peak_lag: 3.0</span>
+<span class="sd">                    reply_id: 114.0</span>
+<span class="sd">                    reply_rate: 20.0</span>
+<span class="sd">            -   ReplaceOut.ar:</span>
+<span class="sd">                    bus: Control.ir[0:out]</span>
+<span class="sd">                    source[0]: BinaryOpUGen(MULTIPLICATION).ar/2[0]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">factory</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">SynthDefFactory</span><span class="p">(</span><span class="n">active</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">gain</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">gate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">lag</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">with_output</span><span class="p">(</span><span class="n">replacing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">with_input</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">with_channel_count</span><span class="p">(</span><span class="n">channel_count</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">with_signal_block</span><span class="p">(</span><span class="n">_peak_rms_block_builder</span><span class="p">(</span><span class="s2">&quot;/levels/track/prefader&quot;</span><span class="p">))</span>
+        <span class="o">.</span><span class="n">with_signal_block</span><span class="p">(</span><span class="n">_gate_block</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">with_signal_block</span><span class="p">(</span><span class="n">_gain_block</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">with_signal_block</span><span class="p">(</span><span class="n">_peak_rms_block_builder</span><span class="p">(</span><span class="s2">&quot;/levels/track/postfader&quot;</span><span class="p">))</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">factory</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;mixer/track-output/</span><span class="si">{channel_count}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="build_send_synthdef"><a class="viewcode-back" href="../../../api/supriya/daw/synthdefs.html#supriya.daw.synthdefs.build_send_synthdef">[docs]</a><span class="k">def</span> <span class="nf">build_send_synthdef</span><span class="p">(</span><span class="n">source_track_count</span><span class="p">,</span> <span class="n">target_track_count</span><span class="p">):</span>
+    <span class="n">synthdef_builder</span> <span class="o">=</span> <span class="n">SynthDefBuilder</span><span class="p">(</span>
+        <span class="n">active</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">gain</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">gate</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">in_</span><span class="o">=</span><span class="n">Parameter</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parameter_rate</span><span class="o">=</span><span class="s2">&quot;scalar&quot;</span><span class="p">),</span>
+        <span class="n">lag</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">out</span><span class="o">=</span><span class="n">Parameter</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">parameter_rate</span><span class="o">=</span><span class="s2">&quot;scalar&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">with</span> <span class="n">synthdef_builder</span><span class="p">:</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="n">In</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="n">synthdef_builder</span><span class="p">[</span><span class="s2">&quot;in_&quot;</span><span class="p">],</span> <span class="n">channel_count</span><span class="o">=</span><span class="n">source_track_count</span><span class="p">)</span>
+        <span class="n">mix_factor</span> <span class="o">=</span> <span class="n">source_track_count</span> <span class="o">/</span> <span class="n">target_track_count</span>
+        <span class="k">if</span> <span class="n">source_track_count</span> <span class="o">==</span> <span class="n">target_track_count</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">elif</span> <span class="n">target_track_count</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">source</span> <span class="o">=</span> <span class="n">Mix</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">source</span><span class="p">)</span> <span class="o">/</span> <span class="n">mix_factor</span>
+        <span class="k">elif</span> <span class="n">source_track_count</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">source</span> <span class="o">=</span> <span class="n">UGenArray</span><span class="p">([</span><span class="n">source</span><span class="p">]</span> <span class="o">*</span> <span class="n">target_track_count</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">panners</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">channel</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">source</span><span class="p">):</span>
+                <span class="n">position</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">source</span><span class="p">))</span> <span class="o">+</span> <span class="p">((</span><span class="mi">2</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">source</span><span class="p">))</span> <span class="o">*</span> <span class="n">i</span><span class="p">)</span>
+                <span class="n">amplitude</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">width</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">mix_factor</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">mix_factor</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">amplitude</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">mix_factor</span>
+                <span class="n">panner</span> <span class="o">=</span> <span class="n">PanAz</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
+                    <span class="n">channel_count</span><span class="o">=</span><span class="n">target_track_count</span><span class="p">,</span>
+                    <span class="n">source</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                    <span class="n">position</span><span class="o">=</span><span class="n">position</span><span class="p">,</span>
+                    <span class="n">amplitude</span><span class="o">=</span><span class="n">amplitude</span><span class="p">,</span>
+                    <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">panners</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">panner</span><span class="p">)</span>
+            <span class="n">source</span> <span class="o">=</span> <span class="n">Mix</span><span class="o">.</span><span class="n">multichannel</span><span class="p">(</span><span class="n">panners</span><span class="p">,</span> <span class="n">target_track_count</span><span class="p">)</span>
+        <span class="n">source</span> <span class="o">*=</span> <span class="n">with_gain</span><span class="p">(</span><span class="n">synthdef_builder</span><span class="p">)</span>
+        <span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="n">synthdef_builder</span><span class="p">[</span><span class="s2">&quot;out&quot;</span><span class="p">],</span> <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;mixer/send/</span><span class="si">{source_track_count}</span><span class="s2">x</span><span class="si">{target_track_count}</span><span class="s2">&quot;</span>
+    <span class="k">return</span> <span class="n">synthdef_builder</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

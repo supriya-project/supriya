@@ -1,0 +1,1097 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>supriya.transport &mdash; Supriya 0.3.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/supriya/index.html">supriya</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../supriya.html">supriya</a> &raquo;</li>
+        
+      <li>supriya.transport</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for supriya.transport</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">dataclasses</span>
+<span class="kn">import</span> <span class="nn">enum</span>
+<span class="kn">import</span> <span class="nn">fractions</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">queue</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+
+
+<div class="viewcode-block" id="measure_to_offset"><a class="viewcode-back" href="../../api/supriya/transport.html#supriya.transport.measure_to_offset">[docs]</a><span class="k">def</span> <span class="nf">measure_to_offset</span><span class="p">(</span>
+    <span class="n">measure</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">time_signature</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">previous_measure</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">previous_time_signature_change_offset</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="p">(</span><span class="n">measure</span> <span class="o">-</span> <span class="n">previous_measure</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">time_signature</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">time_signature</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="p">)</span> <span class="o">+</span> <span class="n">previous_time_signature_change_offset</span></div>
+
+
+<div class="viewcode-block" id="offset_to_measure"><a class="viewcode-back" href="../../api/supriya/transport.html#supriya.transport.offset_to_measure">[docs]</a><span class="k">def</span> <span class="nf">offset_to_measure</span><span class="p">(</span>
+    <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">time_signature</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">previous_measure</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">previous_time_signature_change_offset</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="nb">int</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">offset</span> <span class="o">-</span> <span class="n">previous_time_signature_change_offset</span><span class="p">)</span>
+            <span class="o">//</span> <span class="p">(</span><span class="n">time_signature</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">time_signature</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="p">)</span>
+        <span class="o">+</span> <span class="n">previous_measure</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="offset_to_measure_offset"><a class="viewcode-back" href="../../api/supriya/transport.html#supriya.transport.offset_to_measure_offset">[docs]</a><span class="k">def</span> <span class="nf">offset_to_measure_offset</span><span class="p">(</span>
+    <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">time_signature</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">previous_time_signature_change_offset</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">offset</span> <span class="o">-</span> <span class="n">previous_time_signature_change_offset</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span>
+        <span class="n">time_signature</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">time_signature</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="offset_to_seconds"><a class="viewcode-back" href="../../api/supriya/transport.html#supriya.transport.offset_to_seconds">[docs]</a><span class="k">def</span> <span class="nf">offset_to_seconds</span><span class="p">(</span>
+    <span class="n">beats_per_minute</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">current_offset</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">previous_offset</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">previous_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">beat_duration</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="p">(</span><span class="n">current_offset</span> <span class="o">-</span> <span class="n">previous_offset</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">beats_per_minute</span> <span class="o">/</span> <span class="mi">60</span><span class="p">)</span> <span class="o">/</span> <span class="n">beat_duration</span>
+    <span class="p">)</span> <span class="o">+</span> <span class="n">previous_time</span></div>
+
+
+<div class="viewcode-block" id="seconds_to_offset"><a class="viewcode-back" href="../../api/supriya/transport.html#supriya.transport.seconds_to_offset">[docs]</a><span class="k">def</span> <span class="nf">seconds_to_offset</span><span class="p">(</span>
+    <span class="n">beats_per_minute</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">current_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">previous_offset</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">previous_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">beat_duration</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="p">(</span><span class="n">current_time</span> <span class="o">-</span> <span class="n">previous_time</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">beats_per_minute</span> <span class="o">/</span> <span class="mi">60</span><span class="p">)</span> <span class="o">*</span> <span class="n">beat_duration</span>
+    <span class="p">)</span> <span class="o">+</span> <span class="n">previous_offset</span></div>
+
+
+<div class="viewcode-block" id="EventQueue"><a class="viewcode-back" href="../../api/supriya/transport.html#supriya.transport.EventQueue">[docs]</a><span class="k">class</span> <span class="nc">EventQueue</span><span class="p">(</span><span class="n">queue</span><span class="o">.</span><span class="n">PriorityQueue</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A priority queue with peeking and item removal.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; from supriya.transport import EventQueue</span>
+<span class="sd">        &gt;&gt;&gt; from dataclasses import dataclass, field</span>
+<span class="sd">        &gt;&gt;&gt; from typing import Any</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; @dataclass(frozen=True, order=True)</span>
+<span class="sd">        ... class PrioritizedItem:</span>
+<span class="sd">        ...     priority: int</span>
+<span class="sd">        ...     item: Any=field(compare=False)</span>
+<span class="sd">        ...</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; item_a = PrioritizedItem(priority=3, item=&quot;three&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; item_b = PrioritizedItem(priority=0, item=&quot;zero&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; item_c = PrioritizedItem(priority=2, item=&quot;two&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; item_d = PrioritizedItem(priority=1, item=&quot;one&quot;)</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; pq = EventQueue()</span>
+<span class="sd">        &gt;&gt;&gt; pq.put(item_a)</span>
+<span class="sd">        &gt;&gt;&gt; pq.put(item_b)</span>
+<span class="sd">        &gt;&gt;&gt; pq.put(item_c)</span>
+<span class="sd">        &gt;&gt;&gt; pq.put(item_d)</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; pq.get()</span>
+<span class="sd">        (0, 1, PrioritizedItem(priority=0, item=&#39;zero&#39;))</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; pq.peek()</span>
+<span class="sd">        1</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; pq.get()</span>
+<span class="sd">        (1, 3, PrioritizedItem(priority=1, item=&#39;one&#39;))</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; pq.remove(item_c)</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; pq.get()</span>
+<span class="sd">        (3, 0, PrioritizedItem(priority=3, item=&#39;three&#39;))</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="k">def</span> <span class="nf">_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">maxsize</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">queue</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">items</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># TODO: Ditch priority lookup, let item sort itself</span>
+
+    <span class="k">def</span> <span class="nf">_put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="n">entry</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">priority</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">entry</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_put</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="p">:</span>
+            <span class="n">priority</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">active</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_get</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">active</span><span class="p">:</span>
+                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+                <span class="k">return</span> <span class="n">priority</span><span class="p">,</span> <span class="n">item</span>
+        <span class="k">raise</span> <span class="n">queue</span><span class="o">.</span><span class="n">Empty</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="EventQueue.clear"><a class="viewcode-back" href="../../api/supriya/transport.html#supriya.transport.EventQueue.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">mutex</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_init</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="EventQueue.peek"><a class="viewcode-back" href="../../api/supriya/transport.html#supriya.transport.EventQueue.peek">[docs]</a>    <span class="k">def</span> <span class="nf">peek</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">mutex</span><span class="p">:</span>
+            <span class="n">priority</span><span class="p">,</span> <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">()</span>
+            <span class="n">entry</span> <span class="o">=</span> <span class="p">[</span><span class="n">priority</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">entry</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_put</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">priority</span></div>
+
+<div class="viewcode-block" id="EventQueue.remove"><a class="viewcode-back" href="../../api/supriya/transport.html#supriya.transport.EventQueue.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">mutex</span><span class="p">:</span>
+            <span class="n">entry</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="n">entry</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span></div></div>
+
+
+<div class="viewcode-block" id="TimeUnit"><a class="viewcode-back" href="../../api/supriya/transport.html#supriya.transport.TimeUnit">[docs]</a><span class="k">class</span> <span class="nc">TimeUnit</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">IntEnum</span><span class="p">):</span>
+    <span class="n">BEATS</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">SECONDS</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">MEASURES</span> <span class="o">=</span> <span class="mi">2</span></div>
+
+
+<div class="viewcode-block" id="EventType"><a class="viewcode-back" href="../../api/supriya/transport.html#supriya.transport.EventType">[docs]</a><span class="k">class</span> <span class="nc">EventType</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">IntEnum</span><span class="p">):</span>
+    <span class="n">CHANGE</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">SCHEDULE</span> <span class="o">=</span> <span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="SchedulerEvent"><a class="viewcode-back" href="../../api/supriya/transport.html#supriya.transport.SchedulerEvent">[docs]</a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">SchedulerEvent</span><span class="p">:</span>
+    <span class="n">seconds</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">event_type</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">event_id</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">measure</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+    <span class="n">offset</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="ChangeEvent"><a class="viewcode-back" href="../../api/supriya/transport.html#supriya.transport.ChangeEvent">[docs]</a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ChangeEvent</span><span class="p">(</span><span class="n">SchedulerEvent</span><span class="p">):</span>
+    <span class="n">beats_per_minute</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">time_signature</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">priority</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seconds</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">event_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">event_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CallbackEvent"><a class="viewcode-back" href="../../api/supriya/transport.html#supriya.transport.CallbackEvent">[docs]</a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">CallbackEvent</span><span class="p">(</span><span class="n">SchedulerEvent</span><span class="p">):</span>
+    <span class="n">procedure</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">args</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">start_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">invocations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">compare</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">priority</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seconds</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">event_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">event_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Moment"><a class="viewcode-back" href="../../api/supriya/transport.html#supriya.transport.Moment">[docs]</a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Moment</span><span class="p">:</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;beats_per_minute&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;measure&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;measure_offset&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;offset&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;time&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;time_signature&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">beats_per_minute</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">measure</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">measure_offset</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">time</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">time_signature</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Transport"><a class="viewcode-back" href="../../api/supriya/transport.html#supriya.transport.Transport">[docs]</a><span class="k">class</span> <span class="nc">Transport</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A transport.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; from supriya.transport import Transport</span>
+<span class="sd">        &gt;&gt;&gt; transport = Transport()</span>
+<span class="sd">        &gt;&gt;&gt; transport.start()</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; def callback(moment, event, *args, **kwargs):</span>
+<span class="sd">        ...     print((</span>
+<span class="sd">        ...         f&quot;Now: {moment.time}\t&quot;</span>
+<span class="sd">        ...         f&quot;{moment.offset}\t{event.invocations}&quot;</span>
+<span class="sd">        ...     ))</span>
+<span class="sd">        ...     if event.invocations &lt; 10:</span>
+<span class="sd">        ...         return 0.25 * (event.invocations + 1)</span>
+<span class="sd">        ...</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; transport.schedule(callback, schedule_at=0.5)  # doctest: +SKIP</span>
+<span class="sd">        Now: 1557405529.107658  503.5   0</span>
+<span class="sd">        Now: 1557405529.232717  503.75  1</span>
+<span class="sd">        Now: 1557405529.48273   504.25  2</span>
+<span class="sd">        Now: 1557405529.857601  505.0   3</span>
+<span class="sd">        Now: 1557405530.357594  506.0   4</span>
+<span class="sd">        Now: 1557405530.9826088 507.25  5</span>
+<span class="sd">        Now: 1557405531.7326021 508.75  6</span>
+<span class="sd">        Now: 1557405532.6076071 510.5   7</span>
+<span class="sd">        Now: 1557405533.607612  512.5   8</span>
+<span class="sd">        Now: 1557405534.7327209 514.75  9</span>
+<span class="sd">        Now: 1557405535.9825962 517.25  10</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># TODO: Use separate dataclass (or instance) for desired moment vs current moment</span>
+    <span class="c1"># TODO: Pass desired and current moment as separate arguments to callbacks</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">_valid_quantizations</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="s2">&quot;8M&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;4M&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;2M&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;1M&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;1/2&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;1/2T&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;1/4&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;1/4T&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;1/8&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;1/8T&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;1/16&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;1/16T&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;1/32&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;_beats_per_minute&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_condition&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_counter&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_events_by_id&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_is_running&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_lock&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_measure_relative_event_ids&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_name&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_offset_relative_event_ids&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_previous_measure&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_previous_offset&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_previous_time&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_previous_time_signature_change_offset&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_queue&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_slop&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_thread&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_time_signature&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="c1"># Mechanics</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">RLock</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_condition</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Condition</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_run</span><span class="p">,</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_slop</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0001</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span> <span class="o">=</span> <span class="n">EventQueue</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_measure_relative_event_ids</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">SchedulerEvent</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_offset_relative_event_ids</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">SchedulerEvent</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_events_by_id</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">SchedulerEvent</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="c1"># Time keeping</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_beats_per_minute</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">120.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_previous_measure</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_previous_offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_previous_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_previous_time_signature_change_offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_time_signature</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="k">def</span> <span class="nf">_add_to_queue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_events_by_id</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">event_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">event</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">offset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_offset_relative_event_ids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">event_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">measure</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_measure_relative_event_ids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">event_id</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_condition</span><span class="o">.</span><span class="n">notify</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">event</span><span class="o">.</span><span class="n">event_id</span>
+
+    <span class="k">def</span> <span class="nf">_event_to_moment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">event</span><span class="o">.</span><span class="n">offset</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">offset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seconds_to_offset</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">seconds</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">measure</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">event</span><span class="o">.</span><span class="n">measure</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">measure</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_offset_to_measure</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">measure_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_offset_to_measure_offset</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Moment</span><span class="p">(</span>
+            <span class="n">beats_per_minute</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_beats_per_minute</span><span class="p">,</span>
+            <span class="n">measure</span><span class="o">=</span><span class="n">measure</span><span class="p">,</span>
+            <span class="n">measure_offset</span><span class="o">=</span><span class="n">measure_offset</span><span class="p">,</span>
+            <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">,</span>
+            <span class="n">time</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">seconds</span><span class="p">,</span>
+            <span class="n">time_signature</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_time_signature</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_next_timepoints</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">schedule_at</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">unit</span><span class="p">:</span> <span class="n">TimeUnit</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="n">measure</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">offset</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">unit</span> <span class="o">==</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="n">MEASURES</span><span class="p">:</span>
+            <span class="n">measure</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">schedule_at</span><span class="p">)</span>
+            <span class="n">offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_measure_to_offset</span><span class="p">(</span><span class="n">measure</span><span class="p">)</span>
+            <span class="n">seconds</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_offset_to_seconds</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">unit</span> <span class="o">==</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="n">BEATS</span><span class="p">:</span>
+            <span class="n">offset</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">schedule_at</span><span class="p">)</span>
+            <span class="n">seconds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_offset_to_seconds</span><span class="p">(</span><span class="n">schedule_at</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">seconds</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">schedule_at</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">measure</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">seconds</span>
+
+    <span class="k">def</span> <span class="nf">_measure_to_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">measure</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">measure_to_offset</span><span class="p">(</span>
+            <span class="n">measure</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_time_signature</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_previous_measure</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_previous_time_signature_change_offset</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_offset_to_measure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">offset_to_measure</span><span class="p">(</span>
+            <span class="n">offset</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_time_signature</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_previous_measure</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_previous_time_signature_change_offset</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_offset_to_measure_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">offset_to_measure_offset</span><span class="p">(</span>
+            <span class="n">offset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time_signature</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_previous_time_signature_change_offset</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_offset_to_seconds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">offset_to_seconds</span><span class="p">(</span>
+            <span class="n">beats_per_minute</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_beats_per_minute</span><span class="p">,</span>
+            <span class="n">current_offset</span><span class="o">=</span><span class="n">offset</span><span class="p">,</span>
+            <span class="n">previous_offset</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_previous_offset</span><span class="p">,</span>
+            <span class="n">previous_time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_previous_time</span><span class="p">,</span>
+            <span class="n">beat_duration</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time_signature</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_seconds_to_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seconds</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">seconds_to_offset</span><span class="p">(</span>
+            <span class="n">beats_per_minute</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_beats_per_minute</span><span class="p">,</span>
+            <span class="n">current_time</span><span class="o">=</span><span class="n">seconds</span><span class="p">,</span>
+            <span class="n">previous_offset</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_previous_offset</span><span class="p">,</span>
+            <span class="n">previous_time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_previous_time</span><span class="p">,</span>
+            <span class="n">beat_duration</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time_signature</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_peek</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="n">seconds</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">peek</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">seconds</span>
+
+    <span class="k">def</span> <span class="nf">_perform_events</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current_moment</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;[</span><span class="si">{self.name}</span><span class="s2">] ... Ready to perform at </span><span class="si">{current_moment.time}</span><span class="s2">s&quot;</span><span class="p">)</span>
+        <span class="c1"># Perform all events that are ready</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">qsize</span><span class="p">():</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="n">desired_time</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">seconds</span>
+            <span class="k">if</span> <span class="n">current_moment</span><span class="o">.</span><span class="n">time</span> <span class="o">&lt;</span> <span class="n">desired_time</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+                <span class="k">break</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_events_by_id</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">event_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">offset</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_offset_relative_event_ids</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">event_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">measure</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_measure_relative_event_ids</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">event_id</span><span class="p">)</span>
+            <span class="c1"># Customize the moment for the current event</span>
+            <span class="n">desired_moment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_event_to_moment</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">event_type</span> <span class="o">==</span> <span class="n">EventType</span><span class="o">.</span><span class="n">CHANGE</span><span class="p">:</span>
+                <span class="n">current_moment</span><span class="p">,</span> <span class="n">should_continue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_perform_change_event</span><span class="p">(</span>
+                    <span class="n">event</span><span class="p">,</span> <span class="n">current_moment</span><span class="p">,</span> <span class="n">desired_moment</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">should_continue</span><span class="p">:</span>
+                    <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_perform_callback_event</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">current_moment</span><span class="p">,</span> <span class="n">desired_moment</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">current_moment</span>
+
+    <span class="k">def</span> <span class="nf">_perform_change_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">current_moment</span><span class="p">,</span> <span class="n">desired_moment</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="n">f</span><span class="s2">&quot;[</span><span class="si">{self.name}</span><span class="s2">] ... ... Performing change at </span><span class="si">{desired_moment.time}</span><span class="s2">s&quot;</span>
+        <span class="p">)</span>
+        <span class="c1"># TODO: current offset is misleading here</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">time_signature</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">new_duration</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">time_signature</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">event</span><span class="o">.</span><span class="n">time_signature</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_time_signature</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">time_signature</span>
+            <span class="k">if</span> <span class="n">desired_moment</span><span class="o">.</span><span class="n">measure_offset</span> <span class="o">&lt;</span> <span class="n">new_duration</span><span class="p">:</span>
+                <span class="c1"># On the downbeat</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_previous_time_signature_change_offset</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">desired_moment</span><span class="o">.</span><span class="n">offset</span> <span class="o">-</span> <span class="n">desired_moment</span><span class="o">.</span><span class="n">measure_offset</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_previous_measure</span> <span class="o">=</span> <span class="n">desired_moment</span><span class="o">.</span><span class="n">measure</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Moving from a longer time signature to a shorter one</span>
+                <span class="c1"># Advance to the next downbeat immediately</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_previous_measure</span> <span class="o">=</span> <span class="n">desired_moment</span><span class="o">.</span><span class="n">measure</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_previous_time_signature_change_offset</span> <span class="o">=</span> <span class="n">desired_moment</span><span class="o">.</span><span class="n">offset</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reschedule_measure_relative_events</span><span class="p">()</span>
+            <span class="n">current_moment</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+                <span class="n">current_moment</span><span class="p">,</span>
+                <span class="n">time_signature</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_time_signature</span><span class="p">,</span>
+                <span class="n">measure</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_offset_to_measure</span><span class="p">(</span><span class="n">current_moment</span><span class="o">.</span><span class="n">offset</span><span class="p">),</span>
+                <span class="n">measure_offset</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_offset_to_measure_offset</span><span class="p">(</span><span class="n">current_moment</span><span class="o">.</span><span class="n">offset</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">beats_per_minute</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># If the tempo changed, we need to revise our offset math</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_beats_per_minute</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">beats_per_minute</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_previous_time</span> <span class="o">=</span> <span class="n">desired_moment</span><span class="o">.</span><span class="n">time</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_previous_offset</span> <span class="o">=</span> <span class="n">desired_moment</span><span class="o">.</span><span class="n">offset</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reschedule_offset_relative_events</span><span class="p">()</span>
+            <span class="n">new_current_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seconds_to_offset</span><span class="p">(</span><span class="n">current_moment</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">new_current_offset</span> <span class="o">&lt;</span> <span class="n">current_moment</span><span class="o">.</span><span class="n">offset</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                    <span class="n">f</span><span class="s2">&quot;[</span><span class="si">{self.name}</span><span class="s2">] ... ... ... Revised offset from &quot;</span>
+                    <span class="n">f</span><span class="s2">&quot;</span><span class="si">{current_moment.offset}</span><span class="s2"> to </span><span class="si">{new_current_offset}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+                <span class="n">current_moment</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+                    <span class="n">current_moment</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">new_current_offset</span>
+                <span class="p">)</span>
+                <span class="k">return</span> <span class="n">current_moment</span><span class="p">,</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="n">current_moment</span><span class="p">,</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">_perform_callback_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">current_moment</span><span class="p">,</span> <span class="n">desired_moment</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="n">f</span><span class="s2">&quot;[</span><span class="si">{self.name}</span><span class="s2">] ... ... Performing </span><span class="si">{event.procedure}</span><span class="s2"> at &quot;</span>
+                <span class="n">f</span><span class="s2">&quot;</span><span class="si">{desired_moment.time}</span><span class="s2">s&quot;</span>
+            <span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">procedure</span><span class="p">(</span>
+                <span class="n">current_moment</span><span class="p">,</span>
+                <span class="n">desired_moment</span><span class="p">,</span>
+                <span class="n">event</span><span class="p">,</span>
+                <span class="o">*</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">,</span>
+                <span class="o">**</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">kwargs</span> <span class="ow">or</span> <span class="p">{}),</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">()</span>
+            <span class="k">return</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">delta</span><span class="p">,</span> <span class="n">unit</span> <span class="o">=</span> <span class="n">result</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="n">delta</span><span class="p">,</span> <span class="n">unit</span> <span class="o">=</span> <span class="n">result</span><span class="p">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="n">BEATS</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">delta</span> <span class="ow">or</span> <span class="n">delta</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;invocations&quot;</span><span class="p">:</span> <span class="n">event</span><span class="o">.</span><span class="n">invocations</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;measure&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+        <span class="k">if</span> <span class="n">unit</span> <span class="o">==</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="n">MEASURES</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;measure&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">desired_moment</span><span class="o">.</span><span class="n">measure</span> <span class="o">+</span> <span class="n">delta</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;offset&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_measure_to_offset</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;measure&quot;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">unit</span> <span class="o">==</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="n">BEATS</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;offset&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">desired_moment</span><span class="o">.</span><span class="n">offset</span> <span class="o">+</span> <span class="n">delta</span>
+        <span class="k">if</span> <span class="n">unit</span> <span class="ow">in</span> <span class="p">(</span><span class="n">TimeUnit</span><span class="o">.</span><span class="n">BEATS</span><span class="p">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="n">MEASURES</span><span class="p">):</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;seconds&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_offset_to_seconds</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;offset&quot;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">unit</span> <span class="o">==</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="n">SECONDS</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;seconds&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">desired_moment</span><span class="o">.</span><span class="n">time</span> <span class="o">+</span> <span class="n">delta</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="n">f</span><span class="s2">&quot;[</span><span class="si">{self.name}</span><span class="s2">] ... ... ... Rescheduling &quot;</span>
+            <span class="n">f</span><span class="s2">&quot;</span><span class="si">{event.procedure}</span><span class="s2"> at </span><span class="si">{kwargs[&#39;seconds&#39;]}</span><span class="s2">s&quot;</span>
+        <span class="p">)</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add_to_queue</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_reschedule_offset_relative_events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">event_id</span> <span class="ow">in</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_offset_relative_event_ids</span><span class="p">):</span>
+            <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cancel</span><span class="p">(</span><span class="n">event_id</span><span class="p">)</span>
+            <span class="n">seconds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_offset_to_seconds</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">offset</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="n">f</span><span class="s2">&quot;[</span><span class="si">{self.name}</span><span class="s2">] ... ... ... Rescheduling offset-relative event from &quot;</span>
+                <span class="n">f</span><span class="s2">&quot;</span><span class="si">{event.seconds}</span><span class="s2"> to </span><span class="si">{seconds}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_add_to_queue</span><span class="p">(</span><span class="n">dataclasses</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">seconds</span><span class="o">=</span><span class="n">seconds</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_reschedule_measure_relative_events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">event_id</span> <span class="ow">in</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_measure_relative_event_ids</span><span class="p">):</span>
+            <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cancel</span><span class="p">(</span><span class="n">event_id</span><span class="p">)</span>
+            <span class="n">offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_measure_to_offset</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">measure</span><span class="p">)</span>
+            <span class="n">seconds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_offset_to_seconds</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="n">f</span><span class="s2">&quot;[</span><span class="si">{self.name}</span><span class="s2">] ... ... ... Rescheduling measure-relative event from &quot;</span>
+                <span class="n">f</span><span class="s2">&quot;offset </span><span class="si">{event.offset}</span><span class="s2"> to </span><span class="si">{offset}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_add_to_queue</span><span class="p">(</span>
+                <span class="n">dataclasses</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">,</span> <span class="n">seconds</span><span class="o">=</span><span class="n">seconds</span><span class="p">)</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="n">f</span><span class="s2">&quot;[</span><span class="si">{self.name}</span><span class="s2">] Starting offset </span><span class="si">{self._previous_offset}</span><span class="s2"> at &quot;</span>
+                <span class="n">f</span><span class="s2">&quot;</span><span class="si">{self._previous_time}</span><span class="s2"> seconds&quot;</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reschedule_measure_relative_events</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reschedule_offset_relative_events</span><span class="p">()</span>
+            <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_running</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;[</span><span class="si">{self.name}</span><span class="s2">] Loop start&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wait_for_queue</span><span class="p">():</span>
+                    <span class="k">break</span>
+                <span class="n">current_moment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wait_for_moment</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">current_moment</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">break</span>
+                <span class="n">current_moment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_perform_events</span><span class="p">(</span><span class="n">current_moment</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_previous_time</span> <span class="o">=</span> <span class="n">current_moment</span><span class="o">.</span><span class="n">time</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_previous_offset</span> <span class="o">=</span> <span class="n">current_moment</span><span class="o">.</span><span class="n">offset</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_condition</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_slop</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;[</span><span class="si">{self.name}</span><span class="s2">] ... ... Terminating&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_wait_for_queue</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;[</span><span class="si">{self.name}</span><span class="s2">] ... Waiting for something to schedule&quot;</span><span class="p">)</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">qsize</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_condition</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_slop</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_running</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">_wait_for_moment</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Moment</span><span class="p">]:</span>
+        <span class="n">moment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_current_moment</span><span class="p">()</span>
+        <span class="n">next_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_peek</span><span class="p">()</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="n">f</span><span class="s2">&quot;[</span><span class="si">{self.name}</span><span class="s2">] ... Event found, waiting from </span><span class="si">{moment.time}</span><span class="s2">s &quot;</span>
+            <span class="n">f</span><span class="s2">&quot;until </span><span class="si">{next_time}</span><span class="s2">s&quot;</span>
+        <span class="p">)</span>
+        <span class="k">while</span> <span class="n">moment</span><span class="o">.</span><span class="n">time</span> <span class="o">&lt;</span> <span class="n">next_time</span><span class="p">:</span>
+            <span class="c1"># Cache our current point in time</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_previous_time</span> <span class="o">=</span> <span class="n">moment</span><span class="o">.</span><span class="n">time</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_previous_offset</span> <span class="o">=</span> <span class="n">moment</span><span class="o">.</span><span class="n">offset</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_condition</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_slop</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_running</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="n">moment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_current_moment</span><span class="p">()</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;[</span><span class="si">{self.name}</span><span class="s2">] ... ... Now waiting at </span><span class="si">{moment.time}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">next_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_peek</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_previous_time</span> <span class="o">=</span> <span class="n">moment</span><span class="o">.</span><span class="n">time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_previous_offset</span> <span class="o">=</span> <span class="n">moment</span><span class="o">.</span><span class="n">offset</span>
+        <span class="k">return</span> <span class="n">moment</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="Transport.cancel"><a class="viewcode-back" href="../../api/supriya/transport.html#supriya.transport.Transport.cancel">[docs]</a>    <span class="k">def</span> <span class="nf">cancel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SchedulerEvent</span><span class="p">:</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_events_by_id</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">event_id</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">event</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">event_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">offset</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_offset_relative_event_ids</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">event_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">measure</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_measure_relative_event_ids</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">event_id</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">event</span></div>
+
+<div class="viewcode-block" id="Transport.change"><a class="viewcode-back" href="../../api/supriya/transport.html#supriya.transport.Transport.change">[docs]</a>    <span class="k">def</span> <span class="nf">change</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">beats_per_minute</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">time_signature</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_running</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_beats_per_minute</span> <span class="o">=</span> <span class="n">beats_per_minute</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_beats_per_minute</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_time_signature</span> <span class="o">=</span> <span class="n">time_signature</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time_signature</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="n">moment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_current_moment</span><span class="p">()</span>
+            <span class="n">event_id</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_counter</span><span class="p">)</span>
+            <span class="n">event</span> <span class="o">=</span> <span class="n">ChangeEvent</span><span class="p">(</span>
+                <span class="n">beats_per_minute</span><span class="o">=</span><span class="n">beats_per_minute</span><span class="p">,</span>
+                <span class="n">event_id</span><span class="o">=</span><span class="n">event_id</span><span class="p">,</span>
+                <span class="n">event_type</span><span class="o">=</span><span class="n">EventType</span><span class="o">.</span><span class="n">CHANGE</span><span class="p">,</span>
+                <span class="n">measure</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">offset</span><span class="o">=</span><span class="n">moment</span><span class="o">.</span><span class="n">offset</span><span class="p">,</span>
+                <span class="n">seconds</span><span class="o">=</span><span class="n">moment</span><span class="o">.</span><span class="n">time</span><span class="p">,</span>
+                <span class="n">time_signature</span><span class="o">=</span><span class="n">time_signature</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;[</span><span class="si">{self.name}</span><span class="s2">] Changing </span><span class="si">{event}</span><span class="s2"> now&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_to_queue</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Transport.cue"><a class="viewcode-back" href="../../api/supriya/transport.html#supriya.transport.Transport.cue">[docs]</a>    <span class="k">def</span> <span class="nf">cue</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">procedure</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">event_type</span><span class="o">=</span><span class="n">EventType</span><span class="o">.</span><span class="n">SCHEDULE</span><span class="p">,</span>
+        <span class="n">quantization</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">args</span><span class="o">=</span><span class="p">(),</span>
+        <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">event_type</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="n">moment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_current_moment</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">quantization</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">offset</span><span class="p">,</span> <span class="n">measure</span> <span class="o">=</span> <span class="n">moment</span><span class="o">.</span><span class="n">offset</span><span class="p">,</span> <span class="kc">None</span>
+            <span class="k">elif</span> <span class="n">quantization</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_valid_quantizations</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Invalid quantization: </span><span class="si">{quantization}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="s2">&quot;M&quot;</span> <span class="ow">in</span> <span class="n">quantization</span><span class="p">:</span>
+                <span class="n">measure_grid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">quantization</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">measure</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="p">(((</span><span class="n">moment</span><span class="o">.</span><span class="n">measure</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">measure_grid</span><span class="p">)</span> <span class="o">*</span> <span class="n">measure_grid</span><span class="p">)</span>
+                    <span class="o">+</span> <span class="n">measure_grid</span>
+                    <span class="o">+</span> <span class="mi">1</span>
+                <span class="p">)</span>
+                <span class="n">offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_measure_to_offset</span><span class="p">(</span><span class="n">measure</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">measure</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">fraction_grid</span> <span class="o">=</span> <span class="n">fractions</span><span class="o">.</span><span class="n">Fraction</span><span class="p">(</span><span class="n">quantization</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+                <span class="k">if</span> <span class="s2">&quot;T&quot;</span> <span class="ow">in</span> <span class="n">quantization</span><span class="p">:</span>
+                    <span class="n">fraction_grid</span> <span class="o">*=</span> <span class="n">fractions</span><span class="o">.</span><span class="n">Fraction</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+                <span class="n">div</span><span class="p">,</span> <span class="n">mod</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">moment</span><span class="o">.</span><span class="n">offset</span><span class="p">,</span> <span class="n">fraction_grid</span><span class="p">)</span>
+                <span class="n">offset</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">div</span> <span class="o">*</span> <span class="n">fraction_grid</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">mod</span><span class="p">:</span>
+                    <span class="n">offset</span> <span class="o">+=</span> <span class="n">fraction_grid</span>
+            <span class="n">seconds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_offset_to_seconds</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+            <span class="n">event_id</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_counter</span><span class="p">)</span>
+            <span class="n">event</span> <span class="o">=</span> <span class="n">CallbackEvent</span><span class="p">(</span>
+                <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span>
+                <span class="n">event_id</span><span class="o">=</span><span class="n">event_id</span><span class="p">,</span>
+                <span class="n">event_type</span><span class="o">=</span><span class="n">event_type</span><span class="p">,</span>
+                <span class="n">invocations</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span>
+                <span class="n">measure</span><span class="o">=</span><span class="n">measure</span><span class="p">,</span>
+                <span class="n">offset</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">offset</span><span class="p">),</span>
+                <span class="n">procedure</span><span class="o">=</span><span class="n">procedure</span><span class="p">,</span>
+                <span class="n">seconds</span><span class="o">=</span><span class="n">seconds</span><span class="p">,</span>
+                <span class="n">start_time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_current_time</span><span class="p">(),</span>
+            <span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;[</span><span class="si">{self.name}</span><span class="s2">] Cueing </span><span class="si">{procedure}</span><span class="s2"> at </span><span class="si">{offset}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_to_queue</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Transport.get_current_moment"><a class="viewcode-back" href="../../api/supriya/transport.html#supriya.transport.Transport.get_current_moment">[docs]</a>    <span class="k">def</span> <span class="nf">get_current_moment</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">current_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_current_time</span><span class="p">()</span>
+        <span class="n">current_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seconds_to_offset</span><span class="p">(</span><span class="n">current_time</span><span class="p">)</span>
+        <span class="n">current_measure</span><span class="p">,</span> <span class="n">current_measure_offset</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span>
+            <span class="n">current_offset</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_previous_time_signature_change_offset</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_time_signature</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time_signature</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="n">moment</span> <span class="o">=</span> <span class="n">Moment</span><span class="p">(</span>
+            <span class="n">beats_per_minute</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_beats_per_minute</span><span class="p">,</span>
+            <span class="n">measure</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">current_measure</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_previous_measure</span><span class="p">),</span>
+            <span class="n">measure_offset</span><span class="o">=</span><span class="n">current_measure_offset</span><span class="p">,</span>
+            <span class="n">offset</span><span class="o">=</span><span class="n">current_offset</span><span class="p">,</span>
+            <span class="n">time</span><span class="o">=</span><span class="n">current_time</span><span class="p">,</span>
+            <span class="n">time_signature</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_time_signature</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">moment</span></div>
+
+<div class="viewcode-block" id="Transport.get_current_time"><a class="viewcode-back" href="../../api/supriya/transport.html#supriya.transport.Transport.get_current_time">[docs]</a>    <span class="k">def</span> <span class="nf">get_current_time</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Transport.reschedule"><a class="viewcode-back" href="../../api/supriya/transport.html#supriya.transport.Transport.reschedule">[docs]</a>    <span class="k">def</span> <span class="nf">reschedule</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">event_id</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">earliest_wins</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">schedule_at</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="n">TimeUnit</span><span class="o">.</span><span class="n">BEATS</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">earliest_wins</span><span class="p">:</span>
+                <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">new_seconds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_next_timepoints</span><span class="p">(</span><span class="n">schedule_at</span><span class="p">,</span> <span class="n">unit</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_events_by_id</span><span class="p">[</span><span class="n">event_id</span><span class="p">]</span><span class="o">.</span><span class="n">seconds</span> <span class="o">&lt;</span> <span class="n">new_seconds</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+            <span class="n">event</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cancel</span><span class="p">(</span><span class="n">event_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">CallbackEvent</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">schedule</span><span class="p">(</span>
+                    <span class="n">event</span><span class="o">.</span><span class="n">procedure</span><span class="p">,</span>
+                    <span class="n">schedule_at</span><span class="o">=</span><span class="n">schedule_at</span><span class="p">,</span>
+                    <span class="n">args</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">,</span>
+                    <span class="n">kwargs</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">kwargs</span><span class="p">,</span>
+                    <span class="n">unit</span><span class="o">=</span><span class="n">unit</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">ChangeEvent</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">schedule_change</span><span class="p">(</span>
+                    <span class="n">beats_per_minute</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">beats_per_minute</span><span class="p">,</span>
+                    <span class="n">schedule_at</span><span class="o">=</span><span class="n">schedule_at</span><span class="p">,</span>
+                    <span class="n">time_signature</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">time_signature</span><span class="p">,</span>
+                    <span class="n">unit</span><span class="o">=</span><span class="n">unit</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Transport.schedule"><a class="viewcode-back" href="../../api/supriya/transport.html#supriya.transport.Transport.schedule">[docs]</a>    <span class="k">def</span> <span class="nf">schedule</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">procedure</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">schedule_at</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">event_type</span><span class="o">=</span><span class="n">EventType</span><span class="o">.</span><span class="n">SCHEDULE</span><span class="p">,</span>
+        <span class="n">unit</span><span class="o">=</span><span class="n">TimeUnit</span><span class="o">.</span><span class="n">BEATS</span><span class="p">,</span>
+        <span class="n">args</span><span class="o">=</span><span class="p">(),</span>
+        <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">event_type</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="n">measure</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">seconds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_next_timepoints</span><span class="p">(</span><span class="n">schedule_at</span><span class="p">,</span> <span class="n">unit</span><span class="p">)</span>
+            <span class="n">event_id</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_counter</span><span class="p">)</span>
+            <span class="n">event</span> <span class="o">=</span> <span class="n">CallbackEvent</span><span class="p">(</span>
+                <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span>
+                <span class="n">event_id</span><span class="o">=</span><span class="n">event_id</span><span class="p">,</span>
+                <span class="n">event_type</span><span class="o">=</span><span class="n">event_type</span><span class="p">,</span>
+                <span class="n">invocations</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span>
+                <span class="n">measure</span><span class="o">=</span><span class="n">measure</span><span class="p">,</span>
+                <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">,</span>
+                <span class="n">procedure</span><span class="o">=</span><span class="n">procedure</span><span class="p">,</span>
+                <span class="n">seconds</span><span class="o">=</span><span class="n">seconds</span><span class="p">,</span>
+                <span class="n">start_time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_current_time</span><span class="p">(),</span>
+            <span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="n">f</span><span class="s2">&quot;[</span><span class="si">{self.name}</span><span class="s2">] Scheduling </span><span class="si">{procedure}</span><span class="s2"> at </span><span class="si">{schedule_at}</span><span class="s2"> &quot;</span>
+                <span class="n">f</span><span class="s2">&quot;{unit.name.lower()}&quot;</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_to_queue</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Transport.schedule_change"><a class="viewcode-back" href="../../api/supriya/transport.html#supriya.transport.Transport.schedule_change">[docs]</a>    <span class="k">def</span> <span class="nf">schedule_change</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">schedule_at</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">unit</span><span class="o">=</span><span class="n">TimeUnit</span><span class="o">.</span><span class="n">BEATS</span><span class="p">,</span>
+        <span class="n">beats_per_minute</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">time_signature</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="n">measure</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">seconds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_next_timepoints</span><span class="p">(</span><span class="n">schedule_at</span><span class="p">,</span> <span class="n">unit</span><span class="p">)</span>
+            <span class="n">event_id</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_counter</span><span class="p">)</span>
+            <span class="n">event</span> <span class="o">=</span> <span class="n">ChangeEvent</span><span class="p">(</span>
+                <span class="n">beats_per_minute</span><span class="o">=</span><span class="n">beats_per_minute</span><span class="p">,</span>
+                <span class="n">event_id</span><span class="o">=</span><span class="n">event_id</span><span class="p">,</span>
+                <span class="n">event_type</span><span class="o">=</span><span class="n">EventType</span><span class="o">.</span><span class="n">CHANGE</span><span class="p">,</span>
+                <span class="n">measure</span><span class="o">=</span><span class="n">measure</span><span class="p">,</span>
+                <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">,</span>
+                <span class="n">seconds</span><span class="o">=</span><span class="n">seconds</span><span class="p">,</span>
+                <span class="n">time_signature</span><span class="o">=</span><span class="n">time_signature</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="n">f</span><span class="s2">&quot;[</span><span class="si">{self.name}</span><span class="s2">] Scheduling </span><span class="si">{event}</span><span class="s2"> at </span><span class="si">{schedule_at}</span><span class="s2"> &quot;</span>
+                <span class="n">f</span><span class="s2">&quot;{unit.name.lower()}&quot;</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_to_queue</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Transport.start"><a class="viewcode-back" href="../../api/supriya/transport.html#supriya.transport.Transport.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">initial_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">initial_offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">initial_measure</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">beats_per_minute</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">time_signature</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_running</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">initial_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">initial_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_current_time</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_time_signature</span> <span class="o">=</span> <span class="n">time_signature</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time_signature</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_beats_per_minute</span> <span class="o">=</span> <span class="n">beats_per_minute</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_beats_per_minute</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_previous_measure</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">initial_measure</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_previous_offset</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">initial_offset</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_previous_time</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">initial_time</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_previous_time_signature_change_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_previous_offset</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_is_running</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_run</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="p">,),</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Transport.stop"><a class="viewcode-back" href="../../api/supriya/transport.html#supriya.transport.Transport.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_running</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_condition</span><span class="o">.</span><span class="n">notify</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_thread</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_offset_relative_event_ids</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_measure_relative_event_ids</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_events_by_id</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">beats_per_minute</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_beats_per_minute</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_running</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_running</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">slop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_slop</span>
+
+    <span class="nd">@slop</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">slop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slop</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">slop</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">slop</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_slop</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">slop</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">time_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time_signature</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

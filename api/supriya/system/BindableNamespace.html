@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>BindableNamespace &mdash; Supriya 0.2.0 documentation</title>
+  <title>BindableNamespace &mdash; Supriya 0.3.0 documentation</title>
   
 
   
@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
@@ -32,21 +39,16 @@
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Binding" href="Binding.html" />
     <link rel="prev" title="BindableFloat" href="BindableFloat.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -60,7 +62,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.3.0
               </div>
             
           
@@ -84,46 +86,73 @@
               
             
             
-              <ul>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Supriya API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../cli/index.html">cli</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../commands/index.html">commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../enums.html">enums</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ext/index.html">ext</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../io.html">io</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../live/index.html">live</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../midi/index.html">midi</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../osc/index.html">osc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../soundfiles/index.html">soundfiles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="index.html">system</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="Assets.html">Assets</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Bindable.html">Bindable</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BindableFloat.html">BindableFloat</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">BindableNamespace</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Binding.html">Binding</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SupriyaObject.html">SupriyaObject</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SupriyaValueObject.html">SupriyaValueObject</a></li>
-<li class="toctree-l4"><a class="reference internal" href="YAMLLoader.html">YAMLLoader</a></li>
-<li class="toctree-l4"><a class="reference internal" href="bind.html">bind</a></li>
-<li class="toctree-l4"><a class="reference internal" href="PubSub.html">PubSub</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cli/index.html">cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clock.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../daw/index.html">daw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../live/index.html">live</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">system</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="Assets.html">Assets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Bindable.html">Bindable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BindableFloat.html">BindableFloat</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">BindableNamespace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Binding.html">Binding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SupriyaObject.html">SupriyaObject</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SupriyaValueObject.html">SupriyaValueObject</a></li>
+<li class="toctree-l3"><a class="reference internal" href="YAMLLoader.html">YAMLLoader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bind.html">bind</a></li>
+<li class="toctree-l3"><a class="reference internal" href="PubSub.html">PubSub</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../time/index.html">time</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
 </ul>
 </li>
 </ul>
-</li>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -168,8 +197,6 @@
   <ul class="wy-breadcrumbs">
     
       <li><a href="../../../index.html">Docs</a> &raquo;</li>
-        
-          <li><a href="../../index.html">Supriya API</a> &raquo;</li>
         
           <li><a href="../index.html">supriya</a> &raquo;</li>
         
@@ -277,31 +304,31 @@
 </div>
 <dl class="class">
 <dt id="supriya.system.BindableNamespace.BindableNamespace">
-<em class="property">class </em><code class="descclassname">supriya.system.BindableNamespace.</code><code class="descname">BindableNamespace</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/system/BindableNamespace.html#BindableNamespace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.system.BindableNamespace.BindableNamespace" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">supriya.system.BindableNamespace.</code><code class="sig-name descname">BindableNamespace</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/system/BindableNamespace.html#BindableNamespace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.system.BindableNamespace.BindableNamespace" title="Permalink to this definition">¶</a></dt>
 <dd><hr/><p class="class-header rubric">Attributes Summary</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">ProxyProxy</span></code></td>
-<td></td>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ProxyProxy</span></code></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.system.BindableNamespace.BindableNamespace.__getitem__" title="supriya.system.BindableNamespace.BindableNamespace.__getitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__getitem__</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.system.BindableNamespace.BindableNamespace.__getitem__" title="supriya.system.BindableNamespace.BindableNamespace.__getitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__getitem__</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.system.BindableNamespace.BindableNamespace.__iter__" title="supriya.system.BindableNamespace.BindableNamespace.__iter__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__iter__</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.system.BindableNamespace.BindableNamespace.__iter__" title="supriya.system.BindableNamespace.BindableNamespace.__iter__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__iter__</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.system.BindableNamespace.BindableNamespace.__len__" title="supriya.system.BindableNamespace.BindableNamespace.__len__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__len__</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.system.BindableNamespace.BindableNamespace.__len__" title="supriya.system.BindableNamespace.BindableNamespace.__len__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__len__</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.system.BindableNamespace.BindableNamespace.__setitem__" title="supriya.system.BindableNamespace.BindableNamespace.__setitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__setitem__</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.system.BindableNamespace.BindableNamespace.__setitem__" title="supriya.system.BindableNamespace.BindableNamespace.__setitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__setitem__</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.system.BindableNamespace.BindableNamespace.proxies" title="supriya.system.BindableNamespace.BindableNamespace.proxies"><code class="xref py py-obj docutils literal notranslate"><span class="pre">proxies</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.system.BindableNamespace.BindableNamespace.proxies" title="supriya.system.BindableNamespace.BindableNamespace.proxies"><code class="xref py py-obj docutils literal notranslate"><span class="pre">proxies</span></code></a></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
@@ -309,71 +336,71 @@
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.system.BindableNamespace.BindableNamespace.__contains__">
-<code class="descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Mapping</span></code></a>).</code><code class="descname">__contains__</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.system.BindableNamespace.BindableNamespace.__contains__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Mapping</span></code></a>).</code><code class="sig-name descname">__contains__</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.system.BindableNamespace.BindableNamespace.__contains__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.system.BindableNamespace.BindableNamespace.__eq__">
-<code class="descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Mapping</span></code></a>).</code><code class="descname">__eq__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.system.BindableNamespace.BindableNamespace.__eq__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Mapping</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param">other</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.system.BindableNamespace.BindableNamespace.__eq__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return self==value.</p>
 </dd></dl>
 
 </div>
 <dl class="method">
 <dt id="supriya.system.BindableNamespace.BindableNamespace.__getitem__">
-<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/system/BindableNamespace.html#BindableNamespace.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.system.BindableNamespace.BindableNamespace.__getitem__" title="Permalink to this definition">¶</a></dt>
+<em class="property">overridden </em><code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/system/BindableNamespace.html#BindableNamespace.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.system.BindableNamespace.BindableNamespace.__getitem__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.system.BindableNamespace.BindableNamespace.__iter__">
-<code class="descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/system/BindableNamespace.html#BindableNamespace.__iter__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.system.BindableNamespace.BindableNamespace.__iter__" title="Permalink to this definition">¶</a></dt>
+<em class="property">overridden </em><code class="sig-name descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/system/BindableNamespace.html#BindableNamespace.__iter__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.system.BindableNamespace.BindableNamespace.__iter__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.system.BindableNamespace.BindableNamespace.__len__">
-<code class="descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/system/BindableNamespace.html#BindableNamespace.__len__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.system.BindableNamespace.BindableNamespace.__len__" title="Permalink to this definition">¶</a></dt>
+<em class="property">overridden </em><code class="sig-name descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/system/BindableNamespace.html#BindableNamespace.__len__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.system.BindableNamespace.BindableNamespace.__len__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.system.BindableNamespace.BindableNamespace.__setitem__">
-<code class="descname">__setitem__</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/system/BindableNamespace.html#BindableNamespace.__setitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.system.BindableNamespace.BindableNamespace.__setitem__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__setitem__</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/system/BindableNamespace.html#BindableNamespace.__setitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.system.BindableNamespace.BindableNamespace.__setitem__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <hr/><p class="class-header rubric">Methods</p>
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.system.BindableNamespace.BindableNamespace.get">
-<code class="descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Mapping</span></code></a>).</code><code class="descname">get</code><span class="sig-paren">(</span><em>k</em><span class="optional">[</span>, <em>d</em><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; D[k] if k in D, else d.  d defaults to None.<a class="headerlink" href="#supriya.system.BindableNamespace.BindableNamespace.get" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Mapping</span></code></a>).</code><code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param">k</em><span class="optional">[</span>, <em class="sig-param">d</em><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; D[k] if k in D, else d.  d defaults to None.<a class="headerlink" href="#supriya.system.BindableNamespace.BindableNamespace.get" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.system.BindableNamespace.BindableNamespace.items">
-<code class="descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Mapping</span></code></a>).</code><code class="descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; a set-like object providing a view on D's items<a class="headerlink" href="#supriya.system.BindableNamespace.BindableNamespace.items" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Mapping</span></code></a>).</code><code class="sig-name descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; a set-like object providing a view on D's items<a class="headerlink" href="#supriya.system.BindableNamespace.BindableNamespace.items" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.system.BindableNamespace.BindableNamespace.keys">
-<code class="descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Mapping</span></code></a>).</code><code class="descname">keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; a set-like object providing a view on D's keys<a class="headerlink" href="#supriya.system.BindableNamespace.BindableNamespace.keys" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Mapping</span></code></a>).</code><code class="sig-name descname">keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; a set-like object providing a view on D's keys<a class="headerlink" href="#supriya.system.BindableNamespace.BindableNamespace.keys" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.system.BindableNamespace.BindableNamespace.values">
-<code class="descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Mapping</span></code></a>).</code><code class="descname">values</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; an object providing a view on D's values<a class="headerlink" href="#supriya.system.BindableNamespace.BindableNamespace.values" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Mapping</span></code></a>).</code><code class="sig-name descname">values</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; an object providing a view on D's values<a class="headerlink" href="#supriya.system.BindableNamespace.BindableNamespace.values" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <hr/><p class="class-header rubric">Read-only properties</p>
 <dl class="attribute">
 <dt id="supriya.system.BindableNamespace.BindableNamespace.proxies">
-<code class="descname">proxies</code><a class="headerlink" href="#supriya.system.BindableNamespace.BindableNamespace.proxies" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">proxies</code><a class="headerlink" href="#supriya.system.BindableNamespace.BindableNamespace.proxies" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -391,7 +418,7 @@
         <a href="Binding.html" class="btn btn-neutral float-right" title="Binding" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="BindableFloat.html" class="btn btn-neutral" title="BindableFloat" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="BindableFloat.html" class="btn btn-neutral float-left" title="BindableFloat" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -417,26 +444,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>AudioInputBusGroup &mdash; Supriya 0.2.0 documentation</title>
+  <title>AudioInputBusGroup &mdash; Supriya 0.3.0 documentation</title>
   
 
   
@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
@@ -32,21 +39,16 @@
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="AudioOutputBusGroup" href="AudioOutputBusGroup.html" />
     <link rel="prev" title="State" href="State.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -60,7 +62,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.3.0
               </div>
             
           
@@ -84,54 +86,81 @@
               
             
             
-              <ul>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Supriya API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../cli/index.html">cli</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../commands/index.html">commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../enums.html">enums</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ext/index.html">ext</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../io.html">io</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../live/index.html">live</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../midi/index.html">midi</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="index.html">nonrealtime</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="SessionFactory.html">SessionFactory</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Session.html">Session</a></li>
-<li class="toctree-l4"><a class="reference internal" href="DoNotPropagate.html">DoNotPropagate</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NodeAction.html">NodeAction</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SessionObject.html">SessionObject</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SessionRenderer.html">SessionRenderer</a></li>
-<li class="toctree-l4"><a class="reference internal" href="State.html">State</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">AudioInputBusGroup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="AudioOutputBusGroup.html">AudioOutputBusGroup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Buffer.html">Buffer</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferGroup.html">BufferGroup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Bus.html">Bus</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BusGroup.html">BusGroup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Group.html">Group</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Moment.html">Moment</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Node.html">Node</a></li>
-<li class="toctree-l4"><a class="reference internal" href="RootNode.html">RootNode</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Synth.html">Synth</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cli/index.html">cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clock.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../daw/index.html">daw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../live/index.html">live</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">nonrealtime</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="SessionFactory.html">SessionFactory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Session.html">Session</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DoNotPropagate.html">DoNotPropagate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NodeTransition.html">NodeTransition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SessionObject.html">SessionObject</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SessionRenderer.html">SessionRenderer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="State.html">State</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">AudioInputBusGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AudioOutputBusGroup.html">AudioOutputBusGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Buffer.html">Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferGroup.html">BufferGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Bus.html">Bus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BusGroup.html">BusGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Group.html">Group</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Moment.html">Moment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Node.html">Node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="RootNode.html">RootNode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Synth.html">Synth</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../osc/index.html">osc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../soundfiles/index.html">soundfiles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../system/index.html">system</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../time/index.html">time</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
 </ul>
 </li>
 </ul>
-</li>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -176,8 +205,6 @@
   <ul class="wy-breadcrumbs">
     
       <li><a href="../../../index.html">Docs</a> &raquo;</li>
-        
-          <li><a href="../../index.html">Supriya API</a> &raquo;</li>
         
           <li><a href="../index.html">supriya</a> &raquo;</li>
         
@@ -267,41 +294,41 @@
 </div>
 <dl class="class">
 <dt id="supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup">
-<em class="property">class </em><code class="descclassname">supriya.nonrealtime.AudioInputBusGroup.</code><code class="descname">AudioInputBusGroup</code><span class="sig-paren">(</span><em>session</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/AudioInputBusGroup.html#AudioInputBusGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">supriya.nonrealtime.AudioInputBusGroup.</code><code class="sig-name descname">AudioInputBusGroup</code><span class="sig-paren">(</span><em class="sig-param">session</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/AudioInputBusGroup.html#AudioInputBusGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup" title="Permalink to this definition">¶</a></dt>
 <dd><p>A non-realtime audio input bus group.</p>
 <hr/><p class="class-header rubric">Special methods</p>
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.__contains__">
-<code class="descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="descname">__contains__</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.__contains__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">__contains__</code><span class="sig-paren">(</span><em class="sig-param">item</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.__contains__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.__getitem__">
-<code class="descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="descname">__getitem__</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.__getitem__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param">item</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.__getitem__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.__iter__">
-<code class="descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.__iter__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.__iter__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.__len__">
-<code class="descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.__len__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.__len__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.__repr__">
-<code class="descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.__repr__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.__repr__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return repr(self).</p>
 </dd></dl>
 
@@ -309,7 +336,7 @@
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.__str__">
-<code class="descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.__str__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.__str__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return str(self).</p>
 </dd></dl>
 
@@ -318,36 +345,36 @@
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.fill">
-<code class="descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="descname">fill</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.fill" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">fill</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.fill" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.get">
-<code class="descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.get" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.get" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.get_map_symbol">
-<code class="descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="descname">get_map_symbol</code><span class="sig-paren">(</span><em>bus_id</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.get_map_symbol" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">get_map_symbol</code><span class="sig-paren">(</span><em class="sig-param">bus_id</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.get_map_symbol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.index">
-<code class="descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="descname">index</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.index" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">index</code><span class="sig-paren">(</span><em class="sig-param">item</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.index" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <hr/><p class="class-header rubric">Class &amp; static methods</p>
 <div class="inherited docutils container">
-<dl class="staticmethod">
+<dl class="method">
 <dt id="supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.require_offset">
-<em class="property">static </em><code class="descclassname">(<a class="reference internal" href="SessionObject.html#supriya.nonrealtime.SessionObject.SessionObject" title="supriya.nonrealtime.SessionObject.SessionObject"><code class="descclassname docutils literal notranslate"><span class="pre">SessionObject</span></code></a>).</code><code class="descname">require_offset</code><span class="sig-paren">(</span><em>function</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.require_offset" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-prename descclassname">(<a class="reference internal" href="SessionObject.html#supriya.nonrealtime.SessionObject.SessionObject" title="supriya.nonrealtime.SessionObject.SessionObject"><code class="descclassname docutils literal notranslate"><span class="pre">SessionObject</span></code></a>).</code><code class="sig-name descname">require_offset</code><span class="sig-paren">(</span><em class="sig-param">function</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.require_offset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -355,35 +382,35 @@
 <div class="inherited docutils container">
 <dl class="attribute">
 <dt id="supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.bus_count">
-<code class="descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="descname">bus_count</code><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.bus_count" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">bus_count</code><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.bus_count" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
 <dl class="attribute">
 <dt id="supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.buses">
-<code class="descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="descname">buses</code><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.buses" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">buses</code><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.buses" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
 <dl class="attribute">
 <dt id="supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.calculation_rate">
-<code class="descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="descname">calculation_rate</code><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.calculation_rate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">calculation_rate</code><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.calculation_rate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
 <dl class="attribute">
 <dt id="supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.session">
-<code class="descclassname">(<a class="reference internal" href="SessionObject.html#supriya.nonrealtime.SessionObject.SessionObject" title="supriya.nonrealtime.SessionObject.SessionObject"><code class="descclassname docutils literal notranslate"><span class="pre">SessionObject</span></code></a>).</code><code class="descname">session</code><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.session" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="SessionObject.html#supriya.nonrealtime.SessionObject.SessionObject" title="supriya.nonrealtime.SessionObject.SessionObject"><code class="descclassname docutils literal notranslate"><span class="pre">SessionObject</span></code></a>).</code><code class="sig-name descname">session</code><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.session" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
 <dl class="attribute">
 <dt id="supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.session_id">
-<code class="descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="descname">session_id</code><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.session_id" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="BusGroup.html#supriya.nonrealtime.BusGroup.BusGroup" title="supriya.nonrealtime.BusGroup.BusGroup"><code class="descclassname docutils literal notranslate"><span class="pre">BusGroup</span></code></a>).</code><code class="sig-name descname">session_id</code><a class="headerlink" href="#supriya.nonrealtime.AudioInputBusGroup.AudioInputBusGroup.session_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -402,7 +429,7 @@
         <a href="AudioOutputBusGroup.html" class="btn btn-neutral float-right" title="AudioOutputBusGroup" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="State.html" class="btn btn-neutral" title="State" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="State.html" class="btn btn-neutral float-left" title="State" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -428,26 +455,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

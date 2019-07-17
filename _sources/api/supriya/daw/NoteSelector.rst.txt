@@ -1,0 +1,85 @@
+.. _supriya--daw--NoteSelector:
+
+NoteSelector
+============
+
+.. automodule:: supriya.daw.NoteSelector
+
+.. currentmodule:: supriya.daw.NoteSelector
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.daw.NoteSelector
+
+.. autoclass:: NoteSelector
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __and__
+      __invert__
+      __iter__
+      __or__
+      __xor__
+      between_offsets
+      between_pitches
+      delete
+      replace
+      translate
+      translate_offsets
+      transpose
+      with_durations
+      with_pitch_classes
+      with_pitches
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: NoteSelector.__and__
+
+   .. automethod:: NoteSelector.__invert__
+
+   .. automethod:: NoteSelector.__iter__
+
+   .. automethod:: NoteSelector.__or__
+
+   .. automethod:: NoteSelector.__xor__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: NoteSelector.between_offsets
+
+   .. automethod:: NoteSelector.between_pitches
+
+   .. automethod:: NoteSelector.delete
+
+   .. automethod:: NoteSelector.replace
+
+   .. automethod:: NoteSelector.translate
+
+   .. automethod:: NoteSelector.translate_offsets
+
+   .. automethod:: NoteSelector.transpose
+
+   .. automethod:: NoteSelector.with_durations
+
+   .. automethod:: NoteSelector.with_pitch_classes
+
+   .. automethod:: NoteSelector.with_pitches

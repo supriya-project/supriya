@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>supriya.realtime.Node &mdash; Supriya 0.2.0 documentation</title>
+  <title>supriya.realtime.Node &mdash; Supriya 0.3.0 documentation</title>
   
 
   
@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -58,7 +60,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.3.0
               </div>
             
           
@@ -82,11 +84,39 @@
               
             
             
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
-</ul>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">Supriya API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/supriya/index.html">supriya</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -153,18 +183,20 @@
             
   <h1>Source code for supriya.realtime.Node</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">import</span> <span class="nn">collections</span>
 <span class="kn">import</span> <span class="nn">pathlib</span>
 <span class="kn">import</span> <span class="nn">tempfile</span>
 
 <span class="kn">import</span> <span class="nn">uqbar.graphs</span>
 <span class="kn">import</span> <span class="nn">uqbar.strings</span>
 <span class="kn">from</span> <span class="nn">uqbar.containers</span> <span class="k">import</span> <span class="n">UniqueTreeNode</span>
+<span class="kn">from</span> <span class="nn">uqbar.objects</span> <span class="k">import</span> <span class="n">new</span>
 
 <span class="kn">from</span> <span class="nn">supriya.enums</span> <span class="k">import</span> <span class="n">AddAction</span><span class="p">,</span> <span class="n">NodeAction</span>
-<span class="kn">from</span> <span class="nn">supriya.realtime.ServerObjectProxy</span> <span class="k">import</span> <span class="n">ServerObjectProxy</span>
+<span class="kn">from</span> <span class="nn">supriya.realtime.ServerObject</span> <span class="k">import</span> <span class="n">ServerObject</span>
 
 
-<div class="viewcode-block" id="Node"><a class="viewcode-back" href="../../../api/supriya/realtime/Node.html#supriya.realtime.Group.Node">[docs]</a><span class="k">class</span> <span class="nc">Node</span><span class="p">(</span><span class="n">ServerObjectProxy</span><span class="p">,</span> <span class="n">UniqueTreeNode</span><span class="p">):</span>
+<div class="viewcode-block" id="Node"><a class="viewcode-back" href="../../../api/supriya/realtime/Node.html#supriya.realtime.Group.Node">[docs]</a><span class="k">class</span> <span class="nc">Node</span><span class="p">(</span><span class="n">ServerObject</span><span class="p">,</span> <span class="n">UniqueTreeNode</span><span class="p">):</span>
 
     <span class="c1">### CLASS VARIABLES ###</span>
 
@@ -174,7 +206,7 @@
 
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">node_id_is_permanent</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="n">ServerObjectProxy</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">ServerObject</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">UniqueTreeNode</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_paused</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_node_id</span> <span class="o">=</span> <span class="kc">None</span>
@@ -238,7 +270,6 @@
 
     <span class="k">def</span> <span class="nf">_allocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">paused_nodes</span><span class="p">,</span> <span class="n">requests</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">synthdefs</span><span class="p">):</span>
         <span class="kn">import</span> <span class="nn">supriya.commands</span>
-        <span class="kn">from</span> <span class="nn">supriya.synthdefs</span> <span class="k">import</span> <span class="n">SynthDefCompiler</span>
 
         <span class="k">if</span> <span class="n">paused_nodes</span><span class="p">:</span>
             <span class="n">requests</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
@@ -252,21 +283,27 @@
             <span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">RequestBundle</span><span class="p">(</span><span class="n">contents</span><span class="o">=</span><span class="n">requests</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">request</span> <span class="o">=</span> <span class="n">requests</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">requests</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">request</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">synthdefs</span><span class="p">:</span>
             <span class="n">synthdef_request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">SynthDefReceiveRequest</span><span class="p">(</span>
-                <span class="n">synthdefs</span><span class="o">=</span><span class="n">synthdefs</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">request</span>
+                <span class="n">synthdefs</span><span class="o">=</span><span class="n">synthdefs</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">requests</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="p">)</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">SynthDefCompiler</span><span class="o">.</span><span class="n">compile_synthdefs</span><span class="p">(</span><span class="n">synthdefs</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">8192</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">synthdef_request</span><span class="o">.</span><span class="n">to_datagram</span><span class="p">(</span><span class="n">with_placeholders</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">8192</span><span class="p">:</span>
                 <span class="n">directory_path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">())</span>
                 <span class="n">synthdef_request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">SynthDefLoadDirectoryRequest</span><span class="p">(</span>
-                    <span class="n">directory_path</span><span class="o">=</span><span class="n">directory_path</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">request</span>
+                    <span class="n">directory_path</span><span class="o">=</span><span class="n">directory_path</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">requests</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="p">)</span>
                 <span class="k">for</span> <span class="n">synthdef</span> <span class="ow">in</span> <span class="n">synthdefs</span><span class="p">:</span>
                     <span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.scsyndef&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">synthdef</span><span class="o">.</span><span class="n">anonymous_name</span><span class="p">)</span>
                     <span class="n">synthdef_path</span> <span class="o">=</span> <span class="n">directory_path</span> <span class="o">/</span> <span class="n">file_name</span>
                     <span class="n">synthdef_path</span><span class="o">.</span><span class="n">write_bytes</span><span class="p">(</span><span class="n">synthdef</span><span class="o">.</span><span class="n">compile</span><span class="p">())</span>
-            <span class="n">request</span> <span class="o">=</span> <span class="n">synthdef_request</span>
-        <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,</span> <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">requests</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">synthdef_request</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">requests</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_datagram</span><span class="p">(</span><span class="n">with_placeholders</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">8192</span><span class="p">:</span>
+                <span class="n">node_allocate_request</span> <span class="o">=</span> <span class="n">requests</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">callback</span>
+                <span class="n">synthdef_request</span> <span class="o">=</span> <span class="n">new</span><span class="p">(</span><span class="n">requests</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+                <span class="n">requests</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">node_allocate_request</span><span class="p">,</span> <span class="n">synthdef_request</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">request</span> <span class="ow">in</span> <span class="n">requests</span><span class="p">:</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,</span> <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="nf">_as_graphviz_node</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -372,45 +409,48 @@
                 <span class="n">node_id</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">node_id_allocator</span><span class="o">.</span><span class="n">allocate_node_id</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">node_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
-        <span class="n">ServerObjectProxy</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
+        <span class="n">ServerObject</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_node_id</span> <span class="o">=</span> <span class="n">node_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_node_id_is_permanent</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">node_id_is_permanent</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">_nodes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_node_id</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span>
         <span class="k">return</span> <span class="n">node_id</span>
 
-    <span class="k">def</span> <span class="nf">_remove_control_interface_from_parentage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_dictionary</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">name_dictionary</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parentage</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-                <span class="n">parent</span><span class="o">.</span><span class="n">_control_interface</span><span class="o">.</span><span class="n">remove_controls</span><span class="p">(</span><span class="n">name_dictionary</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_remove_control_interface_from_parentage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">old_parent</span><span class="p">,</span> <span class="n">name_dictionary</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">old_parent</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">name_dictionary</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">old_parent</span><span class="o">.</span><span class="n">parentage</span><span class="p">:</span>
+            <span class="n">parent</span><span class="o">.</span><span class="n">_control_interface</span><span class="o">.</span><span class="n">remove_controls</span><span class="p">(</span><span class="n">name_dictionary</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_restore_control_interface_to_parentage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_dictionary</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">name_dictionary</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parentage</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-                <span class="n">parent</span><span class="o">.</span><span class="n">_control_interface</span><span class="o">.</span><span class="n">add_controls</span><span class="p">(</span><span class="n">name_dictionary</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_restore_control_interface_to_parentage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_parent</span><span class="p">,</span> <span class="n">name_dictionary</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">new_parent</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">name_dictionary</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">new_parent</span><span class="o">.</span><span class="n">parentage</span><span class="p">:</span>
+            <span class="n">parent</span><span class="o">.</span><span class="n">_control_interface</span><span class="o">.</span><span class="n">add_controls</span><span class="p">(</span><span class="n">name_dictionary</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_flag</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_paused</span> <span class="o">=</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="n">run_flag</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_set_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_parent</span><span class="p">):</span>
+        <span class="n">old_parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span>
         <span class="n">named_children</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_named_children</span><span class="p">()</span>
         <span class="n">control_interface</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_control_interface</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_remove_named_children_from_parentage</span><span class="p">(</span><span class="n">named_children</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_remove_control_interface_from_parentage</span><span class="p">(</span><span class="n">control_interface</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_remove_from_parent</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_remove_named_children_from_parentage</span><span class="p">(</span><span class="n">old_parent</span><span class="p">,</span> <span class="n">named_children</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_remove_control_interface_from_parentage</span><span class="p">(</span><span class="n">old_parent</span><span class="p">,</span> <span class="n">control_interface</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="o">=</span> <span class="n">new_parent</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_restore_named_children_to_parentage</span><span class="p">(</span><span class="n">named_children</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_restore_control_interface_to_parentage</span><span class="p">(</span><span class="n">control_interface</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_restore_named_children_to_parentage</span><span class="p">(</span><span class="n">new_parent</span><span class="p">,</span> <span class="n">named_children</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_restore_control_interface_to_parentage</span><span class="p">(</span><span class="n">new_parent</span><span class="p">,</span> <span class="n">control_interface</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_unregister_with_local_server</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">node_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_id</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">_nodes</span><span class="p">:</span>
-                <span class="k">del</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">_nodes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_node_id</span><span class="p">])</span>
+                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="o">.</span><span class="n">_nodes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_node_id</span><span class="p">]</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_id_is_permanent</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">node_id_allocator</span><span class="o">.</span><span class="n">free_permanent_node_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_id</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_node_id</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_node_id_is_permanent</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">ServerObjectProxy</span><span class="o">.</span><span class="n">free</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">ServerObject</span><span class="o">.</span><span class="n">free</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">node_id</span>
 
     <span class="c1">### PUBLIC METHODS ###</span>
@@ -420,11 +460,11 @@
         <span class="kn">import</span> <span class="nn">supriya.realtime</span>
 
         <span class="k">if</span> <span class="n">expr</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">expr</span> <span class="o">=</span> <span class="n">Node</span><span class="o">.</span><span class="n">expr_as_target</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">get_default_server</span><span class="p">())</span>
+            <span class="n">expr</span> <span class="o">=</span> <span class="n">Node</span><span class="o">.</span><span class="n">expr_as_target</span><span class="p">(</span><span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">())</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="s2">&quot;_as_node_target&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">expr</span><span class="o">.</span><span class="n">_as_node_target</span><span class="p">()</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">)):</span>
-            <span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">get_default_server</span><span class="p">()</span>
+            <span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span>
             <span class="k">return</span> <span class="n">server</span><span class="o">.</span><span class="n">_nodes</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">expr</span><span class="p">)]</span>
         <span class="k">if</span> <span class="n">expr</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ServerOffline</span>
@@ -452,6 +492,24 @@
                 <span class="n">node_id_run_flag_pairs</span><span class="o">=</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">node_id</span><span class="p">,</span> <span class="kc">False</span><span class="p">),)</span>
             <span class="p">)</span>
             <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="p">,</span> <span class="n">sync</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Node.precede_by"><a class="viewcode-back" href="../../../api/supriya/realtime/Node.html#supriya.realtime.Group.Node.precede_by">[docs]</a>    <span class="k">def</span> <span class="nf">precede_by</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Sequence</span><span class="p">):</span>
+            <span class="n">expr</span> <span class="o">=</span> <span class="p">[</span><span class="n">expr</span><span class="p">]</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">[</span><span class="n">index</span><span class="p">:</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">expr</span></div>
+
+<div class="viewcode-block" id="Node.replace_with"><a class="viewcode-back" href="../../../api/supriya/realtime/Node.html#supriya.realtime.Group.Node.replace_with">[docs]</a>    <span class="k">def</span> <span class="nf">replace_with</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Sequence</span><span class="p">):</span>
+            <span class="n">expr</span> <span class="o">=</span> <span class="p">[</span><span class="n">expr</span><span class="p">]</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">[</span><span class="n">index</span> <span class="p">:</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">expr</span></div>
+
+<div class="viewcode-block" id="Node.succeed_by"><a class="viewcode-back" href="../../../api/supriya/realtime/Node.html#supriya.realtime.Group.Node.succeed_by">[docs]</a>    <span class="k">def</span> <span class="nf">succeed_by</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Sequence</span><span class="p">):</span>
+            <span class="n">expr</span> <span class="o">=</span> <span class="p">[</span><span class="n">expr</span><span class="p">]</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">[</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">expr</span></div>
 
 <div class="viewcode-block" id="Node.unpause"><a class="viewcode-back" href="../../../api/supriya/realtime/Node.html#supriya.realtime.Group.Node.unpause">[docs]</a>    <span class="k">def</span> <span class="nf">unpause</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="kn">import</span> <span class="nn">supriya.commands</span>
@@ -513,26 +571,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

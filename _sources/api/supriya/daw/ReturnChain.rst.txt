@@ -1,0 +1,167 @@
+.. _supriya--daw--ReturnChain:
+
+ReturnChain
+===========
+
+.. automodule:: supriya.daw.ReturnChain
+
+.. currentmodule:: supriya.daw.ReturnChain
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.daw.ReturnChain
+
+.. autoclass:: ReturnChain
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      bus_group
+      channel_count
+      receive
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ReturnChain.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: ReturnChain.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: ReturnChain.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: ReturnChain.__len__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ReturnChain.add_send
+
+   .. container:: inherited
+
+      .. automethod:: ReturnChain.delete
+
+   .. container:: inherited
+
+      .. automethod:: ReturnChain.depth_first
+
+   .. container:: inherited
+
+      .. automethod:: ReturnChain.index
+
+   .. container:: inherited
+
+      .. automethod:: ReturnChain.recurse
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read/write properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: ReturnChain.name
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: ReturnChain.application
+
+   .. autoattribute:: ReturnChain.bus_group
+
+   .. autoattribute:: ReturnChain.channel_count
+
+   .. container:: inherited
+
+      .. autoattribute:: ReturnChain.children
+
+   .. container:: inherited
+
+      .. autoattribute:: ReturnChain.default_send_target
+
+   .. container:: inherited
+
+      .. autoattribute:: ReturnChain.depth
+
+   .. container:: inherited
+
+      .. autoattribute:: ReturnChain.device_types
+
+   .. container:: inherited
+
+      .. autoattribute:: ReturnChain.devices
+
+   .. container:: inherited
+
+      .. autoattribute:: ReturnChain.graph_order
+
+   .. container:: inherited
+
+      .. autoattribute:: ReturnChain.input_synth
+
+   .. container:: inherited
+
+      .. autoattribute:: ReturnChain.mixer_context
+
+   .. container:: inherited
+
+      .. autoattribute:: ReturnChain.node
+
+   .. container:: inherited
+
+      .. autoattribute:: ReturnChain.output_synth
+
+   .. container:: inherited
+
+      .. autoattribute:: ReturnChain.parent
+
+   .. container:: inherited
+
+      .. autoattribute:: ReturnChain.parentage
+
+   .. autoattribute:: ReturnChain.receive
+
+   .. container:: inherited
+
+      .. autoattribute:: ReturnChain.root
+
+   .. container:: inherited
+
+      .. autoattribute:: ReturnChain.sends
+
+   .. container:: inherited
+
+      .. autoattribute:: ReturnChain.server

@@ -1,0 +1,15 @@
+.. _supriya--live--Shuffle:
+
+Shuffle
+=======
+
+.. automodule:: supriya.live.Shuffle
+
+.. currentmodule:: supriya.live.Shuffle
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.live.Shuffle
+
+.. autoclass:: Shuffle

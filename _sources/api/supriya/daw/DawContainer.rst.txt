@@ -1,0 +1,147 @@
+.. _supriya--daw--DawContainer:
+
+DawContainer
+============
+
+.. automodule:: supriya.daw.DawContainer
+
+.. currentmodule:: supriya.daw.DawContainer
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.daw.DawContainer
+
+.. autoclass:: DawContainer
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: DawContainer.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: DawContainer.__delitem__
+
+   .. container:: inherited
+
+      .. automethod:: DawContainer.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: DawContainer.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: DawContainer.__len__
+
+   .. container:: inherited
+
+      .. automethod:: DawContainer.__setitem__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: DawContainer.append
+
+   .. container:: inherited
+
+      .. automethod:: DawContainer.depth_first
+
+   .. container:: inherited
+
+      .. automethod:: DawContainer.extend
+
+   .. container:: inherited
+
+      .. automethod:: DawContainer.index
+
+   .. container:: inherited
+
+      .. automethod:: DawContainer.insert
+
+   .. container:: inherited
+
+      .. automethod:: DawContainer.pop
+
+   .. container:: inherited
+
+      .. automethod:: DawContainer.recurse
+
+   .. container:: inherited
+
+      .. automethod:: DawContainer.remove
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read/write properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: DawContainer.name
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: DawContainer.application
+
+   .. container:: inherited
+
+      .. autoattribute:: DawContainer.channel_count
+
+   .. container:: inherited
+
+      .. autoattribute:: DawContainer.children
+
+   .. container:: inherited
+
+      .. autoattribute:: DawContainer.depth
+
+   .. container:: inherited
+
+      .. autoattribute:: DawContainer.graph_order
+
+   .. container:: inherited
+
+      .. autoattribute:: DawContainer.mixer_context
+
+   .. container:: inherited
+
+      .. autoattribute:: DawContainer.node
+
+   .. container:: inherited
+
+      .. autoattribute:: DawContainer.parent
+
+   .. container:: inherited
+
+      .. autoattribute:: DawContainer.parentage
+
+   .. container:: inherited
+
+      .. autoattribute:: DawContainer.root
+
+   .. container:: inherited
+
+      .. autoattribute:: DawContainer.server

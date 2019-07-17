@@ -1,0 +1,36 @@
+.. _supriya--intervals:
+
+intervals
+=========
+
+.. automodule:: supriya.intervals
+
+.. currentmodule:: supriya.intervals
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.intervals
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   TimespanCollection
+   TimespanCollectionDriver
+   TimespanCollectionDriverEx
+   TimespanSimultaneity
+
+.. autosummary::
+   :nosignatures:
+
+   ~TimespanCollection.TimespanCollection
+   ~TimespanCollectionDriver.TimespanCollectionDriver
+   ~TimespanCollectionDriverEx.TimespanCollectionDriverEx
+   ~TimespanSimultaneity.TimespanSimultaneity

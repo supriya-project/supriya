@@ -1,0 +1,167 @@
+.. _supriya--daw:
+
+daw
+===
+
+.. automodule:: supriya.daw
+
+.. currentmodule:: supriya.daw
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.daw
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Subpackages
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   synthdefs
+
+.. autosummary::
+   :nosignatures:
+
+   synthdefs
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Abstract Classes
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   Chain
+   Receive
+
+.. autosummary::
+   :nosignatures:
+
+   ~Chain.Chain
+   ~Receive.Receive
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   Application
+   ArpeggiatorDevice
+   AudioChain
+   AudioDevice
+   AudioRack
+   ChainContainer
+   ChainReceive
+   ChordDevice
+   Clip
+   ClipSlot
+   ClipSlotContainer
+   DCDevice
+   DawContainer
+   DawMeta
+   DawNode
+   Device
+   DeviceContainer
+   GroupTrack
+   Instrument
+   InstrumentChain
+   InstrumentRack
+   MidiChain
+   MidiDevice
+   MidiRack
+   MixerContext
+   Note
+   NoteSelector
+   Parameter
+   RackDevice
+   RackReceive
+   ReturnChain
+   SamplerDevice
+   ScaleDevice
+   Scene
+   SceneContainer
+   Send
+   SendContainer
+   SendManager
+   Track
+   TrackContainer
+   TrackReceive
+   Transport
+   VelocityDevice
+
+.. autosummary::
+   :nosignatures:
+
+   ~Application.Application
+   ~ArpeggiatorDevice.ArpeggiatorDevice
+   ~AudioChain.AudioChain
+   ~AudioDevice.AudioDevice
+   ~AudioRack.AudioRack
+   ~ChainContainer.ChainContainer
+   ~ChainReceive.ChainReceive
+   ~ChordDevice.ChordDevice
+   ~Clip.Clip
+   ~ClipSlot.ClipSlot
+   ~ClipSlotContainer.ClipSlotContainer
+   ~DCDevice.DCDevice
+   ~DawContainer.DawContainer
+   ~DawMeta.DawMeta
+   ~DawNode.DawNode
+   ~Device.Device
+   ~DeviceContainer.DeviceContainer
+   ~GroupTrack.GroupTrack
+   ~Instrument.Instrument
+   ~InstrumentChain.InstrumentChain
+   ~InstrumentRack.InstrumentRack
+   ~MidiChain.MidiChain
+   ~MidiDevice.MidiDevice
+   ~MidiRack.MidiRack
+   ~MixerContext.MixerContext
+   ~Note.Note
+   ~NoteSelector.NoteSelector
+   ~Parameter.Parameter
+   ~RackDevice.RackDevice
+   ~RackReceive.RackReceive
+   ~ReturnChain.ReturnChain
+   ~SamplerDevice.SamplerDevice
+   ~ScaleDevice.ScaleDevice
+   ~Scene.Scene
+   ~SceneContainer.SceneContainer
+   ~Send.Send
+   ~SendContainer.SendContainer
+   ~SendManager.SendManager
+   ~Track.Track
+   ~TrackContainer.TrackContainer
+   ~TrackReceive.TrackReceive
+   ~Transport.Transport
+   ~VelocityDevice.VelocityDevice
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Enumerations
+   :class: section-header
+
+.. toctree::
+   :hidden:
+
+   DeviceType
+
+.. autosummary::
+   :nosignatures:
+
+   ~DeviceType.DeviceType

@@ -1,0 +1,114 @@
+.. _supriya--daw--DCDevice:
+
+DCDevice
+========
+
+.. automodule:: supriya.daw.DCDevice
+
+.. currentmodule:: supriya.daw.DCDevice
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.daw.DCDevice
+
+.. autoclass:: DCDevice
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      synth
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: DCDevice.delete
+
+   .. container:: inherited
+
+      .. automethod:: DCDevice.next_device
+
+   .. container:: inherited
+
+      .. automethod:: DCDevice.perform
+
+   .. container:: inherited
+
+      .. automethod:: DCDevice.start
+
+   .. container:: inherited
+
+      .. automethod:: DCDevice.stop
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read/write properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: DCDevice.name
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: DCDevice.application
+
+   .. container:: inherited
+
+      .. autoattribute:: DCDevice.channel_count
+
+   .. container:: inherited
+
+      .. autoattribute:: DCDevice.depth
+
+   .. container:: inherited
+
+      .. autoattribute:: DCDevice.graph_order
+
+   .. container:: inherited
+
+      .. autoattribute:: DCDevice.mixer_context
+
+   .. container:: inherited
+
+      .. autoattribute:: DCDevice.node
+
+   .. container:: inherited
+
+      .. autoattribute:: DCDevice.parent
+
+   .. container:: inherited
+
+      .. autoattribute:: DCDevice.parentage
+
+   .. container:: inherited
+
+      .. autoattribute:: DCDevice.root
+
+   .. container:: inherited
+
+      .. autoattribute:: DCDevice.server
+
+   .. autoattribute:: DCDevice.synth

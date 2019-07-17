@@ -1,0 +1,450 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>supriya.daw.Clip &mdash; Supriya 0.3.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/supriya/index.html">supriya</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../supriya.html">supriya</a> &raquo;</li>
+        
+      <li>supriya.daw.Clip</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for supriya.daw.Clip</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="kn">import</span> <span class="nn">dataclasses</span>
+
+<span class="kn">from</span> <span class="nn">supriya.time</span> <span class="k">import</span> <span class="n">IntervalTree</span>
+<span class="kn">from</span> <span class="nn">supriya.utils</span> <span class="k">import</span> <span class="n">iterate_nwise</span>
+
+<span class="kn">from</span> <span class="nn">.Note</span> <span class="k">import</span> <span class="n">Note</span>
+<span class="kn">from</span> <span class="nn">.NoteSelector</span> <span class="k">import</span> <span class="n">NoteSelector</span>
+
+<span class="c1"># TODO: looping, loop start and end, clip start and end</span>
+<span class="c1"># TODO: scheduling: this event, next event, clip stop, etc.</span>
+<span class="c1"># TODO: global transport and clip playing</span>
+
+
+<div class="viewcode-block" id="Clip"><a class="viewcode-back" href="../../../api/supriya/daw/Clip.html#supriya.daw.Clip.Clip">[docs]</a><span class="k">class</span> <span class="nc">Clip</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A clip.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; from supriya.daw import Clip, Note</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; notes = [</span>
+<span class="sd">        ...     Note(0, 1, pitch=0), Note(4, 5, pitch=0), Note(8, 9, pitch=0),</span>
+<span class="sd">        ...     Note(0, 1, pitch=2), Note(4, 5, pitch=2), Note(8, 9, pitch=2),</span>
+<span class="sd">        ...     Note(2, 6, pitch=7),</span>
+<span class="sd">        ... ]</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; clip = Clip(notes=notes)</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; selector = (</span>
+<span class="sd">        ...     clip.select()</span>
+<span class="sd">        ...     .between_offsets(stop_offset=6)</span>
+<span class="sd">        ...     .between_pitches(-2, 3)</span>
+<span class="sd">        ... )</span>
+<span class="sd">        &gt;&gt;&gt; for note in selector:</span>
+<span class="sd">        ...     note</span>
+<span class="sd">        ...</span>
+<span class="sd">        Note(start_offset=0, stop_offset=1, pitch=0, velocity=1.0)</span>
+<span class="sd">        Note(start_offset=0, stop_offset=1, pitch=2, velocity=1.0)</span>
+<span class="sd">        Note(start_offset=4, stop_offset=5, pitch=0, velocity=1.0)</span>
+<span class="sd">        Note(start_offset=4, stop_offset=5, pitch=2, velocity=1.0)</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; selector.translate_offsets(stop_translation=4)</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; for note in clip:</span>
+<span class="sd">        ...     note</span>
+<span class="sd">        ...</span>
+<span class="sd">        Note(start_offset=0, stop_offset=4, pitch=0, velocity=1.0)</span>
+<span class="sd">        Note(start_offset=0, stop_offset=4, pitch=2, velocity=1.0)</span>
+<span class="sd">        Note(start_offset=2, stop_offset=6, pitch=7, velocity=1.0)</span>
+<span class="sd">        Note(start_offset=4, stop_offset=9, pitch=0, velocity=1.0)</span>
+<span class="sd">        Note(start_offset=4, stop_offset=9, pitch=2, velocity=1.0)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">class</span> <span class="nc">Moment</span><span class="p">:</span>
+        <span class="n">offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">local_offset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">next_offset</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">start_notes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Note</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">stop_notes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Note</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">notes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">is_looping</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_duration</span> <span class="o">=</span> <span class="n">duration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_looping</span> <span class="o">=</span> <span class="n">is_looping</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span> <span class="o">=</span> <span class="n">parent</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_notes</span> <span class="o">=</span> <span class="n">IntervalTree</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_notes</span><span class="p">(</span><span class="n">notes</span><span class="p">)</span>
+
+    <span class="c1">### SPECIAL METHODS ###</span>
+
+<div class="viewcode-block" id="Clip.__iter__"><a class="viewcode-back" href="../../../api/supriya/daw/Clip.html#supriya.daw.Clip.Clip.__iter__">[docs]</a>    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_notes</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Clip.__len__"><a class="viewcode-back" href="../../../api/supriya/daw/Clip.html#supriya.daw.Clip.Clip.__len__">[docs]</a>    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_notes</span><span class="p">)</span></div>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="k">def</span> <span class="nf">_by_pitch</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">notes</span><span class="p">):</span>
+        <span class="n">by_pitch</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">note</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">notes</span><span class="p">):</span>
+            <span class="n">by_pitch</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">note</span><span class="o">.</span><span class="n">pitch</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">note</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">by_pitch</span>
+
+    <span class="k">def</span> <span class="nf">_notify_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">notify</span><span class="p">()</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="Clip.add_notes"><a class="viewcode-back" href="../../../api/supriya/daw/Clip.html#supriya.daw.Clip.Clip.add_notes">[docs]</a>    <span class="k">def</span> <span class="nf">add_notes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">notes</span><span class="p">):</span>
+        <span class="n">new_notes_by_pitch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_by_pitch</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">notes</span><span class="p">))</span>
+        <span class="n">old_notes_by_pitch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_by_pitch</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">pitch</span><span class="p">,</span> <span class="n">new_notes</span> <span class="ow">in</span> <span class="n">new_notes_by_pitch</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">note_one</span> <span class="o">=</span> <span class="n">new_notes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="c1"># simultaneous new note starts: longer note wins</span>
+            <span class="k">for</span> <span class="n">note_two</span> <span class="ow">in</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">new_notes</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+                <span class="k">if</span> <span class="n">note_one</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">==</span> <span class="n">note_two</span><span class="o">.</span><span class="n">start_offset</span><span class="p">:</span>
+                    <span class="n">new_notes</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">note_one</span><span class="p">)</span>
+            <span class="c1"># new note overlaps: later notes masks earlier note</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">note_one</span><span class="p">,</span> <span class="n">note_two</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">iterate_nwise</span><span class="p">(</span><span class="n">new_notes</span><span class="p">))):</span>
+                <span class="k">if</span> <span class="n">note_one</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">&lt;</span> <span class="n">note_two</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">&lt;</span> <span class="n">note_one</span><span class="o">.</span><span class="n">stop_offset</span><span class="p">:</span>
+                    <span class="n">new_notes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+                        <span class="n">note_one</span><span class="p">,</span> <span class="n">stop_offset</span><span class="o">=</span><span class="n">note_two</span><span class="o">.</span><span class="n">start_offset</span>
+                    <span class="p">)</span>
+            <span class="c1"># old note overlaps: new notes delete old notes</span>
+            <span class="c1"># TODO: make this more efficient(use an iterator for the new notes)</span>
+            <span class="k">for</span> <span class="n">old_note</span> <span class="ow">in</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">old_notes_by_pitch</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pitch</span><span class="p">,</span> <span class="p">())):</span>
+                <span class="k">for</span> <span class="n">new_note</span> <span class="ow">in</span> <span class="n">new_notes</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span>
+                        <span class="n">new_note</span><span class="o">.</span><span class="n">start_offset</span>
+                        <span class="o">&lt;=</span> <span class="n">old_note</span><span class="o">.</span><span class="n">start_offset</span>
+                        <span class="o">&lt;</span> <span class="n">new_note</span><span class="o">.</span><span class="n">stop_offset</span>
+                    <span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_notes</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">old_note</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_notes</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">new_notes</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Clip.at"><a class="viewcode-back" href="../../../api/supriya/daw/Clip.html#supriya.daw.Clip.Clip.at">[docs]</a>    <span class="k">def</span> <span class="nf">at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">start_delta</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">force_stop</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">get_nonstart_notes</span><span class="p">(</span><span class="n">moment</span><span class="p">):</span>
+            <span class="n">stop_notes</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">note</span> <span class="k">for</span> <span class="n">note</span> <span class="ow">in</span> <span class="n">moment</span><span class="o">.</span><span class="n">stop_intervals</span> <span class="k">if</span> <span class="n">note</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+            <span class="p">]</span>
+            <span class="n">overlap_notes</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">note</span> <span class="k">for</span> <span class="n">note</span> <span class="ow">in</span> <span class="n">moment</span><span class="o">.</span><span class="n">overlap_intervals</span> <span class="k">if</span> <span class="n">note</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+            <span class="p">]</span>
+            <span class="k">return</span> <span class="n">stop_notes</span><span class="p">,</span> <span class="n">overlap_notes</span>
+
+        <span class="n">local_offset</span> <span class="o">=</span> <span class="n">offset</span> <span class="o">-</span> <span class="n">start_delta</span>
+        <span class="n">loop_delta</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">start_notes</span><span class="p">,</span> <span class="n">stop_notes</span><span class="p">,</span> <span class="n">overlap_notes</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="n">next_offset</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">offset</span> <span class="o">&lt;</span> <span class="n">start_delta</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Moment</span><span class="p">(</span>
+                <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">,</span>
+                <span class="n">local_offset</span><span class="o">=</span><span class="n">local_offset</span><span class="p">,</span>
+                <span class="n">next_offset</span><span class="o">=</span><span class="n">next_offset</span><span class="p">,</span>
+                <span class="n">start_notes</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">start_notes</span><span class="p">),</span>
+                <span class="n">stop_notes</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">stop_notes</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_looping</span><span class="p">:</span>
+            <span class="n">count</span><span class="p">,</span> <span class="n">local_offset</span> <span class="o">=</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">local_offset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">clip_stop</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">local_offset</span><span class="p">:</span>  <span class="c1"># at the loop boundary</span>
+                <span class="n">moment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_notes</span><span class="o">.</span><span class="n">get_moment_at</span><span class="p">(</span><span class="n">local_offset</span><span class="p">)</span>
+                <span class="n">start_notes</span> <span class="o">=</span> <span class="n">moment</span><span class="o">.</span><span class="n">start_intervals</span>
+                <span class="n">overlap_notes</span><span class="p">,</span> <span class="n">stop_notes</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+                <span class="k">if</span> <span class="n">count</span><span class="p">:</span>  <span class="c1"># at end of loop</span>
+                    <span class="n">moment_two</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_notes</span><span class="o">.</span><span class="n">get_moment_at</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">)</span>
+                    <span class="n">stops</span><span class="p">,</span> <span class="n">overlaps</span> <span class="o">=</span> <span class="n">get_nonstart_notes</span><span class="p">(</span><span class="n">moment_two</span><span class="p">)</span>
+                    <span class="n">stop_notes</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">stops</span><span class="p">)</span>
+                    <span class="n">stop_notes</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">overlaps</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># in the middle of the loop</span>
+                <span class="n">moment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_notes</span><span class="o">.</span><span class="n">get_moment_at</span><span class="p">(</span><span class="n">local_offset</span><span class="p">)</span>
+                <span class="n">start_notes</span> <span class="o">=</span> <span class="n">moment</span><span class="o">.</span><span class="n">start_intervals</span>
+                <span class="n">stop_notes</span><span class="p">,</span> <span class="n">overlap_notes</span> <span class="o">=</span> <span class="n">get_nonstart_notes</span><span class="p">(</span><span class="n">moment</span><span class="p">)</span>
+            <span class="n">loop_delta</span> <span class="o">=</span> <span class="n">count</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># non-looping</span>
+            <span class="n">moment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_notes</span><span class="o">.</span><span class="n">get_moment_at</span><span class="p">(</span><span class="n">local_offset</span><span class="p">)</span>
+            <span class="n">start_notes</span> <span class="o">=</span> <span class="n">moment</span><span class="o">.</span><span class="n">start_intervals</span>
+            <span class="n">stop_notes</span><span class="p">,</span> <span class="n">overlap_notes</span> <span class="o">=</span> <span class="n">get_nonstart_notes</span><span class="p">(</span><span class="n">moment</span><span class="p">)</span>
+        <span class="c1"># next offset could be from a pre-zero interval, but who cares?</span>
+        <span class="n">next_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_notes</span><span class="o">.</span><span class="n">get_offset_after</span><span class="p">(</span><span class="n">local_offset</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">next_offset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_looping</span><span class="p">:</span>
+                <span class="n">next_offset</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="n">next_offset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span><span class="p">])</span>
+            <span class="n">next_offset</span> <span class="o">+=</span> <span class="n">start_delta</span> <span class="o">+</span> <span class="n">loop_delta</span>
+        <span class="k">if</span> <span class="n">force_stop</span><span class="p">:</span>
+            <span class="n">start_notes</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">stop_notes</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">overlap_notes</span><span class="p">)</span>
+            <span class="n">next_offset</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Moment</span><span class="p">(</span>
+            <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">,</span>
+            <span class="n">local_offset</span><span class="o">=</span><span class="n">local_offset</span><span class="p">,</span>
+            <span class="n">next_offset</span><span class="o">=</span><span class="n">next_offset</span><span class="p">,</span>
+            <span class="n">start_notes</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">start_notes</span><span class="p">),</span>
+            <span class="n">stop_notes</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">stop_notes</span><span class="p">),</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Clip.fire"><a class="viewcode-back" href="../../../api/supriya/daw/Clip.html#supriya.daw.Clip.Clip.fire">[docs]</a>    <span class="k">def</span> <span class="nf">fire</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Parent cannot be null&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">fire</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Clip.remove_notes"><a class="viewcode-back" href="../../../api/supriya/daw/Clip.html#supriya.daw.Clip.Clip.remove_notes">[docs]</a>    <span class="k">def</span> <span class="nf">remove_notes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">notes</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">note</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">notes</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_notes</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">note</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Clip.select"><a class="viewcode-back" href="../../../api/supriya/daw/Clip.html#supriya.daw.Clip.Clip.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">NoteSelector</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">clip_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">clip_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_duration</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_looping</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_notes</span><span class="o">.</span><span class="n">stop_offset</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">duration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_duration</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_looping</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_looping</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

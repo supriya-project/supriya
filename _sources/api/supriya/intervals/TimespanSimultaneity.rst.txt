@@ -1,0 +1,70 @@
+.. _supriya--intervals--TimespanSimultaneity:
+
+TimespanSimultaneity
+====================
+
+.. automodule:: supriya.intervals.TimespanSimultaneity
+
+.. currentmodule:: supriya.intervals.TimespanSimultaneity
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.intervals.TimespanSimultaneity
+
+.. autoclass:: TimespanSimultaneity
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __repr__
+      next_simultaneity
+      next_start_offset
+      overlap_timespans
+      previous_simultaneity
+      previous_start_offset
+      start_offset
+      start_timespans
+      stop_timespans
+      timespan_collection
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: TimespanSimultaneity.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: TimespanSimultaneity.next_simultaneity
+
+   .. autoattribute:: TimespanSimultaneity.next_start_offset
+
+   .. autoattribute:: TimespanSimultaneity.overlap_timespans
+
+   .. autoattribute:: TimespanSimultaneity.previous_simultaneity
+
+   .. autoattribute:: TimespanSimultaneity.previous_start_offset
+
+   .. autoattribute:: TimespanSimultaneity.start_offset
+
+   .. autoattribute:: TimespanSimultaneity.start_timespans
+
+   .. autoattribute:: TimespanSimultaneity.stop_timespans
+
+   .. autoattribute:: TimespanSimultaneity.timespan_collection

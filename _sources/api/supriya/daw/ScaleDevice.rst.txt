@@ -1,0 +1,100 @@
+.. _supriya--daw--ScaleDevice:
+
+ScaleDevice
+===========
+
+.. automodule:: supriya.daw.ScaleDevice
+
+.. currentmodule:: supriya.daw.ScaleDevice
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.daw.ScaleDevice
+
+.. autoclass:: ScaleDevice
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ScaleDevice.delete
+
+   .. container:: inherited
+
+      .. automethod:: ScaleDevice.next_device
+
+   .. container:: inherited
+
+      .. automethod:: ScaleDevice.perform
+
+   .. container:: inherited
+
+      .. automethod:: ScaleDevice.start
+
+   .. container:: inherited
+
+      .. automethod:: ScaleDevice.stop
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read/write properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: ScaleDevice.name
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: ScaleDevice.application
+
+   .. container:: inherited
+
+      .. autoattribute:: ScaleDevice.channel_count
+
+   .. container:: inherited
+
+      .. autoattribute:: ScaleDevice.depth
+
+   .. container:: inherited
+
+      .. autoattribute:: ScaleDevice.graph_order
+
+   .. container:: inherited
+
+      .. autoattribute:: ScaleDevice.mixer_context
+
+   .. container:: inherited
+
+      .. autoattribute:: ScaleDevice.node
+
+   .. container:: inherited
+
+      .. autoattribute:: ScaleDevice.parent
+
+   .. container:: inherited
+
+      .. autoattribute:: ScaleDevice.parentage
+
+   .. container:: inherited
+
+      .. autoattribute:: ScaleDevice.root
+
+   .. container:: inherited
+
+      .. autoattribute:: ScaleDevice.server

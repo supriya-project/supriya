@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>synthdefs &mdash; Supriya 0.2.0 documentation</title>
+  <title>synthdefs &mdash; Supriya 0.3.0 documentation</title>
   
 
   
@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
@@ -31,22 +38,17 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="SynthDefFactory" href="SynthDefFactory.html" />
-    <link rel="prev" title="SoundFile" href="../soundfiles/SoundFile.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
+    <link rel="prev" title="soundfiles" href="../soundfiles.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -60,7 +62,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.3.0
               </div>
             
           
@@ -84,50 +86,77 @@
               
             
             
-              <ul>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Supriya API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../cli/index.html">cli</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../commands/index.html">commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../enums.html">enums</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ext/index.html">ext</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../io.html">io</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../live/index.html">live</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../midi/index.html">midi</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../osc/index.html">osc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../soundfiles/index.html">soundfiles</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">synthdefs</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="SynthDefFactory.html">SynthDefFactory</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthDefGrapher.html">SynthDefGrapher</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Envelope.html">Envelope</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Parameter.html">Parameter</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Range.html">Range</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthDef.html">SynthDef</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthDefBuilder.html">SynthDefBuilder</a></li>
-<li class="toctree-l4"><a class="reference internal" href="OutputProxy.html">OutputProxy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SuperColliderSynthDef.html">SuperColliderSynthDef</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthDefCompiler.html">SynthDefCompiler</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthDefDecompiler.html">SynthDefDecompiler</a></li>
-<li class="toctree-l4"><a class="reference internal" href="UGenArray.html">UGenArray</a></li>
-<li class="toctree-l4"><a class="reference internal" href="UGenMethodMixin.html">UGenMethodMixin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="UGenSortBundle.html">UGenSortBundle</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cli/index.html">cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clock.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../daw/index.html">daw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../live/index.html">live</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">synthdefs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="SynthDefFactory.html">SynthDefFactory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthDefGrapher.html">SynthDefGrapher</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Envelope.html">Envelope</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Parameter.html">Parameter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Range.html">Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthDef.html">SynthDef</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthDefBuilder.html">SynthDefBuilder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="OutputProxy.html">OutputProxy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SuperColliderSynthDef.html">SuperColliderSynthDef</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthDefCompiler.html">SynthDefCompiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthDefDecompiler.html">SynthDefDecompiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="UGenArray.html">UGenArray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="UGenMethodMixin.html">UGenMethodMixin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="UGenSortBundle.html">UGenSortBundle</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../system/index.html">system</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../time/index.html">time</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
 </ul>
 </li>
 </ul>
-</li>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -173,8 +202,6 @@
     
       <li><a href="../../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../../index.html">Supriya API</a> &raquo;</li>
-        
           <li><a href="../index.html">supriya</a> &raquo;</li>
         
       <li>synthdefs</li>
@@ -200,7 +227,7 @@
 <span id="synthdefs"></span><span id="supriya-synthdefs"></span><h1>synthdefs<a class="headerlink" href="#module-supriya.synthdefs" title="Permalink to this headline">¶</a></h1>
 <p>Tools for constructing and compiling synthesizer definitions (SynthDefs).</p>
 <div class="svg-container docutils container">
-<div class="graphviz"><object data="../../../_images/inheritance-145febb9e82a0a34ce7a6dd2a460934c9155fa10.svg" type="image/svg+xml" class="inheritance graphviz">
+<div class="graphviz"><object data="../../../_images/inheritance-3df6f6327e90eb650bdbbb7ae44160ed42d0bf15.svg" type="image/svg+xml" class="inheritance graphviz">
 <p class="warning">digraph InheritanceGraph {
 	graph [bgcolor=transparent,
 		color=lightsteelblue2,
@@ -280,19 +307,9 @@
 			target=_top];
 		&quot;collections.abc.Sized&quot; -&gt; &quot;collections.abc.Collection&quot;;
 	}
-	subgraph &quot;cluster_supriya.realtime&quot; {
-		graph [label=&quot;supriya.realtime&quot;];
-		node [color=3];
-		&quot;supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot;		 [URL=&quot;../api/supriya/synthdefs/../realtime/ServerObjectProxy.html#supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot;,
-			color=3,
-			label=&quot;Server\nObject\nProxy&quot;,
-			shape=oval,
-			style=bold,
-			target=_top];
-	}
 	subgraph &quot;cluster_supriya.synthdefs&quot; {
 		graph [label=&quot;supriya.synthdefs&quot;];
-		node [color=4];
+		node [color=3];
 		&quot;supriya.synthdefs.Envelope.Envelope&quot;		 [URL=&quot;../api/supriya/synthdefs/Envelope.html#supriya.synthdefs.Envelope.Envelope&quot;,
 			color=black,
 			fontcolor=white,
@@ -369,70 +386,70 @@
 	}
 	subgraph &quot;cluster_supriya.system&quot; {
 		graph [label=&quot;supriya.system&quot;];
-		node [color=5];
+		node [color=4];
 		&quot;supriya.system.SupriyaObject.SupriyaObject&quot;		 [URL=&quot;../api/supriya/synthdefs/../system/SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject&quot;,
-			color=5,
+			color=4,
 			label=&quot;Supriya\nObject&quot;,
 			target=_top];
 		&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;		 [URL=&quot;../api/supriya/synthdefs/../system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject&quot;,
-			color=5,
+			color=4,
 			label=&quot;Supriya\nValue\nObject&quot;,
 			target=_top];
 		&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;;
 	}
 	subgraph &quot;cluster_supriya.ugens&quot; {
 		graph [label=&quot;supriya.ugens&quot;];
-		node [color=6];
+		node [color=5];
 		&quot;supriya.ugens.A2K.A2K&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/A2K.html#supriya.ugens.A2K.A2K&quot;,
-			color=6,
-			label=&quot;A\n2\nK&quot;,
+			color=5,
+			label=&quot;A2\nK&quot;,
 			target=_top];
 		&quot;supriya.ugens.APF.APF&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/APF.html#supriya.ugens.APF.APF&quot;,
-			color=6,
+			color=5,
 			label=APF,
 			target=_top];
 		&quot;supriya.ugens.AllpassC.AllpassC&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/AllpassC.html#supriya.ugens.AllpassC.AllpassC&quot;,
-			color=6,
+			color=5,
 			label=&quot;Allpass\nC&quot;,
 			target=_top];
 		&quot;supriya.ugens.AllpassL.AllpassL&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/AllpassL.html#supriya.ugens.AllpassL.AllpassL&quot;,
-			color=6,
+			color=5,
 			label=&quot;Allpass\nL&quot;,
 			target=_top];
 		&quot;supriya.ugens.AllpassN.AllpassN&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/AllpassN.html#supriya.ugens.AllpassN.AllpassN&quot;,
-			color=6,
+			color=5,
 			label=&quot;Allpass\nN&quot;,
 			target=_top];
 		&quot;supriya.ugens.AmpComp.AmpComp&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/AmpComp.html#supriya.ugens.AmpComp.AmpComp&quot;,
-			color=6,
+			color=5,
 			label=&quot;Amp\nComp&quot;,
 			target=_top];
 		&quot;supriya.ugens.AmpCompA.AmpCompA&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/AmpCompA.html#supriya.ugens.AmpCompA.AmpCompA&quot;,
-			color=6,
+			color=5,
 			label=&quot;Amp\nComp\nA&quot;,
 			target=_top];
 		&quot;supriya.ugens.Amplitude.Amplitude&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Amplitude.html#supriya.ugens.Amplitude.Amplitude&quot;,
-			color=6,
+			color=5,
 			label=Amplitude,
 			target=_top];
 		&quot;supriya.ugens.AudioControl.AudioControl&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/AudioControl.html#supriya.ugens.AudioControl.AudioControl&quot;,
-			color=6,
+			color=5,
 			label=&quot;Audio\nControl&quot;,
 			target=_top];
 		&quot;supriya.ugens.BAllPass.BAllPass&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BAllPass.html#supriya.ugens.BAllPass.BAllPass&quot;,
-			color=6,
+			color=5,
 			label=&quot;BAll\nPass&quot;,
 			target=_top];
 		&quot;supriya.ugens.BBandPass.BBandPass&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BBandPass.html#supriya.ugens.BBandPass.BBandPass&quot;,
-			color=6,
+			color=5,
 			label=&quot;BBand\nPass&quot;,
 			target=_top];
 		&quot;supriya.ugens.BBandStop.BBandStop&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BBandStop.html#supriya.ugens.BBandStop.BBandStop&quot;,
-			color=6,
+			color=5,
 			label=&quot;BBand\nStop&quot;,
 			target=_top];
 		&quot;supriya.ugens.BEQSuite.BEQSuite&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BEQSuite.html#supriya.ugens.BEQSuite.BEQSuite&quot;,
-			color=6,
+			color=5,
 			label=BEQSuite,
 			shape=oval,
 			style=bold,
@@ -441,142 +458,142 @@
 		&quot;supriya.ugens.BEQSuite.BEQSuite&quot; -&gt; &quot;supriya.ugens.BBandPass.BBandPass&quot;		 [minlen=2];
 		&quot;supriya.ugens.BEQSuite.BEQSuite&quot; -&gt; &quot;supriya.ugens.BBandStop.BBandStop&quot;		 [minlen=3];
 		&quot;supriya.ugens.BHiCut.BHiCut&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BHiCut.html#supriya.ugens.BHiCut.BHiCut&quot;,
-			color=6,
+			color=5,
 			label=&quot;BHi\nCut&quot;,
 			target=_top];
 		&quot;supriya.ugens.BEQSuite.BEQSuite&quot; -&gt; &quot;supriya.ugens.BHiCut.BHiCut&quot;		 [minlen=4];
 		&quot;supriya.ugens.BHiPass.BHiPass&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BHiPass.html#supriya.ugens.BHiPass.BHiPass&quot;,
-			color=6,
+			color=5,
 			label=&quot;BHi\nPass&quot;,
 			target=_top];
 		&quot;supriya.ugens.BEQSuite.BEQSuite&quot; -&gt; &quot;supriya.ugens.BHiPass.BHiPass&quot;		 [minlen=5];
 		&quot;supriya.ugens.BHiShelf.BHiShelf&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BHiShelf.html#supriya.ugens.BHiShelf.BHiShelf&quot;,
-			color=6,
+			color=5,
 			label=&quot;BHi\nShelf&quot;,
 			target=_top];
 		&quot;supriya.ugens.BEQSuite.BEQSuite&quot; -&gt; &quot;supriya.ugens.BHiShelf.BHiShelf&quot;		 [minlen=1];
 		&quot;supriya.ugens.BLowCut.BLowCut&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BLowCut.html#supriya.ugens.BLowCut.BLowCut&quot;,
-			color=6,
+			color=5,
 			label=&quot;BLow\nCut&quot;,
 			target=_top];
 		&quot;supriya.ugens.BEQSuite.BEQSuite&quot; -&gt; &quot;supriya.ugens.BLowCut.BLowCut&quot;		 [minlen=2];
 		&quot;supriya.ugens.BLowPass.BLowPass&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BLowPass.html#supriya.ugens.BLowPass.BLowPass&quot;,
-			color=6,
+			color=5,
 			label=&quot;BLow\nPass&quot;,
 			target=_top];
 		&quot;supriya.ugens.BEQSuite.BEQSuite&quot; -&gt; &quot;supriya.ugens.BLowPass.BLowPass&quot;		 [minlen=3];
 		&quot;supriya.ugens.BLowShelf.BLowShelf&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BLowShelf.html#supriya.ugens.BLowShelf.BLowShelf&quot;,
-			color=6,
+			color=5,
 			label=&quot;BLow\nShelf&quot;,
 			target=_top];
 		&quot;supriya.ugens.BEQSuite.BEQSuite&quot; -&gt; &quot;supriya.ugens.BLowShelf.BLowShelf&quot;		 [minlen=4];
 		&quot;supriya.ugens.BPeakEQ.BPeakEQ&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BPeakEQ.html#supriya.ugens.BPeakEQ.BPeakEQ&quot;,
-			color=6,
+			color=5,
 			label=&quot;BPeak\nEQ&quot;,
 			target=_top];
 		&quot;supriya.ugens.BEQSuite.BEQSuite&quot; -&gt; &quot;supriya.ugens.BPeakEQ.BPeakEQ&quot;		 [minlen=5];
 		&quot;supriya.ugens.BPF.BPF&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BPF.html#supriya.ugens.BPF.BPF&quot;,
-			color=6,
+			color=5,
 			label=BPF,
 			target=_top];
 		&quot;supriya.ugens.BPZ2.BPZ2&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BPZ2.html#supriya.ugens.BPZ2.BPZ2&quot;,
-			color=6,
-			label=&quot;BPZ\n2&quot;,
+			color=5,
+			label=BPZ2,
 			target=_top];
 		&quot;supriya.ugens.BRF.BRF&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BRF.html#supriya.ugens.BRF.BRF&quot;,
-			color=6,
+			color=5,
 			label=BRF,
 			target=_top];
 		&quot;supriya.ugens.BRZ2.BRZ2&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BRZ2.html#supriya.ugens.BRZ2.BRZ2&quot;,
-			color=6,
-			label=&quot;BRZ\n2&quot;,
+			color=5,
+			label=BRZ2,
 			target=_top];
 		&quot;supriya.ugens.Balance2.Balance2&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Balance2.html#supriya.ugens.Balance2.Balance2&quot;,
-			color=6,
+			color=5,
 			label=&quot;Balance\n2&quot;,
 			target=_top];
 		&quot;supriya.ugens.Ball.Ball&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Ball.html#supriya.ugens.Ball.Ball&quot;,
-			color=6,
+			color=5,
 			label=Ball,
 			target=_top];
 		&quot;supriya.ugens.BeatTrack.BeatTrack&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BeatTrack.html#supriya.ugens.BeatTrack.BeatTrack&quot;,
-			color=6,
+			color=5,
 			label=&quot;Beat\nTrack&quot;,
 			target=_top];
 		&quot;supriya.ugens.BeatTrack2.BeatTrack2&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BeatTrack2.html#supriya.ugens.BeatTrack2.BeatTrack2&quot;,
-			color=6,
+			color=5,
 			label=&quot;Beat\nTrack\n2&quot;,
 			target=_top];
 		&quot;supriya.ugens.BiPanB2.BiPanB2&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BiPanB2.html#supriya.ugens.BiPanB2.BiPanB2&quot;,
-			color=6,
-			label=&quot;Bi\nPan\nB\n2&quot;,
+			color=5,
+			label=&quot;Bi\nPan\nB2&quot;,
 			target=_top];
 		&quot;supriya.ugens.BinaryOpUGen.BinaryOpUGen&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BinaryOpUGen.html#supriya.ugens.BinaryOpUGen.BinaryOpUGen&quot;,
-			color=6,
+			color=5,
 			label=&quot;Binary\nOp\nUGen&quot;,
 			target=_top];
 		&quot;supriya.ugens.Blip.Blip&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Blip.html#supriya.ugens.Blip.Blip&quot;,
-			color=6,
+			color=5,
 			label=Blip,
 			target=_top];
 		&quot;supriya.ugens.BlockSize.BlockSize&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BlockSize.html#supriya.ugens.BlockSize.BlockSize&quot;,
-			color=6,
+			color=5,
 			label=&quot;Block\nSize&quot;,
 			target=_top];
 		&quot;supriya.ugens.BrownNoise.BrownNoise&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BrownNoise.html#supriya.ugens.BrownNoise.BrownNoise&quot;,
-			color=6,
+			color=5,
 			label=&quot;Brown\nNoise&quot;,
 			target=_top];
 		&quot;supriya.ugens.BufAllpassC.BufAllpassC&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BufAllpassC.html#supriya.ugens.BufAllpassC.BufAllpassC&quot;,
-			color=6,
+			color=5,
 			label=&quot;Buf\nAllpass\nC&quot;,
 			target=_top];
 		&quot;supriya.ugens.BufAllpassL.BufAllpassL&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BufAllpassL.html#supriya.ugens.BufAllpassL.BufAllpassL&quot;,
-			color=6,
+			color=5,
 			label=&quot;Buf\nAllpass\nL&quot;,
 			target=_top];
 		&quot;supriya.ugens.BufAllpassN.BufAllpassN&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BufAllpassN.html#supriya.ugens.BufAllpassN.BufAllpassN&quot;,
-			color=6,
+			color=5,
 			label=&quot;Buf\nAllpass\nN&quot;,
 			target=_top];
 		&quot;supriya.ugens.BufChannels.BufChannels&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BufChannels.html#supriya.ugens.BufChannels.BufChannels&quot;,
-			color=6,
+			color=5,
 			label=&quot;Buf\nChannels&quot;,
 			target=_top];
 		&quot;supriya.ugens.BufCombC.BufCombC&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BufCombC.html#supriya.ugens.BufCombC.BufCombC&quot;,
-			color=6,
+			color=5,
 			label=&quot;Buf\nComb\nC&quot;,
 			target=_top];
 		&quot;supriya.ugens.BufCombL.BufCombL&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BufCombL.html#supriya.ugens.BufCombL.BufCombL&quot;,
-			color=6,
+			color=5,
 			label=&quot;Buf\nComb\nL&quot;,
 			target=_top];
 		&quot;supriya.ugens.BufCombN.BufCombN&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BufCombN.html#supriya.ugens.BufCombN.BufCombN&quot;,
-			color=6,
+			color=5,
 			label=&quot;Buf\nComb\nN&quot;,
 			target=_top];
 		&quot;supriya.ugens.BufDelayC.BufDelayC&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BufDelayC.html#supriya.ugens.BufDelayC.BufDelayC&quot;,
-			color=6,
+			color=5,
 			label=&quot;Buf\nDelay\nC&quot;,
 			target=_top];
 		&quot;supriya.ugens.BufDelayL.BufDelayL&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BufDelayL.html#supriya.ugens.BufDelayL.BufDelayL&quot;,
-			color=6,
+			color=5,
 			label=&quot;Buf\nDelay\nL&quot;,
 			target=_top];
 		&quot;supriya.ugens.BufDelayN.BufDelayN&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BufDelayN.html#supriya.ugens.BufDelayN.BufDelayN&quot;,
-			color=6,
+			color=5,
 			label=&quot;Buf\nDelay\nN&quot;,
 			target=_top];
 		&quot;supriya.ugens.BufDur.BufDur&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BufDur.html#supriya.ugens.BufDur.BufDur&quot;,
-			color=6,
+			color=5,
 			label=&quot;Buf\nDur&quot;,
 			target=_top];
 		&quot;supriya.ugens.BufFrames.BufFrames&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BufFrames.html#supriya.ugens.BufFrames.BufFrames&quot;,
-			color=6,
+			color=5,
 			label=&quot;Buf\nFrames&quot;,
 			target=_top];
 		&quot;supriya.ugens.BufInfoUGenBase.BufInfoUGenBase&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BufInfoUGenBase.html#supriya.ugens.BufInfoUGenBase.BufInfoUGenBase&quot;,
-			color=6,
+			color=5,
 			label=&quot;Buf\nInfo\nUGen\nBase&quot;,
 			shape=oval,
 			style=bold,
@@ -585,336 +602,336 @@
 		&quot;supriya.ugens.BufInfoUGenBase.BufInfoUGenBase&quot; -&gt; &quot;supriya.ugens.BufDur.BufDur&quot;		 [minlen=2];
 		&quot;supriya.ugens.BufInfoUGenBase.BufInfoUGenBase&quot; -&gt; &quot;supriya.ugens.BufFrames.BufFrames&quot;		 [minlen=3];
 		&quot;supriya.ugens.BufRateScale.BufRateScale&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BufRateScale.html#supriya.ugens.BufRateScale.BufRateScale&quot;,
-			color=6,
+			color=5,
 			label=&quot;Buf\nRate\nScale&quot;,
 			target=_top];
 		&quot;supriya.ugens.BufInfoUGenBase.BufInfoUGenBase&quot; -&gt; &quot;supriya.ugens.BufRateScale.BufRateScale&quot;		 [minlen=4];
 		&quot;supriya.ugens.BufSampleRate.BufSampleRate&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BufSampleRate.html#supriya.ugens.BufSampleRate.BufSampleRate&quot;,
-			color=6,
+			color=5,
 			label=&quot;Buf\nSample\nRate&quot;,
 			target=_top];
 		&quot;supriya.ugens.BufInfoUGenBase.BufInfoUGenBase&quot; -&gt; &quot;supriya.ugens.BufSampleRate.BufSampleRate&quot;		 [minlen=5];
 		&quot;supriya.ugens.BufSamples.BufSamples&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BufSamples.html#supriya.ugens.BufSamples.BufSamples&quot;,
-			color=6,
+			color=5,
 			label=&quot;Buf\nSamples&quot;,
 			target=_top];
 		&quot;supriya.ugens.BufInfoUGenBase.BufInfoUGenBase&quot; -&gt; &quot;supriya.ugens.BufSamples.BufSamples&quot;		 [minlen=1];
 		&quot;supriya.ugens.BufRd.BufRd&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BufRd.html#supriya.ugens.BufRd.BufRd&quot;,
-			color=6,
+			color=5,
 			label=&quot;Buf\nRd&quot;,
 			target=_top];
 		&quot;supriya.ugens.BufWr.BufWr&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/BufWr.html#supriya.ugens.BufWr.BufWr&quot;,
-			color=6,
+			color=5,
 			label=&quot;Buf\nWr&quot;,
 			target=_top];
 		&quot;supriya.ugens.COsc.COsc&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/COsc.html#supriya.ugens.COsc.COsc&quot;,
-			color=6,
+			color=5,
 			label=COsc,
 			target=_top];
 		&quot;supriya.ugens.CheckBadValues.CheckBadValues&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/CheckBadValues.html#supriya.ugens.CheckBadValues.CheckBadValues&quot;,
-			color=6,
+			color=5,
 			label=&quot;Check\nBad\nValues&quot;,
 			target=_top];
 		&quot;supriya.ugens.ClearBuf.ClearBuf&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/ClearBuf.html#supriya.ugens.ClearBuf.ClearBuf&quot;,
-			color=6,
+			color=5,
 			label=&quot;Clear\nBuf&quot;,
 			target=_top];
 		&quot;supriya.ugens.Clip.Clip&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Clip.html#supriya.ugens.Clip.Clip&quot;,
-			color=6,
+			color=5,
 			label=Clip,
 			target=_top];
 		&quot;supriya.ugens.ClipNoise.ClipNoise&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/ClipNoise.html#supriya.ugens.ClipNoise.ClipNoise&quot;,
-			color=6,
+			color=5,
 			label=&quot;Clip\nNoise&quot;,
 			target=_top];
 		&quot;supriya.ugens.CoinGate.CoinGate&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/CoinGate.html#supriya.ugens.CoinGate.CoinGate&quot;,
-			color=6,
+			color=5,
 			label=&quot;Coin\nGate&quot;,
 			target=_top];
 		&quot;supriya.ugens.CombC.CombC&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/CombC.html#supriya.ugens.CombC.CombC&quot;,
-			color=6,
+			color=5,
 			label=&quot;Comb\nC&quot;,
 			target=_top];
 		&quot;supriya.ugens.CombL.CombL&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/CombL.html#supriya.ugens.CombL.CombL&quot;,
-			color=6,
+			color=5,
 			label=&quot;Comb\nL&quot;,
 			target=_top];
 		&quot;supriya.ugens.CombN.CombN&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/CombN.html#supriya.ugens.CombN.CombN&quot;,
-			color=6,
+			color=5,
 			label=&quot;Comb\nN&quot;,
 			target=_top];
 		&quot;supriya.ugens.Compander.Compander&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Compander.html#supriya.ugens.Compander.Compander&quot;,
-			color=6,
+			color=5,
 			label=Compander,
 			target=_top];
 		&quot;supriya.ugens.Control.Control&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Control.html#supriya.ugens.Control.Control&quot;,
-			color=6,
+			color=5,
 			label=Control,
 			target=_top];
 		&quot;supriya.ugens.Control.Control&quot; -&gt; &quot;supriya.ugens.AudioControl.AudioControl&quot;		 [minlen=1];
 		&quot;supriya.ugens.LagControl.LagControl&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LagControl.html#supriya.ugens.LagControl.LagControl&quot;,
-			color=6,
+			color=5,
 			label=&quot;Lag\nControl&quot;,
 			target=_top];
 		&quot;supriya.ugens.Control.Control&quot; -&gt; &quot;supriya.ugens.LagControl.LagControl&quot;		 [minlen=2];
 		&quot;supriya.ugens.TrigControl.TrigControl&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/TrigControl.html#supriya.ugens.TrigControl.TrigControl&quot;,
-			color=6,
+			color=5,
 			label=&quot;Trig\nControl&quot;,
 			target=_top];
 		&quot;supriya.ugens.Control.Control&quot; -&gt; &quot;supriya.ugens.TrigControl.TrigControl&quot;		 [minlen=3];
 		&quot;supriya.ugens.ControlDur.ControlDur&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/ControlDur.html#supriya.ugens.ControlDur.ControlDur&quot;,
-			color=6,
+			color=5,
 			label=&quot;Control\nDur&quot;,
 			target=_top];
 		&quot;supriya.ugens.ControlRate.ControlRate&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/ControlRate.html#supriya.ugens.ControlRate.ControlRate&quot;,
-			color=6,
+			color=5,
 			label=&quot;Control\nRate&quot;,
 			target=_top];
 		&quot;supriya.ugens.Convolution.Convolution&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Convolution.html#supriya.ugens.Convolution.Convolution&quot;,
-			color=6,
+			color=5,
 			label=Convolution,
 			target=_top];
 		&quot;supriya.ugens.Convolution2.Convolution2&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Convolution2.html#supriya.ugens.Convolution2.Convolution2&quot;,
-			color=6,
+			color=5,
 			label=&quot;Convolution\n2&quot;,
 			target=_top];
 		&quot;supriya.ugens.Convolution2L.Convolution2L&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Convolution2L.html#supriya.ugens.Convolution2L.Convolution2L&quot;,
-			color=6,
+			color=5,
 			label=&quot;Convolution\n2\nL&quot;,
 			target=_top];
 		&quot;supriya.ugens.Convolution3.Convolution3&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Convolution3.html#supriya.ugens.Convolution3.Convolution3&quot;,
-			color=6,
+			color=5,
 			label=&quot;Convolution\n3&quot;,
 			target=_top];
 		&quot;supriya.ugens.Crackle.Crackle&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Crackle.html#supriya.ugens.Crackle.Crackle&quot;,
-			color=6,
+			color=5,
 			label=Crackle,
 			target=_top];
 		&quot;supriya.ugens.CuspL.CuspL&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/CuspL.html#supriya.ugens.CuspL.CuspL&quot;,
-			color=6,
+			color=5,
 			label=&quot;Cusp\nL&quot;,
 			target=_top];
 		&quot;supriya.ugens.CuspN.CuspN&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/CuspN.html#supriya.ugens.CuspN.CuspN&quot;,
-			color=6,
+			color=5,
 			label=&quot;Cusp\nN&quot;,
 			target=_top];
 		&quot;supriya.ugens.DC.DC&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/DC.html#supriya.ugens.DC.DC&quot;,
-			color=6,
+			color=5,
 			label=DC,
 			target=_top];
 		&quot;supriya.ugens.DUGen.DUGen&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/DUGen.html#supriya.ugens.DUGen.DUGen&quot;,
-			color=6,
+			color=5,
 			label=DUGen,
 			target=_top];
 		&quot;supriya.ugens.Dbrown.Dbrown&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Dbrown.html#supriya.ugens.Dbrown.Dbrown&quot;,
-			color=6,
+			color=5,
 			label=Dbrown,
 			target=_top];
 		&quot;supriya.ugens.DUGen.DUGen&quot; -&gt; &quot;supriya.ugens.Dbrown.Dbrown&quot;		 [minlen=1];
 		&quot;supriya.ugens.Dbufrd.Dbufrd&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Dbufrd.html#supriya.ugens.Dbufrd.Dbufrd&quot;,
-			color=6,
+			color=5,
 			label=Dbufrd,
 			target=_top];
 		&quot;supriya.ugens.DUGen.DUGen&quot; -&gt; &quot;supriya.ugens.Dbufrd.Dbufrd&quot;		 [minlen=2];
 		&quot;supriya.ugens.Dbufwr.Dbufwr&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Dbufwr.html#supriya.ugens.Dbufwr.Dbufwr&quot;,
-			color=6,
+			color=5,
 			label=Dbufwr,
 			target=_top];
 		&quot;supriya.ugens.DUGen.DUGen&quot; -&gt; &quot;supriya.ugens.Dbufwr.Dbufwr&quot;		 [minlen=3];
 		&quot;supriya.ugens.Dgeom.Dgeom&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Dgeom.html#supriya.ugens.Dgeom.Dgeom&quot;,
-			color=6,
+			color=5,
 			label=Dgeom,
 			target=_top];
 		&quot;supriya.ugens.DUGen.DUGen&quot; -&gt; &quot;supriya.ugens.Dgeom.Dgeom&quot;		 [minlen=4];
 		&quot;supriya.ugens.Drand.Drand&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Drand.html#supriya.ugens.Drand.Drand&quot;,
-			color=6,
+			color=5,
 			label=Drand,
 			target=_top];
 		&quot;supriya.ugens.DUGen.DUGen&quot; -&gt; &quot;supriya.ugens.Drand.Drand&quot;		 [minlen=5];
 		&quot;supriya.ugens.Dreset.Dreset&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Dreset.html#supriya.ugens.Dreset.Dreset&quot;,
-			color=6,
+			color=5,
 			label=Dreset,
 			target=_top];
 		&quot;supriya.ugens.DUGen.DUGen&quot; -&gt; &quot;supriya.ugens.Dreset.Dreset&quot;		 [minlen=1];
 		&quot;supriya.ugens.Dseq.Dseq&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Dseq.html#supriya.ugens.Dseq.Dseq&quot;,
-			color=6,
+			color=5,
 			label=Dseq,
 			target=_top];
 		&quot;supriya.ugens.DUGen.DUGen&quot; -&gt; &quot;supriya.ugens.Dseq.Dseq&quot;		 [minlen=2];
 		&quot;supriya.ugens.Dser.Dser&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Dser.html#supriya.ugens.Dser.Dser&quot;,
-			color=6,
+			color=5,
 			label=Dser,
 			target=_top];
 		&quot;supriya.ugens.DUGen.DUGen&quot; -&gt; &quot;supriya.ugens.Dser.Dser&quot;		 [minlen=3];
 		&quot;supriya.ugens.Dseries.Dseries&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Dseries.html#supriya.ugens.Dseries.Dseries&quot;,
-			color=6,
+			color=5,
 			label=Dseries,
 			target=_top];
 		&quot;supriya.ugens.DUGen.DUGen&quot; -&gt; &quot;supriya.ugens.Dseries.Dseries&quot;		 [minlen=4];
 		&quot;supriya.ugens.Dshuf.Dshuf&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Dshuf.html#supriya.ugens.Dshuf.Dshuf&quot;,
-			color=6,
+			color=5,
 			label=Dshuf,
 			target=_top];
 		&quot;supriya.ugens.DUGen.DUGen&quot; -&gt; &quot;supriya.ugens.Dshuf.Dshuf&quot;		 [minlen=5];
 		&quot;supriya.ugens.Dstutter.Dstutter&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Dstutter.html#supriya.ugens.Dstutter.Dstutter&quot;,
-			color=6,
+			color=5,
 			label=Dstutter,
 			target=_top];
 		&quot;supriya.ugens.DUGen.DUGen&quot; -&gt; &quot;supriya.ugens.Dstutter.Dstutter&quot;		 [minlen=1];
 		&quot;supriya.ugens.Dswitch.Dswitch&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Dswitch.html#supriya.ugens.Dswitch.Dswitch&quot;,
-			color=6,
+			color=5,
 			label=Dswitch,
 			target=_top];
 		&quot;supriya.ugens.DUGen.DUGen&quot; -&gt; &quot;supriya.ugens.Dswitch.Dswitch&quot;		 [minlen=2];
 		&quot;supriya.ugens.Dswitch1.Dswitch1&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Dswitch1.html#supriya.ugens.Dswitch1.Dswitch1&quot;,
-			color=6,
+			color=5,
 			label=&quot;Dswitch\n1&quot;,
 			target=_top];
 		&quot;supriya.ugens.DUGen.DUGen&quot; -&gt; &quot;supriya.ugens.Dswitch1.Dswitch1&quot;		 [minlen=3];
 		&quot;supriya.ugens.Dunique.Dunique&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Dunique.html#supriya.ugens.Dunique.Dunique&quot;,
-			color=6,
+			color=5,
 			label=Dunique,
 			target=_top];
 		&quot;supriya.ugens.DUGen.DUGen&quot; -&gt; &quot;supriya.ugens.Dunique.Dunique&quot;		 [minlen=4];
 		&quot;supriya.ugens.Dwhite.Dwhite&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Dwhite.html#supriya.ugens.Dwhite.Dwhite&quot;,
-			color=6,
+			color=5,
 			label=Dwhite,
 			target=_top];
 		&quot;supriya.ugens.DUGen.DUGen&quot; -&gt; &quot;supriya.ugens.Dwhite.Dwhite&quot;		 [minlen=5];
 		&quot;supriya.ugens.Dwrand.Dwrand&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Dwrand.html#supriya.ugens.Dwrand.Dwrand&quot;,
-			color=6,
+			color=5,
 			label=Dwrand,
 			target=_top];
 		&quot;supriya.ugens.DUGen.DUGen&quot; -&gt; &quot;supriya.ugens.Dwrand.Dwrand&quot;		 [minlen=1];
 		&quot;supriya.ugens.Dxrand.Dxrand&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Dxrand.html#supriya.ugens.Dxrand.Dxrand&quot;,
-			color=6,
+			color=5,
 			label=Dxrand,
 			target=_top];
 		&quot;supriya.ugens.DUGen.DUGen&quot; -&gt; &quot;supriya.ugens.Dxrand.Dxrand&quot;		 [minlen=2];
 		&quot;supriya.ugens.Dibrown.Dibrown&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Dibrown.html#supriya.ugens.Dibrown.Dibrown&quot;,
-			color=6,
+			color=5,
 			label=Dibrown,
 			target=_top];
 		&quot;supriya.ugens.Dbrown.Dbrown&quot; -&gt; &quot;supriya.ugens.Dibrown.Dibrown&quot;		 [minlen=1];
 		&quot;supriya.ugens.Decay.Decay&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Decay.html#supriya.ugens.Decay.Decay&quot;,
-			color=6,
+			color=5,
 			label=Decay,
 			target=_top];
 		&quot;supriya.ugens.Decay2.Decay2&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Decay2.html#supriya.ugens.Decay2.Decay2&quot;,
-			color=6,
+			color=5,
 			label=&quot;Decay\n2&quot;,
 			target=_top];
 		&quot;supriya.ugens.DecodeB2.DecodeB2&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/DecodeB2.html#supriya.ugens.DecodeB2.DecodeB2&quot;,
-			color=6,
-			label=&quot;Decode\nB\n2&quot;,
+			color=5,
+			label=&quot;Decode\nB2&quot;,
 			target=_top];
 		&quot;supriya.ugens.DegreeToKey.DegreeToKey&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/DegreeToKey.html#supriya.ugens.DegreeToKey.DegreeToKey&quot;,
-			color=6,
+			color=5,
 			label=&quot;Degree\nTo\nKey&quot;,
 			target=_top];
 		&quot;supriya.ugens.DelTapRd.DelTapRd&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/DelTapRd.html#supriya.ugens.DelTapRd.DelTapRd&quot;,
-			color=6,
+			color=5,
 			label=&quot;Del\nTap\nRd&quot;,
 			target=_top];
 		&quot;supriya.ugens.DelTapWr.DelTapWr&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/DelTapWr.html#supriya.ugens.DelTapWr.DelTapWr&quot;,
-			color=6,
+			color=5,
 			label=&quot;Del\nTap\nWr&quot;,
 			target=_top];
 		&quot;supriya.ugens.Delay1.Delay1&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Delay1.html#supriya.ugens.Delay1.Delay1&quot;,
-			color=6,
+			color=5,
 			label=&quot;Delay\n1&quot;,
 			target=_top];
 		&quot;supriya.ugens.Delay2.Delay2&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Delay2.html#supriya.ugens.Delay2.Delay2&quot;,
-			color=6,
+			color=5,
 			label=&quot;Delay\n2&quot;,
 			target=_top];
 		&quot;supriya.ugens.DelayC.DelayC&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/DelayC.html#supriya.ugens.DelayC.DelayC&quot;,
-			color=6,
+			color=5,
 			label=&quot;Delay\nC&quot;,
 			target=_top];
 		&quot;supriya.ugens.DelayL.DelayL&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/DelayL.html#supriya.ugens.DelayL.DelayL&quot;,
-			color=6,
+			color=5,
 			label=&quot;Delay\nL&quot;,
 			target=_top];
 		&quot;supriya.ugens.DelayN.DelayN&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/DelayN.html#supriya.ugens.DelayN.DelayN&quot;,
-			color=6,
+			color=5,
 			label=&quot;Delay\nN&quot;,
 			target=_top];
 		&quot;supriya.ugens.Demand.Demand&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Demand.html#supriya.ugens.Demand.Demand&quot;,
-			color=6,
+			color=5,
 			label=Demand,
 			target=_top];
 		&quot;supriya.ugens.DemandEnvGen.DemandEnvGen&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/DemandEnvGen.html#supriya.ugens.DemandEnvGen.DemandEnvGen&quot;,
-			color=6,
+			color=5,
 			label=&quot;Demand\nEnv\nGen&quot;,
 			target=_top];
 		&quot;supriya.ugens.DetectSilence.DetectSilence&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/DetectSilence.html#supriya.ugens.DetectSilence.DetectSilence&quot;,
-			color=6,
+			color=5,
 			label=&quot;Detect\nSilence&quot;,
 			target=_top];
 		&quot;supriya.ugens.DiskIn.DiskIn&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/DiskIn.html#supriya.ugens.DiskIn.DiskIn&quot;,
-			color=6,
+			color=5,
 			label=&quot;Disk\nIn&quot;,
 			target=_top];
 		&quot;supriya.ugens.DiskOut.DiskOut&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/DiskOut.html#supriya.ugens.DiskOut.DiskOut&quot;,
-			color=6,
+			color=5,
 			label=&quot;Disk\nOut&quot;,
 			target=_top];
 		&quot;supriya.ugens.Diwhite.Diwhite&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Diwhite.html#supriya.ugens.Diwhite.Diwhite&quot;,
-			color=6,
+			color=5,
 			label=Diwhite,
 			target=_top];
 		&quot;supriya.ugens.Done.Done&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Done.html#supriya.ugens.Done.Done&quot;,
-			color=6,
+			color=5,
 			label=Done,
 			target=_top];
 		&quot;supriya.ugens.Dust.Dust&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Dust.html#supriya.ugens.Dust.Dust&quot;,
-			color=6,
+			color=5,
 			label=Dust,
 			target=_top];
 		&quot;supriya.ugens.Dust2.Dust2&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Dust2.html#supriya.ugens.Dust2.Dust2&quot;,
-			color=6,
+			color=5,
 			label=&quot;Dust\n2&quot;,
 			target=_top];
 		&quot;supriya.ugens.Duty.Duty&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Duty.html#supriya.ugens.Duty.Duty&quot;,
-			color=6,
+			color=5,
 			label=Duty,
 			target=_top];
 		&quot;supriya.ugens.Dwhite.Dwhite&quot; -&gt; &quot;supriya.ugens.Diwhite.Diwhite&quot;		 [minlen=1];
 		&quot;supriya.ugens.EnvGen.EnvGen&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/EnvGen.html#supriya.ugens.EnvGen.EnvGen&quot;,
-			color=6,
+			color=5,
 			label=&quot;Env\nGen&quot;,
 			target=_top];
 		&quot;supriya.ugens.ExpRand.ExpRand&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/ExpRand.html#supriya.ugens.ExpRand.ExpRand&quot;,
-			color=6,
+			color=5,
 			label=&quot;Exp\nRand&quot;,
 			target=_top];
 		&quot;supriya.ugens.FBSineC.FBSineC&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/FBSineC.html#supriya.ugens.FBSineC.FBSineC&quot;,
-			color=6,
+			color=5,
 			label=&quot;FBSine\nC&quot;,
 			target=_top];
 		&quot;supriya.ugens.FBSineL.FBSineL&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/FBSineL.html#supriya.ugens.FBSineL.FBSineL&quot;,
-			color=6,
+			color=5,
 			label=&quot;FBSine\nL&quot;,
 			target=_top];
 		&quot;supriya.ugens.FBSineN.FBSineN&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/FBSineN.html#supriya.ugens.FBSineN.FBSineN&quot;,
-			color=6,
+			color=5,
 			label=&quot;FBSine\nN&quot;,
 			target=_top];
 		&quot;supriya.ugens.FFT.FFT&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/FFT.html#supriya.ugens.FFT.FFT&quot;,
-			color=6,
+			color=5,
 			label=FFT,
 			target=_top];
 		&quot;supriya.ugens.FOS.FOS&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/FOS.html#supriya.ugens.FOS.FOS&quot;,
-			color=6,
+			color=5,
 			label=FOS,
 			target=_top];
 		&quot;supriya.ugens.FSinOsc.FSinOsc&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/FSinOsc.html#supriya.ugens.FSinOsc.FSinOsc&quot;,
-			color=6,
+			color=5,
 			label=&quot;FSin\nOsc&quot;,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Filter.html#supriya.ugens.Filter.Filter&quot;,
-			color=6,
+			color=5,
 			label=Filter,
 			shape=oval,
 			style=bold,
@@ -927,247 +944,247 @@
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.DetectSilence.DetectSilence&quot;		 [minlen=5];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.FOS.FOS&quot;		 [minlen=1];
 		&quot;supriya.ugens.Formlet.Formlet&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Formlet.html#supriya.ugens.Formlet.Formlet&quot;,
-			color=6,
+			color=5,
 			label=Formlet,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.Formlet.Formlet&quot;		 [minlen=2];
 		&quot;supriya.ugens.HPF.HPF&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/HPF.html#supriya.ugens.HPF.HPF&quot;,
-			color=6,
+			color=5,
 			label=HPF,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.HPF.HPF&quot;		 [minlen=3];
 		&quot;supriya.ugens.Integrator.Integrator&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Integrator.html#supriya.ugens.Integrator.Integrator&quot;,
-			color=6,
+			color=5,
 			label=Integrator,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.Integrator.Integrator&quot;		 [minlen=4];
 		&quot;supriya.ugens.LPF.LPF&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LPF.html#supriya.ugens.LPF.LPF&quot;,
-			color=6,
+			color=5,
 			label=LPF,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.LPF.LPF&quot;		 [minlen=5];
 		&quot;supriya.ugens.LPZ1.LPZ1&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LPZ1.html#supriya.ugens.LPZ1.LPZ1&quot;,
-			color=6,
-			label=&quot;LPZ\n1&quot;,
+			color=5,
+			label=LPZ1,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.LPZ1.LPZ1&quot;		 [minlen=1];
 		&quot;supriya.ugens.LPZ2.LPZ2&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LPZ2.html#supriya.ugens.LPZ2.LPZ2&quot;,
-			color=6,
-			label=&quot;LPZ\n2&quot;,
+			color=5,
+			label=LPZ2,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.LPZ2.LPZ2&quot;;
 		&quot;supriya.ugens.Lag.Lag&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Lag.html#supriya.ugens.Lag.Lag&quot;,
-			color=6,
+			color=5,
 			label=Lag,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.Lag.Lag&quot;		 [minlen=2];
 		&quot;supriya.ugens.Lag2.Lag2&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Lag2.html#supriya.ugens.Lag2.Lag2&quot;,
-			color=6,
+			color=5,
 			label=&quot;Lag\n2&quot;,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.Lag2.Lag2&quot;		 [minlen=3];
 		&quot;supriya.ugens.Lag2UD.Lag2UD&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Lag2UD.html#supriya.ugens.Lag2UD.Lag2UD&quot;,
-			color=6,
+			color=5,
 			label=&quot;Lag\n2\nUD&quot;,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.Lag2UD.Lag2UD&quot;		 [minlen=4];
 		&quot;supriya.ugens.Lag3.Lag3&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Lag3.html#supriya.ugens.Lag3.Lag3&quot;,
-			color=6,
+			color=5,
 			label=&quot;Lag\n3&quot;,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.Lag3.Lag3&quot;		 [minlen=5];
 		&quot;supriya.ugens.Lag3UD.Lag3UD&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Lag3UD.html#supriya.ugens.Lag3UD.Lag3UD&quot;,
-			color=6,
+			color=5,
 			label=&quot;Lag\n3\nUD&quot;,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.Lag3UD.Lag3UD&quot;		 [minlen=1];
 		&quot;supriya.ugens.LagUD.LagUD&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LagUD.html#supriya.ugens.LagUD.LagUD&quot;,
-			color=6,
+			color=5,
 			label=&quot;Lag\nUD&quot;,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.LagUD.LagUD&quot;		 [minlen=2];
 		&quot;supriya.ugens.LeakDC.LeakDC&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LeakDC.html#supriya.ugens.LeakDC.LeakDC&quot;,
-			color=6,
+			color=5,
 			label=&quot;Leak\nDC&quot;,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.LeakDC.LeakDC&quot;		 [minlen=3];
 		&quot;supriya.ugens.Median.Median&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Median.html#supriya.ugens.Median.Median&quot;,
-			color=6,
+			color=5,
 			label=Median,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.Median.Median&quot;		 [minlen=4];
 		&quot;supriya.ugens.MidEQ.MidEQ&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/MidEQ.html#supriya.ugens.MidEQ.MidEQ&quot;,
-			color=6,
+			color=5,
 			label=&quot;Mid\nEQ&quot;,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.MidEQ.MidEQ&quot;		 [minlen=5];
 		&quot;supriya.ugens.MoogFF.MoogFF&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/MoogFF.html#supriya.ugens.MoogFF.MoogFF&quot;,
-			color=6,
+			color=5,
 			label=&quot;Moog\nFF&quot;,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.MoogFF.MoogFF&quot;		 [minlen=1];
 		&quot;supriya.ugens.OnePole.OnePole&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/OnePole.html#supriya.ugens.OnePole.OnePole&quot;,
-			color=6,
+			color=5,
 			label=&quot;One\nPole&quot;,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.OnePole.OnePole&quot;		 [minlen=2];
 		&quot;supriya.ugens.RHPF.RHPF&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/RHPF.html#supriya.ugens.RHPF.RHPF&quot;,
-			color=6,
+			color=5,
 			label=RHPF,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.RHPF.RHPF&quot;		 [minlen=3];
 		&quot;supriya.ugens.RLPF.RLPF&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/RLPF.html#supriya.ugens.RLPF.RLPF&quot;,
-			color=6,
+			color=5,
 			label=RLPF,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.RLPF.RLPF&quot;		 [minlen=4];
 		&quot;supriya.ugens.Ringz.Ringz&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Ringz.html#supriya.ugens.Ringz.Ringz&quot;,
-			color=6,
+			color=5,
 			label=Ringz,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.Ringz.Ringz&quot;		 [minlen=5];
 		&quot;supriya.ugens.SOS.SOS&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/SOS.html#supriya.ugens.SOS.SOS&quot;,
-			color=6,
+			color=5,
 			label=SOS,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.SOS.SOS&quot;		 [minlen=1];
 		&quot;supriya.ugens.Slew.Slew&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Slew.html#supriya.ugens.Slew.Slew&quot;,
-			color=6,
+			color=5,
 			label=Slew,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.Slew.Slew&quot;		 [minlen=2];
 		&quot;supriya.ugens.Slope.Slope&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Slope.html#supriya.ugens.Slope.Slope&quot;,
-			color=6,
+			color=5,
 			label=Slope,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.Slope.Slope&quot;		 [minlen=3];
 		&quot;supriya.ugens.TwoPole.TwoPole&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/TwoPole.html#supriya.ugens.TwoPole.TwoPole&quot;,
-			color=6,
+			color=5,
 			label=&quot;Two\nPole&quot;,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.TwoPole.TwoPole&quot;		 [minlen=4];
 		&quot;supriya.ugens.Fold.Fold&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Fold.html#supriya.ugens.Fold.Fold&quot;,
-			color=6,
+			color=5,
 			label=Fold,
 			target=_top];
 		&quot;supriya.ugens.Free.Free&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Free.html#supriya.ugens.Free.Free&quot;,
-			color=6,
+			color=5,
 			label=Free,
 			target=_top];
 		&quot;supriya.ugens.FreeSelf.FreeSelf&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/FreeSelf.html#supriya.ugens.FreeSelf.FreeSelf&quot;,
-			color=6,
+			color=5,
 			label=&quot;Free\nSelf&quot;,
 			target=_top];
 		&quot;supriya.ugens.FreeSelfWhenDone.FreeSelfWhenDone&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/FreeSelfWhenDone.html#supriya.ugens.FreeSelfWhenDone.FreeSelfWhenDone&quot;,
-			color=6,
+			color=5,
 			label=&quot;Free\nSelf\nWhen\nDone&quot;,
 			target=_top];
 		&quot;supriya.ugens.FreeVerb.FreeVerb&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/FreeVerb.html#supriya.ugens.FreeVerb.FreeVerb&quot;,
-			color=6,
+			color=5,
 			label=&quot;Free\nVerb&quot;,
 			target=_top];
 		&quot;supriya.ugens.FreqShift.FreqShift&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/FreqShift.html#supriya.ugens.FreqShift.FreqShift&quot;,
-			color=6,
+			color=5,
 			label=&quot;Freq\nShift&quot;,
 			target=_top];
 		&quot;supriya.ugens.Gate.Gate&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Gate.html#supriya.ugens.Gate.Gate&quot;,
-			color=6,
+			color=5,
 			label=Gate,
 			target=_top];
 		&quot;supriya.ugens.GbmanL.GbmanL&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/GbmanL.html#supriya.ugens.GbmanL.GbmanL&quot;,
-			color=6,
+			color=5,
 			label=&quot;Gbman\nL&quot;,
 			target=_top];
 		&quot;supriya.ugens.GbmanN.GbmanN&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/GbmanN.html#supriya.ugens.GbmanN.GbmanN&quot;,
-			color=6,
+			color=5,
 			label=&quot;Gbman\nN&quot;,
 			target=_top];
 		&quot;supriya.ugens.Gendy1.Gendy1&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Gendy1.html#supriya.ugens.Gendy1.Gendy1&quot;,
-			color=6,
+			color=5,
 			label=&quot;Gendy\n1&quot;,
 			target=_top];
 		&quot;supriya.ugens.Gendy2.Gendy2&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Gendy2.html#supriya.ugens.Gendy2.Gendy2&quot;,
-			color=6,
+			color=5,
 			label=&quot;Gendy\n2&quot;,
 			target=_top];
 		&quot;supriya.ugens.Gendy3.Gendy3&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Gendy3.html#supriya.ugens.Gendy3.Gendy3&quot;,
-			color=6,
+			color=5,
 			label=&quot;Gendy\n3&quot;,
 			target=_top];
 		&quot;supriya.ugens.GrainBuf.GrainBuf&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/GrainBuf.html#supriya.ugens.GrainBuf.GrainBuf&quot;,
-			color=6,
+			color=5,
 			label=&quot;Grain\nBuf&quot;,
 			target=_top];
 		&quot;supriya.ugens.GrainIn.GrainIn&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/GrainIn.html#supriya.ugens.GrainIn.GrainIn&quot;,
-			color=6,
+			color=5,
 			label=&quot;Grain\nIn&quot;,
 			target=_top];
 		&quot;supriya.ugens.GrayNoise.GrayNoise&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/GrayNoise.html#supriya.ugens.GrayNoise.GrayNoise&quot;,
-			color=6,
+			color=5,
 			label=&quot;Gray\nNoise&quot;,
 			target=_top];
 		&quot;supriya.ugens.HPZ1.HPZ1&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/HPZ1.html#supriya.ugens.HPZ1.HPZ1&quot;,
-			color=6,
-			label=&quot;HPZ\n1&quot;,
+			color=5,
+			label=HPZ1,
 			target=_top];
 		&quot;supriya.ugens.HPZ2.HPZ2&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/HPZ2.html#supriya.ugens.HPZ2.HPZ2&quot;,
-			color=6,
-			label=&quot;HPZ\n2&quot;,
+			color=5,
+			label=HPZ2,
 			target=_top];
 		&quot;supriya.ugens.Hasher.Hasher&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Hasher.html#supriya.ugens.Hasher.Hasher&quot;,
-			color=6,
+			color=5,
 			label=Hasher,
 			target=_top];
 		&quot;supriya.ugens.HenonC.HenonC&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/HenonC.html#supriya.ugens.HenonC.HenonC&quot;,
-			color=6,
+			color=5,
 			label=&quot;Henon\nC&quot;,
 			target=_top];
 		&quot;supriya.ugens.HenonL.HenonL&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/HenonL.html#supriya.ugens.HenonL.HenonL&quot;,
-			color=6,
+			color=5,
 			label=&quot;Henon\nL&quot;,
 			target=_top];
 		&quot;supriya.ugens.HenonN.HenonN&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/HenonN.html#supriya.ugens.HenonN.HenonN&quot;,
-			color=6,
+			color=5,
 			label=&quot;Henon\nN&quot;,
 			target=_top];
 		&quot;supriya.ugens.Hilbert.Hilbert&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Hilbert.html#supriya.ugens.Hilbert.Hilbert&quot;,
-			color=6,
+			color=5,
 			label=Hilbert,
 			target=_top];
 		&quot;supriya.ugens.HilbertFIR.HilbertFIR&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/HilbertFIR.html#supriya.ugens.HilbertFIR.HilbertFIR&quot;,
-			color=6,
+			color=5,
 			label=&quot;Hilbert\nFIR&quot;,
 			target=_top];
 		&quot;supriya.ugens.IFFT.IFFT&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/IFFT.html#supriya.ugens.IFFT.IFFT&quot;,
-			color=6,
+			color=5,
 			label=IFFT,
 			target=_top];
 		&quot;supriya.ugens.IRand.IRand&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/IRand.html#supriya.ugens.IRand.IRand&quot;,
-			color=6,
+			color=5,
 			label=IRand,
 			target=_top];
 		&quot;supriya.ugens.Impulse.Impulse&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Impulse.html#supriya.ugens.Impulse.Impulse&quot;,
-			color=6,
+			color=5,
 			label=Impulse,
 			target=_top];
 		&quot;supriya.ugens.In.In&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/In.html#supriya.ugens.In.In&quot;,
-			color=6,
+			color=5,
 			label=In,
 			target=_top];
 		&quot;supriya.ugens.InFeedback.InFeedback&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/InFeedback.html#supriya.ugens.InFeedback.InFeedback&quot;,
-			color=6,
+			color=5,
 			label=&quot;In\nFeedback&quot;,
 			target=_top];
 		&quot;supriya.ugens.InRange.InRange&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/InRange.html#supriya.ugens.InRange.InRange&quot;,
-			color=6,
+			color=5,
 			label=&quot;In\nRange&quot;,
 			target=_top];
 		&quot;supriya.ugens.Index.Index&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/_Index.html#supriya.ugens.Index.Index&quot;,
-			color=6,
+			color=5,
 			label=Index,
 			target=_top];
 		&quot;supriya.ugens.InfoUGenBase.InfoUGenBase&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/InfoUGenBase.html#supriya.ugens.InfoUGenBase.InfoUGenBase&quot;,
-			color=6,
+			color=5,
 			label=&quot;Info\nUGen\nBase&quot;,
 			shape=oval,
 			style=bold,
@@ -1177,121 +1194,121 @@
 		&quot;supriya.ugens.InfoUGenBase.InfoUGenBase&quot; -&gt; &quot;supriya.ugens.ControlDur.ControlDur&quot;		 [minlen=2];
 		&quot;supriya.ugens.InfoUGenBase.InfoUGenBase&quot; -&gt; &quot;supriya.ugens.ControlRate.ControlRate&quot;		 [minlen=3];
 		&quot;supriya.ugens.NumAudioBuses.NumAudioBuses&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/NumAudioBuses.html#supriya.ugens.NumAudioBuses.NumAudioBuses&quot;,
-			color=6,
+			color=5,
 			label=&quot;Num\nAudio\nBuses&quot;,
 			target=_top];
 		&quot;supriya.ugens.InfoUGenBase.InfoUGenBase&quot; -&gt; &quot;supriya.ugens.NumAudioBuses.NumAudioBuses&quot;		 [minlen=4];
 		&quot;supriya.ugens.NumBuffers.NumBuffers&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/NumBuffers.html#supriya.ugens.NumBuffers.NumBuffers&quot;,
-			color=6,
+			color=5,
 			label=&quot;Num\nBuffers&quot;,
 			target=_top];
 		&quot;supriya.ugens.InfoUGenBase.InfoUGenBase&quot; -&gt; &quot;supriya.ugens.NumBuffers.NumBuffers&quot;		 [minlen=5];
 		&quot;supriya.ugens.NumControlBuses.NumControlBuses&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/NumControlBuses.html#supriya.ugens.NumControlBuses.NumControlBuses&quot;,
-			color=6,
+			color=5,
 			label=&quot;Num\nControl\nBuses&quot;,
 			target=_top];
 		&quot;supriya.ugens.InfoUGenBase.InfoUGenBase&quot; -&gt; &quot;supriya.ugens.NumControlBuses.NumControlBuses&quot;		 [minlen=1];
 		&quot;supriya.ugens.NumInputBuses.NumInputBuses&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/NumInputBuses.html#supriya.ugens.NumInputBuses.NumInputBuses&quot;,
-			color=6,
+			color=5,
 			label=&quot;Num\nInput\nBuses&quot;,
 			target=_top];
 		&quot;supriya.ugens.InfoUGenBase.InfoUGenBase&quot; -&gt; &quot;supriya.ugens.NumInputBuses.NumInputBuses&quot;		 [minlen=2];
 		&quot;supriya.ugens.NumOutputBuses.NumOutputBuses&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/NumOutputBuses.html#supriya.ugens.NumOutputBuses.NumOutputBuses&quot;,
-			color=6,
+			color=5,
 			label=&quot;Num\nOutput\nBuses&quot;,
 			target=_top];
 		&quot;supriya.ugens.InfoUGenBase.InfoUGenBase&quot; -&gt; &quot;supriya.ugens.NumOutputBuses.NumOutputBuses&quot;		 [minlen=3];
 		&quot;supriya.ugens.NumRunningSynths.NumRunningSynths&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/NumRunningSynths.html#supriya.ugens.NumRunningSynths.NumRunningSynths&quot;,
-			color=6,
+			color=5,
 			label=&quot;Num\nRunning\nSynths&quot;,
 			target=_top];
 		&quot;supriya.ugens.InfoUGenBase.InfoUGenBase&quot; -&gt; &quot;supriya.ugens.NumRunningSynths.NumRunningSynths&quot;		 [minlen=4];
 		&quot;supriya.ugens.RadiansPerSample.RadiansPerSample&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/RadiansPerSample.html#supriya.ugens.RadiansPerSample.RadiansPerSample&quot;,
-			color=6,
+			color=5,
 			label=&quot;Radians\nPer\nSample&quot;,
 			target=_top];
 		&quot;supriya.ugens.InfoUGenBase.InfoUGenBase&quot; -&gt; &quot;supriya.ugens.RadiansPerSample.RadiansPerSample&quot;		 [minlen=5];
 		&quot;supriya.ugens.SampleDur.SampleDur&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/SampleDur.html#supriya.ugens.SampleDur.SampleDur&quot;,
-			color=6,
+			color=5,
 			label=&quot;Sample\nDur&quot;,
 			target=_top];
 		&quot;supriya.ugens.InfoUGenBase.InfoUGenBase&quot; -&gt; &quot;supriya.ugens.SampleDur.SampleDur&quot;		 [minlen=1];
 		&quot;supriya.ugens.SampleRate.SampleRate&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/SampleRate.html#supriya.ugens.SampleRate.SampleRate&quot;,
-			color=6,
+			color=5,
 			label=&quot;Sample\nRate&quot;,
 			target=_top];
 		&quot;supriya.ugens.InfoUGenBase.InfoUGenBase&quot; -&gt; &quot;supriya.ugens.SampleRate.SampleRate&quot;		 [minlen=2];
 		&quot;supriya.ugens.SubsampleOffset.SubsampleOffset&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/SubsampleOffset.html#supriya.ugens.SubsampleOffset.SubsampleOffset&quot;,
-			color=6,
+			color=5,
 			label=&quot;Subsample\nOffset&quot;,
 			target=_top];
 		&quot;supriya.ugens.InfoUGenBase.InfoUGenBase&quot; -&gt; &quot;supriya.ugens.SubsampleOffset.SubsampleOffset&quot;		 [minlen=3];
 		&quot;supriya.ugens.K2A.K2A&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/K2A.html#supriya.ugens.K2A.K2A&quot;,
-			color=6,
-			label=&quot;K\n2\nA&quot;,
+			color=5,
+			label=&quot;K2\nA&quot;,
 			target=_top];
 		&quot;supriya.ugens.KeyTrack.KeyTrack&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/KeyTrack.html#supriya.ugens.KeyTrack.KeyTrack&quot;,
-			color=6,
+			color=5,
 			label=&quot;Key\nTrack&quot;,
 			target=_top];
 		&quot;supriya.ugens.Klank.Klank&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Klank.html#supriya.ugens.Klank.Klank&quot;,
-			color=6,
+			color=5,
 			label=Klank,
 			target=_top];
 		&quot;supriya.ugens.LFClipNoise.LFClipNoise&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LFClipNoise.html#supriya.ugens.LFClipNoise.LFClipNoise&quot;,
-			color=6,
+			color=5,
 			label=&quot;LFClip\nNoise&quot;,
 			target=_top];
 		&quot;supriya.ugens.LFCub.LFCub&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LFCub.html#supriya.ugens.LFCub.LFCub&quot;,
-			color=6,
+			color=5,
 			label=LFCub,
 			target=_top];
 		&quot;supriya.ugens.LFDClipNoise.LFDClipNoise&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LFDClipNoise.html#supriya.ugens.LFDClipNoise.LFDClipNoise&quot;,
-			color=6,
+			color=5,
 			label=&quot;LFDClip\nNoise&quot;,
 			target=_top];
 		&quot;supriya.ugens.LFDNoise0.LFDNoise0&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LFDNoise0.html#supriya.ugens.LFDNoise0.LFDNoise0&quot;,
-			color=6,
+			color=5,
 			label=&quot;LFDNoise\n0&quot;,
 			target=_top];
 		&quot;supriya.ugens.LFDNoise1.LFDNoise1&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LFDNoise1.html#supriya.ugens.LFDNoise1.LFDNoise1&quot;,
-			color=6,
+			color=5,
 			label=&quot;LFDNoise\n1&quot;,
 			target=_top];
 		&quot;supriya.ugens.LFDNoise3.LFDNoise3&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LFDNoise3.html#supriya.ugens.LFDNoise3.LFDNoise3&quot;,
-			color=6,
+			color=5,
 			label=&quot;LFDNoise\n3&quot;,
 			target=_top];
 		&quot;supriya.ugens.LFGauss.LFGauss&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LFGauss.html#supriya.ugens.LFGauss.LFGauss&quot;,
-			color=6,
+			color=5,
 			label=LFGauss,
 			target=_top];
 		&quot;supriya.ugens.LFNoise0.LFNoise0&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LFNoise0.html#supriya.ugens.LFNoise0.LFNoise0&quot;,
-			color=6,
+			color=5,
 			label=&quot;LFNoise\n0&quot;,
 			target=_top];
 		&quot;supriya.ugens.LFNoise1.LFNoise1&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LFNoise1.html#supriya.ugens.LFNoise1.LFNoise1&quot;,
-			color=6,
+			color=5,
 			label=&quot;LFNoise\n1&quot;,
 			target=_top];
 		&quot;supriya.ugens.LFNoise2.LFNoise2&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LFNoise2.html#supriya.ugens.LFNoise2.LFNoise2&quot;,
-			color=6,
+			color=5,
 			label=&quot;LFNoise\n2&quot;,
 			target=_top];
 		&quot;supriya.ugens.LFPar.LFPar&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LFPar.html#supriya.ugens.LFPar.LFPar&quot;,
-			color=6,
+			color=5,
 			label=LFPar,
 			target=_top];
 		&quot;supriya.ugens.LFPulse.LFPulse&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LFPulse.html#supriya.ugens.LFPulse.LFPulse&quot;,
-			color=6,
+			color=5,
 			label=LFPulse,
 			target=_top];
 		&quot;supriya.ugens.LFSaw.LFSaw&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LFSaw.html#supriya.ugens.LFSaw.LFSaw&quot;,
-			color=6,
+			color=5,
 			label=LFSaw,
 			target=_top];
 		&quot;supriya.ugens.LFTri.LFTri&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LFTri.html#supriya.ugens.LFTri.LFTri&quot;,
-			color=6,
+			color=5,
 			label=LFTri,
 			target=_top];
 		&quot;supriya.ugens.LPZ1.LPZ1&quot; -&gt; &quot;supriya.ugens.HPZ1.HPZ1&quot;		 [minlen=1];
@@ -1299,121 +1316,121 @@
 		&quot;supriya.ugens.LPZ2.LPZ2&quot; -&gt; &quot;supriya.ugens.BRZ2.BRZ2&quot;		 [minlen=2];
 		&quot;supriya.ugens.LPZ2.LPZ2&quot; -&gt; &quot;supriya.ugens.HPZ2.HPZ2&quot;		 [minlen=3];
 		&quot;supriya.ugens.Ramp.Ramp&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Ramp.html#supriya.ugens.Ramp.Ramp&quot;,
-			color=6,
+			color=5,
 			label=Ramp,
 			target=_top];
 		&quot;supriya.ugens.Lag.Lag&quot; -&gt; &quot;supriya.ugens.Ramp.Ramp&quot;		 [minlen=1];
 		&quot;supriya.ugens.Latch.Latch&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Latch.html#supriya.ugens.Latch.Latch&quot;,
-			color=6,
+			color=5,
 			label=Latch,
 			target=_top];
 		&quot;supriya.ugens.LatoocarfianC.LatoocarfianC&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LatoocarfianC.html#supriya.ugens.LatoocarfianC.LatoocarfianC&quot;,
-			color=6,
+			color=5,
 			label=&quot;Latoocarfian\nC&quot;,
 			target=_top];
 		&quot;supriya.ugens.LatoocarfianL.LatoocarfianL&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LatoocarfianL.html#supriya.ugens.LatoocarfianL.LatoocarfianL&quot;,
-			color=6,
+			color=5,
 			label=&quot;Latoocarfian\nL&quot;,
 			target=_top];
 		&quot;supriya.ugens.LatoocarfianN.LatoocarfianN&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LatoocarfianN.html#supriya.ugens.LatoocarfianN.LatoocarfianN&quot;,
-			color=6,
+			color=5,
 			label=&quot;Latoocarfian\nN&quot;,
 			target=_top];
 		&quot;supriya.ugens.LeastChange.LeastChange&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LeastChange.html#supriya.ugens.LeastChange.LeastChange&quot;,
-			color=6,
+			color=5,
 			label=&quot;Least\nChange&quot;,
 			target=_top];
 		&quot;supriya.ugens.Limiter.Limiter&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Limiter.html#supriya.ugens.Limiter.Limiter&quot;,
-			color=6,
+			color=5,
 			label=Limiter,
 			target=_top];
 		&quot;supriya.ugens.LinCongC.LinCongC&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LinCongC.html#supriya.ugens.LinCongC.LinCongC&quot;,
-			color=6,
+			color=5,
 			label=&quot;Lin\nCong\nC&quot;,
 			target=_top];
 		&quot;supriya.ugens.LinCongL.LinCongL&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LinCongL.html#supriya.ugens.LinCongL.LinCongL&quot;,
-			color=6,
+			color=5,
 			label=&quot;Lin\nCong\nL&quot;,
 			target=_top];
 		&quot;supriya.ugens.LinCongN.LinCongN&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LinCongN.html#supriya.ugens.LinCongN.LinCongN&quot;,
-			color=6,
+			color=5,
 			label=&quot;Lin\nCong\nN&quot;,
 			target=_top];
 		&quot;supriya.ugens.LinExp.LinExp&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LinExp.html#supriya.ugens.LinExp.LinExp&quot;,
-			color=6,
+			color=5,
 			label=&quot;Lin\nExp&quot;,
 			target=_top];
 		&quot;supriya.ugens.LinRand.LinRand&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LinRand.html#supriya.ugens.LinRand.LinRand&quot;,
-			color=6,
+			color=5,
 			label=&quot;Lin\nRand&quot;,
 			target=_top];
 		&quot;supriya.ugens.Line.Line&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Line.html#supriya.ugens.Line.Line&quot;,
-			color=6,
+			color=5,
 			label=Line,
 			target=_top];
 		&quot;supriya.ugens.Linen.Linen&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Linen.html#supriya.ugens.Linen.Linen&quot;,
-			color=6,
+			color=5,
 			label=Linen,
 			target=_top];
 		&quot;supriya.ugens.LocalBuf.LocalBuf&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LocalBuf.html#supriya.ugens.LocalBuf.LocalBuf&quot;,
-			color=6,
+			color=5,
 			label=&quot;Local\nBuf&quot;,
 			target=_top];
 		&quot;supriya.ugens.LocalIn.LocalIn&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LocalIn.html#supriya.ugens.LocalIn.LocalIn&quot;,
-			color=6,
+			color=5,
 			label=&quot;Local\nIn&quot;,
 			target=_top];
 		&quot;supriya.ugens.LocalOut.LocalOut&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LocalOut.html#supriya.ugens.LocalOut.LocalOut&quot;,
-			color=6,
+			color=5,
 			label=&quot;Local\nOut&quot;,
 			target=_top];
 		&quot;supriya.ugens.Logistic.Logistic&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Logistic.html#supriya.ugens.Logistic.Logistic&quot;,
-			color=6,
+			color=5,
 			label=Logistic,
 			target=_top];
 		&quot;supriya.ugens.LorenzL.LorenzL&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/LorenzL.html#supriya.ugens.LorenzL.LorenzL&quot;,
-			color=6,
+			color=5,
 			label=&quot;Lorenz\nL&quot;,
 			target=_top];
 		&quot;supriya.ugens.Loudness.Loudness&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Loudness.html#supriya.ugens.Loudness.Loudness&quot;,
-			color=6,
+			color=5,
 			label=Loudness,
 			target=_top];
 		&quot;supriya.ugens.MFCC.MFCC&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/MFCC.html#supriya.ugens.MFCC.MFCC&quot;,
-			color=6,
+			color=5,
 			label=MFCC,
 			target=_top];
 		&quot;supriya.ugens.MantissaMask.MantissaMask&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/MantissaMask.html#supriya.ugens.MantissaMask.MantissaMask&quot;,
-			color=6,
+			color=5,
 			label=&quot;Mantissa\nMask&quot;,
 			target=_top];
 		&quot;supriya.ugens.MaxLocalBufs.MaxLocalBufs&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/MaxLocalBufs.html#supriya.ugens.MaxLocalBufs.MaxLocalBufs&quot;,
-			color=6,
+			color=5,
 			label=&quot;Max\nLocal\nBufs&quot;,
 			target=_top];
 		&quot;supriya.ugens.MostChange.MostChange&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/MostChange.html#supriya.ugens.MostChange.MostChange&quot;,
-			color=6,
+			color=5,
 			label=&quot;Most\nChange&quot;,
 			target=_top];
 		&quot;supriya.ugens.MostChange.MostChange&quot; -&gt; &quot;supriya.ugens.LeastChange.LeastChange&quot;		 [minlen=1];
 		&quot;supriya.ugens.MouseButton.MouseButton&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/MouseButton.html#supriya.ugens.MouseButton.MouseButton&quot;,
-			color=6,
+			color=5,
 			label=&quot;Mouse\nButton&quot;,
 			target=_top];
 		&quot;supriya.ugens.MouseX.MouseX&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/MouseX.html#supriya.ugens.MouseX.MouseX&quot;,
-			color=6,
+			color=5,
 			label=&quot;Mouse\nX&quot;,
 			target=_top];
 		&quot;supriya.ugens.MouseY.MouseY&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/MouseY.html#supriya.ugens.MouseY.MouseY&quot;,
-			color=6,
+			color=5,
 			label=&quot;Mouse\nY&quot;,
 			target=_top];
 		&quot;supriya.ugens.MulAdd.MulAdd&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/MulAdd.html#supriya.ugens.MulAdd.MulAdd&quot;,
-			color=6,
+			color=5,
 			label=&quot;Mul\nAdd&quot;,
 			target=_top];
 		&quot;supriya.ugens.MultiOutUGen.MultiOutUGen&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/MultiOutUGen.html#supriya.ugens.MultiOutUGen.MultiOutUGen&quot;,
-			color=6,
+			color=5,
 			label=&quot;Multi\nOut\nUGen&quot;,
 			shape=oval,
 			style=bold,
@@ -1435,104 +1452,104 @@
 		&quot;supriya.ugens.MultiOutUGen.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.LocalIn.LocalIn&quot;		 [minlen=4];
 		&quot;supriya.ugens.MultiOutUGen.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.MFCC.MFCC&quot;		 [minlen=5];
 		&quot;supriya.ugens.Pan2.Pan2&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Pan2.html#supriya.ugens.Pan2.Pan2&quot;,
-			color=6,
+			color=5,
 			label=&quot;Pan\n2&quot;,
 			target=_top];
 		&quot;supriya.ugens.MultiOutUGen.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.Pan2.Pan2&quot;		 [minlen=1];
 		&quot;supriya.ugens.Pan4.Pan4&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Pan4.html#supriya.ugens.Pan4.Pan4&quot;,
-			color=6,
+			color=5,
 			label=&quot;Pan\n4&quot;,
 			target=_top];
 		&quot;supriya.ugens.MultiOutUGen.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.Pan4.Pan4&quot;		 [minlen=2];
 		&quot;supriya.ugens.PanAz.PanAz&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PanAz.html#supriya.ugens.PanAz.PanAz&quot;,
-			color=6,
+			color=5,
 			label=&quot;Pan\nAz&quot;,
 			target=_top];
 		&quot;supriya.ugens.MultiOutUGen.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.PanAz.PanAz&quot;		 [minlen=3];
 		&quot;supriya.ugens.PanB.PanB&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PanB.html#supriya.ugens.PanB.PanB&quot;,
-			color=6,
+			color=5,
 			label=&quot;Pan\nB&quot;,
 			target=_top];
 		&quot;supriya.ugens.MultiOutUGen.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.PanB.PanB&quot;		 [minlen=4];
 		&quot;supriya.ugens.PanB2.PanB2&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PanB2.html#supriya.ugens.PanB2.PanB2&quot;,
-			color=6,
-			label=&quot;Pan\nB\n2&quot;,
+			color=5,
+			label=&quot;Pan\nB2&quot;,
 			target=_top];
 		&quot;supriya.ugens.MultiOutUGen.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.PanB2.PanB2&quot;		 [minlen=5];
 		&quot;supriya.ugens.PlayBuf.PlayBuf&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PlayBuf.html#supriya.ugens.PlayBuf.PlayBuf&quot;,
-			color=6,
+			color=5,
 			label=&quot;Play\nBuf&quot;,
 			target=_top];
 		&quot;supriya.ugens.MultiOutUGen.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.PlayBuf.PlayBuf&quot;		 [minlen=1];
 		&quot;supriya.ugens.PureMultiOutUGen.PureMultiOutUGen&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PureMultiOutUGen.html#supriya.ugens.PureMultiOutUGen.PureMultiOutUGen&quot;,
-			color=6,
+			color=5,
 			label=&quot;Pure\nMulti\nOut\nUGen&quot;,
 			shape=oval,
 			style=bold,
 			target=_top];
 		&quot;supriya.ugens.MultiOutUGen.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.PureMultiOutUGen.PureMultiOutUGen&quot;		 [minlen=2];
 		&quot;supriya.ugens.Rotate2.Rotate2&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Rotate2.html#supriya.ugens.Rotate2.Rotate2&quot;,
-			color=6,
+			color=5,
 			label=&quot;Rotate\n2&quot;,
 			target=_top];
 		&quot;supriya.ugens.MultiOutUGen.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.Rotate2.Rotate2&quot;		 [minlen=3];
 		&quot;supriya.ugens.VDiskIn.VDiskIn&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/VDiskIn.html#supriya.ugens.VDiskIn.VDiskIn&quot;,
-			color=6,
+			color=5,
 			label=&quot;VDisk\nIn&quot;,
 			target=_top];
 		&quot;supriya.ugens.MultiOutUGen.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.VDiskIn.VDiskIn&quot;		 [minlen=4];
 		&quot;supriya.ugens.Warp1.Warp1&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Warp1.html#supriya.ugens.Warp1.Warp1&quot;,
-			color=6,
+			color=5,
 			label=&quot;Warp\n1&quot;,
 			target=_top];
 		&quot;supriya.ugens.MultiOutUGen.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.Warp1.Warp1&quot;		 [minlen=5];
 		&quot;supriya.ugens.NRand.NRand&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/NRand.html#supriya.ugens.NRand.NRand&quot;,
-			color=6,
+			color=5,
 			label=NRand,
 			target=_top];
 		&quot;supriya.ugens.Normalizer.Normalizer&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Normalizer.html#supriya.ugens.Normalizer.Normalizer&quot;,
-			color=6,
+			color=5,
 			label=Normalizer,
 			target=_top];
 		&quot;supriya.ugens.OffsetOut.OffsetOut&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/OffsetOut.html#supriya.ugens.OffsetOut.OffsetOut&quot;,
-			color=6,
+			color=5,
 			label=&quot;Offset\nOut&quot;,
 			target=_top];
 		&quot;supriya.ugens.OneZero.OneZero&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/OneZero.html#supriya.ugens.OneZero.OneZero&quot;,
-			color=6,
+			color=5,
 			label=&quot;One\nZero&quot;,
 			target=_top];
 		&quot;supriya.ugens.OnePole.OnePole&quot; -&gt; &quot;supriya.ugens.OneZero.OneZero&quot;		 [minlen=1];
 		&quot;supriya.ugens.Onsets.Onsets&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Onsets.html#supriya.ugens.Onsets.Onsets&quot;,
-			color=6,
+			color=5,
 			label=Onsets,
 			target=_top];
 		&quot;supriya.ugens.Out.Out&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Out.html#supriya.ugens.Out.Out&quot;,
-			color=6,
+			color=5,
 			label=Out,
 			target=_top];
 		&quot;supriya.ugens.PV_Add.PV_Add&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_Add.html#supriya.ugens.PV_Add.PV_Add&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nAdd&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_BinScramble.PV_BinScramble&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_BinScramble.html#supriya.ugens.PV_BinScramble.PV_BinScramble&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nBin\nScramble&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_BinShift.PV_BinShift&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_BinShift.html#supriya.ugens.PV_BinShift.PV_BinShift&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nBin\nShift&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_BinWipe.PV_BinWipe&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_BinWipe.html#supriya.ugens.PV_BinWipe.PV_BinWipe&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nBin\nWipe&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_BrickWall.PV_BrickWall&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_BrickWall.html#supriya.ugens.PV_BrickWall.PV_BrickWall&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nBrick\nWall&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_ChainUGen.html#supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nChain\nUGen&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.FFT.FFT&quot;		 [minlen=1];
@@ -1542,206 +1559,206 @@
 		&quot;supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.PV_BinWipe.PV_BinWipe&quot;		 [minlen=5];
 		&quot;supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.PV_BrickWall.PV_BrickWall&quot;		 [minlen=1];
 		&quot;supriya.ugens.PV_ConformalMap.PV_ConformalMap&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_ConformalMap.html#supriya.ugens.PV_ConformalMap.PV_ConformalMap&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nConformal\nMap&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.PV_ConformalMap.PV_ConformalMap&quot;		 [minlen=2];
 		&quot;supriya.ugens.PV_Copy.PV_Copy&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_Copy.html#supriya.ugens.PV_Copy.PV_Copy&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nCopy&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.PV_Copy.PV_Copy&quot;		 [minlen=3];
 		&quot;supriya.ugens.PV_CopyPhase.PV_CopyPhase&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_CopyPhase.html#supriya.ugens.PV_CopyPhase.PV_CopyPhase&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nCopy\nPhase&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.PV_CopyPhase.PV_CopyPhase&quot;		 [minlen=4];
 		&quot;supriya.ugens.PV_Diffuser.PV_Diffuser&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_Diffuser.html#supriya.ugens.PV_Diffuser.PV_Diffuser&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nDiffuser&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.PV_Diffuser.PV_Diffuser&quot;		 [minlen=5];
 		&quot;supriya.ugens.PV_Div.PV_Div&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_Div.html#supriya.ugens.PV_Div.PV_Div&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nDiv&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.PV_Div.PV_Div&quot;		 [minlen=1];
 		&quot;supriya.ugens.PV_HainsworthFoote.PV_HainsworthFoote&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_HainsworthFoote.html#supriya.ugens.PV_HainsworthFoote.PV_HainsworthFoote&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nHainsworth\nFoote&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.PV_HainsworthFoote.PV_HainsworthFoote&quot;		 [minlen=2];
 		&quot;supriya.ugens.PV_JensenAndersen.PV_JensenAndersen&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_JensenAndersen.html#supriya.ugens.PV_JensenAndersen.PV_JensenAndersen&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nJensen\nAndersen&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.PV_JensenAndersen.PV_JensenAndersen&quot;		 [minlen=3];
 		&quot;supriya.ugens.PV_MagAbove.PV_MagAbove&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_MagAbove.html#supriya.ugens.PV_MagAbove.PV_MagAbove&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nMag\nAbove&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.PV_MagAbove.PV_MagAbove&quot;;
 		&quot;supriya.ugens.PV_MagDiv.PV_MagDiv&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_MagDiv.html#supriya.ugens.PV_MagDiv.PV_MagDiv&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nMag\nDiv&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.PV_MagDiv.PV_MagDiv&quot;		 [minlen=4];
 		&quot;supriya.ugens.PV_MagFreeze.PV_MagFreeze&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_MagFreeze.html#supriya.ugens.PV_MagFreeze.PV_MagFreeze&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nMag\nFreeze&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.PV_MagFreeze.PV_MagFreeze&quot;		 [minlen=5];
 		&quot;supriya.ugens.PV_MagMul.PV_MagMul&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_MagMul.html#supriya.ugens.PV_MagMul.PV_MagMul&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nMag\nMul&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.PV_MagMul.PV_MagMul&quot;		 [minlen=1];
 		&quot;supriya.ugens.PV_MagShift.PV_MagShift&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_MagShift.html#supriya.ugens.PV_MagShift.PV_MagShift&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nMag\nShift&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.PV_MagShift.PV_MagShift&quot;		 [minlen=2];
 		&quot;supriya.ugens.PV_MagSmear.PV_MagSmear&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_MagSmear.html#supriya.ugens.PV_MagSmear.PV_MagSmear&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nMag\nSmear&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.PV_MagSmear.PV_MagSmear&quot;		 [minlen=3];
 		&quot;supriya.ugens.PV_MagSquared.PV_MagSquared&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_MagSquared.html#supriya.ugens.PV_MagSquared.PV_MagSquared&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nMag\nSquared&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.PV_MagSquared.PV_MagSquared&quot;;
 		&quot;supriya.ugens.PV_Max.PV_Max&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_Max.html#supriya.ugens.PV_Max.PV_Max&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nMax&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.PV_Max.PV_Max&quot;		 [minlen=4];
 		&quot;supriya.ugens.PV_Min.PV_Min&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_Min.html#supriya.ugens.PV_Min.PV_Min&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nMin&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.PV_Min.PV_Min&quot;		 [minlen=5];
 		&quot;supriya.ugens.PV_Mul.PV_Mul&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_Mul.html#supriya.ugens.PV_Mul.PV_Mul&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nMul&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.PV_Mul.PV_Mul&quot;		 [minlen=1];
 		&quot;supriya.ugens.PV_PhaseShift.PV_PhaseShift&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_PhaseShift.html#supriya.ugens.PV_PhaseShift.PV_PhaseShift&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nPhase\nShift&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.PV_PhaseShift.PV_PhaseShift&quot;		 [minlen=2];
 		&quot;supriya.ugens.PV_RandComb.PV_RandComb&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_RandComb.html#supriya.ugens.PV_RandComb.PV_RandComb&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nRand\nComb&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.PV_RandComb.PV_RandComb&quot;		 [minlen=3];
 		&quot;supriya.ugens.PV_RandWipe.PV_RandWipe&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_RandWipe.html#supriya.ugens.PV_RandWipe.PV_RandWipe&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nRand\nWipe&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.PV_RandWipe.PV_RandWipe&quot;		 [minlen=4];
 		&quot;supriya.ugens.PV_RectComb.PV_RectComb&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_RectComb.html#supriya.ugens.PV_RectComb.PV_RectComb&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nRect\nComb&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.PV_RectComb.PV_RectComb&quot;		 [minlen=5];
 		&quot;supriya.ugens.PV_RectComb2.PV_RectComb2&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_RectComb2.html#supriya.ugens.PV_RectComb2.PV_RectComb2&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nRect\nComb\n2&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_ChainUGen.PV_ChainUGen&quot; -&gt; &quot;supriya.ugens.PV_RectComb2.PV_RectComb2&quot;		 [minlen=1];
 		&quot;supriya.ugens.PV_Conj.PV_Conj&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_Conj.html#supriya.ugens.PV_Conj.PV_Conj&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nConj&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_LocalMax.PV_LocalMax&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_LocalMax.html#supriya.ugens.PV_LocalMax.PV_LocalMax&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nLocal\nMax&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_MagAbove.PV_MagAbove&quot; -&gt; &quot;supriya.ugens.PV_LocalMax.PV_LocalMax&quot;		 [minlen=1];
 		&quot;supriya.ugens.PV_MagBelow.PV_MagBelow&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_MagBelow.html#supriya.ugens.PV_MagBelow.PV_MagBelow&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nMag\nBelow&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_MagAbove.PV_MagAbove&quot; -&gt; &quot;supriya.ugens.PV_MagBelow.PV_MagBelow&quot;		 [minlen=2];
 		&quot;supriya.ugens.PV_MagClip.PV_MagClip&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_MagClip.html#supriya.ugens.PV_MagClip.PV_MagClip&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nMag\nClip&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_MagAbove.PV_MagAbove&quot; -&gt; &quot;supriya.ugens.PV_MagClip.PV_MagClip&quot;		 [minlen=3];
 		&quot;supriya.ugens.PV_MagNoise.PV_MagNoise&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_MagNoise.html#supriya.ugens.PV_MagNoise.PV_MagNoise&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nMag\nNoise&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_MagSquared.PV_MagSquared&quot; -&gt; &quot;supriya.ugens.PV_Conj.PV_Conj&quot;		 [minlen=1];
 		&quot;supriya.ugens.PV_MagSquared.PV_MagSquared&quot; -&gt; &quot;supriya.ugens.PV_MagNoise.PV_MagNoise&quot;		 [minlen=2];
 		&quot;supriya.ugens.PV_PhaseShift270.PV_PhaseShift270&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_PhaseShift270.html#supriya.ugens.PV_PhaseShift270.PV_PhaseShift270&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nPhase\nShift\n270&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_MagSquared.PV_MagSquared&quot; -&gt; &quot;supriya.ugens.PV_PhaseShift270.PV_PhaseShift270&quot;		 [minlen=3];
 		&quot;supriya.ugens.PV_PhaseShift90.PV_PhaseShift90&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PV_PhaseShift90.html#supriya.ugens.PV_PhaseShift90.PV_PhaseShift90&quot;,
-			color=6,
+			color=5,
 			label=&quot;PV\nPhase\nShift\n90&quot;,
 			target=_top];
 		&quot;supriya.ugens.PV_MagSquared.PV_MagSquared&quot; -&gt; &quot;supriya.ugens.PV_PhaseShift90.PV_PhaseShift90&quot;		 [minlen=4];
 		&quot;supriya.ugens.Pause.Pause&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Pause.html#supriya.ugens.Pause.Pause&quot;,
-			color=6,
+			color=5,
 			label=Pause,
 			target=_top];
 		&quot;supriya.ugens.PauseSelf.PauseSelf&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PauseSelf.html#supriya.ugens.PauseSelf.PauseSelf&quot;,
-			color=6,
+			color=5,
 			label=&quot;Pause\nSelf&quot;,
 			target=_top];
 		&quot;supriya.ugens.PauseSelfWhenDone.PauseSelfWhenDone&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PauseSelfWhenDone.html#supriya.ugens.PauseSelfWhenDone.PauseSelfWhenDone&quot;,
-			color=6,
+			color=5,
 			label=&quot;Pause\nSelf\nWhen\nDone&quot;,
 			target=_top];
 		&quot;supriya.ugens.Peak.Peak&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Peak.html#supriya.ugens.Peak.Peak&quot;,
-			color=6,
+			color=5,
 			label=Peak,
 			target=_top];
 		&quot;supriya.ugens.RunningMax.RunningMax&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/RunningMax.html#supriya.ugens.RunningMax.RunningMax&quot;,
-			color=6,
+			color=5,
 			label=&quot;Running\nMax&quot;,
 			target=_top];
 		&quot;supriya.ugens.Peak.Peak&quot; -&gt; &quot;supriya.ugens.RunningMax.RunningMax&quot;		 [minlen=1];
 		&quot;supriya.ugens.RunningMin.RunningMin&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/RunningMin.html#supriya.ugens.RunningMin.RunningMin&quot;,
-			color=6,
+			color=5,
 			label=&quot;Running\nMin&quot;,
 			target=_top];
 		&quot;supriya.ugens.Peak.Peak&quot; -&gt; &quot;supriya.ugens.RunningMin.RunningMin&quot;		 [minlen=2];
 		&quot;supriya.ugens.PeakFollower.PeakFollower&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PeakFollower.html#supriya.ugens.PeakFollower.PeakFollower&quot;,
-			color=6,
+			color=5,
 			label=&quot;Peak\nFollower&quot;,
 			target=_top];
 		&quot;supriya.ugens.Phasor.Phasor&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Phasor.html#supriya.ugens.Phasor.Phasor&quot;,
-			color=6,
+			color=5,
 			label=Phasor,
 			target=_top];
 		&quot;supriya.ugens.PinkNoise.PinkNoise&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PinkNoise.html#supriya.ugens.PinkNoise.PinkNoise&quot;,
-			color=6,
+			color=5,
 			label=&quot;Pink\nNoise&quot;,
 			target=_top];
 		&quot;supriya.ugens.PitchShift.PitchShift&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PitchShift.html#supriya.ugens.PitchShift.PitchShift&quot;,
-			color=6,
+			color=5,
 			label=&quot;Pitch\nShift&quot;,
 			target=_top];
 		&quot;supriya.ugens.Pluck.Pluck&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Pluck.html#supriya.ugens.Pluck.Pluck&quot;,
-			color=6,
+			color=5,
 			label=Pluck,
 			target=_top];
 		&quot;supriya.ugens.Poll.Poll&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Poll.html#supriya.ugens.Poll.Poll&quot;,
-			color=6,
+			color=5,
 			label=Poll,
 			target=_top];
 		&quot;supriya.ugens.Pulse.Pulse&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Pulse.html#supriya.ugens.Pulse.Pulse&quot;,
-			color=6,
+			color=5,
 			label=Pulse,
 			target=_top];
 		&quot;supriya.ugens.PureUGen.PureUGen&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/PureUGen.html#supriya.ugens.PureUGen.PureUGen&quot;,
-			color=6,
+			color=5,
 			label=&quot;Pure\nUGen&quot;,
 			shape=oval,
 			style=bold,
@@ -1784,173 +1801,177 @@
 		&quot;supriya.ugens.PureUGen.PureUGen&quot; -&gt; &quot;supriya.ugens.LFTri.LFTri&quot;		 [minlen=5];
 		&quot;supriya.ugens.PureUGen.PureUGen&quot; -&gt; &quot;supriya.ugens.LinExp.LinExp&quot;		 [minlen=1];
 		&quot;supriya.ugens.Saw.Saw&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Saw.html#supriya.ugens.Saw.Saw&quot;,
-			color=6,
+			color=5,
 			label=Saw,
 			target=_top];
 		&quot;supriya.ugens.PureUGen.PureUGen&quot; -&gt; &quot;supriya.ugens.Saw.Saw&quot;		 [minlen=2];
 		&quot;supriya.ugens.Select.Select&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Select.html#supriya.ugens.Select.Select&quot;,
-			color=6,
+			color=5,
 			label=Select,
 			target=_top];
 		&quot;supriya.ugens.PureUGen.PureUGen&quot; -&gt; &quot;supriya.ugens.Select.Select&quot;		 [minlen=3];
 		&quot;supriya.ugens.SinOsc.SinOsc&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/SinOsc.html#supriya.ugens.SinOsc.SinOsc&quot;,
-			color=6,
+			color=5,
 			label=&quot;Sin\nOsc&quot;,
 			target=_top];
 		&quot;supriya.ugens.PureUGen.PureUGen&quot; -&gt; &quot;supriya.ugens.SinOsc.SinOsc&quot;		 [minlen=4];
 		&quot;supriya.ugens.SyncSaw.SyncSaw&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/SyncSaw.html#supriya.ugens.SyncSaw.SyncSaw&quot;,
-			color=6,
+			color=5,
 			label=&quot;Sync\nSaw&quot;,
 			target=_top];
 		&quot;supriya.ugens.PureUGen.PureUGen&quot; -&gt; &quot;supriya.ugens.SyncSaw.SyncSaw&quot;		 [minlen=5];
 		&quot;supriya.ugens.UnaryOpUGen.UnaryOpUGen&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/UnaryOpUGen.html#supriya.ugens.UnaryOpUGen.UnaryOpUGen&quot;,
-			color=6,
+			color=5,
 			label=&quot;Unary\nOp\nUGen&quot;,
 			target=_top];
 		&quot;supriya.ugens.PureUGen.PureUGen&quot; -&gt; &quot;supriya.ugens.UnaryOpUGen.UnaryOpUGen&quot;		 [minlen=1];
 		&quot;supriya.ugens.VOsc.VOsc&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/VOsc.html#supriya.ugens.VOsc.VOsc&quot;,
-			color=6,
+			color=5,
 			label=VOsc,
 			target=_top];
 		&quot;supriya.ugens.PureUGen.PureUGen&quot; -&gt; &quot;supriya.ugens.VOsc.VOsc&quot;		 [minlen=2];
 		&quot;supriya.ugens.VOsc3.VOsc3&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/VOsc3.html#supriya.ugens.VOsc3.VOsc3&quot;,
-			color=6,
+			color=5,
 			label=&quot;VOsc\n3&quot;,
 			target=_top];
 		&quot;supriya.ugens.PureUGen.PureUGen&quot; -&gt; &quot;supriya.ugens.VOsc3.VOsc3&quot;		 [minlen=3];
 		&quot;supriya.ugens.VarSaw.VarSaw&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/VarSaw.html#supriya.ugens.VarSaw.VarSaw&quot;,
-			color=6,
+			color=5,
 			label=&quot;Var\nSaw&quot;,
 			target=_top];
 		&quot;supriya.ugens.PureUGen.PureUGen&quot; -&gt; &quot;supriya.ugens.VarSaw.VarSaw&quot;		 [minlen=4];
 		&quot;supriya.ugens.Vibrato.Vibrato&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Vibrato.html#supriya.ugens.Vibrato.Vibrato&quot;,
-			color=6,
+			color=5,
 			label=Vibrato,
 			target=_top];
 		&quot;supriya.ugens.PureUGen.PureUGen&quot; -&gt; &quot;supriya.ugens.Vibrato.Vibrato&quot;		 [minlen=5];
 		&quot;supriya.ugens.QuadC.QuadC&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/QuadC.html#supriya.ugens.QuadC.QuadC&quot;,
-			color=6,
+			color=5,
 			label=&quot;Quad\nC&quot;,
 			target=_top];
 		&quot;supriya.ugens.QuadL.QuadL&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/QuadL.html#supriya.ugens.QuadL.QuadL&quot;,
-			color=6,
+			color=5,
 			label=&quot;Quad\nL&quot;,
 			target=_top];
 		&quot;supriya.ugens.QuadN.QuadN&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/QuadN.html#supriya.ugens.QuadN.QuadN&quot;,
-			color=6,
+			color=5,
 			label=&quot;Quad\nN&quot;,
 			target=_top];
 		&quot;supriya.ugens.Rand.Rand&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Rand.html#supriya.ugens.Rand.Rand&quot;,
-			color=6,
+			color=5,
 			label=Rand,
 			target=_top];
 		&quot;supriya.ugens.RandID.RandID&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/RandID.html#supriya.ugens.RandID.RandID&quot;,
-			color=6,
+			color=5,
 			label=&quot;Rand\nID&quot;,
 			target=_top];
 		&quot;supriya.ugens.RandSeed.RandSeed&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/RandSeed.html#supriya.ugens.RandSeed.RandSeed&quot;,
-			color=6,
+			color=5,
 			label=&quot;Rand\nSeed&quot;,
 			target=_top];
 		&quot;supriya.ugens.RecordBuf.RecordBuf&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/RecordBuf.html#supriya.ugens.RecordBuf.RecordBuf&quot;,
-			color=6,
+			color=5,
 			label=&quot;Record\nBuf&quot;,
 			target=_top];
 		&quot;supriya.ugens.ReplaceOut.ReplaceOut&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/ReplaceOut.html#supriya.ugens.ReplaceOut.ReplaceOut&quot;,
-			color=6,
+			color=5,
 			label=&quot;Replace\nOut&quot;,
 			target=_top];
 		&quot;supriya.ugens.RunningSum.RunningSum&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/RunningSum.html#supriya.ugens.RunningSum.RunningSum&quot;,
-			color=6,
+			color=5,
 			label=&quot;Running\nSum&quot;,
 			target=_top];
 		&quot;supriya.ugens.Schmidt.Schmidt&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Schmidt.html#supriya.ugens.Schmidt.Schmidt&quot;,
-			color=6,
+			color=5,
 			label=Schmidt,
 			target=_top];
 		&quot;supriya.ugens.SendPeakRMS.SendPeakRMS&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/SendPeakRMS.html#supriya.ugens.SendPeakRMS.SendPeakRMS&quot;,
-			color=6,
+			color=5,
 			label=&quot;Send\nPeak\nRMS&quot;,
 			target=_top];
+		&quot;supriya.ugens.SendTrig.SendTrig&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/SendTrig.html#supriya.ugens.SendTrig.SendTrig&quot;,
+			color=5,
+			label=&quot;Send\nTrig&quot;,
+			target=_top];
 		&quot;supriya.ugens.SpecCentroid.SpecCentroid&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/SpecCentroid.html#supriya.ugens.SpecCentroid.SpecCentroid&quot;,
-			color=6,
+			color=5,
 			label=&quot;Spec\nCentroid&quot;,
 			target=_top];
 		&quot;supriya.ugens.SpecFlatness.SpecFlatness&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/SpecFlatness.html#supriya.ugens.SpecFlatness.SpecFlatness&quot;,
-			color=6,
+			color=5,
 			label=&quot;Spec\nFlatness&quot;,
 			target=_top];
 		&quot;supriya.ugens.SpecPcile.SpecPcile&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/SpecPcile.html#supriya.ugens.SpecPcile.SpecPcile&quot;,
-			color=6,
+			color=5,
 			label=&quot;Spec\nPcile&quot;,
 			target=_top];
 		&quot;supriya.ugens.Spring.Spring&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Spring.html#supriya.ugens.Spring.Spring&quot;,
-			color=6,
+			color=5,
 			label=Spring,
 			target=_top];
 		&quot;supriya.ugens.StandardL.StandardL&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/StandardL.html#supriya.ugens.StandardL.StandardL&quot;,
-			color=6,
+			color=5,
 			label=&quot;Standard\nL&quot;,
 			target=_top];
 		&quot;supriya.ugens.StandardN.StandardN&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/StandardN.html#supriya.ugens.StandardN.StandardN&quot;,
-			color=6,
+			color=5,
 			label=&quot;Standard\nN&quot;,
 			target=_top];
 		&quot;supriya.ugens.Sum3.Sum3&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Sum3.html#supriya.ugens.Sum3.Sum3&quot;,
-			color=6,
+			color=5,
 			label=&quot;Sum\n3&quot;,
 			target=_top];
 		&quot;supriya.ugens.Sum4.Sum4&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Sum4.html#supriya.ugens.Sum4.Sum4&quot;,
-			color=6,
+			color=5,
 			label=&quot;Sum\n4&quot;,
 			target=_top];
 		&quot;supriya.ugens.Sweep.Sweep&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Sweep.html#supriya.ugens.Sweep.Sweep&quot;,
-			color=6,
+			color=5,
 			label=Sweep,
 			target=_top];
 		&quot;supriya.ugens.TBall.TBall&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/TBall.html#supriya.ugens.TBall.TBall&quot;,
-			color=6,
+			color=5,
 			label=TBall,
 			target=_top];
 		&quot;supriya.ugens.TDelay.TDelay&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/TDelay.html#supriya.ugens.TDelay.TDelay&quot;,
-			color=6,
+			color=5,
 			label=TDelay,
 			target=_top];
 		&quot;supriya.ugens.TExpRand.TExpRand&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/TExpRand.html#supriya.ugens.TExpRand.TExpRand&quot;,
-			color=6,
+			color=5,
 			label=&quot;TExp\nRand&quot;,
 			target=_top];
 		&quot;supriya.ugens.TIRand.TIRand&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/TIRand.html#supriya.ugens.TIRand.TIRand&quot;,
-			color=6,
+			color=5,
 			label=TIRand,
 			target=_top];
 		&quot;supriya.ugens.TRand.TRand&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/TRand.html#supriya.ugens.TRand.TRand&quot;,
-			color=6,
+			color=5,
 			label=TRand,
 			target=_top];
 		&quot;supriya.ugens.TWindex.TWindex&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/TWindex.html#supriya.ugens.TWindex.TWindex&quot;,
-			color=6,
+			color=5,
 			label=TWindex,
 			target=_top];
 		&quot;supriya.ugens.ToggleFF.ToggleFF&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/ToggleFF.html#supriya.ugens.ToggleFF.ToggleFF&quot;,
-			color=6,
+			color=5,
 			label=&quot;Toggle\nFF&quot;,
 			target=_top];
 		&quot;supriya.ugens.Trig.Trig&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Trig.html#supriya.ugens.Trig.Trig&quot;,
-			color=6,
+			color=5,
 			label=Trig,
 			target=_top];
 		&quot;supriya.ugens.Trig1.Trig1&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Trig1.html#supriya.ugens.Trig1.Trig1&quot;,
-			color=6,
+			color=5,
 			label=&quot;Trig\n1&quot;,
 			target=_top];
 		&quot;supriya.ugens.TwoZero.TwoZero&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/TwoZero.html#supriya.ugens.TwoZero.TwoZero&quot;,
-			color=6,
+			color=5,
 			label=&quot;Two\nZero&quot;,
 			target=_top];
 		&quot;supriya.ugens.TwoPole.TwoPole&quot; -&gt; &quot;supriya.ugens.TwoZero.TwoZero&quot;		 [minlen=1];
 		&quot;supriya.ugens.UGen.UGen&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/UGen.html#supriya.ugens.UGen.UGen&quot;,
-			color=6,
+			color=5,
 			label=UGen,
 			shape=oval,
 			style=bold,
@@ -2069,66 +2090,67 @@
 		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.RunningSum.RunningSum&quot;		 [minlen=2];
 		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Schmidt.Schmidt&quot;		 [minlen=3];
 		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.SendPeakRMS.SendPeakRMS&quot;		 [minlen=4];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.SpecCentroid.SpecCentroid&quot;		 [minlen=5];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.SpecFlatness.SpecFlatness&quot;		 [minlen=1];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.SpecPcile.SpecPcile&quot;		 [minlen=2];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Spring.Spring&quot;		 [minlen=3];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.StandardL.StandardL&quot;		 [minlen=4];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.StandardN.StandardN&quot;		 [minlen=5];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Sum3.Sum3&quot;		 [minlen=1];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Sum4.Sum4&quot;		 [minlen=2];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Sweep.Sweep&quot;		 [minlen=3];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.TBall.TBall&quot;		 [minlen=4];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.TDelay.TDelay&quot;		 [minlen=5];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.TExpRand.TExpRand&quot;		 [minlen=1];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.TIRand.TIRand&quot;		 [minlen=2];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.TRand.TRand&quot;		 [minlen=3];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.TWindex.TWindex&quot;		 [minlen=4];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.ToggleFF.ToggleFF&quot;		 [minlen=5];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Trig.Trig&quot;		 [minlen=1];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Trig1.Trig1&quot;		 [minlen=2];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.SendTrig.SendTrig&quot;		 [minlen=5];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.SpecCentroid.SpecCentroid&quot;		 [minlen=1];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.SpecFlatness.SpecFlatness&quot;		 [minlen=2];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.SpecPcile.SpecPcile&quot;		 [minlen=3];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Spring.Spring&quot;		 [minlen=4];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.StandardL.StandardL&quot;		 [minlen=5];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.StandardN.StandardN&quot;		 [minlen=1];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Sum3.Sum3&quot;		 [minlen=2];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Sum4.Sum4&quot;		 [minlen=3];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Sweep.Sweep&quot;		 [minlen=4];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.TBall.TBall&quot;		 [minlen=5];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.TDelay.TDelay&quot;		 [minlen=1];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.TExpRand.TExpRand&quot;		 [minlen=2];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.TIRand.TIRand&quot;		 [minlen=3];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.TRand.TRand&quot;		 [minlen=4];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.TWindex.TWindex&quot;		 [minlen=5];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.ToggleFF.ToggleFF&quot;		 [minlen=1];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Trig.Trig&quot;		 [minlen=2];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Trig1.Trig1&quot;		 [minlen=3];
 		&quot;supriya.ugens.WhiteNoise.WhiteNoise&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/WhiteNoise.html#supriya.ugens.WhiteNoise.WhiteNoise&quot;,
-			color=6,
+			color=5,
 			label=&quot;White\nNoise&quot;,
 			target=_top];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.WhiteNoise.WhiteNoise&quot;		 [minlen=3];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.WhiteNoise.WhiteNoise&quot;		 [minlen=4];
 		&quot;supriya.ugens.WidthFirstUGen.WidthFirstUGen&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/WidthFirstUGen.html#supriya.ugens.WidthFirstUGen.WidthFirstUGen&quot;,
-			color=6,
+			color=5,
 			label=&quot;Width\nFirst\nUGen&quot;,
 			shape=oval,
 			style=bold,
 			target=_top];
 		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.WidthFirstUGen.WidthFirstUGen&quot;;
 		&quot;supriya.ugens.Wrap.Wrap&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/Wrap.html#supriya.ugens.Wrap.Wrap&quot;,
-			color=6,
+			color=5,
 			label=Wrap,
 			target=_top];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Wrap.Wrap&quot;		 [minlen=4];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Wrap.Wrap&quot;		 [minlen=5];
 		&quot;supriya.ugens.WrapIndex.WrapIndex&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/WrapIndex.html#supriya.ugens.WrapIndex.WrapIndex&quot;,
-			color=6,
+			color=5,
 			label=&quot;Wrap\nIndex&quot;,
 			target=_top];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.WrapIndex.WrapIndex&quot;		 [minlen=5];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.WrapIndex.WrapIndex&quot;		 [minlen=1];
 		&quot;supriya.ugens.XFade2.XFade2&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/XFade2.html#supriya.ugens.XFade2.XFade2&quot;,
-			color=6,
+			color=5,
 			label=&quot;XFade\n2&quot;,
 			target=_top];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.XFade2.XFade2&quot;		 [minlen=1];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.XFade2.XFade2&quot;		 [minlen=2];
 		&quot;supriya.ugens.XLine.XLine&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/XLine.html#supriya.ugens.XLine.XLine&quot;,
-			color=6,
+			color=5,
 			label=XLine,
 			target=_top];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.XLine.XLine&quot;		 [minlen=2];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.XLine.XLine&quot;		 [minlen=3];
 		&quot;supriya.ugens.XOut.XOut&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/XOut.html#supriya.ugens.XOut.XOut&quot;,
-			color=6,
+			color=5,
 			label=XOut,
 			target=_top];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.XOut.XOut&quot;		 [minlen=3];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.XOut.XOut&quot;		 [minlen=4];
 		&quot;supriya.ugens.ZeroCrossing.ZeroCrossing&quot;		 [URL=&quot;../api/supriya/synthdefs/../ugens/ZeroCrossing.html#supriya.ugens.ZeroCrossing.ZeroCrossing&quot;,
-			color=6,
+			color=5,
 			label=&quot;Zero\nCrossing&quot;,
 			target=_top];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.ZeroCrossing.ZeroCrossing&quot;		 [minlen=4];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.ZeroCrossing.ZeroCrossing&quot;		 [minlen=5];
 		&quot;supriya.ugens.WidthFirstUGen.WidthFirstUGen&quot; -&gt; &quot;supriya.ugens.ClearBuf.ClearBuf&quot;		 [minlen=1];
 		&quot;supriya.ugens.WidthFirstUGen.WidthFirstUGen&quot; -&gt; &quot;supriya.ugens.IFFT.IFFT&quot;		 [minlen=2];
 		&quot;supriya.ugens.WidthFirstUGen.WidthFirstUGen&quot; -&gt; &quot;supriya.ugens.LocalBuf.LocalBuf&quot;		 [minlen=3];
@@ -2139,20 +2161,19 @@
 	&quot;builtins.object&quot; -&gt; &quot;collections.abc.Container&quot;	 [minlen=1];
 	&quot;builtins.object&quot; -&gt; &quot;collections.abc.Iterable&quot;;
 	&quot;builtins.object&quot; -&gt; &quot;collections.abc.Sized&quot;	 [minlen=2];
-	&quot;builtins.object&quot; -&gt; &quot;supriya.synthdefs.SynthDefGrapher.SynthDefGrapher&quot;	 [minlen=3];
+	&quot;builtins.object&quot; -&gt; &quot;supriya.synthdefs.SynthDef.SynthDef&quot;	 [minlen=3];
+	&quot;builtins.object&quot; -&gt; &quot;supriya.synthdefs.SynthDefGrapher.SynthDefGrapher&quot;	 [minlen=4];
 	&quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject.SupriyaObject&quot;;
 	&quot;collections.abc.Sequence&quot; -&gt; &quot;supriya.synthdefs.UGenArray.UGenArray&quot;;
-	&quot;supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot; -&gt; &quot;supriya.synthdefs.SynthDef.SynthDef&quot;	 [minlen=1];
 	&quot;supriya.synthdefs.UGenMethodMixin.UGenMethodMixin&quot; -&gt; &quot;supriya.ugens.UGen.UGen&quot;;
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot;	 [minlen=1];
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.Range.Range&quot;	 [minlen=2];
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.SuperColliderSynthDef.SuperColliderSynthDef&quot;	 [minlen=3];
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.SynthDefBuilder.SynthDefBuilder&quot;	 [minlen=4];
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.SynthDefCompiler.SynthDefCompiler&quot;	 [minlen=5];
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.SynthDefDecompiler.SynthDefDecompiler&quot;	 [minlen=1];
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.SynthDefFactory.SynthDefFactory&quot;	 [minlen=2];
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.Range.Range&quot;	 [minlen=1];
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.SuperColliderSynthDef.SuperColliderSynthDef&quot;	 [minlen=2];
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.SynthDefBuilder.SynthDefBuilder&quot;	 [minlen=3];
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.SynthDefCompiler.SynthDefCompiler&quot;	 [minlen=4];
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.SynthDefDecompiler.SynthDefDecompiler&quot;	 [minlen=5];
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.SynthDefFactory.SynthDefFactory&quot;	 [minlen=1];
 	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.UGenMethodMixin.UGenMethodMixin&quot;;
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.UGenSortBundle.UGenSortBundle&quot;	 [minlen=3];
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.UGenSortBundle.UGenSortBundle&quot;	 [minlen=2];
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.synthdefs.Envelope.Envelope&quot;	 [minlen=1];
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.synthdefs.Parameter.Parameter&quot;;
 }</p></object></div>
@@ -2160,75 +2181,75 @@
 <hr/><p class="section-header rubric">Classes</p>
 <div class="toctree-wrapper compound">
 </div>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="SynthDefFactory.html#supriya.synthdefs.SynthDefFactory.SynthDefFactory" title="supriya.synthdefs.SynthDefFactory.SynthDefFactory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefFactory</span></code></a></td>
-<td>A factory class for building SynthDefs with common signal flow structures.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="SynthDefFactory.html#supriya.synthdefs.SynthDefFactory.SynthDefFactory" title="supriya.synthdefs.SynthDefFactory.SynthDefFactory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefFactory</span></code></a></p></td>
+<td><p>A factory class for building SynthDefs with common signal flow structures.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="SynthDefGrapher.html#supriya.synthdefs.SynthDefGrapher.SynthDefGrapher" title="supriya.synthdefs.SynthDefGrapher.SynthDefGrapher"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefGrapher</span></code></a></td>
-<td>Graphs SynthDefs.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="SynthDefGrapher.html#supriya.synthdefs.SynthDefGrapher.SynthDefGrapher" title="supriya.synthdefs.SynthDefGrapher.SynthDefGrapher"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefGrapher</span></code></a></p></td>
+<td><p>Graphs SynthDefs.</p></td>
 </tr>
 </tbody>
 </table>
 <hr/><p class="section-header rubric">Main Classes</p>
 <div class="toctree-wrapper compound">
 </div>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="Envelope.html#supriya.synthdefs.Envelope.Envelope" title="supriya.synthdefs.Envelope.Envelope"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Envelope</span></code></a></td>
-<td>An envelope.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="Envelope.html#supriya.synthdefs.Envelope.Envelope" title="supriya.synthdefs.Envelope.Envelope"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Envelope</span></code></a></p></td>
+<td><p>An envelope.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="Parameter.html#supriya.synthdefs.Parameter.Parameter" title="supriya.synthdefs.Parameter.Parameter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Parameter</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="Parameter.html#supriya.synthdefs.Parameter.Parameter" title="supriya.synthdefs.Parameter.Parameter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Parameter</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="Range.html#supriya.synthdefs.Range.Range" title="supriya.synthdefs.Range.Range"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Range</span></code></a></td>
-<td>A range.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="Range.html#supriya.synthdefs.Range.Range" title="supriya.synthdefs.Range.Range"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Range</span></code></a></p></td>
+<td><p>A range.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="SynthDef.html#supriya.synthdefs.SynthDef.SynthDef" title="supriya.synthdefs.SynthDef.SynthDef"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDef</span></code></a></td>
-<td>A synth definition.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="SynthDef.html#supriya.synthdefs.SynthDef.SynthDef" title="supriya.synthdefs.SynthDef.SynthDef"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDef</span></code></a></p></td>
+<td><p>A synth definition.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="SynthDefBuilder.html#supriya.synthdefs.SynthDefBuilder.SynthDefBuilder" title="supriya.synthdefs.SynthDefBuilder.SynthDefBuilder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefBuilder</span></code></a></td>
-<td>A SynthDef builder.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="SynthDefBuilder.html#supriya.synthdefs.SynthDefBuilder.SynthDefBuilder" title="supriya.synthdefs.SynthDefBuilder.SynthDefBuilder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefBuilder</span></code></a></p></td>
+<td><p>A SynthDef builder.</p></td>
 </tr>
 </tbody>
 </table>
 <hr/><p class="section-header rubric">SynthDef Internals</p>
 <div class="toctree-wrapper compound">
 </div>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="OutputProxy.html#supriya.synthdefs.OutputProxy.OutputProxy" title="supriya.synthdefs.OutputProxy.OutputProxy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OutputProxy</span></code></a></td>
-<td></td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="OutputProxy.html#supriya.synthdefs.OutputProxy.OutputProxy" title="supriya.synthdefs.OutputProxy.OutputProxy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OutputProxy</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="SuperColliderSynthDef.html#supriya.synthdefs.SuperColliderSynthDef.SuperColliderSynthDef" title="supriya.synthdefs.SuperColliderSynthDef.SuperColliderSynthDef"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SuperColliderSynthDef</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="SuperColliderSynthDef.html#supriya.synthdefs.SuperColliderSynthDef.SuperColliderSynthDef" title="supriya.synthdefs.SuperColliderSynthDef.SuperColliderSynthDef"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SuperColliderSynthDef</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="SynthDefCompiler.html#supriya.synthdefs.SynthDefCompiler.SynthDefCompiler" title="supriya.synthdefs.SynthDefCompiler.SynthDefCompiler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefCompiler</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="SynthDefCompiler.html#supriya.synthdefs.SynthDefCompiler.SynthDefCompiler" title="supriya.synthdefs.SynthDefCompiler.SynthDefCompiler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefCompiler</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="SynthDefDecompiler.html#supriya.synthdefs.SynthDefDecompiler.SynthDefDecompiler" title="supriya.synthdefs.SynthDefDecompiler.SynthDefDecompiler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefDecompiler</span></code></a></td>
-<td>SynthDef decompiler.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="SynthDefDecompiler.html#supriya.synthdefs.SynthDefDecompiler.SynthDefDecompiler" title="supriya.synthdefs.SynthDefDecompiler.SynthDefDecompiler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefDecompiler</span></code></a></p></td>
+<td><p>SynthDef decompiler.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="UGenArray.html#supriya.synthdefs.UGenArray.UGenArray" title="supriya.synthdefs.UGenArray.UGenArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UGenArray</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="UGenArray.html#supriya.synthdefs.UGenArray.UGenArray" title="supriya.synthdefs.UGenArray.UGenArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UGenArray</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="UGenMethodMixin.html#supriya.synthdefs.UGenMethodMixin.UGenMethodMixin" title="supriya.synthdefs.UGenMethodMixin.UGenMethodMixin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UGenMethodMixin</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="UGenMethodMixin.html#supriya.synthdefs.UGenMethodMixin.UGenMethodMixin" title="supriya.synthdefs.UGenMethodMixin.UGenMethodMixin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UGenMethodMixin</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="UGenSortBundle.html#supriya.synthdefs.UGenSortBundle.UGenSortBundle" title="supriya.synthdefs.UGenSortBundle.UGenSortBundle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UGenSortBundle</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="UGenSortBundle.html#supriya.synthdefs.UGenSortBundle.UGenSortBundle" title="supriya.synthdefs.UGenSortBundle.UGenSortBundle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UGenSortBundle</span></code></a></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
@@ -2245,7 +2266,7 @@
         <a href="SynthDefFactory.html" class="btn btn-neutral float-right" title="SynthDefFactory" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../soundfiles/SoundFile.html" class="btn btn-neutral" title="SoundFile" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../soundfiles.html" class="btn btn-neutral float-left" title="soundfiles" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -2271,26 +2292,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

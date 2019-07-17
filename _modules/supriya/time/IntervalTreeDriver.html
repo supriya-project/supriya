@@ -1,0 +1,748 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>supriya.time.IntervalTreeDriver &mdash; Supriya 0.3.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/supriya/index.html">supriya</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../supriya.html">supriya</a> &raquo;</li>
+        
+      <li>supriya.time.IntervalTreeDriver</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for supriya.time.IntervalTreeDriver</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">.Interval</span> <span class="k">import</span> <span class="n">Interval</span>
+
+
+<span class="k">class</span> <span class="nc">_CInterval</span><span class="p">:</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;start_offset&quot;</span><span class="p">,</span> <span class="s2">&quot;stop_offset&quot;</span><span class="p">,</span> <span class="s2">&quot;original_interval&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_offset</span><span class="p">,</span> <span class="n">stop_offset</span><span class="p">,</span> <span class="n">original_interval</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">start_offset</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop_offset</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">stop_offset</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">original_interval</span> <span class="o">=</span> <span class="n">original_interval</span>
+
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cinterval</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cinterval</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="n">cinterval</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">!=</span> <span class="n">cinterval</span><span class="o">.</span><span class="n">start_offset</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_offset</span> <span class="o">!=</span> <span class="n">cinterval</span><span class="o">.</span><span class="n">stop_offset</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">original_interval</span> <span class="o">!=</span> <span class="n">cinterval</span><span class="o">.</span><span class="n">original_interval</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cinterval</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cinterval</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="n">cinterval</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__eq__</span><span class="p">(</span><span class="n">cinterval</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cinterval</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cinterval</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)),</span> <span class="n">cinterval</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">&lt;</span> <span class="n">cinterval</span><span class="o">.</span><span class="n">start_offset</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">&gt;</span> <span class="n">cinterval</span><span class="o">.</span><span class="n">start_offset</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_offset</span> <span class="o">&lt;</span> <span class="n">cinterval</span><span class="o">.</span><span class="n">stop_offset</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;&lt;_CInterval </span><span class="si">{}</span><span class="s2">:</span><span class="si">{}</span><span class="s2">&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start_offset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_offset</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_interval</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">interval</span><span class="p">):</span>
+        <span class="n">start_offset</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">interval</span><span class="o">.</span><span class="n">start_offset</span><span class="p">)</span>
+        <span class="n">stop_offset</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">interval</span><span class="o">.</span><span class="n">stop_offset</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">start_offset</span><span class="p">,</span> <span class="n">stop_offset</span><span class="p">,</span> <span class="n">interval</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">intersects_interval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">expr</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_offset</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">&lt;</span> <span class="n">expr</span><span class="o">.</span><span class="n">stop_offset</span>
+        <span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">&lt;=</span> <span class="n">expr</span><span class="o">.</span><span class="n">start_offset</span>
+            <span class="ow">and</span> <span class="n">expr</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop_offset</span>
+        <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">_CNode</span><span class="p">:</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;balance&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;height&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;left_child&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;node_start_index&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;node_stop_index&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;payload&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;right_child&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;start_offset&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;stop_offset_high&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;stop_offset_low&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;subtree_start_index&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;subtree_stop_index&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_offset</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">left_child</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_start_index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_stop_index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">payload</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">right_child</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">=</span> <span class="n">start_offset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop_offset_high</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop_offset_low</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subtree_start_index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subtree_stop_index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+
+<div class="viewcode-block" id="IntervalTreeDriver"><a class="viewcode-back" href="../../../api/supriya/time/IntervalTreeDriver.html#supriya.time.IntervalTreeDriver.IntervalTreeDriver">[docs]</a><span class="k">class</span> <span class="nc">IntervalTreeDriver</span><span class="p">:</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_root_node&quot;</span><span class="p">,)</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">intervals</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">intervals</span> <span class="ow">or</span> <span class="p">[])</span>
+
+    <span class="c1">### SPECIAL METHODS ###</span>
+
+<div class="viewcode-block" id="IntervalTreeDriver.__contains__"><a class="viewcode-back" href="../../../api/supriya/time/IntervalTreeDriver.html#supriya.time.IntervalTreeDriver.IntervalTreeDriver.__contains__">[docs]</a>    <span class="k">def</span> <span class="nf">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interval</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_interval</span><span class="p">(</span><span class="n">interval</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_intervals_starting_at</span><span class="p">(</span><span class="n">interval</span><span class="o">.</span><span class="n">start_offset</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">candidates</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="IntervalTreeDriver.__getitem__"><a class="viewcode-back" href="../../../api/supriya/time/IntervalTreeDriver.html#supriya.time.IntervalTreeDriver.IntervalTreeDriver.__getitem__">[docs]</a>    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">IndexError</span>
+            <span class="k">if</span> <span class="n">item</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="o">.</span><span class="n">subtree_stop_index</span> <span class="o">+</span> <span class="n">item</span>
+            <span class="k">if</span> <span class="n">item</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="o">.</span><span class="n">subtree_stop_index</span> <span class="o">&lt;=</span> <span class="n">item</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">IndexError</span>
+            <span class="n">cinterval</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recurse_getitem_by_index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">cinterval</span><span class="o">.</span><span class="n">original_interval</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">[]</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="o">.</span><span class="n">subtree_stop_index</span><span class="p">)</span>
+            <span class="n">start</span><span class="p">,</span> <span class="n">stop</span> <span class="o">=</span> <span class="n">indices</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">indices</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">cintervals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recurse_getitem_by_slice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">cinterval</span><span class="o">.</span><span class="n">original_interval</span> <span class="k">for</span> <span class="n">cinterval</span> <span class="ow">in</span> <span class="n">cintervals</span><span class="p">]</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Indices must be integers or slices, got </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="IntervalTreeDriver.__iter__"><a class="viewcode-back" href="../../../api/supriya/time/IntervalTreeDriver.html#supriya.time.IntervalTreeDriver.IntervalTreeDriver.__iter__">[docs]</a>    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">stack</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">while</span> <span class="n">current</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current</span><span class="p">)</span>
+                <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">left_child</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">stack</span><span class="p">:</span>
+                <span class="k">return</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">cinterval</span> <span class="ow">in</span> <span class="n">current</span><span class="o">.</span><span class="n">payload</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">cinterval</span><span class="o">.</span><span class="n">original_interval</span>
+            <span class="k">while</span> <span class="n">current</span><span class="o">.</span><span class="n">right_child</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">stack</span><span class="p">:</span>
+                <span class="n">current</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">cinterval</span> <span class="ow">in</span> <span class="n">current</span><span class="o">.</span><span class="n">payload</span><span class="p">:</span>
+                    <span class="k">yield</span> <span class="n">cinterval</span><span class="o">.</span><span class="n">original_interval</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">right_child</span></div>
+
+<div class="viewcode-block" id="IntervalTreeDriver.__len__"><a class="viewcode-back" href="../../../api/supriya/time/IntervalTreeDriver.html#supriya.time.IntervalTreeDriver.IntervalTreeDriver.__len__">[docs]</a>    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="o">.</span><span class="n">subtree_stop_index</span></div>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="k">def</span> <span class="nf">_get_node_cinterval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Interval</span><span class="p">(</span>
+            <span class="n">start_offset</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">start_offset</span><span class="p">,</span> <span class="n">stop_offset</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">stop_offset_high</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_insert_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">start_offset</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">_CNode</span><span class="p">(</span><span class="n">start_offset</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">start_offset</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">start_offset</span><span class="p">:</span>
+            <span class="n">left_child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_insert_node</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left_child</span><span class="p">,</span> <span class="n">start_offset</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_node_left_child</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">left_child</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">node</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">&lt;</span> <span class="n">start_offset</span><span class="p">:</span>
+            <span class="n">right_child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_insert_node</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right_child</span><span class="p">,</span> <span class="n">start_offset</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_node_right_child</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">right_child</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rebalance</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_insert_interval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cinterval</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_insert_node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="p">,</span> <span class="n">cinterval</span><span class="o">.</span><span class="n">start_offset</span><span class="p">)</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="p">,</span> <span class="n">cinterval</span><span class="o">.</span><span class="n">start_offset</span><span class="p">)</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">payload</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cinterval</span><span class="p">)</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">payload</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">stop_offset</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_is_interval</span><span class="p">(</span><span class="n">expr</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="s2">&quot;start_offset&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="s2">&quot;stop_offset&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">_remove_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">start_offset</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">==</span> <span class="n">start_offset</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left_child</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">right_child</span><span class="p">:</span>
+                <span class="n">next_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right_child</span>
+                <span class="k">while</span> <span class="n">next_node</span><span class="o">.</span><span class="n">left_child</span><span class="p">:</span>
+                    <span class="n">next_node</span> <span class="o">=</span> <span class="n">next_node</span><span class="o">.</span><span class="n">left_child</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">=</span> <span class="n">next_node</span><span class="o">.</span><span class="n">start_offset</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">payload</span> <span class="o">=</span> <span class="n">next_node</span><span class="o">.</span><span class="n">payload</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_set_node_right_child</span><span class="p">(</span>
+                    <span class="n">node</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remove_node</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right_child</span><span class="p">,</span> <span class="n">next_node</span><span class="o">.</span><span class="n">start_offset</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left_child</span> <span class="ow">or</span> <span class="n">node</span><span class="o">.</span><span class="n">right_child</span>
+        <span class="k">elif</span> <span class="n">start_offset</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">start_offset</span><span class="p">:</span>
+            <span class="n">left_child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remove_node</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left_child</span><span class="p">,</span> <span class="n">start_offset</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_node_left_child</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">left_child</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">node</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">&lt;</span> <span class="n">start_offset</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_node_right_child</span><span class="p">(</span>
+                <span class="n">node</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remove_node</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right_child</span><span class="p">,</span> <span class="n">start_offset</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rebalance</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_rebalance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">balance</span><span class="p">:</span>
+            <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">node</span><span class="o">.</span><span class="n">right_child</span><span class="o">.</span><span class="n">balance</span><span class="p">:</span>
+                <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_right_right</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_right_left</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">node</span><span class="o">.</span><span class="n">balance</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left_child</span><span class="o">.</span><span class="n">balance</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_left_left</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_left_right</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">node</span>
+
+    <span class="k">def</span> <span class="nf">_recurse_find_intervals_intersecting_interval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">cinterval</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">result</span>
+        <span class="n">node_interval</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_node_cinterval</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cinterval</span><span class="o">.</span><span class="n">intersects_interval</span><span class="p">(</span><span class="n">node_interval</span><span class="p">):</span>
+            <span class="n">subresult</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recurse_find_intervals_intersecting_interval</span><span class="p">(</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">left_child</span><span class="p">,</span> <span class="n">cinterval</span>
+            <span class="p">)</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">subresult</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">candidate_interval</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">payload</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">candidate_interval</span><span class="o">.</span><span class="n">intersects_interval</span><span class="p">(</span><span class="n">cinterval</span><span class="p">):</span>
+                    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">candidate_interval</span><span class="p">)</span>
+            <span class="n">subresult</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recurse_find_intervals_intersecting_interval</span><span class="p">(</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">right_child</span><span class="p">,</span> <span class="n">cinterval</span>
+            <span class="p">)</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">subresult</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="n">cinterval</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">&lt;=</span> <span class="n">node</span><span class="o">.</span><span class="n">start_offset</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
+            <span class="n">cinterval</span><span class="o">.</span><span class="n">stop_offset</span> <span class="o">&lt;=</span> <span class="n">node</span><span class="o">.</span><span class="n">start_offset</span>
+        <span class="p">):</span>
+            <span class="n">subresult</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recurse_find_intervals_intersecting_interval</span><span class="p">(</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">left_child</span><span class="p">,</span> <span class="n">cinterval</span>
+            <span class="p">)</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">subresult</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">_recurse_find_intervals_intersecting_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">result</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">&lt;=</span> <span class="n">offset</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">stop_offset_high</span><span class="p">:</span>
+            <span class="n">subresult</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recurse_find_intervals_intersecting_offset</span><span class="p">(</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">left_child</span><span class="p">,</span> <span class="n">offset</span>
+            <span class="p">)</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">subresult</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">cinterval</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">payload</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">offset</span> <span class="o">&lt;</span> <span class="n">cinterval</span><span class="o">.</span><span class="n">stop_offset</span><span class="p">:</span>
+                    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cinterval</span><span class="p">)</span>
+            <span class="n">subresult</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recurse_find_intervals_intersecting_offset</span><span class="p">(</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">right_child</span><span class="p">,</span> <span class="n">offset</span>
+            <span class="p">)</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">subresult</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">offset</span> <span class="o">&lt;=</span> <span class="n">node</span><span class="o">.</span><span class="n">start_offset</span><span class="p">:</span>
+            <span class="n">subresult</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recurse_find_intervals_intersecting_offset</span><span class="p">(</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">left_child</span><span class="p">,</span> <span class="n">offset</span>
+            <span class="p">)</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">subresult</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">_recurse_find_intervals_stopping_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">result</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">stop_offset_low</span> <span class="o">&lt;=</span> <span class="n">offset</span> <span class="o">&lt;=</span> <span class="n">node</span><span class="o">.</span><span class="n">stop_offset_high</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">cinterval</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">payload</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">cinterval</span><span class="o">.</span><span class="n">stop_offset</span> <span class="o">==</span> <span class="n">offset</span><span class="p">:</span>
+                    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cinterval</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left_child</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_recurse_find_intervals_stopping_at</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left_child</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right_child</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_recurse_find_intervals_stopping_at</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right_child</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>
+                <span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">_recurse_get_start_offset_after</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">&lt;=</span> <span class="n">offset</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">right_child</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recurse_get_start_offset_after</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right_child</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">offset</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">start_offset</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_recurse_get_start_offset_after</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left_child</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span> <span class="ow">or</span> <span class="n">node</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">_recurse_get_start_offset_before</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">&lt;</span> <span class="n">offset</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_recurse_get_start_offset_before</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right_child</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span> <span class="ow">or</span> <span class="n">node</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">offset</span> <span class="o">&lt;=</span> <span class="n">node</span><span class="o">.</span><span class="n">start_offset</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">left_child</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recurse_get_start_offset_before</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left_child</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">_recurse_getitem_by_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">node_start_index</span> <span class="o">&lt;=</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">node_stop_index</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">payload</span><span class="p">[</span><span class="n">index</span> <span class="o">-</span> <span class="n">node</span><span class="o">.</span><span class="n">node_start_index</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">node</span><span class="o">.</span><span class="n">left_child</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">node_start_index</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recurse_getitem_by_index</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left_child</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">node</span><span class="o">.</span><span class="n">right_child</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">node_stop_index</span> <span class="o">&lt;=</span> <span class="n">index</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recurse_getitem_by_index</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right_child</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_recurse_getitem_by_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">result</span>
+        <span class="k">if</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">node_start_index</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">left_child</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_recurse_getitem_by_slice</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left_child</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">node_stop_index</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">node_start_index</span> <span class="o">&lt;</span> <span class="n">stop</span><span class="p">:</span>
+            <span class="n">node_start</span> <span class="o">=</span> <span class="n">start</span> <span class="o">-</span> <span class="n">node</span><span class="o">.</span><span class="n">node_start_index</span>
+            <span class="k">if</span> <span class="n">node_start</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">node_start</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">node_stop</span> <span class="o">=</span> <span class="n">stop</span> <span class="o">-</span> <span class="n">node</span><span class="o">.</span><span class="n">node_start_index</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">payload</span><span class="p">[</span><span class="n">node_start</span><span class="p">:</span><span class="n">node_stop</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">node_stop_index</span> <span class="o">&lt;=</span> <span class="n">stop</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">right_child</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_recurse_getitem_by_slice</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right_child</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">_remove_interval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cinterval</span><span class="p">,</span> <span class="n">old_start_offset</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cinterval</span><span class="p">,</span> <span class="n">_CInterval</span><span class="p">)</span>
+        <span class="n">start_offset</span> <span class="o">=</span> <span class="n">cinterval</span><span class="o">.</span><span class="n">start_offset</span>
+        <span class="k">if</span> <span class="n">old_start_offset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">start_offset</span> <span class="o">=</span> <span class="n">old_start_offset</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="p">,</span> <span class="n">start_offset</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">cinterval</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">payload</span><span class="p">:</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">payload</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">cinterval</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">node</span><span class="o">.</span><span class="n">payload</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remove_node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="p">,</span> <span class="n">start_offset</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_rotate_left_left</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="n">next_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left_child</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_node_left_child</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">next_node</span><span class="o">.</span><span class="n">right_child</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_node_right_child</span><span class="p">(</span><span class="n">next_node</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">next_node</span>
+
+    <span class="k">def</span> <span class="nf">_rotate_left_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_node_left_child</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_right_right</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left_child</span><span class="p">))</span>
+        <span class="n">next_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_left_left</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">next_node</span>
+
+    <span class="k">def</span> <span class="nf">_rotate_right_left</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_node_right_child</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_left_left</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right_child</span><span class="p">))</span>
+        <span class="n">next_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_right_right</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">next_node</span>
+
+    <span class="k">def</span> <span class="nf">_rotate_right_right</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="n">next_node</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right_child</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_node_right_child</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">next_node</span><span class="o">.</span><span class="n">left_child</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_node_left_child</span><span class="p">(</span><span class="n">next_node</span><span class="p">,</span> <span class="n">node</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">next_node</span>
+
+    <span class="k">def</span> <span class="nf">_search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">start_offset</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">==</span> <span class="n">start_offset</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">node</span>
+        <span class="k">elif</span> <span class="n">node</span><span class="o">.</span><span class="n">left_child</span> <span class="ow">and</span> <span class="n">start_offset</span> <span class="o">&lt;</span> <span class="n">node</span><span class="o">.</span><span class="n">start_offset</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left_child</span><span class="p">,</span> <span class="n">start_offset</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">node</span><span class="o">.</span><span class="n">right_child</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">&lt;</span> <span class="n">start_offset</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right_child</span><span class="p">,</span> <span class="n">start_offset</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_set_node_left_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">left_child</span><span class="p">):</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">left_child</span> <span class="o">=</span> <span class="n">left_child</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_node_height</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_set_node_right_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">right_child</span><span class="p">):</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">right_child</span> <span class="o">=</span> <span class="n">right_child</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_node_height</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_update_node_height</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="n">left_height</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">right_height</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left_child</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">left_height</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left_child</span><span class="o">.</span><span class="n">height</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right_child</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">right_height</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right_child</span><span class="o">.</span><span class="n">height</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">left_height</span><span class="p">,</span> <span class="n">right_height</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="n">right_height</span> <span class="o">-</span> <span class="n">left_height</span>
+        <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">height</span>
+
+    <span class="k">def</span> <span class="nf">_update_indices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">parent_stop_index</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left_child</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_indices</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left_child</span><span class="p">,</span> <span class="n">parent_stop_index</span><span class="p">)</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">node_start_index</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left_child</span><span class="o">.</span><span class="n">subtree_stop_index</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">subtree_start_index</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">left_child</span><span class="o">.</span><span class="n">subtree_start_index</span>
+        <span class="k">elif</span> <span class="n">parent_stop_index</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">node_start_index</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">subtree_start_index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">node_start_index</span> <span class="o">=</span> <span class="n">parent_stop_index</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">subtree_start_index</span> <span class="o">=</span> <span class="n">parent_stop_index</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">node_stop_index</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">node_start_index</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">payload</span><span class="p">)</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">subtree_stop_index</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">node_stop_index</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right_child</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_indices</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right_child</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">node_stop_index</span><span class="p">)</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">subtree_stop_index</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">right_child</span><span class="o">.</span><span class="n">subtree_stop_index</span>
+
+    <span class="k">def</span> <span class="nf">_update_offsets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">stop_offset_low</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">stop_offset</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">payload</span><span class="p">)</span>
+        <span class="n">stop_offset_high</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">stop_offset</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">payload</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">left_child</span><span class="p">:</span>
+            <span class="n">left_child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_offsets</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">left_child</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">left_child</span><span class="o">.</span><span class="n">stop_offset_low</span> <span class="o">&lt;</span> <span class="n">stop_offset_low</span><span class="p">:</span>
+                <span class="n">stop_offset_low</span> <span class="o">=</span> <span class="n">left_child</span><span class="o">.</span><span class="n">stop_offset_low</span>
+            <span class="k">if</span> <span class="n">stop_offset_high</span> <span class="o">&lt;</span> <span class="n">left_child</span><span class="o">.</span><span class="n">stop_offset_high</span><span class="p">:</span>
+                <span class="n">stop_offset_high</span> <span class="o">=</span> <span class="n">left_child</span><span class="o">.</span><span class="n">stop_offset_high</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">right_child</span><span class="p">:</span>
+            <span class="n">right_child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_offsets</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">right_child</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">right_child</span><span class="o">.</span><span class="n">stop_offset_low</span> <span class="o">&lt;</span> <span class="n">stop_offset_low</span><span class="p">:</span>
+                <span class="n">stop_offset_low</span> <span class="o">=</span> <span class="n">right_child</span><span class="o">.</span><span class="n">stop_offset_low</span>
+            <span class="k">if</span> <span class="n">stop_offset_high</span> <span class="o">&lt;</span> <span class="n">right_child</span><span class="o">.</span><span class="n">stop_offset_high</span><span class="p">:</span>
+                <span class="n">stop_offset_high</span> <span class="o">=</span> <span class="n">right_child</span><span class="o">.</span><span class="n">stop_offset_high</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">stop_offset_low</span> <span class="o">=</span> <span class="n">stop_offset_low</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">stop_offset_high</span> <span class="o">=</span> <span class="n">stop_offset_high</span>
+        <span class="k">return</span> <span class="n">node</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="IntervalTreeDriver.add"><a class="viewcode-back" href="../../../api/supriya/time/IntervalTreeDriver.html#supriya.time.IntervalTreeDriver.IntervalTreeDriver.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interval</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_interval</span><span class="p">(</span><span class="n">interval</span><span class="p">):</span>
+            <span class="c1"># raise ValueError(interval)</span>
+            <span class="k">return</span>
+        <span class="n">cinterval</span> <span class="o">=</span> <span class="n">_CInterval</span><span class="o">.</span><span class="n">from_interval</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_insert_interval</span><span class="p">(</span><span class="n">cinterval</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_indices</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_offsets</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="IntervalTreeDriver.find_intervals_intersecting_offset"><a class="viewcode-back" href="../../../api/supriya/time/IntervalTreeDriver.html#supriya.time.IntervalTreeDriver.IntervalTreeDriver.find_intervals_intersecting_offset">[docs]</a>    <span class="k">def</span> <span class="nf">find_intervals_intersecting_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+        <span class="n">cintervals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recurse_find_intervals_intersecting_offset</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="p">,</span> <span class="n">offset</span>
+        <span class="p">)</span>
+        <span class="n">cintervals</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">start_offset</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">stop_offset</span><span class="p">))</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">cinterval</span><span class="o">.</span><span class="n">original_interval</span> <span class="k">for</span> <span class="n">cinterval</span> <span class="ow">in</span> <span class="n">cintervals</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="IntervalTreeDriver.find_intervals_intersecting_interval"><a class="viewcode-back" href="../../../api/supriya/time/IntervalTreeDriver.html#supriya.time.IntervalTreeDriver.IntervalTreeDriver.find_intervals_intersecting_interval">[docs]</a>    <span class="k">def</span> <span class="nf">find_intervals_intersecting_interval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interval</span><span class="p">):</span>
+        <span class="n">cinterval</span> <span class="o">=</span> <span class="n">_CInterval</span><span class="o">.</span><span class="n">from_interval</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
+        <span class="n">cintervals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recurse_find_intervals_intersecting_interval</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="p">,</span> <span class="n">cinterval</span>
+        <span class="p">)</span>
+        <span class="n">cintervals</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">start_offset</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">stop_offset</span><span class="p">))</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">cinterval</span><span class="o">.</span><span class="n">original_interval</span> <span class="k">for</span> <span class="n">cinterval</span> <span class="ow">in</span> <span class="n">cintervals</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="IntervalTreeDriver.find_intervals_starting_at"><a class="viewcode-back" href="../../../api/supriya/time/IntervalTreeDriver.html#supriya.time.IntervalTreeDriver.IntervalTreeDriver.find_intervals_starting_at">[docs]</a>    <span class="k">def</span> <span class="nf">find_intervals_starting_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">results</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">cinterval</span><span class="o">.</span><span class="n">original_interval</span> <span class="k">for</span> <span class="n">cinterval</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">payload</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">results</span></div>
+
+<div class="viewcode-block" id="IntervalTreeDriver.find_intervals_stopping_at"><a class="viewcode-back" href="../../../api/supriya/time/IntervalTreeDriver.html#supriya.time.IntervalTreeDriver.IntervalTreeDriver.find_intervals_stopping_at">[docs]</a>    <span class="k">def</span> <span class="nf">find_intervals_stopping_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+        <span class="n">cintervals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recurse_find_intervals_stopping_at</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>
+        <span class="n">cintervals</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">start_offset</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">stop_offset</span><span class="p">))</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">cinterval</span><span class="o">.</span><span class="n">original_interval</span> <span class="k">for</span> <span class="n">cinterval</span> <span class="ow">in</span> <span class="n">cintervals</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="IntervalTreeDriver.get_start_offset_after"><a class="viewcode-back" href="../../../api/supriya/time/IntervalTreeDriver.html#supriya.time.IntervalTreeDriver.IntervalTreeDriver.get_start_offset_after">[docs]</a>    <span class="k">def</span> <span class="nf">get_start_offset_after</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recurse_get_start_offset_after</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">start_offset</span></div>
+
+<div class="viewcode-block" id="IntervalTreeDriver.get_start_offset_before"><a class="viewcode-back" href="../../../api/supriya/time/IntervalTreeDriver.html#supriya.time.IntervalTreeDriver.IntervalTreeDriver.get_start_offset_before">[docs]</a>    <span class="k">def</span> <span class="nf">get_start_offset_before</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recurse_get_start_offset_before</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="n">start_offset</span></div>
+
+<div class="viewcode-block" id="IntervalTreeDriver.index"><a class="viewcode-back" href="../../../api/supriya/time/IntervalTreeDriver.html#supriya.time.IntervalTreeDriver.IntervalTreeDriver.index">[docs]</a>    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interval</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_interval</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
+        <span class="n">cinterval</span> <span class="o">=</span> <span class="n">_CInterval</span><span class="o">.</span><span class="n">from_interval</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="p">,</span> <span class="n">cinterval</span><span class="o">.</span><span class="n">start_offset</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> not in interval tree.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">interval</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">cinterval</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">payload</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> not in interval tree.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">interval</span><span class="p">))</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">payload</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">cinterval</span><span class="p">)</span> <span class="o">+</span> <span class="n">node</span><span class="o">.</span><span class="n">node_start_index</span>
+        <span class="k">return</span> <span class="n">index</span></div>
+
+<div class="viewcode-block" id="IntervalTreeDriver.remove"><a class="viewcode-back" href="../../../api/supriya/time/IntervalTreeDriver.html#supriya.time.IntervalTreeDriver.IntervalTreeDriver.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interval</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">interval</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
+        <span class="n">cinterval</span> <span class="o">=</span> <span class="n">_CInterval</span><span class="o">.</span><span class="n">from_interval</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_remove_interval</span><span class="p">(</span><span class="n">cinterval</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_indices</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_offsets</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="IntervalTreeDriver.update"><a class="viewcode-back" href="../../../api/supriya/time/IntervalTreeDriver.html#supriya.time.IntervalTreeDriver.IntervalTreeDriver.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">intervals</span><span class="p">):</span>
+        <span class="c1"># for interval in intervals:</span>
+        <span class="c1">#     if not self._is_interval(interval):</span>
+        <span class="c1">#         raise ValueError(interval)</span>
+        <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">intervals</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_interval</span><span class="p">(</span><span class="n">interval</span><span class="p">):</span>
+                <span class="c1"># raise ValueError(interval)</span>
+                <span class="k">continue</span>
+            <span class="n">cinterval</span> <span class="o">=</span> <span class="n">_CInterval</span><span class="o">.</span><span class="n">from_interval</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_insert_interval</span><span class="p">(</span><span class="n">cinterval</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_indices</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_offsets</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

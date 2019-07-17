@@ -8,6 +8,11 @@
  viewBox="0.00 0.00 657.82 117.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 113)">
 <title>InheritanceGraph</title>
+<g id="clust1" class="cluster">
+<title>cluster_builtins</title>
+<path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M20,-27C20,-27 49,-27 49,-27 55,-27 61,-33 61,-39 61,-39 61,-70 61,-70 61,-76 55,-82 49,-82 49,-82 20,-82 20,-82 14,-82 8,-76 8,-70 8,-70 8,-39 8,-39 8,-33 14,-27 20,-27"/>
+<text text-anchor="middle" x="34.5" y="-70" font-family="Arial" font-size="10.00" fill="#000000">builtins</text>
+</g>
 <g id="clust2" class="cluster">
 <title>cluster_supriya.synthdefs</title>
 <path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M180,-16C180,-16 231,-16 231,-16 237,-16 243,-22 243,-28 243,-28 243,-81 243,-81 243,-87 237,-93 231,-93 231,-93 180,-93 180,-93 174,-93 168,-87 168,-81 168,-81 168,-28 168,-28 168,-22 174,-16 180,-16"/>
@@ -22,11 +27,6 @@
 <title>cluster_supriya.ugens</title>
 <path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M275,-8C275,-8 629.8234,-8 629.8234,-8 635.8234,-8 641.8234,-14 641.8234,-20 641.8234,-20 641.8234,-89 641.8234,-89 641.8234,-95 635.8234,-101 629.8234,-101 629.8234,-101 275,-101 275,-101 269,-101 263,-95 263,-89 263,-89 263,-20 263,-20 263,-14 269,-8 275,-8"/>
 <text text-anchor="middle" x="452.4117" y="-89" font-family="Arial" font-size="10.00" fill="#000000">supriya.ugens</text>
-</g>
-<g id="clust1" class="cluster">
-<title>cluster_builtins</title>
-<path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M20,-27C20,-27 49,-27 49,-27 55,-27 61,-33 61,-39 61,-39 61,-70 61,-70 61,-76 55,-82 49,-82 49,-82 20,-82 20,-82 14,-82 8,-76 8,-70 8,-70 8,-39 8,-39 8,-33 14,-27 20,-27"/>
-<text text-anchor="middle" x="34.5" y="-70" font-family="Arial" font-size="10.00" fill="#000000">builtins</text>
 </g>
 <!-- builtins.object&#45;&gt;supriya.system.SupriyaObject.SupriyaObject -->
 <g id="edge5" class="edge">

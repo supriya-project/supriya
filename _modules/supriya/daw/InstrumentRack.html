@@ -1,0 +1,330 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>supriya.daw.InstrumentRack &mdash; Supriya 0.3.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/supriya/index.html">supriya</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../supriya.html">supriya</a> &raquo;</li>
+        
+      <li>supriya.daw.InstrumentRack</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for supriya.daw.InstrumentRack</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">uqbar.containers</span> <span class="k">import</span> <span class="n">UniqueTreeTuple</span>
+
+<span class="kn">from</span> <span class="nn">supriya.realtime</span> <span class="k">import</span> <span class="n">BusGroup</span><span class="p">,</span> <span class="n">Group</span><span class="p">,</span> <span class="n">Synth</span>
+
+<span class="kn">from</span> <span class="nn">.ChainContainer</span> <span class="k">import</span> <span class="n">ChainContainer</span>
+<span class="kn">from</span> <span class="nn">.InstrumentChain</span> <span class="k">import</span> <span class="n">InstrumentChain</span>
+<span class="kn">from</span> <span class="nn">.RackDevice</span> <span class="k">import</span> <span class="n">RackDevice</span>
+<span class="kn">from</span> <span class="nn">.RackReceive</span> <span class="k">import</span> <span class="n">RackReceive</span>
+<span class="kn">from</span> <span class="nn">.ReturnChain</span> <span class="k">import</span> <span class="n">ReturnChain</span>
+<span class="kn">from</span> <span class="nn">.Send</span> <span class="k">import</span> <span class="n">Send</span>
+<span class="kn">from</span> <span class="nn">.synthdefs</span> <span class="k">import</span> <span class="n">build_rack_output_synthdef</span>
+
+
+<div class="viewcode-block" id="InstrumentRack"><a class="viewcode-back" href="../../../api/supriya/daw/InstrumentRack.html#supriya.daw.InstrumentRack.InstrumentRack">[docs]</a><span class="k">class</span> <span class="nc">InstrumentRack</span><span class="p">(</span><span class="n">RackDevice</span><span class="p">):</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+        <span class="n">RackDevice</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_levels</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_osc_callbacks</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bus_group</span> <span class="o">=</span> <span class="n">BusGroup</span><span class="o">.</span><span class="n">audio</span><span class="p">(</span><span class="n">bus_count</span><span class="o">=</span><span class="n">channel_count</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_chains</span> <span class="o">=</span> <span class="n">ChainContainer</span><span class="p">(</span><span class="n">chain_class</span><span class="o">=</span><span class="n">InstrumentChain</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_return_chains</span> <span class="o">=</span> <span class="n">ChainContainer</span><span class="p">(</span>
+            <span class="n">chain_class</span><span class="o">=</span><span class="n">ReturnChain</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;return chain container&quot;</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_receive</span> <span class="o">=</span> <span class="n">RackReceive</span><span class="p">()</span>
+        <span class="n">UniqueTreeTuple</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">children</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">chains</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_chains</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">receive</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rack_output_synth</span> <span class="o">=</span> <span class="n">Synth</span><span class="p">(</span>
+            <span class="n">synthdef</span><span class="o">=</span><span class="n">build_rack_output_synthdef</span><span class="p">(</span><span class="n">channel_count</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;rack output&quot;</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_node</span> <span class="o">=</span> <span class="n">Group</span><span class="p">(</span>
+            <span class="n">children</span><span class="o">=</span><span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">chains</span><span class="o">.</span><span class="n">_node</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">return_chains</span><span class="o">.</span><span class="n">_node</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">rack_output_synth</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;instrument rack&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="k">def</span> <span class="nf">_create_bus_routings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rack_output_synth</span><span class="p">[</span><span class="s2">&quot;in_&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bus_group</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rack_output_synth</span><span class="p">[</span><span class="s2">&quot;out&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">bus_group</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_create_osc_callbacks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_osc_callbacks</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">osc_io</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+            <span class="p">[</span><span class="s2">&quot;/levels/rack/output&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rack_output_synth</span><span class="o">.</span><span class="n">node_id</span><span class="p">],</span>
+            <span class="k">lambda</span> <span class="n">osc_message</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_levels</span><span class="p">(</span><span class="s2">&quot;output&quot;</span><span class="p">,</span> <span class="n">osc_message</span><span class="o">.</span><span class="n">contents</span><span class="p">[</span><span class="mi">2</span><span class="p">:]),</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_destroy_osc_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">callback</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_osc_callbacks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">callback</span> <span class="ow">and</span> <span class="n">server</span><span class="p">:</span>
+                <span class="n">server</span><span class="o">.</span><span class="n">osc_io</span><span class="o">.</span><span class="n">unregister</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_list_bus_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">bus_group</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_update_levels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">levels</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_levels</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">levels</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="InstrumentRack.add_chain"><a class="viewcode-back" href="../../../api/supriya/daw/InstrumentRack.html#supriya.daw.InstrumentRack.InstrumentRack.add_chain">[docs]</a>    <span class="k">def</span> <span class="nf">add_chain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InstrumentChain</span><span class="p">:</span>
+        <span class="n">chain</span> <span class="o">=</span> <span class="n">InstrumentChain</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chains</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chain</span><span class="p">)</span>
+        <span class="n">chain</span><span class="o">.</span><span class="n">sends</span><span class="p">[</span><span class="bp">self</span><span class="p">]</span> <span class="o">=</span> <span class="n">Send</span><span class="p">(</span><span class="n">chain</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">chain</span></div>
+
+<div class="viewcode-block" id="InstrumentRack.add_return_chain"><a class="viewcode-back" href="../../../api/supriya/daw/InstrumentRack.html#supriya.daw.InstrumentRack.InstrumentRack.add_return_chain">[docs]</a>    <span class="k">def</span> <span class="nf">add_return_chain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ReturnChain</span><span class="p">:</span>
+        <span class="n">chain</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_chains</span><span class="o">.</span><span class="n">_node_class</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">return_chains</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chain</span><span class="p">)</span>
+        <span class="n">chain</span><span class="o">.</span><span class="n">sends</span><span class="p">[</span><span class="bp">self</span><span class="p">]</span> <span class="o">=</span> <span class="n">Send</span><span class="p">(</span><span class="n">chain</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">chain</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">bus_group</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BusGroup</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bus_group</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">chains</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chains</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">channel_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bus_group</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">return_chains</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_return_chains</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">rack_output_synth</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rack_output_synth</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_receive</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

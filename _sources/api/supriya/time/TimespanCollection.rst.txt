@@ -39,6 +39,7 @@ TimespanCollection
       find_intersection
       find_timespans_starting_at
       find_timespans_stopping_at
+      get_offset_after
       get_simultaneity_at
       get_start_offset_after
       get_start_offset_before
@@ -89,6 +90,8 @@ TimespanCollection
    .. automethod:: TimespanCollection.find_timespans_starting_at
 
    .. automethod:: TimespanCollection.find_timespans_stopping_at
+
+   .. automethod:: TimespanCollection.get_offset_after
 
    .. automethod:: TimespanCollection.get_simultaneity_at
 

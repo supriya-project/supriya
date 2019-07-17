@@ -1,0 +1,157 @@
+.. _supriya--daw--MidiRack:
+
+MidiRack
+========
+
+.. automodule:: supriya.daw.MidiRack
+
+.. currentmodule:: supriya.daw.MidiRack
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.daw.MidiRack
+
+.. autoclass:: MidiRack
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      chains
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: MidiRack.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: MidiRack.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: MidiRack.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: MidiRack.__len__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: MidiRack.add_chain
+
+   .. container:: inherited
+
+      .. automethod:: MidiRack.delete
+
+   .. container:: inherited
+
+      .. automethod:: MidiRack.depth_first
+
+   .. container:: inherited
+
+      .. automethod:: MidiRack.index
+
+   .. container:: inherited
+
+      .. automethod:: MidiRack.next_device
+
+   .. container:: inherited
+
+      .. automethod:: MidiRack.perform
+
+   .. container:: inherited
+
+      .. automethod:: MidiRack.recurse
+
+   .. container:: inherited
+
+      .. automethod:: MidiRack.start
+
+   .. container:: inherited
+
+      .. automethod:: MidiRack.stop
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read/write properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiRack.name
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiRack.application
+
+   .. autoattribute:: MidiRack.chains
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiRack.channel_count
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiRack.children
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiRack.depth
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiRack.graph_order
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiRack.mixer_context
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiRack.node
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiRack.parent
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiRack.parentage
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiRack.root
+
+   .. container:: inherited
+
+      .. autoattribute:: MidiRack.server

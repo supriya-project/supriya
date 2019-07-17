@@ -8,11 +8,6 @@
  viewBox="0.00 0.00 586.23 111.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 107)">
 <title>InheritanceGraph</title>
-<g id="clust1" class="cluster">
-<title>cluster_builtins</title>
-<path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M20,-24C20,-24 49,-24 49,-24 55,-24 61,-30 61,-36 61,-36 61,-67 61,-67 61,-73 55,-79 49,-79 49,-79 20,-79 20,-79 14,-79 8,-73 8,-67 8,-67 8,-36 8,-36 8,-30 14,-24 20,-24"/>
-<text text-anchor="middle" x="34.5" y="-67" font-family="Arial" font-size="10.00" fill="#000000">builtins</text>
-</g>
 <g id="clust2" class="cluster">
 <title>cluster_supriya.commands</title>
 <path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M249,-8C249,-8 558.2254,-8 558.2254,-8 564.2254,-8 570.2254,-14 570.2254,-20 570.2254,-20 570.2254,-83 570.2254,-83 570.2254,-89 564.2254,-95 558.2254,-95 558.2254,-95 249,-95 249,-95 243,-95 237,-89 237,-83 237,-83 237,-20 237,-20 237,-14 243,-8 249,-8"/>
@@ -22,6 +17,11 @@
 <title>cluster_supriya.system</title>
 <path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M93,-13C93,-13 205,-13 205,-13 211,-13 217,-19 217,-25 217,-25 217,-78 217,-78 217,-84 211,-90 205,-90 205,-90 93,-90 93,-90 87,-90 81,-84 81,-78 81,-78 81,-25 81,-25 81,-19 87,-13 93,-13"/>
 <text text-anchor="middle" x="149" y="-78" font-family="Arial" font-size="10.00" fill="#000000">supriya.system</text>
+</g>
+<g id="clust1" class="cluster">
+<title>cluster_builtins</title>
+<path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M20,-24C20,-24 49,-24 49,-24 55,-24 61,-30 61,-36 61,-36 61,-67 61,-67 61,-73 55,-79 49,-79 49,-79 20,-79 20,-79 14,-79 8,-73 8,-67 8,-67 8,-36 8,-36 8,-30 14,-24 20,-24"/>
+<text text-anchor="middle" x="34.5" y="-67" font-family="Arial" font-size="10.00" fill="#000000">builtins</text>
 </g>
 <!-- builtins.object&#45;&gt;supriya.system.SupriyaObject.SupriyaObject -->
 <g id="edge5" class="edge">

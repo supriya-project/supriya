@@ -1,0 +1,15 @@
+.. _supriya--daw--Parameter:
+
+Parameter
+=========
+
+.. automodule:: supriya.daw.Parameter
+
+.. currentmodule:: supriya.daw.Parameter
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.daw.Parameter
+
+.. autoclass:: Parameter

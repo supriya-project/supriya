@@ -8,11 +8,6 @@
  viewBox="0.00 0.00 658.97 528.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 524)">
 <title>InheritanceGraph</title>
-<g id="clust3" class="cluster">
-<title>cluster_supriya.system</title>
-<path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M93,-155C93,-155 205,-155 205,-155 211,-155 217,-161 217,-167 217,-167 217,-220 217,-220 217,-226 211,-232 205,-232 205,-232 93,-232 93,-232 87,-232 81,-226 81,-220 81,-220 81,-167 81,-167 81,-161 87,-155 93,-155"/>
-<text text-anchor="middle" x="149" y="-220" font-family="Arial" font-size="10.00" fill="#000000">supriya.system</text>
-</g>
 <g id="clust1" class="cluster">
 <title>cluster_builtins</title>
 <path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M20,-160C20,-160 49,-160 49,-160 55,-160 61,-166 61,-172 61,-172 61,-203 61,-203 61,-209 55,-215 49,-215 49,-215 20,-215 20,-215 14,-215 8,-209 8,-203 8,-203 8,-172 8,-172 8,-166 14,-160 20,-160"/>
@@ -22,6 +17,11 @@
 <title>cluster_supriya.patterns</title>
 <path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M249,-8C249,-8 630.9655,-8 630.9655,-8 636.9655,-8 642.9655,-14 642.9655,-20 642.9655,-20 642.9655,-500 642.9655,-500 642.9655,-506 636.9655,-512 630.9655,-512 630.9655,-512 249,-512 249,-512 243,-512 237,-506 237,-500 237,-500 237,-20 237,-20 237,-14 243,-8 249,-8"/>
 <text text-anchor="middle" x="439.9828" y="-500" font-family="Arial" font-size="10.00" fill="#000000">supriya.patterns</text>
+</g>
+<g id="clust3" class="cluster">
+<title>cluster_supriya.system</title>
+<path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M93,-155C93,-155 205,-155 205,-155 211,-155 217,-161 217,-167 217,-167 217,-220 217,-220 217,-226 211,-232 205,-232 205,-232 93,-232 93,-232 87,-232 81,-226 81,-220 81,-220 81,-167 81,-167 81,-161 87,-155 93,-155"/>
+<text text-anchor="middle" x="149" y="-220" font-family="Arial" font-size="10.00" fill="#000000">supriya.system</text>
 </g>
 <!-- builtins.object&#45;&gt;supriya.system.SupriyaObject.SupriyaObject -->
 <g id="edge25" class="edge">

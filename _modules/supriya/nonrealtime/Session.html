@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>supriya.nonrealtime.Session &mdash; Supriya 0.2.0 documentation</title>
+  <title>supriya.nonrealtime.Session &mdash; Supriya 0.3.0 documentation</title>
   
 
   
@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -58,7 +60,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.3.0
               </div>
             
           
@@ -82,11 +84,39 @@
               
             
             
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
-</ul>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">Supriya API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/supriya/index.html">supriya</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -290,14 +320,14 @@
     <span class="p">):</span>
         <span class="kn">import</span> <span class="nn">supriya.nonrealtime</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_options</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">ServerOptions</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_options</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">BootOptions</span><span class="p">(</span>
             <span class="n">input_bus_channel_count</span><span class="o">=</span><span class="n">input_bus_channel_count</span><span class="p">,</span>
             <span class="n">output_bus_channel_count</span><span class="o">=</span><span class="n">output_bus_channel_count</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_active_moments</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_buffers</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">TimespanCollection</span><span class="p">(</span><span class="n">accelerated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffers</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">IntervalTree</span><span class="p">(</span><span class="n">accelerated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">TimespanCollection</span><span class="p">(</span><span class="n">accelerated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">IntervalTree</span><span class="p">(</span><span class="n">accelerated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_offsets</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">nonrealtime</span><span class="o">.</span><span class="n">RootNode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_session_ids</span> <span class="o">=</span> <span class="p">{}</span>
@@ -589,8 +619,8 @@
         <span class="k">return</span> <span class="n">mapping</span>
 
     <span class="k">def</span> <span class="nf">_build_id_mapping_for_buses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">input_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="o">.</span><span class="n">_input_bus_channel_count</span>
-        <span class="n">output_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="o">.</span><span class="n">_output_bus_channel_count</span>
+        <span class="n">input_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="o">.</span><span class="n">input_bus_channel_count</span>
+        <span class="n">output_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="o">.</span><span class="n">output_bus_channel_count</span>
         <span class="n">first_private_bus_id</span> <span class="o">=</span> <span class="n">input_count</span> <span class="o">+</span> <span class="n">output_count</span>
         <span class="n">allocators</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">supriya</span><span class="o">.</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">:</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">BlockAllocator</span><span class="p">(</span>
@@ -647,11 +677,13 @@
     <span class="k">def</span> <span class="nf">_build_render_command</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">output_filename</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
         <span class="n">input_file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">server_options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">sample_rate</span><span class="o">=</span><span class="mi">44100</span><span class="p">,</span>
         <span class="n">header_format</span><span class="o">=</span><span class="n">HeaderFormat</span><span class="o">.</span><span class="n">AIFF</span><span class="p">,</span>
         <span class="n">sample_format</span><span class="o">=</span><span class="n">SampleFormat</span><span class="o">.</span><span class="n">INT24</span><span class="p">,</span>
+        <span class="n">scsynth_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Builds non-realtime rendering command.</span>
@@ -664,11 +696,9 @@
 <span class="sd">            &#39;scsynth -N {} _ output.aiff 44100 aiff int24&#39;</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">server_options</span> <span class="o">=</span> <span class="n">server_options</span> <span class="ow">or</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">ServerOptions</span><span class="p">()</span>
-        <span class="n">scsynth_path</span> <span class="o">=</span> <span class="s2">&quot;scsynth&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">uqbar</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">find_executable</span><span class="p">(</span><span class="n">scsynth_path</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Cannot find scsynth&quot;</span><span class="p">)</span>
-        <span class="n">parts</span> <span class="o">=</span> <span class="p">[</span><span class="n">scsynth_path</span><span class="p">,</span> <span class="s2">&quot;-N&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">]</span>
+        <span class="n">server_options</span> <span class="o">=</span> <span class="n">server_options</span> <span class="ow">or</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">BootOptions</span><span class="p">()</span>
+        <span class="n">scsynth_path</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">BootOptions</span><span class="o">.</span><span class="n">find_scsynth</span><span class="p">(</span><span class="n">scsynth_path</span><span class="p">)</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">scsynth_path</span><span class="p">),</span> <span class="s2">&quot;-N&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">input_file_path</span><span class="p">:</span>
             <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">input_file_path</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
@@ -743,7 +773,7 @@
                 <span class="n">requests</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">close_request</span><span class="p">)</span>
             <span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">BufferFreeRequest</span><span class="p">(</span><span class="n">buffer_id</span><span class="o">=</span><span class="n">id_mapping</span><span class="p">[</span><span class="n">buffer_</span><span class="p">])</span>
             <span class="n">requests</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-            <span class="k">del</span> <span class="p">(</span><span class="n">buffer_open_states</span><span class="p">[</span><span class="n">id_mapping</span><span class="p">[</span><span class="n">buffer_</span><span class="p">]])</span>
+            <span class="k">del</span> <span class="n">buffer_open_states</span><span class="p">[</span><span class="n">id_mapping</span><span class="p">[</span><span class="n">buffer_</span><span class="p">]]</span>
         <span class="k">return</span> <span class="n">requests</span>
 
     <span class="k">def</span> <span class="nf">_collect_buffer_nonlifecycle_requests</span><span class="p">(</span>
@@ -1106,10 +1136,10 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_buses</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_audio_input_bus_group</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="o">.</span><span class="n">_input_bus_channel_count</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="o">.</span><span class="n">input_bus_channel_count</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_audio_input_bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">nonrealtime</span><span class="o">.</span><span class="n">AudioInputBusGroup</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_audio_output_bus_group</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="o">.</span><span class="n">_output_bus_channel_count</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="o">.</span><span class="n">output_bus_channel_count</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_audio_output_bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">nonrealtime</span><span class="o">.</span><span class="n">AudioOutputBusGroup</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_setup_initial_states</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1132,14 +1162,14 @@
             <span class="k">return</span>
         <span class="k">assert</span> <span class="n">state</span><span class="o">.</span><span class="n">is_sparse</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">offsets</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
-        <span class="k">del</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="n">offset</span><span class="p">])</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span><span class="p">[</span><span class="n">offset</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">state</span>
 
     <span class="k">def</span> <span class="nf">_to_non_xrefd_osc_bundles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">osc_bundles</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">request_bundles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_non_xrefd_request_bundles</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">duration</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">request_bundle</span> <span class="ow">in</span> <span class="n">request_bundles</span><span class="p">:</span>
-            <span class="n">osc_bundles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">request_bundle</span><span class="o">.</span><span class="n">to_osc</span><span class="p">(</span><span class="kc">True</span><span class="p">))</span>
+            <span class="n">osc_bundles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">request_bundle</span><span class="o">.</span><span class="n">to_osc</span><span class="p">(</span><span class="n">with_request_name</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">osc_bundles</span>
 
     <span class="k">def</span> <span class="nf">_to_non_xrefd_request_bundles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -1223,7 +1253,7 @@
         <span class="n">start_moment</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">start_buffers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="n">buffer_</span><span class="o">.</span><span class="n">stop_offset</span><span class="p">)</span> <span class="k">as</span> <span class="n">stop_moment</span><span class="p">:</span>
             <span class="n">stop_moment</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">stop_buffers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_buffers</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">buffer_</span></div>
 
 <div class="viewcode-block" id="Session.add_buffer_group"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/Session.html#supriya.nonrealtime.Session.Session.add_buffer_group">[docs]</a>    <span class="nd">@SessionObject</span><span class="o">.</span><span class="n">require_offset</span>
@@ -1247,7 +1277,7 @@
             <span class="n">start_offset</span><span class="o">=</span><span class="n">offset</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">for</span> <span class="n">buffer_</span> <span class="ow">in</span> <span class="n">buffer_group</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_buffers</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_buffers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
             <span class="n">start_moment</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">start_buffers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="n">buffer_group</span><span class="o">.</span><span class="n">stop_offset</span><span class="p">)</span> <span class="k">as</span> <span class="n">stop_moment</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">buffer_</span> <span class="ow">in</span> <span class="n">buffer_group</span><span class="p">:</span>
@@ -1335,7 +1365,7 @@
         <span class="kn">import</span> <span class="nn">supriya.cli</span>
 
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">project_settings</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">cli</span><span class="o">.</span><span class="n">ProjectSettings</span><span class="p">)</span>
-        <span class="n">server_options</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">ServerOptions</span><span class="p">(</span>
+        <span class="n">server_options</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">BootOptions</span><span class="p">(</span>
             <span class="o">**</span><span class="n">project_settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;server_options&quot;</span><span class="p">,</span> <span class="p">{})</span>
         <span class="p">)</span>
         <span class="n">input_bus_channel_count</span> <span class="o">=</span> <span class="n">server_options</span><span class="o">.</span><span class="n">input_bus_channel_count</span>
@@ -1576,26 +1606,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

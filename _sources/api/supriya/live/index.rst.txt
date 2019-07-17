@@ -23,28 +23,36 @@ live
    :hidden:
 
    Application
-   AutoPatternSlot
+   AudioEffect
+   ClipSlot
+   Device
+   DeviceChain
    Direct
+   Instrument
+   MidiEffect
    Mixer
-   PatternSlot
+   PolyphonicVoicer
+   Rack
    Send
    SendManager
-   Slot
-   SynthSlot
+   Shuffle
    Track
-   TriggerPatternSlot
 
 .. autosummary::
    :nosignatures:
 
    ~Application.Application
-   ~AutoPatternSlot.AutoPatternSlot
+   ~AudioEffect.AudioEffect
+   ~ClipSlot.ClipSlot
+   ~Device.Device
+   ~DeviceChain.DeviceChain
    ~Direct.Direct
+   ~Instrument.Instrument
+   ~MidiEffect.MidiEffect
    ~Mixer.Mixer
-   ~PatternSlot.PatternSlot
+   ~PolyphonicVoicer.PolyphonicVoicer
+   ~Rack.Rack
    ~Send.Send
    ~SendManager.SendManager
-   ~Slot.Slot
-   ~SynthSlot.SynthSlot
+   ~Shuffle.Shuffle
    ~Track.Track
-   ~TriggerPatternSlot.TriggerPatternSlot

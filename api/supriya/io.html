@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>io &mdash; Supriya 0.2.0 documentation</title>
+  <title>io &mdash; Supriya 0.3.0 documentation</title>
   
 
   
@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
@@ -32,21 +39,16 @@
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="live" href="live/index.html" />
     <link rel="prev" title="ipython" href="ext/ipython.html" /> 
-
-  
-  <script src="../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -60,7 +62,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.3.0
               </div>
             
           
@@ -84,34 +86,61 @@
               
             
             
-              <ul>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts.html">Core concepts</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Supriya API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">supriya</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="cli/index.html">cli</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/index.html">commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="enums.html">enums</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exceptions.html">exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ext/index.html">ext</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">io</a></li>
-<li class="toctree-l3"><a class="reference internal" href="live/index.html">live</a></li>
-<li class="toctree-l3"><a class="reference internal" href="midi/index.html">midi</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nonrealtime/index.html">nonrealtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="osc/index.html">osc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="patterns/index.html">patterns</a></li>
-<li class="toctree-l3"><a class="reference internal" href="realtime/index.html">realtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="soundfiles/index.html">soundfiles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="synthdefs/index.html">synthdefs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="system/index.html">system</a></li>
-<li class="toctree-l3"><a class="reference internal" href="time/index.html">time</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ugens/index.html">ugens</a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils/index.html">utils</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cli/index.html">cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clock.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands/index.html">commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="daw/index.html">daw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ext/index.html">ext</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="live/index.html">live</a></li>
+<li class="toctree-l2"><a class="reference internal" href="midi/index.html">midi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system/index.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="time/index.html">time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils</a></li>
 </ul>
 </li>
 </ul>
-</li>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -157,8 +186,6 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../index.html">Supriya API</a> &raquo;</li>
-        
           <li><a href="index.html">supriya</a> &raquo;</li>
         
       <li>io</li>
@@ -183,234 +210,132 @@
   <div class="section" id="module-supriya.io">
 <span id="io"></span><span id="supriya-io"></span><h1>io<a class="headerlink" href="#module-supriya.io" title="Permalink to this headline">¶</a></h1>
 <div class="svg-container docutils container">
-<div class="graphviz"><object data="../../_images/inheritance-cd28002c17769fc5f15248274ccbdd98488a25e4.svg" type="image/svg+xml" class="inheritance graphviz">
+<div class="graphviz"><object data="../../_images/inheritance-8bc6f2f3e3fb76122a866527863ca801ba462bd3.svg" type="image/svg+xml" class="inheritance graphviz">
 <p class="warning">digraph InheritanceGraph {
-	graph [bgcolor=transparent,
-		color=lightsteelblue2,
-		fontname=Arial,
-		fontsize=10,
-		outputorder=edgesfirst,
-		overlap=prism,
-		penwidth=2,
-		rankdir=LR,
-		splines=spline,
-		style=&quot;dashed, rounded&quot;,
-		truecolor=true
-	];
-	node [colorscheme=pastel19,
-		fontname=Arial,
-		fontsize=10,
-		height=0,
-		penwidth=2,
-		shape=box,
-		style=&quot;filled, rounded&quot;,
-		width=0
-	];
-	edge [color=lightslategrey,
-		penwidth=1
-	];
-	subgraph cluster_builtins {
-		graph [label=builtins];
-		node [color=1];
-		&quot;builtins.object&quot;		 [URL=&quot;https://docs.python.org/3.6/library/functions.html#object&quot;,
-			color=1,
-			label=object,
-			target=_top];
-	}
-	subgraph &quot;cluster_supriya.io&quot; {
-		graph [label=&quot;supriya.io&quot;];
-		node [color=2];
-		&quot;supriya.io.Grapher&quot;		 [URL=&quot;../api/supriya/io.html#supriya.io.Grapher&quot;,
-			color=black,
-			fontcolor=white,
-			label=Grapher,
-			target=_top];
-		&quot;supriya.io.Player&quot;		 [URL=&quot;../api/supriya/io.html#supriya.io.Player&quot;,
-			color=black,
-			fontcolor=white,
-			label=Player,
-			target=_top];
-	}
-	&quot;builtins.object&quot; -&gt; &quot;supriya.io.Grapher&quot;	 [minlen=1];
-	&quot;builtins.object&quot; -&gt; &quot;supriya.io.Player&quot;	 [minlen=2];
+    graph [bgcolor=transparent,
+        color=lightsteelblue2,
+        fontname=Arial,
+        fontsize=10,
+        outputorder=edgesfirst,
+        overlap=prism,
+        penwidth=2,
+        rankdir=LR,
+        splines=spline,
+        style=&quot;dashed, rounded&quot;,
+        truecolor=true];
+    node [colorscheme=pastel19,
+        fontname=Arial,
+        fontsize=10,
+        height=0,
+        penwidth=2,
+        shape=box,
+        style=&quot;filled, rounded&quot;,
+        width=0];
+    edge [color=lightslategrey,
+        penwidth=1];
+    subgraph cluster_builtins {
+        graph [label=builtins];
+        node [color=1];
+        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3.6/library/functions.html#object&quot;,
+            label=object,
+            target=_top];
+    }
+    subgraph &quot;cluster_supriya.io&quot; {
+        graph [label=&quot;supriya.io&quot;];
+        node [color=2];
+        &quot;supriya.io.Player&quot; [URL=&quot;../api/supriya/io.html#supriya.io.Player&quot;,
+            color=black,
+            fontcolor=white,
+            label=Player,
+            target=_top];
+    }
+    &quot;builtins.object&quot; -&gt; &quot;supriya.io.Player&quot;;
 }</p></object></div>
 </div>
 <hr/><p class="section-header rubric">Classes</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.io.Grapher" title="supriya.io.Grapher"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Grapher</span></code></a></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.io.Player" title="supriya.io.Player"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Player</span></code></a></td>
-<td></td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.io.Player" title="supriya.io.Player"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Player</span></code></a></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
-<dl class="class">
-<dt id="supriya.io.Grapher">
-<em class="property">class </em><code class="descclassname">supriya.io.</code><code class="descname">Grapher</code><span class="sig-paren">(</span><em>graphable</em>, <em>format_='pdf'</em>, <em>layout='dot'</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/io.html#Grapher"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.io.Grapher" title="Permalink to this definition">¶</a></dt>
-<dd><hr/><p class="class-header rubric">Attributes Summary</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.io.Grapher.__call__" title="supriya.io.Grapher.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code></a></td>
-<td>Call self as a function.</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.io.Grapher.get_format" title="supriya.io.Grapher.get_format"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_format</span></code></a></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.io.Grapher.get_graphviz_string" title="supriya.io.Grapher.get_graphviz_string"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_graphviz_string</span></code></a></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.io.Grapher.get_layout" title="supriya.io.Grapher.get_layout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_layout</span></code></a></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.io.Grapher.get_render_command" title="supriya.io.Grapher.get_render_command"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_render_command</span></code></a></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.io.Grapher.get_render_prefix" title="supriya.io.Grapher.get_render_prefix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_render_prefix</span></code></a></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.io.Grapher.open_output_path" title="supriya.io.Grapher.open_output_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">open_output_path</span></code></a></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.io.Grapher.persist_graphviz_string" title="supriya.io.Grapher.persist_graphviz_string"><code class="xref py py-obj docutils literal notranslate"><span class="pre">persist_graphviz_string</span></code></a></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.io.Grapher.run_command" title="supriya.io.Grapher.run_command"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_command</span></code></a></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<hr/><p class="class-header rubric">Special methods</p>
-<dl class="method">
-<dt id="supriya.io.Grapher.__call__">
-<code class="descname">__call__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/io.html#Grapher.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.io.Grapher.__call__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Call self as a function.</p>
-</dd></dl>
-
-<hr/><p class="class-header rubric">Methods</p>
-<dl class="method">
-<dt id="supriya.io.Grapher.get_format">
-<code class="descname">get_format</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/io.html#Grapher.get_format"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.io.Grapher.get_format" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="supriya.io.Grapher.get_graphviz_string">
-<code class="descname">get_graphviz_string</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/io.html#Grapher.get_graphviz_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.io.Grapher.get_graphviz_string" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="supriya.io.Grapher.get_layout">
-<code class="descname">get_layout</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/io.html#Grapher.get_layout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.io.Grapher.get_layout" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="supriya.io.Grapher.get_render_command">
-<code class="descname">get_render_command</code><span class="sig-paren">(</span><em>format_</em>, <em>input_path</em>, <em>layout</em>, <em>output_path</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/io.html#Grapher.get_render_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.io.Grapher.get_render_command" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="supriya.io.Grapher.get_render_prefix">
-<code class="descname">get_render_prefix</code><span class="sig-paren">(</span><em>graphviz_string</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/io.html#Grapher.get_render_prefix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.io.Grapher.get_render_prefix" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="supriya.io.Grapher.open_output_path">
-<code class="descname">open_output_path</code><span class="sig-paren">(</span><em>output_path</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/io.html#Grapher.open_output_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.io.Grapher.open_output_path" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="supriya.io.Grapher.persist_graphviz_string">
-<code class="descname">persist_graphviz_string</code><span class="sig-paren">(</span><em>graphviz_string</em>, <em>input_path</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/io.html#Grapher.persist_graphviz_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.io.Grapher.persist_graphviz_string" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="supriya.io.Grapher.run_command">
-<code class="descname">run_command</code><span class="sig-paren">(</span><em>command</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/io.html#Grapher.run_command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.io.Grapher.run_command" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 <dl class="class">
 <dt id="supriya.io.Player">
-<em class="property">class </em><code class="descclassname">supriya.io.</code><code class="descname">Player</code><span class="sig-paren">(</span><em>renderable</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/io.html#Player"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.io.Player" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">supriya.io.</code><code class="sig-name descname">Player</code><span class="sig-paren">(</span><em class="sig-param">renderable</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/io.html#Player"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.io.Player" title="Permalink to this definition">¶</a></dt>
 <dd><hr/><p class="class-header rubric">Attributes Summary</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.io.Player.__call__" title="supriya.io.Player.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code></a></td>
-<td>Call self as a function.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.io.Player.__call__" title="supriya.io.Player.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code></a></p></td>
+<td><p>Call self as a function.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.io.Player.open_output_path" title="supriya.io.Player.open_output_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">open_output_path</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.io.Player.open_output_path" title="supriya.io.Player.open_output_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">open_output_path</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.io.Player.render" title="supriya.io.Player.render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">render</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.io.Player.render" title="supriya.io.Player.render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">render</span></code></a></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
 <hr/><p class="class-header rubric">Special methods</p>
 <dl class="method">
 <dt id="supriya.io.Player.__call__">
-<code class="descname">__call__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/io.html#Player.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.io.Player.__call__" title="Permalink to this definition">¶</a></dt>
+<em class="property">overridden </em><code class="sig-name descname">__call__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/io.html#Player.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.io.Player.__call__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call self as a function.</p>
 </dd></dl>
 
 <hr/><p class="class-header rubric">Methods</p>
 <dl class="method">
 <dt id="supriya.io.Player.open_output_path">
-<code class="descname">open_output_path</code><span class="sig-paren">(</span><em>output_path</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/io.html#Player.open_output_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.io.Player.open_output_path" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">open_output_path</code><span class="sig-paren">(</span><em class="sig-param">output_path</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/io.html#Player.open_output_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.io.Player.open_output_path" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.io.Player.render">
-<code class="descname">render</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/io.html#Player.render"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.io.Player.render" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">render</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/io.html#Player.render"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.io.Player.render" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <hr/><p class="section-header rubric">Functions</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.io.graph" title="supriya.io.graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph</span></code></a></td>
-<td></td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.io.graph" title="supriya.io.graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">graph</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.io.play" title="supriya.io.play"><code class="xref py py-obj docutils literal notranslate"><span class="pre">play</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.io.play" title="supriya.io.play"><code class="xref py py-obj docutils literal notranslate"><span class="pre">play</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.io.render" title="supriya.io.render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">render</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.io.render" title="supriya.io.render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">render</span></code></a></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
 <dl class="function">
 <dt id="supriya.io.graph">
-<code class="descclassname">supriya.io.</code><code class="descname">graph</code><span class="sig-paren">(</span><em>graphable</em>, <em>format_='pdf'</em>, <em>layout='dot'</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/io.html#graph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.io.graph" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">supriya.io.</code><code class="sig-name descname">graph</code><span class="sig-paren">(</span><em class="sig-param">graphable</em>, <em class="sig-param">format_='pdf'</em>, <em class="sig-param">layout='dot'</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/io.html#graph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.io.graph" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="supriya.io.play">
-<code class="descclassname">supriya.io.</code><code class="descname">play</code><span class="sig-paren">(</span><em>renderable</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/io.html#play"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.io.play" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">supriya.io.</code><code class="sig-name descname">play</code><span class="sig-paren">(</span><em class="sig-param">renderable</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/io.html#play"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.io.play" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="supriya.io.render">
-<code class="descclassname">supriya.io.</code><code class="descname">render</code><span class="sig-paren">(</span><em>renderable</em>, <em>output_file_path=None</em>, <em>render_directory_path=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/io.html#render"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.io.render" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">supriya.io.</code><code class="sig-name descname">render</code><span class="sig-paren">(</span><em class="sig-param">renderable</em>, <em class="sig-param">output_file_path=None</em>, <em class="sig-param">render_directory_path=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/io.html#render"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.io.render" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -426,7 +351,7 @@
         <a href="live/index.html" class="btn btn-neutral float-right" title="live" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="ext/ipython.html" class="btn btn-neutral" title="ipython" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ext/ipython.html" class="btn btn-neutral float-left" title="ipython" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -452,26 +377,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

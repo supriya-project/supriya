@@ -8,6 +8,11 @@
  viewBox="0.00 0.00 987.00 2424.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 2420)">
 <title>InheritanceGraph</title>
+<g id="clust4" class="cluster">
+<title>cluster_supriya.system</title>
+<path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M251.066,-1984C251.066,-1984 393.1909,-1984 393.1909,-1984 399.1909,-1984 405.1909,-1990 405.1909,-1996 405.1909,-1996 405.1909,-2049 405.1909,-2049 405.1909,-2055 399.1909,-2061 393.1909,-2061 393.1909,-2061 251.066,-2061 251.066,-2061 245.066,-2061 239.066,-2055 239.066,-2049 239.066,-2049 239.066,-1996 239.066,-1996 239.066,-1990 245.066,-1984 251.066,-1984"/>
+<text text-anchor="middle" x="322.1285" y="-2049" font-family="Arial" font-size="10.00" fill="#000000">supriya.system</text>
+</g>
 <g id="clust1" class="cluster">
 <title>cluster_builtins</title>
 <path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M20,-2111C20,-2111 49,-2111 49,-2111 55,-2111 61,-2117 61,-2123 61,-2123 61,-2154 61,-2154 61,-2160 55,-2166 49,-2166 49,-2166 20,-2166 20,-2166 14,-2166 8,-2160 8,-2154 8,-2154 8,-2123 8,-2123 8,-2117 14,-2111 20,-2111"/>
@@ -22,11 +27,6 @@
 <title>cluster_supriya.commands</title>
 <path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M451.5462,-8C451.5462,-8 958.997,-8 958.997,-8 964.997,-8 970.997,-14 970.997,-20 970.997,-20 970.997,-2396 970.997,-2396 970.997,-2402 964.997,-2408 958.997,-2408 958.997,-2408 451.5462,-2408 451.5462,-2408 445.5462,-2408 439.5462,-2402 439.5462,-2396 439.5462,-2396 439.5462,-20 439.5462,-20 439.5462,-14 445.5462,-8 451.5462,-8"/>
 <text text-anchor="middle" x="705.2716" y="-2396" font-family="Arial" font-size="10.00" fill="#000000">supriya.commands</text>
-</g>
-<g id="clust4" class="cluster">
-<title>cluster_supriya.system</title>
-<path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M251.066,-1984C251.066,-1984 393.1909,-1984 393.1909,-1984 399.1909,-1984 405.1909,-1990 405.1909,-1996 405.1909,-1996 405.1909,-2049 405.1909,-2049 405.1909,-2055 399.1909,-2061 393.1909,-2061 393.1909,-2061 251.066,-2061 251.066,-2061 245.066,-2061 239.066,-2055 239.066,-2049 239.066,-2049 239.066,-1996 239.066,-1996 239.066,-1990 245.066,-1984 251.066,-1984"/>
-<text text-anchor="middle" x="322.1285" y="-2049" font-family="Arial" font-size="10.00" fill="#000000">supriya.system</text>
 </g>
 <!-- builtins.object&#45;&gt;collections.abc.Container -->
 <g id="edge92" class="edge">

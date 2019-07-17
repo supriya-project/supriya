@@ -1,0 +1,39 @@
+.. _supriya--utils:
+
+utils
+=====
+
+.. automodule:: supriya.utils
+
+.. currentmodule:: supriya.utils
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.utils
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Functions
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~flatten_iterable
+   ~group_iterable_by_count
+   ~iterate_nwise
+   ~repeat_sequence_to_length
+   ~zip_sequences
+
+.. autofunction:: flatten_iterable
+
+.. autofunction:: group_iterable_by_count
+
+.. autofunction:: iterate_nwise
+
+.. autofunction:: repeat_sequence_to_length
+
+.. autofunction:: zip_sequences

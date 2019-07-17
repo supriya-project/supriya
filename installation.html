@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Installation &mdash; Supriya 0.2.0 documentation</title>
+  <title>Installation &mdash; Supriya 0.3.0 documentation</title>
   
 
   
@@ -17,36 +17,38 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="_static/uqbar.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Supriya API" href="api/index.html" />
-    <link rel="prev" title="Supriya (0.2.0)" href="index.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
+    <link rel="next" title="Core concepts" href="concepts.html" />
+    <link rel="prev" title="Supriya (0.3.0)" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -60,7 +62,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.3.0
               </div>
             
           
@@ -84,11 +86,39 @@
               
             
             
-              <ul class="current">
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Core concepts</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">Supriya API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/supriya/index.html">supriya</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -156,8 +186,8 @@
   <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
 <p>Supriya works on OSX and Unix/Linux with Python 3.3+.</p>
-<div class="section" id="install-supriya">
-<h2>Install Supriya<a class="headerlink" href="#install-supriya" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="installing-supriya">
+<h2>Installing Supriya<a class="headerlink" href="#installing-supriya" title="Permalink to this headline">¶</a></h2>
 <p>Install Supriya from its <a class="reference external" href="https://github.com/josiah-wolf-oberholtzer/supriya">GitHub</a> repository, via <a class="reference external" href="https://git-scm.com/">git</a> and <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>~$ git clone https://github.com/josiah-wolf-oberholtzer/supriya.git
 ~$ cd supriya
@@ -165,8 +195,8 @@ supriya$ pip install -e .
 </pre></div>
 </div>
 </div>
-<div class="section" id="install-optional-dependencies">
-<h2>Install Optional Dependencies<a class="headerlink" href="#install-optional-dependencies" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="installing-optional-dependencies">
+<h2>Installing optional dependencies<a class="headerlink" href="#installing-optional-dependencies" title="Permalink to this headline">¶</a></h2>
 <p>With <a class="reference external" href="https://cython.org/">Cython</a> support:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>supriya$ pip install -e .[accelerated]
 </pre></div>
@@ -188,15 +218,15 @@ supriya$ pip install -e .
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>supriya$ pip install -e .[test]
 </pre></div>
 </div>
-<div class="section" id="install-supercollider">
-<h3>Install SuperCollider<a class="headerlink" href="#install-supercollider" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="installing-supercollider">
+<h3>Installing SuperCollider<a class="headerlink" href="#installing-supercollider" title="Permalink to this headline">¶</a></h3>
 <p>Supriya uses <a class="reference external" href="http://supercollider.github.io/">SuperCollider</a> as its synthesis engine. <a class="reference external" href="http://supercollider.github.io/">SuperCollider</a> is
 available on OSX, Linux and Windows (although Supriya has not been tested on
 Windows).</p>
 <p>You can download <a class="reference external" href="http://supercollider.github.io/">SuperCollider</a> from <a class="reference external" href="http://supercollider.github.io/">http://supercollider.github.io/</a>.</p>
 </div>
-<div class="section" id="install-graphviz-optional">
-<h3>Install Graphviz (optional)<a class="headerlink" href="#install-graphviz-optional" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="installing-graphviz-optional">
+<h3>Installing Graphviz (optional)<a class="headerlink" href="#installing-graphviz-optional" title="Permalink to this headline">¶</a></h3>
 <p>Supriya uses <a class="reference external" href="http://graphviz.org/">Graphviz</a>, an open-source graph visualization library, to create
 graphs of rhythm-trees and other tree structures, and to create visualizations
 of class hierarchies for its documentation. Graphviz is not necessary for
@@ -264,10 +294,10 @@ virtual environments: <code class="docutils literal notranslate"><span class="pr
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="api/index.html" class="btn btn-neutral float-right" title="Supriya API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="concepts.html" class="btn btn-neutral float-right" title="Core concepts" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="Supriya (0.2.0)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Supriya (0.3.0)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -293,26 +323,16 @@ virtual environments: <code class="docutils literal notranslate"><span class="pr
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

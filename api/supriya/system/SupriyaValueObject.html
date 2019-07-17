@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>SupriyaValueObject &mdash; Supriya 0.2.0 documentation</title>
+  <title>SupriyaValueObject &mdash; Supriya 0.3.0 documentation</title>
   
 
   
@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
@@ -32,21 +39,16 @@
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="YAMLLoader" href="YAMLLoader.html" />
     <link rel="prev" title="SupriyaObject" href="SupriyaObject.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -60,7 +62,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.3.0
               </div>
             
           
@@ -84,46 +86,73 @@
               
             
             
-              <ul>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Supriya API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../cli/index.html">cli</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../commands/index.html">commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../enums.html">enums</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ext/index.html">ext</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../io.html">io</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../live/index.html">live</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../midi/index.html">midi</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../osc/index.html">osc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../soundfiles/index.html">soundfiles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="index.html">system</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="Assets.html">Assets</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Bindable.html">Bindable</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BindableFloat.html">BindableFloat</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BindableNamespace.html">BindableNamespace</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Binding.html">Binding</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SupriyaObject.html">SupriyaObject</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">SupriyaValueObject</a></li>
-<li class="toctree-l4"><a class="reference internal" href="YAMLLoader.html">YAMLLoader</a></li>
-<li class="toctree-l4"><a class="reference internal" href="bind.html">bind</a></li>
-<li class="toctree-l4"><a class="reference internal" href="PubSub.html">PubSub</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cli/index.html">cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clock.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../daw/index.html">daw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../live/index.html">live</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">system</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="Assets.html">Assets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Bindable.html">Bindable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BindableFloat.html">BindableFloat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BindableNamespace.html">BindableNamespace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Binding.html">Binding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SupriyaObject.html">SupriyaObject</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">SupriyaValueObject</a></li>
+<li class="toctree-l3"><a class="reference internal" href="YAMLLoader.html">YAMLLoader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bind.html">bind</a></li>
+<li class="toctree-l3"><a class="reference internal" href="PubSub.html">PubSub</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../time/index.html">time</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
 </ul>
 </li>
 </ul>
-</li>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -169,8 +198,6 @@
     
       <li><a href="../../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../../index.html">Supriya API</a> &raquo;</li>
-        
           <li><a href="../index.html">supriya</a> &raquo;</li>
         
           <li><a href="index.html">system</a> &raquo;</li>
@@ -197,7 +224,7 @@
   <div class="section" id="module-supriya.system.SupriyaValueObject">
 <span id="supriyavalueobject"></span><span id="supriya-system-supriyavalueobject"></span><h1>SupriyaValueObject<a class="headerlink" href="#module-supriya.system.SupriyaValueObject" title="Permalink to this headline">¶</a></h1>
 <div class="svg-container docutils container">
-<div class="graphviz"><object data="../../../_images/inheritance-1344c5118cd4844eb89663d43ca6cb75e448d94f.svg" type="image/svg+xml" class="inheritance graphviz">
+<div class="graphviz"><object data="../../../_images/inheritance-26fdad6fcd63ff252f0624613d04b96b6cac98eb.svg" type="image/svg+xml" class="inheritance graphviz">
 <p class="warning">digraph InheritanceGraph {
 	graph [bgcolor=transparent,
 		color=lightsteelblue2,
@@ -705,9 +732,9 @@
 	subgraph &quot;cluster_supriya.nonrealtime&quot; {
 		graph [label=&quot;supriya.nonrealtime&quot;];
 		node [color=4];
-		&quot;supriya.nonrealtime.NodeAction.NodeAction&quot;		 [URL=&quot;../api/supriya/system/../nonrealtime/NodeAction.html#supriya.nonrealtime.NodeAction.NodeAction&quot;,
+		&quot;supriya.nonrealtime.NodeTransition.NodeTransition&quot;		 [URL=&quot;../api/supriya/system/../nonrealtime/NodeTransition.html#supriya.nonrealtime.NodeTransition.NodeTransition&quot;,
 			color=4,
-			label=&quot;Node\nAction&quot;,
+			label=&quot;Node\nTransition&quot;,
 			target=_top];
 	}
 	subgraph &quot;cluster_supriya.osc&quot; {
@@ -857,6 +884,10 @@
 	subgraph &quot;cluster_supriya.realtime&quot; {
 		graph [label=&quot;supriya.realtime&quot;];
 		node [color=7];
+		&quot;supriya.realtime.Block.Block&quot;		 [URL=&quot;../api/supriya/system/../realtime/Block.html#supriya.realtime.Block.Block&quot;,
+			color=7,
+			label=Block,
+			target=_top];
 		&quot;supriya.realtime.BufferProxy.BufferProxy&quot;		 [URL=&quot;../api/supriya/system/../realtime/BufferProxy.html#supriya.realtime.BufferProxy.BufferProxy&quot;,
 			color=7,
 			label=&quot;Buffer\nProxy&quot;,
@@ -869,7 +900,7 @@
 	subgraph &quot;cluster_supriya.soundfiles&quot; {
 		graph [label=&quot;supriya.soundfiles&quot;];
 		node [color=8];
-		&quot;supriya.soundfiles.Say.Say&quot;		 [URL=&quot;../api/supriya/system/../soundfiles/Say.html#supriya.soundfiles.Say.Say&quot;,
+		&quot;supriya.soundfiles.Say&quot;		 [URL=&quot;../api/supriya/system/../soundfiles.html#supriya.soundfiles.Say&quot;,
 			color=8,
 			label=Say,
 			target=_top];
@@ -900,6 +931,14 @@
 			target=_top];
 		&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;;
 	}
+	subgraph &quot;cluster_supriya.time&quot; {
+		graph [label=&quot;supriya.time&quot;];
+		node [color=2];
+		&quot;supriya.time.Interval.Interval&quot;		 [URL=&quot;../api/supriya/system/../time/Interval.html#supriya.time.Interval.Interval&quot;,
+			color=2,
+			label=Interval,
+			target=_top];
+	}
 	&quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject.SupriyaObject&quot;	 [minlen=1];
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.QueryTreeControl.QueryTreeControl&quot;	 [minlen=1];
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.QueryTreeGroup.QueryTreeGroup&quot;	 [minlen=2];
@@ -907,7 +946,7 @@
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.Requestable.Requestable&quot;;
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.Response.Response&quot;;
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.midi.MidiMessage.MidiMessage&quot;;
-	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.nonrealtime.NodeAction.NodeAction&quot;	 [minlen=4];
+	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.nonrealtime.NodeTransition.NodeTransition&quot;	 [minlen=4];
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.osc.OscBundle.OscBundle&quot;	 [minlen=1];
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.osc.OscMessage.OscMessage&quot;	 [minlen=2];
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.patterns.Event.Event&quot;;
@@ -915,54 +954,56 @@
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.patterns.Pattern.Pattern&quot;;
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.realtime.BufferProxy.BufferProxy&quot;	 [minlen=4];
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.realtime.BusProxy.BusProxy&quot;	 [minlen=1];
-	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.soundfiles.Say.Say&quot;	 [minlen=2];
+	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.soundfiles.Say&quot;	 [minlen=2];
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.synthdefs.Envelope.Envelope&quot;	 [minlen=3];
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.synthdefs.Parameter.Parameter&quot;	 [minlen=4];
+	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.time.Interval.Interval&quot;	 [minlen=1];
+	&quot;supriya.time.Interval.Interval&quot; -&gt; &quot;supriya.realtime.Block.Block&quot;	 [minlen=1];
 }</p></object></div>
 </div>
 <dl class="class">
 <dt id="supriya.system.SupriyaValueObject.SupriyaValueObject">
-<em class="property">class </em><code class="descclassname">supriya.system.SupriyaValueObject.</code><code class="descname">SupriyaValueObject</code><a class="reference internal" href="../../../_modules/supriya/system/SupriyaValueObject.html#SupriyaValueObject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.system.SupriyaValueObject.SupriyaValueObject" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">supriya.system.SupriyaValueObject.</code><code class="sig-name descname">SupriyaValueObject</code><a class="reference internal" href="../../../_modules/supriya/system/SupriyaValueObject.html#SupriyaValueObject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.system.SupriyaValueObject.SupriyaValueObject" title="Permalink to this definition">¶</a></dt>
 <dd><hr/><p class="class-header rubric">Attributes Summary</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.system.SupriyaValueObject.SupriyaValueObject.__copy__" title="supriya.system.SupriyaValueObject.SupriyaValueObject.__copy__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__copy__</span></code></a></td>
-<td></td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.system.SupriyaValueObject.SupriyaValueObject.__copy__" title="supriya.system.SupriyaValueObject.SupriyaValueObject.__copy__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__copy__</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.system.SupriyaValueObject.SupriyaValueObject.__eq__" title="supriya.system.SupriyaValueObject.SupriyaValueObject.__eq__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__eq__</span></code></a></td>
-<td>Return self==value.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.system.SupriyaValueObject.SupriyaValueObject.__eq__" title="supriya.system.SupriyaValueObject.SupriyaValueObject.__eq__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__eq__</span></code></a></p></td>
+<td><p>Return self==value.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.system.SupriyaValueObject.SupriyaValueObject.__hash__" title="supriya.system.SupriyaValueObject.SupriyaValueObject.__hash__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__hash__</span></code></a></td>
-<td>Return hash(self).</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.system.SupriyaValueObject.SupriyaValueObject.__hash__" title="supriya.system.SupriyaValueObject.SupriyaValueObject.__hash__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__hash__</span></code></a></p></td>
+<td><p>Return hash(self).</p></td>
 </tr>
 </tbody>
 </table>
 <hr/><p class="class-header rubric">Special methods</p>
 <dl class="method">
 <dt id="supriya.system.SupriyaValueObject.SupriyaValueObject.__copy__">
-<code class="descname">__copy__</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/system/SupriyaValueObject.html#SupriyaValueObject.__copy__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.system.SupriyaValueObject.SupriyaValueObject.__copy__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param">*args</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/system/SupriyaValueObject.html#SupriyaValueObject.__copy__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.system.SupriyaValueObject.SupriyaValueObject.__copy__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.system.SupriyaValueObject.SupriyaValueObject.__eq__">
-<code class="descname">__eq__</code><span class="sig-paren">(</span><em>expr</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/system/SupriyaValueObject.html#SupriyaValueObject.__eq__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.system.SupriyaValueObject.SupriyaValueObject.__eq__" title="Permalink to this definition">¶</a></dt>
+<em class="property">overridden </em><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param">expr</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/system/SupriyaValueObject.html#SupriyaValueObject.__eq__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.system.SupriyaValueObject.SupriyaValueObject.__eq__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return self==value.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="supriya.system.SupriyaValueObject.SupriyaValueObject.__hash__">
-<code class="descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/system/SupriyaValueObject.html#SupriyaValueObject.__hash__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.system.SupriyaValueObject.SupriyaValueObject.__hash__" title="Permalink to this definition">¶</a></dt>
+<em class="property">overridden </em><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/system/SupriyaValueObject.html#SupriyaValueObject.__hash__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.system.SupriyaValueObject.SupriyaValueObject.__hash__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return hash(self).</p>
 </dd></dl>
 
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.system.SupriyaValueObject.SupriyaValueObject.__repr__">
-<code class="descclassname">(<a class="reference internal" href="SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject" title="supriya.system.SupriyaObject.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.system.SupriyaValueObject.SupriyaValueObject.__repr__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject" title="supriya.system.SupriyaObject.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.system.SupriyaValueObject.SupriyaValueObject.__repr__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return repr(self).</p>
 </dd></dl>
 
@@ -982,7 +1023,7 @@
         <a href="YAMLLoader.html" class="btn btn-neutral float-right" title="YAMLLoader" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="SupriyaObject.html" class="btn btn-neutral" title="SupriyaObject" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="SupriyaObject.html" class="btn btn-neutral float-left" title="SupriyaObject" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1008,26 +1049,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

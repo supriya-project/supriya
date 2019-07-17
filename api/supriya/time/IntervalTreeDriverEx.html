@@ -1,0 +1,463 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>IntervalTreeDriverEx &mdash; Supriya 0.3.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Moment" href="Moment.html" />
+    <link rel="prev" title="IntervalTreeDriver" href="IntervalTreeDriver.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cli/index.html">cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clock.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../daw/index.html">daw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../live/index.html">live</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">system</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">time</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="Interval.html">Interval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="IntervalTree.html">IntervalTree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="IntervalTreeDriver.html">IntervalTreeDriver</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">IntervalTreeDriverEx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Moment.html">Moment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">supriya</a> &raquo;</li>
+        
+          <li><a href="index.html">time</a> &raquo;</li>
+        
+      <li>IntervalTreeDriverEx</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/supriya/time/IntervalTreeDriverEx.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-supriya.time.IntervalTreeDriverEx">
+<span id="intervaltreedriverex"></span><span id="supriya-time-intervaltreedriverex"></span><h1>IntervalTreeDriverEx<a class="headerlink" href="#module-supriya.time.IntervalTreeDriverEx" title="Permalink to this headline">¶</a></h1>
+<div class="svg-container docutils container">
+<div class="graphviz"><object data="../../../_images/inheritance-63e9f89a6ccde0de93b5570f547894e3f23d5930.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">digraph InheritanceGraph {
+    graph [bgcolor=transparent,
+        color=lightsteelblue2,
+        fontname=Arial,
+        fontsize=10,
+        outputorder=edgesfirst,
+        overlap=prism,
+        penwidth=2,
+        rankdir=LR,
+        splines=spline,
+        style=&quot;dashed, rounded&quot;,
+        truecolor=true];
+    node [colorscheme=pastel19,
+        fontname=Arial,
+        fontsize=10,
+        height=0,
+        penwidth=2,
+        shape=box,
+        style=&quot;filled, rounded&quot;,
+        width=0];
+    edge [color=lightslategrey,
+        penwidth=1];
+    subgraph cluster_builtins {
+        graph [label=builtins];
+        node [color=1];
+        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3.6/library/functions.html#object&quot;,
+            label=object,
+            target=_top];
+    }
+    subgraph &quot;cluster_supriya.time&quot; {
+        graph [label=&quot;supriya.time&quot;];
+        node [color=2];
+        &quot;supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx&quot; [URL=&quot;../api/supriya/time/IntervalTreeDriverEx.html#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx&quot;,
+            label=&quot;Interval\nTree\nDriver\nEx&quot;,
+            target=_top];
+    }
+    &quot;builtins.object&quot; -&gt; &quot;supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx&quot;;
+}</p></object></div>
+</div>
+<dl class="class">
+<dt id="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.time.IntervalTreeDriverEx.</code><code class="sig-name descname">IntervalTreeDriverEx</code><a class="headerlink" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx" title="Permalink to this definition">¶</a></dt>
+<dd><p>A mutable always-sorted collection of intervals.</p>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.__contains__" title="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.__contains__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__contains__</span></code></a></p></td>
+<td><p>Return key in self.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.__getitem__" title="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.__getitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__getitem__</span></code></a></p></td>
+<td><p>Return self[key].</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.__iter__" title="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.__iter__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__iter__</span></code></a></p></td>
+<td><p>Implement iter(self).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.__len__" title="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.__len__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__len__</span></code></a></p></td>
+<td><p>Return len(self).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.__new__" title="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.__new__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__new__</span></code></a></p></td>
+<td><p>Create and return a new object.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.add" title="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.add"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.find_intervals_intersecting_interval" title="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.find_intervals_intersecting_interval"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_intervals_intersecting_interval</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.find_intervals_intersecting_offset" title="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.find_intervals_intersecting_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_intervals_intersecting_offset</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.find_intervals_starting_at" title="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.find_intervals_starting_at"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_intervals_starting_at</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.find_intervals_stopping_at" title="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.find_intervals_stopping_at"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_intervals_stopping_at</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.get_offset_after" title="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.get_offset_after"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_offset_after</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.get_start_offset_after" title="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.get_start_offset_after"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_start_offset_after</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.get_start_offset_before" title="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.get_start_offset_before"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_start_offset_before</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.index" title="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.remove" title="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.remove"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.update" title="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.update"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<dl class="method">
+<dt id="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.__contains__">
+<code class="sig-name descname">__contains__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.__contains__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return key in self.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.__getitem__">
+<code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return self[key].</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.__iter__">
+<code class="sig-name descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement iter(self).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.__len__">
+<code class="sig-name descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.__len__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return len(self).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.__new__">
+<em class="property">overridden </em><code class="sig-name descname">__new__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.__new__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and return a new object.  See help(type) for accurate signature.</p>
+</dd></dl>
+
+<hr/><p class="class-header rubric">Methods</p>
+<dl class="method">
+<dt id="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.add">
+<code class="sig-name descname">add</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.find_intervals_intersecting_interval">
+<code class="sig-name descname">find_intervals_intersecting_interval</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.find_intervals_intersecting_interval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.find_intervals_intersecting_offset">
+<code class="sig-name descname">find_intervals_intersecting_offset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.find_intervals_intersecting_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.find_intervals_starting_at">
+<code class="sig-name descname">find_intervals_starting_at</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.find_intervals_starting_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.find_intervals_stopping_at">
+<code class="sig-name descname">find_intervals_stopping_at</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.find_intervals_stopping_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.get_offset_after">
+<code class="sig-name descname">get_offset_after</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.get_offset_after" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.get_start_offset_after">
+<code class="sig-name descname">get_start_offset_after</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.get_start_offset_after" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.get_start_offset_before">
+<code class="sig-name descname">get_start_offset_before</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.get_start_offset_before" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.index">
+<code class="sig-name descname">index</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.remove">
+<code class="sig-name descname">remove</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.remove" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.time.IntervalTreeDriverEx.IntervalTreeDriverEx.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Moment.html" class="btn btn-neutral float-right" title="Moment" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="IntervalTreeDriver.html" class="btn btn-neutral float-left" title="IntervalTreeDriver" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

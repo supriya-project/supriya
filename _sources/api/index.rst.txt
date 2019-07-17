@@ -1,5 +1,5 @@
-Supriya API
-===========
+Supriya API Reference
+=====================
 
 .. toctree::
    :hidden:
@@ -258,9 +258,12 @@ Tools for object-modeling OSC responses received from ``scsynth``.
    ~supriya.exceptions.NonrealtimeOutputMissing
    ~supriya.exceptions.NonrealtimeRenderError
    ~supriya.exceptions.NotAllocated
+   ~supriya.exceptions.OwnedServerShutdown
    ~supriya.exceptions.RequestTimeout
    ~supriya.exceptions.ServerCannotBoot
    ~supriya.exceptions.ServerOffline
+   ~supriya.exceptions.TooManyClients
+   ~supriya.exceptions.UnownedServerShutdown
 
 .. raw:: html
 
@@ -268,6 +271,37 @@ Tools for object-modeling OSC responses received from ``scsynth``.
 
 .. rubric:: :ref:`supriya.ext <supriya--ext>`
    :class: section-header
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Functions
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ext.websafe_audio
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: :ref:`supriya.ext.book <supriya--ext--book>`
+   :class: section-header
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.ext.book.RenderExtension
 
 .. raw:: html
 
@@ -287,7 +321,6 @@ Tools for object-modeling OSC responses received from ``scsynth``.
    :nosignatures:
 
    ~supriya.ext.ipython.load_ipython_extension
-   ~supriya.ext.ipython.patch_grapher
    ~supriya.ext.ipython.patch_player
 
 .. raw:: html
@@ -307,7 +340,6 @@ Tools for object-modeling OSC responses received from ``scsynth``.
 .. autosummary::
    :nosignatures:
 
-   ~supriya.io.Grapher
    ~supriya.io.Player
 
 .. raw:: html
@@ -345,16 +377,22 @@ performance applications.
    :nosignatures:
 
    ~supriya.live.Application.Application
-   ~supriya.live.AutoPatternSlot.AutoPatternSlot
+   ~supriya.live.AudioEffect.AudioEffect
+   ~supriya.live.Clip.Clip
+   ~supriya.live.Device.Device
+   ~supriya.live.DeviceChain.DeviceChain
    ~supriya.live.Direct.Direct
+   ~supriya.live.Instrument.Instrument
+   ~supriya.live.MidiEffect.MidiEffect
    ~supriya.live.Mixer.Mixer
-   ~supriya.live.PatternSlot.PatternSlot
+   ~supriya.live.Note.Note
+   ~supriya.live.NoteSelector.NoteSelector
+   ~supriya.live.PolyphonicVoicer.PolyphonicVoicer
+   ~supriya.live.Rack.Rack
    ~supriya.live.Send.Send
    ~supriya.live.SendManager.SendManager
-   ~supriya.live.Slot.Slot
-   ~supriya.live.SynthSlot.SynthSlot
+   ~supriya.live.Shuffle.Shuffle
    ~supriya.live.Track.Track
-   ~supriya.live.TriggerPatternSlot.TriggerPatternSlot
 
 .. raw:: html
 
@@ -584,7 +622,7 @@ Tools for interacting with and modeling objects on the SuperCollider
    :nosignatures:
 
    ~supriya.realtime.Node.Node
-   ~supriya.realtime.ServerObjectProxy.ServerObjectProxy
+   ~supriya.realtime.ServerObject.ServerObject
 
 .. raw:: html
 
@@ -596,13 +634,13 @@ Tools for interacting with and modeling objects on the SuperCollider
 .. autosummary::
    :nosignatures:
 
+   ~supriya.realtime.BootOptions.BootOptions
    ~supriya.realtime.Buffer.Buffer
    ~supriya.realtime.BufferGroup.BufferGroup
    ~supriya.realtime.Bus.Bus
    ~supriya.realtime.BusGroup.BusGroup
    ~supriya.realtime.Group.Group
    ~supriya.realtime.Server.Server
-   ~supriya.realtime.ServerOptions.ServerOptions
    ~supriya.realtime.Synth.Synth
 
 .. raw:: html
@@ -651,10 +689,8 @@ Tools for interacting with soundfiles.
 .. autosummary::
    :nosignatures:
 
-   ~supriya.soundfiles.Frame.Frame
-   ~supriya.soundfiles.Say.Say
-   ~supriya.soundfiles.Signal.Signal
-   ~supriya.soundfiles.SoundFile.SoundFile
+   ~supriya.soundfiles.Say
+   ~supriya.soundfiles.SoundFile
 
 .. raw:: html
 
@@ -787,6 +823,59 @@ Tools for modeling overlapping time structures with timespans.
    ~supriya.time.TimespanCollectionDriver.TimespanCollectionDriver
    ~supriya.time.TimespanCollectionDriverEx.TimespanCollectionDriverEx
    ~supriya.time.TimespanSimultaneity.TimespanSimultaneity
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: :ref:`supriya.transport <supriya--transport>`
+   :class: section-header
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.transport.CallbackEvent
+   ~supriya.transport.ChangeEvent
+   ~supriya.transport.EventQueue
+   ~supriya.transport.Moment
+   ~supriya.transport.SchedulerEvent
+   ~supriya.transport.Transport
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Enumerations
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.transport.EventType
+   ~supriya.transport.TimeUnit
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Functions
+   :class: subsection-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~supriya.transport.measure_to_offset
+   ~supriya.transport.offset_to_measure
+   ~supriya.transport.offset_to_measure_offset
+   ~supriya.transport.offset_to_seconds
+   ~supriya.transport.seconds_to_offset
 
 .. raw:: html
 
@@ -1491,9 +1580,8 @@ Utility functions.
 .. autosummary::
    :nosignatures:
 
-   ~supriya.utils.flatten_iterable.flatten_iterable
-   ~supriya.utils.group_iterable_by_count.group_iterable_by_count
-   ~supriya.utils.iterate_nwise.iterate_nwise
-   ~supriya.utils.new.new
-   ~supriya.utils.repeat_sequence_to_length.repeat_sequence_to_length
-   ~supriya.utils.zip_sequences.zip_sequences
+   ~supriya.utils.flatten_iterable
+   ~supriya.utils.group_iterable_by_count
+   ~supriya.utils.iterate_nwise
+   ~supriya.utils.repeat_sequence_to_length
+   ~supriya.utils.zip_sequences

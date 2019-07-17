@@ -13,15 +13,15 @@
 <path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M20,-19C20,-19 49,-19 49,-19 55,-19 61,-25 61,-31 61,-31 61,-62 61,-62 61,-68 55,-74 49,-74 49,-74 20,-74 20,-74 14,-74 8,-68 8,-62 8,-62 8,-31 8,-31 8,-25 14,-19 20,-19"/>
 <text text-anchor="middle" x="34.5" y="-62" font-family="Arial" font-size="10.00" fill="#000000">builtins</text>
 </g>
-<g id="clust2" class="cluster">
-<title>cluster_supriya.commands</title>
-<path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M249,-14C249,-14 377,-14 377,-14 383,-14 389,-20 389,-26 389,-26 389,-67 389,-67 389,-73 383,-79 377,-79 377,-79 249,-79 249,-79 243,-79 237,-73 237,-67 237,-67 237,-26 237,-26 237,-20 243,-14 249,-14"/>
-<text text-anchor="middle" x="313" y="-67" font-family="Arial" font-size="10.00" fill="#000000">supriya.commands</text>
-</g>
 <g id="clust3" class="cluster">
 <title>cluster_supriya.system</title>
 <path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M93,-8C93,-8 205,-8 205,-8 211,-8 217,-14 217,-20 217,-20 217,-73 217,-73 217,-79 211,-85 205,-85 205,-85 93,-85 93,-85 87,-85 81,-79 81,-73 81,-73 81,-20 81,-20 81,-14 87,-8 93,-8"/>
 <text text-anchor="middle" x="149" y="-73" font-family="Arial" font-size="10.00" fill="#000000">supriya.system</text>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_supriya.commands</title>
+<path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M249,-14C249,-14 377,-14 377,-14 383,-14 389,-20 389,-26 389,-26 389,-67 389,-67 389,-73 383,-79 377,-79 377,-79 249,-79 249,-79 243,-79 237,-73 237,-67 237,-67 237,-26 237,-26 237,-20 243,-14 249,-14"/>
+<text text-anchor="middle" x="313" y="-67" font-family="Arial" font-size="10.00" fill="#000000">supriya.commands</text>
 </g>
 <!-- builtins.object&#45;&gt;supriya.system.SupriyaObject.SupriyaObject -->
 <g id="edge3" class="edge">

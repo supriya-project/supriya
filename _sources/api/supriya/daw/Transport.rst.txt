@@ -1,0 +1,73 @@
+.. _supriya--daw--Transport:
+
+Transport
+=========
+
+.. automodule:: supriya.daw.Transport
+
+.. currentmodule:: supriya.daw.Transport
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.daw.Transport
+
+.. autoclass:: Transport
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read/write properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Transport.name
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Transport.application
+
+   .. container:: inherited
+
+      .. autoattribute:: Transport.channel_count
+
+   .. container:: inherited
+
+      .. autoattribute:: Transport.depth
+
+   .. container:: inherited
+
+      .. autoattribute:: Transport.graph_order
+
+   .. container:: inherited
+
+      .. autoattribute:: Transport.mixer_context
+
+   .. container:: inherited
+
+      .. autoattribute:: Transport.node
+
+   .. container:: inherited
+
+      .. autoattribute:: Transport.parent
+
+   .. container:: inherited
+
+      .. autoattribute:: Transport.parentage
+
+   .. container:: inherited
+
+      .. autoattribute:: Transport.root
+
+   .. container:: inherited
+
+      .. autoattribute:: Transport.server

@@ -32,6 +32,7 @@ SynthDefFactory
       with_input
       with_output
       with_parameter_block
+      with_parameters
       with_rand_id
       with_signal_block
       with_silence_detection
@@ -69,6 +70,8 @@ SynthDefFactory
    .. automethod:: SynthDefFactory.with_output
 
    .. automethod:: SynthDefFactory.with_parameter_block
+
+   .. automethod:: SynthDefFactory.with_parameters
 
    .. automethod:: SynthDefFactory.with_rand_id
 

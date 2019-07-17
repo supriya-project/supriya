@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>TimespanCollection &mdash; Supriya 0.2.0 documentation</title>
+  <title>TimespanCollection &mdash; Supriya 0.3.0 documentation</title>
   
 
   
@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
@@ -32,21 +39,16 @@
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="TimespanCollectionDriver" href="TimespanCollectionDriver.html" />
     <link rel="prev" title="time" href="index.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -60,7 +62,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.3.0
               </div>
             
           
@@ -84,40 +86,66 @@
               
             
             
-              <ul>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Supriya API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../cli/index.html">cli</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../commands/index.html">commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../enums.html">enums</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ext/index.html">ext</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../io.html">io</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../live/index.html">live</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../midi/index.html">midi</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../osc/index.html">osc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../soundfiles/index.html">soundfiles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../system/index.html">system</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="index.html">time</a><ul class="current">
-<li class="toctree-l4 current"><a class="current reference internal" href="#">TimespanCollection</a></li>
-<li class="toctree-l4"><a class="reference internal" href="TimespanCollectionDriver.html">TimespanCollectionDriver</a></li>
-<li class="toctree-l4"><a class="reference internal" href="TimespanCollectionDriverEx.html">TimespanCollectionDriverEx</a></li>
-<li class="toctree-l4"><a class="reference internal" href="TimespanSimultaneity.html">TimespanSimultaneity</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cli/index.html">cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../live/index.html">live</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">system</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">time</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">TimespanCollection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="TimespanCollectionDriver.html">TimespanCollectionDriver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="TimespanCollectionDriverEx.html">TimespanCollectionDriverEx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="TimespanSimultaneity.html">TimespanSimultaneity</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transport.html">transport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
 </ul>
 </li>
 </ul>
-</li>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -162,8 +190,6 @@
   <ul class="wy-breadcrumbs">
     
       <li><a href="../../../index.html">Docs</a> &raquo;</li>
-        
-          <li><a href="../../index.html">Supriya API</a> &raquo;</li>
         
           <li><a href="../index.html">supriya</a> &raquo;</li>
         
@@ -253,7 +279,7 @@
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">timespan_collection</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">TimespanCollection</span><span class="p">(</span><span class="n">timespans</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -309,40 +335,43 @@
 <tr class="row-odd"><td><a class="reference internal" href="#supriya.time.TimespanCollection.TimespanCollection.find_timespans_stopping_at" title="supriya.time.TimespanCollection.TimespanCollection.find_timespans_stopping_at"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_timespans_stopping_at</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.time.TimespanCollection.TimespanCollection.get_simultaneity_at" title="supriya.time.TimespanCollection.TimespanCollection.get_simultaneity_at"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_simultaneity_at</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.time.TimespanCollection.TimespanCollection.get_offset_after" title="supriya.time.TimespanCollection.TimespanCollection.get_offset_after"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_offset_after</span></code></a></td>
+<td>Gets first start or stop offset after <code class="docutils literal notranslate"><span class="pre">offset</span></code>, otherwise None.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.time.TimespanCollection.TimespanCollection.get_simultaneity_at" title="supriya.time.TimespanCollection.TimespanCollection.get_simultaneity_at"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_simultaneity_at</span></code></a></td>
 <td>Gets simultaneity at <cite>offset</cite>.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.time.TimespanCollection.TimespanCollection.get_start_offset_after" title="supriya.time.TimespanCollection.TimespanCollection.get_start_offset_after"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_start_offset_after</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.time.TimespanCollection.TimespanCollection.get_start_offset_after" title="supriya.time.TimespanCollection.TimespanCollection.get_start_offset_after"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_start_offset_after</span></code></a></td>
 <td>Gets start offst in this timespan collection after <cite>offset</cite>.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.time.TimespanCollection.TimespanCollection.get_start_offset_before" title="supriya.time.TimespanCollection.TimespanCollection.get_start_offset_before"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_start_offset_before</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.time.TimespanCollection.TimespanCollection.get_start_offset_before" title="supriya.time.TimespanCollection.TimespanCollection.get_start_offset_before"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_start_offset_before</span></code></a></td>
 <td>Gets start offst in this timespan collection before <cite>offset</cite>.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.time.TimespanCollection.TimespanCollection.index" title="supriya.time.TimespanCollection.TimespanCollection.index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.time.TimespanCollection.TimespanCollection.index" title="supriya.time.TimespanCollection.TimespanCollection.index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.time.TimespanCollection.TimespanCollection.insert" title="supriya.time.TimespanCollection.TimespanCollection.insert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">insert</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.time.TimespanCollection.TimespanCollection.insert" title="supriya.time.TimespanCollection.TimespanCollection.insert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">insert</span></code></a></td>
 <td>Inserts <cite>timespans</cite> into this timespan collection.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.time.TimespanCollection.TimespanCollection.iterate_simultaneities" title="supriya.time.TimespanCollection.TimespanCollection.iterate_simultaneities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iterate_simultaneities</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.time.TimespanCollection.TimespanCollection.iterate_simultaneities" title="supriya.time.TimespanCollection.TimespanCollection.iterate_simultaneities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iterate_simultaneities</span></code></a></td>
 <td>Iterates simultaneities in this timespan collection.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.time.TimespanCollection.TimespanCollection.iterate_simultaneities_nwise" title="supriya.time.TimespanCollection.TimespanCollection.iterate_simultaneities_nwise"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iterate_simultaneities_nwise</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.time.TimespanCollection.TimespanCollection.iterate_simultaneities_nwise" title="supriya.time.TimespanCollection.TimespanCollection.iterate_simultaneities_nwise"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iterate_simultaneities_nwise</span></code></a></td>
 <td>Iterates simultaneities in this timespan collection in groups of <cite>n</cite>.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.time.TimespanCollection.TimespanCollection.latest_start_offset" title="supriya.time.TimespanCollection.TimespanCollection.latest_start_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">latest_start_offset</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.time.TimespanCollection.TimespanCollection.latest_start_offset" title="supriya.time.TimespanCollection.TimespanCollection.latest_start_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">latest_start_offset</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.time.TimespanCollection.TimespanCollection.latest_stop_offset" title="supriya.time.TimespanCollection.TimespanCollection.latest_stop_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">latest_stop_offset</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.time.TimespanCollection.TimespanCollection.latest_stop_offset" title="supriya.time.TimespanCollection.TimespanCollection.latest_stop_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">latest_stop_offset</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.time.TimespanCollection.TimespanCollection.remove" title="supriya.time.TimespanCollection.TimespanCollection.remove"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.time.TimespanCollection.TimespanCollection.remove" title="supriya.time.TimespanCollection.TimespanCollection.remove"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove</span></code></a></td>
 <td>Removes timespans from this timespan collection.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.time.TimespanCollection.TimespanCollection.start_offset" title="supriya.time.TimespanCollection.TimespanCollection.start_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start_offset</span></code></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="#supriya.time.TimespanCollection.TimespanCollection.start_offset" title="supriya.time.TimespanCollection.TimespanCollection.start_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start_offset</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.time.TimespanCollection.TimespanCollection.stop_offset" title="supriya.time.TimespanCollection.TimespanCollection.stop_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop_offset</span></code></a></td>
+<tr class="row-even"><td><a class="reference internal" href="#supriya.time.TimespanCollection.TimespanCollection.stop_offset" title="supriya.time.TimespanCollection.TimespanCollection.stop_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop_offset</span></code></a></td>
 <td></td>
 </tr>
 </tbody>
@@ -365,7 +394,7 @@ false.</p>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">timespan_collection</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">TimespanCollection</span><span class="p">(</span><span class="n">timespans</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -391,7 +420,7 @@ false.</p>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">timespan_collection</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">TimespanCollection</span><span class="p">(</span><span class="n">timespans</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -401,7 +430,7 @@ false.</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">timespan</span> <span class="ow">in</span> <span class="n">timespan_collection</span><span class="p">[:</span><span class="mi">3</span><span class="p">]:</span>
 <span class="gp">... </span>    <span class="n">timespan</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))</span>
 <span class="go">Timespan(start_offset=Offset(1, 1), stop_offset=Offset(2, 1))</span>
 <span class="go">Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1))</span>
@@ -421,13 +450,13 @@ false.</p>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">timespan_collection</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">TimespanCollection</span><span class="p">(</span><span class="n">timespans</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">timespan</span> <span class="ow">in</span> <span class="n">timespan_collection</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">timespan</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))</span>
 <span class="go">Timespan(start_offset=Offset(1, 1), stop_offset=Offset(2, 1))</span>
 <span class="go">Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1))</span>
@@ -449,7 +478,7 @@ false.</p>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">timespan_collection</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">TimespanCollection</span><span class="p">(</span><span class="n">timespans</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -479,7 +508,7 @@ false.</p>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">timespan_collection</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">TimespanCollection</span><span class="p">(</span><span class="n">timespans</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -494,11 +523,13 @@ false.</p>
 <code class="descname">__sub__</code><span class="sig-paren">(</span><em>timespan</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/time/TimespanCollection.html#TimespanCollection.__sub__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.time.TimespanCollection.TimespanCollection.__sub__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete material that intersects <cite>timespan</cite>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">abjad.timespans</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">timespan_collection</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">TimespanCollection</span><span class="p">([</span>
-<span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timespan_collection</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">TimespanCollection</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[</span>
+<span class="gp">... </span>        <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="p">]</span>
+<span class="gp">... </span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">timespan</span> <span class="o">=</span> <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
@@ -507,7 +538,7 @@ false.</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">timespan</span> <span class="ow">in</span> <span class="n">timespan_collection</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">timespan</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">Timespan(start_offset=Offset(-2, 1), stop_offset=Offset(5, 1))</span>
 <span class="go">Timespan(start_offset=Offset(0, 1), stop_offset=Offset(5, 1))</span>
 <span class="go">Timespan(start_offset=Offset(10, 1), stop_offset=Offset(12, 1))</span>
@@ -531,13 +562,13 @@ false.</p>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">timespan_collection</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">TimespanCollection</span><span class="p">(</span><span class="n">timespans</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">timespan_collection</span><span class="o">.</span><span class="n">find_intersection</span><span class="p">(</span><span class="mf">1.5</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">x</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))</span>
 <span class="go">Timespan(start_offset=Offset(1, 1), stop_offset=Offset(2, 1))</span>
 <span class="go">Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1))</span>
@@ -552,14 +583,14 @@ false.</p>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">timespan_collection</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">TimespanCollection</span><span class="p">(</span><span class="n">timespans</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">timespan</span> <span class="o">=</span> <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">timespan_collection</span><span class="o">.</span><span class="n">find_intersection</span><span class="p">(</span><span class="n">timespan</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">x</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))</span>
 <span class="go">Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1))</span>
 <span class="go">Timespan(start_offset=Offset(2, 1), stop_offset=Offset(5, 1))</span>
@@ -579,6 +610,40 @@ false.</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="supriya.time.TimespanCollection.TimespanCollection.get_offset_after">
+<code class="descname">get_offset_after</code><span class="sig-paren">(</span><em>offset</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/time/TimespanCollection.html#TimespanCollection.get_offset_after"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.time.TimespanCollection.TimespanCollection.get_offset_after" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets first start or stop offset after <code class="docutils literal notranslate"><span class="pre">offset</span></code>, otherwise None.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">abjad.timespans</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timespans</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timespan_collection</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">TimespanCollection</span><span class="p">(</span><span class="n">timespans</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">timespan_collection</span><span class="o">.</span><span class="n">get_offset_after</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+<span class="gp">... </span>
+<span class="go">-1 0.0</span>
+<span class="go">0 1.0</span>
+<span class="go">1 2.0</span>
+<span class="go">2 3.0</span>
+<span class="go">3 5.0</span>
+<span class="go">4 5.0</span>
+<span class="go">5 6.0</span>
+<span class="go">6 9.0</span>
+<span class="go">7 9.0</span>
+<span class="go">8 9.0</span>
+<span class="go">9 None</span>
+<span class="go">10 None</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
 <dt id="supriya.time.TimespanCollection.TimespanCollection.get_simultaneity_at">
 <code class="descname">get_simultaneity_at</code><span class="sig-paren">(</span><em>offset</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/time/TimespanCollection.html#TimespanCollection.get_simultaneity_at"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.time.TimespanCollection.TimespanCollection.get_simultaneity_at" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets simultaneity at <cite>offset</cite>.</p>
@@ -589,7 +654,7 @@ false.</p>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">timespan_collection</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">TimespanCollection</span><span class="p">(</span><span class="n">timespans</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -614,7 +679,7 @@ false.</p>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">timespan_collection</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">TimespanCollection</span><span class="p">(</span><span class="n">timespans</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -651,7 +716,7 @@ false.</p>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">timespan_collection</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">TimespanCollection</span><span class="p">(</span><span class="n">timespans</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -689,15 +754,14 @@ false.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">abjad.timespans</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">timespan_collection</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">TimespanCollection</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">timespan_collection</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">timespan_collection</span><span class="o">.</span><span class="n">insert</span><span class="p">((</span>
-<span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timespan_collection</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">(</span><span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="gp">... </span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">timespan_collection</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">x</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">Timespan(start_offset=Offset(0, 1), stop_offset=Offset(4, 1))</span>
 <span class="go">Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1))</span>
 <span class="go">Timespan(start_offset=Offset(2, 1), stop_offset=Offset(6, 1))</span>
@@ -718,23 +782,22 @@ false.</p>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">timespan_collection</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">TimespanCollection</span><span class="p">(</span><span class="n">timespans</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">timespan_collection</span><span class="o">.</span><span class="n">iterate_simultaneities</span><span class="p">():</span>
 <span class="gp">... </span>    <span class="n">x</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">&lt;TimespanSimultaneity(0.0 &lt;&lt;1&gt;&gt;)&gt;</span>
 <span class="go">&lt;TimespanSimultaneity(1.0 &lt;&lt;3&gt;&gt;)&gt;</span>
 <span class="go">&lt;TimespanSimultaneity(2.0 &lt;&lt;3&gt;&gt;)&gt;</span>
 <span class="go">&lt;TimespanSimultaneity(6.0 &lt;&lt;1&gt;&gt;)&gt;</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">timespan_collection</span><span class="o">.</span><span class="n">iterate_simultaneities</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">timespan_collection</span><span class="o">.</span><span class="n">iterate_simultaneities</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">x</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">&lt;TimespanSimultaneity(6.0 &lt;&lt;1&gt;&gt;)&gt;</span>
 <span class="go">&lt;TimespanSimultaneity(2.0 &lt;&lt;3&gt;&gt;)&gt;</span>
 <span class="go">&lt;TimespanSimultaneity(1.0 &lt;&lt;3&gt;&gt;)&gt;</span>
@@ -756,22 +819,21 @@ false.</p>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">timespan_collection</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">TimespanCollection</span><span class="p">(</span><span class="n">timespans</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">timespan_collection</span><span class="o">.</span><span class="n">iterate_simultaneities_nwise</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">x</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">[&lt;TimespanSimultaneity(0.0 &lt;&lt;1&gt;&gt;)&gt;, &lt;TimespanSimultaneity(1.0 &lt;&lt;3&gt;&gt;)&gt;]</span>
 <span class="go">[&lt;TimespanSimultaneity(1.0 &lt;&lt;3&gt;&gt;)&gt;, &lt;TimespanSimultaneity(2.0 &lt;&lt;3&gt;&gt;)&gt;]</span>
 <span class="go">[&lt;TimespanSimultaneity(2.0 &lt;&lt;3&gt;&gt;)&gt;, &lt;TimespanSimultaneity(6.0 &lt;&lt;1&gt;&gt;)&gt;]</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">timespan_collection</span><span class="o">.</span><span class="n">iterate_simultaneities_nwise</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">timespan_collection</span><span class="o">.</span><span class="n">iterate_simultaneities_nwise</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">x</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">[&lt;TimespanSimultaneity(2.0 &lt;&lt;3&gt;&gt;)&gt;, &lt;TimespanSimultaneity(6.0 &lt;&lt;1&gt;&gt;)&gt;]</span>
 <span class="go">[&lt;TimespanSimultaneity(1.0 &lt;&lt;3&gt;&gt;)&gt;, &lt;TimespanSimultaneity(2.0 &lt;&lt;3&gt;&gt;)&gt;]</span>
 <span class="go">[&lt;TimespanSimultaneity(0.0 &lt;&lt;1&gt;&gt;)&gt;, &lt;TimespanSimultaneity(1.0 &lt;&lt;3&gt;&gt;)&gt;]</span>
@@ -791,7 +853,7 @@ false.</p>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
 <span class="gp">... </span>    <span class="n">abjad</span><span class="o">.</span><span class="n">timespans</span><span class="o">.</span><span class="n">Timespan</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">timespan_collection</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">TimespanCollection</span><span class="p">(</span><span class="n">timespans</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -800,7 +862,7 @@ false.</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">timespan</span> <span class="ow">in</span> <span class="n">timespan_collection</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">timespan</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="go">Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))</span>
 <span class="go">Timespan(start_offset=Offset(6, 1), stop_offset=Offset(9, 1))</span>
 </pre></div>
@@ -868,7 +930,7 @@ false.</p>
         <a href="TimespanCollectionDriver.html" class="btn btn-neutral float-right" title="TimespanCollectionDriver" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="time" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="time" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -894,26 +956,16 @@ false.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

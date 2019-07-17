@@ -1,0 +1,21 @@
+digraph synthdef_b64857a04b384841694ba85f74f0fd0b {
+    graph [bgcolor=transparent,
+        color=lightslategrey,
+        dpi=72,
+        fontname=Arial,
+        outputorder=edgesfirst,
+        overlap=prism,
+        penwidth=2,
+        rankdir=LR,
+        ranksep=1,
+        splines=spline,
+        style="dotted, rounded"];
+    node [fontname=Arial,
+        fontsize=12,
+        penwidth=2,
+        shape=Mrecord,
+        style="filled, rounded"];
+    edge [penwidth=2];
+    ugen_0 [fillcolor=lightgoldenrod2,
+        label="<f_0> In\n(control) | { { <f_1_0_0> bus:\n8.0 } | { <f_1_1_0> 0 | <f_1_1_1> 1 | <f_1_1_2> 2 | <f_1_1_3> 3 } }"];
+}

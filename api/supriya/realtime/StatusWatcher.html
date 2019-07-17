@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>StatusWatcher &mdash; Supriya 0.2.0 documentation</title>
+  <title>StatusWatcher &mdash; Supriya 0.3.0 documentation</title>
   
 
   
@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
@@ -32,21 +39,16 @@
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="SynthControl" href="SynthControl.html" />
     <link rel="prev" title="ServerRecorder" href="ServerRecorder.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -60,7 +62,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.3.0
               </div>
             
           
@@ -84,62 +86,89 @@
               
             
             
-              <ul>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Supriya API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../cli/index.html">cli</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../commands/index.html">commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../enums.html">enums</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ext/index.html">ext</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../io.html">io</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../live/index.html">live</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../midi/index.html">midi</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../osc/index.html">osc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="index.html">realtime</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="Node.html">Node</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ServerObjectProxy.html">ServerObjectProxy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Buffer.html">Buffer</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferGroup.html">BufferGroup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Bus.html">Bus</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BusGroup.html">BusGroup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Group.html">Group</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Server.html">Server</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ServerOptions.html">ServerOptions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Synth.html">Synth</a></li>
-<li class="toctree-l4"><a class="reference internal" href="AudioInputBusGroup.html">AudioInputBusGroup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="AudioOutputBusGroup.html">AudioOutputBusGroup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Block.html">Block</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BlockAllocator.html">BlockAllocator</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferProxy.html">BufferProxy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BusProxy.html">BusProxy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ControlInterface.html">ControlInterface</a></li>
-<li class="toctree-l4"><a class="reference internal" href="GroupControl.html">GroupControl</a></li>
-<li class="toctree-l4"><a class="reference internal" href="GroupInterface.html">GroupInterface</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NodeIdAllocator.html">NodeIdAllocator</a></li>
-<li class="toctree-l4"><a class="reference internal" href="RootNode.html">RootNode</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ServerMeters.html">ServerMeters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ServerRecorder.html">ServerRecorder</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">StatusWatcher</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthControl.html">SynthControl</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthInterface.html">SynthInterface</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cli/index.html">cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clock.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../daw/index.html">daw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../live/index.html">live</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">realtime</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="Node.html">Node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerObject.html">ServerObject</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BootOptions.html">BootOptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Buffer.html">Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferGroup.html">BufferGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Bus.html">Bus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BusGroup.html">BusGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Group.html">Group</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Server.html">Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Synth.html">Synth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AudioInputBusGroup.html">AudioInputBusGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AudioOutputBusGroup.html">AudioOutputBusGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Block.html">Block</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BlockAllocator.html">BlockAllocator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferProxy.html">BufferProxy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BusProxy.html">BusProxy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ControlInterface.html">ControlInterface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GroupControl.html">GroupControl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GroupInterface.html">GroupInterface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NodeIdAllocator.html">NodeIdAllocator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="RootNode.html">RootNode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerMeters.html">ServerMeters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerRecorder.html">ServerRecorder</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">StatusWatcher</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthControl.html">SynthControl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthInterface.html">SynthInterface</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../soundfiles/index.html">soundfiles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../system/index.html">system</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../time/index.html">time</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
 </ul>
 </li>
 </ul>
-</li>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -184,8 +213,6 @@
   <ul class="wy-breadcrumbs">
     
       <li><a href="../../../index.html">Docs</a> &raquo;</li>
-        
-          <li><a href="../../index.html">Supriya API</a> &raquo;</li>
         
           <li><a href="../index.html">supriya</a> &raquo;</li>
         
@@ -265,48 +292,48 @@
 </div>
 <dl class="class">
 <dt id="supriya.realtime.StatusWatcher.StatusWatcher">
-<em class="property">class </em><code class="descclassname">supriya.realtime.StatusWatcher.</code><code class="descname">StatusWatcher</code><span class="sig-paren">(</span><em>server</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/StatusWatcher.html#StatusWatcher"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">supriya.realtime.StatusWatcher.</code><code class="sig-name descname">StatusWatcher</code><span class="sig-paren">(</span><em class="sig-param">server</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/StatusWatcher.html#StatusWatcher"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher" title="Permalink to this definition">¶</a></dt>
 <dd><hr/><p class="class-header rubric">Attributes Summary</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.realtime.StatusWatcher.StatusWatcher.__call__" title="supriya.realtime.StatusWatcher.StatusWatcher.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code></a></td>
-<td>Call self as a function.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.StatusWatcher.StatusWatcher.__call__" title="supriya.realtime.StatusWatcher.StatusWatcher.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code></a></p></td>
+<td><p>Call self as a function.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.realtime.StatusWatcher.StatusWatcher.active" title="supriya.realtime.StatusWatcher.StatusWatcher.active"><code class="xref py py-obj docutils literal notranslate"><span class="pre">active</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.StatusWatcher.StatusWatcher.attempts" title="supriya.realtime.StatusWatcher.StatusWatcher.attempts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">attempts</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.realtime.StatusWatcher.StatusWatcher.attempts" title="supriya.realtime.StatusWatcher.StatusWatcher.attempts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">attempts</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.StatusWatcher.StatusWatcher.callback" title="supriya.realtime.StatusWatcher.StatusWatcher.callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">callback</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.realtime.StatusWatcher.StatusWatcher.callback" title="supriya.realtime.StatusWatcher.StatusWatcher.callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">callback</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.StatusWatcher.StatusWatcher.is_active" title="supriya.realtime.StatusWatcher.StatusWatcher.is_active"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_active</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_attempts</span></code></td>
-<td></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">max_attempts</span></code></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.realtime.StatusWatcher.StatusWatcher.run" title="supriya.realtime.StatusWatcher.StatusWatcher.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code></a></td>
-<td>Method representing the thread’s activity.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.StatusWatcher.StatusWatcher.run" title="supriya.realtime.StatusWatcher.StatusWatcher.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code></a></p></td>
+<td><p>Method representing the thread’s activity.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.realtime.StatusWatcher.StatusWatcher.server" title="supriya.realtime.StatusWatcher.StatusWatcher.server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">server</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.StatusWatcher.StatusWatcher.server" title="supriya.realtime.StatusWatcher.StatusWatcher.server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">server</span></code></a></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
 <hr/><p class="class-header rubric">Special methods</p>
 <dl class="method">
 <dt id="supriya.realtime.StatusWatcher.StatusWatcher.__call__">
-<code class="descname">__call__</code><span class="sig-paren">(</span><em>response</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/StatusWatcher.html#StatusWatcher.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.__call__" title="Permalink to this definition">¶</a></dt>
+<em class="property">overridden </em><code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param">response</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/StatusWatcher.html#StatusWatcher.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.__call__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call self as a function.</p>
 </dd></dl>
 
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.realtime.StatusWatcher.StatusWatcher.__repr__">
-<code class="descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/threading.html#threading.Thread" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Thread</span></code></a>).</code><code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.__repr__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/threading.html#threading.Thread" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Thread</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.__repr__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return repr(self).</p>
 </dd></dl>
 
@@ -315,14 +342,14 @@
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.realtime.StatusWatcher.StatusWatcher.getName">
-<code class="descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/threading.html#threading.Thread" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Thread</span></code></a>).</code><code class="descname">getName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.getName" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/threading.html#threading.Thread" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Thread</span></code></a>).</code><code class="sig-name descname">getName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.getName" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.realtime.StatusWatcher.StatusWatcher.isAlive">
-<code class="descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/threading.html#threading.Thread" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Thread</span></code></a>).</code><code class="descname">isAlive</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.isAlive" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/threading.html#threading.Thread" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Thread</span></code></a>).</code><code class="sig-name descname">isAlive</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.isAlive" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return whether the thread is alive.</p>
 <p>This method returns True just before the run() method starts until just
 after the run() method terminates. The module function enumerate()
@@ -333,14 +360,14 @@ returns a list of all alive threads.</p>
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.realtime.StatusWatcher.StatusWatcher.isDaemon">
-<code class="descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/threading.html#threading.Thread" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Thread</span></code></a>).</code><code class="descname">isDaemon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.isDaemon" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/threading.html#threading.Thread" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Thread</span></code></a>).</code><code class="sig-name descname">isDaemon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.isDaemon" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.realtime.StatusWatcher.StatusWatcher.is_alive">
-<code class="descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/threading.html#threading.Thread" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Thread</span></code></a>).</code><code class="descname">is_alive</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.is_alive" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/threading.html#threading.Thread" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Thread</span></code></a>).</code><code class="sig-name descname">is_alive</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.is_alive" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return whether the thread is alive.</p>
 <p>This method returns True just before the run() method starts until just
 after the run() method terminates. The module function enumerate()
@@ -351,7 +378,7 @@ returns a list of all alive threads.</p>
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.realtime.StatusWatcher.StatusWatcher.join">
-<code class="descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/threading.html#threading.Thread" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Thread</span></code></a>).</code><code class="descname">join</code><span class="sig-paren">(</span><em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.join" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/threading.html#threading.Thread" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Thread</span></code></a>).</code><code class="sig-name descname">join</code><span class="sig-paren">(</span><em class="sig-param">timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.join" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wait until the thread terminates.</p>
 <p>This blocks the calling thread until the thread whose join() method is
 called terminates – either normally or through an unhandled exception
@@ -373,7 +400,7 @@ exception.</p>
 </div>
 <dl class="method">
 <dt id="supriya.realtime.StatusWatcher.StatusWatcher.run">
-<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/StatusWatcher.html#StatusWatcher.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.run" title="Permalink to this definition">¶</a></dt>
+<em class="property">overridden </em><code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/StatusWatcher.html#StatusWatcher.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method representing the thread’s activity.</p>
 <p>You may override this method in a subclass. The standard run() method
 invokes the callable object passed to the object’s constructor as the
@@ -384,21 +411,21 @@ from the args and kwargs arguments, respectively.</p>
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.realtime.StatusWatcher.StatusWatcher.setDaemon">
-<code class="descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/threading.html#threading.Thread" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Thread</span></code></a>).</code><code class="descname">setDaemon</code><span class="sig-paren">(</span><em>daemonic</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.setDaemon" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/threading.html#threading.Thread" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Thread</span></code></a>).</code><code class="sig-name descname">setDaemon</code><span class="sig-paren">(</span><em class="sig-param">daemonic</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.setDaemon" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.realtime.StatusWatcher.StatusWatcher.setName">
-<code class="descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/threading.html#threading.Thread" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Thread</span></code></a>).</code><code class="descname">setName</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.setName" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/threading.html#threading.Thread" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Thread</span></code></a>).</code><code class="sig-name descname">setName</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.setName" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.realtime.StatusWatcher.StatusWatcher.start">
-<code class="descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/threading.html#threading.Thread" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Thread</span></code></a>).</code><code class="descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.start" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/threading.html#threading.Thread" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Thread</span></code></a>).</code><code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Start the thread’s activity.</p>
 <p>It must be called at most once per thread object. It arranges for the
 object’s run() method to be invoked in a separate thread of control.</p>
@@ -408,15 +435,10 @@ same thread object.</p>
 
 </div>
 <hr/><p class="class-header rubric">Read/write properties</p>
-<dl class="attribute">
-<dt id="supriya.realtime.StatusWatcher.StatusWatcher.active">
-<code class="descname">active</code><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.active" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <div class="inherited docutils container">
 <dl class="attribute">
 <dt id="supriya.realtime.StatusWatcher.StatusWatcher.daemon">
-<code class="descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/threading.html#threading.Thread" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Thread</span></code></a>).</code><code class="descname">daemon</code><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.daemon" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/threading.html#threading.Thread" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Thread</span></code></a>).</code><code class="sig-name descname">daemon</code><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.daemon" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean value indicating whether this thread is a daemon thread.</p>
 <p>This must be set before start() is called, otherwise RuntimeError is
 raised. Its initial value is inherited from the creating thread; the
@@ -427,10 +449,15 @@ left.</p>
 </dd></dl>
 
 </div>
+<dl class="attribute">
+<dt id="supriya.realtime.StatusWatcher.StatusWatcher.is_active">
+<code class="sig-name descname">is_active</code><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.is_active" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <div class="inherited docutils container">
 <dl class="attribute">
 <dt id="supriya.realtime.StatusWatcher.StatusWatcher.name">
-<code class="descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/threading.html#threading.Thread" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Thread</span></code></a>).</code><code class="descname">name</code><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/threading.html#threading.Thread" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Thread</span></code></a>).</code><code class="sig-name descname">name</code><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>A string used for identification purposes only.</p>
 <p>It has no semantics. Multiple threads may be given the same name. The
 initial name is set by the constructor.</p>
@@ -440,18 +467,18 @@ initial name is set by the constructor.</p>
 <hr/><p class="class-header rubric">Read-only properties</p>
 <dl class="attribute">
 <dt id="supriya.realtime.StatusWatcher.StatusWatcher.attempts">
-<code class="descname">attempts</code><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.attempts" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">attempts</code><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.attempts" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.realtime.StatusWatcher.StatusWatcher.callback">
-<code class="descname">callback</code><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.callback" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">callback</code><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.callback" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <div class="inherited docutils container">
 <dl class="attribute">
 <dt id="supriya.realtime.StatusWatcher.StatusWatcher.ident">
-<code class="descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/threading.html#threading.Thread" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Thread</span></code></a>).</code><code class="descname">ident</code><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.ident" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference external" href="https://docs.python.org/3.6/library/threading.html#threading.Thread" title="(in Python v3.6)"><code class="descclassname docutils literal notranslate"><span class="pre">Thread</span></code></a>).</code><code class="sig-name descname">ident</code><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.ident" title="Permalink to this definition">¶</a></dt>
 <dd><p>Thread identifier of this thread or None if it has not been started.</p>
 <p>This is a nonzero integer. See the thread.get_ident() function. Thread
 identifiers may be recycled when a thread exits and another thread is
@@ -461,7 +488,7 @@ created. The identifier is available even after the thread has exited.</p>
 </div>
 <dl class="attribute">
 <dt id="supriya.realtime.StatusWatcher.StatusWatcher.server">
-<code class="descname">server</code><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.server" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">server</code><a class="headerlink" href="#supriya.realtime.StatusWatcher.StatusWatcher.server" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -479,7 +506,7 @@ created. The identifier is available even after the thread has exited.</p>
         <a href="SynthControl.html" class="btn btn-neutral float-right" title="SynthControl" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="ServerRecorder.html" class="btn btn-neutral" title="ServerRecorder" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ServerRecorder.html" class="btn btn-neutral float-left" title="ServerRecorder" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -505,26 +532,16 @@ created. The identifier is available even after the thread has exited.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

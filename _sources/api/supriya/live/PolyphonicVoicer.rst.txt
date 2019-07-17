@@ -1,0 +1,15 @@
+.. _supriya--live--PolyphonicVoicer:
+
+PolyphonicVoicer
+================
+
+.. automodule:: supriya.live.PolyphonicVoicer
+
+.. currentmodule:: supriya.live.PolyphonicVoicer
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.live.PolyphonicVoicer
+
+.. autoclass:: PolyphonicVoicer

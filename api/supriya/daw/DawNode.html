@@ -1,0 +1,700 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>DawNode &mdash; Supriya 0.3.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Device" href="Device.html" />
+    <link rel="prev" title="DawMeta" href="DawMeta.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cli/index.html">cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clock.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">daw</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="synthdefs.html">synthdefs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Chain.html">Chain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Receive.html">Receive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Application.html">Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ArpeggiatorDevice.html">ArpeggiatorDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AudioChain.html">AudioChain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AudioDevice.html">AudioDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AudioRack.html">AudioRack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ChainContainer.html">ChainContainer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ChainReceive.html">ChainReceive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ChordDevice.html">ChordDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Clip.html">Clip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClipSlot.html">ClipSlot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClipSlotContainer.html">ClipSlotContainer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DCDevice.html">DCDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DawContainer.html">DawContainer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DawMeta.html">DawMeta</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">DawNode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Device.html">Device</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DeviceContainer.html">DeviceContainer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GroupTrack.html">GroupTrack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Instrument.html">Instrument</a></li>
+<li class="toctree-l3"><a class="reference internal" href="InstrumentChain.html">InstrumentChain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="InstrumentRack.html">InstrumentRack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MidiChain.html">MidiChain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MidiDevice.html">MidiDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MidiRack.html">MidiRack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MixerContext.html">MixerContext</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Note.html">Note</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NoteSelector.html">NoteSelector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Parameter.html">Parameter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="RackDevice.html">RackDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="RackReceive.html">RackReceive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ReturnChain.html">ReturnChain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SamplerDevice.html">SamplerDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ScaleDevice.html">ScaleDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Scene.html">Scene</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SceneContainer.html">SceneContainer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Send.html">Send</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SendContainer.html">SendContainer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SendManager.html">SendManager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Track.html">Track</a></li>
+<li class="toctree-l3"><a class="reference internal" href="TrackContainer.html">TrackContainer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="TrackReceive.html">TrackReceive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Transport.html">Transport</a></li>
+<li class="toctree-l3"><a class="reference internal" href="VelocityDevice.html">VelocityDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DeviceType.html">DeviceType</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../live/index.html">live</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">supriya</a> &raquo;</li>
+        
+          <li><a href="index.html">daw</a> &raquo;</li>
+        
+      <li>DawNode</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/supriya/daw/DawNode.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-supriya.daw.DawNode">
+<span id="dawnode"></span><span id="supriya-daw-dawnode"></span><h1>DawNode<a class="headerlink" href="#module-supriya.daw.DawNode" title="Permalink to this headline">¶</a></h1>
+<div class="svg-container docutils container">
+<div class="graphviz"><object data="../../../_images/inheritance-b030a44fda3868d14733ae4567d6d6fdeeedd68a.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">digraph InheritanceGraph {
+	graph [bgcolor=transparent,
+		color=lightsteelblue2,
+		fontname=Arial,
+		fontsize=10,
+		outputorder=edgesfirst,
+		overlap=prism,
+		penwidth=2,
+		rankdir=LR,
+		splines=spline,
+		style=&quot;dashed, rounded&quot;,
+		truecolor=true
+	];
+	node [colorscheme=pastel19,
+		fontname=Arial,
+		fontsize=10,
+		height=0,
+		penwidth=2,
+		shape=box,
+		style=&quot;filled, rounded&quot;,
+		width=0
+	];
+	edge [color=lightslategrey,
+		penwidth=1
+	];
+	subgraph cluster_builtins {
+		graph [label=builtins];
+		node [color=1];
+		&quot;builtins.object&quot;		 [URL=&quot;https://docs.python.org/3.6/library/functions.html#object&quot;,
+			color=1,
+			label=object,
+			target=_top];
+	}
+	subgraph &quot;cluster_supriya.daw&quot; {
+		graph [label=&quot;supriya.daw&quot;];
+		node [color=2];
+		&quot;supriya.daw.ArpeggiatorDevice.ArpeggiatorDevice&quot;		 [URL=&quot;../api/supriya/daw/ArpeggiatorDevice.html#supriya.daw.ArpeggiatorDevice.ArpeggiatorDevice&quot;,
+			color=2,
+			label=&quot;Arpeggiator\nDevice&quot;,
+			target=_top];
+		&quot;supriya.daw.AudioChain.AudioChain&quot;		 [URL=&quot;../api/supriya/daw/AudioChain.html#supriya.daw.AudioChain.AudioChain&quot;,
+			color=2,
+			label=&quot;Audio\nChain&quot;,
+			target=_top];
+		&quot;supriya.daw.ReturnChain.ReturnChain&quot;		 [URL=&quot;../api/supriya/daw/ReturnChain.html#supriya.daw.ReturnChain.ReturnChain&quot;,
+			color=2,
+			label=&quot;Return\nChain&quot;,
+			target=_top];
+		&quot;supriya.daw.AudioChain.AudioChain&quot; -&gt; &quot;supriya.daw.ReturnChain.ReturnChain&quot;		 [minlen=1];
+		&quot;supriya.daw.AudioDevice.AudioDevice&quot;		 [URL=&quot;../api/supriya/daw/AudioDevice.html#supriya.daw.AudioDevice.AudioDevice&quot;,
+			color=2,
+			label=&quot;Audio\nDevice&quot;,
+			target=_top];
+		&quot;supriya.daw.DCDevice.DCDevice&quot;		 [URL=&quot;../api/supriya/daw/DCDevice.html#supriya.daw.DCDevice.DCDevice&quot;,
+			color=2,
+			label=DCDevice,
+			target=_top];
+		&quot;supriya.daw.AudioDevice.AudioDevice&quot; -&gt; &quot;supriya.daw.DCDevice.DCDevice&quot;		 [minlen=1];
+		&quot;supriya.daw.AudioRack.AudioRack&quot;		 [URL=&quot;../api/supriya/daw/AudioRack.html#supriya.daw.AudioRack.AudioRack&quot;,
+			color=2,
+			label=&quot;Audio\nRack&quot;,
+			target=_top];
+		&quot;supriya.daw.Chain.Chain&quot;		 [URL=&quot;../api/supriya/daw/Chain.html#supriya.daw.Chain.Chain&quot;,
+			color=2,
+			label=Chain,
+			shape=oval,
+			style=bold,
+			target=_top];
+		&quot;supriya.daw.Chain.Chain&quot; -&gt; &quot;supriya.daw.AudioChain.AudioChain&quot;		 [minlen=1];
+		&quot;supriya.daw.InstrumentChain.InstrumentChain&quot;		 [URL=&quot;../api/supriya/daw/InstrumentChain.html#supriya.daw.InstrumentChain.InstrumentChain&quot;,
+			color=2,
+			label=&quot;Instrument\nChain&quot;,
+			target=_top];
+		&quot;supriya.daw.Chain.Chain&quot; -&gt; &quot;supriya.daw.InstrumentChain.InstrumentChain&quot;		 [minlen=2];
+		&quot;supriya.daw.MidiChain.MidiChain&quot;		 [URL=&quot;../api/supriya/daw/MidiChain.html#supriya.daw.MidiChain.MidiChain&quot;,
+			color=2,
+			label=&quot;Midi\nChain&quot;,
+			target=_top];
+		&quot;supriya.daw.Chain.Chain&quot; -&gt; &quot;supriya.daw.MidiChain.MidiChain&quot;		 [minlen=1];
+		&quot;supriya.daw.ChainContainer.ChainContainer&quot;		 [URL=&quot;../api/supriya/daw/ChainContainer.html#supriya.daw.ChainContainer.ChainContainer&quot;,
+			color=2,
+			label=&quot;Chain\nContainer&quot;,
+			target=_top];
+		&quot;supriya.daw.ChainReceive.ChainReceive&quot;		 [URL=&quot;../api/supriya/daw/ChainReceive.html#supriya.daw.ChainReceive.ChainReceive&quot;,
+			color=2,
+			label=&quot;Chain\nReceive&quot;,
+			target=_top];
+		&quot;supriya.daw.ChordDevice.ChordDevice&quot;		 [URL=&quot;../api/supriya/daw/ChordDevice.html#supriya.daw.ChordDevice.ChordDevice&quot;,
+			color=2,
+			label=&quot;Chord\nDevice&quot;,
+			target=_top];
+		&quot;supriya.daw.DawContainer.DawContainer&quot;		 [URL=&quot;../api/supriya/daw/DawContainer.html#supriya.daw.DawContainer.DawContainer&quot;,
+			color=2,
+			label=&quot;Daw\nContainer&quot;,
+			target=_top];
+		&quot;supriya.daw.DawContainer.DawContainer&quot; -&gt; &quot;supriya.daw.ChainContainer.ChainContainer&quot;		 [minlen=1];
+		&quot;supriya.daw.DeviceContainer.DeviceContainer&quot;		 [URL=&quot;../api/supriya/daw/DeviceContainer.html#supriya.daw.DeviceContainer.DeviceContainer&quot;,
+			color=2,
+			label=&quot;Device\nContainer&quot;,
+			target=_top];
+		&quot;supriya.daw.DawContainer.DawContainer&quot; -&gt; &quot;supriya.daw.DeviceContainer.DeviceContainer&quot;		 [minlen=2];
+		&quot;supriya.daw.SendContainer.SendContainer&quot;		 [URL=&quot;../api/supriya/daw/SendContainer.html#supriya.daw.SendContainer.SendContainer&quot;,
+			color=2,
+			label=&quot;Send\nContainer&quot;,
+			target=_top];
+		&quot;supriya.daw.DawContainer.DawContainer&quot; -&gt; &quot;supriya.daw.SendContainer.SendContainer&quot;		 [minlen=1];
+		&quot;supriya.daw.TrackContainer.TrackContainer&quot;		 [URL=&quot;../api/supriya/daw/TrackContainer.html#supriya.daw.TrackContainer.TrackContainer&quot;,
+			color=2,
+			label=&quot;Track\nContainer&quot;,
+			target=_top];
+		&quot;supriya.daw.DawContainer.DawContainer&quot; -&gt; &quot;supriya.daw.TrackContainer.TrackContainer&quot;		 [minlen=2];
+		&quot;supriya.daw.DawNode.DawNode&quot;		 [URL=&quot;../api/supriya/daw/DawNode.html#supriya.daw.DawNode.DawNode&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Daw\nNode&quot;,
+			target=_top];
+		&quot;supriya.daw.DawNode.DawNode&quot; -&gt; &quot;supriya.daw.Chain.Chain&quot;;
+		&quot;supriya.daw.DawNode.DawNode&quot; -&gt; &quot;supriya.daw.DawContainer.DawContainer&quot;;
+		&quot;supriya.daw.Device.Device&quot;		 [URL=&quot;../api/supriya/daw/Device.html#supriya.daw.Device.Device&quot;,
+			color=2,
+			label=Device,
+			target=_top];
+		&quot;supriya.daw.DawNode.DawNode&quot; -&gt; &quot;supriya.daw.Device.Device&quot;;
+		&quot;supriya.daw.Receive.Receive&quot;		 [URL=&quot;../api/supriya/daw/Receive.html#supriya.daw.Receive.Receive&quot;,
+			color=2,
+			label=Receive,
+			shape=oval,
+			style=bold,
+			target=_top];
+		&quot;supriya.daw.DawNode.DawNode&quot; -&gt; &quot;supriya.daw.Receive.Receive&quot;;
+		&quot;supriya.daw.Send.Send&quot;		 [URL=&quot;../api/supriya/daw/Send.html#supriya.daw.Send.Send&quot;,
+			color=2,
+			label=Send,
+			target=_top];
+		&quot;supriya.daw.DawNode.DawNode&quot; -&gt; &quot;supriya.daw.Send.Send&quot;		 [minlen=1];
+		&quot;supriya.daw.SendManager.SendManager&quot;		 [URL=&quot;../api/supriya/daw/SendManager.html#supriya.daw.SendManager.SendManager&quot;,
+			color=2,
+			label=&quot;Send\nManager&quot;,
+			target=_top];
+		&quot;supriya.daw.DawNode.DawNode&quot; -&gt; &quot;supriya.daw.SendManager.SendManager&quot;		 [minlen=2];
+		&quot;supriya.daw.Track.Track&quot;		 [URL=&quot;../api/supriya/daw/Track.html#supriya.daw.Track.Track&quot;,
+			color=2,
+			label=Track,
+			target=_top];
+		&quot;supriya.daw.DawNode.DawNode&quot; -&gt; &quot;supriya.daw.Track.Track&quot;		 [minlen=1];
+		&quot;supriya.daw.Transport.Transport&quot;		 [URL=&quot;../api/supriya/daw/Transport.html#supriya.daw.Transport.Transport&quot;,
+			color=2,
+			label=Transport,
+			target=_top];
+		&quot;supriya.daw.DawNode.DawNode&quot; -&gt; &quot;supriya.daw.Transport.Transport&quot;		 [minlen=2];
+		&quot;supriya.daw.Device.Device&quot; -&gt; &quot;supriya.daw.AudioDevice.AudioDevice&quot;		 [minlen=1];
+		&quot;supriya.daw.Instrument.Instrument&quot;		 [URL=&quot;../api/supriya/daw/Instrument.html#supriya.daw.Instrument.Instrument&quot;,
+			color=2,
+			label=Instrument,
+			target=_top];
+		&quot;supriya.daw.Device.Device&quot; -&gt; &quot;supriya.daw.Instrument.Instrument&quot;		 [minlen=2];
+		&quot;supriya.daw.MidiDevice.MidiDevice&quot;		 [URL=&quot;../api/supriya/daw/MidiDevice.html#supriya.daw.MidiDevice.MidiDevice&quot;,
+			color=2,
+			label=&quot;Midi\nDevice&quot;,
+			target=_top];
+		&quot;supriya.daw.Device.Device&quot; -&gt; &quot;supriya.daw.MidiDevice.MidiDevice&quot;;
+		&quot;supriya.daw.RackDevice.RackDevice&quot;		 [URL=&quot;../api/supriya/daw/RackDevice.html#supriya.daw.RackDevice.RackDevice&quot;,
+			color=2,
+			label=&quot;Rack\nDevice&quot;,
+			target=_top];
+		&quot;supriya.daw.Device.Device&quot; -&gt; &quot;supriya.daw.RackDevice.RackDevice&quot;;
+		&quot;supriya.daw.GroupTrack.GroupTrack&quot;		 [URL=&quot;../api/supriya/daw/GroupTrack.html#supriya.daw.GroupTrack.GroupTrack&quot;,
+			color=2,
+			label=&quot;Group\nTrack&quot;,
+			target=_top];
+		&quot;supriya.daw.SamplerDevice.SamplerDevice&quot;		 [URL=&quot;../api/supriya/daw/SamplerDevice.html#supriya.daw.SamplerDevice.SamplerDevice&quot;,
+			color=2,
+			label=&quot;Sampler\nDevice&quot;,
+			target=_top];
+		&quot;supriya.daw.Instrument.Instrument&quot; -&gt; &quot;supriya.daw.SamplerDevice.SamplerDevice&quot;		 [minlen=1];
+		&quot;supriya.daw.InstrumentRack.InstrumentRack&quot;		 [URL=&quot;../api/supriya/daw/InstrumentRack.html#supriya.daw.InstrumentRack.InstrumentRack&quot;,
+			color=2,
+			label=&quot;Instrument\nRack&quot;,
+			target=_top];
+		&quot;supriya.daw.MidiDevice.MidiDevice&quot; -&gt; &quot;supriya.daw.ArpeggiatorDevice.ArpeggiatorDevice&quot;		 [minlen=1];
+		&quot;supriya.daw.MidiDevice.MidiDevice&quot; -&gt; &quot;supriya.daw.ChordDevice.ChordDevice&quot;		 [minlen=2];
+		&quot;supriya.daw.ScaleDevice.ScaleDevice&quot;		 [URL=&quot;../api/supriya/daw/ScaleDevice.html#supriya.daw.ScaleDevice.ScaleDevice&quot;,
+			color=2,
+			label=&quot;Scale\nDevice&quot;,
+			target=_top];
+		&quot;supriya.daw.MidiDevice.MidiDevice&quot; -&gt; &quot;supriya.daw.ScaleDevice.ScaleDevice&quot;		 [minlen=1];
+		&quot;supriya.daw.VelocityDevice.VelocityDevice&quot;		 [URL=&quot;../api/supriya/daw/VelocityDevice.html#supriya.daw.VelocityDevice.VelocityDevice&quot;,
+			color=2,
+			label=&quot;Velocity\nDevice&quot;,
+			target=_top];
+		&quot;supriya.daw.MidiDevice.MidiDevice&quot; -&gt; &quot;supriya.daw.VelocityDevice.VelocityDevice&quot;		 [minlen=2];
+		&quot;supriya.daw.MidiRack.MidiRack&quot;		 [URL=&quot;../api/supriya/daw/MidiRack.html#supriya.daw.MidiRack.MidiRack&quot;,
+			color=2,
+			label=&quot;Midi\nRack&quot;,
+			target=_top];
+		&quot;supriya.daw.RackDevice.RackDevice&quot; -&gt; &quot;supriya.daw.AudioRack.AudioRack&quot;		 [minlen=1];
+		&quot;supriya.daw.RackDevice.RackDevice&quot; -&gt; &quot;supriya.daw.InstrumentRack.InstrumentRack&quot;		 [minlen=2];
+		&quot;supriya.daw.RackDevice.RackDevice&quot; -&gt; &quot;supriya.daw.MidiRack.MidiRack&quot;		 [minlen=1];
+		&quot;supriya.daw.RackReceive.RackReceive&quot;		 [URL=&quot;../api/supriya/daw/RackReceive.html#supriya.daw.RackReceive.RackReceive&quot;,
+			color=2,
+			label=&quot;Rack\nReceive&quot;,
+			target=_top];
+		&quot;supriya.daw.Receive.Receive&quot; -&gt; &quot;supriya.daw.ChainReceive.ChainReceive&quot;		 [minlen=1];
+		&quot;supriya.daw.Receive.Receive&quot; -&gt; &quot;supriya.daw.RackReceive.RackReceive&quot;		 [minlen=2];
+		&quot;supriya.daw.TrackReceive.TrackReceive&quot;		 [URL=&quot;../api/supriya/daw/TrackReceive.html#supriya.daw.TrackReceive.TrackReceive&quot;,
+			color=2,
+			label=&quot;Track\nReceive&quot;,
+			target=_top];
+		&quot;supriya.daw.Receive.Receive&quot; -&gt; &quot;supriya.daw.TrackReceive.TrackReceive&quot;		 [minlen=1];
+		&quot;supriya.daw.Track.Track&quot; -&gt; &quot;supriya.daw.GroupTrack.GroupTrack&quot;		 [minlen=1];
+	}
+	subgraph &quot;cluster_uqbar.containers&quot; {
+		graph [label=&quot;uqbar.containers&quot;];
+		node [color=3];
+		&quot;uqbar.containers.UniqueTreeNode.UniqueTreeNode&quot;		 [color=3,
+			label=&quot;Unique\nTree\nNode&quot;];
+	}
+	&quot;builtins.object&quot; -&gt; &quot;uqbar.containers.UniqueTreeNode.UniqueTreeNode&quot;	 [minlen=1];
+	&quot;uqbar.containers.UniqueTreeNode.UniqueTreeNode&quot; -&gt; &quot;supriya.daw.DawNode.DawNode&quot;;
+}</p></object></div>
+</div>
+<dl class="class">
+<dt id="supriya.daw.DawNode.DawNode">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.daw.DawNode.</code><code class="sig-name descname">DawNode</code><span class="sig-paren">(</span><em class="sig-param">*</em>, <em class="sig-param">channel_count=None</em>, <em class="sig-param">name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/daw/DawNode.html#DawNode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.daw.DawNode.DawNode" title="Permalink to this definition">¶</a></dt>
+<dd><hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.daw.DawNode.DawNode.application" title="supriya.daw.DawNode.DawNode.application"><code class="xref py py-obj docutils literal notranslate"><span class="pre">application</span></code></a></p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">rtype</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="Application.html#supriya.daw.Application.Application" title="supriya.daw.Application.Application"><code class="xref py py-class docutils literal notranslate"><span class="pre">Application</span></code></a>]</p>
+</dd>
+</dl>
+</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.daw.DawNode.DawNode.channel_count" title="supriya.daw.DawNode.DawNode.channel_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">channel_count</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.daw.DawNode.DawNode.mixer_context" title="supriya.daw.DawNode.DawNode.mixer_context"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mixer_context</span></code></a></p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">rtype</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="MixerContext.html#supriya.daw.MixerContext.MixerContext" title="supriya.daw.MixerContext.MixerContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">MixerContext</span></code></a>]</p>
+</dd>
+</dl>
+</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.daw.DawNode.DawNode.node" title="supriya.daw.DawNode.DawNode.node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">node</span></code></a></p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">rtype</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="../realtime/Group.html#supriya.realtime.Group.Group" title="supriya.realtime.Group.Group"><code class="xref py py-class docutils literal notranslate"><span class="pre">Group</span></code></a>]</p>
+</dd>
+</dl>
+</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.daw.DawNode.DawNode.server" title="supriya.daw.DawNode.DawNode.server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">server</span></code></a></p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">rtype</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="../realtime/Server.html#supriya.realtime.Server.Server" title="supriya.realtime.Server.Server"><code class="xref py py-class docutils literal notranslate"><span class="pre">Server</span></code></a>]</p>
+</dd>
+</dl>
+</p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Read/write properties</p>
+<div class="inherited docutils container">
+<dl class="attribute">
+<dt id="supriya.daw.DawNode.DawNode.name">
+<code class="sig-prename descclassname">(<code class="descclassname docutils literal notranslate"><span class="pre">UniqueTreeNode</span></code>).</code><code class="sig-name descname">name</code><a class="headerlink" href="#supriya.daw.DawNode.DawNode.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Read-only properties</p>
+<dl class="attribute">
+<dt id="supriya.daw.DawNode.DawNode.application">
+<code class="sig-name descname">application</code><a class="headerlink" href="#supriya.daw.DawNode.DawNode.application" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="Application.html#supriya.daw.Application.Application" title="supriya.daw.Application.Application"><code class="xref py py-class docutils literal notranslate"><span class="pre">Application</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.daw.DawNode.DawNode.channel_count">
+<code class="sig-name descname">channel_count</code><a class="headerlink" href="#supriya.daw.DawNode.DawNode.channel_count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="attribute">
+<dt id="supriya.daw.DawNode.DawNode.depth">
+<code class="sig-prename descclassname">(<code class="descclassname docutils literal notranslate"><span class="pre">UniqueTreeNode</span></code>).</code><code class="sig-name descname">depth</code><a class="headerlink" href="#supriya.daw.DawNode.DawNode.depth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="attribute">
+<dt id="supriya.daw.DawNode.DawNode.graph_order">
+<code class="sig-prename descclassname">(<code class="descclassname docutils literal notranslate"><span class="pre">UniqueTreeNode</span></code>).</code><code class="sig-name descname">graph_order</code><a class="headerlink" href="#supriya.daw.DawNode.DawNode.graph_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get graph-order tuple for node.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">uqbar.containers</span> <span class="k">import</span> <span class="n">UniqueTreeList</span><span class="p">,</span> <span class="n">UniqueTreeNode</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root_container</span> <span class="o">=</span> <span class="n">UniqueTreeList</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;root&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">outer_container</span> <span class="o">=</span> <span class="n">UniqueTreeList</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">inner_container</span> <span class="o">=</span> <span class="n">UniqueTreeList</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">node_a</span> <span class="o">=</span> <span class="n">UniqueTreeNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">node_b</span> <span class="o">=</span> <span class="n">UniqueTreeNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">node_c</span> <span class="o">=</span> <span class="n">UniqueTreeNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">node_d</span> <span class="o">=</span> <span class="n">UniqueTreeNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;d&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root_container</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">node_a</span><span class="p">,</span> <span class="n">outer_container</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">outer_container</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">inner_container</span><span class="p">,</span> <span class="n">node_d</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">inner_container</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">node_b</span><span class="p">,</span> <span class="n">node_c</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">root_container</span><span class="o">.</span><span class="n">depth_first</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">graph_order</span><span class="p">)</span>
+<span class="gp">... </span>
+<span class="go">a (0,)</span>
+<span class="go">outer (1,)</span>
+<span class="go">inner (1, 0)</span>
+<span class="go">b (1, 0, 0)</span>
+<span class="go">c (1, 0, 1)</span>
+<span class="go">d (1, 1)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<dl class="attribute">
+<dt id="supriya.daw.DawNode.DawNode.mixer_context">
+<code class="sig-name descname">mixer_context</code><a class="headerlink" href="#supriya.daw.DawNode.DawNode.mixer_context" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="MixerContext.html#supriya.daw.MixerContext.MixerContext" title="supriya.daw.MixerContext.MixerContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">MixerContext</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="supriya.daw.DawNode.DawNode.node">
+<code class="sig-name descname">node</code><a class="headerlink" href="#supriya.daw.DawNode.DawNode.node" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="../realtime/Group.html#supriya.realtime.Group.Group" title="supriya.realtime.Group.Group"><code class="xref py py-class docutils literal notranslate"><span class="pre">Group</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="inherited docutils container">
+<dl class="attribute">
+<dt id="supriya.daw.DawNode.DawNode.parent">
+<code class="sig-prename descclassname">(<code class="descclassname docutils literal notranslate"><span class="pre">UniqueTreeNode</span></code>).</code><code class="sig-name descname">parent</code><a class="headerlink" href="#supriya.daw.DawNode.DawNode.parent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="attribute">
+<dt id="supriya.daw.DawNode.DawNode.parentage">
+<code class="sig-prename descclassname">(<code class="descclassname docutils literal notranslate"><span class="pre">UniqueTreeNode</span></code>).</code><code class="sig-name descname">parentage</code><a class="headerlink" href="#supriya.daw.DawNode.DawNode.parentage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="attribute">
+<dt id="supriya.daw.DawNode.DawNode.root">
+<code class="sig-prename descclassname">(<code class="descclassname docutils literal notranslate"><span class="pre">UniqueTreeNode</span></code>).</code><code class="sig-name descname">root</code><a class="headerlink" href="#supriya.daw.DawNode.DawNode.root" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="attribute">
+<dt id="supriya.daw.DawNode.DawNode.server">
+<code class="sig-name descname">server</code><a class="headerlink" href="#supriya.daw.DawNode.DawNode.server" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Optional" title="(in Python v3.6)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="../realtime/Server.html#supriya.realtime.Server.Server" title="supriya.realtime.Server.Server"><code class="xref py py-class docutils literal notranslate"><span class="pre">Server</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Device.html" class="btn btn-neutral float-right" title="Device" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="DawMeta.html" class="btn btn-neutral float-left" title="DawMeta" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,159 @@
+.. _supriya--daw--AudioChain:
+
+AudioChain
+==========
+
+.. automodule:: supriya.daw.AudioChain
+
+.. currentmodule:: supriya.daw.AudioChain
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.daw.AudioChain
+
+.. autoclass:: AudioChain
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      add_send
+      bus_group
+      channel_count
+      device_types
+      input_synth
+      output_synth
+      sends
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: AudioChain.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: AudioChain.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: AudioChain.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: AudioChain.__len__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: AudioChain.add_send
+
+   .. container:: inherited
+
+      .. automethod:: AudioChain.delete
+
+   .. container:: inherited
+
+      .. automethod:: AudioChain.depth_first
+
+   .. container:: inherited
+
+      .. automethod:: AudioChain.index
+
+   .. container:: inherited
+
+      .. automethod:: AudioChain.recurse
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read/write properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioChain.name
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioChain.application
+
+   .. autoattribute:: AudioChain.bus_group
+
+   .. autoattribute:: AudioChain.channel_count
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioChain.children
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioChain.default_send_target
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioChain.depth
+
+   .. autoattribute:: AudioChain.device_types
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioChain.devices
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioChain.graph_order
+
+   .. autoattribute:: AudioChain.input_synth
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioChain.mixer_context
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioChain.node
+
+   .. autoattribute:: AudioChain.output_synth
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioChain.parent
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioChain.parentage
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioChain.root
+
+   .. autoattribute:: AudioChain.sends
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioChain.server

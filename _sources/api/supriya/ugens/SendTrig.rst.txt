@@ -1,0 +1,369 @@
+.. _supriya--ugens--SendTrig:
+
+SendTrig
+========
+
+.. automodule:: supriya.ugens.SendTrig
+
+.. currentmodule:: supriya.ugens.SendTrig
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.ugens.SendTrig
+
+.. autoclass:: SendTrig
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      ar
+      id_
+      kr
+      trigger
+      value
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__abs__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__add__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__div__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__le__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__len__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__mod__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__neg__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__pow__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__radd__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__rdiv__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__rmod__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__rmul__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__rpow__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__rsub__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__rtruediv__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__str__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.__truediv__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.absolute_difference
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.amplitude_to_db
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.as_int
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.ceiling
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.clip
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.cubed
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.db_to_amplitude
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.distort
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.exponential
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.exponential_range
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.floor
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.fractional_part
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.hanning_window
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.hz_to_midi
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.hz_to_octave
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.is_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.is_not_equal_to
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.lag
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.log
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.log10
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.log2
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.maximum
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.midi_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.minimum
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.octave_to_hz
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.power
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.range
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.ratio_to_semitones
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.reciprocal
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.rectangle_window
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.s_curve
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.scale
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.semitones_to_ratio
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.sign
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.softclip
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.square_root
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.squared
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.sum
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.tanh
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.transpose
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.triangle_window
+
+   .. container:: inherited
+
+      .. automethod:: SendTrig.welch_window
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: SendTrig.ar
+
+   .. automethod:: SendTrig.kr
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: SendTrig.calculation_rate
+
+   .. container:: inherited
+
+      .. autoattribute:: SendTrig.has_done_flag
+
+   .. autoattribute:: SendTrig.id_
+
+   .. container:: inherited
+
+      .. autoattribute:: SendTrig.inputs
+
+   .. container:: inherited
+
+      .. autoattribute:: SendTrig.is_input_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: SendTrig.is_output_ugen
+
+   .. container:: inherited
+
+      .. autoattribute:: SendTrig.outputs
+
+   .. container:: inherited
+
+      .. autoattribute:: SendTrig.signal_range
+
+   .. container:: inherited
+
+      .. autoattribute:: SendTrig.special_index
+
+   .. autoattribute:: SendTrig.trigger
+
+   .. autoattribute:: SendTrig.value

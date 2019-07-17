@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>live &mdash; Supriya 0.2.0 documentation</title>
+  <title>live &mdash; Supriya 0.3.0 documentation</title>
   
 
   
@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
@@ -32,21 +39,16 @@
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Application" href="Application.html" />
     <link rel="prev" title="io" href="../io.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -60,7 +62,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.3.0
               </div>
             
           
@@ -84,47 +86,78 @@
               
             
             
-              <ul>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Supriya API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../cli/index.html">cli</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../commands/index.html">commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../enums.html">enums</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ext/index.html">ext</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../io.html">io</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">live</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="Application.html">Application</a></li>
-<li class="toctree-l4"><a class="reference internal" href="AutoPatternSlot.html">AutoPatternSlot</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Direct.html">Direct</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Mixer.html">Mixer</a></li>
-<li class="toctree-l4"><a class="reference internal" href="PatternSlot.html">PatternSlot</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Send.html">Send</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SendManager.html">SendManager</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Slot.html">Slot</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthSlot.html">SynthSlot</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Track.html">Track</a></li>
-<li class="toctree-l4"><a class="reference internal" href="TriggerPatternSlot.html">TriggerPatternSlot</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cli/index.html">cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clock.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../daw/index.html">daw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">live</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Application.html">Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AudioEffect.html">AudioEffect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClipSlot.html">ClipSlot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Device.html">Device</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DeviceChain.html">DeviceChain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Direct.html">Direct</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Instrument.html">Instrument</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MidiEffect.html">MidiEffect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Mixer.html">Mixer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="PolyphonicVoicer.html">PolyphonicVoicer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Rack.html">Rack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Send.html">Send</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SendManager.html">SendManager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Shuffle.html">Shuffle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Track.html">Track</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../midi/index.html">midi</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../osc/index.html">osc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../soundfiles/index.html">soundfiles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../system/index.html">system</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../time/index.html">time</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
 </ul>
 </li>
 </ul>
-</li>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -170,8 +203,6 @@
     
       <li><a href="../../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../../index.html">Supriya API</a> &raquo;</li>
-        
           <li><a href="../index.html">supriya</a> &raquo;</li>
         
       <li>live</li>
@@ -197,8 +228,12 @@
 <span id="live"></span><span id="supriya-live"></span><h1>live<a class="headerlink" href="#module-supriya.live" title="Permalink to this headline">¶</a></h1>
 <p>Tools for performing live, including models of virtual mixers, instruments and
 performance applications.</p>
+<p>MIDI -&gt; Track -&gt; DeviceChain -&gt; RequestBundle
+Transport -&gt; Track -&gt; Clip -&gt; DeviceChain -&gt; RequestBundle
+Transport -&gt; Track -&gt; Clip -&gt; DeviceChain[…] -&gt; DeviceChain[Arpeggiator] -&gt; Transport
+Transport -&gt; DeviceChain[Arpeggiator] -&gt; DeviceChain[…] -&gt; RequestBundle</p>
 <div class="svg-container docutils container">
-<div class="graphviz"><object data="../../../_images/inheritance-94a7cf41073ff64a73cf97fdd26adefbac0c90e0.svg" type="image/svg+xml" class="inheritance graphviz">
+<div class="graphviz"><object data="../../../_images/inheritance-41df30acfb8e993e24f7bb213d4343704b969d1e.svg" type="image/svg+xml" class="inheritance graphviz">
 <p class="warning">digraph InheritanceGraph {
 	graph [bgcolor=transparent,
 		color=lightsteelblue2,
@@ -240,11 +275,40 @@ performance applications.</p>
 			fontcolor=white,
 			label=Application,
 			target=_top];
-		&quot;supriya.live.AutoPatternSlot.AutoPatternSlot&quot;		 [URL=&quot;../api/supriya/live/AutoPatternSlot.html#supriya.live.AutoPatternSlot.AutoPatternSlot&quot;,
+		&quot;supriya.live.AudioEffect.AudioEffect&quot;		 [URL=&quot;../api/supriya/live/AudioEffect.html#supriya.live.AudioEffect.AudioEffect&quot;,
 			color=black,
 			fontcolor=white,
-			label=&quot;Auto\nPattern\nSlot&quot;,
+			label=&quot;Audio\nEffect&quot;,
 			target=_top];
+		&quot;supriya.live.ClipSlot.ClipSlot&quot;		 [URL=&quot;../api/supriya/live/ClipSlot.html#supriya.live.ClipSlot.ClipSlot&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Clip\nSlot&quot;,
+			target=_top];
+		&quot;supriya.live.Device.Device&quot;		 [URL=&quot;../api/supriya/live/Device.html#supriya.live.Device.Device&quot;,
+			color=black,
+			fontcolor=white,
+			label=Device,
+			target=_top];
+		&quot;supriya.live.Device.Device&quot; -&gt; &quot;supriya.live.AudioEffect.AudioEffect&quot;		 [minlen=1];
+		&quot;supriya.live.DeviceChain.DeviceChain&quot;		 [URL=&quot;../api/supriya/live/DeviceChain.html#supriya.live.DeviceChain.DeviceChain&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Device\nChain&quot;,
+			target=_top];
+		&quot;supriya.live.Device.Device&quot; -&gt; &quot;supriya.live.DeviceChain.DeviceChain&quot;		 [minlen=2];
+		&quot;supriya.live.Instrument.Instrument&quot;		 [URL=&quot;../api/supriya/live/Instrument.html#supriya.live.Instrument.Instrument&quot;,
+			color=black,
+			fontcolor=white,
+			label=Instrument,
+			target=_top];
+		&quot;supriya.live.Device.Device&quot; -&gt; &quot;supriya.live.Instrument.Instrument&quot;		 [minlen=3];
+		&quot;supriya.live.MidiEffect.MidiEffect&quot;		 [URL=&quot;../api/supriya/live/MidiEffect.html#supriya.live.MidiEffect.MidiEffect&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Midi\nEffect&quot;,
+			target=_top];
+		&quot;supriya.live.Device.Device&quot; -&gt; &quot;supriya.live.MidiEffect.MidiEffect&quot;		 [minlen=1];
 		&quot;supriya.live.Direct.Direct&quot;		 [URL=&quot;../api/supriya/live/Direct.html#supriya.live.Direct.Direct&quot;,
 			color=black,
 			fontcolor=white,
@@ -255,18 +319,16 @@ performance applications.</p>
 			fontcolor=white,
 			label=Mixer,
 			target=_top];
-		&quot;supriya.live.PatternSlot.PatternSlot&quot;		 [URL=&quot;../api/supriya/live/PatternSlot.html#supriya.live.PatternSlot.PatternSlot&quot;,
+		&quot;supriya.live.PolyphonicVoicer.PolyphonicVoicer&quot;		 [URL=&quot;../api/supriya/live/PolyphonicVoicer.html#supriya.live.PolyphonicVoicer.PolyphonicVoicer&quot;,
 			color=black,
 			fontcolor=white,
-			label=&quot;Pattern\nSlot&quot;,
+			label=&quot;Polyphonic\nVoicer&quot;,
 			target=_top];
-		&quot;supriya.live.PatternSlot.PatternSlot&quot; -&gt; &quot;supriya.live.AutoPatternSlot.AutoPatternSlot&quot;		 [minlen=1];
-		&quot;supriya.live.TriggerPatternSlot.TriggerPatternSlot&quot;		 [URL=&quot;../api/supriya/live/TriggerPatternSlot.html#supriya.live.TriggerPatternSlot.TriggerPatternSlot&quot;,
+		&quot;supriya.live.Rack.Rack&quot;		 [URL=&quot;../api/supriya/live/Rack.html#supriya.live.Rack.Rack&quot;,
 			color=black,
 			fontcolor=white,
-			label=&quot;Trigger\nPattern\nSlot&quot;,
+			label=Rack,
 			target=_top];
-		&quot;supriya.live.PatternSlot.PatternSlot&quot; -&gt; &quot;supriya.live.TriggerPatternSlot.TriggerPatternSlot&quot;		 [minlen=2];
 		&quot;supriya.live.Send.Send&quot;		 [URL=&quot;../api/supriya/live/Send.html#supriya.live.Send.Send&quot;,
 			color=black,
 			fontcolor=white,
@@ -277,18 +339,11 @@ performance applications.</p>
 			fontcolor=white,
 			label=&quot;Send\nManager&quot;,
 			target=_top];
-		&quot;supriya.live.Slot.Slot&quot;		 [URL=&quot;../api/supriya/live/Slot.html#supriya.live.Slot.Slot&quot;,
+		&quot;supriya.live.Shuffle.Shuffle&quot;		 [URL=&quot;../api/supriya/live/Shuffle.html#supriya.live.Shuffle.Shuffle&quot;,
 			color=black,
 			fontcolor=white,
-			label=Slot,
+			label=Shuffle,
 			target=_top];
-		&quot;supriya.live.Slot.Slot&quot; -&gt; &quot;supriya.live.PatternSlot.PatternSlot&quot;;
-		&quot;supriya.live.SynthSlot.SynthSlot&quot;		 [URL=&quot;../api/supriya/live/SynthSlot.html#supriya.live.SynthSlot.SynthSlot&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Synth\nSlot&quot;,
-			target=_top];
-		&quot;supriya.live.Slot.Slot&quot; -&gt; &quot;supriya.live.SynthSlot.SynthSlot&quot;		 [minlen=1];
 		&quot;supriya.live.Track.Track&quot;		 [URL=&quot;../api/supriya/live/Track.html#supriya.live.Track.Track&quot;,
 			color=black,
 			fontcolor=white,
@@ -296,55 +351,71 @@ performance applications.</p>
 			target=_top];
 	}
 	&quot;builtins.object&quot; -&gt; &quot;supriya.live.Application.Application&quot;	 [minlen=1];
-	&quot;builtins.object&quot; -&gt; &quot;supriya.live.Direct.Direct&quot;	 [minlen=2];
+	&quot;builtins.object&quot; -&gt; &quot;supriya.live.ClipSlot.ClipSlot&quot;	 [minlen=2];
+	&quot;builtins.object&quot; -&gt; &quot;supriya.live.Device.Device&quot;;
+	&quot;builtins.object&quot; -&gt; &quot;supriya.live.Direct.Direct&quot;	 [minlen=3];
 	&quot;builtins.object&quot; -&gt; &quot;supriya.live.Mixer.Mixer&quot;	 [minlen=1];
-	&quot;builtins.object&quot; -&gt; &quot;supriya.live.Send.Send&quot;	 [minlen=2];
-	&quot;builtins.object&quot; -&gt; &quot;supriya.live.SendManager.SendManager&quot;	 [minlen=1];
-	&quot;builtins.object&quot; -&gt; &quot;supriya.live.Slot.Slot&quot;;
-	&quot;builtins.object&quot; -&gt; &quot;supriya.live.Track.Track&quot;	 [minlen=2];
+	&quot;builtins.object&quot; -&gt; &quot;supriya.live.PolyphonicVoicer.PolyphonicVoicer&quot;	 [minlen=2];
+	&quot;builtins.object&quot; -&gt; &quot;supriya.live.Rack.Rack&quot;	 [minlen=3];
+	&quot;builtins.object&quot; -&gt; &quot;supriya.live.Send.Send&quot;	 [minlen=1];
+	&quot;builtins.object&quot; -&gt; &quot;supriya.live.SendManager.SendManager&quot;	 [minlen=2];
+	&quot;builtins.object&quot; -&gt; &quot;supriya.live.Shuffle.Shuffle&quot;	 [minlen=3];
+	&quot;builtins.object&quot; -&gt; &quot;supriya.live.Track.Track&quot;	 [minlen=1];
 }</p></object></div>
 </div>
 <hr/><p class="section-header rubric">Classes</p>
 <div class="toctree-wrapper compound">
 </div>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="Application.html#supriya.live.Application.Application" title="supriya.live.Application.Application"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Application</span></code></a></td>
-<td></td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="Application.html#supriya.live.Application.Application" title="supriya.live.Application.Application"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Application</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="AutoPatternSlot.html#supriya.live.AutoPatternSlot.AutoPatternSlot" title="supriya.live.AutoPatternSlot.AutoPatternSlot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AutoPatternSlot</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="AudioEffect.html#supriya.live.AudioEffect.AudioEffect" title="supriya.live.AudioEffect.AudioEffect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AudioEffect</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="Direct.html#supriya.live.Direct.Direct" title="supriya.live.Direct.Direct"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Direct</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="ClipSlot.html#supriya.live.ClipSlot.ClipSlot" title="supriya.live.ClipSlot.ClipSlot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ClipSlot</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="Mixer.html#supriya.live.Mixer.Mixer" title="supriya.live.Mixer.Mixer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Mixer</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="Device.html#supriya.live.Device.Device" title="supriya.live.Device.Device"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Device</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="PatternSlot.html#supriya.live.PatternSlot.PatternSlot" title="supriya.live.PatternSlot.PatternSlot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PatternSlot</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="DeviceChain.html#supriya.live.DeviceChain.DeviceChain" title="supriya.live.DeviceChain.DeviceChain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeviceChain</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="Send.html#supriya.live.Send.Send" title="supriya.live.Send.Send"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Send</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="Direct.html#supriya.live.Direct.Direct" title="supriya.live.Direct.Direct"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Direct</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="SendManager.html#supriya.live.SendManager.SendManager" title="supriya.live.SendManager.SendManager"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SendManager</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="Instrument.html#supriya.live.Instrument.Instrument" title="supriya.live.Instrument.Instrument"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Instrument</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="Slot.html#supriya.live.Slot.Slot" title="supriya.live.Slot.Slot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Slot</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="MidiEffect.html#supriya.live.MidiEffect.MidiEffect" title="supriya.live.MidiEffect.MidiEffect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MidiEffect</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="SynthSlot.html#supriya.live.SynthSlot.SynthSlot" title="supriya.live.SynthSlot.SynthSlot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthSlot</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="Mixer.html#supriya.live.Mixer.Mixer" title="supriya.live.Mixer.Mixer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Mixer</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="Track.html#supriya.live.Track.Track" title="supriya.live.Track.Track"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Track</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="PolyphonicVoicer.html#supriya.live.PolyphonicVoicer.PolyphonicVoicer" title="supriya.live.PolyphonicVoicer.PolyphonicVoicer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PolyphonicVoicer</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="TriggerPatternSlot.html#supriya.live.TriggerPatternSlot.TriggerPatternSlot" title="supriya.live.TriggerPatternSlot.TriggerPatternSlot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TriggerPatternSlot</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="Rack.html#supriya.live.Rack.Rack" title="supriya.live.Rack.Rack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Rack</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="Send.html#supriya.live.Send.Send" title="supriya.live.Send.Send"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Send</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="SendManager.html#supriya.live.SendManager.SendManager" title="supriya.live.SendManager.SendManager"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SendManager</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="Shuffle.html#supriya.live.Shuffle.Shuffle" title="supriya.live.Shuffle.Shuffle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Shuffle</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="Track.html#supriya.live.Track.Track" title="supriya.live.Track.Track"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Track</span></code></a></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
@@ -361,7 +432,7 @@ performance applications.</p>
         <a href="Application.html" class="btn btn-neutral float-right" title="Application" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../io.html" class="btn btn-neutral" title="io" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../io.html" class="btn btn-neutral float-left" title="io" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -387,26 +458,16 @@ performance applications.</p>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

@@ -31,7 +31,6 @@ Device
       get_port_count
       get_port_name
       get_ports
-      logger
       open_port
       physical_controls
       physical_controls_by_command
@@ -81,8 +80,6 @@ Device
       :class: class-header
 
    .. autoattribute:: Device.dependents
-
-   .. autoattribute:: Device.logger
 
    .. autoattribute:: Device.physical_controls
 

@@ -1,0 +1,103 @@
+.. _supriya--daw--Send:
+
+Send
+====
+
+.. automodule:: supriya.daw.Send
+
+.. currentmodule:: supriya.daw.Send
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.daw.Send
+
+.. autoclass:: Send
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      DEFAULT
+      actual_target
+      cached_target
+      channel_counts
+      post_fader
+      source
+      target
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read/write properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Send.name
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Send.actual_target
+
+   .. container:: inherited
+
+      .. autoattribute:: Send.application
+
+   .. autoattribute:: Send.cached_target
+
+   .. container:: inherited
+
+      .. autoattribute:: Send.channel_count
+
+   .. autoattribute:: Send.channel_counts
+
+   .. container:: inherited
+
+      .. autoattribute:: Send.depth
+
+   .. container:: inherited
+
+      .. autoattribute:: Send.graph_order
+
+   .. container:: inherited
+
+      .. autoattribute:: Send.mixer_context
+
+   .. container:: inherited
+
+      .. autoattribute:: Send.node
+
+   .. container:: inherited
+
+      .. autoattribute:: Send.parent
+
+   .. container:: inherited
+
+      .. autoattribute:: Send.parentage
+
+   .. autoattribute:: Send.post_fader
+
+   .. container:: inherited
+
+      .. autoattribute:: Send.root
+
+   .. container:: inherited
+
+      .. autoattribute:: Send.server
+
+   .. autoattribute:: Send.source
+
+   .. autoattribute:: Send.target

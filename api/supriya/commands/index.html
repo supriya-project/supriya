@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>commands &mdash; Supriya 0.2.0 documentation</title>
+  <title>commands &mdash; Supriya 0.3.0 documentation</title>
   
 
   
@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
@@ -31,22 +38,17 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="MoveRequest" href="MoveRequest.html" />
-    <link rel="prev" title="run_supriya" href="../cli/run_supriya.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
+    <link rel="prev" title="clock" href="../clock.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -60,7 +62,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.3.0
               </div>
             
           
@@ -84,125 +86,152 @@
               
             
             
-              <ul>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Supriya API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../cli/index.html">cli</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">commands</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="MoveRequest.html">MoveRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Request.html">Request</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferAllocateReadChannelRequest.html">BufferAllocateReadChannelRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferAllocateReadRequest.html">BufferAllocateReadRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferAllocateRequest.html">BufferAllocateRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferCloseRequest.html">BufferCloseRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferCopyRequest.html">BufferCopyRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferFillRequest.html">BufferFillRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferFreeRequest.html">BufferFreeRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferGenerateRequest.html">BufferGenerateRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferGetContiguousRequest.html">BufferGetContiguousRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferGetRequest.html">BufferGetRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferInfoResponse.html">BufferInfoResponse</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferNormalizeRequest.html">BufferNormalizeRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferQueryRequest.html">BufferQueryRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferReadChannelRequest.html">BufferReadChannelRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferReadRequest.html">BufferReadRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferSetContiguousRequest.html">BufferSetContiguousRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferSetContiguousResponse.html">BufferSetContiguousResponse</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferSetRequest.html">BufferSetRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferSetResponse.html">BufferSetResponse</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferWriteRequest.html">BufferWriteRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferZeroRequest.html">BufferZeroRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ClearScheduleRequest.html">ClearScheduleRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="CommandRequest.html">CommandRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ControlBusFillRequest.html">ControlBusFillRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ControlBusGetContiguousRequest.html">ControlBusGetContiguousRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ControlBusGetRequest.html">ControlBusGetRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ControlBusSetContiguousRequest.html">ControlBusSetContiguousRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ControlBusSetContiguousResponse.html">ControlBusSetContiguousResponse</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ControlBusSetRequest.html">ControlBusSetRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ControlBusSetResponse.html">ControlBusSetResponse</a></li>
-<li class="toctree-l4"><a class="reference internal" href="DoneResponse.html">DoneResponse</a></li>
-<li class="toctree-l4"><a class="reference internal" href="DumpOscRequest.html">DumpOscRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ErrorRequest.html">ErrorRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="FailResponse.html">FailResponse</a></li>
-<li class="toctree-l4"><a class="reference internal" href="GroupDeepFreeRequest.html">GroupDeepFreeRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="GroupDumpTreeRequest.html">GroupDumpTreeRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="GroupFreeAllRequest.html">GroupFreeAllRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="GroupHeadRequest.html">GroupHeadRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="GroupNewRequest.html">GroupNewRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="GroupQueryTreeRequest.html">GroupQueryTreeRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="GroupTailRequest.html">GroupTailRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NodeAfterRequest.html">NodeAfterRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NodeBeforeRequest.html">NodeBeforeRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NodeCommandRequest.html">NodeCommandRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NodeFillRequest.html">NodeFillRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NodeFreeRequest.html">NodeFreeRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NodeInfoResponse.html">NodeInfoResponse</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NodeMapToAudioBusContiguousRequest.html">NodeMapToAudioBusContiguousRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NodeMapToAudioBusRequest.html">NodeMapToAudioBusRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NodeMapToControlBusContiguousRequest.html">NodeMapToControlBusContiguousRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NodeMapToControlBusRequest.html">NodeMapToControlBusRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NodeOrderRequest.html">NodeOrderRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NodeQueryRequest.html">NodeQueryRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NodeRunRequest.html">NodeRunRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NodeSetContiguousRequest.html">NodeSetContiguousRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NodeSetContiguousResponse.html">NodeSetContiguousResponse</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NodeSetRequest.html">NodeSetRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NodeSetResponse.html">NodeSetResponse</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NodeTraceRequest.html">NodeTraceRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NothingRequest.html">NothingRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NotifyRequest.html">NotifyRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ParallelGroupNewRequest.html">ParallelGroupNewRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="QueryTreeControl.html">QueryTreeControl</a></li>
-<li class="toctree-l4"><a class="reference internal" href="QueryTreeGroup.html">QueryTreeGroup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="QueryTreeResponse.html">QueryTreeResponse</a></li>
-<li class="toctree-l4"><a class="reference internal" href="QueryTreeSynth.html">QueryTreeSynth</a></li>
-<li class="toctree-l4"><a class="reference internal" href="QuitRequest.html">QuitRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="RequestBundle.html">RequestBundle</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Requestable.html">Requestable</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Response.html">Response</a></li>
-<li class="toctree-l4"><a class="reference internal" href="StatusRequest.html">StatusRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="StatusResponse.html">StatusResponse</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SyncRequest.html">SyncRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SyncedResponse.html">SyncedResponse</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthDefFreeAllRequest.html">SynthDefFreeAllRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthDefFreeRequest.html">SynthDefFreeRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthDefLoadDirectoryRequest.html">SynthDefLoadDirectoryRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthDefLoadRequest.html">SynthDefLoadRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthDefReceiveRequest.html">SynthDefReceiveRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthDefRemovedResponse.html">SynthDefRemovedResponse</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthGetContiguousRequest.html">SynthGetContiguousRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthGetRequest.html">SynthGetRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthNewRequest.html">SynthNewRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthNewargsRequest.html">SynthNewargsRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthNoidRequest.html">SynthNoidRequest</a></li>
-<li class="toctree-l4"><a class="reference internal" href="TriggerResponse.html">TriggerResponse</a></li>
-<li class="toctree-l4"><a class="reference internal" href="UgenCommandRequest.html">UgenCommandRequest</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cli/index.html">cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clock.html">clock</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MoveRequest.html">MoveRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Request.html">Request</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferAllocateReadChannelRequest.html">BufferAllocateReadChannelRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferAllocateReadRequest.html">BufferAllocateReadRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferAllocateRequest.html">BufferAllocateRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferCloseRequest.html">BufferCloseRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferCopyRequest.html">BufferCopyRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferFillRequest.html">BufferFillRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferFreeRequest.html">BufferFreeRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferGenerateRequest.html">BufferGenerateRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferGetContiguousRequest.html">BufferGetContiguousRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferGetRequest.html">BufferGetRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferInfoResponse.html">BufferInfoResponse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferNormalizeRequest.html">BufferNormalizeRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferQueryRequest.html">BufferQueryRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferReadChannelRequest.html">BufferReadChannelRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferReadRequest.html">BufferReadRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferSetContiguousRequest.html">BufferSetContiguousRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferSetContiguousResponse.html">BufferSetContiguousResponse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferSetRequest.html">BufferSetRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferSetResponse.html">BufferSetResponse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferWriteRequest.html">BufferWriteRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferZeroRequest.html">BufferZeroRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClearScheduleRequest.html">ClearScheduleRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CommandRequest.html">CommandRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ControlBusFillRequest.html">ControlBusFillRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ControlBusGetContiguousRequest.html">ControlBusGetContiguousRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ControlBusGetRequest.html">ControlBusGetRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ControlBusSetContiguousRequest.html">ControlBusSetContiguousRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ControlBusSetContiguousResponse.html">ControlBusSetContiguousResponse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ControlBusSetRequest.html">ControlBusSetRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ControlBusSetResponse.html">ControlBusSetResponse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DoneResponse.html">DoneResponse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DumpOscRequest.html">DumpOscRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ErrorRequest.html">ErrorRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="FailResponse.html">FailResponse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GroupDeepFreeRequest.html">GroupDeepFreeRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GroupDumpTreeRequest.html">GroupDumpTreeRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GroupFreeAllRequest.html">GroupFreeAllRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GroupHeadRequest.html">GroupHeadRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GroupNewRequest.html">GroupNewRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GroupQueryTreeRequest.html">GroupQueryTreeRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GroupTailRequest.html">GroupTailRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NodeAfterRequest.html">NodeAfterRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NodeBeforeRequest.html">NodeBeforeRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NodeCommandRequest.html">NodeCommandRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NodeFillRequest.html">NodeFillRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NodeFreeRequest.html">NodeFreeRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NodeInfoResponse.html">NodeInfoResponse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NodeMapToAudioBusContiguousRequest.html">NodeMapToAudioBusContiguousRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NodeMapToAudioBusRequest.html">NodeMapToAudioBusRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NodeMapToControlBusContiguousRequest.html">NodeMapToControlBusContiguousRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NodeMapToControlBusRequest.html">NodeMapToControlBusRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NodeOrderRequest.html">NodeOrderRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NodeQueryRequest.html">NodeQueryRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NodeRunRequest.html">NodeRunRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NodeSetContiguousRequest.html">NodeSetContiguousRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NodeSetContiguousResponse.html">NodeSetContiguousResponse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NodeSetRequest.html">NodeSetRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NodeSetResponse.html">NodeSetResponse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NodeTraceRequest.html">NodeTraceRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NothingRequest.html">NothingRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NotifyRequest.html">NotifyRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ParallelGroupNewRequest.html">ParallelGroupNewRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="QueryTreeControl.html">QueryTreeControl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="QueryTreeGroup.html">QueryTreeGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="QueryTreeResponse.html">QueryTreeResponse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="QueryTreeSynth.html">QueryTreeSynth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="QuitRequest.html">QuitRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="RequestBundle.html">RequestBundle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Requestable.html">Requestable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Response.html">Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="StatusRequest.html">StatusRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="StatusResponse.html">StatusResponse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SyncRequest.html">SyncRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SyncedResponse.html">SyncedResponse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthDefFreeAllRequest.html">SynthDefFreeAllRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthDefFreeRequest.html">SynthDefFreeRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthDefLoadDirectoryRequest.html">SynthDefLoadDirectoryRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthDefLoadRequest.html">SynthDefLoadRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthDefReceiveRequest.html">SynthDefReceiveRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthDefRemovedResponse.html">SynthDefRemovedResponse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthGetContiguousRequest.html">SynthGetContiguousRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthGetRequest.html">SynthGetRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthNewRequest.html">SynthNewRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthNewargsRequest.html">SynthNewargsRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthNoidRequest.html">SynthNoidRequest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="TriggerResponse.html">TriggerResponse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="UgenCommandRequest.html">UgenCommandRequest</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../enums.html">enums</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ext/index.html">ext</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../io.html">io</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../live/index.html">live</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../midi/index.html">midi</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../osc/index.html">osc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../soundfiles/index.html">soundfiles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../system/index.html">system</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../time/index.html">time</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../daw/index.html">daw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../live/index.html">live</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
 </ul>
 </li>
 </ul>
-</li>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -248,8 +277,6 @@
     
       <li><a href="../../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../../index.html">Supriya API</a> &raquo;</li>
-        
           <li><a href="../index.html">supriya</a> &raquo;</li>
         
       <li>commands</li>
@@ -275,7 +302,7 @@
 <span id="commands"></span><span id="supriya-commands"></span><h1>commands<a class="headerlink" href="#module-supriya.commands" title="Permalink to this headline">¶</a></h1>
 <p>Tools for object-modeling OSC responses received from <code class="docutils literal notranslate"><span class="pre">scsynth</span></code>.</p>
 <div class="svg-container docutils container">
-<div class="graphviz"><object data="../../../_images/inheritance-2f1990f5df7eef0cdd96352d4e4def57d321f432.svg" type="image/svg+xml" class="inheritance graphviz">
+<div class="graphviz"><object data="../../../_images/inheritance-9a63e5583afb75d6b252479f857a8dad1d4aab39.svg" type="image/svg+xml" class="inheritance graphviz">
 <p class="warning">digraph InheritanceGraph {
 	graph [bgcolor=transparent,
 		color=lightsteelblue2,
@@ -301,59 +328,18 @@
 	edge [color=lightslategrey,
 		penwidth=1
 	];
-	subgraph cluster_builtins {
-		graph [label=builtins];
-		node [color=1];
-		&quot;builtins.object&quot;		 [URL=&quot;https://docs.python.org/3.6/library/functions.html#object&quot;,
-			color=1,
-			label=object,
+	subgraph &quot;cluster_supriya.system&quot; {
+		graph [label=&quot;supriya.system&quot;];
+		node [color=4];
+		&quot;supriya.system.SupriyaObject.SupriyaObject&quot;		 [URL=&quot;../api/supriya/commands/../system/SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject&quot;,
+			color=4,
+			label=&quot;Supriya\nObject&quot;,
 			target=_top];
-	}
-	subgraph &quot;cluster_collections.abc&quot; {
-		graph [label=&quot;collections.abc&quot;];
-		node [color=2];
-		&quot;collections.abc.Collection&quot;		 [URL=&quot;https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Collection&quot;,
-			color=2,
-			label=Collection,
-			shape=oval,
-			style=bold,
+		&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;		 [URL=&quot;../api/supriya/commands/../system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject&quot;,
+			color=4,
+			label=&quot;Supriya\nValue\nObject&quot;,
 			target=_top];
-		&quot;collections.abc.Sequence&quot;		 [URL=&quot;https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Sequence&quot;,
-			color=2,
-			label=Sequence,
-			shape=oval,
-			style=bold,
-			target=_top];
-		&quot;collections.abc.Collection&quot; -&gt; &quot;collections.abc.Sequence&quot;;
-		&quot;collections.abc.Container&quot;		 [URL=&quot;https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Container&quot;,
-			color=2,
-			label=Container,
-			shape=oval,
-			style=bold,
-			target=_top];
-		&quot;collections.abc.Container&quot; -&gt; &quot;collections.abc.Collection&quot;;
-		&quot;collections.abc.Iterable&quot;		 [URL=&quot;https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Iterable&quot;,
-			color=2,
-			label=Iterable,
-			shape=oval,
-			style=bold,
-			target=_top];
-		&quot;collections.abc.Iterable&quot; -&gt; &quot;collections.abc.Collection&quot;;
-		&quot;collections.abc.Reversible&quot;		 [URL=&quot;https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Reversible&quot;,
-			color=2,
-			label=Reversible,
-			shape=oval,
-			style=bold,
-			target=_top];
-		&quot;collections.abc.Iterable&quot; -&gt; &quot;collections.abc.Reversible&quot;		 [minlen=1];
-		&quot;collections.abc.Reversible&quot; -&gt; &quot;collections.abc.Sequence&quot;;
-		&quot;collections.abc.Sized&quot;		 [URL=&quot;https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Sized&quot;,
-			color=2,
-			label=Sized,
-			shape=oval,
-			style=bold,
-			target=_top];
-		&quot;collections.abc.Sized&quot; -&gt; &quot;collections.abc.Collection&quot;;
+		&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;;
 	}
 	subgraph &quot;cluster_supriya.commands&quot; {
 		graph [label=&quot;supriya.commands&quot;];
@@ -892,18 +878,59 @@
 			target=_top];
 		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.TriggerResponse.TriggerResponse&quot;		 [minlen=2];
 	}
-	subgraph &quot;cluster_supriya.system&quot; {
-		graph [label=&quot;supriya.system&quot;];
-		node [color=4];
-		&quot;supriya.system.SupriyaObject.SupriyaObject&quot;		 [URL=&quot;../api/supriya/commands/../system/SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject&quot;,
-			color=4,
-			label=&quot;Supriya\nObject&quot;,
+	subgraph cluster_builtins {
+		graph [label=builtins];
+		node [color=1];
+		&quot;builtins.object&quot;		 [URL=&quot;https://docs.python.org/3.6/library/functions.html#object&quot;,
+			color=1,
+			label=object,
 			target=_top];
-		&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;		 [URL=&quot;../api/supriya/commands/../system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject&quot;,
-			color=4,
-			label=&quot;Supriya\nValue\nObject&quot;,
+	}
+	subgraph &quot;cluster_collections.abc&quot; {
+		graph [label=&quot;collections.abc&quot;];
+		node [color=2];
+		&quot;collections.abc.Collection&quot;		 [URL=&quot;https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Collection&quot;,
+			color=2,
+			label=Collection,
+			shape=oval,
+			style=bold,
 			target=_top];
-		&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;;
+		&quot;collections.abc.Sequence&quot;		 [URL=&quot;https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Sequence&quot;,
+			color=2,
+			label=Sequence,
+			shape=oval,
+			style=bold,
+			target=_top];
+		&quot;collections.abc.Collection&quot; -&gt; &quot;collections.abc.Sequence&quot;;
+		&quot;collections.abc.Container&quot;		 [URL=&quot;https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Container&quot;,
+			color=2,
+			label=Container,
+			shape=oval,
+			style=bold,
+			target=_top];
+		&quot;collections.abc.Container&quot; -&gt; &quot;collections.abc.Collection&quot;;
+		&quot;collections.abc.Iterable&quot;		 [URL=&quot;https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Iterable&quot;,
+			color=2,
+			label=Iterable,
+			shape=oval,
+			style=bold,
+			target=_top];
+		&quot;collections.abc.Iterable&quot; -&gt; &quot;collections.abc.Collection&quot;;
+		&quot;collections.abc.Reversible&quot;		 [URL=&quot;https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Reversible&quot;,
+			color=2,
+			label=Reversible,
+			shape=oval,
+			style=bold,
+			target=_top];
+		&quot;collections.abc.Iterable&quot; -&gt; &quot;collections.abc.Reversible&quot;		 [minlen=1];
+		&quot;collections.abc.Reversible&quot; -&gt; &quot;collections.abc.Sequence&quot;;
+		&quot;collections.abc.Sized&quot;		 [URL=&quot;https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Sized&quot;,
+			color=2,
+			label=Sized,
+			shape=oval,
+			style=bold,
+			target=_top];
+		&quot;collections.abc.Sized&quot; -&gt; &quot;collections.abc.Collection&quot;;
 	}
 	&quot;builtins.object&quot; -&gt; &quot;collections.abc.Container&quot;	 [minlen=1];
 	&quot;builtins.object&quot; -&gt; &quot;collections.abc.Iterable&quot;;
@@ -925,289 +952,289 @@
 <hr/><p class="section-header rubric">Abstract Classes</p>
 <div class="toctree-wrapper compound">
 </div>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="MoveRequest.html#supriya.commands.MoveRequest.MoveRequest" title="supriya.commands.MoveRequest.MoveRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MoveRequest</span></code></a></td>
-<td></td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="MoveRequest.html#supriya.commands.MoveRequest.MoveRequest" title="supriya.commands.MoveRequest.MoveRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MoveRequest</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="Request.html#supriya.commands.Request.Request" title="supriya.commands.Request.Request"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Request</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="Request.html#supriya.commands.Request.Request" title="supriya.commands.Request.Request"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Request</span></code></a></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
 <hr/><p class="section-header rubric">Classes</p>
 <div class="toctree-wrapper compound">
 </div>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="BufferAllocateReadChannelRequest.html#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest" title="supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferAllocateReadChannelRequest</span></code></a></td>
-<td>A /b_allocRead request.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="BufferAllocateReadChannelRequest.html#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest" title="supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferAllocateReadChannelRequest</span></code></a></p></td>
+<td><p>A /b_allocRead request.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="BufferAllocateReadRequest.html#supriya.commands.BufferAllocateReadRequest.BufferAllocateReadRequest" title="supriya.commands.BufferAllocateReadRequest.BufferAllocateReadRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferAllocateReadRequest</span></code></a></td>
-<td>A /b_allocRead request.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="BufferAllocateReadRequest.html#supriya.commands.BufferAllocateReadRequest.BufferAllocateReadRequest" title="supriya.commands.BufferAllocateReadRequest.BufferAllocateReadRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferAllocateReadRequest</span></code></a></p></td>
+<td><p>A /b_allocRead request.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="BufferAllocateRequest.html#supriya.commands.BufferAllocateRequest.BufferAllocateRequest" title="supriya.commands.BufferAllocateRequest.BufferAllocateRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferAllocateRequest</span></code></a></td>
-<td>A /b_alloc request.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="BufferAllocateRequest.html#supriya.commands.BufferAllocateRequest.BufferAllocateRequest" title="supriya.commands.BufferAllocateRequest.BufferAllocateRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferAllocateRequest</span></code></a></p></td>
+<td><p>A /b_alloc request.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="BufferCloseRequest.html#supriya.commands.BufferCloseRequest.BufferCloseRequest" title="supriya.commands.BufferCloseRequest.BufferCloseRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferCloseRequest</span></code></a></td>
-<td>A /b_close request.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="BufferCloseRequest.html#supriya.commands.BufferCloseRequest.BufferCloseRequest" title="supriya.commands.BufferCloseRequest.BufferCloseRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferCloseRequest</span></code></a></p></td>
+<td><p>A /b_close request.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="BufferCopyRequest.html#supriya.commands.BufferCopyRequest.BufferCopyRequest" title="supriya.commands.BufferCopyRequest.BufferCopyRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferCopyRequest</span></code></a></td>
-<td>A <cite>/b_gen copy</cite> request.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="BufferCopyRequest.html#supriya.commands.BufferCopyRequest.BufferCopyRequest" title="supriya.commands.BufferCopyRequest.BufferCopyRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferCopyRequest</span></code></a></p></td>
+<td><p>A <cite>/b_gen copy</cite> request.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="BufferFillRequest.html#supriya.commands.BufferFillRequest.BufferFillRequest" title="supriya.commands.BufferFillRequest.BufferFillRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferFillRequest</span></code></a></td>
-<td>A /b_fill request.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="BufferFillRequest.html#supriya.commands.BufferFillRequest.BufferFillRequest" title="supriya.commands.BufferFillRequest.BufferFillRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferFillRequest</span></code></a></p></td>
+<td><p>A /b_fill request.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="BufferFreeRequest.html#supriya.commands.BufferFreeRequest.BufferFreeRequest" title="supriya.commands.BufferFreeRequest.BufferFreeRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferFreeRequest</span></code></a></td>
-<td>A /b_free request.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="BufferFreeRequest.html#supriya.commands.BufferFreeRequest.BufferFreeRequest" title="supriya.commands.BufferFreeRequest.BufferFreeRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferFreeRequest</span></code></a></p></td>
+<td><p>A /b_free request.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="BufferGenerateRequest.html#supriya.commands.BufferGenerateRequest.BufferGenerateRequest" title="supriya.commands.BufferGenerateRequest.BufferGenerateRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferGenerateRequest</span></code></a></td>
-<td>A /b_gen request.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="BufferGenerateRequest.html#supriya.commands.BufferGenerateRequest.BufferGenerateRequest" title="supriya.commands.BufferGenerateRequest.BufferGenerateRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferGenerateRequest</span></code></a></p></td>
+<td><p>A /b_gen request.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="BufferGetContiguousRequest.html#supriya.commands.BufferGetContiguousRequest.BufferGetContiguousRequest" title="supriya.commands.BufferGetContiguousRequest.BufferGetContiguousRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferGetContiguousRequest</span></code></a></td>
-<td>A /b_getn request.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="BufferGetContiguousRequest.html#supriya.commands.BufferGetContiguousRequest.BufferGetContiguousRequest" title="supriya.commands.BufferGetContiguousRequest.BufferGetContiguousRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferGetContiguousRequest</span></code></a></p></td>
+<td><p>A /b_getn request.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="BufferGetRequest.html#supriya.commands.BufferGetRequest.BufferGetRequest" title="supriya.commands.BufferGetRequest.BufferGetRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferGetRequest</span></code></a></td>
-<td>A /b_get request.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="BufferGetRequest.html#supriya.commands.BufferGetRequest.BufferGetRequest" title="supriya.commands.BufferGetRequest.BufferGetRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferGetRequest</span></code></a></p></td>
+<td><p>A /b_get request.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="BufferInfoResponse.html#supriya.commands.BufferInfoResponse.BufferInfoResponse" title="supriya.commands.BufferInfoResponse.BufferInfoResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferInfoResponse</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="BufferInfoResponse.html#supriya.commands.BufferInfoResponse.BufferInfoResponse" title="supriya.commands.BufferInfoResponse.BufferInfoResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferInfoResponse</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="BufferNormalizeRequest.html#supriya.commands.BufferNormalizeRequest.BufferNormalizeRequest" title="supriya.commands.BufferNormalizeRequest.BufferNormalizeRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferNormalizeRequest</span></code></a></td>
-<td>A <cite>/b_gen normalize</cite> request.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="BufferNormalizeRequest.html#supriya.commands.BufferNormalizeRequest.BufferNormalizeRequest" title="supriya.commands.BufferNormalizeRequest.BufferNormalizeRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferNormalizeRequest</span></code></a></p></td>
+<td><p>A <cite>/b_gen normalize</cite> request.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="BufferQueryRequest.html#supriya.commands.BufferQueryRequest.BufferQueryRequest" title="supriya.commands.BufferQueryRequest.BufferQueryRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferQueryRequest</span></code></a></td>
-<td>A /b_query request.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="BufferQueryRequest.html#supriya.commands.BufferQueryRequest.BufferQueryRequest" title="supriya.commands.BufferQueryRequest.BufferQueryRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferQueryRequest</span></code></a></p></td>
+<td><p>A /b_query request.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="BufferReadChannelRequest.html#supriya.commands.BufferReadChannelRequest.BufferReadChannelRequest" title="supriya.commands.BufferReadChannelRequest.BufferReadChannelRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferReadChannelRequest</span></code></a></td>
-<td>A /b_readChannel request.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="BufferReadChannelRequest.html#supriya.commands.BufferReadChannelRequest.BufferReadChannelRequest" title="supriya.commands.BufferReadChannelRequest.BufferReadChannelRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferReadChannelRequest</span></code></a></p></td>
+<td><p>A /b_readChannel request.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="BufferReadRequest.html#supriya.commands.BufferReadRequest.BufferReadRequest" title="supriya.commands.BufferReadRequest.BufferReadRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferReadRequest</span></code></a></td>
-<td>A /b_read request.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="BufferReadRequest.html#supriya.commands.BufferReadRequest.BufferReadRequest" title="supriya.commands.BufferReadRequest.BufferReadRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferReadRequest</span></code></a></p></td>
+<td><p>A /b_read request.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="BufferSetContiguousRequest.html#supriya.commands.BufferSetContiguousRequest.BufferSetContiguousRequest" title="supriya.commands.BufferSetContiguousRequest.BufferSetContiguousRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferSetContiguousRequest</span></code></a></td>
-<td>A /b_setn request.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="BufferSetContiguousRequest.html#supriya.commands.BufferSetContiguousRequest.BufferSetContiguousRequest" title="supriya.commands.BufferSetContiguousRequest.BufferSetContiguousRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferSetContiguousRequest</span></code></a></p></td>
+<td><p>A /b_setn request.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="BufferSetContiguousResponse.html#supriya.commands.BufferSetContiguousResponse.BufferSetContiguousResponse" title="supriya.commands.BufferSetContiguousResponse.BufferSetContiguousResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferSetContiguousResponse</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="BufferSetContiguousResponse.html#supriya.commands.BufferSetContiguousResponse.BufferSetContiguousResponse" title="supriya.commands.BufferSetContiguousResponse.BufferSetContiguousResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferSetContiguousResponse</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="BufferSetRequest.html#supriya.commands.BufferSetRequest.BufferSetRequest" title="supriya.commands.BufferSetRequest.BufferSetRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferSetRequest</span></code></a></td>
-<td>A /b_set request.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="BufferSetRequest.html#supriya.commands.BufferSetRequest.BufferSetRequest" title="supriya.commands.BufferSetRequest.BufferSetRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferSetRequest</span></code></a></p></td>
+<td><p>A /b_set request.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="BufferSetResponse.html#supriya.commands.BufferSetResponse.BufferSetResponse" title="supriya.commands.BufferSetResponse.BufferSetResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferSetResponse</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="BufferSetResponse.html#supriya.commands.BufferSetResponse.BufferSetResponse" title="supriya.commands.BufferSetResponse.BufferSetResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferSetResponse</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="BufferWriteRequest.html#supriya.commands.BufferWriteRequest.BufferWriteRequest" title="supriya.commands.BufferWriteRequest.BufferWriteRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferWriteRequest</span></code></a></td>
-<td>A /b_write request.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="BufferWriteRequest.html#supriya.commands.BufferWriteRequest.BufferWriteRequest" title="supriya.commands.BufferWriteRequest.BufferWriteRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferWriteRequest</span></code></a></p></td>
+<td><p>A /b_write request.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="BufferZeroRequest.html#supriya.commands.BufferZeroRequest.BufferZeroRequest" title="supriya.commands.BufferZeroRequest.BufferZeroRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferZeroRequest</span></code></a></td>
-<td>A /b_zero request.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="BufferZeroRequest.html#supriya.commands.BufferZeroRequest.BufferZeroRequest" title="supriya.commands.BufferZeroRequest.BufferZeroRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferZeroRequest</span></code></a></p></td>
+<td><p>A /b_zero request.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ClearScheduleRequest.html#supriya.commands.ClearScheduleRequest.ClearScheduleRequest" title="supriya.commands.ClearScheduleRequest.ClearScheduleRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ClearScheduleRequest</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="ClearScheduleRequest.html#supriya.commands.ClearScheduleRequest.ClearScheduleRequest" title="supriya.commands.ClearScheduleRequest.ClearScheduleRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ClearScheduleRequest</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="CommandRequest.html#supriya.commands.CommandRequest.CommandRequest" title="supriya.commands.CommandRequest.CommandRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CommandRequest</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="CommandRequest.html#supriya.commands.CommandRequest.CommandRequest" title="supriya.commands.CommandRequest.CommandRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CommandRequest</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ControlBusFillRequest.html#supriya.commands.ControlBusFillRequest.ControlBusFillRequest" title="supriya.commands.ControlBusFillRequest.ControlBusFillRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ControlBusFillRequest</span></code></a></td>
-<td>A /c_fill request.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="ControlBusFillRequest.html#supriya.commands.ControlBusFillRequest.ControlBusFillRequest" title="supriya.commands.ControlBusFillRequest.ControlBusFillRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ControlBusFillRequest</span></code></a></p></td>
+<td><p>A /c_fill request.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ControlBusGetContiguousRequest.html#supriya.commands.ControlBusGetContiguousRequest.ControlBusGetContiguousRequest" title="supriya.commands.ControlBusGetContiguousRequest.ControlBusGetContiguousRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ControlBusGetContiguousRequest</span></code></a></td>
-<td>A /c_getn request.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="ControlBusGetContiguousRequest.html#supriya.commands.ControlBusGetContiguousRequest.ControlBusGetContiguousRequest" title="supriya.commands.ControlBusGetContiguousRequest.ControlBusGetContiguousRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ControlBusGetContiguousRequest</span></code></a></p></td>
+<td><p>A /c_getn request.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ControlBusGetRequest.html#supriya.commands.ControlBusGetRequest.ControlBusGetRequest" title="supriya.commands.ControlBusGetRequest.ControlBusGetRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ControlBusGetRequest</span></code></a></td>
-<td>A /c_get request.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="ControlBusGetRequest.html#supriya.commands.ControlBusGetRequest.ControlBusGetRequest" title="supriya.commands.ControlBusGetRequest.ControlBusGetRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ControlBusGetRequest</span></code></a></p></td>
+<td><p>A /c_get request.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ControlBusSetContiguousRequest.html#supriya.commands.ControlBusSetContiguousRequest.ControlBusSetContiguousRequest" title="supriya.commands.ControlBusSetContiguousRequest.ControlBusSetContiguousRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ControlBusSetContiguousRequest</span></code></a></td>
-<td>A /c_setn request.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="ControlBusSetContiguousRequest.html#supriya.commands.ControlBusSetContiguousRequest.ControlBusSetContiguousRequest" title="supriya.commands.ControlBusSetContiguousRequest.ControlBusSetContiguousRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ControlBusSetContiguousRequest</span></code></a></p></td>
+<td><p>A /c_setn request.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ControlBusSetContiguousResponse.html#supriya.commands.ControlBusSetContiguousResponse.ControlBusSetContiguousResponse" title="supriya.commands.ControlBusSetContiguousResponse.ControlBusSetContiguousResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ControlBusSetContiguousResponse</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="ControlBusSetContiguousResponse.html#supriya.commands.ControlBusSetContiguousResponse.ControlBusSetContiguousResponse" title="supriya.commands.ControlBusSetContiguousResponse.ControlBusSetContiguousResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ControlBusSetContiguousResponse</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ControlBusSetRequest.html#supriya.commands.ControlBusSetRequest.ControlBusSetRequest" title="supriya.commands.ControlBusSetRequest.ControlBusSetRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ControlBusSetRequest</span></code></a></td>
-<td>A /c_set request.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="ControlBusSetRequest.html#supriya.commands.ControlBusSetRequest.ControlBusSetRequest" title="supriya.commands.ControlBusSetRequest.ControlBusSetRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ControlBusSetRequest</span></code></a></p></td>
+<td><p>A /c_set request.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ControlBusSetResponse.html#supriya.commands.ControlBusSetResponse.ControlBusSetResponse" title="supriya.commands.ControlBusSetResponse.ControlBusSetResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ControlBusSetResponse</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="ControlBusSetResponse.html#supriya.commands.ControlBusSetResponse.ControlBusSetResponse" title="supriya.commands.ControlBusSetResponse.ControlBusSetResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ControlBusSetResponse</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="DoneResponse.html#supriya.commands.DoneResponse.DoneResponse" title="supriya.commands.DoneResponse.DoneResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DoneResponse</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="DoneResponse.html#supriya.commands.DoneResponse.DoneResponse" title="supriya.commands.DoneResponse.DoneResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DoneResponse</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="DumpOscRequest.html#supriya.commands.DumpOscRequest.DumpOscRequest" title="supriya.commands.DumpOscRequest.DumpOscRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DumpOscRequest</span></code></a></td>
-<td>A /dumpOSC request.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="DumpOscRequest.html#supriya.commands.DumpOscRequest.DumpOscRequest" title="supriya.commands.DumpOscRequest.DumpOscRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DumpOscRequest</span></code></a></p></td>
+<td><p>A /dumpOSC request.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ErrorRequest.html#supriya.commands.ErrorRequest.ErrorRequest" title="supriya.commands.ErrorRequest.ErrorRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ErrorRequest</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="ErrorRequest.html#supriya.commands.ErrorRequest.ErrorRequest" title="supriya.commands.ErrorRequest.ErrorRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ErrorRequest</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="FailResponse.html#supriya.commands.FailResponse.FailResponse" title="supriya.commands.FailResponse.FailResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FailResponse</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="FailResponse.html#supriya.commands.FailResponse.FailResponse" title="supriya.commands.FailResponse.FailResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FailResponse</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="GroupDeepFreeRequest.html#supriya.commands.GroupDeepFreeRequest.GroupDeepFreeRequest" title="supriya.commands.GroupDeepFreeRequest.GroupDeepFreeRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GroupDeepFreeRequest</span></code></a></td>
-<td>A /g_deepFree request.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="GroupDeepFreeRequest.html#supriya.commands.GroupDeepFreeRequest.GroupDeepFreeRequest" title="supriya.commands.GroupDeepFreeRequest.GroupDeepFreeRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GroupDeepFreeRequest</span></code></a></p></td>
+<td><p>A /g_deepFree request.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="GroupDumpTreeRequest.html#supriya.commands.GroupDumpTreeRequest.GroupDumpTreeRequest" title="supriya.commands.GroupDumpTreeRequest.GroupDumpTreeRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GroupDumpTreeRequest</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="GroupDumpTreeRequest.html#supriya.commands.GroupDumpTreeRequest.GroupDumpTreeRequest" title="supriya.commands.GroupDumpTreeRequest.GroupDumpTreeRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GroupDumpTreeRequest</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="GroupFreeAllRequest.html#supriya.commands.GroupFreeAllRequest.GroupFreeAllRequest" title="supriya.commands.GroupFreeAllRequest.GroupFreeAllRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GroupFreeAllRequest</span></code></a></td>
-<td>A /g_freeAll request.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="GroupFreeAllRequest.html#supriya.commands.GroupFreeAllRequest.GroupFreeAllRequest" title="supriya.commands.GroupFreeAllRequest.GroupFreeAllRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GroupFreeAllRequest</span></code></a></p></td>
+<td><p>A /g_freeAll request.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="GroupHeadRequest.html#supriya.commands.GroupHeadRequest.GroupHeadRequest" title="supriya.commands.GroupHeadRequest.GroupHeadRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GroupHeadRequest</span></code></a></td>
-<td>A /g_head request.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="GroupHeadRequest.html#supriya.commands.GroupHeadRequest.GroupHeadRequest" title="supriya.commands.GroupHeadRequest.GroupHeadRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GroupHeadRequest</span></code></a></p></td>
+<td><p>A /g_head request.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="GroupNewRequest.html#supriya.commands.GroupNewRequest.GroupNewRequest" title="supriya.commands.GroupNewRequest.GroupNewRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GroupNewRequest</span></code></a></td>
-<td>A /g_new request.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="GroupNewRequest.html#supriya.commands.GroupNewRequest.GroupNewRequest" title="supriya.commands.GroupNewRequest.GroupNewRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GroupNewRequest</span></code></a></p></td>
+<td><p>A /g_new request.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="GroupQueryTreeRequest.html#supriya.commands.GroupQueryTreeRequest.GroupQueryTreeRequest" title="supriya.commands.GroupQueryTreeRequest.GroupQueryTreeRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GroupQueryTreeRequest</span></code></a></td>
-<td>A /g_queryTree request.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="GroupQueryTreeRequest.html#supriya.commands.GroupQueryTreeRequest.GroupQueryTreeRequest" title="supriya.commands.GroupQueryTreeRequest.GroupQueryTreeRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GroupQueryTreeRequest</span></code></a></p></td>
+<td><p>A /g_queryTree request.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="GroupTailRequest.html#supriya.commands.GroupTailRequest.GroupTailRequest" title="supriya.commands.GroupTailRequest.GroupTailRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GroupTailRequest</span></code></a></td>
-<td>A /g_tail request.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="GroupTailRequest.html#supriya.commands.GroupTailRequest.GroupTailRequest" title="supriya.commands.GroupTailRequest.GroupTailRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GroupTailRequest</span></code></a></p></td>
+<td><p>A /g_tail request.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="NodeAfterRequest.html#supriya.commands.NodeAfterRequest.NodeAfterRequest" title="supriya.commands.NodeAfterRequest.NodeAfterRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeAfterRequest</span></code></a></td>
-<td>An /n_after request.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="NodeAfterRequest.html#supriya.commands.NodeAfterRequest.NodeAfterRequest" title="supriya.commands.NodeAfterRequest.NodeAfterRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeAfterRequest</span></code></a></p></td>
+<td><p>An /n_after request.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="NodeBeforeRequest.html#supriya.commands.NodeBeforeRequest.NodeBeforeRequest" title="supriya.commands.NodeBeforeRequest.NodeBeforeRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeBeforeRequest</span></code></a></td>
-<td>An /n_before request.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="NodeBeforeRequest.html#supriya.commands.NodeBeforeRequest.NodeBeforeRequest" title="supriya.commands.NodeBeforeRequest.NodeBeforeRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeBeforeRequest</span></code></a></p></td>
+<td><p>An /n_before request.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="NodeCommandRequest.html#supriya.commands.NodeCommandRequest.NodeCommandRequest" title="supriya.commands.NodeCommandRequest.NodeCommandRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeCommandRequest</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="NodeCommandRequest.html#supriya.commands.NodeCommandRequest.NodeCommandRequest" title="supriya.commands.NodeCommandRequest.NodeCommandRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeCommandRequest</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="NodeFillRequest.html#supriya.commands.NodeFillRequest.NodeFillRequest" title="supriya.commands.NodeFillRequest.NodeFillRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeFillRequest</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="NodeFillRequest.html#supriya.commands.NodeFillRequest.NodeFillRequest" title="supriya.commands.NodeFillRequest.NodeFillRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeFillRequest</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="NodeFreeRequest.html#supriya.commands.NodeFreeRequest.NodeFreeRequest" title="supriya.commands.NodeFreeRequest.NodeFreeRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeFreeRequest</span></code></a></td>
-<td>A /n_free request.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="NodeFreeRequest.html#supriya.commands.NodeFreeRequest.NodeFreeRequest" title="supriya.commands.NodeFreeRequest.NodeFreeRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeFreeRequest</span></code></a></p></td>
+<td><p>A /n_free request.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="NodeInfoResponse.html#supriya.commands.NodeInfoResponse.NodeInfoResponse" title="supriya.commands.NodeInfoResponse.NodeInfoResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeInfoResponse</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="NodeInfoResponse.html#supriya.commands.NodeInfoResponse.NodeInfoResponse" title="supriya.commands.NodeInfoResponse.NodeInfoResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeInfoResponse</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="NodeMapToAudioBusContiguousRequest.html#supriya.commands.NodeMapToAudioBusContiguousRequest.NodeMapToAudioBusContiguousRequest" title="supriya.commands.NodeMapToAudioBusContiguousRequest.NodeMapToAudioBusContiguousRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeMapToAudioBusContiguousRequest</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="NodeMapToAudioBusContiguousRequest.html#supriya.commands.NodeMapToAudioBusContiguousRequest.NodeMapToAudioBusContiguousRequest" title="supriya.commands.NodeMapToAudioBusContiguousRequest.NodeMapToAudioBusContiguousRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeMapToAudioBusContiguousRequest</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="NodeMapToAudioBusRequest.html#supriya.commands.NodeMapToAudioBusRequest.NodeMapToAudioBusRequest" title="supriya.commands.NodeMapToAudioBusRequest.NodeMapToAudioBusRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeMapToAudioBusRequest</span></code></a></td>
-<td>A /n_mapa request.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="NodeMapToAudioBusRequest.html#supriya.commands.NodeMapToAudioBusRequest.NodeMapToAudioBusRequest" title="supriya.commands.NodeMapToAudioBusRequest.NodeMapToAudioBusRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeMapToAudioBusRequest</span></code></a></p></td>
+<td><p>A /n_mapa request.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="NodeMapToControlBusContiguousRequest.html#supriya.commands.NodeMapToControlBusContiguousRequest.NodeMapToControlBusContiguousRequest" title="supriya.commands.NodeMapToControlBusContiguousRequest.NodeMapToControlBusContiguousRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeMapToControlBusContiguousRequest</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="NodeMapToControlBusContiguousRequest.html#supriya.commands.NodeMapToControlBusContiguousRequest.NodeMapToControlBusContiguousRequest" title="supriya.commands.NodeMapToControlBusContiguousRequest.NodeMapToControlBusContiguousRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeMapToControlBusContiguousRequest</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="NodeMapToControlBusRequest.html#supriya.commands.NodeMapToControlBusRequest.NodeMapToControlBusRequest" title="supriya.commands.NodeMapToControlBusRequest.NodeMapToControlBusRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeMapToControlBusRequest</span></code></a></td>
-<td>A /n_map request.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="NodeMapToControlBusRequest.html#supriya.commands.NodeMapToControlBusRequest.NodeMapToControlBusRequest" title="supriya.commands.NodeMapToControlBusRequest.NodeMapToControlBusRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeMapToControlBusRequest</span></code></a></p></td>
+<td><p>A /n_map request.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="NodeOrderRequest.html#supriya.commands.NodeOrderRequest.NodeOrderRequest" title="supriya.commands.NodeOrderRequest.NodeOrderRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeOrderRequest</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="NodeOrderRequest.html#supriya.commands.NodeOrderRequest.NodeOrderRequest" title="supriya.commands.NodeOrderRequest.NodeOrderRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeOrderRequest</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="NodeQueryRequest.html#supriya.commands.NodeQueryRequest.NodeQueryRequest" title="supriya.commands.NodeQueryRequest.NodeQueryRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeQueryRequest</span></code></a></td>
-<td>A /n_query request.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="NodeQueryRequest.html#supriya.commands.NodeQueryRequest.NodeQueryRequest" title="supriya.commands.NodeQueryRequest.NodeQueryRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeQueryRequest</span></code></a></p></td>
+<td><p>A /n_query request.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="NodeRunRequest.html#supriya.commands.NodeRunRequest.NodeRunRequest" title="supriya.commands.NodeRunRequest.NodeRunRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeRunRequest</span></code></a></td>
-<td>A /n_run request.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="NodeRunRequest.html#supriya.commands.NodeRunRequest.NodeRunRequest" title="supriya.commands.NodeRunRequest.NodeRunRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeRunRequest</span></code></a></p></td>
+<td><p>A /n_run request.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="NodeSetContiguousRequest.html#supriya.commands.NodeSetContiguousRequest.NodeSetContiguousRequest" title="supriya.commands.NodeSetContiguousRequest.NodeSetContiguousRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeSetContiguousRequest</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="NodeSetContiguousRequest.html#supriya.commands.NodeSetContiguousRequest.NodeSetContiguousRequest" title="supriya.commands.NodeSetContiguousRequest.NodeSetContiguousRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeSetContiguousRequest</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="NodeSetContiguousResponse.html#supriya.commands.NodeSetContiguousResponse.NodeSetContiguousResponse" title="supriya.commands.NodeSetContiguousResponse.NodeSetContiguousResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeSetContiguousResponse</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="NodeSetContiguousResponse.html#supriya.commands.NodeSetContiguousResponse.NodeSetContiguousResponse" title="supriya.commands.NodeSetContiguousResponse.NodeSetContiguousResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeSetContiguousResponse</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="NodeSetRequest.html#supriya.commands.NodeSetRequest.NodeSetRequest" title="supriya.commands.NodeSetRequest.NodeSetRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeSetRequest</span></code></a></td>
-<td>A /n_set request.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="NodeSetRequest.html#supriya.commands.NodeSetRequest.NodeSetRequest" title="supriya.commands.NodeSetRequest.NodeSetRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeSetRequest</span></code></a></p></td>
+<td><p>A /n_set request.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="NodeSetResponse.html#supriya.commands.NodeSetResponse.NodeSetResponse" title="supriya.commands.NodeSetResponse.NodeSetResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeSetResponse</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="NodeSetResponse.html#supriya.commands.NodeSetResponse.NodeSetResponse" title="supriya.commands.NodeSetResponse.NodeSetResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeSetResponse</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="NodeTraceRequest.html#supriya.commands.NodeTraceRequest.NodeTraceRequest" title="supriya.commands.NodeTraceRequest.NodeTraceRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeTraceRequest</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="NodeTraceRequest.html#supriya.commands.NodeTraceRequest.NodeTraceRequest" title="supriya.commands.NodeTraceRequest.NodeTraceRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeTraceRequest</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="NothingRequest.html#supriya.commands.NothingRequest.NothingRequest" title="supriya.commands.NothingRequest.NothingRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NothingRequest</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="NothingRequest.html#supriya.commands.NothingRequest.NothingRequest" title="supriya.commands.NothingRequest.NothingRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NothingRequest</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="NotifyRequest.html#supriya.commands.NotifyRequest.NotifyRequest" title="supriya.commands.NotifyRequest.NotifyRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NotifyRequest</span></code></a></td>
-<td>A /notify message.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="NotifyRequest.html#supriya.commands.NotifyRequest.NotifyRequest" title="supriya.commands.NotifyRequest.NotifyRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NotifyRequest</span></code></a></p></td>
+<td><p>A /notify message.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ParallelGroupNewRequest.html#supriya.commands.ParallelGroupNewRequest.ParallelGroupNewRequest" title="supriya.commands.ParallelGroupNewRequest.ParallelGroupNewRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ParallelGroupNewRequest</span></code></a></td>
-<td>A /p_new request.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="ParallelGroupNewRequest.html#supriya.commands.ParallelGroupNewRequest.ParallelGroupNewRequest" title="supriya.commands.ParallelGroupNewRequest.ParallelGroupNewRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ParallelGroupNewRequest</span></code></a></p></td>
+<td><p>A /p_new request.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="QueryTreeControl.html#supriya.commands.QueryTreeControl.QueryTreeControl" title="supriya.commands.QueryTreeControl.QueryTreeControl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QueryTreeControl</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="QueryTreeControl.html#supriya.commands.QueryTreeControl.QueryTreeControl" title="supriya.commands.QueryTreeControl.QueryTreeControl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QueryTreeControl</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="QueryTreeGroup.html#supriya.commands.QueryTreeGroup.QueryTreeGroup" title="supriya.commands.QueryTreeGroup.QueryTreeGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QueryTreeGroup</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="QueryTreeGroup.html#supriya.commands.QueryTreeGroup.QueryTreeGroup" title="supriya.commands.QueryTreeGroup.QueryTreeGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QueryTreeGroup</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="QueryTreeResponse.html#supriya.commands.QueryTreeResponse.QueryTreeResponse" title="supriya.commands.QueryTreeResponse.QueryTreeResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QueryTreeResponse</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="QueryTreeResponse.html#supriya.commands.QueryTreeResponse.QueryTreeResponse" title="supriya.commands.QueryTreeResponse.QueryTreeResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QueryTreeResponse</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="QueryTreeSynth.html#supriya.commands.QueryTreeSynth.QueryTreeSynth" title="supriya.commands.QueryTreeSynth.QueryTreeSynth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QueryTreeSynth</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="QueryTreeSynth.html#supriya.commands.QueryTreeSynth.QueryTreeSynth" title="supriya.commands.QueryTreeSynth.QueryTreeSynth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QueryTreeSynth</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="QuitRequest.html#supriya.commands.QuitRequest.QuitRequest" title="supriya.commands.QuitRequest.QuitRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QuitRequest</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="QuitRequest.html#supriya.commands.QuitRequest.QuitRequest" title="supriya.commands.QuitRequest.QuitRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QuitRequest</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="RequestBundle.html#supriya.commands.RequestBundle.RequestBundle" title="supriya.commands.RequestBundle.RequestBundle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RequestBundle</span></code></a></td>
-<td>A Request bundle.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="RequestBundle.html#supriya.commands.RequestBundle.RequestBundle" title="supriya.commands.RequestBundle.RequestBundle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RequestBundle</span></code></a></p></td>
+<td><p>A Request bundle.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="Requestable.html#supriya.commands.Requestable.Requestable" title="supriya.commands.Requestable.Requestable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Requestable</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="Requestable.html#supriya.commands.Requestable.Requestable" title="supriya.commands.Requestable.Requestable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Requestable</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="Response.html#supriya.commands.Response.Response" title="supriya.commands.Response.Response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Response</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="Response.html#supriya.commands.Response.Response" title="supriya.commands.Response.Response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Response</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="StatusRequest.html#supriya.commands.StatusRequest.StatusRequest" title="supriya.commands.StatusRequest.StatusRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StatusRequest</span></code></a></td>
-<td>A /status request.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="StatusRequest.html#supriya.commands.StatusRequest.StatusRequest" title="supriya.commands.StatusRequest.StatusRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StatusRequest</span></code></a></p></td>
+<td><p>A /status request.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="StatusResponse.html#supriya.commands.StatusResponse.StatusResponse" title="supriya.commands.StatusResponse.StatusResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StatusResponse</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="StatusResponse.html#supriya.commands.StatusResponse.StatusResponse" title="supriya.commands.StatusResponse.StatusResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StatusResponse</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="SyncRequest.html#supriya.commands.SyncRequest.SyncRequest" title="supriya.commands.SyncRequest.SyncRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SyncRequest</span></code></a></td>
-<td>A /sync request.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="SyncRequest.html#supriya.commands.SyncRequest.SyncRequest" title="supriya.commands.SyncRequest.SyncRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SyncRequest</span></code></a></p></td>
+<td><p>A /sync request.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="SyncedResponse.html#supriya.commands.SyncedResponse.SyncedResponse" title="supriya.commands.SyncedResponse.SyncedResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SyncedResponse</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="SyncedResponse.html#supriya.commands.SyncedResponse.SyncedResponse" title="supriya.commands.SyncedResponse.SyncedResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SyncedResponse</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="SynthDefFreeAllRequest.html#supriya.commands.SynthDefFreeAllRequest.SynthDefFreeAllRequest" title="supriya.commands.SynthDefFreeAllRequest.SynthDefFreeAllRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefFreeAllRequest</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="SynthDefFreeAllRequest.html#supriya.commands.SynthDefFreeAllRequest.SynthDefFreeAllRequest" title="supriya.commands.SynthDefFreeAllRequest.SynthDefFreeAllRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefFreeAllRequest</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="SynthDefFreeRequest.html#supriya.commands.SynthDefFreeRequest.SynthDefFreeRequest" title="supriya.commands.SynthDefFreeRequest.SynthDefFreeRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefFreeRequest</span></code></a></td>
-<td>A /d_free request.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="SynthDefFreeRequest.html#supriya.commands.SynthDefFreeRequest.SynthDefFreeRequest" title="supriya.commands.SynthDefFreeRequest.SynthDefFreeRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefFreeRequest</span></code></a></p></td>
+<td><p>A /d_free request.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="SynthDefLoadDirectoryRequest.html#supriya.commands.SynthDefLoadDirectoryRequest.SynthDefLoadDirectoryRequest" title="supriya.commands.SynthDefLoadDirectoryRequest.SynthDefLoadDirectoryRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefLoadDirectoryRequest</span></code></a></td>
-<td>A /d_loadDir request.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="SynthDefLoadDirectoryRequest.html#supriya.commands.SynthDefLoadDirectoryRequest.SynthDefLoadDirectoryRequest" title="supriya.commands.SynthDefLoadDirectoryRequest.SynthDefLoadDirectoryRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefLoadDirectoryRequest</span></code></a></p></td>
+<td><p>A /d_loadDir request.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="SynthDefLoadRequest.html#supriya.commands.SynthDefLoadRequest.SynthDefLoadRequest" title="supriya.commands.SynthDefLoadRequest.SynthDefLoadRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefLoadRequest</span></code></a></td>
-<td>A /d_load request.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="SynthDefLoadRequest.html#supriya.commands.SynthDefLoadRequest.SynthDefLoadRequest" title="supriya.commands.SynthDefLoadRequest.SynthDefLoadRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefLoadRequest</span></code></a></p></td>
+<td><p>A /d_load request.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="SynthDefReceiveRequest.html#supriya.commands.SynthDefReceiveRequest.SynthDefReceiveRequest" title="supriya.commands.SynthDefReceiveRequest.SynthDefReceiveRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefReceiveRequest</span></code></a></td>
-<td>A /d_recv request.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="SynthDefReceiveRequest.html#supriya.commands.SynthDefReceiveRequest.SynthDefReceiveRequest" title="supriya.commands.SynthDefReceiveRequest.SynthDefReceiveRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefReceiveRequest</span></code></a></p></td>
+<td><p>A /d_recv request.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="SynthDefRemovedResponse.html#supriya.commands.SynthDefRemovedResponse.SynthDefRemovedResponse" title="supriya.commands.SynthDefRemovedResponse.SynthDefRemovedResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefRemovedResponse</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="SynthDefRemovedResponse.html#supriya.commands.SynthDefRemovedResponse.SynthDefRemovedResponse" title="supriya.commands.SynthDefRemovedResponse.SynthDefRemovedResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefRemovedResponse</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="SynthGetContiguousRequest.html#supriya.commands.SynthGetContiguousRequest.SynthGetContiguousRequest" title="supriya.commands.SynthGetContiguousRequest.SynthGetContiguousRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthGetContiguousRequest</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="SynthGetContiguousRequest.html#supriya.commands.SynthGetContiguousRequest.SynthGetContiguousRequest" title="supriya.commands.SynthGetContiguousRequest.SynthGetContiguousRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthGetContiguousRequest</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="SynthGetRequest.html#supriya.commands.SynthGetRequest.SynthGetRequest" title="supriya.commands.SynthGetRequest.SynthGetRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthGetRequest</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="SynthGetRequest.html#supriya.commands.SynthGetRequest.SynthGetRequest" title="supriya.commands.SynthGetRequest.SynthGetRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthGetRequest</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="SynthNewRequest.html#supriya.commands.SynthNewRequest.SynthNewRequest" title="supriya.commands.SynthNewRequest.SynthNewRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthNewRequest</span></code></a></td>
-<td>A /s_new request.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="SynthNewRequest.html#supriya.commands.SynthNewRequest.SynthNewRequest" title="supriya.commands.SynthNewRequest.SynthNewRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthNewRequest</span></code></a></p></td>
+<td><p>A /s_new request.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="SynthNewargsRequest.html#supriya.commands.SynthNewargsRequest.SynthNewargsRequest" title="supriya.commands.SynthNewargsRequest.SynthNewargsRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthNewargsRequest</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="SynthNewargsRequest.html#supriya.commands.SynthNewargsRequest.SynthNewargsRequest" title="supriya.commands.SynthNewargsRequest.SynthNewargsRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthNewargsRequest</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="SynthNoidRequest.html#supriya.commands.SynthNoidRequest.SynthNoidRequest" title="supriya.commands.SynthNoidRequest.SynthNoidRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthNoidRequest</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="SynthNoidRequest.html#supriya.commands.SynthNoidRequest.SynthNoidRequest" title="supriya.commands.SynthNoidRequest.SynthNoidRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthNoidRequest</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="TriggerResponse.html#supriya.commands.TriggerResponse.TriggerResponse" title="supriya.commands.TriggerResponse.TriggerResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TriggerResponse</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="TriggerResponse.html#supriya.commands.TriggerResponse.TriggerResponse" title="supriya.commands.TriggerResponse.TriggerResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TriggerResponse</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="UgenCommandRequest.html#supriya.commands.UgenCommandRequest.UgenCommandRequest" title="supriya.commands.UgenCommandRequest.UgenCommandRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UgenCommandRequest</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="UgenCommandRequest.html#supriya.commands.UgenCommandRequest.UgenCommandRequest" title="supriya.commands.UgenCommandRequest.UgenCommandRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UgenCommandRequest</span></code></a></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
@@ -1224,7 +1251,7 @@
         <a href="MoveRequest.html" class="btn btn-neutral float-right" title="MoveRequest" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../cli/run_supriya.html" class="btn btn-neutral" title="run_supriya" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../clock.html" class="btn btn-neutral float-left" title="clock" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1250,26 +1277,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

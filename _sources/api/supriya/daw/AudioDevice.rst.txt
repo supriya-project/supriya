@@ -1,0 +1,110 @@
+.. _supriya--daw--AudioDevice:
+
+AudioDevice
+===========
+
+.. automodule:: supriya.daw.AudioDevice
+
+.. currentmodule:: supriya.daw.AudioDevice
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.daw.AudioDevice
+
+.. autoclass:: AudioDevice
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      perform
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: AudioDevice.delete
+
+   .. container:: inherited
+
+      .. automethod:: AudioDevice.next_device
+
+   .. automethod:: AudioDevice.perform
+
+   .. container:: inherited
+
+      .. automethod:: AudioDevice.start
+
+   .. container:: inherited
+
+      .. automethod:: AudioDevice.stop
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read/write properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioDevice.name
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioDevice.application
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioDevice.channel_count
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioDevice.depth
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioDevice.graph_order
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioDevice.mixer_context
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioDevice.node
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioDevice.parent
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioDevice.parentage
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioDevice.root
+
+   .. container:: inherited
+
+      .. autoattribute:: AudioDevice.server

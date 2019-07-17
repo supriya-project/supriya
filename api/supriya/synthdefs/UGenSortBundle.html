@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>UGenSortBundle &mdash; Supriya 0.2.0 documentation</title>
+  <title>UGenSortBundle &mdash; Supriya 0.3.0 documentation</title>
   
 
   
@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
@@ -32,21 +39,16 @@
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="system" href="../system/index.html" />
     <link rel="prev" title="UGenMethodMixin" href="UGenMethodMixin.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -60,7 +62,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.3.0
               </div>
             
           
@@ -84,57 +86,77 @@
               
             
             
-              <ul>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Supriya API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../cli/index.html">cli</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../commands/index.html">commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../enums.html">enums</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ext/index.html">ext</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../io.html">io</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../live/index.html">live</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../midi/index.html">midi</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../osc/index.html">osc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../soundfiles/index.html">soundfiles</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="index.html">synthdefs</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="SynthDefFactory.html">SynthDefFactory</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthDefGrapher.html">SynthDefGrapher</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BinaryOperator.html">BinaryOperator</a></li>
-<li class="toctree-l4"><a class="reference internal" href="DoneAction.html">DoneAction</a></li>
-<li class="toctree-l4"><a class="reference internal" href="EnvelopeShape.html">EnvelopeShape</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ParameterRate.html">ParameterRate</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SignalRange.html">SignalRange</a></li>
-<li class="toctree-l4"><a class="reference internal" href="UnaryOperator.html">UnaryOperator</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Unit.html">Unit</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Envelope.html">Envelope</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Parameter.html">Parameter</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Range.html">Range</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthDef.html">SynthDef</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthDefBuilder.html">SynthDefBuilder</a></li>
-<li class="toctree-l4"><a class="reference internal" href="OutputProxy.html">OutputProxy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SuperColliderSynthDef.html">SuperColliderSynthDef</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthDefCompiler.html">SynthDefCompiler</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthDefDecompiler.html">SynthDefDecompiler</a></li>
-<li class="toctree-l4"><a class="reference internal" href="UGenArray.html">UGenArray</a></li>
-<li class="toctree-l4"><a class="reference internal" href="UGenMethodMixin.html">UGenMethodMixin</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">UGenSortBundle</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cli/index.html">cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clock.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../daw/index.html">daw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../live/index.html">live</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">synthdefs</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="SynthDefFactory.html">SynthDefFactory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthDefGrapher.html">SynthDefGrapher</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Envelope.html">Envelope</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Parameter.html">Parameter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Range.html">Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthDef.html">SynthDef</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthDefBuilder.html">SynthDefBuilder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="OutputProxy.html">OutputProxy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SuperColliderSynthDef.html">SuperColliderSynthDef</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthDefCompiler.html">SynthDefCompiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthDefDecompiler.html">SynthDefDecompiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="UGenArray.html">UGenArray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="UGenMethodMixin.html">UGenMethodMixin</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">UGenSortBundle</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../system/index.html">system</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../time/index.html">time</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
 </ul>
 </li>
 </ul>
-</li>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -179,8 +201,6 @@
   <ul class="wy-breadcrumbs">
     
       <li><a href="../../../index.html">Docs</a> &raquo;</li>
-        
-          <li><a href="../../index.html">Supriya API</a> &raquo;</li>
         
           <li><a href="../index.html">supriya</a> &raquo;</li>
         
@@ -260,28 +280,28 @@
 </div>
 <dl class="class">
 <dt id="supriya.synthdefs.UGenSortBundle.UGenSortBundle">
-<em class="property">class </em><code class="descclassname">supriya.synthdefs.UGenSortBundle.</code><code class="descname">UGenSortBundle</code><span class="sig-paren">(</span><em>ugen</em>, <em>width_first_antecedents</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/synthdefs/UGenSortBundle.html#UGenSortBundle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.UGenSortBundle.UGenSortBundle" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">supriya.synthdefs.UGenSortBundle.</code><code class="sig-name descname">UGenSortBundle</code><span class="sig-paren">(</span><em class="sig-param">ugen</em>, <em class="sig-param">width_first_antecedents</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/synthdefs/UGenSortBundle.html#UGenSortBundle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.UGenSortBundle.UGenSortBundle" title="Permalink to this definition">¶</a></dt>
 <dd><hr/><p class="class-header rubric">Attributes Summary</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.UGenSortBundle.UGenSortBundle.antecedents" title="supriya.synthdefs.UGenSortBundle.UGenSortBundle.antecedents"><code class="xref py py-obj docutils literal notranslate"><span class="pre">antecedents</span></code></a></td>
-<td></td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.synthdefs.UGenSortBundle.UGenSortBundle.antecedents" title="supriya.synthdefs.UGenSortBundle.UGenSortBundle.antecedents"><code class="xref py py-obj docutils literal notranslate"><span class="pre">antecedents</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.UGenSortBundle.UGenSortBundle.clear" title="supriya.synthdefs.UGenSortBundle.UGenSortBundle.clear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.synthdefs.UGenSortBundle.UGenSortBundle.clear" title="supriya.synthdefs.UGenSortBundle.UGenSortBundle.clear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.UGenSortBundle.UGenSortBundle.descendants" title="supriya.synthdefs.UGenSortBundle.UGenSortBundle.descendants"><code class="xref py py-obj docutils literal notranslate"><span class="pre">descendants</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.synthdefs.UGenSortBundle.UGenSortBundle.descendants" title="supriya.synthdefs.UGenSortBundle.UGenSortBundle.descendants"><code class="xref py py-obj docutils literal notranslate"><span class="pre">descendants</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.UGenSortBundle.UGenSortBundle.ugen" title="supriya.synthdefs.UGenSortBundle.UGenSortBundle.ugen"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ugen</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.synthdefs.UGenSortBundle.UGenSortBundle.ugen" title="supriya.synthdefs.UGenSortBundle.UGenSortBundle.ugen"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ugen</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.UGenSortBundle.UGenSortBundle.width_first_antecedents" title="supriya.synthdefs.UGenSortBundle.UGenSortBundle.width_first_antecedents"><code class="xref py py-obj docutils literal notranslate"><span class="pre">width_first_antecedents</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.synthdefs.UGenSortBundle.UGenSortBundle.width_first_antecedents" title="supriya.synthdefs.UGenSortBundle.UGenSortBundle.width_first_antecedents"><code class="xref py py-obj docutils literal notranslate"><span class="pre">width_first_antecedents</span></code></a></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
@@ -289,7 +309,7 @@
 <div class="inherited docutils container">
 <dl class="method">
 <dt id="supriya.synthdefs.UGenSortBundle.UGenSortBundle.__repr__">
-<code class="descclassname">(<a class="reference internal" href="../system/SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject" title="supriya.system.SupriyaObject.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.synthdefs.UGenSortBundle.UGenSortBundle.__repr__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system/SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject" title="supriya.system.SupriyaObject.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.synthdefs.UGenSortBundle.UGenSortBundle.__repr__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return repr(self).</p>
 </dd></dl>
 
@@ -297,28 +317,28 @@
 <hr/><p class="class-header rubric">Methods</p>
 <dl class="method">
 <dt id="supriya.synthdefs.UGenSortBundle.UGenSortBundle.clear">
-<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/synthdefs/UGenSortBundle.html#UGenSortBundle.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.UGenSortBundle.UGenSortBundle.clear" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/synthdefs/UGenSortBundle.html#UGenSortBundle.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.UGenSortBundle.UGenSortBundle.clear" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <hr/><p class="class-header rubric">Read-only properties</p>
 <dl class="attribute">
 <dt id="supriya.synthdefs.UGenSortBundle.UGenSortBundle.antecedents">
-<code class="descname">antecedents</code><a class="headerlink" href="#supriya.synthdefs.UGenSortBundle.UGenSortBundle.antecedents" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">antecedents</code><a class="headerlink" href="#supriya.synthdefs.UGenSortBundle.UGenSortBundle.antecedents" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.synthdefs.UGenSortBundle.UGenSortBundle.descendants">
-<code class="descname">descendants</code><a class="headerlink" href="#supriya.synthdefs.UGenSortBundle.UGenSortBundle.descendants" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">descendants</code><a class="headerlink" href="#supriya.synthdefs.UGenSortBundle.UGenSortBundle.descendants" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.synthdefs.UGenSortBundle.UGenSortBundle.ugen">
-<code class="descname">ugen</code><a class="headerlink" href="#supriya.synthdefs.UGenSortBundle.UGenSortBundle.ugen" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ugen</code><a class="headerlink" href="#supriya.synthdefs.UGenSortBundle.UGenSortBundle.ugen" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.synthdefs.UGenSortBundle.UGenSortBundle.width_first_antecedents">
-<code class="descname">width_first_antecedents</code><a class="headerlink" href="#supriya.synthdefs.UGenSortBundle.UGenSortBundle.width_first_antecedents" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">width_first_antecedents</code><a class="headerlink" href="#supriya.synthdefs.UGenSortBundle.UGenSortBundle.width_first_antecedents" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -336,7 +356,7 @@
         <a href="../system/index.html" class="btn btn-neutral float-right" title="system" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="UGenMethodMixin.html" class="btn btn-neutral" title="UGenMethodMixin" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="UGenMethodMixin.html" class="btn btn-neutral float-left" title="UGenMethodMixin" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -362,26 +382,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

@@ -134,8 +134,4 @@ SynthDef
 
    .. autoattribute:: SynthDef.parameters
 
-   .. container:: inherited
-
-      .. autoattribute:: SynthDef.server
-
    .. autoattribute:: SynthDef.ugens

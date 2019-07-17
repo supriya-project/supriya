@@ -29,7 +29,6 @@ Server
       __exit__
       __getitem__
       __graph__
-      __new__
       __repr__
       __str__
       audio_bus_allocator
@@ -37,19 +36,23 @@ Server
       audio_output_bus_group
       boot
       buffer_allocator
+      client_id
+      connect
       control_bus_allocator
-      debug_osc
       debug_request_names
-      debug_subprocess
-      debug_udp
+      default
       default_group
-      get_default_server
+      disconnect
       ip_address
+      is_owner
       is_running
+      kill
       latency
+      maximum_logins
       meters
       next_sync_id
       node_id_allocator
+      options
       osc_io
       port
       query_local_nodes
@@ -59,7 +62,6 @@ Server
       recorder
       root_node
       send_message
-      server_options
       status
       sync
 
@@ -80,8 +82,6 @@ Server
 
    .. automethod:: Server.__graph__
 
-   .. automethod:: Server.__new__
-
    .. automethod:: Server.__repr__
 
    .. automethod:: Server.__str__
@@ -94,6 +94,10 @@ Server
       :class: class-header
 
    .. automethod:: Server.boot
+
+   .. automethod:: Server.connect
+
+   .. automethod:: Server.disconnect
 
    .. automethod:: Server.query_local_nodes
 
@@ -114,7 +118,9 @@ Server
    .. rubric:: Class & static methods
       :class: class-header
 
-   .. automethod:: Server.get_default_server
+   .. automethod:: Server.default
+
+   .. automethod:: Server.kill
 
    .. raw:: html
 
@@ -123,13 +129,7 @@ Server
    .. rubric:: Read/write properties
       :class: class-header
 
-   .. autoattribute:: Server.debug_osc
-
    .. autoattribute:: Server.debug_request_names
-
-   .. autoattribute:: Server.debug_subprocess
-
-   .. autoattribute:: Server.debug_udp
 
    .. autoattribute:: Server.latency
 
@@ -148,19 +148,27 @@ Server
 
    .. autoattribute:: Server.buffer_allocator
 
+   .. autoattribute:: Server.client_id
+
    .. autoattribute:: Server.control_bus_allocator
 
    .. autoattribute:: Server.default_group
 
    .. autoattribute:: Server.ip_address
 
+   .. autoattribute:: Server.is_owner
+
    .. autoattribute:: Server.is_running
+
+   .. autoattribute:: Server.maximum_logins
 
    .. autoattribute:: Server.meters
 
    .. autoattribute:: Server.next_sync_id
 
    .. autoattribute:: Server.node_id_allocator
+
+   .. autoattribute:: Server.options
 
    .. autoattribute:: Server.osc_io
 
@@ -169,7 +177,5 @@ Server
    .. autoattribute:: Server.recorder
 
    .. autoattribute:: Server.root_node
-
-   .. autoattribute:: Server.server_options
 
    .. autoattribute:: Server.status

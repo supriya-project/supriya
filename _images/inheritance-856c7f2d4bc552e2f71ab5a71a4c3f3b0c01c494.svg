@@ -8,25 +8,25 @@
  viewBox="0.00 0.00 426.91 101.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 97)">
 <title>InheritanceGraph</title>
-<g id="clust1" class="cluster">
-<title>cluster_builtins</title>
-<path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M20,-19C20,-19 49,-19 49,-19 55,-19 61,-25 61,-31 61,-31 61,-62 61,-62 61,-68 55,-74 49,-74 49,-74 20,-74 20,-74 14,-74 8,-68 8,-62 8,-62 8,-31 8,-31 8,-25 14,-19 20,-19"/>
-<text text-anchor="middle" x="34.5" y="-62" font-family="Arial" font-size="10.00" fill="#000000">builtins</text>
-</g>
 <g id="clust2" class="cluster">
 <title>cluster_supriya.synthdefs</title>
 <path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M180,-8C180,-8 231,-8 231,-8 237,-8 243,-14 243,-20 243,-20 243,-73 243,-73 243,-79 237,-85 231,-85 231,-85 180,-85 180,-85 174,-85 168,-79 168,-73 168,-73 168,-20 168,-20 168,-14 174,-8 180,-8"/>
 <text text-anchor="middle" x="205.5" y="-73" font-family="Arial" font-size="10.00" fill="#000000">supriya.synthdefs</text>
 </g>
-<g id="clust3" class="cluster">
-<title>cluster_supriya.system</title>
-<path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M93,-14C93,-14 136,-14 136,-14 142,-14 148,-20 148,-26 148,-26 148,-67 148,-67 148,-73 142,-79 136,-79 136,-79 93,-79 93,-79 87,-79 81,-73 81,-67 81,-67 81,-26 81,-26 81,-20 87,-14 93,-14"/>
-<text text-anchor="middle" x="114.5" y="-67" font-family="Arial" font-size="10.00" fill="#000000">supriya.system</text>
-</g>
 <g id="clust4" class="cluster">
 <title>cluster_supriya.ugens</title>
 <path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M275,-8C275,-8 398.9117,-8 398.9117,-8 404.9117,-8 410.9117,-14 410.9117,-20 410.9117,-20 410.9117,-73 410.9117,-73 410.9117,-79 404.9117,-85 398.9117,-85 398.9117,-85 275,-85 275,-85 269,-85 263,-79 263,-73 263,-73 263,-20 263,-20 263,-14 269,-8 275,-8"/>
 <text text-anchor="middle" x="336.9558" y="-73" font-family="Arial" font-size="10.00" fill="#000000">supriya.ugens</text>
+</g>
+<g id="clust1" class="cluster">
+<title>cluster_builtins</title>
+<path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M20,-19C20,-19 49,-19 49,-19 55,-19 61,-25 61,-31 61,-31 61,-62 61,-62 61,-68 55,-74 49,-74 49,-74 20,-74 20,-74 14,-74 8,-68 8,-62 8,-62 8,-31 8,-31 8,-25 14,-19 20,-19"/>
+<text text-anchor="middle" x="34.5" y="-62" font-family="Arial" font-size="10.00" fill="#000000">builtins</text>
+</g>
+<g id="clust3" class="cluster">
+<title>cluster_supriya.system</title>
+<path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M93,-14C93,-14 136,-14 136,-14 142,-14 148,-20 148,-26 148,-26 148,-67 148,-67 148,-73 142,-79 136,-79 136,-79 93,-79 93,-79 87,-79 81,-73 81,-67 81,-67 81,-26 81,-26 81,-20 87,-14 93,-14"/>
+<text text-anchor="middle" x="114.5" y="-67" font-family="Arial" font-size="10.00" fill="#000000">supriya.system</text>
 </g>
 <!-- builtins.object&#45;&gt;supriya.system.SupriyaObject.SupriyaObject -->
 <g id="edge2" class="edge">

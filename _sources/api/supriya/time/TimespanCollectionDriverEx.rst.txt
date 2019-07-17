@@ -33,6 +33,7 @@ TimespanCollectionDriverEx
       find_timespans_intersecting_timespan
       find_timespans_starting_at
       find_timespans_stopping_at
+      get_offset_after
       get_start_offset_after
       get_start_offset_before
       index
@@ -70,6 +71,8 @@ TimespanCollectionDriverEx
    .. automethod:: TimespanCollectionDriverEx.find_timespans_starting_at
 
    .. automethod:: TimespanCollectionDriverEx.find_timespans_stopping_at
+
+   .. automethod:: TimespanCollectionDriverEx.get_offset_after
 
    .. automethod:: TimespanCollectionDriverEx.get_start_offset_after
 

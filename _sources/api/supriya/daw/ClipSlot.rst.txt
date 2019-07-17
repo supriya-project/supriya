@@ -1,0 +1,77 @@
+.. _supriya--daw--ClipSlot:
+
+ClipSlot
+========
+
+.. automodule:: supriya.daw.ClipSlot
+
+.. currentmodule:: supriya.daw.ClipSlot
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.daw.ClipSlot
+
+.. autoclass:: ClipSlot
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      application
+      fire
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: ClipSlot.fire
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read/write properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: ClipSlot.name
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: ClipSlot.application
+
+   .. container:: inherited
+
+      .. autoattribute:: ClipSlot.depth
+
+   .. container:: inherited
+
+      .. autoattribute:: ClipSlot.graph_order
+
+   .. container:: inherited
+
+      .. autoattribute:: ClipSlot.parent
+
+   .. container:: inherited
+
+      .. autoattribute:: ClipSlot.parentage
+
+   .. container:: inherited
+
+      .. autoattribute:: ClipSlot.root

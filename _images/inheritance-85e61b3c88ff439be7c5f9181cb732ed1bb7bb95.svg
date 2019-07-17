@@ -8,15 +8,15 @@
  viewBox="0.00 0.00 159.00 89.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 85)">
 <title>InheritanceGraph</title>
-<g id="clust1" class="cluster">
-<title>cluster_builtins</title>
-<path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M20,-13C20,-13 49,-13 49,-13 55,-13 61,-19 61,-25 61,-25 61,-56 61,-56 61,-62 55,-68 49,-68 49,-68 20,-68 20,-68 14,-68 8,-62 8,-56 8,-56 8,-25 8,-25 8,-19 14,-13 20,-13"/>
-<text text-anchor="middle" x="34.5" y="-56" font-family="Arial" font-size="10.00" fill="#000000">builtins</text>
-</g>
 <g id="clust2" class="cluster">
 <title>cluster_supriya.cli</title>
 <path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M93,-8C93,-8 131,-8 131,-8 137,-8 143,-14 143,-20 143,-20 143,-61 143,-61 143,-67 137,-73 131,-73 131,-73 93,-73 93,-73 87,-73 81,-67 81,-61 81,-61 81,-20 81,-20 81,-14 87,-8 93,-8"/>
 <text text-anchor="middle" x="112" y="-61" font-family="Arial" font-size="10.00" fill="#000000">supriya.cli</text>
+</g>
+<g id="clust1" class="cluster">
+<title>cluster_builtins</title>
+<path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M20,-13C20,-13 49,-13 49,-13 55,-13 61,-19 61,-25 61,-25 61,-56 61,-56 61,-62 55,-68 49,-68 49,-68 20,-68 20,-68 14,-68 8,-62 8,-56 8,-56 8,-25 8,-25 8,-19 14,-13 20,-13"/>
+<text text-anchor="middle" x="34.5" y="-56" font-family="Arial" font-size="10.00" fill="#000000">builtins</text>
 </g>
 <!-- builtins.object&#45;&gt;supriya.cli.ProjectManager.ProjectManager -->
 <g id="edge1" class="edge">

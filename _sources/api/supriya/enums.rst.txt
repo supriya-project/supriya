@@ -41,499 +41,54 @@ enums
    :members:
    :undoc-members:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      ADD_AFTER
-      ADD_BEFORE
-      ADD_TO_HEAD
-      ADD_TO_TAIL
-      REPLACE
-
 .. autoclass:: BinaryOperator
    :members:
    :undoc-members:
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      ABSOLUTE_DIFFERENCE
-      ADDITION
-      AMCLIP
-      ATAN2
-      BIT_AND
-      BIT_OR
-      BIT_XOR
-      CLIP2
-      DIFFERENCE_OF_SQUARES
-      EQUAL
-      EXCESS
-      EXPRANDRANGE
-      FILL
-      FIRST_ARG
-      FLOAT_DIVISION
-      FOLD2
-      GREATER_THAN
-      GREATER_THAN_OR_EQUAL
-      GREATEST_COMMON_DIVISOR
-      HYPOT
-      HYPOTX
-      INTEGER_DIVISION
-      LEAST_COMMON_MULTIPLE
-      LESS_THAN
-      LESS_THAN_OR_EQUAL
-      MAXIMUM
-      MINIMUM
-      MODULO
-      MULTIPLICATION
-      NOT_EQUAL
-      POWER
-      RANDRANGE
-      RING1
-      RING2
-      RING3
-      RING4
-      ROUND
-      ROUND_UP
-      SCALE_NEG
-      SHIFT_LEFT
-      SHIFT_RIGHT
-      SQUARE_OF_DIFFERENCE
-      SQUARE_OF_SUM
-      SUBTRACTION
-      SUM_OF_SQUARES
-      THRESHOLD
-      TRUNCATION
-      UNSIGNED_SHIFT
-      WRAP2
 
 .. autoclass:: CalculationRate
    :members:
    :undoc-members:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      AUDIO
-      CONTROL
-      DEMAND
-      SCALAR
-
 .. autoclass:: DoneAction
    :members:
    :undoc-members:
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      FREE_SYNTH
-      FREE_SYNTH_AND_ALL_FOLLOWING_NODES_IN_GROUP
-      FREE_SYNTH_AND_ALL_PRECEDING_NODES_IN_GROUP
-      FREE_SYNTH_AND_ALL_SIBLING_NODES
-      FREE_SYNTH_AND_DEEPFREE_FOLLOWING_NODE
-      FREE_SYNTH_AND_DEEPFREE_PRECEDING_NODE
-      FREE_SYNTH_AND_ENCLOSING_GROUP
-      FREE_SYNTH_AND_FOLLOWING_NODE
-      FREE_SYNTH_AND_FREEALL_FOLLOWING_NODE
-      FREE_SYNTH_AND_FREEALL_PRECEDING_NODE
-      FREE_SYNTH_AND_PAUSE_FOLLOWING_NODE
-      FREE_SYNTH_AND_PAUSE_PRECEDING_NODE
-      FREE_SYNTH_AND_PRECEDING_NODE
-      NOTHING
-      PAUSE_SYNTH
 
 .. autoclass:: EnvelopeShape
    :members:
    :undoc-members:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      CUBED
-      CUSTOM
-      EXPONENTIAL
-      LINEAR
-      SINE
-      SQUARED
-      STEP
-      WELCH
-
 .. autoclass:: HeaderFormat
    :members:
    :undoc-members:
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      AIFF
-      IRCAM
-      NEXT
-      RAW
-      WAV
 
 .. autoclass:: NodeAction
    :members:
    :undoc-members:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      NODE_ACTIVATED
-      NODE_CREATED
-      NODE_DEACTIVATED
-      NODE_MOVED
-      NODE_QUERIED
-      NODE_REMOVED
-
 .. autoclass:: ParameterRate
    :members:
    :undoc-members:
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      AUDIO
-      CONTROL
-      SCALAR
-      TRIGGER
 
 .. autoclass:: RequestId
    :members:
    :undoc-members:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      BUFFER_ALLOCATE
-      BUFFER_ALLOCATE_READ
-      BUFFER_ALLOCATE_READ_CHANNEL
-      BUFFER_CLOSE
-      BUFFER_FILL
-      BUFFER_FREE
-      BUFFER_GENERATE
-      BUFFER_GET
-      BUFFER_GET_CONTIGUOUS
-      BUFFER_QUERY
-      BUFFER_READ
-      BUFFER_READ_CHANNEL
-      BUFFER_SET
-      BUFFER_SET_CONTIGUOUS
-      BUFFER_WRITE
-      BUFFER_ZERO
-      CLEAR_SCHEDULE
-      COMMAND
-      CONTROL_BUS_FILL
-      CONTROL_BUS_GET
-      CONTROL_BUS_GET_CONTIGUOUS
-      CONTROL_BUS_SET
-      CONTROL_BUS_SET_CONTIGUOUS
-      DUMP_OSC
-      ERROR
-      GROUP_DEEP_FREE
-      GROUP_DUMP_TREE
-      GROUP_FREE_ALL
-      GROUP_HEAD
-      GROUP_NEW
-      GROUP_QUERY_TREE
-      GROUP_TAIL
-      NODE_AFTER
-      NODE_BEFORE
-      NODE_COMMAND
-      NODE_FILL
-      NODE_FREE
-      NODE_MAP_TO_AUDIO_BUS
-      NODE_MAP_TO_AUDIO_BUS_CONTIGUOUS
-      NODE_MAP_TO_CONTROL_BUS
-      NODE_MAP_TO_CONTROL_BUS_CONTIGUOUS
-      NODE_ORDER
-      NODE_QUERY
-      NODE_RUN
-      NODE_SET
-      NODE_SET_CONTIGUOUS
-      NODE_TRACE
-      NOTHING
-      NOTIFY
-      PARALLEL_GROUP_NEW
-      QUIT
-      STATUS
-      SYNC
-      SYNTHDEF_FREE
-      SYNTHDEF_FREE_ALL
-      SYNTHDEF_LOAD
-      SYNTHDEF_LOAD_DIR
-      SYNTHDEF_RECEIVE
-      SYNTH_GET
-      SYNTH_GET_CONTIGUOUS
-      SYNTH_NEW
-      SYNTH_NEWARGS
-      SYNTH_NOID
-      UGEN_COMMAND
-
 .. autoclass:: RequestName
    :members:
    :undoc-members:
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      BUFFER_ALLOCATE
-      BUFFER_ALLOCATE_READ
-      BUFFER_ALLOCATE_READ_CHANNEL
-      BUFFER_CLOSE
-      BUFFER_FILL
-      BUFFER_FREE
-      BUFFER_GENERATE
-      BUFFER_GET
-      BUFFER_GET_CONTIGUOUS
-      BUFFER_QUERY
-      BUFFER_READ
-      BUFFER_READ_CHANNEL
-      BUFFER_SET
-      BUFFER_SET_CONTIGUOUS
-      BUFFER_WRITE
-      BUFFER_ZERO
-      CLEAR_SCHEDULE
-      COMMAND
-      CONTROL_BUS_FILL
-      CONTROL_BUS_GET
-      CONTROL_BUS_GET_CONTIGUOUS
-      CONTROL_BUS_SET
-      CONTROL_BUS_SET_CONTIGUOUS
-      DUMP_OSC
-      ERROR
-      GROUP_DEEP_FREE
-      GROUP_DUMP_TREE
-      GROUP_FREE_ALL
-      GROUP_HEAD
-      GROUP_NEW
-      GROUP_QUERY_TREE
-      GROUP_TAIL
-      NODE_AFTER
-      NODE_BEFORE
-      NODE_FILL
-      NODE_FREE
-      NODE_MAP_TO_AUDIO_BUS
-      NODE_MAP_TO_AUDIO_BUS_CONTIGUOUS
-      NODE_MAP_TO_CONTROL_BUS
-      NODE_MAP_TO_CONTROL_BUS_CONTIGUOUS
-      NODE_ORDER
-      NODE_QUERY
-      NODE_RUN
-      NODE_SET
-      NODE_SET_CONTIGUOUS
-      NODE_TRACE
-      NOTIFY
-      PARALLEL_GROUP_NEW
-      QUIT
-      STATUS
-      SYNC
-      SYNTHDEF_FREE
-      SYNTHDEF_LOAD
-      SYNTHDEF_LOAD_DIR
-      SYNTHDEF_RECEIVE
-      SYNTH_GET
-      SYNTH_GET_CONTIGUOUS
-      SYNTH_NEW
-      SYNTH_NOID
-      UGEN_COMMAND
 
 .. autoclass:: SampleFormat
    :members:
    :undoc-members:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      ALAW
-      DOUBLE
-      FLOAT
-      INT16
-      INT24
-      INT32
-      INT8
-      MULAW
-
 .. autoclass:: SignalRange
    :members:
    :undoc-members:
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      BIPOLAR
-      UNIPOLAR
 
 .. autoclass:: UnaryOperator
    :members:
    :undoc-members:
 
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      ABSOLUTE_VALUE
-      AMPLITUDE_TO_DB
-      ARCCOS
-      ARCSIN
-      ARCTAN
-      AS_FLOAT
-      AS_INT
-      BILINRAND
-      BIT_NOT
-      CEILING
-      COIN
-      COS
-      COSH
-      CUBED
-      DB_TO_AMPLITUDE
-      DIGIT_VALUE
-      DISTORT
-      EXPONENTIAL
-      FLOOR
-      FRACTIONAL_PART
-      HANNING_WINDOW
-      HZ_TO_MIDI
-      HZ_TO_OCTAVE
-      IS_NIL
-      LINRAND
-      LOG
-      LOG10
-      LOG2
-      MIDI_TO_HZ
-      NEGATIVE
-      NOT
-      NOT_NIL
-      OCTAVE_TO_HZ
-      RAMP
-      RAND
-      RAND2
-      RATIO_TO_SEMITONES
-      RECIPROCAL
-      RECTANGLE_WINDOW
-      SEMITONES_TO_RATIO
-      SIGN
-      SILENCE
-      SIN
-      SINH
-      SOFTCLIP
-      SQUARED
-      SQUARE_ROOT
-      SUM3RAND
-      S_CURVE
-      TAN
-      TANH
-      THRU
-      TRIANGLE_WINDOW
-      WELCH_WINDOW
-
 .. autoclass:: Unit
    :members:
    :undoc-members:
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      AMPLITUDE
-      DECIBELS
-      HERTZ
-      MILLISECONDS
-      SECONDS
-      SEMITONES
-      UNDEFINED

@@ -26,6 +26,7 @@ NodeFreeRequest
 
       node_ids
       request_id
+      response_patterns
       to_osc
 
    .. raw:: html
@@ -93,6 +94,4 @@ NodeFreeRequest
 
       .. autoattribute:: NodeFreeRequest.response
 
-   .. container:: inherited
-
-      .. autoattribute:: NodeFreeRequest.response_patterns
+   .. autoattribute:: NodeFreeRequest.response_patterns

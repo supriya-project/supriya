@@ -29,6 +29,7 @@ ServerMeters
       input_count
       input_meter_command
       input_meter_synthdef
+      is_allocated
       make_meter_synthdef
       notify
       output_count
@@ -84,6 +85,8 @@ ServerMeters
    .. autoattribute:: ServerMeters.input_meter_command
 
    .. autoattribute:: ServerMeters.input_meter_synthdef
+
+   .. autoattribute:: ServerMeters.is_allocated
 
    .. autoattribute:: ServerMeters.output_count
 

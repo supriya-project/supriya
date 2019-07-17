@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>supriya.realtime.BusGroup &mdash; Supriya 0.2.0 documentation</title>
+  <title>supriya.realtime.BusGroup &mdash; Supriya 0.3.0 documentation</title>
   
 
   
@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -58,7 +60,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.3.0
               </div>
             
           
@@ -82,11 +84,39 @@
               
             
             
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
-</ul>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">Supriya API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/supriya/index.html">supriya</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -154,16 +184,16 @@
   <h1>Source code for supriya.realtime.BusGroup</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">supriya.exceptions</span>
 <span class="kn">from</span> <span class="nn">supriya</span> <span class="k">import</span> <span class="n">CalculationRate</span>
-<span class="kn">from</span> <span class="nn">supriya.realtime.ServerObjectProxy</span> <span class="k">import</span> <span class="n">ServerObjectProxy</span>
+<span class="kn">from</span> <span class="nn">supriya.realtime.ServerObject</span> <span class="k">import</span> <span class="n">ServerObject</span>
 
 
-<div class="viewcode-block" id="BusGroup"><a class="viewcode-back" href="../../../api/supriya/realtime/BusGroup.html#supriya.realtime.AudioInputBusGroup.BusGroup">[docs]</a><span class="k">class</span> <span class="nc">BusGroup</span><span class="p">(</span><span class="n">ServerObjectProxy</span><span class="p">):</span>
+<div class="viewcode-block" id="BusGroup"><a class="viewcode-back" href="../../../api/supriya/realtime/BusGroup.html#supriya.realtime.AudioInputBusGroup.BusGroup">[docs]</a><span class="k">class</span> <span class="nc">BusGroup</span><span class="p">(</span><span class="n">ServerObject</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A bus group.</span>
 
 <span class="sd">    ::</span>
 
-<span class="sd">        &gt;&gt;&gt; server = supriya.Server().boot()</span>
+<span class="sd">        &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">        &gt;&gt;&gt; bus_group = supriya.BusGroup(bus_count=4)</span>
 <span class="sd">        &gt;&gt;&gt; bus_group</span>
 <span class="sd">        &lt;- BusGroup{4}: ??? (control)&gt;</span>
@@ -216,11 +246,11 @@
     <span class="c1">### INITIALIZER ###</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">bus_count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">,</span> <span class="n">bus_id</span><span class="o">=</span><span class="kc">None</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">bus_count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">bus_id</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">):</span>
         <span class="kn">import</span> <span class="nn">supriya.realtime</span>
 
-        <span class="n">ServerObjectProxy</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">ServerObject</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">calculation_rate</span> <span class="o">=</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">calculation_rate</span><span class="p">)</span>
         <span class="k">assert</span> <span class="n">calculation_rate</span> <span class="ow">in</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_calculation_rate</span> <span class="o">=</span> <span class="n">calculation_rate</span>
@@ -266,7 +296,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; bus_group = supriya.BusGroup.control(4).allocate()</span>
 <span class="sd">            &gt;&gt;&gt; bus_group[0]</span>
 <span class="sd">            &lt;+ Bus: 0 (control)&gt;</span>
@@ -318,7 +348,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; control_bus_group = supriya.BusGroup.control(4).allocate()</span>
 <span class="sd">            &gt;&gt;&gt; audio_bus_group = supriya.BusGroup.audio(4).allocate()</span>
 
@@ -342,13 +372,13 @@
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_allocated</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BusAlreadyAllocated</span>
-        <span class="n">ServerObjectProxy</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
+        <span class="n">ServerObject</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
         <span class="n">allocator</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Bus</span><span class="o">.</span><span class="n">_get_allocator</span><span class="p">(</span>
             <span class="n">calculation_rate</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">calculation_rate</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span>
         <span class="p">)</span>
         <span class="n">bus_id</span> <span class="o">=</span> <span class="n">allocator</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">bus_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">ServerObjectProxy</span><span class="o">.</span><span class="n">free</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">ServerObject</span><span class="o">.</span><span class="n">free</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="k">raise</span> <span class="ne">ValueError</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_bus_id</span> <span class="o">=</span> <span class="n">bus_id</span>
         <span class="k">return</span> <span class="bp">self</span></div>
@@ -368,7 +398,7 @@
 <span class="sd">                ...     calculation_rate=&#39;audio&#39;,</span>
 <span class="sd">                ...     )</span>
 <span class="sd">                &gt;&gt;&gt; ugen = audio_bus_group.ar()</span>
-<span class="sd">                &gt;&gt;&gt; graph(ugen)  # doctest: +SKIP</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(ugen)  # doctest: +SKIP</span>
 
 <span class="sd">            ::</span>
 
@@ -389,7 +419,7 @@
 <span class="sd">                ...     calculation_rate=&#39;control&#39;,</span>
 <span class="sd">                ...     )</span>
 <span class="sd">                &gt;&gt;&gt; ugen = control_bus_group.ar()</span>
-<span class="sd">                &gt;&gt;&gt; graph(ugen)  # doctest: +SKIP</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(ugen)  # doctest: +SKIP</span>
 
 <span class="sd">            ::</span>
 
@@ -434,7 +464,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; bus_group = supriya.BusGroup.control(4).allocate()</span>
 <span class="sd">            &gt;&gt;&gt; bus_group.get()</span>
 <span class="sd">            (0.0, 0.0, 0.0, 0.0)</span>
@@ -486,7 +516,7 @@
         <span class="p">)</span>
         <span class="n">allocator</span><span class="o">.</span><span class="n">free</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bus_id</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_bus_id</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">ServerObjectProxy</span><span class="o">.</span><span class="n">free</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">ServerObject</span><span class="o">.</span><span class="n">free</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
 <div class="viewcode-block" id="BusGroup.get"><a class="viewcode-back" href="../../../api/supriya/realtime/BusGroup.html#supriya.realtime.AudioInputBusGroup.BusGroup.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -495,7 +525,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; bus_group = supriya.BusGroup().control(4).allocate()</span>
 <span class="sd">            &gt;&gt;&gt; bus_group.get()</span>
 <span class="sd">            (0.0, 0.0, 0.0, 0.0)</span>
@@ -534,7 +564,7 @@
 <span class="sd">                ...     calculation_rate=&#39;audio&#39;,</span>
 <span class="sd">                ...     )</span>
 <span class="sd">                &gt;&gt;&gt; ugen = audio_bus_group.kr()</span>
-<span class="sd">                &gt;&gt;&gt; graph(ugen)  # doctest: +SKIP</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(ugen)  # doctest: +SKIP</span>
 
 <span class="sd">            ::</span>
 
@@ -563,7 +593,7 @@
 <span class="sd">                ...     calculation_rate=&#39;control&#39;,</span>
 <span class="sd">                ...     )</span>
 <span class="sd">                &gt;&gt;&gt; ugen = control_bus_group.kr()</span>
-<span class="sd">                &gt;&gt;&gt; graph(ugen)  # doctest: +SKIP</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(ugen)  # doctest: +SKIP</span>
 
 <span class="sd">            ::</span>
 
@@ -592,7 +622,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; bus_group = supriya.BusGroup.control(4).allocate()</span>
 <span class="sd">            &gt;&gt;&gt; bus_group.get()</span>
 <span class="sd">            (0.0, 0.0, 0.0, 0.0)</span>
@@ -674,26 +704,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

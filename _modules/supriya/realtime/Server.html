@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>supriya.realtime.Server &mdash; Supriya 0.2.0 documentation</title>
+  <title>supriya.realtime.Server &mdash; Supriya 0.3.0 documentation</title>
   
 
   
@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -58,7 +60,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.3.0
               </div>
             
           
@@ -82,11 +84,39 @@
               
             
             
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
-</ul>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">Supriya API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/supriya/index.html">supriya</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -153,33 +183,42 @@
             
   <h1>Source code for supriya.realtime.Server</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">atexit</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">signal</span>
-<span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">import</span> <span class="nn">threading</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Set</span>
 
-<span class="kn">import</span> <span class="nn">uqbar.graphs</span>
-<span class="kn">import</span> <span class="nn">uqbar.io</span>
+<span class="kn">from</span> <span class="nn">uqbar.objects</span> <span class="k">import</span> <span class="n">new</span>
 
 <span class="kn">import</span> <span class="nn">supriya.exceptions</span>
-<span class="kn">from</span> <span class="nn">supriya</span> <span class="k">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">supriya.commands</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">FailResponse</span><span class="p">,</span>
+    <span class="n">GroupQueryTreeRequest</span><span class="p">,</span>
+    <span class="n">NotifyRequest</span><span class="p">,</span>
+    <span class="n">QueryTreeGroup</span><span class="p">,</span>
+    <span class="n">QueryTreeSynth</span><span class="p">,</span>
+    <span class="n">QuitRequest</span><span class="p">,</span>
+    <span class="n">SyncRequest</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">supriya.enums</span> <span class="k">import</span> <span class="n">NodeAction</span>
+<span class="kn">from</span> <span class="nn">supriya.realtime</span> <span class="k">import</span> <span class="n">BlockAllocator</span><span class="p">,</span> <span class="n">BootOptions</span><span class="p">,</span> <span class="n">NodeIdAllocator</span>
 <span class="kn">from</span> <span class="nn">supriya.system</span> <span class="k">import</span> <span class="n">PubSub</span>
-<span class="kn">from</span> <span class="nn">supriya.system.SupriyaObject</span> <span class="k">import</span> <span class="n">SupriyaObject</span>
+
+<span class="c1"># TODO: Implement connect() and disconnect()</span>
+<span class="c1"># TODO: Handle clientID return via [/done /notify 0 64] for allocators</span>
 
 
-<div class="viewcode-block" id="Server"><a class="viewcode-back" href="../../../api/supriya/realtime/Server.html#supriya.realtime.Server.Server">[docs]</a><span class="k">class</span> <span class="nc">Server</span><span class="p">(</span><span class="n">SupriyaObject</span><span class="p">):</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;supriya.server&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Server"><a class="viewcode-back" href="../../../api/supriya/realtime/Server.html#supriya.realtime.Server.Server">[docs]</a><span class="k">class</span> <span class="nc">Server</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An scsynth server proxy.</span>
 
 <span class="sd">    ::</span>
 
 <span class="sd">        &gt;&gt;&gt; import supriya.realtime</span>
-<span class="sd">        &gt;&gt;&gt; server = supriya.realtime.Server.get_default_server()</span>
+<span class="sd">        &gt;&gt;&gt; server = supriya.realtime.Server.default()</span>
 <span class="sd">        &gt;&gt;&gt; server.boot()</span>
 <span class="sd">        &lt;Server: udp://127.0.0.1:57751, 8i8o&gt;</span>
 
@@ -194,65 +233,29 @@
 
     <span class="n">__documentation_section__</span> <span class="o">=</span> <span class="s2">&quot;Main Classes&quot;</span>
 
-    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="s2">&quot;_audio_bus_allocator&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_audio_buses&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_audio_input_bus_group&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_audio_output_bus_group&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_buffer_allocator&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_buffers&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_buffer_proxies&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_control_bus_allocator&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_control_buses&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_control_bus_proxies&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_debug_subprocess&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_debug_osc&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_debug_request_names&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_debug_udp&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_default_group&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_ip_address&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_is_running&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_latency&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_lock&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_meters&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_node_id_allocator&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_nodes&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_osc_io&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_pending_nodes&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_port&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_recorder&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_root_node&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_server_options&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_server_process&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_status&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_status_watcher&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_sync_id&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;_synthdefs&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-
     <span class="n">_default_server</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="n">_servers</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="s2">&quot;Server&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_servers</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="s2">&quot;Server&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
     <span class="c1">### CONSTRUCTOR ###</span>
 
-<div class="viewcode-block" id="Server.__new__"><a class="viewcode-back" href="../../../api/supriya/realtime/Server.html#supriya.realtime.Server.Server.__new__">[docs]</a>    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">ip_address</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">57751</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">ip_address</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_servers</span><span class="p">:</span>
-            <span class="n">instance</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
-            <span class="n">instance</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">ip_address</span><span class="o">=</span><span class="n">ip_address</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-            <span class="bp">cls</span><span class="o">.</span><span class="n">_servers</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">instance</span>
-        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_servers</span><span class="p">[</span><span class="n">key</span><span class="p">]</span></div>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    def __new__(cls, ip_address=&quot;127.0.0.1&quot;, port=57751, **kwargs):</span>
+<span class="sd">        key = (ip_address, port)</span>
+<span class="sd">        if key not in cls._servers:</span>
+<span class="sd">            instance = object.__new__(cls)</span>
+<span class="sd">            instance.__init__(ip_address=ip_address, port=port, **kwargs)</span>
+<span class="sd">            cls._servers[key] = instance</span>
+<span class="sd">        return cls._servers[key]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1">### INITIALIZER ###</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ip_address</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">57751</span><span class="p">):</span>
         <span class="kn">import</span> <span class="nn">supriya.osc</span>
-        <span class="kn">import</span> <span class="nn">supriya.commands</span>
         <span class="kn">import</span> <span class="nn">supriya.realtime</span>
 
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;is_running&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_running</span><span class="p">:</span>
-            <span class="k">return</span>
+        <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_servers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="c1">### NET ADDRESS ###</span>
 
@@ -275,8 +278,11 @@
 
         <span class="c1">### SERVER PROCESS ###</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client_id</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_maximum_logins</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_owner</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_running</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_server_options</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">ServerOptions</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_options</span> <span class="o">=</span> <span class="n">BootOptions</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_server_process</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_status_watcher</span> <span class="o">=</span> <span class="kc">None</span>
@@ -298,19 +304,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_control_bus_proxies</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_control_buses</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_pending_nodes</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_synthdefs</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="c1">### DEBUG ###</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">debug_osc</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">debug_request_names</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">debug_subprocess</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">debug_udp</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="c1">### REGISTER WITH ATEXIT ###</span>
 
-        <span class="n">atexit</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">quit</span><span class="p">)</span>
+        <span class="n">atexit</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_shutdown</span><span class="p">)</span>
 
     <span class="c1">### SPECIAL METHODS ###</span>
 
@@ -318,18 +320,18 @@
         <span class="kn">import</span> <span class="nn">supriya.realtime</span>
         <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">ServerObjectProxy</span><span class="p">):</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="n">expr</span><span class="o">.</span><span class="n">server</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">False</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Node</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">expr</span><span class="o">.</span><span class="n">server</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
             <span class="n">node_id</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">node_id</span>
             <span class="k">if</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="p">[</span><span class="n">node_id</span><span class="p">]</span> <span class="ow">is</span> <span class="n">expr</span><span class="p">:</span>
                 <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDef</span><span class="p">):</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDef</span><span class="p">):</span>
             <span class="n">name</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">actual_name</span>
             <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_synthdefs</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_synthdefs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">==</span> <span class="n">expr</span><span class="p">:</span>
                 <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">ServerObject</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">expr</span><span class="o">.</span><span class="n">server</span> <span class="ow">is</span> <span class="bp">self</span>
         <span class="k">return</span> <span class="kc">False</span></div>
 
 <div class="viewcode-block" id="Server.__enter__"><a class="viewcode-back" href="../../../api/supriya/realtime/Server.html#supriya.realtime.Server.Server.__enter__">[docs]</a>    <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -346,7 +348,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; supriya.Synth(name=&#39;foo&#39;).allocate()</span>
 <span class="sd">            &lt;+ Synth: 1000 (foo)&gt;</span>
 
@@ -417,7 +419,7 @@
 <span class="sd">        ::</span>
 
 <span class="sd">            &gt;&gt;&gt; import supriya</span>
-<span class="sd">            &gt;&gt;&gt; server = supriya.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; group = supriya.Group([</span>
 <span class="sd">            ...     supriya.Synth(),</span>
 <span class="sd">            ...     supriya.Group([</span>
@@ -484,11 +486,11 @@
         <span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;&lt;Server: </span><span class="si">{protocol}</span><span class="s2">://</span><span class="si">{ip}</span><span class="s2">:</span><span class="si">{port}</span><span class="s2">, &quot;</span>
         <span class="n">string</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="si">{inputs}</span><span class="s2">i</span><span class="si">{outputs}</span><span class="s2">o&gt;&quot;</span>
         <span class="k">return</span> <span class="n">string</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">protocol</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">server_options</span><span class="o">.</span><span class="n">protocol</span><span class="p">,</span>
+            <span class="n">protocol</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">protocol</span><span class="p">,</span>
             <span class="n">ip</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ip_address</span><span class="p">,</span>
             <span class="n">port</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span>
-            <span class="n">inputs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">server_options</span><span class="o">.</span><span class="n">input_bus_channel_count</span><span class="p">,</span>
-            <span class="n">outputs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">server_options</span><span class="o">.</span><span class="n">output_bus_channel_count</span><span class="p">,</span>
+            <span class="n">inputs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">input_bus_channel_count</span><span class="p">,</span>
+            <span class="n">outputs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">output_bus_channel_count</span><span class="p">,</span>
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Server.__str__"><a class="viewcode-back" href="../../../api/supriya/realtime/Server.html#supriya.realtime.Server.Server.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -571,57 +573,44 @@
 
     <span class="k">def</span> <span class="nf">_handle_synthdef_removed_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
         <span class="n">synthdef_name</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">synthdef_name</span>
-        <span class="n">synthdef</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_synthdefs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">synthdef_name</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">synthdef</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span>
-        <span class="n">synthdef</span><span class="o">.</span><span class="n">_handle_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_synthdefs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">synthdef_name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_notifications</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_status_watcher</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_allocators</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">server_options</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_proxies</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_system_synthdefs</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">_setup_allocators</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server_options</span><span class="p">):</span>
-        <span class="kn">import</span> <span class="nn">supriya.realtime</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_audio_bus_allocator</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">BlockAllocator</span><span class="p">(</span>
-            <span class="n">heap_maximum</span><span class="o">=</span><span class="n">server_options</span><span class="o">.</span><span class="n">audio_bus_channel_count</span><span class="p">,</span>
-            <span class="n">heap_minimum</span><span class="o">=</span><span class="n">server_options</span><span class="o">.</span><span class="n">first_private_bus_id</span><span class="p">,</span>
+    <span class="k">def</span> <span class="nf">_setup_allocators</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_audio_bus_allocator</span> <span class="o">=</span> <span class="n">BlockAllocator</span><span class="p">(</span>
+            <span class="n">heap_maximum</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="o">.</span><span class="n">audio_bus_channel_count</span><span class="p">,</span>
+            <span class="n">heap_minimum</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="o">.</span><span class="n">first_private_bus_id</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_allocator</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">BlockAllocator</span><span class="p">(</span>
-            <span class="n">heap_maximum</span><span class="o">=</span><span class="n">server_options</span><span class="o">.</span><span class="n">buffer_count</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_allocator</span> <span class="o">=</span> <span class="n">BlockAllocator</span><span class="p">(</span><span class="n">heap_maximum</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="o">.</span><span class="n">buffer_count</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_control_bus_allocator</span> <span class="o">=</span> <span class="n">BlockAllocator</span><span class="p">(</span>
+            <span class="n">heap_maximum</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="o">.</span><span class="n">control_bus_channel_count</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_control_bus_allocator</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">BlockAllocator</span><span class="p">(</span>
-            <span class="n">heap_maximum</span><span class="o">=</span><span class="n">server_options</span><span class="o">.</span><span class="n">control_bus_channel_count</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_node_id_allocator</span> <span class="o">=</span> <span class="n">NodeIdAllocator</span><span class="p">(</span>
+            <span class="n">initial_node_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="o">.</span><span class="n">initial_node_id</span><span class="p">,</span> <span class="n">client_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">client_id</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_node_id_allocator</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">NodeIdAllocator</span><span class="p">(</span>
-            <span class="n">initial_node_id</span><span class="o">=</span><span class="n">server_options</span><span class="o">.</span><span class="n">initial_node_id</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_sync_id</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sync_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client_id</span> <span class="o">&lt;&lt;</span> <span class="mi">26</span>
 
     <span class="k">def</span> <span class="nf">_setup_notifications</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">import</span> <span class="nn">supriya.commands</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">NotifyRequest</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">FailResponse</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_shutdown</span><span class="p">()</span>
+            <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">TooManyClients</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maximum_logins</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">action</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">response</span><span class="o">.</span><span class="n">action</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 
-        <span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">NotifyRequest</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_setup_default_groups</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">default_groups</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">(</span><span class="n">node_id_is_permanent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maximum_logins</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root_node</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">default_groups</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_default_group</span> <span class="o">=</span> <span class="n">default_groups</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">client_id</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_setup_proxies</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="kn">import</span> <span class="nn">supriya.realtime</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_pending_nodes</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_audio_input_bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">AudioInputBusGroup</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_audio_output_bus_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">AudioOutputBusGroup</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">RootNode</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span>
-        <span class="n">default_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Group</span><span class="p">()</span>
-        <span class="n">default_group</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
-            <span class="n">add_action</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_HEAD</span><span class="p">,</span>
-            <span class="n">node_id_is_permanent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">target_node</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">root_node</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_default_group</span> <span class="o">=</span> <span class="n">default_group</span>
 
     <span class="k">def</span> <span class="nf">_setup_osc_callbacks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_osc_io</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
@@ -661,7 +650,7 @@
         <span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">failed</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FAILED:&quot;</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Fail: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">message</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_osc_io</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="s2">&quot;/fail&quot;</span><span class="p">,</span> <span class="n">procedure</span><span class="o">=</span><span class="n">failed</span><span class="p">)</span>
 
@@ -672,7 +661,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_status_watcher</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">StatusWatcher</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_status_watcher</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_setup_system_synthdefs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_setup_system_synthdefs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">local_only</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="kn">import</span> <span class="nn">supriya.assets.synthdefs</span>
         <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
 
@@ -684,12 +673,19 @@
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">system_synthdef</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDef</span><span class="p">):</span>
                 <span class="k">continue</span>
             <span class="n">system_synthdefs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">system_synthdef</span><span class="p">)</span>
-        <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDef</span><span class="o">.</span><span class="n">_allocate_synthdefs</span><span class="p">(</span><span class="n">system_synthdefs</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">local_only</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">synthdef</span> <span class="ow">in</span> <span class="n">system_synthdefs</span><span class="p">:</span>
+                <span class="n">synthdef</span><span class="o">.</span><span class="n">_register_with_local_server</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDef</span><span class="o">.</span><span class="n">_allocate_synthdefs</span><span class="p">(</span><span class="n">system_synthdefs</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_teardown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_teardown_proxies</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_teardown_allocators</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_teardown_status_watcher</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">_shutdown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_running</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_owner</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_teardown_allocators</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_audio_bus_allocator</span> <span class="o">=</span> <span class="kc">None</span>
@@ -710,98 +706,129 @@
                 <span class="n">x</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
             <span class="n">x</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_synthdefs</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
-            <span class="n">x</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_control_bus_proxies</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_proxies</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_default_group</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_audio_buses</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_audio_input_bus_group</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_audio_output_bus_group</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffers</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_proxies</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_control_buses</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_control_bus_proxies</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_default_group</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_synthdefs</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_teardown_status_watcher</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_status_watcher</span><span class="o">.</span><span class="n">active</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_status_watcher</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_status_watcher</span><span class="o">.</span><span class="n">is_active</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_status_watcher</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">_read_scsynth_boot_output</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-        <span class="n">timeout</span> <span class="o">=</span> <span class="mi">10</span>
-        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="n">line</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server_process</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug_subprocess</span> <span class="ow">and</span> <span class="n">line</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Boot:&quot;</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;SuperCollider 3 server ready&quot;</span><span class="p">):</span>
-                <span class="k">break</span>
-            <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;ERROR:&quot;</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ServerCannotBoot</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span>
-                <span class="s2">&quot;Exception in World_OpenUDP: bind: Address already in use&quot;</span>
-            <span class="p">):</span>
-                <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ServerCannotBoot</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">timeout</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ServerCannotBoot</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
-
     <span class="c1">### PUBLIC METHODS ###</span>
 
-<div class="viewcode-block" id="Server.boot"><a class="viewcode-back" href="../../../api/supriya/realtime/Server.html#supriya.realtime.Server.Server.boot">[docs]</a>    <span class="k">def</span> <span class="nf">boot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scsynth_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">server_options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="kn">import</span> <span class="nn">supriya.realtime</span>
-
+<div class="viewcode-block" id="Server.boot"><a class="viewcode-back" href="../../../api/supriya/realtime/Server.html#supriya.realtime.Server.Server.boot">[docs]</a>    <span class="k">def</span> <span class="nf">boot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scsynth_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_running</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span>
-        <span class="n">scsynth_path</span> <span class="o">=</span> <span class="n">scsynth_path</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SCSYNTH_PATH&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">scsynth_path</span><span class="p">:</span>
-            <span class="n">scsynth_path_candidates</span> <span class="o">=</span> <span class="n">uqbar</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">find_executable</span><span class="p">(</span><span class="s2">&quot;scsynth&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">scsynth_path_candidates</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Cannot find scsynth&quot;</span><span class="p">)</span>
-            <span class="n">scsynth_path</span> <span class="o">=</span> <span class="n">scsynth_path_candidates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">scsynth_path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">scsynth_path</span><span class="p">)</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">scsynth_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> does not exist&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scsynth_path</span><span class="p">))</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_osc_io</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">ip_address</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ip_address</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_osc_callbacks</span><span class="p">()</span>
-
-        <span class="n">server_options</span> <span class="o">=</span> <span class="n">server_options</span> <span class="ow">or</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">ServerOptions</span><span class="p">()</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">server_options</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">ServerOptions</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">server_options</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">server_options</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">options_string</span> <span class="o">=</span> <span class="n">server_options</span><span class="o">.</span><span class="n">as_options_string</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
-        <span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scsynth_path</span><span class="p">,</span> <span class="n">options_string</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug_subprocess</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Boot:&quot;</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>
-        <span class="n">process</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server_process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
-            <span class="n">command</span><span class="p">,</span>
-            <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">STDOUT</span><span class="p">,</span>
-            <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
-            <span class="n">start_new_session</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_read_scsynth_boot_output</span><span class="p">()</span>
-        <span class="k">except</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ServerCannotBoot</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_osc_io</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">process_group</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getpgid</span><span class="p">(</span><span class="n">process</span><span class="o">.</span><span class="n">pid</span><span class="p">)</span>
-                <span class="n">os</span><span class="o">.</span><span class="n">killpg</span><span class="p">(</span><span class="n">process_group</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">)</span>
-                <span class="n">process</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
-                <span class="n">process</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
-            <span class="k">except</span> <span class="ne">ProcessLookupError</span><span class="p">:</span>
-                <span class="k">pass</span>
-            <span class="k">raise</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_is_running</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_server_options</span> <span class="o">=</span> <span class="n">server_options</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_setup</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_options</span> <span class="o">=</span> <span class="n">new</span><span class="p">(</span><span class="n">options</span> <span class="ow">or</span> <span class="n">BootOptions</span><span class="p">(),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">scsynth_path</span> <span class="o">=</span> <span class="n">BootOptions</span><span class="o">.</span><span class="n">find_scsynth</span><span class="p">(</span><span class="n">scsynth_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server_process</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">scsynth_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_owner</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span><span class="p">()</span>
         <span class="n">PubSub</span><span class="o">.</span><span class="n">notify</span><span class="p">(</span><span class="s2">&quot;server-booted&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="Server.get_default_server"><a class="viewcode-back" href="../../../api/supriya/realtime/Server.html#supriya.realtime.Server.Server.get_default_server">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">get_default_server</span><span class="p">():</span>
-        <span class="k">if</span> <span class="n">Server</span><span class="o">.</span><span class="n">_default_server</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">Server</span><span class="o">.</span><span class="n">_default_server</span> <span class="o">=</span> <span class="n">Server</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">Server</span><span class="o">.</span><span class="n">_default_server</span></div>
+    <span class="k">def</span> <span class="nf">_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_running</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_osc_io</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">ip_address</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ip_address</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_osc_callbacks</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_status_watcher</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_notifications</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_allocators</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_proxies</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">client_id</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_setup_default_groups</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_setup_system_synthdefs</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_rehydrate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">supriya.realtime</span> <span class="k">import</span> <span class="n">Group</span><span class="p">,</span> <span class="n">Synth</span>
+
+        <span class="k">def</span> <span class="nf">recurse</span><span class="p">(</span><span class="n">query_tree_node</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">query_tree_child</span> <span class="ow">in</span> <span class="n">query_tree_node</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">query_tree_child</span><span class="p">,</span> <span class="n">QueryTreeGroup</span><span class="p">):</span>
+                    <span class="n">group</span> <span class="o">=</span> <span class="n">Group</span><span class="p">()</span>
+                    <span class="n">group</span><span class="o">.</span><span class="n">_register_with_local_server</span><span class="p">(</span>
+                        <span class="n">node_id</span><span class="o">=</span><span class="n">query_tree_child</span><span class="o">.</span><span class="n">node_id</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="bp">self</span>
+                    <span class="p">)</span>
+                    <span class="n">node</span><span class="o">.</span><span class="n">_children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+                    <span class="n">recurse</span><span class="p">(</span><span class="n">query_tree_child</span><span class="p">,</span> <span class="n">group</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">query_tree_child</span><span class="p">,</span> <span class="n">QueryTreeSynth</span><span class="p">):</span>
+                    <span class="n">synth</span> <span class="o">=</span> <span class="n">Synth</span><span class="p">()</span>
+                    <span class="n">synth</span><span class="o">.</span><span class="n">_register_with_local_server</span><span class="p">(</span>
+                        <span class="n">node_id</span><span class="o">=</span><span class="n">query_tree_child</span><span class="o">.</span><span class="n">node_id</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="bp">self</span>
+                    <span class="p">)</span>
+                    <span class="n">node</span><span class="o">.</span><span class="n">_children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">synth</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">query_tree_control</span> <span class="ow">in</span> <span class="n">query_tree_child</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+                        <span class="k">pass</span>
+
+        <span class="n">recurse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">query_remote_nodes</span><span class="p">(</span><span class="n">include_controls</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_node</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Server.connect"><a class="viewcode-back" href="../../../api/supriya/realtime/Server.html#supriya.realtime.Server.Server.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_running</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_owner</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">client_id</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_setup_system_synthdefs</span><span class="p">(</span><span class="n">local_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_rehydrate</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_default_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">client_id</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="Server.disconnect"><a class="viewcode-back" href="../../../api/supriya/realtime/Server.html#supriya.realtime.Server.Server.disconnect">[docs]</a>    <span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_running</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ServerOffline</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_owner</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">force</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">OwnedServerShutdown</span><span class="p">(</span>
+                <span class="s2">&quot;Cannot disconnect from owned server with force flag.&quot;</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_disconnect</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+    <span class="k">def</span> <span class="nf">_disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_owner</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client_id</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_maximum_logins</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_osc_io</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_teardown_proxies</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_teardown_allocators</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_teardown_status_watcher</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Server.quit"><a class="viewcode-back" href="../../../api/supriya/realtime/Server.html#supriya.realtime.Server.Server.quit">[docs]</a>    <span class="k">def</span> <span class="nf">quit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_running</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_owner</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">force</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">UnownedServerShutdown</span><span class="p">(</span>
+                <span class="s2">&quot;Cannot quit unowned server without force flag.&quot;</span>
+            <span class="p">)</span>
+        <span class="n">PubSub</span><span class="o">.</span><span class="n">notify</span><span class="p">(</span><span class="s2">&quot;server-quitting&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">recorder</span><span class="o">.</span><span class="n">is_recording</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">recorder</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+        <span class="n">QuitRequest</span><span class="p">()</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server_process</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server_process</span><span class="o">.</span><span class="n">terminate</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_server_process</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_disconnect</span><span class="p">()</span>
+        <span class="n">PubSub</span><span class="o">.</span><span class="n">notify</span><span class="p">(</span><span class="s2">&quot;server-quit&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="Server.default"><a class="viewcode-back" href="../../../api/supriya/realtime/Server.html#supriya.realtime.Server.Server.default">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_default_server</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">_default_server</span> <span class="o">=</span> <span class="n">Server</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_default_server</span></div>
+
+<div class="viewcode-block" id="Server.kill"><a class="viewcode-back" href="../../../api/supriya/realtime/Server.html#supriya.realtime.Server.Server.kill">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">kill</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">supernova</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">BootOptions</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">supernova</span><span class="o">=</span><span class="n">supernova</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Server.query_local_nodes"><a class="viewcode-back" href="../../../api/supriya/realtime/Server.html#supriya.realtime.Server.Server.query_local_nodes">[docs]</a>    <span class="k">def</span> <span class="nf">query_local_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include_controls</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -810,7 +837,7 @@
 <span class="sd">        ::</span>
 
 <span class="sd">            &gt;&gt;&gt; import supriya.realtime</span>
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default()</span>
 <span class="sd">            &gt;&gt;&gt; server.boot()</span>
 <span class="sd">            &lt;Server: udp://127.0.0.1:57751, 8i8o&gt;</span>
 
@@ -849,7 +876,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; response = server.query_remote_nodes(include_controls=True)</span>
+<span class="sd">            &gt;&gt;&gt; response = server.query_local_nodes(include_controls=True)</span>
 <span class="sd">            &gt;&gt;&gt; print(response)</span>
 <span class="sd">            NODE TREE 0 group</span>
 <span class="sd">                1 group</span>
@@ -866,9 +893,7 @@
 
 <span class="sd">        Returns server query-tree group response.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.commands</span>
-
-        <span class="n">query_tree_group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">QueryTreeGroup</span><span class="o">.</span><span class="n">from_group</span><span class="p">(</span>
+        <span class="n">query_tree_group</span> <span class="o">=</span> <span class="n">QueryTreeGroup</span><span class="o">.</span><span class="n">from_group</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">root_node</span><span class="p">,</span> <span class="n">include_controls</span><span class="o">=</span><span class="n">include_controls</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">query_tree_group</span></div>
@@ -880,7 +905,7 @@
 <span class="sd">        ::</span>
 
 <span class="sd">            &gt;&gt;&gt; import supriya.realtime</span>
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default()</span>
 <span class="sd">            &gt;&gt;&gt; server.boot()</span>
 <span class="sd">            &lt;Server: udp://127.0.0.1:57751, 8i8o&gt;</span>
 
@@ -919,7 +944,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; response = server.query_local_nodes(include_controls=False)</span>
+<span class="sd">            &gt;&gt;&gt; response = server.query_remote_nodes(include_controls=False)</span>
 <span class="sd">            &gt;&gt;&gt; print(response)</span>
 <span class="sd">            NODE TREE 0 group</span>
 <span class="sd">                1 group</span>
@@ -935,35 +960,13 @@
 
 <span class="sd">        Returns server query-tree group response.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">supriya.commands</span>
-
-        <span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">GroupQueryTreeRequest</span><span class="p">(</span>
-            <span class="n">node_id</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">include_controls</span><span class="o">=</span><span class="n">include_controls</span>
-        <span class="p">)</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">GroupQueryTreeRequest</span><span class="p">(</span><span class="n">node_id</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">include_controls</span><span class="o">=</span><span class="n">include_controls</span><span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">query_tree_group</span></div>
 
-<div class="viewcode-block" id="Server.quit"><a class="viewcode-back" href="../../../api/supriya/realtime/Server.html#supriya.realtime.Server.Server.quit">[docs]</a>    <span class="k">def</span> <span class="nf">quit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">import</span> <span class="nn">supriya.commands</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_running</span><span class="p">:</span>
-            <span class="k">return</span>
-        <span class="n">PubSub</span><span class="o">.</span><span class="n">notify</span><span class="p">(</span><span class="s2">&quot;server-quitting&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">recorder</span><span class="o">.</span><span class="n">is_recording</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">recorder</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
-        <span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">QuitRequest</span><span class="p">()</span>
-        <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_is_running</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server_process</span><span class="o">.</span><span class="n">terminate</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_server_process</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_osc_io</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_teardown</span><span class="p">()</span>
-        <span class="n">PubSub</span><span class="o">.</span><span class="n">notify</span><span class="p">(</span><span class="s2">&quot;server-quit&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span></div>
-
-<div class="viewcode-block" id="Server.reboot"><a class="viewcode-back" href="../../../api/supriya/realtime/Server.html#supriya.realtime.Server.Server.reboot">[docs]</a>    <span class="k">def</span> <span class="nf">reboot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Server.reboot"><a class="viewcode-back" href="../../../api/supriya/realtime/Server.html#supriya.realtime.Server.Server.reboot">[docs]</a>    <span class="k">def</span> <span class="nf">reboot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
 <div class="viewcode-block" id="Server.send_message"><a class="viewcode-back" href="../../../api/supriya/realtime/Server.html#supriya.realtime.Server.Server.send_message">[docs]</a>    <span class="k">def</span> <span class="nf">send_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">with_request_name</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -974,13 +977,11 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Server.sync"><a class="viewcode-back" href="../../../api/supriya/realtime/Server.html#supriya.realtime.Server.Server.sync">[docs]</a>    <span class="k">def</span> <span class="nf">sync</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sync_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="kn">import</span> <span class="nn">supriya.commands</span>
-
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_running</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="k">if</span> <span class="n">sync_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">sync_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">next_sync_id</span>
-        <span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">SyncRequest</span><span class="p">(</span><span class="n">sync_id</span><span class="o">=</span><span class="n">sync_id</span><span class="p">)</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">SyncRequest</span><span class="p">(</span><span class="n">sync_id</span><span class="o">=</span><span class="n">sync_id</span><span class="p">)</span>
         <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
@@ -1003,17 +1004,12 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_allocator</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">control_bus_allocator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_control_bus_allocator</span>
+    <span class="k">def</span> <span class="nf">client_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client_id</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">debug_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_debug_osc</span>
-
-    <span class="nd">@debug_osc</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">debug_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_debug_osc</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_osc_io</span><span class="o">.</span><span class="n">debug_osc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug_osc</span>
+    <span class="k">def</span> <span class="nf">control_bus_allocator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_control_bus_allocator</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">debug_request_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1024,29 +1020,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_debug_request_names</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">debug_subprocess</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_debug_subprocess</span>
-
-    <span class="nd">@debug_subprocess</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">debug_subprocess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_debug_subprocess</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">debug_udp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_debug_udp</span>
-
-    <span class="nd">@debug_udp</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">debug_udp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_debug_udp</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_osc_io</span><span class="o">.</span><span class="n">debug_udp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug_udp</span>
-
-    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">default_group</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_group</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ip_address</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ip_address</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_owner</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_owner</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">is_running</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1059,6 +1042,10 @@
     <span class="nd">@latency</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">latency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">latency</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_latency</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">latency</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">maximum_logins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maximum_logins</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">meters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1091,8 +1078,8 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root_node</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">server_options</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server_options</span>
+    <span class="k">def</span> <span class="nf">options</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_options</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1126,26 +1113,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

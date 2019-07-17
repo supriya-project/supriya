@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>SupriyaObject &mdash; Supriya 0.2.0 documentation</title>
+  <title>SupriyaObject &mdash; Supriya 0.3.0 documentation</title>
   
 
   
@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
@@ -32,21 +39,16 @@
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="SupriyaValueObject" href="SupriyaValueObject.html" />
     <link rel="prev" title="Binding" href="Binding.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -60,7 +62,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.3.0
               </div>
             
           
@@ -84,46 +86,73 @@
               
             
             
-              <ul>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Supriya API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../cli/index.html">cli</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../commands/index.html">commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../enums.html">enums</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ext/index.html">ext</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../io.html">io</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../live/index.html">live</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../midi/index.html">midi</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../osc/index.html">osc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../soundfiles/index.html">soundfiles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="index.html">system</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="Assets.html">Assets</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Bindable.html">Bindable</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BindableFloat.html">BindableFloat</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BindableNamespace.html">BindableNamespace</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Binding.html">Binding</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">SupriyaObject</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SupriyaValueObject.html">SupriyaValueObject</a></li>
-<li class="toctree-l4"><a class="reference internal" href="YAMLLoader.html">YAMLLoader</a></li>
-<li class="toctree-l4"><a class="reference internal" href="bind.html">bind</a></li>
-<li class="toctree-l4"><a class="reference internal" href="PubSub.html">PubSub</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cli/index.html">cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clock.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../daw/index.html">daw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../live/index.html">live</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">system</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="Assets.html">Assets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Bindable.html">Bindable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BindableFloat.html">BindableFloat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BindableNamespace.html">BindableNamespace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Binding.html">Binding</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">SupriyaObject</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SupriyaValueObject.html">SupriyaValueObject</a></li>
+<li class="toctree-l3"><a class="reference internal" href="YAMLLoader.html">YAMLLoader</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bind.html">bind</a></li>
+<li class="toctree-l3"><a class="reference internal" href="PubSub.html">PubSub</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../time/index.html">time</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
 </ul>
 </li>
 </ul>
-</li>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -169,8 +198,6 @@
     
       <li><a href="../../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../../index.html">Supriya API</a> &raquo;</li>
-        
           <li><a href="../index.html">supriya</a> &raquo;</li>
         
           <li><a href="index.html">system</a> &raquo;</li>
@@ -197,7 +224,7 @@
   <div class="section" id="module-supriya.system.SupriyaObject">
 <span id="supriyaobject"></span><span id="supriya-system-supriyaobject"></span><h1>SupriyaObject<a class="headerlink" href="#module-supriya.system.SupriyaObject" title="Permalink to this headline">¶</a></h1>
 <div class="svg-container docutils container">
-<div class="graphviz"><object data="../../../_images/inheritance-3b1f68360bc6618313038705d2bcbf233609a09a.svg" type="image/svg+xml" class="inheritance graphviz">
+<div class="graphviz"><object data="../../../_images/inheritance-0a16054b65214750fc86ec1b52a3ad722aef5a96.svg" type="image/svg+xml" class="inheritance graphviz">
 <p class="warning">digraph InheritanceGraph {
 	graph [bgcolor=transparent,
 		color=lightsteelblue2,
@@ -754,9 +781,9 @@
 			label=Synth,
 			target=_top];
 		&quot;supriya.nonrealtime.Node.Node&quot; -&gt; &quot;supriya.nonrealtime.Synth.Synth&quot;		 [minlen=2];
-		&quot;supriya.nonrealtime.NodeAction.NodeAction&quot;		 [URL=&quot;../api/supriya/system/../nonrealtime/NodeAction.html#supriya.nonrealtime.NodeAction.NodeAction&quot;,
+		&quot;supriya.nonrealtime.NodeTransition.NodeTransition&quot;		 [URL=&quot;../api/supriya/system/../nonrealtime/NodeTransition.html#supriya.nonrealtime.NodeTransition.NodeTransition&quot;,
 			color=4,
-			label=&quot;Node\nAction&quot;,
+			label=&quot;Node\nTransition&quot;,
 			target=_top];
 		&quot;supriya.nonrealtime.SessionObject.SessionObject&quot;		 [URL=&quot;../api/supriya/system/../nonrealtime/SessionObject.html#supriya.nonrealtime.SessionObject.SessionObject&quot;,
 			color=4,
@@ -956,6 +983,10 @@
 			color=7,
 			label=&quot;Audio\nOutput\nBus\nGroup&quot;,
 			target=_top];
+		&quot;supriya.realtime.Block.Block&quot;		 [URL=&quot;../api/supriya/system/../realtime/Block.html#supriya.realtime.Block.Block&quot;,
+			color=7,
+			label=Block,
+			target=_top];
 		&quot;supriya.realtime.BlockAllocator.BlockAllocator&quot;		 [URL=&quot;../api/supriya/system/../realtime/BlockAllocator.html#supriya.realtime.BlockAllocator.BlockAllocator&quot;,
 			color=7,
 			label=&quot;Block\nAllocator&quot;,
@@ -1027,29 +1058,21 @@
 			color=7,
 			label=&quot;Node\nId\nAllocator&quot;,
 			target=_top];
-		&quot;supriya.realtime.Server.Server&quot;		 [URL=&quot;../api/supriya/system/../realtime/Server.html#supriya.realtime.Server.Server&quot;,
-			color=7,
-			label=Server,
-			target=_top];
 		&quot;supriya.realtime.ServerMeters.ServerMeters&quot;		 [URL=&quot;../api/supriya/system/../realtime/ServerMeters.html#supriya.realtime.ServerMeters.ServerMeters&quot;,
 			color=7,
 			label=&quot;Server\nMeters&quot;,
 			target=_top];
-		&quot;supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot;		 [URL=&quot;../api/supriya/system/../realtime/ServerObjectProxy.html#supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot;,
+		&quot;supriya.realtime.ServerObject.ServerObject&quot;		 [URL=&quot;../api/supriya/system/../realtime/ServerObject.html#supriya.realtime.ServerObject.ServerObject&quot;,
 			color=7,
-			label=&quot;Server\nObject\nProxy&quot;,
+			label=&quot;Server\nObject&quot;,
 			shape=oval,
 			style=bold,
 			target=_top];
-		&quot;supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot; -&gt; &quot;supriya.realtime.Buffer.Buffer&quot;		 [minlen=1];
-		&quot;supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot; -&gt; &quot;supriya.realtime.BufferGroup.BufferGroup&quot;		 [minlen=2];
-		&quot;supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot; -&gt; &quot;supriya.realtime.Bus.Bus&quot;		 [minlen=3];
-		&quot;supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot; -&gt; &quot;supriya.realtime.BusGroup.BusGroup&quot;;
-		&quot;supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot; -&gt; &quot;supriya.realtime.Node.Node&quot;;
-		&quot;supriya.realtime.ServerOptions.ServerOptions&quot;		 [URL=&quot;../api/supriya/system/../realtime/ServerOptions.html#supriya.realtime.ServerOptions.ServerOptions&quot;,
-			color=7,
-			label=&quot;Server\nOptions&quot;,
-			target=_top];
+		&quot;supriya.realtime.ServerObject.ServerObject&quot; -&gt; &quot;supriya.realtime.Buffer.Buffer&quot;		 [minlen=1];
+		&quot;supriya.realtime.ServerObject.ServerObject&quot; -&gt; &quot;supriya.realtime.BufferGroup.BufferGroup&quot;		 [minlen=2];
+		&quot;supriya.realtime.ServerObject.ServerObject&quot; -&gt; &quot;supriya.realtime.Bus.Bus&quot;		 [minlen=3];
+		&quot;supriya.realtime.ServerObject.ServerObject&quot; -&gt; &quot;supriya.realtime.BusGroup.BusGroup&quot;;
+		&quot;supriya.realtime.ServerObject.ServerObject&quot; -&gt; &quot;supriya.realtime.Node.Node&quot;;
 		&quot;supriya.realtime.ServerRecorder.ServerRecorder&quot;		 [URL=&quot;../api/supriya/system/../realtime/ServerRecorder.html#supriya.realtime.ServerRecorder.ServerRecorder&quot;,
 			color=7,
 			label=&quot;Server\nRecorder&quot;,
@@ -1058,19 +1081,11 @@
 	subgraph &quot;cluster_supriya.soundfiles&quot; {
 		graph [label=&quot;supriya.soundfiles&quot;];
 		node [color=8];
-		&quot;supriya.soundfiles.Frame.Frame&quot;		 [URL=&quot;../api/supriya/system/../soundfiles/Frame.html#supriya.soundfiles.Frame.Frame&quot;,
-			color=8,
-			label=Frame,
-			target=_top];
-		&quot;supriya.soundfiles.Say.Say&quot;		 [URL=&quot;../api/supriya/system/../soundfiles/Say.html#supriya.soundfiles.Say.Say&quot;,
+		&quot;supriya.soundfiles.Say&quot;		 [URL=&quot;../api/supriya/system/../soundfiles.html#supriya.soundfiles.Say&quot;,
 			color=8,
 			label=Say,
 			target=_top];
-		&quot;supriya.soundfiles.Signal.Signal&quot;		 [URL=&quot;../api/supriya/system/../soundfiles/Signal.html#supriya.soundfiles.Signal.Signal&quot;,
-			color=8,
-			label=Signal,
-			target=_top];
-		&quot;supriya.soundfiles.SoundFile.SoundFile&quot;		 [URL=&quot;../api/supriya/system/../soundfiles/SoundFile.html#supriya.soundfiles.SoundFile.SoundFile&quot;,
+		&quot;supriya.soundfiles.SoundFile&quot;		 [URL=&quot;../api/supriya/system/../soundfiles.html#supriya.soundfiles.SoundFile&quot;,
 			color=8,
 			label=&quot;Sound\nFile&quot;,
 			target=_top];
@@ -1080,7 +1095,7 @@
 		node [color=3];
 		&quot;supriya.ugens.A2K.A2K&quot;		 [URL=&quot;../api/supriya/system/../ugens/A2K.html#supriya.ugens.A2K.A2K&quot;,
 			color=3,
-			label=&quot;A\n2\nK&quot;,
+			label=&quot;A2\nK&quot;,
 			target=_top];
 		&quot;supriya.ugens.APF.APF&quot;		 [URL=&quot;../api/supriya/system/../ugens/APF.html#supriya.ugens.APF.APF&quot;,
 			color=3,
@@ -1176,7 +1191,7 @@
 			target=_top];
 		&quot;supriya.ugens.BPZ2.BPZ2&quot;		 [URL=&quot;../api/supriya/system/../ugens/BPZ2.html#supriya.ugens.BPZ2.BPZ2&quot;,
 			color=3,
-			label=&quot;BPZ\n2&quot;,
+			label=BPZ2,
 			target=_top];
 		&quot;supriya.ugens.BRF.BRF&quot;		 [URL=&quot;../api/supriya/system/../ugens/BRF.html#supriya.ugens.BRF.BRF&quot;,
 			color=3,
@@ -1184,7 +1199,7 @@
 			target=_top];
 		&quot;supriya.ugens.BRZ2.BRZ2&quot;		 [URL=&quot;../api/supriya/system/../ugens/BRZ2.html#supriya.ugens.BRZ2.BRZ2&quot;,
 			color=3,
-			label=&quot;BRZ\n2&quot;,
+			label=BRZ2,
 			target=_top];
 		&quot;supriya.ugens.Balance2.Balance2&quot;		 [URL=&quot;../api/supriya/system/../ugens/Balance2.html#supriya.ugens.Balance2.Balance2&quot;,
 			color=3,
@@ -1204,7 +1219,7 @@
 			target=_top];
 		&quot;supriya.ugens.BiPanB2.BiPanB2&quot;		 [URL=&quot;../api/supriya/system/../ugens/BiPanB2.html#supriya.ugens.BiPanB2.BiPanB2&quot;,
 			color=3,
-			label=&quot;Bi\nPan\nB\n2&quot;,
+			label=&quot;Bi\nPan\nB2&quot;,
 			target=_top];
 		&quot;supriya.ugens.BinaryOpUGen.BinaryOpUGen&quot;		 [URL=&quot;../api/supriya/system/../ugens/BinaryOpUGen.html#supriya.ugens.BinaryOpUGen.BinaryOpUGen&quot;,
 			color=3,
@@ -1513,7 +1528,7 @@
 			target=_top];
 		&quot;supriya.ugens.DecodeB2.DecodeB2&quot;		 [URL=&quot;../api/supriya/system/../ugens/DecodeB2.html#supriya.ugens.DecodeB2.DecodeB2&quot;,
 			color=3,
-			label=&quot;Decode\nB\n2&quot;,
+			label=&quot;Decode\nB2&quot;,
 			target=_top];
 		&quot;supriya.ugens.DegreeToKey.DegreeToKey&quot;		 [URL=&quot;../api/supriya/system/../ugens/DegreeToKey.html#supriya.ugens.DegreeToKey.DegreeToKey&quot;,
 			color=3,
@@ -1655,12 +1670,12 @@
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.LPF.LPF&quot;		 [minlen=4];
 		&quot;supriya.ugens.LPZ1.LPZ1&quot;		 [URL=&quot;../api/supriya/system/../ugens/LPZ1.html#supriya.ugens.LPZ1.LPZ1&quot;,
 			color=3,
-			label=&quot;LPZ\n1&quot;,
+			label=LPZ1,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.LPZ1.LPZ1&quot;		 [minlen=5];
 		&quot;supriya.ugens.LPZ2.LPZ2&quot;		 [URL=&quot;../api/supriya/system/../ugens/LPZ2.html#supriya.ugens.LPZ2.LPZ2&quot;,
 			color=3,
-			label=&quot;LPZ\n2&quot;,
+			label=LPZ2,
 			target=_top];
 		&quot;supriya.ugens.Filter.Filter&quot; -&gt; &quot;supriya.ugens.LPZ2.LPZ2&quot;;
 		&quot;supriya.ugens.Lag.Lag&quot;		 [URL=&quot;../api/supriya/system/../ugens/Lag.html#supriya.ugens.Lag.Lag&quot;,
@@ -1815,11 +1830,11 @@
 			target=_top];
 		&quot;supriya.ugens.HPZ1.HPZ1&quot;		 [URL=&quot;../api/supriya/system/../ugens/HPZ1.html#supriya.ugens.HPZ1.HPZ1&quot;,
 			color=3,
-			label=&quot;HPZ\n1&quot;,
+			label=HPZ1,
 			target=_top];
 		&quot;supriya.ugens.HPZ2.HPZ2&quot;		 [URL=&quot;../api/supriya/system/../ugens/HPZ2.html#supriya.ugens.HPZ2.HPZ2&quot;,
 			color=3,
-			label=&quot;HPZ\n2&quot;,
+			label=HPZ2,
 			target=_top];
 		&quot;supriya.ugens.Hasher.Hasher&quot;		 [URL=&quot;../api/supriya/system/../ugens/Hasher.html#supriya.ugens.Hasher.Hasher&quot;,
 			color=3,
@@ -1935,7 +1950,7 @@
 		&quot;supriya.ugens.InfoUGenBase.InfoUGenBase&quot; -&gt; &quot;supriya.ugens.SubsampleOffset.SubsampleOffset&quot;		 [minlen=1];
 		&quot;supriya.ugens.K2A.K2A&quot;		 [URL=&quot;../api/supriya/system/../ugens/K2A.html#supriya.ugens.K2A.K2A&quot;,
 			color=3,
-			label=&quot;K\n2\nA&quot;,
+			label=&quot;K2\nA&quot;,
 			target=_top];
 		&quot;supriya.ugens.KeyTrack.KeyTrack&quot;		 [URL=&quot;../api/supriya/system/../ugens/KeyTrack.html#supriya.ugens.KeyTrack.KeyTrack&quot;,
 			color=3,
@@ -2175,7 +2190,7 @@
 		&quot;supriya.ugens.MultiOutUGen.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.PanB.PanB&quot;		 [minlen=1];
 		&quot;supriya.ugens.PanB2.PanB2&quot;		 [URL=&quot;../api/supriya/system/../ugens/PanB2.html#supriya.ugens.PanB2.PanB2&quot;,
 			color=3,
-			label=&quot;Pan\nB\n2&quot;,
+			label=&quot;Pan\nB2&quot;,
 			target=_top];
 		&quot;supriya.ugens.MultiOutUGen.MultiOutUGen&quot; -&gt; &quot;supriya.ugens.PanB2.PanB2&quot;		 [minlen=2];
 		&quot;supriya.ugens.PlayBuf.PlayBuf&quot;		 [URL=&quot;../api/supriya/system/../ugens/PlayBuf.html#supriya.ugens.PlayBuf.PlayBuf&quot;,
@@ -2622,6 +2637,10 @@
 			color=3,
 			label=&quot;Send\nPeak\nRMS&quot;,
 			target=_top];
+		&quot;supriya.ugens.SendTrig.SendTrig&quot;		 [URL=&quot;../api/supriya/system/../ugens/SendTrig.html#supriya.ugens.SendTrig.SendTrig&quot;,
+			color=3,
+			label=&quot;Send\nTrig&quot;,
+			target=_top];
 		&quot;supriya.ugens.SpecCentroid.SpecCentroid&quot;		 [URL=&quot;../api/supriya/system/../ugens/SpecCentroid.html#supriya.ugens.SpecCentroid.SpecCentroid&quot;,
 			color=3,
 			label=&quot;Spec\nCentroid&quot;,
@@ -2819,29 +2838,30 @@
 		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.RunningSum.RunningSum&quot;		 [minlen=5];
 		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Schmidt.Schmidt&quot;		 [minlen=6];
 		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.SendPeakRMS.SendPeakRMS&quot;		 [minlen=1];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.SpecCentroid.SpecCentroid&quot;		 [minlen=2];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.SpecFlatness.SpecFlatness&quot;		 [minlen=3];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.SpecPcile.SpecPcile&quot;		 [minlen=4];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Spring.Spring&quot;		 [minlen=5];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.StandardL.StandardL&quot;		 [minlen=6];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.StandardN.StandardN&quot;		 [minlen=1];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Sum3.Sum3&quot;		 [minlen=2];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Sum4.Sum4&quot;		 [minlen=3];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Sweep.Sweep&quot;		 [minlen=4];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.TBall.TBall&quot;		 [minlen=5];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.TDelay.TDelay&quot;		 [minlen=6];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.TExpRand.TExpRand&quot;		 [minlen=1];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.TIRand.TIRand&quot;		 [minlen=2];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.TRand.TRand&quot;		 [minlen=3];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.TWindex.TWindex&quot;		 [minlen=4];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.ToggleFF.ToggleFF&quot;		 [minlen=5];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Trig.Trig&quot;		 [minlen=6];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Trig1.Trig1&quot;		 [minlen=1];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.SendTrig.SendTrig&quot;		 [minlen=2];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.SpecCentroid.SpecCentroid&quot;		 [minlen=3];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.SpecFlatness.SpecFlatness&quot;		 [minlen=4];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.SpecPcile.SpecPcile&quot;		 [minlen=5];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Spring.Spring&quot;		 [minlen=6];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.StandardL.StandardL&quot;		 [minlen=1];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.StandardN.StandardN&quot;		 [minlen=2];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Sum3.Sum3&quot;		 [minlen=3];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Sum4.Sum4&quot;		 [minlen=4];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Sweep.Sweep&quot;		 [minlen=5];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.TBall.TBall&quot;		 [minlen=6];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.TDelay.TDelay&quot;		 [minlen=1];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.TExpRand.TExpRand&quot;		 [minlen=2];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.TIRand.TIRand&quot;		 [minlen=3];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.TRand.TRand&quot;		 [minlen=4];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.TWindex.TWindex&quot;		 [minlen=5];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.ToggleFF.ToggleFF&quot;		 [minlen=6];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Trig.Trig&quot;		 [minlen=1];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Trig1.Trig1&quot;		 [minlen=2];
 		&quot;supriya.ugens.WhiteNoise.WhiteNoise&quot;		 [URL=&quot;../api/supriya/system/../ugens/WhiteNoise.html#supriya.ugens.WhiteNoise.WhiteNoise&quot;,
 			color=3,
 			label=&quot;White\nNoise&quot;,
 			target=_top];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.WhiteNoise.WhiteNoise&quot;		 [minlen=2];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.WhiteNoise.WhiteNoise&quot;		 [minlen=3];
 		&quot;supriya.ugens.WidthFirstUGen.WidthFirstUGen&quot;		 [URL=&quot;../api/supriya/system/../ugens/WidthFirstUGen.html#supriya.ugens.WidthFirstUGen.WidthFirstUGen&quot;,
 			color=3,
 			label=&quot;Width\nFirst\nUGen&quot;,
@@ -2853,32 +2873,32 @@
 			color=3,
 			label=Wrap,
 			target=_top];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Wrap.Wrap&quot;		 [minlen=3];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.Wrap.Wrap&quot;		 [minlen=4];
 		&quot;supriya.ugens.WrapIndex.WrapIndex&quot;		 [URL=&quot;../api/supriya/system/../ugens/WrapIndex.html#supriya.ugens.WrapIndex.WrapIndex&quot;,
 			color=3,
 			label=&quot;Wrap\nIndex&quot;,
 			target=_top];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.WrapIndex.WrapIndex&quot;		 [minlen=4];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.WrapIndex.WrapIndex&quot;		 [minlen=5];
 		&quot;supriya.ugens.XFade2.XFade2&quot;		 [URL=&quot;../api/supriya/system/../ugens/XFade2.html#supriya.ugens.XFade2.XFade2&quot;,
 			color=3,
 			label=&quot;XFade\n2&quot;,
 			target=_top];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.XFade2.XFade2&quot;		 [minlen=5];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.XFade2.XFade2&quot;		 [minlen=6];
 		&quot;supriya.ugens.XLine.XLine&quot;		 [URL=&quot;../api/supriya/system/../ugens/XLine.html#supriya.ugens.XLine.XLine&quot;,
 			color=3,
 			label=XLine,
 			target=_top];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.XLine.XLine&quot;		 [minlen=6];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.XLine.XLine&quot;		 [minlen=1];
 		&quot;supriya.ugens.XOut.XOut&quot;		 [URL=&quot;../api/supriya/system/../ugens/XOut.html#supriya.ugens.XOut.XOut&quot;,
 			color=3,
 			label=XOut,
 			target=_top];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.XOut.XOut&quot;		 [minlen=1];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.XOut.XOut&quot;		 [minlen=2];
 		&quot;supriya.ugens.ZeroCrossing.ZeroCrossing&quot;		 [URL=&quot;../api/supriya/system/../ugens/ZeroCrossing.html#supriya.ugens.ZeroCrossing.ZeroCrossing&quot;,
 			color=3,
 			label=&quot;Zero\nCrossing&quot;,
 			target=_top];
-		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.ZeroCrossing.ZeroCrossing&quot;		 [minlen=2];
+		&quot;supriya.ugens.UGen.UGen&quot; -&gt; &quot;supriya.ugens.ZeroCrossing.ZeroCrossing&quot;		 [minlen=3];
 		&quot;supriya.ugens.WidthFirstUGen.WidthFirstUGen&quot; -&gt; &quot;supriya.ugens.ClearBuf.ClearBuf&quot;		 [minlen=1];
 		&quot;supriya.ugens.WidthFirstUGen.WidthFirstUGen&quot; -&gt; &quot;supriya.ugens.IFFT.IFFT&quot;		 [minlen=2];
 		&quot;supriya.ugens.WidthFirstUGen.WidthFirstUGen&quot; -&gt; &quot;supriya.ugens.LocalBuf.LocalBuf&quot;		 [minlen=3];
@@ -2908,10 +2928,6 @@
 		&quot;supriya.synthdefs.SuperColliderSynthDef.SuperColliderSynthDef&quot;		 [URL=&quot;../api/supriya/system/../synthdefs/SuperColliderSynthDef.html#supriya.synthdefs.SuperColliderSynthDef.SuperColliderSynthDef&quot;,
 			color=9,
 			label=&quot;Super\nCollider\nSynth\nDef&quot;,
-			target=_top];
-		&quot;supriya.synthdefs.SynthDef.SynthDef&quot;		 [URL=&quot;../api/supriya/system/../synthdefs/SynthDef.html#supriya.synthdefs.SynthDef.SynthDef&quot;,
-			color=9,
-			label=&quot;Synth\nDef&quot;,
 			target=_top];
 		&quot;supriya.synthdefs.SynthDefBuilder.SynthDefBuilder&quot;		 [URL=&quot;../api/supriya/system/../synthdefs/SynthDefBuilder.html#supriya.synthdefs.SynthDefBuilder.SynthDefBuilder&quot;,
 			color=9,
@@ -2948,13 +2964,17 @@
 	subgraph &quot;cluster_supriya.time&quot; {
 		graph [label=&quot;supriya.time&quot;];
 		node [color=2];
-		&quot;supriya.time.TimespanCollection.TimespanCollection&quot;		 [URL=&quot;../api/supriya/system/../time/TimespanCollection.html#supriya.time.TimespanCollection.TimespanCollection&quot;,
+		&quot;supriya.time.Interval.Interval&quot;		 [URL=&quot;../api/supriya/system/../time/Interval.html#supriya.time.Interval.Interval&quot;,
 			color=2,
-			label=&quot;Timespan\nCollection&quot;,
+			label=Interval,
 			target=_top];
-		&quot;supriya.time.TimespanSimultaneity.TimespanSimultaneity&quot;		 [URL=&quot;../api/supriya/system/../time/TimespanSimultaneity.html#supriya.time.TimespanSimultaneity.TimespanSimultaneity&quot;,
+		&quot;supriya.time.IntervalTree.IntervalTree&quot;		 [URL=&quot;../api/supriya/system/../time/IntervalTree.html#supriya.time.IntervalTree.IntervalTree&quot;,
 			color=2,
-			label=&quot;Timespan\nSimultaneity&quot;,
+			label=&quot;Interval\nTree&quot;,
+			target=_top];
+		&quot;supriya.time.Moment.Moment&quot;		 [URL=&quot;../api/supriya/system/../time/Moment.html#supriya.time.Moment.Moment&quot;,
+			color=2,
+			label=Moment,
 			target=_top];
 	}
 	subgraph &quot;cluster_supriya.system&quot; {
@@ -2969,7 +2989,7 @@
 			fontcolor=white,
 			label=&quot;Supriya\nObject&quot;,
 			target=_top];
-		&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.system.PubSub.PubSub&quot;		 [minlen=4];
+		&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.system.PubSub.PubSub&quot;		 [minlen=6];
 		&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;		 [URL=&quot;../api/supriya/system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject&quot;,
 			color=1,
 			label=&quot;Supriya\nValue\nObject&quot;,
@@ -2977,7 +2997,6 @@
 		&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;;
 	}
 	&quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject.SupriyaObject&quot;	 [minlen=1];
-	&quot;supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot; -&gt; &quot;supriya.synthdefs.SynthDef.SynthDef&quot;	 [minlen=4];
 	&quot;supriya.synthdefs.UGenMethodMixin.UGenMethodMixin&quot; -&gt; &quot;supriya.ugens.UGen.UGen&quot;;
 	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.nonrealtime.SessionObject.SessionObject&quot;;
 	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.nonrealtime.SessionRenderer.SessionRenderer&quot;	 [minlen=1];
@@ -2988,24 +3007,20 @@
 	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.realtime.BlockAllocator.BlockAllocator&quot;	 [minlen=6];
 	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.realtime.ControlInterface.ControlInterface&quot;;
 	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.realtime.NodeIdAllocator.NodeIdAllocator&quot;	 [minlen=1];
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.realtime.Server.Server&quot;	 [minlen=2];
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.realtime.ServerMeters.ServerMeters&quot;	 [minlen=3];
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot;;
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.realtime.ServerOptions.ServerOptions&quot;	 [minlen=4];
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.realtime.ServerRecorder.ServerRecorder&quot;	 [minlen=5];
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.soundfiles.Frame.Frame&quot;	 [minlen=6];
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.soundfiles.Signal.Signal&quot;	 [minlen=1];
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.soundfiles.SoundFile.SoundFile&quot;	 [minlen=2];
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.Range.Range&quot;	 [minlen=3];
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.SuperColliderSynthDef.SuperColliderSynthDef&quot;	 [minlen=4];
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.SynthDefBuilder.SynthDefBuilder&quot;	 [minlen=5];
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.SynthDefCompiler.SynthDefCompiler&quot;	 [minlen=6];
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.SynthDefDecompiler.SynthDefDecompiler&quot;	 [minlen=1];
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.SynthDefFactory.SynthDefFactory&quot;	 [minlen=2];
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.realtime.ServerMeters.ServerMeters&quot;	 [minlen=2];
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.realtime.ServerObject.ServerObject&quot;;
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.realtime.ServerRecorder.ServerRecorder&quot;	 [minlen=3];
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.soundfiles.SoundFile&quot;	 [minlen=4];
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.Range.Range&quot;	 [minlen=5];
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.SuperColliderSynthDef.SuperColliderSynthDef&quot;	 [minlen=6];
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.SynthDefBuilder.SynthDefBuilder&quot;	 [minlen=1];
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.SynthDefCompiler.SynthDefCompiler&quot;	 [minlen=2];
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.SynthDefDecompiler.SynthDefDecompiler&quot;	 [minlen=3];
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.SynthDefFactory.SynthDefFactory&quot;	 [minlen=4];
 	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.UGenMethodMixin.UGenMethodMixin&quot;;
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.UGenSortBundle.UGenSortBundle&quot;	 [minlen=3];
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.time.TimespanCollection.TimespanCollection&quot;	 [minlen=5];
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.time.TimespanSimultaneity.TimespanSimultaneity&quot;	 [minlen=6];
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.synthdefs.UGenSortBundle.UGenSortBundle&quot;	 [minlen=5];
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.time.IntervalTree.IntervalTree&quot;	 [minlen=1];
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.time.Moment.Moment&quot;	 [minlen=2];
 	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.ugens.PseudoUGen.PseudoUGen&quot;;
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.QueryTreeControl.QueryTreeControl&quot;	 [minlen=1];
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.QueryTreeGroup.QueryTreeGroup&quot;	 [minlen=2];
@@ -3013,7 +3028,7 @@
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.Requestable.Requestable&quot;;
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.Response.Response&quot;;
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.midi.MidiMessage.MidiMessage&quot;;
-	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.nonrealtime.NodeAction.NodeAction&quot;	 [minlen=4];
+	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.nonrealtime.NodeTransition.NodeTransition&quot;	 [minlen=4];
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.osc.OscBundle.OscBundle&quot;	 [minlen=5];
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.osc.OscMessage.OscMessage&quot;	 [minlen=6];
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.patterns.Event.Event&quot;;
@@ -3021,31 +3036,33 @@
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.patterns.Pattern.Pattern&quot;;
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.realtime.BufferProxy.BufferProxy&quot;	 [minlen=2];
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.realtime.BusProxy.BusProxy&quot;	 [minlen=3];
-	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.soundfiles.Say.Say&quot;	 [minlen=4];
+	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.soundfiles.Say&quot;	 [minlen=4];
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.synthdefs.Envelope.Envelope&quot;	 [minlen=5];
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.synthdefs.Parameter.Parameter&quot;;
+	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.time.Interval.Interval&quot;	 [minlen=6];
+	&quot;supriya.time.Interval.Interval&quot; -&gt; &quot;supriya.realtime.Block.Block&quot;	 [minlen=1];
 }</p></object></div>
 </div>
 <dl class="class">
 <dt id="supriya.system.SupriyaObject.SupriyaObject">
-<em class="property">class </em><code class="descclassname">supriya.system.SupriyaObject.</code><code class="descname">SupriyaObject</code><a class="reference internal" href="../../../_modules/supriya/system/SupriyaObject.html#SupriyaObject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.system.SupriyaObject.SupriyaObject" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">supriya.system.SupriyaObject.</code><code class="sig-name descname">SupriyaObject</code><a class="reference internal" href="../../../_modules/supriya/system/SupriyaObject.html#SupriyaObject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.system.SupriyaObject.SupriyaObject" title="Permalink to this definition">¶</a></dt>
 <dd><p>Abstract base class from which many custom classes inherit.</p>
 <hr/><p class="class-header rubric">Attributes Summary</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.system.SupriyaObject.SupriyaObject.__repr__" title="supriya.system.SupriyaObject.SupriyaObject.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></td>
-<td>Return repr(self).</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.system.SupriyaObject.SupriyaObject.__repr__" title="supriya.system.SupriyaObject.SupriyaObject.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></p></td>
+<td><p>Return repr(self).</p></td>
 </tr>
 </tbody>
 </table>
 <hr/><p class="class-header rubric">Special methods</p>
 <dl class="method">
 <dt id="supriya.system.SupriyaObject.SupriyaObject.__repr__">
-<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/system/SupriyaObject.html#SupriyaObject.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.system.SupriyaObject.SupriyaObject.__repr__" title="Permalink to this definition">¶</a></dt>
+<em class="property">overridden </em><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/system/SupriyaObject.html#SupriyaObject.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.system.SupriyaObject.SupriyaObject.__repr__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return repr(self).</p>
 </dd></dl>
 
@@ -3064,7 +3081,7 @@
         <a href="SupriyaValueObject.html" class="btn btn-neutral float-right" title="SupriyaValueObject" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Binding.html" class="btn btn-neutral" title="Binding" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="Binding.html" class="btn btn-neutral float-left" title="Binding" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -3090,26 +3107,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

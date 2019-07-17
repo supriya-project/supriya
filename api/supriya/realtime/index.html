@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>realtime &mdash; Supriya 0.2.0 documentation</title>
+  <title>realtime &mdash; Supriya 0.3.0 documentation</title>
   
 
   
@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
@@ -32,21 +39,16 @@
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Node" href="Node.html" />
     <link rel="prev" title="SynthEvent" href="../patterns/SynthEvent.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -60,7 +62,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.3.0
               </div>
             
           
@@ -84,62 +86,89 @@
               
             
             
-              <ul>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Supriya API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../cli/index.html">cli</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../commands/index.html">commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../enums.html">enums</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ext/index.html">ext</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../io.html">io</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../live/index.html">live</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../midi/index.html">midi</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../osc/index.html">osc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">realtime</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="Node.html">Node</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ServerObjectProxy.html">ServerObjectProxy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Buffer.html">Buffer</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferGroup.html">BufferGroup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Bus.html">Bus</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BusGroup.html">BusGroup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Group.html">Group</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Server.html">Server</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ServerOptions.html">ServerOptions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Synth.html">Synth</a></li>
-<li class="toctree-l4"><a class="reference internal" href="AudioInputBusGroup.html">AudioInputBusGroup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="AudioOutputBusGroup.html">AudioOutputBusGroup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Block.html">Block</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BlockAllocator.html">BlockAllocator</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferProxy.html">BufferProxy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BusProxy.html">BusProxy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ControlInterface.html">ControlInterface</a></li>
-<li class="toctree-l4"><a class="reference internal" href="GroupControl.html">GroupControl</a></li>
-<li class="toctree-l4"><a class="reference internal" href="GroupInterface.html">GroupInterface</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NodeIdAllocator.html">NodeIdAllocator</a></li>
-<li class="toctree-l4"><a class="reference internal" href="RootNode.html">RootNode</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ServerMeters.html">ServerMeters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ServerRecorder.html">ServerRecorder</a></li>
-<li class="toctree-l4"><a class="reference internal" href="StatusWatcher.html">StatusWatcher</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthControl.html">SynthControl</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthInterface.html">SynthInterface</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cli/index.html">cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clock.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../daw/index.html">daw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../live/index.html">live</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">realtime</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Node.html">Node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerObject.html">ServerObject</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BootOptions.html">BootOptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Buffer.html">Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferGroup.html">BufferGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Bus.html">Bus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BusGroup.html">BusGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Group.html">Group</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Server.html">Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Synth.html">Synth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AudioInputBusGroup.html">AudioInputBusGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AudioOutputBusGroup.html">AudioOutputBusGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Block.html">Block</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BlockAllocator.html">BlockAllocator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferProxy.html">BufferProxy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BusProxy.html">BusProxy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ControlInterface.html">ControlInterface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GroupControl.html">GroupControl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GroupInterface.html">GroupInterface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NodeIdAllocator.html">NodeIdAllocator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="RootNode.html">RootNode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerMeters.html">ServerMeters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerRecorder.html">ServerRecorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="StatusWatcher.html">StatusWatcher</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthControl.html">SynthControl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthInterface.html">SynthInterface</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../soundfiles/index.html">soundfiles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../system/index.html">system</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../time/index.html">time</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
 </ul>
 </li>
 </ul>
-</li>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -185,8 +214,6 @@
     
       <li><a href="../../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../../index.html">Supriya API</a> &raquo;</li>
-        
           <li><a href="../index.html">supriya</a> &raquo;</li>
         
       <li>realtime</li>
@@ -213,7 +240,7 @@
 <p>Tools for interacting with and modeling objects on the SuperCollider
 <code class="docutils literal notranslate"><span class="pre">scsynth</span></code> synthesis server.</p>
 <div class="svg-container docutils container">
-<div class="graphviz"><object data="../../../_images/inheritance-5755794760da804638825454f4f433e8a051d773.svg" type="image/svg+xml" class="inheritance graphviz">
+<div class="graphviz"><object data="../../../_images/inheritance-7781833de710182cba431883fc8164579b9037a5.svg" type="image/svg+xml" class="inheritance graphviz">
 <p class="warning">digraph InheritanceGraph {
 	graph [bgcolor=transparent,
 		color=lightsteelblue2,
@@ -239,38 +266,37 @@
 	edge [color=lightslategrey,
 		penwidth=1
 	];
-	subgraph &quot;cluster_abjad.system&quot; {
-		graph [label=&quot;abjad.system&quot;];
-		node [color=1];
-		&quot;abjad.system.AbjadObject.AbjadObject&quot;		 [URL=&quot;http://abjad.mbrsi.org/api/abjad/system/AbjadObject.html#abjad.system.AbjadObject.AbjadObject&quot;,
-			color=1,
-			label=&quot;Abjad\nObject&quot;,
+	subgraph cluster_threading {
+		graph [label=threading];
+		node [color=5];
+		&quot;threading.Thread&quot;		 [URL=&quot;https://docs.python.org/3.6/library/threading.html#threading.Thread&quot;,
+			color=5,
+			label=Thread,
 			target=_top];
-		&quot;abjad.system.AbjadValueObject.AbjadValueObject&quot;		 [URL=&quot;http://abjad.mbrsi.org/api/abjad/system/AbjadValueObject.html#abjad.system.AbjadValueObject.AbjadValueObject&quot;,
-			color=1,
-			label=&quot;Abjad\nValue\nObject&quot;,
-			target=_top];
-		&quot;abjad.system.AbjadObject.AbjadObject&quot; -&gt; &quot;abjad.system.AbjadValueObject.AbjadValueObject&quot;		 [minlen=1];
 	}
-	subgraph &quot;cluster_abjad.timespans&quot; {
-		graph [label=&quot;abjad.timespans&quot;];
-		node [color=2];
-		&quot;abjad.timespans.Timespan.Timespan&quot;		 [URL=&quot;http://abjad.mbrsi.org/api/abjad/timespans/Timespan.html#abjad.timespans.Timespan.Timespan&quot;,
-			color=2,
-			label=Timespan,
-			target=_top];
+	subgraph &quot;cluster_uqbar.containers&quot; {
+		graph [label=&quot;uqbar.containers&quot;];
+		node [color=6];
+		&quot;uqbar.containers.UniqueTreeContainer.UniqueTreeContainer&quot;		 [color=6,
+			label=&quot;Unique\nTree\nContainer&quot;];
+		&quot;uqbar.containers.UniqueTreeList.UniqueTreeList&quot;		 [color=6,
+			label=&quot;Unique\nTree\nList&quot;];
+		&quot;uqbar.containers.UniqueTreeContainer.UniqueTreeContainer&quot; -&gt; &quot;uqbar.containers.UniqueTreeList.UniqueTreeList&quot;		 [minlen=1];
+		&quot;uqbar.containers.UniqueTreeNode.UniqueTreeNode&quot;		 [color=6,
+			label=&quot;Unique\nTree\nNode&quot;];
+		&quot;uqbar.containers.UniqueTreeNode.UniqueTreeNode&quot; -&gt; &quot;uqbar.containers.UniqueTreeContainer.UniqueTreeContainer&quot;		 [minlen=1];
 	}
 	subgraph cluster_builtins {
 		graph [label=builtins];
-		node [color=3];
+		node [color=1];
 		&quot;builtins.object&quot;		 [URL=&quot;https://docs.python.org/3.6/library/functions.html#object&quot;,
-			color=3,
+			color=1,
 			label=object,
 			target=_top];
 	}
 	subgraph &quot;cluster_supriya.realtime&quot; {
 		graph [label=&quot;supriya.realtime&quot;];
-		node [color=4];
+		node [color=2];
 		&quot;supriya.realtime.AudioInputBusGroup.AudioInputBusGroup&quot;		 [URL=&quot;../api/supriya/realtime/AudioInputBusGroup.html#supriya.realtime.AudioInputBusGroup.AudioInputBusGroup&quot;,
 			color=black,
 			fontcolor=white,
@@ -290,6 +316,11 @@
 			color=black,
 			fontcolor=white,
 			label=&quot;Block\nAllocator&quot;,
+			target=_top];
+		&quot;supriya.realtime.BootOptions.BootOptions&quot;		 [URL=&quot;../api/supriya/realtime/BootOptions.html#supriya.realtime.BootOptions.BootOptions&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Boot\nOptions&quot;,
 			target=_top];
 		&quot;supriya.realtime.Buffer.Buffer&quot;		 [URL=&quot;../api/supriya/realtime/Buffer.html#supriya.realtime.Buffer.Buffer&quot;,
 			color=black,
@@ -387,23 +418,18 @@
 			fontcolor=white,
 			label=&quot;Server\nMeters&quot;,
 			target=_top];
-		&quot;supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot;		 [URL=&quot;../api/supriya/realtime/ServerObjectProxy.html#supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot;,
+		&quot;supriya.realtime.ServerObject.ServerObject&quot;		 [URL=&quot;../api/supriya/realtime/ServerObject.html#supriya.realtime.ServerObject.ServerObject&quot;,
 			color=black,
 			fontcolor=white,
-			label=&quot;Server\nObject\nProxy&quot;,
+			label=&quot;Server\nObject&quot;,
 			shape=oval,
 			style=&quot;bold, filled&quot;,
 			target=_top];
-		&quot;supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot; -&gt; &quot;supriya.realtime.Buffer.Buffer&quot;		 [minlen=1];
-		&quot;supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot; -&gt; &quot;supriya.realtime.BufferGroup.BufferGroup&quot;		 [minlen=2];
-		&quot;supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot; -&gt; &quot;supriya.realtime.Bus.Bus&quot;		 [minlen=1];
-		&quot;supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot; -&gt; &quot;supriya.realtime.BusGroup.BusGroup&quot;;
-		&quot;supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot; -&gt; &quot;supriya.realtime.Node.Node&quot;;
-		&quot;supriya.realtime.ServerOptions.ServerOptions&quot;		 [URL=&quot;../api/supriya/realtime/ServerOptions.html#supriya.realtime.ServerOptions.ServerOptions&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Server\nOptions&quot;,
-			target=_top];
+		&quot;supriya.realtime.ServerObject.ServerObject&quot; -&gt; &quot;supriya.realtime.Buffer.Buffer&quot;		 [minlen=1];
+		&quot;supriya.realtime.ServerObject.ServerObject&quot; -&gt; &quot;supriya.realtime.BufferGroup.BufferGroup&quot;		 [minlen=2];
+		&quot;supriya.realtime.ServerObject.ServerObject&quot; -&gt; &quot;supriya.realtime.Bus.Bus&quot;		 [minlen=1];
+		&quot;supriya.realtime.ServerObject.ServerObject&quot; -&gt; &quot;supriya.realtime.BusGroup.BusGroup&quot;;
+		&quot;supriya.realtime.ServerObject.ServerObject&quot; -&gt; &quot;supriya.realtime.Node.Node&quot;;
 		&quot;supriya.realtime.ServerRecorder.ServerRecorder&quot;		 [URL=&quot;../api/supriya/realtime/ServerRecorder.html#supriya.realtime.ServerRecorder.ServerRecorder&quot;,
 			color=black,
 			fontcolor=white,
@@ -420,176 +446,157 @@
 			label=&quot;Synth\nControl&quot;,
 			target=_top];
 	}
-	subgraph &quot;cluster_supriya.synthdefs&quot; {
-		graph [label=&quot;supriya.synthdefs&quot;];
-		node [color=5];
-		&quot;supriya.synthdefs.SynthDef.SynthDef&quot;		 [URL=&quot;../api/supriya/realtime/../synthdefs/SynthDef.html#supriya.synthdefs.SynthDef.SynthDef&quot;,
-			color=5,
-			label=&quot;Synth\nDef&quot;,
-			target=_top];
-	}
 	subgraph &quot;cluster_supriya.system&quot; {
 		graph [label=&quot;supriya.system&quot;];
-		node [color=6];
+		node [color=3];
 		&quot;supriya.system.SupriyaObject.SupriyaObject&quot;		 [URL=&quot;../api/supriya/realtime/../system/SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject&quot;,
-			color=6,
+			color=3,
 			label=&quot;Supriya\nObject&quot;,
 			target=_top];
 		&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;		 [URL=&quot;../api/supriya/realtime/../system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject&quot;,
-			color=6,
+			color=3,
 			label=&quot;Supriya\nValue\nObject&quot;,
 			target=_top];
 		&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;;
 	}
-	subgraph cluster_threading {
-		graph [label=threading];
-		node [color=7];
-		&quot;threading.Thread&quot;		 [URL=&quot;https://docs.python.org/3.6/library/threading.html#threading.Thread&quot;,
-			color=7,
-			label=Thread,
+	subgraph &quot;cluster_supriya.time&quot; {
+		graph [label=&quot;supriya.time&quot;];
+		node [color=4];
+		&quot;supriya.time.Interval.Interval&quot;		 [URL=&quot;../api/supriya/realtime/../time/Interval.html#supriya.time.Interval.Interval&quot;,
+			color=4,
+			label=Interval,
 			target=_top];
 	}
-	subgraph &quot;cluster_uqbar.containers&quot; {
-		graph [label=&quot;uqbar.containers&quot;];
-		node [color=8];
-		&quot;uqbar.containers.UniqueTreeContainer.UniqueTreeContainer&quot;		 [color=8,
-			label=&quot;Unique\nTree\nContainer&quot;];
-		&quot;uqbar.containers.UniqueTreeNode.UniqueTreeNode&quot;		 [color=8,
-			label=&quot;Unique\nTree\nNode&quot;];
-		&quot;uqbar.containers.UniqueTreeNode.UniqueTreeNode&quot; -&gt; &quot;uqbar.containers.UniqueTreeContainer.UniqueTreeContainer&quot;		 [minlen=1];
-	}
-	&quot;abjad.system.AbjadValueObject.AbjadValueObject&quot; -&gt; &quot;abjad.timespans.Timespan.Timespan&quot;	 [minlen=1];
-	&quot;abjad.timespans.Timespan.Timespan&quot; -&gt; &quot;supriya.realtime.Block.Block&quot;	 [minlen=1];
-	&quot;builtins.object&quot; -&gt; &quot;abjad.system.AbjadObject.AbjadObject&quot;	 [minlen=1];
+	&quot;builtins.object&quot; -&gt; &quot;supriya.realtime.BootOptions.BootOptions&quot;	 [minlen=1];
 	&quot;builtins.object&quot; -&gt; &quot;supriya.realtime.GroupControl.GroupControl&quot;	 [minlen=2];
-	&quot;builtins.object&quot; -&gt; &quot;supriya.realtime.SynthControl.SynthControl&quot;	 [minlen=1];
+	&quot;builtins.object&quot; -&gt; &quot;supriya.realtime.Server.Server&quot;	 [minlen=1];
+	&quot;builtins.object&quot; -&gt; &quot;supriya.realtime.SynthControl.SynthControl&quot;	 [minlen=2];
 	&quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject.SupriyaObject&quot;;
-	&quot;builtins.object&quot; -&gt; &quot;threading.Thread&quot;	 [minlen=2];
+	&quot;builtins.object&quot; -&gt; &quot;threading.Thread&quot;	 [minlen=1];
 	&quot;builtins.object&quot; -&gt; &quot;uqbar.containers.UniqueTreeNode.UniqueTreeNode&quot;;
-	&quot;supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot; -&gt; &quot;supriya.synthdefs.SynthDef.SynthDef&quot;	 [minlen=2];
 	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.realtime.BlockAllocator.BlockAllocator&quot;	 [minlen=1];
 	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.realtime.ControlInterface.ControlInterface&quot;;
 	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.realtime.NodeIdAllocator.NodeIdAllocator&quot;	 [minlen=2];
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.realtime.Server.Server&quot;	 [minlen=1];
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.realtime.ServerMeters.ServerMeters&quot;	 [minlen=2];
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot;;
-	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.realtime.ServerOptions.ServerOptions&quot;	 [minlen=1];
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.realtime.ServerMeters.ServerMeters&quot;	 [minlen=1];
+	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.realtime.ServerObject.ServerObject&quot;;
 	&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.realtime.ServerRecorder.ServerRecorder&quot;	 [minlen=2];
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.realtime.BufferProxy.BufferProxy&quot;	 [minlen=1];
 	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.realtime.BusProxy.BusProxy&quot;	 [minlen=2];
+	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.time.Interval.Interval&quot;	 [minlen=1];
+	&quot;supriya.time.Interval.Interval&quot; -&gt; &quot;supriya.realtime.Block.Block&quot;	 [minlen=1];
 	&quot;threading.Thread&quot; -&gt; &quot;supriya.realtime.StatusWatcher.StatusWatcher&quot;	 [minlen=1];
-	&quot;uqbar.containers.UniqueTreeContainer.UniqueTreeContainer&quot; -&gt; &quot;supriya.realtime.Group.Group&quot;;
+	&quot;uqbar.containers.UniqueTreeList.UniqueTreeList&quot; -&gt; &quot;supriya.realtime.Group.Group&quot;;
 	&quot;uqbar.containers.UniqueTreeNode.UniqueTreeNode&quot; -&gt; &quot;supriya.realtime.Node.Node&quot;;
 }</p></object></div>
 </div>
 <hr/><p class="section-header rubric">Abstract Classes</p>
 <div class="toctree-wrapper compound">
 </div>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="Node.html#supriya.realtime.Node.Node" title="supriya.realtime.Node.Node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Node</span></code></a></td>
-<td></td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="Node.html#supriya.realtime.Node.Node" title="supriya.realtime.Node.Node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Node</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ServerObjectProxy.html#supriya.realtime.ServerObjectProxy.ServerObjectProxy" title="supriya.realtime.ServerObjectProxy.ServerObjectProxy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ServerObjectProxy</span></code></a></td>
-<td>A proxy of an object on a server.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="ServerObject.html#supriya.realtime.ServerObject.ServerObject" title="supriya.realtime.ServerObject.ServerObject"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ServerObject</span></code></a></p></td>
+<td><p>A proxy of an object on a server.</p></td>
 </tr>
 </tbody>
 </table>
 <hr/><p class="section-header rubric">Main Classes</p>
 <div class="toctree-wrapper compound">
 </div>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="Buffer.html#supriya.realtime.Buffer.Buffer" title="supriya.realtime.Buffer.Buffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Buffer</span></code></a></td>
-<td>A buffer.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="BootOptions.html#supriya.realtime.BootOptions.BootOptions" title="supriya.realtime.BootOptions.BootOptions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BootOptions</span></code></a></p></td>
+<td><p>SuperCollider server option configuration.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="BufferGroup.html#supriya.realtime.BufferGroup.BufferGroup" title="supriya.realtime.BufferGroup.BufferGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferGroup</span></code></a></td>
-<td>A buffer group.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="Buffer.html#supriya.realtime.Buffer.Buffer" title="supriya.realtime.Buffer.Buffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Buffer</span></code></a></p></td>
+<td><p>A buffer.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="Bus.html#supriya.realtime.Bus.Bus" title="supriya.realtime.Bus.Bus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Bus</span></code></a></td>
-<td>A bus.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="BufferGroup.html#supriya.realtime.BufferGroup.BufferGroup" title="supriya.realtime.BufferGroup.BufferGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferGroup</span></code></a></p></td>
+<td><p>A buffer group.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="BusGroup.html#supriya.realtime.BusGroup.BusGroup" title="supriya.realtime.BusGroup.BusGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BusGroup</span></code></a></td>
-<td>A bus group.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="Bus.html#supriya.realtime.Bus.Bus" title="supriya.realtime.Bus.Bus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Bus</span></code></a></p></td>
+<td><p>A bus.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="Group.html#supriya.realtime.Group.Group" title="supriya.realtime.Group.Group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Group</span></code></a></td>
-<td>A group.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="BusGroup.html#supriya.realtime.BusGroup.BusGroup" title="supriya.realtime.BusGroup.BusGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BusGroup</span></code></a></p></td>
+<td><p>A bus group.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="Server.html#supriya.realtime.Server.Server" title="supriya.realtime.Server.Server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Server</span></code></a></td>
-<td>An scsynth server proxy.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="Group.html#supriya.realtime.Group.Group" title="supriya.realtime.Group.Group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Group</span></code></a></p></td>
+<td><p>A group.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ServerOptions.html#supriya.realtime.ServerOptions.ServerOptions" title="supriya.realtime.ServerOptions.ServerOptions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ServerOptions</span></code></a></td>
-<td>SuperCollider server option configuration.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="Server.html#supriya.realtime.Server.Server" title="supriya.realtime.Server.Server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Server</span></code></a></p></td>
+<td><p>An scsynth server proxy.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="Synth.html#supriya.realtime.Synth.Synth" title="supriya.realtime.Synth.Synth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Synth</span></code></a></td>
-<td>A synth.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="Synth.html#supriya.realtime.Synth.Synth" title="supriya.realtime.Synth.Synth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Synth</span></code></a></p></td>
+<td><p>A synth.</p></td>
 </tr>
 </tbody>
 </table>
 <hr/><p class="section-header rubric">Server Internals</p>
 <div class="toctree-wrapper compound">
 </div>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="AudioInputBusGroup.html#supriya.realtime.AudioInputBusGroup.AudioInputBusGroup" title="supriya.realtime.AudioInputBusGroup.AudioInputBusGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AudioInputBusGroup</span></code></a></td>
-<td>Audio input bus group.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="AudioInputBusGroup.html#supriya.realtime.AudioInputBusGroup.AudioInputBusGroup" title="supriya.realtime.AudioInputBusGroup.AudioInputBusGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AudioInputBusGroup</span></code></a></p></td>
+<td><p>Audio input bus group.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="AudioOutputBusGroup.html#supriya.realtime.AudioOutputBusGroup.AudioOutputBusGroup" title="supriya.realtime.AudioOutputBusGroup.AudioOutputBusGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AudioOutputBusGroup</span></code></a></td>
-<td>Audio output bus group.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="AudioOutputBusGroup.html#supriya.realtime.AudioOutputBusGroup.AudioOutputBusGroup" title="supriya.realtime.AudioOutputBusGroup.AudioOutputBusGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AudioOutputBusGroup</span></code></a></p></td>
+<td><p>Audio output bus group.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="Block.html#supriya.realtime.Block.Block" title="supriya.realtime.Block.Block"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Block</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="Block.html#supriya.realtime.Block.Block" title="supriya.realtime.Block.Block"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Block</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="BlockAllocator.html#supriya.realtime.BlockAllocator.BlockAllocator" title="supriya.realtime.BlockAllocator.BlockAllocator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BlockAllocator</span></code></a></td>
-<td>A block allocator.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="BlockAllocator.html#supriya.realtime.BlockAllocator.BlockAllocator" title="supriya.realtime.BlockAllocator.BlockAllocator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BlockAllocator</span></code></a></p></td>
+<td><p>A block allocator.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="BufferProxy.html#supriya.realtime.BufferProxy.BufferProxy" title="supriya.realtime.BufferProxy.BufferProxy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferProxy</span></code></a></td>
-<td>A buffer proxy.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="BufferProxy.html#supriya.realtime.BufferProxy.BufferProxy" title="supriya.realtime.BufferProxy.BufferProxy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BufferProxy</span></code></a></p></td>
+<td><p>A buffer proxy.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="BusProxy.html#supriya.realtime.BusProxy.BusProxy" title="supriya.realtime.BusProxy.BusProxy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BusProxy</span></code></a></td>
-<td>A buffer proxy.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="BusProxy.html#supriya.realtime.BusProxy.BusProxy" title="supriya.realtime.BusProxy.BusProxy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BusProxy</span></code></a></p></td>
+<td><p>A buffer proxy.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ControlInterface.html#supriya.realtime.ControlInterface.ControlInterface" title="supriya.realtime.ControlInterface.ControlInterface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ControlInterface</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="ControlInterface.html#supriya.realtime.ControlInterface.ControlInterface" title="supriya.realtime.ControlInterface.ControlInterface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ControlInterface</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="GroupControl.html#supriya.realtime.GroupControl.GroupControl" title="supriya.realtime.GroupControl.GroupControl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GroupControl</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="GroupControl.html#supriya.realtime.GroupControl.GroupControl" title="supriya.realtime.GroupControl.GroupControl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GroupControl</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="GroupInterface.html#supriya.realtime.GroupInterface.GroupInterface" title="supriya.realtime.GroupInterface.GroupInterface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GroupInterface</span></code></a></td>
-<td>Interface to group controls.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="GroupInterface.html#supriya.realtime.GroupInterface.GroupInterface" title="supriya.realtime.GroupInterface.GroupInterface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GroupInterface</span></code></a></p></td>
+<td><p>Interface to group controls.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="NodeIdAllocator.html#supriya.realtime.NodeIdAllocator.NodeIdAllocator" title="supriya.realtime.NodeIdAllocator.NodeIdAllocator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeIdAllocator</span></code></a></td>
-<td>A node ID allocator.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="NodeIdAllocator.html#supriya.realtime.NodeIdAllocator.NodeIdAllocator" title="supriya.realtime.NodeIdAllocator.NodeIdAllocator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NodeIdAllocator</span></code></a></p></td>
+<td><p>A node ID allocator.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="RootNode.html#supriya.realtime.RootNode.RootNode" title="supriya.realtime.RootNode.RootNode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RootNode</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="RootNode.html#supriya.realtime.RootNode.RootNode" title="supriya.realtime.RootNode.RootNode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RootNode</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ServerMeters.html#supriya.realtime.ServerMeters.ServerMeters" title="supriya.realtime.ServerMeters.ServerMeters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ServerMeters</span></code></a></td>
-<td>A server recorder.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="ServerMeters.html#supriya.realtime.ServerMeters.ServerMeters" title="supriya.realtime.ServerMeters.ServerMeters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ServerMeters</span></code></a></p></td>
+<td><p>A server recorder.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ServerRecorder.html#supriya.realtime.ServerRecorder.ServerRecorder" title="supriya.realtime.ServerRecorder.ServerRecorder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ServerRecorder</span></code></a></td>
-<td>A server recorder.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="ServerRecorder.html#supriya.realtime.ServerRecorder.ServerRecorder" title="supriya.realtime.ServerRecorder.ServerRecorder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ServerRecorder</span></code></a></p></td>
+<td><p>A server recorder.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="StatusWatcher.html#supriya.realtime.StatusWatcher.StatusWatcher" title="supriya.realtime.StatusWatcher.StatusWatcher"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StatusWatcher</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="StatusWatcher.html#supriya.realtime.StatusWatcher.StatusWatcher" title="supriya.realtime.StatusWatcher.StatusWatcher"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StatusWatcher</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="SynthControl.html#supriya.realtime.SynthControl.SynthControl" title="supriya.realtime.SynthControl.SynthControl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthControl</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="SynthControl.html#supriya.realtime.SynthControl.SynthControl" title="supriya.realtime.SynthControl.SynthControl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthControl</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="SynthInterface.html#supriya.realtime.SynthInterface.SynthInterface" title="supriya.realtime.SynthInterface.SynthInterface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthInterface</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="SynthInterface.html#supriya.realtime.SynthInterface.SynthInterface" title="supriya.realtime.SynthInterface.SynthInterface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthInterface</span></code></a></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
@@ -606,7 +613,7 @@
         <a href="Node.html" class="btn btn-neutral float-right" title="Node" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../patterns/SynthEvent.html" class="btn btn-neutral" title="SynthEvent" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../patterns/SynthEvent.html" class="btn btn-neutral float-left" title="SynthEvent" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -632,26 +639,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

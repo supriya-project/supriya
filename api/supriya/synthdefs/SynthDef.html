@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>SynthDef &mdash; Supriya 0.2.0 documentation</title>
+  <title>SynthDef &mdash; Supriya 0.3.0 documentation</title>
   
 
   
@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
@@ -32,21 +39,16 @@
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="SynthDefBuilder" href="SynthDefBuilder.html" />
     <link rel="prev" title="Range" href="Range.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -60,7 +62,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.3.0
               </div>
             
           
@@ -84,50 +86,77 @@
               
             
             
-              <ul>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Supriya API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../cli/index.html">cli</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../commands/index.html">commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../enums.html">enums</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ext/index.html">ext</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../io.html">io</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../live/index.html">live</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../midi/index.html">midi</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../osc/index.html">osc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../soundfiles/index.html">soundfiles</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="index.html">synthdefs</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="SynthDefFactory.html">SynthDefFactory</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthDefGrapher.html">SynthDefGrapher</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Envelope.html">Envelope</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Parameter.html">Parameter</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Range.html">Range</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">SynthDef</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthDefBuilder.html">SynthDefBuilder</a></li>
-<li class="toctree-l4"><a class="reference internal" href="OutputProxy.html">OutputProxy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SuperColliderSynthDef.html">SuperColliderSynthDef</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthDefCompiler.html">SynthDefCompiler</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthDefDecompiler.html">SynthDefDecompiler</a></li>
-<li class="toctree-l4"><a class="reference internal" href="UGenArray.html">UGenArray</a></li>
-<li class="toctree-l4"><a class="reference internal" href="UGenMethodMixin.html">UGenMethodMixin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="UGenSortBundle.html">UGenSortBundle</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cli/index.html">cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clock.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../daw/index.html">daw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../live/index.html">live</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">synthdefs</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="SynthDefFactory.html">SynthDefFactory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthDefGrapher.html">SynthDefGrapher</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Envelope.html">Envelope</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Parameter.html">Parameter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Range.html">Range</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">SynthDef</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthDefBuilder.html">SynthDefBuilder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="OutputProxy.html">OutputProxy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SuperColliderSynthDef.html">SuperColliderSynthDef</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthDefCompiler.html">SynthDefCompiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthDefDecompiler.html">SynthDefDecompiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="UGenArray.html">UGenArray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="UGenMethodMixin.html">UGenMethodMixin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="UGenSortBundle.html">UGenSortBundle</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../system/index.html">system</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../time/index.html">time</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
 </ul>
 </li>
 </ul>
-</li>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -173,8 +202,6 @@
     
       <li><a href="../../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../../index.html">Supriya API</a> &raquo;</li>
-        
           <li><a href="../index.html">supriya</a> &raquo;</li>
         
           <li><a href="index.html">synthdefs</a> &raquo;</li>
@@ -201,7 +228,7 @@
   <div class="section" id="module-supriya.synthdefs.SynthDef">
 <span id="synthdef"></span><span id="supriya-synthdefs-synthdef"></span><h1>SynthDef<a class="headerlink" href="#module-supriya.synthdefs.SynthDef" title="Permalink to this headline">¶</a></h1>
 <div class="svg-container docutils container">
-<div class="graphviz"><object data="../../../_images/inheritance-6b92bdebfcd80e9bfe1724487eb945237bf57e55.svg" type="image/svg+xml" class="inheritance graphviz">
+<div class="graphviz"><object data="../../../_images/inheritance-c4c400f530dc6cd8da4acf7affd5e825d10456a9.svg" type="image/svg+xml" class="inheritance graphviz">
 <p class="warning">digraph InheritanceGraph {
     graph [bgcolor=transparent,
         color=lightsteelblue2,
@@ -231,54 +258,38 @@
             label=object,
             target=_top];
     }
-    subgraph &quot;cluster_supriya.realtime&quot; {
-        graph [label=&quot;supriya.realtime&quot;];
-        node [color=2];
-        &quot;supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot; [URL=&quot;../api/supriya/synthdefs/../realtime/ServerObjectProxy.html#supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot;,
-            label=&quot;Server\nObject\nProxy&quot;,
-            shape=oval,
-            style=bold,
-            target=_top];
-    }
     subgraph &quot;cluster_supriya.synthdefs&quot; {
         graph [label=&quot;supriya.synthdefs&quot;];
-        node [color=3];
+        node [color=2];
         &quot;supriya.synthdefs.SynthDef.SynthDef&quot; [URL=&quot;../api/supriya/synthdefs/SynthDef.html#supriya.synthdefs.SynthDef.SynthDef&quot;,
             color=black,
             fontcolor=white,
             label=&quot;Synth\nDef&quot;,
             target=_top];
     }
-    subgraph &quot;cluster_supriya.system&quot; {
-        graph [label=&quot;supriya.system&quot;];
-        node [color=4];
-        &quot;supriya.system.SupriyaObject.SupriyaObject&quot; [URL=&quot;../api/supriya/synthdefs/../system/SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject&quot;,
-            label=&quot;Supriya\nObject&quot;,
-            target=_top];
-    }
-    &quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject.SupriyaObject&quot;;
-    &quot;supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot; -&gt; &quot;supriya.synthdefs.SynthDef.SynthDef&quot;;
-    &quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.realtime.ServerObjectProxy.ServerObjectProxy&quot;;
+    &quot;builtins.object&quot; -&gt; &quot;supriya.synthdefs.SynthDef.SynthDef&quot;;
 }</p></object></div>
 </div>
 <dl class="class">
 <dt id="supriya.synthdefs.SynthDef.SynthDef">
-<em class="property">class </em><code class="descclassname">supriya.synthdefs.SynthDef.</code><code class="descname">SynthDef</code><span class="sig-paren">(</span><em>ugens</em>, <em>name=None</em>, <em>optimize=True</em>, <em>parameter_names=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/synthdefs/SynthDef.html#SynthDef"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">supriya.synthdefs.SynthDef.</code><code class="sig-name descname">SynthDef</code><span class="sig-paren">(</span><em class="sig-param">ugens</em>, <em class="sig-param">name=None</em>, <em class="sig-param">optimize=True</em>, <em class="sig-param">parameter_names=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/synthdefs/SynthDef.html#SynthDef"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef" title="Permalink to this definition">¶</a></dt>
 <dd><p>A synth definition.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.ugens</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">440</span><span class="p">)</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
-<span class="gp">... </span>    <span class="n">sin_osc</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s1">&#39;frequency&#39;</span><span class="p">])</span>
+<span class="gp">... </span>    <span class="n">sin_osc</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">])</span>
 <span class="gp">... </span>    <span class="n">out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">sin_osc</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>  
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>  
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.realtime</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<a href="../../../_images/graphviz-a4c75f04fdb98aa1f5469af77dbf48cda6749c444bd7fdc6a39d34b3ef849c87.dot" title="" class="">
+    <img src="../../../_images/graphviz-a4c75f04fdb98aa1f5469af77dbf48cda6749c444bd7fdc6a39d34b3ef849c87.svg" alt=""/>
+</a><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.realtime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
@@ -301,122 +312,122 @@
 </pre></div>
 </div>
 <hr/><p class="class-header rubric">Attributes Summary</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.__eq__" title="supriya.synthdefs.SynthDef.SynthDef.__eq__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__eq__</span></code></a></td>
-<td>Return self==value.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.__eq__" title="supriya.synthdefs.SynthDef.SynthDef.__eq__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__eq__</span></code></a></p></td>
+<td><p>Return self==value.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.__graph__" title="supriya.synthdefs.SynthDef.SynthDef.__graph__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__graph__</span></code></a></td>
-<td>Graphs SynthDef.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.__graph__" title="supriya.synthdefs.SynthDef.SynthDef.__graph__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__graph__</span></code></a></p></td>
+<td><p>Graphs SynthDef.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.__hash__" title="supriya.synthdefs.SynthDef.SynthDef.__hash__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__hash__</span></code></a></td>
-<td>Return hash(self).</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.__hash__" title="supriya.synthdefs.SynthDef.SynthDef.__hash__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__hash__</span></code></a></p></td>
+<td><p>Return hash(self).</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.__repr__" title="supriya.synthdefs.SynthDef.SynthDef.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></td>
-<td>Return repr(self).</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.__repr__" title="supriya.synthdefs.SynthDef.SynthDef.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></p></td>
+<td><p>Return repr(self).</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.__str__" title="supriya.synthdefs.SynthDef.SynthDef.__str__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__str__</span></code></a></td>
-<td>Gets string representation of synth definition.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.__str__" title="supriya.synthdefs.SynthDef.SynthDef.__str__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__str__</span></code></a></p></td>
+<td><p>Gets string representation of synth definition.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.actual_name" title="supriya.synthdefs.SynthDef.SynthDef.actual_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">actual_name</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.actual_name" title="supriya.synthdefs.SynthDef.SynthDef.actual_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">actual_name</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.allocate" title="supriya.synthdefs.SynthDef.SynthDef.allocate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">allocate</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.allocate" title="supriya.synthdefs.SynthDef.SynthDef.allocate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">allocate</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.anonymous_name" title="supriya.synthdefs.SynthDef.SynthDef.anonymous_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">anonymous_name</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.anonymous_name" title="supriya.synthdefs.SynthDef.SynthDef.anonymous_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">anonymous_name</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.audio_channel_count" title="supriya.synthdefs.SynthDef.SynthDef.audio_channel_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">audio_channel_count</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.audio_channel_count" title="supriya.synthdefs.SynthDef.SynthDef.audio_channel_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">audio_channel_count</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.audio_input_channel_count" title="supriya.synthdefs.SynthDef.SynthDef.audio_input_channel_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">audio_input_channel_count</span></code></a></td>
-<td>Gets audio input channel count of synthdef.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.audio_input_channel_count" title="supriya.synthdefs.SynthDef.SynthDef.audio_input_channel_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">audio_input_channel_count</span></code></a></p></td>
+<td><p>Gets audio input channel count of synthdef.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.audio_output_channel_count" title="supriya.synthdefs.SynthDef.SynthDef.audio_output_channel_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">audio_output_channel_count</span></code></a></td>
-<td>Gets audio output channel count of synthdef.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.audio_output_channel_count" title="supriya.synthdefs.SynthDef.SynthDef.audio_output_channel_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">audio_output_channel_count</span></code></a></p></td>
+<td><p>Gets audio output channel count of synthdef.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.compile" title="supriya.synthdefs.SynthDef.SynthDef.compile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compile</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.compile" title="supriya.synthdefs.SynthDef.SynthDef.compile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compile</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.constants" title="supriya.synthdefs.SynthDef.SynthDef.constants"><code class="xref py py-obj docutils literal notranslate"><span class="pre">constants</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.constants" title="supriya.synthdefs.SynthDef.SynthDef.constants"><code class="xref py py-obj docutils literal notranslate"><span class="pre">constants</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.control_channel_count" title="supriya.synthdefs.SynthDef.SynthDef.control_channel_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">control_channel_count</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.control_channel_count" title="supriya.synthdefs.SynthDef.SynthDef.control_channel_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">control_channel_count</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.control_input_channel_count" title="supriya.synthdefs.SynthDef.SynthDef.control_input_channel_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">control_input_channel_count</span></code></a></td>
-<td>Gets control input channel count of synthdef.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.control_input_channel_count" title="supriya.synthdefs.SynthDef.SynthDef.control_input_channel_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">control_input_channel_count</span></code></a></p></td>
+<td><p>Gets control input channel count of synthdef.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.control_output_channel_count" title="supriya.synthdefs.SynthDef.SynthDef.control_output_channel_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">control_output_channel_count</span></code></a></td>
-<td>Gets control output channel count of synthdef.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.control_output_channel_count" title="supriya.synthdefs.SynthDef.SynthDef.control_output_channel_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">control_output_channel_count</span></code></a></p></td>
+<td><p>Gets control output channel count of synthdef.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.control_ugens" title="supriya.synthdefs.SynthDef.SynthDef.control_ugens"><code class="xref py py-obj docutils literal notranslate"><span class="pre">control_ugens</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.control_ugens" title="supriya.synthdefs.SynthDef.SynthDef.control_ugens"><code class="xref py py-obj docutils literal notranslate"><span class="pre">control_ugens</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.done_actions" title="supriya.synthdefs.SynthDef.SynthDef.done_actions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">done_actions</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.done_actions" title="supriya.synthdefs.SynthDef.SynthDef.done_actions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">done_actions</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.free" title="supriya.synthdefs.SynthDef.SynthDef.free"><code class="xref py py-obj docutils literal notranslate"><span class="pre">free</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.free" title="supriya.synthdefs.SynthDef.SynthDef.free"><code class="xref py py-obj docutils literal notranslate"><span class="pre">free</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.has_gate" title="supriya.synthdefs.SynthDef.SynthDef.has_gate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_gate</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.has_gate" title="supriya.synthdefs.SynthDef.SynthDef.has_gate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_gate</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.indexed_parameters" title="supriya.synthdefs.SynthDef.SynthDef.indexed_parameters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">indexed_parameters</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.indexed_parameters" title="supriya.synthdefs.SynthDef.SynthDef.indexed_parameters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">indexed_parameters</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.input_ugens" title="supriya.synthdefs.SynthDef.SynthDef.input_ugens"><code class="xref py py-obj docutils literal notranslate"><span class="pre">input_ugens</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.input_ugens" title="supriya.synthdefs.SynthDef.SynthDef.input_ugens"><code class="xref py py-obj docutils literal notranslate"><span class="pre">input_ugens</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.is_allocated" title="supriya.synthdefs.SynthDef.SynthDef.is_allocated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_allocated</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.is_allocated" title="supriya.synthdefs.SynthDef.SynthDef.is_allocated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_allocated</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.name" title="supriya.synthdefs.SynthDef.SynthDef.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.name" title="supriya.synthdefs.SynthDef.SynthDef.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.output_ugens" title="supriya.synthdefs.SynthDef.SynthDef.output_ugens"><code class="xref py py-obj docutils literal notranslate"><span class="pre">output_ugens</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.output_ugens" title="supriya.synthdefs.SynthDef.SynthDef.output_ugens"><code class="xref py py-obj docutils literal notranslate"><span class="pre">output_ugens</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.parameter_names" title="supriya.synthdefs.SynthDef.SynthDef.parameter_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parameter_names</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.parameter_names" title="supriya.synthdefs.SynthDef.SynthDef.parameter_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parameter_names</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.parameters" title="supriya.synthdefs.SynthDef.SynthDef.parameters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parameters</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.parameters" title="supriya.synthdefs.SynthDef.SynthDef.parameters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parameters</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.play" title="supriya.synthdefs.SynthDef.SynthDef.play"><code class="xref py py-obj docutils literal notranslate"><span class="pre">play</span></code></a></td>
-<td>Plays the synthdef on the server.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.play" title="supriya.synthdefs.SynthDef.SynthDef.play"><code class="xref py py-obj docutils literal notranslate"><span class="pre">play</span></code></a></p></td>
+<td><p>Plays the synthdef on the server.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.to_dict" title="supriya.synthdefs.SynthDef.SynthDef.to_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dict</span></code></a></td>
-<td>Convert SynthDef to JSON-serializable dictionay.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.to_dict" title="supriya.synthdefs.SynthDef.SynthDef.to_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_dict</span></code></a></p></td>
+<td><p>Convert SynthDef to JSON-serializable dictionay.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.ugens" title="supriya.synthdefs.SynthDef.SynthDef.ugens"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ugens</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.synthdefs.SynthDef.SynthDef.ugens" title="supriya.synthdefs.SynthDef.SynthDef.ugens"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ugens</span></code></a></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
 <hr/><p class="class-header rubric">Special methods</p>
 <dl class="method">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.__eq__">
-<code class="descname">__eq__</code><span class="sig-paren">(</span><em>expr</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/synthdefs/SynthDef.html#SynthDef.__eq__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.__eq__" title="Permalink to this definition">¶</a></dt>
+<em class="property">overridden </em><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param">expr</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/synthdefs/SynthDef.html#SynthDef.__eq__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.__eq__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return self==value.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.__graph__">
-<code class="descname">__graph__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/synthdefs/SynthDef.html#SynthDef.__graph__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.__graph__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__graph__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/synthdefs/SynthDef.html#SynthDef.__graph__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.__graph__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Graphs SynthDef.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">440</span><span class="p">)</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
-<span class="gp">... </span>    <span class="n">sin_osc</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s1">&#39;frequency&#39;</span><span class="p">])</span>
+<span class="gp">... </span>    <span class="n">sin_osc</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">])</span>
 <span class="gp">... </span>    <span class="n">out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">sin_osc</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">format</span><span class="p">(</span><span class="n">synthdef</span><span class="o">.</span><span class="n">__graph__</span><span class="p">(),</span> <span class="s1">&#39;graphviz&#39;</span><span class="p">))</span>
-<span class="go">digraph synthdef_... {</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">format</span><span class="p">(</span><span class="n">synthdef</span><span class="o">.</span><span class="n">__graph__</span><span class="p">(),</span> <span class="s2">&quot;graphviz&quot;</span><span class="p">))</span>
+<span class="go">digraph synthdef_9c4eb4778dc0faf39459fa8a5cd45c19 {</span>
 <span class="go">    graph [bgcolor=transparent,</span>
 <span class="go">        color=lightslategrey,</span>
 <span class="go">        dpi=72,</span>
@@ -450,19 +461,19 @@
 
 <dl class="method">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.__hash__">
-<code class="descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/synthdefs/SynthDef.html#SynthDef.__hash__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.__hash__" title="Permalink to this definition">¶</a></dt>
+<em class="property">overridden </em><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/synthdefs/SynthDef.html#SynthDef.__hash__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.__hash__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return hash(self).</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.__repr__">
-<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/synthdefs/SynthDef.html#SynthDef.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.__repr__" title="Permalink to this definition">¶</a></dt>
+<em class="property">overridden </em><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/synthdefs/SynthDef.html#SynthDef.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.__repr__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return repr(self).</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.__str__">
-<code class="descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/synthdefs/SynthDef.html#SynthDef.__str__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.__str__" title="Permalink to this definition">¶</a></dt>
+<em class="property">overridden </em><code class="sig-name descname">__str__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/synthdefs/SynthDef.html#SynthDef.__str__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.__str__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets string representation of synth definition.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.ugens</span>
@@ -473,14 +484,16 @@
 <span class="gp">... </span>    <span class="n">sin_two</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">443</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">source</span> <span class="o">=</span> <span class="n">sin_one</span> <span class="o">+</span> <span class="n">sin_two</span>
 <span class="gp">... </span>    <span class="n">out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">)</span>
-<span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+<span class="gp">... </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>  
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>  
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>
+<a href="../../../_images/graphviz-5ccbc7edcd58d500c4b70b2cd4621ab7dcc3874154e6856dbce4eb583fab6974.dot" title="" class="">
+    <img src="../../../_images/graphviz-5ccbc7edcd58d500c4b70b2cd4621ab7dcc3874154e6856dbce4eb583fab6974.svg" alt=""/>
+</a><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>
 <span class="go">synthdef:</span>
 <span class="go">    name: test</span>
 <span class="go">    ugens:</span>
@@ -496,6 +509,7 @@
 <span class="go">    -   Out.ar:</span>
 <span class="go">            bus: 0.0</span>
 <span class="go">            source[0]: BinaryOpUGen(ADDITION).ar[0]</span>
+
 </pre></div>
 </div>
 <p>Returns string.</p>
@@ -504,24 +518,24 @@
 <hr/><p class="class-header rubric">Methods</p>
 <dl class="method">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.allocate">
-<code class="descname">allocate</code><span class="sig-paren">(</span><em>server=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/synthdefs/SynthDef.html#SynthDef.allocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.allocate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">allocate</code><span class="sig-paren">(</span><em class="sig-param">server=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/synthdefs/SynthDef.html#SynthDef.allocate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.allocate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.compile">
-<code class="descname">compile</code><span class="sig-paren">(</span><em>use_anonymous_name=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/synthdefs/SynthDef.html#SynthDef.compile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.compile" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">compile</code><span class="sig-paren">(</span><em class="sig-param">use_anonymous_name=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/synthdefs/SynthDef.html#SynthDef.compile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.compile" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.free">
-<code class="descname">free</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/synthdefs/SynthDef.html#SynthDef.free"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.free" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">free</code><span class="sig-paren">(</span><em class="sig-param">server=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/synthdefs/SynthDef.html#SynthDef.free"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.free" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.play">
-<code class="descname">play</code><span class="sig-paren">(</span><em>add_action=None</em>, <em>target_node=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/synthdefs/SynthDef.html#SynthDef.play"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.play" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">play</code><span class="sig-paren">(</span><em class="sig-param">add_action=None</em>, <em class="sig-param">target_node=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/synthdefs/SynthDef.html#SynthDef.play"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.play" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plays the synthdef on the server.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">default</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synth</span> <span class="o">=</span> <span class="n">synthdef</span><span class="o">.</span><span class="n">play</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
@@ -531,16 +545,11 @@
 
 <dl class="method">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.to_dict">
-<code class="descname">to_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/synthdefs/SynthDef.html#SynthDef.to_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.to_dict" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">to_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/synthdefs/SynthDef.html#SynthDef.to_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.to_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert SynthDef to JSON-serializable dictionay.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">json</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">default</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">result</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">separators</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;: &#39;</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">separators</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="s2">&quot;: &quot;</span><span class="p">),</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 <span class="go">{</span>
 <span class="go">    &quot;synthdef&quot;: {</span>
@@ -602,39 +611,39 @@
 <hr/><p class="class-header rubric">Read-only properties</p>
 <dl class="attribute">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.actual_name">
-<code class="descname">actual_name</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.actual_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">actual_name</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.actual_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.anonymous_name">
-<code class="descname">anonymous_name</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.anonymous_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">anonymous_name</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.anonymous_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.audio_channel_count">
-<code class="descname">audio_channel_count</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.audio_channel_count" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">audio_channel_count</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.audio_channel_count" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.audio_input_channel_count">
-<code class="descname">audio_input_channel_count</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.audio_input_channel_count" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">audio_input_channel_count</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.audio_input_channel_count" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets audio input channel count of synthdef.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">SynthDefBuilder</span><span class="p">()</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">supriya</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">()</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">audio_in</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">In</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">channel_count</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">control_in</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">In</span><span class="o">.</span><span class="n">kr</span><span class="p">(</span><span class="n">channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="gp">... </span>    <span class="n">sin</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>         <span class="n">frequency</span><span class="o">=</span><span class="n">audio_in</span><span class="p">,</span>
-<span class="gp">... </span>         <span class="p">)</span>
+<span class="gp">... </span>    <span class="n">sin</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">audio_in</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">source</span> <span class="o">=</span> <span class="n">audio_in</span> <span class="o">*</span> <span class="n">control_in</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="gp">... </span>    <span class="n">audio_out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="n">source</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>  
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>  
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span><span class="o">.</span><span class="n">audio_input_channel_count</span>
+<a href="../../../_images/graphviz-1a6190a259f6f1c058d2775f186da904631a5bc9e080d8f3f973031e0b598c93.dot" title="" class="">
+    <img src="../../../_images/graphviz-1a6190a259f6f1c058d2775f186da904631a5bc9e080d8f3f973031e0b598c93.svg" alt=""/>
+</a><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span><span class="o">.</span><span class="n">audio_input_channel_count</span>
 <span class="go">1</span>
 </pre></div>
 </div>
@@ -643,24 +652,24 @@
 
 <dl class="attribute">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.audio_output_channel_count">
-<code class="descname">audio_output_channel_count</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.audio_output_channel_count" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">audio_output_channel_count</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.audio_output_channel_count" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets audio output channel count of synthdef.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">SynthDefBuilder</span><span class="p">()</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">supriya</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">()</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">audio_in</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">In</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">channel_count</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">control_in</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">In</span><span class="o">.</span><span class="n">kr</span><span class="p">(</span><span class="n">channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="gp">... </span>    <span class="n">sin</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>         <span class="n">frequency</span><span class="o">=</span><span class="n">audio_in</span><span class="p">,</span>
-<span class="gp">... </span>         <span class="p">)</span>
+<span class="gp">... </span>    <span class="n">sin</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">audio_in</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">source</span> <span class="o">=</span> <span class="n">audio_in</span> <span class="o">*</span> <span class="n">control_in</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="gp">... </span>    <span class="n">audio_out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="n">source</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>  
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>  
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span><span class="o">.</span><span class="n">audio_output_channel_count</span>
+<a href="../../../_images/graphviz-1a6190a259f6f1c058d2775f186da904631a5bc9e080d8f3f973031e0b598c93.dot" title="" class="">
+    <img src="../../../_images/graphviz-1a6190a259f6f1c058d2775f186da904631a5bc9e080d8f3f973031e0b598c93.svg" alt=""/>
+</a><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span><span class="o">.</span><span class="n">audio_output_channel_count</span>
 <span class="go">4</span>
 </pre></div>
 </div>
@@ -669,34 +678,34 @@
 
 <dl class="attribute">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.constants">
-<code class="descname">constants</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.constants" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">constants</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.constants" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.control_channel_count">
-<code class="descname">control_channel_count</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.control_channel_count" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">control_channel_count</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.control_channel_count" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.control_input_channel_count">
-<code class="descname">control_input_channel_count</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.control_input_channel_count" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">control_input_channel_count</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.control_input_channel_count" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets control input channel count of synthdef.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">SynthDefBuilder</span><span class="p">()</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">supriya</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">()</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">audio_in</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">In</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">channel_count</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">control_in</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">In</span><span class="o">.</span><span class="n">kr</span><span class="p">(</span><span class="n">channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="gp">... </span>    <span class="n">sin</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>         <span class="n">frequency</span><span class="o">=</span><span class="n">audio_in</span><span class="p">,</span>
-<span class="gp">... </span>         <span class="p">)</span>
+<span class="gp">... </span>    <span class="n">sin</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">audio_in</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">source</span> <span class="o">=</span> <span class="n">audio_in</span> <span class="o">*</span> <span class="n">control_in</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="gp">... </span>    <span class="n">audio_out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="n">source</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>  
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>  
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span><span class="o">.</span><span class="n">control_input_channel_count</span>
+<a href="../../../_images/graphviz-1a6190a259f6f1c058d2775f186da904631a5bc9e080d8f3f973031e0b598c93.dot" title="" class="">
+    <img src="../../../_images/graphviz-1a6190a259f6f1c058d2775f186da904631a5bc9e080d8f3f973031e0b598c93.svg" alt=""/>
+</a><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span><span class="o">.</span><span class="n">control_input_channel_count</span>
 <span class="go">2</span>
 </pre></div>
 </div>
@@ -705,24 +714,24 @@
 
 <dl class="attribute">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.control_output_channel_count">
-<code class="descname">control_output_channel_count</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.control_output_channel_count" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">control_output_channel_count</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.control_output_channel_count" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets control output channel count of synthdef.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">SynthDefBuilder</span><span class="p">()</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">supriya</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">()</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">audio_in</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">In</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">channel_count</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">control_in</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">In</span><span class="o">.</span><span class="n">kr</span><span class="p">(</span><span class="n">channel_count</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="gp">... </span>    <span class="n">sin</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>         <span class="n">frequency</span><span class="o">=</span><span class="n">audio_in</span><span class="p">,</span>
-<span class="gp">... </span>         <span class="p">)</span>
+<span class="gp">... </span>    <span class="n">sin</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">audio_in</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">source</span> <span class="o">=</span> <span class="n">audio_in</span> <span class="o">*</span> <span class="n">control_in</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="gp">... </span>    <span class="n">audio_out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="n">source</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">graph</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>  
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>  
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span><span class="o">.</span><span class="n">control_output_channel_count</span>
+<a href="../../../_images/graphviz-1a6190a259f6f1c058d2775f186da904631a5bc9e080d8f3f973031e0b598c93.dot" title="" class="">
+    <img src="../../../_images/graphviz-1a6190a259f6f1c058d2775f186da904631a5bc9e080d8f3f973031e0b598c93.svg" alt=""/>
+</a><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span><span class="o">.</span><span class="n">control_output_channel_count</span>
 <span class="go">0</span>
 </pre></div>
 </div>
@@ -731,64 +740,57 @@
 
 <dl class="attribute">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.control_ugens">
-<code class="descname">control_ugens</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.control_ugens" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">control_ugens</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.control_ugens" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.done_actions">
-<code class="descname">done_actions</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.done_actions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">done_actions</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.done_actions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.has_gate">
-<code class="descname">has_gate</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.has_gate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">has_gate</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.has_gate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.indexed_parameters">
-<code class="descname">indexed_parameters</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.indexed_parameters" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">indexed_parameters</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.indexed_parameters" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.input_ugens">
-<code class="descname">input_ugens</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.input_ugens" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">input_ugens</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.input_ugens" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.is_allocated">
-<code class="descname">is_allocated</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.is_allocated" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">is_allocated</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.is_allocated" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.name">
-<code class="descname">name</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">name</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.output_ugens">
-<code class="descname">output_ugens</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.output_ugens" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">output_ugens</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.output_ugens" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.parameter_names">
-<code class="descname">parameter_names</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.parameter_names" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">parameter_names</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.parameter_names" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.parameters">
-<code class="descname">parameters</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.parameters" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">parameters</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.parameters" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<div class="inherited docutils container">
-<dl class="attribute">
-<dt id="supriya.synthdefs.SynthDef.SynthDef.server">
-<code class="descclassname">(<a class="reference internal" href="../realtime/ServerObjectProxy.html#supriya.realtime.ServerObjectProxy.ServerObjectProxy" title="supriya.realtime.ServerObjectProxy.ServerObjectProxy"><code class="descclassname docutils literal notranslate"><span class="pre">ServerObjectProxy</span></code></a>).</code><code class="descname">server</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.server" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
 <dl class="attribute">
 <dt id="supriya.synthdefs.SynthDef.SynthDef.ugens">
-<code class="descname">ugens</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.ugens" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ugens</code><a class="headerlink" href="#supriya.synthdefs.SynthDef.SynthDef.ugens" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -806,7 +808,7 @@
         <a href="SynthDefBuilder.html" class="btn btn-neutral float-right" title="SynthDefBuilder" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Range.html" class="btn btn-neutral" title="Range" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="Range.html" class="btn btn-neutral float-left" title="Range" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -832,26 +834,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

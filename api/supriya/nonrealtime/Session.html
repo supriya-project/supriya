@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Session &mdash; Supriya 0.2.0 documentation</title>
+  <title>Session &mdash; Supriya 0.3.0 documentation</title>
   
 
   
@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
@@ -32,21 +39,16 @@
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="DoNotPropagate" href="DoNotPropagate.html" />
     <link rel="prev" title="SessionFactory" href="SessionFactory.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -60,7 +62,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.3.0
               </div>
             
           
@@ -84,54 +86,81 @@
               
             
             
-              <ul>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Supriya API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../cli/index.html">cli</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../commands/index.html">commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../enums.html">enums</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ext/index.html">ext</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../io.html">io</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../live/index.html">live</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../midi/index.html">midi</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="index.html">nonrealtime</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="SessionFactory.html">SessionFactory</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Session</a></li>
-<li class="toctree-l4"><a class="reference internal" href="DoNotPropagate.html">DoNotPropagate</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NodeTransition.html">NodeTransition</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SessionObject.html">SessionObject</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SessionRenderer.html">SessionRenderer</a></li>
-<li class="toctree-l4"><a class="reference internal" href="State.html">State</a></li>
-<li class="toctree-l4"><a class="reference internal" href="AudioInputBusGroup.html">AudioInputBusGroup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="AudioOutputBusGroup.html">AudioOutputBusGroup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Buffer.html">Buffer</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferGroup.html">BufferGroup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Bus.html">Bus</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BusGroup.html">BusGroup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Group.html">Group</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Moment.html">Moment</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Node.html">Node</a></li>
-<li class="toctree-l4"><a class="reference internal" href="RootNode.html">RootNode</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Synth.html">Synth</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cli/index.html">cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clock.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../daw/index.html">daw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../live/index.html">live</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">nonrealtime</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="SessionFactory.html">SessionFactory</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Session</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DoNotPropagate.html">DoNotPropagate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NodeTransition.html">NodeTransition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SessionObject.html">SessionObject</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SessionRenderer.html">SessionRenderer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="State.html">State</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AudioInputBusGroup.html">AudioInputBusGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AudioOutputBusGroup.html">AudioOutputBusGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Buffer.html">Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferGroup.html">BufferGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Bus.html">Bus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BusGroup.html">BusGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Group.html">Group</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Moment.html">Moment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Node.html">Node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="RootNode.html">RootNode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Synth.html">Synth</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../osc/index.html">osc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../soundfiles/index.html">soundfiles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../system/index.html">system</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../time/index.html">time</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
 </ul>
 </li>
 </ul>
-</li>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -176,8 +205,6 @@
   <ul class="wy-breadcrumbs">
     
       <li><a href="../../../index.html">Docs</a> &raquo;</li>
-        
-          <li><a href="../../index.html">Supriya API</a> &raquo;</li>
         
           <li><a href="../index.html">supriya</a> &raquo;</li>
         
@@ -249,7 +276,7 @@
 </div>
 <dl class="class">
 <dt id="supriya.nonrealtime.Session.Session">
-<em class="property">class </em><code class="descclassname">supriya.nonrealtime.Session.</code><code class="descname">Session</code><span class="sig-paren">(</span><em>input_bus_channel_count=None</em>, <em>output_bus_channel_count=None</em>, <em>input_=None</em>, <em>name=None</em>, <em>padding=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">supriya.nonrealtime.Session.</code><code class="sig-name descname">Session</code><span class="sig-paren">(</span><em class="sig-param">input_bus_channel_count=None</em>, <em class="sig-param">output_bus_channel_count=None</em>, <em class="sig-param">input_=None</em>, <em class="sig-param">name=None</em>, <em class="sig-param">padding=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session" title="Permalink to this definition">¶</a></dt>
 <dd><p>A non-realtime session.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.nonrealtime</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">session</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">nonrealtime</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
@@ -260,189 +287,193 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">builder</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mi">440</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">builder</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">out</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>        <span class="n">source</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
-<span class="gp">... </span>            <span class="n">frequency</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s1">&#39;frequency&#39;</span><span class="p">],</span>
-<span class="gp">... </span>            <span class="p">)</span>
-<span class="gp">... </span>        <span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>        <span class="n">source</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SinOsc</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">])</span>
+<span class="gp">... </span>    <span class="p">)</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">0</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">synth_a</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">synthdef</span><span class="o">=</span><span class="n">synthdef</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">synth_b</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">synthdef</span><span class="o">=</span><span class="n">synthdef</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">synth_c</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">synthdef</span><span class="o">=</span><span class="n">synthdef</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">to_lists</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">==</span> <span class="p">[</span>
-<span class="gp">... </span>    <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="p">[</span>
-<span class="gp">... </span>        <span class="p">[</span><span class="s1">&#39;/d_recv&#39;</span><span class="p">,</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">synthdef</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">use_anonymous_name</span><span class="o">=</span><span class="kc">True</span><span class="p">))],</span>
-<span class="gp">... </span>        <span class="p">[</span><span class="s1">&#39;/s_new&#39;</span><span class="p">,</span> <span class="s1">&#39;9c4eb4778dc0faf39459fa8a5cd45c19&#39;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-<span class="gp">... </span>        <span class="p">[</span><span class="s1">&#39;/s_new&#39;</span><span class="p">,</span> <span class="s1">&#39;9c4eb4778dc0faf39459fa8a5cd45c19&#39;</span><span class="p">,</span> <span class="mi">1001</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]],</span>
-<span class="gp">... </span>    <span class="p">[</span><span class="mf">5.0</span><span class="p">,</span> <span class="p">[[</span><span class="s1">&#39;/s_new&#39;</span><span class="p">,</span> <span class="s1">&#39;9c4eb4778dc0faf39459fa8a5cd45c19&#39;</span><span class="p">,</span> <span class="mi">1002</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]],</span>
-<span class="gp">... </span>    <span class="p">[</span><span class="mf">10.0</span><span class="p">,</span> <span class="p">[[</span><span class="s1">&#39;/n_free&#39;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]]],</span>
-<span class="gp">... </span>    <span class="p">[</span><span class="mf">15.0</span><span class="p">,</span> <span class="p">[[</span><span class="s1">&#39;/n_free&#39;</span><span class="p">,</span> <span class="mi">1001</span><span class="p">,</span> <span class="mi">1002</span><span class="p">]]],</span>
+<span class="gp">... </span>    <span class="p">[</span>
+<span class="gp">... </span>        <span class="mf">0.0</span><span class="p">,</span>
+<span class="gp">... </span>        <span class="p">[</span>
+<span class="gp">... </span>            <span class="p">[</span><span class="s2">&quot;/d_recv&quot;</span><span class="p">,</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">synthdef</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">use_anonymous_name</span><span class="o">=</span><span class="kc">True</span><span class="p">))],</span>
+<span class="gp">... </span>            <span class="p">[</span><span class="s2">&quot;/s_new&quot;</span><span class="p">,</span> <span class="s2">&quot;9c4eb4778dc0faf39459fa8a5cd45c19&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>            <span class="p">[</span><span class="s2">&quot;/s_new&quot;</span><span class="p">,</span> <span class="s2">&quot;9c4eb4778dc0faf39459fa8a5cd45c19&quot;</span><span class="p">,</span> <span class="mi">1001</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="gp">... </span>        <span class="p">],</span>
+<span class="gp">... </span>    <span class="p">],</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="mf">5.0</span><span class="p">,</span> <span class="p">[[</span><span class="s2">&quot;/s_new&quot;</span><span class="p">,</span> <span class="s2">&quot;9c4eb4778dc0faf39459fa8a5cd45c19&quot;</span><span class="p">,</span> <span class="mi">1002</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]],</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="mf">10.0</span><span class="p">,</span> <span class="p">[[</span><span class="s2">&quot;/n_free&quot;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]]],</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="mf">15.0</span><span class="p">,</span> <span class="p">[[</span><span class="s2">&quot;/n_free&quot;</span><span class="p">,</span> <span class="mi">1001</span><span class="p">,</span> <span class="mi">1002</span><span class="p">]]],</span>
 <span class="gp">... </span>    <span class="p">[</span><span class="mf">20.0</span><span class="p">,</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]]],</span>
 <span class="gp">... </span><span class="p">]</span>
 <span class="go">True</span>
 </pre></div>
 </div>
 <hr/><p class="class-header rubric">Attributes Summary</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.__graph__" title="supriya.nonrealtime.Session.Session.__graph__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__graph__</span></code></a></td>
-<td>Graphs session.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.__graph__" title="supriya.nonrealtime.Session.Session.__graph__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__graph__</span></code></a></p></td>
+<td><p>Graphs session.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.__render__" title="supriya.nonrealtime.Session.Session.__render__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__render__</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.__render__" title="supriya.nonrealtime.Session.Session.__render__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__render__</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.__repr__" title="supriya.nonrealtime.Session.Session.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></td>
-<td>Return repr(self).</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.__repr__" title="supriya.nonrealtime.Session.Session.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></p></td>
+<td><p>Return repr(self).</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.__session__" title="supriya.nonrealtime.Session.Session.__session__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__session__</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.__session__" title="supriya.nonrealtime.Session.Session.__session__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__session__</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.active_moments" title="supriya.nonrealtime.Session.Session.active_moments"><code class="xref py py-obj docutils literal notranslate"><span class="pre">active_moments</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.active_moments" title="supriya.nonrealtime.Session.Session.active_moments"><code class="xref py py-obj docutils literal notranslate"><span class="pre">active_moments</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.add_buffer" title="supriya.nonrealtime.Session.Session.add_buffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_buffer</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.add_buffer" title="supriya.nonrealtime.Session.Session.add_buffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_buffer</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.add_buffer_group" title="supriya.nonrealtime.Session.Session.add_buffer_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_buffer_group</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.add_buffer_group" title="supriya.nonrealtime.Session.Session.add_buffer_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_buffer_group</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.add_bus" title="supriya.nonrealtime.Session.Session.add_bus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_bus</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.add_bus" title="supriya.nonrealtime.Session.Session.add_bus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_bus</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.add_bus_group" title="supriya.nonrealtime.Session.Session.add_bus_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_bus_group</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.add_bus_group" title="supriya.nonrealtime.Session.Session.add_bus_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_bus_group</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.add_group" title="supriya.nonrealtime.Session.Session.add_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_group</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.add_group" title="supriya.nonrealtime.Session.Session.add_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_group</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.add_synth" title="supriya.nonrealtime.Session.Session.add_synth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_synth</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.add_synth" title="supriya.nonrealtime.Session.Session.add_synth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_synth</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.at" title="supriya.nonrealtime.Session.Session.at"><code class="xref py py-obj docutils literal notranslate"><span class="pre">at</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.at" title="supriya.nonrealtime.Session.Session.at"><code class="xref py py-obj docutils literal notranslate"><span class="pre">at</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.audio_input_bus_group" title="supriya.nonrealtime.Session.Session.audio_input_bus_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">audio_input_bus_group</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.audio_input_bus_group" title="supriya.nonrealtime.Session.Session.audio_input_bus_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">audio_input_bus_group</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.audio_output_bus_group" title="supriya.nonrealtime.Session.Session.audio_output_bus_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">audio_output_bus_group</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.audio_output_bus_group" title="supriya.nonrealtime.Session.Session.audio_output_bus_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">audio_output_bus_group</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.buffers" title="supriya.nonrealtime.Session.Session.buffers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">buffers</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.buffers" title="supriya.nonrealtime.Session.Session.buffers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">buffers</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.buses" title="supriya.nonrealtime.Session.Session.buses"><code class="xref py py-obj docutils literal notranslate"><span class="pre">buses</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.buses" title="supriya.nonrealtime.Session.Session.buses"><code class="xref py py-obj docutils literal notranslate"><span class="pre">buses</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.cue_soundfile" title="supriya.nonrealtime.Session.Session.cue_soundfile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cue_soundfile</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.cue_soundfile" title="supriya.nonrealtime.Session.Session.cue_soundfile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cue_soundfile</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.duration" title="supriya.nonrealtime.Session.Session.duration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">duration</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.duration" title="supriya.nonrealtime.Session.Session.duration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">duration</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.from_project_settings" title="supriya.nonrealtime.Session.Session.from_project_settings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_project_settings</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.from_project_settings" title="supriya.nonrealtime.Session.Session.from_project_settings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_project_settings</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.input_" title="supriya.nonrealtime.Session.Session.input_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">input_</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.input_" title="supriya.nonrealtime.Session.Session.input_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">input_</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.input_bus_channel_count" title="supriya.nonrealtime.Session.Session.input_bus_channel_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">input_bus_channel_count</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.input_bus_channel_count" title="supriya.nonrealtime.Session.Session.input_bus_channel_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">input_bus_channel_count</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.inscribe" title="supriya.nonrealtime.Session.Session.inscribe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inscribe</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.inscribe" title="supriya.nonrealtime.Session.Session.inscribe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">inscribe</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.is_session_like" title="supriya.nonrealtime.Session.Session.is_session_like"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_session_like</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.is_session_like" title="supriya.nonrealtime.Session.Session.is_session_like"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_session_like</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.move_node" title="supriya.nonrealtime.Session.Session.move_node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_node</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.move_node" title="supriya.nonrealtime.Session.Session.move_node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">move_node</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.name" title="supriya.nonrealtime.Session.Session.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.name" title="supriya.nonrealtime.Session.Session.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.nodes" title="supriya.nonrealtime.Session.Session.nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nodes</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.nodes" title="supriya.nonrealtime.Session.Session.nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nodes</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.offsets" title="supriya.nonrealtime.Session.Session.offsets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">offsets</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.offsets" title="supriya.nonrealtime.Session.Session.offsets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">offsets</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.options" title="supriya.nonrealtime.Session.Session.options"><code class="xref py py-obj docutils literal notranslate"><span class="pre">options</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.options" title="supriya.nonrealtime.Session.Session.options"><code class="xref py py-obj docutils literal notranslate"><span class="pre">options</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.output_bus_channel_count" title="supriya.nonrealtime.Session.Session.output_bus_channel_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">output_bus_channel_count</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.output_bus_channel_count" title="supriya.nonrealtime.Session.Session.output_bus_channel_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">output_bus_channel_count</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.padding" title="supriya.nonrealtime.Session.Session.padding"><code class="xref py py-obj docutils literal notranslate"><span class="pre">padding</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.padding" title="supriya.nonrealtime.Session.Session.padding"><code class="xref py py-obj docutils literal notranslate"><span class="pre">padding</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.rebuild_transitions" title="supriya.nonrealtime.Session.Session.rebuild_transitions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rebuild_transitions</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.rebuild_transitions" title="supriya.nonrealtime.Session.Session.rebuild_transitions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rebuild_transitions</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.render" title="supriya.nonrealtime.Session.Session.render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">render</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.render" title="supriya.nonrealtime.Session.Session.render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">render</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.root_node" title="supriya.nonrealtime.Session.Session.root_node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">root_node</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.root_node" title="supriya.nonrealtime.Session.Session.root_node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">root_node</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.set_rand_seed" title="supriya.nonrealtime.Session.Session.set_rand_seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_rand_seed</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.set_rand_seed" title="supriya.nonrealtime.Session.Session.set_rand_seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_rand_seed</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.states" title="supriya.nonrealtime.Session.Session.states"><code class="xref py py-obj docutils literal notranslate"><span class="pre">states</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.states" title="supriya.nonrealtime.Session.Session.states"><code class="xref py py-obj docutils literal notranslate"><span class="pre">states</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.to_lists" title="supriya.nonrealtime.Session.Session.to_lists"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_lists</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.to_lists" title="supriya.nonrealtime.Session.Session.to_lists"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_lists</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.to_osc_bundles" title="supriya.nonrealtime.Session.Session.to_osc_bundles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_osc_bundles</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.to_osc_bundles" title="supriya.nonrealtime.Session.Session.to_osc_bundles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_osc_bundles</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.to_strings" title="supriya.nonrealtime.Session.Session.to_strings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_strings</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.to_strings" title="supriya.nonrealtime.Session.Session.to_strings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_strings</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.nonrealtime.Session.Session.transcript" title="supriya.nonrealtime.Session.Session.transcript"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transcript</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.Session.Session.transcript" title="supriya.nonrealtime.Session.Session.transcript"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transcript</span></code></a></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
 <hr/><p class="class-header rubric">Special methods</p>
 <dl class="method">
 <dt id="supriya.nonrealtime.Session.Session.__graph__">
-<code class="descname">__graph__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.__graph__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.__graph__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__graph__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.__graph__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.__graph__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Graphs session.</p>
 <p>TODO: Get graphviz to respect node order or reimplement as pure SVG.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">session</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">0</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">group</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">add_group</span><span class="p">()</span>
 <span class="gp">... </span>    <span class="n">synth_a</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
 <span class="gp">... </span>    <span class="n">synth_b</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
 <span class="gp">... </span>    <span class="n">synth_c</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mf">7.5</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="n">synth_d</span> <span class="o">=</span> <span class="n">synth_b</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">add_action</span><span class="o">=</span><span class="s1">&#39;ADD_BEFORE&#39;</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>    <span class="n">synth_d</span> <span class="o">=</span> <span class="n">synth_b</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">add_action</span><span class="o">=</span><span class="s2">&quot;ADD_BEFORE&quot;</span><span class="p">)</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="mi">11</span><span class="p">):</span>
-<span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">synth_d</span><span class="o">.</span><span class="n">move_node</span><span class="p">(</span><span class="n">synth_a</span><span class="p">,</span> <span class="n">add_action</span><span class="o">=</span><span class="s1">&#39;ADD_AFTER&#39;</span><span class="p">)</span>
-<span class="gp">...</span>
+<span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">synth_d</span><span class="o">.</span><span class="n">move_node</span><span class="p">(</span><span class="n">synth_a</span><span class="p">,</span> <span class="n">add_action</span><span class="o">=</span><span class="s2">&quot;ADD_AFTER&quot;</span><span class="p">)</span>
+<span class="gp">... </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="n">session</span><span class="p">)</span>  
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">graphviz_graph</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">__graph__</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">format</span><span class="p">(</span><span class="n">graphviz_graph</span><span class="p">,</span> <span class="s1">&#39;graphviz&#39;</span><span class="p">))</span>
+<a href="../../../_images/graphviz-14e865503883b909abe2f4724a982d1c0ccdcf41f4744acd755d5b4842a33542.dot" title="" class="">
+    <img src="../../../_images/graphviz-14e865503883b909abe2f4724a982d1c0ccdcf41f4744acd755d5b4842a33542.svg" alt=""/>
+</a><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">graphviz_graph</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">__graph__</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">format</span><span class="p">(</span><span class="n">graphviz_graph</span><span class="p">,</span> <span class="s2">&quot;graphviz&quot;</span><span class="p">))</span>
 <span class="go">digraph G {</span>
 <span class="go">    graph [bgcolor=transparent,</span>
 <span class="go">        fontname=Arial,</span>
@@ -574,196 +605,196 @@
 
 <dl class="method">
 <dt id="supriya.nonrealtime.Session.Session.__render__">
-<code class="descname">__render__</code><span class="sig-paren">(</span><em>output_file_path=None</em>, <em>render_directory_path=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.__render__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.__render__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__render__</code><span class="sig-paren">(</span><em class="sig-param">output_file_path=None</em>, <em class="sig-param">render_directory_path=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.__render__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.__render__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.nonrealtime.Session.Session.__repr__">
-<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.__repr__" title="Permalink to this definition">¶</a></dt>
+<em class="property">overridden </em><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.__repr__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return repr(self).</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="supriya.nonrealtime.Session.Session.__session__">
-<code class="descname">__session__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.__session__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.__session__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__session__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.__session__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.__session__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <hr/><p class="class-header rubric">Methods</p>
 <dl class="method">
 <dt id="supriya.nonrealtime.Session.Session.add_buffer">
-<code class="descname">add_buffer</code><span class="sig-paren">(</span><em>channel_count=None</em>, <em>duration=None</em>, <em>frame_count=None</em>, <em>starting_frame=None</em>, <em>file_path=None</em>, <em>offset=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.add_buffer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.add_buffer" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_buffer</code><span class="sig-paren">(</span><em class="sig-param">channel_count=None</em>, <em class="sig-param">duration=None</em>, <em class="sig-param">frame_count=None</em>, <em class="sig-param">starting_frame=None</em>, <em class="sig-param">file_path=None</em>, <em class="sig-param">offset=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.add_buffer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.add_buffer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.nonrealtime.Session.Session.add_buffer_group">
-<code class="descname">add_buffer_group</code><span class="sig-paren">(</span><em>buffer_count=1</em>, <em>channel_count=None</em>, <em>duration=None</em>, <em>frame_count=None</em>, <em>offset=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.add_buffer_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.add_buffer_group" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_buffer_group</code><span class="sig-paren">(</span><em class="sig-param">buffer_count=1</em>, <em class="sig-param">channel_count=None</em>, <em class="sig-param">duration=None</em>, <em class="sig-param">frame_count=None</em>, <em class="sig-param">offset=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.add_buffer_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.add_buffer_group" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.nonrealtime.Session.Session.add_bus">
-<code class="descname">add_bus</code><span class="sig-paren">(</span><em>calculation_rate='control'</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.add_bus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.add_bus" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_bus</code><span class="sig-paren">(</span><em class="sig-param">calculation_rate='control'</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.add_bus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.add_bus" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.nonrealtime.Session.Session.add_bus_group">
-<code class="descname">add_bus_group</code><span class="sig-paren">(</span><em>bus_count=1</em>, <em>calculation_rate='control'</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.add_bus_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.add_bus_group" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_bus_group</code><span class="sig-paren">(</span><em class="sig-param">bus_count=1</em>, <em class="sig-param">calculation_rate='control'</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.add_bus_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.add_bus_group" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.nonrealtime.Session.Session.add_group">
-<code class="descname">add_group</code><span class="sig-paren">(</span><em>add_action=None</em>, <em>duration=None</em>, <em>offset=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.add_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.add_group" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_group</code><span class="sig-paren">(</span><em class="sig-param">add_action=None</em>, <em class="sig-param">duration=None</em>, <em class="sig-param">offset=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.add_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.add_group" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.nonrealtime.Session.Session.add_synth">
-<code class="descname">add_synth</code><span class="sig-paren">(</span><em>add_action=None</em>, <em>duration=None</em>, <em>synthdef=None</em>, <em>offset=None</em>, <em>**synth_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.add_synth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.add_synth" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_synth</code><span class="sig-paren">(</span><em class="sig-param">add_action=None</em>, <em class="sig-param">duration=None</em>, <em class="sig-param">synthdef=None</em>, <em class="sig-param">offset=None</em>, <em class="sig-param">**synth_kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.add_synth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.add_synth" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.nonrealtime.Session.Session.at">
-<code class="descname">at</code><span class="sig-paren">(</span><em>offset</em>, <em>propagate=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.at"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.at" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">at</code><span class="sig-paren">(</span><em class="sig-param">offset</em>, <em class="sig-param">propagate=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.at"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.at" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.nonrealtime.Session.Session.cue_soundfile">
-<code class="descname">cue_soundfile</code><span class="sig-paren">(</span><em>file_path</em>, <em>channel_count=None</em>, <em>duration=None</em>, <em>frame_count=32768</em>, <em>starting_frame=0</em>, <em>offset=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.cue_soundfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.cue_soundfile" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">cue_soundfile</code><span class="sig-paren">(</span><em class="sig-param">file_path</em>, <em class="sig-param">channel_count=None</em>, <em class="sig-param">duration=None</em>, <em class="sig-param">frame_count=32768</em>, <em class="sig-param">starting_frame=0</em>, <em class="sig-param">offset=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.cue_soundfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.cue_soundfile" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.nonrealtime.Session.Session.inscribe">
-<code class="descname">inscribe</code><span class="sig-paren">(</span><em>pattern</em>, <em>duration=None</em>, <em>offset=None</em>, <em>seed=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.inscribe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.inscribe" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">inscribe</code><span class="sig-paren">(</span><em class="sig-param">pattern</em>, <em class="sig-param">duration=None</em>, <em class="sig-param">offset=None</em>, <em class="sig-param">seed=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.inscribe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.inscribe" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.nonrealtime.Session.Session.move_node">
-<code class="descname">move_node</code><span class="sig-paren">(</span><em>node</em>, <em>add_action=None</em>, <em>offset=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.move_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.move_node" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">move_node</code><span class="sig-paren">(</span><em class="sig-param">node</em>, <em class="sig-param">add_action=None</em>, <em class="sig-param">offset=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.move_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.move_node" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.nonrealtime.Session.Session.rebuild_transitions">
-<code class="descname">rebuild_transitions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.rebuild_transitions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.rebuild_transitions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">rebuild_transitions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.rebuild_transitions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.rebuild_transitions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.nonrealtime.Session.Session.render">
-<code class="descname">render</code><span class="sig-paren">(</span><em>output_file_path=None</em>, <em>debug=None</em>, <em>duration=None</em>, <em>header_format=HeaderFormat.AIFF</em>, <em>input_file_path=None</em>, <em>render_directory_path=None</em>, <em>sample_format=SampleFormat.INT24</em>, <em>sample_rate=44100</em>, <em>print_transcript=None</em>, <em>transcript_prefix=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.render"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.render" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">render</code><span class="sig-paren">(</span><em class="sig-param">output_file_path=None</em>, <em class="sig-param">debug=None</em>, <em class="sig-param">duration=None</em>, <em class="sig-param">header_format=HeaderFormat.AIFF</em>, <em class="sig-param">input_file_path=None</em>, <em class="sig-param">render_directory_path=None</em>, <em class="sig-param">sample_format=SampleFormat.INT24</em>, <em class="sig-param">sample_rate=44100</em>, <em class="sig-param">print_transcript=None</em>, <em class="sig-param">transcript_prefix=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.render"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.render" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.nonrealtime.Session.Session.set_rand_seed">
-<code class="descname">set_rand_seed</code><span class="sig-paren">(</span><em>rand_id=0</em>, <em>rand_seed=0</em>, <em>offset=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.set_rand_seed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.set_rand_seed" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_rand_seed</code><span class="sig-paren">(</span><em class="sig-param">rand_id=0</em>, <em class="sig-param">rand_seed=0</em>, <em class="sig-param">offset=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.set_rand_seed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.set_rand_seed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.nonrealtime.Session.Session.to_lists">
-<code class="descname">to_lists</code><span class="sig-paren">(</span><em>duration=None</em>, <em>header_format=HeaderFormat.AIFF</em>, <em>sample_format=SampleFormat.INT24</em>, <em>sample_rate=44100</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.to_lists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.to_lists" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">to_lists</code><span class="sig-paren">(</span><em class="sig-param">duration=None</em>, <em class="sig-param">header_format=HeaderFormat.AIFF</em>, <em class="sig-param">sample_format=SampleFormat.INT24</em>, <em class="sig-param">sample_rate=44100</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.to_lists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.to_lists" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.nonrealtime.Session.Session.to_osc_bundles">
-<code class="descname">to_osc_bundles</code><span class="sig-paren">(</span><em>duration=None</em>, <em>header_format=HeaderFormat.AIFF</em>, <em>sample_format=SampleFormat.INT24</em>, <em>sample_rate=44100</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.to_osc_bundles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.to_osc_bundles" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">to_osc_bundles</code><span class="sig-paren">(</span><em class="sig-param">duration=None</em>, <em class="sig-param">header_format=HeaderFormat.AIFF</em>, <em class="sig-param">sample_format=SampleFormat.INT24</em>, <em class="sig-param">sample_rate=44100</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.to_osc_bundles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.to_osc_bundles" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.nonrealtime.Session.Session.to_strings">
-<code class="descname">to_strings</code><span class="sig-paren">(</span><em>include_controls=False</em>, <em>include_timespans=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.to_strings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.to_strings" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">to_strings</code><span class="sig-paren">(</span><em class="sig-param">include_controls=False</em>, <em class="sig-param">include_timespans=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.to_strings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.to_strings" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <hr/><p class="class-header rubric">Class &amp; static methods</p>
-<dl class="classmethod">
+<dl class="method">
 <dt id="supriya.nonrealtime.Session.Session.from_project_settings">
-<em class="property">classmethod </em><code class="descname">from_project_settings</code><span class="sig-paren">(</span><em>project_settings</em>, <em>input_=None</em>, <em>name=None</em>, <em>padding=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.from_project_settings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.from_project_settings" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-name descname">from_project_settings</code><span class="sig-paren">(</span><em class="sig-param">project_settings</em>, <em class="sig-param">input_=None</em>, <em class="sig-param">name=None</em>, <em class="sig-param">padding=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.from_project_settings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.from_project_settings" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="staticmethod">
+<dl class="method">
 <dt id="supriya.nonrealtime.Session.Session.is_session_like">
-<em class="property">static </em><code class="descname">is_session_like</code><span class="sig-paren">(</span><em>expr</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.is_session_like"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.is_session_like" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">is_session_like</code><span class="sig-paren">(</span><em class="sig-param">expr</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/Session.html#Session.is_session_like"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.Session.Session.is_session_like" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <hr/><p class="class-header rubric">Read-only properties</p>
 <dl class="attribute">
 <dt id="supriya.nonrealtime.Session.Session.active_moments">
-<code class="descname">active_moments</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.active_moments" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">active_moments</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.active_moments" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.nonrealtime.Session.Session.audio_input_bus_group">
-<code class="descname">audio_input_bus_group</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.audio_input_bus_group" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">audio_input_bus_group</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.audio_input_bus_group" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.nonrealtime.Session.Session.audio_output_bus_group">
-<code class="descname">audio_output_bus_group</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.audio_output_bus_group" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">audio_output_bus_group</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.audio_output_bus_group" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.nonrealtime.Session.Session.buffers">
-<code class="descname">buffers</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.buffers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">buffers</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.buffers" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.nonrealtime.Session.Session.buses">
-<code class="descname">buses</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.buses" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">buses</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.buses" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.nonrealtime.Session.Session.duration">
-<code class="descname">duration</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.duration" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">duration</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.duration" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.nonrealtime.Session.Session.input_">
-<code class="descname">input_</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.input_" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">input_</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.input_" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.nonrealtime.Session.Session.input_bus_channel_count">
-<code class="descname">input_bus_channel_count</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.input_bus_channel_count" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">input_bus_channel_count</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.input_bus_channel_count" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.nonrealtime.Session.Session.name">
-<code class="descname">name</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">name</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.nonrealtime.Session.Session.nodes">
-<code class="descname">nodes</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.nodes" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">nodes</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.nodes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.nonrealtime.Session.Session.offsets">
-<code class="descname">offsets</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.offsets" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">offsets</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.offsets" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.nonrealtime.Session.Session.options">
-<code class="descname">options</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.options" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">options</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.options" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.nonrealtime.Session.Session.output_bus_channel_count">
-<code class="descname">output_bus_channel_count</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.output_bus_channel_count" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">output_bus_channel_count</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.output_bus_channel_count" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.nonrealtime.Session.Session.padding">
-<code class="descname">padding</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.padding" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">padding</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.padding" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.nonrealtime.Session.Session.root_node">
-<code class="descname">root_node</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.root_node" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">root_node</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.root_node" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.nonrealtime.Session.Session.states">
-<code class="descname">states</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.states" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">states</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.states" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="supriya.nonrealtime.Session.Session.transcript">
-<code class="descname">transcript</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.transcript" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">transcript</code><a class="headerlink" href="#supriya.nonrealtime.Session.Session.transcript" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -781,7 +812,7 @@
         <a href="DoNotPropagate.html" class="btn btn-neutral float-right" title="DoNotPropagate" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="SessionFactory.html" class="btn btn-neutral" title="SessionFactory" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="SessionFactory.html" class="btn btn-neutral float-left" title="SessionFactory" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -807,26 +838,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

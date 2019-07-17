@@ -1,0 +1,382 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>MixerContext &mdash; Supriya 0.3.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Note" href="Note.html" />
+    <link rel="prev" title="MidiRack" href="MidiRack.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cli/index.html">cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clock.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">daw</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="synthdefs.html">synthdefs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Chain.html">Chain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Receive.html">Receive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Application.html">Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ArpeggiatorDevice.html">ArpeggiatorDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AudioChain.html">AudioChain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AudioDevice.html">AudioDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AudioRack.html">AudioRack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ChainContainer.html">ChainContainer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ChainReceive.html">ChainReceive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ChordDevice.html">ChordDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Clip.html">Clip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClipSlot.html">ClipSlot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ClipSlotContainer.html">ClipSlotContainer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DCDevice.html">DCDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DawContainer.html">DawContainer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DawMeta.html">DawMeta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DawNode.html">DawNode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Device.html">Device</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DeviceContainer.html">DeviceContainer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GroupTrack.html">GroupTrack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Instrument.html">Instrument</a></li>
+<li class="toctree-l3"><a class="reference internal" href="InstrumentChain.html">InstrumentChain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="InstrumentRack.html">InstrumentRack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MidiChain.html">MidiChain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MidiDevice.html">MidiDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MidiRack.html">MidiRack</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">MixerContext</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Note.html">Note</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NoteSelector.html">NoteSelector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Parameter.html">Parameter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="RackDevice.html">RackDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="RackReceive.html">RackReceive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ReturnChain.html">ReturnChain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SamplerDevice.html">SamplerDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ScaleDevice.html">ScaleDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Scene.html">Scene</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SceneContainer.html">SceneContainer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Send.html">Send</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SendContainer.html">SendContainer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SendManager.html">SendManager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Track.html">Track</a></li>
+<li class="toctree-l3"><a class="reference internal" href="TrackContainer.html">TrackContainer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="TrackReceive.html">TrackReceive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Transport.html">Transport</a></li>
+<li class="toctree-l3"><a class="reference internal" href="VelocityDevice.html">VelocityDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DeviceType.html">DeviceType</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../live/index.html">live</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">supriya</a> &raquo;</li>
+        
+          <li><a href="index.html">daw</a> &raquo;</li>
+        
+      <li>MixerContext</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/supriya/daw/MixerContext.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-supriya.daw.MixerContext">
+<span id="mixercontext"></span><span id="supriya-daw-mixercontext"></span><h1>MixerContext<a class="headerlink" href="#module-supriya.daw.MixerContext" title="Permalink to this headline">¶</a></h1>
+<div class="svg-container docutils container">
+<div class="graphviz"><object data="../../../_images/inheritance-a7d55dc21279a69e52afed7e28e042a409789ae3.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">digraph InheritanceGraph {
+    graph [bgcolor=transparent,
+        color=lightsteelblue2,
+        fontname=Arial,
+        fontsize=10,
+        outputorder=edgesfirst,
+        overlap=prism,
+        penwidth=2,
+        rankdir=LR,
+        splines=spline,
+        style=&quot;dashed, rounded&quot;,
+        truecolor=true];
+    node [colorscheme=pastel19,
+        fontname=Arial,
+        fontsize=10,
+        height=0,
+        penwidth=2,
+        shape=box,
+        style=&quot;filled, rounded&quot;,
+        width=0];
+    edge [color=lightslategrey,
+        penwidth=1];
+    subgraph cluster_builtins {
+        graph [label=builtins];
+        node [color=1];
+        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3.6/library/functions.html#object&quot;,
+            label=object,
+            target=_top];
+    }
+    subgraph &quot;cluster_supriya.daw&quot; {
+        graph [label=&quot;supriya.daw&quot;];
+        node [color=2];
+        &quot;supriya.daw.Application.Application&quot; [URL=&quot;../api/supriya/daw/Application.html#supriya.daw.Application.Application&quot;,
+            label=Application,
+            target=_top];
+        &quot;supriya.daw.AudioRack.AudioRack&quot; [URL=&quot;../api/supriya/daw/AudioRack.html#supriya.daw.AudioRack.AudioRack&quot;,
+            label=&quot;Audio\nRack&quot;,
+            target=_top];
+        &quot;supriya.daw.InstrumentRack.InstrumentRack&quot; [URL=&quot;../api/supriya/daw/InstrumentRack.html#supriya.daw.InstrumentRack.InstrumentRack&quot;,
+            label=&quot;Instrument\nRack&quot;,
+            target=_top];
+        &quot;supriya.daw.MidiRack.MidiRack&quot; [URL=&quot;../api/supriya/daw/MidiRack.html#supriya.daw.MidiRack.MidiRack&quot;,
+            label=&quot;Midi\nRack&quot;,
+            target=_top];
+        &quot;supriya.daw.MixerContext.MixerContext&quot; [URL=&quot;../api/supriya/daw/MixerContext.html#supriya.daw.MixerContext.MixerContext&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Mixer\nContext&quot;,
+            target=_top];
+        &quot;supriya.daw.RackDevice.RackDevice&quot; [URL=&quot;../api/supriya/daw/RackDevice.html#supriya.daw.RackDevice.RackDevice&quot;,
+            label=&quot;Rack\nDevice&quot;,
+            target=_top];
+        &quot;supriya.daw.MixerContext.MixerContext&quot; -&gt; &quot;supriya.daw.Application.Application&quot;;
+        &quot;supriya.daw.MixerContext.MixerContext&quot; -&gt; &quot;supriya.daw.RackDevice.RackDevice&quot;;
+        &quot;supriya.daw.RackDevice.RackDevice&quot; -&gt; &quot;supriya.daw.AudioRack.AudioRack&quot;;
+        &quot;supriya.daw.RackDevice.RackDevice&quot; -&gt; &quot;supriya.daw.InstrumentRack.InstrumentRack&quot;;
+        &quot;supriya.daw.RackDevice.RackDevice&quot; -&gt; &quot;supriya.daw.MidiRack.MidiRack&quot;;
+    }
+    &quot;builtins.object&quot; -&gt; &quot;supriya.daw.MixerContext.MixerContext&quot;;
+}</p></object></div>
+</div>
+<dl class="class">
+<dt id="supriya.daw.MixerContext.MixerContext">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.daw.MixerContext.</code><code class="sig-name descname">MixerContext</code><a class="reference internal" href="../../../_modules/supriya/daw/MixerContext.html#MixerContext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.daw.MixerContext.MixerContext" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Note.html" class="btn btn-neutral float-right" title="Note" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="MidiRack.html" class="btn btn-neutral float-left" title="MidiRack" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

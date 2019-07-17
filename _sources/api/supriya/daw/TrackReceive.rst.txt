@@ -1,0 +1,90 @@
+.. _supriya--daw--TrackReceive:
+
+TrackReceive
+============
+
+.. automodule:: supriya.daw.TrackReceive
+
+.. currentmodule:: supriya.daw.TrackReceive
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.daw.TrackReceive
+
+.. autoclass:: TrackReceive
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      preceding_bus_group
+      succeeding_bus_group
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read/write properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: TrackReceive.name
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: TrackReceive.application
+
+   .. container:: inherited
+
+      .. autoattribute:: TrackReceive.channel_count
+
+   .. container:: inherited
+
+      .. autoattribute:: TrackReceive.depth
+
+   .. container:: inherited
+
+      .. autoattribute:: TrackReceive.graph_order
+
+   .. container:: inherited
+
+      .. autoattribute:: TrackReceive.mixer_context
+
+   .. container:: inherited
+
+      .. autoattribute:: TrackReceive.node
+
+   .. container:: inherited
+
+      .. autoattribute:: TrackReceive.parent
+
+   .. container:: inherited
+
+      .. autoattribute:: TrackReceive.parentage
+
+   .. autoattribute:: TrackReceive.preceding_bus_group
+
+   .. container:: inherited
+
+      .. autoattribute:: TrackReceive.root
+
+   .. container:: inherited
+
+      .. autoattribute:: TrackReceive.server
+
+   .. autoattribute:: TrackReceive.succeeding_bus_group

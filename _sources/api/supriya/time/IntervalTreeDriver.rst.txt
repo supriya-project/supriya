@@ -1,0 +1,82 @@
+.. _supriya--time--IntervalTreeDriver:
+
+IntervalTreeDriver
+==================
+
+.. automodule:: supriya.time.IntervalTreeDriver
+
+.. currentmodule:: supriya.time.IntervalTreeDriver
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.time.IntervalTreeDriver
+
+.. autoclass:: IntervalTreeDriver
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __contains__
+      __getitem__
+      __iter__
+      __len__
+      add
+      find_intervals_intersecting_interval
+      find_intervals_intersecting_offset
+      find_intervals_starting_at
+      find_intervals_stopping_at
+      get_start_offset_after
+      get_start_offset_before
+      index
+      remove
+      update
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: IntervalTreeDriver.__contains__
+
+   .. automethod:: IntervalTreeDriver.__getitem__
+
+   .. automethod:: IntervalTreeDriver.__iter__
+
+   .. automethod:: IntervalTreeDriver.__len__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: IntervalTreeDriver.add
+
+   .. automethod:: IntervalTreeDriver.find_intervals_intersecting_interval
+
+   .. automethod:: IntervalTreeDriver.find_intervals_intersecting_offset
+
+   .. automethod:: IntervalTreeDriver.find_intervals_starting_at
+
+   .. automethod:: IntervalTreeDriver.find_intervals_stopping_at
+
+   .. automethod:: IntervalTreeDriver.get_start_offset_after
+
+   .. automethod:: IntervalTreeDriver.get_start_offset_before
+
+   .. automethod:: IntervalTreeDriver.index
+
+   .. automethod:: IntervalTreeDriver.remove
+
+   .. automethod:: IntervalTreeDriver.update

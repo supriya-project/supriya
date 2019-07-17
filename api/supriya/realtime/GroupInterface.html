@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>GroupInterface &mdash; Supriya 0.2.0 documentation</title>
+  <title>GroupInterface &mdash; Supriya 0.3.0 documentation</title>
   
 
   
@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
@@ -32,21 +39,16 @@
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="NodeIdAllocator" href="NodeIdAllocator.html" />
     <link rel="prev" title="GroupControl" href="GroupControl.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -60,7 +62,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.3.0
               </div>
             
           
@@ -84,62 +86,89 @@
               
             
             
-              <ul>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Supriya API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../cli/index.html">cli</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../commands/index.html">commands</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../enums.html">enums</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ext/index.html">ext</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../io.html">io</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../live/index.html">live</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../midi/index.html">midi</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../osc/index.html">osc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="index.html">realtime</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="Node.html">Node</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ServerObjectProxy.html">ServerObjectProxy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Buffer.html">Buffer</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferGroup.html">BufferGroup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Bus.html">Bus</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BusGroup.html">BusGroup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Group.html">Group</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Server.html">Server</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ServerOptions.html">ServerOptions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Synth.html">Synth</a></li>
-<li class="toctree-l4"><a class="reference internal" href="AudioInputBusGroup.html">AudioInputBusGroup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="AudioOutputBusGroup.html">AudioOutputBusGroup</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Block.html">Block</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BlockAllocator.html">BlockAllocator</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BufferProxy.html">BufferProxy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="BusProxy.html">BusProxy</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ControlInterface.html">ControlInterface</a></li>
-<li class="toctree-l4"><a class="reference internal" href="GroupControl.html">GroupControl</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">GroupInterface</a></li>
-<li class="toctree-l4"><a class="reference internal" href="NodeIdAllocator.html">NodeIdAllocator</a></li>
-<li class="toctree-l4"><a class="reference internal" href="RootNode.html">RootNode</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ServerMeters.html">ServerMeters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="ServerRecorder.html">ServerRecorder</a></li>
-<li class="toctree-l4"><a class="reference internal" href="StatusWatcher.html">StatusWatcher</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthControl.html">SynthControl</a></li>
-<li class="toctree-l4"><a class="reference internal" href="SynthInterface.html">SynthInterface</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../cli/index.html">cli</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clock.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../daw/index.html">daw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../live/index.html">live</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../midi/index.html">midi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">realtime</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="Node.html">Node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerObject.html">ServerObject</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BootOptions.html">BootOptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Buffer.html">Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferGroup.html">BufferGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Bus.html">Bus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BusGroup.html">BusGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Group.html">Group</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Server.html">Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Synth.html">Synth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AudioInputBusGroup.html">AudioInputBusGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AudioOutputBusGroup.html">AudioOutputBusGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Block.html">Block</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BlockAllocator.html">BlockAllocator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BufferProxy.html">BufferProxy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BusProxy.html">BusProxy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ControlInterface.html">ControlInterface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GroupControl.html">GroupControl</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">GroupInterface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NodeIdAllocator.html">NodeIdAllocator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="RootNode.html">RootNode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerMeters.html">ServerMeters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ServerRecorder.html">ServerRecorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="StatusWatcher.html">StatusWatcher</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthControl.html">SynthControl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SynthInterface.html">SynthInterface</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../soundfiles/index.html">soundfiles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../system/index.html">system</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../time/index.html">time</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../utils/index.html">utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system/index.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
 </ul>
 </li>
 </ul>
-</li>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -184,8 +213,6 @@
   <ul class="wy-breadcrumbs">
     
       <li><a href="../../../index.html">Docs</a> &raquo;</li>
-        
-          <li><a href="../../index.html">Supriya API</a> &raquo;</li>
         
           <li><a href="../index.html">supriya</a> &raquo;</li>
         
@@ -271,127 +298,129 @@
 </div>
 <dl class="class">
 <dt id="supriya.realtime.GroupInterface.GroupInterface">
-<em class="property">class </em><code class="descclassname">supriya.realtime.GroupInterface.</code><code class="descname">GroupInterface</code><span class="sig-paren">(</span><em>client=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/GroupInterface.html#GroupInterface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.GroupInterface.GroupInterface" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">supriya.realtime.GroupInterface.</code><code class="sig-name descname">GroupInterface</code><span class="sig-paren">(</span><em class="sig-param">client=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/GroupInterface.html#GroupInterface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.GroupInterface.GroupInterface" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interface to group controls.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">server</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span><span class="o">.</span><span class="n">boot</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">group</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Group</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">group</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span>
-<span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">synthdef</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">test</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">synthdef</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">default</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">synthdef</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">default</span><span class="p">),</span>
-<span class="gp">... </span>    <span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[</span>
+<span class="gp">... </span>        <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">synthdef</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">test</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">synthdef</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">default</span><span class="p">),</span>
+<span class="gp">... </span>        <span class="n">supriya</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">synthdef</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">default</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="p">]</span>
+<span class="gp">... </span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">control</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">controls</span><span class="p">[</span><span class="s1">&#39;amplitude&#39;</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">control</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">controls</span><span class="p">[</span><span class="s2">&quot;amplitude&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">group</span><span class="o">.</span><span class="n">controls</span><span class="p">[</span><span class="s1">&#39;frequency&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">777</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">group</span><span class="o">.</span><span class="n">controls</span><span class="p">[</span><span class="s2">&quot;frequency&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">777</span>
 </pre></div>
 </div>
 <hr/><p class="class-header rubric">Attributes Summary</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.realtime.GroupInterface.GroupInterface.__contains__" title="supriya.realtime.GroupInterface.GroupInterface.__contains__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__contains__</span></code></a></td>
-<td></td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.GroupInterface.GroupInterface.__contains__" title="supriya.realtime.GroupInterface.GroupInterface.__contains__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__contains__</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.realtime.GroupInterface.GroupInterface.__getitem__" title="supriya.realtime.GroupInterface.GroupInterface.__getitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__getitem__</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.GroupInterface.GroupInterface.__getitem__" title="supriya.realtime.GroupInterface.GroupInterface.__getitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__getitem__</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.realtime.GroupInterface.GroupInterface.__iter__" title="supriya.realtime.GroupInterface.GroupInterface.__iter__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__iter__</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.GroupInterface.GroupInterface.__iter__" title="supriya.realtime.GroupInterface.GroupInterface.__iter__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__iter__</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.realtime.GroupInterface.GroupInterface.__len__" title="supriya.realtime.GroupInterface.GroupInterface.__len__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__len__</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.GroupInterface.GroupInterface.__len__" title="supriya.realtime.GroupInterface.GroupInterface.__len__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__len__</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.realtime.GroupInterface.GroupInterface.__repr__" title="supriya.realtime.GroupInterface.GroupInterface.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></td>
-<td>Return repr(self).</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.GroupInterface.GroupInterface.__repr__" title="supriya.realtime.GroupInterface.GroupInterface.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></p></td>
+<td><p>Return repr(self).</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.realtime.GroupInterface.GroupInterface.__setitem__" title="supriya.realtime.GroupInterface.GroupInterface.__setitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__setitem__</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.GroupInterface.GroupInterface.__setitem__" title="supriya.realtime.GroupInterface.GroupInterface.__setitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__setitem__</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.realtime.GroupInterface.GroupInterface.add_controls" title="supriya.realtime.GroupInterface.GroupInterface.add_controls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_controls</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.GroupInterface.GroupInterface.add_controls" title="supriya.realtime.GroupInterface.GroupInterface.add_controls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_controls</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.realtime.GroupInterface.GroupInterface.as_dict" title="supriya.realtime.GroupInterface.GroupInterface.as_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">as_dict</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.GroupInterface.GroupInterface.as_dict" title="supriya.realtime.GroupInterface.GroupInterface.as_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">as_dict</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#supriya.realtime.GroupInterface.GroupInterface.remove_controls" title="supriya.realtime.GroupInterface.GroupInterface.remove_controls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_controls</span></code></a></td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.realtime.GroupInterface.GroupInterface.remove_controls" title="supriya.realtime.GroupInterface.GroupInterface.remove_controls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_controls</span></code></a></p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#supriya.realtime.GroupInterface.GroupInterface.reset" title="supriya.realtime.GroupInterface.GroupInterface.reset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset</span></code></a></td>
-<td></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.realtime.GroupInterface.GroupInterface.reset" title="supriya.realtime.GroupInterface.GroupInterface.reset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset</span></code></a></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
 <hr/><p class="class-header rubric">Special methods</p>
 <dl class="method">
 <dt id="supriya.realtime.GroupInterface.GroupInterface.__contains__">
-<code class="descname">__contains__</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/GroupInterface.html#GroupInterface.__contains__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.GroupInterface.GroupInterface.__contains__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__contains__</code><span class="sig-paren">(</span><em class="sig-param">item</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/GroupInterface.html#GroupInterface.__contains__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.GroupInterface.GroupInterface.__contains__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.realtime.GroupInterface.GroupInterface.__getitem__">
-<code class="descname">__getitem__</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/GroupInterface.html#GroupInterface.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.GroupInterface.GroupInterface.__getitem__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param">item</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/GroupInterface.html#GroupInterface.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.GroupInterface.GroupInterface.__getitem__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.realtime.GroupInterface.GroupInterface.__iter__">
-<code class="descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/GroupInterface.html#GroupInterface.__iter__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.GroupInterface.GroupInterface.__iter__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/GroupInterface.html#GroupInterface.__iter__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.GroupInterface.GroupInterface.__iter__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.realtime.GroupInterface.GroupInterface.__len__">
-<code class="descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/GroupInterface.html#GroupInterface.__len__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.GroupInterface.GroupInterface.__len__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/GroupInterface.html#GroupInterface.__len__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.GroupInterface.GroupInterface.__len__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.realtime.GroupInterface.GroupInterface.__repr__">
-<code class="descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/GroupInterface.html#GroupInterface.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.GroupInterface.GroupInterface.__repr__" title="Permalink to this definition">¶</a></dt>
+<em class="property">overridden </em><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/GroupInterface.html#GroupInterface.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.GroupInterface.GroupInterface.__repr__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return repr(self).</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="supriya.realtime.GroupInterface.GroupInterface.__setitem__">
-<code class="descname">__setitem__</code><span class="sig-paren">(</span><em>items</em>, <em>values</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/GroupInterface.html#GroupInterface.__setitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.GroupInterface.GroupInterface.__setitem__" title="Permalink to this definition">¶</a></dt>
+<em class="property">overridden </em><code class="sig-name descname">__setitem__</code><span class="sig-paren">(</span><em class="sig-param">items</em>, <em class="sig-param">values</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/GroupInterface.html#GroupInterface.__setitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.GroupInterface.GroupInterface.__setitem__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <hr/><p class="class-header rubric">Methods</p>
 <dl class="method">
 <dt id="supriya.realtime.GroupInterface.GroupInterface.add_controls">
-<code class="descname">add_controls</code><span class="sig-paren">(</span><em>control_interface_dict</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/GroupInterface.html#GroupInterface.add_controls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.GroupInterface.GroupInterface.add_controls" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_controls</code><span class="sig-paren">(</span><em class="sig-param">control_interface_dict</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/GroupInterface.html#GroupInterface.add_controls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.GroupInterface.GroupInterface.add_controls" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.realtime.GroupInterface.GroupInterface.as_dict">
-<code class="descname">as_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/GroupInterface.html#GroupInterface.as_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.GroupInterface.GroupInterface.as_dict" title="Permalink to this definition">¶</a></dt>
+<em class="property">overridden </em><code class="sig-name descname">as_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/GroupInterface.html#GroupInterface.as_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.GroupInterface.GroupInterface.as_dict" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.realtime.GroupInterface.GroupInterface.remove_controls">
-<code class="descname">remove_controls</code><span class="sig-paren">(</span><em>control_interface_dict</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/GroupInterface.html#GroupInterface.remove_controls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.GroupInterface.GroupInterface.remove_controls" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">remove_controls</code><span class="sig-paren">(</span><em class="sig-param">control_interface_dict</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/GroupInterface.html#GroupInterface.remove_controls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.GroupInterface.GroupInterface.remove_controls" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="supriya.realtime.GroupInterface.GroupInterface.reset">
-<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/GroupInterface.html#GroupInterface.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.GroupInterface.GroupInterface.reset" title="Permalink to this definition">¶</a></dt>
+<em class="property">overridden </em><code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/realtime/GroupInterface.html#GroupInterface.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.realtime.GroupInterface.GroupInterface.reset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <hr/><p class="class-header rubric">Read-only properties</p>
 <div class="inherited docutils container">
 <dl class="attribute">
 <dt id="supriya.realtime.GroupInterface.GroupInterface.client">
-<code class="descclassname">(<a class="reference internal" href="ControlInterface.html#supriya.realtime.ControlInterface.ControlInterface" title="supriya.realtime.ControlInterface.ControlInterface"><code class="descclassname docutils literal notranslate"><span class="pre">ControlInterface</span></code></a>).</code><code class="descname">client</code><a class="headerlink" href="#supriya.realtime.GroupInterface.GroupInterface.client" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="ControlInterface.html#supriya.realtime.ControlInterface.ControlInterface" title="supriya.realtime.ControlInterface.ControlInterface"><code class="descclassname docutils literal notranslate"><span class="pre">ControlInterface</span></code></a>).</code><code class="sig-name descname">client</code><a class="headerlink" href="#supriya.realtime.GroupInterface.GroupInterface.client" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
 <dl class="attribute">
 <dt id="supriya.realtime.GroupInterface.GroupInterface.node_id">
-<code class="descclassname">(<a class="reference internal" href="ControlInterface.html#supriya.realtime.ControlInterface.ControlInterface" title="supriya.realtime.ControlInterface.ControlInterface"><code class="descclassname docutils literal notranslate"><span class="pre">ControlInterface</span></code></a>).</code><code class="descname">node_id</code><a class="headerlink" href="#supriya.realtime.GroupInterface.GroupInterface.node_id" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="ControlInterface.html#supriya.realtime.ControlInterface.ControlInterface" title="supriya.realtime.ControlInterface.ControlInterface"><code class="descclassname docutils literal notranslate"><span class="pre">ControlInterface</span></code></a>).</code><code class="sig-name descname">node_id</code><a class="headerlink" href="#supriya.realtime.GroupInterface.GroupInterface.node_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -410,7 +439,7 @@
         <a href="NodeIdAllocator.html" class="btn btn-neutral float-right" title="NodeIdAllocator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="GroupControl.html" class="btn btn-neutral" title="GroupControl" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="GroupControl.html" class="btn btn-neutral float-left" title="GroupControl" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -436,26 +465,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

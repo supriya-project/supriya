@@ -8,11 +8,6 @@
  viewBox="0.00 0.00 251.00 111.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 107)">
 <title>InheritanceGraph</title>
-<g id="clust1" class="cluster">
-<title>cluster_builtins</title>
-<path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M20,-24C20,-24 49,-24 49,-24 55,-24 61,-30 61,-36 61,-36 61,-67 61,-67 61,-73 55,-79 49,-79 49,-79 20,-79 20,-79 14,-79 8,-73 8,-67 8,-67 8,-36 8,-36 8,-30 14,-24 20,-24"/>
-<text text-anchor="middle" x="34.5" y="-67" font-family="Arial" font-size="10.00" fill="#000000">builtins</text>
-</g>
 <g id="clust2" class="cluster">
 <title>cluster_supriya.synthdefs</title>
 <path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M180,-8C180,-8 231,-8 231,-8 237,-8 243,-14 243,-20 243,-20 243,-83 243,-83 243,-89 237,-95 231,-95 231,-95 180,-95 180,-95 174,-95 168,-89 168,-83 168,-83 168,-20 168,-20 168,-14 174,-8 180,-8"/>
@@ -22,6 +17,11 @@
 <title>cluster_supriya.system</title>
 <path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M93,-19C93,-19 136,-19 136,-19 142,-19 148,-25 148,-31 148,-31 148,-72 148,-72 148,-78 142,-84 136,-84 136,-84 93,-84 93,-84 87,-84 81,-78 81,-72 81,-72 81,-31 81,-31 81,-25 87,-19 93,-19"/>
 <text text-anchor="middle" x="114.5" y="-72" font-family="Arial" font-size="10.00" fill="#000000">supriya.system</text>
+</g>
+<g id="clust1" class="cluster">
+<title>cluster_builtins</title>
+<path fill="transparent" stroke="#bcd2ee" stroke-width="2" stroke-dasharray="5,2" d="M20,-24C20,-24 49,-24 49,-24 55,-24 61,-30 61,-36 61,-36 61,-67 61,-67 61,-73 55,-79 49,-79 49,-79 20,-79 20,-79 14,-79 8,-73 8,-67 8,-67 8,-36 8,-36 8,-30 14,-24 20,-24"/>
+<text text-anchor="middle" x="34.5" y="-67" font-family="Arial" font-size="10.00" fill="#000000">builtins</text>
 </g>
 <!-- builtins.object&#45;&gt;supriya.system.SupriyaObject.SupriyaObject -->
 <g id="edge1" class="edge">

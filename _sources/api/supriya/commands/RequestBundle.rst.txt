@@ -27,8 +27,6 @@ RequestBundle
       condition
       contents
       timestamp
-      to_datagram
-      to_list
       to_osc
 
    .. raw:: html
@@ -65,9 +63,13 @@ RequestBundle
 
       .. automethod:: RequestBundle.communicate
 
-   .. automethod:: RequestBundle.to_datagram
+   .. container:: inherited
 
-   .. automethod:: RequestBundle.to_list
+      .. automethod:: RequestBundle.to_datagram
+
+   .. container:: inherited
+
+      .. automethod:: RequestBundle.to_list
 
    .. automethod:: RequestBundle.to_osc
 

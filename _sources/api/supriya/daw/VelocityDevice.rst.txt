@@ -1,0 +1,100 @@
+.. _supriya--daw--VelocityDevice:
+
+VelocityDevice
+==============
+
+.. automodule:: supriya.daw.VelocityDevice
+
+.. currentmodule:: supriya.daw.VelocityDevice
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.daw.VelocityDevice
+
+.. autoclass:: VelocityDevice
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: VelocityDevice.delete
+
+   .. container:: inherited
+
+      .. automethod:: VelocityDevice.next_device
+
+   .. container:: inherited
+
+      .. automethod:: VelocityDevice.perform
+
+   .. container:: inherited
+
+      .. automethod:: VelocityDevice.start
+
+   .. container:: inherited
+
+      .. automethod:: VelocityDevice.stop
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read/write properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: VelocityDevice.name
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: VelocityDevice.application
+
+   .. container:: inherited
+
+      .. autoattribute:: VelocityDevice.channel_count
+
+   .. container:: inherited
+
+      .. autoattribute:: VelocityDevice.depth
+
+   .. container:: inherited
+
+      .. autoattribute:: VelocityDevice.graph_order
+
+   .. container:: inherited
+
+      .. autoattribute:: VelocityDevice.mixer_context
+
+   .. container:: inherited
+
+      .. autoattribute:: VelocityDevice.node
+
+   .. container:: inherited
+
+      .. autoattribute:: VelocityDevice.parent
+
+   .. container:: inherited
+
+      .. autoattribute:: VelocityDevice.parentage
+
+   .. container:: inherited
+
+      .. autoattribute:: VelocityDevice.root
+
+   .. container:: inherited
+
+      .. autoattribute:: VelocityDevice.server

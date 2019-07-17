@@ -1,0 +1,161 @@
+.. _supriya--daw--DeviceContainer:
+
+DeviceContainer
+===============
+
+.. automodule:: supriya.daw.DeviceContainer
+
+.. currentmodule:: supriya.daw.DeviceContainer
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.daw.DeviceContainer
+
+.. autoclass:: DeviceContainer
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      device_types
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: DeviceContainer.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: DeviceContainer.__delitem__
+
+   .. container:: inherited
+
+      .. automethod:: DeviceContainer.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: DeviceContainer.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: DeviceContainer.__len__
+
+   .. container:: inherited
+
+      .. automethod:: DeviceContainer.__setitem__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: DeviceContainer.append
+
+   .. container:: inherited
+
+      .. automethod:: DeviceContainer.depth_first
+
+   .. container:: inherited
+
+      .. automethod:: DeviceContainer.extend
+
+   .. container:: inherited
+
+      .. automethod:: DeviceContainer.index
+
+   .. container:: inherited
+
+      .. automethod:: DeviceContainer.insert
+
+   .. container:: inherited
+
+      .. automethod:: DeviceContainer.pop
+
+   .. container:: inherited
+
+      .. automethod:: DeviceContainer.recurse
+
+   .. container:: inherited
+
+      .. automethod:: DeviceContainer.remove
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read/write properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: DeviceContainer.name
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: DeviceContainer.application
+
+   .. container:: inherited
+
+      .. autoattribute:: DeviceContainer.channel_count
+
+   .. container:: inherited
+
+      .. autoattribute:: DeviceContainer.children
+
+   .. container:: inherited
+
+      .. autoattribute:: DeviceContainer.depth
+
+   .. autoattribute:: DeviceContainer.device_types
+
+   .. container:: inherited
+
+      .. autoattribute:: DeviceContainer.graph_order
+
+   .. container:: inherited
+
+      .. autoattribute:: DeviceContainer.mixer_context
+
+   .. container:: inherited
+
+      .. autoattribute:: DeviceContainer.node
+
+   .. container:: inherited
+
+      .. autoattribute:: DeviceContainer.parent
+
+   .. container:: inherited
+
+      .. autoattribute:: DeviceContainer.parentage
+
+   .. container:: inherited
+
+      .. autoattribute:: DeviceContainer.root
+
+   .. container:: inherited
+
+      .. autoattribute:: DeviceContainer.server

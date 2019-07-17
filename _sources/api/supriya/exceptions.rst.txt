@@ -33,9 +33,12 @@ exceptions
    ~NonrealtimeOutputMissing
    ~NonrealtimeRenderError
    ~NotAllocated
+   ~OwnedServerShutdown
    ~RequestTimeout
    ~ServerCannotBoot
    ~ServerOffline
+   ~TooManyClients
+   ~UnownedServerShutdown
 
 .. autoexception:: AlreadyAllocated
 
@@ -59,8 +62,14 @@ exceptions
 
 .. autoexception:: NotAllocated
 
+.. autoexception:: OwnedServerShutdown
+
 .. autoexception:: RequestTimeout
 
 .. autoexception:: ServerCannotBoot
 
 .. autoexception:: ServerOffline
+
+.. autoexception:: TooManyClients
+
+.. autoexception:: UnownedServerShutdown

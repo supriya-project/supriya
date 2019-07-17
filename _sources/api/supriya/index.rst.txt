@@ -23,7 +23,9 @@ supriya
    :hidden:
 
    cli/index
+   clock
    commands/index
+   daw/index
    enums
    exceptions
    ext/index
@@ -34,18 +36,20 @@ supriya
    osc/index
    patterns/index
    realtime/index
-   soundfiles/index
+   soundfiles
    synthdefs/index
    system/index
    time/index
    ugens/index
-   utils/index
+   utils
 
 .. autosummary::
    :nosignatures:
 
    cli
+   clock
    commands
+   daw
    enums
    exceptions
    ext

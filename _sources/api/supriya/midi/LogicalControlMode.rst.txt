@@ -15,17 +15,3 @@ LogicalControlMode
 .. autoclass:: LogicalControlMode
    :members:
    :undoc-members:
-
-   .. raw:: html
-
-      <hr/>
-
-   .. rubric:: Attributes Summary
-      :class: class-header
-
-   .. autosummary::
-      :nosignatures:
-
-      CONTINUOUS
-      TOGGLE
-      TRIGGER

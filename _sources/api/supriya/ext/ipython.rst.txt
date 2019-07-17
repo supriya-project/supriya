@@ -23,11 +23,8 @@ ipython
    :nosignatures:
 
    ~load_ipython_extension
-   ~patch_grapher
    ~patch_player
 
 .. autofunction:: load_ipython_extension
-
-.. autofunction:: patch_grapher
 
 .. autofunction:: patch_player

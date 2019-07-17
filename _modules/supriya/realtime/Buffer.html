@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>supriya.realtime.Buffer &mdash; Supriya 0.2.0 documentation</title>
+  <title>supriya.realtime.Buffer &mdash; Supriya 0.3.0 documentation</title>
   
 
   
@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -58,7 +60,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.3.0
               </div>
             
           
@@ -82,11 +84,39 @@
               
             
             
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
-</ul>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">Supriya API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/supriya/index.html">supriya</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -155,16 +185,16 @@
 <span></span><span class="kn">import</span> <span class="nn">collections</span>
 
 <span class="kn">import</span> <span class="nn">supriya.exceptions</span>
-<span class="kn">from</span> <span class="nn">supriya.realtime.ServerObjectProxy</span> <span class="k">import</span> <span class="n">ServerObjectProxy</span>
+<span class="kn">from</span> <span class="nn">supriya.realtime.ServerObject</span> <span class="k">import</span> <span class="n">ServerObject</span>
 
 
-<div class="viewcode-block" id="Buffer"><a class="viewcode-back" href="../../../api/supriya/realtime/Buffer.html#supriya.realtime.Buffer.Buffer">[docs]</a><span class="k">class</span> <span class="nc">Buffer</span><span class="p">(</span><span class="n">ServerObjectProxy</span><span class="p">):</span>
+<div class="viewcode-block" id="Buffer"><a class="viewcode-back" href="../../../api/supriya/realtime/Buffer.html#supriya.realtime.Buffer.Buffer">[docs]</a><span class="k">class</span> <span class="nc">Buffer</span><span class="p">(</span><span class="n">ServerObject</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A buffer.</span>
 
 <span class="sd">    ::</span>
 
-<span class="sd">        &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">        &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 
 <span class="sd">    ::</span>
 
@@ -202,7 +232,7 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">buffer_group_or_index</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="kn">import</span> <span class="nn">supriya.realtime</span>
 
-        <span class="n">ServerObjectProxy</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">ServerObject</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">buffer_group</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">buffer_id</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id_was_set_manually</span> <span class="o">=</span> <span class="kc">False</span>
@@ -223,7 +253,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_one = supriya.realtime.Buffer().allocate(frame_count=8)</span>
 <span class="sd">            &gt;&gt;&gt; buffer_two = supriya.realtime.Buffer().allocate(frame_count=8)</span>
 
@@ -272,7 +302,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_one = supriya.realtime.Buffer().allocate(frame_count=8)</span>
 <span class="sd">            &gt;&gt;&gt; buffer_two = supriya.realtime.Buffer().allocate(frame_count=8)</span>
 
@@ -321,7 +351,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_ = supriya.realtime.Buffer()</span>
 <span class="sd">            &gt;&gt;&gt; repr(buffer_)</span>
 <span class="sd">            &#39;&lt;- Buffer: ???&gt;&#39;</span>
@@ -354,7 +384,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">buffer_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">buffer_allocator</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">buffer_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">ServerObjectProxy</span><span class="o">.</span><span class="n">free</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+                <span class="n">ServerObject</span><span class="o">.</span><span class="n">free</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span> <span class="o">=</span> <span class="n">buffer_id</span>
 
@@ -410,7 +440,7 @@
         <span class="n">buffers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">_buffers</span><span class="p">[</span><span class="n">buffer_id</span><span class="p">]</span>
         <span class="n">buffers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">buffers</span><span class="p">:</span>
-            <span class="k">del</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">_buffers</span><span class="p">[</span><span class="n">buffer_id</span><span class="p">])</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">_buffers</span><span class="p">[</span><span class="n">buffer_id</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">buffer_id</span>
 
     <span class="k">def</span> <span class="nf">_unregister_with_remote_server</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">buffer_id</span><span class="p">):</span>
@@ -430,7 +460,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_one = supriya.realtime.Buffer().allocate()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_one.query()</span>
 <span class="sd">            BufferInfoResponse(</span>
@@ -482,7 +512,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_allocated</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BufferAlreadyAllocated</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">ServerObjectProxy</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
+            <span class="n">ServerObject</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
             <span class="n">channel_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">channel_count</span><span class="p">)</span>
             <span class="n">frame_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">frame_count</span><span class="p">)</span>
             <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">channel_count</span>
@@ -512,7 +542,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_one = supriya.realtime.Buffer().allocate_from_file(</span>
 <span class="sd">            ...     supriya.system.Assets[&#39;audio/pulse_44100sr_16bit_octo.wav&#39;],</span>
 <span class="sd">            ...     )</span>
@@ -566,7 +596,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_allocated</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">BufferAlreadyAllocated</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">ServerObjectProxy</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
+            <span class="n">ServerObject</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_allocate_buffer_id</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_register_with_local_server</span><span class="p">()</span>
             <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_register_with_remote_server</span><span class="p">(</span>
@@ -577,7 +607,7 @@
             <span class="p">)</span>
             <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="p">,</span> <span class="n">sync</span><span class="o">=</span><span class="n">sync</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-            <span class="n">ServerObjectProxy</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
+            <span class="n">ServerObject</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
 <div class="viewcode-block" id="Buffer.close"><a class="viewcode-back" href="../../../api/supriya/realtime/Buffer.html#supriya.realtime.Buffer.Buffer.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
@@ -587,7 +617,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_ = supriya.realtime.Buffer().allocate(</span>
 <span class="sd">            ...     channel_count=8,</span>
 <span class="sd">            ...     frame_count=8,</span>
@@ -628,7 +658,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_one = supriya.realtime.Buffer().allocate(frame_count=4)</span>
 <span class="sd">            &gt;&gt;&gt; buffer_two = supriya.realtime.Buffer().allocate(frame_count=4)</span>
 <span class="sd">            &gt;&gt;&gt; buffer_one.fill([(0, 4, 0.5)])</span>
@@ -676,7 +706,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_one = supriya.realtime.Buffer().allocate(frame_count=4)</span>
 <span class="sd">            &gt;&gt;&gt; buffer_two = supriya.realtime.Buffer().allocate(frame_count=4)</span>
 <span class="sd">            &gt;&gt;&gt; buffer_one.fill([(0, 4, 0.5)])</span>
@@ -721,7 +751,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_ = supriya.realtime.Buffer().allocate(</span>
 <span class="sd">            ...     frame_count=8,</span>
 <span class="sd">            ...     server=server,</span>
@@ -767,7 +797,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id_was_set_manually</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">buffer_allocator</span><span class="o">.</span><span class="n">free</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buffer_id</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_id</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">ServerObjectProxy</span><span class="o">.</span><span class="n">free</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">ServerObject</span><span class="o">.</span><span class="n">free</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
 <div class="viewcode-block" id="Buffer.fill_via_chebyshev"><a class="viewcode-back" href="../../../api/supriya/realtime/Buffer.html#supriya.realtime.Buffer.Buffer.fill_via_chebyshev">[docs]</a>    <span class="k">def</span> <span class="nf">fill_via_chebyshev</span><span class="p">(</span>
@@ -783,7 +813,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_ = supriya.realtime.Buffer().allocate(</span>
 <span class="sd">            ...     frame_count=8,</span>
 <span class="sd">            ...     server=server,</span>
@@ -843,7 +873,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_ = supriya.realtime.Buffer().allocate(</span>
 <span class="sd">            ...     frame_count=8,</span>
 <span class="sd">            ...     server=server,</span>
@@ -904,7 +934,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_ = supriya.realtime.Buffer().allocate(</span>
 <span class="sd">            ...     frame_count=8,</span>
 <span class="sd">            ...     server=server,</span>
@@ -971,7 +1001,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_ = supriya.realtime.Buffer().allocate(</span>
 <span class="sd">            ...     frame_count=8,</span>
 <span class="sd">            ...     server=server,</span>
@@ -1032,7 +1062,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_ = supriya.realtime.Buffer().allocate(</span>
 <span class="sd">            ...     frame_count=4,</span>
 <span class="sd">            ...     server=server,</span>
@@ -1073,7 +1103,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_ = supriya.realtime.Buffer().allocate(</span>
 <span class="sd">            ...     frame_count=4,</span>
 <span class="sd">            ...     server=server,</span>
@@ -1116,7 +1146,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_ = supriya.realtime.Buffer().allocate_from_file(</span>
 <span class="sd">            ...     supriya.system.Assets[&#39;audio/pulse_44100sr_16bit_octo.wav&#39;],</span>
 <span class="sd">            ...     )</span>
@@ -1192,7 +1222,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_ = supriya.realtime.Buffer().allocate(</span>
 <span class="sd">            ...     channel_count=2,</span>
 <span class="sd">            ...     frame_count=16,</span>
@@ -1242,7 +1272,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_ = supriya.realtime.Buffer().allocate(</span>
 <span class="sd">            ...     channel_count=2,</span>
 <span class="sd">            ...     frame_count=8,</span>
@@ -1325,7 +1355,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_ = supriya.realtime.Buffer().allocate(</span>
 <span class="sd">            ...     frame_count=8,</span>
 <span class="sd">            ...     )</span>
@@ -1369,7 +1399,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_ = supriya.realtime.Buffer().allocate(</span>
 <span class="sd">            ...     frame_count=8,</span>
 <span class="sd">            ...     )</span>
@@ -1421,7 +1451,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_one = supriya.realtime.Buffer().allocate_from_file(</span>
 <span class="sd">            ...     supriya.system.Assets[&#39;audio/pulse_44100sr_16bit_octo.wav&#39;],</span>
 <span class="sd">            ...     channel_indices=(0,),</span>
@@ -1487,7 +1517,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_ = supriya.realtime.Buffer().allocate(</span>
 <span class="sd">            ...     frame_count=8,</span>
 <span class="sd">            ...     sync=True,</span>
@@ -1545,7 +1575,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_one = supriya.realtime.Buffer().allocate(frame_count=8)</span>
 <span class="sd">            &gt;&gt;&gt; buffer_one.buffer_group is None</span>
 <span class="sd">            True</span>
@@ -1585,7 +1615,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_one = supriya.realtime.Buffer()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_one.buffer_id is None</span>
 <span class="sd">            True</span>
@@ -1656,7 +1686,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_one = supriya.realtime.Buffer().allocate(</span>
 <span class="sd">            ...     frame_count=8,</span>
 <span class="sd">            ...     )</span>
@@ -1697,7 +1727,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_ = supriya.realtime.Buffer()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_.duration_in_seconds</span>
 <span class="sd">            0.0</span>
@@ -1728,7 +1758,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_ = supriya.realtime.Buffer()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_.frame_count</span>
 <span class="sd">            0</span>
@@ -1759,7 +1789,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_one = supriya.realtime.Buffer().allocate(frame_count=16)</span>
 <span class="sd">            &gt;&gt;&gt; buffer_two = supriya.realtime.Buffer().allocate(</span>
 <span class="sd">            ...     channel_count=2,</span>
@@ -1820,7 +1850,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_ = supriya.realtime.Buffer()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_.sample_rate</span>
 <span class="sd">            0</span>
@@ -1851,7 +1881,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_ = supriya.realtime.Buffer()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_.is_allocated</span>
 <span class="sd">            False</span>
@@ -1881,7 +1911,7 @@
 
 <span class="sd">        ::</span>
 
-<span class="sd">            &gt;&gt;&gt; server = supriya.realtime.Server().boot()</span>
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_ = supriya.realtime.Buffer()</span>
 <span class="sd">            &gt;&gt;&gt; buffer_.server is None</span>
 <span class="sd">            True</span>
@@ -1932,26 +1962,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

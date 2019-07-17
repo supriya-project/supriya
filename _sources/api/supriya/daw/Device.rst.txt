@@ -1,0 +1,106 @@
+.. _supriya--daw--Device:
+
+Device
+======
+
+.. automodule:: supriya.daw.Device
+
+.. currentmodule:: supriya.daw.Device
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.daw.Device
+
+.. autoclass:: Device
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      delete
+      next_device
+      perform
+      start
+      stop
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: Device.delete
+
+   .. automethod:: Device.next_device
+
+   .. automethod:: Device.perform
+
+   .. automethod:: Device.start
+
+   .. automethod:: Device.stop
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read/write properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Device.name
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Device.application
+
+   .. container:: inherited
+
+      .. autoattribute:: Device.channel_count
+
+   .. container:: inherited
+
+      .. autoattribute:: Device.depth
+
+   .. container:: inherited
+
+      .. autoattribute:: Device.graph_order
+
+   .. container:: inherited
+
+      .. autoattribute:: Device.mixer_context
+
+   .. container:: inherited
+
+      .. autoattribute:: Device.node
+
+   .. container:: inherited
+
+      .. autoattribute:: Device.parent
+
+   .. container:: inherited
+
+      .. autoattribute:: Device.parentage
+
+   .. container:: inherited
+
+      .. autoattribute:: Device.root
+
+   .. container:: inherited
+
+      .. autoattribute:: Device.server

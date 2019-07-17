@@ -25,9 +25,9 @@ StatusWatcher
       :nosignatures:
 
       __call__
-      active
       attempts
       callback
+      is_active
       max_attempts
       run
       server
@@ -93,11 +93,11 @@ StatusWatcher
    .. rubric:: Read/write properties
       :class: class-header
 
-   .. autoattribute:: StatusWatcher.active
-
    .. container:: inherited
 
       .. autoattribute:: StatusWatcher.daemon
+
+   .. autoattribute:: StatusWatcher.is_active
 
    .. container:: inherited
 

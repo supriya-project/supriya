@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>supriya.commands.Requestable &mdash; Supriya 0.2.0 documentation</title>
+  <title>supriya.commands.Requestable &mdash; Supriya 0.3.0 documentation</title>
   
 
   
@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -58,7 +60,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.3.0
               </div>
             
           
@@ -82,11 +84,39 @@
               
             
             
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
-</ul>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">Supriya API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/supriya/index.html">supriya</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
 </ul>
 
             
@@ -152,10 +182,13 @@
            <div itemprop="articleBody">
             
   <h1>Source code for supriya.commands.Requestable</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">threading</span>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
 <span class="kn">from</span> <span class="nn">supriya.system.SupriyaValueObject</span> <span class="k">import</span> <span class="n">SupriyaValueObject</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;supriya.osc&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="Requestable"><a class="viewcode-back" href="../../../api/supriya/commands/Requestable.html#supriya.commands.BufferAllocateReadChannelRequest.Requestable">[docs]</a><span class="k">class</span> <span class="nc">Requestable</span><span class="p">(</span><span class="n">SupriyaValueObject</span><span class="p">):</span>
@@ -172,7 +205,7 @@
 
     <span class="c1">### PRIVATE METHODS ###</span>
 
-    <span class="k">def</span> <span class="nf">_get_response_pattern_and_requestable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_get_response_patterns_and_requestable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
     <span class="k">def</span> <span class="nf">_handle_async</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sync</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
@@ -180,6 +213,11 @@
 
     <span class="k">def</span> <span class="nf">_linearize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="k">def</span> <span class="nf">_sanitize_node_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node_id</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="n">with_placeholders</span><span class="p">:</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_set_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">condition</span><span class="p">:</span>
@@ -191,7 +229,7 @@
 <div class="viewcode-block" id="Requestable.communicate"><a class="viewcode-back" href="../../../api/supriya/commands/Requestable.html#supriya.commands.BufferAllocateReadChannelRequest.Requestable.communicate">[docs]</a>    <span class="k">def</span> <span class="nf">communicate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">apply_local</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="kn">import</span> <span class="nn">supriya.realtime</span>
 
-        <span class="n">server</span> <span class="o">=</span> <span class="n">server</span> <span class="ow">or</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">get_default_server</span><span class="p">()</span>
+        <span class="n">server</span> <span class="o">=</span> <span class="n">server</span> <span class="ow">or</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="p">)</span>
         <span class="k">assert</span> <span class="n">server</span><span class="o">.</span><span class="n">is_running</span>
         <span class="k">with</span> <span class="n">server</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
@@ -201,18 +239,25 @@
         <span class="c1"># handle non-sync</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_async</span><span class="p">(</span><span class="n">sync</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
             <span class="k">return</span>
-        <span class="n">response_pattern</span><span class="p">,</span> <span class="n">requestable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_response_pattern_and_requestable</span><span class="p">(</span>
-            <span class="n">server</span>
-        <span class="p">)</span>
+        <span class="p">(</span>
+            <span class="n">success_pattern</span><span class="p">,</span>
+            <span class="n">failure_pattern</span><span class="p">,</span>
+            <span class="n">requestable</span><span class="p">,</span>
+        <span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_response_patterns_and_requestable</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
         <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
         <span class="n">timed_out</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">condition</span><span class="p">:</span>
-            <span class="n">server</span><span class="o">.</span><span class="n">osc_io</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
-                <span class="n">pattern</span><span class="o">=</span><span class="n">response_pattern</span><span class="p">,</span>
-                <span class="n">procedure</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_set_response</span><span class="p">,</span>
-                <span class="n">once</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">parse_response</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">server</span><span class="o">.</span><span class="n">osc_io</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+                    <span class="n">pattern</span><span class="o">=</span><span class="n">success_pattern</span><span class="p">,</span>
+                    <span class="n">failure_pattern</span><span class="o">=</span><span class="n">failure_pattern</span><span class="p">,</span>
+                    <span class="n">procedure</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_set_response</span><span class="p">,</span>
+                    <span class="n">once</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">parse_response</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+                <span class="k">raise</span>
             <span class="n">server</span><span class="o">.</span><span class="n">send_message</span><span class="p">(</span><span class="n">requestable</span><span class="p">)</span>
             <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">condition</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="p">)</span>
@@ -222,9 +267,19 @@
                     <span class="n">timed_out</span> <span class="o">=</span> <span class="kc">True</span>
                     <span class="k">break</span>
         <span class="k">if</span> <span class="n">timed_out</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;TIMED OUT:&quot;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Timed out: </span><span class="si">{!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_response</span></div>
+
+<div class="viewcode-block" id="Requestable.to_datagram"><a class="viewcode-back" href="../../../api/supriya/commands/Requestable.html#supriya.commands.BufferAllocateReadChannelRequest.Requestable.to_datagram">[docs]</a>    <span class="k">def</span> <span class="nf">to_datagram</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">with_request_name</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_osc</span><span class="p">(</span>
+            <span class="n">with_placeholders</span><span class="o">=</span><span class="n">with_placeholders</span><span class="p">,</span> <span class="n">with_request_name</span><span class="o">=</span><span class="n">with_request_name</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">to_datagram</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Requestable.to_list"><a class="viewcode-back" href="../../../api/supriya/commands/Requestable.html#supriya.commands.BufferAllocateReadChannelRequest.Requestable.to_list">[docs]</a>    <span class="k">def</span> <span class="nf">to_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">with_request_name</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_osc</span><span class="p">(</span>
+            <span class="n">with_placeholders</span><span class="o">=</span><span class="n">with_placeholders</span><span class="p">,</span> <span class="n">with_request_name</span><span class="o">=</span><span class="n">with_request_name</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span></div>
 
     <span class="c1">### PUBLIC PROPERTIES ###</span>
 
@@ -264,26 +319,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>
