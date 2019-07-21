@@ -1,3 +1,4 @@
+import collections
 import dataclasses
 import enum
 import fractions
@@ -7,129 +8,14 @@ import queue
 import threading
 import time
 import traceback
-from typing import Any, Callable, Dict, Optional, Set, Tuple
+from typing import Callable, Dict, NamedTuple, Optional, Tuple
 
-logger = logging.getLogger(__name__.lower())
+from supriya import conversions
 
-
-def measure_to_offset(
-    measure: int,
-    time_signature: Tuple[int, int],
-    previous_measure: int,
-    previous_time_signature_change_offset: float,
-) -> float:
-    return (
-        (measure - previous_measure) * (time_signature[0] / time_signature[1])
-    ) + previous_time_signature_change_offset
-
-
-def offset_to_measure(
-    offset: float,
-    time_signature: Tuple[int, int],
-    previous_measure: int,
-    previous_time_signature_change_offset: float,
-) -> int:
-    return (
-        int(
-            (offset - previous_time_signature_change_offset)
-            // (time_signature[0] / time_signature[1])
-        )
-        + previous_measure
-    )
-
-
-def offset_to_measure_offset(
-    offset: float,
-    time_signature: Tuple[int, int],
-    previous_time_signature_change_offset: float,
-) -> float:
-    return (offset - previous_time_signature_change_offset) % (
-        time_signature[0] / time_signature[1]
-    )
-
-
-def offset_to_seconds(
-    beats_per_minute: float,
-    current_offset: float,
-    previous_offset: float,
-    previous_time: float,
-    beat_duration: float,
-) -> float:
-    return (
-        (current_offset - previous_offset) / (beats_per_minute / 60) / beat_duration
-    ) + previous_time
-
-
-def seconds_to_offset(
-    beats_per_minute: float,
-    current_time: float,
-    previous_offset: float,
-    previous_time: float,
-    beat_duration: float,
-) -> float:
-    return (
-        (current_time - previous_time) * (beats_per_minute / 60) * beat_duration
-    ) + previous_offset
+logger = logging.getLogger(__name__)
 
 
 class EventQueue(queue.PriorityQueue):
-    """
-    A priority queue with peeking and item removal.
-
-    ::
-
-        >>> from supriya.clock import EventQueue
-        >>> from dataclasses import dataclass, field
-        >>> from typing import Any
-
-    ::
-
-        >>> @dataclass(frozen=True, order=True)
-        ... class PrioritizedItem:
-        ...     priority: int
-        ...     item: Any=field(compare=False)
-        ...
-
-    ::
-
-        >>> item_a = PrioritizedItem(priority=3, item="three")
-        >>> item_b = PrioritizedItem(priority=0, item="zero")
-        >>> item_c = PrioritizedItem(priority=2, item="two")
-        >>> item_d = PrioritizedItem(priority=1, item="one")
-
-    ::
-
-        >>> pq = EventQueue()
-        >>> pq.put(item_a)
-        >>> pq.put(item_b)
-        >>> pq.put(item_c)
-        >>> pq.put(item_d)
-
-    ::
-
-        >>> pq.get()
-        (0, PrioritizedItem(priority=0, item='zero'))
-
-    ::
-
-        >>> pq.peek()
-        1
-
-    ::
-
-        >>> pq.get()
-        (1, PrioritizedItem(priority=1, item='one'))
-
-    ::
-
-        >>> pq.remove(item_c)
-
-    ::
-
-        >>> pq.get()
-        (3, PrioritizedItem(priority=3, item='three'))
-
-    """
 
     ### PRIVATE METHODS ###
 
@@ -137,10 +23,8 @@ class EventQueue(queue.PriorityQueue):
         self.queue = []
         self.items = {}
 
-    # TODO: Ditch priority lookup, let item sort itself
-
     def _put(self, item):
-        entry = [item.priority, item, True]
+        entry = [item, True]
         if item in self.items:
             self.items[item][-1] = False
         self.items[item] = entry
@@ -148,10 +32,10 @@ class EventQueue(queue.PriorityQueue):
 
     def _get(self):
         while self.queue:
-            priority, item, active = super()._get()
+            item, active = super()._get()
             if active:
                 del self.items[item]
-                return priority, item
+                return item
         raise queue.Empty
 
     ### PUBLIC METHODS ###
@@ -162,59 +46,17 @@ class EventQueue(queue.PriorityQueue):
 
     def peek(self):
         with self.mutex:
-            priority, item = self._get()
-            entry = [priority, item, True]
+            item = self._get()
+            entry = [item, True]
             self.items[item] = entry
             super()._put(entry)
-        return priority
+        return item
 
     def remove(self, item):
         with self.mutex:
-            entry = self.items.pop(item)
-            entry[-1] = False
-
-
-class TimeUnit(enum.IntEnum):
-    BEATS = 0
-    SECONDS = 1
-    MEASURES = 2
-
-
-class EventType(enum.IntEnum):
-    CHANGE = 0
-    SCHEDULE = 1
-
-
-@dataclasses.dataclass(frozen=True)
-class SchedulerEvent:
-    seconds: float
-    event_type: int
-    event_id: int
-    measure: Optional[int]
-    offset: Optional[float]
-
-
-@dataclasses.dataclass(frozen=True, order=True)
-class ChangeEvent(SchedulerEvent):
-    beats_per_minute: Optional[float] = dataclasses.field(compare=False)
-    time_signature: Optional[Tuple[int, int]] = dataclasses.field(compare=False)
-
-    @property
-    def priority(self):
-        return (self.seconds, self.event_type, self.event_id)
-
-
-@dataclasses.dataclass(frozen=True, order=True)
-class CallbackEvent(SchedulerEvent):
-    procedure: Callable
-    args: Tuple[Any, ...] = dataclasses.field(compare=False)
-    kwargs: Optional[Dict[str, Any]] = dataclasses.field(compare=False)
-    start_time: float = dataclasses.field(compare=False)
-    invocations: int = dataclasses.field(compare=False)
-
-    @property
-    def priority(self):
-        return (self.seconds, self.event_type, self.event_id)
+            entry = self.items.pop(item, None)
+            if entry is not None:
+                entry[-1] = False
 
 
 @dataclasses.dataclass(frozen=True)
@@ -224,57 +66,88 @@ class Moment:
         "measure",
         "measure_offset",
         "offset",
-        "time",
+        "seconds",
         "time_signature",
     )
     beats_per_minute: float
     measure: int
     measure_offset: float
     offset: float
-    time: float
+    seconds: float
     time_signature: Tuple[int, int]
 
 
+class ClockState(NamedTuple):
+    beats_per_minute: float
+    initial_seconds: float
+    previous_measure: int
+    previous_offset: float
+    previous_seconds: float
+    previous_time_signature_change_offset: float
+    time_signature: Tuple[int, int]
+
+
+class EventType(enum.IntEnum):
+    CHANGE = 0
+    SCHEDULE = 1
+
+
+class TimeUnit(enum.IntEnum):
+    BEATS = 0
+    SECONDS = 1
+    MEASURES = 2
+
+
+class CallbackCommand(NamedTuple):
+    args: Optional[Tuple]
+    event_id: int
+    event_type: int
+    kwargs: Optional[Dict]
+    procedure: Callable
+    quantization: Optional[str]
+    schedule_at: float
+    time_unit: Optional[int]
+
+
+class CallbackEvent(NamedTuple):
+    seconds: float
+    event_type: int
+    event_id: int
+    measure: Optional[int]
+    offset: Optional[float]
+    procedure: Callable
+    args: Optional[Tuple]
+    kwargs: Optional[Dict]
+    invocations: int
+
+    def __hash__(self):
+        return hash((type(self), self.event_id))
+
+
+class ChangeCommand(NamedTuple):
+    beats_per_minute: Optional[float]
+    event_id: int
+    event_type: int
+    quantization: Optional[str]
+    schedule_at: float
+    time_signature: Optional[Tuple[int, int]]
+    time_unit: Optional[int]
+
+
+class ChangeEvent(NamedTuple):
+    seconds: float
+    event_type: int
+    event_id: int
+    measure: Optional[int]
+    offset: Optional[float]
+    beats_per_minute: float
+    time_signature: Tuple[int, int]
+
+    def __hash__(self):
+        return hash((type(self), self.event_id))
+
+
 class TempoClock:
-    """
-    A tempo clock.
-
-    ::
-
-        >>> from supriya.clock import TempoClock
-        >>> tempo_clock = TempoClock()
-        >>> tempo_clock.start()
-
-    ::
-
-        >>> def callback(curren_moment, desired_moment, event, *args, **kwargs):
-        ...     print((
-        ...         f"Now: {desired_moment.time}\t"
-        ...         f"{desired_moment.offset}\t{event.invocations}"
-        ...     ))
-        ...     if event.invocations < 10:
-        ...         return 0.25 * (event.invocations + 1)
-        ...
-
-    ::
-
-        >>> tempo_clock.schedule(callback, schedule_at=0.5)  # doctest: +SKIP
-        Now: 1557405529.107658  503.5   0
-        Now: 1557405529.232717  503.75  1
-        Now: 1557405529.48273   504.25  2
-        Now: 1557405529.857601  505.0   3
-        Now: 1557405530.357594  506.0   4
-        Now: 1557405530.9826088 507.25  5
-        Now: 1557405531.7326021 508.75  6
-        Now: 1557405532.6076071 510.5   7
-        Now: 1557405533.607612  512.5   8
-        Now: 1557405534.7327209 514.75  9
-        Now: 1557405535.9825962 517.25  10
-
-    """
-
-    # TODO: Use separate dataclass (or instance) for desired moment vs current moment
-    # TODO: Pass desired and current moment as separate arguments to callbacks
 
     ### CLASS VARIABLES ###
 
@@ -296,224 +169,188 @@ class TempoClock:
         ]
     )
 
-    __slots__ = (
-        "_beats_per_minute",
-        "_condition",
-        "_counter",
-        "_events_by_id",
-        "_is_running",
-        "_lock",
-        "_measure_relative_event_ids",
-        "_name",
-        "_offset_relative_event_ids",
-        "_previous_measure",
-        "_previous_offset",
-        "_previous_time",
-        "_previous_time_signature_change_offset",
-        "_queue",
-        "_slop",
-        "_thread",
-        "_time_signature",
-    )
-
     ### INITIALIZER ###
 
-    def __init__(self, name: Optional[str] = None):
-        self._name = name
-        # Mechanics
+    def __init__(self):
+        self._name = None
         self._lock = threading.RLock()
         self._condition = threading.Condition(self._lock)
+        self._counter = itertools.count()
+        self._command_deque = collections.deque()
+        self._event_queue = EventQueue()
         self._thread = threading.Thread(target=self._run, daemon=True)
         self._is_running = False
-        self._slop: float = 0.0001
-        self._counter = itertools.count()
-        self._queue = EventQueue()
-        self._measure_relative_event_ids: Set[SchedulerEvent] = set()
-        self._offset_relative_event_ids: Set[SchedulerEvent] = set()
-        self._events_by_id: Dict[int, SchedulerEvent] = {}
-        # Time keeping
-        self._beats_per_minute: float = 120.0
-        self._previous_measure: int = 1
-        self._previous_offset: float = 0.0
-        self._previous_time: float = 0.0
-        self._previous_time_signature_change_offset: float = 0.0
-        self._time_signature: Tuple[int, int] = (4, 4)
-
-    ### PRIVATE METHODS ###
-
-    def _add_to_queue(self, event) -> int:
-        with self._lock:
-            self._events_by_id[event.event_id] = event
-            if event.offset is not None:
-                self._offset_relative_event_ids.add(event.event_id)
-            if event.measure is not None:
-                self._measure_relative_event_ids.add(event.event_id)
-            self._queue.put(event)
-            self._condition.notify()
-            return event.event_id
-
-    def _event_to_moment(self, event):
-        offset = (
-            event.offset
-            if event.offset is not None
-            else self._seconds_to_offset(event.seconds)
-        )
-        measure = (
-            event.measure
-            if event.measure is not None
-            else self._offset_to_measure(offset)
-        )
-        measure_offset = self._offset_to_measure_offset(offset)
-        return Moment(
-            beats_per_minute=self._beats_per_minute,
-            measure=measure,
-            measure_offset=measure_offset,
-            offset=offset,
-            time=event.seconds,
-            time_signature=self._time_signature,
+        self._slop = 0.001
+        self._events_by_id = {}
+        self._measure_relative_event_ids = set()
+        self._offset_relative_event_ids = set()
+        self._state = ClockState(
+            beats_per_minute=120.0,
+            initial_seconds=0.0,
+            previous_measure=1,
+            previous_offset=0.0,
+            previous_seconds=0.0,
+            previous_time_signature_change_offset=0.0,
+            time_signature=(4, 4),
         )
 
-    def _get_next_timepoints(
-        self, schedule_at: float, unit: TimeUnit
-    ) -> Tuple[Optional[int], Optional[float], float]:
+    ### TIME METHODS ###
+
+    def _get_cue_point(self, seconds, quantization):
+        moment = self._seconds_to_moment(seconds)
+        if quantization is None:
+            offset, measure = moment.offset, None
+        elif "M" in quantization:
+            measure_grid = int(quantization[0])
+            measure = (
+                (((moment.measure - 1) // measure_grid) * measure_grid)
+                + measure_grid
+                + 1
+            )
+            offset = self._measure_to_offset(measure)
+        else:
+            measure = None
+            fraction_grid = fractions.Fraction(quantization.replace("T", ""))
+            if "T" in quantization:
+                fraction_grid *= fractions.Fraction(2, 3)
+            div, mod = divmod(moment.offset, fraction_grid)
+            offset = float(div * fraction_grid)
+            if mod:
+                offset += fraction_grid
+        seconds = self._offset_to_seconds(offset)
+        logger.debug(
+            f"[{self.name}] ... ... Cueing {quantization} to "
+            f"{seconds}:s / {offset}:o / {measure}:m"
+        )
+        return seconds, offset, measure
+
+    def _get_schedule_point(self, schedule_at: float, time_unit: TimeUnit):
         measure: Optional[int] = None
         offset: Optional[float] = None
-        if unit == TimeUnit.MEASURES:
+        if time_unit == TimeUnit.MEASURES:
             measure = int(schedule_at)
             offset = self._measure_to_offset(measure)
             seconds: float = self._offset_to_seconds(offset)
-        elif unit == TimeUnit.BEATS:
+        elif time_unit == TimeUnit.BEATS:
             offset = float(schedule_at)
             seconds = self._offset_to_seconds(schedule_at)
         else:
             seconds = float(schedule_at)
-        return measure, offset, seconds
+        return seconds, offset, measure
 
     def _measure_to_offset(self, measure: int) -> float:
-        return measure_to_offset(
+        return conversions.measure_to_offset(
             measure,
-            self._time_signature,
-            self._previous_measure,
-            self._previous_time_signature_change_offset,
+            self._state.time_signature,
+            self._state.previous_measure,
+            self._state.previous_time_signature_change_offset,
         )
 
     def _offset_to_measure(self, offset: float) -> int:
-        return offset_to_measure(
+        return conversions.offset_to_measure(
             offset,
-            self._time_signature,
-            self._previous_measure,
-            self._previous_time_signature_change_offset,
+            self._state.time_signature,
+            self._state.previous_measure,
+            self._state.previous_time_signature_change_offset,
         )
 
     def _offset_to_measure_offset(self, offset: float) -> float:
-        return offset_to_measure_offset(
-            offset, self._time_signature, self._previous_time_signature_change_offset
+        return conversions.offset_to_measure_offset(
+            offset,
+            self._state.time_signature,
+            self._state.previous_time_signature_change_offset,
+        )
+
+    def _offset_to_moment(self, offset: float) -> Moment:
+        seconds = self._offset_to_seconds(offset)
+        measure, measure_offset = divmod(
+            offset - self._state.previous_time_signature_change_offset,
+            self._state.time_signature[0] / self._state.time_signature[1],
+        )
+        return Moment(
+            beats_per_minute=self._state.beats_per_minute,
+            measure=int(measure + self._state.previous_measure),
+            measure_offset=measure_offset,
+            offset=offset,
+            seconds=seconds,
+            time_signature=self._state.time_signature,
         )
 
     def _offset_to_seconds(self, offset: float) -> float:
-        return offset_to_seconds(
-            beats_per_minute=self._beats_per_minute,
+        return conversions.offset_to_seconds(
+            beats_per_minute=self._state.beats_per_minute,
             current_offset=offset,
-            previous_offset=self._previous_offset,
-            previous_time=self._previous_time,
-            beat_duration=1 / self._time_signature[1],
+            previous_offset=self._state.previous_offset,
+            previous_seconds=self._state.previous_seconds,
+            beat_duration=1 / self._state.time_signature[1],
+        )
+
+    def _seconds_to_moment(self, seconds):
+        offset = self._seconds_to_offset(seconds)
+        measure, measure_offset = divmod(
+            offset - self._state.previous_time_signature_change_offset,
+            self._state.time_signature[0] / self._state.time_signature[1],
+        )
+        return Moment(
+            beats_per_minute=self._state.beats_per_minute,
+            measure=int(measure + self._state.previous_measure),
+            measure_offset=measure_offset,
+            offset=offset,
+            seconds=seconds,
+            time_signature=self._state.time_signature,
         )
 
     def _seconds_to_offset(self, seconds: float) -> float:
-        return seconds_to_offset(
-            beats_per_minute=self._beats_per_minute,
+        return conversions.seconds_to_offset(
+            beats_per_minute=self._state.beats_per_minute,
             current_time=seconds,
-            previous_offset=self._previous_offset,
-            previous_time=self._previous_time,
-            beat_duration=1 / self._time_signature[1],
+            previous_offset=self._state.previous_offset,
+            previous_seconds=self._state.previous_seconds,
+            beat_duration=1 / self._state.time_signature[1],
         )
 
-    def _peek(self) -> float:
+    ### SCHEDULING METHODS ###
+
+    def _cancel(self, event_id) -> Optional[Tuple]:
         with self._lock:
-            seconds, _, _ = self._queue.peek()
-            return seconds
+            event = self._events_by_id.pop(event_id, None)
+            if event is not None and not isinstance(
+                event, (CallbackCommand, ChangeCommand)
+            ):
+                self._event_queue.remove(event)
+                if event.offset is not None:
+                    self._offset_relative_event_ids.remove(event.event_id)
+                    if event.measure is not None:
+                        self._measure_relative_event_ids.remove(event.event_id)
+            return event
 
-    def _perform_events(self, current_moment):
-        logger.debug(f"[{self.name}] ... Ready to perform at {current_moment.time}s")
-        # Perform all events that are ready
-        while self._queue.qsize():
-            _, event = self._queue.get()
-            desired_time = event.seconds
-            if current_moment.time < desired_time:
-                self._queue.put(event)
-                break
-            self._events_by_id.pop(event.event_id)
-            if event.offset:
-                self._offset_relative_event_ids.remove(event.event_id)
-            if event.measure:
-                self._measure_relative_event_ids.remove(event.event_id)
-            # Customize the moment for the current event
-            desired_moment = self._event_to_moment(event)
-            if event.event_type == EventType.CHANGE:
-                current_moment, should_continue = self._perform_change_event(
-                    event, current_moment, desired_moment
-                )
-                if not should_continue:
-                    break
-            else:
-                self._perform_callback_event(event, current_moment, desired_moment)
-        return current_moment
-
-    def _perform_change_event(self, event, current_moment, desired_moment):
+    def _enqueue_command(self, command):
+        self._events_by_id[command.event_id] = command
+        self._command_deque.append(command)
         logger.debug(
-            f"[{self.name}] ... ... Performing change at {desired_moment.time}s"
+            f"[{self.name}] Enqueued {type(command).__name__} ({command.event_id})"
         )
-        # TODO: current offset is misleading here
-        if event.time_signature is not None:
-            new_duration = event.time_signature[0] / event.time_signature[1]
-            self._time_signature = event.time_signature
-            if desired_moment.measure_offset < new_duration:
-                # On the downbeat
-                self._previous_time_signature_change_offset = (
-                    desired_moment.offset - desired_moment.measure_offset
-                )
-                self._previous_measure = desired_moment.measure
-            else:
-                # Moving from a longer time signature to a shorter one
-                # Advance to the next downbeat immediately
-                self._previous_measure = desired_moment.measure + 1
-                self._previous_time_signature_change_offset = desired_moment.offset
-            self._reschedule_measure_relative_events()
-            current_moment = dataclasses.replace(
-                current_moment,
-                time_signature=self._time_signature,
-                measure=self._offset_to_measure(current_moment.offset),
-                measure_offset=self._offset_to_measure_offset(current_moment.offset),
-            )
-        if event.beats_per_minute is not None:
-            # If the tempo changed, we need to revise our offset math
-            self._beats_per_minute = float(event.beats_per_minute)
-            self._previous_time = desired_moment.time
-            self._previous_offset = desired_moment.offset
-            self._reschedule_offset_relative_events()
-            new_current_offset = self._seconds_to_offset(current_moment.time)
-            if new_current_offset < current_moment.offset:
-                logger.debug(
-                    f"[{self.name}] ... ... ... Revised offset from "
-                    f"{current_moment.offset} to {new_current_offset}"
-                )
-                current_moment = dataclasses.replace(
-                    current_moment, offset=new_current_offset
-                )
-                return current_moment, False
-        return current_moment, True
+
+    def _enqueue_event(self, event):
+        self._events_by_id[event.event_id] = event
+        self._event_queue.put(event)
+        if event.offset is not None:
+            self._offset_relative_event_ids.add(event.event_id)
+            if event.measure is not None:
+                self._measure_relative_event_ids.add(event.event_id)
 
     def _perform_callback_event(self, event, current_moment, desired_moment):
+        logger.debug(
+            f"[{self.name}] ... ... Performing {event.procedure} at "
+            f"{desired_moment.seconds - self._state.initial_seconds}:s / "
+            f"{desired_moment.offset}:o"
+        )
         try:
-            logger.debug(
-                f"[{self.name}] ... ... Performing {event.procedure} at "
-                f"{desired_moment.time}s"
-            )
             result = event.procedure(
                 current_moment,
                 desired_moment,
                 event,
-                *event.args,
+                *(event.args or ()),
                 **(event.kwargs or {}),
             )
         except Exception:
@@ -523,7 +360,7 @@ class TempoClock:
             delta, unit = result
         except TypeError:
             delta, unit = result, TimeUnit.BEATS
-        if not delta or delta <= 0:
+        if delta is None or delta <= 0:
             return
         kwargs = {"invocations": event.invocations + 1, "measure": None, "offset": None}
         if unit == TimeUnit.MEASURES:
@@ -534,278 +371,401 @@ class TempoClock:
         if unit in (TimeUnit.BEATS, TimeUnit.MEASURES):
             kwargs["seconds"] = self._offset_to_seconds(kwargs["offset"])
         if unit == TimeUnit.SECONDS:
-            kwargs["seconds"] = desired_moment.time + delta
+            kwargs["seconds"] = desired_moment.seconds + delta
         logger.debug(
             f"[{self.name}] ... ... ... Rescheduling "
-            f"{event.procedure} at {kwargs['seconds']}s"
+            f"{event.procedure} ({event.event_id}) at {kwargs['seconds'] - self._state.initial_seconds}s"
         )
-        event = dataclasses.replace(event, **kwargs)
-        self._add_to_queue(event)
+        event = event._replace(**kwargs)
+        self._enqueue_event(event)
+
+    def _perform_change_event(self, event, current_moment, desired_moment):
+        logger.debug(
+            f"[{self.name}] ... ... Changing at "
+            f"{desired_moment.seconds - self._state.initial_seconds}:s"
+        )
+        # TODO: current offset is misleading here
+        if event.time_signature is not None:
+            new_duration = event.time_signature[0] / event.time_signature[1]
+            if desired_moment.measure_offset < new_duration:
+                # On the downbeat
+                self._state = self._state._replace(
+                    previous_measure=desired_moment.measure,
+                    previous_time_signature_change_offset=(
+                        desired_moment.offset - desired_moment.measure_offset
+                    ),
+                    time_signature=event.time_signature,
+                )
+            else:
+                # Moving from a longer time signature to a shorter one
+                # Advance to the next downbeat immediately
+                self._state = self._state._replace(
+                    previous_measure=desired_moment.measure + 1,
+                    previous_time_signature_change_offset=desired_moment.offset,
+                    time_signature=event.time_signature,
+                )
+            self._reschedule_measure_relative_events()
+            current_moment = dataclasses.replace(
+                current_moment,
+                time_signature=self._state.time_signature,
+                measure=self._offset_to_measure(current_moment.offset),
+                measure_offset=self._offset_to_measure_offset(current_moment.offset),
+            )
+        if event.beats_per_minute is not None:
+            # If the tempo changed, we need to revise our offset math
+            self._state = self._state._replace(
+                beats_per_minute=float(event.beats_per_minute),
+                previous_seconds=desired_moment.seconds,
+                previous_offset=desired_moment.offset,
+            )
+            self._reschedule_offset_relative_events()
+            new_current_offset = self._seconds_to_offset(current_moment.seconds)
+            logger.debug(
+                f"[{self.name}] ... ... ... Revised offset from "
+                f"{current_moment.offset} to {new_current_offset}"
+            )
+            current_moment = dataclasses.replace(
+                current_moment, offset=new_current_offset
+            )
+            return current_moment, False
+            # if new_current_offset < current_moment.offset:
+            #    return current_moment, False
+        return current_moment, True
+
+    def _perform_events(self, current_moment: Moment):
+        logger.debug(
+            f"[{self.name}] ... Ready to perform at "
+            f"{current_moment.seconds - self._state.initial_seconds}:s / "
+            f"{current_moment.offset}:o"
+        )
+        while self._event_queue.qsize():
+            # There may be items in the queue which have been flagged "removed".
+            # They contribute to the queue's size, but cannot be retrieved by .get().
+            try:
+                event = self._event_queue.get()
+            except queue.Empty:
+                continue
+            if self._events_by_id.pop(event.event_id, None) is None:
+                continue
+            desired_seconds = event.seconds
+            if current_moment.seconds < desired_seconds:
+                self._enqueue_event(event)
+                break
+            if event.offset is not None:
+                desired_moment = self._offset_to_moment(event.offset)
+            else:
+                desired_moment = self._seconds_to_moment(event.seconds)
+            if event.offset is not None and event.offset != desired_moment.offset:
+                raise RuntimeError(
+                    f"Offset mismatch: {event.offset} vs {desired_moment.offset}"
+                )
+            if event.event_type == EventType.CHANGE:
+                current_moment, should_continue = self._perform_change_event(
+                    event, current_moment, desired_moment
+                )
+                if not should_continue:
+                    break
+            else:
+                self._perform_callback_event(event, current_moment, desired_moment)
+        return current_moment
+
+    def _process_command_deque(self, first_run=False):
+        while self._command_deque:
+            logger.debug(f"[{self.name}] ... Processing command deque")
+            command = self._command_deque.popleft()
+            if self._events_by_id.pop(command.event_id, None) is None:
+                continue
+            schedule_at = command.schedule_at
+            if command.quantization is not None:
+                # If the command was queued before the clock was started,
+                # reset its reference time
+                if first_run and schedule_at < self._state.initial_seconds:
+                    schedule_at = self._state.initial_seconds
+                seconds, offset, measure = self._get_cue_point(
+                    schedule_at, command.quantization
+                )
+            elif command.time_unit in (TimeUnit.BEATS, TimeUnit.MEASURES):
+                seconds, offset, measure = self._get_schedule_point(
+                    schedule_at, command.time_unit
+                )
+            else:
+                if first_run:
+                    schedule_at += self._state.initial_seconds
+                seconds, offset, measure = schedule_at, None, None
+            if isinstance(command, CallbackCommand):
+                event = CallbackEvent(
+                    args=command.args,
+                    event_id=command.event_id,
+                    kwargs=command.kwargs,
+                    measure=measure,
+                    offset=offset,
+                    procedure=command.procedure,
+                    seconds=seconds,
+                    event_type=command.event_type,
+                    invocations=0,
+                )
+            else:
+                event = ChangeEvent(
+                    beats_per_minute=command.beats_per_minute,
+                    event_id=command.event_id,
+                    event_type=command.event_type,
+                    measure=measure,
+                    offset=offset,
+                    seconds=seconds,
+                    time_signature=command.time_signature,
+                )
+            self._enqueue_event(event)
+            logger.debug(
+                f"[{self.name}] ... ... Enqueued {type(event).__name__} "
+                f"({event.event_id}) for {event.seconds}:s / {event.offset}:o"
+            )
 
     def _reschedule_offset_relative_events(self):
         for event_id in tuple(self._offset_relative_event_ids):
-            event = self.cancel(event_id)
+            event = self._cancel(event_id)
+            if event is None:
+                self._offset_relative_event_ids.remove(event_id)
+                continue
             seconds = self._offset_to_seconds(event.offset)
             logger.debug(
-                f"[{self.name}] ... ... ... Rescheduling offset-relative event from "
-                f"{event.seconds} to {seconds}"
+                f"[{self.name}] ... ... ... Rescheduling offset-relative event "
+                f"({event.event_id}) from "
+                f"{event.seconds - self._state.initial_seconds}:s to "
+                f"{seconds - self._state.initial_seconds}:s"
             )
-            self._add_to_queue(dataclasses.replace(event, seconds=seconds))
+            self._enqueue_event(event._replace(seconds=seconds))
 
     def _reschedule_measure_relative_events(self):
         for event_id in tuple(self._measure_relative_event_ids):
-            event = self.cancel(event_id)
+            event = self._cancel(event_id)
+            if event is None:
+                self._measure_relative_event_ids.remove(event_id)
+                continue
             offset = self._measure_to_offset(event.measure)
             seconds = self._offset_to_seconds(offset)
             logger.debug(
                 f"[{self.name}] ... ... ... Rescheduling measure-relative event from "
                 f"offset {event.offset} to {offset}"
             )
-            self._add_to_queue(
-                dataclasses.replace(event, offset=offset, seconds=seconds)
-            )
+            self._enqueue_event(event._replace(offset=offset, seconds=seconds))
 
-    def _run(self, *args, **kwargs):
+    def _run(self, *args, offline=False, **kwargs):
+        logger.debug(f"[{self.name}] Thread start")
         with self._lock:
-            logger.debug(
-                f"[{self.name}] Starting offset {self._previous_offset} at "
-                f"{self._previous_time} seconds"
-            )
-            self._reschedule_measure_relative_events()
-            self._reschedule_offset_relative_events()
+            self._process_command_deque(first_run=True)
             while self._is_running:
                 logger.debug(f"[{self.name}] Loop start")
                 if not self._wait_for_queue():
-                    break
-                current_moment = self._wait_for_moment()
+                    return
+                try:
+                    current_moment = self._wait_for_moment()
+                except queue.Empty:
+                    continue
                 if current_moment is None:
-                    break
+                    return
                 current_moment = self._perform_events(current_moment)
-                self._previous_time = current_moment.time
-                self._previous_offset = current_moment.offset
+                self._state = self._state._replace(
+                    previous_seconds=current_moment.seconds,
+                    previous_offset=current_moment.offset,
+                )
+                if not offline:
+                    self._condition.wait(timeout=self._slop)
+        logger.debug(f"[{self.name}] Terminating")
+
+    def _wait_for_moment(self, offline=False) -> Optional[Moment]:
+        # logger.debug(f"[{self.name}] ... Waiting for next moment")
+        current_time = self.get_current_time()
+        while current_time < self._event_queue.peek().seconds:
+            if not offline:
                 self._condition.wait(timeout=self._slop)
-            logger.debug(f"[{self.name}] ... ... Terminating")
-
-    def _wait_for_queue(self) -> bool:
-        logger.debug(f"[{self.name}] ... Waiting for something to schedule")
-        while not self._queue.qsize():
-            self._condition.wait(timeout=self._slop)
-            if not self._is_running:
-                return False
-        return True
-
-    def _wait_for_moment(self) -> Optional[Moment]:
-        moment = self.get_current_moment()
-        next_time = self._peek()
-        logger.debug(
-            f"[{self.name}] ... Event found, waiting from {moment.time}s "
-            f"until {next_time}s"
-        )
-        while moment.time < next_time:
-            # Cache our current point in time
-            self._previous_time = moment.time
-            self._previous_offset = moment.offset
-            self._condition.wait(timeout=self._slop)
             if not self._is_running:
                 return None
-            moment = self.get_current_moment()
-            logger.debug(f"[{self.name}] ... ... Now waiting at {moment.time}")
-            next_time = self._peek()
-        self._previous_time = moment.time
-        self._previous_offset = moment.offset
-        return moment
+            self._process_command_deque()
+            current_time = self.get_current_time()
+        return self._seconds_to_moment(current_time)
+
+    def _wait_for_queue(self, offline=False) -> bool:
+        # logger.debug(f"[{self.name}] ... Waiting for events")
+        self._process_command_deque()
+        while not self._event_queue.qsize():
+            if not offline:
+                self._condition.wait(timeout=self._slop)
+            if not self._is_running:
+                return False
+            self._process_command_deque()
+        return True
 
     ### PUBLIC METHODS ###
 
-    def cancel(self, event_id) -> SchedulerEvent:
-        with self._lock:
-            event = self._events_by_id.pop(event_id, None)
-            if event is None:
-                raise KeyError(event_id)
-            if event.offset:
-                self._offset_relative_event_ids.remove(event_id)
-            if event.measure:
-                self._measure_relative_event_ids.remove(event_id)
-            self._queue.remove(event)
-            return event
+    def cancel(self, event_id) -> Optional[Tuple]:
+        # TODO: Do we need this locking?
+        logger.debug(f"[{self.name}] Canceling {event_id}")
+        return self._cancel(event_id)
 
     def change(
         self,
         beats_per_minute: Optional[float] = None,
         time_signature: Optional[Tuple[int, int]] = None,
     ) -> Optional[int]:
-        with self._lock:
-            if not self._is_running:
-                self._beats_per_minute = beats_per_minute or self._beats_per_minute
-                self._time_signature = time_signature or self._time_signature
+        if not self._is_running:
+            with self._lock:
+                self._state = self._state._replace(
+                    beats_per_minute=beats_per_minute or self._state.beats_per_minute,
+                    time_signature=time_signature or self._state.time_signature,
+                )
                 return None
-            moment = self.get_current_moment()
-            event_id = next(self._counter)
-            event = ChangeEvent(
-                beats_per_minute=beats_per_minute,
-                event_id=event_id,
-                event_type=EventType.CHANGE,
-                measure=None,
-                offset=moment.offset,
-                seconds=moment.time,
-                time_signature=time_signature,
-            )
-            logging.debug(f"[{self.name}] Changing {event} now")
-            return self._add_to_queue(event)
+        event_id = next(self._counter)
+        command = ChangeCommand(
+            event_id=event_id,
+            event_type=EventType.CHANGE,
+            beats_per_minute=beats_per_minute,
+            time_signature=time_signature,
+            quantization=None,
+            schedule_at=self.get_current_time(),
+            time_unit=None,
+        )
+        self._enqueue_command(command)
+        return event_id
 
     def cue(
         self,
         procedure,
         *,
-        event_type=EventType.SCHEDULE,
-        quantization=None,
-        args=(),
+        args=None,
+        event_type: EventType = EventType.SCHEDULE,
         kwargs=None,
+        quantization: str = None,
     ) -> int:
-        assert 0 < event_type
-        with self._lock:
-            moment = self.get_current_moment()
-            if quantization is None:
-                offset, measure = moment.offset, None
-            elif quantization not in self._valid_quantizations:
-                raise ValueError(f"Invalid quantization: {quantization}")
-            elif "M" in quantization:
-                measure_grid = int(quantization[0])
-                measure = (
-                    (((moment.measure - 1) // measure_grid) * measure_grid)
-                    + measure_grid
-                    + 1
-                )
-                offset = self._measure_to_offset(measure)
-            else:
-                measure = None
-                fraction_grid = fractions.Fraction(quantization.replace("T", ""))
-                if "T" in quantization:
-                    fraction_grid *= fractions.Fraction(2, 3)
-                div, mod = divmod(moment.offset, fraction_grid)
-                offset = float(div * fraction_grid)
-                if mod:
-                    offset += fraction_grid
-            seconds = self._offset_to_seconds(offset)
-            event_id = next(self._counter)
-            event = CallbackEvent(
-                args=args,
-                event_id=event_id,
-                event_type=event_type,
-                invocations=0,
-                kwargs=kwargs,
-                measure=measure,
-                offset=float(offset),
-                procedure=procedure,
-                seconds=seconds,
-                start_time=self.get_current_time(),
-            )
-            logging.debug(f"[{self.name}] Cueing {procedure} at {offset}")
-            return self._add_to_queue(event)
+        if event_type <= 0:
+            raise ValueError(f"Invalid event type {event_type}")
+        elif quantization is not None and quantization not in self._valid_quantizations:
+            raise ValueError(f"Invalid quantization: {quantization}")
+        event_id = next(self._counter)
+        command = CallbackCommand(
+            args=args,
+            event_id=event_id,
+            event_type=event_type,
+            kwargs=kwargs,
+            procedure=procedure,
+            quantization=quantization,
+            schedule_at=self.get_current_time() if self.is_running else 0,
+            time_unit=None,
+        )
+        self._enqueue_command(command)
+        return event_id
 
-    def get_current_moment(self):
-        current_time = self.get_current_time()
-        current_offset = self._seconds_to_offset(current_time)
-        current_measure, current_measure_offset = divmod(
-            current_offset - self._previous_time_signature_change_offset,
-            self._time_signature[0] / self._time_signature[1],
+    def cue_change(
+        self,
+        *,
+        beats_per_minute: Optional[float] = None,
+        quantization: str = None,
+        time_signature: Optional[Tuple[int, int]] = None,
+    ) -> int:
+        if quantization is not None and quantization not in self._valid_quantizations:
+            raise ValueError(f"Invalid quantization: {quantization}")
+        event_id = next(self._counter)
+        command = ChangeCommand(
+            beats_per_minute=beats_per_minute,
+            event_id=event_id,
+            event_type=EventType.CHANGE,
+            quantization=quantization,
+            schedule_at=self.get_current_time() if self.is_running else 0,
+            time_signature=time_signature,
+            time_unit=None,
         )
-        moment = Moment(
-            beats_per_minute=self._beats_per_minute,
-            measure=int(current_measure + self._previous_measure),
-            measure_offset=current_measure_offset,
-            offset=current_offset,
-            time=current_time,
-            time_signature=self._time_signature,
-        )
-        return moment
+        self._enqueue_command(command)
+        return event_id
 
     def get_current_time(self) -> float:
         return time.time()
 
+    def peek(self):
+        try:
+            return self._event_queue.peek()
+        except queue.Empty:
+            pass
+
     def reschedule(
-        self, event_id, *, earliest_wins=False, schedule_at=0.0, unit=TimeUnit.BEATS
-    ) -> bool:
-        with self._lock:
-            if earliest_wins:
-                _, _, new_seconds = self._get_next_timepoints(schedule_at, unit)
-                if self._events_by_id[event_id].seconds < new_seconds:
-                    return False
-            event = self.cancel(event_id)
-            if isinstance(event, CallbackEvent):
-                self.schedule(
-                    event.procedure,
-                    schedule_at=schedule_at,
-                    args=event.args,
-                    kwargs=event.kwargs,
-                    unit=unit,
-                )
-            elif isinstance(event, ChangeEvent):
-                self.schedule_change(
-                    beats_per_minute=event.beats_per_minute,
-                    schedule_at=schedule_at,
-                    time_signature=event.time_signature,
-                    unit=unit,
-                )
-            return True
+        self, event_id, *, schedule_at=0.0, time_unit=TimeUnit.BEATS
+    ) -> Optional[int]:
+        event_or_command = self.cancel(event_id)
+        if event_or_command is None:
+            return None
+        if isinstance(event_or_command, (CallbackCommand, ChangeCommand)):
+            command = event_or_command._replace(
+                schedule_at=schedule_at, time_unit=time_unit
+            )
+        elif isinstance(event_or_command, CallbackEvent):
+            command = CallbackCommand(
+                args=event_or_command.args,
+                event_id=event_or_command.event_id,
+                event_type=event_or_command.event_type,
+                kwargs=event_or_command.kwargs,
+                procedure=event_or_command.procedure,
+                quantization=None,
+                schedule_at=schedule_at,
+                time_unit=time_unit,
+            )
+        elif isinstance(event_or_command, ChangeEvent):
+            command = ChangeCommand(
+                beats_per_minute=event_or_command.beats_per_minute,
+                event_id=event_or_command.event_id,
+                event_type=EventType.CHANGE,
+                quantization=None,
+                schedule_at=schedule_at,
+                time_signature=event_or_command.time_signature,
+                time_unit=time_unit,
+            )
+        self._enqueue_command(command)
+        return event_id
 
     def schedule(
         self,
         procedure,
         *,
+        event_type: EventType = EventType.SCHEDULE,
         schedule_at: float = 0.0,
-        event_type=EventType.SCHEDULE,
-        unit=TimeUnit.BEATS,
-        args=(),
+        time_unit: TimeUnit = TimeUnit.BEATS,
+        args=None,
         kwargs=None,
     ) -> int:
-        assert 0 < event_type
-        with self._lock:
-            measure, offset, seconds = self._get_next_timepoints(schedule_at, unit)
-            event_id = next(self._counter)
-            event = CallbackEvent(
-                args=args,
-                event_id=event_id,
-                event_type=event_type,
-                invocations=0,
-                kwargs=kwargs,
-                measure=measure,
-                offset=offset,
-                procedure=procedure,
-                seconds=seconds,
-                start_time=self.get_current_time(),
-            )
-            logging.debug(
-                f"[{self.name}] Scheduling {procedure} at {schedule_at} "
-                f"{unit.name.lower()}"
-            )
-            return self._add_to_queue(event)
+        if event_type <= 0:
+            raise ValueError(f"Invalid event type {event_type}")
+        event_id = next(self._counter)
+        command = CallbackCommand(
+            args=args,
+            event_id=event_id,
+            event_type=event_type,
+            kwargs=kwargs,
+            procedure=procedure,
+            quantization=None,
+            schedule_at=schedule_at,
+            time_unit=time_unit,
+        )
+        self._enqueue_command(command)
+        return event_id
 
     def schedule_change(
         self,
         *,
-        schedule_at: float = 0.0,
-        unit=TimeUnit.BEATS,
         beats_per_minute: Optional[float] = None,
+        schedule_at: float = 0.0,
         time_signature: Optional[Tuple[int, int]] = None,
+        time_unit: TimeUnit = TimeUnit.BEATS,
+        moment: Moment = None,
     ) -> int:
-        with self._lock:
-            measure, offset, seconds = self._get_next_timepoints(schedule_at, unit)
-            event_id = next(self._counter)
-            event = ChangeEvent(
-                beats_per_minute=beats_per_minute,
-                event_id=event_id,
-                event_type=EventType.CHANGE,
-                measure=measure,
-                offset=offset,
-                seconds=seconds,
-                time_signature=time_signature,
-            )
-            logging.debug(
-                f"[{self.name}] Scheduling {event} at {schedule_at} "
-                f"{unit.name.lower()}"
-            )
-            return self._add_to_queue(event)
+        event_id = next(self._counter)
+        command = ChangeCommand(
+            beats_per_minute=beats_per_minute,
+            event_id=event_id,
+            event_type=EventType.CHANGE,
+            quantization=None,
+            schedule_at=schedule_at,
+            time_signature=time_signature,
+            time_unit=time_unit,
+        )
+        self._enqueue_command(command)
+        return event_id
 
     def start(
         self,
@@ -815,41 +775,39 @@ class TempoClock:
         beats_per_minute: Optional[float] = None,
         time_signature: Optional[Tuple[int, int]] = None,
     ):
-        if self._is_running:
-            raise RuntimeError
         with self._lock:
+            if self._is_running:
+                raise RuntimeError("Already started")
             if initial_time is None:
                 initial_time = self.get_current_time()
-            self._time_signature = time_signature or self._time_signature
-            self._beats_per_minute = beats_per_minute or self._beats_per_minute
-            self._previous_measure = int(initial_measure)
-            self._previous_offset = float(initial_offset)
-            self._previous_time = float(initial_time)
-            self._previous_time_signature_change_offset = self._previous_offset
+            self._state = ClockState(
+                beats_per_minute=beats_per_minute or self._state.beats_per_minute,
+                initial_seconds=initial_time,
+                previous_measure=int(initial_measure),
+                previous_offset=float(initial_offset),
+                previous_seconds=float(initial_time),
+                previous_time_signature_change_offset=float(initial_offset),
+                time_signature=time_signature or self._state.time_signature,
+            )
             self._is_running = True
             self._thread = threading.Thread(target=self._run, args=(self,), daemon=True)
             self._thread.start()
 
     def stop(self):
-        if not self._is_running:
-            return
-        self._is_running = False
         with self._lock:
+            if not self._is_running:
+                return
+            self._is_running = False
             self._condition.notify()
-        self._thread.join()
-        self._queue.clear()
-        self._offset_relative_event_ids.clear()
-        self._measure_relative_event_ids.clear()
-        self._events_by_id.clear()
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def beats_per_minute(self) -> float:
-        return self._beats_per_minute
+    def beats_per_minute(self):
+        return self._state.beats_per_minute
 
     @property
-    def is_running(self) -> bool:
+    def is_running(self):
         return self._is_running
 
     @property
@@ -867,5 +825,5 @@ class TempoClock:
         self._slop = float(slop)
 
     @property
-    def time_signature(self) -> Tuple[int, int]:
-        return self._time_signature
+    def time_signature(self):
+        return self._state.time_signature

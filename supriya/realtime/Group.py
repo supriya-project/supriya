@@ -213,9 +213,12 @@ class Group(Node, UniqueTreeList):
                 start -= 1
             child._set_parent(self)
         self._children.__setitem__(slice(start, start), expr)
-        new_nodes, paused_nodes, requests, synthdefs = self._collect_requests_and_synthdefs(
-            expr, self.server, start=start
-        )
+        (
+            new_nodes,
+            paused_nodes,
+            requests,
+            synthdefs,
+        ) = self._collect_requests_and_synthdefs(expr, self.server, start=start)
         nodes_to_free = [_ for _ in old_nodes if _ not in new_nodes]
         if nodes_to_free:
             requests.append(

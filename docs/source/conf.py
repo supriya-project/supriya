@@ -8,7 +8,7 @@ extensions = [
     "sphinx.ext.graphviz",
     "sphinx.ext.intersphinx",
     "sphinx.ext.viewcode",
-    "sphinx_autodoc_typehints",
+    # "sphinx_autodoc_typehints",
     "uqbar.sphinx.api",
     "uqbar.sphinx.book",
     "uqbar.sphinx.inheritance",
@@ -31,8 +31,8 @@ html_theme_options = {
 html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 htmlhelp_basename = "Supriyadoc"
 intersphinx_mapping = {
-    "abjad": ("http://abjad.mbrsi.org", None),
-    "python": ("http://docs.python.org/3.6", None),
+    "python": ("https://docs.python.org/3", None),
+    "uqbar": ("http://josiahwolfoberholtzer.com/uqbar", None),
 }
 master_doc = "index"
 project = "Supriya"

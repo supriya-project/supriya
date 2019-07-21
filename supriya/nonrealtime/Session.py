@@ -3,6 +3,7 @@ import collections
 import os
 import pathlib
 from queue import PriorityQueue
+from types import MappingProxyType
 
 import uqbar.io
 
@@ -12,21 +13,19 @@ import supriya.osc
 import supriya.realtime
 import supriya.soundfiles
 import supriya.synthdefs
-from supriya import HeaderFormat, SampleFormat
-from supriya.commands import (
-    BufferCopyRequest,
-    BufferFillRequest,
-    BufferGenerateRequest,
-    BufferNormalizeRequest,
-    BufferReadChannelRequest,
-    BufferReadRequest,
-    BufferSetContiguousRequest,
-    BufferSetRequest,
-    BufferWriteRequest,
-    BufferZeroRequest,
-    NothingRequest,
-    RequestBundle,
-)
+from supriya import HeaderFormat, ParameterRate, SampleFormat
+from supriya.commands.BufferCopyRequest import BufferCopyRequest
+from supriya.commands.BufferFillRequest import BufferFillRequest
+from supriya.commands.BufferGenerateRequest import BufferGenerateRequest
+from supriya.commands.BufferNormalizeRequest import BufferNormalizeRequest
+from supriya.commands.BufferReadChannelRequest import BufferReadChannelRequest
+from supriya.commands.BufferReadRequest import BufferReadRequest
+from supriya.commands.BufferSetContiguousRequest import BufferSetContiguousRequest
+from supriya.commands.BufferSetRequest import BufferSetRequest
+from supriya.commands.BufferWriteRequest import BufferWriteRequest
+from supriya.commands.BufferZeroRequest import BufferZeroRequest
+from supriya.commands.NothingRequest import NothingRequest
+from supriya.commands.RequestBundle import RequestBundle
 from supriya.nonrealtime.SessionObject import SessionObject
 from supriya.nonrealtime.Synth import Synth
 from supriya.utils import iterate_nwise
@@ -88,24 +87,6 @@ class Session:
 
     __is_terminal_ajv_list_item__ = True
 
-    __slots__ = (
-        "_active_moments",
-        "_audio_input_bus_group",
-        "_audio_output_bus_group",
-        "_buffers",
-        "_buses",
-        "_input",
-        "_name",
-        "_nodes",
-        "_offsets",
-        "_options",
-        "_padding",
-        "_root_node",
-        "_session_ids",
-        "_states",
-        "_transcript",
-    )
-
     _ordered_buffer_post_alloc_request_types = (
         BufferReadRequest,
         BufferReadChannelRequest,
@@ -140,21 +121,28 @@ class Session:
             input_bus_channel_count=input_bus_channel_count,
             output_bus_channel_count=output_bus_channel_count,
         )
+
         self._active_moments = []
         self._buffers = supriya.intervals.IntervalTree(accelerated=True)
+        self._buffers_by_seesion_id = {}
+        self._buses = collections.OrderedDict()
+        self._buses_by_session_id = {}
         self._name = name
         self._nodes = supriya.intervals.IntervalTree(accelerated=True)
+        self._nodes_by_session_id = {}
         self._offsets = []
         self._root_node = supriya.nonrealtime.RootNode(self)
         self._session_ids = {}
         self._states = {}
         self._transcript = None
+
         if input_ and not self.is_session_like(input_):
             input_ = str(input_)
         self._input = input_
         if padding is not None:
             padding = float(padding)
         self._padding = padding
+
         self._setup_initial_states()
         self._setup_buses()
 
@@ -184,136 +172,6 @@ class Session:
             ...     _ = synth_d.move_node(synth_a, add_action='ADD_AFTER')
             ...
             >>> supriya.graph(session)  # doctest: +SKIP
-
-        ::
-
-            >>> graphviz_graph = session.__graph__()
-            >>> print(format(graphviz_graph, 'graphviz'))
-            digraph G {
-                graph [bgcolor=transparent,
-                    fontname=Arial,
-                    penwidth=2,
-                    rankdir=LR,
-                    ranksep=1.5];
-                node [fontname=Arial,
-                    fontsize=12,
-                    penwidth=2,
-                    shape=Mrecord,
-                    style="filled, rounded"];
-                edge [penwidth=2];
-                subgraph cluster_0 {
-                    graph [label="[-inf]",
-                        style="solid, rounded"];
-                }
-                subgraph cluster_1 {
-                    graph [label="[0.0]",
-                        style="solid, rounded"];
-                    subgraph cluster_1_0 {
-                        graph [label="1000",
-                            style="dashed, rounded"];
-                        node_1_0_0 [label="{ { <f_0_0_0> [1001] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
-                    }
-                }
-                subgraph cluster_2 {
-                    graph [label="[5.0]",
-                        style="solid, rounded"];
-                    subgraph cluster_2_0 {
-                        graph [label="1000",
-                            style="dashed, rounded"];
-                        node_2_0_0 [label="{ { <f_0_0_0> [1003] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
-                        node_2_0_1 [label="{ { <f_0_0_0> [1002] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
-                        node_2_0_2 [label="{ { <f_0_0_0> [1001] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
-                        node_2_0_0 -> node_2_0_1;
-                        node_2_0_1 -> node_2_0_2;
-                    }
-                }
-                subgraph cluster_3 {
-                    graph [label="[7.5]",
-                        style="solid, rounded"];
-                    subgraph cluster_3_0 {
-                        graph [label="1000",
-                            style="dashed, rounded"];
-                        node_3_0_0 [label="{ { <f_0_0_0> [1003] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
-                        node_3_0_1 [label="{ { <f_0_0_0> [1004] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
-                        node_3_0_2 [label="{ { <f_0_0_0> [1002] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
-                        node_3_0_3 [label="{ { <f_0_0_0> [1001] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
-                        node_3_0_0 -> node_3_0_1;
-                        node_3_0_1 -> node_3_0_2;
-                        node_3_0_2 -> node_3_0_3;
-                    }
-                }
-                subgraph cluster_4 {
-                    graph [label="[10.0]",
-                        style="solid, rounded"];
-                    subgraph cluster_4_0 {
-                        graph [label="1000",
-                            style="dashed, rounded"];
-                        node_4_0_0 [label="{ { <f_0_0_0> [1004] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
-                        node_4_0_1 [label="{ { <f_0_0_0> [1002] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
-                        node_4_0_2 [label="{ { <f_0_0_0> [1001] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
-                        node_4_0_0 -> node_4_0_1;
-                        node_4_0_1 -> node_4_0_2;
-                    }
-                }
-                subgraph cluster_5 {
-                    graph [label="[11.0]",
-                        style="solid, rounded"];
-                    subgraph cluster_5_0 {
-                        graph [label="1000",
-                            style="dashed, rounded"];
-                        node_5_0_0 [label="{ { <f_0_0_0> [1004] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
-                        node_5_0_1 [label="{ { <f_0_0_0> [1001] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
-                        node_5_0_2 [label="{ { <f_0_0_0> [1002] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
-                        node_5_0_0 -> node_5_0_1;
-                        node_5_0_1 -> node_5_0_2;
-                    }
-                }
-                subgraph cluster_6 {
-                    graph [label="[12.5]",
-                        style="solid, rounded"];
-                    subgraph cluster_6_0 {
-                        graph [label="1000",
-                            style="dashed, rounded"];
-                        node_6_0_0 [label="{ { <f_0_0_0> [1001] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
-                        node_6_0_1 [label="{ { <f_0_0_0> [1002] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
-                        node_6_0_0 -> node_6_0_1;
-                    }
-                }
-                subgraph cluster_7 {
-                    graph [label="[15.0]",
-                        style="solid, rounded"];
-                    subgraph cluster_7_0 {
-                        graph [label="1000",
-                            style="dashed, rounded"];
-                        node_7_0_0 [label="{ { <f_0_0_0> [1002] | <f_0_0_1> default | <f_0_0_2> amplitude: 0.1 | <f_0_0_3> frequency: 440.0 | <f_0_0_4> gate: 1.0 | <f_0_0_5> out: 0.0 | <f_0_0_6> pan: 0.5 } }"];
-                    }
-                }
-                subgraph cluster_8 {
-                    graph [label="[20.0]",
-                        style="solid, rounded"];
-                    subgraph cluster_8_0 {
-                        graph [label="1000",
-                            style="dashed, rounded"];
-                    }
-                }
-                subgraph cluster_9 {
-                    graph [label="[inf]",
-                        style="solid, rounded"];
-                }
-                node_1_0_0:f_0_0_0 -> node_2_0_2:f_0_0_0;
-                node_2_0_0:f_0_0_0 -> node_3_0_0:f_0_0_0;
-                node_2_0_1:f_0_0_0 -> node_3_0_2:f_0_0_0;
-                node_2_0_2:f_0_0_0 -> node_3_0_3:f_0_0_0;
-                node_3_0_1:f_0_0_0 -> node_4_0_0:f_0_0_0;
-                node_3_0_2:f_0_0_0 -> node_4_0_1:f_0_0_0;
-                node_3_0_3:f_0_0_0 -> node_4_0_2:f_0_0_0;
-                node_4_0_0:f_0_0_0 -> node_5_0_0:f_0_0_0;
-                node_4_0_1:f_0_0_0 -> node_5_0_2:f_0_0_0;
-                node_4_0_2:f_0_0_0 -> node_5_0_1:f_0_0_0;
-                node_5_0_1:f_0_0_0 -> node_6_0_0:f_0_0_0;
-                node_5_0_2:f_0_0_0 -> node_6_0_1:f_0_0_0;
-                node_6_0_1:f_0_0_0 -> node_7_0_0:f_0_0_0;
-            }
 
         """
         node_mappings = []
@@ -464,7 +322,9 @@ class Session:
             else:
                 block_id = allocator.allocate(len(bus.bus_group))
                 mapping[bus.bus_group] = block_id
-                for bus_id in range(block_id, block_id + len(bus.bus_group)):
+                for bus, bus_id in zip(
+                    bus.bus_group, range(block_id, block_id + len(bus.bus_group))
+                ):
                     mapping[bus] = bus_id
         return mapping
 
@@ -711,6 +571,13 @@ class Session:
                         ):  # duration is session duration
                             node_duration = duration - source.start_offset
                         synth_kwargs["duration"] = float(node_duration)
+                    for key, value in synth_kwargs.items():
+                        if (
+                            value in id_mapping
+                            and source.synthdef.parameters[key].parameter_rate
+                            == ParameterRate.SCALAR
+                        ):
+                            synth_kwargs[key] = id_mapping[value]
                     request = source._to_request(action, id_mapping, **synth_kwargs)
                 else:
                     request = source._to_request(action, id_mapping)
@@ -1108,6 +975,7 @@ class Session:
             self, calculation_rate=calculation_rate, session_id=session_id
         )
         self._buses[bus] = None  # ordered dictionary
+        self._buses_by_session_id[session_id] = bus
         return bus
 
     def add_bus_group(self, bus_count=1, calculation_rate="control"):
@@ -1122,6 +990,8 @@ class Session:
         )
         for bus in bus_group:
             self._buses[bus] = None  # ordered dictionary
+            self._buses_by_session_id[bus.session_id] = bus
+        self._buses_by_session_id[session_id] = bus_group
         return bus_group
 
     def add_group(self, add_action=None, duration=None, offset=None):
@@ -1335,8 +1205,16 @@ class Session:
         return self._buffers
 
     @property
+    def buffers_by_session_id(self):
+        return MappingProxyType(self._buffers_by_session_id)
+
+    @property
     def buses(self):
         return self._buses
+
+    @property
+    def buses_by_session_id(self):
+        return MappingProxyType(self._buses_by_session_id)
 
     @property
     def duration(self):
@@ -1365,6 +1243,10 @@ class Session:
     @property
     def nodes(self):
         return self._nodes
+
+    @property
+    def nodes_by_session_id(self):
+        return MappingProxyType(self._nodes_by_session_id)
 
     @property
     def offsets(self):

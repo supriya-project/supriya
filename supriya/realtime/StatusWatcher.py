@@ -13,6 +13,8 @@ class StatusWatcher(threading.Thread):
     __slots__ = ("_is_active", "_attempts", "_callback", "_server")
 
     max_attempts = 5
+    sleep_base_time = 1.0
+    exponential_backoff_factor = 1.5
 
     ### INITIALIZER ###
 
@@ -47,11 +49,17 @@ class StatusWatcher(threading.Thread):
         message = request.to_osc()
         while self._is_active and self.server.is_running:
             if self.max_attempts == self.attempts:
+                print("+" * 80)
+                print("SHUTTING DOWN")
+                print("+" * 80)
                 self.server._shutdown()
                 break
-            self.server.send_message(message)
             self._attempts += 1
-            time.sleep(0.1)
+            self.server.send_message(message)
+            sleep_time = self.sleep_base_time * pow(
+                self.exponential_backoff_factor, self._attempts
+            )
+            time.sleep(sleep_time)
         self.server.osc_io.unregister(self.callback)
 
     ### PUBLIC PROPERTIES ###

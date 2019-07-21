@@ -1,3 +1,4 @@
+import logging
 import random
 import statistics
 import time
@@ -5,6 +6,13 @@ import time
 import pytest
 
 from supriya.clock import TempoClock, TimeUnit
+
+repeat_count = 5
+
+
+@pytest.fixture(autouse=True)
+def logger(caplog):
+    caplog.set_level(logging.DEBUG, logger="supriya")
 
 
 @pytest.fixture
@@ -25,22 +33,22 @@ def callback(
     blow_up_at=None,
     delta=0.25,
     limit=4,
-    unit=TimeUnit.BEATS,
+    time_unit=TimeUnit.BEATS,
     **kwargs,
 ):
     if event.invocations == blow_up_at:
         raise Exception
     store.append((current_moment, desired_moment, event))
     if limit is None:
-        return delta, unit
+        return delta, time_unit
     elif event.invocations < limit:
-        return delta, unit
+        return delta, time_unit
     return None
 
 
 def set_time_and_check(time_to_advance, tempo_clock, store):
     tempo_clock.get_current_time.return_value = time_to_advance
-    time.sleep(tempo_clock.slop * 2)
+    time.sleep(tempo_clock.slop * 4)
     moments = []
     for current_moment, desired_moment, event in store:
         one = [
@@ -51,13 +59,13 @@ def set_time_and_check(time_to_advance, tempo_clock, store):
             current_moment.measure,
             round(current_moment.measure_offset, 10),
             current_moment.offset,
-            current_moment.time,
+            current_moment.seconds,
         ]
         three = [
             desired_moment.measure,
             round(desired_moment.measure_offset, 10),
             desired_moment.offset,
-            desired_moment.time,
+            desired_moment.seconds,
         ]
         moments.append((one, two, three))
     return moments
@@ -65,7 +73,7 @@ def set_time_and_check(time_to_advance, tempo_clock, store):
 
 def calculate_skew(store):
     skews = [
-        abs(current_moment.time - desired_moment.time)
+        abs(current_moment.seconds - desired_moment.seconds)
         for current_moment, desired_moment, event in store
     ]
     return {
@@ -77,26 +85,78 @@ def calculate_skew(store):
     }
 
 
+@pytest.mark.parametrize(
+    "schedule,start_clock_first,expected",
+    [
+        (True, True, [0.0, 0.25, 0.5, 0.75, 1.0]),
+        (True, False, [0.0, 0.25, 0.5, 0.75, 1.0]),
+        (False, True, [0.25, 0.5, 0.75, 1.0, 1.25]),
+        (False, False, [0.0, 0.25, 0.5, 0.75, 1.0]),
+    ],
+)
 @pytest.mark.timeout(5)
-def test_realtime_01():
+def test_realtime_01(schedule, start_clock_first, expected):
+    """
+    Start clock, then schedule
+    """
     store = []
     tempo_clock = TempoClock()
     assert not tempo_clock.is_running
     assert tempo_clock.beats_per_minute == 120
-    tempo_clock.start()
-    assert tempo_clock.is_running
-    assert tempo_clock.beats_per_minute == 120
-    tempo_clock.schedule(callback, schedule_at=0.0, args=[store])
+    if start_clock_first:
+        tempo_clock.start()
+        assert tempo_clock.is_running
+        assert tempo_clock.beats_per_minute == 120
+    if schedule:
+        tempo_clock.schedule(callback, schedule_at=0.0, args=[store])
+    else:
+        tempo_clock.cue(callback, quantization="1/4", args=[store])
+    if not start_clock_first:
+        tempo_clock.start()
+        assert tempo_clock.is_running
+        assert tempo_clock.beats_per_minute == 120
     time.sleep(4)
     tempo_clock.stop()
     assert not tempo_clock.is_running
     assert tempo_clock.beats_per_minute == 120
     assert len(store) == 5
-    assert [
-        desired_moment.offset for current_moment, desired_moment, event in store
-    ] == [0.0, 0.25, 0.5, 0.75, 1.0]
+    actual = [desired_moment.offset for current_moment, desired_moment, event in store]
+    assert actual == expected
 
 
+@pytest.mark.parametrize(
+    "limit,bpm_schedule,expected",
+    [
+        (2, [(0.375, 240)], [(0.0, 0.0), (0.25, 0.4375), (0.5, 0.6875)]),
+        (2, [(0.5, 240)], [(0.0, 0.0), (0.25, 0.5), (0.5, 0.75)]),
+    ],
+)
+def test_realtime_02(limit, bpm_schedule, expected):
+    store = []
+    tempo_clock = TempoClock()
+    tempo_clock.cue(
+        callback, quantization="1/4", args=[store], kwargs=dict(limit=limit)
+    )
+    for schedule_at, beats_per_minute in bpm_schedule:
+        tempo_clock.schedule_change(
+            beats_per_minute=beats_per_minute,
+            schedule_at=schedule_at,
+            time_unit=TimeUnit.SECONDS,
+        )
+    tempo_clock.start()
+    time.sleep(2)
+    tempo_clock.stop()
+    actual = [
+        (
+            desired_moment.offset,
+            desired_moment.seconds - tempo_clock._state.initial_seconds,
+        )
+        for current_moment, desired_moment, event in store
+    ]
+    assert actual == expected
+
+
+@pytest.mark.flaky(reruns=5)
 @pytest.mark.timeout(5)
 def test_basic(tempo_clock):
     store = []
@@ -129,6 +189,7 @@ def test_basic(tempo_clock):
     ]
 
 
+@pytest.mark.flaky(reruns=5)
 @pytest.mark.timeout(5)
 def test_two_procedures(tempo_clock):
     store_one = []
@@ -184,6 +245,7 @@ def test_two_procedures(tempo_clock):
     ]
 
 
+@pytest.mark.flaky(reruns=5)
 @pytest.mark.timeout(5)
 def test_exception(tempo_clock):
     store = []
@@ -212,6 +274,7 @@ def test_exception(tempo_clock):
     ]
 
 
+@pytest.mark.flaky(reruns=5)
 @pytest.mark.timeout(5)
 def test_change_tempo(tempo_clock):
     store = []
@@ -241,6 +304,7 @@ def test_change_tempo(tempo_clock):
     ]
 
 
+@pytest.mark.flaky(reruns=5)
 @pytest.mark.timeout(5)
 def test_schedule_tempo_change(tempo_clock):
     store = []
@@ -257,27 +321,28 @@ def test_schedule_tempo_change(tempo_clock):
     assert set_time_and_check(1.0, tempo_clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
-        (["4/4", 120.0], [1, 0.5, 0.5, 1.0], [1, 0.5, 0.5, 1.0]),
+        (["4/4", 60.0], [1, 0.5, 0.5, 1.0], [1, 0.5, 0.5, 1.0]),
     ]
     assert set_time_and_check(1.5, tempo_clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
-        (["4/4", 120.0], [1, 0.5, 0.5, 1.0], [1, 0.5, 0.5, 1.0]),
+        (["4/4", 60.0], [1, 0.5, 0.5, 1.0], [1, 0.5, 0.5, 1.0]),
     ]
     assert set_time_and_check(2.0, tempo_clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
-        (["4/4", 120.0], [1, 0.5, 0.5, 1.0], [1, 0.5, 0.5, 1.0]),
+        (["4/4", 60.0], [1, 0.5, 0.5, 1.0], [1, 0.5, 0.5, 1.0]),
         (["4/4", 60.0], [1, 0.75, 0.75, 2.0], [1, 0.75, 0.75, 2.0]),
     ]
     assert set_time_and_check(2.5, tempo_clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
-        (["4/4", 120.0], [1, 0.5, 0.5, 1.0], [1, 0.5, 0.5, 1.0]),
+        (["4/4", 60.0], [1, 0.5, 0.5, 1.0], [1, 0.5, 0.5, 1.0]),
         (["4/4", 60.0], [1, 0.75, 0.75, 2.0], [1, 0.75, 0.75, 2.0]),
     ]
 
 
+@pytest.mark.flaky(reruns=5)
 @pytest.mark.timeout(5)
 def test_cue_basic(tempo_clock):
     store = []
@@ -346,6 +411,7 @@ def test_cue_basic(tempo_clock):
     ]
 
 
+@pytest.mark.flaky(reruns=5)
 @pytest.mark.timeout(5)
 def test_cue_and_reschedule(tempo_clock):
     store = []
@@ -383,54 +449,41 @@ def test_cue_invalid(tempo_clock):
         tempo_clock.cue(callback, quantization="BOGUS")
 
 
+@pytest.mark.flaky(reruns=5)
 @pytest.mark.timeout(5)
 def test_reschedule_earlier(tempo_clock):
     store = []
     tempo_clock.start()
-    time.sleep(0.1)
     event_id = tempo_clock.cue(
         callback, quantization="1M", args=[store], kwargs={"limit": 0}
     )
-    assert tempo_clock._peek() == 2.0
+    time.sleep(tempo_clock.slop * 2)
+    assert tempo_clock.peek().seconds == 2.0
     assert set_time_and_check(0.0, tempo_clock, store) == []
     tempo_clock.reschedule(event_id, schedule_at=0.5)
-    assert tempo_clock._peek() == 1.0
+    time.sleep(tempo_clock.slop * 2)
+    assert tempo_clock.peek().seconds == 1.0
     assert set_time_and_check(2.0, tempo_clock, store) == [
         (["4/4", 120.0], [2, 0.0, 1.0, 2.0], [1, 0.5, 0.5, 1.0])
     ]
 
 
+@pytest.mark.flaky(reruns=5)
 @pytest.mark.timeout(5)
 def test_reschedule_later(tempo_clock):
     store = []
     tempo_clock.start()
-    time.sleep(0.1)
     event_id = tempo_clock.cue(
         callback, quantization="1M", args=[store], kwargs={"limit": 0}
     )
-    assert tempo_clock._peek() == 2.0
+    time.sleep(tempo_clock.slop * 2)
+    assert tempo_clock.peek().seconds == 2.0
     assert set_time_and_check(0.0, tempo_clock, store) == []
     tempo_clock.reschedule(event_id, schedule_at=1.5)
-    assert tempo_clock._peek() == 3.0
+    time.sleep(tempo_clock.slop * 2)
+    assert tempo_clock.peek().seconds == 3.0
     assert set_time_and_check(3.0, tempo_clock, store) == [
         (["4/4", 120.0], [2, 0.5, 1.5, 3.0], [2, 0.5, 1.5, 3.0])
-    ]
-
-
-@pytest.mark.timeout(5)
-def test_reschedule_later_but_earliest_wins(tempo_clock):
-    store = []
-    tempo_clock.start()
-    time.sleep(0.1)
-    event_id = tempo_clock.cue(
-        callback, quantization="1M", args=[store], kwargs={"limit": 0}
-    )
-    assert tempo_clock._peek() == 2.0
-    assert set_time_and_check(0.0, tempo_clock, store) == []
-    tempo_clock.reschedule(event_id, schedule_at=1.5, earliest_wins=True)
-    assert tempo_clock._peek() == 2.0
-    assert set_time_and_check(3.0, tempo_clock, store) == [
-        (["4/4", 120.0], [2, 0.5, 1.5, 3.0], [2, 0.0, 1.0, 2.0])
     ]
 
 
@@ -443,6 +496,7 @@ def test_change_tempo_not_running(tempo_clock):
     assert tempo_clock.time_signature == (3, 4)
 
 
+@pytest.mark.flaky(reruns=5)
 @pytest.mark.timeout(5)
 def test_change_time_signature_on_downbeat(tempo_clock):
     store = []
@@ -451,7 +505,7 @@ def test_change_time_signature_on_downbeat(tempo_clock):
         callback,
         schedule_at=0.0,
         args=[store],
-        kwargs={"delta": 1, "unit": TimeUnit.MEASURES},
+        kwargs={"delta": 1, "time_unit": TimeUnit.MEASURES},
     )
     tempo_clock.start()
     assert set_time_and_check(0.0, tempo_clock, store) == [
@@ -475,6 +529,7 @@ def test_change_time_signature_on_downbeat(tempo_clock):
     ]
 
 
+@pytest.mark.flaky(reruns=5)
 @pytest.mark.timeout(5)
 def test_change_time_signature_on_downbeat_laggy(tempo_clock):
     store = []
@@ -483,7 +538,7 @@ def test_change_time_signature_on_downbeat_laggy(tempo_clock):
         callback,
         schedule_at=0.0,
         args=[store],
-        kwargs={"delta": 1, "unit": TimeUnit.MEASURES},
+        kwargs={"delta": 1, "time_unit": TimeUnit.MEASURES},
     )
     tempo_clock.start()
     assert set_time_and_check(0.0, tempo_clock, store) == [
@@ -498,6 +553,7 @@ def test_change_time_signature_on_downbeat_laggy(tempo_clock):
     ]
 
 
+@pytest.mark.flaky(reruns=5)
 @pytest.mark.timeout(5)
 def test_change_time_signature_late(tempo_clock):
     store = []
@@ -506,7 +562,7 @@ def test_change_time_signature_late(tempo_clock):
         callback,
         schedule_at=0.0,
         args=[store],
-        kwargs={"delta": 1, "unit": TimeUnit.MEASURES},
+        kwargs={"delta": 1, "time_unit": TimeUnit.MEASURES},
     )
     tempo_clock.start()
     assert set_time_and_check(0.0, tempo_clock, store) == [
@@ -530,6 +586,7 @@ def test_change_time_signature_late(tempo_clock):
     ]
 
 
+@pytest.mark.flaky(reruns=5)
 @pytest.mark.timeout(5)
 def test_change_time_signature_late_laggy(tempo_clock):
     store = []
@@ -538,7 +595,7 @@ def test_change_time_signature_late_laggy(tempo_clock):
         callback,
         schedule_at=0.0,
         args=[store],
-        kwargs={"delta": 1, "unit": TimeUnit.MEASURES},
+        kwargs={"delta": 1, "time_unit": TimeUnit.MEASURES},
     )
     tempo_clock.start()
     assert set_time_and_check(0.0, tempo_clock, store) == [
@@ -553,6 +610,7 @@ def test_change_time_signature_late_laggy(tempo_clock):
     ]
 
 
+@pytest.mark.flaky(reruns=5)
 @pytest.mark.timeout(5)
 def test_change_time_signature_early(tempo_clock):
     store = []
@@ -561,7 +619,7 @@ def test_change_time_signature_early(tempo_clock):
         callback,
         schedule_at=0.0,
         args=[store],
-        kwargs={"delta": 1, "unit": TimeUnit.MEASURES},
+        kwargs={"delta": 1, "time_unit": TimeUnit.MEASURES},
     )
     tempo_clock.start()
     assert set_time_and_check(0.0, tempo_clock, store) == [
@@ -585,6 +643,7 @@ def test_change_time_signature_early(tempo_clock):
     ]
 
 
+@pytest.mark.flaky(reruns=5)
 @pytest.mark.timeout(5)
 def test_change_time_signature_early_laggy(tempo_clock):
     store = []
@@ -593,7 +652,7 @@ def test_change_time_signature_early_laggy(tempo_clock):
         callback,
         schedule_at=0.0,
         args=[store],
-        kwargs={"delta": 1, "unit": TimeUnit.MEASURES},
+        kwargs={"delta": 1, "time_unit": TimeUnit.MEASURES},
     )
     tempo_clock.start()
     assert set_time_and_check(0.0, tempo_clock, store) == [
@@ -607,6 +666,7 @@ def test_change_time_signature_early_laggy(tempo_clock):
     ]
 
 
+@pytest.mark.flaky(reruns=5)
 @pytest.mark.timeout(5)
 def test_change_time_signature_shrinking(tempo_clock):
     """
@@ -645,6 +705,7 @@ def test_change_time_signature_shrinking(tempo_clock):
     ]
 
 
+@pytest.mark.flaky(reruns=5)
 @pytest.mark.timeout(5)
 def test_schedule_measure_relative(tempo_clock):
     store = []
@@ -652,7 +713,7 @@ def test_schedule_measure_relative(tempo_clock):
     tempo_clock.schedule(
         callback,
         schedule_at=3,
-        unit=TimeUnit.MEASURES,
+        time_unit=TimeUnit.MEASURES,
         args=[store],
         kwargs={"limit": 0},
     )
@@ -663,6 +724,7 @@ def test_schedule_measure_relative(tempo_clock):
     ]
 
 
+@pytest.mark.flaky(reruns=5)
 @pytest.mark.timeout(5)
 def test_schedule_seconds_relative(tempo_clock):
     store = []
@@ -670,7 +732,7 @@ def test_schedule_seconds_relative(tempo_clock):
     tempo_clock.schedule(
         callback,
         schedule_at=1.234,
-        unit=TimeUnit.SECONDS,
+        time_unit=TimeUnit.SECONDS,
         args=[store],
         kwargs={"limit": 0},
     )
@@ -684,8 +746,7 @@ def test_schedule_seconds_relative(tempo_clock):
 @pytest.mark.timeout(5)
 def test_cancel_invalid(tempo_clock):
     tempo_clock.start()
-    with pytest.raises(KeyError):
-        tempo_clock.cancel(1)
+    assert tempo_clock.cancel(1) is None
 
 
 def test_slop(tempo_clock):
@@ -730,7 +791,7 @@ def test_clock_skew():
                 callback,
                 schedule_at=random.random(),
                 args=[store],
-                kwargs={"limit": 100, "delta": delta, "unit": TimeUnit.SECONDS},
+                kwargs={"limit": 100, "delta": delta, "time_unit": TimeUnit.SECONDS},
             )
         tempo_clock.start()
         time.sleep(5.0)
@@ -738,4 +799,5 @@ def test_clock_skew():
         stats = calculate_skew(store)
         print(" ".join(f"{key}: {value:f}" for key, value in stats.items()))
         all_stats.append(stats)
-    assert all(stats["median"] < (tempo_clock.slop * 1.5) for stats in all_stats)
+    threshold = tempo_clock.slop * 1.5
+    assert all(stats["median"] < threshold for stats in all_stats)

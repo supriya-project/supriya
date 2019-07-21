@@ -12,10 +12,11 @@ class NodeInfoResponse(Response):
         "_is_group",
         "_next_node_id",
         "_node_id",
-        "_parent_group_id",
+        "_parent_id",
         "_previous_node_id",
         "_tail_node_id",
         "_synthdef_name",
+        "_synthdef_controls",
     )
 
     ### INITIALIZER ###
@@ -24,13 +25,14 @@ class NodeInfoResponse(Response):
         self,
         action=None,
         node_id=None,
-        parent_group_id=None,
+        parent_id=None,
         previous_node_id=None,
         next_node_id=None,
         is_group=None,
         head_node_id=None,
         tail_node_id=None,
         synthdef_name=None,
+        synthdef_controls=None,
         osc_message=None,
     ):
         Response.__init__(self, osc_message=osc_message)
@@ -39,10 +41,11 @@ class NodeInfoResponse(Response):
         self._head_node_id = self._coerce_node_id(head_node_id)
         self._next_node_id = self._coerce_node_id(next_node_id)
         self._node_id = self._coerce_node_id(node_id)
-        self._parent_group_id = self._coerce_node_id(parent_group_id)
+        self._parent_id = self._coerce_node_id(parent_id)
         self._previous_node_id = self._coerce_node_id(previous_node_id)
         self._tail_node_id = self._coerce_node_id(tail_node_id)
         self._synthdef_name = synthdef_name
+        self._synthdef_controls = synthdef_controls
 
     ### PRIVATE METHODS ###
 
@@ -56,17 +59,22 @@ class NodeInfoResponse(Response):
     @classmethod
     def from_osc_message(cls, osc_message):
         arguments = (osc_message.address,) + osc_message.contents
-        response = cls(
+        kwargs = dict(
             action=arguments[0],
             node_id=arguments[1],
-            parent_group_id=arguments[2],
+            parent_id=arguments[2],
             previous_node_id=arguments[3],
             next_node_id=arguments[4],
             is_group=arguments[5],
-            head_node_id=arguments[6] if arguments[5] else None,
-            tail_node_id=arguments[7] if arguments[5] else None,
-            osc_message=osc_message,
         )
+        if arguments[5]:
+            kwargs.update(head_node_id=arguments[6], tail_node_id=arguments[7])
+        elif len(arguments) > 6:
+            controls = []
+            for i in range(arguments[7]):
+                controls.append((arguments[8 + (i * 2)], arguments[9 + (i * 2)]))
+            kwargs.update(synthdef_name=arguments[6], synthdef_controls=tuple(controls))
+        response = cls(**kwargs)
         return response
 
     ### PUBLIC PROPERTIES ###
@@ -92,8 +100,8 @@ class NodeInfoResponse(Response):
         return self._node_id
 
     @property
-    def parent_group_id(self):
-        return self._parent_group_id
+    def parent_id(self):
+        return self._parent_id
 
     @property
     def previous_node_id(self):
@@ -102,3 +110,11 @@ class NodeInfoResponse(Response):
     @property
     def tail_node_id(self):
         return self._tail_node_id
+
+    @property
+    def synthdef_controls(self):
+        return self._synthdef_controls
+
+    @property
+    def synthdef_name(self):
+        return self._synthdef_name

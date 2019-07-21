@@ -1,9 +1,15 @@
 import dataclasses
+import enum
 from typing import Optional, Tuple
 
+import uqbar.objects
+from uqbar.containers import UniqueTreeNode
+
 from supriya.intervals import IntervalTree
+from supriya.midi import NoteOffMessage, NoteOnMessage
 from supriya.utils import iterate_nwise
 
+from .DawMixin import DawMixin
 from .Note import Note
 from .NoteSelector import NoteSelector
 
@@ -12,7 +18,7 @@ from .NoteSelector import NoteSelector
 # TODO: global transport and clip playing
 
 
-class Clip:
+class Clip(UniqueTreeNode, DawMixin):
     """
     A clip.
 
@@ -42,10 +48,10 @@ class Clip:
         >>> for note in selector:
         ...     note
         ...
-        Note(start_offset=0, stop_offset=1, pitch=0, velocity=1.0)
-        Note(start_offset=0, stop_offset=1, pitch=2, velocity=1.0)
-        Note(start_offset=4, stop_offset=5, pitch=0, velocity=1.0)
-        Note(start_offset=4, stop_offset=5, pitch=2, velocity=1.0)
+        Note(start_offset=0, stop_offset=1, pitch=0, velocity=100.0)
+        Note(start_offset=0, stop_offset=1, pitch=2, velocity=100.0)
+        Note(start_offset=4, stop_offset=5, pitch=0, velocity=100.0)
+        Note(start_offset=4, stop_offset=5, pitch=2, velocity=100.0)
 
     ::
 
@@ -56,13 +62,17 @@ class Clip:
         >>> for note in clip:
         ...     note
         ...
-        Note(start_offset=0, stop_offset=4, pitch=0, velocity=1.0)
-        Note(start_offset=0, stop_offset=4, pitch=2, velocity=1.0)
-        Note(start_offset=2, stop_offset=6, pitch=7, velocity=1.0)
-        Note(start_offset=4, stop_offset=9, pitch=0, velocity=1.0)
-        Note(start_offset=4, stop_offset=9, pitch=2, velocity=1.0)
+        Note(start_offset=0, stop_offset=4, pitch=0, velocity=100.0)
+        Note(start_offset=0, stop_offset=4, pitch=2, velocity=100.0)
+        Note(start_offset=2, stop_offset=6, pitch=7, velocity=100.0)
+        Note(start_offset=4, stop_offset=9, pitch=0, velocity=100.0)
+        Note(start_offset=4, stop_offset=9, pitch=2, velocity=100.0)
 
     """
+
+    class EventType(enum.IntEnum):
+        LAUNCH = 3
+        PERFORM = 4
 
     @dataclasses.dataclass(frozen=True)
     class Moment:
@@ -72,14 +82,29 @@ class Clip:
         start_notes: Optional[Tuple[Note]] = None
         stop_notes: Optional[Tuple[Note]] = None
 
+        @property
+        def note_on_messages(self):
+            return [
+                NoteOnMessage(note_number=note.pitch, velocity=note.velocity)
+                for note in self.start_notes
+            ]
+
+        @property
+        def note_off_messages(self):
+            return [
+                NoteOffMessage(note_number=note.pitch, velocity=note.velocity)
+                for note in self.stop_notes
+            ]
+
     ### INITIALIZER ###
 
-    def __init__(self, *, notes=None, duration=4, is_looping=True, parent=None):
+    def __init__(self, *, notes=None, duration=1, is_looping=True, parent=None):
+        UniqueTreeNode.__init__(self)
         self._duration = duration
         self._is_looping = is_looping
         self._parent = parent
         self._notes = IntervalTree()
-        self.add_notes(notes)
+        self.add_notes(notes or [])
 
     ### SPECIAL METHODS ###
 
@@ -88,6 +113,9 @@ class Clip:
 
     def __len__(self):
         return len(self._notes)
+
+    def __repr__(self):
+        return uqbar.objects.get_repr(self, multiline=True)
 
     ### PRIVATE METHODS ###
 
@@ -176,6 +204,9 @@ class Clip:
             stop_notes, overlap_notes = get_nonstart_notes(moment)
         # next offset could be from a pre-zero interval, but who cares?
         next_offset = self._notes.get_offset_after(local_offset)
+        # TODO: cleanup these two if blocks
+        if next_offset is None and self.is_looping:
+            next_offset = self.duration
         if next_offset is not None:
             if self.is_looping:
                 next_offset = min([next_offset, self.duration])
@@ -196,6 +227,12 @@ class Clip:
         if not self._parent:
             raise RuntimeError("Parent cannot be null")
         self.parent.fire(self)
+
+    @classmethod
+    def parse(cls, string):
+        from supriya.daw.parser import parse
+
+        return parse(string)
 
     def remove_notes(self, notes):
         for note in list(notes):

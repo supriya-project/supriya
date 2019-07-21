@@ -1,5 +1,7 @@
 import abc
 
+from supriya.realtime import Group
+
 from .DawNode import DawNode
 
 
@@ -10,6 +12,7 @@ class Receive(DawNode):
     def __init__(self):
         DawNode.__init__(self)
         self._incoming_sends = set()
+        self._node = Group(name="receives")
 
     ### PRIVATE METHODS ###
 

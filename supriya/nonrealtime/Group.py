@@ -2,11 +2,11 @@ import uuid
 from typing import Dict, List, Tuple
 
 import supriya.realtime
-from supriya.commands import GroupNewRequest
+from supriya.commands.GroupNewRequest import GroupNewRequest
 from supriya.nonrealtime.Node import Node
 from supriya.nonrealtime.NodeTransition import NodeTransition
 from supriya.nonrealtime.SessionObject import SessionObject
-from supriya.patterns import Pattern
+from supriya.patterns.Pattern import Pattern
 
 
 class Group(Node):

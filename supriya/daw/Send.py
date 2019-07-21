@@ -1,6 +1,6 @@
 from typing import Optional
 
-from supriya.realtime import Synth
+from supriya.realtime.Synth import Synth
 
 from .DawNode import DawNode
 from .Receive import Receive
@@ -63,6 +63,7 @@ class Send(DawNode):
         self.cached_target.receive._remove_incoming_send(self)
         if self.node is not None:
             self.node.release()
+            self._node = None
         self._channel_counts = None
         return True
 

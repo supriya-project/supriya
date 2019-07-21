@@ -259,13 +259,13 @@ class State(SessionObject):
 
     @property
     def nodes_to_children(
-        self
+        self,
     ) -> Dict["supriya.nonrealtime.Node", Tuple["supriya.nonrealtime.Node"]]:
         return self._nodes_to_children
 
     @property
     def nodes_to_parents(
-        self
+        self,
     ) -> Dict["supriya.nonrealtime.Node", Tuple["supriya.nonrealtime.Node"]]:
         return self._nodes_to_parents
 

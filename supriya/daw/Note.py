@@ -7,7 +7,7 @@ class Note:
     start_offset: Optional[float] = None
     stop_offset: Optional[float] = None
     pitch: float = 0.0
-    velocity: float = 1.0
+    velocity: float = 100.0
 
     def __post_init__(self):
         if self.start_offset >= self.stop_offset:

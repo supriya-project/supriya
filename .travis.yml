@@ -6,7 +6,7 @@ cache:
   - directories:
     - $HOME/.ccache
 python:
-  - 3.6
+  - 3.8
 env:
   global:
     AUDIODEV=null
@@ -16,7 +16,8 @@ env:
     CXX=g++
     MYPYPATH=/tmp/typehints
     PATH=/usr/lib/ccache:$PATH
-    SUPERCOLLIDER_VERSION=Version-3.10.2
+    SUPERCOLLIDER_REPO=josiah-wolf-oberholtzer/supercollider
+    SUPERCOLLIDER_VERSION=extend-node-info-response
     USE_CCACHE=1
 addons:
   apt:

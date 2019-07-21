@@ -105,31 +105,27 @@ from supriya.enums import (  # noqa
     Unit,
 )
 from supriya import utils  # noqa
+from supriya.realtime.BootOptions import BootOptions  # noqa
+from supriya.realtime.Buffer import Buffer  # noqa
+from supriya.realtime.BufferGroup import BufferGroup  # noqa
+from supriya.realtime.Bus import Bus  # noqa
+from supriya.realtime.BusGroup import BusGroup  # noqa
+from supriya.realtime.Group import Group  # noqa
+from supriya.realtime.Server import Server  # noqa
+from supriya.realtime.Synth import Synth  # noqa
 from supriya.midi import Device  # noqa
-from supriya.live import Application, Mixer  # noqa
 from supriya.nonrealtime import Session  # noqa
-from supriya.realtime import (  # noqa
-    BootOptions,
-    Buffer,
-    BufferGroup,
-    Bus,
-    BusGroup,
-    Group,
-    Server,
-    Synth,
-)
 from supriya.soundfiles import Say, SoundFile  # noqa
-from supriya.synthdefs import (  # noqa
-    Envelope,
-    Parameter,
-    Range,
-    SynthDef,
-    SynthDefBuilder,
-    SynthDefFactory,
-)
+from supriya.synthdefs.Envelope import Envelope  # noqa
+from supriya.synthdefs.Parameter import Parameter  # noqa
+from supriya.synthdefs.Range import Range  # noqa
+from supriya.synthdefs.SynthDef import SynthDef  # noqa
+from supriya.synthdefs.SynthDefBuilder import SynthDefBuilder  # noqa
+from supriya.synthdefs.SynthDefFactory import SynthDefFactory  # noqa
 from supriya.system import Assets, Bindable, Binding, bind  # noqa
 from supriya.clock import TempoClock  # noqa
 from supriya.io import graph, play, render  # noqa
 from supriya import assets  # noqa
+from supriya.provider import Provider  # noqa
 
 server = Server.default()

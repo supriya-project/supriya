@@ -48,8 +48,8 @@ class Requestable(SupriyaValueObject):
         server = server or supriya.realtime.Server.default()
         assert isinstance(server, supriya.realtime.Server)
         assert server.is_running
-        with server._lock:
-            if apply_local:
+        if apply_local:
+            with server._lock:
                 for request in self._linearize():
                     request._apply_local(server)
         # handle non-sync

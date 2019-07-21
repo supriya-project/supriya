@@ -1,3 +1,5 @@
+import contextlib
+
 from uqbar.containers import UniqueTreeList
 
 from .DawNode import DawNode
@@ -36,6 +38,11 @@ class DawContainer(DawNode, UniqueTreeList):
                     break
         return roots
 
+    def _insertion_hook(self, new_items, start_index, stop_index):
+        self.node[start_index:stop_index] = [
+            _.node for _ in new_items if _.node is not None
+        ]
+
     def _post_insertion_hook(self, new_items, old_items, alloc_nodes, nonalloc_nodes):
         if not self.server:
             return
@@ -65,11 +72,20 @@ class DawContainer(DawNode, UniqueTreeList):
 
     def _set_items(self, new_items, old_items, start_index, stop_index):
         self._debug_tree("Setting")
-        roots = self._collect_roots(old_items, new_items)
-        UniqueTreeList._set_items(self, new_items, old_items, start_index, stop_index)
-        self._process_roots(roots)
-        alloc_nodes, nonalloc_nodes = self._pre_insertion_hook(new_items, old_items)
-        self.node[start_index:stop_index] = [
-            _.node for _ in new_items if _.node is not None
-        ]
-        self._post_insertion_hook(new_items, old_items, alloc_nodes, nonalloc_nodes)
+        with contextlib.ExitStack() as exit_stack:
+            applications = set()
+            for item in new_items + old_items + [self]:
+                application = item.application
+                if application is not None:
+                    applications.add(application)
+            for application in applications:
+                self._debug_tree("Locking")
+                exit_stack.enter_context(application._lock)
+            roots = self._collect_roots(old_items, new_items)
+            UniqueTreeList._set_items(
+                self, new_items, old_items, start_index, stop_index
+            )
+            self._process_roots(roots)
+            alloc_nodes, nonalloc_nodes = self._pre_insertion_hook(new_items, old_items)
+            self._insertion_hook(new_items, start_index, stop_index)
+            self._post_insertion_hook(new_items, old_items, alloc_nodes, nonalloc_nodes)
