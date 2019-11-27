@@ -59,3 +59,7 @@ class NodeQueryRequest(Request):
     @property
     def node_id(self):
         return self._node_id
+
+    @property
+    def response_patterns(self):
+        return ["/n_info", self.node_id], None

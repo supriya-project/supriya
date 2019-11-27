@@ -1,6 +1,9 @@
-from typing import List, Tuple
+from typing import Callable, Generator, Optional, Sequence, Tuple
 
 from uqbar.containers import UniqueTreeTuple
+
+from supriya.commands import Request
+from supriya.midi import MidiMessage
 
 from .AudioChain import AudioChain
 from .Chain import Chain
@@ -10,7 +13,6 @@ from .DeviceType import DeviceType
 from .InstrumentChain import InstrumentChain
 from .MidiChain import MidiChain
 from .MixerContext import MixerContext
-from .Note import Note
 
 
 class RackDevice(Device, UniqueTreeTuple, MixerContext):
@@ -42,16 +44,30 @@ class RackDevice(Device, UniqueTreeTuple, MixerContext):
         return chain
 
     def perform(
-        self, moment, start_notes, stop_notes
-    ) -> List[Tuple["Device", List[Note], List[Note]]]:
-        results = []
+        self, moment, in_midi_messages
+    ) -> Generator[
+        Tuple[Optional[Callable], Sequence[MidiMessage], Sequence[Request]], None, None
+    ]:
+        # TODO: Refactor for zone control
+        performers = []
         for chain in self.chains:
             if chain.devices:
-                results.append((chain.devices[0], start_notes, stop_notes))
-        if not results:
-            next_device = self.next_device()
-            return [(next_device, start_notes, stop_notes)]
-        return results
+                performers.append(chain.devices[0].perform)
+            else:
+                performers.append(self.perform_output)
+        for message in self.filter_in_midi_messages(in_midi_messages):
+            self._update_captures(moment, message, "I")
+            for performer in performers:
+                yield performer, (message,), ()
+
+    def perform_output(
+        self, moment, in_midi_messages
+    ) -> Generator[
+        Tuple[Optional[Callable], Sequence[MidiMessage], Sequence[Request]], None, None
+    ]:
+        for message in self.filter_out_midi_messages(in_midi_messages):
+            self._update_captures(moment, message, "O")
+            yield None, (message,), ()
 
     ### PUBLIC PROPERTIES ###
 

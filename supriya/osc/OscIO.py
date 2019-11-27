@@ -1,9 +1,12 @@
 import collections
 import logging
+import queue
+import socket
 import socketserver
 import threading
 import time
 import typing
+from contextlib import closing
 
 from supriya.commands.Requestable import Requestable
 from supriya.commands.Response import Response
@@ -15,6 +18,9 @@ udp_logger = logging.getLogger("supriya.udp")
 
 
 class OscIO:
+
+    ### CLASS VARIABLES ###
+
     class CaptureEntry(typing.NamedTuple):
         timestamp: float
         label: str
@@ -72,14 +78,54 @@ class OscIO:
                 if label == "S"
             ]
 
-    class OscServer(socketserver.ThreadingMixIn, socketserver.UDPServer):
-        pass
+    # class OscServer(socketserver.ThreadingMixIn, socketserver.UDPServer):
+    class OscServer(socketserver.UDPServer):
+        def process_queue(self):
+            def delete(pattern, original_callback_map):
+                key = pattern.pop(0)
+                if key not in original_callback_map:
+                    return
+                callbacks, callback_map = original_callback_map[key]
+                if pattern:
+                    delete(pattern, callback_map)
+                if callback in callbacks:
+                    callbacks.remove(callback)
+                if not callbacks and not callback_map:
+                    original_callback_map.pop(key)
+
+            while self.io_instance.command_queue.qsize():
+                try:
+                    action, callback = self.io_instance.command_queue.get()
+                except queue.Empty:
+                    continue
+                patterns = [callback.pattern]
+                if callback.failure_pattern:
+                    patterns.append(callback.failure_pattern)
+                if action == "add":
+                    for pattern in patterns:
+                        callback_map = self.io_instance.callbacks
+                        for item in pattern:
+                            callbacks, callback_map = callback_map.setdefault(
+                                item, ([], {})
+                            )
+                        callbacks.append(callback)
+                elif action == "remove":
+                    for pattern in patterns:
+                        delete(list(pattern), self.io_instance.callbacks)
+
+        def verify_request(self, request, client_address):
+            self.process_queue()
+            return True
 
     class OscHandler(socketserver.BaseRequestHandler):
         def handle(self):
             now = time.time()
             data = self.request[0]
-            message = OscMessage.from_datagram(data)
+            try:
+                message = OscMessage.from_datagram(data)
+            except Exception:
+                udp_logger.warn("Recv: {:0.6f} {}".format(now, data))
+                raise
             osc_log_function = osc_logger.debug
             udp_log_function = udp_logger.debug
             if message.address != "/status.reply":
@@ -90,7 +136,7 @@ class OscIO:
                 udp_log_function("Recv: {:0.6f} {}".format(now, line))
             # TODO: Is it worth the additional thread creation?
             response = None
-            for callback in self.server.io_instance.match(message):
+            for callback in self.server.io_instance._match(message):
                 if callback.parse_response:
                     if response is None:
                         handler = self.server.io_instance.response_handlers.get(
@@ -122,11 +168,14 @@ class OscIO:
         once: bool = False
         parse_response: bool = False
 
+    ### INITIALIZER ###
+
     def __init__(self, ip_address="127.0.0.1", port=57751, timeout=2):
         import supriya.commands
 
         self.callbacks = {}
         self.captures = set()
+        self.command_queue = queue.Queue()
         self.ip_address = ip_address
         self.lock = threading.RLock()
         self.server = None
@@ -162,6 +211,22 @@ class OscIO:
     def __del__(self):
         self.quit()
 
+    ### PRIVATE METHODS ###
+
+    def _match(self, message):
+        items = (message.address,) + message.contents
+        matching_callbacks = []
+        callback_map = self.callbacks
+        for item in items:
+            if item not in callback_map:
+                break
+            callbacks, callback_map = callback_map[item]
+            matching_callbacks.extend(callbacks)
+        for callback in matching_callbacks:
+            if callback.once:
+                self.unregister(callback)
+        return matching_callbacks
+
     ### PUBLIC METHODS ###
 
     def boot(self, ip_address=None, port=None):
@@ -184,57 +249,12 @@ class OscIO:
     def capture(self):
         return self.Capture(self)
 
-    def match(self, message):
-        """
-        Match callbacks against pattern.
-
-        ::
-
-            >>> io = supriya.osc.OscIO()
-            >>> callback = io.register(
-            ...     pattern=['/synced', 1],
-            ...     procedure=lambda: print('ok'),
-            ...     )
-            >>> other_callback = io.register(
-            ...     pattern=['/synced'],
-            ...     procedure=lambda: print('sure'),
-            ...     )
-
-        ::
-
-            >>> for callback in io.match(supriya.osc.OscMessage('/synced', 1)):
-            ...     callback
-            ...
-            OscCallback(pattern=('/synced',), procedure=<function <lambda> at 0x...>, failure_pattern=None, once=False, parse_response=False)
-            OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, failure_pattern=None, once=False, parse_response=False)
-
-        ::
-
-            >>> for callback in io.match(supriya.osc.OscMessage('/synced', 2)):
-            ...     callback
-            ...
-            OscCallback(pattern=('/synced',), procedure=<function <lambda> at 0x...>, failure_pattern=None, once=False, parse_response=False)
-
-        ::
-
-            >>> for callback in io.match(supriya.osc.OscMessage('/n_go', 1000, 1001)):
-            ...     callback
-            ...
-
-        """
-        items = (message.address,) + message.contents
-        matching_callbacks = []
-        with self.lock:
-            callback_map = self.callbacks
-            for item in items:
-                if item not in callback_map:
-                    break
-                callbacks, callback_map = callback_map[item]
-                matching_callbacks.extend(callbacks)
-            for callback in matching_callbacks:
-                if callback.once:
-                    self.unregister(callback)
-        return matching_callbacks
+    @staticmethod
+    def find_free_port():
+        with closing(socket.socket(socket.AF_INET, socket.SOCK_DGRAM)) as s:
+            s.bind(("", 0))
+            s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            return s.getsockname()[1]
 
     def quit(self):
         with self.lock:
@@ -250,23 +270,6 @@ class OscIO:
     ):
         """
         Register a callback.
-
-        ::
-
-            >>> io = supriya.osc.OscIO()
-            >>> callback = io.register(
-            ...     pattern=['/synced', 1],
-            ...     procedure=lambda: print('ok'),
-            ...     )
-
-        ::
-
-            >>> import pprint
-            >>> pprint.pprint(io.callbacks)
-            {'/synced': ([],
-                         {1: ([OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, failure_pattern=None, once=False, parse_response=False)],
-                              {})})}
-
         """
         if isinstance(pattern, (str, int, float)):
             pattern = (pattern,)
@@ -278,15 +281,7 @@ class OscIO:
             once=bool(once),
             parse_response=bool(parse_response),
         )
-        patterns = [pattern]
-        if failure_pattern:
-            patterns.append(failure_pattern)
-        with self.lock:
-            for pattern in patterns:
-                callback_map = self.callbacks
-                for item in pattern:
-                    callbacks, callback_map = callback_map.setdefault(item, ([], {}))
-                callbacks.append(callback)
+        self.command_queue.put(("add", callback))
         return callback
 
     def send(self, message, with_request_name=False):
@@ -319,65 +314,18 @@ class OscIO:
                         command=request,
                     )
                 )
-        osc_log_function("Recv: {:0.6f} {}".format(now, message.to_list()))
+        osc_log_function("Send: {:0.6f} {}".format(now, message.to_list()))
         for line in str(message).splitlines():
-            udp_log_function("Recv: {:0.6f} {}".format(now, line))
+            udp_log_function("Send: {:0.6f} {}".format(now, line))
         datagram = message.to_datagram()
-        self.server.socket.sendto(datagram, (self.ip_address, self.port))
+        try:
+            self.server.socket.sendto(datagram, (self.ip_address, self.port))
+        except OSError:
+            print(message)
+            raise
 
     def unregister(self, callback):
         """
         Unregister a callback.
-
-        ::
-
-            >>> io = supriya.osc.OscIO()
-            >>> callback = io.register(
-            ...     pattern=['/synced', 1],
-            ...     procedure=lambda: print('ok'),
-            ...     )
-            >>> other_callback = io.register(
-            ...     pattern=['/synced'],
-            ...     procedure=lambda: print('sure'),
-            ...     )
-
-        ::
-
-            >>> import pprint
-            >>> pprint.pprint(io.callbacks)
-            {'/synced': ([OscCallback(pattern=('/synced',), procedure=<function <lambda> at 0x...>, failure_pattern=None, once=False, parse_response=False)],
-                         {1: ([OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, failure_pattern=None, once=False, parse_response=False)],
-                              {})})}
-
-        ::
-
-            >>> io.unregister(other_callback)
-            >>> pprint.pprint(io.callbacks)
-            {'/synced': ([],
-                         {1: ([OscCallback(pattern=('/synced', 1), procedure=<function <lambda> at 0x...>, failure_pattern=None, once=False, parse_response=False)],
-                              {})})}
-
-        ::
-
-            >>> io.unregister(callback)
-            >>> pprint.pprint(io.callbacks)
-            {}
-
         """
-
-        def delete(pattern, original_callback_map):
-            key = pattern.pop(0)
-            if key not in original_callback_map:
-                return
-            callbacks, callback_map = original_callback_map[key]
-            if pattern:
-                delete(pattern, callback_map)
-            if callback in callbacks:
-                callbacks.remove(callback)
-            if not callbacks and not callback_map:
-                original_callback_map.pop(key)
-
-        with self.lock:
-            delete(list(callback.pattern), self.callbacks)
-            if callback.failure_pattern:
-                delete(list(callback.failure_pattern), self.callbacks)
+        self.command_queue.put(("remove", callback))

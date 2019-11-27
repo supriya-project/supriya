@@ -30,10 +30,10 @@ class BootOptions:
 
     __documentation_section__ = "Main Classes"
 
-    audio_bus_channel_count: int = 128
+    audio_bus_channel_count: int = 1024
     block_size: int = 64
     buffer_count: int = 1024
-    control_bus_channel_count: int = 4096
+    control_bus_channel_count: int = 16384
     hardware_buffer_size: Optional[int] = None
     initial_node_id: int = 1000
     input_bus_channel_count: int = 8
@@ -102,9 +102,9 @@ class BootOptions:
                 result.append("-S {}".format(int(self.sample_rate)))
             if not self.zero_configuration:
                 result.append("-R 0")
-        if self.audio_bus_channel_count != 128:
+        if self.audio_bus_channel_count != 1024:
             result.append("-a {}".format(self.audio_bus_channel_count))
-        if self.control_bus_channel_count != 4096:
+        if self.control_bus_channel_count != 16384:
             result.append("-c {}".format(self.control_bus_channel_count))
         if self.input_bus_channel_count != 8:
             result.append("-i {}".format(self.input_bus_channel_count))

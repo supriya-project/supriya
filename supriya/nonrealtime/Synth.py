@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Tuple, Union
 
 import uqbar.graphs
 
@@ -60,10 +60,18 @@ class Synth(Node):
             group.append(uqbar.graphs.RecordField(label=field))
         return uqbar.graphs.Node(children=[uqbar.graphs.RecordGroup([group])])
 
-    def _get_at_offset(self, offset: float, item: str) -> Optional[float]:
+    def _get_at_offset(
+        self, offset: float, item: str
+    ) -> Tuple[
+        Optional[Union[float]],
+        Optional[
+            Union[float, "supriya.nonrealtime.Bus", "supriya.nonrealtime.BusGroup"]
+        ],
+    ]:
         default = self.synthdef.parameters[item].value
         default = self._synth_kwargs.get(item, default)
-        return super()._get_at_offset(offset=offset, item=item) or default
+        value, actual_offset = super()._get_at_offset(offset=offset, item=item)
+        return (value or default), actual_offset
 
     def _to_request(
         self,

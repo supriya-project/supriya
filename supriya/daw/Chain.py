@@ -13,6 +13,7 @@ class Chain(DawNode, UniqueTreeTuple):
     ### INITIALIZER ###
 
     def __init__(self):
+        self._node = None
         DawNode.__init__(self)
         self._devices = DeviceContainer(device_types=self.device_types)
         UniqueTreeTuple.__init__(self, children=[self.devices])

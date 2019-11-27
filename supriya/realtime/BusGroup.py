@@ -2,6 +2,8 @@ import supriya.exceptions
 from supriya import CalculationRate
 from supriya.realtime.ServerObject import ServerObject
 
+# TODO: Reimplement Bus/BusGroup to stress "leasing" model
+
 
 class BusGroup(ServerObject):
     """
@@ -326,11 +328,12 @@ class BusGroup(ServerObject):
         import supriya.realtime
 
         if not self.is_allocated:
-            raise supriya.exceptions.BusNotAllocated
+            return
         allocator = supriya.realtime.Bus._get_allocator(
             calculation_rate=self.calculation_rate, server=self.server
         )
-        allocator.free(self.bus_id)
+        if allocator:
+            allocator.free(self.bus_id)
         self._bus_id = None
         ServerObject.free(self)
         return self

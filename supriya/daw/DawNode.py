@@ -1,19 +1,18 @@
+import logging
 from typing import Optional
 
 from uqbar.containers import UniqueTreeNode
 
 import supriya.daw  # noqa
-from supriya.realtime import Node, Server
+from supriya.realtime.Server import Server
 
 from .DawMeta import DawMeta
-from .MixerContext import MixerContext
+from .DawMixin import DawMixin
+
+logger = logging.getLogger("supriya.daw")
 
 
-class DawNode(UniqueTreeNode, metaclass=DawMeta):
-
-    ### CLASS VARIABLES ###
-
-    _node = None
+class DawNode(UniqueTreeNode, DawMixin, metaclass=DawMeta):
 
     ### INITIALIZER ###
 
@@ -21,8 +20,12 @@ class DawNode(UniqueTreeNode, metaclass=DawMeta):
         UniqueTreeNode.__init__(self, name=name)
         self._channel_count = channel_count
         self._server = None
+        self._ready = None
 
     ### PRIVATE METHODS ###
+
+    def _allocate_synthdefs(self, server):
+        return
 
     def _create_bus_groups(self, server):
         for bus_group in self._list_bus_groups():
@@ -33,12 +36,6 @@ class DawNode(UniqueTreeNode, metaclass=DawMeta):
 
     def _create_osc_callbacks(self, server):
         pass
-
-    def _debug_tree(self, prefix):
-        print(
-            f"{(prefix + ':').ljust(15)} {'..' * self.depth} {type(self).__name__}"
-            f"{' (' + self.node.name + ')' if self.node else ''}"
-        )
 
     def _destroy_bus_groups(self, server):
         for bus_group in self._list_bus_groups():
@@ -52,8 +49,10 @@ class DawNode(UniqueTreeNode, metaclass=DawMeta):
         Free nodes and other resources allocated on the server.
         """
         self._debug_tree("Freeing")
+        self._ready = False
         if self._server is None:
             return False
+        self._unregister_with_transport()
         for node in self._iter_children():
             node._free()
         self._destroy_osc_callbacks(self.server)
@@ -84,8 +83,10 @@ class DawNode(UniqueTreeNode, metaclass=DawMeta):
             self._free()
         self._debug_tree("Pre-alloc (T)")
         self._server = server
+        self._allocate_synthdefs(server)
         self._create_bus_groups(server)
         self._create_bus_routings(server)
+        self._register_with_transport()
         for node in self._iter_children():
             node._pre_allocate(server)
         return True
@@ -100,40 +101,33 @@ class DawNode(UniqueTreeNode, metaclass=DawMeta):
         self._create_osc_callbacks(self.server)
         for node in self._iter_children():
             node._post_allocate()
+        self._ready = True
 
     def _reallocate(self):
         """
         Re-allocate nodes previously allocated on the server, and perform any necessary setup/teardown.
         """
         self._debug_tree("Re-alloc")
+        self._ready = False
         for node in self._iter_children():
             node._reallocate()
+        self._ready = True
+
+    def _register_with_transport(self):
+        pass
+
+    def _unregister_with_transport(self):
+        pass
 
     ### PUBLIC PROPERTIES ###
-
-    @property
-    def application(self) -> Optional["supriya.daw.Application"]:
-        from .Application import Application
-
-        for parent in self.parentage[1:]:
-            if isinstance(parent, Application):
-                return parent
-        return None
 
     @property
     def channel_count(self):
         return self._channel_count
 
     @property
-    def node(self) -> Optional[Node]:
-        return self._node
-
-    @property
-    def mixer_context(self) -> Optional[MixerContext]:
-        for parent in self.parentage[1:]:
-            if isinstance(parent, MixerContext):
-                return parent
-        return None
+    def ready(self):
+        return self._ready
 
     @property
     def server(self) -> Optional[Server]:

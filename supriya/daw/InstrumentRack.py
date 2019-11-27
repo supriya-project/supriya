@@ -15,7 +15,7 @@ class InstrumentRack(RackDevice):
 
     ### INITIALIZER ###
 
-    def __init__(self, channel_count=2):
+    def __init__(self, channel_count=2, name=None):
         RackDevice.__init__(self)
         self._levels = dict(output=None)
         self._osc_callbacks = dict(output=None)
@@ -37,7 +37,7 @@ class InstrumentRack(RackDevice):
                 self.return_chains._node,
                 self.rack_output_synth,
             ],
-            name="instrument rack",
+            name=name or "instrument rack",
         )
 
     ### PRIVATE METHODS ###
@@ -68,13 +68,13 @@ class InstrumentRack(RackDevice):
     def add_chain(self) -> InstrumentChain:
         chain = InstrumentChain()
         self.chains.append(chain)
-        chain.sends[self] = Send(chain, self)
+        chain.sends.append(Send(chain, self))
         return chain
 
     def add_return_chain(self) -> ReturnChain:
         chain = self.return_chains._node_class()
         self.return_chains.append(chain)
-        chain.sends[self] = Send(chain, self)
+        chain.sends.append(Send(chain, self))
         return chain
 
     ### PUBLIC PROPERTIES ###

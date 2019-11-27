@@ -7,14 +7,15 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ("_children", "_extra", "_node_id")
+    __slots__ = ("_children", "_extra", "_name", "_node_id")
 
     ### INITIALIZER ###
 
-    def __init__(self, node_id=None, children=None, **extra):
-        self._children = children
+    def __init__(self, node_id=None, children=None, name=None, **extra):
+        self._children = tuple(children or ())
         self._extra = tuple(sorted(extra.items()))
         self._node_id = node_id
+        self._name = name
 
     ### SPECIAL METHODS ###
 
@@ -76,11 +77,14 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
 
     def _get_str_format_pieces(self):
         result = []
-        string = "{} group".format(self.node_id)
+        string = f"{self.node_id} group"
+        if self.name:
+            string += f" ({self.name})"
         if self.extra:
-            string = "{} ({})".format(
-                string,
-                ", ".join("{}: {}".format(key, value) for key, value in self.extra),
+            string += (
+                " ("
+                + ", ".join("{}: {}".format(key, value) for key, value in self.extra)
+                + ")"
             )
         result.append(string)
         for child in self.children:
@@ -89,6 +93,14 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
         return result
 
     ### PUBLIC METHODS ###
+
+    def annotate(self, annotation_map):
+        return type(self)(
+            node_id=self.node_id,
+            children=[child.annotate(annotation_map) for child in self.children],
+            name=annotation_map.get(self.node_id),
+            **dict(self.extra),
+        )
 
     @classmethod
     def from_group(cls, group, include_controls=False):
@@ -113,6 +125,10 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
         children = tuple(children)
         query_tree_group = QueryTreeGroup(node_id=node_id, children=children)
         return query_tree_group
+
+    @classmethod
+    def from_response(cls, response):
+        return cls(node_id=response.node_id)
 
     @classmethod
     def from_state(cls, state, include_controls=False, include_timespans=False):
@@ -256,6 +272,10 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
     @property
     def extra(self):
         return self._extra
+
+    @property
+    def name(self):
+        return self._name
 
     @property
     def node_id(self):

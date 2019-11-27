@@ -41,7 +41,7 @@ class GroupQueryTreeRequest(Request):
 
     ### INITIALIZER ###
 
-    def __init__(self, include_controls=False, node_id=None):
+    def __init__(self, node_id=None, include_controls=False):
         Request.__init__(self)
         self._node_id = node_id
         self._include_controls = bool(include_controls)

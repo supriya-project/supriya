@@ -67,7 +67,7 @@ class Server:
 
     ### INITIALIZER ###
 
-    def __init__(self, ip_address="127.0.0.1", port=57751):
+    def __init__(self, ip_address=None, port=None):
         import supriya.osc
         import supriya.realtime
 
@@ -75,8 +75,8 @@ class Server:
 
         ### NET ADDRESS ###
 
-        self._ip_address = ip_address
-        self._port = port
+        self._ip_address = ip_address or "127.0.0.1"
+        self._port = port or 57751
 
         ### OSC MESSAGING ###
 
@@ -120,6 +120,7 @@ class Server:
         self._control_bus_proxies = {}
         self._control_buses = {}
         self._nodes = {}
+        self._pending_synths = {}
         self._synthdefs = {}
 
         ### DEBUG ###
@@ -376,9 +377,9 @@ class Server:
                 if response.is_group:
                     node = Group()
                 else:
-                    node = Synth()
+                    node = self._pending_synths.pop(node_id, Synth())
                 node._register_with_local_server(server=self, node_id=response.node_id)
-                parent = self._nodes[response.parent_group_id]
+                parent = self._nodes[response.parent_id]
                 node._set_parent(parent)
                 if response.previous_node_id:
                     previous_child = self._nodes[response.previous_node_id]

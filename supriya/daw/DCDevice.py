@@ -25,14 +25,16 @@ class DCDevice(AudioDevice):
     ### PRIVATE METHODS ###
 
     def _build_synthdef(self, channel_count):
-        def _dc_block(builder, source, state):
+        def _signal_block(builder, source, state):
             return DC.ar(source=[builder["dc"]] * state["channel_count"])
 
-        factory = SynthDefFactory(active=1, dc=1, gate=1, lag=0.1)
-        factory = factory.with_signal_block(_dc_block)
-        factory = factory.with_signal_block(_gate_block)
-        factory = factory.with_output()
-        factory = factory.with_channel_count(channel_count)
+        factory = (
+            SynthDefFactory(active=1, dc=1, gate=1, lag=0.1)
+            .with_signal_block(_signal_block)
+            .with_signal_block(_gate_block)
+            .with_output()
+            .with_channel_count(channel_count)
+        )
         return factory.build()
 
     def _create_bus_routings(self, server):

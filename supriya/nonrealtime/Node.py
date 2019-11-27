@@ -1,6 +1,6 @@
 import bisect
 import collections
-from typing import Dict, List, Optional, Set, Tuple, Union
+from typing import Dict, List, Optional, Set, Tuple, Union, cast
 
 from uqbar.objects import new
 
@@ -53,7 +53,7 @@ class Node(SessionObject):
     def __getitem__(self, item: str) -> float:
         assert self.session._active_moments
         offset = self.session._active_moments[-1].offset
-        return self._get_at_offset(offset, item) or 0
+        return self._get_at_offset(offset, item)[0] or 0
 
     def __setitem__(
         self,
@@ -80,31 +80,24 @@ class Node(SessionObject):
         state.stop_nodes.add(node)
         self.move_node(node, add_action=add_action)
         self.session.nodes.add(node)
+        self.session._nodes_by_session_id[node.session_id] = node
         self.session._apply_transitions([node.start_offset, node.stop_offset])
         return node
 
     def _collect_settings(self, offset: float, id_mapping=None, persistent=False):
         settings: Dict[str, float] = {}
-        if persistent:
-            for key in self._events:
-                value = self._get_at_offset(offset, key) or 0.0
-                if id_mapping and value in id_mapping:
-                    value = id_mapping[value]
-                settings[key] = value
-        else:
-            for key, events in self._events.items():
-                events = events[:]
-                for i, (event_offset, value) in enumerate(events):
-                    # TODO: This is dreadfully inefficient.
-                    if id_mapping and value in id_mapping:
-                        value = id_mapping[value]
-                        events[i] = (event_offset, value)
-                index = bisect.bisect_left(events, (offset, 0.0))
-                if len(events) <= index:
-                    continue
-                event_offset, value = events[index]
-                if offset == event_offset:
-                    settings[key] = value
+        for key in self._events:
+            value, actual_offset = self._get_at_offset(offset, key)
+            if not persistent and actual_offset != offset:
+                continue
+            if id_mapping and value in id_mapping:
+                value = cast(
+                    Union["supriya.nonrealtime.Bus", "supriya.nonrealtime.BusGroup"],
+                    value,
+                ).get_map_symbol(id_mapping[value])
+            elif value is not None:
+                value = float(value)
+            settings[key] = value or 0.0
         return settings
 
     def _fixup_duration(self, new_duration: float) -> None:
@@ -155,25 +148,32 @@ class Node(SessionObject):
                 if action.target is self:
                     action._target = new_node
 
-    def _get_at_offset(self, offset: float, item: str) -> Optional[float]:
+    def _get_at_offset(
+        self, offset: float, item: str
+    ) -> Tuple[
+        Optional[Union[float]],
+        Optional[
+            Union[float, "supriya.nonrealtime.Bus", "supriya.nonrealtime.BusGroup"]
+        ],
+    ]:
         """
         Relative to Node start offset.
         """
         events = self._events.get(item)
         if not events:
-            return None
-        index = bisect.bisect_left(events, (offset, 0.0))
+            return None, None
+        index = bisect.bisect_left(events, (offset,))
         if len(events) <= index:
             old_offset, value = events[-1]
         else:
             old_offset, value = events[index]
         if old_offset == offset:
-            return value
+            return value, old_offset
         index -= 1
         if index < 0:
-            return None
-        _, value = events[index]
-        return value
+            return None, None
+        actual_offset, value = events[index]
+        return value, actual_offset
 
     def _set_at_offset(self, offset, item, value):
         """
@@ -364,7 +364,15 @@ class Node(SessionObject):
             if state_two == self.stop_offset:
                 break
         self.session.nodes.remove(self)
+        self.session._nodes_by_session_id.pop(self.session_id)
         self.session._apply_transitions([self.start_offset, self.stop_offset])
+
+    @SessionObject.require_offset
+    def free(self, offset: float):
+        new_duration = offset - self.start_offset
+        if new_duration > self.duration:
+            raise ValueError("Cannot free after stop offset")
+        return self.set_duration(new_duration, clip_children=True)
 
     def set_duration(self, new_duration: float, clip_children: bool = False) -> "Node":
         import supriya.nonrealtime

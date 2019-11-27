@@ -17,13 +17,14 @@ build:
 
 clean:
 	find . -name '*.pyc' | xargs rm
+	rm -Rif *.egg-info/
 	rm -Rif .*cache/
 	rm -Rif .tox/
 	rm -Rif __pycache__
 	rm -Rif build/
 	rm -Rif dist/
+	rm -Rif htmlcov/
 	rm -Rif prof/
-	rm -Rif *.egg-info/
 
 docs:
 	make -C docs/ html
@@ -46,7 +47,8 @@ gh-pages:
 
 isort:
 	isort \
-		--multi-line 1 \
+		--case-sensitive \
+		--multi-line 3 \
 		--recursive \
 		--skip supriya/__init__.py \
 		--skip supriya/commands/__init__.py \
@@ -66,7 +68,7 @@ pytest:
 		--cov-config=.coveragerc \
 		--cov-report=html \
 		--cov-report=term \
-		--cov=supriya/ \
+		--cov=${project}/ \
 		--durations=20 \
 		--timeout=60 \
 		${testPaths}
@@ -88,9 +90,11 @@ reformat:
 	make black-reformat
 
 release:
+	make docs
 	make clean
 	make build
 	twine upload dist/*.tar.gz
+	make gh-pages
 
 test:
 	make black-check

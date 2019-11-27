@@ -2,6 +2,8 @@ import supriya.exceptions
 from supriya import CalculationRate
 from supriya.realtime.ServerObject import ServerObject
 
+# TODO: Reimplement Bus/BusGroup to stress "leasing" model
+
 
 class Bus(ServerObject):
     """

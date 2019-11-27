@@ -9,11 +9,11 @@ def add_libraries(doctest_namespace):
 
 
 @pytest.fixture(autouse=True)
-def server_shutdown():
+def shutdown():
     supriya.Server.kill()
-    for server in supriya.Server._servers:
+    for server in tuple(supriya.Server._servers):
         server._shutdown()
     yield
-    for server in supriya.Server._servers:
+    for server in tuple(supriya.Server._servers):
         server._shutdown()
     supriya.Server.kill()

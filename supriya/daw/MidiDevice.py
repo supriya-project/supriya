@@ -1,22 +1,16 @@
-from typing import List, Tuple
+from supriya.realtime import Group
 
 from .Device import Device
 from .DeviceType import DeviceType
-from .Note import Note
 
 
 class MidiDevice(Device):
+    def __init__(self, name=None):
+        Device.__init__(self)
+        self._node = Group(name=name or "midi device")
 
     ### PRIVATE PROPERTIES ###
 
     @property
     def _device_type(self):
         return DeviceType.MIDI
-
-    ### PUBLIC METHODS ###
-
-    def perform(
-        self, moment, start_notes, stop_notes
-    ) -> List[Tuple["Device", List[Note], List[Note]]]:
-        next_device = self.next_device()
-        return [(next_device, start_notes, stop_notes)]

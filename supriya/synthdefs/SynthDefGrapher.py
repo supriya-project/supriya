@@ -91,7 +91,7 @@ class SynthDefGrapher:
     def _create_ugen_input_group(ugen, ugen_index):
         if not ugen.inputs:
             return None
-        input_group = uqbar.graphs.RecordGroup(name="inputs".format(ugen_index))
+        input_group = uqbar.graphs.RecordGroup(name="inputs")
         for i, input_ in enumerate(ugen.inputs):
             label = ""
             input_name = None
@@ -147,7 +147,7 @@ class SynthDefGrapher:
 
         if not ugen.outputs:
             return None
-        output_group = uqbar.graphs.RecordGroup(name="outputs".format(ugen_index))
+        output_group = uqbar.graphs.RecordGroup(name="outputs")
         for i, output in enumerate(ugen.outputs):
             label = str(i)
             if isinstance(ugen, supriya.ugens.Control):

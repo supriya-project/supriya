@@ -6,12 +6,9 @@ get-type-hints:
 
 install-scsynth:
 	cd ${TRAVIS_BUILD_DIR} && \
-		git clone -q https://github.com/supercollider/supercollider.git
-	cd $(SUPERCOLLIDER_DIR) && \
-		git checkout -q ${SUPERCOLLIDER_VERSION} && \
-		git submodule -q init && \
-		git submodule -q update && \
-		mkdir BUILD
+		git clone --quiet --recursive --branch ${SUPERCOLLIDER_VERSION} \
+			https://github.com/${SUPERCOLLIDER_REPO}.git
+	cd $(SUPERCOLLIDER_DIR) && mkdir BUILD
 	cd $(SUPERCOLLIDER_BUILD_DIR) && \
 		cmake \
 			-DCMAKE_BUILD_TYPE=Release \
@@ -31,8 +28,8 @@ pytest:
 	pytest \
 		--durations=100 \
 		--timeout=60 \
-		tests/test_realtime_Server_boot.py \
-		tests/test_synthdefs_SynthDefCompiler_basic.py \
+		tests/realtime/test_realtime_Server_boot.py \
+		tests/synthdefs/test_synthdefs_SynthDefCompiler_basic.py \
 		tests/ \
 		supriya/
 

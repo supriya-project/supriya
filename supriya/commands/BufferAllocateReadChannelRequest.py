@@ -1,8 +1,9 @@
 import collections
 
 import supriya.osc
-from supriya.commands.BufferAllocateReadRequest import BufferAllocateReadRequest
 from supriya.enums import RequestId
+
+from .BufferAllocateReadRequest import BufferAllocateReadRequest
 
 
 class BufferAllocateReadChannelRequest(BufferAllocateReadRequest):

@@ -57,7 +57,7 @@ class AudioRack(RackDevice):
     def add_chain(self) -> AudioChain:
         chain = AudioChain()
         self.chains.append(chain)
-        chain.sends[self] = Send(chain, self)
+        chain.sends.append(Send(chain, self))
         return chain
 
     ### PUBLIC PROPERTIES ###

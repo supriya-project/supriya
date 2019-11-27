@@ -66,11 +66,11 @@ class NodeIdAllocator(SupriyaObject):
 
     ### PUBLIC METHODS ###
 
-    def allocate_node_id(self):
+    def allocate_node_id(self, count=1):
         x = None
         with self._lock:
             x = self._temp
-            temp = x + 1
+            temp = x + count
             if 0x03FFFFFF < temp:
                 temp = (temp % 0x03FFFFFF) + self._initial_node_id
             self._temp = temp

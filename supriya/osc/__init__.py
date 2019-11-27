@@ -38,6 +38,5 @@ def format_datagram(datagram):
 
 
 from .OscBundle import OscBundle  # noqa
-from .OscCallback import OscCallback  # noqa
 from .OscIO import OscIO  # noqa
 from .OscMessage import OscMessage  # noqa

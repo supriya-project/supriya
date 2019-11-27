@@ -28,3 +28,32 @@ from .StatusWatcher import StatusWatcher  # noqa
 from .Synth import Synth  # noqa
 from .SynthControl import SynthControl  # noqa
 from .SynthInterface import SynthInterface  # noqa
+
+__all__ = [
+    "AudioInputBusGroup",
+    "AudioOutputBusGroup",
+    "Block",
+    "BlockAllocator",
+    "BootOptions",
+    "Buffer",
+    "BufferGroup",
+    "BufferProxy",
+    "Bus",
+    "BusGroup",
+    "BusProxy",
+    "ControlInterface",
+    "Group",
+    "GroupControl",
+    "GroupInterface",
+    "Node",
+    "NodeIdAllocator",
+    "RootNode",
+    "Server",
+    "ServerMeters",
+    "ServerObject",
+    "ServerRecorder",
+    "StatusWatcher",
+    "Synth",
+    "SynthControl",
+    "SynthInterface",
+]

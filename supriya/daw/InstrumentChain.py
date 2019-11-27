@@ -5,7 +5,7 @@ from supriya.realtime import BusGroup, Group, Synth
 from .Chain import Chain
 from .DeviceType import DeviceType
 from .Send import Send
-from .SendManager import SendManager
+from .SendContainer import SendContainer
 from .synthdefs import build_chain_output_synthdef
 
 
@@ -19,7 +19,7 @@ class InstrumentChain(Chain):
         self._osc_callbacks = dict(active=None, prefader=None, postfader=None)
         self._bus_group = BusGroup.audio(bus_count=channel_count)
         self._output_synth = Synth(synthdef=build_chain_output_synthdef(channel_count))
-        self._sends = SendManager()
+        self._sends = SendContainer()
         self._mutate([self.devices, self.sends])
         self._node = Group(
             children=[

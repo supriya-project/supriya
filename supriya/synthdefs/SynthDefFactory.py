@@ -3,6 +3,8 @@ import types
 
 from supriya.system.SupriyaObject import SupriyaObject
 
+from .UGenArray import UGenArray
+
 
 class SynthDefFactory(SupriyaObject):
     """
@@ -236,7 +238,7 @@ class SynthDefFactory(SupriyaObject):
             builder._add_parameter("rand_id", self._rand_id, "SCALAR")
             supriya.ugens.RandID.ir(rand_id=builder["rand_id"])
         if self._gate:
-            builder._add_parameter("gate", 1, "TRIGGER")
+            builder._add_parameter("gate", 1, "CONTROL")
             state["gate"] = supriya.ugens.Linen.kr(
                 attack_time=self._gate["attack_time"],
                 done_action=supriya.DoneAction.FREE_SYNTH,
@@ -254,7 +256,7 @@ class SynthDefFactory(SupriyaObject):
             )
             state["window"] = state["line"].hanning_window()
         if not self._output.get("windowed") and self._output.get("crossfaded"):
-            builder._add_parameter("crossfade", 0, "CONTROL")
+            builder._add_parameter("mix", 0, "CONTROL")
         if self._output.get("leveled"):
             builder._add_parameter("level", 1, "CONTROL")
         for key, value in self._parameters:
@@ -319,7 +321,7 @@ class SynthDefFactory(SupriyaObject):
                     window *= builder["level"]
                 kwargs["crossfade"] = window
             else:
-                kwargs["crossfade"] = builder["crossfade"]
+                kwargs["crossfade"] = builder["mix"]
             if gate:
                 kwargs["crossfade"] *= gate
         elif windowed:
@@ -366,7 +368,8 @@ class SynthDefFactory(SupriyaObject):
             source = self._build_feedback_loop_input(builder, source, state)
             for signal_block in self._signal_blocks:
                 source = signal_block(builder, source, state)
-                assert isinstance(source, supriya.synthdefs.UGenMethodMixin)
+                if not isinstance(source, supriya.synthdefs.UGenMethodMixin):
+                    source = UGenArray(source)
             self._build_output(builder, source, state)
             self._build_feedback_loop_output(builder, source, state)
             self._build_silence_detection(builder, source, state)
@@ -757,11 +760,11 @@ class SynthDefFactory(SupriyaObject):
                     -   Control.ir: null
                     -   In.ar:
                             bus: Control.ir[0:out]
-                    -   TrigControl.kr: null
+                    -   Control.kr: null
                     -   Linen.kr:
                             attack_time: 0.02
                             done_action: 2.0
-                            gate: TrigControl.kr[0:gate]
+                            gate: Control.kr[0:gate]
                             release_time: 0.02
                             sustain_level: 1.0
                     -   ExpRand.ir/0:
@@ -1277,7 +1280,7 @@ class SynthDefFactory(SupriyaObject):
 
         ..  container:: example
 
-            Configure the factory with a crossfade-able bus output:
+            Configure the factory with a mix-able bus output:
 
             ::
 
@@ -1319,7 +1322,7 @@ class SynthDefFactory(SupriyaObject):
                             source: AllpassC.ar/0[0]
                     -   XOut.ar:
                             bus: Control.ir[0:out]
-                            crossfade: Control.kr[0:crossfade]
+                            crossfade: Control.kr[0:mix]
                             source[0]: AllpassC.ar/1[0]
 
         ..  container:: example
@@ -1375,7 +1378,7 @@ class SynthDefFactory(SupriyaObject):
         ..  container:: example
 
             A factory configured with a crossfaded *and* windowed bus output
-            will use the windowing signal to control the crossfade:
+            will use the windowing signal to control the mix:
 
             ::
 
@@ -1784,7 +1787,7 @@ class SynthDefFactory(SupriyaObject):
                             input_two: BinaryOpUGen(MULTIPLICATION).ar/3[0]
                     -   XOut.ar:
                             bus: Control.ir[0:out]
-                            crossfade: Control.kr[28:crossfade]
+                            crossfade: Control.kr[28:mix]
                             source[0]: Sum4.ar[0]
 
         ..  container:: example
@@ -2057,7 +2060,7 @@ class SynthDefFactory(SupriyaObject):
                             right: Sum4.ar/1[0]
                     -   XOut.ar:
                             bus: Control.ir[0:out]
-                            crossfade: Control.kr[56:crossfade]
+                            crossfade: Control.kr[56:mix]
                             source[0]: BinaryOpUGen(ADDITION).ar[0]
 
         """

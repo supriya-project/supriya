@@ -7,15 +7,18 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ("_controls", "_extra", "_node_id", "_synthdef_name")
+    __slots__ = ("_controls", "_extra", "_name", "_node_id", "_synthdef_name")
 
     ### INITIALIZER ###
 
-    def __init__(self, node_id=None, synthdef_name=None, controls=None, **extra):
+    def __init__(
+        self, node_id=None, synthdef_name=None, controls=None, name=None, **extra
+    ):
         self._controls = controls
         self._extra = tuple(sorted(extra.items()))
         self._node_id = node_id
         self._synthdef_name = synthdef_name
+        self._name = name
 
     ### SPECIAL METHODS ###
 
@@ -81,11 +84,14 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
 
     def _get_str_format_pieces(self):
         result = []
-        string = "{} {}".format(self.node_id, self.synthdef_name)
+        string = f"{self.node_id} {self.synthdef_name}"
+        if self.name:
+            string += f" ({self.name})"
         if self.extra:
-            string = "{} ({})".format(
-                string,
-                ", ".join("{}: {}".format(key, value) for key, value in self.extra),
+            string += (
+                " ("
+                + ", ".join("{}: {}".format(key, value) for key, value in self.extra)
+                + ")"
             )
         result.append(string)
         if self.controls:
@@ -95,6 +101,30 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
         return result
 
     ### PUBLIC METHODS ###
+
+    def annotate(self, annotation_map):
+        return type(self)(
+            node_id=self.node_id,
+            controls=self.controls,
+            synthdef_name=self.synthdef_name,
+            name=annotation_map.get(self.node_id),
+            **dict(self.extra),
+        )
+
+    @classmethod
+    def from_response(cls, response):
+        import supriya.commands
+
+        return cls(
+            node_id=response.node_id,
+            controls=[
+                supriya.commands.QueryTreeControl(
+                    control_name_or_index=name, control_value=value,
+                )
+                for name, value in (response.synthdef_controls or [])
+            ],
+            synthdef_name=response.synthdef_name,
+        )
 
     @classmethod
     def from_synth(cls, synth, include_controls=False):
@@ -180,6 +210,10 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
     @property
     def extra(self):
         return self._extra
+
+    @property
+    def name(self):
+        return self._name
 
     @property
     def node_id(self):
