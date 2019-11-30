@@ -14,6 +14,7 @@ from .clips import Slot
 from .devices import DeviceObject
 from .sends import Receive, Send, Target
 from .synthdefs import (
+    build_patch_synthdef,
     build_peak_rms_synthdef,
     gain_block,
     gate_block,
@@ -127,7 +128,10 @@ class TrackObject(Allocatable):
             add_action=input_action,
             in_=self._audio_bus_proxies["input"],
             out=self._audio_bus_proxies["output"],
-            synthdef=self.build_input_synthdef(channel_count),
+            # synthdef=self.build_input_synthdef(channel_count),
+            synthdef=build_patch_synthdef(
+                channel_count, channel_count, feedback=True, gain=True
+            ),
             target_node=input_target,
             name="Input",
         )
@@ -137,7 +141,7 @@ class TrackObject(Allocatable):
             out=self._audio_bus_proxies["output"],
             synthdef=build_peak_rms_synthdef(channel_count),
             target_node=input_levels_target,
-            name="InputLevel",
+            name="InputLevels",
         )
         prefader_levels_target, prefader_levels_action = prefader_levels_pair
         self._node_proxies["prefader_levels"] = provider.add_synth(
@@ -151,8 +155,16 @@ class TrackObject(Allocatable):
         self._node_proxies["output"] = provider.add_synth(
             active=self.is_active,
             add_action=output_action,
+            in_=self._audio_bus_proxies["output"],
             out=self._audio_bus_proxies["output"],
-            synthdef=self.build_output_synthdef(channel_count),
+            # synthdef=self.build_output_synthdef(channel_count),
+            synthdef=build_patch_synthdef(
+                channel_count,
+                channel_count,
+                gain=True,
+                hard_gate=True,
+                replace_out=True,
+            ),
             target_node=output_target,
             name="Output",
         )

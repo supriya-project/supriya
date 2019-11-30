@@ -1,3 +1,4 @@
+from uqbar.objects import new
 import abc
 import contextlib
 import dataclasses
@@ -354,7 +355,17 @@ class ProviderMoment:
                 )
         else:
             request_bundle = RequestBundle(timestamp=self.seconds, contents=requests)
-        self.provider.server.send_message(request_bundle)
+        try:
+            self.provider.server.send_message(request_bundle)
+        except OSError:
+            messages = request_bundle.contents
+            if synthdefs:
+                synthdef_message = messages[0]
+                messages = synthdef_message.callback.contents or []
+                synthdef_message = new(synthdef_message, callback=None)
+                synthdef_message.communicate(sync=True, server=self.provider.server)
+            for message in messages:
+                self.provider.server.send_message(message)
         for synthdef in synthdefs:
             synthdef._register_with_local_server(server=self.provider.server)
 

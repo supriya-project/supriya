@@ -41,10 +41,10 @@ def test_track_mute_solo_application(track_mute_solo_application):
                 1002 group (a)
                     1003 group (Parameters)
                     1010 group (Receives)
-                    1004 mixer/track-input/8 (Input)
-                        in_: 16.0, out: 24.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
+                    1004 mix/patch[fb,gain]/8x8 (Input)
+                        active: 1.0, gain: 0.0, gate: 1.0, in_: 16.0, lag: 0.01, out: 24.0
                     1009 group (SubTracks)
-                    1005 mixer/levels/8 (InputLevel)
+                    1005 mixer/levels/8 (InputLevels)
                         out: 24.0, gate: 1.0, lag: 0.01
                     1011 group (Devices)
                         1012 group (AudioEffect)
@@ -59,8 +59,8 @@ def test_track_mute_solo_application(track_mute_solo_application):
                     1006 mixer/levels/8 (PrefaderLevels)
                         out: 24.0, gate: 1.0, lag: 0.01
                     1018 group (PreFaderSends)
-                    1007 mixer/track-output/8 (Output)
-                        out: 24.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                    1007 mix/patch[gain,hard,replace]/8x8 (Output)
+                        active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 24.0, lag: 0.01, out: 24.0
                     1019 group (PostFaderSends)
                         1163 mix/patch[gain]/8x8 (Send)
                             active: 1.0, gain: 0.0, gate: 1.0, in_: 24.0, lag: 0.01, out: 216.0
@@ -69,16 +69,16 @@ def test_track_mute_solo_application(track_mute_solo_application):
                 1020 group (b)
                     1021 group (Parameters)
                     1066 group (Receives)
-                    1022 mixer/track-input/8 (Input)
-                        in_: 40.0, out: 48.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
+                    1022 mix/patch[fb,gain]/8x8 (Input)
+                        active: 1.0, gain: 0.0, gate: 1.0, in_: 40.0, lag: 0.01, out: 48.0
                     1027 group (SubTracks)
                         1028 group (ba)
                             1029 group (Parameters)
                             1036 group (Receives)
-                            1030 mixer/track-input/8 (Input)
-                                in_: 56.0, out: 64.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
+                            1030 mix/patch[fb,gain]/8x8 (Input)
+                                active: 1.0, gain: 0.0, gate: 1.0, in_: 56.0, lag: 0.01, out: 64.0
                             1035 group (SubTracks)
-                            1031 mixer/levels/8 (InputLevel)
+                            1031 mixer/levels/8 (InputLevels)
                                 out: 64.0, gate: 1.0, lag: 0.01
                             1037 group (Devices)
                                 1038 group (AudioEffect)
@@ -93,8 +93,8 @@ def test_track_mute_solo_application(track_mute_solo_application):
                             1032 mixer/levels/8 (PrefaderLevels)
                                 out: 64.0, gate: 1.0, lag: 0.01
                             1044 group (PreFaderSends)
-                            1033 mixer/track-output/8 (Output)
-                                out: 64.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                            1033 mix/patch[gain,hard,replace]/8x8 (Output)
+                                active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 64.0, lag: 0.01, out: 64.0
                             1045 group (PostFaderSends)
                                 1046 mix/patch[gain]/8x8 (Send)
                                     active: 1.0, gain: 0.0, gate: 1.0, in_: 64.0, lag: 0.01, out: 48.0
@@ -103,10 +103,10 @@ def test_track_mute_solo_application(track_mute_solo_application):
                         1047 group (bb)
                             1048 group (Parameters)
                             1055 group (Receives)
-                            1049 mixer/track-input/8 (Input)
-                                in_: 80.0, out: 88.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
+                            1049 mix/patch[fb,gain]/8x8 (Input)
+                                active: 1.0, gain: 0.0, gate: 1.0, in_: 80.0, lag: 0.01, out: 88.0
                             1054 group (SubTracks)
-                            1050 mixer/levels/8 (InputLevel)
+                            1050 mixer/levels/8 (InputLevels)
                                 out: 88.0, gate: 1.0, lag: 0.01
                             1056 group (Devices)
                                 1057 group (AudioEffect)
@@ -121,14 +121,14 @@ def test_track_mute_solo_application(track_mute_solo_application):
                             1051 mixer/levels/8 (PrefaderLevels)
                                 out: 88.0, gate: 1.0, lag: 0.01
                             1063 group (PreFaderSends)
-                            1052 mixer/track-output/8 (Output)
-                                out: 88.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                            1052 mix/patch[gain,hard,replace]/8x8 (Output)
+                                active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 88.0, lag: 0.01, out: 88.0
                             1064 group (PostFaderSends)
                                 1065 mix/patch[gain]/8x8 (Send)
                                     active: 1.0, gain: 0.0, gate: 1.0, in_: 88.0, lag: 0.01, out: 48.0
                             1053 mixer/levels/8 (PostfaderLevels)
                                 out: 88.0, gate: 1.0, lag: 0.01
-                    1023 mixer/levels/8 (InputLevel)
+                    1023 mixer/levels/8 (InputLevels)
                         out: 48.0, gate: 1.0, lag: 0.01
                     1067 group (Devices)
                         1068 group (AudioEffect)
@@ -143,8 +143,8 @@ def test_track_mute_solo_application(track_mute_solo_application):
                     1024 mixer/levels/8 (PrefaderLevels)
                         out: 48.0, gate: 1.0, lag: 0.01
                     1074 group (PreFaderSends)
-                    1025 mixer/track-output/8 (Output)
-                        out: 48.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                    1025 mix/patch[gain,hard,replace]/8x8 (Output)
+                        active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 48.0, lag: 0.01, out: 48.0
                     1075 group (PostFaderSends)
                         1164 mix/patch[gain]/8x8 (Send)
                             active: 1.0, gain: 0.0, gate: 1.0, in_: 48.0, lag: 0.01, out: 216.0
@@ -153,16 +153,16 @@ def test_track_mute_solo_application(track_mute_solo_application):
                 1076 group (c)
                     1077 group (Parameters)
                     1141 group (Receives)
-                    1078 mixer/track-input/8 (Input)
-                        in_: 112.0, out: 120.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
+                    1078 mix/patch[fb,gain]/8x8 (Input)
+                        active: 1.0, gain: 0.0, gate: 1.0, in_: 112.0, lag: 0.01, out: 120.0
                     1083 group (SubTracks)
                         1084 group (ca)
                             1085 group (Parameters)
                             1092 group (Receives)
-                            1086 mixer/track-input/8 (Input)
-                                in_: 128.0, out: 136.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
+                            1086 mix/patch[fb,gain]/8x8 (Input)
+                                active: 1.0, gain: 0.0, gate: 1.0, in_: 128.0, lag: 0.01, out: 136.0
                             1091 group (SubTracks)
-                            1087 mixer/levels/8 (InputLevel)
+                            1087 mixer/levels/8 (InputLevels)
                                 out: 136.0, gate: 1.0, lag: 0.01
                             1093 group (Devices)
                                 1094 group (AudioEffect)
@@ -177,8 +177,8 @@ def test_track_mute_solo_application(track_mute_solo_application):
                             1088 mixer/levels/8 (PrefaderLevels)
                                 out: 136.0, gate: 1.0, lag: 0.01
                             1100 group (PreFaderSends)
-                            1089 mixer/track-output/8 (Output)
-                                out: 136.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                            1089 mix/patch[gain,hard,replace]/8x8 (Output)
+                                active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 136.0, lag: 0.01, out: 136.0
                             1101 group (PostFaderSends)
                                 1102 mix/patch[gain]/8x8 (Send)
                                     active: 1.0, gain: 0.0, gate: 1.0, in_: 136.0, lag: 0.01, out: 120.0
@@ -187,16 +187,16 @@ def test_track_mute_solo_application(track_mute_solo_application):
                         1103 group (cb)
                             1104 group (Parameters)
                             1130 group (Receives)
-                            1105 mixer/track-input/8 (Input)
-                                in_: 152.0, out: 160.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
+                            1105 mix/patch[fb,gain]/8x8 (Input)
+                                active: 1.0, gain: 0.0, gate: 1.0, in_: 152.0, lag: 0.01, out: 160.0
                             1110 group (SubTracks)
                                 1111 group (cba)
                                     1112 group (Parameters)
                                     1119 group (Receives)
-                                    1113 mixer/track-input/8 (Input)
-                                        in_: 168.0, out: 176.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
+                                    1113 mix/patch[fb,gain]/8x8 (Input)
+                                        active: 1.0, gain: 0.0, gate: 1.0, in_: 168.0, lag: 0.01, out: 176.0
                                     1118 group (SubTracks)
-                                    1114 mixer/levels/8 (InputLevel)
+                                    1114 mixer/levels/8 (InputLevels)
                                         out: 176.0, gate: 1.0, lag: 0.01
                                     1120 group (Devices)
                                         1121 group (AudioEffect)
@@ -211,14 +211,14 @@ def test_track_mute_solo_application(track_mute_solo_application):
                                     1115 mixer/levels/8 (PrefaderLevels)
                                         out: 176.0, gate: 1.0, lag: 0.01
                                     1127 group (PreFaderSends)
-                                    1116 mixer/track-output/8 (Output)
-                                        out: 176.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                                    1116 mix/patch[gain,hard,replace]/8x8 (Output)
+                                        active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 176.0, lag: 0.01, out: 176.0
                                     1128 group (PostFaderSends)
                                         1129 mix/patch[gain]/8x8 (Send)
                                             active: 1.0, gain: 0.0, gate: 1.0, in_: 176.0, lag: 0.01, out: 160.0
                                     1117 mixer/levels/8 (PostfaderLevels)
                                         out: 176.0, gate: 1.0, lag: 0.01
-                            1106 mixer/levels/8 (InputLevel)
+                            1106 mixer/levels/8 (InputLevels)
                                 out: 160.0, gate: 1.0, lag: 0.01
                             1131 group (Devices)
                                 1132 group (AudioEffect)
@@ -233,14 +233,14 @@ def test_track_mute_solo_application(track_mute_solo_application):
                             1107 mixer/levels/8 (PrefaderLevels)
                                 out: 160.0, gate: 1.0, lag: 0.01
                             1138 group (PreFaderSends)
-                            1108 mixer/track-output/8 (Output)
-                                out: 160.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                            1108 mix/patch[gain,hard,replace]/8x8 (Output)
+                                active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 160.0, lag: 0.01, out: 160.0
                             1139 group (PostFaderSends)
                                 1140 mix/patch[gain]/8x8 (Send)
                                     active: 1.0, gain: 0.0, gate: 1.0, in_: 160.0, lag: 0.01, out: 120.0
                             1109 mixer/levels/8 (PostfaderLevels)
                                 out: 160.0, gate: 1.0, lag: 0.01
-                    1079 mixer/levels/8 (InputLevel)
+                    1079 mixer/levels/8 (InputLevels)
                         out: 120.0, gate: 1.0, lag: 0.01
                     1142 group (Devices)
                         1143 group (AudioEffect)
@@ -255,8 +255,8 @@ def test_track_mute_solo_application(track_mute_solo_application):
                     1080 mixer/levels/8 (PrefaderLevels)
                         out: 120.0, gate: 1.0, lag: 0.01
                     1149 group (PreFaderSends)
-                    1081 mixer/track-output/8 (Output)
-                        out: 120.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                    1081 mix/patch[gain,hard,replace]/8x8 (Output)
+                        active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 120.0, lag: 0.01, out: 120.0
                     1150 group (PostFaderSends)
                         1165 mix/patch[gain]/8x8 (Send)
                             active: 1.0, gain: 0.0, gate: 1.0, in_: 120.0, lag: 0.01, out: 216.0
@@ -265,16 +265,16 @@ def test_track_mute_solo_application(track_mute_solo_application):
             1151 group (MasterTrack)
                 1152 group (Parameters)
                 1158 group (Receives)
-                1153 mixer/track-input/8 (Input)
-                    in_: 208.0, out: 216.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
-                1154 mixer/levels/8 (InputLevel)
+                1153 mix/patch[fb,gain]/8x8 (Input)
+                    active: 1.0, gain: 0.0, gate: 1.0, in_: 208.0, lag: 0.01, out: 216.0
+                1154 mixer/levels/8 (InputLevels)
                     out: 216.0, gate: 1.0, lag: 0.01
                 1159 group (Devices)
                 1155 mixer/levels/8 (PrefaderLevels)
                     out: 216.0, gate: 1.0, lag: 0.01
                 1160 group (PreFaderSends)
-                1156 mixer/track-output/8 (Output)
-                    out: 216.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                1156 mix/patch[gain,hard,replace]/8x8 (Output)
+                    active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 216.0, lag: 0.01, out: 216.0
                 1161 group (PostFaderSends)
                     1162 mix/patch/8x2 (DirectOut)
                         active: 1.0, gate: 1.0, in_: 216.0, lag: 0.01, out: 0.0
@@ -283,16 +283,16 @@ def test_track_mute_solo_application(track_mute_solo_application):
             1166 group (CueTrack)
                 1167 group (Parameters)
                 1173 group (Receives)
-                1168 mixer/track-input/2 (Input)
-                    in_: 224.0, out: 226.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
-                1169 mixer/levels/2 (InputLevel)
+                1168 mix/patch[fb,gain]/2x2 (Input)
+                    active: 1.0, gain: 0.0, gate: 1.0, in_: 224.0, lag: 0.01, out: 226.0
+                1169 mixer/levels/2 (InputLevels)
                     out: 226.0, gate: 1.0, lag: 0.01
                 1174 group (Devices)
                 1170 mixer/levels/2 (PrefaderLevels)
                     out: 226.0, gate: 1.0, lag: 0.01
                 1175 group (PreFaderSends)
-                1171 mixer/track-output/2 (Output)
-                    out: 226.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                1171 mix/patch[gain,hard,replace]/2x2 (Output)
+                    active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 226.0, lag: 0.01, out: 226.0
                 1176 group (PostFaderSends)
                     1177 mix/patch/2x2 (DirectOut)
                         active: 1.0, gate: 1.0, in_: 226.0, lag: 0.01, out: 2.0
@@ -311,10 +311,10 @@ def test_channel_count_application(channel_count_application):
                 1002 group (One)
                     1003 group (Parameters)
                     1010 group (Receives)
-                    1004 mixer/track-input/2 (Input)
-                        in_: 16.0, out: 18.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
+                    1004 mix/patch[fb,gain]/2x2 (Input)
+                        active: 1.0, gain: 0.0, gate: 1.0, in_: 16.0, lag: 0.01, out: 18.0
                     1009 group (SubTracks)
-                    1005 mixer/levels/2 (InputLevel)
+                    1005 mixer/levels/2 (InputLevels)
                         out: 18.0, gate: 1.0, lag: 0.01
                     1011 group (Devices)
                         1012 group (Rack)
@@ -324,9 +324,9 @@ def test_channel_count_application(channel_count_application):
                                 1016 group (Chain)
                                     1017 group (Parameters)
                                     1023 group (Receives)
-                                    1018 mixer/track-input/2 (Input)
-                                        in_: 22.0, out: 24.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
-                                    1019 mixer/levels/2 (InputLevel)
+                                    1018 mix/patch[fb,gain]/2x2 (Input)
+                                        active: 1.0, gain: 0.0, gate: 1.0, in_: 22.0, lag: 0.01, out: 24.0
+                                    1019 mixer/levels/2 (InputLevels)
                                         out: 24.0, gate: 1.0, lag: 0.01
                                     1024 group (Devices)
                                         1025 group (Device)
@@ -341,8 +341,8 @@ def test_channel_count_application(channel_count_application):
                                     1020 mixer/levels/2 (PrefaderLevels)
                                         out: 24.0, gate: 1.0, lag: 0.01
                                     1031 group (PreFaderSends)
-                                    1021 mixer/track-output/2 (Output)
-                                        out: 24.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                                    1021 mix/patch[gain,hard,replace]/2x2 (Output)
+                                        active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 24.0, lag: 0.01, out: 24.0
                                     1032 group (PostFaderSends)
                                         1033 mix/patch[gain]/2x2 (Send)
                                             active: 1.0, gain: 0.0, gate: 1.0, in_: 24.0, lag: 0.01, out: 20.0
@@ -353,8 +353,8 @@ def test_channel_count_application(channel_count_application):
                     1006 mixer/levels/2 (PrefaderLevels)
                         out: 18.0, gate: 1.0, lag: 0.01
                     1034 group (PreFaderSends)
-                    1007 mixer/track-output/2 (Output)
-                        out: 18.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                    1007 mix/patch[gain,hard,replace]/2x2 (Output)
+                        active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 18.0, lag: 0.01, out: 18.0
                     1035 group (PostFaderSends)
                         1073 mix/patch[gain]/2x2 (Send)
                             active: 1.0, gain: 0.0, gate: 1.0, in_: 18.0, lag: 0.01, out: 38.0
@@ -363,36 +363,36 @@ def test_channel_count_application(channel_count_application):
                 1036 group (Two)
                     1037 group (Parameters)
                     1057 group (Receives)
-                    1038 mixer/track-input/2 (Input)
-                        in_: 28.0, out: 30.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
+                    1038 mix/patch[fb,gain]/2x2 (Input)
+                        active: 1.0, gain: 0.0, gate: 1.0, in_: 28.0, lag: 0.01, out: 30.0
                     1043 group (SubTracks)
                         1044 group (Three)
                             1045 group (Parameters)
                             1052 group (Receives)
-                            1046 mixer/track-input/2 (Input)
-                                in_: 32.0, out: 34.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
+                            1046 mix/patch[fb,gain]/2x2 (Input)
+                                active: 1.0, gain: 0.0, gate: 1.0, in_: 32.0, lag: 0.01, out: 34.0
                             1051 group (SubTracks)
-                            1047 mixer/levels/2 (InputLevel)
+                            1047 mixer/levels/2 (InputLevels)
                                 out: 34.0, gate: 1.0, lag: 0.01
                             1053 group (Devices)
                             1048 mixer/levels/2 (PrefaderLevels)
                                 out: 34.0, gate: 1.0, lag: 0.01
                             1054 group (PreFaderSends)
-                            1049 mixer/track-output/2 (Output)
-                                out: 34.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                            1049 mix/patch[gain,hard,replace]/2x2 (Output)
+                                active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 34.0, lag: 0.01, out: 34.0
                             1055 group (PostFaderSends)
                                 1056 mix/patch[gain]/2x2 (Send)
                                     active: 1.0, gain: 0.0, gate: 1.0, in_: 34.0, lag: 0.01, out: 30.0
                             1050 mixer/levels/2 (PostfaderLevels)
                                 out: 34.0, gate: 1.0, lag: 0.01
-                    1039 mixer/levels/2 (InputLevel)
+                    1039 mixer/levels/2 (InputLevels)
                         out: 30.0, gate: 1.0, lag: 0.01
                     1058 group (Devices)
                     1040 mixer/levels/2 (PrefaderLevels)
                         out: 30.0, gate: 1.0, lag: 0.01
                     1059 group (PreFaderSends)
-                    1041 mixer/track-output/2 (Output)
-                        out: 30.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                    1041 mix/patch[gain,hard,replace]/2x2 (Output)
+                        active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 30.0, lag: 0.01, out: 30.0
                     1060 group (PostFaderSends)
                         1074 mix/patch[gain]/2x2 (Send)
                             active: 1.0, gain: 0.0, gate: 1.0, in_: 30.0, lag: 0.01, out: 38.0
@@ -401,16 +401,16 @@ def test_channel_count_application(channel_count_application):
             1061 group (MasterTrack)
                 1062 group (Parameters)
                 1068 group (Receives)
-                1063 mixer/track-input/2 (Input)
-                    in_: 36.0, out: 38.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
-                1064 mixer/levels/2 (InputLevel)
+                1063 mix/patch[fb,gain]/2x2 (Input)
+                    active: 1.0, gain: 0.0, gate: 1.0, in_: 36.0, lag: 0.01, out: 38.0
+                1064 mixer/levels/2 (InputLevels)
                     out: 38.0, gate: 1.0, lag: 0.01
                 1069 group (Devices)
                 1065 mixer/levels/2 (PrefaderLevels)
                     out: 38.0, gate: 1.0, lag: 0.01
                 1070 group (PreFaderSends)
-                1066 mixer/track-output/2 (Output)
-                    out: 38.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                1066 mix/patch[gain,hard,replace]/2x2 (Output)
+                    active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 38.0, lag: 0.01, out: 38.0
                 1071 group (PostFaderSends)
                     1072 mix/patch/2x2 (DirectOut)
                         active: 1.0, gate: 1.0, in_: 38.0, lag: 0.01, out: 0.0
@@ -419,16 +419,16 @@ def test_channel_count_application(channel_count_application):
             1075 group (CueTrack)
                 1076 group (Parameters)
                 1082 group (Receives)
-                1077 mixer/track-input/2 (Input)
-                    in_: 40.0, out: 42.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
-                1078 mixer/levels/2 (InputLevel)
+                1077 mix/patch[fb,gain]/2x2 (Input)
+                    active: 1.0, gain: 0.0, gate: 1.0, in_: 40.0, lag: 0.01, out: 42.0
+                1078 mixer/levels/2 (InputLevels)
                     out: 42.0, gate: 1.0, lag: 0.01
                 1083 group (Devices)
                 1079 mixer/levels/2 (PrefaderLevels)
                     out: 42.0, gate: 1.0, lag: 0.01
                 1084 group (PreFaderSends)
-                1080 mixer/track-output/2 (Output)
-                    out: 42.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                1080 mix/patch[gain,hard,replace]/2x2 (Output)
+                    active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 42.0, lag: 0.01, out: 42.0
                 1085 group (PostFaderSends)
                     1086 mix/patch/2x2 (DirectOut)
                         active: 1.0, gate: 1.0, in_: 42.0, lag: 0.01, out: 2.0
@@ -447,10 +447,10 @@ def test_chain_mute_solo_application(chain_mute_solo_application):
                 1002 group (Track)
                     1003 group (Parameters)
                     1010 group (Receives)
-                    1004 mixer/track-input/8 (Input)
-                        in_: 16.0, out: 24.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
+                    1004 mix/patch[fb,gain]/8x8 (Input)
+                        active: 1.0, gain: 0.0, gate: 1.0, in_: 16.0, lag: 0.01, out: 24.0
                     1009 group (SubTracks)
-                    1005 mixer/levels/8 (InputLevel)
+                    1005 mixer/levels/8 (InputLevels)
                         out: 24.0, gate: 1.0, lag: 0.01
                     1011 group (Devices)
                         1012 group (outer/a)
@@ -460,9 +460,9 @@ def test_chain_mute_solo_application(chain_mute_solo_application):
                                 1016 group (outer/a/a)
                                     1017 group (Parameters)
                                     1023 group (Receives)
-                                    1018 mixer/track-input/8 (Input)
-                                        in_: 40.0, out: 48.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
-                                    1019 mixer/levels/8 (InputLevel)
+                                    1018 mix/patch[fb,gain]/8x8 (Input)
+                                        active: 1.0, gain: 0.0, gate: 1.0, in_: 40.0, lag: 0.01, out: 48.0
+                                    1019 mixer/levels/8 (InputLevels)
                                         out: 48.0, gate: 1.0, lag: 0.01
                                     1024 group (Devices)
                                         1025 group (AudioEffect)
@@ -477,8 +477,8 @@ def test_chain_mute_solo_application(chain_mute_solo_application):
                                     1020 mixer/levels/8 (PrefaderLevels)
                                         out: 48.0, gate: 1.0, lag: 0.01
                                     1031 group (PreFaderSends)
-                                    1021 mixer/track-output/8 (Output)
-                                        out: 48.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                                    1021 mix/patch[gain,hard,replace]/8x8 (Output)
+                                        active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 48.0, lag: 0.01, out: 48.0
                                     1032 group (PostFaderSends)
                                         1033 mix/patch[gain]/8x8 (Send)
                                             active: 1.0, gain: 0.0, gate: 1.0, in_: 48.0, lag: 0.01, out: 32.0
@@ -487,9 +487,9 @@ def test_chain_mute_solo_application(chain_mute_solo_application):
                                 1034 group (outer/a/b)
                                     1035 group (Parameters)
                                     1041 group (Receives)
-                                    1036 mixer/track-input/8 (Input)
-                                        in_: 64.0, out: 72.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
-                                    1037 mixer/levels/8 (InputLevel)
+                                    1036 mix/patch[fb,gain]/8x8 (Input)
+                                        active: 1.0, gain: 0.0, gate: 1.0, in_: 64.0, lag: 0.01, out: 72.0
+                                    1037 mixer/levels/8 (InputLevels)
                                         out: 72.0, gate: 1.0, lag: 0.01
                                     1042 group (Devices)
                                         1043 group (inner/a)
@@ -499,9 +499,9 @@ def test_chain_mute_solo_application(chain_mute_solo_application):
                                                 1047 group (inner/a/a)
                                                     1048 group (Parameters)
                                                     1054 group (Receives)
-                                                    1049 mixer/track-input/8 (Input)
-                                                        in_: 88.0, out: 96.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
-                                                    1050 mixer/levels/8 (InputLevel)
+                                                    1049 mix/patch[fb,gain]/8x8 (Input)
+                                                        active: 1.0, gain: 0.0, gate: 1.0, in_: 88.0, lag: 0.01, out: 96.0
+                                                    1050 mixer/levels/8 (InputLevels)
                                                         out: 96.0, gate: 1.0, lag: 0.01
                                                     1055 group (Devices)
                                                         1056 group (AudioEffect)
@@ -516,8 +516,8 @@ def test_chain_mute_solo_application(chain_mute_solo_application):
                                                     1051 mixer/levels/8 (PrefaderLevels)
                                                         out: 96.0, gate: 1.0, lag: 0.01
                                                     1062 group (PreFaderSends)
-                                                    1052 mixer/track-output/8 (Output)
-                                                        out: 96.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                                                    1052 mix/patch[gain,hard,replace]/8x8 (Output)
+                                                        active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 96.0, lag: 0.01, out: 96.0
                                                     1063 group (PostFaderSends)
                                                         1064 mix/patch[gain]/8x8 (Send)
                                                             active: 1.0, gain: 0.0, gate: 1.0, in_: 96.0, lag: 0.01, out: 80.0
@@ -526,9 +526,9 @@ def test_chain_mute_solo_application(chain_mute_solo_application):
                                                 1065 group (inner/a/b)
                                                     1066 group (Parameters)
                                                     1072 group (Receives)
-                                                    1067 mixer/track-input/8 (Input)
-                                                        in_: 112.0, out: 120.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
-                                                    1068 mixer/levels/8 (InputLevel)
+                                                    1067 mix/patch[fb,gain]/8x8 (Input)
+                                                        active: 1.0, gain: 0.0, gate: 1.0, in_: 112.0, lag: 0.01, out: 120.0
+                                                    1068 mixer/levels/8 (InputLevels)
                                                         out: 120.0, gate: 1.0, lag: 0.01
                                                     1073 group (Devices)
                                                         1074 group (AudioEffect)
@@ -543,8 +543,8 @@ def test_chain_mute_solo_application(chain_mute_solo_application):
                                                     1069 mixer/levels/8 (PrefaderLevels)
                                                         out: 120.0, gate: 1.0, lag: 0.01
                                                     1080 group (PreFaderSends)
-                                                    1070 mixer/track-output/8 (Output)
-                                                        out: 120.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                                                    1070 mix/patch[gain,hard,replace]/8x8 (Output)
+                                                        active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 120.0, lag: 0.01, out: 120.0
                                                     1081 group (PostFaderSends)
                                                         1082 mix/patch[gain]/8x8 (Send)
                                                             active: 1.0, gain: 0.0, gate: 1.0, in_: 120.0, lag: 0.01, out: 80.0
@@ -564,8 +564,8 @@ def test_chain_mute_solo_application(chain_mute_solo_application):
                                     1038 mixer/levels/8 (PrefaderLevels)
                                         out: 72.0, gate: 1.0, lag: 0.01
                                     1089 group (PreFaderSends)
-                                    1039 mixer/track-output/8 (Output)
-                                        out: 72.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                                    1039 mix/patch[gain,hard,replace]/8x8 (Output)
+                                        active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 72.0, lag: 0.01, out: 72.0
                                     1090 group (PostFaderSends)
                                         1091 mix/patch[gain]/8x8 (Send)
                                             active: 1.0, gain: 0.0, gate: 1.0, in_: 72.0, lag: 0.01, out: 32.0
@@ -580,9 +580,9 @@ def test_chain_mute_solo_application(chain_mute_solo_application):
                                 1096 group (outer/b/a)
                                     1097 group (Parameters)
                                     1103 group (Receives)
-                                    1098 mixer/track-input/8 (Input)
-                                        in_: 152.0, out: 160.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
-                                    1099 mixer/levels/8 (InputLevel)
+                                    1098 mix/patch[fb,gain]/8x8 (Input)
+                                        active: 1.0, gain: 0.0, gate: 1.0, in_: 152.0, lag: 0.01, out: 160.0
+                                    1099 mixer/levels/8 (InputLevels)
                                         out: 160.0, gate: 1.0, lag: 0.01
                                     1104 group (Devices)
                                         1105 group (AudioEffect)
@@ -597,8 +597,8 @@ def test_chain_mute_solo_application(chain_mute_solo_application):
                                     1100 mixer/levels/8 (PrefaderLevels)
                                         out: 160.0, gate: 1.0, lag: 0.01
                                     1111 group (PreFaderSends)
-                                    1101 mixer/track-output/8 (Output)
-                                        out: 160.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                                    1101 mix/patch[gain,hard,replace]/8x8 (Output)
+                                        active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 160.0, lag: 0.01, out: 160.0
                                     1112 group (PostFaderSends)
                                         1113 mix/patch[gain]/8x8 (Send)
                                             active: 1.0, gain: 0.0, gate: 1.0, in_: 160.0, lag: 0.01, out: 144.0
@@ -607,9 +607,9 @@ def test_chain_mute_solo_application(chain_mute_solo_application):
                                 1114 group (outer/b/b)
                                     1115 group (Parameters)
                                     1121 group (Receives)
-                                    1116 mixer/track-input/8 (Input)
-                                        in_: 176.0, out: 184.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
-                                    1117 mixer/levels/8 (InputLevel)
+                                    1116 mix/patch[fb,gain]/8x8 (Input)
+                                        active: 1.0, gain: 0.0, gate: 1.0, in_: 176.0, lag: 0.01, out: 184.0
+                                    1117 mixer/levels/8 (InputLevels)
                                         out: 184.0, gate: 1.0, lag: 0.01
                                     1122 group (Devices)
                                         1123 group (inner/b)
@@ -619,9 +619,9 @@ def test_chain_mute_solo_application(chain_mute_solo_application):
                                                 1127 group (inner/b/a)
                                                     1128 group (Parameters)
                                                     1134 group (Receives)
-                                                    1129 mixer/track-input/8 (Input)
-                                                        in_: 200.0, out: 208.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
-                                                    1130 mixer/levels/8 (InputLevel)
+                                                    1129 mix/patch[fb,gain]/8x8 (Input)
+                                                        active: 1.0, gain: 0.0, gate: 1.0, in_: 200.0, lag: 0.01, out: 208.0
+                                                    1130 mixer/levels/8 (InputLevels)
                                                         out: 208.0, gate: 1.0, lag: 0.01
                                                     1135 group (Devices)
                                                         1136 group (AudioEffect)
@@ -636,8 +636,8 @@ def test_chain_mute_solo_application(chain_mute_solo_application):
                                                     1131 mixer/levels/8 (PrefaderLevels)
                                                         out: 208.0, gate: 1.0, lag: 0.01
                                                     1142 group (PreFaderSends)
-                                                    1132 mixer/track-output/8 (Output)
-                                                        out: 208.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                                                    1132 mix/patch[gain,hard,replace]/8x8 (Output)
+                                                        active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 208.0, lag: 0.01, out: 208.0
                                                     1143 group (PostFaderSends)
                                                         1144 mix/patch[gain]/8x8 (Send)
                                                             active: 1.0, gain: 0.0, gate: 1.0, in_: 208.0, lag: 0.01, out: 192.0
@@ -646,9 +646,9 @@ def test_chain_mute_solo_application(chain_mute_solo_application):
                                                 1145 group (inner/b/b)
                                                     1146 group (Parameters)
                                                     1152 group (Receives)
-                                                    1147 mixer/track-input/8 (Input)
-                                                        in_: 224.0, out: 232.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
-                                                    1148 mixer/levels/8 (InputLevel)
+                                                    1147 mix/patch[fb,gain]/8x8 (Input)
+                                                        active: 1.0, gain: 0.0, gate: 1.0, in_: 224.0, lag: 0.01, out: 232.0
+                                                    1148 mixer/levels/8 (InputLevels)
                                                         out: 232.0, gate: 1.0, lag: 0.01
                                                     1153 group (Devices)
                                                         1154 group (AudioEffect)
@@ -663,8 +663,8 @@ def test_chain_mute_solo_application(chain_mute_solo_application):
                                                     1149 mixer/levels/8 (PrefaderLevels)
                                                         out: 232.0, gate: 1.0, lag: 0.01
                                                     1160 group (PreFaderSends)
-                                                    1150 mixer/track-output/8 (Output)
-                                                        out: 232.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                                                    1150 mix/patch[gain,hard,replace]/8x8 (Output)
+                                                        active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 232.0, lag: 0.01, out: 232.0
                                                     1161 group (PostFaderSends)
                                                         1162 mix/patch[gain]/8x8 (Send)
                                                             active: 1.0, gain: 0.0, gate: 1.0, in_: 232.0, lag: 0.01, out: 192.0
@@ -684,8 +684,8 @@ def test_chain_mute_solo_application(chain_mute_solo_application):
                                     1118 mixer/levels/8 (PrefaderLevels)
                                         out: 184.0, gate: 1.0, lag: 0.01
                                     1169 group (PreFaderSends)
-                                    1119 mixer/track-output/8 (Output)
-                                        out: 184.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                                    1119 mix/patch[gain,hard,replace]/8x8 (Output)
+                                        active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 184.0, lag: 0.01, out: 184.0
                                     1170 group (PostFaderSends)
                                         1171 mix/patch[gain]/8x8 (Send)
                                             active: 1.0, gain: 0.0, gate: 1.0, in_: 184.0, lag: 0.01, out: 144.0
@@ -696,8 +696,8 @@ def test_chain_mute_solo_application(chain_mute_solo_application):
                     1006 mixer/levels/8 (PrefaderLevels)
                         out: 24.0, gate: 1.0, lag: 0.01
                     1172 group (PreFaderSends)
-                    1007 mixer/track-output/8 (Output)
-                        out: 24.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                    1007 mix/patch[gain,hard,replace]/8x8 (Output)
+                        active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 24.0, lag: 0.01, out: 24.0
                     1173 group (PostFaderSends)
                         1186 mix/patch[gain]/8x8 (Send)
                             active: 1.0, gain: 0.0, gate: 1.0, in_: 24.0, lag: 0.01, out: 264.0
@@ -706,16 +706,16 @@ def test_chain_mute_solo_application(chain_mute_solo_application):
             1174 group (MasterTrack)
                 1175 group (Parameters)
                 1181 group (Receives)
-                1176 mixer/track-input/8 (Input)
-                    in_: 256.0, out: 264.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
-                1177 mixer/levels/8 (InputLevel)
+                1176 mix/patch[fb,gain]/8x8 (Input)
+                    active: 1.0, gain: 0.0, gate: 1.0, in_: 256.0, lag: 0.01, out: 264.0
+                1177 mixer/levels/8 (InputLevels)
                     out: 264.0, gate: 1.0, lag: 0.01
                 1182 group (Devices)
                 1178 mixer/levels/8 (PrefaderLevels)
                     out: 264.0, gate: 1.0, lag: 0.01
                 1183 group (PreFaderSends)
-                1179 mixer/track-output/8 (Output)
-                    out: 264.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                1179 mix/patch[gain,hard,replace]/8x8 (Output)
+                    active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 264.0, lag: 0.01, out: 264.0
                 1184 group (PostFaderSends)
                     1185 mix/patch/8x2 (DirectOut)
                         active: 1.0, gate: 1.0, in_: 264.0, lag: 0.01, out: 0.0
@@ -724,16 +724,16 @@ def test_chain_mute_solo_application(chain_mute_solo_application):
             1187 group (CueTrack)
                 1188 group (Parameters)
                 1194 group (Receives)
-                1189 mixer/track-input/2 (Input)
-                    in_: 272.0, out: 274.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
-                1190 mixer/levels/2 (InputLevel)
+                1189 mix/patch[fb,gain]/2x2 (Input)
+                    active: 1.0, gain: 0.0, gate: 1.0, in_: 272.0, lag: 0.01, out: 274.0
+                1190 mixer/levels/2 (InputLevels)
                     out: 274.0, gate: 1.0, lag: 0.01
                 1195 group (Devices)
                 1191 mixer/levels/2 (PrefaderLevels)
                     out: 274.0, gate: 1.0, lag: 0.01
                 1196 group (PreFaderSends)
-                1192 mixer/track-output/2 (Output)
-                    out: 274.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
+                1192 mix/patch[gain,hard,replace]/2x2 (Output)
+                    active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 274.0, lag: 0.01, out: 274.0
                 1197 group (PostFaderSends)
                     1198 mix/patch/2x2 (DirectOut)
                         active: 1.0, gate: 1.0, in_: 274.0, lag: 0.01, out: 2.0
