@@ -1,14 +1,5 @@
 from collections import deque
-from typing import (
-    Callable,
-    Deque,
-    Generator,
-    List,
-    Optional,
-    Sequence,
-    Tuple,
-    Union,
-)
+from typing import Callable, Deque, Generator, List, Optional, Sequence, Tuple, Union
 from uuid import UUID, uuid4
 
 import supriya.daw  # noqa

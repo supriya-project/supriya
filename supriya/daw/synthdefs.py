@@ -3,17 +3,7 @@ from supriya.synthdefs.Parameter import Parameter
 from supriya.synthdefs.SynthDefBuilder import SynthDefBuilder
 from supriya.synthdefs.SynthDefFactory import SynthDefFactory
 from supriya.synthdefs.UGenArray import UGenArray
-from supriya.ugens import (
-    DC,
-    HPZ1,
-    In,
-    Linen,
-    Mix,
-    Out,
-    PanAz,
-    SendPeakRMS,
-    SendTrig,
-)
+from supriya.ugens import DC, HPZ1, In, Linen, Mix, Out, PanAz, SendPeakRMS, SendTrig
 
 factory = SynthDefFactory(active=1, gate=1, lag=0.1).with_output().with_input()
 

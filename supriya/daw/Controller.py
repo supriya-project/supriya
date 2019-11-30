@@ -1,4 +1,5 @@
 import rtmidi
+
 from supriya.midi import ControllerChangeMessage, NoteOffMessage, NoteOnMessage
 
 

@@ -2,8 +2,8 @@ from typing import Optional
 from uuid import UUID, uuid4
 
 import supriya.xdaw  # noqa
-from supriya.commands import QueryTreeGroup
 from supriya.enums import AddAction
+from supriya.querytree import QueryTreeGroup
 
 from .bases import Allocatable, Mixer
 from .sends import DirectOut

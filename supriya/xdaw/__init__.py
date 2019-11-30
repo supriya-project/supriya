@@ -8,13 +8,7 @@ from .bases import (  # noqa
 from .chains import Chain, ChainContainer, RackDevice  # noqa
 from .clips import Clip, Envelope, Scene, Slot, Timeline  # noqa
 from .contexts import Context  # noqa
-from .devices import (  # noqa
-    AudioEffect,
-    DeviceIn,
-    DeviceObject,
-    DeviceOut,
-    Instrument,
-)
+from .devices import AudioEffect, DeviceIn, DeviceObject, DeviceOut, Instrument  # noqa
 from .parameters import Parameter  # noqa
 from .sends import DirectIn, DirectOut, Patch, Send, SendObject, Target  # noqa
 from .tracks import (  # noqa

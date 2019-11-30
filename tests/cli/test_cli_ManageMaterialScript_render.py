@@ -224,7 +224,7 @@ def test_supercollider_error(cli_paths):
             Writing session-95cecb2c724619fe502164459560ba5d.osc.
                 Wrote session-95cecb2c724619fe502164459560ba5d.osc.
             Rendering session-95cecb2c724619fe502164459560ba5d.osc.
-                Command: scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
+                Command: ...scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
                 Rendered session-95cecb2c724619fe502164459560ba5d.osc with exit code 1.
                 SuperCollider errored!
             Python/SC runtime: 0 seconds
@@ -258,7 +258,7 @@ def test_supercollider_no_output(cli_paths):
             Writing session-95cecb2c724619fe502164459560ba5d.osc.
                 Wrote session-95cecb2c724619fe502164459560ba5d.osc.
             Rendering session-95cecb2c724619fe502164459560ba5d.osc.
-                Command: scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
+                Command: ...scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
                 Rendered session-95cecb2c724619fe502164459560ba5d.osc with exit code 0.
                 Output file is missing!
             Python/SC runtime: 0 seconds
@@ -294,7 +294,7 @@ def test_success_all_materials(cli_paths):
             Writing session-95cecb2c724619fe502164459560ba5d.osc.
                 Wrote session-95cecb2c724619fe502164459560ba5d.osc.
             Rendering session-95cecb2c724619fe502164459560ba5d.osc.
-                Command: scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
+                Command: ...scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
                 Rendered session-95cecb2c724619fe502164459560ba5d.osc with exit code 0.
             Writing test_project/materials/material_one/render.yml.
                 Wrote test_project/materials/material_one/render.yml.
@@ -384,7 +384,7 @@ def test_success_filtered_materials(cli_paths):
             Writing session-95cecb2c724619fe502164459560ba5d.osc.
                 Wrote session-95cecb2c724619fe502164459560ba5d.osc.
             Rendering session-95cecb2c724619fe502164459560ba5d.osc.
-                Command: scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
+                Command: ...scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
                 Rendered session-95cecb2c724619fe502164459560ba5d.osc with exit code 0.
             Writing test_project/materials/material_three/render.yml.
                 Wrote test_project/materials/material_three/render.yml.
@@ -452,7 +452,7 @@ def test_success_one_material(cli_paths):
             Writing session-95cecb2c724619fe502164459560ba5d.osc.
                 Wrote session-95cecb2c724619fe502164459560ba5d.osc.
             Rendering session-95cecb2c724619fe502164459560ba5d.osc.
-                Command: scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
+                Command: ...scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
                 Rendered session-95cecb2c724619fe502164459560ba5d.osc with exit code 0.
             Writing test_project/materials/test_material/render.yml.
                 Wrote test_project/materials/test_material/render.yml.
@@ -586,17 +586,17 @@ def test_success_chained(cli_paths):
             Writing session-aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
                 Wrote session-aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
             Rendering session-aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
-                Command: scsynth -N session-aa1ca9fda49a2dd38a1a2b8a91a76cca.osc _ session-aa1ca9fda49a2dd38a1a2b8a91a76cca.aiff 44100 aiff int24 -i 2 -o 2
+                Command: ...scsynth -N session-aa1ca9fda49a2dd38a1a2b8a91a76cca.osc _ session-aa1ca9fda49a2dd38a1a2b8a91a76cca.aiff 44100 aiff int24 -i 2 -o 2
                 Rendered session-aa1ca9fda49a2dd38a1a2b8a91a76cca.osc with exit code 0.
             Writing session-46f9bdbbd13bcf641e2a79917dcc041f.osc.
                 Wrote session-46f9bdbbd13bcf641e2a79917dcc041f.osc.
             Rendering session-46f9bdbbd13bcf641e2a79917dcc041f.osc.
-                Command: scsynth -N session-46f9bdbbd13bcf641e2a79917dcc041f.osc session-aa1ca9fda49a2dd38a1a2b8a91a76cca.aiff session-46f9bdbbd13bcf641e2a79917dcc041f.aiff 44100 aiff int24 -i 2 -o 2
+                Command: ...scsynth -N session-46f9bdbbd13bcf641e2a79917dcc041f.osc session-aa1ca9fda49a2dd38a1a2b8a91a76cca.aiff session-46f9bdbbd13bcf641e2a79917dcc041f.aiff 44100 aiff int24 -i 2 -o 2
                 Rendered session-46f9bdbbd13bcf641e2a79917dcc041f.osc with exit code 0.
             Writing session-352b87b6c1d447a5be11020a33ceadec.osc.
                 Wrote session-352b87b6c1d447a5be11020a33ceadec.osc.
             Rendering session-352b87b6c1d447a5be11020a33ceadec.osc.
-                Command: scsynth -N session-352b87b6c1d447a5be11020a33ceadec.osc session-46f9bdbbd13bcf641e2a79917dcc041f.aiff session-352b87b6c1d447a5be11020a33ceadec.aiff 44100 aiff int24 -i 2 -o 2
+                Command: ...scsynth -N session-352b87b6c1d447a5be11020a33ceadec.osc session-46f9bdbbd13bcf641e2a79917dcc041f.aiff session-352b87b6c1d447a5be11020a33ceadec.aiff 44100 aiff int24 -i 2 -o 2
                 Rendered session-352b87b6c1d447a5be11020a33ceadec.osc with exit code 0.
             Writing test_project/materials/material_three/render.yml.
                 Wrote test_project/materials/material_three/render.yml.

@@ -11,12 +11,11 @@ from supriya.commands import (
     FailResponse,
     GroupQueryTreeRequest,
     NotifyRequest,
-    QueryTreeGroup,
-    QueryTreeSynth,
     QuitRequest,
     SyncRequest,
 )
 from supriya.enums import NodeAction
+from supriya.querytree import QueryTreeGroup, QueryTreeSynth
 from supriya.realtime import BlockAllocator, BootOptions, NodeIdAllocator
 from supriya.system import PubSub
 

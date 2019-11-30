@@ -28,6 +28,7 @@ from supriya.commands.NothingRequest import NothingRequest
 from supriya.commands.RequestBundle import RequestBundle
 from supriya.nonrealtime.SessionObject import SessionObject
 from supriya.nonrealtime.Synth import Synth
+from supriya.querytree import QueryTreeGroup
 from supriya.utils import iterate_nwise
 
 
@@ -1165,15 +1166,13 @@ class Session:
         return renderer.to_osc_bundles(duration=duration)
 
     def to_strings(self, include_controls=False, include_timespans=False):
-        import supriya.commands
-
         result = []
         previous_string = None
         for offset, state in sorted(self.states.items()):
             if offset < 0:
                 continue
             self._apply_transitions(state.offset)
-            query_tree_group = supriya.commands.QueryTreeGroup.from_state(
+            query_tree_group = QueryTreeGroup.from_state(
                 state,
                 include_controls=include_controls,
                 include_timespans=include_timespans,

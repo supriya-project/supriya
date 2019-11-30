@@ -77,7 +77,7 @@ def test_3(synthdef_factory):
     _, message = transcript.sent_messages[0]
     compiled_synthdefs = bytearray(
         SynthDefCompiler.compile_synthdefs(
-            [synthdef, DeviceOut.build_synthdef(2, 2), DeviceIn.build_synthdef(2, 2)],
+            [synthdef, DeviceOut.build_synthdef(2, 2), DeviceIn.build_synthdef(2, 2)]
         )
     )
     bundle_contents = [

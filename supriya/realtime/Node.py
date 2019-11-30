@@ -316,7 +316,8 @@ class Node(ServerObject, UniqueTreeNode):
         self.parent[index:index] = expr
 
     def query(self):
-        from supriya.commands import NodeQueryRequest, QueryTreeGroup, QueryTreeSynth
+        from supriya.commands import NodeQueryRequest
+        from supriya.querytree import QueryTreeGroup, QueryTreeSynth
 
         query_tree = {}
         stack = [self.node_id]

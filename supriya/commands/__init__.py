@@ -65,10 +65,7 @@ from .NodeTraceRequest import NodeTraceRequest
 from .NothingRequest import NothingRequest
 from .NotifyRequest import NotifyRequest
 from .ParallelGroupNewRequest import ParallelGroupNewRequest
-from .QueryTreeControl import QueryTreeControl
-from .QueryTreeGroup import QueryTreeGroup
 from .QueryTreeResponse import QueryTreeResponse
-from .QueryTreeSynth import QueryTreeSynth
 from .QuitRequest import QuitRequest
 from .Request import Request
 from .Requestable import Requestable
@@ -156,10 +153,7 @@ __all__ = [
     "NothingRequest",
     "NotifyRequest",
     "ParallelGroupNewRequest",
-    "QueryTreeControl",
-    "QueryTreeGroup",
     "QueryTreeResponse",
-    "QueryTreeSynth",
     "QuitRequest",
     "Request",
     "RequestBundle",
