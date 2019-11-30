@@ -213,7 +213,7 @@ def build_patch_synthdef(
     if replace_out:
         flavor_parts.append("replace")
     flavor = "[" + ",".join(flavor_parts) + "]" if flavor_parts else ""
-    name = f"mix/patch{flavor}/{source_channel_count}x{target_channel_count}"
+    name = f"mixer/patch{flavor}/{source_channel_count}x{target_channel_count}"
     return factory.build(name=name)
 
 

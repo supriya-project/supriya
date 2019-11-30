@@ -1,4 +1,3 @@
-from uqbar.objects import new
 import abc
 import contextlib
 import dataclasses
@@ -19,6 +18,8 @@ from typing import (
     Union,
     cast,
 )
+
+from uqbar.objects import new
 
 import supriya.nonrealtime  # noqa
 import supriya.realtime  # noqa
@@ -355,19 +356,19 @@ class ProviderMoment:
                 )
         else:
             request_bundle = RequestBundle(timestamp=self.seconds, contents=requests)
+        for synthdef in synthdefs:
+            synthdef._register_with_local_server(server=self.provider.server)
         try:
             self.provider.server.send_message(request_bundle)
         except OSError:
-            messages = request_bundle.contents
+            requests = request_bundle.contents
             if synthdefs:
-                synthdef_message = messages[0]
-                messages = synthdef_message.callback.contents or []
-                synthdef_message = new(synthdef_message, callback=None)
-                synthdef_message.communicate(sync=True, server=self.provider.server)
-            for message in messages:
-                self.provider.server.send_message(message)
-        for synthdef in synthdefs:
-            synthdef._register_with_local_server(server=self.provider.server)
+                synthdef_request = requests[0]
+                requests = synthdef_request.callback.contents or []
+                synthdef_request = new(synthdef_request, callback=None)
+                synthdef_request.communicate(sync=True, server=self.provider.server)
+            for bundle in RequestBundle.partition(requests, timestamp=self.seconds):
+                self.provider.server.send_message(bundle)
 
 
 class Provider(metaclass=abc.ABCMeta):

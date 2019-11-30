@@ -1,5 +1,6 @@
 import datetime
 import decimal
+from collections import deque
 import struct
 
 from supriya.osc import format_datagram
@@ -178,6 +179,26 @@ class OscBundle(SupriyaValueObject):
             offset += length
         osc_bundle = OscBundle(timestamp=timestamp, contents=tuple(contents))
         return osc_bundle
+
+    @classmethod
+    def partition(cls, messages, timestamp=None):
+        bundles = []
+        contents = []
+        message = deque(messages)
+        remaining = maximum = 8192 - len(cls._bundle_prefix) - 4
+        while messages:
+            message = messages.popleft()
+            datagram = message.to_datagram()
+            remaining -= len(datagram) + 4
+            if remaining > 0:
+                contents.append(message)
+            else:
+                bundles.append(cls(timestamp=timestamp, contents=contents))
+                contents = [message]
+                remaining = maximum
+        if contents:
+            bundles.append(cls(timestamp=timestamp, contents=contents))
+        return bundles
 
     def to_datagram(self, realtime=True):
         import supriya.osc

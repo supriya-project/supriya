@@ -49,10 +49,10 @@ def test_3():
     assert message == OscBundle(
         contents=(
             OscMessage(
-                9, "mix/patch[gain]/2x2", 1054, 0, 1025, "in_", 22.0, "out", 18.0
+                9, "mixer/patch[gain]/2x2", 1054, 0, 1025, "in_", 22.0, "out", 18.0
             ),
             OscMessage(
-                9, "mix/patch[fb,gain]/2x2", 1055, 0, 1013, "in_", 18.0, "out", 20.0
+                9, "mixer/patch[fb,gain]/2x2", 1055, 0, 1013, "in_", 18.0, "out", 20.0
             ),
             OscMessage(22, 1001, 1014),
             OscMessage(15, 1026, "gate", 0),
@@ -82,10 +82,10 @@ def test_4():
     assert message == OscBundle(
         contents=(
             OscMessage(
-                9, "mix/patch[gain]/2x2", 1066, 0, 1037, "in_", 26.0, "out", 18.0
+                9, "mixer/patch[gain]/2x2", 1066, 0, 1037, "in_", 26.0, "out", 18.0
             ),
             OscMessage(
-                9, "mix/patch[gain]/2x2", 1067, 0, 1037, "in_", 26.0, "out", 22.0
+                9, "mixer/patch[gain]/2x2", 1067, 0, 1037, "in_", 26.0, "out", 22.0
             ),
             OscMessage(23, 1009, 1026),
             OscMessage(15, 1053, "gate", 0),

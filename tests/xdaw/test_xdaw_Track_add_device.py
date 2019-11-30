@@ -86,10 +86,10 @@ def test_3(synthdef_factory):
         OscMessage(21, 1041, 1, 1039),
         OscMessage(9, synthdef.anonymous_name, 1042, 0, 1041, "out", 28.0),
         OscMessage(
-            9, "mix/patch[replace]/2x2", 1043, 0, 1039, "in_", 18.0, "out", 28.0
+            9, "mixer/patch[replace]/2x2", 1043, 0, 1039, "in_", 18.0, "out", 28.0
         ),
         OscMessage(
-            9, "mix/patch[hard,mix]/2x2", 1044, 1, 1039, "in_", 28.0, "out", 18.0
+            9, "mixer/patch[hard,mix]/2x2", 1044, 1, 1039, "in_", 28.0, "out", 18.0
         ),
     ]
     assert message == OscBundle(
@@ -136,10 +136,10 @@ def test_4(synthdef_factory):
             OscMessage(21, 1047, 1, 1045),
             OscMessage(9, synthdef.anonymous_name, 1048, 0, 1047, "out", 30.0),
             OscMessage(
-                9, "mix/patch[replace]/2x2", 1049, 0, 1045, "in_", 18.0, "out", 30.0
+                9, "mixer/patch[replace]/2x2", 1049, 0, 1045, "in_", 18.0, "out", 30.0
             ),
             OscMessage(
-                9, "mix/patch[hard,mix]/2x2", 1050, 1, 1045, "in_", 30.0, "out", 18.0
+                9, "mixer/patch[hard,mix]/2x2", 1050, 1, 1045, "in_", 30.0, "out", 18.0
             ),
         )
     )
