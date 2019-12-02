@@ -1,13 +1,11 @@
 import abc
 from types import MappingProxyType
-from typing import List, Optional, Set, Tuple, Type
+from typing import List, Optional, Set, Tuple, Type, Union
 from uuid import UUID, uuid4
 
 import supriya.xdaw  # noqa
 from supriya.enums import AddAction, CalculationRate
-from supriya.synthdefs import SynthDefFactory
 from supriya.typing import Default
-from supriya.ugens import In
 
 from .bases import Allocatable, AllocatableContainer, Mixer
 from .clips import Slot
@@ -16,10 +14,6 @@ from .sends import Receive, Send, Target
 from .synthdefs import (
     build_patch_synthdef,
     build_peak_rms_synthdef,
-    gain_block,
-    gate_block,
-    hard_gate_block,
-    sanitize_block,
 )
 
 
@@ -282,157 +276,6 @@ class TrackObject(Allocatable):
                 receive.effective_source.receive_target._dependencies.add(receive)
             return receive
 
-    @classmethod
-    def build_input_synthdef(cls, channel_count):
-        """
-        Build track input SynthDef.
-
-        ::
-
-            >>> synthdef = TrackObject.build_input_synthdef(channel_count=1)
-            >>> print(synthdef)
-            synthdef:
-                name: mixer/track-input/1
-                ugens:
-                -   Control.ir: null
-                -   InFeedback.ar:
-                        bus: Control.ir[0:in_]
-                -   In.ar:
-                        bus: Control.ir[1:out]
-                -   BinaryOpUGen(ADDITION).ar:
-                        left: In.ar[0]
-                        right: InFeedback.ar[0]
-                -   Control.kr: null
-                -   Linen.kr/0:
-                        attack_time: Control.kr[3:lag]
-                        done_action: 0.0
-                        gate: Control.kr[0:active]
-                        release_time: Control.kr[3:lag]
-                        sustain_level: 1.0
-                -   Linen.kr/1:
-                        attack_time: Control.kr[3:lag]
-                        done_action: 2.0
-                        gate: Control.kr[2:gate]
-                        release_time: Control.kr[3:lag]
-                        sustain_level: 1.0
-                -   BinaryOpUGen(MULTIPLICATION).ar/0:
-                        left: BinaryOpUGen(ADDITION).ar[0]
-                        right: Linen.kr/1[0]
-                -   BinaryOpUGen(MULTIPLICATION).ar/1:
-                        left: BinaryOpUGen(MULTIPLICATION).ar/0[0]
-                        right: Linen.kr/0[0]
-                -   UnaryOpUGen(DB_TO_AMPLITUDE).kr:
-                        source: Control.kr[1:gain]
-                -   BinaryOpUGen(GREATER_THAN).kr:
-                        left: Control.kr[1:gain]
-                        right: -96.0
-                -   BinaryOpUGen(MULTIPLICATION).kr:
-                        left: UnaryOpUGen(DB_TO_AMPLITUDE).kr[0]
-                        right: BinaryOpUGen(GREATER_THAN).kr[0]
-                -   Lag.kr:
-                        lag_time: Control.kr[3:lag]
-                        source: BinaryOpUGen(MULTIPLICATION).kr[0]
-                -   BinaryOpUGen(MULTIPLICATION).ar/2:
-                        left: BinaryOpUGen(MULTIPLICATION).ar/1[0]
-                        right: Lag.kr[0]
-                -   ReplaceOut.ar:
-                        bus: Control.ir[1:out]
-                        source[0]: BinaryOpUGen(MULTIPLICATION).ar/2[0]
-
-        """
-
-        def in_signal_block(builder, source, state):
-            return (
-                In.ar(bus=builder["out"], channel_count=state["channel_count"]) + source
-            )
-
-        factory = (
-            SynthDefFactory(active=1, gain=0, gate=1, lag=0.01)
-            .with_output(replacing=True)
-            .with_input(feedback=True, private=True)
-            .with_channel_count(channel_count)
-            .with_signal_block(in_signal_block)
-            .with_signal_block(gate_block)
-            .with_signal_block(gain_block)
-        )
-        return factory.build(name=f"mixer/track-input/{channel_count}")
-
-    @classmethod
-    def build_output_synthdef(cls, channel_count):
-        """
-        Build track output SynthDef.
-
-        ::
-
-            >>> synthdef = TrackObject.build_output_synthdef(channel_count=1)
-            >>> print(synthdef)
-            synthdef:
-                name: mixer/track-output/1
-                ugens:
-                -   Control.ir: null
-                -   In.ar:
-                        bus: Control.ir[0:out]
-                -   Control.kr: null
-                -   Linen.kr/0:
-                        attack_time: Control.kr[4:lag]
-                        done_action: 0.0
-                        gate: Control.kr[0:active]
-                        release_time: Control.kr[4:lag]
-                        sustain_level: 1.0
-                -   Linen.kr/1:
-                        attack_time: Control.kr[4:lag]
-                        done_action: 2.0
-                        gate: Control.kr[2:gate]
-                        release_time: Control.kr[4:lag]
-                        sustain_level: 1.0
-                -   BinaryOpUGen(MULTIPLICATION).ar/0:
-                        left: In.ar[0]
-                        right: Linen.kr/1[0]
-                -   Linen.kr/2:
-                        attack_time: Control.kr[4:lag]
-                        done_action: 14.0
-                        gate: Control.kr[3:hard_gate]
-                        release_time: Control.kr[4:lag]
-                        sustain_level: 1.0
-                -   BinaryOpUGen(MULTIPLICATION).ar/1:
-                        left: BinaryOpUGen(MULTIPLICATION).ar/0[0]
-                        right: Linen.kr/2[0]
-                -   BinaryOpUGen(MULTIPLICATION).ar/2:
-                        left: BinaryOpUGen(MULTIPLICATION).ar/1[0]
-                        right: Linen.kr/0[0]
-                -   UnaryOpUGen(DB_TO_AMPLITUDE).kr:
-                        source: Control.kr[1:gain]
-                -   BinaryOpUGen(GREATER_THAN).kr:
-                        left: Control.kr[1:gain]
-                        right: -96.0
-                -   BinaryOpUGen(MULTIPLICATION).kr:
-                        left: UnaryOpUGen(DB_TO_AMPLITUDE).kr[0]
-                        right: BinaryOpUGen(GREATER_THAN).kr[0]
-                -   Lag.kr:
-                        lag_time: Control.kr[4:lag]
-                        source: BinaryOpUGen(MULTIPLICATION).kr[0]
-                -   BinaryOpUGen(MULTIPLICATION).ar/3:
-                        left: BinaryOpUGen(MULTIPLICATION).ar/2[0]
-                        right: Lag.kr[0]
-                -   Sanitize.ar:
-                        replace: 0.0
-                        source: BinaryOpUGen(MULTIPLICATION).ar/3[0]
-                -   ReplaceOut.ar:
-                        bus: Control.ir[0:out]
-                        source[0]: Sanitize.ar[0]
-
-        """
-        factory = (
-            SynthDefFactory(active=1, gain=0, gate=1, hard_gate=1, lag=0.01)
-            .with_output(replacing=True)
-            .with_input()
-            .with_channel_count(channel_count)
-            .with_signal_block(hard_gate_block)
-            .with_signal_block(gain_block)
-            .with_signal_block(sanitize_block)
-        )
-        return factory.build(name=f"mixer/track-output/{channel_count}")
-
     def perform(self, moment, in_midi_messages):
         with self.lock([self]):
             if not self.devices:
@@ -466,6 +309,12 @@ class TrackObject(Allocatable):
                 assert 1 <= channel_count <= 8
                 channel_count = int(channel_count)
             self._set(channel_count=channel_count)
+
+    def set_input(self, target: Union[None, Default, "TrackObject", str]):
+        pass
+
+    def set_output(self, target: Union[None, Default, "TrackObject", str]):
+        pass
 
     ### PUBLIC PROPERTIES ###
 

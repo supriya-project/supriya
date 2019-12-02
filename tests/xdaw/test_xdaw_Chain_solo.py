@@ -127,7 +127,7 @@ def test_repeat(chain_mute_solo_application):
     assert not len(transcript.sent_messages)
 
 
-def test_move(dc_synthdef_factory):
+def test_move(dc_index_synthdef_factory):
     application = Application(channel_count=4)
     context = application.add_context()
     master_track = context.master_track
@@ -140,7 +140,7 @@ def test_move(dc_synthdef_factory):
     chain_d = rack_two.add_chain(name="d")
     for i, chain in enumerate([chain_a, chain_b, chain_c, chain_d]):
         chain.add_device(
-            AudioEffect, synthdef=dc_synthdef_factory, synthdef_kwargs=dict(index=i)
+            AudioEffect, synthdef=dc_index_synthdef_factory, synthdef_kwargs=dict(index=i)
         )
     application.boot()
     time.sleep(0.2)

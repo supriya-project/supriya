@@ -142,19 +142,19 @@ def test_repeat():
     assert not len(transcript.sent_messages)
 
 
-def test_move(dc_synthdef_factory):
+def test_move(dc_index_synthdef_factory):
     application = Application()
     context = application.add_context()
     track_one = context.add_track(name="one")
     track_one.add_device(
-        AudioEffect, synthdef=dc_synthdef_factory, synthdef_kwargs=dict(index=0)
+        AudioEffect, synthdef=dc_index_synthdef_factory, synthdef_kwargs=dict(index=0)
     )
     application.boot()
     time.sleep(0.2)
     assert context.master_track.rms_levels["input"] == (1.0, 0.0)
     track_two = Track(name="two")
     track_two.add_device(
-        AudioEffect, synthdef=dc_synthdef_factory, synthdef_kwargs=dict(index=1)
+        AudioEffect, synthdef=dc_index_synthdef_factory, synthdef_kwargs=dict(index=1)
     )
     track_two.solo()
     track_two.move(context, 1)

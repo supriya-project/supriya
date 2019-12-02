@@ -1,8 +1,8 @@
 from uqbar.strings import normalize
 
 
-def test_dc_synthdef_factory(dc_synthdef_factory):
-    synthdef = dc_synthdef_factory.build(name="test")
+def test_dc_index_synthdef_factory(dc_index_synthdef_factory):
+    synthdef = dc_index_synthdef_factory.build(name="test")
     assert normalize(str(synthdef)) == normalize(
         """
         synthdef:

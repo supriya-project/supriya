@@ -1,9 +1,8 @@
 from collections import deque
-from typing import Callable, Deque, Generator, List, Optional, Sequence, Tuple, Union
+from typing import Callable, Deque, Generator, List, Optional, Sequence, Tuple, Union, NamedTuple, Set
 from uuid import UUID, uuid4
 
 import supriya.daw  # noqa
-from supriya.commands.Request import Request
 from supriya.enums import AddAction, CalculationRate
 from supriya.midi import MidiMessage
 from supriya.synthdefs import SynthDef, SynthDefFactory
@@ -11,6 +10,8 @@ from supriya.synthdefs import SynthDef, SynthDefFactory
 from .bases import Allocatable
 from .sends import Patch
 from .synthdefs import build_patch_synthdef
+
+from supriya.clock import Moment
 
 
 class DeviceIn(Patch):
@@ -124,6 +125,35 @@ class DeviceOut(Patch):
 
 class DeviceObject(Allocatable):
 
+    ### CLASS VARIABLES ###
+
+    class CaptureEntry(NamedTuple):
+        moment: Moment
+        label: str
+        message: MidiMessage
+
+    class Capture:
+        def __init__(self, device: "DeviceObject"):
+            self.device = device
+            self.entries: List["Device.CaptureEntry"] = []
+
+        def __enter__(self):
+            self.device._captures.add(self)
+            self.entries[:] = []
+            return self
+
+        def __exit__(self, exc_type, exc_value, traceback):
+            self.device._captures.remove(self)
+
+        def __getitem__(self, i):
+            return self.entries[i]
+
+        def __iter__(self):
+            return iter(self.entries)
+
+        def __len__(self):
+            return len(self.entries)
+
     ### INITIALIZER ###
 
     def __init__(self, *, channel_count=None, name=None, uuid=None):
@@ -131,6 +161,7 @@ class DeviceObject(Allocatable):
         self._uuid = uuid or uuid4()
         self._is_active = True
         self._ready = False
+        self._captures: Set[DeviceObject.Capture] = set()
         self._event_handlers = {}
 
     ### SPECIAL METHODS ###
@@ -167,43 +198,42 @@ class DeviceObject(Allocatable):
     def _perform(
         self, moment, in_midi_messages
     ) -> Generator[
-        Tuple[Optional[Callable], Sequence[MidiMessage], Sequence[Request]], None, None
+        Tuple[Optional[Callable], Sequence[MidiMessage]], None, None
     ]:
         next_performer = self._next_performer()
         if not self.ready:
             yield next_performer, in_midi_messages, ()
         out_midi_messages: List[MidiMessage] = []
-        out_requests: List[Request] = []
         for message in self._filter_in_midi_messages(in_midi_messages):
             self._update_captures(moment, message, "I")
             event_handler = self._event_handlers.get(type(message))
             if not event_handler:
                 out_midi_messages.append(message)
                 continue
-            messages, requests = event_handler(message)
+            messages = event_handler(message)
             out_midi_messages.extend(messages)
-            out_requests.extend(requests)
         for message in self._filter_out_midi_messages(out_midi_messages):
             self._update_captures(moment, message, "O")
-        yield next_performer, out_midi_messages, out_requests
+        yield next_performer, out_midi_messages
 
     @classmethod
-    def _perform_loop(cls, moment, performer, midi_messages) -> Sequence[Request]:
-        requests: List[Request] = []
+    def _perform_loop(cls, moment, performer, midi_messages):
         stack: Deque = deque()
         stack.append((performer, midi_messages))
         while stack:
             in_performer, in_messages = stack.popleft()
-            for out_performer, out_messages, out_requests in in_performer(
+            for out_performer, out_messages in in_performer(
                 moment, in_messages
             ):
-                requests.extend(out_requests)
                 if out_messages and out_performer:
                     stack.append((out_performer, out_messages))
-        return requests
 
     def _update_captures(self, moment, message, label):
-        pass
+        if not self._captures:
+            return
+        entry = self.CaptureEntry(moment=moment, message=message, label=label)
+        for capture in self._captures:
+            capture.entries.append(entry)
 
     #    @abc.abstractmethod
     #    def _reallocate(self, difference):
@@ -214,6 +244,9 @@ class DeviceObject(Allocatable):
     def activate(self):
         with self.lock([self]):
             self._is_active = True
+
+    def capture(self):
+        return self.Capture(self)
 
     def deactivate(self):
         with self.lock([self]):
@@ -236,6 +269,9 @@ class DeviceObject(Allocatable):
     def move(self, container, position):
         with self.lock([self, container]):
             container.devices._mutate(slice(position, position), [self])
+
+    def perform(self, moment, midi_messages):
+        self._perform_loop(moment, self._perform, midi_messages)
 
     ### PUBLIC PROPERTIES ###
 
@@ -271,13 +307,13 @@ class AudioEffect(DeviceObject):
         *,
         name=None,
         synthdef_kwargs=None,
-        synthdef_parameters=None,
+        parameters=None,
+        parameter_map=None,
         uuid=None,
     ):
         DeviceObject.__init__(self, name=name, uuid=uuid)
         self._synthdef = synthdef
         self._synthdef_kwargs = dict(synthdef_kwargs or {})
-        self._parameters.update(**(synthdef_parameters or {}))
         self._device_in = DeviceIn()
         self._device_out = DeviceOut()
         self._mutate(slice(None), [self._device_in, self._device_out])
@@ -371,12 +407,23 @@ class Instrument(DeviceObject):
     ### INITIALIZER ###
 
     def __init__(
-        self, synthdef: Union[SynthDef, SynthDefFactory], *, name=None, uuid=None
+        self,
+        synthdef: Union[SynthDef, SynthDefFactory],
+        *,
+        name=None,
+        parameter_map=None,
+        parameters=None,
+        synthdef_kwargs=None,
+        uuid=None,
     ):
         # TODO: Polyphony Limit
         # TODO: Polyphony Mode
         DeviceObject.__init__(self, name=name, uuid=uuid)
         self._synthdef = synthdef
+        self._synthdef_kwargs = dict(synthdef_kwargs or {})
+        self._device_in = DeviceIn()
+        self._device_out = DeviceOut()
+        self._mutate(slice(None), [self._device_in, self._device_out])
 
     ### PUBLIC METHODS ###
 
@@ -391,6 +438,7 @@ class Instrument(DeviceObject):
 
     def _allocate(self, provider, target_node, add_action):
         Allocatable._allocate(self, provider, target_node, add_action)
+        channel_count = self.effective_channel_count
         self._node_proxies["node"] = provider.add_group(
             target_node=target_node, add_action=add_action, name=self.label
         )
@@ -402,6 +450,20 @@ class Instrument(DeviceObject):
         self._node_proxies["body"] = provider.add_group(
             target_node=self.node_proxy, add_action=AddAction.ADD_TO_TAIL, name="Body"
         )
+        self._allocate_audio_buses(provider, channel_count)
+
+    def _allocate_audio_buses(self, provider, channel_count):
+        self._audio_bus_proxies["output"] = provider.add_bus_group(
+            calculation_rate=CalculationRate.AUDIO, channel_count=channel_count
+        )
+
+    def _free_audio_buses(self):
+        self._audio_bus_proxies.pop("output").free()
+
+    def _reallocate(self, difference):
+        channel_count = self.effective_channel_count
+        self._free_audio_buses()
+        self._allocate_audio_buses(self.provider, channel_count)
 
     ### PUBLIC PROPERTIES ###
 

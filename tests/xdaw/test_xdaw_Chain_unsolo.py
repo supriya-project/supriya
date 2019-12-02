@@ -3,7 +3,7 @@ import time
 from supriya.xdaw import Application, AudioEffect, RackDevice
 
 
-def test_repeat(dc_synthdef_factory):
+def test_repeat(dc_index_synthdef_factory):
     """
     Unsoloing more than once is a no-op
     """
@@ -14,10 +14,10 @@ def test_repeat(dc_synthdef_factory):
     rack.add_chain(name="a")
     rack.add_chain(name="b")
     rack["a"].add_device(
-        AudioEffect, synthdef=dc_synthdef_factory, synthdef_kwargs=dict(index=0)
+        AudioEffect, synthdef=dc_index_synthdef_factory, synthdef_kwargs=dict(index=0)
     )
     rack["b"].add_device(
-        AudioEffect, synthdef=dc_synthdef_factory, synthdef_kwargs=dict(index=1)
+        AudioEffect, synthdef=dc_index_synthdef_factory, synthdef_kwargs=dict(index=1)
     )
     application.boot()
     rack["a"].solo()
