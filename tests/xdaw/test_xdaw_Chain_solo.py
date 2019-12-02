@@ -140,7 +140,9 @@ def test_move(dc_index_synthdef_factory):
     chain_d = rack_two.add_chain(name="d")
     for i, chain in enumerate([chain_a, chain_b, chain_c, chain_d]):
         chain.add_device(
-            AudioEffect, synthdef=dc_index_synthdef_factory, synthdef_kwargs=dict(index=i)
+            AudioEffect,
+            synthdef=dc_index_synthdef_factory,
+            synthdef_kwargs=dict(index=i),
         )
     application.boot()
     time.sleep(0.2)

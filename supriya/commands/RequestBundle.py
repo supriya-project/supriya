@@ -1,5 +1,5 @@
-from collections import deque
 import threading
+from collections import deque
 
 from supriya.commands.Requestable import Requestable
 from supriya.commands.SyncRequest import SyncRequest

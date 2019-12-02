@@ -1,7 +1,7 @@
 import datetime
 import decimal
-from collections import deque
 import struct
+from collections import deque
 
 from supriya.osc import format_datagram
 from supriya.system.SupriyaValueObject import SupriyaValueObject

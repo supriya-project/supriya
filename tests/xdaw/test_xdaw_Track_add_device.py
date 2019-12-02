@@ -1,7 +1,6 @@
 import time
 
 import pytest
-
 from uqbar.strings import normalize
 
 from supriya.osc import OscBundle, OscMessage

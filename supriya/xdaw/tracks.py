@@ -11,10 +11,7 @@ from .bases import Allocatable, AllocatableContainer, Mixer
 from .clips import Slot
 from .devices import DeviceObject
 from .sends import Receive, Send, Target
-from .synthdefs import (
-    build_patch_synthdef,
-    build_peak_rms_synthdef,
-)
+from .synthdefs import build_patch_synthdef, build_peak_rms_synthdef
 
 
 class TrackObject(Allocatable):

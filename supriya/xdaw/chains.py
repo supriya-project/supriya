@@ -1,7 +1,6 @@
 from typing import Callable, Generator, Optional, Sequence, Tuple
 
 import supriya.xdaw  # noqa
-from supriya.commands import Request
 from supriya.enums import AddAction, CalculationRate
 from supriya.midi import MidiMessage
 from supriya.typing import Default
@@ -227,9 +226,7 @@ class RackDevice(DeviceObject, Mixer):
 
     def _perform(
         self, moment, in_midi_messages
-    ) -> Generator[
-        Tuple[Optional[Callable], Sequence[MidiMessage], Sequence[Request]], None, None
-    ]:
+    ) -> Generator[Tuple[Optional[Callable], Sequence[MidiMessage]], None, None]:
         # TODO: Refactor for zone control
         performers = []
         for chain in self.chains:
@@ -240,16 +237,14 @@ class RackDevice(DeviceObject, Mixer):
         for message in self._filter_in_midi_messages(in_midi_messages):
             self._update_captures(moment, message, "I")
             for performer in performers:
-                yield performer, (message,), ()
+                yield performer, (message,)
 
     def _perform_output(
         self, moment, in_midi_messages
-    ) -> Generator[
-        Tuple[Optional[Callable], Sequence[MidiMessage], Sequence[Request]], None, None
-    ]:
+    ) -> Generator[Tuple[Optional[Callable], Sequence[MidiMessage]], None, None]:
         for message in self._filter_out_midi_messages(in_midi_messages):
             self._update_captures(moment, message, "O")
-            yield None, (message,), ()
+            yield None, (message,)
 
     ### PUBLIC METHODS ###
 

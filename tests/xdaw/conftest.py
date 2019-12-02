@@ -1,7 +1,7 @@
 import pytest
 
-from supriya.synthdefs import SynthDefFactory
 from supriya.enums import DoneAction
+from supriya.synthdefs import SynthDefFactory
 from supriya.ugens import DC, Linen
 from supriya.xdaw import Application, AudioEffect, RackDevice
 
@@ -62,7 +62,9 @@ def track_mute_solo_application(dc_index_synthdef_factory):
         [track_a, track_b, track_ba, track_bb, track_c, track_ca, track_cb, track_cba]
     ):
         track.add_device(
-            AudioEffect, synthdef=dc_index_synthdef_factory, synthdef_kwargs=dict(index=i)
+            AudioEffect,
+            synthdef=dc_index_synthdef_factory,
+            synthdef_kwargs=dict(index=i),
         )
     yield application
 
@@ -97,7 +99,9 @@ def chain_mute_solo_application(dc_index_synthdef_factory):
         ]
     ):
         chain.add_device(
-            AudioEffect, synthdef=dc_index_synthdef_factory, synthdef_kwargs=dict(index=i)
+            AudioEffect,
+            synthdef=dc_index_synthdef_factory,
+            synthdef_kwargs=dict(index=i),
         )
     return application
 

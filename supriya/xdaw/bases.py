@@ -7,6 +7,7 @@ from typing import Any, Dict, Mapping, Optional, Set, Union
 from uqbar.containers import UniqueTreeTuple
 
 import supriya.xdaw  # noqa
+from supriya.commands import NodeQueryRequest
 from supriya.enums import AddAction
 from supriya.provider import (
     BusGroupProxy,
@@ -16,6 +17,7 @@ from supriya.provider import (
     Provider,
     SynthProxy,
 )
+from supriya.querytree import QueryTreeGroup, QueryTreeSynth
 from supriya.typing import Missing
 
 from .parameters import Parameter
@@ -353,7 +355,25 @@ class Allocatable(ApplicationObject):
     def query(self):
         if self.provider.server is None:
             raise ValueError
-        query_tree_group = self.provider.server[self.node_proxy.identifier].query()
+        query_tree = {}
+        stack = [self.node_proxy.identifier]
+        while stack:
+            node_id = stack.pop()
+            if node_id in query_tree:
+                continue
+            request = NodeQueryRequest(node_id)
+            response = request.communicate(server=self.provider.server)
+            if (response.next_node_id or -1) > 0:
+                stack.append(response.next_node_id)
+            if (response.head_node_id or -1) > 0:
+                stack.append(response.head_node_id)
+            if response.is_group:
+                query_tree[node_id] = QueryTreeGroup.from_response(response)
+            else:
+                query_tree[node_id] = QueryTreeSynth.from_response(response)
+            if response.parent_id in query_tree:
+                query_tree[response.parent_id]._children += (query_tree[node_id],)
+        query_tree_group = query_tree[self.node_proxy.identifier]
         return query_tree_group.annotate(self.provider.annotation_map)
 
     ### PUBLIC PROPERTIES ###

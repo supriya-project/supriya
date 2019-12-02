@@ -1,17 +1,29 @@
 from collections import deque
-from typing import Callable, Deque, Generator, List, Optional, Sequence, Tuple, Union, NamedTuple, Set
+from typing import (
+    Callable,
+    Deque,
+    Dict,
+    Generator,
+    List,
+    NamedTuple,
+    Optional,
+    Sequence,
+    Set,
+    Tuple,
+    Union,
+)
 from uuid import UUID, uuid4
 
 import supriya.daw  # noqa
+from supriya.clock import Moment
 from supriya.enums import AddAction, CalculationRate
-from supriya.midi import MidiMessage
+from supriya.midi import MidiMessage, NoteOffMessage, NoteOnMessage
+from supriya.provider import SynthProxy
 from supriya.synthdefs import SynthDef, SynthDefFactory
 
 from .bases import Allocatable
 from .sends import Patch
 from .synthdefs import build_patch_synthdef
-
-from supriya.clock import Moment
 
 
 class DeviceIn(Patch):
@@ -135,7 +147,7 @@ class DeviceObject(Allocatable):
     class Capture:
         def __init__(self, device: "DeviceObject"):
             self.device = device
-            self.entries: List["Device.CaptureEntry"] = []
+            self.entries: List["DeviceObject.CaptureEntry"] = []
 
         def __enter__(self):
             self.device._captures.add(self)
@@ -160,7 +172,7 @@ class DeviceObject(Allocatable):
         Allocatable.__init__(self, channel_count=channel_count, name=name)
         self._uuid = uuid or uuid4()
         self._is_active = True
-        self._ready = False
+        self._ready = True
         self._captures: Set[DeviceObject.Capture] = set()
         self._event_handlers = {}
 
@@ -178,11 +190,19 @@ class DeviceObject(Allocatable):
 
     ### PRIVATE METHODS ###
 
+    def _allocate_audio_buses(self, provider, channel_count):
+        self._audio_bus_proxies["output"] = provider.add_bus_group(
+            calculation_rate=CalculationRate.AUDIO, channel_count=channel_count
+        )
+
     def _filter_in_midi_messages(self, in_midi_messages) -> Sequence[MidiMessage]:
-        return []
+        return in_midi_messages
 
     def _filter_out_midi_messages(self, out_midi_messages) -> Sequence[MidiMessage]:
-        return []
+        return out_midi_messages
+
+    def _free_audio_buses(self):
+        self._audio_bus_proxies.pop("output").free()
 
     def _next_performer(self) -> Optional[Callable]:
         if self.parent is None:
@@ -197,12 +217,10 @@ class DeviceObject(Allocatable):
 
     def _perform(
         self, moment, in_midi_messages
-    ) -> Generator[
-        Tuple[Optional[Callable], Sequence[MidiMessage]], None, None
-    ]:
+    ) -> Generator[Tuple[Optional[Callable], Sequence[MidiMessage]], None, None]:
         next_performer = self._next_performer()
         if not self.ready:
-            yield next_performer, in_midi_messages, ()
+            yield next_performer, in_midi_messages
         out_midi_messages: List[MidiMessage] = []
         for message in self._filter_in_midi_messages(in_midi_messages):
             self._update_captures(moment, message, "I")
@@ -210,7 +228,7 @@ class DeviceObject(Allocatable):
             if not event_handler:
                 out_midi_messages.append(message)
                 continue
-            messages = event_handler(message)
+            messages = event_handler(moment, message)
             out_midi_messages.extend(messages)
         for message in self._filter_out_midi_messages(out_midi_messages):
             self._update_captures(moment, message, "O")
@@ -222,9 +240,7 @@ class DeviceObject(Allocatable):
         stack.append((performer, midi_messages))
         while stack:
             in_performer, in_messages = stack.popleft()
-            for out_performer, out_messages in in_performer(
-                moment, in_messages
-            ):
+            for out_performer, out_messages in in_performer(moment, in_messages):
                 if out_messages and out_performer:
                     stack.append((out_performer, out_messages))
 
@@ -234,10 +250,6 @@ class DeviceObject(Allocatable):
         entry = self.CaptureEntry(moment=moment, message=message, label=label)
         for capture in self._captures:
             capture.entries.append(entry)
-
-    #    @abc.abstractmethod
-    #    def _reallocate(self, difference):
-    #        raise NotImplementedError
 
     ### PUBLIC METHODS ###
 
@@ -271,7 +283,15 @@ class DeviceObject(Allocatable):
             container.devices._mutate(slice(position, position), [self])
 
     def perform(self, moment, midi_messages):
-        self._perform_loop(moment, self._perform, midi_messages)
+        with self.lock([self], seconds=moment.seconds if moment is not None else None):
+            self._perform_loop(moment, self._perform, midi_messages)
+
+    def set_channel_count(self, channel_count: Optional[int]):
+        with self.lock([self]):
+            if channel_count is not None:
+                assert 1 <= channel_count <= 8
+                channel_count = int(channel_count)
+            self._set(channel_count=channel_count)
 
     ### PUBLIC PROPERTIES ###
 
@@ -341,11 +361,6 @@ class AudioEffect(DeviceObject):
             synth_pair=(self.node_proxies["body"], AddAction.ADD_TO_HEAD),
         )
 
-    def _allocate_audio_buses(self, provider, channel_count):
-        self._audio_bus_proxies["output"] = provider.add_bus_group(
-            calculation_rate=CalculationRate.AUDIO, channel_count=channel_count
-        )
-
     def _allocate_synths(self, provider, channel_count, *, synth_pair=None):
         synthdef = self.synthdef
         if isinstance(synthdef, SynthDefFactory):
@@ -359,9 +374,6 @@ class AudioEffect(DeviceObject):
             **self.synthdef_kwargs,
         )
 
-    def _free_audio_buses(self):
-        self._audio_bus_proxies.pop("output").free()
-
     def _reallocate(self, difference):
         channel_count = self.effective_channel_count
         synth_synth = self._node_proxies.pop("synth")
@@ -373,15 +385,6 @@ class AudioEffect(DeviceObject):
             synth_pair=(synth_synth, AddAction.ADD_AFTER),
         )
         synth_synth.free()
-
-    ### PUBLIC METHODS ###
-
-    def set_channel_count(self, channel_count: Optional[int]):
-        with self.lock([self]):
-            if channel_count is not None:
-                assert 1 <= channel_count <= 8
-                channel_count = int(channel_count)
-            self._set(channel_count=channel_count)
 
     ### PUBLIC PROPERTIES ###
 
@@ -424,15 +427,9 @@ class Instrument(DeviceObject):
         self._device_in = DeviceIn()
         self._device_out = DeviceOut()
         self._mutate(slice(None), [self._device_in, self._device_out])
-
-    ### PUBLIC METHODS ###
-
-    def set_channel_count(self, channel_count: Optional[int]):
-        with self.lock([self]):
-            if channel_count is not None:
-                assert 1 <= channel_count <= 8
-                channel_count = int(channel_count)
-            self._set(channel_count=channel_count)
+        self._event_handlers[NoteOnMessage] = self._handle_note_on
+        self._event_handlers[NoteOffMessage] = self._handle_note_off
+        self._notes_to_synths: Dict[float, SynthProxy] = {}
 
     ### PRIVATE METHODS ###
 
@@ -452,13 +449,20 @@ class Instrument(DeviceObject):
         )
         self._allocate_audio_buses(provider, channel_count)
 
-    def _allocate_audio_buses(self, provider, channel_count):
-        self._audio_bus_proxies["output"] = provider.add_bus_group(
-            calculation_rate=CalculationRate.AUDIO, channel_count=channel_count
-        )
+    def _handle_note_off(self, moment, midi_message):
+        synth = self._notes_to_synths.pop(midi_message.note_number, None)
+        if synth is not None:
+            synth.free()
+        return []
 
-    def _free_audio_buses(self):
-        self._audio_bus_proxies.pop("output").free()
+    def _handle_note_on(self, moment, midi_message):
+        synth = self._notes_to_synths.get(midi_message.note_number)
+        if synth:
+            synth.free()
+        self._notes_to_synths[midi_message.note_number] = self.node_proxies[
+            "body"
+        ].add_synth(synthdef=self.synthdef, **self.synthdef_kwargs)
+        return []
 
     def _reallocate(self, difference):
         channel_count = self.effective_channel_count
@@ -468,5 +472,17 @@ class Instrument(DeviceObject):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def device_in(self):
+        return self._device_in
+
+    @property
+    def device_out(self):
+        return self._device_out
+
+    @property
     def synthdef(self) -> Union[SynthDef, SynthDefFactory]:
         return self._synthdef
+
+    @property
+    def synthdef_kwargs(self):
+        return self._synthdef_kwargs
