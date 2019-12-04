@@ -11,6 +11,7 @@ def test_1():
         f"""
         <Application {hex(id(application))}>
             <Transport>
+            <Controllers>
             <Contexts>
                 <Context [...] {context.uuid}>
                     <Tracks [...]>
@@ -52,6 +53,7 @@ def test_2():
         f"""
         <Application {hex(id(application))}>
             <Transport>
+            <Controllers>
             <Contexts>
                 <Context [{context.node_proxy.identifier}] {context.uuid}>
                     <Tracks [{context.tracks.node_proxy.identifier}]>

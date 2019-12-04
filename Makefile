@@ -56,7 +56,8 @@ isort:
 		--thirdparty uqbar \
 		--thirdparty yaml \
 		--trailing-comma \
-		--use-parentheses -y \
+		--use-parentheses \
+		-y \
 		${formatPaths}
 
 mypy:

@@ -12,6 +12,7 @@ from supriya.provider import Provider
 from .bases import Container
 from .clips import Scene
 from .contexts import Context
+from .controllers import Controller
 from .transports import Transport
 
 
@@ -30,13 +31,12 @@ class Application(UniqueTreeTuple):
         UniqueTreeTuple.__init__(self)
         self._channel_count = int(channel_count)
         self._contexts = Container(label="Contexts")
+        self._controllers = Container(label="Controllers")
         self._lock = RLock()
         self._scenes: Tuple[Scene, ...] = ()
         self._status = self.Status.OFFLINE
         self._transport = Transport()
-        self._mutate(slice(None), [self._transport, self._contexts])
-        self._contexts._application = self
-        self._transport._application = self
+        self._mutate(slice(None), [self._transport, self._controllers, self._contexts])
 
     ### SPECIAL METHODS ###
 
@@ -46,6 +46,15 @@ class Application(UniqueTreeTuple):
             for line in str(child).splitlines():
                 lines.append(f"    {line}")
         return "\n".join(lines)
+
+    ### PRIVATE METHODS ###
+
+    def _set_items(self, new_items, old_items, start_index, stop_index):
+        UniqueTreeTuple._set_items(self, new_items, old_items, start_index, stop_index)
+        for item in new_items:
+            item._set(application=self)
+        for item in old_items:
+            item._set(application=None)
 
     ### PUBLIC METHODS ###
 
@@ -61,7 +70,13 @@ class Application(UniqueTreeTuple):
                     context._set(provider=provider)
             return context
 
-    def add_scene(self):
+    def add_controller(self, *, name=None, port=0) -> Controller:
+        with self.lock:
+            controller = Controller(name=name, port=port)
+            self._controllers._append(controller)
+        return controller
+
+    def add_scene(self) -> Scene:
         return Scene()
 
     def boot(self):
@@ -89,6 +104,13 @@ class Application(UniqueTreeTuple):
         for _ in range(8):
             application.add_scene()
         return application
+
+    def perform(self, midi_messages, moment=None):
+        with self.lock:
+            if self.status != self.Status.REALTIME:
+                return
+            for context in self.contexts:
+                context.perform(midi_messages, moment=moment)
 
     def quit(self):
         with self.lock:
@@ -119,6 +141,13 @@ class Application(UniqueTreeTuple):
                     self._contexts._remove(context)
             if not len(self):
                 self._status = self.Status.OFFLINE
+
+    def remove_controllers(self, *controllers: Controller):
+        with self.lock:
+            if not all(controller in self.controllers for controller in controllers):
+                raise ValueError
+            for controller in controllers:
+                self._controllers._remove(controller)
 
     def render(self) -> Session:
         with self.lock:
@@ -156,6 +185,10 @@ class Application(UniqueTreeTuple):
     @property
     def contexts(self) -> Tuple[Context, ...]:
         return self._contexts
+
+    @property
+    def controllers(self) -> Tuple[Controller, ...]:
+        return self._controllers
 
     @property
     def lock(self) -> RLock:

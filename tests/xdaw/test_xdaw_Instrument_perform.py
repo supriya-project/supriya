@@ -24,7 +24,7 @@ def test_1(application):
     instrument = track.add_device(Instrument, synthdef=default)
     time.sleep(0.01)
     with instrument.lock(instrument, 0.0), instrument.capture() as transcript:
-        instrument.perform(None, [NoteOnMessage(note_number=60, velocity=100)])
+        instrument.perform([NoteOnMessage(note_number=60, velocity=100)])
     time.sleep(0.01)
     assert list(transcript) == [
         instrument.CaptureEntry(
@@ -45,7 +45,7 @@ def test_1(application):
         """
     )
     with instrument.lock(instrument, 0.0), instrument.capture() as transcript:
-        instrument.perform(None, [NoteOnMessage(note_number=60, velocity=0)])
+        instrument.perform([NoteOnMessage(note_number=60, velocity=0)])
     time.sleep(0.01)
     assert list(transcript) == [
         instrument.CaptureEntry(

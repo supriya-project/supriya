@@ -69,6 +69,11 @@ class Context(Allocatable, Mixer):
         with self.lock([self, container]):
             container._contexts._mutate(slice(position, position), [self])
 
+    def perform(self, midi_messages, moment=None):
+        with self.lock([self], seconds=moment.seconds if moment is not None else None):
+            for track in self.recurse(prototype=Track):
+                track.perform(midi_messages, moment=moment)
+
     def query(self):
         if self.provider.server is None:
             raise ValueError

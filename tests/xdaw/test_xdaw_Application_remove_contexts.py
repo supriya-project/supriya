@@ -48,7 +48,7 @@ def test_3():
     assert context_one.parent is None
     assert context_one.provider is None
     assert context_two.application is application
-    assert context_two.graph_order == (1, 0)
+    assert context_two.graph_order == (2, 0)
     assert context_two.parent is application.contexts
     assert context_two.provider is None
 
@@ -70,7 +70,7 @@ def test_4():
     assert context_one.parent is None
     assert context_one.provider is None
     assert context_two.application is application
-    assert context_two.graph_order == (1, 0)
+    assert context_two.graph_order == (2, 0)
     assert context_two.parent is application.contexts
     assert context_two.provider is not None
     assert not provider_one.server.is_running

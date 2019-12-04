@@ -49,6 +49,12 @@ class ApplicationObject(UniqueTreeTuple):
     def _append(self, node):
         self._mutate(slice(len(self), len(self)), [node])
 
+    def _applicate(self, new_application):
+        self._debug_tree(self, "Applicating", suffix=hex(id(new_application)))
+
+    def _deapplicate(self, old_application):
+        self._debug_tree(self, "Deapplicating", suffix=repr(None))
+
     @classmethod
     def _debug_tree(cls, node, prefix, suffix=None):
         parts = [
@@ -93,7 +99,6 @@ class ApplicationObject(UniqueTreeTuple):
         self._reconcile()
 
     def _set_items(self, new_items, old_items, start_index, stop_index):
-        # print(f"SET {self!r} {new_items!r} {old_items!r} {start_index} {stop_index}")
         UniqueTreeTuple._set_items(self, new_items, old_items, start_index, stop_index)
         for item in new_items:
             item._set(application=self.application)
@@ -191,13 +196,10 @@ class Allocatable(ApplicationObject):
             suffix=f"{hex(id(provider))} {target_node!r} {add_action}",
         )
 
-    def _applicate(self, new_application):
-        self._debug_tree(self, "Applicating", suffix=hex(id(new_application)))
-
     def _deallocate(self, old_provider, *, dispose_only=False):
         self._debug_tree(self, "Deallocating", suffix=repr(None))
-        node = self._node_proxies.pop("node")
-        if not dispose_only:
+        node = self._node_proxies.pop("node", None)
+        if node is not None and not dispose_only:
             node["gate"] = 0
         self._node_proxies.clear()
         for key, value in sorted(self._node_proxies.items()):
@@ -219,9 +221,6 @@ class Allocatable(ApplicationObject):
     def _deactivate(self):
         self._debug_tree(self, "Deactivating")
         self._is_active = False
-
-    def _deapplicate(self, old_application):
-        self._debug_tree(self, "Deapplicating", suffix=repr(None))
 
     def _get_state(self):
         state = ApplicationObject._get_state(self)

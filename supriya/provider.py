@@ -1,4 +1,5 @@
 import abc
+import collections
 import contextlib
 import dataclasses
 import pathlib
@@ -290,11 +291,15 @@ class ProviderMoment:
 
     def __enter__(self):
         self.provider._moments.append(self)
+        self.provider._counter[self.seconds] += 1
         return self
 
     def __exit__(self, *args):
         self.provider._moments.pop()
+        self.provider._counter[self.seconds] -= 1
         if not self.provider.server:
+            return
+        elif self.provider._counter[self.seconds]:
             return
         requests = []
         synthdefs = set()
@@ -380,6 +385,7 @@ class Provider(metaclass=abc.ABCMeta):
 
     def __init__(self):
         self._moments: List[ProviderMoment] = []
+        self._counter = collections.Counter()
         self._server = None
         self._session = None
         self._annotation_map: Dict[
@@ -464,15 +470,18 @@ class Provider(metaclass=abc.ABCMeta):
 
     @contextlib.contextmanager
     def at(self, seconds=None):
-        provider_moment = ProviderMoment(
-            provider=self,
-            seconds=seconds,
-            bus_settings=[],
-            node_additions=[],
-            node_removals=[],
-            node_reorderings=[],
-            node_settings=[],
-        )
+        if self._moments and self._moments[-1].seconds == seconds:
+            provider_moment = self._moments[-1]
+        else:
+            provider_moment = ProviderMoment(
+                provider=self,
+                seconds=seconds,
+                bus_settings=[],
+                node_additions=[],
+                node_removals=[],
+                node_reorderings=[],
+                node_settings=[],
+            )
         exit_stack = contextlib.ExitStack()
         with exit_stack:
             exit_stack.enter_context(provider_moment)
@@ -524,7 +533,7 @@ class Provider(metaclass=abc.ABCMeta):
     @property
     def moment(self) -> Optional[ProviderMoment]:
         if self._moments:
-            return self._moments[0]
+            return self._moments[-1]
         return None
 
     @property

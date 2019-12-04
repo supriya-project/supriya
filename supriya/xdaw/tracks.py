@@ -273,10 +273,11 @@ class TrackObject(Allocatable):
                 receive.effective_source.receive_target._dependencies.add(receive)
             return receive
 
-    def perform(self, moment, in_midi_messages):
-        with self.lock([self]):
+    def perform(self, midi_messages, moment=None):
+        with self.lock([self], seconds=moment.seconds if moment is not None else None):
             if not self.devices:
                 return
+            self.devices[0].perform(midi_messages, moment=moment)
 
     def remove_devices(self, *devices: DeviceObject):
         with self.lock([self, *devices]):

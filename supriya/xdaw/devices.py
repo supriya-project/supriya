@@ -46,6 +46,14 @@ class DeviceIn(Patch):
             replace_out=True,
         )
 
+    ### SPECIAL METHODS ###
+
+    def __str__(self):
+        line = f"<{type(self).__name__} [...]>"
+        if self.node_proxy is not None:
+            line = f"<{type(self).__name__} [{int(self.node_proxy)}]>"
+        return line
+
     ### PUBLIC PROPERTIES ###
 
     @property
@@ -84,6 +92,14 @@ class DeviceOut(Patch):
     def _allocate(self, provider, target_node, add_action):
         Allocatable._allocate(self, provider, target_node, add_action)
         self._allocate_synths(self.parent.node_proxy, AddAction.ADD_TO_TAIL)
+
+    ### SPECIAL METHODS ###
+
+    def __str__(self):
+        line = f"<{type(self).__name__} [...]>"
+        if self.node_proxy is not None:
+            line = f"<{type(self).__name__} [{int(self.node_proxy)}]>"
+        return line
 
     ### PUBLIC METHODS ###
 
@@ -190,19 +206,11 @@ class DeviceObject(Allocatable):
 
     ### PRIVATE METHODS ###
 
-    def _allocate_audio_buses(self, provider, channel_count):
-        self._audio_bus_proxies["output"] = provider.add_bus_group(
-            calculation_rate=CalculationRate.AUDIO, channel_count=channel_count
-        )
-
     def _filter_in_midi_messages(self, in_midi_messages) -> Sequence[MidiMessage]:
         return in_midi_messages
 
     def _filter_out_midi_messages(self, out_midi_messages) -> Sequence[MidiMessage]:
         return out_midi_messages
-
-    def _free_audio_buses(self):
-        self._audio_bus_proxies.pop("output").free()
 
     def _next_performer(self) -> Optional[Callable]:
         if self.parent is None:
@@ -282,7 +290,7 @@ class DeviceObject(Allocatable):
         with self.lock([self, container]):
             container.devices._mutate(slice(position, position), [self])
 
-    def perform(self, moment, midi_messages):
+    def perform(self, midi_messages, moment=None):
         with self.lock([self], seconds=moment.seconds if moment is not None else None):
             self._perform_loop(moment, self._perform, midi_messages)
 
@@ -317,23 +325,12 @@ class DeviceObject(Allocatable):
         return self._uuid
 
 
-class AudioEffect(DeviceObject):
+class AllocatableDevice(DeviceObject):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        synthdef: Union[SynthDef, SynthDefFactory],
-        *,
-        name=None,
-        synthdef_kwargs=None,
-        parameters=None,
-        parameter_map=None,
-        uuid=None,
-    ):
+    def __init__(self, *, name=None, uuid=None):
         DeviceObject.__init__(self, name=name, uuid=uuid)
-        self._synthdef = synthdef
-        self._synthdef_kwargs = dict(synthdef_kwargs or {})
         self._device_in = DeviceIn()
         self._device_out = DeviceOut()
         self._mutate(slice(None), [self._device_in, self._device_out])
@@ -355,17 +352,63 @@ class AudioEffect(DeviceObject):
             target_node=self.node_proxy, add_action=AddAction.ADD_TO_TAIL, name="Body"
         )
         self._allocate_audio_buses(provider, channel_count)
-        self._allocate_synths(
-            provider,
-            self.effective_channel_count,
-            synth_pair=(self.node_proxies["body"], AddAction.ADD_TO_HEAD),
+        self._allocate_synths(provider, self.effective_channel_count)
+
+    def _allocate_synths(self, provider, channel_count):
+        pass
+
+    def _allocate_audio_buses(self, provider, channel_count):
+        self._audio_bus_proxies["output"] = provider.add_bus_group(
+            calculation_rate=CalculationRate.AUDIO, channel_count=channel_count
         )
+
+    def _free_audio_buses(self):
+        self._audio_bus_proxies.pop("output").free()
+
+    def _reallocate(self, difference):
+        channel_count = self.effective_channel_count
+        self._free_audio_buses()
+        self._allocate_audio_buses(self.provider, channel_count)
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def device_in(self):
+        return self._device_in
+
+    @property
+    def device_out(self):
+        return self._device_out
+
+
+class AudioEffect(AllocatableDevice):
+
+    ### INITIALIZER ###
+
+    def __init__(
+        self,
+        synthdef: Union[SynthDef, SynthDefFactory],
+        *,
+        name=None,
+        synthdef_kwargs=None,
+        parameters=None,
+        parameter_map=None,
+        uuid=None,
+    ):
+        AllocatableDevice.__init__(self, name=name, uuid=uuid)
+        self._synthdef = synthdef
+        self._synthdef_kwargs = dict(synthdef_kwargs or {})
+
+    ### PRIVATE METHODS ###
 
     def _allocate_synths(self, provider, channel_count, *, synth_pair=None):
         synthdef = self.synthdef
         if isinstance(synthdef, SynthDefFactory):
             synthdef = synthdef.build(channel_count=self.effective_channel_count)
-        synth_target, synth_action = synth_pair
+        synth_target, synth_action = synth_pair or (
+            self.node_proxies["body"],
+            AddAction.ADD_TO_HEAD,
+        )
         self._node_proxies["synth"] = provider.add_synth(
             add_action=synth_action,
             synthdef=synthdef,
@@ -389,14 +432,6 @@ class AudioEffect(DeviceObject):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def device_in(self):
-        return self._device_in
-
-    @property
-    def device_out(self):
-        return self._device_out
-
-    @property
     def synthdef(self) -> Union[SynthDef, SynthDefFactory]:
         return self._synthdef
 
@@ -405,7 +440,7 @@ class AudioEffect(DeviceObject):
         return self._synthdef_kwargs
 
 
-class Instrument(DeviceObject):
+class Instrument(AllocatableDevice):
 
     ### INITIALIZER ###
 
@@ -421,33 +456,18 @@ class Instrument(DeviceObject):
     ):
         # TODO: Polyphony Limit
         # TODO: Polyphony Mode
-        DeviceObject.__init__(self, name=name, uuid=uuid)
+        AllocatableDevice.__init__(self, name=name, uuid=uuid)
         self._synthdef = synthdef
         self._synthdef_kwargs = dict(synthdef_kwargs or {})
-        self._device_in = DeviceIn()
-        self._device_out = DeviceOut()
-        self._mutate(slice(None), [self._device_in, self._device_out])
         self._event_handlers[NoteOnMessage] = self._handle_note_on
         self._event_handlers[NoteOffMessage] = self._handle_note_off
         self._notes_to_synths: Dict[float, SynthProxy] = {}
 
     ### PRIVATE METHODS ###
 
-    def _allocate(self, provider, target_node, add_action):
-        Allocatable._allocate(self, provider, target_node, add_action)
-        channel_count = self.effective_channel_count
-        self._node_proxies["node"] = provider.add_group(
-            target_node=target_node, add_action=add_action, name=self.label
-        )
-        self._node_proxies["parameters"] = provider.add_group(
-            target_node=self.node_proxy,
-            add_action=AddAction.ADD_TO_HEAD,
-            name="Parameters",
-        )
-        self._node_proxies["body"] = provider.add_group(
-            target_node=self.node_proxy, add_action=AddAction.ADD_TO_TAIL, name="Body"
-        )
-        self._allocate_audio_buses(provider, channel_count)
+    def _deallocate(self, old_provider, *, dispose_only=False):
+        Allocatable._deallocate(self, old_provider, dispose_only=dispose_only)
+        self._notes_to_synths.clear()
 
     def _handle_note_off(self, moment, midi_message):
         synth = self._notes_to_synths.pop(midi_message.note_number, None)
@@ -464,20 +484,7 @@ class Instrument(DeviceObject):
         ].add_synth(synthdef=self.synthdef, **self.synthdef_kwargs)
         return []
 
-    def _reallocate(self, difference):
-        channel_count = self.effective_channel_count
-        self._free_audio_buses()
-        self._allocate_audio_buses(self.provider, channel_count)
-
     ### PUBLIC PROPERTIES ###
-
-    @property
-    def device_in(self):
-        return self._device_in
-
-    @property
-    def device_out(self):
-        return self._device_out
 
     @property
     def synthdef(self) -> Union[SynthDef, SynthDefFactory]:
@@ -486,3 +493,7 @@ class Instrument(DeviceObject):
     @property
     def synthdef_kwargs(self):
         return self._synthdef_kwargs
+
+
+class Chord(DeviceObject):
+    pass
