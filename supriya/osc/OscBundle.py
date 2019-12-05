@@ -1,6 +1,7 @@
 import datetime
 import decimal
 import struct
+import time
 from collections import deque
 
 from supriya.osc import format_datagram
@@ -85,7 +86,13 @@ class OscBundle(SupriyaValueObject):
     __slots__ = ("_contents", "_timestamp")
 
     _bundle_prefix = b"#bundle\x00"
-    _immediately = struct.pack(">q", 1)
+
+    _IMMEDIATELY = struct.pack(">Q", 1)
+    _NTP_TIMESTAMP_TO_SECONDS = 1. / 2. ** 32.
+    _SECONDS_TO_NTP_TIMESTAMP = 2. ** 32.
+    _SYSTEM_EPOCH = datetime.date(*time.gmtime(0)[0:3])
+    _NTP_EPOCH = datetime.date(1900, 1, 1)
+    _NTP_DELTA = (_SYSTEM_EPOCH - _NTP_EPOCH).days * 24 * 3600
 
     ### INITIALIZER ###
 
@@ -111,8 +118,6 @@ class OscBundle(SupriyaValueObject):
 
     @staticmethod
     def _get_ntp_delta():
-        import time
-
         system_epoch = datetime.date(*time.gmtime(0)[0:3])
         ntp_epoch = datetime.date(1900, 1, 1)
         ntp_delta = (system_epoch - ntp_epoch).days * 24 * 3600
@@ -138,21 +143,14 @@ class OscBundle(SupriyaValueObject):
     def _system_time_to_ntp(date):
         return float(date) + OscBundle._get_ntp_delta()
 
-    @staticmethod
-    def _write_date(value, realtime=True):
-        if value is None:
-            return OscBundle._immediately
+    @classmethod
+    def _write_date(cls, seconds, realtime=True):
+        if seconds is None:
+            return cls._IMMEDIATELY
         if realtime:
-            ntp = OscBundle._system_time_to_ntp(value)
-            seconds, fraction = str(ntp).split(".")
-            seconds = int(seconds)
-            fraction = int(fraction)
-            result = struct.pack(">I", seconds)
-            result += struct.pack(">I", fraction)
-        else:
-            kSecondsToOSC = 4_294_967_296
-            result = struct.pack(">q", int(value * kSecondsToOSC))
-        return result
+            seconds = seconds + cls._NTP_DELTA
+            return struct.pack(">Q", int(seconds * cls._SECONDS_TO_NTP_TIMESTAMP))
+        return struct.pack(">Q", int(seconds * cls._SECONDS_TO_NTP_TIMESTAMP))
 
     ### PUBLIC METHODS ###
 

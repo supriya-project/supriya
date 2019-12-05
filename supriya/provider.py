@@ -330,9 +330,10 @@ class ProviderMoment:
             requests.append(request)
         if not requests:
             return
+        timestamp = self.seconds
         if synthdefs:
             request_bundle = RequestBundle(
-                timestamp=self.seconds,
+                timestamp=timestamp,
                 contents=[
                     SynthDefReceiveRequest(
                         synthdefs=sorted(synthdefs, key=lambda x: x.actual_name),
@@ -351,7 +352,7 @@ class ProviderMoment:
                     synthdef_path = directory_path / file_name
                     synthdef_path.write_bytes(synthdef.compile())
                 request_bundle = RequestBundle(
-                    timestamp=self.seconds,
+                    timestamp=timestamp,
                     contents=[
                         supriya.commands.SynthDefLoadDirectoryRequest(
                             directory_path=directory_path,
@@ -360,7 +361,7 @@ class ProviderMoment:
                     ],
                 )
         else:
-            request_bundle = RequestBundle(timestamp=self.seconds, contents=requests)
+            request_bundle = RequestBundle(timestamp=timestamp, contents=requests)
         for synthdef in synthdefs:
             synthdef._register_with_local_server(server=self.provider.server)
         try:
@@ -372,7 +373,7 @@ class ProviderMoment:
                 requests = synthdef_request.callback.contents or []
                 synthdef_request = new(synthdef_request, callback=None)
                 synthdef_request.communicate(sync=True, server=self.provider.server)
-            for bundle in RequestBundle.partition(requests, timestamp=self.seconds):
+            for bundle in RequestBundle.partition(requests, timestamp=timestamp):
                 self.provider.server.send_message(bundle)
 
 

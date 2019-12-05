@@ -13,8 +13,10 @@ from supriya.commands.Response import Response
 from supriya.osc.OscBundle import OscBundle
 from supriya.osc.OscMessage import OscMessage
 
-osc_logger = logging.getLogger("supriya.osc")
-udp_logger = logging.getLogger("supriya.udp")
+osc_in_logger = logging.getLogger("supriya.osc.in")
+osc_out_logger = logging.getLogger("supriya.osc.out")
+udp_in_logger = logging.getLogger("supriya.udp.in")
+udp_out_logger = logging.getLogger("supriya.udp.out")
 
 
 class OscIO:
@@ -124,13 +126,13 @@ class OscIO:
             try:
                 message = OscMessage.from_datagram(data)
             except Exception:
-                udp_logger.warn("Recv: {:0.6f} {}".format(now, data))
+                udp_in_logger.warn("Recv: {:0.6f} {}".format(now, data))
                 raise
-            osc_log_function = osc_logger.debug
-            udp_log_function = udp_logger.debug
+            osc_log_function = osc_in_logger.debug
+            udp_log_function = udp_in_logger.debug
             if message.address != "/status.reply":
-                osc_log_function = osc_logger.info
-                udp_log_function = udp_logger.info
+                osc_log_function = osc_in_logger.info
+                udp_log_function = udp_in_logger.info
             osc_log_function("Recv: {:0.6f} {}".format(now, message.to_list()))
             for line in str(message).splitlines():
                 udp_log_function("Recv: {:0.6f} {}".format(now, line))
@@ -300,11 +302,11 @@ class OscIO:
             message = OscMessage(*message)
         now = time.time()
 
-        osc_log_function = osc_logger.debug
-        udp_log_function = udp_logger.debug
+        osc_log_function = osc_out_logger.debug
+        udp_log_function = udp_out_logger.debug
         if not (isinstance(message, OscMessage) and message.address in (2, "/status")):
-            osc_log_function = osc_logger.info
-            udp_log_function = udp_logger.info
+            osc_log_function = osc_out_logger.info
+            udp_log_function = udp_out_logger.info
             for capture in self.captures:
                 capture.messages.append(
                     OscIO.CaptureEntry(
