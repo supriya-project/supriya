@@ -1,3 +1,4 @@
+from supriya.midi import NoteOnMessage, NoteOffMessage, ControllerChangeMessage
 from uuid import UUID, uuid4
 
 import rtmidi
@@ -11,9 +12,13 @@ class Controller(ApplicationObject):
         self._midi_in = rtmidi.MidiIn()
         self._midi_out = rtmidi.MidiOut()
         self._uuid = uuid or uuid4()
+        self._port = None
 
     def __str__(self):
-        return f"<{type(self).__name__} [{self.port}] {self.uuid}>"
+        port = "..."
+        if self.port is not None:
+            port = self._midi_in.get_port_name(self.port)
+        return f"<{type(self).__name__} [{port}] {self.uuid}>"
 
     def _applicate(self, new_application):
         ApplicationObject._applicate(self, new_application)
@@ -21,9 +26,39 @@ class Controller(ApplicationObject):
     def _deapplicate(self, old_application):
         ApplicationObject._deapplicate(self, old_application)
 
-    def _handle_midi_in(self, message, timestamp=None):
-        if timestamp is None:
-            message, timestamp = message
+    def _handle_midi_in(self, *args):
+        self._debug_tree(self, "MIDI In", suffix=repr(args))
+        message = None
+        event, timestamp = args[0]
+        status_byte, data = event[0], event[1:]
+        message_type = status_byte >> 4
+        channel_number = status_byte & 0x0F
+        if message_type == 8:
+            message = NoteOffMessage(
+                channel_number=channel_number,
+                note_number=data[0],
+                velocity=data[1],
+                timestamp=timestamp,
+            )
+        elif message_type == 9:
+            class_ = NoteOnMessage
+            if data[1] == 0:
+                class_ = NoteOffMessage
+            message = class_(
+                channel_number=channel_number,
+                note_number=data[0],
+                velocity=data[1],
+                timestamp=timestamp,
+            )
+        elif message_type == 11:
+            message = ControllerChangeMessage(
+                channel_number=channel_number,
+                controller_number=data[0],
+                controller_value=data[1],
+                timestamp=timestamp,
+            )
+        if message is None:
+            return
         transport = self.transport
         if transport is not None:
             transport.perform([message])
@@ -42,22 +77,23 @@ class Controller(ApplicationObject):
     def close_port(self):
         self._midi_in.close_port()
         self._midi_out.close_port()
+        self._port = None
         return self
 
-    def open_port(self, port=None, virtual=False):
+    def open_port(self, port=None):
         if port is None:
-            virtual = True
-        if virtual:
             self._midi_in.open_virtual_port()
             self._midi_out.open_virtual_port()
         else:
+            self._port = port
             self._midi_in.open_port(port)
             self._midi_out.open_port(port)
         self._midi_in.ignore_types(active_sense=True, sysex=True, timing=True)
         self._midi_in.set_callback(self._handle_midi_in)
+        return self
 
     @property
-    def port(self) -> int:
+    def port(self):
         return self._port
 
     @property

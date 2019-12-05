@@ -274,6 +274,7 @@ class TrackObject(Allocatable):
             return receive
 
     def perform(self, midi_messages, moment=None):
+        self._debug_tree(self, "Perform", suffix=repr([type(_).__name__ for _ in midi_messages]))
         with self.lock([self], seconds=moment.seconds if moment is not None else None):
             if not self.devices:
                 return

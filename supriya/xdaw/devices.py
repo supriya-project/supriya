@@ -291,6 +291,7 @@ class DeviceObject(Allocatable):
             container.devices._mutate(slice(position, position), [self])
 
     def perform(self, midi_messages, moment=None):
+        self._debug_tree(self, "Perform", suffix=repr([type(_).__name__ for _ in midi_messages]))
         with self.lock([self], seconds=moment.seconds if moment is not None else None):
             self._perform_loop(moment, self._perform, midi_messages)
 

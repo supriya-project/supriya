@@ -11,12 +11,25 @@ class Transport(ApplicationObject):
         self._clock = TempoClock()
         self._dependencies: Set[ApplicationObject] = set()
 
+    def _application_perform_callback(
+        self,
+        current_moment,
+        desired_moment,
+        event,
+        midi_message,
+    ):
+        self.application.perform([midi_message], moment=current_moment)
+
     def perform(self, midi_messages):
+        self._debug_tree(self, "Perform", suffix=repr([type(_).__name__ for _ in midi_messages]))
         if self.application is None:
             return
-        self.schedule(self.application.perform, args=[midi_messages])
+        self.schedule(self._application_perform_callback, args=midi_messages)
         if not self.is_running:
             self.start()
+
+    def schedule(self, *args, **kwargs):
+        self._clock.schedule(*args, **kwargs)
 
     def set_tempo(self, beats_per_minute: float):
         with self.lock([self]):
@@ -28,14 +41,14 @@ class Transport(ApplicationObject):
 
     def start(self):
         with self.lock([self]):
-            for dependency in self.dependencies:
+            for dependency in self._dependencies:
                 dependency.start()
             self._clock.start()
 
     def stop(self):
         with self.lock([self]):
             self._clock.stop()
-            for dependency in self.dependencies:
+            for dependency in self. dependencies:
                 dependency.stop()
 
     @property

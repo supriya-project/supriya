@@ -154,6 +154,13 @@ class ApplicationObject(UniqueTreeTuple):
     def provider(self):
         return None
 
+    @property
+    def transport(self):
+        application = self.application
+        if application is None:
+            return None
+        return application.transport
+
 
 class Allocatable(ApplicationObject):
 

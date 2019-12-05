@@ -41,7 +41,7 @@ class Application(UniqueTreeTuple):
     ### SPECIAL METHODS ###
 
     def __str__(self):
-        lines = [f"<{type(self).__name__} {hex(id(self))}>"]
+        lines = [f"<{type(self).__name__} [{self.status.name}] {hex(id(self))}>"]
         for child in self:
             for line in str(child).splitlines():
                 lines.append(f"    {line}")
@@ -70,9 +70,9 @@ class Application(UniqueTreeTuple):
                     context._set(provider=provider)
             return context
 
-    def add_controller(self, *, name=None, port=0) -> Controller:
+    def add_controller(self, *, name=None) -> Controller:
         with self.lock:
-            controller = Controller(name=name, port=port)
+            controller = Controller(name=name)
             self._controllers._append(controller)
         return controller
 
