@@ -6,7 +6,7 @@ def midi_note_number_to_frequency(midi_note_number):
 
 
 def midi_velocity_to_amplitude(midi_velocity):
-    return midi_velocity / 127.0
+    return pow(midi_velocity / 127.0, 2.0)
 
 
 def midi_velocity_to_decibels(midi_velocity):

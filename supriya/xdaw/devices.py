@@ -15,6 +15,7 @@ from typing import (
 from uuid import UUID, uuid4
 
 import supriya.daw  # noqa
+from supriya import conversions
 from supriya.clock import Moment
 from supriya.enums import AddAction, CalculationRate
 from supriya.midi import MidiMessage, NoteOffMessage, NoteOnMessage
@@ -477,12 +478,16 @@ class Instrument(AllocatableDevice):
         return []
 
     def _handle_note_on(self, moment, midi_message):
-        synth = self._notes_to_synths.get(midi_message.note_number)
+        note_number = midi_message.note_number
+        synth = self._notes_to_synths.get(note_number)
         if synth:
             synth.free()
-        self._notes_to_synths[midi_message.note_number] = self.node_proxies[
-            "body"
-        ].add_synth(synthdef=self.synthdef, **self.synthdef_kwargs)
+        self._notes_to_synths[note_number] = self.node_proxies["body"].add_synth(
+            synthdef=self.synthdef,
+            **self.synthdef_kwargs,
+            frequency=conversions.midi_note_number_to_frequency(note_number),
+            amplitude=conversions.midi_velocity_to_amplitude(midi_message.velocity),
+        )
         return []
 
     ### PUBLIC PROPERTIES ###
