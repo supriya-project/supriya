@@ -188,12 +188,6 @@ class TrackObject(Allocatable):
             return
         self.node_proxies["output"]["active"] = 0
 
-    def _perform_input(self):
-        pass
-
-    def _perform_output(self):
-        pass
-
     def _reallocate(self, difference):
         channel_count = self.effective_channel_count
         # buses
@@ -274,7 +268,9 @@ class TrackObject(Allocatable):
             return receive
 
     def perform(self, midi_messages, moment=None):
-        self._debug_tree(self, "Perform", suffix=repr([type(_).__name__ for _ in midi_messages]))
+        self._debug_tree(
+            self, "Perform", suffix=repr([type(_).__name__ for _ in midi_messages])
+        )
         with self.lock([self], seconds=moment.seconds if moment is not None else None):
             if not self.devices:
                 return

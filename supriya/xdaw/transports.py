@@ -12,16 +12,14 @@ class Transport(ApplicationObject):
         self._dependencies: Set[ApplicationObject] = set()
 
     def _application_perform_callback(
-        self,
-        current_moment,
-        desired_moment,
-        event,
-        midi_message,
+        self, current_moment, desired_moment, event, midi_message
     ):
         self.application.perform([midi_message], moment=current_moment)
 
     def perform(self, midi_messages):
-        self._debug_tree(self, "Perform", suffix=repr([type(_).__name__ for _ in midi_messages]))
+        self._debug_tree(
+            self, "Perform", suffix=repr([type(_).__name__ for _ in midi_messages])
+        )
         if self.application is None:
             return
         self.schedule(self._application_perform_callback, args=midi_messages)
@@ -48,7 +46,7 @@ class Transport(ApplicationObject):
     def stop(self):
         with self.lock([self]):
             self._clock.stop()
-            for dependency in self. dependencies:
+            for dependency in self.dependencies:
                 dependency.stop()
 
     @property

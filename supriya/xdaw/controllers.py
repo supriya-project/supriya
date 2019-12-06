@@ -1,7 +1,8 @@
-from supriya.midi import NoteOnMessage, NoteOffMessage, ControllerChangeMessage
 from uuid import UUID, uuid4
 
 import rtmidi
+
+from supriya.midi import ControllerChangeMessage, NoteOffMessage, NoteOnMessage
 
 from .bases import ApplicationObject
 

@@ -2,7 +2,6 @@ from collections import deque
 from typing import (
     Callable,
     Deque,
-    Dict,
     Generator,
     List,
     NamedTuple,
@@ -10,17 +9,14 @@ from typing import (
     Sequence,
     Set,
     Tuple,
-    Union,
 )
 from uuid import UUID, uuid4
 
 import supriya.daw  # noqa
-from supriya import conversions
 from supriya.clock import Moment
 from supriya.enums import AddAction, CalculationRate
-from supriya.midi import MidiMessage, NoteOffMessage, NoteOnMessage
-from supriya.provider import SynthProxy
-from supriya.synthdefs import SynthDef, SynthDefFactory
+from supriya.midi import MidiMessage
+from supriya.midi import NoteOffMessage, NoteOnMessage
 
 from .bases import Allocatable
 from .sends import Patch
@@ -189,9 +185,12 @@ class DeviceObject(Allocatable):
         Allocatable.__init__(self, channel_count=channel_count, name=name)
         self._uuid = uuid or uuid4()
         self._is_active = True
-        self._ready = True
         self._captures: Set[DeviceObject.Capture] = set()
-        self._event_handlers = {}
+        self._active_notes = set()
+        self._event_handlers = {
+            NoteOnMessage: self._handle_note_on,
+            NoteOffMessage: self._handle_note_off,
+        }
 
     ### SPECIAL METHODS ###
 
@@ -213,6 +212,12 @@ class DeviceObject(Allocatable):
     def _filter_out_midi_messages(self, out_midi_messages) -> Sequence[MidiMessage]:
         return out_midi_messages
 
+    def _handle_note_off(self, moment, midi_message):
+        return [midi_message]
+
+    def _handle_note_on(self, moment, midi_message):
+        return [midi_message]
+
     def _next_performer(self) -> Optional[Callable]:
         if self.parent is None:
             return None
@@ -228,8 +233,6 @@ class DeviceObject(Allocatable):
         self, moment, in_midi_messages
     ) -> Generator[Tuple[Optional[Callable], Sequence[MidiMessage]], None, None]:
         next_performer = self._next_performer()
-        if not self.ready:
-            yield next_performer, in_midi_messages
         out_midi_messages: List[MidiMessage] = []
         for message in self._filter_in_midi_messages(in_midi_messages):
             self._update_captures(moment, message, "I")
@@ -247,11 +250,13 @@ class DeviceObject(Allocatable):
     def _perform_loop(cls, moment, performer, midi_messages):
         stack: Deque = deque()
         stack.append((performer, midi_messages))
+        out_messages = []
         while stack:
             in_performer, in_messages = stack.popleft()
             for out_performer, out_messages in in_performer(moment, in_messages):
                 if out_messages and out_performer:
                     stack.append((out_performer, out_messages))
+        return out_messages
 
     def _update_captures(self, moment, message, label):
         if not self._captures:
@@ -292,9 +297,11 @@ class DeviceObject(Allocatable):
             container.devices._mutate(slice(position, position), [self])
 
     def perform(self, midi_messages, moment=None):
-        self._debug_tree(self, "Perform", suffix=repr([type(_).__name__ for _ in midi_messages]))
+        self._debug_tree(
+            self, "Perform", suffix=repr([type(_).__name__ for _ in midi_messages])
+        )
         with self.lock([self], seconds=moment.seconds if moment is not None else None):
-            self._perform_loop(moment, self._perform, midi_messages)
+            return self._perform_loop(moment, self._perform, midi_messages)
 
     def set_channel_count(self, channel_count: Optional[int]):
         with self.lock([self]):
@@ -308,10 +315,6 @@ class DeviceObject(Allocatable):
     @property
     def is_active(self):
         return self._is_active
-
-    @property
-    def ready(self):
-        return self._ready
 
     @property
     def track_object(self):
@@ -381,125 +384,3 @@ class AllocatableDevice(DeviceObject):
     @property
     def device_out(self):
         return self._device_out
-
-
-class AudioEffect(AllocatableDevice):
-
-    ### INITIALIZER ###
-
-    def __init__(
-        self,
-        synthdef: Union[SynthDef, SynthDefFactory],
-        *,
-        name=None,
-        synthdef_kwargs=None,
-        parameters=None,
-        parameter_map=None,
-        uuid=None,
-    ):
-        AllocatableDevice.__init__(self, name=name, uuid=uuid)
-        self._synthdef = synthdef
-        self._synthdef_kwargs = dict(synthdef_kwargs or {})
-
-    ### PRIVATE METHODS ###
-
-    def _allocate_synths(self, provider, channel_count, *, synth_pair=None):
-        synthdef = self.synthdef
-        if isinstance(synthdef, SynthDefFactory):
-            synthdef = synthdef.build(channel_count=self.effective_channel_count)
-        synth_target, synth_action = synth_pair or (
-            self.node_proxies["body"],
-            AddAction.ADD_TO_HEAD,
-        )
-        self._node_proxies["synth"] = provider.add_synth(
-            add_action=synth_action,
-            synthdef=synthdef,
-            target_node=synth_target,
-            out=self.audio_bus_proxies["output"],
-            **self.synthdef_kwargs,
-        )
-
-    def _reallocate(self, difference):
-        channel_count = self.effective_channel_count
-        synth_synth = self._node_proxies.pop("synth")
-        self._free_audio_buses()
-        self._allocate_audio_buses(self.provider, channel_count)
-        self._allocate_synths(
-            self.provider,
-            self.effective_channel_count,
-            synth_pair=(synth_synth, AddAction.ADD_AFTER),
-        )
-        synth_synth.free()
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def synthdef(self) -> Union[SynthDef, SynthDefFactory]:
-        return self._synthdef
-
-    @property
-    def synthdef_kwargs(self):
-        return self._synthdef_kwargs
-
-
-class Instrument(AllocatableDevice):
-
-    ### INITIALIZER ###
-
-    def __init__(
-        self,
-        synthdef: Union[SynthDef, SynthDefFactory],
-        *,
-        name=None,
-        parameter_map=None,
-        parameters=None,
-        synthdef_kwargs=None,
-        uuid=None,
-    ):
-        # TODO: Polyphony Limit
-        # TODO: Polyphony Mode
-        AllocatableDevice.__init__(self, name=name, uuid=uuid)
-        self._synthdef = synthdef
-        self._synthdef_kwargs = dict(synthdef_kwargs or {})
-        self._event_handlers[NoteOnMessage] = self._handle_note_on
-        self._event_handlers[NoteOffMessage] = self._handle_note_off
-        self._notes_to_synths: Dict[float, SynthProxy] = {}
-
-    ### PRIVATE METHODS ###
-
-    def _deallocate(self, old_provider, *, dispose_only=False):
-        Allocatable._deallocate(self, old_provider, dispose_only=dispose_only)
-        self._notes_to_synths.clear()
-
-    def _handle_note_off(self, moment, midi_message):
-        synth = self._notes_to_synths.pop(midi_message.note_number, None)
-        if synth is not None:
-            synth.free()
-        return []
-
-    def _handle_note_on(self, moment, midi_message):
-        note_number = midi_message.note_number
-        synth = self._notes_to_synths.get(note_number)
-        if synth:
-            synth.free()
-        self._notes_to_synths[note_number] = self.node_proxies["body"].add_synth(
-            synthdef=self.synthdef,
-            **self.synthdef_kwargs,
-            frequency=conversions.midi_note_number_to_frequency(note_number),
-            amplitude=conversions.midi_velocity_to_amplitude(midi_message.velocity),
-        )
-        return []
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def synthdef(self) -> Union[SynthDef, SynthDefFactory]:
-        return self._synthdef
-
-    @property
-    def synthdef_kwargs(self):
-        return self._synthdef_kwargs
-
-
-class Chord(DeviceObject):
-    pass
