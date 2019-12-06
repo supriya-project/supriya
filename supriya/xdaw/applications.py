@@ -96,13 +96,14 @@ class Application(UniqueTreeTuple):
         return self
 
     @classmethod
-    def new(cls):
+    def new(cls, context_count=1, track_count=4, scene_count=8):
         application = cls()
-        context = application.add_context()
-        for _ in range(4):
-            context.add_track()
-        for _ in range(8):
+        for _ in range(scene_count):
             application.add_scene()
+        for _ in range(context_count):
+            context = application.add_context()
+            for _ in range(track_count):
+                context.add_track()
         return application
 
     def perform(self, midi_messages, moment=None):

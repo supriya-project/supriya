@@ -2,6 +2,7 @@ from collections import deque
 from typing import (
     Callable,
     Deque,
+    Dict,
     Generator,
     List,
     NamedTuple,
@@ -15,8 +16,7 @@ from uuid import UUID, uuid4
 import supriya.daw  # noqa
 from supriya.clock import Moment
 from supriya.enums import AddAction, CalculationRate
-from supriya.midi import MidiMessage
-from supriya.midi import NoteOffMessage, NoteOnMessage
+from supriya.midi import MidiMessage, NoteOffMessage, NoteOnMessage
 
 from .bases import Allocatable
 from .sends import Patch
@@ -186,8 +186,9 @@ class DeviceObject(Allocatable):
         self._uuid = uuid or uuid4()
         self._is_active = True
         self._captures: Set[DeviceObject.Capture] = set()
-        self._active_notes = set()
-        self._event_handlers = {
+        self._input_notes: Set[float] = set()
+        self._output_notes: Set[float] = set()
+        self._event_handlers: Dict[MidiMessage, Callable] = {
             NoteOnMessage: self._handle_note_on,
             NoteOffMessage: self._handle_note_off,
         }
@@ -206,17 +207,17 @@ class DeviceObject(Allocatable):
 
     ### PRIVATE METHODS ###
 
-    def _filter_in_midi_messages(self, in_midi_messages) -> Sequence[MidiMessage]:
-        return in_midi_messages
-
-    def _filter_out_midi_messages(self, out_midi_messages) -> Sequence[MidiMessage]:
-        return out_midi_messages
-
     def _handle_note_off(self, moment, midi_message):
+        self._input_notes.remove(midi_message.note_number)
         return [midi_message]
 
     def _handle_note_on(self, moment, midi_message):
-        return [midi_message]
+        result = []
+        if midi_message.note_number in self._input_notes:
+            result.extend(self._handle_note_off(moment, midi_message))
+        self._input_notes.add(midi_message.note_number)
+        result.append(midi_message)
+        return result
 
     def _next_performer(self) -> Optional[Callable]:
         if self.parent is None:
@@ -232,29 +233,32 @@ class DeviceObject(Allocatable):
     def _perform(
         self, moment, in_midi_messages
     ) -> Generator[Tuple[Optional[Callable], Sequence[MidiMessage]], None, None]:
+        self._debug_tree(
+            self, "Perform", suffix=repr([type(_).__name__ for _ in in_midi_messages])
+        )
         next_performer = self._next_performer()
         out_midi_messages: List[MidiMessage] = []
-        for message in self._filter_in_midi_messages(in_midi_messages):
-            self._update_captures(moment, message, "I")
+        for message in in_midi_messages:
             event_handler = self._event_handlers.get(type(message))
             if not event_handler:
                 out_midi_messages.append(message)
                 continue
             messages = event_handler(moment, message)
             out_midi_messages.extend(messages)
-        for message in self._filter_out_midi_messages(out_midi_messages):
-            self._update_captures(moment, message, "O")
         yield next_performer, out_midi_messages
 
     @classmethod
     def _perform_loop(cls, moment, performer, midi_messages):
         stack: Deque = deque()
         stack.append((performer, midi_messages))
+        print("A", stack)
         out_messages = []
         while stack:
             in_performer, in_messages = stack.popleft()
+            print("B", in_performer, in_messages)
             for out_performer, out_messages in in_performer(moment, in_messages):
-                if out_messages and out_performer:
+                print("C", out_performer, out_messages)
+                if out_messages and out_performer is not None:
                     stack.append((out_performer, out_messages))
         return out_messages
 
@@ -297,9 +301,6 @@ class DeviceObject(Allocatable):
             container.devices._mutate(slice(position, position), [self])
 
     def perform(self, midi_messages, moment=None):
-        self._debug_tree(
-            self, "Perform", suffix=repr([type(_).__name__ for _ in midi_messages])
-        )
         with self.lock([self], seconds=moment.seconds if moment is not None else None):
             return self._perform_loop(moment, self._perform, midi_messages)
 

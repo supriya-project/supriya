@@ -7,6 +7,7 @@ from .contexts import Context
 from .controllers import Controller
 from .devices import DeviceIn, DeviceObject, DeviceOut
 from .instruments import Instrument
+from .midieffects import ChordEffect
 from .parameters import Parameter
 from .sends import DirectIn, DirectOut, Patch, Send, SendObject, Target
 from .tracks import (
@@ -27,6 +28,7 @@ __all__ = [
     "AudioEffect",
     "Chain",
     "ChainContainer",
+    "ChordEffect",
     "Clip",
     "Container",
     "Context",

@@ -35,6 +35,7 @@ class Instrument(AllocatableDevice):
         self._notes_to_synths.clear()
 
     def _handle_note_off(self, moment, midi_message):
+        self._input_notes.remove(midi_message.note_number)
         synth = self._notes_to_synths.pop(midi_message.note_number, None)
         if synth is not None:
             synth.free()
@@ -42,9 +43,9 @@ class Instrument(AllocatableDevice):
 
     def _handle_note_on(self, moment, midi_message):
         note_number = midi_message.note_number
-        synth = self._notes_to_synths.get(note_number)
-        if synth:
-            synth.free()
+        if note_number in self._input_notes:
+            self._handle_note_off(moment, midi_message)
+        self._input_notes.add(midi_message.note_number)
         self._notes_to_synths[note_number] = self.node_proxies["body"].add_synth(
             synthdef=self.synthdef,
             **self.synthdef_kwargs,
