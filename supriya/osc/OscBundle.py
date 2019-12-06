@@ -88,8 +88,8 @@ class OscBundle(SupriyaValueObject):
     _bundle_prefix = b"#bundle\x00"
 
     _IMMEDIATELY = struct.pack(">Q", 1)
-    _NTP_TIMESTAMP_TO_SECONDS = 1. / 2. ** 32.
-    _SECONDS_TO_NTP_TIMESTAMP = 2. ** 32.
+    _NTP_TIMESTAMP_TO_SECONDS = 1.0 / 2.0 ** 32.0
+    _SECONDS_TO_NTP_TIMESTAMP = 2.0 ** 32.0
     _SYSTEM_EPOCH = datetime.date(*time.gmtime(0)[0:3])
     _NTP_EPOCH = datetime.date(1900, 1, 1)
     _NTP_DELTA = (_SYSTEM_EPOCH - _NTP_EPOCH).days * 24 * 3600
