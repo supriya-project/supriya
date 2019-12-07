@@ -436,7 +436,7 @@ class TempoClock:
             f"{current_moment.seconds - self._state.initial_seconds}:s / "
             f"{current_moment.offset}:o"
         )
-        while self._event_queue.qsize():
+        while self._is_running and self._event_queue.qsize():
             # There may be items in the queue which have been flagged "removed".
             # They contribute to the queue's size, but cannot be retrieved by .get().
             try:
@@ -571,7 +571,7 @@ class TempoClock:
         logger.debug(f"[{self.name}] Terminating")
 
     def _wait_for_moment(self, offline=False) -> Optional[Moment]:
-        # logger.debug(f"[{self.name}] ... Waiting for next moment")
+        logger.debug(f"[{self.name}] ... Waiting for next moment")
         current_time = self.get_current_time()
         while current_time < self._event_queue.peek().seconds:
             if not offline:
@@ -583,7 +583,7 @@ class TempoClock:
         return self._seconds_to_moment(current_time)
 
     def _wait_for_queue(self, offline=False) -> bool:
-        # logger.debug(f"[{self.name}] ... Waiting for events")
+        logger.debug(f"[{self.name}] ... Waiting for events")
         self._process_command_deque()
         while not self._event_queue.qsize():
             if not offline:
@@ -734,6 +734,7 @@ class TempoClock:
         args=None,
         kwargs=None,
     ) -> int:
+        logger.debug(f"[{self.name}] Scheduling {procedure}")
         if event_type <= 0:
             raise ValueError(f"Invalid event type {event_type}")
         event_id = next(self._counter)
@@ -799,11 +800,12 @@ class TempoClock:
             self._thread.start()
 
     def stop(self):
+        if not self._is_running:
+            return
+        self._is_running = False
         with self._lock:
-            if not self._is_running:
-                return
-            self._is_running = False
             self._condition.notify()
+        self._thread.join()
 
     ### PUBLIC PROPERTIES ###
 

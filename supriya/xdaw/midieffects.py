@@ -66,6 +66,7 @@ class ArpeggiatorEffect(DeviceObject):
         self._octaves = 0
         self._quantization = "1/16"
         self._callback_id = None
+        self._previous_note_number = None
 
     ### PRIVATE METHODS ###
 
@@ -138,9 +139,16 @@ class ArpeggiatorEffect(DeviceObject):
             self._debug_tree(self, "Note On CB")
             if not len(self._pattern):
                 return delta, TimeUnit.BEATS
-            elif self._current_index >= len(self._pattern):
+            if self._current_index >= len(self._pattern):
                 self._current_index = 0
             note_number, velocity = self._pattern[self._current_index]
+            if len(self._pattern) > 1:
+                while note_number == self._previous_note_number:
+                    self._current_index += 1
+                    if self._current_index >= len(self._pattern):
+                        self._current_index = 0
+                    note_number, velocity = self._pattern[self._current_index]
+            self._previous_note_number = note_number
             self._current_index += 1
             midi_messages = []
             if note_number in self._output_notes:

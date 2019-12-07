@@ -117,6 +117,7 @@ class Application(UniqueTreeTuple):
                 context.perform(midi_messages, moment=moment)
 
     def quit(self):
+        self.transport.stop()
         with self.lock:
             if self.status == self.Status.OFFLINE:
                 return
@@ -128,7 +129,6 @@ class Application(UniqueTreeTuple):
                     context._set(provider=None)
                 if provider is not None:
                     provider.quit()
-            self.transport.stop()
             self._status = self.Status.OFFLINE
         return self
 

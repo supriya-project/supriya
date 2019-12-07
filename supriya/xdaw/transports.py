@@ -17,11 +17,11 @@ class Transport(ApplicationObject):
         self.application.perform([midi_message], moment=current_moment)
 
     def perform(self, midi_messages):
+        if self.application is None or self.application.status != self.application.Status.REALTIME:
+            return
         self._debug_tree(
             self, "Perform", suffix=repr([type(_).__name__ for _ in midi_messages])
         )
-        if self.application is None:
-            return
         self.schedule(self._application_perform_callback, args=midi_messages)
         if not self.is_running:
             self.start()
@@ -47,10 +47,10 @@ class Transport(ApplicationObject):
             self._clock.start()
 
     def stop(self):
+        self._clock.stop()
         with self.lock([self]):
             for dependency in self._dependencies:
                 dependency._stop()
-            self._clock.stop()
             self.application.flush()
 
     @property
