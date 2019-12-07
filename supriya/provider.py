@@ -331,6 +331,8 @@ class ProviderMoment:
         if not requests:
             return
         timestamp = self.seconds
+        if timestamp is not None:
+            timestamp += self.provider._latency
         if synthdefs:
             request_bundle = RequestBundle(
                 timestamp=timestamp,
@@ -389,6 +391,7 @@ class Provider(metaclass=abc.ABCMeta):
         self._counter = collections.Counter()
         self._server = None
         self._session = None
+        self._latency = 0.1
         self._annotation_map: Dict[
             Union["supriya.nonrealtime.Node.Node", int], str
         ] = {}

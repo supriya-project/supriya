@@ -95,6 +95,9 @@ class Application(UniqueTreeTuple):
             self._status = self.Status.REALTIME
         return self
 
+    def flush(self):
+        pass
+
     @classmethod
     def new(cls, context_count=1, track_count=4, scene_count=8):
         application = cls()

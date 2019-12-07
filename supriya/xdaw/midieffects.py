@@ -62,6 +62,7 @@ class ArpeggiatorEffect(DeviceObject):
         self._pattern: List[Tuple[float, float]] = ()
         self._pattern_style = self.PatternStyle.UP
         self._current_index = 0
+        self._duration_scale = 1.0
         self._octaves = 0
         self._quantization = "1/16"
         self._callback_id = None
@@ -118,7 +119,9 @@ class ArpeggiatorEffect(DeviceObject):
         if self._callback_id is not None:
             return
         self._callback_id = self.transport.cue(
-            self._transport_note_on_callback, quantization=self._quantization
+            self._transport_note_on_callback,
+            event_type=2,
+            quantization=self._quantization,
         )
 
     def _stop(self):
@@ -130,38 +133,40 @@ class ArpeggiatorEffect(DeviceObject):
     def _transport_note_on_callback(
         self, current_moment, desired_moment, event, **kwargs
     ):
-        self._debug_tree(self, "Note On CB")
-        if not len(self._pattern):
-            return
-        elif self._current_index >= len(self._pattern):
-            self._current_index = 0
-        note_number, velocity = self._pattern[self._current_index]
-        self._current_index += 1
-        midi_messages = []
-        if note_number in self._output_notes:
-            midi_messages.append(NoteOffMessage(note_number=note_number))
-        self._output_notes.add(note_number)
-        midi_messages.append(NoteOnMessage(note_number=note_number, velocity=velocity))
-        delta = TempoClock.quantization_to_beats(self._quantization)
-        self.transport.schedule(
-            self._transport_note_off_callback,
-            schedule_at=desired_moment.offset + delta,
-            args=(note_number,),
-        )
-        performer = self._next_performer()
-        if performer is not None:
-            self._perform_loop(desired_moment, performer, midi_messages)
+        with self.lock([self], seconds=desired_moment.seconds):
+            delta = TempoClock.quantization_to_beats(self._quantization)
+            self._debug_tree(self, "Note On CB")
+            if not len(self._pattern):
+                return delta, TimeUnit.BEATS
+            elif self._current_index >= len(self._pattern):
+                self._current_index = 0
+            note_number, velocity = self._pattern[self._current_index]
+            self._current_index += 1
+            midi_messages = []
+            if note_number in self._output_notes:
+                midi_messages.append(NoteOffMessage(note_number=note_number))
+            self._output_notes.add(note_number)
+            midi_messages.append(NoteOnMessage(note_number=note_number, velocity=velocity))
+            self.transport.schedule(
+                self._transport_note_off_callback,
+                schedule_at=desired_moment.offset + (delta * self._duration_scale),
+                args=(note_number,),
+            )
+            performer = self._next_performer()
+            if performer is not None:
+                self._perform_loop(desired_moment, performer, midi_messages)
         return delta, TimeUnit.BEATS
 
     def _transport_note_off_callback(
         self, current_moment, desired_moment, event, note_number, **kwargs
     ):
-        self._debug_tree(self, "Note Off CB")
-        if note_number not in self._output_notes:
-            return
-        self._output_notes.remove(note_number)
-        midi_messages = [NoteOffMessage(note_number=note_number)]
-        performer = self._next_performer()
-        if performer is None:
-            return
-        self._perform_loop(desired_moment, performer, midi_messages)
+        with self.lock([self], seconds=desired_moment.seconds):
+            self._debug_tree(self, "Note Off CB")
+            if note_number not in self._output_notes:
+                return
+            self._output_notes.remove(note_number)
+            midi_messages = [NoteOffMessage(note_number=note_number)]
+            performer = self._next_performer()
+            if performer is None:
+                return
+            self._perform_loop(desired_moment, performer, midi_messages)
