@@ -251,13 +251,10 @@ class DeviceObject(Allocatable):
     def _perform_loop(cls, moment, performer, midi_messages):
         stack: Deque = deque()
         stack.append((performer, midi_messages))
-        print("A", stack)
         out_messages = []
         while stack:
             in_performer, in_messages = stack.popleft()
-            print("B", in_performer, in_messages)
             for out_performer, out_messages in in_performer(moment, in_messages):
-                print("C", out_performer, out_messages)
                 if out_messages and out_performer is not None:
                     stack.append((out_performer, out_messages))
         return out_messages

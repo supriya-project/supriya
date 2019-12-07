@@ -26,6 +26,9 @@ class Transport(ApplicationObject):
         if not self.is_running:
             self.start()
 
+    def cue(self, *args, **kwargs):
+        self._clock.cue(*args, **kwargs)
+
     def schedule(self, *args, **kwargs):
         self._clock.schedule(*args, **kwargs)
 
@@ -40,14 +43,15 @@ class Transport(ApplicationObject):
     def start(self):
         with self.lock([self]):
             for dependency in self._dependencies:
-                dependency.start()
+                dependency._start()
             self._clock.start()
 
     def stop(self):
         with self.lock([self]):
+            for dependency in self._dependencies:
+                dependency._stop()
             self._clock.stop()
-            for dependency in self.dependencies:
-                dependency.stop()
+            self.application.flush()
 
     @property
     def is_running(self):

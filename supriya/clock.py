@@ -210,9 +210,7 @@ class TempoClock:
             offset = self._measure_to_offset(measure)
         else:
             measure = None
-            fraction_grid = fractions.Fraction(quantization.replace("T", ""))
-            if "T" in quantization:
-                fraction_grid *= fractions.Fraction(2, 3)
+            fraction_grid = self.quantization_to_beats(quantization)
             div, mod = divmod(moment.offset, fraction_grid)
             offset = float(div * fraction_grid)
             if mod:
@@ -684,6 +682,13 @@ class TempoClock:
             return self._event_queue.peek()
         except queue.Empty:
             pass
+
+    @classmethod
+    def quantization_to_beats(cls, quantization):
+        fraction = fractions.Fraction(quantization.replace("T", ""))
+        if "T" in quantization:
+            fraction *= fractions.Fraction(2, 3)
+        return float(fraction)
 
     def reschedule(
         self, event_id, *, schedule_at=0.0, time_unit=TimeUnit.BEATS

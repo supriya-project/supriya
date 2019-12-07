@@ -125,6 +125,7 @@ class Application(UniqueTreeTuple):
                     context._set(provider=None)
                 if provider is not None:
                     provider.quit()
+            self.transport.stop()
             self._status = self.Status.OFFLINE
         return self
 
