@@ -9,7 +9,7 @@ def test_1():
     track = context.add_track()
     assert str(application) == normalize(
         f"""
-        <Application {hex(id(application))}>
+        <Application [OFFLINE] {hex(id(application))}>
             <Transport>
             <Controllers>
             <Contexts>
@@ -51,7 +51,7 @@ def test_2():
     application.boot()
     assert str(application) == normalize(
         f"""
-        <Application {hex(id(application))}>
+        <Application [REALTIME] {hex(id(application))}>
             <Transport>
             <Controllers>
             <Contexts>

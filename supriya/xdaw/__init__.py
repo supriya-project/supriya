@@ -7,7 +7,7 @@ from .contexts import Context
 from .controllers import Controller
 from .devices import DeviceIn, DeviceObject, DeviceOut
 from .instruments import Instrument
-from .midieffects import ArpeggiatorEffect, ChordEffect
+from .midieffects import Arpeggiator, Chord
 from .parameters import Parameter
 from .sends import DirectIn, DirectOut, Patch, Send, SendObject, Target
 from .tracks import (
@@ -23,13 +23,13 @@ from .transports import Transport
 __all__ = [
     "Allocatable",
     "AllocatableContainer",
-    "ArpeggiatorEffect",
+    "Arpeggiator",
     "Application",
     "ApplicationObject",
     "AudioEffect",
     "Chain",
     "ChainContainer",
-    "ChordEffect",
+    "Chord",
     "Clip",
     "Container",
     "Context",

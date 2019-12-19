@@ -166,6 +166,10 @@ class TempoClock:
             "1/16",
             "1/16T",
             "1/32",
+            "1/32T",
+            "1/64",
+            "1/64T",
+            "1/128",
         ]
     )
 
@@ -465,6 +469,7 @@ class TempoClock:
                     break
             else:
                 self._perform_callback_event(event, current_moment, desired_moment)
+                self._process_command_deque()
         return current_moment
 
     def _process_command_deque(self, first_run=False):

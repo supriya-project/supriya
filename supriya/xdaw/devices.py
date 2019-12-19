@@ -237,14 +237,16 @@ class DeviceObject(Allocatable):
             self, "Perform", suffix=repr([type(_).__name__ for _ in in_midi_messages])
         )
         next_performer = self._next_performer()
-        out_midi_messages: List[MidiMessage] = []
-        for message in in_midi_messages:
-            event_handler = self._event_handlers.get(type(message))
+        out_midi_messages = []
+        for in_message in in_midi_messages:
+            self._update_captures(moment=moment, message=in_message, label="I")
+            event_handler = self._event_handlers.get(type(in_message))
             if not event_handler:
-                out_midi_messages.append(message)
+                out_midi_messages.append(in_message)
                 continue
-            messages = event_handler(moment, message)
-            out_midi_messages.extend(messages)
+            out_midi_messages.extend(event_handler(moment, in_message))
+        for out_message in out_midi_messages:
+            self._update_captures(moment=moment, message=out_message, label="O")
         yield next_performer, out_midi_messages
 
     @classmethod

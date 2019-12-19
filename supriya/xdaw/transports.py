@@ -17,7 +17,10 @@ class Transport(ApplicationObject):
         self.application.perform([midi_message], moment=current_moment)
 
     def perform(self, midi_messages):
-        if self.application is None or self.application.status != self.application.Status.REALTIME:
+        if (
+            self.application is None
+            or self.application.status != self.application.Status.REALTIME
+        ):
             return
         self._debug_tree(
             self, "Perform", suffix=repr([type(_).__name__ for _ in midi_messages])

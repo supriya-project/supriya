@@ -7,7 +7,7 @@ from supriya.midi import NoteOffMessage, NoteOnMessage
 from .devices import DeviceObject
 
 
-class ChordEffect(DeviceObject):
+class Chord(DeviceObject):
     def __init__(self, name=None, uuid=None):
         DeviceObject.__init__(self, name=name, uuid=uuid)
         self._transpositions = []
@@ -44,7 +44,7 @@ class ChordEffect(DeviceObject):
         return result
 
 
-class ArpeggiatorEffect(DeviceObject):
+class Arpeggiator(DeviceObject):
 
     ### CLASS VARIABLES ###
 
@@ -135,8 +135,8 @@ class ArpeggiatorEffect(DeviceObject):
         self, current_moment, desired_moment, event, **kwargs
     ):
         with self.lock([self], seconds=desired_moment.seconds):
-            delta = TempoClock.quantization_to_beats(self._quantization)
             self._debug_tree(self, "Note On CB")
+            delta = TempoClock.quantization_to_beats(self._quantization)
             if not len(self._pattern):
                 return delta, TimeUnit.BEATS
             if self._current_index >= len(self._pattern):
@@ -154,7 +154,11 @@ class ArpeggiatorEffect(DeviceObject):
             if note_number in self._output_notes:
                 midi_messages.append(NoteOffMessage(note_number=note_number))
             self._output_notes.add(note_number)
-            midi_messages.append(NoteOnMessage(note_number=note_number, velocity=velocity))
+            midi_messages.append(
+                NoteOnMessage(note_number=note_number, velocity=velocity)
+            )
+            for message in midi_messages:
+                self._update_captures(moment=desired_moment, message=message, label="O")
             self.transport.schedule(
                 self._transport_note_off_callback,
                 schedule_at=desired_moment.offset + (delta * self._duration_scale),
@@ -172,8 +176,10 @@ class ArpeggiatorEffect(DeviceObject):
             self._debug_tree(self, "Note Off CB")
             if note_number not in self._output_notes:
                 return
-            self._output_notes.remove(note_number)
             midi_messages = [NoteOffMessage(note_number=note_number)]
+            for message in midi_messages:
+                self._update_captures(moment=desired_moment, message=message, label="O")
+            self._output_notes.remove(note_number)
             performer = self._next_performer()
             if performer is None:
                 return
