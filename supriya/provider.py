@@ -259,6 +259,10 @@ class SynthProxy(NodeProxy):
     settings: Dict[str, Union[float, BusGroupProxy]]
 
     def as_add_request(self, add_action, target_node):
+        # TODO: Handle map symbols
+        #       If arg is a bus proxy, and synth param is scalar, cast to int
+        #       Elif arg is a bus proxy, and synth param not scalar, map
+        #       Else cast to float
         synthdef = self.synthdef or default
         synthdef_kwargs = {key: float(value) for key, value in self.settings.items()}
         for _, parameter in synthdef.indexed_parameters:
