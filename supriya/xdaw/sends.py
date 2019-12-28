@@ -25,10 +25,12 @@ class SendObject(Allocatable):
     ### SPECIAL METHODS ###
 
     def __str__(self):
-        line = f"<{type(self).__name__} [...] {self.uuid}>"
-        if self.node_proxy is not None:
-            line = f"<{type(self).__name__} [{int(self.node_proxy)}] {self.uuid}>"
-        return line
+        node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "..."
+        obj_name = type(self).__name__
+        return "\n".join([
+            f"<{obj_name} [{node_proxy_id}] {self.uuid}>",
+            *(f"    {line}" for child in self for line in str(child).splitlines()),
+        ])
 
     ### PRIVATE METHODS ###
 
@@ -126,7 +128,7 @@ class Patch(SendObject):
         dispose_only: bool = False,
         **kwargs,
     ):
-        difference = ApplicationObject._reconcile(self)  # noqa
+        difference = self._get_state_difference()
         if "application" in difference:
             old_application, new_application = difference.pop("application")
             if old_application:

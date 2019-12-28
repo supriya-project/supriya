@@ -16,10 +16,12 @@ class Controller(ApplicationObject):
         self._port = None
 
     def __str__(self):
-        port = "..."
-        if self.port is not None:
-            port = self._midi_in.get_port_name(self.port)
-        return f"<{type(self).__name__} [{port}] {self.uuid}>"
+        obj_name = type(self).__name__
+        port = self._midi_in.get_port_name(self.port) if self.port is not None else "..."
+        return "\n".join([
+            f"<{obj_name} [{port}] {self.uuid}>",
+            *(f"    {line}" for child in self for line in str(child).splitlines()),
+        ])
 
     def _applicate(self, new_application):
         ApplicationObject._applicate(self, new_application)
@@ -65,7 +67,7 @@ class Controller(ApplicationObject):
             transport.perform([message])
 
     def _reconcile(self, **kwargs):
-        difference = ApplicationObject._reconcile(self)
+        difference = self._get_state_difference()
         if "application" in difference:
             old_application, new_application = difference.pop("application")
             if old_application:

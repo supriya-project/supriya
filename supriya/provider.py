@@ -563,6 +563,11 @@ class NonrealtimeProvider(Provider):
         Provider.__init__(self)
         self._session = session
 
+    ### SPECIAL METHODS ###
+
+    def __str__(self):
+        return f"<{type(self).__name__} {self._session!r}>"
+
     ### PRIVATE METHODS ###
 
     def _resolve_target_node(self, target_node) -> nonrealtime.Node:
@@ -727,6 +732,11 @@ class RealtimeProvider(Provider):
             raise ValueError(f"Expected Server, got {server}")
         Provider.__init__(self)
         self._server = server
+
+    ### SPECIAL METHODS ###
+
+    def __str__(self):
+        return f"<{type(self).__name__} {self._server!r}>"
 
     ### PRIVATE METHODS ###
 

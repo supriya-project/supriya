@@ -1,4 +1,3 @@
-import abc
 import logging
 from contextlib import ExitStack, contextmanager
 from types import MappingProxyType
@@ -20,8 +19,6 @@ from supriya.provider import (
 from supriya.querytree import QueryTreeGroup, QueryTreeSynth
 from supriya.typing import Missing
 
-from .parameters import Parameter
-
 logger = logging.getLogger("supriya.xdaw")
 
 
@@ -33,16 +30,14 @@ class ApplicationObject(UniqueTreeTuple):
         self._application: Optional["supriya.xdaw.Application"] = None
         UniqueTreeTuple.__init__(self, name=name)
         self._cached_state = self._get_state()
-        self._parameters: Dict[str, Parameter] = {}
 
     ### SPECIAL METHODS ###
 
     def __str__(self):
-        lines = [f"<{type(self).__name__}>"]
-        for child in self:
-            for line in str(child).splitlines():
-                lines.append(f"    {line}")
-        return "\n".join(lines)
+        return "\n".join([
+            f"<{type(self).__name__}>",
+            *(f"    {line}" for child in self for line in str(child).splitlines()),
+        ])
 
     ### PRIVATE METHODS ###
 
@@ -73,8 +68,7 @@ class ApplicationObject(UniqueTreeTuple):
             index = self.parent.index(self)
         return dict(application=self.application, parent=self.parent, index=index)
 
-    @abc.abstractmethod
-    def _reconcile(self, **kwargs):
+    def _get_state_difference(self, **kwargs):
         # self._debug_tree(self, "Reconciling")
         old_state = self._cached_state
         self._cached_state = new_state = self._get_state()
@@ -84,6 +78,17 @@ class ApplicationObject(UniqueTreeTuple):
                 continue
             difference[key] = old_state[key], new_state[key]
         return difference
+
+    def _reconcile(self, **kwargs):
+        difference = self._get_state_difference()
+        if "application" in difference:
+            old_application, new_application = difference.pop("application")
+            if old_application:
+                self._deapplicate(old_application)
+            if new_application:
+                self._applicate(new_application)
+            for child in self:
+                child._set(application=new_application)
 
     def _remove(self, node):
         index = self.index(node)
@@ -147,10 +152,6 @@ class ApplicationObject(UniqueTreeTuple):
         return self.name or type(self).__name__
 
     @property
-    def parameters(self) -> Mapping[str, Parameter]:
-        return MappingProxyType(self._parameters)
-
-    @property
     def provider(self):
         return None
 
@@ -180,15 +181,12 @@ class Allocatable(ApplicationObject):
     ### SPECIAL METHODS ###
 
     def __str__(self):
-        name = self.name or type(self).__name__
-        line = f"<{name} [...]>"
-        if self.node_proxy is not None:
-            line = f"<{name} [{int(self.node_proxy)}]>"
-        lines = [line]
-        for child in self:
-            for line in str(child).splitlines():
-                lines.append(f"    {line}")
-        return "\n".join(lines)
+        node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "..."
+        obj_name = self.name or type(self).__name__
+        return "\n".join([
+            f"<{obj_name} [{node_proxy_id}]>",
+            *(f"    {line}" for child in self for line in str(child).splitlines()),
+        ])
 
     ### PRIVATE METHODS ###
 
@@ -250,7 +248,7 @@ class Allocatable(ApplicationObject):
         dispose_only: bool = False,
         **kwargs,
     ):
-        difference = ApplicationObject._reconcile(self)
+        difference = self._get_state_difference()
         if "provider" in difference:
             old_provider, new_provider = difference.pop("provider")
             if old_provider:
@@ -258,6 +256,8 @@ class Allocatable(ApplicationObject):
                 for child in self:
                     child._set(provider=None, dispose_only=True)
             if new_provider:
+                for parameter in getattr(self, "parameters", {}).values():
+                    parameter._preallocate(new_provider, self)
                 self._allocate(new_provider, target_node, add_action)
                 target_node, add_action = self.node_proxy, AddAction.ADD_TO_HEAD
                 for child in self:
@@ -321,11 +321,8 @@ class Allocatable(ApplicationObject):
                     start_index -= 1
                 if start_index:
                     target_node, add_action = self[start_index], AddAction.ADD_AFTER
-
         to_cleanup = self._collect_for_cleanup(new_items, old_items)
-
         UniqueTreeTuple._set_items(self, new_items, old_items, start_index, stop_index)
-
         for item in new_items:
             item._set(
                 application=self.application,
@@ -337,7 +334,6 @@ class Allocatable(ApplicationObject):
                 target_node, add_action = item, AddAction.ADD_AFTER
         for item in old_items:
             item._set(application=None, provider=None)
-
         for item in to_cleanup:
             item._cleanup()
 
@@ -440,11 +436,10 @@ class Container(ApplicationObject):
     ### SPECIAL METHODS ###
 
     def __str__(self):
-        lines = [f"<{self.label}>"]
-        for child in self:
-            for line in str(child).splitlines():
-                lines.append(f"    {line}")
-        return "\n".join(lines)
+        return "\n".join([
+            f"<{self.label}>",
+            *(f"    {line}" for child in self for line in str(child).splitlines()),
+        ])
 
     @property
     def label(self):
@@ -464,14 +459,11 @@ class AllocatableContainer(Allocatable):
     ### SPECIAL METHODS ###
 
     def __str__(self):
-        line = f"<{self.label} [...]>"
-        if self.node_proxy is not None:
-            line = f"<{self.label} [{int(self.node_proxy)}]>"
-        lines = [line]
-        for child in self:
-            for line in str(child).splitlines():
-                lines.append(f"    {line}")
-        return "\n".join(lines)
+        node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "..."
+        return "\n".join([
+            f"<{self.label} [{node_proxy_id}]>",
+            *(f"    {line}" for child in self for line in str(child).splitlines()),
+        ])
 
     ### PRIVATE METHODS ###
 

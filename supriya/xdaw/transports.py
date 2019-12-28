@@ -1,20 +1,45 @@
-from typing import Set
+from typing import Dict, Set, Union
 
 from supriya.clock import TempoClock
 
 from .bases import ApplicationObject
+from .parameters import Action, Float, Parameter, ParameterGroup
 
 
 class Transport(ApplicationObject):
     def __init__(self):
         ApplicationObject.__init__(self)
+        self._parameter_group = ParameterGroup()
+        self._parameter_group._mutate(
+            slice(0, 0),
+            [
+                Action("start", lambda client: client.start()),
+                Action("stop", lambda client: client.stop()),
+                Parameter(
+                    "tempo",
+                    Float(default=120, minimum=1, maximum=1000),
+                    callback=lambda client, value: client._set_tempo(value),
+                ),
+            ],
+        )
+        self._parameters: Dict[str, Union[Action, Parameter]] = {
+            parameter.name: parameter for parameter in self._parameter_group
+        }
         self._clock = TempoClock()
         self._dependencies: Set[ApplicationObject] = set()
+        self._mutate(slice(None), [self._parameter_group])
+
+    ### PRIVATE METHODS ###
 
     def _application_perform_callback(
         self, current_moment, desired_moment, event, midi_message
     ):
         self.application.perform([midi_message], moment=current_moment)
+
+    def _set_tempo(self, beats_per_minute):
+        self._clock.change(beats_per_minute=beats_per_minute)
+
+    ### PUBLIC METHODS ###
 
     def perform(self, midi_messages):
         if (
@@ -37,7 +62,7 @@ class Transport(ApplicationObject):
 
     def set_tempo(self, beats_per_minute: float):
         with self.lock([self]):
-            self._clock.change(beats_per_minute=beats_per_minute)
+            self._set_tempo(beats_per_minute)
 
     def set_time_signature(self, numerator, denominator):
         with self.lock([self]):
@@ -56,6 +81,12 @@ class Transport(ApplicationObject):
                 dependency._stop()
             self.application.flush()
 
+    ### PUBLIC PROPERTIES ###
+
     @property
     def is_running(self):
         return self._clock.is_running
+
+    @property
+    def parameters(self):
+        return self._parameters

@@ -46,10 +46,12 @@ class DeviceIn(Patch):
     ### SPECIAL METHODS ###
 
     def __str__(self):
-        line = f"<{type(self).__name__} [...]>"
-        if self.node_proxy is not None:
-            line = f"<{type(self).__name__} [{int(self.node_proxy)}]>"
-        return line
+        node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "..."
+        obj_name = type(self).__name__
+        return "\n".join([
+            f"<{obj_name} [{node_proxy_id}]",
+            *(f"    {line}" for child in self for line in str(child).splitlines()),
+        ])
 
     ### PUBLIC PROPERTIES ###
 
@@ -93,10 +95,12 @@ class DeviceOut(Patch):
     ### SPECIAL METHODS ###
 
     def __str__(self):
-        line = f"<{type(self).__name__} [...]>"
-        if self.node_proxy is not None:
-            line = f"<{type(self).__name__} [{int(self.node_proxy)}]>"
-        return line
+        node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "..."
+        obj_name = type(self).__name__
+        return "\n".join([
+            f"<{obj_name} [{node_proxy_id}]",
+            *(f"    {line}" for child in self for line in str(child).splitlines()),
+        ])
 
     ### PUBLIC METHODS ###
 
@@ -196,14 +200,12 @@ class DeviceObject(Allocatable):
     ### SPECIAL METHODS ###
 
     def __str__(self):
-        line = f"<{type(self).__name__} [...] {self.uuid}>"
-        if self.node_proxy is not None:
-            line = f"<{type(self).__name__} [{int(self.node_proxy)}] {self.uuid}>"
-        lines = [line]
-        for child in self:
-            for line in str(child).splitlines():
-                lines.append(f"    {line}")
-        return "\n".join(lines)
+        node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "..."
+        obj_name = type(self).__name__
+        return "\n".join([
+            f"<{obj_name} [{node_proxy_id}]",
+            *(f"    {line}" for child in self for line in str(child).splitlines()),
+        ])
 
     ### PRIVATE METHODS ###
 

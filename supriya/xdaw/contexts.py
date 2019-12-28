@@ -32,14 +32,13 @@ class Context(Allocatable, Mixer):
     ### SPECIAL METHODS ###
 
     def __str__(self):
-        line = f"<{type(self).__name__} [...] {self.uuid}>"
-        if self.node_proxy is not None:
-            line = f"<{type(self).__name__} [{int(self.node_proxy)}] {self.uuid}>"
-        lines = [line]
-        for child in self:
-            for line in str(child).splitlines():
-                lines.append(f"    {line}")
-        return "\n".join(lines)
+        obj_name = type(self).__name__
+        node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "..."
+        provider = self.provider if self.provider is not None else "..."
+        return "\n".join([
+            f"<{obj_name} {provider} [{node_proxy_id}] {self.uuid}>",
+            *(f"    {line}" for child in self for line in str(child).splitlines()),
+        ])
 
     ### PRIVATE METHODS ###
 

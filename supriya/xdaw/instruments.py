@@ -1,6 +1,7 @@
 from typing import Dict, Union
 
 from supriya import conversions
+from supriya.assets.synthdefs import default
 from supriya.provider import SynthProxy
 from supriya.synthdefs import SynthDef, SynthDefFactory
 
@@ -13,8 +14,8 @@ class Instrument(AllocatableDevice):
 
     def __init__(
         self,
-        synthdef: Union[SynthDef, SynthDefFactory],
         *,
+        synthdef: Union[SynthDef, SynthDefFactory] = None,
         name=None,
         parameter_map=None,
         parameters=None,
@@ -24,7 +25,7 @@ class Instrument(AllocatableDevice):
         # TODO: Polyphony Limit
         # TODO: Polyphony Mode
         AllocatableDevice.__init__(self, name=name, uuid=uuid)
-        self._synthdef = synthdef
+        self._synthdef = synthdef or default
         self._synthdef_kwargs = dict(synthdef_kwargs or {})
         self._notes_to_synths: Dict[float, SynthProxy] = {}
 

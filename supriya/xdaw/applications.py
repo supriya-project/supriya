@@ -28,7 +28,6 @@ class Application(UniqueTreeTuple):
     ### INITIALIZER ###
 
     def __init__(self, channel_count=2):
-        UniqueTreeTuple.__init__(self)
         self._channel_count = int(channel_count)
         self._contexts = Container(label="Contexts")
         self._controllers = Container(label="Controllers")
@@ -36,16 +35,17 @@ class Application(UniqueTreeTuple):
         self._scenes: Tuple[Scene, ...] = ()
         self._status = self.Status.OFFLINE
         self._transport = Transport()
-        self._mutate(slice(None), [self._transport, self._controllers, self._contexts])
+        UniqueTreeTuple.__init__(self, children=[
+            self._transport, self._controllers, self._contexts
+        ])
 
     ### SPECIAL METHODS ###
 
     def __str__(self):
-        lines = [f"<{type(self).__name__} [{self.status.name}] {hex(id(self))}>"]
-        for child in self:
-            for line in str(child).splitlines():
-                lines.append(f"    {line}")
-        return "\n".join(lines)
+        return "\n".join([
+            f"<{type(self).__name__} [{self.status.name}] {hex(id(self))}>",
+            *(f"    {line}" for child in self for line in str(child).splitlines()),
+        ])
 
     ### PRIVATE METHODS ###
 

@@ -9,19 +9,13 @@ class Envelope:
     pass
 
 
-class Clip(ApplicationObject):
+class ClipObject(ApplicationObject):
+    def at(self, offset, start_delta=0.0, force_stop=False):
+        pass
+
+
+class Clip(ClipObject):
     pass
-
-
-class Scene(ApplicationObject):
-    def delete(self):
-        pass
-
-    def duplicate(self):
-        pass
-
-    def fire(self):
-        pass
 
 
 class Slot(ApplicationObject):
@@ -38,6 +32,17 @@ class Slot(ApplicationObject):
         pass
 
     def remove_clip(self):
+        pass
+
+
+class Scene(ApplicationObject):
+    def delete(self):
+        pass
+
+    def duplicate(self):
+        pass
+
+    def fire(self):
         pass
 
 

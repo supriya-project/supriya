@@ -1,6 +1,6 @@
 import abc
 from types import MappingProxyType
-from typing import List, Optional, Set, Tuple, Type, Union
+from typing import Dict, List, Mapping, Optional, Set, Tuple, Type, Union
 from uuid import UUID, uuid4
 
 import supriya.xdaw  # noqa
@@ -10,6 +10,7 @@ from supriya.typing import Default
 from .bases import Allocatable, AllocatableContainer, Mixer
 from .clips import Slot
 from .devices import DeviceObject
+from .parameters import Action, Boolean, Float, Parameter, ParameterGroup
 from .sends import Receive, Send, Target
 from .synthdefs import build_patch_synthdef, build_peak_rms_synthdef
 
@@ -20,6 +21,25 @@ class TrackObject(Allocatable):
 
     def __init__(self, *, channel_count=None, name=None, uuid=None):
         Allocatable.__init__(self, channel_count=channel_count, name=name)
+        self._parameter_group = ParameterGroup()
+        self._parameter_group._mutate(
+            slice(0, 0),
+            [
+                Parameter(
+                    "active",
+                    Boolean(),
+                    callback=lambda client, value: client._set_active(value),
+                ),
+                Parameter(
+                    "gain",
+                    Float(minimum=-96, maximum=6.0, default=0.0),
+                    has_bus=True,
+                ),
+            ],
+        )
+        self._parameters: Dict[str, Union[Action, Parameter]] = {
+            parameter.name: parameter for parameter in self._parameter_group
+        }
         self._uuid = uuid or uuid4()
         self._peak_levels = {}
         self._rms_levels = {}
@@ -41,6 +61,7 @@ class TrackObject(Allocatable):
         self._mutate(
             slice(None),
             [
+                self._parameter_group,
                 self._send_target,
                 self._receives,
                 self._devices,
@@ -53,14 +74,12 @@ class TrackObject(Allocatable):
     ### SPECIAL METHODS ###
 
     def __str__(self):
-        line = f"<{type(self).__name__} [...] {self.uuid}>"
-        if self.node_proxy is not None:
-            line = f"<{type(self).__name__} [{int(self.node_proxy)}] {self.uuid}>"
-        lines = [line]
-        for child in self:
-            for line in str(child).splitlines():
-                lines.append(f"    {line}")
-        return "\n".join(lines)
+        node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "..."
+        obj_name = type(self).__name__
+        return "\n".join([
+            f"<{obj_name} [{node_proxy_id}] {self.uuid}>",
+            *(f"    {line}" for child in self for line in str(child).splitlines()),
+        ])
 
     ### PRIVATE METHODS ###
 
@@ -109,9 +128,7 @@ class TrackObject(Allocatable):
         channel_count,
         *,
         input_pair=None,
-        input_levels_pair=None,
-        prefader_levels_pair=None,
-        output_pair=None,
+        input_levels_pair=None, prefader_levels_pair=None, output_pair=None,
         postfader_levels_pair=None,
     ):
         input_target, input_action = input_pair
@@ -119,7 +136,6 @@ class TrackObject(Allocatable):
             add_action=input_action,
             in_=self._audio_bus_proxies["input"],
             out=self._audio_bus_proxies["output"],
-            # synthdef=self.build_input_synthdef(channel_count),
             synthdef=build_patch_synthdef(
                 channel_count, channel_count, feedback=True, gain=True
             ),
@@ -146,9 +162,10 @@ class TrackObject(Allocatable):
         self._node_proxies["output"] = provider.add_synth(
             active=self.is_active,
             add_action=output_action,
+            # Interesting problem: params are children, so allocated later
+            # gain=self.parameters["gain"].bus_proxy,
             in_=self._audio_bus_proxies["output"],
             out=self._audio_bus_proxies["output"],
-            # synthdef=self.build_output_synthdef(channel_count),
             synthdef=build_patch_synthdef(
                 channel_count,
                 channel_count,
@@ -230,6 +247,12 @@ class TrackObject(Allocatable):
     def _reconcile_dependents(self):
         for send in sorted(self.send_target._dependencies, key=lambda x: x.graph_order):
             send._reconcile()
+
+    def _set_active(self, is_active):
+        if self._is_muted != is_active:
+            return
+        self._is_muted = not is_active
+        self._update_activation(self)
 
     def _update_levels(self, key, osc_message):
         levels = list(osc_message.contents[2:])
@@ -325,6 +348,10 @@ class TrackObject(Allocatable):
         return None
 
     @property
+    def parameters(self) -> Mapping[str, Parameter]:
+        return MappingProxyType(self._parameters)
+
+    @property
     def peak_levels(self):
         return MappingProxyType(self._peak_levels)
 
@@ -395,10 +422,7 @@ class UserTrackObject(TrackObject):
 
     def mute(self):
         with self.lock([self]):
-            if self.is_muted:
-                return
-            self._is_muted = True
-            self._update_activation(self)
+            self._set_active(False)
 
     @abc.abstractmethod
     def solo(self, exclusive=True):
@@ -410,10 +434,7 @@ class UserTrackObject(TrackObject):
 
     def unmute(self):
         with self.lock([self]):
-            if not self.is_muted:
-                return
-            self._is_muted = False
-            self._update_activation(self)
+            self._set_active(True)
 
     @abc.abstractmethod
     def unsolo(self, exclusive=False):
@@ -444,7 +465,7 @@ class Track(UserTrackObject):
         )
         self._tracks = TrackContainer("input", AddAction.ADD_AFTER, label="SubTracks")
         self._slots: List[Slot, ...] = []
-        self._mutate(slice(0, 0), [self._tracks])
+        self._mutate(slice(1, 1), [self._tracks])
         self.add_send(Default())
 
     ### PRIVATE METHODS ###
