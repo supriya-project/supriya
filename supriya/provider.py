@@ -38,7 +38,7 @@ from supriya.commands.NodeSetRequest import NodeSetRequest
 from supriya.commands.RequestBundle import RequestBundle
 from supriya.commands.SynthDefReceiveRequest import SynthDefReceiveRequest
 from supriya.commands.SynthNewRequest import SynthNewRequest
-from supriya.enums import AddAction, CalculationRate
+from supriya.enums import AddAction, CalculationRate, ParameterRate
 from supriya.nonrealtime.Session import Session
 from supriya.realtime.Server import Server
 from supriya.synthdefs.SynthDef import SynthDef
@@ -113,6 +113,12 @@ class BusProxy(Proxy):
 
     def free(self):
         self.provider.free_bus(self)
+
+    @property
+    def map_symbol(self):
+        if self.calculation_rate == CalculationRate.AUDIO:
+            return f"a{int(self)}"
+        return f"c{int(self)}"
 
 
 @dataclasses.dataclass(frozen=True)
@@ -264,11 +270,21 @@ class SynthProxy(NodeProxy):
         #       Elif arg is a bus proxy, and synth param not scalar, map
         #       Else cast to float
         synthdef = self.synthdef or default
-        synthdef_kwargs = {key: float(value) for key, value in self.settings.items()}
+
+        synthdef_kwargs = {}
         for _, parameter in synthdef.indexed_parameters:
-            value = synthdef_kwargs.get(parameter.name)
+            if parameter.name not in self.settings:
+                continue
+            value = self.settings[parameter.name]
             if value == parameter.value:
-                synthdef_kwargs.pop(parameter.name)
+                continue
+            if parameter.parameter_rate != ParameterRate.SCALAR and isinstance(
+                value, BusProxy
+            ):
+                synthdef_kwargs[parameter.name] = value.map_symbol
+            else:
+                synthdef_kwargs[parameter.name] = float(value)
+
         return SynthNewRequest(
             node_id=int(self.identifier),
             add_action=add_action,
@@ -390,12 +406,12 @@ class Provider(metaclass=abc.ABCMeta):
 
     ### INITIALIZER ###
 
-    def __init__(self):
+    def __init__(self, latency=0.1):
         self._moments: List[ProviderMoment] = []
         self._counter = collections.Counter()
         self._server = None
         self._session = None
-        self._latency = 0.1
+        self._latency = latency
         self._annotation_map: Dict[
             Union["supriya.nonrealtime.Node.Node", int], str
         ] = {}
@@ -498,12 +514,14 @@ class Provider(metaclass=abc.ABCMeta):
             yield provider_moment
 
     @classmethod
-    def from_context(cls, context) -> "Provider":
+    def from_context(cls, context, latency=0.1) -> "Provider":
         if isinstance(context, Session):
-            return NonrealtimeProvider(context)
+            class_ = NonrealtimeProvider
         elif isinstance(context, Server):
-            return RealtimeProvider(context)
-        raise ValueError("Unknown context")
+            class_ = RealtimeProvider
+        else:
+            raise ValueError("Unknown context")
+        return class_(context, latency=latency)
 
     @classmethod
     def nonrealtime(cls) -> "NonrealtimeProvider":
@@ -539,6 +557,10 @@ class Provider(metaclass=abc.ABCMeta):
         return MappingProxyType(self._annotation_map)
 
     @property
+    def latency(self):
+        return self._latency
+
+    @property
     def moment(self) -> Optional[ProviderMoment]:
         if self._moments:
             return self._moments[-1]
@@ -557,10 +579,10 @@ class NonrealtimeProvider(Provider):
 
     ### INITIALIZER ###
 
-    def __init__(self, session):
+    def __init__(self, session, latency=0.1):
         if not isinstance(session, Session):
             raise ValueError(f"Expected session, got {session}")
-        Provider.__init__(self)
+        Provider.__init__(self, latency=latency)
         self._session = session
 
     ### SPECIAL METHODS ###
@@ -727,10 +749,10 @@ class RealtimeProvider(Provider):
 
     ### INITIALIZER ###
 
-    def __init__(self, server):
+    def __init__(self, server, latency=0.1):
         if not isinstance(server, Server):
             raise ValueError(f"Expected Server, got {server}")
-        Provider.__init__(self)
+        Provider.__init__(self, latency=latency)
         self._server = server
 
     ### SPECIAL METHODS ###

@@ -41,5 +41,5 @@ def test_stacked():
         [
             [15, track.node_proxies["output"].identifier, "active", 1]
             for track in [context["a"], context["b"], context["c"]]
-        ]
+        ],
     ]

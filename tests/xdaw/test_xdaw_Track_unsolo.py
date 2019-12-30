@@ -40,9 +40,7 @@ def test_stacked():
     # Unsoloing the root-most parent unsoloes muted tracks
     assert message.to_list() == [
         None,
-        [
-            [15, context["d"].node_proxies["output"].identifier, "active", 1]
-        ]
+        [[15, context["d"].node_proxies["output"].identifier, "active", 1]],
     ]
 
 

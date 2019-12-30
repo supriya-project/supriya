@@ -85,14 +85,13 @@ def test_AudioEffect_3(synthdef_factory):
         [21, 1045, 0, 1044],
         [21, 1046, 1, 1044],
         [9, synthdef.anonymous_name, 1047, 0, 1046, "out", 28.0],
-        [
-            9, "mixer/patch[replace]/2x2", 1048, 0, 1044, "in_", 18.0, "out", 28.0
-        ],
-        [
-            9, "mixer/patch[hard,mix]/2x2", 1049, 1, 1044, "in_", 28.0, "out", 18.0
-        ],
+        [9, "mixer/patch[replace]/2x2", 1048, 0, 1044, "in_", 18.0, "out", 28.0],
+        [9, "mixer/patch[hard,mix]/2x2", 1049, 1, 1044, "in_", 28.0, "out", 18.0],
     ]
-    assert message.to_list() == [None, [[5, compiled_synthdefs, [None, bundle_contents]]]]
+    assert message.to_list() == [
+        None,
+        [[5, compiled_synthdefs, [None, bundle_contents]]],
+    ]
     time.sleep(0.1)
     assert track.peak_levels == dict(
         input=(0.0, 0.0), postfader=(0.25, 0.25), prefader=(0.25, 0.25)
@@ -132,13 +131,9 @@ def test_AudioEffect_4(synthdef_factory):
             [21, 1051, 0, 1050],
             [21, 1052, 1, 1050],
             [9, synthdef.anonymous_name, 1053, 0, 1052, "out", 30.0],
-            [
-                9, "mixer/patch[replace]/2x2", 1054, 0, 1050, "in_", 18.0, "out", 30.0
-            ],
-            [
-                9, "mixer/patch[hard,mix]/2x2", 1055, 1, 1050, "in_", 30.0, "out", 18.0
-            ],
-        ]
+            [9, "mixer/patch[replace]/2x2", 1054, 0, 1050, "in_", 18.0, "out", 30.0],
+            [9, "mixer/patch[hard,mix]/2x2", 1055, 1, 1050, "in_", 30.0, "out", 18.0],
+        ],
     ]
     time.sleep(0.1)
     assert track.peak_levels == dict(
