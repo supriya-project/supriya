@@ -43,6 +43,12 @@ class ApplicationObject(UniqueTreeTuple):
 
     ### PRIVATE METHODS ###
 
+    def _add_parameter(self, parameter):
+        if parameter.name in self._parameters:
+            raise ValueError(f'Parameter {parameter["name"]} already added')
+        self._parameters[parameter.name] = parameter
+        self._parameter_group._append(parameter)
+
     def _append(self, node):
         self._mutate(slice(len(self), len(self)), [node])
 
@@ -183,7 +189,7 @@ class Allocatable(ApplicationObject):
     ### SPECIAL METHODS ###
 
     def __str__(self):
-        node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "..."
+        node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "?"
         obj_name = self.name or type(self).__name__
         return "\n".join(
             [
@@ -473,7 +479,7 @@ class AllocatableContainer(Allocatable):
     ### SPECIAL METHODS ###
 
     def __str__(self):
-        node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "..."
+        node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "?"
         return "\n".join(
             [
                 f"<{self.label} [{node_proxy_id}]>",

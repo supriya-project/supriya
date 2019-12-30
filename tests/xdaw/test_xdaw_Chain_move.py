@@ -1,4 +1,3 @@
-from supriya.osc import OscBundle, OscMessage
 from supriya.xdaw import Application, RackDevice
 
 
@@ -32,7 +31,7 @@ def test_2():
     assert list(rack_device.chains) == [chain_two, chain_one]
     assert len(transcript.sent_messages) == 1
     _, message = transcript.sent_messages[0]
-    assert message == OscBundle(contents=(OscMessage(22, 1015, 1028),))
+    assert message.to_list() == [None, [[22, 1017, 1032]]]
 
 
 def test_3():
@@ -52,19 +51,16 @@ def test_3():
         chain_two.move(rack_device, 0)
     assert len(transcript.sent_messages) == 1
     _, message = transcript.sent_messages[0]
-    assert message == OscBundle(
-        contents=(
-            OscMessage(
-                9, "mixer/patch[gain]/2x2", 1069, 0, 1038, "in_", 28.0, "out", 24.0
-            ),
-            OscMessage(
-                9, "mixer/patch[fb,gain]/2x2", 1070, 0, 1026, "in_", 24.0, "out", 26.0
-            ),
-            OscMessage(22, 1015, 1028),
-            OscMessage(15, 1040, "gate", 0),
-            OscMessage(15, 1041, "gate", 0),
-        )
-    )
+    assert message.to_list() == [
+        None,
+        [
+            [9, "mixer/patch[gain]/2x2", 1078, 0, 1044, "in_", 28.0, "out", 24.0],
+            [9, "mixer/patch[fb,gain]/2x2", 1079, 0, 1030, "in_", 24.0, "out", 26.0],
+            [22, 1017, 1032],
+            [15, 1046, "gate", 0],
+            [15, 1047, "gate", 0],
+        ],
+    ]
 
 
 def test_4():
@@ -82,12 +78,11 @@ def test_4():
         chain.move(rack_device_two, 0)
     assert len(transcript.sent_messages) == 1
     _, message = transcript.sent_messages[0]
-    assert message == OscBundle(
-        contents=(
-            OscMessage(
-                9, "mixer/patch[gain]/2x2", 1059, 0, 1026, "in_", 24.0, "out", 26.0
-            ),
-            OscMessage(23, 1031, 1016),
-            OscMessage(15, 1027, "gate", 0),
-        )
-    )
+    assert message.to_list() == [
+        None,
+        [
+            [9, "mixer/patch[gain]/2x2", 1066, 0, 1030, "in_", 24.0, "out", 26.0],
+            [23, 1035, 1018],
+            [15, 1031, "gate", 0],
+        ],
+    ]

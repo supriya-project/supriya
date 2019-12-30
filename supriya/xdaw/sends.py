@@ -25,7 +25,7 @@ class SendObject(Allocatable):
     ### SPECIAL METHODS ###
 
     def __str__(self):
-        node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "..."
+        node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "?"
         obj_name = type(self).__name__
         return "\n".join(
             [

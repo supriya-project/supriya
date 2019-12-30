@@ -136,10 +136,8 @@ class Parameter(Allocatable):
 
     def __str__(self):
         if self.has_bus:
-            bus_proxy_id = int(self.bus_proxy) if self.bus_proxy is not None else "..."
-            node_proxy_id = (
-                int(self.node_proxy) if self.node_proxy is not None else "..."
-            )
+            bus_proxy_id = int(self.bus_proxy) if self.bus_proxy is not None else "?"
+            node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "?"
         else:
             bus_proxy_id, node_proxy_id = "-", "-"
         obj_name = type(self).__name__
@@ -172,8 +170,8 @@ class Parameter(Allocatable):
         self._debug_tree(self, "Pre-Allocating", suffix=f"{hex(id(provider))}")
         if not self.has_bus:
             return
-        self._control_bus_proxies["bus"] = provider.add_bus("control")
-        self._control_bus_proxies["bus"].set_(self.spec.default)
+        self._control_bus_proxies["?"] = provider.add_bus("control")
+        self._control_bus_proxies["?"].set_(self.spec.default)
 
     ### PUBLIC METHODS ###
 
@@ -201,7 +199,7 @@ class Parameter(Allocatable):
 
     @property
     def bus_proxy(self):
-        return self._control_bus_proxies.get("bus")
+        return self._control_bus_proxies.get("?")
 
     @property
     def callback(self):

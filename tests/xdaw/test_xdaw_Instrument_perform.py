@@ -33,14 +33,14 @@ def test_1(application):
     ]
     assert str(instrument.query()) == normalize(
         """
-        NODE TREE 1039 group (Instrument)
-            1042 mixer/patch[replace]/2x2 (DeviceIn)
+        NODE TREE 1044 group (Instrument)
+            1047 mixer/patch[replace]/2x2 (DeviceIn)
                 active: 1.0, gate: 1.0, in_: 18.0, lag: 0.01, out: 28.0
-            1040 group (Parameters)
-            1041 group (Body)
-                1044 default
+            1045 group (Parameters)
+            1046 group (Body)
+                1049 default
                     out: 0.0, amplitude: 0.620001, frequency: 220.0, gate: 1.0, pan: 0.5
-            1043 mixer/patch[hard,mix]/2x2 (DeviceOut)
+            1048 mixer/patch[hard,mix]/2x2 (DeviceOut)
                 active: 1.0, gate: 1.0, hard_gate: 1.0, in_: 28.0, lag: 0.01, mix: 1.0, out: 18.0
         """
     )
@@ -54,16 +54,16 @@ def test_1(application):
     ]
     assert str(instrument.query()) == normalize(
         """
-        NODE TREE 1039 group (Instrument)
-            1042 mixer/patch[replace]/2x2 (DeviceIn)
+        NODE TREE 1044 group (Instrument)
+            1047 mixer/patch[replace]/2x2 (DeviceIn)
                 active: 1.0, gate: 1.0, in_: 18.0, lag: 0.01, out: 28.0
-            1040 group (Parameters)
-            1041 group (Body)
-                1045 default
+            1045 group (Parameters)
+            1046 group (Body)
+                1050 default
                     out: 0.0, amplitude: 1.0, frequency: 220.0, gate: 1.0, pan: 0.5
-                1044 default
+                1049 default
                     out: 0.0, amplitude: 0.620001, frequency: 220.0, gate: 0.0, pan: 0.5
-            1043 mixer/patch[hard,mix]/2x2 (DeviceOut)
+            1048 mixer/patch[hard,mix]/2x2 (DeviceOut)
                 active: 1.0, gate: 1.0, hard_gate: 1.0, in_: 28.0, lag: 0.01, mix: 1.0, out: 18.0
         """
     )

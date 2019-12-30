@@ -33,8 +33,8 @@ class Context(Allocatable, Mixer):
 
     def __str__(self):
         obj_name = type(self).__name__
-        node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "..."
-        provider = self.provider if self.provider is not None else "..."
+        node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "?"
+        provider = self.provider if self.provider is not None else "<?>"
         return "\n".join(
             [
                 f"<{obj_name} {provider} [{node_proxy_id}] {self.uuid}>",

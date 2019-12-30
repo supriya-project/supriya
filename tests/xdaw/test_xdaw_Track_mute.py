@@ -2,7 +2,6 @@ import time
 
 import pytest
 
-from supriya.osc import OscBundle, OscMessage
 from supriya.xdaw import Application, AudioEffect, Track
 
 
@@ -45,12 +44,13 @@ def test_transcript(track_mute_solo_application, track_names):
         affected_tracks = [track, *track.depth_first(prototype=Track)]
         assert len(transcript.sent_messages) == 1
         _, message = transcript.sent_messages[0]
-        assert message == OscBundle(
-            contents=[
-                OscMessage(15, x.node_proxies["output"].identifier, "active", 0)
+        assert message.to_list() == [
+            None,
+            [
+                [15, x.node_proxies["output"].identifier, "active", 0]
                 for x in affected_tracks
             ]
-        )
+        ]
 
 
 @pytest.mark.parametrize("booted", [True, False])

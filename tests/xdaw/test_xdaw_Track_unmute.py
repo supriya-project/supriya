@@ -1,4 +1,3 @@
-from supriya.osc import OscBundle, OscMessage
 from supriya.xdaw import Application
 
 
@@ -37,9 +36,10 @@ def test_stacked():
     assert len(transcript.sent_messages) == 1
     _, message = transcript.sent_messages[0]
     # Unmuting the root-most parent unmutes all children at once
-    assert message == OscBundle(
-        contents=[
-            OscMessage(15, track.node_proxies["output"].identifier, "active", 1)
+    assert message.to_list() == [
+        None,
+        [
+            [15, track.node_proxies["output"].identifier, "active", 1]
             for track in [context["a"], context["b"], context["c"]]
         ]
-    )
+    ]

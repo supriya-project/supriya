@@ -22,22 +22,19 @@ class TrackObject(Allocatable):
     def __init__(self, *, channel_count=None, name=None, uuid=None):
         Allocatable.__init__(self, channel_count=channel_count, name=name)
         self._parameter_group = ParameterGroup()
-        self._parameter_group._mutate(
-            slice(0, 0),
-            [
-                Parameter(
-                    "active",
-                    Boolean(),
-                    callback=lambda client, value: client._set_active(value),
-                ),
-                Parameter(
-                    "gain", Float(minimum=-96, maximum=6.0, default=0.0), has_bus=True
-                ),
-            ],
+        self._parameters: Dict[str, Union[Action, Parameter]] = {}
+        self._add_parameter(
+            Parameter(
+                "active",
+                Boolean(),
+                callback=lambda client, value: client._set_active(value),
+            )
         )
-        self._parameters: Dict[str, Union[Action, Parameter]] = {
-            parameter.name: parameter for parameter in self._parameter_group
-        }
+        self._add_parameter(
+            Parameter(
+                "gain", Float(minimum=-96, maximum=6.0, default=0.0), has_bus=True
+            )
+        )
         self._uuid = uuid or uuid4()
         self._peak_levels = {}
         self._rms_levels = {}
@@ -75,7 +72,7 @@ class TrackObject(Allocatable):
     ### SPECIAL METHODS ###
 
     def __str__(self):
-        node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "..."
+        node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "?"
         obj_name = type(self).__name__
         return "\n".join(
             [
@@ -387,7 +384,7 @@ class TrackObject(Allocatable):
 class CueTrack(TrackObject):
     def __init__(self, *, uuid=None):
         TrackObject.__init__(self, channel_count=2, uuid=uuid)
-        self._parameter_group._append(
+        self._add_parameter(
             Parameter("mix", Float(minimum=0.0, maximum=1.0, default=0.0), has_bus=True)
         )
 
@@ -406,7 +403,7 @@ class UserTrackObject(TrackObject):
         self._is_cued = False
         self._is_muted = False
         self._is_soloed = False
-        self._parameter_group._append(
+        self._add_parameter(
             Parameter(
                 "panning", Float(minimum=-1.0, maximum=1.0, default=0), has_bus=True
             )

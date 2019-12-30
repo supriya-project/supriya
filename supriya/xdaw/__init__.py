@@ -8,7 +8,7 @@ from .controllers import Controller
 from .devices import DeviceIn, DeviceObject, DeviceOut
 from .instruments import Instrument
 from .midieffects import Arpeggiator, Chord
-from .parameters import Parameter
+from .parameters import Action, Boolean, Float, Integer, Parameter
 from .sends import DirectIn, DirectOut, Patch, Send, SendObject, Target
 from .tracks import (
     CueTrack,
@@ -21,12 +21,14 @@ from .tracks import (
 from .transports import Transport
 
 __all__ = [
+    "Action",
     "Allocatable",
     "AllocatableContainer",
-    "Arpeggiator",
     "Application",
     "ApplicationObject",
+    "Arpeggiator",
     "AudioEffect",
+    "Boolean",
     "Chain",
     "ChainContainer",
     "Chord",
@@ -41,7 +43,9 @@ __all__ = [
     "DirectIn",
     "DirectOut",
     "Envelope",
+    "Float",
     "Instrument",
+    "Integer",
     "MasterTrack",
     "Parameter",
     "Patch",

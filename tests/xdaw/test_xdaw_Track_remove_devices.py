@@ -2,7 +2,6 @@ import time
 
 import pytest
 
-from supriya.osc import OscBundle, OscMessage
 from supriya.synthdefs import SynthDefFactory
 from supriya.xdaw import Application, AudioEffect
 
@@ -101,7 +100,7 @@ def test_4(synthdef_factory):
     assert device_two.provider is context.provider
     assert len(transcript.sent_messages) == 1
     _, message = transcript.sent_messages[0]
-    assert message == OscBundle(contents=(OscMessage(15, 1012, "gate", 0),))
+    assert message.to_list() == [None, [[15, 1014, "gate", 0]]]
     assert track.peak_levels == dict(
         input=(0.0, 0.0), postfader=(0.25, 0.25), prefader=(0.25, 0.25)
     )

@@ -2,7 +2,6 @@ import time
 
 import pytest
 
-from supriya.osc import OscBundle, OscMessage
 from supriya.xdaw import Application, AudioEffect, Chain, RackDevice
 
 
@@ -56,13 +55,11 @@ def test_transcript(chain_mute_solo_application, soloed_chain_names, muted_chain
         for muted_chain_name in muted_chain_names:
             muted_chain = chain_mute_solo_application.primary_context[muted_chain_name]
             osc_messages.append(
-                OscMessage(
-                    15, muted_chain.node_proxies["output"].identifier, "active", 0
-                )
+                [15, muted_chain.node_proxies["output"].identifier, "active", 0]
             )
         assert len(transcript.sent_messages) == 1
         _, message = transcript.sent_messages[0]
-        assert message == OscBundle(contents=osc_messages)
+        assert message.to_list() == [None, osc_messages]
 
 
 @pytest.mark.parametrize("booted", [True, False])

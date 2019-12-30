@@ -17,9 +17,7 @@ class Controller(ApplicationObject):
 
     def __str__(self):
         obj_name = type(self).__name__
-        port = (
-            self._midi_in.get_port_name(self.port) if self.port is not None else "..."
-        )
+        port = self._midi_in.get_port_name(self.port) if self.port is not None else "?"
         return "\n".join(
             [
                 f"<{obj_name} [{port}] {self.uuid}>",

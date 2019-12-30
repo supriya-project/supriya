@@ -10,21 +10,16 @@ class Transport(ApplicationObject):
     def __init__(self):
         ApplicationObject.__init__(self)
         self._parameter_group = ParameterGroup()
-        self._parameter_group._mutate(
-            slice(0, 0),
-            [
-                Action("start", lambda client: client.start()),
-                Action("stop", lambda client: client.stop()),
-                Parameter(
-                    "tempo",
-                    Float(default=120, minimum=1, maximum=1000),
-                    callback=lambda client, value: client._set_tempo(value),
-                ),
-            ],
+        self._parameters: Dict[str, Union[Action, Parameter]] = {}
+        self._add_parameter(Action("start", lambda client: client.start()))
+        self._add_parameter(Action("stop", lambda client: client.stop()))
+        self._add_parameter(
+            Parameter(
+                "tempo",
+                Float(default=120, minimum=1, maximum=1000),
+                callback=lambda client, value: client._set_tempo(value),
+            )
         )
-        self._parameters: Dict[str, Union[Action, Parameter]] = {
-            parameter.name: parameter for parameter in self._parameter_group
-        }
         self._clock = TempoClock()
         self._dependencies: Set[ApplicationObject] = set()
         self._mutate(slice(None), [self._parameter_group])
