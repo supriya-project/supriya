@@ -99,7 +99,7 @@ def test_boot_2():
                                 out: 18.0, gate: 1.0, lag: 0.01
                             1014 group
                             1006 mixer/patch[gain,hard,replace]/2x2
-                                active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 18.0, lag: 0.01, out: 18.0
+                                active: 1.0, gain: c0, gate: 1.0, hard_gate: 1.0, in_: 18.0, lag: 0.01, out: 18.0
                             1015 group
                                 1058 mixer/patch[gain]/2x2
                                     active: 1.0, gain: 0.0, gate: 1.0, in_: 18.0, lag: 0.01, out: 30.0

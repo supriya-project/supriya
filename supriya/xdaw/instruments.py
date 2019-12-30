@@ -52,6 +52,7 @@ class Instrument(AllocatableDevice):
             **self.synthdef_kwargs,
             frequency=conversions.midi_note_number_to_frequency(note_number),
             amplitude=conversions.midi_velocity_to_amplitude(midi_message.velocity),
+            out=self._audio_bus_proxies["output"],
         )
         return []
 
