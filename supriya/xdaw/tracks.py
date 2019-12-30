@@ -159,8 +159,7 @@ class TrackObject(Allocatable):
         self._node_proxies["output"] = provider.add_synth(
             active=self.is_active,
             add_action=output_action,
-            # Interesting problem: params are children, so allocated later
-            # gain=self.parameters["gain"].bus_proxy,
+            gain=self.parameters["gain"].bus_proxy,
             in_=self._audio_bus_proxies["output"],
             out=self._audio_bus_proxies["output"],
             synthdef=build_patch_synthdef(

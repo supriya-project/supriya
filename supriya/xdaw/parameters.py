@@ -1,6 +1,8 @@
 from uuid import UUID, uuid4
 
-from supriya.enums import AddAction
+from supriya.synthdefs import SynthDefBuilder
+from supriya.enums import AddAction, DoneAction
+from supriya.ugens import Line, Out
 
 from .bases import Allocatable, AllocatableContainer, ApplicationObject
 
@@ -162,6 +164,27 @@ class Parameter(Allocatable):
         Allocatable._applicate(self, new_application)
         self._client = self.parent.parent
 
+    @classmethod
+    def _build_ramp_synthdef(cls):
+        with SynthDefBuilder(
+            out=(0.0, "scalar"),
+            start_value=(0.0, "scalar"),
+            stop_value=(1.0, "scalar"),
+            total_time=(1.0, "scalar"),
+            initial_time=(0.0, "scalar"),
+        ) as builder:
+            line = Line.kr(
+                start=builder["initial_time"] / builder["total_time"],
+                stop=1.0,
+                duration=builder["total_time"] - builder["initial_time"],
+                done_action=DoneAction.NOTHING
+            )
+            Out.kr(
+                bus=builder["out"],
+                source=line.scale(0., 1.0, builder["start_value"], builder["stop_value"]),
+            )
+        return builder.build("mixer/ramp")
+
     def _deapplicate(self, old_application):
         Allocatable._deapplicate(self, old_application)
         self._client = None
@@ -179,17 +202,26 @@ class Parameter(Allocatable):
         pass
 
     def modulate(self):
-        pass
+        modulation = self.node_proxies.get("modulation")
+        if modulation is not None:
+            modulation.free()
 
     def ramp(self, from_value, to_value, total_time, *, initial_time=0, moment=None):
+        from_ = self.spec(from_value)
+        to_ = self.spec(to_value)
         with self.lock([self], seconds=moment.seconds if moment is not None else None):
-            pass
+            modulation = self.node_proxies.get("modulation")
+            if modulation is not None:
+                modulation.free()
 
     def set_(self, value, *, moment=None):
         with self.lock([self], seconds=moment.seconds if moment is not None else None):
             if self.application is None:
                 return
             self._value = self.spec(value)
+            modulation = self.node_proxies.get("modulation")
+            if modulation is not None:
+                modulation.free()
             if self.bus_proxy is not None:
                 self.bus_proxy.set_(self._value)
             if self.callback is not None:

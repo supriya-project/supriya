@@ -40,7 +40,7 @@ def test_boot_1():
                             out: 18.0, gate: 1.0, lag: 0.01
                         1012 group
                         1006 mixer/patch[gain,hard,replace]/2x2
-                            active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 18.0, lag: 0.01, out: 18.0
+                            active: 1.0, gain: c0, gate: 1.0, hard_gate: 1.0, in_: 18.0, lag: 0.01, out: 18.0
                         1013 group
                             1014 mixer/patch/2x2
                                 active: 1.0, gate: 1.0, in_: 18.0, lag: 0.01, out: 0.0
@@ -60,7 +60,7 @@ def test_boot_1():
                             out: 22.0, gate: 1.0, lag: 0.01
                         1026 group
                         1019 mixer/patch[gain,hard,replace]/2x2
-                            active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 22.0, lag: 0.01, out: 22.0
+                            active: 1.0, gain: c1, gate: 1.0, hard_gate: 1.0, in_: 22.0, lag: 0.01, out: 22.0
                         1027 group
                             1028 mixer/patch/2x2
                                 active: 1.0, gate: 1.0, in_: 22.0, lag: 0.01, out: 2.0
@@ -128,7 +128,7 @@ def test_boot_2():
                                         out: 26.0, gate: 1.0, lag: 0.01
                                     1035 group
                                     1027 mixer/patch[gain,hard,replace]/2x2
-                                        active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 26.0, lag: 0.01, out: 26.0
+                                        active: 1.0, gain: c4, gate: 1.0, hard_gate: 1.0, in_: 26.0, lag: 0.01, out: 26.0
                                     1036 group
                                         1037 mixer/patch[gain]/2x2
                                             active: 1.0, gain: 0.0, gate: 1.0, in_: 26.0, lag: 0.01, out: 22.0
@@ -141,7 +141,7 @@ def test_boot_2():
                                 out: 22.0, gate: 1.0, lag: 0.01
                             1043 group
                             1020 mixer/patch[gain,hard,replace]/2x2
-                                active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 22.0, lag: 0.01, out: 22.0
+                                active: 1.0, gain: c2, gate: 1.0, hard_gate: 1.0, in_: 22.0, lag: 0.01, out: 22.0
                             1044 group
                                 1059 mixer/patch[gain]/2x2
                                     active: 1.0, gain: 0.0, gate: 1.0, in_: 22.0, lag: 0.01, out: 30.0
@@ -160,7 +160,7 @@ def test_boot_2():
                             out: 30.0, gate: 1.0, lag: 0.01
                         1055 group
                         1049 mixer/patch[gain,hard,replace]/2x2
-                            active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 30.0, lag: 0.01, out: 30.0
+                            active: 1.0, gain: c6, gate: 1.0, hard_gate: 1.0, in_: 30.0, lag: 0.01, out: 30.0
                         1056 group
                             1057 mixer/patch/2x2
                                 active: 1.0, gate: 1.0, in_: 30.0, lag: 0.01, out: 0.0
@@ -180,7 +180,7 @@ def test_boot_2():
                             out: 34.0, gate: 1.0, lag: 0.01
                         1071 group
                         1064 mixer/patch[gain,hard,replace]/2x2
-                            active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 34.0, lag: 0.01, out: 34.0
+                            active: 1.0, gain: c7, gate: 1.0, hard_gate: 1.0, in_: 34.0, lag: 0.01, out: 34.0
                         1072 group
                             1073 mixer/patch/2x2
                                 active: 1.0, gate: 1.0, in_: 34.0, lag: 0.01, out: 2.0

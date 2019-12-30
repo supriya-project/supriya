@@ -114,7 +114,7 @@ def test_query(channel_count_application):
                                         out: 44.0, gate: 1.0, lag: 0.01
                                     1035 group (PreFaderSends)
                                     1101 mixer/patch[gain,hard,replace]/4x4 (Output)
-                                        active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 44.0, lag: 0.01, out: 44.0
+                                        active: 1.0, gain: c2, gate: 1.0, hard_gate: 1.0, in_: 44.0, lag: 0.01, out: 44.0
                                     1036 group (PostFaderSends)
                                         1106 mixer/patch[gain]/4x2 (Send)
                                             active: 1.0, gain: 0.0, gate: 1.0, in_: 44.0, lag: 0.01, out: 20.0
@@ -126,7 +126,7 @@ def test_query(channel_count_application):
                         out: 18.0, gate: 1.0, lag: 0.01
                     1038 group (PreFaderSends)
                     1006 mixer/patch[gain,hard,replace]/2x2 (Output)
-                        active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 18.0, lag: 0.01, out: 18.0
+                        active: 1.0, gain: c0, gate: 1.0, hard_gate: 1.0, in_: 18.0, lag: 0.01, out: 18.0
                     1039 group (PostFaderSends)
                         1082 mixer/patch[gain]/2x2 (Send)
                             active: 1.0, gain: 0.0, gate: 1.0, in_: 18.0, lag: 0.01, out: 38.0
@@ -155,7 +155,7 @@ def test_query(channel_count_application):
                                 out: 34.0, gate: 1.0, lag: 0.01
                             1059 group (PreFaderSends)
                             1051 mixer/patch[gain,hard,replace]/2x2 (Output)
-                                active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 34.0, lag: 0.01, out: 34.0
+                                active: 1.0, gain: c6, gate: 1.0, hard_gate: 1.0, in_: 34.0, lag: 0.01, out: 34.0
                             1060 group (PostFaderSends)
                                 1061 mixer/patch[gain]/2x2 (Send)
                                     active: 1.0, gain: 0.0, gate: 1.0, in_: 34.0, lag: 0.01, out: 30.0
@@ -168,7 +168,7 @@ def test_query(channel_count_application):
                         out: 30.0, gate: 1.0, lag: 0.01
                     1067 group (PreFaderSends)
                     1044 mixer/patch[gain,hard,replace]/2x2 (Output)
-                        active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 30.0, lag: 0.01, out: 30.0
+                        active: 1.0, gain: c4, gate: 1.0, hard_gate: 1.0, in_: 30.0, lag: 0.01, out: 30.0
                     1068 group (PostFaderSends)
                         1083 mixer/patch[gain]/2x2 (Send)
                             active: 1.0, gain: 0.0, gate: 1.0, in_: 30.0, lag: 0.01, out: 38.0
@@ -187,7 +187,7 @@ def test_query(channel_count_application):
                     out: 38.0, gate: 1.0, lag: 0.01
                 1079 group (PreFaderSends)
                 1073 mixer/patch[gain,hard,replace]/2x2 (Output)
-                    active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 38.0, lag: 0.01, out: 38.0
+                    active: 1.0, gain: c8, gate: 1.0, hard_gate: 1.0, in_: 38.0, lag: 0.01, out: 38.0
                 1080 group (PostFaderSends)
                     1081 mixer/patch/2x2 (DirectOut)
                         active: 1.0, gate: 1.0, in_: 38.0, lag: 0.01, out: 0.0
@@ -207,7 +207,7 @@ def test_query(channel_count_application):
                     out: 42.0, gate: 1.0, lag: 0.01
                 1095 group (PreFaderSends)
                 1088 mixer/patch[gain,hard,replace]/2x2 (Output)
-                    active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, in_: 42.0, lag: 0.01, out: 42.0
+                    active: 1.0, gain: c9, gate: 1.0, hard_gate: 1.0, in_: 42.0, lag: 0.01, out: 42.0
                 1096 group (PostFaderSends)
                     1097 mixer/patch/2x2 (DirectOut)
                         active: 1.0, gate: 1.0, in_: 42.0, lag: 0.01, out: 2.0

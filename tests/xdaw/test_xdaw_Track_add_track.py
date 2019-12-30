@@ -1,4 +1,3 @@
-from supriya.osc import OscBundle, OscMessage
 from supriya.xdaw import Application, Track
 
 
@@ -76,6 +75,8 @@ def test_3():
                 1063,
                 1,
                 1059,
+                "gain",
+                "c7",
                 "in_",
                 34.0,
                 "out",
