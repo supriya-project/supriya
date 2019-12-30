@@ -33,7 +33,7 @@ def test_AudioEffect_1(synthdef_factory):
     assert device.synthdef == synthdef_factory
     assert list(track.devices) == [device]
     assert device.application is context.application
-    assert device.graph_order == (2, 0, 0, 0, 3, 0)
+    assert device.graph_order == (2, 0, 0, 0, 4, 0)
     assert device.parent is track.devices
     assert device.provider is context.provider
 
@@ -49,11 +49,11 @@ def test_AudioEffect_2(synthdef_factory):
     device_two = track.add_device(AudioEffect, synthdef=synthdef_factory)
     assert list(track.devices) == [device_one, device_two]
     assert device_one.application is context.application
-    assert device_one.graph_order == (2, 0, 0, 0, 3, 0)
+    assert device_one.graph_order == (2, 0, 0, 0, 4, 0)
     assert device_one.parent is track.devices
     assert device_one.provider is context.provider
     assert device_two.application is context.application
-    assert device_two.graph_order == (2, 0, 0, 0, 3, 1)
+    assert device_two.graph_order == (2, 0, 0, 0, 4, 1)
     assert device_two.parent is track.devices
     assert device_two.provider is context.provider
 
@@ -71,7 +71,7 @@ def test_AudioEffect_3(synthdef_factory):
         device = track.add_device(AudioEffect, synthdef=synthdef_factory)
     assert list(track.devices) == [device]
     assert device.application is context.application
-    assert device.graph_order == (2, 0, 0, 0, 3, 0)
+    assert device.graph_order == (2, 0, 0, 0, 4, 0)
     assert device.parent is track.devices
     assert device.provider is context.provider
     assert len(transcript.sent_messages) == 1
@@ -121,11 +121,11 @@ def test_AudioEffect_4(synthdef_factory):
         device_two = track.add_device(AudioEffect, synthdef=synthdef_factory)
     assert list(track.devices) == [device_one, device_two]
     assert device_one.application is context.application
-    assert device_one.graph_order == (2, 0, 0, 0, 3, 0)
+    assert device_one.graph_order == (2, 0, 0, 0, 4, 0)
     assert device_one.parent is track.devices
     assert device_one.provider is context.provider
     assert device_two.application is context.application
-    assert device_two.graph_order == (2, 0, 0, 0, 3, 1)
+    assert device_two.graph_order == (2, 0, 0, 0, 4, 1)
     assert device_two.parent is track.devices
     assert device_two.provider is context.provider
     assert len(transcript.sent_messages) == 1

@@ -82,10 +82,12 @@ class Action(ApplicationObject):
 
     def __str__(self):
         obj_name = type(self).__name__
-        return "\n".join([
-            f'<{obj_name} "{self.name}">',
-            *(f"    {line}" for child in self for line in str(child).splitlines()),
-        ])
+        return "\n".join(
+            [
+                f'<{obj_name} "{self.name}">',
+                *(f"    {line}" for child in self for line in str(child).splitlines()),
+            ]
+        )
 
     ### PRIVATE METHODS ###
 
@@ -115,9 +117,7 @@ class Parameter(Allocatable):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self, name, spec, *, callback=None, has_bus=False, uuid=None
-    ):
+    def __init__(self, name, spec, *, callback=None, has_bus=False, uuid=None):
         if not name:
             raise ValueError(name)
         Allocatable.__init__(self, channel_count=1, name=name)
@@ -137,14 +137,18 @@ class Parameter(Allocatable):
     def __str__(self):
         if self.has_bus:
             bus_proxy_id = int(self.bus_proxy) if self.bus_proxy is not None else "..."
-            node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "..."
+            node_proxy_id = (
+                int(self.node_proxy) if self.node_proxy is not None else "..."
+            )
         else:
             bus_proxy_id, node_proxy_id = "-", "-"
         obj_name = type(self).__name__
-        return "\n".join([
-            f'<{obj_name} "{self.name}" {self.value} [{node_proxy_id}] [{bus_proxy_id}] {self.uuid}>',
-            *(f"    {line}" for child in self for line in str(child).splitlines()),
-        ])
+        return "\n".join(
+            [
+                f'<{obj_name} "{self.name}" {self.value} [{node_proxy_id}] [{bus_proxy_id}] {self.uuid}>',
+                *(f"    {line}" for child in self for line in str(child).splitlines()),
+            ]
+        )
 
     ### PRIVATE METHODS ###
 

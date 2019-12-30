@@ -35,10 +35,12 @@ class Context(Allocatable, Mixer):
         obj_name = type(self).__name__
         node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "..."
         provider = self.provider if self.provider is not None else "..."
-        return "\n".join([
-            f"<{obj_name} {provider} [{node_proxy_id}] {self.uuid}>",
-            *(f"    {line}" for child in self for line in str(child).splitlines()),
-        ])
+        return "\n".join(
+            [
+                f"<{obj_name} {provider} [{node_proxy_id}] {self.uuid}>",
+                *(f"    {line}" for child in self for line in str(child).splitlines()),
+            ]
+        )
 
     ### PRIVATE METHODS ###
 

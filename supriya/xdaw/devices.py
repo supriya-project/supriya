@@ -48,10 +48,12 @@ class DeviceIn(Patch):
     def __str__(self):
         node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "..."
         obj_name = type(self).__name__
-        return "\n".join([
-            f"<{obj_name} [{node_proxy_id}]",
-            *(f"    {line}" for child in self for line in str(child).splitlines()),
-        ])
+        return "\n".join(
+            [
+                f"<{obj_name} [{node_proxy_id}]",
+                *(f"    {line}" for child in self for line in str(child).splitlines()),
+            ]
+        )
 
     ### PUBLIC PROPERTIES ###
 
@@ -97,10 +99,12 @@ class DeviceOut(Patch):
     def __str__(self):
         node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "..."
         obj_name = type(self).__name__
-        return "\n".join([
-            f"<{obj_name} [{node_proxy_id}]",
-            *(f"    {line}" for child in self for line in str(child).splitlines()),
-        ])
+        return "\n".join(
+            [
+                f"<{obj_name} [{node_proxy_id}]",
+                *(f"    {line}" for child in self for line in str(child).splitlines()),
+            ]
+        )
 
     ### PUBLIC METHODS ###
 
@@ -202,10 +206,12 @@ class DeviceObject(Allocatable):
     def __str__(self):
         node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "..."
         obj_name = type(self).__name__
-        return "\n".join([
-            f"<{obj_name} [{node_proxy_id}]",
-            *(f"    {line}" for child in self for line in str(child).splitlines()),
-        ])
+        return "\n".join(
+            [
+                f"<{obj_name} [{node_proxy_id}]",
+                *(f"    {line}" for child in self for line in str(child).splitlines()),
+            ]
+        )
 
     ### PRIVATE METHODS ###
 

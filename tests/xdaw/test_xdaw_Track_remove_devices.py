@@ -72,7 +72,7 @@ def test_3(synthdef_factory):
     assert device_one.parent is None
     assert device_one.provider is None
     assert device_two.application is context.application
-    assert device_two.graph_order == (2, 0, 0, 0, 3, 0)
+    assert device_two.graph_order == (2, 0, 0, 0, 4, 0)
     assert device_two.parent is track.devices
     assert device_two.provider is None
 
@@ -96,7 +96,7 @@ def test_4(synthdef_factory):
     assert device_one.parent is None
     assert device_one.provider is None
     assert device_two.application is context.application
-    assert device_two.graph_order == (2, 0, 0, 0, 3, 0)
+    assert device_two.graph_order == (2, 0, 0, 0, 4, 0)
     assert device_two.parent is track.devices
     assert device_two.provider is context.provider
     assert len(transcript.sent_messages) == 1

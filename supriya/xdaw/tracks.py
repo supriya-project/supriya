@@ -31,9 +31,7 @@ class TrackObject(Allocatable):
                     callback=lambda client, value: client._set_active(value),
                 ),
                 Parameter(
-                    "gain",
-                    Float(minimum=-96, maximum=6.0, default=0.0),
-                    has_bus=True,
+                    "gain", Float(minimum=-96, maximum=6.0, default=0.0), has_bus=True
                 ),
             ],
         )
@@ -55,7 +53,10 @@ class TrackObject(Allocatable):
         )
         self._receive_target = Target(label="ReceiveTarget")
         self._receives = AllocatableContainer(
-            "parameters", AddAction.ADD_AFTER, label="Receives"
+            "node",
+            AddAction.ADD_AFTER,
+            label="Receives",
+            target_node_parent=self._parameter_group,
         )
         self._send_target = Target(label="SendTarget")
         self._mutate(
@@ -76,10 +77,12 @@ class TrackObject(Allocatable):
     def __str__(self):
         node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "..."
         obj_name = type(self).__name__
-        return "\n".join([
-            f"<{obj_name} [{node_proxy_id}] {self.uuid}>",
-            *(f"    {line}" for child in self for line in str(child).splitlines()),
-        ])
+        return "\n".join(
+            [
+                f"<{obj_name} [{node_proxy_id}] {self.uuid}>",
+                *(f"    {line}" for child in self for line in str(child).splitlines()),
+            ]
+        )
 
     ### PRIVATE METHODS ###
 
@@ -94,11 +97,6 @@ class TrackObject(Allocatable):
         channel_count = self.effective_channel_count
         self._node_proxies["node"] = provider.add_group(
             target_node=target_node, add_action=add_action, name=self.label
-        )
-        self._node_proxies["parameters"] = provider.add_group(
-            target_node=self.node_proxy,
-            add_action=AddAction.ADD_TO_HEAD,
-            name="Parameters",
         )
         self._allocate_audio_buses(provider, channel_count)
         self._allocate_synths(
@@ -128,7 +126,9 @@ class TrackObject(Allocatable):
         channel_count,
         *,
         input_pair=None,
-        input_levels_pair=None, prefader_levels_pair=None, output_pair=None,
+        input_levels_pair=None,
+        prefader_levels_pair=None,
+        output_pair=None,
         postfader_levels_pair=None,
     ):
         input_target, input_action = input_pair
@@ -387,6 +387,9 @@ class TrackObject(Allocatable):
 class CueTrack(TrackObject):
     def __init__(self, *, uuid=None):
         TrackObject.__init__(self, channel_count=2, uuid=uuid)
+        self._parameter_group._append(
+            Parameter("mix", Float(minimum=0.0, maximum=1.0, default=0.0), has_bus=True)
+        )
 
 
 class MasterTrack(TrackObject):
@@ -403,6 +406,11 @@ class UserTrackObject(TrackObject):
         self._is_cued = False
         self._is_muted = False
         self._is_soloed = False
+        self._parameter_group._append(
+            Parameter(
+                "panning", Float(minimum=-1.0, maximum=1.0, default=0), has_bus=True
+            )
+        )
 
     ### PUBLIC METHODS ###
 

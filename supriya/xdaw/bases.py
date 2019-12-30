@@ -34,10 +34,12 @@ class ApplicationObject(UniqueTreeTuple):
     ### SPECIAL METHODS ###
 
     def __str__(self):
-        return "\n".join([
-            f"<{type(self).__name__}>",
-            *(f"    {line}" for child in self for line in str(child).splitlines()),
-        ])
+        return "\n".join(
+            [
+                f"<{type(self).__name__}>",
+                *(f"    {line}" for child in self for line in str(child).splitlines()),
+            ]
+        )
 
     ### PRIVATE METHODS ###
 
@@ -183,10 +185,12 @@ class Allocatable(ApplicationObject):
     def __str__(self):
         node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "..."
         obj_name = self.name or type(self).__name__
-        return "\n".join([
-            f"<{obj_name} [{node_proxy_id}]>",
-            *(f"    {line}" for child in self for line in str(child).splitlines()),
-        ])
+        return "\n".join(
+            [
+                f"<{obj_name} [{node_proxy_id}]>",
+                *(f"    {line}" for child in self for line in str(child).splitlines()),
+            ]
+        )
 
     ### PRIVATE METHODS ###
 
@@ -266,7 +270,7 @@ class Allocatable(ApplicationObject):
                         target_node=target_node,
                         add_action=add_action,
                     )
-                    if isinstance(child, Allocatable):
+                    if isinstance(child, Allocatable) and child.node_proxy is not None:
                         target_node, add_action = child.node_proxy, AddAction.ADD_AFTER
             self._reconcile_dependents()
         elif self.provider:
@@ -330,7 +334,7 @@ class Allocatable(ApplicationObject):
                 target_node=target_node.node_proxy,
                 add_action=add_action,
             )
-            if isinstance(item, Allocatable):
+            if isinstance(item, Allocatable) and item.node_proxy is not None:
                 target_node, add_action = item, AddAction.ADD_AFTER
         for item in old_items:
             item._set(application=None, provider=None)
@@ -436,10 +440,12 @@ class Container(ApplicationObject):
     ### SPECIAL METHODS ###
 
     def __str__(self):
-        return "\n".join([
-            f"<{self.label}>",
-            *(f"    {line}" for child in self for line in str(child).splitlines()),
-        ])
+        return "\n".join(
+            [
+                f"<{self.label}>",
+                *(f"    {line}" for child in self for line in str(child).splitlines()),
+            ]
+        )
 
     @property
     def label(self):
@@ -450,26 +456,37 @@ class AllocatableContainer(Allocatable):
 
     ### INITIALIZER ###
 
-    def __init__(self, target_node_name: str, add_action: int, *, label=None):
+    def __init__(
+        self,
+        target_node_name: str,
+        add_action: int,
+        *,
+        label=None,
+        target_node_parent: Optional[Allocatable] = None,
+    ):
         Allocatable.__init__(self)
         self._target_node_name = str(target_node_name)
         self._add_action = AddAction.from_expr(add_action)
         self._label = label
+        self._target_node_parent = target_node_parent
 
     ### SPECIAL METHODS ###
 
     def __str__(self):
         node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "..."
-        return "\n".join([
-            f"<{self.label} [{node_proxy_id}]>",
-            *(f"    {line}" for child in self for line in str(child).splitlines()),
-        ])
+        return "\n".join(
+            [
+                f"<{self.label} [{node_proxy_id}]>",
+                *(f"    {line}" for child in self for line in str(child).splitlines()),
+            ]
+        )
 
     ### PRIVATE METHODS ###
 
     def _allocate(self, provider, target_node, add_action):
         Allocatable._allocate(self, provider, target_node, add_action)
-        target_node = self.parent.node_proxies[self.target_node_name]
+        parent = self.target_node_parent or self.parent
+        target_node = parent.node_proxies[self.target_node_name]
         self._node_proxies["node"] = provider.add_group(
             target_node=target_node, add_action=self.add_action, name=self.label
         )
@@ -487,6 +504,10 @@ class AllocatableContainer(Allocatable):
     @property
     def target_node_name(self):
         return self._target_node_name
+
+    @property
+    def target_node_parent(self):
+        return self._target_node_parent
 
 
 class Mixer:

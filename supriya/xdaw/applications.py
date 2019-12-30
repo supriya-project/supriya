@@ -35,17 +35,19 @@ class Application(UniqueTreeTuple):
         self._scenes: Tuple[Scene, ...] = ()
         self._status = self.Status.OFFLINE
         self._transport = Transport()
-        UniqueTreeTuple.__init__(self, children=[
-            self._transport, self._controllers, self._contexts
-        ])
+        UniqueTreeTuple.__init__(
+            self, children=[self._transport, self._controllers, self._contexts]
+        )
 
     ### SPECIAL METHODS ###
 
     def __str__(self):
-        return "\n".join([
-            f"<{type(self).__name__} [{self.status.name}] {hex(id(self))}>",
-            *(f"    {line}" for child in self for line in str(child).splitlines()),
-        ])
+        return "\n".join(
+            [
+                f"<{type(self).__name__} [{self.status.name}] {hex(id(self))}>",
+                *(f"    {line}" for child in self for line in str(child).splitlines()),
+            ]
+        )
 
     ### PRIVATE METHODS ###
 
