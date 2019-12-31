@@ -11,8 +11,10 @@ def test_1():
     track = context.add_track()
     rack = track.add_device(RackDevice, channel_count=4)
     chain = rack.add_chain()
+    chain.parameters["gain"].set_(-6.0)
     arpeggiator = chain.add_device(Arpeggiator)
     instrument = chain.add_device(Instrument)
+    instrument.parameters["active"].set_(False)
     assert normalize(yaml.dump(app.serialize())) == normalize(
         f"""
         kind: Application
@@ -34,14 +36,20 @@ def test_1():
                     meta:
                       name: active
                       uuid: {cue_track.parameters["active"].uuid}
+                    spec:
+                      value: true
                   - kind: Parameter
                     meta:
                       name: gain
                       uuid: {cue_track.parameters["gain"].uuid}
+                    spec:
+                      value: 0.0
                   - kind: Parameter
                     meta:
                       name: mix
                       uuid: {cue_track.parameters["mix"].uuid}
+                    spec:
+                      value: 0.0
               master_track:
                 kind: MasterTrack
                 meta:
@@ -52,10 +60,14 @@ def test_1():
                     meta:
                       name: active
                       uuid: {master_track.parameters["active"].uuid}
+                    spec:
+                      value: true
                   - kind: Parameter
                     meta:
                       name: gain
                       uuid: {master_track.parameters["gain"].uuid}
+                    spec:
+                      value: 0.0
               tracks:
               - kind: Track
                 meta:
@@ -75,36 +87,71 @@ def test_1():
                           - kind: Arpeggiator
                             meta:
                               uuid: {arpeggiator.uuid}
+                            spec:
+                              parameters:
+                              - kind: Parameter
+                                meta:
+                                  name: active
+                                  uuid: {arpeggiator.parameters["active"].uuid}
+                                spec:
+                                  value: true
                           - kind: Instrument
                             meta:
                               uuid: {instrument.uuid}
+                            spec:
+                              parameters:
+                              - kind: Parameter
+                                meta:
+                                  name: active
+                                  uuid: {instrument.parameters["active"].uuid}
+                                spec:
+                                  value: false
                           parameters:
                           - kind: Parameter
                             meta:
                               name: active
                               uuid: {chain.parameters["active"].uuid}
+                            spec:
+                              value: true
                           - kind: Parameter
                             meta:
                               name: gain
                               uuid: {chain.parameters["gain"].uuid}
+                            spec:
+                              value: -6.0
                           - kind: Parameter
                             meta:
                               name: panning
                               uuid: {chain.parameters["panning"].uuid}
+                            spec:
+                              value: 0.0
                       channel_count: 4
+                      parameters:
+                      - kind: Parameter
+                        meta:
+                          name: active
+                          uuid: {rack.parameters["active"].uuid}
+                        spec:
+                          value: true
                   parameters:
                   - kind: Parameter
                     meta:
                       name: active
                       uuid: {track.parameters["active"].uuid}
+                    spec:
+                      value: true
                   - kind: Parameter
                     meta:
                       name: gain
                       uuid: {track.parameters["gain"].uuid}
+                    spec:
+                      value: 0.0
                   - kind: Parameter
                     meta:
                       name: panning
                       uuid: {track.parameters["panning"].uuid}
+                    spec:
+                      value: 0.0
           transport:
             kind: Transport
             spec:

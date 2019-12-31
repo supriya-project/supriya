@@ -20,7 +20,7 @@ from supriya.enums import AddAction, CalculationRate
 from supriya.midi import MidiMessage, NoteOffMessage, NoteOnMessage
 
 from .bases import Allocatable
-from .parameters import Action, Parameter, ParameterGroup
+from .parameters import Action, Boolean, Parameter, ParameterGroup
 from .sends import Patch
 from .synthdefs import build_patch_synthdef
 
@@ -195,8 +195,15 @@ class DeviceObject(Allocatable):
         Allocatable.__init__(self, channel_count=channel_count, name=name)
         self._parameter_group = ParameterGroup()
         self._parameters: Dict[str, Union[Action, Parameter]] = {}
+        self._add_parameter(
+            Parameter(
+                "active",
+                Boolean(),
+                callback=lambda client, value: client._set_active(value),
+            ),
+            is_builtin=True,
+        )
         self._uuid = uuid or uuid4()
-        self._is_active = True
         self._captures: Set[DeviceObject.Capture] = set()
         self._input_notes: Set[float] = set()
         self._output_notes: Set[float] = set()
@@ -273,6 +280,10 @@ class DeviceObject(Allocatable):
                     stack.append((out_performer, out_messages))
         return out_messages
 
+    def _set_active(self, is_active):
+        if self.is_active == is_active:
+            return
+
     def _update_captures(self, moment, message, label):
         if not self._captures:
             return
@@ -340,7 +351,7 @@ class DeviceObject(Allocatable):
 
     @property
     def is_active(self):
-        return self._is_active
+        return self.parameters["active"].value
 
     @property
     def parameters(self):

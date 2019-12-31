@@ -237,25 +237,26 @@ class Parameter(Allocatable):
                 modulation.free()
 
     def serialize(self):
-        serialized = {
-            "kind": type(self).__name__,
-            "meta": {"name": self.name, "uuid": str(self.uuid)},
-        }
-        if not self.is_builtin:
-            serialized["spec"] = ({**self.spec.serialize(), "bussed": self.has_bus},)
+        serialized = super().serialize()
+        serialized["spec"].update(
+            bussed=self.has_bus or None if not self.is_builtin else None,
+            value=self.value,
+        )
+        for mapping in [serialized["meta"], serialized.get("spec", {}), serialized]:
+            for key in tuple(mapping):
+                if mapping[key] is None:
+                    mapping.pop(key)
         return serialized
 
     def set_(self, value, *, moment=None):
         with self.lock([self], seconds=moment.seconds if moment is not None else None):
-            if self.application is None:
-                return
             self._value = self.spec(value)
             modulation = self.node_proxies.get("modulation")
             if modulation is not None:
                 modulation.free()
             if self.bus_proxy is not None:
                 self.bus_proxy.set_(self._value)
-            if self.callback is not None:
+            if self.callback is not None and self.client is not None:
                 self.callback(self.client, self._value)
 
     ### PUBLIC PROPERTIES ###
