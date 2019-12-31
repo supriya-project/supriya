@@ -1,7 +1,7 @@
 from uuid import UUID, uuid4
 
-from supriya.synthdefs import SynthDefBuilder
 from supriya.enums import AddAction, DoneAction
+from supriya.synthdefs import SynthDefBuilder
 from supriya.ugens import Line, Out
 
 from .bases import Allocatable, AllocatableContainer, ApplicationObject
@@ -23,6 +23,9 @@ class Boolean(ParameterSpec):
     def __call__(self, value):
         return bool(value)
 
+    def serialize(self):
+        return {"type": type(self).__name__.lower(), "default": self.default}
+
 
 class Float(ParameterSpec):
 
@@ -42,6 +45,14 @@ class Float(ParameterSpec):
             return self.maximum
         return value
 
+    def serialize(self):
+        return {
+            "type": type(self).__name__.lower(),
+            "default": self.default,
+            "minimum": self.minimum,
+            "maximum": self.maximum,
+        }
+
 
 class Integer(ParameterSpec):
 
@@ -60,6 +71,14 @@ class Integer(ParameterSpec):
         if value > self.maximum:
             return self.maximum
         return value
+
+    def serialize(self):
+        return {
+            "type": type(self).__name__.lower(),
+            "default": self.default,
+            "minimum": self.minimum,
+            "maximum": self.maximum,
+        }
 
 
 class Action(ApplicationObject):
@@ -130,6 +149,7 @@ class Parameter(Allocatable):
         self._callback = callback
         self._client = None
         self._has_bus = bool(has_bus)
+        self._is_builtin = False
         self._spec = spec
         self._value = self.spec.default
         self._uuid = uuid or uuid4()
@@ -177,11 +197,13 @@ class Parameter(Allocatable):
                 start=builder["initial_time"] / builder["total_time"],
                 stop=1.0,
                 duration=builder["total_time"] - builder["initial_time"],
-                done_action=DoneAction.NOTHING
+                done_action=DoneAction.NOTHING,
             )
             Out.kr(
                 bus=builder["out"],
-                source=line.scale(0., 1.0, builder["start_value"], builder["stop_value"]),
+                source=line.scale(
+                    0.0, 1.0, builder["start_value"], builder["stop_value"]
+                ),
             )
         return builder.build("mixer/ramp")
 
@@ -207,12 +229,21 @@ class Parameter(Allocatable):
             modulation.free()
 
     def ramp(self, from_value, to_value, total_time, *, initial_time=0, moment=None):
-        from_ = self.spec(from_value)
-        to_ = self.spec(to_value)
+        # from_ = self.spec(from_value)
+        # to_ = self.spec(to_value)
         with self.lock([self], seconds=moment.seconds if moment is not None else None):
             modulation = self.node_proxies.get("modulation")
             if modulation is not None:
                 modulation.free()
+
+    def serialize(self):
+        serialized = {
+            "kind": type(self).__name__,
+            "meta": {"name": self.name, "uuid": str(self.uuid)},
+        }
+        if not self.is_builtin:
+            serialized["spec"] = ({**self.spec.serialize(), "bussed": self.has_bus},)
+        return serialized
 
     def set_(self, value, *, moment=None):
         with self.lock([self], seconds=moment.seconds if moment is not None else None):
@@ -244,6 +275,10 @@ class Parameter(Allocatable):
     @property
     def has_bus(self):
         return self._has_bus
+
+    @property
+    def is_builtin(self):
+        return self._is_builtin
 
     @property
     def spec(self) -> ParameterSpec:

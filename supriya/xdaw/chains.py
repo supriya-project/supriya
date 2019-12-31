@@ -267,6 +267,17 @@ class RackDevice(DeviceObject, Mixer):
             for chain in chains:
                 self._chains._remove(chain)
 
+    def serialize(self):
+        serialized = super().serialize()
+        serialized.setdefault("spec", {}).update(
+            chains=[chain.serialize() for chain in self.chains]
+        )
+        for mapping in [serialized["meta"], serialized.get("spec", {}), serialized]:
+            for key in tuple(mapping):
+                if not mapping[key]:
+                    mapping.pop(key)
+        return serialized
+
     def set_channel_count(self, channel_count: Optional[int]):
         with self.lock([self]):
             if channel_count is not None:

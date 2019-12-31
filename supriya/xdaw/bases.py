@@ -43,9 +43,10 @@ class ApplicationObject(UniqueTreeTuple):
 
     ### PRIVATE METHODS ###
 
-    def _add_parameter(self, parameter):
+    def _add_parameter(self, parameter, is_builtin=False):
         if parameter.name in self._parameters:
             raise ValueError(f'Parameter {parameter["name"]} already added')
+        parameter._is_builtin = is_builtin
         self._parameters[parameter.name] = parameter
         self._parameter_group._append(parameter)
 
@@ -135,6 +136,16 @@ class ApplicationObject(UniqueTreeTuple):
 
     def rename(self, name):
         pass
+
+    def serialize(self):
+        return {
+            "kind": type(self).__name__,
+            "meta": {
+                "name": self.name,
+                "uuid": str(self.uuid) if hasattr(self, "uuid") else None,
+            },
+            "spec": {},
+        }
 
     ### PUBLIC PROPERTIES ###
 

@@ -172,6 +172,16 @@ class Application(UniqueTreeTuple):
             self._status = self.Status.OFFLINE
             return provider.session
 
+    def serialize(self):
+        return {
+            "kind": type(self).__name__,
+            "spec": {
+                "channel_count": self.channel_count,
+                "contexts": [context.serialize() for context in self.contexts],
+                "transport": self.transport.serialize(),
+            },
+        }
+
     def set_channel_count(self, channel_count: int):
         with self.lock:
             assert 1 <= channel_count <= 8

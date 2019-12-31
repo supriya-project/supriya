@@ -55,6 +55,15 @@ class Transport(ApplicationObject):
     def schedule(self, *args, **kwargs):
         self._clock.schedule(*args, **kwargs)
 
+    def serialize(self):
+        return {
+            "kind": type(self).__name__,
+            "spec": {
+                "tempo": self._clock.beats_per_minute,
+                "time_signature": "{}/{}".format(*self._clock.time_signature),
+            },
+        }
+
     def set_tempo(self, beats_per_minute: float):
         with self.lock([self]):
             self._set_tempo(beats_per_minute)

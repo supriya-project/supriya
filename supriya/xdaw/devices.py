@@ -10,6 +10,7 @@ from typing import (
     Sequence,
     Set,
     Tuple,
+    Union,
 )
 from uuid import UUID, uuid4
 
@@ -19,6 +20,7 @@ from supriya.enums import AddAction, CalculationRate
 from supriya.midi import MidiMessage, NoteOffMessage, NoteOnMessage
 
 from .bases import Allocatable
+from .parameters import Action, Parameter, ParameterGroup
 from .sends import Patch
 from .synthdefs import build_patch_synthdef
 
@@ -191,6 +193,8 @@ class DeviceObject(Allocatable):
 
     def __init__(self, *, channel_count=None, name=None, uuid=None):
         Allocatable.__init__(self, channel_count=channel_count, name=name)
+        self._parameter_group = ParameterGroup()
+        self._parameters: Dict[str, Union[Action, Parameter]] = {}
         self._uuid = uuid or uuid4()
         self._is_active = True
         self._captures: Set[DeviceObject.Capture] = set()
@@ -311,6 +315,20 @@ class DeviceObject(Allocatable):
         with self.lock([self], seconds=moment.seconds if moment is not None else None):
             return self._perform_loop(moment, self._perform, midi_messages)
 
+    def serialize(self):
+        serialized = super().serialize()
+        serialized["spec"].update(
+            channel_count=self.channel_count,
+            parameters=[
+                parameter.serialize() for parameter in self.parameters.values()
+            ],
+        )
+        for mapping in [serialized["meta"], serialized.get("spec", {}), serialized]:
+            for key in tuple(mapping):
+                if not mapping[key]:
+                    mapping.pop(key)
+        return serialized
+
     def set_channel_count(self, channel_count: Optional[int]):
         with self.lock([self]):
             if channel_count is not None:
@@ -323,6 +341,10 @@ class DeviceObject(Allocatable):
     @property
     def is_active(self):
         return self._is_active
+
+    @property
+    def parameters(self):
+        return self._parameters
 
     @property
     def track_object(self):

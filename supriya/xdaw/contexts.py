@@ -100,6 +100,20 @@ class Context(Allocatable, Mixer):
             for track in tracks:
                 self._tracks._remove(track)
 
+    def serialize(self):
+        serialized = super().serialize()
+        serialized["spec"].update(
+            channel_count=self.channel_count,
+            cue_track=self.cue_track.serialize(),
+            master_track=self.master_track.serialize(),
+            tracks=[track.serialize() for track in self.tracks],
+        )
+        for mapping in [serialized["meta"], serialized["spec"], serialized]:
+            for key in tuple(mapping):
+                if not mapping[key]:
+                    mapping.pop(key)
+        return serialized
+
     def set_channel_count(self, channel_count: Optional[int]):
         with self.lock([self]):
             if channel_count is not None:

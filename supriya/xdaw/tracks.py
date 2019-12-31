@@ -28,12 +28,14 @@ class TrackObject(Allocatable):
                 "active",
                 Boolean(),
                 callback=lambda client, value: client._set_active(value),
-            )
+            ),
+            is_builtin=True,
         )
         self._add_parameter(
             Parameter(
                 "gain", Float(minimum=-96, maximum=6.0, default=0.0), has_bus=True
-            )
+            ),
+            is_builtin=True,
         )
         self._uuid = uuid or uuid4()
         self._peak_levels = {}
@@ -317,6 +319,20 @@ class TrackObject(Allocatable):
                 if send.effective_target is not None:
                     send.effective_target.send_target._dependencies.remove(send)
 
+    def serialize(self):
+        serialized = super().serialize()
+        serialized["spec"].update(
+            channel_count=self.channel_count,
+            devices=[device.serialize() for device in self.devices],
+            parameters=[param.serialize() for param in self.parameters.values()],
+            sends=[],
+        )
+        for mapping in [serialized["meta"], serialized.get("spec", {}), serialized]:
+            for key in tuple(mapping):
+                if not mapping[key]:
+                    mapping.pop(key)
+        return serialized
+
     def set_channel_count(self, channel_count: Optional[int]):
         with self.lock([self]):
             if channel_count is not None:
@@ -384,7 +400,10 @@ class CueTrack(TrackObject):
     def __init__(self, *, uuid=None):
         TrackObject.__init__(self, channel_count=2, uuid=uuid)
         self._add_parameter(
-            Parameter("mix", Float(minimum=0.0, maximum=1.0, default=0.0), has_bus=True)
+            Parameter(
+                "mix", Float(minimum=0.0, maximum=1.0, default=0.0), has_bus=True
+            ),
+            is_builtin=True,
         )
 
 
@@ -405,7 +424,8 @@ class UserTrackObject(TrackObject):
         self._add_parameter(
             Parameter(
                 "panning", Float(minimum=-1.0, maximum=1.0, default=0), has_bus=True
-            )
+            ),
+            is_builtin=True,
         )
 
     ### PUBLIC METHODS ###
@@ -575,6 +595,17 @@ class Track(UserTrackObject):
                 raise ValueError
             for track in tracks:
                 self._tracks._remove(track)
+
+    def serialize(self):
+        serialized = super().serialize()
+        serialized.setdefault("spec", {}).update(
+            tracks=[track.serialize() for track in self.tracks]
+        )
+        for mapping in [serialized["meta"], serialized.get("spec", {}), serialized]:
+            for key in tuple(mapping):
+                if not mapping[key]:
+                    mapping.pop(key)
+        return serialized
 
     def solo(self, exclusive=True):
         from .contexts import Context
