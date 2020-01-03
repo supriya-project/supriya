@@ -103,7 +103,6 @@ class Context(Allocatable, Mixer):
     def serialize(self):
         serialized = super().serialize()
         serialized["spec"].update(
-            channel_count=self.channel_count,
             cue_track=self.cue_track.serialize(),
             master_track=self.master_track.serialize(),
             tracks=[track.serialize() for track in self.tracks],

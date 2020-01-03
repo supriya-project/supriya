@@ -144,7 +144,14 @@ class ApplicationObject(UniqueTreeTuple):
                 "name": self.name,
                 "uuid": str(self.uuid) if hasattr(self, "uuid") else None,
             },
-            "spec": {},
+            "spec": {
+                "channel_count": getattr(self, "channel_count", None),
+                "parameters": (
+                    [param.serialize() for param in self.parameters.values()]
+                    if hasattr(self, "parameters")
+                    else None
+                ),
+            },
         }
 
     ### PUBLIC PROPERTIES ###

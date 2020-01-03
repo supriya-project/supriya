@@ -174,6 +174,21 @@ class Patch(SendObject):
         ):
             self._reallocate(difference)
 
+    ### PUBLIC METHODS ###
+
+    def serialize(self):
+        serialized = super().serialize()
+        if isinstance(self.target, Default):
+            target = "default"
+        else:
+            target = str(self.effective_target.uuid)
+        serialized["spec"]["target"] = target
+        for mapping in [serialized["meta"], serialized.get("spec", {}), serialized]:
+            for key in tuple(mapping):
+                if not mapping[key]:
+                    mapping.pop(key)
+        return serialized
+
     ### PUBLIC PROPERTIES ###
 
     @property
@@ -461,6 +476,21 @@ class DirectOut(SendObject):
             self.provider, target_node=node_proxy, add_action=AddAction.ADD_AFTER
         )
         node_proxy.free()
+
+    ### PUBLIC METHODS ###
+
+    def serialize(self):
+        serialized = super().serialize()
+        serialized["spec"].update(
+            target_bus_id=self.target_bus_id,
+            target_channel_count=self.target_channel_count,
+        )
+        for mapping in [serialized["meta"], serialized.get("spec", {}), serialized]:
+            for key in tuple(mapping):
+                value = mapping[key]
+                if (isinstance(value, list) and not value) or value is None:
+                    mapping.pop(key)
+        return serialized
 
     ### PUBLIC PROPERTIES ###
 

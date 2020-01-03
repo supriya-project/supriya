@@ -50,6 +50,14 @@ def test_1():
                       uuid: {cue_track.parameters["mix"].uuid}
                     spec:
                       value: 0.0
+                  sends:
+                  - kind: DirectOut
+                    meta:
+                      uuid: {cue_track.postfader_sends[0].uuid}
+                    spec:
+                      position: postfader
+                      target_bus_id: 2
+                      target_channel_count: 2
               master_track:
                 kind: MasterTrack
                 meta:
@@ -68,6 +76,14 @@ def test_1():
                       uuid: {master_track.parameters["gain"].uuid}
                     spec:
                       value: 0.0
+                  sends:
+                  - kind: DirectOut
+                    meta:
+                      uuid: {master_track.postfader_sends[0].uuid}
+                    spec:
+                      position: postfader
+                      target_bus_id: 0
+                      target_channel_count: 2
               tracks:
               - kind: Track
                 meta:
@@ -125,6 +141,13 @@ def test_1():
                               uuid: {chain.parameters["panning"].uuid}
                             spec:
                               value: 0.0
+                          sends:
+                          - kind: Send
+                            meta:
+                              uuid: {chain.postfader_sends[0].uuid}
+                            spec:
+                              position: postfader
+                              target: default
                       channel_count: 4
                       parameters:
                       - kind: Parameter
@@ -152,6 +175,13 @@ def test_1():
                       uuid: {track.parameters["panning"].uuid}
                     spec:
                       value: 0.0
+                  sends:
+                  - kind: Send
+                    meta:
+                      uuid: {track.postfader_sends[0].uuid}
+                    spec:
+                      position: postfader
+                      target: default
           transport:
             kind: Transport
             spec:

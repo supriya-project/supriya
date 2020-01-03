@@ -240,6 +240,7 @@ class Parameter(Allocatable):
         serialized = super().serialize()
         serialized["spec"].update(
             bussed=self.has_bus or None if not self.is_builtin else None,
+            channel_count=None,
             value=self.value,
         )
         for mapping in [serialized["meta"], serialized.get("spec", {}), serialized]:

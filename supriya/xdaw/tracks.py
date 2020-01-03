@@ -321,11 +321,18 @@ class TrackObject(Allocatable):
 
     def serialize(self):
         serialized = super().serialize()
+        sends = []
+        for send in self.prefader_sends:
+            serialized_send = send.serialize()
+            serialized_send["spec"]["position"] = "prefader"
+            sends.append(serialized_send)
+        for send in self.postfader_sends:
+            serialized_send = send.serialize()
+            serialized_send["spec"]["position"] = "postfader"
+            sends.append(serialized_send)
         serialized["spec"].update(
-            channel_count=self.channel_count,
             devices=[device.serialize() for device in self.devices],
-            parameters=[param.serialize() for param in self.parameters.values()],
-            sends=[],
+            sends=sends,
         )
         for mapping in [serialized["meta"], serialized.get("spec", {}), serialized]:
             for key in tuple(mapping):

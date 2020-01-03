@@ -328,12 +328,6 @@ class DeviceObject(Allocatable):
 
     def serialize(self):
         serialized = super().serialize()
-        serialized["spec"].update(
-            channel_count=self.channel_count,
-            parameters=[
-                parameter.serialize() for parameter in self.parameters.values()
-            ],
-        )
         for mapping in [serialized["meta"], serialized.get("spec", {}), serialized]:
             for key in tuple(mapping):
                 if not mapping[key]:
