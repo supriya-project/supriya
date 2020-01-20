@@ -314,6 +314,7 @@ class TempoClock:
     ### SCHEDULING METHODS ###
 
     def _cancel(self, event_id) -> Optional[Tuple]:
+        # TODO: Can this be lock-free?
         with self._lock:
             event = self._events_by_id.pop(event_id, None)
             if event is not None and not isinstance(
