@@ -1,5 +1,6 @@
 import enum
 import time
+from collections import deque
 from threading import RLock
 from typing import Optional, Tuple
 
@@ -28,15 +29,18 @@ class Application(UniqueTreeTuple):
     ### INITIALIZER ###
 
     def __init__(self, channel_count=2):
+        # non-tree objects
         self._channel_count = int(channel_count)
+        self._lock = RLock()
+        self._status = self.Status.OFFLINE
+        # tree objects
         self._contexts = Container(label="Contexts")
         self._controllers = Container(label="Controllers")
-        self._lock = RLock()
-        self._scenes: Tuple[Scene, ...] = ()
-        self._status = self.Status.OFFLINE
+        self._scenes = Container(label="Scenes")
         self._transport = Transport()
         UniqueTreeTuple.__init__(
-            self, children=[self._transport, self._controllers, self._contexts]
+            self,
+            children=[self._transport, self._controllers, self._scenes, self._contexts],
         )
 
     ### SPECIAL METHODS ###
@@ -60,7 +64,7 @@ class Application(UniqueTreeTuple):
 
     ### PUBLIC METHODS ###
 
-    def add_context(self, name=None):
+    def add_context(self, *, name=None):
         with self.lock:
             if self.status == self.Status.NONREALTIME:
                 raise ValueError
@@ -78,8 +82,22 @@ class Application(UniqueTreeTuple):
             self._controllers._append(controller)
         return controller
 
-    def add_scene(self) -> Scene:
-        return Scene()
+    def add_scene(self, *, name=None) -> Scene:
+        from supriya.xdaw.clips import Slot
+
+        with self.lock:
+            scene = Scene(name=name)
+            self._scenes._append(scene)
+            tracks = deque()
+            for context in self.contexts:
+                tracks.extend(context.tracks)
+            while tracks:
+                track = tracks.pop()
+                if track.tracks:
+                    tracks.extend(track.tracks)
+                while len(track.slots) < len(self.scenes):
+                    track.slots._append(Slot())
+        return scene
 
     def boot(self):
         with self.lock:
@@ -103,12 +121,12 @@ class Application(UniqueTreeTuple):
     @classmethod
     def new(cls, context_count=1, track_count=4, scene_count=8):
         application = cls()
-        for _ in range(scene_count):
-            application.add_scene()
         for _ in range(context_count):
             context = application.add_context()
             for _ in range(track_count):
                 context.add_track()
+        for _ in range(scene_count):
+            application.add_scene()
         return application
 
     def perform(self, midi_messages, moment=None):
@@ -155,6 +173,21 @@ class Application(UniqueTreeTuple):
                 raise ValueError
             for controller in controllers:
                 self._controllers._remove(controller)
+
+    def remove_scenes(self, *scenes: Scene):
+        with self.lock:
+            if not all(scene in self.scenes for scene in scenes):
+                raise ValueError
+            indices = sorted(self.scenes.index(scene) for scene in scenes)
+            tracks = deque()
+            for context in self.contexts:
+                tracks.extend(context.tracks)
+            while tracks:
+                track = tracks.pop()
+                if track.tracks:
+                    tracks.extend(track.tracks)
+                for index in reversed(indices):
+                    track.slots._remove(track.slots[index])
 
     def render(self) -> Session:
         with self.lock:

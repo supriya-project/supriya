@@ -121,7 +121,7 @@ class Arpeggiator(DeviceObject):
             return
         self._callback_id = self.transport.cue(
             self._transport_note_on_callback,
-            event_type=2,
+            event_type=self.transport.EventType.MIDI_PERFORM,
             quantization=self._quantization,
         )
 

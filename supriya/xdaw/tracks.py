@@ -1,13 +1,13 @@
 import abc
 from types import MappingProxyType
-from typing import Dict, List, Mapping, Optional, Set, Tuple, Type, Union
+from typing import Dict, Mapping, Optional, Set, Tuple, Type, Union
 from uuid import UUID, uuid4
 
 import supriya.xdaw  # noqa
 from supriya.enums import AddAction, CalculationRate
 from supriya.typing import Default
 
-from .bases import Allocatable, AllocatableContainer, Mixer
+from .bases import Allocatable, AllocatableContainer, Container, Mixer
 from .clips import Slot
 from .devices import DeviceObject
 from .parameters import Action, Boolean, Float, Parameter, ParameterGroup
@@ -331,8 +331,7 @@ class TrackObject(Allocatable):
             serialized_send["spec"]["position"] = "postfader"
             sends.append(serialized_send)
         serialized["spec"].update(
-            devices=[device.serialize() for device in self.devices],
-            sends=sends,
+            devices=[device.serialize() for device in self.devices], sends=sends
         )
         for mapping in [serialized["meta"], serialized.get("spec", {}), serialized]:
             for key in tuple(mapping):
@@ -494,15 +493,48 @@ class Track(UserTrackObject):
         UserTrackObject.__init__(
             self, channel_count=channel_count, name=name, uuid=uuid
         )
+        self._active_slot_index: Optional[int] = None
+        self._active_slot_start_delta: 0.0
+        self._clip_fire_event_id: Optional[int] = None
+        self._clip_perform_event_id: Optional[int] = None
+        self._pending_slot_index: Optional[int] = None
+        self._slots = Container(label="Slots")
         self._tracks = TrackContainer("input", AddAction.ADD_AFTER, label="SubTracks")
-        self._slots: List[Slot, ...] = []
-        self._mutate(slice(1, 1), [self._tracks])
+        self._mutate(slice(1, 1), [self._slots, self._tracks])
         self.add_send(Default())
 
     ### PRIVATE METHODS ###
 
+    def _applicate(self, new_application):
+        UserTrackObject._applicate(self, new_application)
+        while len(new_application.scenes) < len(self.slots):
+            new_application.add_scene()
+        while len(self.slots) < len(new_application.scenes):
+            self.add_slot()
+
     def _cleanup(self):
         Track._update_activation(self)
+
+    def _clip_edit_callback(self, current_moment, desired_moment, event):
+        # check if current active notes match clip's expected active notes
+        # note off set difference
+        # should have event priority after fire but before perform
+        pass
+
+    def _clip_fire_callback(self, current_moment, desired_moment, event):
+        pass
+
+    def _clip_perform_callback(self, current_moment, desired_moment, event):
+        with self.lock([self]):
+            clip = self.slots[self._active_slot_index].clip
+            note_moment = clip.at(
+                desired_moment.offset, start_delta=self._active_slot_start_delta
+            )
+            midi_messages = note_moment.note_off_messages + note_moment.note_on_messages
+            self.perform(midi_messages, desired_moment)
+            if note_moment.next_offset is None:
+                return None
+            return note_moment.next_offset - desired_moment.offset
 
     @classmethod
     def _recurse_activation(
@@ -580,6 +612,20 @@ class Track(UserTrackObject):
             track = Track(name=name)
             self._tracks._append(track)
             return track
+
+    def fire(self, slot_index: int, quantization=None):
+        if not self.application:
+            return
+        self._pending_slot_index = slot_index
+        transport = self.transport
+        transport.cancel(self._clip_fire_event_id)
+        self._clip_fire_event_id = transport.cue(
+            self._clip_fire_callback,
+            quantization=quantization or transport.default_quantization,
+            event_type=transport.EventType.CLIP_FIRE,
+        )
+        if not transport.is_running:
+            transport.start()
 
     @classmethod
     def group(cls, tracks, *, name=None):
@@ -674,7 +720,7 @@ class Track(UserTrackObject):
 
     @property
     def slots(self) -> Tuple[Slot, ...]:
-        return tuple(self._slots)
+        return self._slots
 
     @property
     def tracks(self) -> "TrackContainer":

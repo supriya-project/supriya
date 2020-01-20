@@ -16,10 +16,12 @@ def test_1():
                     <Action "stop">
                     <Parameter "tempo" 120.0 [-] [-] {application.transport.parameters["tempo"].uuid}>
             <Controllers>
+            <Scenes>
             <Contexts>
                 <Context <?> [?] {context.uuid}>
                     <Tracks [?]>
                         <Track [?] {track.uuid}>
+                            <Slots>
                             <SubTracks [?]>
                             <Parameters [?]>
                                 <Parameter "active" True [-] [-] {context.tracks[0].parameters["active"].uuid}>
@@ -73,10 +75,12 @@ def test_2():
                     <Action "stop">
                     <Parameter "tempo" 120.0 [-] [-] {application.transport.parameters["tempo"].uuid}>
             <Controllers>
+            <Scenes>
             <Contexts>
                 <Context <RealtimeProvider <Server: udp://127.0.0.1:{context.provider.server.port}, 8i8o>> [{context.node_proxy.identifier}] {context.uuid}>
                     <Tracks [{context.tracks.node_proxy.identifier}]>
                         <Track [{track.node_proxy.identifier}] {track.uuid}>
+                            <Slots>
                             <SubTracks [{track.tracks.node_proxy.identifier}]>
                             <Parameters [1009]>
                                 <Parameter "active" True [-] [-] {context.tracks[0].parameters["active"].uuid}>

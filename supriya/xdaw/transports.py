@@ -1,3 +1,4 @@
+import enum
 from typing import Dict, Set, Union
 
 from supriya.clock import TempoClock
@@ -7,6 +8,21 @@ from .parameters import Action, Float, Parameter, ParameterGroup
 
 
 class Transport(ApplicationObject):
+
+    ### CLASS VARIABLES ###
+
+    class EventType(enum.IntEnum):
+        CHANGE = 0
+        SCHEDULE = 1
+        MIDI_PERFORM = 2
+        DEVICE_NOTE_OFF = 3
+        DEVICE_NOTE_ON = 4
+        CLIP_FIRE = 5
+        CLIP_EDIT = 6
+        CLIP_PERFORM = 7
+
+    ### INITIALIZER ###
+
     def __init__(self):
         ApplicationObject.__init__(self)
         self._parameter_group = ParameterGroup()
