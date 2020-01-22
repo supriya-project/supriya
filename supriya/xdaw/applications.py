@@ -179,6 +179,8 @@ class Application(UniqueTreeTuple):
             if not all(scene in self.scenes for scene in scenes):
                 raise ValueError
             indices = sorted(self.scenes.index(scene) for scene in scenes)
+            for scene in scenes:
+                self.scenes._remove(scene)
             tracks = deque()
             for context in self.contexts:
                 tracks.extend(context.tracks)

@@ -510,7 +510,7 @@ class Track(UserTrackObject):
         while len(new_application.scenes) < len(self.slots):
             new_application.add_scene()
         while len(self.slots) < len(new_application.scenes):
-            self.add_slot()
+            self.slots._append(Slot())
 
     def _cleanup(self):
         Track._update_activation(self)
