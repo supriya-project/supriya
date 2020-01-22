@@ -495,7 +495,7 @@ class Track(UserTrackObject):
         )
         self._active_slot_index: Optional[int] = None
         self._active_slot_start_delta: 0.0
-        self._clip_fire_event_id: Optional[int] = None
+        self._clip_launch_event_id: Optional[int] = None
         self._clip_perform_event_id: Optional[int] = None
         self._pending_slot_index: Optional[int] = None
         self._slots = Container(label="Slots")
@@ -521,7 +521,7 @@ class Track(UserTrackObject):
         # should have event priority after fire but before perform
         pass
 
-    def _clip_fire_callback(self, current_moment, desired_moment, event):
+    def _clip_launch_callback(self, current_moment, desired_moment, event):
         pass
 
     def _clip_perform_callback(self, current_moment, desired_moment, event):
@@ -535,6 +535,20 @@ class Track(UserTrackObject):
             if note_moment.next_offset is None:
                 return None
             return note_moment.next_offset - desired_moment.offset
+
+    def _fire(self, slot_index: int, quantization=None):
+        if not self.application:
+            return
+        self._pending_slot_index = slot_index
+        transport = self.transport
+        transport.cancel(self._clip_launch_event_id)
+        self._clip_launch_event_id = transport.cue(
+            self._clip_launch_callback,
+            quantization=quantization or transport.default_quantization,
+            event_type=transport.EventType.CLIP_LAUNCH,
+        )
+        if not transport.is_running:
+            transport.start()
 
     @classmethod
     def _recurse_activation(
@@ -612,20 +626,6 @@ class Track(UserTrackObject):
             track = Track(name=name)
             self._tracks._append(track)
             return track
-
-    def fire(self, slot_index: int, quantization=None):
-        if not self.application:
-            return
-        self._pending_slot_index = slot_index
-        transport = self.transport
-        transport.cancel(self._clip_fire_event_id)
-        self._clip_fire_event_id = transport.cue(
-            self._clip_fire_callback,
-            quantization=quantization or transport.default_quantization,
-            event_type=transport.EventType.CLIP_FIRE,
-        )
-        if not transport.is_running:
-            transport.start()
 
     @classmethod
     def group(cls, tracks, *, name=None):

@@ -17,7 +17,7 @@ class Transport(ApplicationObject):
         MIDI_PERFORM = 2
         DEVICE_NOTE_OFF = 3
         DEVICE_NOTE_ON = 4
-        CLIP_FIRE = 5
+        CLIP_LAUNCH = 5
         CLIP_EDIT = 6
         CLIP_PERFORM = 7
 

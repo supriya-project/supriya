@@ -14,6 +14,9 @@ class Envelope:
 
 
 class ClipObject(ApplicationObject):
+
+    ### INITIALIZER ###
+
     def __init__(self, *, name=None, uuid=None):
         ApplicationObject.__init__(self, name=name)
         self._uuid = uuid or uuid4()
@@ -44,12 +47,6 @@ class Clip(ClipObject):
         self.add_notes(notes or [])
 
     ### SPECIAL METHODS ###
-
-    def __iter__(self):
-        return iter(self._interval_tree)
-
-    def __len__(self):
-        return len(self._interval_tree)
 
     def __str__(self):
         obj_name = type(self).__name__
@@ -116,12 +113,20 @@ class Slot(ApplicationObject):
     ### PRIVATE METHODS ###
 
     def _set_clip(self, clip):
-        pass
+        with self.lock([self]):
+            if clip is self.clip:
+                return
+            if self.clip is not None:
+                self._remove(self.clip)
+            if clip is not None:
+                self._append(clip)
 
     ### PUBLIC METHODS ###
 
     def add_clip(self):
-        self._set_clip(Clip())
+        clip = Clip()
+        self._set_clip(clip)
+        return clip
 
     def duplicate_clip(self):
         pass
@@ -144,7 +149,10 @@ class Slot(ApplicationObject):
 
     @property
     def clip(self):
-        return self[0]
+        try:
+            return self[0]
+        except IndexError:
+            return None
 
     @property
     def track(self):
