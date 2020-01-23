@@ -44,14 +44,14 @@ class NoteMoment:
     def note_on_messages(self):
         return [
             NoteOnMessage(note_number=note.pitch, velocity=note.velocity)
-            for note in self.start_notes
+            for note in self.start_notes or ()
         ]
 
     @property
     def note_off_messages(self):
         return [
             NoteOffMessage(note_number=note.pitch, velocity=note.velocity)
-            for note in self.stop_notes
+            for note in self.stop_notes or ()
         ]
 
 
@@ -290,8 +290,8 @@ class Slot(ApplicationObject):
 
     ### PUBLIC METHODS ###
 
-    def add_clip(self):
-        clip = Clip()
+    def add_clip(self, *, notes=None, is_looping=True):
+        clip = Clip(notes=notes, is_looping=is_looping)
         self._set_clip(clip)
         return clip
 
@@ -304,7 +304,7 @@ class Slot(ApplicationObject):
         track = self.track
         if track is None:
             return
-        track.fire(self)
+        track._fire(self.parent.index(self))
 
     def move_clip(self, slot):
         slot._set_clip(self.clip)

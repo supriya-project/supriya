@@ -522,29 +522,76 @@ class Track(UserTrackObject):
         pass
 
     def _clip_launch_callback(self, current_moment, desired_moment, event):
-        pass
+        with self.lock([self]):
+            self._debug_tree(
+                self,
+                "Launch/CB",
+                suffix="{} {}".format(self._pending_slot_index, desired_moment.offset),
+            )
+            self._clip_launch_event_id = None
+            # if a clip is active, perform note offs
+            if self._active_slot_index is not None:
+                clip = self.slots[self._active_slot_index].clip
+                clip_moment = clip.at(
+                    desired_moment.offset,
+                    start_delta=self._active_slot_start_delta,
+                    force_stop=True,
+                )
+                self.perform(clip_moment.note_off_messages, moment=desired_moment)
+            # if pending clip is null-ish, null out variables
+            if (
+                self._pending_slot_index is None
+                or (
+                    self._pending_slot_index is not None
+                    and not (0 <= self._pending_slot_index < len(self.slots))
+                )
+                or self.slots[self._pending_slot_index].clip is None
+            ):
+                self._active_slot_start_delta = None
+                self._active_slot_index = None
+                self._pending_slot_index = None
+                self._debug_tree(self, "Launch/CB", suffix="Bailing")
+                return
+            # set variables to new clip
+            self._active_slot_index = self._pending_slot_index
+            self._active_slot_start_delta = desired_moment.offset
+            # schedule perform callback
+            if self._clip_perform_event_id:
+                self.transport._clock.reschedule(
+                    self._clip_perform_event_id, schedule_at=desired_moment.offset
+                )
+            else:
+                self._clip_perform_event_id = self.transport._clock.schedule(
+                    self._clip_perform_callback,
+                    schedule_at=desired_moment.offset,
+                    event_type=self.transport.EventType.CLIP_PERFORM,
+                )
 
     def _clip_perform_callback(self, current_moment, desired_moment, event):
         with self.lock([self]):
+            self._debug_tree(self, "Perform/CB", suffix=str(self._active_slot_index))
             clip = self.slots[self._active_slot_index].clip
             note_moment = clip.at(
                 desired_moment.offset, start_delta=self._active_slot_start_delta
             )
-            midi_messages = note_moment.note_off_messages + note_moment.note_on_messages
+            midi_messages = (note_moment.note_off_messages or []) + (
+                note_moment.note_on_messages or []
+            )
             self.perform(midi_messages, desired_moment)
             if note_moment.next_offset is None:
                 return None
             return note_moment.next_offset - desired_moment.offset
 
-    def _fire(self, slot_index: int, quantization=None):
+    def _fire(self, slot_index, quantization=None):
         if not self.application:
             return
+        self._debug_tree(self, "Firing", suffix=str(slot_index))
         self._pending_slot_index = slot_index
         transport = self.transport
-        transport.cancel(self._clip_launch_event_id)
+        transport._clock.cancel(self._clip_launch_event_id)
         self._clip_launch_event_id = transport.cue(
             self._clip_launch_callback,
-            quantization=quantization or transport.default_quantization,
+            quantization=quantization or "1M",
             event_type=transport.EventType.CLIP_LAUNCH,
         )
         if not transport.is_running:
