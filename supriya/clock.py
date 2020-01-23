@@ -202,15 +202,18 @@ class TempoClock:
 
     def _get_cue_point(self, seconds, quantization):
         moment = self._seconds_to_moment(seconds)
+        logger.debug(f"Moment? {moment}")
         if quantization is None:
             offset, measure = moment.offset, None
         elif "M" in quantization:
+            # TODO: This math is wrong
+            #       Take into account measure-internal offset
+            #       Take into account aligning to measure boundaries
             measure_grid = int(quantization[0])
-            measure = (
-                (((moment.measure - 1) // measure_grid) * measure_grid)
-                + measure_grid
-                + 1
-            )
+            grid_offset = moment.measure - 1 + (moment.measure_offset > 0)
+            count, modulus = divmod(grid_offset, measure_grid)
+            count += modulus > 0
+            measure = (count * measure_grid) + 1
             offset = self._measure_to_offset(measure)
         else:
             measure = None
@@ -475,11 +478,12 @@ class TempoClock:
 
     def _process_command_deque(self, first_run=False):
         while self._command_deque:
-            logger.debug(f"[{self.name}] ... Processing command deque")
+            logger.debug(f"[{self.name}] ... Processing command deque ({first_run})")
             command = self._command_deque.popleft()
             if self._events_by_id.pop(command.event_id, None) is None:
                 continue
             schedule_at = command.schedule_at
+            logger.debug(f"[{self.name}] ... ... Scheduled at {schedule_at}")
             if command.quantization is not None:
                 # If the command was queued before the clock was started,
                 # reset its reference time
