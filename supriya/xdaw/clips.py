@@ -188,8 +188,38 @@ class Clip(ClipObject):
             self._interval_tree.update(to_add)
 
     def at(self, offset, start_delta=0.0, force_stop=False):
+        start_notes, stop_notes, overlap_notes = [], [], []
+        local_offset = loop_local_offset = offset - start_delta
+        count = 0
         with self.lock:
-            pass
+            if self.is_looping and local_offset >= 0.0:
+                count, loop_local_offset = divmod(local_offset, self.clip_stop)
+            moment = self._interval_tree.get_moment_at(loop_local_offset)
+            start_notes = moment.start_intervals
+            stop_notes = moment.stop_intervals
+            overlap_notes = moment.overlap_intervals
+            if count and not loop_local_offset:  # at a non-zero loop boundary
+                moment_two = self._interval_tree.get_moment_at(self.duration)
+                stop_notes.extend(moment_two.overlap_intervals)
+                stop_notes.extend(moment_two.stop_intervals)
+            next_offset = self._interval_tree.get_offset_after(loop_local_offset)
+            if next_offset is None and self.is_looping:
+                next_offset = self.duration
+            if next_offset is not None:
+                if self.is_looping:
+                    next_offset = min([next_offset, self.duration])
+                next_offset += start_delta + (count * self.duration)
+            if force_stop:
+                start_notes[:] = []
+                stop_notes.extend(overlap_notes)
+                next_offset = None
+            return NoteMoment(
+                offset=offset,
+                local_offset=loop_local_offset,
+                next_offset=next_offset,
+                start_notes=start_notes or None,
+                stop_notes=stop_notes or None,
+            )
 
     def remove_notes(self, notes):
         with self.lock:
