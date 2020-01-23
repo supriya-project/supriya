@@ -2,7 +2,7 @@ from .applications import Application
 from .audioeffects import AudioEffect
 from .bases import Allocatable, AllocatableContainer, ApplicationObject, Container
 from .chains import Chain, ChainContainer, RackDevice
-from .clips import Clip, Envelope, Scene, Slot, Timeline
+from .clips import Clip, Envelope, Note, Scene, Slot, Timeline
 from .contexts import Context
 from .controllers import Controller
 from .devices import DeviceIn, DeviceObject, DeviceOut
@@ -47,6 +47,7 @@ __all__ = [
     "Instrument",
     "Integer",
     "MasterTrack",
+    "Note",
     "Parameter",
     "Patch",
     "RackDevice",
