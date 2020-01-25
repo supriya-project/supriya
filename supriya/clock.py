@@ -202,7 +202,6 @@ class TempoClock:
 
     def _get_cue_point(self, seconds, quantization):
         moment = self._seconds_to_moment(seconds)
-        logger.debug(f"Moment? {moment}")
         if quantization is None:
             offset, measure = moment.offset, None
         elif "M" in quantization:

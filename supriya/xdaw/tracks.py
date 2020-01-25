@@ -5,6 +5,7 @@ from uuid import UUID, uuid4
 
 import supriya.xdaw  # noqa
 from supriya.enums import AddAction, CalculationRate
+from supriya.midi import NoteOffMessage, NoteOnMessage
 from supriya.typing import Default
 
 from .bases import Allocatable, AllocatableContainer, Container, Mixer
@@ -293,6 +294,11 @@ class TrackObject(Allocatable):
             self, "Perform", suffix=repr([type(_).__name__ for _ in midi_messages])
         )
         with self.lock([self], seconds=moment.seconds if moment is not None else None):
+            for midi_message in midi_messages:
+                if isinstance(midi_message, NoteOnMessage):
+                    self._active_notes.add(midi_message.note_number)
+                elif isinstance(midi_message, NoteOffMessage):
+                    self._active_notes.remove(midi_message.note_number)
             if not self.devices:
                 return
             self.devices[0].perform(midi_messages, moment=moment)
@@ -497,6 +503,7 @@ class Track(UserTrackObject):
         self._active_slot_start_delta: 0.0
         self._clip_launch_event_id: Optional[int] = None
         self._clip_perform_event_id: Optional[int] = None
+        self._active_notes: Set[float] = set()
         self._pending_slot_index: Optional[int] = None
         self._slots = Container(label="Slots")
         self._tracks = TrackContainer("input", AddAction.ADD_AFTER, label="SubTracks")
@@ -515,12 +522,6 @@ class Track(UserTrackObject):
     def _cleanup(self):
         Track._update_activation(self)
 
-    def _clip_edit_callback(self, current_moment, desired_moment, event):
-        # check if current active notes match clip's expected active notes
-        # note off set difference
-        # should have event priority after fire but before perform
-        pass
-
     def _clip_launch_callback(self, current_moment, desired_moment, event):
         with self.lock([self]):
             self._debug_tree(
@@ -531,13 +532,12 @@ class Track(UserTrackObject):
             self._clip_launch_event_id = None
             # if a clip is active, perform note offs
             if self._active_slot_index is not None:
-                clip = self.slots[self._active_slot_index].clip
-                clip_moment = clip.at(
-                    desired_moment.offset,
-                    start_delta=self._active_slot_start_delta,
-                    force_stop=True,
-                )
-                self.perform(clip_moment.note_off_messages, moment=desired_moment)
+                self.slots[self._active_slot_index].clip._is_playing = False
+                midi_messages = [
+                    NoteOffMessage(note_number=pitch) for pitch in self._active_notes
+                ]
+                if midi_messages:
+                    self.perform(midi_messages, moment=desired_moment)
             # if pending clip is null-ish, null out variables
             if (
                 self._pending_slot_index is None
@@ -555,29 +555,37 @@ class Track(UserTrackObject):
             # set variables to new clip
             self._active_slot_index = self._pending_slot_index
             self._active_slot_start_delta = desired_moment.offset
+            self.slots[self._active_slot_index].clip._is_playing = True
             # schedule perform callback
-            if self._clip_perform_event_id:
-                self.transport._clock.reschedule(
-                    self._clip_perform_event_id, schedule_at=desired_moment.offset
-                )
-            else:
-                self._clip_perform_event_id = self.transport._clock.schedule(
-                    self._clip_perform_callback,
-                    schedule_at=desired_moment.offset,
-                    event_type=self.transport.EventType.CLIP_PERFORM,
-                )
+            self.transport._clock.cancel(self._clip_launch_event_id)
+            self._clip_perform_event_id = self.transport._clock.schedule(
+                self._clip_perform_callback,
+                schedule_at=desired_moment.offset,
+                event_type=self.transport.EventType.CLIP_PERFORM,
+            )
 
     def _clip_perform_callback(self, current_moment, desired_moment, event):
         with self.lock([self]):
             self._debug_tree(self, "Perform/CB", suffix=str(self._active_slot_index))
+            if self._active_slot_index is None:
+                return None
             clip = self.slots[self._active_slot_index].clip
             note_moment = clip.at(
                 desired_moment.offset, start_delta=self._active_slot_start_delta
             )
-            midi_messages = (note_moment.note_off_messages or []) + (
-                note_moment.note_on_messages or []
-            )
-            self.perform(midi_messages, desired_moment)
+            active_notes = sorted(self._active_notes)
+            midi_messages = []
+            for midi_message in note_moment.note_off_messages:
+                midi_messages.append(midi_message)
+                if midi_message.note_number in active_notes:
+                    active_notes.remove(midi_message.note_number)
+            overlap_pitches = set(_.pitch for _ in note_moment.overlap_notes or [])
+            for active_note in active_notes:
+                if active_note not in overlap_pitches:
+                    midi_messages.append(NoteOffMessage(note_number=active_note))
+            midi_messages.extend(note_moment.note_on_messages)
+            if midi_messages:
+                self.perform(midi_messages, desired_moment)
             if note_moment.next_offset is None:
                 return None
             return note_moment.next_offset - desired_moment.offset
@@ -591,6 +599,7 @@ class Track(UserTrackObject):
         transport._clock.cancel(self._clip_launch_event_id)
         self._clip_launch_event_id = transport.cue(
             self._clip_launch_callback,
+            # TODO: Get default quantization from transport itself
             quantization=quantization or "1M",
             event_type=transport.EventType.CLIP_LAUNCH,
         )

@@ -4,6 +4,7 @@ from collections import deque
 from typing import Optional, Tuple
 from uuid import uuid4
 
+from supriya.clock import TimeUnit
 from supriya.intervals import IntervalTree
 from supriya.midi import NoteOffMessage, NoteOnMessage
 
@@ -39,6 +40,7 @@ class NoteMoment:
     next_offset: Optional[float] = None
     start_notes: Optional[Tuple[Note]] = None
     stop_notes: Optional[Tuple[Note]] = None
+    overlap_notes: Optional[Tuple[Note]] = None
 
     @property
     def note_on_messages(self):
@@ -93,6 +95,7 @@ class Clip(ClipObject):
         ClipObject.__init__(self, name=name, uuid=uuid)
         self._duration = float(duration)
         self._is_looping = is_looping
+        self._is_playing = False
         self._interval_tree = IntervalTree()
         self._lock = threading.RLock()
         self.add_notes(notes or [])
@@ -107,6 +110,17 @@ class Clip(ClipObject):
                 *(f"    {line}" for child in self for line in str(child).splitlines()),
             ]
         )
+
+    ### PRIVATE METHODS ###
+
+    def _notify(self):
+        if self.application is not None and self.is_playing:
+            track = self.parent.parent.parent
+            self.transport._clock.reschedule(
+                track._clip_perform_event_id,
+                schedule_at=self.transport._clock.get_current_time(),
+                time_unit=TimeUnit.SECONDS,
+            )
 
     ### PUBLIC METHODS ###
 
@@ -167,6 +181,7 @@ class Clip(ClipObject):
                     )
             return invalidated_old_notes, truncated_old_notes
 
+        self._debug_tree(self, "Editing")
         to_add = []
         to_remove = []
         new_notes_by_pitch = {}
@@ -186,6 +201,7 @@ class Clip(ClipObject):
         with self.lock:
             self.remove_notes(to_remove)
             self._interval_tree.update(to_add)
+            self._notify()
 
     def at(self, offset, start_delta=0.0, force_stop=False):
         start_notes, stop_notes, overlap_notes = [], [], []
@@ -212,6 +228,7 @@ class Clip(ClipObject):
             if force_stop:
                 start_notes[:] = []
                 stop_notes.extend(overlap_notes)
+                overlap_notes[:] = []
                 next_offset = None
             return NoteMoment(
                 offset=offset,
@@ -219,12 +236,15 @@ class Clip(ClipObject):
                 next_offset=next_offset,
                 start_notes=start_notes or None,
                 stop_notes=stop_notes or None,
+                overlap_notes=overlap_notes or None,
             )
 
     def remove_notes(self, notes):
+        self._debug_tree(self, "Editing")
         with self.lock:
             for note in notes:
                 self._interval_tree.remove(note)
+            self._notify()
 
     ### PUBLIC PROPERTIES ###
 
@@ -246,7 +266,7 @@ class Clip(ClipObject):
 
     @property
     def is_playing(self):
-        pass
+        return self._is_playing
 
     @property
     def lock(self):

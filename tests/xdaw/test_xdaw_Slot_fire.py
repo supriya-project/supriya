@@ -4,7 +4,7 @@ import time
 import pytest
 
 from supriya.clock import Moment
-from supriya.midi import NoteOnMessage
+from supriya.midi import NoteOffMessage, NoteOnMessage
 from supriya.xdaw import Application, Instrument, Note
 
 
@@ -32,6 +32,9 @@ def application():
 
 
 def test_1(mocker, application):
+    """
+    Fire non-empty slot, then fire empty-slot
+    """
     time_mock = mocker.patch.object(application.transport._clock, "get_current_time")
     time_mock.return_value = 0.0
     with application.contexts[0].tracks[0].devices[0].capture() as transcript:
@@ -52,11 +55,75 @@ def test_1(mocker, application):
             message=NoteOnMessage(note_number=60, velocity=100.0),
         )
     ]
-    # time_mock.return_value = 0.125
-    # time.sleep(0.01)
     with application.contexts[0].tracks[0].devices[0].capture() as transcript:
         application.contexts[0].tracks[0].slots[1].fire()
-        time.sleep(0.1)
-    assert list(transcript) == []
-    # we should expect a note-off here
-    raise Exception
+        time.sleep(0.01)
+    assert list(transcript) == [
+        Instrument.CaptureEntry(
+            moment=Moment(
+                beats_per_minute=120.0,
+                measure=1,
+                measure_offset=0.0,
+                offset=0.0,
+                seconds=0.0,
+                time_signature=(4, 4),
+            ),
+            label="I",
+            message=NoteOffMessage(note_number=60),
+        )
+    ]
+
+
+def test_2(mocker, application):
+    """
+    Fire non-empty slot, then re-fire same slot
+    """
+    time_mock = mocker.patch.object(application.transport._clock, "get_current_time")
+    time_mock.return_value = 0.0
+    with application.contexts[0].tracks[0].devices[0].capture() as transcript:
+        application.contexts[0].tracks[0].slots[0].fire()
+        time.sleep(0.01)
+    assert application.transport.is_running
+    assert list(transcript) == [
+        Instrument.CaptureEntry(
+            moment=Moment(
+                beats_per_minute=120.0,
+                measure=1,
+                measure_offset=0.0,
+                offset=0.0,
+                seconds=0.0,
+                time_signature=(4, 4),
+            ),
+            label="I",
+            message=NoteOnMessage(note_number=60, velocity=100.0),
+        )
+    ]
+    with application.contexts[0].tracks[0].devices[0].capture() as transcript:
+        application.contexts[0].tracks[0].slots[0].fire()
+        time.sleep(0.01)
+    assert list(transcript) == [
+        Instrument.CaptureEntry(
+            moment=Moment(
+                beats_per_minute=120.0,
+                measure=1,
+                measure_offset=0.0,
+                offset=0.0,
+                seconds=0.0,
+                time_signature=(4, 4),
+            ),
+            label="I",
+            message=NoteOffMessage(note_number=60),
+        ),
+        Instrument.CaptureEntry(
+            moment=Moment(
+                beats_per_minute=120.0,
+                measure=1,
+                measure_offset=0.0,
+                offset=0.0,
+                seconds=0.0,
+                time_signature=(4, 4),
+            ),
+            label="I",
+            message=NoteOnMessage(note_number=60, velocity=100.0),
+        ),
+    ]

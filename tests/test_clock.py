@@ -421,10 +421,10 @@ def test_cue_measures(tempo_clock):
     tempo_clock.start()
     tempo_clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
     assert set_time_and_check(0.0, tempo_clock, store) == [
-        (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
+        (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0])
     ]
     assert set_time_and_check(0.5, tempo_clock, store) == [
-        (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
+        (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0])
     ]
     tempo_clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
     assert set_time_and_check(2.0, tempo_clock, store) == [
