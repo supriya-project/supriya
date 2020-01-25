@@ -413,9 +413,32 @@ def test_cue_basic(tempo_clock):
 
 @pytest.mark.flaky(reruns=5)
 @pytest.mark.timeout(5)
+def test_cue_measures(tempo_clock):
+    """
+    Measure-wise cueing aligns to offset 0.0
+    """
+    store = []
+    tempo_clock.start()
+    tempo_clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
+    assert set_time_and_check(0.0, tempo_clock, store) == [
+        (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
+    ]
+    assert set_time_and_check(0.5, tempo_clock, store) == [
+        (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
+    ]
+    tempo_clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
+    assert set_time_and_check(2.0, tempo_clock, store) == [
+        (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
+        (["4/4", 120.0], [2, 0.0, 1.0, 2.0], [2, 0.0, 1.0, 2.0]),
+    ]
+
+
+@pytest.mark.flaky(reruns=5)
+@pytest.mark.timeout(5)
 def test_cue_and_reschedule(tempo_clock):
     store = []
     tempo_clock.start()
+    assert set_time_and_check(0.25, tempo_clock, store) == []
     tempo_clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
     tempo_clock.cue(callback, quantization="2M", args=[store], kwargs={"limit": 0})
     tempo_clock.schedule_change(schedule_at=1.0, time_signature=(5, 4))
@@ -454,12 +477,12 @@ def test_cue_invalid(tempo_clock):
 def test_reschedule_earlier(tempo_clock):
     store = []
     tempo_clock.start()
+    assert set_time_and_check(0.5, tempo_clock, store) == []
     event_id = tempo_clock.cue(
         callback, quantization="1M", args=[store], kwargs={"limit": 0}
     )
     time.sleep(tempo_clock.slop * 2)
     assert tempo_clock.peek().seconds == 2.0
-    assert set_time_and_check(0.0, tempo_clock, store) == []
     tempo_clock.reschedule(event_id, schedule_at=0.5)
     time.sleep(tempo_clock.slop * 2)
     assert tempo_clock.peek().seconds == 1.0
@@ -473,12 +496,12 @@ def test_reschedule_earlier(tempo_clock):
 def test_reschedule_later(tempo_clock):
     store = []
     tempo_clock.start()
+    assert set_time_and_check(0.5, tempo_clock, store) == []
     event_id = tempo_clock.cue(
         callback, quantization="1M", args=[store], kwargs={"limit": 0}
     )
     time.sleep(tempo_clock.slop * 2)
     assert tempo_clock.peek().seconds == 2.0
-    assert set_time_and_check(0.0, tempo_clock, store) == []
     tempo_clock.reschedule(event_id, schedule_at=1.5)
     time.sleep(tempo_clock.slop * 2)
     assert tempo_clock.peek().seconds == 3.0
