@@ -30,7 +30,7 @@ def test_timeout(application):
     application["Track"].add_device(Arpeggiator)
     application["Track"].add_device(Instrument, synthdef=default)
     time.sleep(0.1)
-    application.transport.perform([NoteOnMessage(note_number=60, velocity=100)])
+    application.transport.perform([NoteOnMessage(pitch=60, velocity=100)])
     time.sleep(1.0)
     application.quit()
 
@@ -61,22 +61,22 @@ def test_midi_transcript_1(mocker, application):
     arpeggiator = application["Track"].add_device(Arpeggiator)
     assert not application.transport.is_running
     with arpeggiator.capture() as transcript:
-        application.transport.perform([NoteOnMessage(note_number=60, velocity=100)])
+        application.transport.perform([NoteOnMessage(pitch=60, velocity=100)])
         assert application.transport.is_running
         time.sleep(0.1)
         time_mock.return_value = 0.5
         time.sleep(0.1)
     assert [(_.label, _.moment.offset, _.message) for _ in transcript] == [
-        ("I", 0.0, NoteOnMessage(note_number=60, velocity=100)),
-        ("O", 0.0, NoteOnMessage(note_number=60, velocity=100)),
-        ("O", 0.0625, NoteOffMessage(note_number=60)),
-        ("O", 0.0625, NoteOnMessage(note_number=60, velocity=100)),
-        ("O", 0.125, NoteOffMessage(note_number=60)),
-        ("O", 0.125, NoteOnMessage(note_number=60, velocity=100)),
-        ("O", 0.1875, NoteOffMessage(note_number=60)),
-        ("O", 0.1875, NoteOnMessage(note_number=60, velocity=100)),
-        ("O", 0.25, NoteOffMessage(note_number=60)),
-        ("O", 0.25, NoteOnMessage(note_number=60, velocity=100)),
+        ("I", 0.0, NoteOnMessage(pitch=60, velocity=100)),
+        ("O", 0.0, NoteOnMessage(pitch=60, velocity=100)),
+        ("O", 0.0625, NoteOffMessage(pitch=60)),
+        ("O", 0.0625, NoteOnMessage(pitch=60, velocity=100)),
+        ("O", 0.125, NoteOffMessage(pitch=60)),
+        ("O", 0.125, NoteOnMessage(pitch=60, velocity=100)),
+        ("O", 0.1875, NoteOffMessage(pitch=60)),
+        ("O", 0.1875, NoteOnMessage(pitch=60, velocity=100)),
+        ("O", 0.25, NoteOffMessage(pitch=60)),
+        ("O", 0.25, NoteOnMessage(pitch=60, velocity=100)),
     ]
 
 
@@ -86,24 +86,24 @@ def test_midi_transcript_2(mocker, application):
     arpeggiator = application["Track"].add_device(Arpeggiator)
     assert not application.transport.is_running
     with arpeggiator.capture() as transcript:
-        application.transport.perform([NoteOnMessage(note_number=60, velocity=100)])
-        application.transport.perform([NoteOnMessage(note_number=63, velocity=100)])
-        application.transport.perform([NoteOnMessage(note_number=67, velocity=100)])
+        application.transport.perform([NoteOnMessage(pitch=60, velocity=100)])
+        application.transport.perform([NoteOnMessage(pitch=63, velocity=100)])
+        application.transport.perform([NoteOnMessage(pitch=67, velocity=100)])
         assert application.transport.is_running
         time.sleep(0.1)
         time_mock.return_value = 0.5
         time.sleep(0.1)
     assert [(_.label, _.moment.offset, _.message) for _ in transcript] == [
-        ("I", 0.0, NoteOnMessage(note_number=60, velocity=100)),
-        ("I", 0.0, NoteOnMessage(note_number=63, velocity=100)),
-        ("I", 0.0, NoteOnMessage(note_number=67, velocity=100)),
-        ("O", 0.0, NoteOnMessage(note_number=60, velocity=100)),
-        ("O", 0.0625, NoteOffMessage(note_number=60)),
-        ("O", 0.0625, NoteOnMessage(note_number=63, velocity=100)),
-        ("O", 0.125, NoteOffMessage(note_number=63)),
-        ("O", 0.125, NoteOnMessage(note_number=67, velocity=100)),
-        ("O", 0.1875, NoteOffMessage(note_number=67)),
-        ("O", 0.1875, NoteOnMessage(note_number=60, velocity=100)),
-        ("O", 0.25, NoteOffMessage(note_number=60)),
-        ("O", 0.25, NoteOnMessage(note_number=63, velocity=100)),
+        ("I", 0.0, NoteOnMessage(pitch=60, velocity=100)),
+        ("I", 0.0, NoteOnMessage(pitch=63, velocity=100)),
+        ("I", 0.0, NoteOnMessage(pitch=67, velocity=100)),
+        ("O", 0.0, NoteOnMessage(pitch=60, velocity=100)),
+        ("O", 0.0625, NoteOffMessage(pitch=60)),
+        ("O", 0.0625, NoteOnMessage(pitch=63, velocity=100)),
+        ("O", 0.125, NoteOffMessage(pitch=63)),
+        ("O", 0.125, NoteOnMessage(pitch=67, velocity=100)),
+        ("O", 0.1875, NoteOffMessage(pitch=67)),
+        ("O", 0.1875, NoteOnMessage(pitch=60, velocity=100)),
+        ("O", 0.25, NoteOffMessage(pitch=60)),
+        ("O", 0.25, NoteOnMessage(pitch=63, velocity=100)),
     ]

@@ -41,7 +41,7 @@ class Controller(ApplicationObject):
         if message_type == 8:
             message = NoteOffMessage(
                 channel_number=channel_number,
-                note_number=data[0],
+                pitch=data[0],
                 velocity=data[1],
                 timestamp=timestamp,
             )
@@ -51,7 +51,7 @@ class Controller(ApplicationObject):
                 class_ = NoteOffMessage
             message = class_(
                 channel_number=channel_number,
-                note_number=data[0],
+                pitch=data[0],
                 velocity=data[1],
                 timestamp=timestamp,
             )

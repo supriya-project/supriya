@@ -52,7 +52,7 @@ def test_1(mocker, application):
                 time_signature=(4, 4),
             ),
             label="I",
-            message=NoteOnMessage(note_number=60, velocity=100.0),
+            message=NoteOnMessage(pitch=60, velocity=100.0),
         )
     ]
     with application.contexts[0].tracks[0].devices[0].capture() as transcript:
@@ -69,7 +69,7 @@ def test_1(mocker, application):
                 time_signature=(4, 4),
             ),
             label="I",
-            message=NoteOffMessage(note_number=60),
+            message=NoteOffMessage(pitch=60),
         )
     ]
 
@@ -95,7 +95,7 @@ def test_2(mocker, application):
                 time_signature=(4, 4),
             ),
             label="I",
-            message=NoteOnMessage(note_number=60, velocity=100.0),
+            message=NoteOnMessage(pitch=60, velocity=100.0),
         )
     ]
     with application.contexts[0].tracks[0].devices[0].capture() as transcript:
@@ -112,7 +112,7 @@ def test_2(mocker, application):
                 time_signature=(4, 4),
             ),
             label="I",
-            message=NoteOffMessage(note_number=60),
+            message=NoteOffMessage(pitch=60),
         ),
         Instrument.CaptureEntry(
             moment=Moment(
@@ -124,6 +124,6 @@ def test_2(mocker, application):
                 time_signature=(4, 4),
             ),
             label="I",
-            message=NoteOnMessage(note_number=60, velocity=100.0),
+            message=NoteOnMessage(pitch=60, velocity=100.0),
         ),
     ]

@@ -5,22 +5,22 @@ class NoteOffMessage(MidiMessage):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ("_note_number", "_velocity")
+    __slots__ = ("_pitch", "_velocity")
 
     ### INITIALIZER ###
 
     def __init__(
-        self, channel_number=None, note_number=None, timestamp=None, velocity=None
+        self, channel_number=None, pitch=None, timestamp=None, velocity=None
     ):
         MidiMessage.__init__(self, channel_number=channel_number, timestamp=timestamp)
-        self._note_number = note_number
+        self._pitch = pitch
         self._velocity = velocity
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def note_number(self):
-        return self._note_number
+    def pitch(self):
+        return self._pitch
 
     @property
     def velocity(self):

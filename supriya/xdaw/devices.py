@@ -227,14 +227,14 @@ class DeviceObject(Allocatable):
     ### PRIVATE METHODS ###
 
     def _handle_note_off(self, moment, midi_message):
-        self._input_notes.remove(midi_message.note_number)
+        self._input_notes.remove(midi_message.pitch)
         return [midi_message]
 
     def _handle_note_on(self, moment, midi_message):
         result = []
-        if midi_message.note_number in self._input_notes:
+        if midi_message.pitch in self._input_notes:
             result.extend(self._handle_note_off(moment, midi_message))
-        self._input_notes.add(midi_message.note_number)
+        self._input_notes.add(midi_message.pitch)
         result.append(midi_message)
         return result
 

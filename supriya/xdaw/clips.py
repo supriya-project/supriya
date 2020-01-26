@@ -45,14 +45,14 @@ class NoteMoment:
     @property
     def note_on_messages(self):
         return [
-            NoteOnMessage(note_number=note.pitch, velocity=note.velocity)
+            NoteOnMessage(pitch=note.pitch, velocity=note.velocity)
             for note in self.start_notes or ()
         ]
 
     @property
     def note_off_messages(self):
         return [
-            NoteOffMessage(note_number=note.pitch, velocity=note.velocity)
+            NoteOffMessage(pitch=note.pitch, velocity=note.velocity)
             for note in self.stop_notes or ()
         ]
 

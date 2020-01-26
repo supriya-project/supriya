@@ -24,11 +24,11 @@ def test_1(application):
     instrument = track.add_device(Instrument, synthdef=default)
     time.sleep(0.01)
     with instrument.lock(instrument, 0.0), instrument.capture() as transcript:
-        instrument.perform([NoteOnMessage(note_number=57, velocity=100)])
+        instrument.perform([NoteOnMessage(pitch=57, velocity=100)])
     time.sleep(0.01)
     assert list(transcript) == [
         instrument.CaptureEntry(
-            moment=None, label="I", message=NoteOnMessage(note_number=57, velocity=100)
+            moment=None, label="I", message=NoteOnMessage(pitch=57, velocity=100)
         )
     ]
     assert str(instrument.query()) == normalize(
@@ -45,11 +45,11 @@ def test_1(application):
         """
     )
     with instrument.lock(instrument, 0.0), instrument.capture() as transcript:
-        instrument.perform([NoteOnMessage(note_number=57, velocity=127)])
+        instrument.perform([NoteOnMessage(pitch=57, velocity=127)])
     time.sleep(0.01)
     assert list(transcript) == [
         instrument.CaptureEntry(
-            moment=None, label="I", message=NoteOnMessage(note_number=57, velocity=127)
+            moment=None, label="I", message=NoteOnMessage(pitch=57, velocity=127)
         )
     ]
     assert str(instrument.query()) == normalize(
