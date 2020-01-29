@@ -35,43 +35,6 @@ udp_in_logger = logging.getLogger("supriya.udp.in")
 udp_out_logger = logging.getLogger("supriya.udp.out")
 
 
-def decode_date(data):
-    data, remainder = data[:8], data[8:]
-    if data == IMMEDIATELY:
-        return None, remainder
-    date = (struct.unpack(">Q", data)[0] / SECONDS_TO_NTP_TIMESTAMP) - NTP_DELTA
-    return date, remainder
-
-
-def decode_string(data):
-    actual_length = data.index(b"\x00")
-    padded_length = (actual_length // 4 + 1) * 4
-    return str(data[:actual_length], "ascii"), data[padded_length:]
-
-
-def decode_blob(data):
-    actual_length, remainder = struct.unpack(">I", data[:4])[0], data[4:]
-    padded_length = (actual_length // 4 + 1) * 4
-    return remainder[:padded_length][:actual_length], remainder[padded_length:]
-
-
-def encode_date(seconds, realtime=True):
-    if seconds is None:
-        return IMMEDIATELY
-    if realtime:
-        seconds = seconds + NTP_DELTA
-        return struct.pack(">Q", int(seconds * SECONDS_TO_NTP_TIMESTAMP))
-    return struct.pack(">Q", int(seconds * SECONDS_TO_NTP_TIMESTAMP))
-
-
-def encode_string(value):
-    result = bytes(value + "\x00", "ascii")
-    if len(result) % 4 != 0:
-        width = (len(result) // 4 + 1) * 4
-        result = result.ljust(width, b"\x00")
-    return result
-
-
 class OscMessage(SupriyaValueObject):
     """
     An OSC message.
@@ -97,13 +60,13 @@ class OscMessage(SupriyaValueObject):
 
             >>> osc_message = OscMessage("/foo", True, [None, [3.25]], OscMessage("/bar"))
             >>> osc_message
-            OscMessage('/foo', True, (None, (3.25,)), OscMessage('/bar'))
+            OscMessage('/foo', True, [None, [3.25]], OscMessage('/bar'))
 
         ::
 
             >>> datagram = osc_message.to_datagram()
             >>> OscMessage.from_datagram(datagram)
-            OscMessage('/foo', True, (None, (3.25,)), OscMessage('/bar'))
+            OscMessage('/foo', True, [None, [3.25]], OscMessage('/bar'))
 
     """
 
@@ -114,18 +77,12 @@ class OscMessage(SupriyaValueObject):
     ### INITIALIZER ###
 
     def __init__(self, address, *contents):
-        def recurse(sequence):
-            sequence = list(sequence)
-            for i, x in enumerate(sequence):
-                if isinstance(x, list):
-                    sequence[i] = tuple(recurse(sequence[i]))
-            return tuple(sequence)
-
         if isinstance(address, enum.Enum):
             address = address.value
-        assert isinstance(address, (str, int))
+        if not isinstance(address, (str, int)):
+            raise ValueError(f"address must be int or str, got {address}")
         self._address = address
-        self._contents = recurse(contents)
+        self._contents = tuple(contents)
 
     ### SPECIAL METHODS ###
 
@@ -139,6 +96,26 @@ class OscMessage(SupriyaValueObject):
         return format_datagram(bytearray(self.to_datagram()))
 
     ### PRIVATE METHODS ###
+
+    @staticmethod
+    def _decode_blob(data):
+        actual_length, remainder = struct.unpack(">I", data[:4])[0], data[4:]
+        padded_length = (actual_length // 4 + 1) * 4
+        return remainder[:padded_length][:actual_length], remainder[padded_length:]
+
+    @staticmethod
+    def _decode_string(data):
+        actual_length = data.index(b"\x00")
+        padded_length = (actual_length // 4 + 1) * 4
+        return str(data[:actual_length], "ascii"), data[padded_length:]
+
+    @staticmethod
+    def _encode_string(value):
+        result = bytes(value + "\x00", "ascii")
+        if len(result) % 4 != 0:
+            width = (len(result) // 4 + 1) * 4
+            result = result.ljust(width, b"\x00")
+        return result
 
     @classmethod
     def _encode_value(cls, value):
@@ -186,7 +163,7 @@ class OscMessage(SupriyaValueObject):
     def to_datagram(self):
         # address can be a string or (in SuperCollider) an int
         if isinstance(self.address, str):
-            encoded_address = encode_string(self.address)
+            encoded_address = self._encode_string(self.address)
         else:
             encoded_address = struct.pack(">i", self.address)
         encoded_type_tags = ","
@@ -195,13 +172,13 @@ class OscMessage(SupriyaValueObject):
             type_tags, encoded_value = self._encode_value(value)
             encoded_type_tags += type_tags
             encoded_contents += encoded_value
-        return encoded_address + encode_string(encoded_type_tags) + encoded_contents
+        return encoded_address + self._encode_string(encoded_type_tags) + encoded_contents
 
     @classmethod
     def from_datagram(cls, datagram):
         remainder = datagram
-        address, remainder = decode_string(remainder)
-        type_tags, remainder = decode_string(remainder)
+        address, remainder = cls._decode_string(remainder)
+        type_tags, remainder = cls._decode_string(remainder)
         contents = []
         array_stack = [contents]
         for type_tag in type_tags[1:]:
@@ -215,10 +192,10 @@ class OscMessage(SupriyaValueObject):
                 value, remainder = struct.unpack(">d", remainder[:8])[0], remainder[8:]
                 array_stack[-1].append(value)
             elif type_tag == "s":
-                value, remainder = decode_string(remainder)
+                value, remainder = cls._decode_string(remainder)
                 array_stack[-1].append(value)
             elif type_tag == "b":
-                value, remainder = decode_blob(remainder)
+                value, remainder = cls._decode_blob(remainder)
                 for class_ in (OscMessage, OscBundle):
                     try:
                         value = class_.from_datagram(value)
@@ -355,6 +332,25 @@ class OscBundle(SupriyaValueObject):
     def __str__(self):
         return format_datagram(bytearray(self.to_datagram()))
 
+    ### PRIVATE METHODS ###
+
+    @staticmethod
+    def _decode_date(data):
+        data, remainder = data[:8], data[8:]
+        if data == IMMEDIATELY:
+            return None, remainder
+        date = (struct.unpack(">Q", data)[0] / SECONDS_TO_NTP_TIMESTAMP) - NTP_DELTA
+        return date, remainder
+
+    @staticmethod
+    def _encode_date(seconds, realtime=True):
+        if seconds is None:
+            return IMMEDIATELY
+        if realtime:
+            seconds = seconds + NTP_DELTA
+            return struct.pack(">Q", int(seconds * SECONDS_TO_NTP_TIMESTAMP))
+        return struct.pack(">Q", int(seconds * SECONDS_TO_NTP_TIMESTAMP))
+
     ### PUBLIC METHODS ###
 
     @classmethod
@@ -362,7 +358,7 @@ class OscBundle(SupriyaValueObject):
         if not datagram.startswith(BUNDLE_PREFIX):
             raise ValueError("datagram is not a bundle")
         remainder = datagram[8:]
-        timestamp, remainder = decode_date(remainder)
+        timestamp, remainder = cls._decode_date(remainder)
         contents = []
         while len(remainder):
             length, remainder = struct.unpack(">i", remainder[:4])[0], remainder[4:]
@@ -397,7 +393,7 @@ class OscBundle(SupriyaValueObject):
 
     def to_datagram(self, realtime=True):
         datagram = BUNDLE_PREFIX
-        datagram += encode_date(self._timestamp, realtime=realtime)
+        datagram += self._encode_date(self._timestamp, realtime=realtime)
         for content in self.contents:
             content_datagram = content.to_datagram()
             datagram += struct.pack(">i", len(content_datagram))
