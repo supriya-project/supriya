@@ -3,7 +3,7 @@ from collections import deque
 
 from supriya.commands.Requestable import Requestable
 from supriya.commands.SyncRequest import SyncRequest
-from supriya.osc import OscBundle
+from supriya.osc import OscBundle, BUNDLE_PREFIX
 
 
 class RequestBundle(Requestable):
@@ -111,7 +111,7 @@ class RequestBundle(Requestable):
         bundles = []
         contents = []
         requests = deque(requests)
-        remaining = maximum = 8192 - len(OscBundle._bundle_prefix) - 4
+        remaining = maximum = 8192 - len(BUNDLE_PREFIX) - 4
         while requests:
             request = requests.popleft()
             datagram = request.to_datagram()
