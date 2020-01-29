@@ -35,12 +35,12 @@ udp_in_logger = logging.getLogger("supriya.udp.in")
 udp_out_logger = logging.getLogger("supriya.udp.out")
 
 
-def encode_string(value):
-    result = bytes(value + "\x00", "ascii")
-    if len(result) % 4 != 0:
-        width = (len(result) // 4 + 1) * 4
-        result = result.ljust(width, b"\x00")
-    return result
+def decode_date(data):
+    data, remainder = data[:8], data[8:]
+    if data == IMMEDIATELY:
+        return None, remainder
+    date = (struct.unpack(">Q", data)[0] / SECONDS_TO_NTP_TIMESTAMP) - NTP_DELTA
+    return date, remainder
 
 
 def decode_string(data):
@@ -55,22 +55,21 @@ def decode_blob(data):
     return remainder[:padded_length][:actual_length], remainder[padded_length:]
 
 
-def read_date(payload, offset):
-    if payload[offset : offset + 8] == IMMEDIATELY:
-        return None, offset + 8
-    return (
-        struct.unpack(">Q", payload[offset : offset + 8])[0]
-        / SECONDS_TO_NTP_TIMESTAMP
-    ) - NTP_DELTA, offset + 8
-
-
-def write_date(seconds, realtime=True):
+def encode_date(seconds, realtime=True):
     if seconds is None:
         return IMMEDIATELY
     if realtime:
         seconds = seconds + NTP_DELTA
         return struct.pack(">Q", int(seconds * SECONDS_TO_NTP_TIMESTAMP))
     return struct.pack(">Q", int(seconds * SECONDS_TO_NTP_TIMESTAMP))
+
+
+def encode_string(value):
+    result = bytes(value + "\x00", "ascii")
+    if len(result) % 4 != 0:
+        width = (len(result) // 4 + 1) * 4
+        result = result.ljust(width, b"\x00")
+    return result
 
 
 class OscMessage(SupriyaValueObject):
@@ -362,19 +361,17 @@ class OscBundle(SupriyaValueObject):
     def from_datagram(cls, datagram):
         if not datagram.startswith(BUNDLE_PREFIX):
             raise ValueError("datagram is not a bundle")
-        offset = 8
-        timestamp, offset = read_date(datagram, offset)
+        remainder = datagram[8:]
+        timestamp, remainder = decode_date(remainder)
         contents = []
-        while offset < len(datagram):
-            length = struct.unpack(">i", datagram[offset : offset + 4])[0]
-            offset += 4
-            data = datagram[offset : offset + length]
-            if data.startswith(BUNDLE_PREFIX):
-                item = cls.from_datagram(data)
+        while len(remainder):
+            length, remainder = struct.unpack(">i", remainder[:4])[0], remainder[4:]
+            if remainder.startswith(BUNDLE_PREFIX):
+                item = cls.from_datagram(remainder[:length])
             else:
-                item = OscMessage.from_datagram(data)
+                item = OscMessage.from_datagram(remainder[:length])
             contents.append(item)
-            offset += length
+            remainder = remainder[length:]
         osc_bundle = cls(timestamp=timestamp, contents=tuple(contents))
         return osc_bundle
 
@@ -400,7 +397,7 @@ class OscBundle(SupriyaValueObject):
 
     def to_datagram(self, realtime=True):
         datagram = BUNDLE_PREFIX
-        datagram += write_date(self._timestamp, realtime=realtime)
+        datagram += encode_date(self._timestamp, realtime=realtime)
         for content in self.contents:
             content_datagram = content.to_datagram()
             datagram += struct.pack(">i", len(content_datagram))
