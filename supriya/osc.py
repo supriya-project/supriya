@@ -4,7 +4,6 @@ Tools for sending, receiving and handling OSC messages.
 
 import collections
 import datetime
-import decimal
 import enum
 import struct
 import time
@@ -27,6 +26,252 @@ osc_in_logger = logging.getLogger("supriya.osc.in")
 osc_out_logger = logging.getLogger("supriya.osc.out")
 udp_in_logger = logging.getLogger("supriya.udp.in")
 udp_out_logger = logging.getLogger("supriya.udp.out")
+
+
+BUNDLE_PREFIX = b"#bundle\x00"
+IMMEDIATELY = struct.pack(">Q", 1)
+NTP_TIMESTAMP_TO_SECONDS = 1.0 / 2.0 ** 32.0
+SECONDS_TO_NTP_TIMESTAMP = 2.0 ** 32.0
+SYSTEM_EPOCH = datetime.date(*time.gmtime(0)[0:3])
+NTP_EPOCH = datetime.date(1900, 1, 1)
+NTP_DELTA = (SYSTEM_EPOCH - NTP_EPOCH).days * 24 * 3600
+
+
+def decode_array(type_tags, type_tag_offset, payload, payload_offset):
+    assert type_tags[type_tag_offset] == "["
+    array = []
+    type_tag_offset += 1
+    while type_tags[type_tag_offset] != "]":
+        result, type_tag_offset, payload_offset = decode_value(
+            type_tags, type_tag_offset, payload, payload_offset
+        )
+        array.append(result)
+    assert type_tags[type_tag_offset] == "]"
+    array = tuple(array)
+    type_tag_offset += 1
+    return array, type_tag_offset, payload_offset
+
+
+def decode_blob(cls, type_tags, type_tag_offset, payload, payload_offset):
+    assert type_tags[type_tag_offset] == "b"
+    length = payload[payload_offset : payload_offset + 4]
+    length = struct.unpack(">i", length)
+    length = length[0]
+    payload_offset += 4
+    total_length = length + (-length % 4)
+    result = payload[payload_offset : payload_offset + length]
+    type_tag_offset += 1
+    payload_offset += total_length
+    for class_ in (cls, OscBundle):
+        try:
+            result = class_.from_datagram(result)
+            break
+        except IndexError:
+            pass
+    return result, type_tag_offset, payload_offset
+
+
+def decode_boolean(type_tags, type_tag_offset, payload, payload_offset):
+    type_tag = type_tags[type_tag_offset]
+    if type_tag == "T":
+        result = True
+    elif type_tag == "F":
+        result = False
+    type_tag_offset += 1
+    return result, type_tag_offset, payload_offset
+
+
+def decode_double(type_tags, type_tag_offset, payload, payload_offset):
+    result, payload_offset = read_double(payload, payload_offset)
+    type_tag_offset += 1
+    return result, type_tag_offset, payload_offset
+
+
+def decode_float(type_tags, type_tag_offset, payload, payload_offset):
+    result, payload_offset = read_float(payload, payload_offset)
+    type_tag_offset += 1
+    return result, type_tag_offset, payload_offset
+
+
+def decode_int(type_tags, type_tag_offset, payload, payload_offset):
+    result, payload_offset = read_int(payload, payload_offset)
+    type_tag_offset += 1
+    return result, type_tag_offset, payload_offset
+
+
+def decode_none(type_tags, type_tag_offset, payload, payload_offset):
+    result = None
+    type_tag_offset += 1
+    return result, type_tag_offset, payload_offset
+
+
+def decode_string(type_tags, type_tag_offset, payload, payload_offset):
+    result, payload_offset = read_string(payload, payload_offset)
+    type_tag_offset += 1
+    return result, type_tag_offset, payload_offset
+
+
+def encode_array(array):
+    type_tags = "["
+    encoded_value = b""
+    for value in array:
+        sub_type_tags, sub_encoded_value = encode_value(value)
+        type_tags += sub_type_tags
+        encoded_value += sub_encoded_value
+    type_tags += "]"
+    return type_tags, encoded_value
+
+
+def encode_blob(value):
+    type_tags = "b"
+    encoded_value = struct.pack(">i", len(value))
+    encoded_value += value
+    if len(encoded_value) % 4:
+        difference = 4 - (len(encoded_value) % 4)
+        padding = b"\x00" * difference
+        encoded_value += padding
+    return type_tags, encoded_value
+
+
+def encode_boolean(value):
+    if value:
+        type_tags = "T"
+    else:
+        type_tags = "F"
+    encoded_value = None
+    return type_tags, encoded_value
+
+
+def encode_float(value):
+    type_tags = "f"
+    encoded_value = struct.pack(">f", value)
+    return type_tags, encoded_value
+
+
+def encode_int(value):
+    type_tags = "i"
+    encoded_value = struct.pack(">i", value)
+    return type_tags, encoded_value
+
+
+def encode_none():
+    type_tags = "N"
+    encoded_value = None
+    return type_tags, encoded_value
+
+
+def encode_string(value):
+    type_tags = "s"
+    encoded_value = value.encode("utf-8")
+    padding_length = 4 - (len(encoded_value) % 4)
+    padding = b"\x00" * padding_length
+    encoded_value += padding
+    return type_tags, encoded_value
+
+
+def encode_value(value):
+    if hasattr(value, "to_datagram"):
+        value = bytearray(value.to_datagram())
+    elif isinstance(value, enum.Enum):
+        value = value.value
+    if isinstance(value, (bytearray, bytes)):
+        type_tags, encoded_value = encode_blob(value)
+    elif isinstance(value, str):
+        type_tags, encoded_value = encode_string(value)
+    elif isinstance(value, bool):
+        type_tags, encoded_value = encode_boolean(value)
+    elif isinstance(value, float):
+        type_tags, encoded_value = encode_float(value)
+    elif isinstance(value, int):
+        type_tags, encoded_value = encode_int(value)
+    elif value is None:
+        type_tags, encoded_value = encode_none()
+    elif isinstance(value, collections.Sequence):
+        type_tags, encoded_value = encode_array(value)
+    else:
+        message = "Cannot encode {!r}".format(value)
+        raise TypeError(message)
+    return type_tags, encoded_value
+
+
+def decode_value(type_tags, type_tag_offset, payload, payload_offset):
+    type_tag = type_tags[type_tag_offset]
+    type_tag_mapping = {
+        "N": decode_none,
+        "T": decode_boolean,
+        "F": decode_boolean,
+        "d": decode_double,
+        "i": decode_int,
+        "f": decode_float,
+        "s": decode_string,
+        "b": decode_blob,
+        "[": decode_array,
+    }
+    procedure = type_tag_mapping[type_tag]
+    result, type_tag_offset, payload_offset = procedure(
+        type_tags, type_tag_offset, payload, payload_offset
+    )
+    return result, type_tag_offset, payload_offset
+
+
+def read_double(payload, payload_offset):
+    result = payload[payload_offset : payload_offset + 8]
+    result = struct.unpack(">d", result)
+    result = result[0]
+    payload_offset += 8
+    return result, payload_offset
+
+
+def read_float(payload, payload_offset):
+    result = payload[payload_offset : payload_offset + 4]
+    result = struct.unpack(">f", result)
+    result = result[0]
+    payload_offset += 4
+    return result, payload_offset
+
+
+def read_int(payload, payload_offset):
+    result = payload[payload_offset : payload_offset + 4]
+    result = struct.unpack(">i", result)
+    result = result[0]
+    payload_offset += 4
+    return result, payload_offset
+
+
+def read_string(payload, payload_offset):
+    offset = 0
+    while payload[payload_offset + offset] != 0:
+        offset += 1
+    if (offset % 4) == 0:
+        offset += 4
+    else:
+        offset += -offset % 4
+    result = payload[payload_offset : payload_offset + offset]
+    result = result.replace(b"\x00", b"")
+    result = result.decode("utf-8")
+    payload_offset += offset
+    return result, payload_offset
+
+
+def read_date(payload, offset):
+    if payload[offset : offset + 8] == IMMEDIATELY:
+        date = None
+    else:
+        date = (
+            struct.unpack(">Q", payload[offset : offset + 8])[0]
+            / SECONDS_TO_NTP_TIMESTAMP
+        ) - NTP_DELTA
+    offset += 8
+    return date, offset
+
+
+def write_date(seconds, realtime=True):
+    if seconds is None:
+        return IMMEDIATELY
+    if realtime:
+        seconds = seconds + NTP_DELTA
+        return struct.pack(">Q", int(seconds * SECONDS_TO_NTP_TIMESTAMP))
+    return struct.pack(">Q", int(seconds * SECONDS_TO_NTP_TIMESTAMP))
 
 
 class OscMessage(SupriyaValueObject):
@@ -80,261 +325,21 @@ class OscMessage(SupriyaValueObject):
         datagram = bytearray(self.to_datagram())
         return format_datagram(datagram)
 
-    ### PRIVATE METHODS ###
-
-    @staticmethod
-    def _decode_array(type_tags, type_tag_offset, payload, payload_offset):
-        assert type_tags[type_tag_offset] == "["
-        array = []
-        type_tag_offset += 1
-        while type_tags[type_tag_offset] != "]":
-            result, type_tag_offset, payload_offset = OscMessage._decode_value(
-                type_tags, type_tag_offset, payload, payload_offset
-            )
-            array.append(result)
-        assert type_tags[type_tag_offset] == "]"
-        array = tuple(array)
-        type_tag_offset += 1
-        return array, type_tag_offset, payload_offset
-
-    @classmethod
-    def _decode_blob(cls, type_tags, type_tag_offset, payload, payload_offset):
-        from supriya.osc import OscBundle
-
-        assert type_tags[type_tag_offset] == "b"
-        length = payload[payload_offset : payload_offset + 4]
-        length = struct.unpack(">i", length)
-        length = length[0]
-        payload_offset += 4
-        total_length = length + (-length % 4)
-        result = payload[payload_offset : payload_offset + length]
-        type_tag_offset += 1
-        payload_offset += total_length
-        for class_ in (cls, OscBundle):
-            try:
-                result = class_.from_datagram(result)
-                break
-            except IndexError:
-                pass
-        return result, type_tag_offset, payload_offset
-
-    @staticmethod
-    def _decode_boolean(type_tags, type_tag_offset, payload, payload_offset):
-        type_tag = type_tags[type_tag_offset]
-        assert type_tag in ("T", "F")
-        if type_tag == "T":
-            result = True
-        elif type_tag == "F":
-            result = False
-        type_tag_offset += 1
-        return result, type_tag_offset, payload_offset
-
-    @staticmethod
-    def _decode_double(type_tags, type_tag_offset, payload, payload_offset):
-        assert type_tags[type_tag_offset] == "d"
-        result, payload_offset = OscMessage._read_double(payload, payload_offset)
-        type_tag_offset += 1
-        return result, type_tag_offset, payload_offset
-
-    @staticmethod
-    def _decode_float(type_tags, type_tag_offset, payload, payload_offset):
-        assert type_tags[type_tag_offset] == "f"
-        result, payload_offset = OscMessage._read_float(payload, payload_offset)
-        type_tag_offset += 1
-        return result, type_tag_offset, payload_offset
-
-    @staticmethod
-    def _decode_int(type_tags, type_tag_offset, payload, payload_offset):
-        assert type_tags[type_tag_offset] == "i"
-        result, payload_offset = OscMessage._read_int(payload, payload_offset)
-        type_tag_offset += 1
-        return result, type_tag_offset, payload_offset
-
-    @staticmethod
-    def _decode_none(type_tags, type_tag_offset, payload, payload_offset):
-        assert type_tags[type_tag_offset] == "N"
-        result = None
-        type_tag_offset += 1
-        return result, type_tag_offset, payload_offset
-
-    @staticmethod
-    def _decode_string(type_tags, type_tag_offset, payload, payload_offset):
-        assert type_tags[type_tag_offset] == "s"
-        result, payload_offset = OscMessage._read_string(payload, payload_offset)
-        type_tag_offset += 1
-        return result, type_tag_offset, payload_offset
-
-    @staticmethod
-    def _decode_value(type_tags, type_tag_offset, payload, payload_offset):
-        type_tag = type_tags[type_tag_offset]
-        type_tag_mapping = {
-            "N": OscMessage._decode_none,
-            "T": OscMessage._decode_boolean,
-            "F": OscMessage._decode_boolean,
-            "d": OscMessage._decode_double,
-            "i": OscMessage._decode_int,
-            "f": OscMessage._decode_float,
-            "s": OscMessage._decode_string,
-            "b": OscMessage._decode_blob,
-            "[": OscMessage._decode_array,
-        }
-        procedure = type_tag_mapping[type_tag]
-        result, type_tag_offset, payload_offset = procedure(
-            type_tags, type_tag_offset, payload, payload_offset
-        )
-        return result, type_tag_offset, payload_offset
-
-    @staticmethod
-    def _encode_array(array):
-        assert isinstance(array, collections.Sequence)
-        type_tags = "["
-        encoded_value = b""
-        for value in array:
-            sub_type_tags, sub_encoded_value = OscMessage._encode_value(value)
-            type_tags += sub_type_tags
-            encoded_value += sub_encoded_value
-        type_tags += "]"
-        return type_tags, encoded_value
-
-    @staticmethod
-    def _encode_blob(value):
-        assert isinstance(value, (bytearray, bytes))
-        type_tags = "b"
-        encoded_value = OscMessage._write_int(len(value))
-        encoded_value += value
-        if len(encoded_value) % 4:
-            difference = 4 - (len(encoded_value) % 4)
-            padding = b"\x00" * difference
-            encoded_value += padding
-        return type_tags, encoded_value
-
-    @staticmethod
-    def _encode_boolean(value):
-        assert value in (True, False)
-        if value:
-            type_tags = "T"
-        else:
-            type_tags = "F"
-        encoded_value = None
-        return type_tags, encoded_value
-
-    @staticmethod
-    def _encode_float(value):
-        assert isinstance(value, float)
-        type_tags = "f"
-        encoded_value = OscMessage._write_float(value)
-        return type_tags, encoded_value
-
-    @staticmethod
-    def _encode_int(value):
-        assert isinstance(value, int)
-        type_tags = "i"
-        encoded_value = OscMessage._write_int(value)
-        return type_tags, encoded_value
-
-    @staticmethod
-    def _encode_none():
-        type_tags = "N"
-        encoded_value = None
-        return type_tags, encoded_value
-
-    @staticmethod
-    def _encode_string(value):
-        assert isinstance(value, str)
-        type_tags = "s"
-        encoded_value = value.encode("utf-8")
-        padding_length = 4 - (len(encoded_value) % 4)
-        padding = b"\x00" * padding_length
-        encoded_value += padding
-        return type_tags, encoded_value
-
-    @classmethod
-    def _encode_value(cls, value):
-        if hasattr(value, "to_datagram"):
-            value = bytearray(value.to_datagram())
-        elif isinstance(value, enum.Enum):
-            value = value.value
-        if isinstance(value, bytearray):
-            type_tags, encoded_value = OscMessage._encode_blob(value)
-        elif isinstance(value, str):
-            type_tags, encoded_value = OscMessage._encode_string(value)
-        elif isinstance(value, bool):
-            type_tags, encoded_value = OscMessage._encode_boolean(value)
-        elif isinstance(value, float):
-            type_tags, encoded_value = OscMessage._encode_float(value)
-        elif isinstance(value, int):
-            type_tags, encoded_value = OscMessage._encode_int(value)
-        elif value is None:
-            type_tags, encoded_value = OscMessage._encode_none()
-        elif isinstance(value, collections.Sequence):
-            type_tags, encoded_value = OscMessage._encode_array(value)
-        else:
-            message = "Cannot encode {!r}".format(value)
-            raise TypeError(message)
-        return type_tags, encoded_value
-
-    @staticmethod
-    def _read_double(payload, payload_offset):
-        result = payload[payload_offset : payload_offset + 8]
-        result = struct.unpack(">d", result)
-        result = result[0]
-        payload_offset += 8
-        return result, payload_offset
-
-    @staticmethod
-    def _read_float(payload, payload_offset):
-        result = payload[payload_offset : payload_offset + 4]
-        result = struct.unpack(">f", result)
-        result = result[0]
-        payload_offset += 4
-        return result, payload_offset
-
-    @staticmethod
-    def _read_int(payload, payload_offset):
-        result = payload[payload_offset : payload_offset + 4]
-        result = struct.unpack(">i", result)
-        result = result[0]
-        payload_offset += 4
-        return result, payload_offset
-
-    @staticmethod
-    def _read_string(payload, payload_offset):
-        offset = 0
-        while payload[payload_offset + offset] != 0:
-            offset += 1
-        if (offset % 4) == 0:
-            offset += 4
-        else:
-            offset += -offset % 4
-        result = payload[payload_offset : payload_offset + offset]
-        result = result.replace(b"\x00", b"")
-        result = result.decode("utf-8")
-        payload_offset += offset
-        return result, payload_offset
-
-    @staticmethod
-    def _write_float(value):
-        return struct.pack(">f", value)
-
-    @staticmethod
-    def _write_int(value):
-        return struct.pack(">i", value)
-
     ### PUBLIC METHODS ###
 
     def to_datagram(self):
         # address can be a string or (in SuperCollider) an int
-        datagram = OscMessage._encode_value(self.address)[1]
+        datagram = encode_value(self.address)[1]
         if self.contents is None:
             return datagram
         encoded_type_tags = ","
         encoded_contents = b""
         for argument in self.contents:
-            type_tags, encoded_value = OscMessage._encode_value(argument)
+            type_tags, encoded_value = encode_value(argument)
             encoded_type_tags += type_tags
             if encoded_value is not None:
                 encoded_contents += encoded_value
-        encoded_type_tags = OscMessage._encode_string(encoded_type_tags)[1]
+        encoded_type_tags = encode_string(encoded_type_tags)[1]
         datagram += encoded_type_tags
         datagram += encoded_contents
         datagram = bytes(datagram)
@@ -345,14 +350,14 @@ class OscMessage(SupriyaValueObject):
         datagram = bytearray(datagram)
         contents = []
         offset = 0
-        address, offset = OscMessage._read_string(datagram, offset)
-        type_tags, offset = OscMessage._read_string(datagram, offset)
+        address, offset = read_string(datagram, offset)
+        type_tags, offset = read_string(datagram, offset)
         assert type_tags[0] == ","
         payload = datagram[offset:]
         payload_offset = 0
         type_tag_offset = 1
         while type_tag_offset < len(type_tags):
-            result, type_tag_offset, payload_offset = OscMessage._decode_value(
+            result, type_tag_offset, payload_offset = decode_value(
                 type_tags, type_tag_offset, payload, payload_offset
             )
             contents.append(result)
@@ -456,21 +461,10 @@ class OscBundle(SupriyaValueObject):
 
     __slots__ = ("_contents", "_timestamp")
 
-    _bundle_prefix = b"#bundle\x00"
-
-    _IMMEDIATELY = struct.pack(">Q", 1)
-    _NTP_TIMESTAMP_TO_SECONDS = 1.0 / 2.0 ** 32.0
-    _SECONDS_TO_NTP_TIMESTAMP = 2.0 ** 32.0
-    _SYSTEM_EPOCH = datetime.date(*time.gmtime(0)[0:3])
-    _NTP_EPOCH = datetime.date(1900, 1, 1)
-    _NTP_DELTA = (_SYSTEM_EPOCH - _NTP_EPOCH).days * 24 * 3600
-
     ### INITIALIZER ###
 
     def __init__(self, timestamp=None, contents=None):
-        import supriya.osc
-
-        prototype = (supriya.osc.OscMessage, type(self))
+        prototype = (OscMessage, type(self))
         self._timestamp = timestamp
         contents = contents or ()
         for x in contents:
@@ -485,65 +479,25 @@ class OscBundle(SupriyaValueObject):
         datagram = bytearray(self.to_datagram())
         return format_datagram(datagram)
 
-    ### PRIVATE METHODS ###
-
-    @staticmethod
-    def _get_ntp_delta():
-        system_epoch = datetime.date(*time.gmtime(0)[0:3])
-        ntp_epoch = datetime.date(1900, 1, 1)
-        ntp_delta = (system_epoch - ntp_epoch).days * 24 * 3600
-        return ntp_delta
-
-    @staticmethod
-    def _ntp_to_system_time(date):
-        return float(date) - OscBundle._get_ntp_delta()
-
-    @staticmethod
-    def _read_date(payload, offset):
-        if payload[offset : offset + 8] == OscBundle._immediately:
-            date = None
-        else:
-            seconds, fraction = struct.unpack(">II", payload[offset : offset + 8])
-            date = decimal.Decimal("{!s}.{!s}".format(seconds, fraction))
-            date = float(date)
-            date = OscBundle._ntp_to_system_time(date)
-        offset += 8
-        return date, offset
-
-    @staticmethod
-    def _system_time_to_ntp(date):
-        return float(date) + OscBundle._get_ntp_delta()
-
-    @classmethod
-    def _write_date(cls, seconds, realtime=True):
-        if seconds is None:
-            return cls._IMMEDIATELY
-        if realtime:
-            seconds = seconds + cls._NTP_DELTA
-            return struct.pack(">Q", int(seconds * cls._SECONDS_TO_NTP_TIMESTAMP))
-        return struct.pack(">Q", int(seconds * cls._SECONDS_TO_NTP_TIMESTAMP))
-
     ### PUBLIC METHODS ###
 
     @staticmethod
     def datagram_is_bundle(datagram, offset=0):
-        return datagram[offset : offset + 8] == OscBundle._bundle_prefix
+        return datagram[offset : offset + 8] == BUNDLE_PREFIX
 
     @staticmethod
     def from_datagram(datagram):
-        import supriya.osc
-
         assert OscBundle.datagram_is_bundle(datagram)
         offset = 8
-        timestamp, offset = OscBundle._read_date(datagram, offset)
+        timestamp, offset = read_date(datagram, offset)
         contents = []
         while offset < len(datagram):
-            length, offset = supriya.osc.OscMessage._read_int(datagram, offset)
+            length, offset = read_int(datagram, offset)
             data = datagram[offset : offset + length]
             if OscBundle.datagram_is_bundle(data):
                 item = OscBundle.from_datagram(data)
             else:
-                item = supriya.osc.OscMessage.from_datagram(data)
+                item = OscMessage.from_datagram(data)
             contents.append(item)
             offset += length
         osc_bundle = OscBundle(timestamp=timestamp, contents=tuple(contents))
@@ -554,7 +508,7 @@ class OscBundle(SupriyaValueObject):
         bundles = []
         contents = []
         message = deque(messages)
-        remaining = maximum = 8192 - len(cls._bundle_prefix) - 4
+        remaining = maximum = 8192 - len(BUNDLE_PREFIX) - 4
         while messages:
             message = messages.popleft()
             datagram = message.to_datagram()
@@ -570,14 +524,11 @@ class OscBundle(SupriyaValueObject):
         return bundles
 
     def to_datagram(self, realtime=True):
-        import supriya.osc
-
-        datagram = OscBundle._bundle_prefix
-        datagram += OscBundle._write_date(self._timestamp, realtime=realtime)
+        datagram = BUNDLE_PREFIX
+        datagram += write_date(self._timestamp, realtime=realtime)
         for content in self.contents:
             content_datagram = content.to_datagram()
-            content_length = len(content_datagram)
-            datagram += supriya.osc.OscMessage._write_int(content_length)
+            datagram += struct.pack(">i", len(content_datagram))
             datagram += content_datagram
         return datagram
 
@@ -737,15 +688,6 @@ class OscIO:
                             command=response,
                         )
                     )
-
-    class OscCallback(typing.NamedTuple):
-        pattern: typing.Tuple[typing.Union[str, int, float], ...]
-        procedure: typing.Callable
-        failure_pattern: typing.Optional[
-            typing.Tuple[typing.Union[str, int, float], ...]
-        ] = None
-        once: bool = False
-        parse_response: bool = False
 
     ### INITIALIZER ###
 
