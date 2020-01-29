@@ -21,13 +21,6 @@ from supriya.commands.Requestable import Requestable
 from supriya.commands.Response import Response
 from supriya.system.SupriyaValueObject import SupriyaValueObject
 
-
-osc_in_logger = logging.getLogger("supriya.osc.in")
-osc_out_logger = logging.getLogger("supriya.osc.out")
-udp_in_logger = logging.getLogger("supriya.udp.in")
-udp_out_logger = logging.getLogger("supriya.udp.out")
-
-
 BUNDLE_PREFIX = b"#bundle\x00"
 IMMEDIATELY = struct.pack(">Q", 1)
 NTP_TIMESTAMP_TO_SECONDS = 1.0 / 2.0 ** 32.0
@@ -36,89 +29,10 @@ SYSTEM_EPOCH = datetime.date(*time.gmtime(0)[0:3])
 NTP_EPOCH = datetime.date(1900, 1, 1)
 NTP_DELTA = (SYSTEM_EPOCH - NTP_EPOCH).days * 24 * 3600
 
-
-def decode_array(type_tags, type_tag_offset, payload, payload_offset):
-    array = []
-    type_tag_offset += 1
-    while type_tags[type_tag_offset] != "]":
-        result, type_tag_offset, payload_offset = decode_value(
-            type_tags, type_tag_offset, payload, payload_offset
-        )
-        array.append(result)
-    array = tuple(array)
-    type_tag_offset += 1
-    return array, type_tag_offset, payload_offset
-
-
-def decode_blob(type_tags, type_tag_offset, payload, payload_offset):
-    length = struct.unpack(">I", payload[payload_offset : payload_offset + 4])[0]
-    payload_offset += 4
-    total_length = length + (-length % 4)
-    result = payload[payload_offset : payload_offset + length]
-    type_tag_offset += 1
-    payload_offset += total_length
-    for class_ in (OscMessage, OscBundle):
-        try:
-            result = class_.from_datagram(result)
-            break
-        except IndexError:
-            pass
-    return result, type_tag_offset, payload_offset
-
-
-def decode_boolean(type_tags, type_tag_offset, payload, payload_offset):
-    return True if type_tags[type_tag_offset] == "T" else False, type_tag_offset + 1, payload_offset
-
-
-def decode_double(type_tags, type_tag_offset, payload, payload_offset):
-    result = struct.unpack(">d", payload[payload_offset : payload_offset + 8])[0]
-    return result, type_tag_offset + 1, payload_offset + 8
-
-
-def decode_float(type_tags, type_tag_offset, payload, payload_offset):
-    result = struct.unpack(">f", payload[payload_offset : payload_offset + 4])[0]
-    return result, type_tag_offset + 1, payload_offset + 4
-
-
-def decode_int(type_tags, type_tag_offset, payload, payload_offset):
-    result = struct.unpack(">i", payload[payload_offset : payload_offset + 4])[0]
-    return result, type_tag_offset + 1, payload_offset + 4
-
-
-def decode_none(type_tags, type_tag_offset, payload, payload_offset):
-    return None, type_tag_offset + 1, payload_offset
-
-
-def decode_string(type_tags, type_tag_offset, payload, payload_offset):
-    result, payload_offset = read_string(payload, payload_offset)
-    return result, type_tag_offset + 1, payload_offset
-
-
-def decode_value(type_tags, type_tag_offset, payload, payload_offset):
-    type_tag = type_tags[type_tag_offset]
-    type_tag_mapping = {
-        "N": decode_none,
-        "T": decode_boolean,
-        "F": decode_boolean,
-        "d": decode_double,
-        "i": decode_int,
-        "f": decode_float,
-        "s": decode_string,
-        "b": decode_blob,
-        "[": decode_array,
-    }
-    result, type_tag_offset, payload_offset = type_tag_mapping[type_tag](
-        type_tags, type_tag_offset, payload, payload_offset
-    )
-    return result, type_tag_offset, payload_offset
-
-
-def encode_blob(value):
-    result = bytes(struct.pack(">I", len(value)) + value)
-    if len(result) % 4 != 0:
-        width = (len(result) // 4 + 1) * 4
-        result = result.ljust(width, b"\x00")
-    return result
+osc_in_logger = logging.getLogger("supriya.osc.in")
+osc_out_logger = logging.getLogger("supriya.osc.out")
+udp_in_logger = logging.getLogger("supriya.udp.in")
+udp_out_logger = logging.getLogger("supriya.udp.out")
 
 
 def encode_string(value):
@@ -129,54 +43,16 @@ def encode_string(value):
     return result
 
 
-def encode_value(value):
-    if hasattr(value, "to_datagram"):
-        value = bytearray(value.to_datagram())
-    elif isinstance(value, enum.Enum):
-        value = value.value
-    type_tags, encoded_value = "", b""
-    if isinstance(value, (bytearray, bytes)):
-        type_tags += "b"
-        encoded_value += encode_blob(value)
-    elif isinstance(value, str):
-        type_tags += "s"
-        encoded_value += encode_string(value)
-    elif isinstance(value, bool):
-        type_tags += "T" if value else "F"
-    elif isinstance(value, float):
-        type_tags += "f"
-        encoded_value += struct.pack(">f", value)
-    elif isinstance(value, int):
-        type_tags += "i"
-        encoded_value += struct.pack(">i", value)
-    elif value is None:
-        type_tags += "N"
-    elif isinstance(value, collections.Sequence):
-        type_tags += "["
-        for sub_value in value:
-            sub_type_tags, sub_encoded_value = encode_value(sub_value)
-            type_tags += sub_type_tags
-            encoded_value += sub_encoded_value
-        type_tags += "]"
-    else:
-        message = "Cannot encode {!r}".format(value)
-        raise TypeError(message)
-    return type_tags, encoded_value
+def decode_string(data):
+    actual_length = data.index(b"\x00")
+    padded_length = (actual_length // 4 + 1) * 4
+    return str(data[:actual_length], "ascii"), data[padded_length:]
 
 
-def read_string(payload, payload_offset):
-    offset = 0
-    while payload[payload_offset + offset] != 0:
-        offset += 1
-    if (offset % 4) == 0:
-        offset += 4
-    else:
-        offset += -offset % 4
-    result = payload[payload_offset : payload_offset + offset]
-    result = result.replace(b"\x00", b"")
-    result = result.decode("utf-8")
-    payload_offset += offset
-    return result, payload_offset
+def decode_blob(data):
+    actual_length, remainder = struct.unpack(">I", data[:4])[0], data[4:]
+    padded_length = (actual_length // 4 + 1) * 4
+    return remainder[:padded_length][:actual_length], remainder[padded_length:]
 
 
 def read_date(payload, offset):
@@ -255,14 +131,56 @@ class OscMessage(SupriyaValueObject):
     ### SPECIAL METHODS ###
 
     def __repr__(self):
-        items = (self.address,) + self.contents
-        items = ", ".join(repr(x) for x in items)
-        result = "{}({})".format(type(self).__name__, items)
-        return result
+        return "{}({})".format(
+            type(self).__name__,
+            ", ".join(repr(x) for x in (self.address,) + self.contents)
+        )
 
     def __str__(self):
-        datagram = bytearray(self.to_datagram())
-        return format_datagram(datagram)
+        return format_datagram(bytearray(self.to_datagram()))
+
+    ### PRIVATE METHODS ###
+
+    @classmethod
+    def _encode_value(cls, value):
+        if hasattr(value, "to_datagram"):
+            value = bytearray(value.to_datagram())
+        elif isinstance(value, enum.Enum):
+            value = value.value
+        type_tags, encoded_value = "", b""
+        if isinstance(value, (bytearray, bytes)):
+            type_tags += "b"
+            encoded_value = bytes(struct.pack(">I", len(value)) + value)
+            if len(encoded_value) % 4 != 0:
+                width = (len(encoded_value) // 4 + 1) * 4
+                encoded_value = encoded_value.ljust(width, b"\x00")
+        elif isinstance(value, str):
+            type_tags += "s"
+            encoded_value = bytes(value + "\x00", "ascii")
+            if len(encoded_value) % 4 != 0:
+                width = (len(encoded_value) // 4 + 1) * 4
+                encoded_value = encoded_value.ljust(width, b"\x00")
+        elif isinstance(value, bool):
+            type_tags += "T" if value else "F"
+        elif isinstance(value, float):
+            type_tags += "f"
+            encoded_value += struct.pack(">f", value)
+        elif isinstance(value, int):
+            type_tags += "i"
+            encoded_value += struct.pack(">i", value)
+        elif value is None:
+            type_tags += "N"
+        elif isinstance(value, collections.Sequence):
+            type_tags += "["
+            for sub_value in value:
+                sub_type_tags, sub_encoded_value = cls._encode_value(sub_value)
+                type_tags += sub_type_tags
+                encoded_value += sub_encoded_value
+            type_tags += "]"
+        else:
+            message = "Cannot encode {!r}".format(value)
+            raise TypeError(message)
+        return type_tags, encoded_value
 
     ### PUBLIC METHODS ###
 
@@ -275,29 +193,55 @@ class OscMessage(SupriyaValueObject):
         encoded_type_tags = ","
         encoded_contents = b""
         for value in self.contents or ():
-            type_tags, encoded_value = encode_value(value)
+            type_tags, encoded_value = self._encode_value(value)
             encoded_type_tags += type_tags
             encoded_contents += encoded_value
         return encoded_address + encode_string(encoded_type_tags) + encoded_contents
 
-    @staticmethod
-    def from_datagram(datagram):
-        datagram = bytearray(datagram)
+    @classmethod
+    def from_datagram(cls, datagram):
+        remainder = datagram
+        address, remainder = decode_string(remainder)
+        type_tags, remainder = decode_string(remainder)
         contents = []
-        offset = 0
-        address, offset = read_string(datagram, offset)
-        type_tags, offset = read_string(datagram, offset)
-        assert type_tags[0] == ","
-        payload = datagram[offset:]
-        payload_offset = 0
-        type_tag_offset = 1
-        while type_tag_offset < len(type_tags):
-            result, type_tag_offset, payload_offset = decode_value(
-                type_tags, type_tag_offset, payload, payload_offset
-            )
-            contents.append(result)
-        osc_message = OscMessage(address, *contents)
-        return osc_message
+        array_stack = [contents]
+        for type_tag in type_tags[1:]:
+            if type_tag == "i":
+                value, remainder = struct.unpack(">i", remainder[:4])[0], remainder[4:]
+                array_stack[-1].append(value)
+            elif type_tag == "f":
+                value, remainder = struct.unpack(">f", remainder[:4])[0], remainder[4:]
+                array_stack[-1].append(value)
+            elif type_tag == "d":
+                value, remainder = struct.unpack(">d", remainder[:8])[0], remainder[8:]
+                array_stack[-1].append(value)
+            elif type_tag == "s":
+                value, remainder = decode_string(remainder)
+                array_stack[-1].append(value)
+            elif type_tag == "b":
+                value, remainder = decode_blob(remainder)
+                for class_ in (OscMessage, OscBundle):
+                    try:
+                        value = class_.from_datagram(value)
+                        break
+                    except IndexError:
+                        pass
+                array_stack[-1].append(value)
+            elif type_tag == "T":
+                array_stack[-1].append(True)
+            elif type_tag == "F":
+                array_stack[-1].append(False)
+            elif type_tag == "N":
+                array_stack[-1].append(None)
+            elif type_tag == "[":
+                array = []
+                array_stack[-1].append(array)
+                array_stack.append(array)
+            elif type_tag == "]":
+                array_stack.pop()
+            else:
+                raise RuntimeError(f"Unable to parse type {type_tag!r}")
+        return cls(address, *contents)
 
     def to_list(self):
         result = [self.address]
@@ -413,10 +357,6 @@ class OscBundle(SupriyaValueObject):
         return format_datagram(bytearray(self.to_datagram()))
 
     ### PUBLIC METHODS ###
-
-    @staticmethod
-    def datagram_is_bundle(datagram, offset=0):
-        return datagram[offset : offset + 8] == BUNDLE_PREFIX
 
     @classmethod
     def from_datagram(cls, datagram):
