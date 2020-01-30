@@ -58,7 +58,7 @@ def test_2(server):
             ),
         ]
     )
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         request.communicate()
         server.sync()
     assert [(_.label, _.message) for _ in transcript] == [
@@ -110,7 +110,7 @@ def test_3(server):
             ),
         ]
     )
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         request.communicate()
         server.sync()
     assert [(_.label, _.message) for _ in transcript] == [

@@ -46,7 +46,7 @@ class GroupNewRequest(Request):
 
     ::
 
-        >>> with server.osc_io.capture() as transcript:
+        >>> with server.osc_protocol.capture() as transcript:
         ...     _ = request.communicate(server=server)
         ...     _ = server.sync()
         ...

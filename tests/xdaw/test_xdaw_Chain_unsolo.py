@@ -26,7 +26,7 @@ def test_repeat(dc_index_synthdef_factory):
     rack["a"].unsolo()
     time.sleep(0.2)
     assert [int(_) for _ in context.master_track.rms_levels["input"]] == [1, 1]
-    with rack.provider.server.osc_io.capture() as transcript:
+    with rack.provider.server.osc_protocol.capture() as transcript:
         rack["a"].unsolo()
     assert not len(transcript.sent_messages)
 

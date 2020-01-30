@@ -69,12 +69,12 @@ def test_server_boot_errors():
     server.boot()
     assert "scsynth" in check_scsynth()
     assert server.is_running
-    assert server.osc_io.is_running
+    assert server.osc_protocol.is_running
 
     server.quit()
     assert "scsynth" not in check_scsynth()
     assert not server.is_running
-    assert not server.osc_io.is_running
+    assert not server.osc_protocol.is_running
 
     with pytest.raises(supriya.exceptions.ServerCannotBoot), mock.patch.object(
         supriya.realtime.Server, "_read_scsynth_boot_output"
@@ -84,4 +84,4 @@ def test_server_boot_errors():
 
     assert "scsynth" not in check_scsynth()
     assert not server.is_running
-    assert not server.osc_io.is_running
+    assert not server.osc_protocol.is_running

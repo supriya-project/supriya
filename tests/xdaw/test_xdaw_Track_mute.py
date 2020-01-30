@@ -39,7 +39,7 @@ def test_transcript(track_mute_solo_application, track_names):
     track_mute_solo_application.boot()
     for track_name in track_names:
         track = track_mute_solo_application.primary_context[track_name]
-        with track_mute_solo_application.primary_context.provider.server.osc_io.capture() as transcript:
+        with track_mute_solo_application.primary_context.provider.server.osc_protocol.capture() as transcript:
             track.mute()
         affected_tracks = [track, *track.depth_first(prototype=Track)]
         assert len(transcript.sent_messages) == 1
@@ -114,7 +114,7 @@ def test_stacked():
     )
     application.boot()
     application.primary_context["a"].mute()
-    with application.primary_context.provider.server.osc_io.capture() as transcript:
+    with application.primary_context.provider.server.osc_protocol.capture() as transcript:
         application.primary_context["b"].mute()
         application.primary_context["c"].mute()
     assert not len(transcript.sent_messages)
@@ -125,7 +125,7 @@ def test_repeat():
     application.add_context().add_track(name="a")
     application.boot()
     application.primary_context["a"].mute()
-    with application.primary_context.provider.server.osc_io.capture() as transcript:
+    with application.primary_context.provider.server.osc_protocol.capture() as transcript:
         application.primary_context["a"].mute()
     assert not len(transcript.sent_messages)
 

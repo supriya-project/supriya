@@ -66,7 +66,7 @@ def test_AudioEffect_3(synthdef_factory):
     context = application.add_context()
     track = context.add_track()
     application.boot()
-    with context.provider.server.osc_io.capture() as transcript:
+    with context.provider.server.osc_protocol.capture() as transcript:
         device = track.add_device(AudioEffect, synthdef=synthdef_factory)
     assert list(track.devices) == [device]
     assert device.application is context.application
@@ -111,7 +111,7 @@ def test_AudioEffect_4(synthdef_factory):
     track = context.add_track()
     device_one = track.add_device(AudioEffect, synthdef=synthdef_factory)
     application.boot()
-    with context.provider.server.osc_io.capture() as transcript:
+    with context.provider.server.osc_protocol.capture() as transcript:
         device_two = track.add_device(AudioEffect, synthdef=synthdef_factory)
     assert list(track.devices) == [device_one, device_two]
     assert device_one.application is context.application

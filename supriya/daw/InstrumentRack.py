@@ -47,7 +47,7 @@ class InstrumentRack(RackDevice):
         self.rack_output_synth["out"] = int(self.parent.parent.bus_group)
 
     def _create_osc_callbacks(self, server):
-        self._osc_callbacks["output"] = server.osc_io.register(
+        self._osc_callbacks["output"] = server.osc_protocol.register(
             ["/levels/rack/output", self._rack_output_synth.node_id],
             lambda osc_message: self._update_levels("output", osc_message.contents[2:]),
         )
@@ -55,7 +55,7 @@ class InstrumentRack(RackDevice):
     def _destroy_osc_callback(self, server):
         for key, callback in self._osc_callbacks.items():
             if callback and server:
-                server.osc_io.unregister(callback)
+                server.osc_protocol.unregister(callback)
 
     def _list_bus_groups(self):
         return [self.bus_group]

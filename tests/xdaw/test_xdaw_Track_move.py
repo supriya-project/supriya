@@ -22,7 +22,7 @@ def test_2():
     track_one = context.add_track()
     track_two = context.add_track()
     application.boot()
-    with context.provider.server.osc_io.capture() as transcript:
+    with context.provider.server.osc_protocol.capture() as transcript:
         track_two.move(context, 0)
     assert list(context.tracks) == [track_two, track_one]
     assert len(transcript.sent_messages) == 1
@@ -41,7 +41,7 @@ def test_3():
     track_one.add_send(track_two)
     track_two.add_send(track_one)
     application.boot()
-    with context.provider.server.osc_io.capture() as transcript:
+    with context.provider.server.osc_protocol.capture() as transcript:
         track_two.move(context, 0)
     assert len(transcript.sent_messages) == 1
     _, message = transcript.sent_messages[0]
@@ -68,7 +68,7 @@ def test_4():
     track_three = context.add_track()
     track_three.add_send(track_two)
     application.boot()
-    with context.provider.server.osc_io.capture() as transcript:
+    with context.provider.server.osc_protocol.capture() as transcript:
         track_three.move(track_one, 0)
     assert list(context.tracks) == [track_one, track_two]
     assert list(track_one.tracks) == [track_three]

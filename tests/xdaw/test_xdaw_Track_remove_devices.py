@@ -86,7 +86,7 @@ def test_4(synthdef_factory):
     device_one = track.add_device(AudioEffect, synthdef=synthdef_factory)
     device_two = track.add_device(AudioEffect, synthdef=synthdef_factory)
     application.boot()
-    with context.provider.server.osc_io.capture() as transcript:
+    with context.provider.server.osc_protocol.capture() as transcript:
         track.remove_devices(device_one)
     time.sleep(0.1)
     assert list(track.devices) == [device_two]

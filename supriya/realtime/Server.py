@@ -81,7 +81,7 @@ class Server:
 
         self._latency = 0.1
         self._lock = threading.Lock()
-        self._osc_io = supriya.osc.OscIO()
+        self._osc_protocol = supriya.osc.SyncOscProtocol()
 
         ### ALLOCATORS ###
 
@@ -429,17 +429,17 @@ class Server:
         self._nodes[0] = self._root_node
 
     def _setup_osc_callbacks(self):
-        self._osc_io.register(
+        self._osc_protocol.register(
             pattern="/b_info",
             procedure=self._handle_buffer_info_response,
             parse_response=True,
         )
-        self._osc_io.register(
+        self._osc_protocol.register(
             pattern="/c_set",
             procedure=self._handle_control_bus_set_response,
             parse_response=True,
         )
-        self._osc_io.register(
+        self._osc_protocol.register(
             pattern="/c_setn",
             procedure=self._handle_control_bus_setn_response,
             parse_response=True,
@@ -454,12 +454,12 @@ class Server:
             "/n_set",
             "/n_setn",
         ):
-            self._osc_io.register(
+            self._osc_protocol.register(
                 pattern=pattern,
                 procedure=self._handle_node_info_response,
                 parse_response=True,
             )
-        self._osc_io.register(
+        self._osc_protocol.register(
             pattern="/d_removed",
             procedure=self._handle_synthdef_removed_response,
             parse_response=True,
@@ -468,7 +468,7 @@ class Server:
         def failed(message):
             logger.warning("Fail: {}".format(message))
 
-        self._osc_io.register(pattern="/fail", procedure=failed)
+        self._osc_protocol.register(pattern="/fail", procedure=failed)
 
     def _setup_status_watcher(self):
         import supriya.realtime
@@ -555,7 +555,7 @@ class Server:
 
     def _connect(self):
         self._is_running = True
-        self._osc_io.boot(ip_address=self.ip_address, port=self.port)
+        self._osc_protocol.boot(ip_address=self.ip_address, port=self.port)
         self._setup_osc_callbacks()
         self._setup_status_watcher()
         self._setup_notifications()
@@ -614,7 +614,7 @@ class Server:
         self._is_owner = False
         self._client_id = None
         self._maximum_logins = None
-        self._osc_io.quit()
+        self._osc_protocol.quit()
         self._teardown_proxies()
         self._teardown_allocators()
         self._teardown_status_watcher()
@@ -788,7 +788,7 @@ class Server:
     def send_message(self, message, with_request_name=False):
         if not message or not self.is_running:
             return
-        self._osc_io.send(
+        self._osc_protocol.send(
             message, with_request_name=with_request_name or self.debug_request_names
         )
 
@@ -878,8 +878,8 @@ class Server:
         return self._node_id_allocator
 
     @property
-    def osc_io(self):
-        return self._osc_io
+    def osc_protocol(self):
+        return self._osc_protocol
 
     @property
     def port(self):

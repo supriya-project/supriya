@@ -908,8 +908,8 @@ class RealtimeProvider(Provider):
     def register_osc_callback(
         self, pattern: Tuple[Union[str, float], ...], procedure: Callable
     ) -> OscCallbackProxy:
-        identifier = self.server.osc_io.register(pattern=pattern, procedure=procedure)
+        identifier = self.server.osc_protocol.register(pattern=pattern, procedure=procedure)
         return OscCallbackProxy(provider=self, identifier=identifier)
 
     def unregister_osc_callback(self, proxy: OscCallbackProxy):
-        self.server.osc_io.unregister(proxy.identifier)
+        self.server.osc_protocol.unregister(proxy.identifier)

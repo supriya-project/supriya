@@ -63,7 +63,7 @@ def test_levels(channel_count_application):
 def test_query(channel_count_application):
     context = channel_count_application["Context"]
     channel_count_application.boot()
-    with context.provider.server.osc_io.capture() as transcript:
+    with context.provider.server.osc_protocol.capture() as transcript:
         channel_count_application.set_channel_count(4)
     time.sleep(0.1)
     assert len(transcript.sent_messages) == 1

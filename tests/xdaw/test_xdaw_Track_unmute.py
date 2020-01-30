@@ -11,7 +11,7 @@ def test_repeat():
     application.boot()
     context["a"].mute()
     context["a"].unmute()
-    with context.provider.server.osc_io.capture() as transcript:
+    with context.provider.server.osc_protocol.capture() as transcript:
         context["a"].unmute()
     assert not len(transcript.sent_messages)
 
@@ -27,11 +27,11 @@ def test_stacked():
     context["a"].mute()
     context["b"].mute()
     context["c"].mute()
-    with context.provider.server.osc_io.capture() as transcript:
+    with context.provider.server.osc_protocol.capture() as transcript:
         context["c"].unmute()
         context["b"].unmute()
     assert not len(transcript.sent_messages)
-    with context.provider.server.osc_io.capture() as transcript:
+    with context.provider.server.osc_protocol.capture() as transcript:
         context["a"].unmute()
     assert len(transcript.sent_messages) == 1
     _, message = transcript.sent_messages[0]

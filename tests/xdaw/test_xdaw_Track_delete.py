@@ -48,7 +48,7 @@ def test_3():
     track_one = parent.add_track()
     application.boot()
     track_two = parent.add_track()
-    with context.provider.server.osc_io.capture() as transcript:
+    with context.provider.server.osc_protocol.capture() as transcript:
         track_one.delete()
     assert list(parent.tracks) == [track_two]
     assert track_one.application is None

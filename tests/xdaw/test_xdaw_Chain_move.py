@@ -26,7 +26,7 @@ def test_2():
     chain_one = rack_device.add_chain()
     chain_two = rack_device.add_chain()
     application.boot()
-    with context.provider.server.osc_io.capture() as transcript:
+    with context.provider.server.osc_protocol.capture() as transcript:
         chain_two.move(rack_device, 0)
     assert list(rack_device.chains) == [chain_two, chain_one]
     assert len(transcript.sent_messages) == 1
@@ -47,7 +47,7 @@ def test_3():
     chain_one.add_send(chain_two)
     chain_two.add_send(chain_one)
     application.boot()
-    with context.provider.server.osc_io.capture() as transcript:
+    with context.provider.server.osc_protocol.capture() as transcript:
         chain_two.move(rack_device, 0)
     assert len(transcript.sent_messages) == 1
     _, message = transcript.sent_messages[0]
@@ -74,7 +74,7 @@ def test_4():
     rack_device_two = track.add_device(RackDevice)
     chain = rack_device_one.add_chain()
     application.boot()
-    with context.provider.server.osc_io.capture() as transcript:
+    with context.provider.server.osc_protocol.capture() as transcript:
         chain.move(rack_device_two, 0)
     assert len(transcript.sent_messages) == 1
     _, message = transcript.sent_messages[0]

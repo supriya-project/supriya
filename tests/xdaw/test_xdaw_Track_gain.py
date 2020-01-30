@@ -13,7 +13,7 @@ def test_gain(dc_index_synthdef_factory):
     assert track.rms_levels["prefader"] == (1.0,)
     assert track.rms_levels["postfader"] == (1.0,)
     assert context.master_track.rms_levels["input"] == (1.0,)
-    with context.provider.server.osc_io.capture() as transcript:
+    with context.provider.server.osc_protocol.capture() as transcript:
         track.parameters["gain"].set_(-6.0)
     assert len(transcript.sent_messages) == 1
     _, message = transcript.sent_messages[0]

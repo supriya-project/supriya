@@ -67,7 +67,7 @@ def test_query(channel_count_application):
     #       Then the rack doesn't need an input - it delegates to the chain receives.
     context = channel_count_application["Context"]
     channel_count_application.boot()
-    with context.provider.server.osc_io.capture() as transcript:
+    with context.provider.server.osc_protocol.capture() as transcript:
         context["Chain"].set_channel_count(4)
     time.sleep(0.1)
     assert len(transcript.sent_messages) == 1

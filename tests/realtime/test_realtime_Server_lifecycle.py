@@ -200,8 +200,8 @@ def test_shared_resources():
         )
     synthdef = builder.build(name="foo")
     synth = supriya.Synth(synthdef=synthdef)
-    transcript_a = server_a.osc_io.capture()
-    transcript_b = server_b.osc_io.capture()
+    transcript_a = server_a.osc_protocol.capture()
+    transcript_b = server_b.osc_protocol.capture()
     with transcript_a, transcript_b:
         synth.allocate(target_node=server_b)
         time.sleep(0.1)  # Wait for all clients to receive /n_go

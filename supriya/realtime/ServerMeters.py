@@ -114,10 +114,10 @@ class ServerMeters(SupriyaObject):
         import supriya.osc
         import supriya.realtime
 
-        self._input_meter_callback = self.server.osc_io.register(
+        self._input_meter_callback = self.server.osc_protocol.register(
             pattern=self.input_meter_command, procedure=self._handle_input_levels
         )
-        self._output_meter_callback = self.server.osc_io.register(
+        self._output_meter_callback = self.server.osc_protocol.register(
             pattern=self.output_meter_command, procedure=self._handle_output_levels
         )
         input_meter_synthdef = self.input_meter_synthdef
@@ -137,8 +137,8 @@ class ServerMeters(SupriyaObject):
         return self
 
     def free(self):
-        self.server.osc_io.unregister(self._input_meter_callback)
-        self.server.osc_io.unregister(self._output_meter_callback)
+        self.server.osc_protocol.unregister(self._input_meter_callback)
+        self.server.osc_protocol.unregister(self._output_meter_callback)
         self._input_meter_synth.free()
         self._output_meter_synth.free()
         self._input_meter_callback = None

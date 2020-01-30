@@ -38,13 +38,13 @@ class InstrumentChain(Chain):
         self._output_synth["out"] = int(self._bus_group)
 
     def _create_osc_callbacks(self, server):
-        self._osc_callbacks["prefader"] = server.osc_io.register(
+        self._osc_callbacks["prefader"] = server.osc_protocol.register(
             ["/levels/chain/prefader", self._output_synth.node_id],
             lambda osc_message: self._update_levels(
                 "prefader", osc_message.contents[2:]
             ),
         )
-        self._osc_callbacks["postfader"] = server.osc_io.register(
+        self._osc_callbacks["postfader"] = server.osc_protocol.register(
             ["/levels/chain/postfader", self._output_synth.node_id],
             lambda osc_message: self._update_levels(
                 "postfader", osc_message.contents[2:]
@@ -54,7 +54,7 @@ class InstrumentChain(Chain):
     def _destroy_osc_callbacks(self, server):
         for key, callback in self._osc_callbacks.items():
             if callback and server:
-                server.osc_io.unregister(callback)
+                server.osc_protocol.unregister(callback)
 
     def _list_bus_groups(self):
         return [self.bus_group]

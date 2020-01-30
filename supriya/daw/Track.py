@@ -152,15 +152,15 @@ class Track(DawNode, UniqueTreeTuple):
                 rms.append(levels.pop(0))
             self._levels[key] = peak, rms
 
-        self._osc_callbacks["input"] = server.osc_io.register(
+        self._osc_callbacks["input"] = server.osc_protocol.register(
             ["/levels/track/input", self._input_synth.node_id],
             lambda osc_message: update_levels("input", osc_message.contents[2:]),
         )
-        self._osc_callbacks["prefader"] = server.osc_io.register(
+        self._osc_callbacks["prefader"] = server.osc_protocol.register(
             ["/levels/track/prefader", self._output_synth.node_id],
             lambda osc_message: update_levels("prefader", osc_message.contents[2:]),
         )
-        self._osc_callbacks["postfader"] = server.osc_io.register(
+        self._osc_callbacks["postfader"] = server.osc_protocol.register(
             ["/levels/track/postfader", self._output_synth.node_id],
             lambda osc_message: update_levels("postfader", osc_message.contents[2:]),
         )
@@ -168,7 +168,7 @@ class Track(DawNode, UniqueTreeTuple):
     def _destroy_osc_callbacks(self, server):
         for key, callback in self._osc_callbacks.items():
             if callback and server:
-                server.osc_io.unregister(callback)
+                server.osc_protocol.unregister(callback)
 
     def _list_bus_groups(self):
         return [self.input_bus_group, self.bus_group]

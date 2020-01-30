@@ -49,7 +49,7 @@ def test_transcript(chain_mute_solo_application, soloed_chain_names, muted_chain
     chain_mute_solo_application.boot()
     for soloed_chain_name in soloed_chain_names:
         soloed_chain = chain_mute_solo_application.primary_context[soloed_chain_name]
-        with chain_mute_solo_application.primary_context.provider.server.osc_io.capture() as transcript:
+        with chain_mute_solo_application.primary_context.provider.server.osc_protocol.capture() as transcript:
             soloed_chain.solo()
         osc_messages = []
         for muted_chain_name in muted_chain_names:
@@ -119,7 +119,7 @@ def test_is_soloed(chain_mute_solo_application, booted, chain_names, expected):
 def test_repeat(chain_mute_solo_application):
     chain_mute_solo_application.boot()
     chain_mute_solo_application.primary_context["outer/a/a"].solo()
-    with chain_mute_solo_application.primary_context.provider.server.osc_io.capture() as transcript:
+    with chain_mute_solo_application.primary_context.provider.server.osc_protocol.capture() as transcript:
         chain_mute_solo_application.primary_context["outer/a/a"].solo()
     assert not len(transcript.sent_messages)
 

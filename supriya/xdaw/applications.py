@@ -7,7 +7,7 @@ from typing import Optional, Tuple
 from uqbar.containers import UniqueTreeTuple
 
 from supriya.nonrealtime.Session import Session
-from supriya.osc import OscIO
+from supriya.osc import find_free_port
 from supriya.provider import Provider
 
 from .bases import Container
@@ -71,7 +71,7 @@ class Application(UniqueTreeTuple):
             context = Context(name=name)
             self._contexts._append(context)
             if self.status == self.Status.REALTIME:
-                provider = Provider.realtime(port=OscIO.find_free_port())
+                provider = Provider.realtime(port=find_free_port())
                 with provider.at():
                     context._set(provider=provider)
             return context
@@ -108,7 +108,7 @@ class Application(UniqueTreeTuple):
             elif not self.contexts:
                 raise ValueError
             for context in self.contexts:
-                provider = Provider.realtime(port=OscIO.find_free_port())
+                provider = Provider.realtime(port=find_free_port())
                 with provider.at():
                     context._set(provider=provider)
             time.sleep(0.1)  # wait for /done messages

@@ -50,7 +50,7 @@ def test_osc_transcript(application):
     """
     Arpeggiator instantiation does not send any OSC messages.
     """
-    with application["Context"].provider.server.osc_io.capture() as transcript:
+    with application["Context"].provider.server.osc_protocol.capture() as transcript:
         application["Track"].add_device(Arpeggiator)
     assert len(transcript.sent_messages) == 0
 

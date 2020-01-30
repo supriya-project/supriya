@@ -64,7 +64,7 @@ class Requestable(SupriyaValueObject):
         timed_out = False
         with self.condition:
             try:
-                server.osc_io.register(
+                server.osc_protocol.register(
                     pattern=success_pattern,
                     failure_pattern=failure_pattern,
                     procedure=self._set_response,

@@ -45,15 +45,15 @@ class AudioChain(Chain):
         def update_levels(key, levels):
             self._levels[key] = levels
 
-        self._osc_callbacks["input"] = server.osc_io.register(
+        self._osc_callbacks["input"] = server.osc_protocol.register(
             ["/levels/chain/input", self._input_synth.node_id],
             lambda osc_message: update_levels("input", osc_message.contents[2:]),
         )
-        self._osc_callbacks["prefader"] = server.osc_io.register(
+        self._osc_callbacks["prefader"] = server.osc_protocol.register(
             ["/levels/chain/prefader", self._output_synth.node_id],
             lambda osc_message: update_levels("prefader", osc_message.contents[2:]),
         )
-        self._osc_callbacks["postfader"] = server.osc_io.register(
+        self._osc_callbacks["postfader"] = server.osc_protocol.register(
             ["/levels/chain/postfader", self._output_synth.node_id],
             lambda osc_message: update_levels("postfader", osc_message.contents[2:]),
         )
@@ -61,7 +61,7 @@ class AudioChain(Chain):
     def _destroy_osc_callbacks(self, server):
         for key, callback in self._osc_callbacks.items():
             if callback and server:
-                server.osc_io.unregister(callback)
+                server.osc_protocol.unregister(callback)
 
     def _list_bus_groups(self):
         return [self.bus_group]

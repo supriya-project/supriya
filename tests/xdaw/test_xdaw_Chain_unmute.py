@@ -20,6 +20,6 @@ def test_repeat(dc_index_synthdef_factory):
     chain.unmute()
     time.sleep(0.2)
     assert [int(_) for _ in context.master_track.rms_levels["input"]] == [1]
-    with context.provider.server.osc_io.capture() as transcript:
+    with context.provider.server.osc_protocol.capture() as transcript:
         chain.unmute()
     assert not len(transcript.sent_messages)

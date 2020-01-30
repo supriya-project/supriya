@@ -48,7 +48,7 @@ def test_3():
     parent = context.add_track()
     track_one = parent.add_track()
     application.boot()
-    with context.provider.server.osc_io.capture() as transcript:
+    with context.provider.server.osc_protocol.capture() as transcript:
         track_two = parent.add_track()
     assert context.provider is not None
     assert len(transcript.sent_messages) == 1

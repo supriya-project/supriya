@@ -42,7 +42,7 @@ class StatusWatcher(threading.Thread):
     def run(self):
         import supriya.commands
 
-        self._callback = self.server.osc_io.register(
+        self._callback = self.server.osc_protocol.register(
             pattern="/status.reply", procedure=self.__call__, parse_response=True
         )
         request = supriya.commands.StatusRequest()
@@ -60,7 +60,7 @@ class StatusWatcher(threading.Thread):
                 self.exponential_backoff_factor, self._attempts
             )
             time.sleep(sleep_time)
-        self.server.osc_io.unregister(self.callback)
+        self.server.osc_protocol.unregister(self.callback)
 
     ### PUBLIC PROPERTIES ###
 
