@@ -1,25 +1,10 @@
-"""
-Tools for sending, receiving and handling OSC messages.
-"""
-
-import asyncio
 import collections
 import datetime
 import enum
-import logging
-import queue
-import socket
-import socketserver
 import struct
-import threading
 import time
-from collections import deque
-from contextlib import closing
-from typing import Callable, NamedTuple, Optional, Tuple, Union
 
 from supriya import utils
-from supriya.commands.Requestable import Requestable
-from supriya.commands.Response import Response
 from supriya.system.SupriyaValueObject import SupriyaValueObject
 
 BUNDLE_PREFIX = b"#bundle\x00"
@@ -29,11 +14,6 @@ SECONDS_TO_NTP_TIMESTAMP = 2.0 ** 32.0
 SYSTEM_EPOCH = datetime.date(*time.gmtime(0)[0:3])
 NTP_EPOCH = datetime.date(1900, 1, 1)
 NTP_DELTA = (SYSTEM_EPOCH - NTP_EPOCH).days * 24 * 3600
-
-osc_in_logger = logging.getLogger("supriya.osc.in")
-osc_out_logger = logging.getLogger("supriya.osc.out")
-udp_in_logger = logging.getLogger("supriya.udp.in")
-udp_out_logger = logging.getLogger("supriya.udp.out")
 
 
 class OscMessage(SupriyaValueObject):
@@ -108,7 +88,7 @@ class OscMessage(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ("_address", "_contents")
+    __slots__ = ("address", "contents")
 
     ### INITIALIZER ###
 
@@ -117,8 +97,8 @@ class OscMessage(SupriyaValueObject):
             address = address.value
         if not isinstance(address, (str, int)):
             raise ValueError(f"address must be int or str, got {address}")
-        self._address = address
-        self._contents = tuple(contents)
+        self.address = address
+        self.contents = tuple(contents)
 
     ### SPECIAL METHODS ###
 
@@ -270,16 +250,6 @@ class OscMessage(SupriyaValueObject):
                 result.append(x)
         return result
 
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def address(self):
-        return self._address
-
-    @property
-    def contents(self):
-        return self._contents
-
 
 class OscBundle(SupriyaValueObject):
     """
@@ -356,18 +326,18 @@ class OscBundle(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ("_contents", "_timestamp")
+    __slots__ = ("contents", "timestamp")
 
     ### INITIALIZER ###
 
     def __init__(self, timestamp=None, contents=None):
         prototype = (OscMessage, type(self))
-        self._timestamp = timestamp
+        self.timestamp = timestamp
         contents = contents or ()
         for x in contents or ():
             if not isinstance(x, prototype):
                 raise ValueError(contents)
-        self._contents = tuple(contents)
+        self.contents = tuple(contents)
 
     ### SPECIAL METHODS ###
 
@@ -417,7 +387,7 @@ class OscBundle(SupriyaValueObject):
     def partition(cls, messages, timestamp=None):
         bundles = []
         contents = []
-        message = deque(messages)
+        message = collections.deque(messages)
         remaining = maximum = 8192 - len(BUNDLE_PREFIX) - 4
         while messages:
             message = messages.popleft()
@@ -435,7 +405,7 @@ class OscBundle(SupriyaValueObject):
 
     def to_datagram(self, realtime=True):
         datagram = BUNDLE_PREFIX
-        datagram += self._encode_date(self._timestamp, realtime=realtime)
+        datagram += self._encode_date(self.timestamp, realtime=realtime)
         for content in self.contents:
             content_datagram = content.to_datagram()
             datagram += struct.pack(">i", len(content_datagram))
@@ -446,384 +416,6 @@ class OscBundle(SupriyaValueObject):
         result = [self.timestamp]
         result.append([x.to_list() for x in self.contents])
         return result
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def contents(self):
-        return self._contents
-
-    @property
-    def timestamp(self):
-        return self._timestamp
-
-
-class OscCallback(NamedTuple):
-    pattern: Tuple[Union[str, int, float], ...]
-    procedure: Callable
-    failure_pattern: Optional[Tuple[Union[str, int, float], ...]] = None
-    once: bool = False
-    parse_response: bool = False
-
-
-class CaptureEntry(NamedTuple):
-    timestamp: float
-    label: str
-    message: Union[OscMessage, OscBundle]
-    command: Optional[Union[Requestable, Response]]
-
-
-class Capture:
-
-    ### INITIALIZER ###
-
-    def __init__(self, osc_protocol):
-        self.osc_protocol = osc_protocol
-        self.messages = []
-
-    ### SPECIAL METHODS ###
-
-    def __enter__(self):
-        self.osc_protocol.captures.add(self)
-        self.messages[:] = []
-        return self
-
-    def __exit__(self, exc_type, exc_value, traceback):
-        self.osc_protocol.captures.remove(self)
-
-    def __iter__(self):
-        return iter(self.messages)
-
-    def __len__(self):
-        return len(self.messages)
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def received_messages(self):
-        return [
-            (timestamp, osc_message)
-            for timestamp, label, osc_message, _ in self.messages
-            if label == "R"
-        ]
-
-    @property
-    def requests(self):
-        return [
-            (timestamp, command)
-            for timestamp, label, _, command in self.messages
-            if label == "S" and command is not None
-        ]
-
-    @property
-    def responses(self):
-        return [
-            (timestamp, command)
-            for timestamp, label, _, command in self.messages
-            if label == "R" and command is not None
-        ]
-
-    @property
-    def sent_messages(self):
-        return [
-            (timestamp, osc_message)
-            for timestamp, label, osc_message, _ in self.messages
-            if label == "S"
-        ]
-
-
-class SyncOscrotocol:
-
-    ### CLASS VARIABLES ###
-
-    class OscServer(socketserver.UDPServer):
-        def process_queue(self):
-            def delete(pattern, original_callback_map):
-                key = pattern.pop(0)
-                if key not in original_callback_map:
-                    return
-                callbacks, callback_map = original_callback_map[key]
-                if pattern:
-                    delete(pattern, callback_map)
-                if callback in callbacks:
-                    callbacks.remove(callback)
-                if not callbacks and not callback_map:
-                    original_callback_map.pop(key)
-
-            while self.io_instance.command_queue.qsize():
-                try:
-                    action, callback = self.io_instance.command_queue.get()
-                except queue.Empty:
-                    continue
-                patterns = [callback.pattern]
-                if callback.failure_pattern:
-                    patterns.append(callback.failure_pattern)
-                if action == "add":
-                    for pattern in patterns:
-                        callback_map = self.io_instance.callbacks
-                        for item in pattern:
-                            callbacks, callback_map = callback_map.setdefault(
-                                item, ([], {})
-                            )
-                        callbacks.append(callback)
-                elif action == "remove":
-                    for pattern in patterns:
-                        delete(list(pattern), self.io_instance.callbacks)
-
-        def verify_request(self, request, client_address):
-            self.process_queue()
-            return True
-
-    class OscHandler(socketserver.BaseRequestHandler):
-        def handle(self):
-            now = time.time()
-            data = self.request[0]
-            try:
-                message = OscMessage.from_datagram(data)
-            except Exception:
-                udp_in_logger.warn("Recv: {:0.6f} {}".format(now, data))
-                raise
-            osc_log_function = osc_in_logger.debug
-            udp_log_function = udp_in_logger.debug
-            if message.address != "/status.reply":
-                osc_log_function = osc_in_logger.info
-                udp_log_function = udp_in_logger.info
-            osc_log_function("Recv: {:0.6f} {}".format(now, message.to_list()))
-            for line in str(message).splitlines():
-                udp_log_function("Recv: {:0.6f} {}".format(now, line))
-            # TODO: Extract "response" parsing
-            response = None
-            for callback in self.server.io_instance._match(message):
-                if callback.parse_response:
-                    if response is None:
-                        handler = self.server.io_instance.response_handlers.get(
-                            message.address
-                        )
-                        if handler:
-                            response = handler.from_osc_message(message)
-                    args = response
-                else:
-                    args = message
-                callback.procedure(args)
-            if message.address != "/status.reply":
-                for capture in self.server.io_instance.captures:
-                    capture.messages.append(
-                        CaptureEntry(
-                            timestamp=time.time(),
-                            label="R",
-                            message=message,
-                            command=response,
-                        )
-                    )
-
-    ### INITIALIZER ###
-
-    def __init__(self, ip_address="127.0.0.1", port=57751, timeout=2):
-        import supriya.commands
-
-        self.callbacks = {}
-        self.captures = set()
-        self.command_queue = queue.Queue()
-        self.ip_address = ip_address
-        self.lock = threading.RLock()
-        self.server = None
-        self.server_thread = None
-        self.port = port
-        self.is_running = False
-        self.timeout = timeout
-        # TODO: Extracate these into a scsynth-specific subclass
-        self.response_handlers = {
-            "/b_info": supriya.commands.BufferInfoResponse,
-            "/b_set": supriya.commands.BufferSetResponse,
-            "/b_setn": supriya.commands.BufferSetContiguousResponse,
-            "/c_set": supriya.commands.ControlBusSetResponse,
-            "/c_setn": supriya.commands.ControlBusSetContiguousResponse,
-            "/d_removed": supriya.commands.SynthDefRemovedResponse,
-            "/done": supriya.commands.DoneResponse,
-            "/fail": supriya.commands.FailResponse,
-            "/g_queryTree.reply": supriya.commands.QueryTreeResponse,
-            "/n_end": supriya.commands.NodeInfoResponse,
-            "/n_go": supriya.commands.NodeInfoResponse,
-            "/n_info": supriya.commands.NodeInfoResponse,
-            "/n_move": supriya.commands.NodeInfoResponse,
-            "/n_off": supriya.commands.NodeInfoResponse,
-            "/n_on": supriya.commands.NodeInfoResponse,
-            "/n_set": supriya.commands.NodeSetResponse,
-            "/n_setn": supriya.commands.NodeSetContiguousResponse,
-            "/status.reply": supriya.commands.StatusResponse,
-            "/synced": supriya.commands.SyncedResponse,
-            "/tr": supriya.commands.TriggerResponse,
-        }
-
-    ### SPECIAL METHODS ###
-
-    def __del__(self):
-        self.quit()
-
-    ### PRIVATE METHODS ###
-
-    def _match(self, message):
-        items = (message.address,) + message.contents
-        matching_callbacks = []
-        callback_map = self.callbacks
-        for item in items:
-            if item not in callback_map:
-                break
-            callbacks, callback_map = callback_map[item]
-            matching_callbacks.extend(callbacks)
-        for callback in matching_callbacks:
-            if callback.once:
-                self.unregister(callback)
-        return matching_callbacks
-
-    ### PUBLIC METHODS ###
-
-    def boot(self, ip_address=None, port=None):
-        with self.lock:
-            if self.is_running:
-                return
-            if ip_address:
-                self.ip_address = ip_address
-            if port:
-                self.port = port
-            self.server = self.OscServer(
-                (self.ip_address, self.port), self.OscHandler, bind_and_activate=False
-            )
-            self.server.io_instance = self
-            self.server_thread = threading.Thread(target=self.server.serve_forever)
-            self.server_thread.daemon = True
-            self.server_thread.start()
-            self.is_running = True
-
-    def capture(self):
-        return Capture(self)
-
-    def quit(self):
-        with self.lock:
-            if not self.is_running:
-                return
-            self.server.shutdown()
-            self.server = None
-            self.server_thread = None
-            self.is_running = False
-
-    def register(
-        self,
-        pattern,
-        procedure,
-        *,
-        failure_pattern=None,
-        once=False,
-        parse_response=False,
-    ):
-        """
-        Register a callback.
-        """
-        if isinstance(pattern, (str, int, float)):
-            pattern = (pattern,)
-        assert callable(procedure)
-        callback = OscCallback(
-            pattern=tuple(pattern),
-            failure_pattern=failure_pattern,
-            procedure=procedure,
-            once=bool(once),
-            parse_response=bool(parse_response),
-        )
-        self.command_queue.put(("add", callback))
-        return callback
-
-    def send(self, message, with_request_name=False):
-        if not self.is_running:
-            raise RuntimeError
-        request = None
-        if isinstance(message, Requestable):
-            request = message
-            message = message.to_osc(with_request_name=with_request_name)
-        prototype = (str, collections.Iterable, OscBundle, OscMessage)
-        if not isinstance(message, prototype):
-            raise ValueError(message)
-        if isinstance(message, str):
-            message = OscMessage(message)
-        elif isinstance(message, collections.Iterable):
-            message = OscMessage(*message)
-        now = time.time()
-
-        osc_log_function = osc_out_logger.debug
-        udp_log_function = udp_out_logger.debug
-        if not (isinstance(message, OscMessage) and message.address in (2, "/status")):
-            osc_log_function = osc_out_logger.info
-            udp_log_function = udp_out_logger.info
-            for capture in self.captures:
-                capture.messages.append(
-                    CaptureEntry(
-                        timestamp=time.time(),
-                        label="S",
-                        message=message,
-                        command=request,
-                    )
-                )
-        osc_log_function("Send: {:0.6f} {}".format(now, message.to_list()))
-        for line in str(message).splitlines():
-            udp_log_function("Send: {:0.6f} {}".format(now, line))
-        datagram = message.to_datagram()
-        try:
-            self.server.socket.sendto(datagram, (self.ip_address, self.port))
-        except OSError:
-            print(message)
-            raise
-
-    def unregister(self, callback):
-        """
-        Unregister a callback.
-        """
-        self.command_queue.put(("remove", callback))
-
-
-class AsyncOscProtocol(asyncio.DatagramProtocol):
-    def __init__(self, ip_address="127.0.0.1", port=57751, *, timeout=2):
-        super().__init__()
-        self.callbacks = {}
-        self.captures = set()
-        self.ip_address = ip_address
-        self.is_running = False
-        self.port = port
-        self.timeout = timeout
-
-    def capture(self):
-        return Capture(self)
-
-    async def connect(self):
-        pass
-
-    def connection_made(self, transport):
-        self.transport = transport
-
-    async def disconnect(self):
-        pass
-
-    def register(
-        self,
-        path_pattern,
-        procedure,
-        *,
-        args_pattern=None,
-        failure_pattern=None,
-        once=False,
-    ):
-        pass
-
-    def send(self, message):
-        pass
-
-    def unregister(self, callback):
-        pass
-
-
-def find_free_port():
-    with closing(socket.socket(socket.AF_INET, socket.SOCK_DGRAM)) as s:
-        s.bind(("", 0))
-        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        return s.getsockname()[1]
 
 
 def format_datagram(datagram):

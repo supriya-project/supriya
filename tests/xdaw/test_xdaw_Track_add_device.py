@@ -4,7 +4,13 @@ import pytest
 from uqbar.strings import normalize
 
 from supriya.synthdefs import SynthDefCompiler, SynthDefFactory
-from supriya.xdaw import Application, AudioEffect, DeviceIn, DeviceOut, Instrument
+from supriya.xdaw import (
+    Application,
+    AudioEffect,
+    DeviceIn,
+    DeviceOut,
+    Instrument,
+)
 
 
 @pytest.fixture

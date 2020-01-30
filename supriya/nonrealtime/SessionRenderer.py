@@ -177,7 +177,7 @@ class SessionRenderer(SupriyaObject):
                         extension
                     )
                     contents[i] = str(renderable_file_path)
-                osc_message._contents = tuple(contents)
+                osc_message.contents = tuple(contents)
         return osc_bundles
 
     def _build_dependency_graph_and_nonxrefd_osc_bundles_conditionally(

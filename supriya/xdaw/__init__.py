@@ -1,6 +1,11 @@
 from .applications import Application
 from .audioeffects import AudioEffect
-from .bases import Allocatable, AllocatableContainer, ApplicationObject, Container
+from .bases import (
+    Allocatable,
+    AllocatableContainer,
+    ApplicationObject,
+    Container,
+)
 from .chains import Chain, ChainContainer, RackDevice
 from .clips import Clip, Envelope, Note, NoteMoment, Scene, Slot, Timeline
 from .contexts import Context

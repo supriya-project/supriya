@@ -516,12 +516,10 @@ class Provider(metaclass=abc.ABCMeta):
     @classmethod
     def from_context(cls, context, latency=0.1) -> "Provider":
         if isinstance(context, Session):
-            class_ = NonrealtimeProvider
+            return NonrealtimeProvider(context, latency=latency)
         elif isinstance(context, Server):
-            class_ = RealtimeProvider
-        else:
-            raise ValueError("Unknown context")
-        return class_(context, latency=latency)
+            return RealtimeProvider(context, latency=latency)
+        raise ValueError("Unknown context")
 
     @classmethod
     def nonrealtime(cls) -> "NonrealtimeProvider":
@@ -908,7 +906,9 @@ class RealtimeProvider(Provider):
     def register_osc_callback(
         self, pattern: Tuple[Union[str, float], ...], procedure: Callable
     ) -> OscCallbackProxy:
-        identifier = self.server.osc_protocol.register(pattern=pattern, procedure=procedure)
+        identifier = self.server.osc_protocol.register(
+            pattern=pattern, procedure=procedure
+        )
         return OscCallbackProxy(provider=self, identifier=identifier)
 
     def unregister_osc_callback(self, proxy: OscCallbackProxy):

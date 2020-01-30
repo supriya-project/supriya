@@ -1,6 +1,6 @@
 import abc
 from types import MappingProxyType
-from typing import Dict, Mapping, Optional, Set, Tuple, Type, Union
+from typing import Dict, Mapping, Optional, Set, Type, Union
 from uuid import UUID, uuid4
 
 import supriya.xdaw  # noqa
@@ -775,7 +775,7 @@ class Track(UserTrackObject):
                 return parent
 
     @property
-    def slots(self) -> Tuple[Slot, ...]:
+    def slots(self):
         return self._slots
 
     @property

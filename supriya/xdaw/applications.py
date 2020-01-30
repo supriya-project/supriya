@@ -2,7 +2,7 @@ import enum
 import time
 from collections import deque
 from threading import RLock
-from typing import Optional, Tuple
+from typing import Deque, Optional, Tuple
 
 from uqbar.containers import UniqueTreeTuple
 
@@ -84,11 +84,12 @@ class Application(UniqueTreeTuple):
 
     def add_scene(self, *, name=None) -> Scene:
         from supriya.xdaw.clips import Slot
+        from supriya.xdaw.tracks import Track
 
         with self.lock:
             scene = Scene(name=name)
             self._scenes._append(scene)
-            tracks = deque()
+            tracks: Deque[Track] = deque()
             for context in self.contexts:
                 tracks.extend(context.tracks)
             while tracks:
@@ -175,13 +176,15 @@ class Application(UniqueTreeTuple):
                 self._controllers._remove(controller)
 
     def remove_scenes(self, *scenes: Scene):
+        from supriya.xdaw.tracks import Track
+
         with self.lock:
             if not all(scene in self.scenes for scene in scenes):
                 raise ValueError
             indices = sorted(self.scenes.index(scene) for scene in scenes)
             for scene in scenes:
                 self.scenes._remove(scene)
-            tracks = deque()
+            tracks: Deque[Track] = deque()
             for context in self.contexts:
                 tracks.extend(context.tracks)
             while tracks:
@@ -257,7 +260,7 @@ class Application(UniqueTreeTuple):
         return self.contexts[0]
 
     @property
-    def scenes(self) -> Tuple[Scene, ...]:
+    def scenes(self):
         return self._scenes
 
     @property

@@ -31,7 +31,9 @@ class Float(ParameterSpec):
 
     ### INITIALIZER ###
 
-    def __init__(self, default: int = 0.0, minimum: float = 0.0, maximum: float = 1.0):
+    def __init__(
+        self, default: float = 0.0, minimum: float = 0.0, maximum: float = 1.0
+    ):
         self.minimum, self.maximum = sorted(float(_) for _ in [minimum, maximum])
         self.default = self(default)
 

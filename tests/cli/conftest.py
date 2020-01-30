@@ -10,7 +10,11 @@ import pytest
 from uqbar.io import DirectoryChange
 from uqbar.strings import normalize
 
-from supriya.cli import ManageMaterialScript, ManageProjectScript, ManageSessionScript
+from supriya.cli import (
+    ManageMaterialScript,
+    ManageProjectScript,
+    ManageSessionScript,
+)
 
 
 @pytest.fixture

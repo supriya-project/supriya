@@ -81,7 +81,7 @@ class Server:
 
         self._latency = 0.1
         self._lock = threading.Lock()
-        self._osc_protocol = supriya.osc.SyncOscProtocol()
+        self._osc_protocol = supriya.osc.ThreadedOscProtocol()
 
         ### ALLOCATORS ###
 
@@ -555,7 +555,7 @@ class Server:
 
     def _connect(self):
         self._is_running = True
-        self._osc_protocol.boot(ip_address=self.ip_address, port=self.port)
+        self._osc_protocol.connect(ip_address=self.ip_address, port=self.port)
         self._setup_osc_callbacks()
         self._setup_status_watcher()
         self._setup_notifications()
@@ -614,7 +614,7 @@ class Server:
         self._is_owner = False
         self._client_id = None
         self._maximum_logins = None
-        self._osc_protocol.quit()
+        self._osc_protocol.disconnect()
         self._teardown_proxies()
         self._teardown_allocators()
         self._teardown_status_watcher()

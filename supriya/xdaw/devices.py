@@ -10,6 +10,7 @@ from typing import (
     Sequence,
     Set,
     Tuple,
+    Type,
     Union,
 )
 from uuid import UUID, uuid4
@@ -207,7 +208,7 @@ class DeviceObject(Allocatable):
         self._captures: Set[DeviceObject.Capture] = set()
         self._input_notes: Set[float] = set()
         self._output_notes: Set[float] = set()
-        self._event_handlers: Dict[MidiMessage, Callable] = {
+        self._event_handlers: Dict[Type[MidiMessage], Callable] = {
             NoteOnMessage: self._handle_note_on,
             NoteOffMessage: self._handle_note_off,
         }
@@ -250,7 +251,7 @@ class DeviceObject(Allocatable):
         return None
 
     def _perform(
-        self, moment, in_midi_messages
+        self, moment, in_midi_messages: Sequence[MidiMessage]
     ) -> Generator[Tuple[Optional[Callable], Sequence[MidiMessage]], None, None]:
         self._debug_tree(
             self, "Perform", suffix=repr([type(_).__name__ for _ in in_midi_messages])
