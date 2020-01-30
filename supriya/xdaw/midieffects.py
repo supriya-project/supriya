@@ -29,9 +29,7 @@ class Chord(DeviceObject):
         pitch = midi_message.pitch
         if pitch in self._input_notes:
             result.extend(self._handle_note_off(moment, midi_message))
-        transpositions = sorted(
-            set(pitch + _ for _ in self._transpositions or [0])
-        )
+        transpositions = sorted(set(pitch + _ for _ in self._transpositions or [0]))
         self._input_notes.add(pitch)
         self._input_notes_to_output_notes[pitch] = transpositions
         for transposition in transpositions:
@@ -86,9 +84,7 @@ class Arpeggiator(DeviceObject):
 
     def _handle_note_on(self, moment, midi_message):
         self._input_notes.add(midi_message.pitch)
-        self._input_notes_to_velocities[
-            midi_message.pitch
-        ] = midi_message.velocity
+        self._input_notes_to_velocities[midi_message.pitch] = midi_message.velocity
         self._pattern = self._rebuild_pattern()
         return []
 
@@ -154,9 +150,7 @@ class Arpeggiator(DeviceObject):
             if pitch in self._output_notes:
                 midi_messages.append(NoteOffMessage(pitch=pitch))
             self._output_notes.add(pitch)
-            midi_messages.append(
-                NoteOnMessage(pitch=pitch, velocity=velocity)
-            )
+            midi_messages.append(NoteOnMessage(pitch=pitch, velocity=velocity))
             for message in midi_messages:
                 self._update_captures(moment=desired_moment, message=message, label="O")
             self.transport.schedule(

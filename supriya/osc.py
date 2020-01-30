@@ -5,16 +5,16 @@ Tools for sending, receiving and handling OSC messages.
 import collections
 import datetime
 import enum
-import struct
-import time
 import logging
 import queue
 import socket
 import socketserver
+import struct
 import threading
-import typing
+import time
 from collections import deque
 from contextlib import closing
+from typing import Callable, NamedTuple, Optional, Tuple, Union
 
 from supriya import utils
 from supriya.commands.Requestable import Requestable
@@ -68,6 +68,41 @@ class OscMessage(SupriyaValueObject):
             >>> OscMessage.from_datagram(datagram)
             OscMessage('/foo', True, [None, [3.25]], OscMessage('/bar'))
 
+    ..  container:: example
+
+        ::
+
+            >>> osc_message = supriya.osc.OscMessage(
+            ...     "/foo",
+            ...     1,
+            ...     2.5,
+            ...     supriya.osc.OscBundle(
+            ...         contents=(
+            ...             supriya.osc.OscMessage("/bar", "baz", 3.0),
+            ...             supriya.osc.OscMessage("/ffff", False, True, None),
+            ...         )
+            ...     ),
+            ...     ["a", "b", ["c", "d"]],
+            ... )
+            >>> osc_message
+            OscMessage('/foo', 1, 2.5, OscBundle(
+                contents=(
+                    OscMessage('/bar', 'baz', 3.0),
+                    OscMessage('/ffff', False, True, None),
+                    ),
+                ), ['a', 'b', ['c', 'd']])
+
+        ::
+
+            >>> datagram = osc_message.to_datagram()
+            >>> OscMessage.from_datagram(datagram)
+            OscMessage('/foo', 1, 2.5, OscBundle(
+                contents=(
+                    OscMessage('/bar', 'baz', 3.0),
+                    OscMessage('/ffff', False, True, None),
+                    ),
+                ), ['a', 'b', ['c', 'd']])
+
     """
 
     ### CLASS VARIABLES ###
@@ -89,7 +124,7 @@ class OscMessage(SupriyaValueObject):
     def __repr__(self):
         return "{}({})".format(
             type(self).__name__,
-            ", ".join(repr(x) for x in (self.address,) + self.contents)
+            ", ".join(repr(x) for x in (self.address,) + self.contents),
         )
 
     def __str__(self):
@@ -100,7 +135,9 @@ class OscMessage(SupriyaValueObject):
     @staticmethod
     def _decode_blob(data):
         actual_length, remainder = struct.unpack(">I", data[:4])[0], data[4:]
-        padded_length = (actual_length // 4 + 1) * 4
+        padded_length = actual_length
+        if actual_length % 4 != 0:
+            padded_length = (actual_length // 4 + 1) * 4
         return remainder[:padded_length][:actual_length], remainder[padded_length:]
 
     @staticmethod
@@ -117,6 +154,14 @@ class OscMessage(SupriyaValueObject):
             result = result.ljust(width, b"\x00")
         return result
 
+    @staticmethod
+    def _encode_blob(value):
+        result = bytes(struct.pack(">I", len(value)) + value)
+        if len(result) % 4 != 0:
+            width = (len(result) // 4 + 1) * 4
+            result = result.ljust(width, b"\x00")
+        return result
+
     @classmethod
     def _encode_value(cls, value):
         if hasattr(value, "to_datagram"):
@@ -126,16 +171,10 @@ class OscMessage(SupriyaValueObject):
         type_tags, encoded_value = "", b""
         if isinstance(value, (bytearray, bytes)):
             type_tags += "b"
-            encoded_value = bytes(struct.pack(">I", len(value)) + value)
-            if len(encoded_value) % 4 != 0:
-                width = (len(encoded_value) // 4 + 1) * 4
-                encoded_value = encoded_value.ljust(width, b"\x00")
+            encoded_value = cls._encode_blob(value)
         elif isinstance(value, str):
             type_tags += "s"
-            encoded_value = bytes(value + "\x00", "ascii")
-            if len(encoded_value) % 4 != 0:
-                width = (len(encoded_value) // 4 + 1) * 4
-                encoded_value = encoded_value.ljust(width, b"\x00")
+            encoded_value = cls._encode_string(value)
         elif isinstance(value, bool):
             type_tags += "T" if value else "F"
         elif isinstance(value, float):
@@ -172,7 +211,9 @@ class OscMessage(SupriyaValueObject):
             type_tags, encoded_value = self._encode_value(value)
             encoded_type_tags += type_tags
             encoded_contents += encoded_value
-        return encoded_address + self._encode_string(encoded_type_tags) + encoded_contents
+        return (
+            encoded_address + self._encode_string(encoded_type_tags) + encoded_contents
+        )
 
     @classmethod
     def from_datagram(cls, datagram):
@@ -196,11 +237,11 @@ class OscMessage(SupriyaValueObject):
                 array_stack[-1].append(value)
             elif type_tag == "b":
                 value, remainder = cls._decode_blob(remainder)
-                for class_ in (OscMessage, OscBundle):
+                for class_ in (OscBundle, OscMessage):
                     try:
                         value = class_.from_datagram(value)
                         break
-                    except IndexError:
+                    except Exception:
                         pass
                 array_stack[-1].append(value)
             elif type_tag == "T":
@@ -420,20 +461,18 @@ class OscIO:
 
     ### CLASS VARIABLES ###
 
-    class OscCallback(typing.NamedTuple):
-        pattern: typing.Tuple[typing.Union[str, int, float], ...]
-        procedure: typing.Callable
-        failure_pattern: typing.Optional[
-            typing.Tuple[typing.Union[str, int, float], ...]
-        ] = None
+    class OscCallback(NamedTuple):
+        pattern: Tuple[Union[str, int, float], ...]
+        procedure: Callable
+        failure_pattern: Optional[Tuple[Union[str, int, float], ...]] = None
         once: bool = False
         parse_response: bool = False
 
-    class CaptureEntry(typing.NamedTuple):
+    class CaptureEntry(NamedTuple):
         timestamp: float
         label: str
-        message: typing.Union[OscMessage, OscBundle]
-        command: typing.Optional[typing.Union[Requestable, Response]]
+        message: Union[OscMessage, OscBundle]
+        command: Optional[Union[Requestable, Response]]
 
     class Capture:
         def __init__(self, osc_io):

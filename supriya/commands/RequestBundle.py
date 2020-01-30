@@ -3,7 +3,7 @@ from collections import deque
 
 from supriya.commands.Requestable import Requestable
 from supriya.commands.SyncRequest import SyncRequest
-from supriya.osc import OscBundle, BUNDLE_PREFIX
+from supriya.osc import BUNDLE_PREFIX, OscBundle
 
 
 class RequestBundle(Requestable):

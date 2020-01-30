@@ -9,9 +9,7 @@ class NoteOffMessage(MidiMessage):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self, channel_number=None, pitch=None, timestamp=None, velocity=None
-    ):
+    def __init__(self, channel_number=None, pitch=None, timestamp=None, velocity=None):
         MidiMessage.__init__(self, channel_number=channel_number, timestamp=timestamp)
         self._pitch = pitch
         self._velocity = velocity

@@ -189,7 +189,9 @@ def test_4():
             start_notes=[Note(0, 0.25, pitch=60)],
         ),
         NoteMoment(
-            offset=0.125, local_offset=0.125, next_offset=0.25,
+            offset=0.125,
+            local_offset=0.125,
+            next_offset=0.25,
             overlap_notes=[Note(0, 0.25, pitch=60)],
         ),
         NoteMoment(

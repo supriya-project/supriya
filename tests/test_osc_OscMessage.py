@@ -23,7 +23,7 @@ def test():
             OscMessage('/bar', 'baz', 3.0),
             OscMessage('/ffff', False, True, None),
             ),
-        ), ('a', 'b', ('c', 'd')))
+        ), ['a', 'b', ['c', 'd']])
     """
     )
     assert str(osc_message) == uqbar.strings.normalize(
@@ -48,6 +48,6 @@ def test():
             OscMessage('/bar', 'baz', 3.0),
             OscMessage('/ffff', False, True, None),
             ),
-        ), ('a', 'b', ('c', 'd')))
+        ), ['a', 'b', ['c', 'd']])
     """
     )
