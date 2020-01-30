@@ -13,7 +13,7 @@ import supriya.osc
 import supriya.realtime
 import supriya.soundfiles
 import supriya.synthdefs
-from supriya import HeaderFormat, ParameterRate, SampleFormat
+from supriya import HeaderFormat, ParameterRate, SampleFormat, scsynth
 from supriya.commands.BufferCopyRequest import BufferCopyRequest
 from supriya.commands.BufferFillRequest import BufferFillRequest
 from supriya.commands.BufferGenerateRequest import BufferGenerateRequest
@@ -118,7 +118,7 @@ class Session:
     ):
         import supriya.nonrealtime
 
-        self._options = supriya.realtime.BootOptions(
+        self._options = scsynth.Options(
             input_bus_channel_count=input_bus_channel_count,
             output_bus_channel_count=output_bus_channel_count,
         )
@@ -373,8 +373,8 @@ class Session:
             'scsynth -N {} _ output.aiff 44100 aiff int24'
 
         """
-        server_options = server_options or supriya.realtime.BootOptions()
-        scsynth_path = supriya.realtime.BootOptions.find_scsynth(scsynth_path)
+        server_options = server_options or scsynth.Options()
+        scsynth_path = scsynth.find(scsynth_path)
         parts = [str(scsynth_path), "-N", "{}"]
         if input_file_path:
             parts.append(os.path.expanduser(input_file_path))
@@ -1052,9 +1052,7 @@ class Session:
         import supriya.cli
 
         assert isinstance(project_settings, supriya.cli.ProjectSettings)
-        server_options = supriya.realtime.BootOptions(
-            **project_settings.get("server_options", {})
-        )
+        server_options = scsynth.Options(**project_settings.get("server_options", {}))
         input_bus_channel_count = server_options.input_bus_channel_count
         output_bus_channel_count = server_options.output_bus_channel_count
         return cls(

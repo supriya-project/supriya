@@ -8,6 +8,7 @@ from typing import Set
 from uqbar.objects import new
 
 import supriya.exceptions
+from supriya import scsynth
 from supriya.commands import (  # type: ignore
     FailResponse,
     GroupQueryTreeRequest,
@@ -17,10 +18,11 @@ from supriya.commands import (  # type: ignore
 )
 from supriya.enums import NodeAction
 from supriya.querytree import QueryTreeGroup, QueryTreeSynth
+from supriya.scsynth import Options
 
 from .allocators import BlockAllocator, NodeIdAllocator
-from .process import BootOptions
 from .meters import Meters
+from .process import boot
 from .recorder import Recorder
 
 # TODO: Implement connect() and disconnect()
@@ -100,7 +102,7 @@ class Server:
         self._maximum_logins = None
         self._is_owner = False
         self._is_running = False
-        self._options = BootOptions()
+        self._options = Options()
         self._server_process = None
         self._status = None
         self._status_watcher = None
@@ -550,9 +552,9 @@ class Server:
     def boot(self, scsynth_path=None, options=None, **kwargs):
         if self.is_running:
             return self
-        self._options = new(options or BootOptions(), **kwargs)
-        scsynth_path = BootOptions.find_scsynth(scsynth_path)
-        self._server_process = self._options.boot(scsynth_path, self.port)
+        self._options = new(options or Options(), **kwargs)
+        scsynth_path = scsynth.find(scsynth_path)
+        self._server_process = boot(self._options, scsynth_path, self.port)
         self._is_owner = True
         self._connect()
         return self
@@ -646,7 +648,7 @@ class Server:
 
     @classmethod
     def kill(cls, supernova=False):
-        BootOptions.kill(supernova=supernova)
+        scsynth.kill(supernova=supernova)
 
     def query_local_nodes(self, include_controls=False):
         """

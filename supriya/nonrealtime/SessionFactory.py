@@ -1,6 +1,6 @@
 import abc
 
-import supriya.realtime
+from supriya import scsynth
 
 
 class SessionFactory:
@@ -8,7 +8,7 @@ class SessionFactory:
     ### INITIALIZER ###
 
     def __init__(self, input_bus_channel_count=None, output_bus_channel_count=None):
-        self._options = supriya.realtime.BootOptions(
+        self._options = scsynth.Options(
             input_bus_channel_count=input_bus_channel_count,
             output_bus_channel_count=output_bus_channel_count,
         )
@@ -31,9 +31,7 @@ class SessionFactory:
         import supriya.realtime
 
         assert isinstance(project_settings, supriya.cli.ProjectSettings)
-        server_options = supriya.realtime.BootOptions(
-            **project_settings.get("server_options", {})
-        )
+        server_options = scsynth.Options(**project_settings.get("server_options", {}))
         input_bus_channel_count = server_options.input_bus_channel_count
         output_bus_channel_count = server_options.output_bus_channel_count
         return cls(

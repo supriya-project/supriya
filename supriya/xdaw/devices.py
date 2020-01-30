@@ -15,7 +15,6 @@ from typing import (
 )
 from uuid import UUID, uuid4
 
-import supriya.daw  # noqa
 from supriya.clock import Moment
 from supriya.enums import AddAction, CalculationRate
 from supriya.midi import MidiMessage, NoteOffMessage, NoteOnMessage

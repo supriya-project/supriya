@@ -7,6 +7,7 @@ import pytest
 
 import supriya.exceptions
 import supriya.realtime
+from supriya.scsynth import Options
 
 
 @pytest.mark.timeout(60)
@@ -24,16 +25,14 @@ def test_boot():
 def test_boot_options():
     server = supriya.realtime.Server(port=57757)
     try:
-        boot_options = supriya.realtime.BootOptions(
-            memory_size=8192 * 32, load_synthdefs=False
-        )
+        boot_options = Options(memory_size=8192 * 32, load_synthdefs=False)
         # Default
         server.boot()
         assert isinstance(server.options, type(boot_options))
         assert server.options.memory_size == 8192
         assert server.options.load_synthdefs is True
         server.quit()
-        # With BootOptions
+        # With Options
         server.boot(options=boot_options)
         assert isinstance(server.options, type(boot_options))
         assert server.options.memory_size == 8192 * 32
@@ -45,7 +44,7 @@ def test_boot_options():
         assert server.options.memory_size == 8192
         assert server.options.load_synthdefs is False
         server.quit()
-        # With BootOptions and **kwargs
+        # With Options and **kwargs
         server.boot(load_synthdefs=False, options=boot_options)
         assert isinstance(server.options, type(boot_options))
         assert server.options.memory_size == 8192 * 32

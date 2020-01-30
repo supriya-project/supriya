@@ -7,6 +7,7 @@ import uqbar.io
 import uqbar.strings
 import yaml
 
+from supriya import scsynth
 from supriya.cli.ProjectPackageScript import ProjectPackageScript
 
 
@@ -121,9 +122,7 @@ class ManageProjectScript(ProjectPackageScript):
         composer_website=None,
         title=None,
     ):
-        import supriya.realtime
-
-        server_options = supriya.realtime.BootOptions()
+        server_options = scsynth.Options()
         server_options = dataclasses.asdict(server_options)
         project_settings = dict(
             server_options=server_options,

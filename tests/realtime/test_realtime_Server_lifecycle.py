@@ -4,8 +4,10 @@ import pytest
 from uqbar.strings import normalize
 
 import supriya
+from supriya import scsynth
 from supriya.osc import OscMessage
-from supriya.realtime import BootOptions, Server
+from supriya.realtime import Server
+from supriya.scsynth import Options
 
 pytestmark = pytest.mark.timeout(60)
 
@@ -238,8 +240,8 @@ def test_shared_resources():
 
 def test_connect_and_reconnect():
     try:
-        options = BootOptions(maximum_logins=4)
-        process = options.boot(options.find_scsynth(), 57110)
+        options = Options(maximum_logins=4)
+        process = options.boot(scsynth.find(), 57110)
         server = Server(port=57110)
         server.connect()
         assert server.is_running and not server.is_owner

@@ -21,7 +21,7 @@ from .interfaces import (
 )
 from .meters import Meters
 from .nodes import Group, Node, RootNode, Synth
-from .process import BootOptions
+from .process import boot
 from .recorder import Recorder
 from .servers import Server, StatusWatcher
 
@@ -30,7 +30,6 @@ __all__ = [
     "AudioOutputBusGroup",
     "Block",
     "BlockAllocator",
-    "BootOptions",
     "Buffer",
     "BufferGroup",
     "BufferProxy",
@@ -52,4 +51,5 @@ __all__ = [
     "Synth",
     "SynthControl",
     "SynthInterface",
+    "boot",
 ]

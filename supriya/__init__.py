@@ -105,7 +105,7 @@ from supriya.enums import (  # noqa
     Unit,
 )
 from supriya import utils  # noqa
-from supriya.realtime.process import BootOptions  # noqa
+from supriya.scsynth import Options  # noqa
 from supriya.realtime.servers import Server  # noqa
 from supriya.realtime.buffers import Buffer, BufferGroup  # noqa
 from supriya.realtime.buses import Bus, BusGroup  # noqa

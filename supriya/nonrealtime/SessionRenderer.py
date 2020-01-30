@@ -15,7 +15,7 @@ import supriya
 import supriya.realtime
 import supriya.soundfiles
 import supriya.system
-from supriya import HeaderFormat, SampleFormat
+from supriya import HeaderFormat, SampleFormat, scsynth
 from supriya.exceptions import NonrealtimeOutputMissing, NonrealtimeRenderError
 from supriya.system.SupriyaObject import SupriyaObject
 
@@ -130,8 +130,8 @@ class SessionRenderer(SupriyaObject):
         server_options=None,
     ):
         cwd = pathlib.Path.cwd()
-        scsynth_path = supriya.realtime.BootOptions.find_scsynth(scsynth_path)
-        server_options = server_options or supriya.realtime.BootOptions()
+        scsynth_path = scsynth.find(scsynth_path)
+        server_options = server_options or scsynth.Options()
         if os.environ.get("TRAVIS", None):
             server_options = new(server_options, load_synthdefs=True)
         if session_osc_file_path.is_absolute():
