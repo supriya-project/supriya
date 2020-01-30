@@ -344,19 +344,28 @@ class Server:
             self._control_bus_proxies[bus_id] = control_bus_proxy
         return control_bus_proxy
 
-    def _handle_buffer_info_response(self, response):
+    def _handle_buffer_info_response(self, message):
+        from supriya.commands import Response
+
+        response = Response.from_osc_message(message)
         for item in response.items:
             buffer_proxy = self._get_buffer_proxy(item.buffer_id)
             if buffer_proxy:
                 buffer_proxy._handle_response(item)
 
-    def _handle_control_bus_set_response(self, response):
+    def _handle_control_bus_set_response(self, message):
+        from supriya.commands import Response
+
+        response = Response.from_osc_message(message)
         for item in response:
             bus_id = item.bus_id
             bus_proxy = self._get_control_bus_proxy(bus_id)
             bus_proxy._value = item.bus_value
 
-    def _handle_control_bus_setn_response(self, response):
+    def _handle_control_bus_setn_response(self, message):
+        from supriya.commands import Response
+
+        response = Response.from_osc_message(message)
         for item in response:
             starting_bus_id = item.starting_bus_id
             for i, value in enumerate(item.bus_values):
@@ -364,9 +373,11 @@ class Server:
                 bus_proxy = self._get_control_bus_proxy(bus_id)
                 bus_proxy._value = value
 
-    def _handle_node_info_response(self, response):
+    def _handle_node_info_response(self, message):
         from supriya.realtime import Group, Synth
+        from supriya.commands import Response
 
+        response = Response.from_osc_message(message)
         with self._lock:
             node_id = response.node_id
             node = self._nodes.get(node_id)
@@ -387,7 +398,10 @@ class Server:
                 else:
                     parent._children.append(node)
 
-    def _handle_synthdef_removed_response(self, response):
+    def _handle_synthdef_removed_response(self, message):
+        from supriya.commands import Response
+
+        response = Response.from_osc_message(message)
         synthdef_name = response.synthdef_name
         self._synthdefs.pop(synthdef_name, None)
 
@@ -430,19 +444,13 @@ class Server:
 
     def _setup_osc_callbacks(self):
         self._osc_protocol.register(
-            pattern="/b_info",
-            procedure=self._handle_buffer_info_response,
-            parse_response=True,
+            pattern="/b_info", procedure=self._handle_buffer_info_response,
         )
         self._osc_protocol.register(
-            pattern="/c_set",
-            procedure=self._handle_control_bus_set_response,
-            parse_response=True,
+            pattern="/c_set", procedure=self._handle_control_bus_set_response,
         )
         self._osc_protocol.register(
-            pattern="/c_setn",
-            procedure=self._handle_control_bus_setn_response,
-            parse_response=True,
+            pattern="/c_setn", procedure=self._handle_control_bus_setn_response,
         )
         for pattern in (
             "/n_end",
@@ -455,14 +463,10 @@ class Server:
             "/n_setn",
         ):
             self._osc_protocol.register(
-                pattern=pattern,
-                procedure=self._handle_node_info_response,
-                parse_response=True,
+                pattern=pattern, procedure=self._handle_node_info_response,
             )
         self._osc_protocol.register(
-            pattern="/d_removed",
-            procedure=self._handle_synthdef_removed_response,
-            parse_response=True,
+            pattern="/d_removed", procedure=self._handle_synthdef_removed_response,
         )
 
         def failed(message):

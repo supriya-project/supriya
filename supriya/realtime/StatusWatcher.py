@@ -43,7 +43,7 @@ class StatusWatcher(threading.Thread):
         import supriya.commands
 
         self._callback = self.server.osc_protocol.register(
-            pattern="/status.reply", procedure=self.__call__, parse_response=True
+            pattern="/status.reply", procedure=self.__call__
         )
         request = supriya.commands.StatusRequest()
         message = request.to_osc()

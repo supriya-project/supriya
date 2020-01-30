@@ -161,63 +161,22 @@ class ThreadedOscProtocol(OscProtocol):
             for line in str(message).splitlines():
                 udp_log_function("Recv: {:0.6f} {}".format(now, line))
             # TODO: Extract "response" parsing
-            response = None
             for callback in self.server.io_instance._match(message):
-                if callback.parse_response:
-                    if response is None:
-                        handler = self.server.io_instance.response_handlers.get(
-                            message.address
-                        )
-                        if handler:
-                            response = handler.from_osc_message(message)
-                    args = response
-                else:
-                    args = message
-                callback.procedure(args)
+                callback.procedure(message)
             if message.address != "/status.reply":
                 for capture in self.server.io_instance.captures:
                     capture.messages.append(
-                        CaptureEntry(
-                            timestamp=time.time(),
-                            label="R",
-                            message=message,
-                            command=response,
-                        )
+                        CaptureEntry(timestamp=time.time(), label="R", message=message,)
                     )
 
     ### INITIALIZER ###
 
     def __init__(self):
-        import supriya.commands
-
         OscProtocol.__init__(self)
         self.command_queue = queue.Queue()
         self.lock = threading.RLock()
         self.server = None
         self.server_thread = None
-        # TODO: Extracate these into a scsynth-specific subclass
-        self.response_handlers = {
-            "/b_info": supriya.commands.BufferInfoResponse,
-            "/b_set": supriya.commands.BufferSetResponse,
-            "/b_setn": supriya.commands.BufferSetContiguousResponse,
-            "/c_set": supriya.commands.ControlBusSetResponse,
-            "/c_setn": supriya.commands.ControlBusSetContiguousResponse,
-            "/d_removed": supriya.commands.SynthDefRemovedResponse,
-            "/done": supriya.commands.DoneResponse,
-            "/fail": supriya.commands.FailResponse,
-            "/g_queryTree.reply": supriya.commands.QueryTreeResponse,
-            "/n_end": supriya.commands.NodeInfoResponse,
-            "/n_go": supriya.commands.NodeInfoResponse,
-            "/n_info": supriya.commands.NodeInfoResponse,
-            "/n_move": supriya.commands.NodeInfoResponse,
-            "/n_off": supriya.commands.NodeInfoResponse,
-            "/n_on": supriya.commands.NodeInfoResponse,
-            "/n_set": supriya.commands.NodeSetResponse,
-            "/n_setn": supriya.commands.NodeSetContiguousResponse,
-            "/status.reply": supriya.commands.StatusResponse,
-            "/synced": supriya.commands.SyncedResponse,
-            "/tr": supriya.commands.TriggerResponse,
-        }
 
     ### SPECIAL METHODS ###
 
@@ -268,13 +227,7 @@ class ThreadedOscProtocol(OscProtocol):
             self.is_running = False
 
     def register(
-        self,
-        pattern,
-        procedure,
-        *,
-        failure_pattern=None,
-        once=False,
-        parse_response=False,
+        self, pattern, procedure, *, failure_pattern=None, once=False,
     ):
         """
         Register a callback.
@@ -287,7 +240,6 @@ class ThreadedOscProtocol(OscProtocol):
             failure_pattern=failure_pattern,
             procedure=procedure,
             once=bool(once),
-            parse_response=bool(parse_response),
         )
         self.command_queue.put(("add", callback))
         return callback
@@ -295,9 +247,7 @@ class ThreadedOscProtocol(OscProtocol):
     def send(self, message, with_request_name=False):
         if not self.is_running:
             raise RuntimeError
-        request = None
         if isinstance(message, Requestable):
-            request = message
             message = message.to_osc(with_request_name=with_request_name)
         prototype = (str, collections.Iterable, OscBundle, OscMessage)
         if not isinstance(message, prototype):
@@ -314,12 +264,7 @@ class ThreadedOscProtocol(OscProtocol):
             udp_log_function = udp_out_logger.info
             for capture in self.captures:
                 capture.messages.append(
-                    CaptureEntry(
-                        timestamp=time.time(),
-                        label="S",
-                        message=message,
-                        command=request,
-                    )
+                    CaptureEntry(timestamp=time.time(), label="S", message=message,)
                 )
         osc_log_function("Send: {:0.6f} {}".format(now, message.to_list()))
         for line in str(message).splitlines():

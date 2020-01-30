@@ -1,7 +1,4 @@
-from typing import NamedTuple, Optional, Union
-
-from supriya.commands.Requestable import Requestable
-from supriya.commands.Response import Response
+from typing import NamedTuple, Union
 
 from .messages import OscBundle, OscMessage
 
@@ -10,7 +7,6 @@ class CaptureEntry(NamedTuple):
     timestamp: float
     label: str
     message: Union[OscMessage, OscBundle]
-    command: Optional[Union[Requestable, Response]]
 
 
 class Capture:
@@ -43,30 +39,14 @@ class Capture:
     def received_messages(self):
         return [
             (timestamp, osc_message)
-            for timestamp, label, osc_message, _ in self.messages
+            for timestamp, label, osc_message in self.messages
             if label == "R"
-        ]
-
-    @property
-    def requests(self):
-        return [
-            (timestamp, command)
-            for timestamp, label, _, command in self.messages
-            if label == "S" and command is not None
-        ]
-
-    @property
-    def responses(self):
-        return [
-            (timestamp, command)
-            for timestamp, label, _, command in self.messages
-            if label == "R" and command is not None
         ]
 
     @property
     def sent_messages(self):
         return [
             (timestamp, osc_message)
-            for timestamp, label, osc_message, _ in self.messages
+            for timestamp, label, osc_message in self.messages
             if label == "S"
         ]

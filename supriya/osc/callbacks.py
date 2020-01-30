@@ -6,4 +6,3 @@ class OscCallback(NamedTuple):
     procedure: Callable
     failure_pattern: Optional[Tuple[Union[str, int, float], ...]] = None
     once: bool = False
-    parse_response: bool = False

@@ -35,9 +35,11 @@ class Requestable(SupriyaValueObject):
             return -1
         return int(node_id)
 
-    def _set_response(self, response):
+    def _set_response(self, message):
+        from supriya.commands import Response
+
         with self.condition:
-            self._response = response
+            self._response = Response.from_osc_message(message)
             self.condition.notify()
 
     ### PUBLIC METHODS ###
@@ -69,7 +71,6 @@ class Requestable(SupriyaValueObject):
                     failure_pattern=failure_pattern,
                     procedure=self._set_response,
                     once=True,
-                    parse_response=True,
                 )
             except Exception:
                 print(self)

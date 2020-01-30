@@ -54,7 +54,6 @@ class Poll(UGen):
             ...     procedure=lambda response: print(
             ...         'Poll value is: {}'.format(response.value)),
             ...     once=True,
-            ...     parse_response=True,
             ...     )
 
         ::
