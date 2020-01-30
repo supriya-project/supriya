@@ -8,7 +8,6 @@ from typing import Dict, Generator, Iterator
 from uqbar.enums import IntEnumeration
 from uqbar.objects import new
 
-from supriya.system import BindableNamespace
 from supriya.system.SupriyaValueObject import SupriyaValueObject
 
 
@@ -290,10 +289,7 @@ class Pattern(SupriyaValueObject):
             if isinstance(value, str) and re.match(r"\$\w+\.\w+", value):
                 namespace, name = value.split(".")
                 namespace = namespaces[namespace[1:]]
-                if isinstance(namespace, BindableNamespace):
-                    value = namespace.proxies[name]
-                else:
-                    value = namespace[name]
+                value = namespace[name]
             elif isinstance(value, dict) and "type" in value:
                 value = cls.from_dict(value, namespaces=namespaces)
             kwargs[key] = value

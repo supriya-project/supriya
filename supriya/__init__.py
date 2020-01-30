@@ -119,7 +119,7 @@ from supriya.synthdefs.Range import Range  # noqa
 from supriya.synthdefs.SynthDef import SynthDef  # noqa
 from supriya.synthdefs.SynthDefBuilder import SynthDefBuilder  # noqa
 from supriya.synthdefs.SynthDefFactory import SynthDefFactory  # noqa
-from supriya.system import Assets, Bindable, Binding, bind  # noqa
+from supriya.system import Assets  # noqa
 from supriya.clock import TempoClock  # noqa
 from supriya.io import graph, play, render  # noqa
 from supriya import assets  # noqa

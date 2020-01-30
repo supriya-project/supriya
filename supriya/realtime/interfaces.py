@@ -3,7 +3,6 @@ import collections
 import copy
 import re
 
-from supriya.system.Bindable import Bindable
 from supriya.system.SupriyaObject import SupriyaObject
 
 
@@ -352,7 +351,6 @@ class SynthControl:
 
     ### SPECIAL METHODS ###
 
-    @Bindable(rebroadcast=False)
     def __call__(self, expr):
         return self.set(expr)
 

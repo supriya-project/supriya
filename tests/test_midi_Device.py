@@ -4,7 +4,6 @@ import pytest
 import uqbar.strings
 
 import supriya.midi
-from supriya import Bindable, bind
 
 
 def test___init___01():
@@ -342,53 +341,3 @@ def test_mutex_01():
                             <LC name=knob_3 mode=continuous pc=device_control_3 value=0.80315>
         """
     )
-
-
-@pytest.mark.skip
-def test_bind_01():
-    class TestClass:
-        def __init__(self):
-            self.value = 0
-
-        def __call__(self, value):  # noqa
-            self.value = value
-            return value
-
-    class_ = TestClass()
-    device = supriya.midi.Device("Test")
-    control = device["clip_launch_1x1"]
-    bind(control, class_)
-    control(1)
-    assert control.value == 1.0
-    assert class_.value == 1.0
-    control(0)
-    assert control.value == 0.0
-    assert class_.value == 0.0
-    class_(1)
-    assert control.value == 0.0
-    assert class_.value == 1.0
-
-
-def test_bind_02():
-    class TestClass:
-        def __init__(self):
-            self.value = 0
-
-        @Bindable(rebroadcast=True)  # noqa
-        def __call__(self, value):
-            self.value = value
-            return value
-
-    class_ = TestClass()
-    device = supriya.midi.Device("Test")
-    control = device["clip_launch_1x1"]
-    bind(control, class_)
-    control(1)
-    assert control.value == 1.0
-    assert class_.value == 1.0
-    control(0)
-    assert control.value == 0.0
-    assert class_.value == 0.0
-    class_(1)
-    assert control.value == 1.0
-    assert class_.value == 1.0
