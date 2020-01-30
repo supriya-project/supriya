@@ -1,8 +1,6 @@
 import threading
 import time
 
-import supriya.system
-
 
 class StatusWatcher(threading.Thread):
 
@@ -35,7 +33,6 @@ class StatusWatcher(threading.Thread):
             return
         self._server._status = response
         self._attempts = 0
-        supriya.system.PubSub.notify("server-status", response.to_dict())
 
     ### PUBLIC METHODS ###
 

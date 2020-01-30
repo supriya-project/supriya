@@ -150,7 +150,6 @@ class RealtimeEventPlayer(EventPlayer):
         if topic == "server-quitting":
             self.stop()
 
-    @supriya.system.PubSub.subscribe_before("server-quitting")
     def start(self):
         if not self._server.is_running:
             return
@@ -164,7 +163,6 @@ class RealtimeEventPlayer(EventPlayer):
         )
         self._clock.schedule(self, scheduled_time=timestamp, absolute=True)
 
-    @supriya.system.PubSub.unsubscribe_after("server-quitting")
     def stop(self):
         self._clock.cancel(self)
         self._iterator = None

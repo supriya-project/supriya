@@ -17,7 +17,6 @@ from supriya.commands import (
 from supriya.enums import NodeAction
 from supriya.querytree import QueryTreeGroup, QueryTreeSynth
 from supriya.realtime import BlockAllocator, BootOptions, NodeIdAllocator
-from supriya.system import PubSub
 
 # TODO: Implement connect() and disconnect()
 # TODO: Handle clientID return via [/done /notify 0 64] for allocators
@@ -554,7 +553,6 @@ class Server:
         self._server_process = self._options.boot(scsynth_path, self.port)
         self._is_owner = True
         self._connect()
-        PubSub.notify("server-booted")
         return self
 
     def _connect(self):
@@ -630,14 +628,12 @@ class Server:
             raise supriya.exceptions.UnownedServerShutdown(
                 "Cannot quit unowned server without force flag."
             )
-        PubSub.notify("server-quitting")
         if self.recorder.is_recording:
             self.recorder.stop()
         QuitRequest().communicate(server=self)
         if self._server_process is not None and not self._server_process.terminate():
             self._server_process.wait()
         self._disconnect()
-        PubSub.notify("server-quit")
         return self
 
     @classmethod
