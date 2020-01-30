@@ -4,7 +4,7 @@ from supriya.commands.Request import Request
 from supriya.commands.SynthNewRequest import SynthNewRequest
 from supriya.enums import AddAction
 from supriya.midi import NoteOffMessage, NoteOnMessage
-from supriya.realtime.Synth import Synth
+from supriya.realtime.nodes import Synth
 from supriya.synthdefs import SynthDefBuilder
 from supriya.ugens import DC, Out
 

@@ -1,8 +1,7 @@
 from supriya import AddAction
 from supriya.commands.Request import Request
 from supriya.enums import RequestId
-from supriya.realtime.Node import Node
-from supriya.realtime.Synth import Synth
+from supriya.realtime.nodes import Node, Synth
 
 
 class SynthNewRequest(Request):

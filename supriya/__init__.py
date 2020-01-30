@@ -105,14 +105,11 @@ from supriya.enums import (  # noqa
     Unit,
 )
 from supriya import utils  # noqa
-from supriya.realtime.BootOptions import BootOptions  # noqa
-from supriya.realtime.Buffer import Buffer  # noqa
-from supriya.realtime.BufferGroup import BufferGroup  # noqa
-from supriya.realtime.Bus import Bus  # noqa
-from supriya.realtime.BusGroup import BusGroup  # noqa
-from supriya.realtime.Group import Group  # noqa
-from supriya.realtime.Server import Server  # noqa
-from supriya.realtime.Synth import Synth  # noqa
+from supriya.realtime.process import BootOptions  # noqa
+from supriya.realtime.servers import Server  # noqa
+from supriya.realtime.buffers import Buffer, BufferGroup  # noqa
+from supriya.realtime.buses import Bus, BusGroup  # noqa
+from supriya.realtime.nodes import Group, Synth  # noqa
 from supriya.midi import Device  # noqa
 from supriya.nonrealtime import Session  # noqa
 from supriya.soundfiles import Say, SoundFile  # noqa

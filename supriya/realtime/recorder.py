@@ -4,7 +4,7 @@ from supriya import HeaderFormat, SampleFormat
 from supriya.system.SupriyaObject import SupriyaObject
 
 
-class ServerRecorder(SupriyaObject):
+class Recorder(SupriyaObject):
     """
     A server recorder.
 

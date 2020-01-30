@@ -4,7 +4,7 @@ from typing import Optional
 from uqbar.containers import UniqueTreeNode
 
 import supriya.daw  # noqa
-from supriya.realtime.Server import Server
+from supriya.realtime import Server
 
 from .DawMeta import DawMeta
 from .DawMixin import DawMixin

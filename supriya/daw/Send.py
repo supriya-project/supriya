@@ -1,6 +1,6 @@
 from typing import Optional
 
-from supriya.realtime.Synth import Synth
+from supriya.realtime.nodes import Synth
 
 from .DawNode import DawNode
 from .Receive import Receive

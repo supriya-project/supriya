@@ -2,12 +2,13 @@ import atexit
 import logging
 import re
 import threading
+import time
 from typing import Set
 
 from uqbar.objects import new
 
 import supriya.exceptions
-from supriya.commands import (
+from supriya.commands import (  # type: ignore
     FailResponse,
     GroupQueryTreeRequest,
     NotifyRequest,
@@ -16,7 +17,11 @@ from supriya.commands import (
 )
 from supriya.enums import NodeAction
 from supriya.querytree import QueryTreeGroup, QueryTreeSynth
-from supriya.realtime import BlockAllocator, BootOptions, NodeIdAllocator
+
+from .allocators import BlockAllocator, NodeIdAllocator
+from .process import BootOptions
+from .meters import Meters
+from .recorder import Recorder
 
 # TODO: Implement connect() and disconnect()
 # TODO: Handle clientID return via [/done /notify 0 64] for allocators
@@ -67,7 +72,6 @@ class Server:
 
     def __init__(self, ip_address=None, port=None):
         import supriya.osc
-        import supriya.realtime
 
         type(self)._servers.add(self)
 
@@ -107,8 +111,8 @@ class Server:
         self._audio_output_bus_group = None
         self._default_group = None
         self._root_node = None
-        self._meters = supriya.realtime.ServerMeters(self)
-        self._recorder = supriya.realtime.ServerRecorder(self)
+        self._meters = Meters(self)
+        self._recorder = Recorder(self)
 
         ### PROXY MAPPINGS ###
 
@@ -474,10 +478,8 @@ class Server:
         self._osc_protocol.register(pattern="/fail", procedure=failed)
 
     def _setup_status_watcher(self):
-        import supriya.realtime
-
         self._status = None
-        self._status_watcher = supriya.realtime.StatusWatcher(self)
+        self._status_watcher = StatusWatcher(self)
         self._status_watcher.start()
 
     def _setup_system_synthdefs(self, local_only=False):
@@ -900,3 +902,83 @@ class Server:
     @property
     def status(self):
         return self._status
+
+
+class StatusWatcher(threading.Thread):
+
+    ### CLASS VARIABLES ###
+
+    __documentation_section__ = "Server Internals"
+
+    __slots__ = ("_is_active", "_attempts", "_callback", "_server")
+
+    max_attempts = 5
+    sleep_base_time = 1.0
+    exponential_backoff_factor = 1.5
+
+    ### INITIALIZER ###
+
+    def __init__(self, server):
+        threading.Thread.__init__(self)
+        self._attempts = 0
+        self._server = server
+        self._callback = None
+        self.is_active = True
+        self.daemon = True
+
+    ### SPECIAL METHODS ###
+
+    def __call__(self, response):
+        if not self.is_active:
+            return
+        if response is None:
+            return
+        self._server._status = response
+        self._attempts = 0
+
+    ### PUBLIC METHODS ###
+
+    def run(self):
+        import supriya.commands
+
+        self._callback = self.server.osc_protocol.register(
+            pattern="/status.reply", procedure=self.__call__
+        )
+        request = supriya.commands.StatusRequest()
+        message = request.to_osc()
+        while self._is_active and self.server.is_running:
+            if self.max_attempts == self.attempts:
+                print("+" * 80)
+                print("SHUTTING DOWN")
+                print("+" * 80)
+                self.server._shutdown()
+                break
+            self._attempts += 1
+            self.server.send_message(message)
+            sleep_time = self.sleep_base_time * pow(
+                self.exponential_backoff_factor, self._attempts
+            )
+            time.sleep(sleep_time)
+        self.server.osc_protocol.unregister(self.callback)
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def is_active(self):
+        return self._is_active
+
+    @is_active.setter
+    def is_active(self, expr):
+        self._is_active = bool(expr)
+
+    @property
+    def attempts(self):
+        return self._attempts
+
+    @property
+    def callback(self):
+        return self._callback
+
+    @property
+    def server(self):
+        return self._server

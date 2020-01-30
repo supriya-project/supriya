@@ -3,7 +3,7 @@ import logging
 from typing import Optional, cast
 
 import supriya.daw  # noqa
-from supriya.realtime.Node import Node
+from supriya.realtime.nodes import Node
 
 from .MixerContext import MixerContext
 

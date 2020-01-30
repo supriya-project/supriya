@@ -3,7 +3,7 @@ from supriya import utils
 from supriya.system.SupriyaObject import SupriyaObject
 
 
-class ServerMeters(SupriyaObject):
+class Meters(SupriyaObject):
     """
     A server recorder.
 
