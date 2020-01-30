@@ -5,7 +5,7 @@ Parses LilyPond-like syntax into a clip.
 
 ::
 
-    >>> from supriya.daw.parser import parse
+    >>> from supriya.xdaw.parser import parse
 
 ::
 
@@ -105,7 +105,7 @@ from typing import List, NamedTuple, Optional, Tuple, Union
 
 from sly import Lexer, Parser
 
-from supriya.daw import Clip, Note
+from supriya.xdaw.clips import Clip, Note
 
 
 def parse(text):
