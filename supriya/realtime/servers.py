@@ -22,7 +22,7 @@ from supriya.scsynth import Options
 
 from .allocators import BlockAllocator, NodeIdAllocator
 from .meters import Meters
-from .process import boot
+from .protocols import boot
 from .recorder import Recorder
 
 # TODO: Implement connect() and disconnect()
@@ -789,12 +789,10 @@ class Server:
         self.boot(options=options, **kwargs)
         return self
 
-    def send_message(self, message, with_request_name=False):
+    def send_message(self, message):
         if not message or not self.is_running:
             return
-        self._osc_protocol.send(
-            message, with_request_name=with_request_name or self.debug_request_names
-        )
+        self._osc_protocol.send(message)
 
     def sync(self, sync_id=None):
         if not self.is_running:

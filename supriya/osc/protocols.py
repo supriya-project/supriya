@@ -1,26 +1,21 @@
 import asyncio
 import atexit
 import collections
-import logging
 import queue
 import socketserver
 import threading
 import time
 from typing import Any, Dict, Set
 
-from supriya.commands.Requestable import Requestable
-
 from .callbacks import OscCallback
 from .captures import Capture, CaptureEntry
 from .messages import OscBundle, OscMessage
 
-osc_in_logger = logging.getLogger("supriya.osc.in")
-osc_out_logger = logging.getLogger("supriya.osc.out")
-udp_in_logger = logging.getLogger("supriya.udp.in")
-udp_out_logger = logging.getLogger("supriya.udp.out")
-
 
 class OscProtocol:
+
+    ### INITIALIZER ###
+
     def __init__(self):
         self.callbacks: Dict[Any, Any] = {}
         self.captures: Set[Capture] = set()
@@ -29,6 +24,95 @@ class OscProtocol:
         self.is_running: bool = False
         self.timeout = 1.0
         atexit.register(self.disconnect)
+
+    ### PRIVATE METHODS ###
+
+    def _add_callback(self, callback):
+        patterns = [callback.pattern]
+        if callback.failure_pattern:
+            patterns.append(callback.failure_pattern)
+        for pattern in patterns:
+            callback_map = self.callbacks
+            for item in pattern:
+                callbacks, callback_map = callback_map.setdefault(
+                    item, ([], {})
+                )
+            callbacks.append(callback)
+
+    def _remove_callback(self, callback):
+        def delete(pattern, original_callback_map):
+            key = pattern.pop(0)
+            if key not in original_callback_map:
+                return
+            callbacks, callback_map = original_callback_map[key]
+            if pattern:
+                delete(pattern, callback_map)
+            if callback in callbacks:
+                callbacks.remove(callback)
+            if not callbacks and not callback_map:
+                original_callback_map.pop(key)
+
+        patterns = [callback.pattern]
+        if callback.failure_pattern:
+            patterns.append(callback.failure_pattern)
+        for pattern in patterns:
+            delete(list(pattern), self.callbacks)
+
+    def _match(self, message):
+        items = (message.address,) + message.contents
+        matching_callbacks = []
+        callback_map = self.callbacks
+        for item in items:
+            if item not in callback_map:
+                break
+            callbacks, callback_map = callback_map[item]
+            matching_callbacks.extend(callbacks)
+        for callback in matching_callbacks:
+            if callback.once:
+                self.unregister(callback)
+        return matching_callbacks
+
+    def _validate_callback(
+        self, pattern, procedure, *, failure_pattern=None, once=False,
+    ):
+        if isinstance(pattern, (str, int, float)):
+            pattern = (pattern,)
+        assert callable(procedure)
+        return OscCallback(
+            pattern=tuple(pattern),
+            failure_pattern=failure_pattern,
+            procedure=procedure,
+            once=bool(once),
+        )
+
+    def _validate_receive(self, data):
+        try:
+            message = OscMessage.from_datagram(data)
+        except Exception:
+            raise
+        for callback in self._match(message):
+            callback.procedure(message)
+        for capture in self.server.io_instance.captures:
+            capture.messages.append(
+                CaptureEntry(timestamp=time.time(), label="R", message=message,)
+            )
+
+    def _validate_send(self, message):
+        if not self.is_running:
+            raise RuntimeError
+        if not isinstance(message, (str, collections.Iterable, OscBundle, OscMessage)):
+            raise ValueError(message)
+        if isinstance(message, str):
+            message = OscMessage(message)
+        elif isinstance(message, collections.Iterable):
+            message = OscMessage(*message)
+        for capture in self.captures:
+            capture.messages.append(
+                CaptureEntry(timestamp=time.time(), label="S", message=message)
+            )
+        return message.to_datagram()
+
+    ### PUBLIC METHODS ###
 
     def capture(self):
         return Capture(self)
@@ -50,9 +134,14 @@ class OscProtocol:
 
 
 class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
+
+    ### INITIALIZER ###
+
     def __init__(self):
         asyncio.DatagramProtocol.__init__(self)
         OscProtocol.__init__(self)
+
+    ### PUBLIC METHODS ###
 
     async def connect(self, ip_address: str, port: int, *, timeout: float = 2.0):
         if self.is_running:
@@ -74,7 +163,7 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         self.disconnect()
 
     def datagram_received(self, data, addr):
-        print("RECV:", data.from_datagram(data))
+        self._validate_receive(data)
 
     async def disconnect(self):
         self.is_running = False
@@ -82,21 +171,23 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
 
     def register(
         self,
-        path_pattern,
+        pattern,
         procedure,
         *,
-        args_pattern=None,
         failure_pattern=None,
         once=False,
     ):
-        pass
+        callback = self._validate_callback(
+            pattern, procedure, failure_pattern=failure_pattern, once=once
+        )
+        self._add_callback(callback)
 
     def send(self, message):
-        print("SEND:", message)
-        return self.transport.sendto(message.to_datagram())
+        datagram = self._validate_send(message)
+        return self.transport.sendto(datagram)
 
     def unregister(self, callback):
-        pass
+        self._remove_callback(callback)
 
 
 class ThreadedOscProtocol(OscProtocol):
@@ -106,68 +197,22 @@ class ThreadedOscProtocol(OscProtocol):
     class OscServer(socketserver.UDPServer):
         io_instance: "ThreadedOscProtocol"
 
-        def process_queue(self):
-            def delete(pattern, original_callback_map):
-                key = pattern.pop(0)
-                if key not in original_callback_map:
-                    return
-                callbacks, callback_map = original_callback_map[key]
-                if pattern:
-                    delete(pattern, callback_map)
-                if callback in callbacks:
-                    callbacks.remove(callback)
-                if not callbacks and not callback_map:
-                    original_callback_map.pop(key)
-
+        def verify_request(self, request, client_address):
             while self.io_instance.command_queue.qsize():
                 try:
                     action, callback = self.io_instance.command_queue.get()
                 except queue.Empty:
                     continue
-                patterns = [callback.pattern]
-                if callback.failure_pattern:
-                    patterns.append(callback.failure_pattern)
                 if action == "add":
-                    for pattern in patterns:
-                        callback_map = self.io_instance.callbacks
-                        for item in pattern:
-                            callbacks, callback_map = callback_map.setdefault(
-                                item, ([], {})
-                            )
-                        callbacks.append(callback)
+                    self.io_instance._add_callback(callback)
                 elif action == "remove":
-                    for pattern in patterns:
-                        delete(list(pattern), self.io_instance.callbacks)
-
-        def verify_request(self, request, client_address):
-            self.process_queue()
+                    self.io_instance._remove_callback(callback)
             return True
 
     class OscHandler(socketserver.BaseRequestHandler):
         def handle(self):
-            now = time.time()
             data = self.request[0]
-            try:
-                message = OscMessage.from_datagram(data)
-            except Exception:
-                udp_in_logger.warn("Recv: {:0.6f} {}".format(now, data))
-                raise
-            osc_log_function = osc_in_logger.debug
-            udp_log_function = udp_in_logger.debug
-            if message.address != "/status.reply":
-                osc_log_function = osc_in_logger.info
-                udp_log_function = udp_in_logger.info
-            osc_log_function("Recv: {:0.6f} {}".format(now, message.to_list()))
-            for line in str(message).splitlines():
-                udp_log_function("Recv: {:0.6f} {}".format(now, line))
-            # TODO: Extract "response" parsing
-            for callback in self.server.io_instance._match(message):
-                callback.procedure(message)
-            if message.address != "/status.reply":
-                for capture in self.server.io_instance.captures:
-                    capture.messages.append(
-                        CaptureEntry(timestamp=time.time(), label="R", message=message,)
-                    )
+            self.server.io_instance._validate_receive(data)
 
     ### INITIALIZER ###
 
@@ -182,22 +227,6 @@ class ThreadedOscProtocol(OscProtocol):
 
     def __del__(self):
         self.disconnect()
-
-    ### PRIVATE METHODS ###
-
-    def _match(self, message):
-        items = (message.address,) + message.contents
-        matching_callbacks = []
-        callback_map = self.callbacks
-        for item in items:
-            if item not in callback_map:
-                break
-            callbacks, callback_map = callback_map[item]
-            matching_callbacks.extend(callbacks)
-        for callback in matching_callbacks:
-            if callback.once:
-                self.unregister(callback)
-        return matching_callbacks
 
     ### PUBLIC METHODS ###
 
@@ -232,44 +261,14 @@ class ThreadedOscProtocol(OscProtocol):
         """
         Register a callback.
         """
-        if isinstance(pattern, (str, int, float)):
-            pattern = (pattern,)
-        assert callable(procedure)
-        callback = OscCallback(
-            pattern=tuple(pattern),
-            failure_pattern=failure_pattern,
-            procedure=procedure,
-            once=bool(once),
+        callback = self._validate_callback(
+            pattern, procedure, failure_pattern=failure_pattern, once=once
         )
         self.command_queue.put(("add", callback))
         return callback
 
-    def send(self, message, with_request_name=False):
-        if not self.is_running:
-            raise RuntimeError
-        if isinstance(message, Requestable):
-            message = message.to_osc(with_request_name=with_request_name)
-        prototype = (str, collections.Iterable, OscBundle, OscMessage)
-        if not isinstance(message, prototype):
-            raise ValueError(message)
-        if isinstance(message, str):
-            message = OscMessage(message)
-        elif isinstance(message, collections.Iterable):
-            message = OscMessage(*message)
-        now = time.time()
-        osc_log_function = osc_out_logger.debug
-        udp_log_function = udp_out_logger.debug
-        if not (isinstance(message, OscMessage) and message.address in (2, "/status")):
-            osc_log_function = osc_out_logger.info
-            udp_log_function = udp_out_logger.info
-            for capture in self.captures:
-                capture.messages.append(
-                    CaptureEntry(timestamp=time.time(), label="S", message=message,)
-                )
-        osc_log_function("Send: {:0.6f} {}".format(now, message.to_list()))
-        for line in str(message).splitlines():
-            udp_log_function("Send: {:0.6f} {}".format(now, line))
-        datagram = message.to_datagram()
+    def send(self, message):
+        datagram = self._validate_send(message)
         try:
             self.server.socket.sendto(datagram, (self.ip_address, self.port))
         except OSError:

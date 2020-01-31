@@ -7,6 +7,7 @@ import supriya
 from supriya import scsynth
 from supriya.osc import OscMessage
 from supriya.realtime import Server
+from supriya.realtime.protocols import SyncProcessProtocol
 from supriya.scsynth import Options
 
 pytestmark = pytest.mark.timeout(60)
@@ -241,7 +242,8 @@ def test_shared_resources():
 def test_connect_and_reconnect():
     try:
         options = Options(maximum_logins=4)
-        process = options.boot(scsynth.find(), 57110)
+        protocol = SyncProcessProtocol()
+        protocol.boot(options, scsynth.find(), 57110)
         server = Server(port=57110)
         server.connect()
         assert server.is_running and not server.is_owner
@@ -269,5 +271,4 @@ def test_connect_and_reconnect():
         """
         )
     finally:
-        process.terminate()
-        process.wait()
+        protocol.quit()

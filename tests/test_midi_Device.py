@@ -1,6 +1,5 @@
 from unittest import mock
 
-import pytest
 import uqbar.strings
 
 import supriya.midi
