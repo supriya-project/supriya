@@ -92,7 +92,7 @@ class OscProtocol:
             raise
         for callback in self._match(message):
             callback.procedure(message)
-        for capture in self.server.io_instance.captures:
+        for capture in self.captures:
             capture.messages.append(
                 CaptureEntry(timestamp=time.time(), label="R", message=message,)
             )
@@ -190,29 +190,21 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         self._remove_callback(callback)
 
 
+class ThreadedOscServer(socketserver.UDPServer):
+    osc_protocol: "ThreadedOscProtocol"
+
+    def verify_request(self, request, client_address):
+        self.osc_protocol._process_command_queue()
+        return True
+
+
+class ThreadedOscHandler(socketserver.BaseRequestHandler):
+    def handle(self):
+        data = self.request[0]
+        self.server.osc_protocol._validate_receive(data)
+
+
 class ThreadedOscProtocol(OscProtocol):
-
-    ### CLASS VARIABLES ###
-
-    class OscServer(socketserver.UDPServer):
-        io_instance: "ThreadedOscProtocol"
-
-        def verify_request(self, request, client_address):
-            while self.io_instance.command_queue.qsize():
-                try:
-                    action, callback = self.io_instance.command_queue.get()
-                except queue.Empty:
-                    continue
-                if action == "add":
-                    self.io_instance._add_callback(callback)
-                elif action == "remove":
-                    self.io_instance._remove_callback(callback)
-            return True
-
-    class OscHandler(socketserver.BaseRequestHandler):
-        def handle(self):
-            data = self.request[0]
-            self.server.io_instance._validate_receive(data)
 
     ### INITIALIZER ###
 
@@ -228,6 +220,26 @@ class ThreadedOscProtocol(OscProtocol):
     def __del__(self):
         self.disconnect()
 
+    ### PRIVATE METHODS ###
+
+    def _process_command_queue(self):
+        while self.command_queue.qsize():
+            try:
+                action, callback = self.command_queue.get()
+            except queue.Empty:
+                continue
+            if action == "add":
+                self._add_callback(callback)
+            elif action == "remove":
+                self._remove_callback(callback)
+
+    def _server_factory(self, ip_address, port):
+        server = ThreadedOscServer(
+            (self.ip_address, self.port), ThreadedOscHandler, bind_and_activate=False
+        )
+        server.osc_protocol = self
+        return server
+
     ### PUBLIC METHODS ###
 
     def connect(self, ip_address: str, port: int, *, timeout: float = 2.0):
@@ -237,10 +249,7 @@ class ThreadedOscProtocol(OscProtocol):
             self.ip_address = ip_address
             self.port = port
             self.timeout = timeout
-            self.server = self.OscServer(
-                (self.ip_address, self.port), self.OscHandler, bind_and_activate=False
-            )
-            self.server.io_instance = self
+            self.server = self._server_factory(ip_address, port)
             self.server_thread = threading.Thread(target=self.server.serve_forever)
             self.server_thread.daemon = True
             self.server_thread.start()
@@ -264,6 +273,7 @@ class ThreadedOscProtocol(OscProtocol):
         callback = self._validate_callback(
             pattern, procedure, failure_pattern=failure_pattern, once=once
         )
+        # Command queue prevents lock contention.
         self.command_queue.put(("add", callback))
         return callback
 
@@ -279,4 +289,5 @@ class ThreadedOscProtocol(OscProtocol):
         """
         Unregister a callback.
         """
+        # Command queue prevents lock contention.
         self.command_queue.put(("remove", callback))

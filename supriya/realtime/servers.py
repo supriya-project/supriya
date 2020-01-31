@@ -17,12 +17,13 @@ from supriya.commands import (  # type: ignore
     SyncRequest,
 )
 from supriya.enums import NodeAction
+from supriya.osc import ThreadedOscProtocol
 from supriya.querytree import QueryTreeGroup, QueryTreeSynth
 from supriya.scsynth import Options
 
 from .allocators import BlockAllocator, NodeIdAllocator
 from .meters import Meters
-from .protocols import boot
+from .protocols import SyncProcessProtocol
 from .recorder import Recorder
 
 # TODO: Implement connect() and disconnect()
@@ -73,8 +74,6 @@ class Server:
     ### INITIALIZER ###
 
     def __init__(self, ip_address=None, port=None):
-        import supriya.osc
-
         type(self)._servers.add(self)
 
         ### NET ADDRESS ###
@@ -86,7 +85,7 @@ class Server:
 
         self._latency = 0.1
         self._lock = threading.Lock()
-        self._osc_protocol = supriya.osc.ThreadedOscProtocol()
+        self._osc_protocol = ThreadedOscProtocol()
 
         ### ALLOCATORS ###
 
@@ -103,7 +102,7 @@ class Server:
         self._is_owner = False
         self._is_running = False
         self._options = Options()
-        self._server_process = None
+        self._process_protocol = SyncProcessProtocol()
         self._status = None
         self._status_watcher = None
 
@@ -554,7 +553,8 @@ class Server:
             return self
         self._options = new(options or Options(), **kwargs)
         scsynth_path = scsynth.find(scsynth_path)
-        self._server_process = boot(self._options, scsynth_path, self.port)
+        self._process_protocol = SyncProcessProtocol()
+        self._process_protocol.boot(self._options, scsynth_path, self.port)
         self._is_owner = True
         self._connect()
         return self
@@ -635,8 +635,7 @@ class Server:
         if self.recorder.is_recording:
             self.recorder.stop()
         QuitRequest().communicate(server=self)
-        if self._server_process is not None and not self._server_process.terminate():
-            self._server_process.wait()
+        self._process_protocol.quit()
         self._disconnect()
         return self
 
