@@ -6,15 +6,21 @@ import queue
 import socketserver
 import threading
 import time
-from typing import Any, Callable, Dict, Set
+from typing import Any, Callable, Dict, NamedTuple, Optional, Set, Tuple, Union
 
-from .callbacks import OscCallback
 from .captures import Capture, CaptureEntry
 from .messages import OscBundle, OscMessage
 
 
 class OscProtocolOffline(Exception):
     pass
+
+
+class OscCallback(NamedTuple):
+    pattern: Tuple[Union[str, int, float], ...]
+    procedure: Callable
+    failure_pattern: Optional[Tuple[Union[str, int, float], ...]] = None
+    once: bool = False
 
 
 @dataclasses.dataclass
