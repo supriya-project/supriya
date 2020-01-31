@@ -1,6 +1,7 @@
 import asyncio
 import atexit
 import collections
+import dataclasses
 import queue
 import socketserver
 import threading
@@ -12,6 +13,11 @@ from .captures import Capture, CaptureEntry
 from .messages import OscBundle, OscMessage
 
 
+class OscProtocolOffline(Exception):
+    pass
+
+
+@dataclasses.dataclass
 class HealthCheck:
     request_pattern: str
     response_pattern: str
@@ -49,7 +55,7 @@ class OscProtocol:
                 callbacks, callback_map = callback_map.setdefault(item, ([], {}))
             callbacks.append(callback)
 
-    def _match(self, message):
+    def _match_callbacks(self, message):
         items = (message.address,) + message.contents
         matching_callbacks = []
         callback_map = self.callbacks
@@ -82,7 +88,7 @@ class OscProtocol:
         for pattern in patterns:
             delete(list(pattern), self.callbacks)
 
-    def _reset_attempts(self):
+    def _reset_attempts(self, message):
         self.attempts = 0
 
     def _setup(self, ip_address, port, healthcheck):
@@ -119,7 +125,7 @@ class OscProtocol:
             message = OscMessage.from_datagram(data)
         except Exception:
             raise
-        for callback in self._match(message):
+        for callback in self._match_callbacks(message):
             callback.procedure(message)
         for capture in self.captures:
             capture.messages.append(
@@ -132,15 +138,15 @@ class OscProtocol:
         self.healthcheck_deadline += self.healthcheck.timeout * pow(
             self.healthcheck.backoff_factor, self.attempts
         )
-        self.missed_heartbeats += 1
-        if self.missed_heartbeats >= self.healthcheck.max_attempts:
+        self.attempts += 1
+        if self.attempts >= self.healthcheck.max_attempts:
             return False
         self.send(OscMessage(*self.healthcheck.request_pattern))
         return True
 
     def _validate_send(self, message):
         if not self.is_running:
-            raise RuntimeError
+            raise OscProtocolOffline
         if not isinstance(message, (str, collections.Iterable, OscBundle, OscMessage)):
             raise ValueError(message)
         if isinstance(message, str):
@@ -184,7 +190,9 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
 
     ### PUBLIC METHODS ###
 
-    async def connect(self, ip_address: str, port: int, *, healthcheck: HealthCheck = None):
+    async def connect(
+        self, ip_address: str, port: int, *, healthcheck: HealthCheck = None
+    ):
         if self.is_running:
             raise RuntimeError
         self._setup(ip_address, port, healthcheck)
@@ -233,7 +241,12 @@ class ThreadedOscServer(socketserver.UDPServer):
 
     def service_actions(self):
         if not self.osc_protocol._validate_healthcheck():
-            self.osc_protocol.healthcheck.callback(self)
+            self._BaseServer__shutdown_request = True
+            with self.osc_protocol.lock:
+                self.osc_protocol._teardown()
+                self.osc_protocol.server = None
+                self.osc_protocol.server_thread = None
+                self.osc_protocol.healthcheck.callback()
 
 
 class ThreadedOscHandler(socketserver.BaseRequestHandler):
@@ -281,24 +294,23 @@ class ThreadedOscProtocol(OscProtocol):
     ### PUBLIC METHODS ###
 
     def connect(self, ip_address: str, port: int, *, healthcheck: HealthCheck = None):
-        with self.lock:
-            if self.is_running:
-                raise RuntimeError
-            self._setup(ip_address, port, healthcheck)
-            self.server = self._server_factory(ip_address, port)
-            self.server_thread = threading.Thread(target=self.server.serve_forever)
-            self.server_thread.daemon = True
-            self.server_thread.start()
-            self.is_running = True
+        if self.is_running:
+            raise RuntimeError
+        self._setup(ip_address, port, healthcheck)
+        self.server = self._server_factory(ip_address, port)
+        self.server_thread = threading.Thread(target=self.server.serve_forever)
+        self.server_thread.daemon = True
+        self.server_thread.start()
+        self.is_running = True
 
     def disconnect(self):
         with self.lock:
             if not self.is_running:
                 return
+            self._teardown()
             self.server.shutdown()
             self.server = None
             self.server_thread = None
-            self._teardown()
 
     def register(
         self, pattern, procedure, *, failure_pattern=None, once=False,

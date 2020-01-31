@@ -121,7 +121,10 @@ def test_boot_a_and_connect_b_and_quit_a():
     assert server_b.is_running and not server_b.is_owner
     server_a.quit()
     assert not server_a.is_running and not server_a.is_owner
-    time.sleep(45)  # wait for status watcher
+    for _ in range(45):
+        time.sleep(1)
+        if not server_b.is_running:
+            break
     assert not server_b.is_running and not server_b.is_owner
 
 
@@ -189,7 +192,10 @@ def test_boot_a_and_connect_b_and_force_quit_b():
     assert server_b.is_running and not server_b.is_owner
     server_b.quit(force=True)
     assert not server_b.is_running and not server_b.is_owner
-    time.sleep(45)  # wait for status watcher
+    for _ in range(45):
+        time.sleep(1)
+        if not server_a.is_running:
+            break
     assert not server_a.is_running and not server_a.is_owner
 
 

@@ -2,7 +2,6 @@ import atexit
 import logging
 import re
 import threading
-import time
 from typing import Set
 
 from uqbar.objects import new
@@ -17,7 +16,11 @@ from supriya.commands import (  # type: ignore
     SyncRequest,
 )
 from supriya.enums import NodeAction
-from supriya.osc import ThreadedOscProtocol
+from supriya.osc.protocols import (
+    HealthCheck,
+    OscProtocolOffline,
+    ThreadedOscProtocol,
+)
 from supriya.querytree import QueryTreeGroup, QueryTreeSynth
 from supriya.scsynth import Options
 
@@ -104,7 +107,6 @@ class Server:
         self._options = Options()
         self._process_protocol = SyncProcessProtocol()
         self._status = None
-        self._status_watcher = None
 
         ### PROXIES ###
 
@@ -478,11 +480,6 @@ class Server:
 
         self._osc_protocol.register(pattern="/fail", procedure=failed)
 
-    def _setup_status_watcher(self):
-        self._status = None
-        self._status_watcher = StatusWatcher(self)
-        self._status_watcher.start()
-
     def _setup_system_synthdefs(self, local_only=False):
         import supriya.assets.synthdefs
         import supriya.synthdefs
@@ -540,12 +537,6 @@ class Server:
         self._root_node = None
         self._synthdefs.clear()
 
-    def _teardown_status_watcher(self):
-        if self._status_watcher is not None:
-            self._status_watcher.is_active = False
-        self._status_watcher = None
-        self._status = None
-
     ### PUBLIC METHODS ###
 
     def boot(self, scsynth_path=None, options=None, **kwargs):
@@ -561,9 +552,19 @@ class Server:
 
     def _connect(self):
         self._is_running = True
-        self._osc_protocol.connect(ip_address=self.ip_address, port=self.port)
+        self._osc_protocol.connect(
+            ip_address=self.ip_address,
+            port=self.port,
+            healthcheck=HealthCheck(
+                request_pattern=["/status"],
+                response_pattern=["/status.reply"],
+                callback=self._shutdown,
+                max_attempts=5,
+                timeout=1.0,
+                backoff_factor=1.5,
+            ),
+        )
         self._setup_osc_callbacks()
-        self._setup_status_watcher()
         self._setup_notifications()
         self._setup_allocators()
         self._setup_proxies()
@@ -623,7 +624,6 @@ class Server:
         self._osc_protocol.disconnect()
         self._teardown_proxies()
         self._teardown_allocators()
-        self._teardown_status_watcher()
 
     def quit(self, force=False):
         if not self.is_running:
@@ -634,7 +634,10 @@ class Server:
             )
         if self.recorder.is_recording:
             self.recorder.stop()
-        QuitRequest().communicate(server=self)
+        try:
+            QuitRequest().communicate(server=self)
+        except OscProtocolOffline:
+            pass
         self._process_protocol.quit()
         self._disconnect()
         return self
@@ -901,83 +904,3 @@ class Server:
     @property
     def status(self):
         return self._status
-
-
-class StatusWatcher(threading.Thread):
-
-    ### CLASS VARIABLES ###
-
-    __documentation_section__ = "Server Internals"
-
-    __slots__ = ("_is_active", "_attempts", "_callback", "_server")
-
-    max_attempts = 5
-    sleep_base_time = 1.0
-    exponential_backoff_factor = 1.5
-
-    ### INITIALIZER ###
-
-    def __init__(self, server):
-        threading.Thread.__init__(self)
-        self._attempts = 0
-        self._server = server
-        self._callback = None
-        self.is_active = True
-        self.daemon = True
-
-    ### SPECIAL METHODS ###
-
-    def __call__(self, response):
-        if not self.is_active:
-            return
-        if response is None:
-            return
-        self._server._status = response
-        self._attempts = 0
-
-    ### PUBLIC METHODS ###
-
-    def run(self):
-        import supriya.commands
-
-        self._callback = self.server.osc_protocol.register(
-            pattern="/status.reply", procedure=self.__call__
-        )
-        request = supriya.commands.StatusRequest()
-        message = request.to_osc()
-        while self._is_active and self.server.is_running:
-            if self.max_attempts == self.attempts:
-                print("+" * 80)
-                print("SHUTTING DOWN")
-                print("+" * 80)
-                self.server._shutdown()
-                break
-            self._attempts += 1
-            self.server.send_message(message)
-            sleep_time = self.sleep_base_time * pow(
-                self.exponential_backoff_factor, self._attempts
-            )
-            time.sleep(sleep_time)
-        self.server.osc_protocol.unregister(self.callback)
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def is_active(self):
-        return self._is_active
-
-    @is_active.setter
-    def is_active(self, expr):
-        self._is_active = bool(expr)
-
-    @property
-    def attempts(self):
-        return self._attempts
-
-    @property
-    def callback(self):
-        return self._callback
-
-    @property
-    def server(self):
-        return self._server
