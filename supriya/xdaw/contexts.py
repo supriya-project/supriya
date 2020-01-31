@@ -2,8 +2,8 @@ from typing import Optional
 from uuid import UUID, uuid4
 
 import supriya.xdaw  # noqa
-from supriya.commands import QueryTreeGroup
 from supriya.enums import AddAction
+from supriya.querytree import QueryTreeGroup
 
 from .bases import Allocatable, Mixer
 from .sends import DirectOut
@@ -32,14 +32,15 @@ class Context(Allocatable, Mixer):
     ### SPECIAL METHODS ###
 
     def __str__(self):
-        line = f"<{type(self).__name__} [...] {self.uuid}>"
-        if self.node_proxy is not None:
-            line = f"<{type(self).__name__} [{int(self.node_proxy)}] {self.uuid}>"
-        lines = [line]
-        for child in self:
-            for line in str(child).splitlines():
-                lines.append(f"    {line}")
-        return "\n".join(lines)
+        obj_name = type(self).__name__
+        node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "?"
+        provider = self.provider if self.provider is not None else "<?>"
+        return "\n".join(
+            [
+                f"<{obj_name} {provider} [{node_proxy_id}] {self.uuid}>",
+                *(f"    {line}" for child in self for line in str(child).splitlines()),
+            ]
+        )
 
     ### PRIVATE METHODS ###
 
@@ -69,6 +70,14 @@ class Context(Allocatable, Mixer):
         with self.lock([self, container]):
             container._contexts._mutate(slice(position, position), [self])
 
+    def perform(self, midi_messages, moment=None):
+        self._debug_tree(
+            self, "Perform", suffix=repr([type(_).__name__ for _ in midi_messages])
+        )
+        with self.lock([self], seconds=moment.seconds if moment is not None else None):
+            for track in self.recurse(prototype=Track):
+                track.perform(midi_messages, moment=moment)
+
     def query(self):
         if self.provider.server is None:
             raise ValueError
@@ -90,6 +99,19 @@ class Context(Allocatable, Mixer):
                 raise ValueError
             for track in tracks:
                 self._tracks._remove(track)
+
+    def serialize(self):
+        serialized = super().serialize()
+        serialized["spec"].update(
+            cue_track=self.cue_track.serialize(),
+            master_track=self.master_track.serialize(),
+            tracks=[track.serialize() for track in self.tracks],
+        )
+        for mapping in [serialized["meta"], serialized["spec"], serialized]:
+            for key in tuple(mapping):
+                if not mapping[key]:
+                    mapping.pop(key)
+        return serialized
 
     def set_channel_count(self, channel_count: Optional[int]):
         with self.lock([self]):

@@ -6,7 +6,6 @@ from uqbar.strings import normalize
 from supriya.assets.synthdefs import default
 from supriya.enums import AddAction, CalculationRate
 from supriya.nonrealtime import Session
-from supriya.osc import OscBundle, OscMessage
 from supriya.provider import (
     BusGroupProxy,
     BusProxy,
@@ -448,7 +447,7 @@ def test_RealtimeProvider_add_bus_error(server):
 
 def test_RealtimeProvider_add_bus_group_1(server):
     provider = Provider.from_context(server)
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         with provider.at(None):
             bus_group_proxy_one = provider.add_bus_group(channel_count=2)
             bus_group_proxy_two = provider.add_bus_group(channel_count=4)
@@ -484,7 +483,7 @@ def test_RealtimeProvider_add_bus_group_error(server):
 def test_RealtimeProvider_add_group_1(server):
     provider = Provider.from_context(server)
     seconds = time.time()
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         with provider.at(seconds) as provider_moment:
             group_proxy = provider.add_group()
     assert group_proxy == GroupProxy(identifier=1000, provider=provider)
@@ -497,8 +496,8 @@ def test_RealtimeProvider_add_group_1(server):
         node_reorderings=[],
         node_settings=[],
     )
-    assert [entry.message for entry in transcript] == [
-        OscBundle(contents=(OscMessage(21, 1000, 0, 1),), timestamp=seconds)
+    assert [entry.message.to_list() for entry in transcript] == [
+        [seconds + provider.latency, [[21, 1000, 0, 1]]]
     ]
     time.sleep(0.1)
     assert str(server) == normalize(
@@ -513,7 +512,7 @@ def test_RealtimeProvider_add_group_1(server):
 def test_RealtimeProvider_add_group_2(server):
     provider = Provider.from_context(server)
     seconds = time.time()
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         with provider.at(None):
             group_proxy_one = provider.add_group()
         with provider.at(seconds + 0.01) as provider_moment:
@@ -528,9 +527,9 @@ def test_RealtimeProvider_add_group_2(server):
         node_reorderings=[],
         node_settings=[],
     )
-    assert [entry.message for entry in transcript] == [
-        OscBundle(contents=(OscMessage(21, 1000, 0, 1),)),
-        OscBundle(contents=(OscMessage(21, 1001, 0, 1000),), timestamp=seconds + 0.01),
+    assert [entry.message.to_list() for entry in transcript] == [
+        [None, [[21, 1000, 0, 1]]],
+        [seconds + 0.01 + provider.latency, [[21, 1001, 0, 1000]]],
     ]
     time.sleep(0.1)
     assert str(server) == normalize(
@@ -555,7 +554,7 @@ def test_RealtimeProvider_add_group_error(server):
 def test_RealtimeProvider_add_synth_1(server):
     provider = Provider.from_context(server)
     seconds = time.time()
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         with provider.at(seconds) as provider_moment:
             synth_proxy = provider.add_synth(amplitude=0.3, frequency=333)
     assert synth_proxy == SynthProxy(
@@ -573,15 +572,11 @@ def test_RealtimeProvider_add_synth_1(server):
         node_reorderings=[],
         node_settings=[],
     )
-    assert [entry.message for entry in transcript] == [
-        OscBundle(
-            contents=(
-                OscMessage(
-                    9, "default", 1000, 0, 1, "amplitude", 0.3, "frequency", 333
-                ),
-            ),
-            timestamp=seconds,
-        )
+    assert [entry.message.to_list() for entry in transcript] == [
+        [
+            seconds + provider.latency,
+            [[9, "default", 1000, 0, 1, "amplitude", 0.3, "frequency", 333]],
+        ]
     ]
     time.sleep(0.1)
     assert str(server) == normalize(
@@ -597,7 +592,7 @@ def test_RealtimeProvider_add_synth_1(server):
 def test_RealtimeProvider_add_synth_2(server):
     provider = Provider.from_context(server)
     seconds = time.time()
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         with provider.at(None):
             group_proxy = provider.add_group()
         with provider.at(seconds + 0.01) as provider_moment:
@@ -619,16 +614,12 @@ def test_RealtimeProvider_add_synth_2(server):
         node_reorderings=[],
         node_settings=[],
     )
-    assert [entry.message for entry in transcript] == [
-        OscBundle(contents=(OscMessage(21, 1000, 0, 1),)),
-        OscBundle(
-            contents=(
-                OscMessage(
-                    9, "default", 1001, 0, 1000, "amplitude", 0.5, "frequency", 666
-                ),
-            ),
-            timestamp=seconds + 0.01,
-        ),
+    assert [entry.message.to_list() for entry in transcript] == [
+        [None, [[21, 1000, 0, 1]]],
+        [
+            seconds + 0.01 + provider.latency,
+            [[9, "default", 1001, 0, 1000, "amplitude", 0.5, "frequency", 666]],
+        ],
     ]
     time.sleep(0.1)
     assert str(server) == normalize(
@@ -638,6 +629,34 @@ def test_RealtimeProvider_add_synth_2(server):
                 1000 group
                     1001 default
                         out: 0.0, amplitude: 0.5, frequency: 666.0, gate: 1.0, pan: 0.5
+        """
+    )
+
+
+def test_RealtimeProvider_add_synth_3(server):
+    provider = Provider.from_context(server)
+    with server.osc_protocol.capture() as transcript:
+        with provider.at(None):
+            audio_bus_proxy = provider.add_bus("audio")
+            control_bus_proxy = provider.add_bus("control")
+            synth_proxy = provider.add_synth(
+                amplitude=control_bus_proxy, out=audio_bus_proxy
+            )
+    assert synth_proxy == SynthProxy(
+        identifier=1000,
+        provider=provider,
+        synthdef=default,
+        settings=dict(amplitude=control_bus_proxy, out=audio_bus_proxy),
+    )
+    assert [entry.message.to_list() for entry in transcript] == [
+        [None, [[9, "default", 1000, 0, 1, "amplitude", "c0", "out", 16.0]]]
+    ]
+    assert str(server) == normalize(
+        """
+        NODE TREE 0 group
+            1 group
+                1000 default
+                    out: 16.0, amplitude: c0, frequency: 440.0, gate: 1.0, pan: 0.5
         """
     )
 
@@ -654,7 +673,7 @@ def test_RealtimeProvider_add_synth_error(server):
 def test_RealtimeProvider_free_bus_1(server):
     provider = Provider.from_context(server)
     seconds = time.time()
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         with provider.at(seconds):
             audio_bus = provider.add_bus(calculation_rate=CalculationRate.AUDIO)
             control_bus_a = provider.add_bus()
@@ -683,7 +702,7 @@ def test_RealtimeProvider_free_bus_error(server):
 def test_RealtimeProvider_free_bus_group_1(server):
     provider = Provider.from_context(server)
     seconds = time.time()
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         with provider.at(seconds):
             audio_bus_group = provider.add_bus_group(
                 channel_count=2, calculation_rate=CalculationRate.AUDIO
@@ -724,18 +743,16 @@ def test_RealtimeProvider_free_node_error(server):
 
 def test_RealtimeProvider_free_node_1(server):
     provider = Provider.from_context(server)
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         with provider.at(None):
             group_proxy = provider.add_group()
             synth_proxy = provider.add_synth()
         with provider.at(None):
             group_proxy.free()
             synth_proxy.free()
-    assert [entry.message for entry in transcript] == [
-        OscBundle(
-            contents=(OscMessage(21, 1000, 0, 1), OscMessage(9, "default", 1001, 0, 1))
-        ),
-        OscBundle(contents=(OscMessage(11, 1000), OscMessage(15, 1001, "gate", 0))),
+    assert [entry.message.to_list() for entry in transcript] == [
+        [None, [[21, 1000, 0, 1], [9, "default", 1001, 0, 1]]],
+        [None, [[11, 1000], [15, 1001, "gate", 0]]],
     ]
     time.sleep(0.1)
     assert str(server) == normalize(
@@ -751,20 +768,16 @@ def test_RealtimeProvider_free_node_1(server):
 def test_RealtimeProvider_move_node_1(server):
     provider = Provider.from_context(server)
     seconds = time.time()
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         with provider.at(seconds):
             group_proxy_one = provider.add_group()
             group_proxy_two = provider.add_group()
             provider.move_node(group_proxy_one, AddAction.ADD_TO_TAIL, group_proxy_two)
-    assert [entry.message for entry in transcript] == [
-        OscBundle(
-            contents=(
-                OscMessage(21, 1000, 0, 1),
-                OscMessage(21, 1001, 0, 1),
-                OscMessage(23, 1001, 1000),
-            ),
-            timestamp=seconds,
-        )
+    assert [entry.message.to_list() for entry in transcript] == [
+        [
+            seconds + provider.latency,
+            [[21, 1000, 0, 1], [21, 1001, 0, 1], [23, 1001, 1000]],
+        ]
     ]
     time.sleep(0.1)
     assert str(server) == normalize(
@@ -792,16 +805,13 @@ def test_RealtimeProvider_move_node_error(server):
 def test_RealtimeProvider_set_bus_1(server):
     provider = Provider.from_context(server)
     seconds = time.time()
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         with provider.at(seconds):
             bus_group_proxy = provider.add_bus_group(channel_count=4)
             for i, bus_proxy in enumerate(bus_group_proxy):
                 bus_proxy.set_(pow(2, i))
-    assert [entry.message for entry in transcript] == [
-        OscBundle(
-            contents=(OscMessage(25, 0, 1.0, 1, 2.0, 2, 4.0, 3, 8.0),),
-            timestamp=seconds,
-        )
+    assert [entry.message.to_list() for entry in transcript] == [
+        [seconds + provider.latency, [[25, 0, 1.0, 1, 2.0, 2, 4.0, 3, 8.0]]]
     ]
 
 
@@ -821,11 +831,11 @@ def test_RealtimeProvider_set_node_1(server):
     seconds = time.time()
     with provider.at(seconds):
         group_proxy = provider.add_group()
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         with provider.at(seconds + 0.01):
             group_proxy["foo"] = 23
-    assert [entry.message for entry in transcript] == [
-        OscBundle(contents=(OscMessage(15, 1000, "foo", 23),), timestamp=seconds + 0.01)
+    assert [entry.message.to_list() for entry in transcript] == [
+        [seconds + 0.01 + provider.latency, [[15, 1000, "foo", 23]]]
     ]
 
 
@@ -842,11 +852,11 @@ def test_RealtimeProvider_set_node_2(server):
                     out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
         """
     )
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         with provider.at(None):
             synth_proxy["frequency"] = 443
-    assert [entry.message for entry in transcript] == [
-        OscBundle(contents=(OscMessage(15, 1000, "frequency", 443.0),))
+    assert [entry.message.to_list() for entry in transcript] == [
+        [None, [[15, 1000, "frequency", 443.0]]]
     ]
     time.sleep(0.01)
     assert str(server) == normalize(
@@ -865,11 +875,11 @@ def test_RealtimeProvider_set_node_3(server):
         synth_proxy = provider.add_synth()
         bus_proxy = provider.add_bus()
     time.sleep(0.01)
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         with provider.at(None):
             synth_proxy["frequency"] = bus_proxy
-    assert [entry.message for entry in transcript] == [
-        OscBundle(contents=(OscMessage(15, 1000, "frequency", "c0"),))
+    assert [entry.message.to_list() for entry in transcript] == [
+        [None, [[15, 1000, "frequency", "c0"]]]
     ]
     time.sleep(0.01)
     assert str(server) == normalize(
@@ -881,11 +891,11 @@ def test_RealtimeProvider_set_node_3(server):
         """
     )
     time.sleep(0.01)
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         with provider.at(None):
             synth_proxy["frequency"] = 443
-    assert [entry.message for entry in transcript] == [
-        OscBundle(contents=(OscMessage(15, 1000, "frequency", 443.0),))
+    assert [entry.message.to_list() for entry in transcript] == [
+        [None, [[15, 1000, "frequency", 443.0]]]
     ]
     time.sleep(0.01)
     assert str(server) == normalize(

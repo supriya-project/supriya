@@ -2,7 +2,6 @@ import time
 
 import pytest
 
-from supriya.osc import OscBundle, OscMessage
 from supriya.xdaw import Chain
 
 
@@ -51,15 +50,14 @@ def test_transcript(chain_mute_solo_application, chain_names):
     context = chain_mute_solo_application.primary_context
     for chain_name in chain_names:
         chain = context[chain_name]
-        with context.provider.server.osc_io.capture() as transcript:
+        with context.provider.server.osc_protocol.capture() as transcript:
             chain.mute()
         assert len(transcript.sent_messages) == 1
         _, message = transcript.sent_messages[0]
-        assert message == OscBundle(
-            contents=[
-                OscMessage(15, chain.node_proxies["output"].identifier, "active", 0)
-            ]
-        )
+        assert message.to_list() == [
+            None,
+            [[15, chain.node_proxies["output"].identifier, "active", 0]],
+        ]
 
 
 @pytest.mark.parametrize("booted", [True, False])
@@ -119,6 +117,6 @@ def test_is_muted(chain_mute_solo_application, booted, chain_names, expected):
 def test_repeat(chain_mute_solo_application):
     chain_mute_solo_application.boot()
     chain_mute_solo_application.primary_context["outer/a/a"].mute()
-    with chain_mute_solo_application.primary_context.provider.server.osc_io.capture() as transcript:
+    with chain_mute_solo_application.primary_context.provider.server.osc_protocol.capture() as transcript:
         chain_mute_solo_application.primary_context["outer/a/a"].mute()
     assert not len(transcript.sent_messages)

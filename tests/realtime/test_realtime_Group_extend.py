@@ -15,7 +15,7 @@ def test_noop(server):
         """
     )
     assert str(server.query_local_nodes(include_controls=True)) == server_state
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         group.extend([])
     assert [(_.label, _.message) for _ in transcript] == []
     server_state = str(server.query_remote_nodes(True))
@@ -34,7 +34,7 @@ def test_allocate_nested(server):
     synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test, amplitude=0.0)
     group.extend([synth_a, synth_b])
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         group.allocate()
     server_state = str(server.query_remote_nodes(True))
     assert server_state == uqbar.strings.normalize(
@@ -75,7 +75,7 @@ def test_extend_unallocated(server):
     group.allocate()
     synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
     synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test, amplitude=0.0)
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         group.extend([synth_a, synth_b])
     server_state = str(server.query_remote_nodes(True))
     assert server_state == uqbar.strings.normalize(
@@ -127,7 +127,7 @@ def test_extend_allocate_nested_and_move(server):
         """
     )
     assert str(server.query_local_nodes()) == server_state
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         group_a.extend([group_b, synth])
     bundle = supriya.osc.OscBundle(
         contents=(

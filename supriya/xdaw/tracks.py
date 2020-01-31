@@ -1,25 +1,19 @@
 import abc
 from types import MappingProxyType
-from typing import List, Optional, Set, Tuple, Type
+from typing import Dict, Mapping, Optional, Set, Type, Union
 from uuid import UUID, uuid4
 
 import supriya.xdaw  # noqa
 from supriya.enums import AddAction, CalculationRate
-from supriya.synthdefs import SynthDefFactory
+from supriya.midi import NoteOffMessage, NoteOnMessage
 from supriya.typing import Default
-from supriya.ugens import In
 
-from .bases import Allocatable, AllocatableContainer, Mixer
+from .bases import Allocatable, AllocatableContainer, Container, Mixer
 from .clips import Slot
 from .devices import DeviceObject
+from .parameters import Action, Boolean, Float, Parameter, ParameterGroup
 from .sends import Receive, Send, Target
-from .synthdefs import (
-    build_peak_rms_synthdef,
-    gain_block,
-    gate_block,
-    hard_gate_block,
-    sanitize_block,
-)
+from .synthdefs import build_patch_synthdef, build_peak_rms_synthdef
 
 
 class TrackObject(Allocatable):
@@ -28,6 +22,22 @@ class TrackObject(Allocatable):
 
     def __init__(self, *, channel_count=None, name=None, uuid=None):
         Allocatable.__init__(self, channel_count=channel_count, name=name)
+        self._parameter_group = ParameterGroup()
+        self._parameters: Dict[str, Union[Action, Parameter]] = {}
+        self._add_parameter(
+            Parameter(
+                "active",
+                Boolean(),
+                callback=lambda client, value: client._set_active(value),
+            ),
+            is_builtin=True,
+        )
+        self._add_parameter(
+            Parameter(
+                "gain", Float(minimum=-96, maximum=6.0, default=0.0), has_bus=True
+            ),
+            is_builtin=True,
+        )
         self._uuid = uuid or uuid4()
         self._peak_levels = {}
         self._rms_levels = {}
@@ -43,12 +53,16 @@ class TrackObject(Allocatable):
         )
         self._receive_target = Target(label="ReceiveTarget")
         self._receives = AllocatableContainer(
-            "parameters", AddAction.ADD_AFTER, label="Receives"
+            "node",
+            AddAction.ADD_AFTER,
+            label="Receives",
+            target_node_parent=self._parameter_group,
         )
         self._send_target = Target(label="SendTarget")
         self._mutate(
             slice(None),
             [
+                self._parameter_group,
                 self._send_target,
                 self._receives,
                 self._devices,
@@ -61,14 +75,14 @@ class TrackObject(Allocatable):
     ### SPECIAL METHODS ###
 
     def __str__(self):
-        line = f"<{type(self).__name__} [...] {self.uuid}>"
-        if self.node_proxy is not None:
-            line = f"<{type(self).__name__} [{int(self.node_proxy)}] {self.uuid}>"
-        lines = [line]
-        for child in self:
-            for line in str(child).splitlines():
-                lines.append(f"    {line}")
-        return "\n".join(lines)
+        node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "?"
+        obj_name = type(self).__name__
+        return "\n".join(
+            [
+                f"<{obj_name} [{node_proxy_id}] {self.uuid}>",
+                *(f"    {line}" for child in self for line in str(child).splitlines()),
+            ]
+        )
 
     ### PRIVATE METHODS ###
 
@@ -83,11 +97,6 @@ class TrackObject(Allocatable):
         channel_count = self.effective_channel_count
         self._node_proxies["node"] = provider.add_group(
             target_node=target_node, add_action=add_action, name=self.label
-        )
-        self._node_proxies["parameters"] = provider.add_group(
-            target_node=self.node_proxy,
-            add_action=AddAction.ADD_TO_HEAD,
-            name="Parameters",
         )
         self._allocate_audio_buses(provider, channel_count)
         self._allocate_synths(
@@ -127,7 +136,9 @@ class TrackObject(Allocatable):
             add_action=input_action,
             in_=self._audio_bus_proxies["input"],
             out=self._audio_bus_proxies["output"],
-            synthdef=self.build_input_synthdef(channel_count),
+            synthdef=build_patch_synthdef(
+                channel_count, channel_count, feedback=True, gain=True
+            ),
             target_node=input_target,
             name="Input",
         )
@@ -137,7 +148,7 @@ class TrackObject(Allocatable):
             out=self._audio_bus_proxies["output"],
             synthdef=build_peak_rms_synthdef(channel_count),
             target_node=input_levels_target,
-            name="InputLevel",
+            name="InputLevels",
         )
         prefader_levels_target, prefader_levels_action = prefader_levels_pair
         self._node_proxies["prefader_levels"] = provider.add_synth(
@@ -151,8 +162,16 @@ class TrackObject(Allocatable):
         self._node_proxies["output"] = provider.add_synth(
             active=self.is_active,
             add_action=output_action,
+            gain=self.parameters["gain"].bus_proxy,
+            in_=self._audio_bus_proxies["output"],
             out=self._audio_bus_proxies["output"],
-            synthdef=self.build_output_synthdef(channel_count),
+            synthdef=build_patch_synthdef(
+                channel_count,
+                channel_count,
+                gain=True,
+                hard_gate=True,
+                replace_out=True,
+            ),
             target_node=output_target,
             name="Output",
         )
@@ -184,12 +203,6 @@ class TrackObject(Allocatable):
         if not self.provider:
             return
         self.node_proxies["output"]["active"] = 0
-
-    def _perform_input(self):
-        pass
-
-    def _perform_output(self):
-        pass
 
     def _reallocate(self, difference):
         channel_count = self.effective_channel_count
@@ -234,6 +247,12 @@ class TrackObject(Allocatable):
         for send in sorted(self.send_target._dependencies, key=lambda x: x.graph_order):
             send._reconcile()
 
+    def _set_active(self, is_active):
+        if self._is_muted != is_active:
+            return
+        self._is_muted = not is_active
+        self._update_activation(self)
+
     def _update_levels(self, key, osc_message):
         levels = list(osc_message.contents[2:])
         peak, rms = [], []
@@ -270,161 +289,19 @@ class TrackObject(Allocatable):
                 receive.effective_source.receive_target._dependencies.add(receive)
             return receive
 
-    @classmethod
-    def build_input_synthdef(cls, channel_count):
-        """
-        Build track input SynthDef.
-
-        ::
-
-            >>> synthdef = TrackObject.build_input_synthdef(channel_count=1)
-            >>> print(synthdef)
-            synthdef:
-                name: mixer/track-input/1
-                ugens:
-                -   Control.ir: null
-                -   InFeedback.ar:
-                        bus: Control.ir[0:in_]
-                -   In.ar:
-                        bus: Control.ir[1:out]
-                -   BinaryOpUGen(ADDITION).ar:
-                        left: In.ar[0]
-                        right: InFeedback.ar[0]
-                -   Control.kr: null
-                -   Linen.kr/0:
-                        attack_time: Control.kr[3:lag]
-                        done_action: 0.0
-                        gate: Control.kr[0:active]
-                        release_time: Control.kr[3:lag]
-                        sustain_level: 1.0
-                -   Linen.kr/1:
-                        attack_time: Control.kr[3:lag]
-                        done_action: 2.0
-                        gate: Control.kr[2:gate]
-                        release_time: Control.kr[3:lag]
-                        sustain_level: 1.0
-                -   BinaryOpUGen(MULTIPLICATION).ar/0:
-                        left: BinaryOpUGen(ADDITION).ar[0]
-                        right: Linen.kr/1[0]
-                -   BinaryOpUGen(MULTIPLICATION).ar/1:
-                        left: BinaryOpUGen(MULTIPLICATION).ar/0[0]
-                        right: Linen.kr/0[0]
-                -   UnaryOpUGen(DB_TO_AMPLITUDE).kr:
-                        source: Control.kr[1:gain]
-                -   BinaryOpUGen(GREATER_THAN).kr:
-                        left: Control.kr[1:gain]
-                        right: -96.0
-                -   BinaryOpUGen(MULTIPLICATION).kr:
-                        left: UnaryOpUGen(DB_TO_AMPLITUDE).kr[0]
-                        right: BinaryOpUGen(GREATER_THAN).kr[0]
-                -   Lag.kr:
-                        lag_time: Control.kr[3:lag]
-                        source: BinaryOpUGen(MULTIPLICATION).kr[0]
-                -   BinaryOpUGen(MULTIPLICATION).ar/2:
-                        left: BinaryOpUGen(MULTIPLICATION).ar/1[0]
-                        right: Lag.kr[0]
-                -   ReplaceOut.ar:
-                        bus: Control.ir[1:out]
-                        source[0]: BinaryOpUGen(MULTIPLICATION).ar/2[0]
-
-        """
-
-        def in_signal_block(builder, source, state):
-            return (
-                In.ar(bus=builder["out"], channel_count=state["channel_count"]) + source
-            )
-
-        factory = (
-            SynthDefFactory(active=1, gain=0, gate=1, lag=0.01)
-            .with_output(replacing=True)
-            .with_input(feedback=True, private=True)
-            .with_channel_count(channel_count)
-            .with_signal_block(in_signal_block)
-            .with_signal_block(gate_block)
-            .with_signal_block(gain_block)
+    def perform(self, midi_messages, moment=None):
+        self._debug_tree(
+            self, "Perform", suffix=repr([type(_).__name__ for _ in midi_messages])
         )
-        return factory.build(name=f"mixer/track-input/{channel_count}")
-
-    @classmethod
-    def build_output_synthdef(cls, channel_count):
-        """
-        Build track output SynthDef.
-
-        ::
-
-            >>> synthdef = TrackObject.build_output_synthdef(channel_count=1)
-            >>> print(synthdef)
-            synthdef:
-                name: mixer/track-output/1
-                ugens:
-                -   Control.ir: null
-                -   In.ar:
-                        bus: Control.ir[0:out]
-                -   Control.kr: null
-                -   Linen.kr/0:
-                        attack_time: Control.kr[4:lag]
-                        done_action: 0.0
-                        gate: Control.kr[0:active]
-                        release_time: Control.kr[4:lag]
-                        sustain_level: 1.0
-                -   Linen.kr/1:
-                        attack_time: Control.kr[4:lag]
-                        done_action: 2.0
-                        gate: Control.kr[2:gate]
-                        release_time: Control.kr[4:lag]
-                        sustain_level: 1.0
-                -   BinaryOpUGen(MULTIPLICATION).ar/0:
-                        left: In.ar[0]
-                        right: Linen.kr/1[0]
-                -   Linen.kr/2:
-                        attack_time: Control.kr[4:lag]
-                        done_action: 14.0
-                        gate: Control.kr[3:hard_gate]
-                        release_time: Control.kr[4:lag]
-                        sustain_level: 1.0
-                -   BinaryOpUGen(MULTIPLICATION).ar/1:
-                        left: BinaryOpUGen(MULTIPLICATION).ar/0[0]
-                        right: Linen.kr/2[0]
-                -   BinaryOpUGen(MULTIPLICATION).ar/2:
-                        left: BinaryOpUGen(MULTIPLICATION).ar/1[0]
-                        right: Linen.kr/0[0]
-                -   UnaryOpUGen(DB_TO_AMPLITUDE).kr:
-                        source: Control.kr[1:gain]
-                -   BinaryOpUGen(GREATER_THAN).kr:
-                        left: Control.kr[1:gain]
-                        right: -96.0
-                -   BinaryOpUGen(MULTIPLICATION).kr:
-                        left: UnaryOpUGen(DB_TO_AMPLITUDE).kr[0]
-                        right: BinaryOpUGen(GREATER_THAN).kr[0]
-                -   Lag.kr:
-                        lag_time: Control.kr[4:lag]
-                        source: BinaryOpUGen(MULTIPLICATION).kr[0]
-                -   BinaryOpUGen(MULTIPLICATION).ar/3:
-                        left: BinaryOpUGen(MULTIPLICATION).ar/2[0]
-                        right: Lag.kr[0]
-                -   Sanitize.ar:
-                        replace: 0.0
-                        source: BinaryOpUGen(MULTIPLICATION).ar/3[0]
-                -   ReplaceOut.ar:
-                        bus: Control.ir[0:out]
-                        source[0]: Sanitize.ar[0]
-
-        """
-        factory = (
-            SynthDefFactory(active=1, gain=0, gate=1, hard_gate=1, lag=0.01)
-            .with_output(replacing=True)
-            .with_input()
-            .with_channel_count(channel_count)
-            .with_signal_block(hard_gate_block)
-            .with_signal_block(gain_block)
-            .with_signal_block(sanitize_block)
-        )
-        return factory.build(name=f"mixer/track-output/{channel_count}")
-
-    def perform(self, moment, in_midi_messages):
-        with self.lock([self]):
+        with self.lock([self], seconds=moment.seconds if moment is not None else None):
+            for midi_message in midi_messages:
+                if isinstance(midi_message, NoteOnMessage):
+                    self._active_notes.add(midi_message.pitch)
+                elif isinstance(midi_message, NoteOffMessage):
+                    self._active_notes.remove(midi_message.pitch)
             if not self.devices:
                 return
+            self.devices[0].perform(midi_messages, moment=moment)
 
     def remove_devices(self, *devices: DeviceObject):
         with self.lock([self, *devices]):
@@ -448,12 +325,38 @@ class TrackObject(Allocatable):
                 if send.effective_target is not None:
                     send.effective_target.send_target._dependencies.remove(send)
 
+    def serialize(self):
+        serialized = super().serialize()
+        sends = []
+        for send in self.prefader_sends:
+            serialized_send = send.serialize()
+            serialized_send["spec"]["position"] = "prefader"
+            sends.append(serialized_send)
+        for send in self.postfader_sends:
+            serialized_send = send.serialize()
+            serialized_send["spec"]["position"] = "postfader"
+            sends.append(serialized_send)
+        serialized["spec"].update(
+            devices=[device.serialize() for device in self.devices], sends=sends
+        )
+        for mapping in [serialized["meta"], serialized.get("spec", {}), serialized]:
+            for key in tuple(mapping):
+                if not mapping[key]:
+                    mapping.pop(key)
+        return serialized
+
     def set_channel_count(self, channel_count: Optional[int]):
         with self.lock([self]):
             if channel_count is not None:
                 assert 1 <= channel_count <= 8
                 channel_count = int(channel_count)
             self._set(channel_count=channel_count)
+
+    def set_input(self, target: Union[None, Default, "TrackObject", str]):
+        pass
+
+    def set_output(self, target: Union[None, Default, "TrackObject", str]):
+        pass
 
     ### PUBLIC PROPERTIES ###
 
@@ -467,6 +370,10 @@ class TrackObject(Allocatable):
             if isinstance(parent, Mixer):
                 return parent
         return None
+
+    @property
+    def parameters(self) -> Mapping[str, Parameter]:
+        return MappingProxyType(self._parameters)
 
     @property
     def peak_levels(self):
@@ -504,6 +411,12 @@ class TrackObject(Allocatable):
 class CueTrack(TrackObject):
     def __init__(self, *, uuid=None):
         TrackObject.__init__(self, channel_count=2, uuid=uuid)
+        self._add_parameter(
+            Parameter(
+                "mix", Float(minimum=0.0, maximum=1.0, default=0.0), has_bus=True
+            ),
+            is_builtin=True,
+        )
 
 
 class MasterTrack(TrackObject):
@@ -520,6 +433,12 @@ class UserTrackObject(TrackObject):
         self._is_cued = False
         self._is_muted = False
         self._is_soloed = False
+        self._add_parameter(
+            Parameter(
+                "panning", Float(minimum=-1.0, maximum=1.0, default=0), has_bus=True
+            ),
+            is_builtin=True,
+        )
 
     ### PUBLIC METHODS ###
 
@@ -539,10 +458,7 @@ class UserTrackObject(TrackObject):
 
     def mute(self):
         with self.lock([self]):
-            if self.is_muted:
-                return
-            self._is_muted = True
-            self._update_activation(self)
+            self._set_active(False)
 
     @abc.abstractmethod
     def solo(self, exclusive=True):
@@ -554,10 +470,7 @@ class UserTrackObject(TrackObject):
 
     def unmute(self):
         with self.lock([self]):
-            if not self.is_muted:
-                return
-            self._is_muted = False
-            self._update_activation(self)
+            self._set_active(True)
 
     @abc.abstractmethod
     def unsolo(self, exclusive=False):
@@ -586,15 +499,112 @@ class Track(UserTrackObject):
         UserTrackObject.__init__(
             self, channel_count=channel_count, name=name, uuid=uuid
         )
+        self._active_slot_index: Optional[int] = None
+        self._active_slot_start_delta: 0.0
+        self._clip_launch_event_id: Optional[int] = None
+        self._clip_perform_event_id: Optional[int] = None
+        self._active_notes: Set[float] = set()
+        self._pending_slot_index: Optional[int] = None
+        self._slots = Container(label="Slots")
         self._tracks = TrackContainer("input", AddAction.ADD_AFTER, label="SubTracks")
-        self._slots: List[Slot, ...] = []
-        self._mutate(slice(0, 0), [self._tracks])
+        self._mutate(slice(1, 1), [self._slots, self._tracks])
         self.add_send(Default())
 
     ### PRIVATE METHODS ###
 
+    def _applicate(self, new_application):
+        UserTrackObject._applicate(self, new_application)
+        while len(new_application.scenes) < len(self.slots):
+            new_application.add_scene()
+        while len(self.slots) < len(new_application.scenes):
+            self.slots._append(Slot())
+
     def _cleanup(self):
         Track._update_activation(self)
+
+    def _clip_launch_callback(self, current_moment, desired_moment, event):
+        with self.lock([self]):
+            self._debug_tree(
+                self,
+                "Launch/CB",
+                suffix="{} {}".format(self._pending_slot_index, desired_moment.offset),
+            )
+            self._clip_launch_event_id = None
+            # if a clip is active, perform note offs
+            if self._active_slot_index is not None:
+                self.slots[self._active_slot_index].clip._is_playing = False
+                midi_messages = [
+                    NoteOffMessage(pitch=pitch) for pitch in self._active_notes
+                ]
+                if midi_messages:
+                    self.perform(midi_messages, moment=desired_moment)
+            # if pending clip is null-ish, null out variables
+            if (
+                self._pending_slot_index is None
+                or (
+                    self._pending_slot_index is not None
+                    and not (0 <= self._pending_slot_index < len(self.slots))
+                )
+                or self.slots[self._pending_slot_index].clip is None
+            ):
+                self._active_slot_start_delta = None
+                self._active_slot_index = None
+                self._pending_slot_index = None
+                self._debug_tree(self, "Launch/CB", suffix="Bailing")
+                return
+            # set variables to new clip
+            self._active_slot_index = self._pending_slot_index
+            self._active_slot_start_delta = desired_moment.offset
+            self.slots[self._active_slot_index].clip._is_playing = True
+            # schedule perform callback
+            self.transport._clock.cancel(self._clip_launch_event_id)
+            self._clip_perform_event_id = self.transport._clock.schedule(
+                self._clip_perform_callback,
+                schedule_at=desired_moment.offset,
+                event_type=self.transport.EventType.CLIP_PERFORM,
+            )
+
+    def _clip_perform_callback(self, current_moment, desired_moment, event):
+        with self.lock([self]):
+            self._debug_tree(self, "Perform/CB", suffix=str(self._active_slot_index))
+            if self._active_slot_index is None:
+                return None
+            clip = self.slots[self._active_slot_index].clip
+            note_moment = clip.at(
+                desired_moment.offset, start_delta=self._active_slot_start_delta
+            )
+            active_notes = sorted(self._active_notes)
+            midi_messages = []
+            for midi_message in note_moment.note_off_messages:
+                midi_messages.append(midi_message)
+                if midi_message.pitch in active_notes:
+                    active_notes.remove(midi_message.pitch)
+            overlap_pitches = set(_.pitch for _ in note_moment.overlap_notes or [])
+            for active_note in active_notes:
+                if active_note not in overlap_pitches:
+                    midi_messages.append(NoteOffMessage(pitch=active_note))
+            midi_messages.extend(note_moment.note_on_messages)
+            if midi_messages:
+                self.perform(midi_messages, desired_moment)
+            if note_moment.next_offset is None:
+                return None
+            return note_moment.next_offset - desired_moment.offset
+
+    def _fire(self, slot_index, quantization=None):
+        if not self.application:
+            return
+        self._debug_tree(self, "Firing", suffix=str(slot_index))
+        self._pending_slot_index = slot_index
+        transport = self.transport
+        transport._clock.cancel(self._clip_launch_event_id)
+        self._clip_launch_event_id = transport.cue(
+            self._clip_launch_callback,
+            # TODO: Get default quantization from transport itself
+            quantization=quantization or "1M",
+            event_type=transport.EventType.CLIP_LAUNCH,
+        )
+        if not transport.is_running:
+            transport.start()
 
     @classmethod
     def _recurse_activation(
@@ -695,6 +705,17 @@ class Track(UserTrackObject):
             for track in tracks:
                 self._tracks._remove(track)
 
+    def serialize(self):
+        serialized = super().serialize()
+        serialized.setdefault("spec", {}).update(
+            tracks=[track.serialize() for track in self.tracks]
+        )
+        for mapping in [serialized["meta"], serialized.get("spec", {}), serialized]:
+            for key in tuple(mapping):
+                if not mapping[key]:
+                    mapping.pop(key)
+        return serialized
+
     def solo(self, exclusive=True):
         from .contexts import Context
 
@@ -754,8 +775,8 @@ class Track(UserTrackObject):
                 return parent
 
     @property
-    def slots(self) -> Tuple[Slot, ...]:
-        return tuple(self._slots)
+    def slots(self):
+        return self._slots
 
     @property
     def tracks(self) -> "TrackContainer":

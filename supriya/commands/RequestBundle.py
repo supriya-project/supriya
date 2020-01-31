@@ -1,7 +1,9 @@
 import threading
+from collections import deque
 
-import supriya.osc
 from supriya.commands.Requestable import Requestable
+from supriya.commands.SyncRequest import SyncRequest
+from supriya.osc.messages import BUNDLE_PREFIX, OscBundle
 
 
 class RequestBundle(Requestable):
@@ -68,7 +70,7 @@ class RequestBundle(Requestable):
     def _get_response_patterns_and_requestable(self, server):
         sync_id = server.next_sync_id
         contents = list(self.contents)
-        contents.append(supriya.commands.SyncRequest(sync_id=sync_id))
+        contents.append(SyncRequest(sync_id=sync_id))
         request_bundle = type(self)(contents=contents)
         response_pattern = ["/synced", sync_id]
         return response_pattern, None, request_bundle
@@ -101,8 +103,28 @@ class RequestBundle(Requestable):
                         with_request_name=with_request_name,
                     )
                 )
-        bundle = supriya.osc.OscBundle(timestamp=self.timestamp, contents=contents)
+        bundle = OscBundle(timestamp=self.timestamp, contents=contents)
         return bundle
+
+    @classmethod
+    def partition(cls, requests, timestamp=None):
+        bundles = []
+        contents = []
+        requests = deque(requests)
+        remaining = maximum = 8192 - len(BUNDLE_PREFIX) - 4
+        while requests:
+            request = requests.popleft()
+            datagram = request.to_datagram()
+            remaining -= len(datagram) + 4
+            if remaining > 0:
+                contents.append(request)
+            else:
+                bundles.append(cls(timestamp=timestamp, contents=contents))
+                contents = [request]
+                remaining = maximum
+        if contents:
+            bundles.append(cls(timestamp=timestamp, contents=contents))
+        return bundles
 
     ### PUBLIC PROPERTIES ###
 

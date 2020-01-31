@@ -34,7 +34,7 @@ def test_allocate_ids_before_remote_application(server):
     )
     assert request.node_id is synth
     assert request.target_node_id is group
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         request.communicate()
     assert [(_.label, _.message) for _ in transcript] == [
         ("S", supriya.osc.OscMessage(9, "default", 1001, 0, 1000)),
@@ -56,7 +56,7 @@ def test_no_preexisting_synth_object(server):
         node_id=666, synthdef=synthdef, target_node_id=group
     )
     assert request.node_id == 666
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         request.communicate()
     assert [(_.label, _.message) for _ in transcript] == [
         ("S", supriya.osc.OscMessage(9, "test", 666, 0, 1000)),
@@ -77,7 +77,7 @@ def test_bus_symbol_mapping(server):
         amplitude="c0",
         frequency="a1",
     )
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         request.communicate()
     assert [(_.label, _.message) for _ in transcript] == [
         (

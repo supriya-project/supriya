@@ -11,7 +11,7 @@ def test_allocate_synthdef(server):
     assert not synth_a.is_allocated
     assert synth_a.node_id is None
     assert synth_a not in server
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         synth_a.allocate()
     assert [(_.label, _.message) for _ in transcript] == [
         (
@@ -49,7 +49,7 @@ def test_no_reallocate_synthdef(server):
     assert not synth_b.is_allocated
     assert synth_b.node_id is None
     assert synth_b not in server
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         synth_b.allocate()
     assert [(_.label, _.message) for _ in transcript] == [
         ("S", supriya.osc.OscMessage(9, "test", 1001, 0, 1)),
@@ -95,7 +95,7 @@ def test_replace(server):
                     out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
         """
     )
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         synth_b.allocate(add_action="replace", target_node=synth_a)
     assert [(_.label, _.message) for _ in transcript] == [
         (
@@ -215,7 +215,7 @@ def test_mapping(server):
     assert synth["frequency"] == 443
     assert synth["amplitude"] == 0.5
     # Allocate and verify messaging and server state
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         synth.allocate()
     assert [(_.label, _.message) for _ in transcript] == [
         (
@@ -247,7 +247,7 @@ def test_mapping(server):
     assert synth["frequency"] == control_bus
     assert synth["amplitude"] == audio_bus
     # Allocate and verify messaging and server state
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         synth.allocate()
     assert [(_.label, _.message) for _ in transcript] == [
         (

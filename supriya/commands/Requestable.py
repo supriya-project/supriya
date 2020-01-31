@@ -35,9 +35,11 @@ class Requestable(SupriyaValueObject):
             return -1
         return int(node_id)
 
-    def _set_response(self, response):
+    def _set_response(self, message):
+        from supriya.commands import Response
+
         with self.condition:
-            self._response = response
+            self._response = Response.from_osc_message(message)
             self.condition.notify()
 
     ### PUBLIC METHODS ###
@@ -64,17 +66,16 @@ class Requestable(SupriyaValueObject):
         timed_out = False
         with self.condition:
             try:
-                server.osc_io.register(
+                server.osc_protocol.register(
                     pattern=success_pattern,
                     failure_pattern=failure_pattern,
                     procedure=self._set_response,
                     once=True,
-                    parse_response=True,
                 )
             except Exception:
                 print(self)
                 raise
-            server.send_message(requestable)
+            server.send_message(requestable.to_osc())
             while self.response is None:
                 self.condition.wait(timeout)
                 current_time = time.time()

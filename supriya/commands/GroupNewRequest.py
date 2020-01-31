@@ -4,8 +4,7 @@ import typing
 import supriya.osc
 from supriya.commands.Request import Request
 from supriya.enums import RequestId
-from supriya.realtime.Group import Group
-from supriya.realtime.Node import Node
+from supriya.realtime.nodes import Group, Node
 
 
 class GroupNewRequest(Request):
@@ -46,7 +45,7 @@ class GroupNewRequest(Request):
 
     ::
 
-        >>> with server.osc_io.capture() as transcript:
+        >>> with server.osc_protocol.capture() as transcript:
         ...     _ = request.communicate(server=server)
         ...     _ = server.sync()
         ...

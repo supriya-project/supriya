@@ -2,12 +2,16 @@ import time
 
 from uqbar.strings import normalize
 
-from supriya.xdaw import Allocatable
+from supriya.xdaw import Action, Allocatable, Parameter
 
 
 def test_channel_count(channel_count_application):
     items = [channel_count_application]
-    items.extend(x for x in channel_count_application.depth_first() if x.name)
+    items.extend(
+        x
+        for x in channel_count_application.depth_first()
+        if not isinstance(x, (Action, Parameter)) and x.name
+    )
     assert {
         x.name: (x.channel_count, x.effective_channel_count) for x in items[1:]
     } == {
@@ -59,7 +63,7 @@ def test_levels(channel_count_application):
 def test_query(channel_count_application):
     context = channel_count_application["Context"]
     channel_count_application.boot()
-    with context.provider.server.osc_io.capture() as transcript:
+    with context.provider.server.osc_protocol.capture() as transcript:
         channel_count_application.set_channel_count(4)
     time.sleep(0.1)
     assert len(transcript.sent_messages) == 1
@@ -69,130 +73,141 @@ def test_query(channel_count_application):
         NODE TREE 1000 group (Context)
             1001 group (Tracks)
                 1002 group (One)
-                    1003 group (Parameters)
-                    1010 group (Receives)
-                    1087 mixer/track-input/4 (Input)
-                        in_: 16.0, out: 44.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
-                    1009 group (SubTracks)
-                    1088 mixer/levels/4 (InputLevel)
+                    1009 group (Parameters)
+                        1010 group (gain)
+                        1011 group (panning)
+                    1012 group (Receives)
+                    1098 mixer/patch[fb,gain]/4x4 (Input)
+                        active: 1.0, gain: 0.0, gate: 1.0, in_: 16.0, lag: 0.01, out: 44.0
+                    1008 group (SubTracks)
+                    1099 mixer/levels/4 (InputLevels)
                         out: 44.0, gate: 1.0, lag: 0.01
-                    1011 group (Devices)
-                        1012 group (Rack)
-                            1092 mix/patch[gain]/4x4 (RackIn)
+                    1013 group (Devices)
+                        1014 group (Rack)
+                            1103 mixer/patch[gain]/4x4 (RackIn)
                                 active: 1.0, gain: 0.0, gate: 1.0, in_: 44.0, lag: 0.01, out: 48.0
-                            1015 group (ChainContainer)
-                                1016 group (Chain)
-                                    1017 group (Parameters)
-                                    1023 group (Receives)
-                                    1094 mixer/track-input/4 (Input)
-                                        in_: 20.0, out: 52.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
-                                    1095 mixer/levels/4 (InputLevel)
+                            1017 group (ChainContainer)
+                                1018 group (Chain)
+                                    1024 group (Parameters)
+                                        1025 group (gain)
+                                        1026 group (panning)
+                                    1027 group (Receives)
+                                    1105 mixer/patch[fb,gain]/4x4 (Input)
+                                        active: 1.0, gain: 0.0, gate: 1.0, in_: 20.0, lag: 0.01, out: 52.0
+                                    1106 mixer/levels/4 (InputLevels)
                                         out: 52.0, gate: 1.0, lag: 0.01
-                                    1024 group (Devices)
-                                        1025 group (Device)
-                                            1100 mix/patch[replace]/4x4 (DeviceIn)
+                                    1028 group (Devices)
+                                        1029 group (Device)
+                                            1111 mixer/patch[replace]/4x4 (DeviceIn)
                                                 active: 1.0, gate: 1.0, in_: 52.0, lag: 0.01, out: 24.0
-                                            1026 group (Parameters)
-                                            1027 group (Body)
-                                                1099 15a77f27cd96f4488c4a9b094478d045
+                                            1030 group (Parameters)
+                                            1031 group (Body)
+                                                1110 15a77f27cd96f4488c4a9b094478d045
                                                     out: 24.0, index: 0.0
-                                            1101 mix/patch[hard,mix]/4x4 (DeviceOut)
+                                            1112 mixer/patch[hard,mix]/4x4 (DeviceOut)
                                                 active: 1.0, gate: 1.0, hard_gate: 1.0, in_: 24.0, lag: 0.01, mix: 1.0, out: 52.0
-                                    1096 mixer/levels/4 (PrefaderLevels)
+                                    1107 mixer/levels/4 (PrefaderLevels)
                                         out: 52.0, gate: 1.0, lag: 0.01
-                                    1031 group (PreFaderSends)
-                                    1097 mixer/track-output/4 (Output)
-                                        out: 52.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
-                                    1032 group (PostFaderSends)
-                                        1102 mix/patch[gain]/4x4 (Send)
+                                    1035 group (PreFaderSends)
+                                    1108 mixer/patch[gain,hard,replace]/4x4 (Output)
+                                        active: 1.0, gain: c2, gate: 1.0, hard_gate: 1.0, in_: 52.0, lag: 0.01, out: 52.0
+                                    1036 group (PostFaderSends)
+                                        1113 mixer/patch[gain]/4x4 (Send)
                                             active: 1.0, gain: 0.0, gate: 1.0, in_: 52.0, lag: 0.01, out: 48.0
-                                    1098 mixer/levels/4 (PostfaderLevels)
+                                    1109 mixer/levels/4 (PostfaderLevels)
                                         out: 52.0, gate: 1.0, lag: 0.01
-                            1093 mix/patch[hard,mix]/4x4 (RackOut)
+                            1104 mixer/patch[hard,mix]/4x4 (RackOut)
                                 active: 1.0, gate: 1.0, hard_gate: 1.0, in_: 48.0, lag: 0.01, mix: 1.0, out: 44.0
-                    1089 mixer/levels/4 (PrefaderLevels)
+                    1100 mixer/levels/4 (PrefaderLevels)
                         out: 44.0, gate: 1.0, lag: 0.01
-                    1034 group (PreFaderSends)
-                    1090 mixer/track-output/4 (Output)
-                        out: 44.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
-                    1035 group (PostFaderSends)
-                        1122 mix/patch[gain]/4x4 (Send)
+                    1038 group (PreFaderSends)
+                    1101 mixer/patch[gain,hard,replace]/4x4 (Output)
+                        active: 1.0, gain: c0, gate: 1.0, hard_gate: 1.0, in_: 44.0, lag: 0.01, out: 44.0
+                    1039 group (PostFaderSends)
+                        1133 mixer/patch[gain]/4x4 (Send)
                             active: 1.0, gain: 0.0, gate: 1.0, in_: 44.0, lag: 0.01, out: 64.0
-                    1091 mixer/levels/4 (PostfaderLevels)
+                    1102 mixer/levels/4 (PostfaderLevels)
                         out: 44.0, gate: 1.0, lag: 0.01
-                1036 group (Two)
-                    1037 group (Parameters)
-                    1057 group (Receives)
-                    1104 mixer/track-input/4 (Input)
-                        in_: 28.0, out: 56.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
-                    1043 group (SubTracks)
-                        1044 group (Three)
-                            1045 group (Parameters)
-                            1052 group (Receives)
-                            1109 mixer/track-input/4 (Input)
-                                in_: 32.0, out: 60.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
-                            1051 group (SubTracks)
-                            1110 mixer/levels/4 (InputLevel)
+                1040 group (Two)
+                    1062 group (Parameters)
+                        1063 group (gain)
+                        1064 group (panning)
+                    1065 group (Receives)
+                    1115 mixer/patch[fb,gain]/4x4 (Input)
+                        active: 1.0, gain: 0.0, gate: 1.0, in_: 28.0, lag: 0.01, out: 56.0
+                    1046 group (SubTracks)
+                        1047 group (Three)
+                            1054 group (Parameters)
+                                1055 group (gain)
+                                1056 group (panning)
+                            1057 group (Receives)
+                            1120 mixer/patch[fb,gain]/4x4 (Input)
+                                active: 1.0, gain: 0.0, gate: 1.0, in_: 32.0, lag: 0.01, out: 60.0
+                            1053 group (SubTracks)
+                            1121 mixer/levels/4 (InputLevels)
                                 out: 60.0, gate: 1.0, lag: 0.01
-                            1053 group (Devices)
-                            1111 mixer/levels/4 (PrefaderLevels)
+                            1058 group (Devices)
+                            1122 mixer/levels/4 (PrefaderLevels)
                                 out: 60.0, gate: 1.0, lag: 0.01
-                            1054 group (PreFaderSends)
-                            1112 mixer/track-output/4 (Output)
-                                out: 60.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
-                            1055 group (PostFaderSends)
-                                1114 mix/patch[gain]/4x4 (Send)
+                            1059 group (PreFaderSends)
+                            1123 mixer/patch[gain,hard,replace]/4x4 (Output)
+                                active: 1.0, gain: c6, gate: 1.0, hard_gate: 1.0, in_: 60.0, lag: 0.01, out: 60.0
+                            1060 group (PostFaderSends)
+                                1125 mixer/patch[gain]/4x4 (Send)
                                     active: 1.0, gain: 0.0, gate: 1.0, in_: 60.0, lag: 0.01, out: 56.0
-                            1113 mixer/levels/4 (PostfaderLevels)
+                            1124 mixer/levels/4 (PostfaderLevels)
                                 out: 60.0, gate: 1.0, lag: 0.01
-                    1105 mixer/levels/4 (InputLevel)
+                    1116 mixer/levels/4 (InputLevels)
                         out: 56.0, gate: 1.0, lag: 0.01
-                    1058 group (Devices)
-                    1106 mixer/levels/4 (PrefaderLevels)
+                    1066 group (Devices)
+                    1117 mixer/levels/4 (PrefaderLevels)
                         out: 56.0, gate: 1.0, lag: 0.01
-                    1059 group (PreFaderSends)
-                    1107 mixer/track-output/4 (Output)
-                        out: 56.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
-                    1060 group (PostFaderSends)
-                        1123 mix/patch[gain]/4x4 (Send)
+                    1067 group (PreFaderSends)
+                    1118 mixer/patch[gain,hard,replace]/4x4 (Output)
+                        active: 1.0, gain: c4, gate: 1.0, hard_gate: 1.0, in_: 56.0, lag: 0.01, out: 56.0
+                    1068 group (PostFaderSends)
+                        1134 mixer/patch[gain]/4x4 (Send)
                             active: 1.0, gain: 0.0, gate: 1.0, in_: 56.0, lag: 0.01, out: 64.0
-                    1108 mixer/levels/4 (PostfaderLevels)
+                    1119 mixer/levels/4 (PostfaderLevels)
                         out: 56.0, gate: 1.0, lag: 0.01
-            1061 group (MasterTrack)
-                1062 group (Parameters)
-                1068 group (Receives)
-                1116 mixer/track-input/4 (Input)
-                    in_: 36.0, out: 64.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
-                1117 mixer/levels/4 (InputLevel)
+            1069 group (MasterTrack)
+                1075 group (Parameters)
+                    1076 group (gain)
+                1077 group (Receives)
+                1127 mixer/patch[fb,gain]/4x4 (Input)
+                    active: 1.0, gain: 0.0, gate: 1.0, in_: 36.0, lag: 0.01, out: 64.0
+                1128 mixer/levels/4 (InputLevels)
                     out: 64.0, gate: 1.0, lag: 0.01
-                1069 group (Devices)
-                1118 mixer/levels/4 (PrefaderLevels)
+                1078 group (Devices)
+                1129 mixer/levels/4 (PrefaderLevels)
                     out: 64.0, gate: 1.0, lag: 0.01
-                1070 group (PreFaderSends)
-                1119 mixer/track-output/4 (Output)
-                    out: 64.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
-                1071 group (PostFaderSends)
-                    1121 mix/patch/4x2 (DirectOut)
+                1079 group (PreFaderSends)
+                1130 mixer/patch[gain,hard,replace]/4x4 (Output)
+                    active: 1.0, gain: c8, gate: 1.0, hard_gate: 1.0, in_: 64.0, lag: 0.01, out: 64.0
+                1080 group (PostFaderSends)
+                    1132 mixer/patch/4x2 (DirectOut)
                         active: 1.0, gate: 1.0, in_: 64.0, lag: 0.01, out: 0.0
-                1120 mixer/levels/4 (PostfaderLevels)
+                1131 mixer/levels/4 (PostfaderLevels)
                     out: 64.0, gate: 1.0, lag: 0.01
-            1075 group (CueTrack)
-                1076 group (Parameters)
-                1082 group (Receives)
-                1077 mixer/track-input/2 (Input)
-                    in_: 40.0, out: 42.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.01
-                1078 mixer/levels/2 (InputLevel)
+            1084 group (CueTrack)
+                1090 group (Parameters)
+                    1091 group (gain)
+                    1092 group (mix)
+                1093 group (Receives)
+                1085 mixer/patch[fb,gain]/2x2 (Input)
+                    active: 1.0, gain: 0.0, gate: 1.0, in_: 40.0, lag: 0.01, out: 42.0
+                1086 mixer/levels/2 (InputLevels)
                     out: 42.0, gate: 1.0, lag: 0.01
-                1083 group (Devices)
-                1079 mixer/levels/2 (PrefaderLevels)
+                1094 group (Devices)
+                1087 mixer/levels/2 (PrefaderLevels)
                     out: 42.0, gate: 1.0, lag: 0.01
-                1084 group (PreFaderSends)
-                1080 mixer/track-output/2 (Output)
-                    out: 42.0, active: 1.0, gain: 0.0, gate: 1.0, hard_gate: 1.0, lag: 0.01
-                1085 group (PostFaderSends)
-                    1086 mix/patch/2x2 (DirectOut)
+                1095 group (PreFaderSends)
+                1088 mixer/patch[gain,hard,replace]/2x2 (Output)
+                    active: 1.0, gain: c9, gate: 1.0, hard_gate: 1.0, in_: 42.0, lag: 0.01, out: 42.0
+                1096 group (PostFaderSends)
+                    1097 mixer/patch/2x2 (DirectOut)
                         active: 1.0, gate: 1.0, in_: 42.0, lag: 0.01, out: 2.0
-                1081 mixer/levels/2 (PostfaderLevels)
+                1089 mixer/levels/2 (PostfaderLevels)
                     out: 42.0, gate: 1.0, lag: 0.01
         """
     )

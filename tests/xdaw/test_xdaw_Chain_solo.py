@@ -2,7 +2,6 @@ import time
 
 import pytest
 
-from supriya.osc import OscBundle, OscMessage
 from supriya.xdaw import Application, AudioEffect, Chain, RackDevice
 
 
@@ -50,19 +49,17 @@ def test_transcript(chain_mute_solo_application, soloed_chain_names, muted_chain
     chain_mute_solo_application.boot()
     for soloed_chain_name in soloed_chain_names:
         soloed_chain = chain_mute_solo_application.primary_context[soloed_chain_name]
-        with chain_mute_solo_application.primary_context.provider.server.osc_io.capture() as transcript:
+        with chain_mute_solo_application.primary_context.provider.server.osc_protocol.capture() as transcript:
             soloed_chain.solo()
         osc_messages = []
         for muted_chain_name in muted_chain_names:
             muted_chain = chain_mute_solo_application.primary_context[muted_chain_name]
             osc_messages.append(
-                OscMessage(
-                    15, muted_chain.node_proxies["output"].identifier, "active", 0
-                )
+                [15, muted_chain.node_proxies["output"].identifier, "active", 0]
             )
         assert len(transcript.sent_messages) == 1
         _, message = transcript.sent_messages[0]
-        assert message == OscBundle(contents=osc_messages)
+        assert message.to_list() == [None, osc_messages]
 
 
 @pytest.mark.parametrize("booted", [True, False])
@@ -122,12 +119,12 @@ def test_is_soloed(chain_mute_solo_application, booted, chain_names, expected):
 def test_repeat(chain_mute_solo_application):
     chain_mute_solo_application.boot()
     chain_mute_solo_application.primary_context["outer/a/a"].solo()
-    with chain_mute_solo_application.primary_context.provider.server.osc_io.capture() as transcript:
+    with chain_mute_solo_application.primary_context.provider.server.osc_protocol.capture() as transcript:
         chain_mute_solo_application.primary_context["outer/a/a"].solo()
     assert not len(transcript.sent_messages)
 
 
-def test_move(dc_synthdef_factory):
+def test_move(dc_index_synthdef_factory):
     application = Application(channel_count=4)
     context = application.add_context()
     master_track = context.master_track
@@ -140,7 +137,9 @@ def test_move(dc_synthdef_factory):
     chain_d = rack_two.add_chain(name="d")
     for i, chain in enumerate([chain_a, chain_b, chain_c, chain_d]):
         chain.add_device(
-            AudioEffect, synthdef=dc_synthdef_factory, synthdef_kwargs=dict(index=i)
+            AudioEffect,
+            synthdef=dc_index_synthdef_factory,
+            synthdef_kwargs=dict(index=i),
         )
     application.boot()
     time.sleep(0.2)

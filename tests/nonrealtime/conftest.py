@@ -6,7 +6,7 @@ import types
 import pytest
 
 from supriya.nonrealtime import Session
-from supriya.realtime import BootOptions
+from supriya.scsynth import Options
 
 
 @pytest.fixture
@@ -41,7 +41,7 @@ class TestSessionFactory:
         output_bus_channel_count=None,
         multiplier=1.0,
     ):
-        options = BootOptions(
+        options = Options(
             input_bus_channel_count=input_bus_channel_count,
             output_bus_channel_count=output_bus_channel_count,
         )

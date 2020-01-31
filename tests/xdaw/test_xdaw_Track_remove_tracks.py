@@ -1,4 +1,3 @@
-from supriya.osc import OscBundle, OscMessage
 from supriya.xdaw import Application
 
 
@@ -55,7 +54,7 @@ def test_3():
     assert track_one.parent is None
     assert track_one.provider is None
     assert track_two.application is context.application
-    assert track_two.graph_order == (1, 0, 0, 0, 0, 0)
+    assert track_two.graph_order == (3, 0, 0, 0, 1, 0)
     assert track_two.parent is parent.tracks
     assert track_two.provider is None
 
@@ -70,7 +69,7 @@ def test_4():
     track_one = parent.add_track()
     track_two = parent.add_track()
     application.boot()
-    with context.provider.server.osc_io.capture() as transcript:
+    with context.provider.server.osc_protocol.capture() as transcript:
         parent.remove_tracks(track_one)
     assert list(parent.tracks) == [track_two]
     assert track_one.application is None
@@ -78,9 +77,9 @@ def test_4():
     assert track_one.parent is None
     assert track_one.provider is None
     assert track_two.application is context.application
-    assert track_two.graph_order == (1, 0, 0, 0, 0, 0)
+    assert track_two.graph_order == (3, 0, 0, 0, 1, 0)
     assert track_two.parent is parent.tracks
     assert track_two.provider is context.provider
     assert len(transcript.sent_messages) == 1
     _, message = transcript.sent_messages[0]
-    assert message == OscBundle(contents=(OscMessage(15, 1010, "gate", 0),))
+    assert message.to_list() == [None, [[15, 1009, "gate", 0]]]

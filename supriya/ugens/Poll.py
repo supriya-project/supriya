@@ -49,12 +49,11 @@ class Poll(UGen):
 
             >>> server = supriya.Server.default().boot()
             >>> synth = supriya.Synth(synthdef).allocate()
-            >>> callback = server.osc_io.register(
+            >>> callback = server.osc_protocol.register(
             ...     pattern='/tr',
             ...     procedure=lambda response: print(
             ...         'Poll value is: {}'.format(response.value)),
             ...     once=True,
-            ...     parse_response=True,
             ...     )
 
         ::

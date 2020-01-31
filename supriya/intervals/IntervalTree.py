@@ -26,6 +26,8 @@ class IntervalTree(SupriyaObject):
 
     ### INITIALIZER ###
 
+    # TODO: Protect datastructure with a R/W lock: https://pypi.org/project/readerwriterlock/
+
     def __init__(self, intervals=None, accelerated=True):
         self._driver = IntervalTreeDriver(intervals)
         self._accelerated = bool(accelerated)

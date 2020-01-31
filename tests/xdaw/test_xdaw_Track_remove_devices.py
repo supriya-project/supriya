@@ -2,7 +2,6 @@ import time
 
 import pytest
 
-from supriya.osc import OscBundle, OscMessage
 from supriya.synthdefs import SynthDefFactory
 from supriya.xdaw import Application, AudioEffect
 
@@ -72,7 +71,7 @@ def test_3(synthdef_factory):
     assert device_one.parent is None
     assert device_one.provider is None
     assert device_two.application is context.application
-    assert device_two.graph_order == (1, 0, 0, 0, 3, 0)
+    assert device_two.graph_order == (3, 0, 0, 0, 5, 0)
     assert device_two.parent is track.devices
     assert device_two.provider is None
 
@@ -87,7 +86,7 @@ def test_4(synthdef_factory):
     device_one = track.add_device(AudioEffect, synthdef=synthdef_factory)
     device_two = track.add_device(AudioEffect, synthdef=synthdef_factory)
     application.boot()
-    with context.provider.server.osc_io.capture() as transcript:
+    with context.provider.server.osc_protocol.capture() as transcript:
         track.remove_devices(device_one)
     time.sleep(0.1)
     assert list(track.devices) == [device_two]
@@ -96,12 +95,12 @@ def test_4(synthdef_factory):
     assert device_one.parent is None
     assert device_one.provider is None
     assert device_two.application is context.application
-    assert device_two.graph_order == (1, 0, 0, 0, 3, 0)
+    assert device_two.graph_order == (3, 0, 0, 0, 5, 0)
     assert device_two.parent is track.devices
     assert device_two.provider is context.provider
     assert len(transcript.sent_messages) == 1
     _, message = transcript.sent_messages[0]
-    assert message == OscBundle(contents=(OscMessage(15, 1012, "gate", 0),))
+    assert message.to_list() == [None, [[15, 1014, "gate", 0]]]
     assert track.peak_levels == dict(
         input=(0.0, 0.0), postfader=(0.25, 0.25), prefader=(0.25, 0.25)
     )

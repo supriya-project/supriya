@@ -166,6 +166,10 @@ class TempoClock:
             "1/16",
             "1/16T",
             "1/32",
+            "1/32T",
+            "1/64",
+            "1/64T",
+            "1/128",
         ]
     )
 
@@ -201,18 +205,18 @@ class TempoClock:
         if quantization is None:
             offset, measure = moment.offset, None
         elif "M" in quantization:
+            # TODO: This math is wrong
+            #       Take into account measure-internal offset
+            #       Take into account aligning to measure boundaries
             measure_grid = int(quantization[0])
-            measure = (
-                (((moment.measure - 1) // measure_grid) * measure_grid)
-                + measure_grid
-                + 1
-            )
+            grid_offset = moment.measure - 1 + (moment.measure_offset > 0)
+            count, modulus = divmod(grid_offset, measure_grid)
+            count += modulus > 0
+            measure = (count * measure_grid) + 1
             offset = self._measure_to_offset(measure)
         else:
             measure = None
-            fraction_grid = fractions.Fraction(quantization.replace("T", ""))
-            if "T" in quantization:
-                fraction_grid *= fractions.Fraction(2, 3)
+            fraction_grid = self.quantization_to_beats(quantization)
             div, mod = divmod(moment.offset, fraction_grid)
             offset = float(div * fraction_grid)
             if mod:
@@ -312,6 +316,7 @@ class TempoClock:
     ### SCHEDULING METHODS ###
 
     def _cancel(self, event_id) -> Optional[Tuple]:
+        # TODO: Can this be lock-free?
         with self._lock:
             event = self._events_by_id.pop(event_id, None)
             if event is not None and not isinstance(
@@ -438,7 +443,7 @@ class TempoClock:
             f"{current_moment.seconds - self._state.initial_seconds}:s / "
             f"{current_moment.offset}:o"
         )
-        while self._event_queue.qsize():
+        while self._is_running and self._event_queue.qsize():
             # There may be items in the queue which have been flagged "removed".
             # They contribute to the queue's size, but cannot be retrieved by .get().
             try:
@@ -467,15 +472,17 @@ class TempoClock:
                     break
             else:
                 self._perform_callback_event(event, current_moment, desired_moment)
+                self._process_command_deque()
         return current_moment
 
     def _process_command_deque(self, first_run=False):
         while self._command_deque:
-            logger.debug(f"[{self.name}] ... Processing command deque")
+            logger.debug(f"[{self.name}] ... Processing command deque ({first_run})")
             command = self._command_deque.popleft()
             if self._events_by_id.pop(command.event_id, None) is None:
                 continue
             schedule_at = command.schedule_at
+            logger.debug(f"[{self.name}] ... ... Scheduled at {schedule_at}")
             if command.quantization is not None:
                 # If the command was queued before the clock was started,
                 # reset its reference time
@@ -573,7 +580,7 @@ class TempoClock:
         logger.debug(f"[{self.name}] Terminating")
 
     def _wait_for_moment(self, offline=False) -> Optional[Moment]:
-        # logger.debug(f"[{self.name}] ... Waiting for next moment")
+        logger.debug(f"[{self.name}] ... Waiting for next moment")
         current_time = self.get_current_time()
         while current_time < self._event_queue.peek().seconds:
             if not offline:
@@ -585,7 +592,7 @@ class TempoClock:
         return self._seconds_to_moment(current_time)
 
     def _wait_for_queue(self, offline=False) -> bool:
-        # logger.debug(f"[{self.name}] ... Waiting for events")
+        logger.debug(f"[{self.name}] ... Waiting for events")
         self._process_command_deque()
         while not self._event_queue.qsize():
             if not offline:
@@ -685,6 +692,13 @@ class TempoClock:
         except queue.Empty:
             pass
 
+    @classmethod
+    def quantization_to_beats(cls, quantization):
+        fraction = fractions.Fraction(quantization.replace("T", ""))
+        if "T" in quantization:
+            fraction *= fractions.Fraction(2, 3)
+        return float(fraction)
+
     def reschedule(
         self, event_id, *, schedule_at=0.0, time_unit=TimeUnit.BEATS
     ) -> Optional[int]:
@@ -729,6 +743,7 @@ class TempoClock:
         args=None,
         kwargs=None,
     ) -> int:
+        logger.debug(f"[{self.name}] Scheduling {procedure}")
         if event_type <= 0:
             raise ValueError(f"Invalid event type {event_type}")
         event_id = next(self._counter)
@@ -794,11 +809,12 @@ class TempoClock:
             self._thread.start()
 
     def stop(self):
+        if not self._is_running:
+            return
+        self._is_running = False
         with self._lock:
-            if not self._is_running:
-                return
-            self._is_running = False
             self._condition.notify()
+        self._thread.join()
 
     ### PUBLIC PROPERTIES ###
 

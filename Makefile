@@ -29,10 +29,13 @@ clean:
 docs:
 	make -C docs/ html
 
+docs-clean:
+	make -C docs/ clean html
+
 flake8:
 	flake8 --max-line-length=90 --isolated --ignore=${errors} ${formatPaths}
 
-gh-pages:
+gh-pages: docs-clean
 	rm -Rf gh-pages/
 	git clone $(origin) gh-pages/
 	cd gh-pages/ && \
@@ -56,7 +59,8 @@ isort:
 		--thirdparty uqbar \
 		--thirdparty yaml \
 		--trailing-comma \
-		--use-parentheses -y \
+		--use-parentheses \
+		-y \
 		${formatPaths}
 
 mypy:
@@ -90,7 +94,7 @@ reformat:
 	make black-reformat
 
 release:
-	make docs
+	make test
 	make clean
 	make build
 	twine upload dist/*.tar.gz

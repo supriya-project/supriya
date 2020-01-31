@@ -1,5 +1,4 @@
 from supriya.midi.LogicalControlMode import LogicalControlMode
-from supriya.system.Bindable import Bindable
 
 
 class LogicalControl:
@@ -17,7 +16,6 @@ class LogicalControl:
 
     ### SPECIAL METHODS ###
 
-    @Bindable(rebroadcast=True)
     def __call__(self, value):
         value = float(value)
         if self.parent.is_mutex:

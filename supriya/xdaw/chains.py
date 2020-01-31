@@ -1,7 +1,6 @@
 from typing import Callable, Generator, Optional, Sequence, Tuple
 
 import supriya.xdaw  # noqa
-from supriya.commands import Request
 from supriya.enums import AddAction, CalculationRate
 from supriya.midi import MidiMessage
 from supriya.typing import Default
@@ -227,9 +226,7 @@ class RackDevice(DeviceObject, Mixer):
 
     def _perform(
         self, moment, in_midi_messages
-    ) -> Generator[
-        Tuple[Optional[Callable], Sequence[MidiMessage], Sequence[Request]], None, None
-    ]:
+    ) -> Generator[Tuple[Optional[Callable], Sequence[MidiMessage]], None, None]:
         # TODO: Refactor for zone control
         performers = []
         for chain in self.chains:
@@ -240,16 +237,14 @@ class RackDevice(DeviceObject, Mixer):
         for message in self._filter_in_midi_messages(in_midi_messages):
             self._update_captures(moment, message, "I")
             for performer in performers:
-                yield performer, (message,), ()
+                yield performer, (message,)
 
     def _perform_output(
         self, moment, in_midi_messages
-    ) -> Generator[
-        Tuple[Optional[Callable], Sequence[MidiMessage], Sequence[Request]], None, None
-    ]:
+    ) -> Generator[Tuple[Optional[Callable], Sequence[MidiMessage]], None, None]:
         for message in self._filter_out_midi_messages(in_midi_messages):
             self._update_captures(moment, message, "O")
-            yield None, (message,), ()
+            yield None, (message,)
 
     ### PUBLIC METHODS ###
 
@@ -271,6 +266,17 @@ class RackDevice(DeviceObject, Mixer):
                 raise ValueError
             for chain in chains:
                 self._chains._remove(chain)
+
+    def serialize(self):
+        serialized = super().serialize()
+        serialized.setdefault("spec", {}).update(
+            chains=[chain.serialize() for chain in self.chains]
+        )
+        for mapping in [serialized["meta"], serialized.get("spec", {}), serialized]:
+            for key in tuple(mapping):
+                if not mapping[key]:
+                    mapping.pop(key)
+        return serialized
 
     def set_channel_count(self, channel_count: Optional[int]):
         with self.lock([self]):

@@ -4,23 +4,23 @@ import supriya
 def test_synth_pause_unpause(server):
     synth = supriya.realtime.Synth().allocate()
     assert not synth.is_paused
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         synth.pause()
     assert [(_.label, _.message) for _ in transcript] == [
         ("S", supriya.osc.OscMessage(12, 1000, 0))
     ]
     assert synth.is_paused
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         synth.pause()
     assert list(transcript) == []
     assert synth.is_paused
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         synth.unpause()
     assert [(_.label, _.message) for _ in transcript] == [
         ("S", supriya.osc.OscMessage(12, 1000, 1))
     ]
     assert not synth.is_paused
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         synth.unpause()
     assert list(transcript) == []
     assert not synth.is_paused
@@ -29,23 +29,23 @@ def test_synth_pause_unpause(server):
 def test_group_pause_unpause(server):
     group = supriya.realtime.Group().allocate()
     assert not group.is_paused
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         group.pause()
     assert [(_.label, _.message) for _ in transcript] == [
         ("S", supriya.osc.OscMessage(12, 1000, 0))
     ]
     assert group.is_paused
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         group.pause()
     assert list(transcript) == []
     assert group.is_paused
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         group.unpause()
     assert [(_.label, _.message) for _ in transcript] == [
         ("S", supriya.osc.OscMessage(12, 1000, 1))
     ]
     assert not group.is_paused
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         group.unpause()
     assert list(transcript) == []
     assert not group.is_paused
@@ -55,7 +55,7 @@ def test_synth_allocate_free_paused(server):
     synth = supriya.realtime.Synth(synthdef=supriya.assets.synthdefs.test)
     synth.pause()
     assert synth.is_paused
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         synth.allocate()
     bundle = supriya.osc.OscBundle(
         contents=(
@@ -73,7 +73,7 @@ def test_synth_allocate_free_paused(server):
         ("R", supriya.osc.OscMessage("/done", "/d_recv")),
     ]
     assert synth.is_paused
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         synth.free()
     assert [(_.label, _.message) for _ in transcript] == [
         ("S", supriya.osc.OscMessage(11, 1000))
@@ -87,7 +87,7 @@ def test_group_allocate_paused(server):
     group = supriya.realtime.Group()
     group.pause()
     assert group.is_paused
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         group.allocate()
     assert [(_.label, _.message) for _ in transcript] == [
         (
@@ -105,7 +105,7 @@ def test_group_allocate_paused(server):
         ("R", supriya.osc.OscMessage("/synced", 0)),
     ]
     assert group.is_paused
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         group.free()
     assert [(_.label, _.message) for _ in transcript] == [
         ("S", supriya.osc.OscMessage(11, 1000))
@@ -125,7 +125,7 @@ def test_group_allocate_nested_paused(server):
     assert group[0].is_paused
     assert not group[1].is_paused
     assert group[1][0].is_paused
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         group.allocate()
     assert [(_.label, _.message) for _ in transcript] == [
         (
@@ -153,7 +153,7 @@ def test_group_allocate_nested_paused(server):
     assert group[0].is_paused
     assert not group[1].is_paused
     assert group[1][0].is_paused
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         group.free()
     assert [(_.label, _.message) for _ in transcript] == [
         ("S", supriya.osc.OscMessage(11, 1000))

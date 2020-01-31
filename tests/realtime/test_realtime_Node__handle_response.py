@@ -32,7 +32,7 @@ def test_01(server):
     local_state = str(server.query_local_nodes())
     assert local_state == remote_state
 
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         osc_message = supriya.osc.OscMessage(
             "/n_after", synth_b.node_id, synth_a.node_id
         )
@@ -60,7 +60,7 @@ def test_01(server):
     local_state = str(server.query_local_nodes())
     assert local_state == remote_state
 
-    with server.osc_io.capture() as transcript:
+    with server.osc_protocol.capture() as transcript:
         osc_message = supriya.osc.OscMessage(
             "/n_order", 0, group_b.node_id, synth_b.node_id, synth_a.node_id
         )

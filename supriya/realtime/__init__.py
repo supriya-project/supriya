@@ -2,39 +2,33 @@
 Tools for interacting with and modeling objects on the SuperCollider
 ``scsynth`` synthesis server.
 """
-from .AudioInputBusGroup import AudioInputBusGroup  # noqa
-from .AudioOutputBusGroup import AudioOutputBusGroup  # noqa
-from .Block import Block  # noqa
-from .BlockAllocator import BlockAllocator  # noqa
-from .BootOptions import BootOptions  # noqa
-from .Buffer import Buffer  # noqa
-from .BufferGroup import BufferGroup  # noqa
-from .BufferProxy import BufferProxy  # noqa
-from .Bus import Bus  # noqa
-from .BusGroup import BusGroup  # noqa
-from .BusProxy import BusProxy  # noqa
-from .ControlInterface import ControlInterface  # noqa
-from .Group import Group  # noqa
-from .GroupControl import GroupControl  # noqa
-from .GroupInterface import GroupInterface  # noqa
-from .Node import Node  # noqa
-from .NodeIdAllocator import NodeIdAllocator  # noqa
-from .RootNode import RootNode  # noqa
-from .Server import Server  # noqa
-from .ServerMeters import ServerMeters  # noqa
-from .ServerObject import ServerObject  # noqa
-from .ServerRecorder import ServerRecorder  # noqa
-from .StatusWatcher import StatusWatcher  # noqa
-from .Synth import Synth  # noqa
-from .SynthControl import SynthControl  # noqa
-from .SynthInterface import SynthInterface  # noqa
+from .allocators import Block, BlockAllocator, NodeIdAllocator
+from .bases import ServerObject
+from .buffers import Buffer, BufferGroup, BufferProxy
+from .buses import (
+    AudioInputBusGroup,
+    AudioOutputBusGroup,
+    Bus,
+    BusGroup,
+    BusProxy,
+)
+from .interfaces import (
+    ControlInterface,
+    GroupControl,
+    GroupInterface,
+    SynthControl,
+    SynthInterface,
+)
+from .meters import Meters
+from .nodes import Group, Node, RootNode, Synth
+from .recorder import Recorder
+from .servers import Server
 
 __all__ = [
     "AudioInputBusGroup",
     "AudioOutputBusGroup",
     "Block",
     "BlockAllocator",
-    "BootOptions",
     "Buffer",
     "BufferGroup",
     "BufferProxy",
@@ -45,15 +39,15 @@ __all__ = [
     "Group",
     "GroupControl",
     "GroupInterface",
+    "Meters",
     "Node",
     "NodeIdAllocator",
+    "Recorder",
     "RootNode",
     "Server",
-    "ServerMeters",
     "ServerObject",
-    "ServerRecorder",
-    "StatusWatcher",
     "Synth",
     "SynthControl",
     "SynthInterface",
+    "boot",
 ]

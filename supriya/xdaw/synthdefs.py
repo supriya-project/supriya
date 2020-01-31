@@ -186,17 +186,20 @@ def build_patch_synthdef(
         kwargs["hard_gate"] = 1
     if mix_out:
         kwargs["mix"] = 1
+    local_gate_block = gate_block
+    if hard_gate:
+        local_gate_block = hard_gate_block
     factory = SynthDefFactory(**kwargs).with_initial_state(**initial_state)
     factory = factory.with_signal_block(in_block)
     if source_channel_count <= target_channel_count:
         if gain:
             factory = factory.with_signal_block(gain_block)
-        factory = factory.with_signal_block(gate_block)
+        factory = factory.with_signal_block(local_gate_block)
     factory = factory.with_signal_block(mix_block)
     if source_channel_count > target_channel_count:
         if gain:
             factory = factory.with_signal_block(gain_block)
-        factory = factory.with_signal_block(gate_block)
+        factory = factory.with_signal_block(local_gate_block)
     factory = factory.with_signal_block(out_block)
     flavor_parts = []
     if feedback:
@@ -210,7 +213,7 @@ def build_patch_synthdef(
     if replace_out:
         flavor_parts.append("replace")
     flavor = "[" + ",".join(flavor_parts) + "]" if flavor_parts else ""
-    name = f"mix/patch{flavor}/{source_channel_count}x{target_channel_count}"
+    name = f"mixer/patch{flavor}/{source_channel_count}x{target_channel_count}"
     return factory.build(name=name)
 
 

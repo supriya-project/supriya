@@ -33,12 +33,3 @@ def test_send_02():
         next(iterator)
     with pytest.raises(StopIteration):
         iterator.send(True)
-
-
-def test_lazy_01():
-    pattern = supriya.patterns.Pwhite(
-        minimum=supriya.system.BindableFloat(0.25),
-        maximum=supriya.system.BindableFloat(0.75),
-    )
-    iterator = iter(pattern)
-    next(iterator)

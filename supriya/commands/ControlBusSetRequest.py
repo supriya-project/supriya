@@ -36,7 +36,7 @@ class ControlBusSetRequest(Request):
 
     ::
 
-        >>> with server.osc_io.capture() as transcript:
+        >>> with server.osc_protocol.capture() as transcript:
         ...     request.communicate(server=server)
         ...     _ = server.sync()
         ...

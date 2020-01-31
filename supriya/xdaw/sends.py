@@ -25,10 +25,14 @@ class SendObject(Allocatable):
     ### SPECIAL METHODS ###
 
     def __str__(self):
-        line = f"<{type(self).__name__} [...] {self.uuid}>"
-        if self.node_proxy is not None:
-            line = f"<{type(self).__name__} [{int(self.node_proxy)}] {self.uuid}>"
-        return line
+        node_proxy_id = int(self.node_proxy) if self.node_proxy is not None else "?"
+        obj_name = type(self).__name__
+        return "\n".join(
+            [
+                f"<{obj_name} [{node_proxy_id}] {self.uuid}>",
+                *(f"    {line}" for child in self for line in str(child).splitlines()),
+            ]
+        )
 
     ### PRIVATE METHODS ###
 
@@ -126,7 +130,7 @@ class Patch(SendObject):
         dispose_only: bool = False,
         **kwargs,
     ):
-        difference = ApplicationObject._reconcile(self)  # noqa
+        difference = self._get_state_difference()
         if "application" in difference:
             old_application, new_application = difference.pop("application")
             if old_application:
@@ -169,6 +173,21 @@ class Patch(SendObject):
             ]
         ):
             self._reallocate(difference)
+
+    ### PUBLIC METHODS ###
+
+    def serialize(self):
+        serialized = super().serialize()
+        if isinstance(self.target, Default):
+            target = "default"
+        else:
+            target = str(self.effective_target.uuid)
+        serialized["spec"]["target"] = target
+        for mapping in [serialized["meta"], serialized.get("spec", {}), serialized]:
+            for key in tuple(mapping):
+                if not mapping[key]:
+                    mapping.pop(key)
+        return serialized
 
     ### PUBLIC PROPERTIES ###
 
@@ -457,6 +476,21 @@ class DirectOut(SendObject):
             self.provider, target_node=node_proxy, add_action=AddAction.ADD_AFTER
         )
         node_proxy.free()
+
+    ### PUBLIC METHODS ###
+
+    def serialize(self):
+        serialized = super().serialize()
+        serialized["spec"].update(
+            target_bus_id=self.target_bus_id,
+            target_channel_count=self.target_channel_count,
+        )
+        for mapping in [serialized["meta"], serialized.get("spec", {}), serialized]:
+            for key in tuple(mapping):
+                value = mapping[key]
+                if (isinstance(value, list) and not value) or value is None:
+                    mapping.pop(key)
+        return serialized
 
     ### PUBLIC PROPERTIES ###
 

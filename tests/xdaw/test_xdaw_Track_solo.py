@@ -2,7 +2,6 @@ import time
 
 import pytest
 
-from supriya.osc import OscBundle, OscMessage
 from supriya.xdaw import Application, AudioEffect, Track
 
 
@@ -50,19 +49,17 @@ def test_transcript(track_mute_solo_application, soloed_track_names, muted_track
     track_mute_solo_application.boot()
     for soloed_track_name in soloed_track_names:
         soloed_track = track_mute_solo_application.primary_context[soloed_track_name]
-        with track_mute_solo_application.primary_context.provider.server.osc_io.capture() as transcript:
+        with track_mute_solo_application.primary_context.provider.server.osc_protocol.capture() as transcript:
             soloed_track.solo()
         osc_messages = []
         for muted_track_name in muted_track_names:
             muted_track = track_mute_solo_application.primary_context[muted_track_name]
             osc_messages.append(
-                OscMessage(
-                    15, muted_track.node_proxies["output"].identifier, "active", 0
-                )
+                [15, muted_track.node_proxies["output"].identifier, "active", 0]
             )
         assert len(transcript.sent_messages) == 1
         _, message = transcript.sent_messages[0]
-        assert message == OscBundle(contents=osc_messages)
+        assert message.to_list() == [None, osc_messages]
 
 
 @pytest.mark.parametrize("booted", [True, False])
@@ -126,7 +123,7 @@ def test_stacked():
     )
     application.boot()
     application.primary_context["a"].solo()
-    with application.primary_context.provider.server.osc_io.capture() as transcript:
+    with application.primary_context.provider.server.osc_protocol.capture() as transcript:
         application.primary_context["b"].solo()
         application.primary_context["c"].solo()
     assert not len(transcript.sent_messages)
@@ -137,24 +134,24 @@ def test_repeat():
     application.add_context().add_track(name="a")
     application.boot()
     application.primary_context["a"].solo()
-    with application.primary_context.provider.server.osc_io.capture() as transcript:
+    with application.primary_context.provider.server.osc_protocol.capture() as transcript:
         application.primary_context["a"].solo()
     assert not len(transcript.sent_messages)
 
 
-def test_move(dc_synthdef_factory):
+def test_move(dc_index_synthdef_factory):
     application = Application()
     context = application.add_context()
     track_one = context.add_track(name="one")
     track_one.add_device(
-        AudioEffect, synthdef=dc_synthdef_factory, synthdef_kwargs=dict(index=0)
+        AudioEffect, synthdef=dc_index_synthdef_factory, synthdef_kwargs=dict(index=0)
     )
     application.boot()
     time.sleep(0.2)
     assert context.master_track.rms_levels["input"] == (1.0, 0.0)
     track_two = Track(name="two")
     track_two.add_device(
-        AudioEffect, synthdef=dc_synthdef_factory, synthdef_kwargs=dict(index=1)
+        AudioEffect, synthdef=dc_index_synthdef_factory, synthdef_kwargs=dict(index=1)
     )
     track_two.solo()
     track_two.move(context, 1)

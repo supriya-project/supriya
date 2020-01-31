@@ -66,7 +66,7 @@ def test_01(cli_paths):
             Writing session-96b415a72acd2a1835a3270714011314.osc.
                 Wrote session-96b415a72acd2a1835a3270714011314.osc.
             Rendering session-96b415a72acd2a1835a3270714011314.osc.
-                Command: scsynth -N session-96b415a72acd2a1835a3270714011314.osc _ session-96b415a72acd2a1835a3270714011314.aiff 44100 aiff int24 -i 0 -o 2
+                Command: ...scsynth -N session-96b415a72acd2a1835a3270714011314.osc _ session-96b415a72acd2a1835a3270714011314.aiff 44100 aiff int24 -i 0 -o 2
                 Rendered session-96b415a72acd2a1835a3270714011314.osc with exit code 0.
             Writing test_project/materials/test_material/render.yml.
                 Wrote test_project/materials/test_material/render.yml.

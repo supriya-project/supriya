@@ -4,8 +4,11 @@ import pytest
 from uqbar.strings import normalize
 
 import supriya
+from supriya import scsynth
 from supriya.osc import OscMessage
-from supriya.realtime import BootOptions, Server
+from supriya.realtime import Server
+from supriya.realtime.protocols import SyncProcessProtocol
+from supriya.scsynth import Options
 
 pytestmark = pytest.mark.timeout(60)
 
@@ -118,7 +121,10 @@ def test_boot_a_and_connect_b_and_quit_a():
     assert server_b.is_running and not server_b.is_owner
     server_a.quit()
     assert not server_a.is_running and not server_a.is_owner
-    time.sleep(45)  # wait for status watcher
+    for _ in range(45):
+        time.sleep(1)
+        if not server_b.is_running:
+            break
     assert not server_b.is_running and not server_b.is_owner
 
 
@@ -186,7 +192,10 @@ def test_boot_a_and_connect_b_and_force_quit_b():
     assert server_b.is_running and not server_b.is_owner
     server_b.quit(force=True)
     assert not server_b.is_running and not server_b.is_owner
-    time.sleep(45)  # wait for status watcher
+    for _ in range(45):
+        time.sleep(1)
+        if not server_a.is_running:
+            break
     assert not server_a.is_running and not server_a.is_owner
 
 
@@ -200,17 +209,17 @@ def test_shared_resources():
         )
     synthdef = builder.build(name="foo")
     synth = supriya.Synth(synthdef=synthdef)
-    transcript_a = server_a.osc_io.capture()
-    transcript_b = server_b.osc_io.capture()
+    transcript_a = server_a.osc_protocol.capture()
+    transcript_b = server_b.osc_protocol.capture()
     with transcript_a, transcript_b:
         synth.allocate(target_node=server_b)
         time.sleep(0.1)  # Wait for all clients to receive /n_go
     assert synth not in server_a
     assert synth in server_b
-    assert [(label, osc_message) for _, label, osc_message, _ in transcript_a] == [
+    assert [(label, osc_message) for _, label, osc_message in transcript_a] == [
         ("R", OscMessage("/n_go", 67109864, 2, -1, -1, 0))
     ]
-    assert [(label, osc_message) for _, label, osc_message, _ in transcript_b] == [
+    assert [(label, osc_message) for _, label, osc_message in transcript_b] == [
         ("S", OscMessage(5, synthdef.compile(), OscMessage(9, "foo", 67109864, 0, 2))),
         ("R", OscMessage("/n_go", 67109864, 2, -1, -1, 0)),
         ("R", OscMessage("/done", "/d_recv")),
@@ -238,8 +247,9 @@ def test_shared_resources():
 
 def test_connect_and_reconnect():
     try:
-        options = BootOptions(maximum_logins=4)
-        process = options.boot(options.find_scsynth(), 57110)
+        options = Options(maximum_logins=4)
+        protocol = SyncProcessProtocol()
+        protocol.boot(options, scsynth.find(), 57110)
         server = Server(port=57110)
         server.connect()
         assert server.is_running and not server.is_owner
@@ -267,5 +277,4 @@ def test_connect_and_reconnect():
         """
         )
     finally:
-        process.terminate()
-        process.wait()
+        protocol.quit()

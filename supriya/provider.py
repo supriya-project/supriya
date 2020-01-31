@@ -1,4 +1,5 @@
 import abc
+import collections
 import contextlib
 import dataclasses
 import pathlib
@@ -19,6 +20,8 @@ from typing import (
     cast,
 )
 
+from uqbar.objects import new
+
 import supriya.nonrealtime  # noqa
 import supriya.realtime  # noqa
 from supriya import nonrealtime, realtime
@@ -35,9 +38,9 @@ from supriya.commands.NodeSetRequest import NodeSetRequest
 from supriya.commands.RequestBundle import RequestBundle
 from supriya.commands.SynthDefReceiveRequest import SynthDefReceiveRequest
 from supriya.commands.SynthNewRequest import SynthNewRequest
-from supriya.enums import AddAction, CalculationRate
+from supriya.enums import AddAction, CalculationRate, ParameterRate
 from supriya.nonrealtime.Session import Session
-from supriya.realtime.Server import Server
+from supriya.realtime import Server
 from supriya.synthdefs.SynthDef import SynthDef
 
 # TODO: Implement BusProxy, integrate with BusGroupProxy
@@ -110,6 +113,12 @@ class BusProxy(Proxy):
 
     def free(self):
         self.provider.free_bus(self)
+
+    @property
+    def map_symbol(self):
+        if self.calculation_rate == CalculationRate.AUDIO:
+            return f"a{int(self)}"
+        return f"c{int(self)}"
 
 
 @dataclasses.dataclass(frozen=True)
@@ -256,12 +265,26 @@ class SynthProxy(NodeProxy):
     settings: Dict[str, Union[float, BusGroupProxy]]
 
     def as_add_request(self, add_action, target_node):
+        # TODO: Handle map symbols
+        #       If arg is a bus proxy, and synth param is scalar, cast to int
+        #       Elif arg is a bus proxy, and synth param not scalar, map
+        #       Else cast to float
         synthdef = self.synthdef or default
-        synthdef_kwargs = {key: float(value) for key, value in self.settings.items()}
+
+        synthdef_kwargs = {}
         for _, parameter in synthdef.indexed_parameters:
-            value = synthdef_kwargs.get(parameter.name)
+            if parameter.name not in self.settings:
+                continue
+            value = self.settings[parameter.name]
             if value == parameter.value:
-                synthdef_kwargs.pop(parameter.name)
+                continue
+            if parameter.parameter_rate != ParameterRate.SCALAR and isinstance(
+                value, BusProxy
+            ):
+                synthdef_kwargs[parameter.name] = value.map_symbol
+            else:
+                synthdef_kwargs[parameter.name] = float(value)
+
         return SynthNewRequest(
             node_id=int(self.identifier),
             add_action=add_action,
@@ -288,11 +311,15 @@ class ProviderMoment:
 
     def __enter__(self):
         self.provider._moments.append(self)
+        self.provider._counter[self.seconds] += 1
         return self
 
     def __exit__(self, *args):
         self.provider._moments.pop()
+        self.provider._counter[self.seconds] -= 1
         if not self.provider.server:
+            return
+        elif self.provider._counter[self.seconds]:
             return
         requests = []
         synthdefs = set()
@@ -323,9 +350,12 @@ class ProviderMoment:
             requests.append(request)
         if not requests:
             return
+        timestamp = self.seconds
+        if timestamp is not None:
+            timestamp += self.provider._latency
         if synthdefs:
             request_bundle = RequestBundle(
-                timestamp=self.seconds,
+                timestamp=timestamp,
                 contents=[
                     SynthDefReceiveRequest(
                         synthdefs=sorted(synthdefs, key=lambda x: x.actual_name),
@@ -344,7 +374,7 @@ class ProviderMoment:
                     synthdef_path = directory_path / file_name
                     synthdef_path.write_bytes(synthdef.compile())
                 request_bundle = RequestBundle(
-                    timestamp=self.seconds,
+                    timestamp=timestamp,
                     contents=[
                         supriya.commands.SynthDefLoadDirectoryRequest(
                             directory_path=directory_path,
@@ -353,10 +383,20 @@ class ProviderMoment:
                     ],
                 )
         else:
-            request_bundle = RequestBundle(timestamp=self.seconds, contents=requests)
-        self.provider.server.send_message(request_bundle)
+            request_bundle = RequestBundle(timestamp=timestamp, contents=requests)
         for synthdef in synthdefs:
             synthdef._register_with_local_server(server=self.provider.server)
+        try:
+            self.provider.server.send_message(request_bundle.to_osc())
+        except OSError:
+            requests = request_bundle.contents
+            if synthdefs:
+                synthdef_request = requests[0]
+                requests = synthdef_request.callback.contents or []
+                synthdef_request = new(synthdef_request, callback=None)
+                synthdef_request.communicate(sync=True, server=self.provider.server)
+            for bundle in RequestBundle.partition(requests, timestamp=timestamp):
+                self.provider.server.send_message(bundle.to_osc())
 
 
 class Provider(metaclass=abc.ABCMeta):
@@ -366,10 +406,12 @@ class Provider(metaclass=abc.ABCMeta):
 
     ### INITIALIZER ###
 
-    def __init__(self):
+    def __init__(self, latency=0.1):
         self._moments: List[ProviderMoment] = []
+        self._counter = collections.Counter()
         self._server = None
         self._session = None
+        self._latency = latency
         self._annotation_map: Dict[
             Union["supriya.nonrealtime.Node.Node", int], str
         ] = {}
@@ -452,15 +494,18 @@ class Provider(metaclass=abc.ABCMeta):
 
     @contextlib.contextmanager
     def at(self, seconds=None):
-        provider_moment = ProviderMoment(
-            provider=self,
-            seconds=seconds,
-            bus_settings=[],
-            node_additions=[],
-            node_removals=[],
-            node_reorderings=[],
-            node_settings=[],
-        )
+        if self._moments and self._moments[-1].seconds == seconds:
+            provider_moment = self._moments[-1]
+        else:
+            provider_moment = ProviderMoment(
+                provider=self,
+                seconds=seconds,
+                bus_settings=[],
+                node_additions=[],
+                node_removals=[],
+                node_reorderings=[],
+                node_settings=[],
+            )
         exit_stack = contextlib.ExitStack()
         with exit_stack:
             exit_stack.enter_context(provider_moment)
@@ -469,11 +514,11 @@ class Provider(metaclass=abc.ABCMeta):
             yield provider_moment
 
     @classmethod
-    def from_context(cls, context) -> "Provider":
+    def from_context(cls, context, latency=0.1) -> "Provider":
         if isinstance(context, Session):
-            return NonrealtimeProvider(context)
+            return NonrealtimeProvider(context, latency=latency)
         elif isinstance(context, Server):
-            return RealtimeProvider(context)
+            return RealtimeProvider(context, latency=latency)
         raise ValueError("Unknown context")
 
     @classmethod
@@ -510,9 +555,13 @@ class Provider(metaclass=abc.ABCMeta):
         return MappingProxyType(self._annotation_map)
 
     @property
+    def latency(self):
+        return self._latency
+
+    @property
     def moment(self) -> Optional[ProviderMoment]:
         if self._moments:
-            return self._moments[0]
+            return self._moments[-1]
         return None
 
     @property
@@ -528,11 +577,16 @@ class NonrealtimeProvider(Provider):
 
     ### INITIALIZER ###
 
-    def __init__(self, session):
+    def __init__(self, session, latency=0.1):
         if not isinstance(session, Session):
             raise ValueError(f"Expected session, got {session}")
-        Provider.__init__(self)
+        Provider.__init__(self, latency=latency)
         self._session = session
+
+    ### SPECIAL METHODS ###
+
+    def __str__(self):
+        return f"<{type(self).__name__} {self._session!r}>"
 
     ### PRIVATE METHODS ###
 
@@ -693,11 +747,16 @@ class RealtimeProvider(Provider):
 
     ### INITIALIZER ###
 
-    def __init__(self, server):
+    def __init__(self, server, latency=0.1):
         if not isinstance(server, Server):
             raise ValueError(f"Expected Server, got {server}")
-        Provider.__init__(self)
+        Provider.__init__(self, latency=latency)
         self._server = server
+
+    ### SPECIAL METHODS ###
+
+    def __str__(self):
+        return f"<{type(self).__name__} {self._server!r}>"
 
     ### PRIVATE METHODS ###
 
@@ -847,8 +906,10 @@ class RealtimeProvider(Provider):
     def register_osc_callback(
         self, pattern: Tuple[Union[str, float], ...], procedure: Callable
     ) -> OscCallbackProxy:
-        identifier = self.server.osc_io.register(pattern=pattern, procedure=procedure)
+        identifier = self.server.osc_protocol.register(
+            pattern=pattern, procedure=procedure
+        )
         return OscCallbackProxy(provider=self, identifier=identifier)
 
     def unregister_osc_callback(self, proxy: OscCallbackProxy):
-        self.server.osc_io.unregister(proxy.identifier)
+        self.server.osc_protocol.unregister(proxy.identifier)

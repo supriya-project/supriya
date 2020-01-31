@@ -33,7 +33,7 @@ class GroupHeadRequest(MoveRequest):
 
     ::
 
-        >>> with server.osc_io.capture() as transcript:
+        >>> with server.osc_protocol.capture() as transcript:
         ...     response = request.communicate(server=server)
         ...     _ = server.sync()
         ...

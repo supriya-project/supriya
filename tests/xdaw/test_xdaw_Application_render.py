@@ -16,42 +16,47 @@ def test_1():
                 1000 group
                     1001 group
                         1002 group
-                            1003 group
-                            1010 group
-                            1004 mixer/track-input/2
                             1009 group
-                            1005 mixer/levels/2
-                            1011 group
-                            1006 mixer/levels/2
+                                1010 group
+                                1011 group
                             1012 group
-                            1007 mixer/track-output/2
+                            1003 mixer/patch[fb,gain]/2x2
+                            1008 group
+                            1004 mixer/levels/2
                             1013 group
-                                1026 mix/patch[gain]/2x2
-                            1008 mixer/levels/2
-                    1014 group
-                        1015 group
-                        1021 group
-                        1016 mixer/track-input/2
-                        1017 mixer/levels/2
+                            1005 mixer/levels/2
+                            1014 group
+                            1006 mixer/patch[gain,hard,replace]/2x2
+                            1015 group
+                                1029 mixer/patch[gain]/2x2
+                            1007 mixer/levels/2
+                    1016 group
                         1022 group
-                        1018 mixer/levels/2
-                        1023 group
-                        1019 mixer/track-output/2
+                            1023 group
                         1024 group
-                            1025 mix/patch/2x2
-                        1020 mixer/levels/2
-                    1027 group
-                        1028 group
-                        1034 group
-                        1029 mixer/track-input/2
-                        1030 mixer/levels/2
-                        1035 group
-                        1031 mixer/levels/2
+                        1017 mixer/patch[fb,gain]/2x2
+                        1018 mixer/levels/2
+                        1025 group
+                        1019 mixer/levels/2
+                        1026 group
+                        1020 mixer/patch[gain,hard,replace]/2x2
+                        1027 group
+                            1028 mixer/patch/2x2
+                        1021 mixer/levels/2
+                    1030 group
                         1036 group
-                        1032 mixer/track-output/2
-                        1037 group
-                            1038 mix/patch/2x2
+                            1037 group
+                            1038 group
+                        1039 group
+                        1031 mixer/patch[fb,gain]/2x2
+                        1032 mixer/levels/2
+                        1040 group
                         1033 mixer/levels/2
+                        1041 group
+                        1034 mixer/patch[gain,hard,replace]/2x2
+                        1042 group
+                            1043 mixer/patch/2x2
+                        1035 mixer/levels/2
         inf:
             NODE TREE 0 group
         """

@@ -1,7 +1,8 @@
 import pytest
 
+from supriya.enums import DoneAction
 from supriya.synthdefs import SynthDefFactory
-from supriya.ugens import DC
+from supriya.ugens import DC, Linen
 from supriya.xdaw import Application, AudioEffect, RackDevice
 
 # @pytest.fixture(autouse=True)
@@ -10,7 +11,7 @@ from supriya.xdaw import Application, AudioEffect, RackDevice
 
 
 @pytest.fixture
-def dc_synthdef_factory():
+def dc_index_synthdef_factory():
     def signal_block(builder, source, state):
         return DC.ar(1) * builder["index"].is_equal_to(range(state["channel_count"]))
 
@@ -23,7 +24,30 @@ def dc_synthdef_factory():
 
 
 @pytest.fixture
-def track_mute_solo_application(dc_synthdef_factory):
+def dc_instrument_synthdef_factory():
+    def signal_block(builder, source, state):
+        gate = Linen.kr(
+            attack_time=builder["lag"],
+            done_action=DoneAction.FREE_SYNTH,
+            gate=builder["gate"],
+            release_time=builder["lag"],
+        )
+        return (
+            DC.ar(builder["value"])
+            * gate
+            * builder["index"].is_equal_to(range(state["channel_count"]))
+        )
+
+    return (
+        SynthDefFactory(value=1, gate=1, lag=0.01, index=0)
+        .with_channel_count(2)
+        .with_signal_block(signal_block)
+        .with_output()
+    )
+
+
+@pytest.fixture
+def track_mute_solo_application(dc_index_synthdef_factory):
     application = Application(channel_count=8)
     context = application.add_context()
     track_a = context.add_track(name="a")
@@ -38,13 +62,15 @@ def track_mute_solo_application(dc_synthdef_factory):
         [track_a, track_b, track_ba, track_bb, track_c, track_ca, track_cb, track_cba]
     ):
         track.add_device(
-            AudioEffect, synthdef=dc_synthdef_factory, synthdef_kwargs=dict(index=i)
+            AudioEffect,
+            synthdef=dc_index_synthdef_factory,
+            synthdef_kwargs=dict(index=i),
         )
     yield application
 
 
 @pytest.fixture
-def chain_mute_solo_application(dc_synthdef_factory):
+def chain_mute_solo_application(dc_index_synthdef_factory):
     application = Application(channel_count=8)
     context = application.add_context()
     track = context.add_track()
@@ -73,13 +99,15 @@ def chain_mute_solo_application(dc_synthdef_factory):
         ]
     ):
         chain.add_device(
-            AudioEffect, synthdef=dc_synthdef_factory, synthdef_kwargs=dict(index=i)
+            AudioEffect,
+            synthdef=dc_index_synthdef_factory,
+            synthdef_kwargs=dict(index=i),
         )
     return application
 
 
 @pytest.fixture
-def channel_count_application(dc_synthdef_factory):
+def channel_count_application(dc_index_synthdef_factory):
     application = Application(channel_count=2)
     context = application.add_context(name="Context")
     track_one = context.add_track(name="One")
@@ -90,7 +118,7 @@ def channel_count_application(dc_synthdef_factory):
     chain.add_device(
         AudioEffect,
         name="Device",
-        synthdef=dc_synthdef_factory,
+        synthdef=dc_index_synthdef_factory,
         synthdef_kwargs=dict(index=0),
     )
     return application
