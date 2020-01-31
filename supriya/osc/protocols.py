@@ -5,11 +5,20 @@ import queue
 import socketserver
 import threading
 import time
-from typing import Any, Dict, Set
+from typing import Any, Callable, Dict, Set
 
 from .callbacks import OscCallback
 from .captures import Capture, CaptureEntry
 from .messages import OscBundle, OscMessage
+
+
+class HealthCheck:
+    request_pattern: str
+    response_pattern: str
+    callback: Callable
+    timeout: float = 1.0
+    backoff_factor: float = 1.5
+    max_attempts: int = 5
 
 
 class OscProtocol:
@@ -19,10 +28,13 @@ class OscProtocol:
     def __init__(self):
         self.callbacks: Dict[Any, Any] = {}
         self.captures: Set[Capture] = set()
+        self.healthcheck = None
+        self.healthcheck_callback = None
+        self.healthcheck_deadline = None
+        self.attempts = 0
         self.ip_address = None
-        self.port = None
         self.is_running: bool = False
-        self.timeout = 1.0
+        self.port = None
         atexit.register(self.disconnect)
 
     ### PRIVATE METHODS ###
@@ -34,10 +46,22 @@ class OscProtocol:
         for pattern in patterns:
             callback_map = self.callbacks
             for item in pattern:
-                callbacks, callback_map = callback_map.setdefault(
-                    item, ([], {})
-                )
+                callbacks, callback_map = callback_map.setdefault(item, ([], {}))
             callbacks.append(callback)
+
+    def _match(self, message):
+        items = (message.address,) + message.contents
+        matching_callbacks = []
+        callback_map = self.callbacks
+        for item in items:
+            if item not in callback_map:
+                break
+            callbacks, callback_map = callback_map[item]
+            matching_callbacks.extend(callbacks)
+        for callback in matching_callbacks:
+            if callback.once:
+                self.unregister(callback)
+        return matching_callbacks
 
     def _remove_callback(self, callback):
         def delete(pattern, original_callback_map):
@@ -58,19 +82,24 @@ class OscProtocol:
         for pattern in patterns:
             delete(list(pattern), self.callbacks)
 
-    def _match(self, message):
-        items = (message.address,) + message.contents
-        matching_callbacks = []
-        callback_map = self.callbacks
-        for item in items:
-            if item not in callback_map:
-                break
-            callbacks, callback_map = callback_map[item]
-            matching_callbacks.extend(callbacks)
-        for callback in matching_callbacks:
-            if callback.once:
-                self.unregister(callback)
-        return matching_callbacks
+    def _reset_attempts(self):
+        self.attempts = 0
+
+    def _setup(self, ip_address, port, healthcheck):
+        self.ip_address = ip_address
+        self.port = port
+        self.healthcheck = healthcheck
+        self.healthcheck_deadline = time.time()
+        if self.healthcheck:
+            self.healthcheck_callback = self.register(
+                pattern=self.healthcheck.response_pattern,
+                procedure=self._reset_attempts,
+            )
+
+    def _teardown(self):
+        self.is_running = False
+        if self.healthcheck:
+            self.unregister(self.healthcheck_callback)
 
     def _validate_callback(
         self, pattern, procedure, *, failure_pattern=None, once=False,
@@ -97,6 +126,18 @@ class OscProtocol:
                 CaptureEntry(timestamp=time.time(), label="R", message=message,)
             )
 
+    def _validate_healthcheck(self):
+        if self.healthcheck is None or time.time() < self.healthcheck_deadline:
+            return True
+        self.healthcheck_deadline += self.healthcheck.timeout * pow(
+            self.healthcheck.backoff_factor, self.attempts
+        )
+        self.missed_heartbeats += 1
+        if self.missed_heartbeats >= self.healthcheck.max_attempts:
+            return False
+        self.send(OscMessage(*self.healthcheck.request_pattern))
+        return True
+
     def _validate_send(self, message):
         if not self.is_running:
             raise RuntimeError
@@ -117,7 +158,7 @@ class OscProtocol:
     def capture(self):
         return Capture(self)
 
-    def connect(self, ip_address: str, port: int, *, timeout: float = 2.0):
+    def connect(self, ip_address: str, port: int, *, healthcheck: HealthCheck = None):
         ...
 
     def disconnect(self):
@@ -143,12 +184,10 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
 
     ### PUBLIC METHODS ###
 
-    async def connect(self, ip_address: str, port: int, *, timeout: float = 2.0):
+    async def connect(self, ip_address: str, port: int, *, healthcheck: HealthCheck = None):
         if self.is_running:
             raise RuntimeError
-        self.ip_address = ip_address
-        self.port = port
-        self.timeout = timeout
+        self._setup(ip_address, port, healthcheck)
         loop = asyncio.get_running_loop()
         _, protocol = await loop.create_datagram_endpoint(
             lambda: self, remote_addr=(ip_address, port),
@@ -166,16 +205,11 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         self._validate_receive(data)
 
     async def disconnect(self):
-        self.is_running = False
         self.transport.close()
+        self._teardown()
 
     def register(
-        self,
-        pattern,
-        procedure,
-        *,
-        failure_pattern=None,
-        once=False,
+        self, pattern, procedure, *, failure_pattern=None, once=False,
     ):
         callback = self._validate_callback(
             pattern, procedure, failure_pattern=failure_pattern, once=once
@@ -196,6 +230,10 @@ class ThreadedOscServer(socketserver.UDPServer):
     def verify_request(self, request, client_address):
         self.osc_protocol._process_command_queue()
         return True
+
+    def service_actions(self):
+        if not self.osc_protocol._validate_healthcheck():
+            self.osc_protocol.healthcheck.callback(self)
 
 
 class ThreadedOscHandler(socketserver.BaseRequestHandler):
@@ -242,13 +280,11 @@ class ThreadedOscProtocol(OscProtocol):
 
     ### PUBLIC METHODS ###
 
-    def connect(self, ip_address: str, port: int, *, timeout: float = 2.0):
+    def connect(self, ip_address: str, port: int, *, healthcheck: HealthCheck = None):
         with self.lock:
             if self.is_running:
                 raise RuntimeError
-            self.ip_address = ip_address
-            self.port = port
-            self.timeout = timeout
+            self._setup(ip_address, port, healthcheck)
             self.server = self._server_factory(ip_address, port)
             self.server_thread = threading.Thread(target=self.server.serve_forever)
             self.server_thread.daemon = True
@@ -262,7 +298,7 @@ class ThreadedOscProtocol(OscProtocol):
             self.server.shutdown()
             self.server = None
             self.server_thread = None
-            self.is_running = False
+            self._teardown()
 
     def register(
         self, pattern, procedure, *, failure_pattern=None, once=False,

@@ -387,7 +387,7 @@ class ProviderMoment:
         for synthdef in synthdefs:
             synthdef._register_with_local_server(server=self.provider.server)
         try:
-            self.provider.server.send_message(request_bundle)
+            self.provider.server.send_message(request_bundle.to_osc())
         except OSError:
             requests = request_bundle.contents
             if synthdefs:
@@ -396,7 +396,7 @@ class ProviderMoment:
                 synthdef_request = new(synthdef_request, callback=None)
                 synthdef_request.communicate(sync=True, server=self.provider.server)
             for bundle in RequestBundle.partition(requests, timestamp=timestamp):
-                self.provider.server.send_message(bundle)
+                self.provider.server.send_message(bundle.to_osc())
 
 
 class Provider(metaclass=abc.ABCMeta):

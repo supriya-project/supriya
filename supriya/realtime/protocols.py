@@ -12,7 +12,6 @@ logger = logging.getLogger("supriya.server")
 
 
 class ProcessProtocol:
-
     def __init__(self):
         self.is_running = False
         atexit.register(self.quit)
@@ -25,7 +24,6 @@ class ProcessProtocol:
 
 
 class SyncProcessProtocol(ProcessProtocol):
-
     def boot(self, options, scsynth_path, port):
         if self.is_running:
             return
@@ -74,7 +72,6 @@ class SyncProcessProtocol(ProcessProtocol):
 
 
 class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
-
     def __init__(self):
         ProcessProtocol.__init__(self)
         asyncio.SubprocessProtocol.__init__(self)
