@@ -16,6 +16,10 @@ class OscProtocolOffline(Exception):
     pass
 
 
+class OscProtocolAlreadyConnected(Exception):
+    pass
+
+
 class OscCallback(NamedTuple):
     pattern: Tuple[Union[str, int, float], ...]
     procedure: Callable
@@ -51,7 +55,7 @@ class OscProtocol:
 
     ### PRIVATE METHODS ###
 
-    def _add_callback(self, callback):
+    def _add_callback(self, callback: OscCallback):
         patterns = [callback.pattern]
         if callback.failure_pattern:
             patterns.append(callback.failure_pattern)
@@ -75,7 +79,7 @@ class OscProtocol:
                 self.unregister(callback)
         return matching_callbacks
 
-    def _remove_callback(self, callback):
+    def _remove_callback(self, callback: OscCallback):
         def delete(pattern, original_callback_map):
             key = pattern.pop(0)
             if key not in original_callback_map:
@@ -176,13 +180,15 @@ class OscProtocol:
     def disconnect(self):
         ...
 
-    def register(self, pattern, procedure, *, failure_pattern=None, once=False):
+    def register(
+        self, pattern, procedure, *, failure_pattern=None, once=False
+    ) -> OscCallback:
         ...
 
     def send(self, message):
         ...
 
-    def unregister(self, callback):
+    def unregister(self, callback: OscCallback):
         ...
 
 
@@ -200,13 +206,12 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         self, ip_address: str, port: int, *, healthcheck: HealthCheck = None
     ):
         if self.is_running:
-            raise RuntimeError
+            raise OscProtocolAlreadyConnected
         self._setup(ip_address, port, healthcheck)
         loop = asyncio.get_running_loop()
         _, protocol = await loop.create_datagram_endpoint(
             lambda: self, remote_addr=(ip_address, port),
         )
-        return protocol
 
     def connection_made(self, transport):
         self.transport = transport
@@ -218,23 +223,26 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
     def datagram_received(self, data, addr):
         self._validate_receive(data)
 
-    async def disconnect(self):
+    def disconnect(self):
+        if not self.is_running:
+            return
         self.transport.close()
         self._teardown()
 
     def register(
         self, pattern, procedure, *, failure_pattern=None, once=False,
-    ):
+    ) -> OscCallback:
         callback = self._validate_callback(
             pattern, procedure, failure_pattern=failure_pattern, once=once
         )
         self._add_callback(callback)
+        return callback
 
     def send(self, message):
         datagram = self._validate_send(message)
         return self.transport.sendto(datagram)
 
-    def unregister(self, callback):
+    def unregister(self, callback: OscCallback):
         self._remove_callback(callback)
 
 
@@ -301,7 +309,7 @@ class ThreadedOscProtocol(OscProtocol):
 
     def connect(self, ip_address: str, port: int, *, healthcheck: HealthCheck = None):
         if self.is_running:
-            raise RuntimeError
+            raise OscProtocolAlreadyConnected
         self._setup(ip_address, port, healthcheck)
         self.server = self._server_factory(ip_address, port)
         self.server_thread = threading.Thread(target=self.server.serve_forever)
@@ -320,7 +328,7 @@ class ThreadedOscProtocol(OscProtocol):
 
     def register(
         self, pattern, procedure, *, failure_pattern=None, once=False,
-    ):
+    ) -> OscCallback:
         """
         Register a callback.
         """
@@ -339,7 +347,7 @@ class ThreadedOscProtocol(OscProtocol):
             print(message)
             raise
 
-    def unregister(self, callback):
+    def unregister(self, callback: OscCallback):
         """
         Unregister a callback.
         """

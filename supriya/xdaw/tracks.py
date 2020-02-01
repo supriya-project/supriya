@@ -372,7 +372,7 @@ class TrackObject(Allocatable):
         return None
 
     @property
-    def parameters(self) -> Mapping[str, Parameter]:
+    def parameters(self) -> Mapping[str, Union[Action, Parameter]]:
         return MappingProxyType(self._parameters)
 
     @property

@@ -234,7 +234,7 @@ class RackDevice(DeviceObject, Mixer):
                 performers.append(chain.devices[0].perform)
             else:
                 performers.append(self._perform_output)
-        for message in self._filter_in_midi_messages(in_midi_messages):
+        for message in in_midi_messages:
             self._update_captures(moment, message, "I")
             for performer in performers:
                 yield performer, (message,)
@@ -242,7 +242,7 @@ class RackDevice(DeviceObject, Mixer):
     def _perform_output(
         self, moment, in_midi_messages
     ) -> Generator[Tuple[Optional[Callable], Sequence[MidiMessage]], None, None]:
-        for message in self._filter_out_midi_messages(in_midi_messages):
+        for message in in_midi_messages:
             self._update_captures(moment, message, "O")
             yield None, (message,)
 
