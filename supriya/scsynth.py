@@ -178,9 +178,11 @@ def find(scsynth_path=None):
 
 def kill(supernova=False):
     executable = "supernova" if supernova else "scsynth"
-    for line in subprocess.run(
-        ["ps", "-Af"], capture_output=True, text=True
-    ).stdout.splitlines():
+    with subprocess.Popen(
+        ["ps", "-Af"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT
+    ) as process:
+        output = process.stdout.read()
+    for line in output.decode().splitlines():
         if executable not in line:
             continue
         pid = int(line.split()[1])
