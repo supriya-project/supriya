@@ -216,10 +216,16 @@ def test_shared_resources():
         time.sleep(0.1)  # Wait for all clients to receive /n_go
     assert synth not in server_a
     assert synth in server_b
-    assert [(label, osc_message) for _, label, osc_message in transcript_a] == [
-        ("R", OscMessage("/n_go", 67109864, 2, -1, -1, 0))
-    ]
-    assert [(label, osc_message) for _, label, osc_message in transcript_b] == [
+    assert [
+        (label, osc_message)
+        for _, label, osc_message in transcript_a
+        if osc_message.address not in ["/status", "/status.reply"]
+    ] == [("R", OscMessage("/n_go", 67109864, 2, -1, -1, 0))]
+    assert [
+        (label, osc_message)
+        for _, label, osc_message in transcript_b
+        if osc_message.address not in ["/status", "/status.reply"]
+    ] == [
         ("S", OscMessage(5, synthdef.compile(), OscMessage(9, "foo", 67109864, 0, 2))),
         ("R", OscMessage("/n_go", 67109864, 2, -1, -1, 0)),
         ("R", OscMessage("/done", "/d_recv")),
