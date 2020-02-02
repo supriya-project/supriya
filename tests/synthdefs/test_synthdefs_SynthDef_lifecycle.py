@@ -11,13 +11,13 @@ def test_unaggregated_anonymous(server):
         synthdef.allocate(server=server)
     assert synthdef in server
     assert [message for timestamp, message in transcript.sent_messages] == [
-        supriya.osc.OscMessage(5, synthdef.compile())
+        supriya.osc.OscMessage("/d_recv", synthdef.compile())
     ]
     with server.osc_protocol.capture() as transcript:
         synthdef.free()
     assert synthdef not in server
     assert [message for timestamp, message in transcript.sent_messages] == [
-        supriya.osc.OscMessage(53, synthdef.anonymous_name)
+        supriya.osc.OscMessage("/d_free", synthdef.anonymous_name)
     ]
 
 
@@ -31,13 +31,13 @@ def test_unaggregated_named(server):
         synthdef.allocate(server=server)
     assert synthdef in server
     assert [message for timestamp, message in transcript.sent_messages] == [
-        supriya.osc.OscMessage(5, synthdef.compile())
+        supriya.osc.OscMessage("/d_recv", synthdef.compile())
     ]
     with server.osc_protocol.capture() as transcript:
         synthdef.free()
     assert synthdef not in server
     assert [message for timestamp, message in transcript.sent_messages] == [
-        supriya.osc.OscMessage(53, synthdef.name)
+        supriya.osc.OscMessage("/d_free", synthdef.name)
     ]
 
 
@@ -58,10 +58,10 @@ def test_aggregated_anonymous(server):
     assert synthdef in server
     assert [message for timestamp, message in transcript.sent_messages] == [
         supriya.osc.OscMessage(
-            5,
+            "/d_recv",
             synthdef.compile(),
             supriya.osc.OscMessage(
-                9, synthdef.anonymous_name, 1000, 0, 1, "frequency", 666.0
+                "/s_new", synthdef.anonymous_name, 1000, 0, 1, "frequency", 666.0
             ),
         )
     ]
@@ -72,7 +72,7 @@ def test_aggregated_anonymous(server):
     assert synthdef in server
     assert [message for timestamp, message in transcript.sent_messages] == [
         supriya.osc.OscMessage(
-            9, synthdef.anonymous_name, 1001, 0, 1, "frequency", 777.0
+            "/s_new", synthdef.anonymous_name, 1001, 0, 1, "frequency", 777.0
         )
     ]
 
@@ -81,7 +81,7 @@ def test_aggregated_anonymous(server):
         synthdef.free()
     assert synthdef not in server
     assert [message for timestamp, message in transcript.sent_messages] == [
-        supriya.osc.OscMessage(53, synthdef.anonymous_name)
+        supriya.osc.OscMessage("/d_free", synthdef.anonymous_name)
     ]
 
     # allocate synthdef (again)n on node allocation
@@ -90,10 +90,10 @@ def test_aggregated_anonymous(server):
     assert synthdef in server
     assert [message for timestamp, message in transcript.sent_messages] == [
         supriya.osc.OscMessage(
-            5,
+            "/d_recv",
             synthdef.compile(),
             supriya.osc.OscMessage(
-                9, synthdef.anonymous_name, 1002, 0, 1, "frequency", 888.0
+                "/s_new", synthdef.anonymous_name, 1002, 0, 1, "frequency", 888.0
             ),
         )
     ]
@@ -116,9 +116,11 @@ def test_aggregated_named(server):
     assert synthdef in server
     assert [message for timestamp, message in transcript.sent_messages] == [
         supriya.osc.OscMessage(
-            5,
+            "/d_recv",
             synthdef.compile(),
-            supriya.osc.OscMessage(9, synthdef.name, 1000, 0, 1, "frequency", 666.0),
+            supriya.osc.OscMessage(
+                "/s_new", synthdef.name, 1000, 0, 1, "frequency", 666.0
+            ),
         )
     ]
 
@@ -127,7 +129,7 @@ def test_aggregated_named(server):
         synth_b.allocate(server=server)
     assert synthdef in server
     assert [message for timestamp, message in transcript.sent_messages] == [
-        supriya.osc.OscMessage(9, synthdef.name, 1001, 0, 1, "frequency", 777.0)
+        supriya.osc.OscMessage("/s_new", synthdef.name, 1001, 0, 1, "frequency", 777.0)
     ]
 
     # just free the synthdef
@@ -135,7 +137,7 @@ def test_aggregated_named(server):
         synthdef.free()
     assert synthdef not in server
     assert [message for timestamp, message in transcript.sent_messages] == [
-        supriya.osc.OscMessage(53, synthdef.name)
+        supriya.osc.OscMessage("/d_free", synthdef.name)
     ]
 
     # allocate synthdef (again)n on node allocation
@@ -144,8 +146,10 @@ def test_aggregated_named(server):
     assert synthdef in server
     assert [message for timestamp, message in transcript.sent_messages] == [
         supriya.osc.OscMessage(
-            5,
+            "/d_recv",
             synthdef.compile(),
-            supriya.osc.OscMessage(9, synthdef.name, 1002, 0, 1, "frequency", 888.0),
+            supriya.osc.OscMessage(
+                "/s_new", synthdef.name, 1002, 0, 1, "frequency", 888.0
+            ),
         )
     ]

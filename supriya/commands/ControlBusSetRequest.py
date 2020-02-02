@@ -46,7 +46,7 @@ class ControlBusSetRequest(Request):
         >>> for entry in transcript:
         ...     (entry.label, entry.message)
         ...
-        ('S', OscMessage(25, 0, 0.1, 1, 0.2, 2, 0.3, 3, 0.4))
+        ('S', OscMessage('/c_set', 0, 0.1, 1, 0.2, 2, 0.3, 3, 0.4))
         ('S', OscMessage('/sync', 0))
         ('R', OscMessage('/synced', 0))
 

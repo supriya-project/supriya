@@ -73,7 +73,9 @@ def test_synth_allocate_free_paused(server):
     assert synth.is_paused
     with server.osc_protocol.capture() as transcript:
         synth.free()
-    assert [(_.label, _.message) for _ in transcript] == [("S", OscMessage("/n_free", 1000))]
+    assert [(_.label, _.message) for _ in transcript] == [
+        ("S", OscMessage("/n_free", 1000))
+    ]
     assert synth.is_paused
     synth.unpause()
     assert not synth.is_paused
@@ -103,7 +105,9 @@ def test_group_allocate_paused(server):
     assert group.is_paused
     with server.osc_protocol.capture() as transcript:
         group.free()
-    assert [(_.label, _.message) for _ in transcript] == [("S", OscMessage("/n_free", 1000))]
+    assert [(_.label, _.message) for _ in transcript] == [
+        ("S", OscMessage("/n_free", 1000))
+    ]
     assert group.is_paused
     group.unpause()
     assert not group.is_paused
@@ -149,7 +153,9 @@ def test_group_allocate_nested_paused(server):
     assert group[1][0].is_paused
     with server.osc_protocol.capture() as transcript:
         group.free()
-    assert [(_.label, _.message) for _ in transcript] == [("S", OscMessage("/n_free", 1000))]
+    assert [(_.label, _.message) for _ in transcript] == [
+        ("S", OscMessage("/n_free", 1000))
+    ]
     assert not group.is_paused
     assert group[0].is_paused
     assert not group[1].is_paused

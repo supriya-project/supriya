@@ -43,7 +43,7 @@ class GroupTailRequest(MoveRequest):
         >>> for entry in transcript:
         ...     (entry.label, entry.message)
         ...
-        ('S', OscMessage(23, 1000, 1001))
+        ('S', OscMessage('/g_tail', 1000, 1001))
         ('S', OscMessage('/sync', 1))
         ('R', OscMessage('/n_move', 1001, 1000, 1003, -1, 0))
         ('R', OscMessage('/synced', 1))

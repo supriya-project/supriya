@@ -37,7 +37,7 @@ class NodeRunRequest(Request):
         >>> for entry in transcript:
         ...     (entry.label, entry.message)
         ...
-        ('S', OscMessage(12, 1000, 1, 1001, 0))
+        ('S', OscMessage('/n_run', 1000, 1, 1001, 0))
         ('S', OscMessage('/sync', 0))
         ('R', OscMessage('/n_off', 1001, 1, -1, 1000, 0))
         ('R', OscMessage('/synced', 0))
@@ -67,7 +67,7 @@ class NodeRunRequest(Request):
         >>> for entry in transcript:
         ...     (entry.label, entry.message)
         ...
-        ('S', OscMessage(12, 1000, 0, 1001, 1))
+        ('S', OscMessage('/n_run', 1000, 0, 1001, 1))
         ('S', OscMessage('/sync', 1))
         ('R', OscMessage('/n_off', 1000, 1, 1001, -1, 0))
         ('R', OscMessage('/n_on', 1001, 1, -1, 1000, 0))

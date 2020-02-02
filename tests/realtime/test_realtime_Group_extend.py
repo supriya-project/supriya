@@ -60,7 +60,9 @@ def test_allocate_nested(server):
     assert [(_.label, _.message) for _ in transcript] == [
         (
             "S",
-            OscMessage("/d_recv", bytearray(supriya.assets.synthdefs.test.compile()), bundle),
+            OscMessage(
+                "/d_recv", bytearray(supriya.assets.synthdefs.test.compile()), bundle
+            ),
         ),
         ("R", OscMessage("/n_go", 1000, 1, -1, -1, 1, -1, -1)),
         ("R", OscMessage("/n_go", 1001, 1000, -1, -1, 0)),

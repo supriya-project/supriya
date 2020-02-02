@@ -50,7 +50,7 @@ class GroupDeepFreeRequest(Request):
         >>> for entry in transcript:
         ...     (entry.label, entry.message)
         ...
-        ('S', OscMessage(50, 1000))
+        ('S', OscMessage('/g_deepFree', 1000))
         ('S', OscMessage('/sync', 2))
         ('R', OscMessage('/n_end', 1001, -1, -1, -1, 0))
         ('R', OscMessage('/n_end', 1003, -1, -1, -1, 0))

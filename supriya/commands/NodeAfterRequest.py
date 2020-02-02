@@ -48,7 +48,7 @@ class NodeAfterRequest(MoveRequest):
         >>> for entry in transcript:
         ...     (entry.label, entry.message)
         ...
-        ('S', OscMessage(19, 1000, 1004, 1001, 1005))
+        ('S', OscMessage('/n_after', 1000, 1004, 1001, 1005))
         ('S', OscMessage('/sync', 0))
         ('R', OscMessage('/n_move', 1000, 1002, 1004, -1, 0))
         ('R', OscMessage('/n_move', 1001, 1, 1005, -1, 0))

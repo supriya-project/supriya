@@ -44,7 +44,7 @@ class GroupHeadRequest(MoveRequest):
         >>> for entry in transcript:
         ...     (entry.label, entry.message)
         ...
-        ('S', OscMessage(22, 1000, 1001))
+        ('S', OscMessage('/g_head', 1000, 1001))
         ('S', OscMessage('/sync', 1))
         ('R', OscMessage('/n_move', 1001, 1000, -1, 1002, 0))
         ('R', OscMessage('/synced', 1))

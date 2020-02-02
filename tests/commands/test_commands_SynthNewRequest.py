@@ -37,7 +37,7 @@ def test_allocate_ids_before_remote_application(server):
     with server.osc_protocol.capture() as transcript:
         request.communicate()
     assert [(_.label, _.message) for _ in transcript] == [
-        ("S", supriya.osc.OscMessage(9, "default", 1001, 0, 1000)),
+        ("S", supriya.osc.OscMessage("/s_new", "default", 1001, 0, 1000)),
         ("R", supriya.osc.OscMessage("/n_go", 1001, 1000, -1, -1, 0)),
     ]
     assert synth.node_id == 1001
@@ -59,7 +59,7 @@ def test_no_preexisting_synth_object(server):
     with server.osc_protocol.capture() as transcript:
         request.communicate()
     assert [(_.label, _.message) for _ in transcript] == [
-        ("S", supriya.osc.OscMessage(9, "test", 666, 0, 1000)),
+        ("S", supriya.osc.OscMessage("/s_new", "test", 666, 0, 1000)),
         ("R", supriya.osc.OscMessage("/n_go", 666, 1000, -1, -1, 0)),
     ]
     synth = server[666]
@@ -83,7 +83,7 @@ def test_bus_symbol_mapping(server):
         (
             "S",
             supriya.osc.OscMessage(
-                9, "test", 666, 0, 1000, "amplitude", "c0", "frequency", "a1"
+                "/s_new", "test", 666, 0, 1000, "amplitude", "c0", "frequency", "a1"
             ),
         ),
         ("R", supriya.osc.OscMessage("/n_go", 666, 1000, -1, -1, 0)),
