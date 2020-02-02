@@ -383,6 +383,7 @@ class Allocatable(ApplicationObject):
             yield
 
     def query(self):
+        # TODO: Find a way to support async operations here
         if self.provider.server is None:
             raise ValueError
         query_tree = {}

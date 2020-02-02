@@ -394,6 +394,7 @@ class ProviderMoment:
                 synthdef_request = requests[0]
                 requests = synthdef_request.callback.contents or []
                 synthdef_request = new(synthdef_request, callback=None)
+                # TODO: Communicate is synchronous... can we async this?
                 synthdef_request.communicate(sync=True, server=self.provider.server)
             for bundle in RequestBundle.partition(requests, timestamp=timestamp):
                 self.provider.server.send_message(bundle.to_osc())
