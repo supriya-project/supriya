@@ -45,7 +45,7 @@ class GroupHeadRequest(MoveRequest):
         ...     (entry.label, entry.message)
         ...
         ('S', OscMessage(22, 1000, 1001))
-        ('S', OscMessage(52, 1))
+        ('S', OscMessage('/sync', 1))
         ('R', OscMessage('/n_move', 1001, 1000, -1, 1002, 0))
         ('R', OscMessage('/synced', 1))
 

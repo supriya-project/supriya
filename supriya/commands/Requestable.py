@@ -75,7 +75,7 @@ class Requestable(SupriyaValueObject):
             except Exception:
                 print(self)
                 raise
-            server.send_message(requestable.to_osc())
+            server.send_message(requestable.to_osc(with_request_name=True))
             while self.response is None:
                 self.condition.wait(timeout)
                 current_time = time.time()

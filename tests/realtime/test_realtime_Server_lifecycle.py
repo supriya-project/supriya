@@ -32,7 +32,8 @@ def test_boot_and_boot():
     server.boot()
     assert server.is_running
     assert server.is_owner
-    server.boot()
+    with pytest.raises(supriya.exceptions.ServerOnline):
+        server.boot()
     assert server.is_running
     assert server.is_owner
 
@@ -59,7 +60,8 @@ def test_boot_and_connect():
     server.boot()
     assert server.is_running
     assert server.is_owner
-    server.connect()
+    with pytest.raises(supriya.exceptions.ServerOnline):
+        server.connect()
     assert server.is_running
     assert server.is_owner
 
@@ -226,7 +228,14 @@ def test_shared_resources():
         for _, label, osc_message in transcript_b
         if osc_message.address not in ["/status", "/status.reply"]
     ] == [
-        ("S", OscMessage(5, synthdef.compile(), OscMessage(9, "foo", 67109864, 0, 2))),
+        (
+            "S",
+            OscMessage(
+                "/d_recv",
+                synthdef.compile(),
+                OscMessage("/s_new", "foo", 67109864, 0, 2),
+            ),
+        ),
         ("R", OscMessage("/n_go", 67109864, 2, -1, -1, 0)),
         ("R", OscMessage("/done", "/d_recv")),
     ]
@@ -256,8 +265,8 @@ def test_connect_and_reconnect():
         options = Options(maximum_logins=4)
         protocol = SyncProcessProtocol()
         protocol.boot(options, scsynth.find(), 57110)
-        server = Server(port=57110)
-        server.connect()
+        server = Server()
+        server.connect(port=57110)
         assert server.is_running and not server.is_owner
         assert server.client_id == 0
         assert str(server.query_local_nodes(True)) == normalize(
@@ -270,7 +279,7 @@ def test_connect_and_reconnect():
         """
         )
         server.disconnect()
-        server.connect()
+        server.connect(port=57110)
         assert server.is_running and not server.is_owner
         assert server.client_id == 1
         assert str(server.query_local_nodes(True)) == normalize(

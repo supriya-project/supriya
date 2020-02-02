@@ -535,8 +535,8 @@ class Provider(metaclass=abc.ABCMeta):
     def realtime(
         cls, scsynth_path=None, options=None, port=None, **kwargs
     ) -> "RealtimeProvider":
-        server = Server(port=port)
-        server.boot(scsynth_path=scsynth_path, options=options, **kwargs)
+        server = Server()
+        server.boot(port=port, scsynth_path=scsynth_path, options=options, **kwargs)
         return cast("RealtimeProvider", cls.from_context(server))
 
     @abc.abstractmethod

@@ -17,6 +17,7 @@ from supriya.commands import (  # type: ignore
 )
 from supriya.enums import NodeAction
 from supriya.osc.protocols import (
+    AsyncOscProtocol,
     HealthCheck,
     OscProtocolOffline,
     ThreadedOscProtocol,
@@ -26,7 +27,7 @@ from supriya.scsynth import Options
 
 from .allocators import BlockAllocator, NodeIdAllocator
 from .meters import Meters
-from .protocols import SyncProcessProtocol
+from .protocols import AsyncProcessProtocol, SyncProcessProtocol
 from .recorder import Recorder
 
 # TODO: Implement connect() and disconnect()
@@ -36,7 +37,215 @@ from .recorder import Recorder
 logger = logging.getLogger("supriya.server")
 
 
-class Server:
+DEFAULT_PORT = 57110
+
+
+class BaseServer:
+
+    ### INITIALIZER ###
+
+    def __init__(self):
+        # address
+        self._ip_address = None
+        self._port = None
+        # process
+        self._client_id = None
+        self._is_owner = False
+        self._is_running = False
+        self._latency = 0.1
+        self._maximum_logins = None
+        self._options = Options()
+        self._osc_protocol = None
+        self._process_protocol = None
+        self._status = None
+        # allocators
+        self._audio_bus_allocator = None
+        self._buffer_allocator = None
+        self._control_bus_allocator = None
+        self._node_id_allocator = None
+        self._sync_id = 0
+        # at exit
+        atexit.register(self._shutdown)
+
+    ### PRIVATE METHODS ###
+
+    def _shutdown(self):
+        if not self.is_running:
+            return
+        elif self.is_owner:
+            self.quit()
+        else:
+            self.disconnect()
+
+    ### PUBLIC METHODS ###
+
+    def boot(self, port=DEFAULT_PORT, *, scsynth_path=None, options=None, **kwargs):
+        ...
+
+    def connect(self, ip_address="127.0.0.1", port=DEFAULT_PORT):
+        ...
+
+    def disconnect(self, force=False):
+        ...
+
+    def quit(self, force=False):
+        ...
+
+    def send(self, message):
+        ...
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def audio_bus_allocator(self):
+        return self._audio_bus_allocator
+
+    @property
+    def audio_input_bus_group(self):
+        return self._audio_input_bus_group
+
+    @property
+    def audio_output_bus_group(self):
+        return self._audio_output_bus_group
+
+    @property
+    def buffer_allocator(self):
+        return self._buffer_allocator
+
+    @property
+    def client_id(self):
+        return self._client_id
+
+    @property
+    def control_bus_allocator(self):
+        return self._control_bus_allocator
+
+    @property
+    def ip_address(self):
+        return self._ip_address
+
+    @property
+    def is_owner(self):
+        return self._is_owner
+
+    @property
+    def is_running(self):
+        return self._is_running
+
+    @property
+    def latency(self):
+        return self._latency
+
+    @latency.setter
+    def latency(self, latency):
+        self._latency = float(latency)
+
+    @property
+    def maximum_logins(self):
+        return self._maximum_logins
+
+    @property
+    def next_sync_id(self):
+        sync_id = self._sync_id
+        self._sync_id += 1
+        return sync_id
+
+    @property
+    def node_id_allocator(self):
+        return self._node_id_allocator
+
+    @property
+    def osc_protocol(self):
+        return self._osc_protocol
+
+    @property
+    def port(self):
+        return self._port
+
+    @property
+    def options(self):
+        return self._options
+
+    @property
+    def status(self):
+        return self._status
+
+
+class AsyncServer(BaseServer):
+    async def _connect(self):
+        self._osc_protocol = AsyncOscProtocol()
+        await self._osc_protocol.connect(
+            ip_address=self._ip_address,
+            port=self._port,
+            healthcheck=HealthCheck(
+                request_pattern=["/status"],
+                response_pattern=["/status.reply"],
+                callback=self._shutdown,
+                max_attempts=5,
+                timeout=1.0,
+                backoff_factor=1.5,
+            ),
+        )
+        self._is_running = True
+
+    def _disconnect(self):
+        self._is_running = False
+        self._is_owner = False
+        self._client_id = None
+        self._maximum_logins = None
+        self._osc_protocol.disconnect()
+
+    async def boot(
+        self, port=DEFAULT_PORT, *, scsynth_path=None, options=None, **kwargs
+    ):
+        if self._is_running:
+            raise supriya.exceptions.ServerOnline
+        self._options = new(options or Options(), **kwargs)
+        scsynth_path = scsynth.find(scsynth_path)
+        self._process_protocol = AsyncProcessProtocol()
+        await self._process_protocol.boot(self._options, scsynth_path, port)
+        if not await self._process_protocol.boot_future:
+            raise supriya.exceptions.ServerCannotBoot
+        self._ip_address = "127.0.0.1"
+        self._is_owner = True
+        self._port = port
+        await self._connect()
+        return self
+
+    async def connect(self, ip_address="127.0.0.1", port=DEFAULT_PORT):
+        if self._is_running:
+            raise supriya.exceptions.ServerOnline
+        self._ip_address = "127.0.0.1"
+        self._is_owner = False
+        self._port = port
+        await self._connect()
+        return self
+
+    def disconnect(self, force=False):
+        if not self._is_running:
+            raise supriya.exceptions.ServerOffline
+        if self._is_owner and not force:
+            raise supriya.exceptions.OwnedServerShutdown(
+                "Cannot disconnect from owned server with force flag."
+            )
+        self._disconnect()
+        return self
+
+    def quit(self, force=False):
+        if not self._is_running:
+            return
+        if not self._is_owner and not force:
+            raise supriya.exceptions.UnownedServerShutdown(
+                "Cannot quit unowned server without force flag."
+            )
+        # run /quit
+        if self._process_protocol is not None:
+            self._process_protocol.quit()
+        self._disconnect()
+        return self
+
+
+class Server(BaseServer):
     """
     An scsynth server proxy.
 
@@ -45,7 +254,7 @@ class Server:
         >>> import supriya.realtime
         >>> server = supriya.realtime.Server.default()
         >>> server.boot()
-        <Server: udp://127.0.0.1:57751, 8i8o>
+        <Server: udp://127.0.0.1:57110, 8i8o>
 
     ::
 
@@ -62,63 +271,20 @@ class Server:
 
     _servers: Set["Server"] = set()
 
-    ### CONSTRUCTOR ###
-
-    """
-    def __new__(cls, ip_address="127.0.0.1", port=57751, **kwargs):
-        key = (ip_address, port)
-        if key not in cls._servers:
-            instance = object.__new__(cls)
-            instance.__init__(ip_address=ip_address, port=port, **kwargs)
-            cls._servers[key] = instance
-        return cls._servers[key]
-    """
-
     ### INITIALIZER ###
 
-    def __init__(self, ip_address=None, port=None):
+    def __init__(self):
+        BaseServer.__init__(self)
         type(self)._servers.add(self)
-
-        ### NET ADDRESS ###
-
-        self._ip_address = ip_address or "127.0.0.1"
-        self._port = port or 57751
-
-        ### OSC MESSAGING ###
-
-        self._latency = 0.1
-        self._lock = threading.Lock()
-        self._osc_protocol = ThreadedOscProtocol()
-
-        ### ALLOCATORS ###
-
-        self._audio_bus_allocator = None
-        self._buffer_allocator = None
-        self._control_bus_allocator = None
-        self._node_id_allocator = None
-        self._sync_id = 0
-
-        ### SERVER PROCESS ###
-
-        self._client_id = None
-        self._maximum_logins = None
-        self._is_owner = False
-        self._is_running = False
-        self._options = Options()
-        self._process_protocol = SyncProcessProtocol()
-        self._status = None
-
-        ### PROXIES ###
-
+        self._lock = threading.RLock()
+        # proxies
         self._audio_input_bus_group = None
         self._audio_output_bus_group = None
         self._default_group = None
         self._root_node = None
         self._meters = Meters(self)
         self._recorder = Recorder(self)
-
-        ### PROXY MAPPINGS ###
-
+        # proxy mappings
         self._audio_buses = {}
         self._buffer_proxies = {}
         self._buffers = {}
@@ -127,14 +293,6 @@ class Server:
         self._nodes = {}
         self._pending_synths = {}
         self._synthdefs = {}
-
-        ### DEBUG ###
-
-        self.debug_request_names = False
-
-        ### REGISTER WITH ATEXIT ###
-
-        atexit.register(self._shutdown)
 
     ### SPECIAL METHODS ###
 
@@ -155,14 +313,6 @@ class Server:
         elif isinstance(expr, supriya.realtime.ServerObject):
             return expr.server is self
         return False
-
-    def __enter__(self):
-        self.boot()
-        return self
-
-    def __exit__(self, exc_type, exc_value, traceback):
-        self.sync()
-        self.quit()
 
     def __getitem__(self, item):
         """
@@ -498,14 +648,6 @@ class Server:
         else:
             supriya.synthdefs.SynthDef._allocate_synthdefs(system_synthdefs, self)
 
-    def _shutdown(self):
-        if not self.is_running:
-            return
-        elif self.is_owner:
-            self.quit()
-        else:
-            self.disconnect()
-
     def _teardown_allocators(self):
         self._audio_bus_allocator = None
         self._buffer_allocator = None
@@ -539,19 +681,21 @@ class Server:
 
     ### PUBLIC METHODS ###
 
-    def boot(self, scsynth_path=None, options=None, **kwargs):
+    def boot(self, port=DEFAULT_PORT, *, scsynth_path=None, options=None, **kwargs):
         if self.is_running:
-            return self
+            raise supriya.exceptions.ServerOnline
         self._options = new(options or Options(), **kwargs)
         scsynth_path = scsynth.find(scsynth_path)
         self._process_protocol = SyncProcessProtocol()
-        self._process_protocol.boot(self._options, scsynth_path, self.port)
+        self._process_protocol.boot(self._options, scsynth_path, port)
+        self._ip_address = "127.0.0.1"
         self._is_owner = True
+        self._port = port
         self._connect()
         return self
 
     def _connect(self):
-        self._is_running = True
+        self._osc_protocol = ThreadedOscProtocol()
         self._osc_protocol.connect(
             ip_address=self.ip_address,
             port=self.port,
@@ -564,6 +708,7 @@ class Server:
                 backoff_factor=1.5,
             ),
         )
+        self._is_running = True
         self._setup_osc_callbacks()
         self._setup_notifications()
         self._setup_allocators()
@@ -595,10 +740,12 @@ class Server:
 
         recurse(self.query_remote_nodes(include_controls=True), self.root_node)
 
-    def connect(self):
+    def connect(self, ip_address="127.0.0.1", port=DEFAULT_PORT):
         if self.is_running:
-            return
+            raise supriya.exceptions.ServerOnline
+        self._ip_address = "127.0.0.1"
         self._is_owner = False
+        self._port = port
         self._connect()
         if self.client_id > 0:
             self._setup_system_synthdefs(local_only=True)
@@ -638,7 +785,8 @@ class Server:
             QuitRequest().communicate(server=self)
         except OscProtocolOffline:
             pass
-        self._process_protocol.quit()
+        if self._process_protocol is not None:
+            self._process_protocol.quit()
         self._disconnect()
         return self
 
@@ -647,10 +795,6 @@ class Server:
         if cls._default_server is None:
             cls._default_server = Server()
         return cls._default_server
-
-    @classmethod
-    def kill(cls, supernova=False):
-        scsynth.kill(supernova=supernova)
 
     def query_local_nodes(self, include_controls=False):
         """
@@ -661,7 +805,7 @@ class Server:
             >>> import supriya.realtime
             >>> server = supriya.Server.default()
             >>> server.boot()
-            <Server: udp://127.0.0.1:57751, 8i8o>
+            <Server: udp://127.0.0.1:57110, 8i8o>
 
         ::
 
@@ -729,7 +873,7 @@ class Server:
             >>> import supriya.realtime
             >>> server = supriya.Server.default()
             >>> server.boot()
-            <Server: udp://127.0.0.1:57751, 8i8o>
+            <Server: udp://127.0.0.1:57110, 8i8o>
 
         ::
 
@@ -792,8 +936,10 @@ class Server:
         return self
 
     def send_message(self, message):
-        if not message or not self.is_running:
-            return
+        if not message:
+            raise ValueError
+        if not self.is_running:
+            raise supriya.exceptions.ServerOffline
         self._osc_protocol.send(message)
 
     def sync(self, sync_id=None):
@@ -808,86 +954,12 @@ class Server:
     ### PUBLIC PROPERTIES ###
 
     @property
-    def audio_bus_allocator(self):
-        return self._audio_bus_allocator
-
-    @property
-    def audio_input_bus_group(self):
-        return self._audio_input_bus_group
-
-    @property
-    def audio_output_bus_group(self):
-        return self._audio_output_bus_group
-
-    @property
-    def buffer_allocator(self):
-        return self._buffer_allocator
-
-    @property
-    def client_id(self):
-        return self._client_id
-
-    @property
-    def control_bus_allocator(self):
-        return self._control_bus_allocator
-
-    @property
-    def debug_request_names(self):
-        return self._debug_request_names
-
-    @debug_request_names.setter
-    def debug_request_names(self, expr):
-        self._debug_request_names = bool(expr)
-
-    @property
     def default_group(self):
         return self._default_group
 
     @property
-    def ip_address(self):
-        return self._ip_address
-
-    @property
-    def is_owner(self):
-        return self._is_owner
-
-    @property
-    def is_running(self):
-        return self._is_running
-
-    @property
-    def latency(self):
-        return self._latency
-
-    @latency.setter
-    def latency(self, latency):
-        self._latency = float(latency)
-
-    @property
-    def maximum_logins(self):
-        return self._maximum_logins
-
-    @property
     def meters(self):
         return self._meters
-
-    @property
-    def next_sync_id(self):
-        sync_id = self._sync_id
-        self._sync_id += 1
-        return sync_id
-
-    @property
-    def node_id_allocator(self):
-        return self._node_id_allocator
-
-    @property
-    def osc_protocol(self):
-        return self._osc_protocol
-
-    @property
-    def port(self):
-        return self._port
 
     @property
     def recorder(self):
@@ -896,11 +968,3 @@ class Server:
     @property
     def root_node(self):
         return self._root_node
-
-    @property
-    def options(self):
-        return self._options
-
-    @property
-    def status(self):
-        return self._status

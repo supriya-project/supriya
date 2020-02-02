@@ -50,6 +50,10 @@ class ServerCannotBoot(Exception):
     pass
 
 
+class ServerOnline(Exception):
+    pass
+
+
 class ServerOffline(Exception):
     pass
 

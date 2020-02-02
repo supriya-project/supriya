@@ -257,7 +257,7 @@ def test_mapping(server):
                     supriya.osc.OscMessage(9, "test", 1001, 0, 1),
                     supriya.osc.OscMessage(60, 1001, "amplitude", 0),
                     supriya.osc.OscMessage(14, 1001, "frequency", 0),
-                    supriya.osc.OscMessage(52, 0),
+                    supriya.osc.OscMessage('/sync', 0),
                 )
             ),
         ),

@@ -49,7 +49,7 @@ class NodeBeforeRequest(MoveRequest):
         ...     (entry.label, entry.message)
         ...
         ('S', OscMessage(18, 1000, 1003, 1001, 1005))
-        ('S', OscMessage(52, 0))
+        ('S', OscMessage('/sync', 0))
         ('R', OscMessage('/n_move', 1000, 1002, -1, 1003, 0))
         ('R', OscMessage('/n_move', 1001, 1, 1002, 1005, 0))
         ('R', OscMessage('/synced', 0))

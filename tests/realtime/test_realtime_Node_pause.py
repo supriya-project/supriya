@@ -96,7 +96,7 @@ def test_group_allocate_paused(server):
                 contents=(
                     supriya.osc.OscMessage(21, 1000, 0, 1),
                     supriya.osc.OscMessage(12, 1000, 0),
-                    supriya.osc.OscMessage(52, 0),
+                    supriya.osc.OscMessage('/sync', 0),
                 )
             ),
         ),
@@ -137,7 +137,7 @@ def test_group_allocate_nested_paused(server):
                     supriya.osc.OscMessage(21, 1002, 3, 1001),
                     supriya.osc.OscMessage(9, "default", 1003, 0, 1002),
                     supriya.osc.OscMessage(12, 1001, 0, 1003, 0),
-                    supriya.osc.OscMessage(52, 0),
+                    supriya.osc.OscMessage('/sync', 0),
                 )
             ),
         ),
