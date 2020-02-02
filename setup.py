@@ -41,6 +41,7 @@ extras_require = {
         "isort",
         "mypy >= 0.720",
         "pytest >= 5.0.0",
+        "pytest-asyncio >= 0.10.0",
         "pytest-cov >= 2.7.1",
         "pytest-helpers-namespace >= 2019.1.8",
         "pytest-mock",
