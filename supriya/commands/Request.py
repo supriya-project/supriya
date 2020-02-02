@@ -22,7 +22,7 @@ class Request(Requestable):
 
     def _handle_async(self, sync, server):
         if not sync or self.response_patterns[0] is None:
-            message = self.to_osc()
+            message = self.to_osc(with_request_name=True)
             server.send_message(message)
             return True
 

@@ -41,7 +41,7 @@ def test_01(server):
 
     assert [(_.label, _.message) for _ in transcript] == [
         ("S", supriya.osc.OscMessage("/n_after", 1003, 1002)),
-        ("S", supriya.osc.OscMessage('/sync', 0)),
+        ("S", supriya.osc.OscMessage("/sync", 0)),
         ("R", supriya.osc.OscMessage("/n_move", 1003, 1000, 1002, -1, 0)),
         ("R", supriya.osc.OscMessage("/synced", 0)),
     ]
@@ -69,7 +69,7 @@ def test_01(server):
 
     assert [(_.label, _.message) for _ in transcript] == [
         ("S", supriya.osc.OscMessage("/n_order", 0, 1001, 1003, 1002)),
-        ("S", supriya.osc.OscMessage('/sync', 1)),
+        ("S", supriya.osc.OscMessage("/sync", 1)),
         ("R", supriya.osc.OscMessage("/n_move", 1003, 1001, -1, -1, 0)),
         ("R", supriya.osc.OscMessage("/n_move", 1002, 1001, 1003, -1, 0)),
         ("R", supriya.osc.OscMessage("/synced", 1)),
