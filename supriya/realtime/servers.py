@@ -30,12 +30,7 @@ from .meters import Meters
 from .protocols import AsyncProcessProtocol, SyncProcessProtocol
 from .recorder import Recorder
 
-# TODO: Implement connect() and disconnect()
-# TODO: Handle clientID return via [/done /notify 0 64] for allocators
-
-
 logger = logging.getLogger("supriya.server")
-
 
 DEFAULT_PORT = 57110
 
@@ -69,13 +64,32 @@ class BaseServer:
 
     ### PRIVATE METHODS ###
 
-    def _shutdown(self):
-        if not self.is_running:
-            return
-        elif self.is_owner:
-            self.quit()
-        else:
-            self.disconnect()
+    def _handle_status_reply_response(self, message):
+        from supriya.commands import Response
+
+        response = Response.from_osc_message(message)
+        self._status = response
+
+    def _setup_allocators(self):
+        self._audio_bus_allocator = BlockAllocator(
+            heap_maximum=self._options.audio_bus_channel_count,
+            heap_minimum=self._options.first_private_bus_id,
+        )
+        self._buffer_allocator = BlockAllocator(heap_maximum=self._options.buffer_count)
+        self._control_bus_allocator = BlockAllocator(
+            heap_maximum=self._options.control_bus_channel_count
+        )
+        self._node_id_allocator = NodeIdAllocator(
+            initial_node_id=self._options.initial_node_id, client_id=self.client_id
+        )
+        self._sync_id = self.client_id << 26
+
+    def _teardown_allocators(self):
+        self._audio_bus_allocator = None
+        self._buffer_allocator = None
+        self._control_bus_allocator = None
+        self._node_id_allocator = None
+        self._sync_id = 0
 
     ### PUBLIC METHODS ###
 
@@ -92,21 +106,17 @@ class BaseServer:
         ...
 
     def send(self, message):
-        ...
+        if not message:
+            raise ValueError
+        if not self.is_running:
+            raise supriya.exceptions.ServerOffline
+        self._osc_protocol.send(message)
 
     ### PUBLIC PROPERTIES ###
 
     @property
     def audio_bus_allocator(self):
         return self._audio_bus_allocator
-
-    @property
-    def audio_input_bus_group(self):
-        return self._audio_input_bus_group
-
-    @property
-    def audio_output_bus_group(self):
-        return self._audio_output_bus_group
 
     @property
     def buffer_allocator(self):
@@ -159,12 +169,16 @@ class BaseServer:
         return self._osc_protocol
 
     @property
+    def options(self):
+        return self._options
+
+    @property
     def port(self):
         return self._port
 
     @property
-    def options(self):
-        return self._options
+    def process_protocol(self):
+        return self._process_protocol
 
     @property
     def status(self):
@@ -172,6 +186,11 @@ class BaseServer:
 
 
 class AsyncServer(BaseServer):
+
+    _servers: Set["AsyncServer"] = set()
+
+    ### PRIVATE METHODS ###
+
     async def _connect(self):
         self._osc_protocol = AsyncOscProtocol()
         await self._osc_protocol.connect(
@@ -187,6 +206,12 @@ class AsyncServer(BaseServer):
             ),
         )
         self._is_running = True
+        self._setup_osc_callbacks()
+        await self._setup_notifications()
+        self._setup_allocators()
+        if self.client_id == 0:
+            await self._setup_system_synthdefs()
+        self._servers.add(self)
 
     def _disconnect(self):
         self._is_running = False
@@ -194,6 +219,35 @@ class AsyncServer(BaseServer):
         self._client_id = None
         self._maximum_logins = None
         self._osc_protocol.disconnect()
+        self._teardown_allocators()
+        if self in self._servers:
+            self._servers.remove(self)
+
+    async def _setup_notifications(self):
+        request = NotifyRequest(True)
+        response = await request.communicate_async(server=self)
+        if isinstance(response, FailResponse):
+            self._shutdown()
+            raise supriya.exceptions.TooManyClients
+        self._client_id, self._maximum_logins = response.action[1], response.action[2]
+
+    def _setup_osc_callbacks(self):
+        self._osc_protocol.register(
+            pattern="/status.reply", procedure=self._handle_status_reply_response,
+        )
+
+    async def _setup_system_synthdefs(self):
+        ...
+
+    def _shutdown(self):
+        if not self.is_running:
+            return
+        elif self.is_owner:
+            self.quit()
+        else:
+            self.disconnect()
+
+    ### PUBLIC METHODS ###
 
     async def boot(
         self, port=DEFAULT_PORT, *, scsynth_path=None, options=None, **kwargs
@@ -238,7 +292,10 @@ class AsyncServer(BaseServer):
             raise supriya.exceptions.UnownedServerShutdown(
                 "Cannot quit unowned server without force flag."
             )
-        # run /quit
+        try:
+            QuitRequest().communicate(server=self, sync=False, apply_local=False)
+        except OscProtocolOffline:
+            pass
         if self._process_protocol is not None:
             self._process_protocol.quit()
         self._disconnect()
@@ -275,7 +332,6 @@ class Server(BaseServer):
 
     def __init__(self):
         BaseServer.__init__(self)
-        type(self)._servers.add(self)
         self._lock = threading.RLock()
         # proxies
         self._audio_input_bus_group = None
@@ -475,6 +531,41 @@ class Server(BaseServer):
     def _as_node_target(self):
         return self.default_group
 
+    def _connect(self):
+        self._osc_protocol = ThreadedOscProtocol()
+        self._osc_protocol.connect(
+            ip_address=self.ip_address,
+            port=self.port,
+            healthcheck=HealthCheck(
+                request_pattern=["/status"],
+                response_pattern=["/status.reply"],
+                callback=self._shutdown,
+                max_attempts=5,
+                timeout=1.0,
+                backoff_factor=1.5,
+            ),
+        )
+        self._is_running = True
+        self._setup_osc_callbacks()
+        self._setup_notifications()
+        self._setup_allocators()
+        self._setup_proxies()
+        if self.client_id == 0:
+            self._setup_default_groups()
+            self._setup_system_synthdefs()
+        self._servers.add(self)
+
+    def _disconnect(self):
+        self._is_running = False
+        self._is_owner = False
+        self._client_id = None
+        self._maximum_logins = None
+        self._osc_protocol.disconnect()
+        self._teardown_proxies()
+        self._teardown_allocators()
+        if self in self._servers:
+            self._servers.remove(self)
+
     def _get_buffer_proxy(self, buffer_id):
         import supriya.realtime
 
@@ -561,19 +652,28 @@ class Server(BaseServer):
         synthdef_name = response.synthdef_name
         self._synthdefs.pop(synthdef_name, None)
 
-    def _setup_allocators(self):
-        self._audio_bus_allocator = BlockAllocator(
-            heap_maximum=self._options.audio_bus_channel_count,
-            heap_minimum=self._options.first_private_bus_id,
-        )
-        self._buffer_allocator = BlockAllocator(heap_maximum=self._options.buffer_count)
-        self._control_bus_allocator = BlockAllocator(
-            heap_maximum=self._options.control_bus_channel_count
-        )
-        self._node_id_allocator = NodeIdAllocator(
-            initial_node_id=self._options.initial_node_id, client_id=self.client_id
-        )
-        self._sync_id = self.client_id << 26
+    def _rehydrate(self):
+        from supriya.realtime import Group, Synth
+
+        def recurse(query_tree_node, node):
+            for query_tree_child in query_tree_node.children:
+                if isinstance(query_tree_child, QueryTreeGroup):
+                    group = Group()
+                    group._register_with_local_server(
+                        node_id=query_tree_child.node_id, server=self
+                    )
+                    node._children.append(group)
+                    recurse(query_tree_child, group)
+                elif isinstance(query_tree_child, QueryTreeSynth):
+                    synth = Synth()
+                    synth._register_with_local_server(
+                        node_id=query_tree_child.node_id, server=self
+                    )
+                    node._children.append(synth)
+                    for query_tree_control in query_tree_child.children:
+                        pass
+
+        recurse(self.query_remote_nodes(include_controls=True), self.root_node)
 
     def _setup_notifications(self):
         request = NotifyRequest(True)
@@ -624,6 +724,9 @@ class Server(BaseServer):
         self._osc_protocol.register(
             pattern="/d_removed", procedure=self._handle_synthdef_removed_response,
         )
+        self._osc_protocol.register(
+            pattern="/status.reply", procedure=self._handle_status_reply_response,
+        )
 
         def failed(message):
             logger.warning("Fail: {}".format(message))
@@ -647,13 +750,6 @@ class Server(BaseServer):
                 synthdef._register_with_local_server(self)
         else:
             supriya.synthdefs.SynthDef._allocate_synthdefs(system_synthdefs, self)
-
-    def _teardown_allocators(self):
-        self._audio_bus_allocator = None
-        self._buffer_allocator = None
-        self._control_bus_allocator = None
-        self._node_id_allocator = None
-        self._sync_id = 0
 
     def _teardown_proxies(self):
         for set_ in tuple(self._audio_buses.values()):
@@ -679,6 +775,14 @@ class Server(BaseServer):
         self._root_node = None
         self._synthdefs.clear()
 
+    def _shutdown(self):
+        if not self.is_running:
+            return
+        elif self.is_owner:
+            self.quit()
+        else:
+            self.disconnect()
+
     ### PUBLIC METHODS ###
 
     def boot(self, port=DEFAULT_PORT, *, scsynth_path=None, options=None, **kwargs):
@@ -693,52 +797,6 @@ class Server(BaseServer):
         self._port = port
         self._connect()
         return self
-
-    def _connect(self):
-        self._osc_protocol = ThreadedOscProtocol()
-        self._osc_protocol.connect(
-            ip_address=self.ip_address,
-            port=self.port,
-            healthcheck=HealthCheck(
-                request_pattern=["/status"],
-                response_pattern=["/status.reply"],
-                callback=self._shutdown,
-                max_attempts=5,
-                timeout=1.0,
-                backoff_factor=1.5,
-            ),
-        )
-        self._is_running = True
-        self._setup_osc_callbacks()
-        self._setup_notifications()
-        self._setup_allocators()
-        self._setup_proxies()
-        if self.client_id == 0:
-            self._setup_default_groups()
-            self._setup_system_synthdefs()
-
-    def _rehydrate(self):
-        from supriya.realtime import Group, Synth
-
-        def recurse(query_tree_node, node):
-            for query_tree_child in query_tree_node.children:
-                if isinstance(query_tree_child, QueryTreeGroup):
-                    group = Group()
-                    group._register_with_local_server(
-                        node_id=query_tree_child.node_id, server=self
-                    )
-                    node._children.append(group)
-                    recurse(query_tree_child, group)
-                elif isinstance(query_tree_child, QueryTreeSynth):
-                    synth = Synth()
-                    synth._register_with_local_server(
-                        node_id=query_tree_child.node_id, server=self
-                    )
-                    node._children.append(synth)
-                    for query_tree_control in query_tree_child.children:
-                        pass
-
-        recurse(self.query_remote_nodes(include_controls=True), self.root_node)
 
     def connect(self, ip_address="127.0.0.1", port=DEFAULT_PORT):
         if self.is_running:
@@ -762,15 +820,6 @@ class Server(BaseServer):
             )
         self._disconnect()
         return self
-
-    def _disconnect(self):
-        self._is_running = False
-        self._is_owner = False
-        self._client_id = None
-        self._maximum_logins = None
-        self._osc_protocol.disconnect()
-        self._teardown_proxies()
-        self._teardown_allocators()
 
     def quit(self, force=False):
         if not self.is_running:
@@ -935,13 +984,6 @@ class Server(BaseServer):
         self.boot(options=options, **kwargs)
         return self
 
-    def send_message(self, message):
-        if not message:
-            raise ValueError
-        if not self.is_running:
-            raise supriya.exceptions.ServerOffline
-        self._osc_protocol.send(message)
-
     def sync(self, sync_id=None):
         if not self.is_running:
             return
@@ -952,6 +994,14 @@ class Server(BaseServer):
         return self
 
     ### PUBLIC PROPERTIES ###
+
+    @property
+    def audio_input_bus_group(self):
+        return self._audio_input_bus_group
+
+    @property
+    def audio_output_bus_group(self):
+        return self._audio_output_bus_group
 
     @property
     def default_group(self):

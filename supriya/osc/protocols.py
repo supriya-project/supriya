@@ -119,7 +119,9 @@ class OscProtocol:
         self, pattern, procedure, *, failure_pattern=None, once=False,
     ):
         if isinstance(pattern, (str, int, float)):
-            pattern = (pattern,)
+            pattern = [pattern]
+        if isinstance(failure_pattern, (str, int, float)):
+            failure_pattern = [failure_pattern]
         assert callable(procedure)
         return OscCallback(
             pattern=tuple(pattern),
@@ -185,6 +187,7 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
     def __init__(self):
         asyncio.DatagramProtocol.__init__(self)
         OscProtocol.__init__(self)
+        self.loop = None
 
     ### PRIVATE METHODS ###
 
@@ -196,7 +199,9 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
             self.attempts += 1
             if self.attempts >= self.healthcheck.max_attempts:
                 self.disconnect()
-                self.healthcheck.callback()
+                obj_ = self.healthcheck.callback()
+                if asyncio.iscoroutinefunction(obj_):
+                    self.loop.create_task(obj_)
                 return
             self.send(OscMessage(*self.healthcheck.request_pattern))
             await asyncio.sleep(sleep_time)
@@ -209,8 +214,8 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         if self.is_running:
             raise OscProtocolAlreadyConnected
         self._setup(ip_address, port, healthcheck)
-        loop = asyncio.get_running_loop()
-        _, protocol = await loop.create_datagram_endpoint(
+        self.loop = asyncio.get_running_loop()
+        _, protocol = await self.loop.create_datagram_endpoint(
             lambda: self, remote_addr=(ip_address, port),
         )
 
@@ -230,9 +235,11 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
     def disconnect(self):
         if not self.is_running:
             return
-        self.healthcheck_task.cancel()
-        self.transport.close()
         self._teardown()
+        if not self.loop.is_closed():
+            if not self.transport.is_closing():
+                self.transport.close()
+        self.loop = None
 
     def register(
         self, pattern, procedure, *, failure_pattern=None, once=False,

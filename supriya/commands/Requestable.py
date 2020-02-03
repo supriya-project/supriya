@@ -1,3 +1,4 @@
+import asyncio
 import logging
 import threading
 import time
@@ -8,10 +9,6 @@ logger = logging.getLogger("supriya.osc")
 
 
 class Requestable(SupriyaValueObject):
-
-    ### CLASS VARIABLES ###
-
-    __slots__ = ("_condition", "_response")
 
     ### INITIALIZER ###
 
@@ -42,13 +39,19 @@ class Requestable(SupriyaValueObject):
             self._response = Response.from_osc_message(message)
             self.condition.notify()
 
+    def _set_response_async(self, message):
+        from supriya.commands import Response
+
+        self._response = Response.from_osc_message(message)
+        self._response_future.set_result(True)
+
     ### PUBLIC METHODS ###
 
     def communicate(self, server=None, sync=True, timeout=1.0, apply_local=True):
         import supriya.realtime
 
         server = server or supriya.realtime.Server.default()
-        assert isinstance(server, supriya.realtime.Server)
+        assert isinstance(server, supriya.realtime.servers.BaseServer)
         assert server.is_running
         if apply_local:
             with server._lock:
@@ -75,7 +78,7 @@ class Requestable(SupriyaValueObject):
             except Exception:
                 print(self)
                 raise
-            server.send_message(requestable.to_osc(with_request_name=True))
+            server.send(requestable.to_osc(with_request_name=True))
             while self.response is None:
                 self.condition.wait(timeout)
                 current_time = time.time()
@@ -86,6 +89,26 @@ class Requestable(SupriyaValueObject):
         if timed_out:
             logger.warning("Timed out: {!r}".format(self))
             return None
+        return self._response
+
+    async def communicate_async(self, server=None, sync=True, timeout=1.0):
+        (
+            success_pattern,
+            failure_pattern,
+            requestable,
+        ) = self._get_response_patterns_and_requestable(server)
+        if self._handle_async(sync, server):
+            return
+        loop = asyncio.get_running_loop()
+        self._response_future = loop.create_future()
+        server.osc_protocol.register(
+            pattern=success_pattern,
+            failure_pattern=failure_pattern,
+            procedure=self._set_response_async,
+            once=True,
+        )
+        server.send(requestable.to_osc(with_request_name=True))
+        await asyncio.wait_for(self._response_future, timeout=timeout)
         return self._response
 
     def to_datagram(self, *, with_placeholders=False, with_request_name=False):

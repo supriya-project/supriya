@@ -42,7 +42,7 @@ class PhysicalControl:
         elif self.message_type == "controller":
             message = 0xB0 | self.channel
         message = [message, self.message_value, value]
-        self.device.send_message(message)
+        self.device.send(message)
 
     def handle_incoming_value(self, value):
         if self.mode == self.Mode.BOOLEAN:

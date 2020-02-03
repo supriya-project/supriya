@@ -36,7 +36,7 @@ def test_01(server):
         osc_message = supriya.osc.OscMessage(
             "/n_after", synth_b.node_id, synth_a.node_id
         )
-        server.send_message(osc_message)
+        server.send(osc_message)
         server.sync()
 
     assert [(_.label, _.message) for _ in transcript] == [
@@ -64,7 +64,7 @@ def test_01(server):
         osc_message = supriya.osc.OscMessage(
             "/n_order", 0, group_b.node_id, synth_b.node_id, synth_a.node_id
         )
-        server.send_message(osc_message)
+        server.send(osc_message)
         server.sync()
 
     assert [(_.label, _.message) for _ in transcript] == [

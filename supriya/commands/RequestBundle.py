@@ -78,7 +78,7 @@ class RequestBundle(Requestable):
     def _handle_async(self, sync, server):
         if not sync:
             message = self.to_osc(with_request_name=True)
-            server.send_message(message)
+            server.send(message)
             return True
 
     def _linearize(self):

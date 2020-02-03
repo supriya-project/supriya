@@ -4,11 +4,10 @@ import pytest
 from uqbar.strings import normalize
 
 import supriya
-from supriya import scsynth
+from supriya import exceptions, scsynth
 from supriya.osc import OscMessage
 from supriya.realtime import Server
 from supriya.realtime.protocols import SyncProcessProtocol
-from supriya.scsynth import Options
 
 pytestmark = pytest.mark.timeout(60)
 
@@ -32,7 +31,7 @@ def test_boot_and_boot():
     server.boot()
     assert server.is_running
     assert server.is_owner
-    with pytest.raises(supriya.exceptions.ServerOnline):
+    with pytest.raises(exceptions.ServerOnline):
         server.boot()
     assert server.is_running
     assert server.is_owner
@@ -60,7 +59,7 @@ def test_boot_and_connect():
     server.boot()
     assert server.is_running
     assert server.is_owner
-    with pytest.raises(supriya.exceptions.ServerOnline):
+    with pytest.raises(exceptions.ServerOnline):
         server.connect()
     assert server.is_running
     assert server.is_owner
@@ -94,7 +93,7 @@ def test_boot_a_and_boot_b_cannot_boot():
     server_a.boot(maximum_logins=4)
     assert server_a.is_running and server_a.is_owner
     assert not server_b.is_running and not server_b.is_owner
-    with pytest.raises(supriya.exceptions.ServerCannotBoot):
+    with pytest.raises(exceptions.ServerCannotBoot):
         server_b.boot(maximum_logins=4)
     assert server_a.is_running and server_a.is_owner
     assert not server_b.is_running and not server_b.is_owner
@@ -107,7 +106,7 @@ def test_boot_a_and_connect_b_too_many_clients():
     server_a.boot(maximum_logins=1)
     assert server_a.is_running and server_a.is_owner
     assert not server_b.is_running and not server_b.is_owner
-    with pytest.raises(supriya.exceptions.TooManyClients):
+    with pytest.raises(exceptions.TooManyClients):
         server_b.connect()
     assert server_a.is_running and server_a.is_owner
     assert not server_b.is_running and not server_b.is_owner
@@ -151,7 +150,7 @@ def test_boot_a_and_connect_b_and_disconnect_a():
     server_b.connect()
     assert server_a.is_running and server_a.is_owner
     assert server_b.is_running and not server_b.is_owner
-    with pytest.raises(supriya.exceptions.OwnedServerShutdown):
+    with pytest.raises(exceptions.OwnedServerShutdown):
         server_a.disconnect()
     assert server_a.is_running and server_a.is_owner
     assert server_b.is_running and not server_b.is_owner
@@ -178,7 +177,7 @@ def test_boot_a_and_connect_b_and_quit_b():
     server_b.connect()
     assert server_a.is_running and server_a.is_owner
     assert server_b.is_running and not server_b.is_owner
-    with pytest.raises(supriya.exceptions.UnownedServerShutdown):
+    with pytest.raises(exceptions.UnownedServerShutdown):
         server_b.quit()
     assert server_a.is_running and server_a.is_owner
     assert server_b.is_running and not server_b.is_owner
@@ -262,7 +261,7 @@ def test_shared_resources():
 
 def test_connect_and_reconnect():
     try:
-        options = Options(maximum_logins=4)
+        options = scsynth.Options(maximum_logins=4)
         protocol = SyncProcessProtocol()
         protocol.boot(options, scsynth.find(), 57110)
         server = Server()

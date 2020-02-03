@@ -166,7 +166,7 @@ def test_mutex_01():
                             <LC name=knob_3 mode=continuous pc=device_control_3 value=0.0>
         """
     )
-    with mock.patch.object(device, "send_message") as send_mock:
+    with mock.patch.object(device, "send") as send_mock:
         device([0xB0, 0x10, 0x22], 0)
         device([0xB0, 0x11, 0x44], 0)
         device([0xB0, 0x12, 0x66], 0)
@@ -200,7 +200,7 @@ def test_mutex_01():
                             <LC name=knob_3 mode=continuous pc=device_control_3 value=0.80315>
         """
     )
-    with mock.patch.object(device, "send_message") as send_mock:
+    with mock.patch.object(device, "send") as send_mock:
         device([0x81, 0x03, 0x00], 0)
     assert sorted(_[0][0] for _ in send_mock.call_args_list) == [
         [0x80, 0x03, 0x00],
@@ -236,7 +236,7 @@ def test_mutex_01():
                             <LC name=knob_3 mode=continuous pc=device_control_3 value=0.0>
         """
     )
-    with mock.patch.object(device, "send_message") as send_mock:
+    with mock.patch.object(device, "send") as send_mock:
         device([0xB0, 0x10, 0x55], 0)
         device([0xB0, 0x11, 0x33], 0)
         device([0xB0, 0x12, 0x11], 0)
@@ -270,7 +270,7 @@ def test_mutex_01():
                             <LC name=knob_3 mode=continuous pc=device_control_3 value=0.133858>
         """
     )
-    with mock.patch.object(device, "send_message") as send_mock:
+    with mock.patch.object(device, "send") as send_mock:
         device([0x80, 0x06, 0x7F], 0)
     assert sorted(_[0][0] for _ in send_mock.call_args_list) == [
         [0x80, 0x05, 0x00],
@@ -304,7 +304,7 @@ def test_mutex_01():
                             <LC name=knob_3 mode=continuous pc=device_control_3 value=0.0>
         """
     )
-    with mock.patch.object(device, "send_message") as send_mock:
+    with mock.patch.object(device, "send") as send_mock:
         device([0x80, 0x03, 0x00], 0)
     assert sorted(_[0][0] for _ in send_mock.call_args_list) == [
         [0x80, 0x06, 0x00],

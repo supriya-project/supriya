@@ -387,7 +387,7 @@ class ProviderMoment:
         for synthdef in synthdefs:
             synthdef._register_with_local_server(server=self.provider.server)
         try:
-            self.provider.server.send_message(request_bundle.to_osc())
+            self.provider.server.send(request_bundle.to_osc())
         except OSError:
             requests = request_bundle.contents
             if synthdefs:
@@ -397,7 +397,7 @@ class ProviderMoment:
                 # TODO: Communicate is synchronous... can we async this?
                 synthdef_request.communicate(sync=True, server=self.provider.server)
             for bundle in RequestBundle.partition(requests, timestamp=timestamp):
-                self.provider.server.send_message(bundle.to_osc())
+                self.provider.server.send(bundle.to_osc())
 
 
 class Provider(metaclass=abc.ABCMeta):
@@ -763,6 +763,7 @@ class RealtimeProvider(Provider):
 
     def _resolve_target_node(self, target_node):
         if target_node is None:
+            # TODO: Will this work with AsyncServer?
             target_node = self.server.default_group
         return target_node
 

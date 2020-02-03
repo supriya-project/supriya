@@ -24,6 +24,9 @@ class ProcessProtocol:
 
 
 class SyncProcessProtocol(ProcessProtocol):
+
+    ### PUBLIC METHODS ###
+
     def boot(self, options, scsynth_path, port):
         if self.is_running:
             return
@@ -73,11 +76,16 @@ class SyncProcessProtocol(ProcessProtocol):
 
 
 class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
+
+    ### INITIALIZER ###
+
     def __init__(self):
         ProcessProtocol.__init__(self)
         asyncio.SubprocessProtocol.__init__(self)
         self.boot_future = None
         self.exit_future = None
+
+    ### PUBLIC METHODS ###
 
     async def boot(self, options, scsynth_path, port):
         if self.is_running:
@@ -117,5 +125,6 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
             self.boot_future.set_result(False)
         if not self.exit_future.done():
             self.exit_future.set_result
-        self.transport.close()
+        if not self.transport._loop.is_closed() and not self.transport.is_closing():
+            self.transport.close()
         self.is_running = False

@@ -398,7 +398,7 @@ class Device:
         self._midi_in.ignore_types(active_sense=True, sysex=True, timing=True)
         self._midi_in.set_callback(self.__call__)
         for message in self._device_manifest["device"].get("on_startup", []):
-            self.send_message(message)
+            self.send(message)
         mapping = self.rebuild_visibility_mapping()
         for logical_control in mapping.values():
             logical_control._mount()
@@ -413,7 +413,7 @@ class Device:
         self._visibility_mapping = mapping
         return mapping
 
-    def send_message(self, message):
+    def send(self, message):
         self._midi_out.send_message(message)
         logger.debug("MIDI O: 0x{}".format(bytearray(message).hex()))
 
