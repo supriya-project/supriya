@@ -1,4 +1,4 @@
-import atexit
+import asyncio
 import logging
 import re
 import threading
@@ -59,8 +59,6 @@ class BaseServer:
         self._control_bus_allocator = None
         self._node_id_allocator = None
         self._sync_id = 0
-        # at exit
-        atexit.register(self._shutdown)
 
     ### PRIVATE METHODS ###
 
@@ -189,6 +187,11 @@ class AsyncServer(BaseServer):
 
     _servers: Set["AsyncServer"] = set()
 
+    def __init__(self):
+        BaseServer.__init__(self)
+        self._boot_future = None
+        self._quit_future = None
+
     ### PRIVATE METHODS ###
 
     async def _connect(self):
@@ -211,6 +214,7 @@ class AsyncServer(BaseServer):
         self._setup_allocators()
         if self.client_id == 0:
             await self._setup_system_synthdefs()
+        self.boot_future.set_result(True)
         self._servers.add(self)
 
     def _disconnect(self):
@@ -222,12 +226,15 @@ class AsyncServer(BaseServer):
         self._teardown_allocators()
         if self in self._servers:
             self._servers.remove(self)
+        self.quit_future.set_result(True)
+        if not self.boot_future.done():
+            self.boot_future.set_result(False)
 
     async def _setup_notifications(self):
         request = NotifyRequest(True)
         response = await request.communicate_async(server=self)
         if isinstance(response, FailResponse):
-            self._shutdown()
+            await self._shutdown()
             raise supriya.exceptions.TooManyClients
         self._client_id, self._maximum_logins = response.action[1], response.action[2]
 
@@ -239,7 +246,7 @@ class AsyncServer(BaseServer):
     async def _setup_system_synthdefs(self):
         ...
 
-    def _shutdown(self):
+    async def _shutdown(self):
         if not self.is_running:
             return
         elif self.is_owner:
@@ -254,11 +261,16 @@ class AsyncServer(BaseServer):
     ):
         if self._is_running:
             raise supriya.exceptions.ServerOnline
+        loop = asyncio.get_running_loop()
+        self._boot_future = loop.create_future()
+        self._quit_future = loop.create_future()
         self._options = new(options or Options(), **kwargs)
         scsynth_path = scsynth.find(scsynth_path)
         self._process_protocol = AsyncProcessProtocol()
         await self._process_protocol.boot(self._options, scsynth_path, port)
         if not await self._process_protocol.boot_future:
+            self._boot_future.set_result(False)
+            self._quit_future.set_result(True)
             raise supriya.exceptions.ServerCannotBoot
         self._ip_address = "127.0.0.1"
         self._is_owner = True
@@ -269,6 +281,9 @@ class AsyncServer(BaseServer):
     async def connect(self, ip_address="127.0.0.1", port=DEFAULT_PORT):
         if self._is_running:
             raise supriya.exceptions.ServerOnline
+        loop = asyncio.get_running_loop()
+        self._boot_future = loop.create_future()
+        self._quit_future = loop.create_future()
         self._ip_address = "127.0.0.1"
         self._is_owner = False
         self._port = port
@@ -300,6 +315,16 @@ class AsyncServer(BaseServer):
             self._process_protocol.quit()
         self._disconnect()
         return self
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def boot_future(self):
+        return self._boot_future
+
+    @property
+    def quit_future(self):
+        return self._quit_future
 
 
 class Server(BaseServer):

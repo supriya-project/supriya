@@ -5,7 +5,7 @@ import pytest
 from supriya import exceptions
 from supriya.realtime import AsyncServer
 
-pytestmark = pytest.mark.timeout(60)
+pytestmark = pytest.mark.timeout(15)
 
 
 @pytest.mark.asyncio

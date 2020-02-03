@@ -29,9 +29,9 @@ def shutdown_sync_servers(shutdown_scsynth):
 @pytest.fixture(autouse=True)
 async def shutdown_async_servers(shutdown_scsynth, event_loop):
     for server in tuple(AsyncServer._servers):
-        server._shutdown()
+        await server._shutdown()
     yield
     for server in tuple(AsyncServer._servers):
-        server._shutdown()
+        await server._shutdown()
         if server.osc_protocol.healthcheck_task is not None:
             await server.osc_protocol.healthcheck_task
