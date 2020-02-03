@@ -217,7 +217,7 @@ class AsyncServer(BaseServer):
         self.boot_future.set_result(True)
         self._servers.add(self)
 
-    def _disconnect(self):
+    async def _disconnect(self):
         self._is_running = False
         self._is_owner = False
         self._client_id = None
@@ -297,7 +297,7 @@ class AsyncServer(BaseServer):
             raise supriya.exceptions.OwnedServerShutdown(
                 "Cannot disconnect from owned server with force flag."
             )
-        self._disconnect()
+        await self._disconnect()
         return self
 
     async def quit(self, force=False):
@@ -308,12 +308,12 @@ class AsyncServer(BaseServer):
                 "Cannot quit unowned server without force flag."
             )
         try:
-            QuitRequest().communicate(server=self, sync=False, apply_local=False)
-        except OscProtocolOffline:
+            await QuitRequest().communicate_async(server=self, sync=True, timeout=1)
+        except (OscProtocolOffline, asyncio.TimeoutError):
             pass
         if self._process_protocol is not None:
             self._process_protocol.quit()
-        self._disconnect()
+        await self._disconnect()
         return self
 
     ### PUBLIC PROPERTIES ###

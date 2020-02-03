@@ -198,7 +198,6 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
             )
             self.attempts += 1
             if self.attempts >= self.healthcheck.max_attempts:
-                print("healthcheck failed")
                 obj_ = self.healthcheck.callback()
                 if asyncio.iscoroutine(obj_):
                     await obj_
