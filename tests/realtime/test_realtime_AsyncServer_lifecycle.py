@@ -16,7 +16,7 @@ async def test_boot_and_quit():
     await server.boot()
     assert server.is_running
     assert server.is_owner
-    server.quit()
+    await server.quit()
     assert not server.is_running
     assert not server.is_owner
 
@@ -43,10 +43,10 @@ async def test_boot_and_quit_and_quit():
     await server.boot()
     assert server.is_running
     assert server.is_owner
-    server.quit()
+    await server.quit()
     assert not server.is_running
     assert not server.is_owner
-    server.quit()
+    await server.quit()
     assert not server.is_running
     assert not server.is_owner
 
@@ -102,7 +102,7 @@ async def test_boot_a_and_connect_b_and_quit_a():
     await server_b.connect()
     assert server_a.is_running and server_a.is_owner
     assert server_b.is_running and not server_b.is_owner
-    server_a.quit()
+    await server_a.quit()
     assert not server_a.is_running and not server_a.is_owner
     for _ in range(100):
         await asyncio.sleep(0.1)
@@ -120,7 +120,7 @@ async def test_boot_a_and_connect_b_and_disconnect_b():
     await server_b.connect()
     assert server_a.is_running and server_a.is_owner
     assert server_b.is_running and not server_b.is_owner
-    server_b.disconnect()
+    await server_b.disconnect()
     assert server_a.is_running and server_a.is_owner
     assert not server_b.is_running and not server_b.is_owner
 
@@ -135,7 +135,7 @@ async def test_boot_a_and_connect_b_and_disconnect_a():
     assert server_a.is_running and server_a.is_owner
     assert server_b.is_running and not server_b.is_owner
     with pytest.raises(exceptions.OwnedServerShutdown):
-        server_a.disconnect()
+        await server_a.disconnect()
     assert server_a.is_running and server_a.is_owner
     assert server_b.is_running and not server_b.is_owner
 
@@ -149,7 +149,7 @@ async def test_boot_a_and_connect_b_and_force_disconnect_a():
     await server_b.connect()
     assert server_a.is_running and server_a.is_owner
     assert server_b.is_running and not server_b.is_owner
-    server_a.disconnect(force=True)
+    await server_a.disconnect(force=True)
     assert not server_a.is_running and not server_a.is_owner
     assert server_b.is_running and not server_b.is_owner
 
@@ -164,7 +164,7 @@ async def test_boot_a_and_connect_b_and_quit_b():
     assert server_a.is_running and server_a.is_owner
     assert server_b.is_running and not server_b.is_owner
     with pytest.raises(exceptions.UnownedServerShutdown):
-        server_b.quit()
+        await server_b.quit()
     assert server_a.is_running and server_a.is_owner
     assert server_b.is_running and not server_b.is_owner
 
@@ -178,7 +178,7 @@ async def test_boot_a_and_connect_b_and_force_quit_b():
     await server_b.connect()
     assert server_a.is_running and server_a.is_owner
     assert server_b.is_running and not server_b.is_owner
-    server_b.quit(force=True)
+    await server_b.quit(force=True)
     assert not server_b.is_running and not server_b.is_owner
     for _ in range(100):
         await asyncio.sleep(0.1)

@@ -250,9 +250,9 @@ class AsyncServer(BaseServer):
         if not self.is_running:
             return
         elif self.is_owner:
-            self.quit()
+            await self.quit()
         else:
-            self.disconnect()
+            await self.disconnect()
 
     ### PUBLIC METHODS ###
 
@@ -290,7 +290,7 @@ class AsyncServer(BaseServer):
         await self._connect()
         return self
 
-    def disconnect(self, force=False):
+    async def disconnect(self, force=False):
         if not self._is_running:
             raise supriya.exceptions.ServerOffline
         if self._is_owner and not force:
@@ -300,7 +300,7 @@ class AsyncServer(BaseServer):
         self._disconnect()
         return self
 
-    def quit(self, force=False):
+    async def quit(self, force=False):
         if not self._is_running:
             return
         if not self._is_owner and not force:
