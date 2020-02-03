@@ -222,7 +222,7 @@ class AsyncServer(BaseServer):
         self._is_owner = False
         self._client_id = None
         self._maximum_logins = None
-        self._osc_protocol.disconnect()
+        await self._osc_protocol.disconnect()
         self._teardown_allocators()
         if self in self._servers:
             self._servers.remove(self)

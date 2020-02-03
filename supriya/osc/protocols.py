@@ -1,5 +1,4 @@
 import asyncio
-import atexit
 import collections
 import dataclasses
 import queue
@@ -50,7 +49,6 @@ class OscProtocol:
         self.ip_address = None
         self.is_running: bool = False
         self.port = None
-        atexit.register(self.disconnect)
 
     ### PRIVATE METHODS ###
 
@@ -202,7 +200,7 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
                 if asyncio.iscoroutine(obj_):
                     await obj_
                 self.exit_future.set_result(True)
-                self.disconnect()
+                await self.disconnect()
                 return
             self.send(OscMessage(*self.healthcheck.request_pattern))
             await asyncio.sleep(sleep_time)
@@ -229,12 +227,12 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
             self.healthcheck_task = loop.create_task(self._run_healthcheck())
 
     def connection_lost(self, exc):
-        self.disconnect()
+        pass
 
     def datagram_received(self, data, addr):
         self._validate_receive(data)
 
-    def disconnect(self):
+    async def disconnect(self):
         if not self.is_running:
             return
         self._teardown()
