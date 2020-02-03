@@ -196,11 +196,12 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
             )
             self.attempts += 1
             if self.attempts >= self.healthcheck.max_attempts:
+                self.exit_future.set_result(True)
+                self._teardown()
+                self.transport.close()
                 obj_ = self.healthcheck.callback()
                 if asyncio.iscoroutine(obj_):
-                    await obj_
-                self.exit_future.set_result(True)
-                await self.disconnect()
+                    self.loop.create_task(obj_)
                 return
             self.send(OscMessage(*self.healthcheck.request_pattern))
             await asyncio.sleep(sleep_time)
@@ -235,12 +236,14 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
     async def disconnect(self):
         if not self.is_running:
             return
+        self.exit_future.set_result(True)
         self._teardown()
-        if not self.loop.is_closed() and not self.transport.is_closing():
+        if self.loop.is_closed():
+            return
+        if not self.transport.is_closing():
             self.transport.close()
-        self.loop = None
-        if self.healthcheck is None:
-            self.exit_future.set_result(True)
+        if self.healthcheck is not None:
+            await self.healthcheck_task
 
     def register(
         self, pattern, procedure, *, failure_pattern=None, once=False,

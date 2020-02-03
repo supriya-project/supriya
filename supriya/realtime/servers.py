@@ -223,6 +223,7 @@ class AsyncServer(BaseServer):
         self._client_id = None
         self._maximum_logins = None
         await self._osc_protocol.disconnect()
+        await self._osc_protocol.exit_future
         self._teardown_allocators()
         if self in self._servers:
             self._servers.remove(self)
@@ -290,12 +291,12 @@ class AsyncServer(BaseServer):
         await self._connect()
         return self
 
-    async def disconnect(self, force=False):
+    async def disconnect(self):
         if not self._is_running:
             raise supriya.exceptions.ServerOffline
-        if self._is_owner and not force:
+        if self._is_owner:
             raise supriya.exceptions.OwnedServerShutdown(
-                "Cannot disconnect from owned server with force flag."
+                "Cannot disconnect from owned server."
             )
         await self._disconnect()
         return self
@@ -836,12 +837,12 @@ class Server(BaseServer):
         self._default_group = self._nodes[self.client_id + 1]
         return self
 
-    def disconnect(self, force=False):
+    def disconnect(self):
         if not self.is_running:
             raise supriya.exceptions.ServerOffline
-        if self._is_owner and not force:
+        if self._is_owner:
             raise supriya.exceptions.OwnedServerShutdown(
-                "Cannot disconnect from owned server with force flag."
+                "Cannot disconnect from owned server."
             )
         self._disconnect()
         return self

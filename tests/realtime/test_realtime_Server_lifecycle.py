@@ -156,19 +156,6 @@ def test_boot_a_and_connect_b_and_disconnect_a():
     assert server_b.is_running and not server_b.is_owner
 
 
-def test_boot_a_and_connect_b_and_force_disconnect_a():
-    server_a, server_b = Server(), Server()
-    assert not server_a.is_running and not server_a.is_owner
-    assert not server_b.is_running and not server_b.is_owner
-    server_a.boot(maximum_logins=2)
-    server_b.connect()
-    assert server_a.is_running and server_a.is_owner
-    assert server_b.is_running and not server_b.is_owner
-    server_a.disconnect(force=True)
-    assert not server_a.is_running and not server_a.is_owner
-    assert server_b.is_running and not server_b.is_owner
-
-
 def test_boot_a_and_connect_b_and_quit_b():
     server_a, server_b = Server(), Server()
     assert not server_a.is_running and not server_a.is_owner

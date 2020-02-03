@@ -9,6 +9,16 @@ pytestmark = pytest.mark.timeout(15)
 
 
 @pytest.mark.asyncio
+async def test_boot_only():
+    server = AsyncServer()
+    assert not server.is_running
+    assert not server.is_owner
+    await server.boot()
+    assert server.is_running
+    assert server.is_owner
+
+
+@pytest.mark.asyncio
 async def test_boot_and_quit():
     server = AsyncServer()
     assert not server.is_running
@@ -137,20 +147,6 @@ async def test_boot_a_and_connect_b_and_disconnect_a():
     with pytest.raises(exceptions.OwnedServerShutdown):
         await server_a.disconnect()
     assert server_a.is_running and server_a.is_owner
-    assert server_b.is_running and not server_b.is_owner
-
-
-@pytest.mark.asyncio
-async def test_boot_a_and_connect_b_and_force_disconnect_a():
-    server_a, server_b = AsyncServer(), AsyncServer()
-    assert not server_a.is_running and not server_a.is_owner
-    assert not server_b.is_running and not server_b.is_owner
-    await server_a.boot(maximum_logins=2)
-    await server_b.connect()
-    assert server_a.is_running and server_a.is_owner
-    assert server_b.is_running and not server_b.is_owner
-    await server_a.disconnect(force=True)
-    assert not server_a.is_running and not server_a.is_owner
     assert server_b.is_running and not server_b.is_owner
 
 

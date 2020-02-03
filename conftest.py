@@ -33,5 +33,3 @@ async def shutdown_async_servers(shutdown_scsynth, event_loop):
     yield
     for server in tuple(AsyncServer._servers):
         await server._shutdown()
-        if server.osc_protocol.healthcheck_task is not None:
-            await server.osc_protocol.healthcheck_task
