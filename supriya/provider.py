@@ -40,7 +40,7 @@ from supriya.commands.SynthDefReceiveRequest import SynthDefReceiveRequest
 from supriya.commands.SynthNewRequest import SynthNewRequest
 from supriya.enums import AddAction, CalculationRate, ParameterRate
 from supriya.nonrealtime.Session import Session
-from supriya.realtime import Server
+from supriya.realtime import AsyncServer, BaseServer, Server
 from supriya.synthdefs.SynthDef import SynthDef
 
 # TODO: Implement BusProxy, integrate with BusGroupProxy
@@ -518,7 +518,7 @@ class Provider(metaclass=abc.ABCMeta):
     def from_context(cls, context, latency=0.1) -> "Provider":
         if isinstance(context, Session):
             return NonrealtimeProvider(context, latency=latency)
-        elif isinstance(context, Server):
+        elif isinstance(context, BaseServer):
             return RealtimeProvider(context, latency=latency)
         raise ValueError("Unknown context")
 
@@ -533,10 +533,18 @@ class Provider(metaclass=abc.ABCMeta):
 
     @classmethod
     def realtime(
-        cls, scsynth_path=None, options=None, port=None, **kwargs
+        cls, scsynth_path=None, options=None, port=None, **kwargs,
     ) -> "RealtimeProvider":
         server = Server()
         server.boot(port=port, scsynth_path=scsynth_path, options=options, **kwargs)
+        return cast("RealtimeProvider", cls.from_context(server))
+
+    @classmethod
+    async def realtime_async(
+        cls, scsynth_path=None, options=None, port=None, **kwargs,
+    ) -> "RealtimeProvider":
+        server = AsyncServer()
+        await server.boot(port=port, scsynth_path=scsynth_path, options=options, **kwargs)
         return cast("RealtimeProvider", cls.from_context(server))
 
     @abc.abstractmethod
@@ -749,7 +757,7 @@ class RealtimeProvider(Provider):
     ### INITIALIZER ###
 
     def __init__(self, server, latency=0.1):
-        if not isinstance(server, Server):
+        if not isinstance(server, BaseServer):
             raise ValueError(f"Expected Server, got {server}")
         Provider.__init__(self, latency=latency)
         self._server = server

@@ -10,6 +10,7 @@ import supriya.exceptions
 from supriya import scsynth
 from supriya.commands import (  # type: ignore
     FailResponse,
+    GroupNewRequest,
     GroupQueryTreeRequest,
     NotifyRequest,
     QuitRequest,
@@ -59,14 +60,26 @@ class BaseServer:
         self._control_bus_allocator = None
         self._node_id_allocator = None
         self._sync_id = 0
+        # proxy mappings
+        self._synthdefs = {}
 
     ### PRIVATE METHODS ###
+
+    def _handle_failed_response(message):
+        logger.warning("Fail: {}".format(message))
 
     def _handle_status_reply_response(self, message):
         from supriya.commands import Response
 
         response = Response.from_osc_message(message)
         self._status = response
+
+    def _handle_synthdef_removed_response(self, message):
+        from supriya.commands import Response
+
+        response = Response.from_osc_message(message)
+        synthdef_name = response.synthdef_name
+        self._synthdefs.pop(synthdef_name, None)
 
     def _setup_allocators(self):
         self._audio_bus_allocator = BlockAllocator(
@@ -81,6 +94,17 @@ class BaseServer:
             initial_node_id=self._options.initial_node_id, client_id=self.client_id
         )
         self._sync_id = self.client_id << 26
+
+    def _setup_osc_callbacks(self):
+        self._osc_protocol.register(
+            pattern="/d_removed", procedure=self._handle_synthdef_removed_response,
+        )
+        self._osc_protocol.register(
+            pattern="/status.reply", procedure=self._handle_status_reply_response,
+        )
+        self._osc_protocol.register(
+            pattern="/fail", procedure=self._handle_failed_response,
+        )
 
     def _teardown_allocators(self):
         self._audio_bus_allocator = None
@@ -185,12 +209,25 @@ class BaseServer:
 
 class AsyncServer(BaseServer):
 
+    ### CLASS VARIABLES ###
+
     _servers: Set["AsyncServer"] = set()
+
+    ### INTIALIZER ###
 
     def __init__(self):
         BaseServer.__init__(self)
         self._boot_future = None
         self._quit_future = None
+
+    ### SPECIAL METHODS ###
+
+    def __contains__(self, expr):
+        if isinstance(expr, supriya.synthdefs.SynthDef):
+            name = expr.actual_name
+            if name in self._synthdefs and self._synthdefs[name] == expr:
+                return True
+        return False
 
     ### PRIVATE METHODS ###
 
@@ -213,6 +250,7 @@ class AsyncServer(BaseServer):
         await self._setup_notifications()
         self._setup_allocators()
         if self.client_id == 0:
+            await self._setup_default_groups()
             await self._setup_system_synthdefs()
         self.boot_future.set_result(True)
         self._servers.add(self)
@@ -231,6 +269,14 @@ class AsyncServer(BaseServer):
         if not self.boot_future.done():
             self.boot_future.set_result(False)
 
+    async def _setup_default_groups(self):
+        request = GroupNewRequest(
+            items=[
+                GroupNewRequest.Item(1, i, 0) for i in range(1, self.maximum_logins + 1)
+            ],
+        )
+        self.send(request.to_osc())
+
     async def _setup_notifications(self):
         request = NotifyRequest(True)
         response = await request.communicate_async(server=self)
@@ -238,11 +284,6 @@ class AsyncServer(BaseServer):
             await self._shutdown()
             raise supriya.exceptions.TooManyClients
         self._client_id, self._maximum_logins = response.action[1], response.action[2]
-
-    def _setup_osc_callbacks(self):
-        self._osc_protocol.register(
-            pattern="/status.reply", procedure=self._handle_status_reply_response,
-        )
 
     async def _setup_system_synthdefs(self):
         ...
@@ -262,6 +303,7 @@ class AsyncServer(BaseServer):
     ):
         if self._is_running:
             raise supriya.exceptions.ServerOnline
+        port = port or DEFAULT_PORT
         loop = asyncio.get_running_loop()
         self._boot_future = loop.create_future()
         self._quit_future = loop.create_future()
@@ -324,6 +366,10 @@ class AsyncServer(BaseServer):
         return self._boot_future
 
     @property
+    def default_group(self):
+        return self.client_id + 1
+
+    @property
     def quit_future(self):
         return self._quit_future
 
@@ -374,7 +420,6 @@ class Server(BaseServer):
         self._control_buses = {}
         self._nodes = {}
         self._pending_synths = {}
-        self._synthdefs = {}
 
     ### SPECIAL METHODS ###
 
@@ -725,6 +770,7 @@ class Server(BaseServer):
         self._nodes[0] = self._root_node
 
     def _setup_osc_callbacks(self):
+        super()._setup_osc_callbacks()
         self._osc_protocol.register(
             pattern="/b_info", procedure=self._handle_buffer_info_response,
         )
@@ -747,17 +793,6 @@ class Server(BaseServer):
             self._osc_protocol.register(
                 pattern=pattern, procedure=self._handle_node_info_response,
             )
-        self._osc_protocol.register(
-            pattern="/d_removed", procedure=self._handle_synthdef_removed_response,
-        )
-        self._osc_protocol.register(
-            pattern="/status.reply", procedure=self._handle_status_reply_response,
-        )
-
-        def failed(message):
-            logger.warning("Fail: {}".format(message))
-
-        self._osc_protocol.register(pattern="/fail", procedure=failed)
 
     def _setup_system_synthdefs(self, local_only=False):
         import supriya.assets.synthdefs
@@ -814,6 +849,7 @@ class Server(BaseServer):
     def boot(self, port=DEFAULT_PORT, *, scsynth_path=None, options=None, **kwargs):
         if self.is_running:
             raise supriya.exceptions.ServerOnline
+        port = port or DEFAULT_PORT
         self._options = new(options or Options(), **kwargs)
         scsynth_path = scsynth.find(scsynth_path)
         self._process_protocol = SyncProcessProtocol()
