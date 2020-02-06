@@ -1,4 +1,4 @@
-from supriya.ugens.MultiOutUGen import MultiOutUGen
+from supriya.synthdefs import MultiOutUGen
 
 
 class PureMultiOutUGen(MultiOutUGen):

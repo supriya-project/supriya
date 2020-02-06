@@ -150,7 +150,7 @@ class SynthDefGrapher:
         output_group = uqbar.graphs.RecordGroup(name="outputs")
         for i, output in enumerate(ugen.outputs):
             label = str(i)
-            if isinstance(ugen, supriya.ugens.Control):
+            if isinstance(ugen, supriya.synthdefs.Control):
                 parameter_index = ugen.special_index + i
                 parameter = dict(synthdef.indexed_parameters)[parameter_index]
                 parameter_name = parameter.name
@@ -171,10 +171,10 @@ class SynthDefGrapher:
         calculation_rate = ugen.calculation_rate.name.lower()
         label_template = r"{name}\n({calculation_rate})"
         operator = None
-        if isinstance(ugen, supriya.ugens.BinaryOpUGen):
+        if isinstance(ugen, supriya.synthdefs.BinaryOpUGen):
             operator = BinaryOperator(ugen.special_index).name
             label_template = r"{name}\n[{operator}]\n({calculation_rate})"
-        elif isinstance(ugen, supriya.ugens.UnaryOpUGen):
+        elif isinstance(ugen, supriya.synthdefs.UnaryOpUGen):
             operator = UnaryOperator(ugen.special_index).name
             label_template = r"{name}\n[{operator}]\n({calculation_rate})"
         title_field = uqbar.graphs.RecordField(

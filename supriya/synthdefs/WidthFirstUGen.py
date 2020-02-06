@@ -1,6 +1,6 @@
 import abc
 
-from supriya.ugens.UGen import UGen
+from .UGen import UGen
 
 
 class WidthFirstUGen(UGen):

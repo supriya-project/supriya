@@ -26,7 +26,7 @@ class UGenSortBundle(SupriyaObject):
         for input_ in self.ugen.inputs:
             if isinstance(input_, supriya.synthdefs.OutputProxy):
                 input_ = input_.source
-            elif not isinstance(input_, supriya.ugens.UGen):
+            elif not isinstance(input_, supriya.synthdefs.UGen):
                 continue
             input_sort_bundle = sort_bundles[input_]
             if input_ not in self.antecedents:

@@ -141,7 +141,7 @@ class CalculationRate(IntEnumeration):
 
         if isinstance(expr, (int, float)) and not isinstance(expr, cls):
             return CalculationRate.SCALAR
-        elif isinstance(expr, (supriya.synthdefs.OutputProxy, supriya.ugens.UGen)):
+        elif isinstance(expr, (supriya.synthdefs.OutputProxy, supriya.synthdefs.UGen)):
             return expr.calculation_rate
         elif isinstance(expr, supriya.synthdefs.Parameter):
             name = expr.parameter_rate.name

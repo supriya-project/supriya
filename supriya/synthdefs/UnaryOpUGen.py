@@ -1,7 +1,7 @@
 import collections
 
 from supriya import UnaryOperator
-from supriya.ugens.PureUGen import PureUGen
+from supriya.synthdefs import PureUGen
 
 
 class UnaryOpUGen(PureUGen):

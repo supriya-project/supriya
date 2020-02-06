@@ -4,6 +4,9 @@ import struct
 from supriya import CalculationRate, ParameterRate, utils
 from supriya.system.SupriyaObject import SupriyaObject
 
+from .MultiOutUGen import MultiOutUGen
+from .UGen import UGen
+
 
 class SynthDefDecompiler(SupriyaObject):
     """
@@ -175,9 +178,11 @@ class SynthDefDecompiler(SupriyaObject):
                     inputs.append(output_proxy)
             for _ in range(output_count):
                 output_rate, index = sdd._decode_int_8bit(value, index)
-            ugen_class = getattr(supriya.ugens, ugen_name)
-            ugen = supriya.ugens.UGen.__new__(ugen_class)
-            if issubclass(ugen_class, supriya.ugens.Control):
+            ugen_class = getattr(supriya.ugens, ugen_name, None)
+            if ugen_class is None:
+                ugen_class = getattr(supriya.synthdefs, ugen_name)
+            ugen = supriya.synthdefs.UGen.__new__(ugen_class)
+            if issubclass(ugen_class, supriya.synthdefs.Control):
                 starting_control_index = special_index
                 parameters = sdd._collect_parameters_for_control(
                     calculation_rate,
@@ -204,8 +209,8 @@ class SynthDefDecompiler(SupriyaObject):
                             kwargs[input_name] = inputs[i]
                         else:
                             kwargs[input_name] = tuple(inputs[i:])
-                if issubclass(ugen_class, supriya.ugens.MultiOutUGen):
-                    supriya.ugens.MultiOutUGen.__init__(
+                if issubclass(ugen_class, MultiOutUGen):
+                    MultiOutUGen.__init__(
                         ugen,
                         calculation_rate=calculation_rate,
                         channel_count=output_count,
@@ -213,7 +218,7 @@ class SynthDefDecompiler(SupriyaObject):
                         **kwargs,
                     )
                 else:
-                    supriya.ugens.UGen.__init__(
+                    UGen.__init__(
                         ugen,
                         calculation_rate=calculation_rate,
                         special_index=special_index,
@@ -272,7 +277,7 @@ class SynthDefDecompiler(SupriyaObject):
         import supriya.ugens
 
         parameter_rate = ParameterRate.CONTROL
-        if issubclass(ugen_class, supriya.ugens.TrigControl):
+        if issubclass(ugen_class, supriya.synthdefs.TrigControl):
             parameter_rate = ParameterRate.TRIGGER
         elif calculation_rate == CalculationRate.SCALAR:
             parameter_rate = ParameterRate.SCALAR

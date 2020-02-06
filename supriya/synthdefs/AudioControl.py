@@ -1,5 +1,5 @@
 from supriya import CalculationRate
-from supriya.ugens.Control import Control
+from .Control import Control
 
 
 class AudioControl(Control):

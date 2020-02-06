@@ -1,5 +1,5 @@
 from supriya.enums import CalculationRate
-from supriya.ugens.UGen import UGen
+from supriya.synthdefs import UGen
 
 
 class DUGen(UGen):

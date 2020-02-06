@@ -1862,7 +1862,7 @@ class UGenMethodMixin(SupriyaObject):
                 ugen = ugen.source
             recurse(builder._uuid, ugen, all_ugens)
         for ugen in all_ugens:
-            if isinstance(ugen, supriya.ugens.UGen):
+            if isinstance(ugen, supriya.synthdefs.UGen):
                 builder._add_ugens(ugen)
             else:
                 builder._add_parameter(ugen)
@@ -1881,11 +1881,11 @@ class UGenMethodMixin(SupriyaObject):
         dictionary = {"left": left, "right": right}
         operator = BinaryOperator.from_expr(operator)
         special_index = operator.value
-        for expanded_dict in supriya.ugens.UGen._expand_dictionary(dictionary):
+        for expanded_dict in supriya.synthdefs.UGen._expand_dictionary(dictionary):
             left = expanded_dict["left"]
             right = expanded_dict["right"]
             calculation_rate = UGenMethodMixin._compute_binary_rate(left, right)
-            ugen = supriya.ugens.BinaryOpUGen._new_single(
+            ugen = supriya.synthdefs.BinaryOpUGen._new_single(
                 calculation_rate=calculation_rate,
                 left=left,
                 right=right,
@@ -1930,7 +1930,7 @@ class UGenMethodMixin(SupriyaObject):
         else:
             sources = self
         for source in sources:
-            method = supriya.ugens.UGen._get_method_for_rate(map_ugen, source)
+            method = supriya.synthdefs.UGen._get_method_for_rate(map_ugen, source)
             ugen = method(source=source, **kwargs)
             ugens.extend(ugen)
         if 1 < len(ugens):
@@ -1951,7 +1951,7 @@ class UGenMethodMixin(SupriyaObject):
         special_index = operator.value
         for single_source in source:
             calculation_rate = supriya.CalculationRate.from_expr(single_source)
-            ugen = supriya.ugens.UnaryOpUGen._new_single(
+            ugen = supriya.synthdefs.UnaryOpUGen._new_single(
                 calculation_rate=calculation_rate,
                 source=single_source,
                 special_index=special_index,

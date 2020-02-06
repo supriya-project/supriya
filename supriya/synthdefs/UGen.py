@@ -6,7 +6,7 @@ from typing import Optional, Tuple
 from supriya import SignalRange
 from supriya.synthdefs.UGenMethodMixin import UGenMethodMixin
 from supriya.typing import UGenInputMap
-from supriya.ugens.UGenMeta import UGenMeta
+from .UGenMeta import UGenMeta
 
 
 class UGen(UGenMethodMixin, metaclass=UGenMeta):
@@ -253,7 +253,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
         ::
 
             >>> dictionary = {'foo': 0, 'bar': (1, 2), 'baz': (3, 4, 5)}
-            >>> result = supriya.ugens.UGen._expand_dictionary(
+            >>> result = supriya.synthdefs.UGen._expand_dictionary(
             ...     dictionary)
             >>> for x in result:
             ...     sorted(x.items())
@@ -265,7 +265,7 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
         ::
 
             >>> dictionary = {'bus': (8, 9), 'source': (1, 2, 3)}
-            >>> result = supriya.ugens.UGen._expand_dictionary(
+            >>> result = supriya.synthdefs.UGen._expand_dictionary(
             ...     dictionary,
             ...     unexpanded_input_names=('source',),
             ...     )
@@ -377,7 +377,8 @@ class UGen(UGenMethodMixin, metaclass=UGenMeta):
         return ugen
 
     def _optimize_graph(self, sort_bundles):
-        pass
+        if self._is_pure:
+            self._perform_dead_code_elimination(sort_bundles)
 
     def _perform_dead_code_elimination(self, sort_bundles):
         sort_bundle = sort_bundles.get(self, None)

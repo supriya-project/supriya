@@ -81,7 +81,7 @@ class SynthDef:
         compiler = supriya.synthdefs.SynthDefCompiler
         self._name = name
         ugens = list(copy.deepcopy(ugens))
-        assert all(isinstance(_, supriya.ugens.UGen) for _ in ugens)
+        assert all(isinstance(_, supriya.synthdefs.UGen) for _ in ugens)
         ugens = self._cleanup_pv_chains(ugens)
         ugens = self._cleanup_local_bufs(ugens)
         if optimize:
@@ -212,10 +212,10 @@ class SynthDef:
                 grouped_ugens.setdefault(key, []).append(ugen)
             for ugen in self._ugens:
                 parts = [type(ugen).__name__]
-                if isinstance(ugen, supriya.ugens.BinaryOpUGen):
+                if isinstance(ugen, supriya.synthdefs.BinaryOpUGen):
                     ugen_op = BinaryOperator.from_expr(ugen.special_index)
                     parts.append("(" + ugen_op.name + ")")
-                elif isinstance(ugen, supriya.ugens.UnaryOpUGen):
+                elif isinstance(ugen, supriya.synthdefs.UnaryOpUGen):
                     ugen_op = UnaryOperator.from_expr(ugen.special_index)
                     parts.append("(" + ugen_op.name + ")")
                 parts.append("." + ugen.calculation_rate.token)
@@ -229,7 +229,7 @@ class SynthDef:
         def get_parameter_name(input_, output_index=0):
             if isinstance(input_, supriya.synthdefs.Parameter):
                 return ":{}".format(input_.name)
-            elif isinstance(input_, supriya.ugens.Control):
+            elif isinstance(input_, supriya.synthdefs.Control):
                 # Handle array-like parameters
                 value_index = 0
                 for parameter in input_.parameters:
@@ -363,7 +363,7 @@ class SynthDef:
         indexed_parameters = []
         starting_control_index = 0
         if scalar_parameters:
-            control = supriya.ugens.Control(
+            control = supriya.synthdefs.Control(
                 parameters=scalar_parameters,
                 calculation_rate=supriya.CalculationRate.SCALAR,
                 starting_control_index=starting_control_index,
@@ -375,7 +375,7 @@ class SynthDef:
             for i, output_proxy in enumerate(control._get_parameter_output_proxies()):
                 control_mapping[output_proxy] = control[i]
         if trigger_parameters:
-            control = supriya.ugens.TrigControl(
+            control = supriya.synthdefs.TrigControl(
                 parameters=trigger_parameters,
                 starting_control_index=starting_control_index,
             )
@@ -386,7 +386,7 @@ class SynthDef:
             for i, output_proxy in enumerate(control._get_parameter_output_proxies()):
                 control_mapping[output_proxy] = control[i]
         if audio_parameters:
-            control = supriya.ugens.AudioControl(
+            control = supriya.synthdefs.AudioControl(
                 parameters=audio_parameters,
                 starting_control_index=starting_control_index,
             )
@@ -398,13 +398,13 @@ class SynthDef:
                 control_mapping[output_proxy] = control[i]
         if control_parameters:
             if any(_.lag for _ in control_parameters):
-                control = supriya.ugens.LagControl(
+                control = supriya.synthdefs.LagControl(
                     parameters=control_parameters,
                     calculation_rate=supriya.CalculationRate.CONTROL,
                     starting_control_index=starting_control_index,
                 )
             else:
-                control = supriya.ugens.Control(
+                control = supriya.synthdefs.Control(
                     parameters=control_parameters,
                     calculation_rate=supriya.CalculationRate.CONTROL,
                     starting_control_index=starting_control_index,
@@ -502,7 +502,7 @@ class SynthDef:
     def _collect_control_ugens(ugens):
         import supriya.ugens
 
-        control_ugens = tuple(_ for _ in ugens if isinstance(_, supriya.ugens.Control))
+        control_ugens = tuple(_ for _ in ugens if isinstance(_, supriya.synthdefs.Control))
         return control_ugens
 
     @staticmethod
@@ -545,7 +545,7 @@ class SynthDef:
             sort_bundles[ugen] = supriya.synthdefs.UGenSortBundle(
                 ugen, width_first_antecedents
             )
-            if isinstance(ugen, supriya.ugens.WidthFirstUGen):
+            if isinstance(ugen, supriya.synthdefs.WidthFirstUGen):
                 width_first_antecedents.append(ugen)
         for ugen in ugens:
             sort_bundle = sort_bundles[ugen]

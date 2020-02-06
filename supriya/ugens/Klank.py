@@ -1,7 +1,7 @@
 import collections
 
 from supriya import CalculationRate, utils
-from supriya.ugens.UGen import UGen
+from supriya.synthdefs import UGen
 
 
 class Klank(UGen):

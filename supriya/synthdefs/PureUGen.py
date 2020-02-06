@@ -1,4 +1,4 @@
-from supriya.ugens.UGen import UGen
+from .UGen import UGen
 
 
 class PureUGen(UGen):

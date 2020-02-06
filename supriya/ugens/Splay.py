@@ -5,7 +5,7 @@ from supriya import CalculationRate
 from supriya.ugens.Mix import Mix
 from supriya.ugens.Pan2 import Pan2
 from supriya.ugens.PseudoUGen import PseudoUGen
-from supriya.ugens.UGen import UGen
+from supriya.synthdefs import UGen
 
 
 class Splay(PseudoUGen):

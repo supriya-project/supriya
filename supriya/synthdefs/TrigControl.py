@@ -1,4 +1,4 @@
-from supriya.ugens.Control import Control
+from .Control import Control
 
 
 class TrigControl(Control):

@@ -1,6 +1,5 @@
 import collections
-from supriya.enums import CalculationRate
-from supriya.ugens.WidthFirstUGen import WidthFirstUGen
+from supriya.synthdefs import WidthFirstUGen
 
 
 class SetBuf(WidthFirstUGen):

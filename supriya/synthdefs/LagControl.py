@@ -1,7 +1,7 @@
 import collections
 
-from supriya.ugens.Control import Control
-from supriya.ugens.MultiOutUGen import MultiOutUGen
+from .Control import Control
+from .MultiOutUGen import MultiOutUGen
 
 
 class LagControl(Control):

@@ -1,6 +1,6 @@
 import collections
 from supriya.enums import CalculationRate
-from supriya.ugens.PureUGen import PureUGen
+from supriya.synthdefs import PureUGen
 
 
 class Osc(PureUGen):

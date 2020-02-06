@@ -1,6 +1,6 @@
 import abc
 
-from supriya.ugens.UGen import UGen
+from .UGen import UGen
 
 
 class MultiOutUGen(UGen):
@@ -43,7 +43,7 @@ class MultiOutUGen(UGen):
             special_index=special_index, **kwargs
         )
         output_proxies = []
-        if isinstance(ugen, supriya.ugens.UGen):
+        if isinstance(ugen, UGen):
             output_proxies.extend(ugen[:])
         else:
             for x in ugen:

@@ -2,7 +2,7 @@ import collections
 
 from supriya import CalculationRate
 from supriya.typing import UGenInputMap
-from supriya.ugens.UGen import UGen
+from supriya.synthdefs import UGen
 
 
 class WhiteNoise(UGen):

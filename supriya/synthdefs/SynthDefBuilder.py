@@ -87,9 +87,9 @@ class SynthDefBuilder(SupriyaObject):
         if not isinstance(ugens, collections.Sequence):
             ugens = [ugens]
         prototype = (
-            supriya.ugens.UGen,
             supriya.synthdefs.OutputProxy,
             supriya.synthdefs.Parameter,
+            supriya.synthdefs.UGen,
         )
         for ugen in ugens:
             assert isinstance(ugen, prototype), type(ugen)
@@ -148,7 +148,7 @@ class SynthDefBuilder(SupriyaObject):
         # the first place.
 
         self._ugens[:] = [
-            ugen for ugen in self._ugens if not isinstance(ugen, supriya.ugens.Control)
+            ugen for ugen in self._ugens if not isinstance(ugen, supriya.synthdefs.Control)
         ]
         name = self.name or name
         with self:

@@ -1,7 +1,7 @@
 import collections
 
 from supriya import CalculationRate
-from supriya.ugens.PureUGen import PureUGen
+from supriya.synthdefs import PureUGen
 
 
 class VOsc3(PureUGen):
