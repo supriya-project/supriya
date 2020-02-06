@@ -10,7 +10,8 @@ import yaml
 from supriya import BinaryOperator, CalculationRate, ParameterRate, UnaryOperator
 from supriya.system.SupriyaObject import SupriyaObject
 
-from .bases import UGen, WidthFirstUGen
+from .bases import UGen, WidthFirstUGen, BinaryOpUGen, UnaryOpUGen
+from .compilers import SynthDefCompiler
 from .controls import AudioControl, Control, LagControl, Parameter, TrigControl
 from .grapher import SynthDefGrapher
 from .mixins import OutputProxy, UGenMethodMixin
@@ -81,10 +82,6 @@ class SynthDef:
     ### INITIALIZER ###
 
     def __init__(self, ugens, name=None, optimize=True, parameter_names=None, **kwargs):
-        import supriya.synthdefs
-        import supriya.ugens
-
-        compiler = supriya.synthdefs.SynthDefCompiler
         self._name = name
         ugens = list(copy.deepcopy(ugens))
         assert all(isinstance(_, UGen) for _ in ugens)
@@ -99,7 +96,7 @@ class SynthDef:
         self._indexed_parameters = self._collect_indexed_parameters(
             self._control_ugens, parameter_names=parameter_names
         )
-        self._compiled_ugen_graph = compiler.compile_ugen_graph(self)
+        self._compiled_ugen_graph = SynthDefCompiler.compile_ugen_graph(self)
 
     ### SPECIAL METHODS ###
 
@@ -216,10 +213,10 @@ class SynthDef:
                 grouped_ugens.setdefault(key, []).append(ugen)
             for ugen in self._ugens:
                 parts = [type(ugen).__name__]
-                if isinstance(ugen, supriya.synthdefs.BinaryOpUGen):
+                if isinstance(ugen, BinaryOpUGen):
                     ugen_op = BinaryOperator.from_expr(ugen.special_index)
                     parts.append("(" + ugen_op.name + ")")
-                elif isinstance(ugen, supriya.synthdefs.UnaryOpUGen):
+                elif isinstance(ugen, UnaryOpUGen):
                     ugen_op = UnaryOperator.from_expr(ugen.special_index)
                     parts.append("(" + ugen_op.name + ")")
                 parts.append("." + ugen.calculation_rate.token)
@@ -249,9 +246,6 @@ class SynthDef:
                         else:
                             return ":{}[{}]".format(parameter.name, i)
             return ""
-
-        import supriya.synthdefs
-        import supriya.ugens
 
         ugens = []
         named_ugens = get_ugen_names()

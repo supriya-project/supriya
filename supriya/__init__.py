@@ -60,12 +60,12 @@ from supriya.realtime.buses import Bus, BusGroup  # noqa
 from supriya.realtime.nodes import Group, Synth  # noqa
 from supriya.nonrealtime import Session  # noqa
 from supriya.soundfiles import Say, SoundFile  # noqa
-from supriya.synthdefs.Envelope import Envelope  # noqa
 from supriya.synthdefs import Parameter  # noqa
-from supriya.synthdefs.Range import Range  # noqa
 from supriya.synthdefs import SynthDef  # noqa
-from supriya.synthdefs.SynthDefBuilder import SynthDefBuilder  # noqa
-from supriya.synthdefs.SynthDefFactory import SynthDefFactory  # noqa
+from supriya.synthdefs import SynthDefBuilder  # noqa
+from supriya.synthdefs import SynthDefFactory  # noqa
+from supriya.synthdefs.Envelope import Envelope  # noqa
+from supriya.synthdefs.Range import Range  # noqa
 from supriya.system import Assets  # noqa
 from supriya.clock import TempoClock  # noqa
 from supriya.io import graph, play, render  # noqa
