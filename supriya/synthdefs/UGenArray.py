@@ -1,6 +1,6 @@
 import collections
 
-from supriya.synthdefs.UGenMethodMixin import UGenMethodMixin
+from .mixins import UGenMethodMixin
 
 
 class UGenArray(UGenMethodMixin, collections.Sequence):

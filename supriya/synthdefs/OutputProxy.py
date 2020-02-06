@@ -1,5 +1,5 @@
-from .UGenMethodMixin import UGenMethodMixin
-from .UGen import UGen
+from .mixins import UGenMethodMixin
+from .bases import UGen
 from .Parameter import Parameter
 
 

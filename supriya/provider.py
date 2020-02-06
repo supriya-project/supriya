@@ -41,7 +41,7 @@ from supriya.commands.SynthNewRequest import SynthNewRequest
 from supriya.enums import AddAction, CalculationRate, ParameterRate
 from supriya.nonrealtime import Session
 from supriya.realtime import AsyncServer, BaseServer, Server
-from supriya.synthdefs.SynthDef import SynthDef
+from supriya.synthdefs import SynthDef
 
 # TODO: Implement BusProxy, integrate with BusGroupProxy
 

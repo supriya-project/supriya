@@ -2,7 +2,7 @@ import collections
 
 from supriya import CalculationRate
 from supriya.typing import UGenInputMap
-from .MultiOutUGen import MultiOutUGen
+from .bases import MultiOutUGen
 
 
 class Control(MultiOutUGen):

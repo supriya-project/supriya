@@ -1,8 +1,9 @@
 import collections
 
 from supriya import ParameterRate, SignalRange
-from supriya.synthdefs.UGenMethodMixin import UGenMethodMixin
 from supriya.system.SupriyaValueObject import SupriyaValueObject
+
+from .mixins import UGenMethodMixin
 
 
 class Parameter(UGenMethodMixin, SupriyaValueObject):

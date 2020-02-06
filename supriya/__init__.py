@@ -63,7 +63,7 @@ from supriya.soundfiles import Say, SoundFile  # noqa
 from supriya.synthdefs.Envelope import Envelope  # noqa
 from supriya.synthdefs.Parameter import Parameter  # noqa
 from supriya.synthdefs.Range import Range  # noqa
-from supriya.synthdefs.SynthDef import SynthDef  # noqa
+from supriya.synthdefs import SynthDef  # noqa
 from supriya.synthdefs.SynthDefBuilder import SynthDefBuilder  # noqa
 from supriya.synthdefs.SynthDefFactory import SynthDefFactory  # noqa
 from supriya.system import Assets  # noqa

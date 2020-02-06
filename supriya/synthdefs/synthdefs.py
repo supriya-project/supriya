@@ -8,6 +8,7 @@ import tempfile
 import yaml
 
 from supriya import BinaryOperator, ParameterRate, UnaryOperator
+from supriya.system.SupriyaObject import SupriyaObject
 
 
 class SynthDef:
@@ -542,7 +543,7 @@ class SynthDef:
         sort_bundles = collections.OrderedDict()
         width_first_antecedents = []
         for ugen in ugens:
-            sort_bundles[ugen] = supriya.synthdefs.UGenSortBundle(
+            sort_bundles[ugen] = UGenSortBundle(
                 ugen, width_first_antecedents
             )
             if isinstance(ugen, supriya.synthdefs.WidthFirstUGen):
@@ -971,3 +972,60 @@ class SynthDef:
     @property
     def ugens(self):
         return self._ugens
+
+
+class UGenSortBundle(SupriyaObject):
+
+    ### CLASS VARIABLES ###
+
+    __documentation_section__ = "SynthDef Internals"
+
+    ### INITIALIZER ###
+
+    def __init__(self, ugen, width_first_antecedents):
+        self.antecedents = []
+        self.descendants = []
+        self.ugen = ugen
+        self.width_first_antecedents = tuple(width_first_antecedents)
+
+    ### PRIVATE METHODS ###
+
+    def _initialize_topological_sort(self, sort_bundles):
+        import supriya.synthdefs
+        import supriya.ugens
+
+        for input_ in self.ugen.inputs:
+            if isinstance(input_, supriya.synthdefs.OutputProxy):
+                input_ = input_.source
+            elif not isinstance(input_, supriya.synthdefs.UGen):
+                continue
+            input_sort_bundle = sort_bundles[input_]
+            if input_ not in self.antecedents:
+                self.antecedents.append(input_)
+            if self.ugen not in input_sort_bundle.descendants:
+                input_sort_bundle.descendants.append(self.ugen)
+        for input_ in self.width_first_antecedents:
+            input_sort_bundle = sort_bundles[input_]
+            if input_ not in self.antecedents:
+                self.antecedents.append(input_)
+            if self.ugen not in input_sort_bundle.descendants:
+                input_sort_bundle.descendants.append(self.ugen)
+
+    def _make_available(self, available_ugens):
+        if not self.antecedents:
+            if self.ugen not in available_ugens:
+                available_ugens.append(self.ugen)
+
+    def _schedule(self, available_ugens, out_stack, sort_bundles):
+        for ugen in reversed(self.descendants):
+            sort_bundle = sort_bundles[ugen]
+            sort_bundle.antecedents.remove(self.ugen)
+            sort_bundle._make_available(available_ugens)
+        out_stack.append(self.ugen)
+
+    ### PUBLIC METHODS ###
+
+    def clear(self):
+        self.antecedents[:] = []
+        self.descendants[:] = []
+        self.width_first_antecedents[:] = []
