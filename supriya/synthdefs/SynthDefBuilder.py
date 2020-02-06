@@ -148,7 +148,9 @@ class SynthDefBuilder(SupriyaObject):
         # the first place.
 
         self._ugens[:] = [
-            ugen for ugen in self._ugens if not isinstance(ugen, supriya.synthdefs.Control)
+            ugen
+            for ugen in self._ugens
+            if not isinstance(ugen, supriya.synthdefs.Control)
         ]
         name = self.name or name
         with self:

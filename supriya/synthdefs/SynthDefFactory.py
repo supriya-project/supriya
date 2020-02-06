@@ -3,7 +3,7 @@ import types
 
 from supriya.system.SupriyaObject import SupriyaObject
 
-from .UGenArray import UGenArray
+from .mixins import UGenArray
 
 
 class SynthDefFactory(SupriyaObject):

@@ -4,7 +4,7 @@ import struct
 from supriya import CalculationRate, ParameterRate, utils
 from supriya.system.SupriyaObject import SupriyaObject
 
-from .bases import UGen, MultiOutUGen
+from .bases import MultiOutUGen, UGen
 
 
 class SynthDefDecompiler(SupriyaObject):

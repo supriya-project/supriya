@@ -7,10 +7,13 @@ import tempfile
 
 import yaml
 
-from supriya import BinaryOperator, ParameterRate, UnaryOperator
+from supriya import BinaryOperator, CalculationRate, ParameterRate, UnaryOperator
 from supriya.system.SupriyaObject import SupriyaObject
 
+from .bases import UGen, WidthFirstUGen
+from .controls import AudioControl, Control, LagControl, Parameter, TrigControl
 from .grapher import SynthDefGrapher
+from .mixins import OutputProxy, UGenMethodMixin
 
 
 class SynthDef:
@@ -84,7 +87,7 @@ class SynthDef:
         compiler = supriya.synthdefs.SynthDefCompiler
         self._name = name
         ugens = list(copy.deepcopy(ugens))
-        assert all(isinstance(_, supriya.synthdefs.UGen) for _ in ugens)
+        assert all(isinstance(_, UGen) for _ in ugens)
         ugens = self._cleanup_pv_chains(ugens)
         ugens = self._cleanup_local_bufs(ugens)
         if optimize:
@@ -228,9 +231,9 @@ class SynthDef:
             return named_ugens
 
         def get_parameter_name(input_, output_index=0):
-            if isinstance(input_, supriya.synthdefs.Parameter):
+            if isinstance(input_, Parameter):
                 return ":{}".format(input_.name)
-            elif isinstance(input_, supriya.synthdefs.Control):
+            elif isinstance(input_, Control):
                 # Handle array-like parameters
                 value_index = 0
                 for parameter in input_.parameters:
@@ -272,7 +275,7 @@ class SynthDef:
                     value = input_
                 else:
                     output_index = 0
-                    if isinstance(input_, supriya.synthdefs.OutputProxy):
+                    if isinstance(input_, OutputProxy):
                         output_index = input_.output_index
                         input_ = input_.source
                     input_name = named_ugens[input_]
@@ -342,9 +345,6 @@ class SynthDef:
 
     @staticmethod
     def _build_control_mapping(parameters):
-        import supriya.synthdefs
-        import supriya.ugens
-
         control_mapping = collections.OrderedDict()
         scalar_parameters = []
         trigger_parameters = []
@@ -364,9 +364,9 @@ class SynthDef:
         indexed_parameters = []
         starting_control_index = 0
         if scalar_parameters:
-            control = supriya.synthdefs.Control(
+            control = Control(
                 parameters=scalar_parameters,
-                calculation_rate=supriya.CalculationRate.SCALAR,
+                calculation_rate=CalculationRate.SCALAR,
                 starting_control_index=starting_control_index,
             )
             control_ugens.append(control)
@@ -376,7 +376,7 @@ class SynthDef:
             for i, output_proxy in enumerate(control._get_parameter_output_proxies()):
                 control_mapping[output_proxy] = control[i]
         if trigger_parameters:
-            control = supriya.synthdefs.TrigControl(
+            control = TrigControl(
                 parameters=trigger_parameters,
                 starting_control_index=starting_control_index,
             )
@@ -387,7 +387,7 @@ class SynthDef:
             for i, output_proxy in enumerate(control._get_parameter_output_proxies()):
                 control_mapping[output_proxy] = control[i]
         if audio_parameters:
-            control = supriya.synthdefs.AudioControl(
+            control = AudioControl(
                 parameters=audio_parameters,
                 starting_control_index=starting_control_index,
             )
@@ -399,15 +399,15 @@ class SynthDef:
                 control_mapping[output_proxy] = control[i]
         if control_parameters:
             if any(_.lag for _ in control_parameters):
-                control = supriya.synthdefs.LagControl(
+                control = LagControl(
                     parameters=control_parameters,
-                    calculation_rate=supriya.CalculationRate.CONTROL,
+                    calculation_rate=CalculationRate.CONTROL,
                     starting_control_index=starting_control_index,
                 )
             else:
-                control = supriya.synthdefs.Control(
+                control = Control(
                     parameters=control_parameters,
-                    calculation_rate=supriya.CalculationRate.CONTROL,
+                    calculation_rate=CalculationRate.CONTROL,
                     starting_control_index=starting_control_index,
                 )
             control_ugens.append(control)
@@ -423,7 +423,6 @@ class SynthDef:
 
     @staticmethod
     def _build_input_mapping(ugens):
-        import supriya.synthdefs
         import supriya.ugens
 
         input_mapping = {}
@@ -433,7 +432,7 @@ class SynthDef:
             if isinstance(ugen, supriya.ugens.PV_Copy):
                 continue
             for i, input_ in enumerate(ugen.inputs):
-                if not isinstance(input_, supriya.synthdefs.OutputProxy):
+                if not isinstance(input_, OutputProxy):
                     continue
                 source = input_.source
                 if not isinstance(source, supriya.ugens.PV_ChainUGen):
@@ -482,7 +481,7 @@ class SynthDef:
                 descendant._inputs = tuple(inputs)
                 index = ugens.index(descendant)
                 replacement = []
-                if isinstance(fft_size, supriya.synthdefs.UGenMethodMixin):
+                if isinstance(fft_size, UGenMethodMixin):
                     replacement.append(fft_size)
                 replacement.extend([new_buffer, pv_copy])
                 ugens[index:index] = replacement
@@ -501,9 +500,9 @@ class SynthDef:
 
     @staticmethod
     def _collect_control_ugens(ugens):
-        import supriya.ugens
-
-        control_ugens = tuple(_ for _ in ugens if isinstance(_, supriya.synthdefs.Control))
+        control_ugens = tuple(
+            _ for _ in ugens if isinstance(_, Control)
+        )
         return control_ugens
 
     @staticmethod
@@ -524,11 +523,9 @@ class SynthDef:
 
     @staticmethod
     def _extract_parameters(ugens):
-        import supriya.synthdefs
-
         parameters = set()
         for ugen in ugens:
-            if isinstance(ugen, supriya.synthdefs.Parameter):
+            if isinstance(ugen, Parameter):
                 parameters.add(ugen)
         ugens = tuple(ugen for ugen in ugens if ugen not in parameters)
         parameters = tuple(sorted(parameters, key=lambda x: x.name))
@@ -536,17 +533,12 @@ class SynthDef:
 
     @staticmethod
     def _initialize_topological_sort(ugens):
-        import supriya.synthdefs
-        import supriya.ugens
-
         ugens = list(ugens)
         sort_bundles = collections.OrderedDict()
         width_first_antecedents = []
         for ugen in ugens:
-            sort_bundles[ugen] = UGenSortBundle(
-                ugen, width_first_antecedents
-            )
-            if isinstance(ugen, supriya.synthdefs.WidthFirstUGen):
+            sort_bundles[ugen] = UGenSortBundle(ugen, width_first_antecedents)
+            if isinstance(ugen, WidthFirstUGen):
                 width_first_antecedents.append(ugen)
         for ugen in ugens:
             sort_bundle = sort_bundles[ugen]
@@ -773,12 +765,10 @@ class SynthDef:
 
         Returns integer.
         """
-        import supriya.synthdefs
-
         ugens = tuple(
             _
             for _ in self.input_ugens
-            if _.calculation_rate == supriya.CalculationRate.AUDIO
+            if _.calculation_rate == CalculationRate.AUDIO
         )
         if len(ugens) == 1:
             return ugens[0].channel_count
@@ -815,12 +805,10 @@ class SynthDef:
 
         Returns integer.
         """
-        import supriya.synthdefs
-
         ugens = tuple(
             _
             for _ in self.output_ugens
-            if _.calculation_rate == supriya.CalculationRate.AUDIO
+            if _.calculation_rate == CalculationRate.AUDIO
         )
         if len(ugens) == 1:
             return len(ugens[0].source)
@@ -869,12 +857,10 @@ class SynthDef:
 
         Returns integer.
         """
-        import supriya.synthdefs
-
         ugens = tuple(
             _
             for _ in self.input_ugens
-            if _.calculation_rate == supriya.CalculationRate.CONTROL
+            if _.calculation_rate == CalculationRate.CONTROL
         )
         if len(ugens) == 1:
             return ugens[0].channel_count
@@ -911,12 +897,10 @@ class SynthDef:
 
         Returns integer.
         """
-        import supriya.synthdefs
-
         ugens = tuple(
             _
             for _ in self.output_ugens
-            if _.calculation_rate == supriya.CalculationRate.CONTROL
+            if _.calculation_rate == CalculationRate.CONTROL
         )
         if len(ugens) == 1:
             return len(ugens[0].source)
@@ -991,13 +975,10 @@ class UGenSortBundle(SupriyaObject):
     ### PRIVATE METHODS ###
 
     def _initialize_topological_sort(self, sort_bundles):
-        import supriya.synthdefs
-        import supriya.ugens
-
         for input_ in self.ugen.inputs:
-            if isinstance(input_, supriya.synthdefs.OutputProxy):
+            if isinstance(input_, OutputProxy):
                 input_ = input_.source
-            elif not isinstance(input_, supriya.synthdefs.UGen):
+            elif not isinstance(input_, UGen):
                 continue
             input_sort_bundle = sort_bundles[input_]
             if input_ not in self.antecedents:
