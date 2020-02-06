@@ -33,7 +33,6 @@ extras_require = {
         "jupyter_nbextensions_configurator",
         "rise",
     ],
-    "midi": ["python-rtmidi"],
     "wave": ["wavefile"],
     "test": [
         "black",
