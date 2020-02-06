@@ -27,6 +27,8 @@ from .servers import AsyncServer, BaseServer, Server
 __all__ = [
     "AudioInputBusGroup",
     "AudioOutputBusGroup",
+    "AsyncServer",
+    "BaseServer",
     "Block",
     "BlockAllocator",
     "Buffer",

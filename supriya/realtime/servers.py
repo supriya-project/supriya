@@ -65,7 +65,7 @@ class BaseServer:
 
     ### PRIVATE METHODS ###
 
-    def _handle_failed_response(message):
+    def _handle_failed_response(self, message):
         logger.warning("Fail: {}".format(message))
 
     def _handle_status_reply_response(self, message):

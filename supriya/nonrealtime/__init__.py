@@ -14,7 +14,6 @@ from .Node import Node  # noqa
 from .NodeTransition import NodeTransition  # noqa
 from .RootNode import RootNode  # noqa
 from .Session import Session  # noqa
-from .SessionFactory import SessionFactory  # noqa
 from .SessionObject import SessionObject  # noqa
 from .SessionRenderer import SessionRenderer  # noqa
 from .State import State  # noqa
@@ -34,7 +33,6 @@ __all__ = [
     "NodeTransition",
     "RootNode",
     "Session",
-    "SessionFactory",
     "SessionObject",
     "SessionRenderer",
     "State",

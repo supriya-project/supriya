@@ -110,7 +110,6 @@ from supriya.realtime.servers import Server  # noqa
 from supriya.realtime.buffers import Buffer, BufferGroup  # noqa
 from supriya.realtime.buses import Bus, BusGroup  # noqa
 from supriya.realtime.nodes import Group, Synth  # noqa
-from supriya.midi import Device  # noqa
 from supriya.nonrealtime import Session  # noqa
 from supriya.soundfiles import Say, SoundFile  # noqa
 from supriya.synthdefs.Envelope import Envelope  # noqa

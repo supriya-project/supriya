@@ -6,7 +6,6 @@ import types
 import pytest
 
 from supriya.nonrealtime import Session
-from supriya.scsynth import Options
 
 
 @pytest.fixture
@@ -32,45 +31,6 @@ def nonrealtime_paths(tmpdir):
     for directory_path in [output_directory_path, render_directory_path]:
         if directory_path.exists():
             shutil.rmtree(directory_path)
-
-
-class TestSessionFactory:
-    def __init__(
-        self,
-        input_bus_channel_count=None,
-        output_bus_channel_count=None,
-        multiplier=1.0,
-    ):
-        options = Options(
-            input_bus_channel_count=input_bus_channel_count,
-            output_bus_channel_count=output_bus_channel_count,
-        )
-        self.input_bus_channel_count = options.input_bus_channel_count
-        self.output_bus_channel_count = options.output_bus_channel_count
-        self.multiplier = multiplier
-
-    def __session__(self):
-        session = Session(
-            input_bus_channel_count=self.input_bus_channel_count,
-            output_bus_channel_count=self.output_bus_channel_count,
-            name="inner-session",
-        )
-        output_bus_channel_count = session.options.output_bus_channel_count
-        synthdef = pytest.helpers.build_dc_synthdef(
-            channel_count=output_bus_channel_count
-        )
-        with session.at(0):
-            synth = session.add_synth(synthdef=synthdef, duration=10, source=0)
-        with session.at(2):
-            synth["source"] = 0.25 * self.multiplier
-        with session.at(4):
-            synth["source"] = 0.5 * self.multiplier
-        with session.at(6):
-            synth["source"] = 0.75 * self.multiplier
-        with session.at(8):
-            synth["source"] = 1.0 * self.multiplier
-        assert synthdef.anonymous_name == "b47278d408f17357f6b260ec30ea213d"
-        return session
 
 
 @pytest.helpers.register
@@ -114,15 +74,3 @@ def make_test_session(
         [10.0, [["/n_free", 1000], [0]]],
     ]
     return session
-
-
-@pytest.helpers.register
-def make_test_session_factory(
-    input_bus_channel_count=None, output_bus_channel_count=None, multiplier=1.0
-):
-    session_factory = TestSessionFactory(
-        input_bus_channel_count=input_bus_channel_count,
-        output_bus_channel_count=output_bus_channel_count,
-        multiplier=multiplier,
-    )
-    return session_factory

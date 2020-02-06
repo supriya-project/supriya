@@ -2,7 +2,7 @@ import pathlib
 
 import pytest
 
-import supriya.cli
+import supriya
 
 pytest_plugins = ["helpers_namespace", "sphinx.testing.fixtures"]
 

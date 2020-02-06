@@ -362,17 +362,6 @@ class Session:
         sample_format=SampleFormat.INT24,
         scsynth_path=None,
     ):
-        """
-        Builds non-realtime rendering command.
-
-        ::
-
-            >>> import supriya.nonrealtime
-            >>> session = supriya.nonrealtime.Session()
-            >>> session._build_render_command('output.aiff')
-            'scsynth -N {} _ output.aiff 44100 aiff int24'
-
-        """
         server_options = server_options or scsynth.Options()
         scsynth_path = scsynth.find(scsynth_path)
         parts = [str(scsynth_path), "-N", "{}"]
@@ -1044,24 +1033,6 @@ class Session:
             offset=offset,
         )
         return buffer_
-
-    @classmethod
-    def from_project_settings(
-        cls, project_settings, input_=None, name=None, padding=None
-    ):
-        import supriya.cli
-
-        assert isinstance(project_settings, supriya.cli.ProjectSettings)
-        server_options = scsynth.Options(**project_settings.get("server_options", {}))
-        input_bus_channel_count = server_options.input_bus_channel_count
-        output_bus_channel_count = server_options.output_bus_channel_count
-        return cls(
-            input_bus_channel_count=input_bus_channel_count,
-            output_bus_channel_count=output_bus_channel_count,
-            input_=input_,
-            name=name,
-            padding=padding,
-        )
 
     def inscribe(self, pattern, duration=None, offset=None, seed=None):
         return self.root_node.inscribe(

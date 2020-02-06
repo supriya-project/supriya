@@ -1,9 +1,9 @@
 import asyncio
-import monome
 import signal
-import supriya
 import sys
 
+import monome
+import supriya
 from supriya import ugens
 
 
@@ -30,10 +30,7 @@ def build_synthdef():
         )
         low_pass = ugens.LPF.ar(
             source=splayed * linen,
-            frequency=linen.range(
-                ugens.Rand.ir(100, 500),
-                ugens.Rand.ir(3000, 6000),
-            ),
+            frequency=linen.range(ugens.Rand.ir(100, 500), ugens.Rand.ir(3000, 6000),),
         )
         return low_pass.tanh() / count * builder["amplitude"]
 
@@ -74,9 +71,7 @@ class App(monome.GridApp):
                     ((x / 2) + 72) - (y / 8),
                 )
                 self.synths[f"{x}-{y}"] = self.provider.add_synth(
-                    frequency=frequency,
-                    level=0.1,
-                    synthdef=synthdef,
+                    frequency=frequency, level=0.1, synthdef=synthdef,
                 )
                 self.grid.led_level_set(x, y, 15)
 
@@ -98,10 +93,7 @@ async def initialize():
 
 async def shutdown(signal, loop):
     print(f"Received exit signal {signal.name}...")
-    tasks = [
-        task for task in asyncio.all_tasks() if task is not
-        asyncio.current_task()
-    ]
+    tasks = [task for task in asyncio.all_tasks() if task is not asyncio.current_task()]
     [task.cancel() for task in tasks]
     print("Cancelling outstanding tasks")
     await asyncio.gather(*tasks, return_exceptions=True)
@@ -112,8 +104,7 @@ def main():
     loop = asyncio.get_event_loop()
     signals = (signal.SIGHUP, signal.SIGTERM, signal.SIGINT)
     for s in signals:
-        loop.add_signal_handler(
-            s, lambda s=s: asyncio.create_task(shutdown(s, loop)))
+        loop.add_signal_handler(s, lambda s=s: asyncio.create_task(shutdown(s, loop)))
     try:
         loop.create_task(initialize())
         loop.run_forever()

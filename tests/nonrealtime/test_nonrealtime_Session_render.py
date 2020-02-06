@@ -1,6 +1,6 @@
+import os
 import pathlib
 import pprint
-from unittest import mock
 
 import pytest
 import uqbar.strings
@@ -78,11 +78,12 @@ def test_00c(nonrealtime_paths):
         0.81: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
         0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
     }
+    executable = os.environ.get("SCSYNTH_PATH", "scsynth")
     assert session.transcript == [
         "Writing session-7b3f85710f19667f73f745b8ac8080a0.osc.",
         "    Wrote session-7b3f85710f19667f73f745b8ac8080a0.osc.",
         "Rendering session-7b3f85710f19667f73f745b8ac8080a0.osc.",
-        "    Command: scsynth -N session-7b3f85710f19667f73f745b8ac8080a0.osc _ session-7b3f85710f19667f73f745b8ac8080a0.aiff 44100 aiff int24",
+        f"    Command: {executable} -N session-7b3f85710f19667f73f745b8ac8080a0.osc _ session-7b3f85710f19667f73f745b8ac8080a0.aiff 44100 aiff int24",
         "    Rendered session-7b3f85710f19667f73f745b8ac8080a0.osc with exit code 0.",
     ]
     assert output_file_path == aiff_path
@@ -857,21 +858,22 @@ def test_08(nonrealtime_paths):
         0.81: [0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75],
         0.99: [0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75],
     }
+    executable = os.environ.get("SCSYNTH_PATH", "scsynth")
     assert session_three.transcript == [
         "Writing session-c6d86f3d482a8bac1f7cc6650017da8e.osc.",
         "    Wrote session-c6d86f3d482a8bac1f7cc6650017da8e.osc.",
         "Rendering session-c6d86f3d482a8bac1f7cc6650017da8e.osc.",
-        "    Command: scsynth -N session-c6d86f3d482a8bac1f7cc6650017da8e.osc _ session-c6d86f3d482a8bac1f7cc6650017da8e.aiff 44100 aiff int24",
+        f"    Command: {executable} -N session-c6d86f3d482a8bac1f7cc6650017da8e.osc _ session-c6d86f3d482a8bac1f7cc6650017da8e.aiff 44100 aiff int24",
         "    Rendered session-c6d86f3d482a8bac1f7cc6650017da8e.osc with exit code 0.",
         "Writing session-81d02f16aff7797ca3ac041facb61b95.osc.",
         "    Wrote session-81d02f16aff7797ca3ac041facb61b95.osc.",
         "Rendering session-81d02f16aff7797ca3ac041facb61b95.osc.",
-        "    Command: scsynth -N session-81d02f16aff7797ca3ac041facb61b95.osc _ session-81d02f16aff7797ca3ac041facb61b95.aiff 44100 aiff int24",
+        f"    Command: {executable} -N session-81d02f16aff7797ca3ac041facb61b95.osc _ session-81d02f16aff7797ca3ac041facb61b95.aiff 44100 aiff int24",
         "    Rendered session-81d02f16aff7797ca3ac041facb61b95.osc with exit code 0.",
         "Writing session-1d80bd5d7da1eb8c25d322aa85384513.osc.",
         "    Wrote session-1d80bd5d7da1eb8c25d322aa85384513.osc.",
         "Rendering session-1d80bd5d7da1eb8c25d322aa85384513.osc.",
-        "    Command: scsynth -N session-1d80bd5d7da1eb8c25d322aa85384513.osc _ session-1d80bd5d7da1eb8c25d322aa85384513.aiff 44100 aiff int24",
+        f"    Command: {executable} -N session-1d80bd5d7da1eb8c25d322aa85384513.osc _ session-1d80bd5d7da1eb8c25d322aa85384513.aiff 44100 aiff int24",
         "    Rendered session-1d80bd5d7da1eb8c25d322aa85384513.osc with exit code 0.",
         "Writing output/render.yml.",
         "    Wrote output/render.yml.",
@@ -1081,147 +1083,5 @@ def test_11(nonrealtime_paths):
             source:
             - session-ea2ca28c15208db4fce5eb184d0b9257
             - say-5f2b51ca2fdc5baa31ec02e002f69aec
-            """
-        )
-
-
-def test_12(nonrealtime_paths):
-    """
-    SessionFactory NRT input.
-    """
-    session_factory = pytest.helpers.make_test_session_factory()
-    session = supriya.nonrealtime.Session(input_=session_factory, name="outer-session")
-    synthdef = pytest.helpers.build_multiplier_synthdef(8)
-    with session.at(0):
-        session.add_synth(
-            synthdef=synthdef,
-            duration=10,
-            in_bus=session.audio_input_bus_group,
-            out_bus=session.audio_output_bus_group,
-            multiplier=-0.5,
-        )
-    assert session.to_lists() == [
-        [
-            0.0,
-            [
-                ["/d_recv", bytearray(synthdef.compile())],
-                [
-                    "/s_new",
-                    "76abe8508565e1ca3dd243fe960a6945",
-                    1000,
-                    0,
-                    0,
-                    "in_bus",
-                    8,
-                    "multiplier",
-                    -0.5,
-                    "out_bus",
-                    0,
-                ],
-            ],
-        ],
-        [10.0, [["/n_free", 1000], [0]]],
-    ]
-    with mock.patch.object(
-        session_factory, "__session__", wraps=session_factory.__session__
-    ) as spy:
-        exit_code, _ = session.render(
-            nonrealtime_paths.output_file_path,
-            render_directory_path=nonrealtime_paths.render_directory_path,
-            build_render_yml=True,
-        )
-    assert spy.call_count == 1
-    pytest.helpers.assert_soundfile_ok(
-        nonrealtime_paths.output_file_path, exit_code, 10.0, 44100, 8
-    )
-    assert pytest.helpers.sample_soundfile(nonrealtime_paths.output_file_path) == {
-        0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-        0.21: [-0.125, -0.125, -0.125, -0.125, -0.125, -0.125, -0.125, -0.125],
-        0.41: [-0.25, -0.25, -0.25, -0.25, -0.25, -0.25, -0.25, -0.25],
-        0.61: [-0.375, -0.375, -0.375, -0.375, -0.375, -0.375, -0.375, -0.375],
-        0.81: [-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5],
-        0.99: [-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5],
-    }
-    assert nonrealtime_paths.render_yml_file_path.exists()
-    with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
-        file_contents = uqbar.strings.normalize(file_pointer.read())
-        assert file_contents == uqbar.strings.normalize(
-            """
-            render: session-0038ce94f2ab7825919c1b5e1d5f2e82
-            source:
-            - session-7b3f85710f19667f73f745b8ac8080a0
-            """
-        )
-
-
-def test_13(nonrealtime_paths):
-    """
-    SessionFactory DiskIn input.
-    """
-    session_factory = pytest.helpers.make_test_session_factory()
-    inner_session = session_factory.__session__()
-    assert inner_session.input_bus_channel_count == 8
-    assert inner_session.output_bus_channel_count == 8
-    session = supriya.nonrealtime.Session(name="outer-session")
-    synthdef = pytest.helpers.build_diskin_synthdef(channel_count=8)
-    with session.at(0):
-        buffer_ = session.cue_soundfile(session_factory, duration=10)
-        session.add_synth(synthdef=synthdef, buffer_id=buffer_, duration=10)
-    assert session.to_lists() == [
-        [
-            0.0,
-            [
-                ["/d_recv", bytearray(synthdef.compile())],
-                ["/b_alloc", 0, 32768, 8],
-                [
-                    "/b_read",
-                    0,
-                    "session-7b3f85710f19667f73f745b8ac8080a0.aiff",
-                    0,
-                    -1,
-                    0,
-                    1,
-                ],
-                [
-                    "/s_new",
-                    "42367b5102dfa250b301ec698b3bd6c4",
-                    1000,
-                    0,
-                    0,
-                    "buffer_id",
-                    0,
-                ],
-            ],
-        ],
-        [10.0, [["/n_free", 1000], ["/b_close", 0], ["/b_free", 0], [0]]],
-    ]
-    with mock.patch.object(
-        session_factory, "__session__", wraps=session_factory.__session__
-    ) as spy:
-        exit_code, _ = session.render(
-            nonrealtime_paths.output_file_path,
-            render_directory_path=nonrealtime_paths.render_directory_path,
-            build_render_yml=True,
-        )
-    assert spy.call_count == 1
-    pytest.helpers.assert_soundfile_ok(
-        nonrealtime_paths.output_file_path, exit_code, 10.0, 44100, 8
-    )
-    assert pytest.helpers.sample_soundfile(nonrealtime_paths.output_file_path) == {
-        0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-        0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
-        0.41: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
-        0.61: [0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75],
-        0.81: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
-        0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
-    }
-    assert nonrealtime_paths.render_yml_file_path.exists()
-    with nonrealtime_paths.render_yml_file_path.open() as file_pointer:
-        file_contents = uqbar.strings.normalize(file_pointer.read())
-        assert file_contents == uqbar.strings.normalize(
-            """
-            render: session-fbd50fbec743e7758481debe0450f38c
-            source:
-            - session-7b3f85710f19667f73f745b8ac8080a0
             """
         )

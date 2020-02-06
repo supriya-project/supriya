@@ -67,8 +67,6 @@ classifiers = [
     "Topic :: Multimedia :: Sound/Audio :: Sound Synthesis",
 ]
 
-entry_points = {"console_scripts": ["supriya = supriya.cli.run_supriya:run_supriya"]}
-
 keywords = [
     "audio",
     "dsp",
@@ -85,16 +83,15 @@ if __name__ == "__main__":
         author_email="josiah.oberholtzer@gmail.com",
         classifiers=classifiers,
         description="A Python API for SuperCollider",
-        entry_points=entry_points,
         extras_require=extras_require,
         include_package_data=True,
         install_requires=install_requires,
         keywords=keywords,
         license="MIT",
         long_description=long_description,
-        name="supriya",
-        packages=["supriya"],
-        url="https://github.com/josiah-wolf-oberholtzer/supriya",
+        name=package_name,
+        packages=[package_name],
+        url=f"https://github.com/josiah-wolf-oberholtzer/{package_name}",
         version=version,
         zip_safe=False,
     )

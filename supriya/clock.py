@@ -313,6 +313,9 @@ class BaseTempoClock:
 
     ### SCHEDULING METHODS ###
 
+    def _cancel(self, event_id) -> Optional[Tuple]:
+        ...
+
     def _enqueue_command(self, command):
         self._events_by_id[command.event_id] = command
         self._command_deque.append(command)
@@ -744,7 +747,6 @@ class BaseTempoClock:
 
 
 class AsyncTempoClock(BaseTempoClock):
-
     def __init__(self):
         BaseTempoClock.__init__(self)
         self._condition = None
