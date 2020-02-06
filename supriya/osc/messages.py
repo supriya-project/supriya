@@ -4,7 +4,7 @@ import enum
 import struct
 import time
 
-from supriya.system.SupriyaValueObject import SupriyaValueObject
+from supriya.system import SupriyaValueObject
 
 from .utils import format_datagram
 

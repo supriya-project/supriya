@@ -5,7 +5,7 @@ import uqbar.graphs
 
 import supriya.commands
 from supriya.nonrealtime.bases import SessionObject
-from supriya.system.SupriyaValueObject import SupriyaValueObject
+from supriya.system import SupriyaValueObject
 from supriya.utils import iterate_nwise
 
 

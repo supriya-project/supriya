@@ -4,7 +4,7 @@ import uuid
 
 import uqbar.objects
 
-from supriya.system.SupriyaValueObject import SupriyaValueObject
+from supriya.system import SupriyaValueObject
 
 
 class Event(SupriyaValueObject):

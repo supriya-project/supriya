@@ -3,7 +3,7 @@ import copy
 from typing import Optional
 
 from supriya import BinaryOperator, SignalRange, UnaryOperator
-from supriya.system.SupriyaObject import SupriyaObject
+from supriya.system import SupriyaObject
 
 
 class UGenMethodMixin(SupriyaObject):

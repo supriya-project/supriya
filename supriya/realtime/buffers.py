@@ -2,7 +2,7 @@ import collections
 import os
 
 import supriya.exceptions
-from supriya.system.SupriyaValueObject import SupriyaValueObject
+from supriya.system import SupriyaValueObject
 
 from .bases import ServerObject
 

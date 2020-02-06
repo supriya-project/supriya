@@ -1,6 +1,6 @@
 import supriya.system
 from supriya import utils
-from supriya.system.SupriyaObject import SupriyaObject
+from supriya.system import SupriyaObject
 
 
 class Meters(SupriyaObject):

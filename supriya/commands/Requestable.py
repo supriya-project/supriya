@@ -3,7 +3,7 @@ import logging
 import threading
 import time
 
-from supriya.system.SupriyaValueObject import SupriyaValueObject
+from supriya.system import SupriyaValueObject
 
 logger = logging.getLogger("supriya.osc")
 

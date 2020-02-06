@@ -5,7 +5,7 @@ from typing import List
 
 from uqbar.objects import new
 
-from supriya.system.SupriyaObject import SupriyaObject
+from supriya.system import SupriyaObject
 
 
 class SynthDefBuilder(SupriyaObject):

@@ -2,7 +2,7 @@ import collections
 import struct
 
 from supriya import CalculationRate, ParameterRate, utils
-from supriya.system.SupriyaObject import SupriyaObject
+from supriya.system import SupriyaObject
 
 from .bases import MultiOutUGen, UGen
 

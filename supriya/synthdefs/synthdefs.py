@@ -16,7 +16,7 @@ from supriya import (
     ParameterRate,
     UnaryOperator,
 )
-from supriya.system.SupriyaObject import SupriyaObject
+from supriya.system import SupriyaObject
 
 from .bases import BinaryOpUGen, UGen, UnaryOpUGen, WidthFirstUGen
 from .compilers import SynthDefCompiler

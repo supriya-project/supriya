@@ -1,5 +1,5 @@
 from supriya import EnvelopeShape, utils
-from supriya.system.SupriyaValueObject import SupriyaValueObject
+from supriya.system import SupriyaValueObject
 
 
 class Envelope(SupriyaValueObject):

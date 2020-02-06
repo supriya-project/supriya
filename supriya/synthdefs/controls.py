@@ -1,7 +1,7 @@
 import collections
 
 from supriya import CalculationRate, ParameterRate, SignalRange
-from supriya.system.SupriyaValueObject import SupriyaValueObject
+from supriya.system import SupriyaValueObject
 from supriya.typing import UGenInputMap
 
 from .bases import MultiOutUGen

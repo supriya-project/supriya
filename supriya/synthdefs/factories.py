@@ -1,7 +1,7 @@
 import copy
 import types
 
-from supriya.system.SupriyaObject import SupriyaObject
+from supriya.system import SupriyaObject
 
 from .mixins import UGenArray
 

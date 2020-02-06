@@ -17,7 +17,7 @@ import supriya.soundfiles
 import supriya.system
 from supriya import HeaderFormat, SampleFormat, scsynth
 from supriya.exceptions import NonrealtimeOutputMissing, NonrealtimeRenderError
-from supriya.system.SupriyaObject import SupriyaObject
+from supriya.system import SupriyaObject
 
 
 class SessionRenderer(SupriyaObject):

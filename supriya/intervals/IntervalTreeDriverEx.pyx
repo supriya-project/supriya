@@ -1,5 +1,5 @@
 from supriya.intervals.Moment import Moment
-from supriya.system.SupriyaObject import SupriyaObject
+from supriya.system import SupriyaObject
 
 
 cdef class _CInterval:

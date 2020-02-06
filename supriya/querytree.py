@@ -1,6 +1,6 @@
 import collections
 
-from supriya.system.SupriyaValueObject import SupriyaValueObject
+from supriya.system import SupriyaValueObject
 
 
 class QueryTreeControl(SupriyaValueObject):

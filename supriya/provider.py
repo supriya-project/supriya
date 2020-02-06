@@ -97,7 +97,7 @@ class OscCallbackProxy(Proxy):
 class BusProxy(Proxy):
     calculation_rate: CalculationRate
     provider: "Provider"
-    identifier: Union["supriya.nonrealtime.Bus.Bus", int]
+    identifier: Union["supriya.nonrealtime.Bus", int]
 
     def __float__(self):
         return float(int(self))
@@ -125,7 +125,7 @@ class BusProxy(Proxy):
 class BusGroupProxy(Proxy):
     calculation_rate: CalculationRate
     channel_count: int
-    identifier: Union["supriya.nonrealtime.BusGroup.BusGroup", int]
+    identifier: Union["supriya.nonrealtime.BusGroup", int]
     provider: "Provider"
     buses: Sequence["BusProxy"] = dataclasses.field(init=False)
 
@@ -170,7 +170,7 @@ class BusGroupProxy(Proxy):
 
 @dataclasses.dataclass(frozen=True)
 class NodeProxy(Proxy):
-    identifier: Union["supriya.nonrealtime.Node.Node", int]
+    identifier: Union["supriya.nonrealtime.Node", int]
     provider: "Provider"
 
     def __float__(self):
@@ -239,7 +239,7 @@ class NodeProxy(Proxy):
 
 @dataclasses.dataclass(frozen=True)
 class GroupProxy(NodeProxy):
-    identifier: Union["supriya.nonrealtime.Node.Node", int]
+    identifier: Union["supriya.nonrealtime.Node", int]
     provider: "Provider"
 
     def as_add_request(self, add_action, target_node):
@@ -259,7 +259,7 @@ class GroupProxy(NodeProxy):
 
 @dataclasses.dataclass(frozen=True)
 class SynthProxy(NodeProxy):
-    identifier: Union["supriya.nonrealtime.Node.Node", int]
+    identifier: Union["supriya.nonrealtime.Node", int]
     provider: "Provider"
     synthdef: SynthDef
     settings: Dict[str, Union[float, BusGroupProxy]]
@@ -413,9 +413,7 @@ class Provider(metaclass=abc.ABCMeta):
         self._server = None
         self._session = None
         self._latency = latency
-        self._annotation_map: Dict[
-            Union["supriya.nonrealtime.Node.Node", int], str
-        ] = {}
+        self._annotation_map: Dict[Union["supriya.nonrealtime.Node", int], str] = {}
 
     ### PUBLIC METHODS ###
 
@@ -562,7 +560,7 @@ class Provider(metaclass=abc.ABCMeta):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def annotation_map(self) -> Mapping[int, str]:
+    def annotation_map(self) -> Mapping[Union["supriya.nonrealtime.Node", int], str]:
         return MappingProxyType(self._annotation_map)
 
     @property

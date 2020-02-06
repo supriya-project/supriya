@@ -4,7 +4,7 @@ from uqbar.objects import new
 
 from supriya.intervals import IntervalTree
 from supriya.intervals.Interval import Interval
-from supriya.system.SupriyaObject import SupriyaObject
+from supriya.system import SupriyaObject
 
 
 class Block(Interval):
