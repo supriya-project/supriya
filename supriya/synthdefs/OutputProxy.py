@@ -1,6 +1,6 @@
 from .mixins import UGenMethodMixin
 from .bases import UGen
-from .Parameter import Parameter
+from .controls import Parameter
 
 
 class OutputProxy(UGenMethodMixin):

@@ -61,7 +61,7 @@ from supriya.realtime.nodes import Group, Synth  # noqa
 from supriya.nonrealtime import Session  # noqa
 from supriya.soundfiles import Say, SoundFile  # noqa
 from supriya.synthdefs.Envelope import Envelope  # noqa
-from supriya.synthdefs.Parameter import Parameter  # noqa
+from supriya.synthdefs import Parameter  # noqa
 from supriya.synthdefs.Range import Range  # noqa
 from supriya.synthdefs import SynthDef  # noqa
 from supriya.synthdefs.SynthDefBuilder import SynthDefBuilder  # noqa

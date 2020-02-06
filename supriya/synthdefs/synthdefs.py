@@ -10,6 +10,8 @@ import yaml
 from supriya import BinaryOperator, ParameterRate, UnaryOperator
 from supriya.system.SupriyaObject import SupriyaObject
 
+from .grapher import SynthDefGrapher
+
 
 class SynthDef:
     """
@@ -149,9 +151,7 @@ class SynthDef:
 
         Returns Graphviz graph.
         """
-        import supriya.synthdefs
-
-        return supriya.synthdefs.SynthDefGrapher.graph(self)
+        return SynthDefGrapher.graph(self)
 
     def __hash__(self):
         hash_values = (type(self), self._name, self._compiled_ugen_graph)

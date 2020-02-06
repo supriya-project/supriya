@@ -1,8 +1,124 @@
 import collections
 
-from supriya import CalculationRate
+from supriya import CalculationRate, ParameterRate, SignalRange
 from supriya.typing import UGenInputMap
+from supriya.system.SupriyaValueObject import SupriyaValueObject
+
 from .bases import MultiOutUGen
+from .mixins import UGenMethodMixin
+
+
+class Parameter(UGenMethodMixin, SupriyaValueObject):
+
+    ### CLASS VARIABLES ###
+
+    __documentation_section__ = "Main Classes"
+
+    __slots__ = (
+        "_lag",
+        "_name",
+        "_parameter_rate",
+        "_range",
+        "_unit",
+        "_uuid",
+        "_value",
+    )
+
+    ### INITIALIZER ###
+
+    def __init__(
+        self,
+        lag=None,
+        name=None,
+        parameter_rate=ParameterRate.CONTROL,
+        range_=None,
+        unit=None,
+        value=None,
+    ):
+        import supriya.synthdefs
+
+        # assert name
+        if lag is not None:
+            lag = float(lag)
+        self._lag = lag
+        if name is not None:
+            name = str(name)
+        self._name = name
+        self._parameter_rate = ParameterRate.from_expr(parameter_rate)
+        if range_ is not None:
+            assert isinstance(range_, supriya.synthdefs.Range)
+        self._range = range_
+        self._unit = unit
+        self._uuid = None
+        if isinstance(value, collections.Sequence):
+            value = tuple(float(_) for _ in value)
+            assert value, value
+        else:
+            value = float(value)
+        self._value = value
+
+    ### SPECIAL METHODS ###
+
+    def __getitem__(self, i):
+        return self._get_output_proxy(i)
+
+    def __len__(self):
+        if isinstance(self.value, float):
+            return 1
+        return len(self.value)
+
+    ### PRIVATE METHODS ###
+
+    def _get_source(self):
+        return self
+
+    def _get_output_number(self):
+        return 0
+
+    def _optimize_graph(self, sort_bundles):
+        pass
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def calculation_rate(self):
+        return CalculationRate.from_expr(self)
+
+    @property
+    def has_done_flag(self):
+        return False
+
+    @property
+    def inputs(self):
+        return ()
+
+    @property
+    def lag(self):
+        return self._lag
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def parameter_rate(self):
+        return self._parameter_rate
+
+    @property
+    def range_(self):
+        return self._range
+
+    @property
+    def signal_range(self):
+        SignalRange.BIPOLAR
+
+    @property
+    def unit(self):
+        return self._unit
+
+    @property
+    def value(self):
+        return self._value
 
 
 class Control(MultiOutUGen):
@@ -25,12 +141,10 @@ class Control(MultiOutUGen):
     ### INITIALIZER ###
 
     def __init__(self, parameters, calculation_rate=None, starting_control_index=0):
-        import supriya.synthdefs
-
         coerced_parameters = []
         for parameter in parameters:
-            if not isinstance(parameter, supriya.synthdefs.Parameter):
-                parameter = supriya.synthdefs.Parameter(name=parameter, value=0)
+            if not isinstance(parameter, Parameter):
+                parameter = Parameter(name=parameter, value=0)
             coerced_parameters.append(parameter)
         self._parameters = tuple(coerced_parameters)
         MultiOutUGen.__init__(
@@ -161,12 +275,10 @@ class LagControl(Control):
     ### INITIALIZER ###
 
     def __init__(self, parameters, calculation_rate=None, starting_control_index=0):
-        import supriya.synthdefs
-
         coerced_parameters = []
         for parameter in parameters:
-            if not isinstance(parameter, supriya.synthdefs.Parameter):
-                parameter = supriya.synthdefs.Parameter(name=parameter, value=0)
+            if not isinstance(parameter, Parameter):
+                parameter = Parameter(name=parameter, value=0)
             coerced_parameters.append(parameter)
         self._parameters = tuple(coerced_parameters)
         lags = []
@@ -192,11 +304,9 @@ class TrigControl(Control):
     ### INITIALIZER ##
 
     def __init__(self, parameters, calculation_rate=None, starting_control_index=0):
-        import supriya.synthdefs
-
         Control.__init__(
             self,
             parameters,
-            calculation_rate=supriya.CalculationRate.CONTROL,
+            calculation_rate=CalculationRate.CONTROL,
             starting_control_index=starting_control_index,
         )
