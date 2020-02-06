@@ -5,7 +5,7 @@ from supriya.system.SupriyaObject import SupriyaObject
 
 class Meters(SupriyaObject):
     """
-    A server recorder.
+    Server meters.
 
     ::
 
@@ -21,12 +21,12 @@ class Meters(SupriyaObject):
             "server_meters": {
                 "input_meter_levels": [
                     {
-                        "peak": 0...,
-                        "rms": 0...
+                        "peak": ...,
+                        "rms": ...
                     },
                     {
-                        "peak": 0...,
-                        "rms": 0...
+                        "peak": ...,
+                        "rms": ...
                     }
                 ],
                 "output_meter_levels": [

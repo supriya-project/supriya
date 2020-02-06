@@ -148,7 +148,7 @@ def test_00c(nonrealtime_paths):
         "Writing session-7b3f85710f19667f73f745b8ac8080a0.osc.",
         "    Skipped session-7b3f85710f19667f73f745b8ac8080a0.osc. File already exists.",
         "Rendering session-7b3f85710f19667f73f745b8ac8080a0.osc.",
-        "    Command: scsynth -N session-7b3f85710f19667f73f745b8ac8080a0.osc _ session-7b3f85710f19667f73f745b8ac8080a0.aiff 44100 aiff int24",
+        f"    Command: {executable} -N session-7b3f85710f19667f73f745b8ac8080a0.osc _ session-7b3f85710f19667f73f745b8ac8080a0.aiff 44100 aiff int24",
         "    Rendered session-7b3f85710f19667f73f745b8ac8080a0.osc with exit code 0.",
     ]
     assert output_file_path == aiff_path
