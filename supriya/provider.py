@@ -39,7 +39,7 @@ from supriya.commands.RequestBundle import RequestBundle
 from supriya.commands.SynthDefReceiveRequest import SynthDefReceiveRequest
 from supriya.commands.SynthNewRequest import SynthNewRequest
 from supriya.enums import AddAction, CalculationRate, ParameterRate
-from supriya.nonrealtime.Session import Session
+from supriya.nonrealtime import Session
 from supriya.realtime import AsyncServer, BaseServer, Server
 from supriya.synthdefs.SynthDef import SynthDef
 

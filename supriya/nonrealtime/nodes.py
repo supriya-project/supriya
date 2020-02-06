@@ -1,13 +1,18 @@
 import bisect
 import collections
-from typing import Dict, List, Optional, Set, Tuple, Union, cast
+import uuid
+from typing import Any, Dict, List, Optional, Set, Tuple, Union, cast
 
+import uqbar.graphs
 from uqbar.objects import new
 
 import supriya  # noqa
-from supriya.nonrealtime.NodeTransition import NodeTransition
-from supriya.nonrealtime.SessionObject import SessionObject
-from supriya.nonrealtime.State import State
+import supriya.realtime
+from supriya.commands.GroupNewRequest import GroupNewRequest
+from supriya.commands.SynthNewRequest import SynthNewRequest
+from supriya.nonrealtime.bases import SessionObject
+from supriya.nonrealtime.states import NodeTransition, State
+from supriya.patterns.Pattern import Pattern
 
 
 class Node(SessionObject):
@@ -538,3 +543,291 @@ class Node(SessionObject):
         if self.duration is None:
             return float("inf")
         return self.start_offset + self.duration
+
+
+class Group(Node):
+    """
+    A non-realtime group.
+    """
+
+    ### CLASS VARIABLES ###
+
+    __documentation_section__ = "Session Objects"
+
+    __slots__ = ()
+
+    _valid_add_actions: Tuple[int, ...] = (
+        supriya.AddAction.ADD_TO_HEAD,
+        supriya.AddAction.ADD_TO_TAIL,
+        supriya.AddAction.ADD_AFTER,
+        supriya.AddAction.ADD_BEFORE,
+    )
+
+    ### SPECIAL METHODS ###
+
+    def __str__(self):
+        return "group-{}".format(self.session_id)
+
+    ### PRIVATE METHODS ###
+
+    def _to_request(
+        self, action: NodeTransition, id_mapping: Dict[SessionObject, int]
+    ) -> GroupNewRequest:
+        source_id = id_mapping[action.source]
+        target_id = id_mapping[action.target]
+        add_action = action.action
+        request = GroupNewRequest(
+            items=[
+                GroupNewRequest.Item(
+                    add_action=add_action, node_id=source_id, target_node_id=target_id
+                )
+            ]
+        )
+        return request
+
+    def _get_stop_offset(self, offset, event) -> float:
+        duration = event.get("duration") or 0
+        delta = event.get("delta") or 0
+        return offset + max(duration, delta)
+
+    ### PUBLIC METHODS ###
+
+    @SessionObject.require_offset
+    def get_children(self, offset: float = None) -> List["Node"]:
+        state = self.session._find_state_at(offset, clone_if_missing=True)
+        if not state.nodes_to_children:
+            state = self.session._find_state_before(state.offset, True)
+        elif self.stop_offset == state.offset:
+            state = self.session._find_state_before(state.offset, True)
+        return list(state.nodes_to_children.get(self) or [])
+
+    @SessionObject.require_offset
+    def inscribe(
+        self,
+        pattern: Pattern,
+        duration: float = None,
+        offset: float = None,
+        seed: int = None,
+    ) -> float:
+        import supriya.patterns
+
+        if offset is None:
+            raise ValueError(offset)
+        assert isinstance(pattern, supriya.patterns.Pattern)
+        if seed is not None:
+            pattern = supriya.patterns.Pseed(pattern=pattern, seed=seed)
+        if duration is None:
+            duration = self.stop_offset - offset
+        if pattern.is_infinite:
+            if duration is None:
+                raise ValueError(duration)
+            duration = float(duration)
+            assert duration
+        if duration is None:
+            raise ValueError(duration)
+        should_stop = supriya.patterns.Pattern.PatternState.CONTINUE
+        maximum_offset = offset + duration
+        actual_stop_offset = offset
+        iterator = pattern.__iter__()
+        uuids: Dict[uuid.UUID, Tuple[Node]] = {}
+        try:
+            event = next(iterator)
+        except StopIteration:
+            return offset
+        if (
+            duration is not None
+            and isinstance(event, supriya.patterns.NoteEvent)
+            and self._get_stop_offset(offset, event) > maximum_offset
+        ):
+            return offset
+        performed_stop_offset = event._perform_nonrealtime(
+            session=self.session,
+            uuids=uuids,
+            maximum_offset=maximum_offset,
+            offset=offset,
+        )
+        offset += event.delta
+        actual_stop_offset = max(actual_stop_offset, performed_stop_offset)
+        while True:
+            try:
+                event = iterator.send(should_stop)
+            except StopIteration:
+                break
+            if maximum_offset is not None and isinstance(
+                event, supriya.patterns.NoteEvent
+            ):
+                if event.get("duration", 0) == 0 and offset == maximum_offset:
+                    # Current event is 0-duration and we're at our stop.
+                    should_stop = supriya.patterns.Pattern.PatternState.NONREALTIME_STOP
+                    offset = actual_stop_offset
+                    continue
+                elif self._get_stop_offset(offset, event) > maximum_offset:
+                    # We would legitimately overshoot.
+                    should_stop = supriya.patterns.Pattern.PatternState.NONREALTIME_STOP
+                    offset = actual_stop_offset
+                    continue
+            performed_stop_offset = event._perform_nonrealtime(
+                session=self.session,
+                uuids=uuids,
+                maximum_offset=maximum_offset,
+                offset=offset,
+            )
+            offset += event.delta
+            actual_stop_offset = max(actual_stop_offset, performed_stop_offset)
+        return actual_stop_offset
+
+
+class Synth(Node):
+    """
+    A non-realtime synth.
+    """
+
+    ### CLASS VARIABLES ###
+
+    __documentation_section__ = "Session Objects"
+
+    __slots__ = ("_synthdef", "_synth_kwargs")
+
+    _valid_add_actions = (supriya.AddAction.ADD_BEFORE, supriya.AddAction.ADD_AFTER)
+
+    ### INITIALIZER ###
+
+    def __init__(
+        self,
+        session,
+        session_id: int,
+        duration: float = None,
+        synthdef=None,
+        start_offset: float = None,
+        **synth_kwargs,
+    ) -> None:
+        if synthdef is None:
+            synthdef = supriya.assets.synthdefs.default
+        Node.__init__(
+            self, session, session_id, duration=duration, start_offset=start_offset
+        )
+        self._synthdef = synthdef
+        self._synth_kwargs: Dict[str, Any] = synth_kwargs
+
+    ### SPECIAL METHODS ###
+
+    def __str__(self) -> str:
+        return "synth-{}".format(self.session_id)
+
+    ### PRIVATE METHODS ###
+
+    def _as_graphviz_node(self, offset):
+        group = uqbar.graphs.RecordGroup(children=[])
+        group.append(
+            uqbar.graphs.RecordField("[{}]".format(self.session_id), name="session_id")
+        )
+        group.append(uqbar.graphs.RecordField(self.synthdef.name))
+        for parameter_name in self.synthdef.parameters:
+            value = self._get_at_offset(offset, parameter_name)
+            field = "{}: {}".format(parameter_name, value)
+            group.append(uqbar.graphs.RecordField(label=field))
+        return uqbar.graphs.Node(children=[uqbar.graphs.RecordGroup([group])])
+
+    def _get_at_offset(
+        self, offset: float, item: str
+    ) -> Tuple[
+        Optional[Union[float]],
+        Optional[
+            Union[float, "supriya.nonrealtime.Bus", "supriya.nonrealtime.BusGroup"]
+        ],
+    ]:
+        default = self.synthdef.parameters[item].value
+        default = self._synth_kwargs.get(item, default)
+        value, actual_offset = super()._get_at_offset(offset=offset, item=item)
+        return (value or default), actual_offset
+
+    def _to_request(
+        self,
+        action: NodeTransition,
+        id_mapping: Dict[SessionObject, int],
+        **synth_kwargs,
+    ) -> SynthNewRequest:
+        import supriya.nonrealtime
+
+        source_id = id_mapping[action.source]
+        target_id = id_mapping[action.target]
+        add_action = action.action
+        bus_prototype = (supriya.nonrealtime.Bus, supriya.nonrealtime.BusGroup)
+        buffer_prototype = (supriya.nonrealtime.Buffer, supriya.nonrealtime.BufferGroup)
+        # nonmapping_keys = ['out']
+        for key, value in synth_kwargs.items():
+            if isinstance(value, bus_prototype):
+                bus_id = id_mapping[value]
+                # if key not in nonmapping_keys:
+                #    value = value.get_map_symbol(bus_id)
+                # else:
+                #    value = bus_id
+                value = bus_id
+                synth_kwargs[key] = value
+            elif isinstance(value, buffer_prototype):
+                synth_kwargs[key] = id_mapping[value]
+        request = SynthNewRequest(
+            add_action=add_action,
+            node_id=source_id,
+            synthdef=self.synthdef.anonymous_name,
+            target_node_id=target_id,
+            **synth_kwargs,
+        )
+        return request
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def synthdef(self):
+        return self._synthdef
+
+    @property
+    def synth_kwargs(self):
+        return self._synth_kwargs.copy()
+
+
+class RootNode(Group):
+    """
+    A non-realtime root node.
+    """
+
+    ### CLASS VARIABLES ###
+
+    __documentation_section__ = "Session Objects"
+
+    __slots__ = ()
+
+    _valid_add_actions: Tuple[int, ...] = (
+        supriya.AddAction.ADD_TO_HEAD,
+        supriya.AddAction.ADD_TO_TAIL,
+    )
+
+    ### INITIALIZER ###
+
+    def __init__(self, session):
+        Group.__init__(
+            self,
+            session=session,
+            session_id=0,
+            duration=float("inf"),
+            start_offset=float("-inf"),
+        )
+
+    ### SPECIAL METHODS ###
+
+    def __str__(self):
+        return "root"
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def start_offset(self):
+        return float("-inf")
+
+    @property
+    def stop_offset(self):
+        return float("inf")
+
+    @property
+    def duration(self):
+        return float("inf")
