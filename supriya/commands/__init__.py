@@ -68,13 +68,13 @@ from .ParallelGroupNewRequest import ParallelGroupNewRequest
 from .QueryTreeResponse import QueryTreeResponse
 from .QuitRequest import QuitRequest
 from .Request import Request
-from .Requestable import Requestable
 from .RequestBundle import RequestBundle
+from .Requestable import Requestable
 from .Response import Response
 from .StatusRequest import StatusRequest
 from .StatusResponse import StatusResponse
-from .SyncedResponse import SyncedResponse
 from .SyncRequest import SyncRequest
+from .SyncedResponse import SyncedResponse
 from .SynthDefFreeAllRequest import SynthDefFreeAllRequest
 from .SynthDefFreeRequest import SynthDefFreeRequest
 from .SynthDefLoadDirectoryRequest import SynthDefLoadDirectoryRequest
@@ -83,8 +83,8 @@ from .SynthDefReceiveRequest import SynthDefReceiveRequest
 from .SynthDefRemovedResponse import SynthDefRemovedResponse
 from .SynthGetContiguousRequest import SynthGetContiguousRequest
 from .SynthGetRequest import SynthGetRequest
-from .SynthNewargsRequest import SynthNewargsRequest
 from .SynthNewRequest import SynthNewRequest
+from .SynthNewargsRequest import SynthNewargsRequest
 from .SynthNoidRequest import SynthNoidRequest
 from .TriggerResponse import TriggerResponse
 from .UgenCommandRequest import UgenCommandRequest

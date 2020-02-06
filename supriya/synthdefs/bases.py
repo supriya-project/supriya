@@ -6,7 +6,7 @@ from typing import Optional, Tuple
 import uqbar.strings
 
 import supriya
-from supriya import SignalRange, BinaryOperator, UnaryOperator
+from supriya import BinaryOperator, SignalRange, UnaryOperator
 from supriya.typing import UGenInputMap
 
 from .mixins import UGenMethodMixin

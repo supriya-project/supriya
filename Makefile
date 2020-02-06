@@ -54,8 +54,6 @@ isort:
 		--multi-line 3 \
 		--recursive \
 		--skip supriya/__init__.py \
-		--skip supriya/commands/__init__.py \
-		--skip supriya/osc/__init__.py \
 		--thirdparty uqbar \
 		--thirdparty yaml \
 		--trailing-comma \
