@@ -2,7 +2,7 @@ import collections
 
 from supriya import utils
 from supriya.enums import CalculationRate
-from supriya.ugens.MultiOutUGen import MultiOutUGen
+from supriya.synthdefs import MultiOutUGen
 
 
 class LocalIn(MultiOutUGen):

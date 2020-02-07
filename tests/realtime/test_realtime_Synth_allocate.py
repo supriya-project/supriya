@@ -2,6 +2,7 @@ import uqbar.strings
 
 import supriya.assets.synthdefs
 import supriya.realtime
+from supriya.osc import OscBundle, OscMessage
 
 
 def test_allocate_synthdef(server):
@@ -16,14 +17,14 @@ def test_allocate_synthdef(server):
     assert [(_.label, _.message) for _ in transcript] == [
         (
             "S",
-            supriya.osc.OscMessage(
-                5,
+            OscMessage(
+                "/d_recv",
                 bytearray(synthdef.compile()),
-                supriya.osc.OscMessage(9, "test", 1000, 0, 1),
+                OscMessage("/s_new", "test", 1000, 0, 1),
             ),
         ),
-        ("R", supriya.osc.OscMessage("/n_go", 1000, 1, -1, -1, 0)),
-        ("R", supriya.osc.OscMessage("/done", "/d_recv")),
+        ("R", OscMessage("/n_go", 1000, 1, -1, -1, 0)),
+        ("R", OscMessage("/done", "/d_recv")),
     ]
     assert synthdef in server
     assert synth_a.node_id == 1000
@@ -52,8 +53,8 @@ def test_no_reallocate_synthdef(server):
     with server.osc_protocol.capture() as transcript:
         synth_b.allocate()
     assert [(_.label, _.message) for _ in transcript] == [
-        ("S", supriya.osc.OscMessage(9, "test", 1001, 0, 1)),
-        ("R", supriya.osc.OscMessage("/n_go", 1001, 1, -1, 1000, 0)),
+        ("S", OscMessage("/s_new", "test", 1001, 0, 1)),
+        ("R", OscMessage("/n_go", 1001, 1, -1, 1000, 0)),
     ]
     assert synthdef in server
     assert synth_b.node_id == 1001
@@ -100,14 +101,14 @@ def test_replace(server):
     assert [(_.label, _.message) for _ in transcript] == [
         (
             "S",
-            supriya.osc.OscMessage(
-                5,
+            OscMessage(
+                "/d_recv",
                 bytearray(synthdef.compile()),
-                supriya.osc.OscMessage(9, "test", 1001, 4, 1000),
+                OscMessage("/s_new", "test", 1001, 4, 1000),
             ),
         ),
-        ("R", supriya.osc.OscMessage("/n_go", 1001, 1, -1, -1, 0)),
-        ("R", supriya.osc.OscMessage("/done", "/d_recv")),
+        ("R", OscMessage("/n_go", 1001, 1, -1, -1, 0)),
+        ("R", OscMessage("/done", "/d_recv")),
     ]
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -220,11 +221,11 @@ def test_mapping(server):
     assert [(_.label, _.message) for _ in transcript] == [
         (
             "S",
-            supriya.osc.OscMessage(
-                9, "test", 1000, 0, 1, "amplitude", 0.5, "frequency", 443.0
+            OscMessage(
+                "/s_new", "test", 1000, 0, 1, "amplitude", 0.5, "frequency", 443.0
             ),
         ),
-        ("R", supriya.osc.OscMessage("/n_go", 1000, 1, -1, -1, 0)),
+        ("R", OscMessage("/n_go", 1000, 1, -1, -1, 0)),
     ]
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -252,18 +253,18 @@ def test_mapping(server):
     assert [(_.label, _.message) for _ in transcript] == [
         (
             "S",
-            supriya.osc.OscBundle(
+            OscBundle(
                 contents=(
-                    supriya.osc.OscMessage(9, "test", 1001, 0, 1),
-                    supriya.osc.OscMessage(60, 1001, "amplitude", 0),
-                    supriya.osc.OscMessage(14, 1001, "frequency", 0),
-                    supriya.osc.OscMessage(52, 0),
+                    OscMessage("/s_new", "test", 1001, 0, 1),
+                    OscMessage("/n_mapa", 1001, "amplitude", 0),
+                    OscMessage("/n_map", 1001, "frequency", 0),
+                    OscMessage("/sync", 0),
                 )
             ),
         ),
-        ("R", supriya.osc.OscMessage("/n_end", 1000, 1, -1, -1, 0)),
-        ("R", supriya.osc.OscMessage("/n_go", 1001, 1, -1, -1, 0)),
-        ("R", supriya.osc.OscMessage("/synced", 0)),
+        ("R", OscMessage("/n_end", 1000, 1, -1, -1, 0)),
+        ("R", OscMessage("/n_go", 1001, 1, -1, -1, 0)),
+        ("R", OscMessage("/synced", 0)),
     ]
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(

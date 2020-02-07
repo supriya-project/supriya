@@ -9,7 +9,6 @@ from .AllpassN import AllpassN  # noqa
 from .AmpComp import AmpComp  # noqa
 from .AmpCompA import AmpCompA  # noqa
 from .Amplitude import Amplitude  # noqa
-from .AudioControl import AudioControl  # noqa
 from .BAllPass import BAllPass  # noqa
 from .BBandPass import BBandPass  # noqa
 from .BBandStop import BBandStop  # noqa
@@ -30,7 +29,6 @@ from .Ball import Ball  # noqa
 from .BeatTrack import BeatTrack  # noqa
 from .BeatTrack2 import BeatTrack2  # noqa
 from .BiPanB2 import BiPanB2  # noqa
-from .BinaryOpUGen import BinaryOpUGen  # noqa
 from .Blip import Blip  # noqa
 from .BlockSize import BlockSize  # noqa
 from .BrownNoise import BrownNoise  # noqa
@@ -64,7 +62,6 @@ from .CombL import CombL  # noqa
 from .CombN import CombN  # noqa
 from .Compander import Compander  # noqa
 from .CompanderD import CompanderD  # noqa
-from .Control import Control  # noqa
 from .ControlDur import ControlDur  # noqa
 from .ControlRate import ControlRate  # noqa
 from .Convolution import Convolution  # noqa
@@ -183,7 +180,6 @@ from .Lag2 import Lag2  # noqa
 from .Lag2UD import Lag2UD  # noqa
 from .Lag3 import Lag3  # noqa
 from .Lag3UD import Lag3UD  # noqa
-from .LagControl import LagControl  # noqa
 from .LagUD import LagUD  # noqa
 from .Latch import Latch  # noqa
 from .LatoocarfianC import LatoocarfianC  # noqa
@@ -218,7 +214,6 @@ from .MouseButton import MouseButton  # noqa
 from .MouseX import MouseX  # noqa
 from .MouseY import MouseY  # noqa
 from .MulAdd import MulAdd  # noqa
-from .MultiOutUGen import MultiOutUGen  # noqa
 from .NRand import NRand  # noqa
 from .Normalizer import Normalizer  # noqa
 from .NumAudioBuses import NumAudioBuses  # noqa
@@ -285,8 +280,6 @@ from .Pluck import Pluck  # noqa
 from .Poll import Poll  # noqa
 from .PseudoUGen import PseudoUGen  # noqa
 from .Pulse import Pulse  # noqa
-from .PureMultiOutUGen import PureMultiOutUGen  # noqa
-from .PureUGen import PureUGen  # noqa
 from .QuadC import QuadC  # noqa
 from .QuadL import QuadL  # noqa
 from .QuadN import QuadN  # noqa
@@ -339,11 +332,8 @@ from .TWindex import TWindex  # noqa
 from .ToggleFF import ToggleFF  # noqa
 from .Trig import Trig  # noqa
 from .Trig1 import Trig1  # noqa
-from .TrigControl import TrigControl  # noqa
 from .TwoPole import TwoPole  # noqa
 from .TwoZero import TwoZero  # noqa
-from .UGen import UGen  # noqa
-from .UnaryOpUGen import UnaryOpUGen  # noqa
 from .VDiskIn import VDiskIn  # noqa
 from .VOsc import VOsc  # noqa
 from .VOsc3 import VOsc3  # noqa
@@ -351,7 +341,6 @@ from .VarSaw import VarSaw  # noqa
 from .Vibrato import Vibrato  # noqa
 from .Warp1 import Warp1  # noqa
 from .WhiteNoise import WhiteNoise  # noqa
-from .WidthFirstUGen import WidthFirstUGen  # noqa
 from .Wrap import Wrap  # noqa
 from .WrapIndex import WrapIndex  # noqa
 from .XFade2 import XFade2  # noqa

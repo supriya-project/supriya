@@ -10,8 +10,7 @@ import subprocess
 import uqbar.strings
 
 import supriya
-from supriya.system.SupriyaObject import SupriyaObject
-from supriya.system.SupriyaValueObject import SupriyaValueObject
+from supriya.system import SupriyaObject, SupriyaValueObject
 
 try:
     import wavefile  # type: ignore

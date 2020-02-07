@@ -33,7 +33,6 @@ extras_require = {
         "jupyter_nbextensions_configurator",
         "rise",
     ],
-    "midi": ["python-rtmidi"],
     "wave": ["wavefile"],
     "test": [
         "black",
@@ -41,6 +40,7 @@ extras_require = {
         "isort",
         "mypy >= 0.720",
         "pytest >= 5.0.0",
+        "pytest-asyncio >= 0.10.0",
         "pytest-cov >= 2.7.1",
         "pytest-helpers-namespace >= 2019.1.8",
         "pytest-mock",
@@ -66,8 +66,6 @@ classifiers = [
     "Topic :: Multimedia :: Sound/Audio :: Sound Synthesis",
 ]
 
-entry_points = {"console_scripts": ["supriya = supriya.cli.run_supriya:run_supriya"]}
-
 keywords = [
     "audio",
     "dsp",
@@ -84,16 +82,15 @@ if __name__ == "__main__":
         author_email="josiah.oberholtzer@gmail.com",
         classifiers=classifiers,
         description="A Python API for SuperCollider",
-        entry_points=entry_points,
         extras_require=extras_require,
         include_package_data=True,
         install_requires=install_requires,
         keywords=keywords,
         license="MIT",
         long_description=long_description,
-        name="supriya",
-        packages=["supriya"],
-        url="https://github.com/josiah-wolf-oberholtzer/supriya",
+        name=package_name,
+        packages=[package_name],
+        url=f"https://github.com/josiah-wolf-oberholtzer/{package_name}",
         version=version,
         zip_safe=False,
     )

@@ -1,4 +1,4 @@
-from supriya.system.SupriyaValueObject import SupriyaValueObject
+from supriya.system import SupriyaValueObject
 
 
 class EventProduct(SupriyaValueObject):

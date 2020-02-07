@@ -1,5 +1,4 @@
 import asyncio
-import atexit
 import collections
 import dataclasses
 import queue
@@ -45,13 +44,11 @@ class OscProtocol:
         self.callbacks: Dict[Any, Any] = {}
         self.captures: Set[Capture] = set()
         self.healthcheck = None
-        self.healthcheck_callback = None
-        self.healthcheck_deadline = None
+        self.healthcheck_osc_callback = None
         self.attempts = 0
         self.ip_address = None
         self.is_running: bool = False
         self.port = None
-        atexit.register(self.disconnect)
 
     ### PRIVATE METHODS ###
 
@@ -105,9 +102,8 @@ class OscProtocol:
         self.ip_address = ip_address
         self.port = port
         self.healthcheck = healthcheck
-        self.healthcheck_deadline = time.time()
         if self.healthcheck:
-            self.healthcheck_callback = self.register(
+            self.healthcheck_osc_callback = self.register(
                 pattern=self.healthcheck.response_pattern,
                 procedure=self._reset_attempts,
             )
@@ -115,13 +111,15 @@ class OscProtocol:
     def _teardown(self):
         self.is_running = False
         if self.healthcheck:
-            self.unregister(self.healthcheck_callback)
+            self.unregister(self.healthcheck_osc_callback)
 
     def _validate_callback(
         self, pattern, procedure, *, failure_pattern=None, once=False,
     ):
         if isinstance(pattern, (str, int, float)):
-            pattern = (pattern,)
+            pattern = [pattern]
+        if isinstance(failure_pattern, (str, int, float)):
+            failure_pattern = [failure_pattern]
         assert callable(procedure)
         return OscCallback(
             pattern=tuple(pattern),
@@ -141,18 +139,6 @@ class OscProtocol:
             capture.messages.append(
                 CaptureEntry(timestamp=time.time(), label="R", message=message,)
             )
-
-    def _validate_healthcheck(self):
-        if self.healthcheck is None or time.time() < self.healthcheck_deadline:
-            return True
-        self.healthcheck_deadline += self.healthcheck.timeout * pow(
-            self.healthcheck.backoff_factor, self.attempts
-        )
-        self.attempts += 1
-        if self.attempts >= self.healthcheck.max_attempts:
-            return False
-        self.send(OscMessage(*self.healthcheck.request_pattern))
-        return True
 
     def _validate_send(self, message):
         if not self.is_running:
@@ -199,6 +185,26 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
     def __init__(self):
         asyncio.DatagramProtocol.__init__(self)
         OscProtocol.__init__(self)
+        self.loop = None
+
+    ### PRIVATE METHODS ###
+
+    async def _run_healthcheck(self):
+        while self.is_running:
+            sleep_time = self.healthcheck.timeout * pow(
+                self.healthcheck.backoff_factor, self.attempts
+            )
+            self.attempts += 1
+            if self.attempts >= self.healthcheck.max_attempts:
+                self.exit_future.set_result(True)
+                self._teardown()
+                self.transport.close()
+                obj_ = self.healthcheck.callback()
+                if asyncio.iscoroutine(obj_):
+                    self.loop.create_task(obj_)
+                return
+            self.send(OscMessage(*self.healthcheck.request_pattern))
+            await asyncio.sleep(sleep_time)
 
     ### PUBLIC METHODS ###
 
@@ -208,26 +214,36 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         if self.is_running:
             raise OscProtocolAlreadyConnected
         self._setup(ip_address, port, healthcheck)
-        loop = asyncio.get_running_loop()
-        _, protocol = await loop.create_datagram_endpoint(
+        self.loop = asyncio.get_running_loop()
+        self.exit_future = self.loop.create_future()
+        _, protocol = await self.loop.create_datagram_endpoint(
             lambda: self, remote_addr=(ip_address, port),
         )
 
     def connection_made(self, transport):
+        loop = asyncio.get_running_loop()
         self.transport = transport
         self.is_running = True
+        if self.healthcheck:
+            self.healthcheck_task = loop.create_task(self._run_healthcheck())
 
     def connection_lost(self, exc):
-        self.disconnect()
+        pass
 
     def datagram_received(self, data, addr):
         self._validate_receive(data)
 
-    def disconnect(self):
+    async def disconnect(self):
         if not self.is_running:
             return
-        self.transport.close()
+        self.exit_future.set_result(True)
         self._teardown()
+        if self.loop.is_closed():
+            return
+        if not self.transport.is_closing():
+            self.transport.close()
+        if self.healthcheck is not None:
+            await self.healthcheck_task
 
     def register(
         self, pattern, procedure, *, failure_pattern=None, once=False,
@@ -254,13 +270,7 @@ class ThreadedOscServer(socketserver.UDPServer):
         return True
 
     def service_actions(self):
-        if not self.osc_protocol._validate_healthcheck():
-            self._BaseServer__shutdown_request = True
-            with self.osc_protocol.lock:
-                self.osc_protocol._teardown()
-                self.osc_protocol.server = None
-                self.osc_protocol.server_thread = None
-                self.osc_protocol.healthcheck.callback()
+        self.osc_protocol._run_healthcheck()
 
 
 class ThreadedOscHandler(socketserver.BaseRequestHandler):
@@ -298,6 +308,23 @@ class ThreadedOscProtocol(OscProtocol):
             elif action == "remove":
                 self._remove_callback(callback)
 
+    def _run_healthcheck(self):
+        if self.healthcheck is None or time.time() < self.healthcheck_deadline:
+            return
+        self.healthcheck_deadline += self.healthcheck.timeout * pow(
+            self.healthcheck.backoff_factor, self.attempts
+        )
+        self.attempts += 1
+        if self.attempts < self.healthcheck.max_attempts:
+            self.send(OscMessage(*self.healthcheck.request_pattern))
+            return
+        self._BaseServer__shutdown_request = True
+        with self.lock:
+            self._teardown()
+            self.server = None
+            self.server_thread = None
+            self.healthcheck.callback()
+
     def _server_factory(self, ip_address, port):
         server = ThreadedOscServer(
             (self.ip_address, self.port), ThreadedOscHandler, bind_and_activate=False
@@ -311,6 +338,7 @@ class ThreadedOscProtocol(OscProtocol):
         if self.is_running:
             raise OscProtocolAlreadyConnected
         self._setup(ip_address, port, healthcheck)
+        self.healthcheck_deadline = time.time()
         self.server = self._server_factory(ip_address, port)
         self.server_thread = threading.Thread(target=self.server.serve_forever)
         self.server_thread.daemon = True

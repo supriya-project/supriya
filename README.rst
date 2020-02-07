@@ -65,7 +65,7 @@ Boot the SuperCollider server::
 
     >>> server = supriya.Server.default()
     >>> server.boot()
-    <Server: udp://127.0.0.1:57751, 8i8o>
+    <Server: udp://127.0.0.1:57110, 8i8o>
 
 Create and allocate a group::
 
@@ -105,7 +105,7 @@ Make a synthesizer definition and send it to the server::
 Synchronize with the server::
 
     >>> server.sync()
-    <Server: udp://127.0.0.1:57751, 8i8o>
+    <Server: udp://127.0.0.1:57110, 8i8o>
 
 Create a synthesizer with the previously defined synthesizer definition::
 

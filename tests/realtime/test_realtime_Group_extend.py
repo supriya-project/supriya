@@ -2,6 +2,7 @@ import uqbar.strings
 
 import supriya.assets.synthdefs
 import supriya.realtime
+from supriya.osc import OscBundle, OscMessage
 
 
 def test_noop(server):
@@ -49,24 +50,24 @@ def test_allocate_nested(server):
         """
     )
     assert str(server.query_local_nodes(include_controls=True)) == server_state
-    bundle = supriya.osc.OscBundle(
+    bundle = OscBundle(
         contents=(
-            supriya.osc.OscMessage(21, 1000, 0, 1),
-            supriya.osc.OscMessage(9, "test", 1001, 0, 1000),
-            supriya.osc.OscMessage(9, "test", 1002, 3, 1001, "amplitude", 0.0),
+            OscMessage("/g_new", 1000, 0, 1),
+            OscMessage("/s_new", "test", 1001, 0, 1000),
+            OscMessage("/s_new", "test", 1002, 3, 1001, "amplitude", 0.0),
         )
     )
     assert [(_.label, _.message) for _ in transcript] == [
         (
             "S",
-            supriya.osc.OscMessage(
-                5, bytearray(supriya.assets.synthdefs.test.compile()), bundle
+            OscMessage(
+                "/d_recv", bytearray(supriya.assets.synthdefs.test.compile()), bundle
             ),
         ),
-        ("R", supriya.osc.OscMessage("/n_go", 1000, 1, -1, -1, 1, -1, -1)),
-        ("R", supriya.osc.OscMessage("/n_go", 1001, 1000, -1, -1, 0)),
-        ("R", supriya.osc.OscMessage("/n_go", 1002, 1000, 1001, -1, 0)),
-        ("R", supriya.osc.OscMessage("/done", "/d_recv")),
+        ("R", OscMessage("/n_go", 1000, 1, -1, -1, 1, -1, -1)),
+        ("R", OscMessage("/n_go", 1001, 1000, -1, -1, 0)),
+        ("R", OscMessage("/n_go", 1002, 1000, 1001, -1, 0)),
+        ("R", OscMessage("/done", "/d_recv")),
     ]
 
 
@@ -90,20 +91,17 @@ def test_extend_unallocated(server):
         """
     )
     assert str(server.query_local_nodes(include_controls=True)) == server_state
-    bundle = supriya.osc.OscBundle(
+    bundle = OscBundle(
         contents=(
-            supriya.osc.OscMessage(9, "test", 1001, 0, 1000),
-            supriya.osc.OscMessage(9, "test", 1002, 3, 1001, "amplitude", 0.0),
+            OscMessage("/s_new", "test", 1001, 0, 1000),
+            OscMessage("/s_new", "test", 1002, 3, 1001, "amplitude", 0.0),
         )
     )
     assert [(_.label, _.message) for _ in transcript] == [
-        (
-            "S",
-            supriya.osc.OscMessage(5, supriya.assets.synthdefs.test.compile(), bundle),
-        ),
-        ("R", supriya.osc.OscMessage("/n_go", 1001, 1000, -1, -1, 0)),
-        ("R", supriya.osc.OscMessage("/n_go", 1002, 1000, 1001, -1, 0)),
-        ("R", supriya.osc.OscMessage("/done", "/d_recv")),
+        ("S", OscMessage("/d_recv", supriya.assets.synthdefs.test.compile(), bundle),),
+        ("R", OscMessage("/n_go", 1001, 1000, -1, -1, 0)),
+        ("R", OscMessage("/n_go", 1002, 1000, 1001, -1, 0)),
+        ("R", OscMessage("/done", "/d_recv")),
     ]
 
 
@@ -129,26 +127,23 @@ def test_extend_allocate_nested_and_move(server):
     assert str(server.query_local_nodes()) == server_state
     with server.osc_protocol.capture() as transcript:
         group_a.extend([group_b, synth])
-    bundle = supriya.osc.OscBundle(
+    bundle = OscBundle(
         contents=(
-            supriya.osc.OscMessage(21, 1002, 0, 1001),
-            supriya.osc.OscMessage(9, "test", 1003, 0, 1002),
-            supriya.osc.OscMessage(21, 1004, 3, 1003),
-            supriya.osc.OscMessage(9, "test", 1005, 0, 1004),
-            supriya.osc.OscMessage(19, 1000, 1002),
+            OscMessage("/g_new", 1002, 0, 1001),
+            OscMessage("/s_new", "test", 1003, 0, 1002),
+            OscMessage("/g_new", 1004, 3, 1003),
+            OscMessage("/s_new", "test", 1005, 0, 1004),
+            OscMessage("/n_after", 1000, 1002),
         )
     )
     assert [(_.label, _.message) for _ in transcript] == [
-        (
-            "S",
-            supriya.osc.OscMessage(5, supriya.assets.synthdefs.test.compile(), bundle),
-        ),
-        ("R", supriya.osc.OscMessage("/n_go", 1002, 1001, -1, -1, 1, -1, -1)),
-        ("R", supriya.osc.OscMessage("/n_go", 1003, 1002, -1, -1, 0)),
-        ("R", supriya.osc.OscMessage("/n_go", 1004, 1002, 1003, -1, 1, -1, -1)),
-        ("R", supriya.osc.OscMessage("/n_go", 1005, 1004, -1, -1, 0)),
-        ("R", supriya.osc.OscMessage("/n_move", 1000, 1001, 1002, -1, 0)),
-        ("R", supriya.osc.OscMessage("/done", "/d_recv")),
+        ("S", OscMessage("/d_recv", supriya.assets.synthdefs.test.compile(), bundle),),
+        ("R", OscMessage("/n_go", 1002, 1001, -1, -1, 1, -1, -1)),
+        ("R", OscMessage("/n_go", 1003, 1002, -1, -1, 0)),
+        ("R", OscMessage("/n_go", 1004, 1002, 1003, -1, 1, -1, -1)),
+        ("R", OscMessage("/n_go", 1005, 1004, -1, -1, 0)),
+        ("R", OscMessage("/n_move", 1000, 1001, 1002, -1, 0)),
+        ("R", OscMessage("/done", "/d_recv")),
     ]
     server_state = str(server.query_remote_nodes())
     assert server_state == uqbar.strings.normalize(

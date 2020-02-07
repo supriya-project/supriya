@@ -43,7 +43,7 @@ class ControlBusGetRequest(Request):
         >>> for entry in transcript:
         ...     (entry.label, entry.message)
         ...
-        ('S', OscMessage(40, 0, 4, 8, 12))
+        ('S', OscMessage('/c_get', 0, 4, 8, 12))
         ('R', OscMessage('/c_set', 0, 0.0, 4, 0.0, 8, 0.0, 12, 0.0))
 
     """

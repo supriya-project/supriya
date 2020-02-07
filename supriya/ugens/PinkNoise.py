@@ -1,8 +1,8 @@
 import collections
 
 from supriya import CalculationRate
+from supriya.synthdefs import UGen
 from supriya.typing import UGenInputMap
-from supriya.ugens.UGen import UGen
 
 
 class PinkNoise(UGen):

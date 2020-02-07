@@ -2,7 +2,7 @@ import collections
 import os
 
 import supriya.exceptions
-from supriya.system.SupriyaValueObject import SupriyaValueObject
+from supriya.system import SupriyaValueObject
 
 from .bases import ServerObject
 
@@ -25,7 +25,7 @@ class Buffer(ServerObject):
 
         >>> buffer_ = buffer_.allocate(frame_count=8192)
         >>> server.sync()
-        <Server: udp://127.0.0.1:57751, 8i8o>
+        <Server: udp://127.0.0.1:57110, 8i8o>
 
     ::
 

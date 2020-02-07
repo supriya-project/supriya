@@ -1,7 +1,7 @@
 import collections
 
 from supriya import CalculationRate
-from supriya.ugens.UGen import UGen
+from supriya.synthdefs import UGen
 
 
 class Poll(UGen):
@@ -87,7 +87,7 @@ class Poll(UGen):
         import supriya.ugens
 
         if label is None:
-            if isinstance(source, supriya.ugens.UGen):
+            if isinstance(source, supriya.synthdefs.UGen):
                 label = type(source).__name__
             elif isinstance(source, supriya.synthdefs.OutputProxy):
                 label = type(source.source).__name__

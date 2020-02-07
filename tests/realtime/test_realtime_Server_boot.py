@@ -12,7 +12,7 @@ from supriya.scsynth import Options
 
 @pytest.mark.timeout(60)
 def test_boot():
-    server = supriya.realtime.Server(port=57757)
+    server = supriya.realtime.Server()
     for i in range(20):
         assert not server.is_running
         server.boot()
@@ -23,7 +23,7 @@ def test_boot():
 
 
 def test_boot_options():
-    server = supriya.realtime.Server(port=57757)
+    server = supriya.realtime.Server()
     try:
         boot_options = Options(memory_size=8192 * 32, load_synthdefs=False)
         # Default

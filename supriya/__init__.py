@@ -1,3 +1,8 @@
+import configparser
+import pathlib
+
+import appdirs
+
 try:
     import pyximport
 
@@ -5,10 +10,6 @@ try:
     del pyximport
 except ImportError:
     pass
-
-import appdirs
-import configparser  # noqa
-import pathlib  # noqa
 
 output_path = pathlib.Path(appdirs.user_cache_dir("supriya", "supriya"))
 if not output_path.exists():
@@ -35,59 +36,9 @@ del appdirs
 del configparser
 del pathlib
 
-
-def import_structured_package(path, namespace, remove=True, verbose=False):
-    import importlib
-    import inspect
-    import pathlib
-    import traceback
-
-    package_path = pathlib.Path(path).resolve().absolute()
-    if not package_path.is_dir():
-        package_path = package_path.parent()
-    # Determine the package import path
-    root_path = package_path
-    while (root_path.parent / "__init__.py").exists():
-        root_path = root_path.parent
-    relative_path = package_path.relative_to(root_path)
-    package_import_path = ".".join((root_path.name,) + relative_path.parts)
-    if verbose:
-        print(package_import_path)
-    # Find importable modules and import their nominative object
-    for module_path in sorted(package_path.iterdir()):
-        if verbose:
-            print("    {}".format(module_path))
-        if module_path.is_dir():
-            if verbose:
-                print("        Skipping...")
-            continue
-        else:
-            if module_path.suffix not in (".py", ".pyx"):
-                if verbose:
-                    print("        Skipping...")
-                continue
-            module_name = module_path.with_suffix("").name
-            if module_name == "__init__":
-                if verbose:
-                    print("        Skipping...")
-                continue
-        module_import_path = package_import_path + "." + module_name
-        if verbose:
-            print("        Importing {}:{}".format(module_import_path, module_name))
-        module = importlib.import_module(module_import_path)
-        try:
-            namespace[module_name] = getattr(module, module_name)
-        except AttributeError:
-            if verbose:
-                print("Failed:", module_path)
-                traceback.print_exc()
-    # Delete this function from the namespace
-    this_name = inspect.currentframe().f_code.co_name
-    if remove and this_name in namespace:
-        del namespace[this_name]
-
-
 from supriya._version import __version__, __version_info__  # noqa
+from supriya import utils  # noqa
+from supriya.clock import TempoClock  # noqa
 from supriya.enums import (  # noqa
     AddAction,
     BinaryOperator,
@@ -104,25 +55,29 @@ from supriya.enums import (  # noqa
     UnaryOperator,
     Unit,
 )
-from supriya import utils  # noqa
-from supriya.scsynth import Options  # noqa
-from supriya.realtime.servers import Server  # noqa
-from supriya.realtime.buffers import Buffer, BufferGroup  # noqa
-from supriya.realtime.buses import Bus, BusGroup  # noqa
-from supriya.realtime.nodes import Group, Synth  # noqa
-from supriya.midi import Device  # noqa
-from supriya.nonrealtime import Session  # noqa
-from supriya.soundfiles import Say, SoundFile  # noqa
-from supriya.synthdefs.Envelope import Envelope  # noqa
-from supriya.synthdefs.Parameter import Parameter  # noqa
-from supriya.synthdefs.Range import Range  # noqa
-from supriya.synthdefs.SynthDef import SynthDef  # noqa
-from supriya.synthdefs.SynthDefBuilder import SynthDefBuilder  # noqa
-from supriya.synthdefs.SynthDefFactory import SynthDefFactory  # noqa
-from supriya.system import Assets  # noqa
-from supriya.clock import TempoClock  # noqa
 from supriya.io import graph, play, render  # noqa
+from supriya.synthdefs import (  # noqa
+    Envelope,
+    Parameter,
+    Range,
+    SynthDef,
+    SynthDefBuilder,
+    SynthDefFactory,
+)
+from supriya.realtime import (  # noqa
+    Buffer,
+    BufferGroup,
+    Bus,
+    BusGroup,
+    Group,
+    Synth,
+    Server,
+)
 from supriya import assets  # noqa
+from supriya.nonrealtime import Session  # noqa
 from supriya.provider import Provider  # noqa
+from supriya.scsynth import Options  # noqa
+from supriya.soundfiles import Say, SoundFile  # noqa
+from supriya.system import Assets  # noqa
 
 server = Server.default()

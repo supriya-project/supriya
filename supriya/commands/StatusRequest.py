@@ -47,3 +47,9 @@ class StatusRequest(Request):
             request_id = int(self.request_id)
         message = supriya.osc.OscMessage(request_id)
         return message
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def response_patterns(self):
+        return ["/status.reply"], None

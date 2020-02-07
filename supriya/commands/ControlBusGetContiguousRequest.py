@@ -53,7 +53,7 @@ class ControlBusGetContiguousRequest(Request):
         >>> for entry in transcript:
         ...     (entry.label, entry.message)
         ...
-        ('S', OscMessage(41, 0, 2, 4, 1, 8, 2, 12, 1))
+        ('S', OscMessage('/c_getn', 0, 2, 4, 1, 8, 2, 12, 1))
         ('R', OscMessage('/c_setn', 0, 2, 0.0, 0.0, 4, 1, 0.0, 8, 2, 0.0, 0.0, 12, 1, 0.0))
 
     """

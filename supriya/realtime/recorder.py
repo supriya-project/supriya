@@ -1,7 +1,7 @@
 import os
 
 from supriya import HeaderFormat, SampleFormat
-from supriya.system.SupriyaObject import SupriyaObject
+from supriya.system import SupriyaObject
 
 
 class Recorder(SupriyaObject):

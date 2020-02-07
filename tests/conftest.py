@@ -2,7 +2,7 @@ import pathlib
 
 import pytest
 
-import supriya.cli
+import supriya
 
 pytest_plugins = ["helpers_namespace", "sphinx.testing.fixtures"]
 
@@ -12,14 +12,12 @@ pytest_plugins = ["helpers_namespace", "sphinx.testing.fixtures"]
 
 @pytest.fixture
 def server():
-    supriya.Server.kill()
     server = supriya.Server.default()
     server.latency = 0.0
     server.boot()
     supriya.assets.synthdefs.default.allocate(server)
     yield server
     server.quit()
-    supriya.Server.kill()
 
 
 # ### HELPERS ### #

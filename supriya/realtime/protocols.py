@@ -24,6 +24,9 @@ class ProcessProtocol:
 
 
 class SyncProcessProtocol(ProcessProtocol):
+
+    ### PUBLIC METHODS ###
+
     def boot(self, options, scsynth_path, port):
         if self.is_running:
             return
@@ -54,6 +57,7 @@ class SyncProcessProtocol(ProcessProtocol):
                     raise supriya.exceptions.ServerCannotBoot(line)
                 elif (time.time() - start_time) > timeout:
                     raise supriya.exceptions.ServerCannotBoot(line)
+            self.is_running = True
         except supriya.exceptions.ServerCannotBoot:
             try:
                 process_group = os.getpgid(self.process.pid)
@@ -72,11 +76,16 @@ class SyncProcessProtocol(ProcessProtocol):
 
 
 class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
+
+    ### INITIALIZER ###
+
     def __init__(self):
         ProcessProtocol.__init__(self)
         asyncio.SubprocessProtocol.__init__(self)
         self.boot_future = None
         self.exit_future = None
+
+    ### PUBLIC METHODS ###
 
     async def boot(self, options, scsynth_path, port):
         if self.is_running:
@@ -101,18 +110,21 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
             if line.strip().startswith(b"Exception"):
                 self.boot_future.set_result(False)
             elif line.strip().startswith(b"SuperCollider 3 server ready"):
-                self.boot_future.set_result(None)
+                self.boot_future.set_result(True)
 
     def process_exited(self):
         self.is_running = False
         self.exit_future.set_result(None)
+        if not self.boot_future.done():
+            self.boot_future.set_result(False)
 
-    async def quit(self):
+    def quit(self):
         if not self.is_running:
             return
         if not self.boot_future.done():
             self.boot_future.set_result(False)
         if not self.exit_future.done():
             self.exit_future.set_result
-        self.transport.close()
+        if not self.transport._loop.is_closed() and not self.transport.is_closing():
+            self.transport.close()
         self.is_running = False

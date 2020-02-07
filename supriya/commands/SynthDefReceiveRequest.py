@@ -76,16 +76,16 @@ class SynthDefReceiveRequest(Request):
         >>> for entry in transcript:
         ...     (entry.label, entry.message)
         ...
-        ('S', OscMessage(5, bytearray(b'SCgf...example...'), OscBundle(
+        ('S', OscMessage('/d_recv', bytearray(b'SCgf...example...'), OscBundle(
             contents=(
-                OscMessage(21, 1000, 0, 1),
-                OscMessage(9, 'example', 1001, 0, 1000),
+                OscMessage('/g_new', 1000, 0, 1),
+                OscMessage('/s_new', 'example', 1001, 0, 1000),
                 ),
             )))
         ('R', OscMessage('/n_go', 1000, 1, -1, -1, 1, -1, -1))
         ('R', OscMessage('/n_go', 1001, 1000, -1, -1, 0))
         ('R', OscMessage('/done', '/d_recv'))
-        ('S', OscMessage(52, 0))
+        ('S', OscMessage('/sync', 0))
         ('R', OscMessage('/synced', 0))
 
     ::

@@ -1,7 +1,7 @@
 import collections
 
 from supriya.enums import CalculationRate
-from supriya.ugens.UGen import UGen
+from supriya.synthdefs import UGen
 
 
 class SendTrig(UGen):

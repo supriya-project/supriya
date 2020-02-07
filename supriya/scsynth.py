@@ -183,7 +183,8 @@ def kill(supernova=False):
     ) as process:
         output = process.stdout.read()
     for line in output.decode().splitlines():
-        if executable not in line:
+        parts = line.split()
+        if not any(part == executable for part in parts):
             continue
-        pid = int(line.split()[1])
+        pid = int(parts[1])
         os.kill(pid, signal.SIGKILL)

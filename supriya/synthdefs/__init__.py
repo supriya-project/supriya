@@ -1,17 +1,57 @@
 """
 Tools for constructing and compiling synthesizer definitions (SynthDefs).
 """
-from .Envelope import Envelope  # noqa
-from .OutputProxy import OutputProxy  # noqa
-from .Parameter import Parameter  # noqa
-from .Range import Range  # noqa
-from .SuperColliderSynthDef import SuperColliderSynthDef  # noqa
-from .SynthDef import SynthDef  # noqa
-from .SynthDefBuilder import SynthDefBuilder  # noqa
-from .SynthDefCompiler import SynthDefCompiler  # noqa
-from .SynthDefDecompiler import SynthDefDecompiler  # noqa
-from .SynthDefFactory import SynthDefFactory  # noqa
-from .SynthDefGrapher import SynthDefGrapher  # noqa
-from .UGenArray import UGenArray  # noqa
-from .UGenMethodMixin import UGenMethodMixin  # noqa
-from .UGenSortBundle import UGenSortBundle  # noqa
+from .mixins import OutputProxy, UGenArray, UGenMethodMixin  # isort:skip
+from .bases import (
+    BinaryOpUGen,
+    MultiOutUGen,
+    PureMultiOutUGen,
+    PureUGen,
+    UGen,
+    UGenMeta,
+    UnaryOpUGen,
+    WidthFirstUGen,
+)
+from .builders import SynthDefBuilder
+from .compilers import SynthDefCompiler, SynthDefDecompiler
+from .controls import (
+    AudioControl,
+    Control,
+    LagControl,
+    Parameter,
+    Range,
+    TrigControl,
+)
+from .envelopes import Envelope
+from .factories import SynthDefFactory
+from .grapher import SynthDefGrapher
+from .synthdefs import SuperColliderSynthDef, SynthDef, UGenSortBundle
+
+__all__ = [
+    "AudioControl",
+    "BinaryOpUGen",
+    "Control",
+    "Envelope",
+    "LagControl",
+    "MultiOutUGen",
+    "OutputProxy",
+    "Parameter",
+    "PureMultiOutUGen",
+    "PureUGen",
+    "Range",
+    "SuperColliderSynthDef",
+    "SynthDef",
+    "SynthDefBuilder",
+    "SynthDefCompiler",
+    "SynthDefDecompiler",
+    "SynthDefFactory",
+    "SynthDefGrapher",
+    "TrigControl",
+    "UGen",
+    "UGenArray",
+    "UGenMeta",
+    "UGenMethodMixin",
+    "UGenSortBundle",
+    "UnaryOpUGen",
+    "WidthFirstUGen",
+]

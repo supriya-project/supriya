@@ -8,7 +8,7 @@ from typing import Dict, Generator, Iterator
 from uqbar.enums import IntEnumeration
 from uqbar.objects import new
 
-from supriya.system.SupriyaValueObject import SupriyaValueObject
+from supriya.system import SupriyaValueObject
 
 
 class Pattern(SupriyaValueObject):

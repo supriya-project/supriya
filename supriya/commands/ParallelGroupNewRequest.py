@@ -48,9 +48,9 @@ class ParallelGroupNewRequest(GroupNewRequest):
         >>> for entry in transcript:
         ...     (entry.label, entry.message)
         ...
-        ('S', OscMessage(63, 1001, 1, 1))
+        ('S', OscMessage('/p_new', 1001, 1, 1))
         ('R', OscMessage('/n_go', 1001, 1, 1000, -1, 1, -1, -1))
-        ('S', OscMessage(52, 0))
+        ('S', OscMessage('/sync', 0))
         ('R', OscMessage('/synced', 0))
 
     ::

@@ -2,7 +2,7 @@ import threading
 import time
 from queue import PriorityQueue
 
-from supriya.system.SupriyaObject import SupriyaObject
+from supriya.system import SupriyaObject
 
 
 class Clock(SupriyaObject):

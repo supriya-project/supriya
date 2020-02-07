@@ -1,5 +1,5 @@
 from supriya import CalculationRate
-from supriya.ugens.WidthFirstUGen import WidthFirstUGen
+from supriya.synthdefs import WidthFirstUGen
 
 
 class PV_ChainUGen(WidthFirstUGen):

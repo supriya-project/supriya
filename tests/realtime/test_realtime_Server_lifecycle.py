@@ -4,11 +4,10 @@ import pytest
 from uqbar.strings import normalize
 
 import supriya
-from supriya import scsynth
+from supriya import exceptions, scsynth
 from supriya.osc import OscMessage
 from supriya.realtime import Server
 from supriya.realtime.protocols import SyncProcessProtocol
-from supriya.scsynth import Options
 
 pytestmark = pytest.mark.timeout(60)
 
@@ -32,7 +31,8 @@ def test_boot_and_boot():
     server.boot()
     assert server.is_running
     assert server.is_owner
-    server.boot()
+    with pytest.raises(exceptions.ServerOnline):
+        server.boot()
     assert server.is_running
     assert server.is_owner
 
@@ -59,7 +59,8 @@ def test_boot_and_connect():
     server.boot()
     assert server.is_running
     assert server.is_owner
-    server.connect()
+    with pytest.raises(exceptions.ServerOnline):
+        server.connect()
     assert server.is_running
     assert server.is_owner
 
@@ -92,7 +93,7 @@ def test_boot_a_and_boot_b_cannot_boot():
     server_a.boot(maximum_logins=4)
     assert server_a.is_running and server_a.is_owner
     assert not server_b.is_running and not server_b.is_owner
-    with pytest.raises(supriya.exceptions.ServerCannotBoot):
+    with pytest.raises(exceptions.ServerCannotBoot):
         server_b.boot(maximum_logins=4)
     assert server_a.is_running and server_a.is_owner
     assert not server_b.is_running and not server_b.is_owner
@@ -105,7 +106,7 @@ def test_boot_a_and_connect_b_too_many_clients():
     server_a.boot(maximum_logins=1)
     assert server_a.is_running and server_a.is_owner
     assert not server_b.is_running and not server_b.is_owner
-    with pytest.raises(supriya.exceptions.TooManyClients):
+    with pytest.raises(exceptions.TooManyClients):
         server_b.connect()
     assert server_a.is_running and server_a.is_owner
     assert not server_b.is_running and not server_b.is_owner
@@ -149,22 +150,9 @@ def test_boot_a_and_connect_b_and_disconnect_a():
     server_b.connect()
     assert server_a.is_running and server_a.is_owner
     assert server_b.is_running and not server_b.is_owner
-    with pytest.raises(supriya.exceptions.OwnedServerShutdown):
+    with pytest.raises(exceptions.OwnedServerShutdown):
         server_a.disconnect()
     assert server_a.is_running and server_a.is_owner
-    assert server_b.is_running and not server_b.is_owner
-
-
-def test_boot_a_and_connect_b_and_force_disconnect_a():
-    server_a, server_b = Server(), Server()
-    assert not server_a.is_running and not server_a.is_owner
-    assert not server_b.is_running and not server_b.is_owner
-    server_a.boot(maximum_logins=2)
-    server_b.connect()
-    assert server_a.is_running and server_a.is_owner
-    assert server_b.is_running and not server_b.is_owner
-    server_a.disconnect(force=True)
-    assert not server_a.is_running and not server_a.is_owner
     assert server_b.is_running and not server_b.is_owner
 
 
@@ -176,7 +164,7 @@ def test_boot_a_and_connect_b_and_quit_b():
     server_b.connect()
     assert server_a.is_running and server_a.is_owner
     assert server_b.is_running and not server_b.is_owner
-    with pytest.raises(supriya.exceptions.UnownedServerShutdown):
+    with pytest.raises(exceptions.UnownedServerShutdown):
         server_b.quit()
     assert server_a.is_running and server_a.is_owner
     assert server_b.is_running and not server_b.is_owner
@@ -216,11 +204,24 @@ def test_shared_resources():
         time.sleep(0.1)  # Wait for all clients to receive /n_go
     assert synth not in server_a
     assert synth in server_b
-    assert [(label, osc_message) for _, label, osc_message in transcript_a] == [
-        ("R", OscMessage("/n_go", 67109864, 2, -1, -1, 0))
-    ]
-    assert [(label, osc_message) for _, label, osc_message in transcript_b] == [
-        ("S", OscMessage(5, synthdef.compile(), OscMessage(9, "foo", 67109864, 0, 2))),
+    assert [
+        (label, osc_message)
+        for _, label, osc_message in transcript_a
+        if osc_message.address not in ["/status", "/status.reply"]
+    ] == [("R", OscMessage("/n_go", 67109864, 2, -1, -1, 0))]
+    assert [
+        (label, osc_message)
+        for _, label, osc_message in transcript_b
+        if osc_message.address not in ["/status", "/status.reply"]
+    ] == [
+        (
+            "S",
+            OscMessage(
+                "/d_recv",
+                synthdef.compile(),
+                OscMessage("/s_new", "foo", 67109864, 0, 2),
+            ),
+        ),
         ("R", OscMessage("/n_go", 67109864, 2, -1, -1, 0)),
         ("R", OscMessage("/done", "/d_recv")),
     ]
@@ -247,11 +248,11 @@ def test_shared_resources():
 
 def test_connect_and_reconnect():
     try:
-        options = Options(maximum_logins=4)
+        options = scsynth.Options(maximum_logins=4)
         protocol = SyncProcessProtocol()
         protocol.boot(options, scsynth.find(), 57110)
-        server = Server(port=57110)
-        server.connect()
+        server = Server()
+        server.connect(port=57110)
         assert server.is_running and not server.is_owner
         assert server.client_id == 0
         assert str(server.query_local_nodes(True)) == normalize(
@@ -264,7 +265,7 @@ def test_connect_and_reconnect():
         """
         )
         server.disconnect()
-        server.connect()
+        server.connect(port=57110)
         assert server.is_running and not server.is_owner
         assert server.client_id == 1
         assert str(server.query_local_nodes(True)) == normalize(

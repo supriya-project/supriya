@@ -62,10 +62,10 @@ def test_2(server):
         request.communicate()
         server.sync()
     assert [(_.label, _.message) for _ in transcript] == [
-        ("S", supriya.osc.OscMessage(21, 1001, 0, 1000, 1002, 0, 1001)),
+        ("S", supriya.osc.OscMessage("/g_new", 1001, 0, 1000, 1002, 0, 1001)),
         ("R", supriya.osc.OscMessage("/n_go", 1001, 1000, -1, -1, 1, -1, -1)),
         ("R", supriya.osc.OscMessage("/n_go", 1002, 1001, -1, -1, 1, -1, -1)),
-        ("S", supriya.osc.OscMessage(52, 0)),
+        ("S", supriya.osc.OscMessage("/sync", 0)),
         ("R", supriya.osc.OscMessage("/synced", 0)),
     ]
     server_state = str(server.query_remote_nodes())
@@ -114,10 +114,10 @@ def test_3(server):
         request.communicate()
         server.sync()
     assert [(_.label, _.message) for _ in transcript] == [
-        ("S", supriya.osc.OscMessage(21, 1001, 0, 1000, 1002, 0, 1001)),
+        ("S", supriya.osc.OscMessage("/g_new", 1001, 0, 1000, 1002, 0, 1001)),
         ("R", supriya.osc.OscMessage("/n_go", 1001, 1000, -1, -1, 1, -1, -1)),
         ("R", supriya.osc.OscMessage("/n_go", 1002, 1001, -1, -1, 1, -1, -1)),
-        ("S", supriya.osc.OscMessage(52, 0)),
+        ("S", supriya.osc.OscMessage("/sync", 0)),
         ("R", supriya.osc.OscMessage("/synced", 0)),
     ]
     server_state = str(server.query_remote_nodes())
