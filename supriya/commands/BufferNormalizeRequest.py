@@ -20,20 +20,12 @@ class BufferNormalizeRequest(Request):
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(38, 23, 'normalize', 1.0)
-
-    ::
-
-        >>> message.address == supriya.RequestId.BUFFER_GENERATE
-        True
+        >>> request.to_osc()
+        OscMessage('/b_gen', 23, 'normalize', 1.0)
 
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ("_as_wavetable", "_buffer_id", "_new_maximum")
 
     request_id = RequestId.BUFFER_GENERATE
 
@@ -49,11 +41,8 @@ class BufferNormalizeRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         buffer_id = int(self.buffer_id)
         command_name = "normalize"
         if self.as_wavetable:

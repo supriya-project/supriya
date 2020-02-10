@@ -18,20 +18,12 @@ class DumpOscRequest(Request):
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(39, 1)
-
-    ::
-
-        >>> message.address == supriya.RequestId.DUMP_OSC
-        True
+        >>> request.to_osc()
+        OscMessage('/dumpOSC', 1)
 
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ("_osc_status",)
 
     request_id = RequestId.DUMP_OSC
 
@@ -43,11 +35,8 @@ class DumpOscRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         osc_status = int(self.osc_status)
         assert 0 <= osc_status <= 4
         message = supriya.osc.OscMessage(request_id, osc_status)

@@ -4,14 +4,9 @@ from supriya.querytree import QueryTreeControl, QueryTreeGroup, QueryTreeSynth
 
 class QueryTreeResponse(Response):
 
-    ### CLASS VARIABLES ###
-
-    __slots__ = ("_node_id", "_query_tree_group")
-
     ### INITIALIZER ###
 
-    def __init__(self, node_id=None, osc_message=None, query_tree_group=None):
-        Response.__init__(self, osc_message=osc_message)
+    def __init__(self, node_id=None, query_tree_group=None):
         self._node_id = node_id
         self._query_tree_group = query_tree_group
 

@@ -35,7 +35,7 @@ class GroupFreeAllRequest(Request):
     ::
 
         >>> request = supriya.commands.GroupFreeAllRequest(group)
-        >>> request.to_osc(with_request_name=True)
+        >>> request.to_osc()
         OscMessage('/g_freeAll', 1000)
 
     ::
@@ -78,8 +78,6 @@ class GroupFreeAllRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ("_group_id",)
-
     request_id = RequestId.GROUP_FREE_ALL
 
     ### INITIALIZER ###
@@ -90,11 +88,8 @@ class GroupFreeAllRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         group_id = int(self.group_id)
         message = supriya.osc.OscMessage(request_id, group_id)
         return message

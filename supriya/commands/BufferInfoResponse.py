@@ -7,8 +7,6 @@ class BufferInfoResponse(Response):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ("_items",)
-
     class Item(NamedTuple):
         buffer_id: int
         frame_count: int
@@ -17,8 +15,7 @@ class BufferInfoResponse(Response):
 
     ### INITIALIZER ###
 
-    def __init__(self, items=None, osc_message=None):
-        Response.__init__(self, osc_message=osc_message)
+    def __init__(self, items=None):
         self._items = tuple(items or ())
 
     ### SPECIAL METHODS ###

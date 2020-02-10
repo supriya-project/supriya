@@ -115,8 +115,6 @@ class SynthDefReceiveRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ("_callback", "_synthdefs", "_use_anonymous_names")
-
     request_id = RequestId.SYNTHDEF_RECEIVE
 
     ### INITIALIZER ###
@@ -147,25 +145,17 @@ class SynthDefReceiveRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
+    def to_osc(self, *, with_placeholders=False):
         import supriya.synthdefs
 
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+        request_id = self.request_name
         compiled_synthdefs = supriya.synthdefs.SynthDefCompiler.compile_synthdefs(
             self.synthdefs, use_anonymous_names=self.use_anonymous_names
         )
         compiled_synthdefs = bytearray(compiled_synthdefs)
         contents = [request_id, compiled_synthdefs]
         if self.callback:
-            contents.append(
-                self.callback.to_osc(
-                    with_placeholders=with_placeholders,
-                    with_request_name=with_request_name,
-                )
-            )
+            contents.append(self.callback.to_osc(with_placeholders=with_placeholders))
         message = supriya.osc.OscMessage(*contents)
         return message
 

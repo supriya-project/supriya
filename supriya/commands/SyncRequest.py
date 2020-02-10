@@ -20,20 +20,12 @@ class SyncRequest(Request):
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(52, 1999)
-
-    ::
-
-        >>> message.address == supriya.RequestId.SYNC
-        True
+        >>> request.to_osc()
+        OscMessage('/sync', 1999)
 
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ("_sync_id",)
 
     request_id = RequestId.SYNC
 
@@ -45,11 +37,8 @@ class SyncRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         sync_id = int(self.sync_id)
         message = supriya.osc.OscMessage(request_id, sync_id)
         return message

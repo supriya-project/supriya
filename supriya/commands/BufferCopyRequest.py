@@ -22,26 +22,12 @@ class BufferCopyRequest(Request):
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(38, 666, 'copy', 0, 23, 0, -1)
-
-    ::
-
-        >>> message.address == supriya.RequestId.BUFFER_GENERATE
-        True
+        >>> request.to_osc()
+        OscMessage('/b_gen', 666, 'copy', 0, 23, 0, -1)
 
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = (
-        "_frame_count",
-        "_source_buffer_id",
-        "_source_starting_frame",
-        "_target_buffer_id",
-        "_target_starting_frame",
-    )
 
     request_id = RequestId.BUFFER_GENERATE
 
@@ -73,11 +59,8 @@ class BufferCopyRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         frame_count = self.frame_count
         if frame_count is None:
             frame_count = -1

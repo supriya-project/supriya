@@ -20,20 +20,12 @@ class BufferCloseRequest(Request):
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(33, 23)
-
-    ::
-
-        >>> message.address == supriya.RequestId.BUFFER_CLOSE
-        True
+        >>> request.to_osc()
+        OscMessage('/b_close', 23)
 
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ("_buffer_id",)
 
     request_id = RequestId.BUFFER_CLOSE
 
@@ -45,11 +37,8 @@ class BufferCloseRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         buffer_id = int(self.buffer_id)
         message = supriya.osc.OscMessage(request_id, buffer_id)
         return message

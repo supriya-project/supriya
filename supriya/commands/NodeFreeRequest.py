@@ -22,20 +22,12 @@ class NodeFreeRequest(Request):
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(11, 1000)
-
-    ::
-
-        >>> message.address == supriya.RequestId.NODE_FREE
-        True
+        >>> request.to_osc()
+        OscMessage('/n_free', 1000)
 
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ("_node_ids",)
 
     request_id = RequestId.NODE_FREE
 
@@ -60,11 +52,8 @@ class NodeFreeRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         contents = [request_id]
         contents.extend(self.node_ids)
         message = supriya.osc.OscMessage(*contents)

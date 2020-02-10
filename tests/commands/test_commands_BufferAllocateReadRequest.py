@@ -9,7 +9,7 @@ def test_Session():
         buffer_id=1, file_path=session, frame_count=512, starting_frame=128
     )
     assert request.file_path is session
-    osc_message = request.to_osc(with_request_name=True)
+    osc_message = request.to_osc()
     assert osc_message.address == "/b_allocRead"
     assert osc_message.contents == (1, session, 128, 512)
 
@@ -20,6 +20,6 @@ def test_Say():
         buffer_id=1, file_path=say, frame_count=512, starting_frame=128
     )
     assert request.file_path is say
-    osc_message = request.to_osc(with_request_name=True)
+    osc_message = request.to_osc()
     assert osc_message.address == "/b_allocRead"
     assert osc_message.contents == (1, say, 128, 512)

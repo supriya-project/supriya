@@ -40,7 +40,7 @@ class GroupNewRequest(Request):
         ...             ),
         ...         ],
         ...     )
-        >>> request.to_osc(with_request_name=True)
+        >>> request.to_osc()
         OscMessage('/g_new', 1001, 1, 1, 1002, 0, 1001)
 
     ::
@@ -82,8 +82,6 @@ class GroupNewRequest(Request):
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ("_items",)
 
     class Item(typing.NamedTuple):
         add_action: int = 0
@@ -135,11 +133,8 @@ class GroupNewRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         contents = [request_id]
         for item in self.items:
             node_id = self._sanitize_node_id(item.node_id, with_placeholders)

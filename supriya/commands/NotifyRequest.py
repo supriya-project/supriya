@@ -21,20 +21,12 @@ class NotifyRequest(Request):
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(1, 1)
-
-    ::
-
-        >>> message.address == supriya.RequestId.NOTIFY
-        True
+        >>> request.to_osc()
+        OscMessage('/notify', 1)
 
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ("_notify_status",)
 
     request_id = RequestId.NOTIFY
 
@@ -46,11 +38,8 @@ class NotifyRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         notify_status = int(self.notify_status)
         message = supriya.osc.OscMessage(request_id, notify_status)
         return message

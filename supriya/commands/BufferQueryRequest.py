@@ -20,20 +20,12 @@ class BufferQueryRequest(Request):
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(47, 1, 23, 41)
-
-    ::
-
-        >>> message.address == supriya.RequestId.BUFFER_QUERY
-        True
+        >>> request.to_osc()
+        OscMessage('/b_query', 1, 23, 41)
 
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ("_buffer_ids",)
 
     request_id = RequestId.BUFFER_QUERY
 
@@ -47,11 +39,8 @@ class BufferQueryRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         contents = [request_id]
         for buffer_id in self.buffer_ids:
             contents.append(buffer_id)

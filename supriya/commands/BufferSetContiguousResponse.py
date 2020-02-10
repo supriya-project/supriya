@@ -8,16 +8,13 @@ class BufferSetContiguousResponse(Response, collections.Sequence):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ("_buffer_id", "_items")
-
     class Item(NamedTuple):
         sample_values: int
         starting_sample_index: int
 
     ### INITIALIZER ###
 
-    def __init__(self, items=None, buffer_id=None, osc_message=None):
-        Response.__init__(self, osc_message=osc_message)
+    def __init__(self, items=None, buffer_id=None):
         self._buffer_id = buffer_id
         self._items = items
 

@@ -13,8 +13,6 @@ class SynthDefLoadRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ("_callback", "_synthdef_path")
-
     request_id = RequestId.SYNTHDEF_LOAD
 
     ### INITIALIZER ###
@@ -28,19 +26,11 @@ class SynthDefLoadRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         contents = [request_id, str(self.synthdef_path)]
         if self.callback:
-            contents.append(
-                self.callback.to_osc(
-                    with_placeholders=with_placeholders,
-                    with_request_name=with_request_name,
-                )
-            )
+            contents.append(self.callback.to_osc(with_placeholders=with_placeholders))
         message = supriya.osc.OscMessage(*contents)
         return message
 

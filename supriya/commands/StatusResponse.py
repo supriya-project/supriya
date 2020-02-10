@@ -3,19 +3,6 @@ from supriya.commands.Response import Response
 
 class StatusResponse(Response):
 
-    ### CLASS VARIABLES ###
-
-    __slots__ = (
-        "_actual_sample_rate",
-        "_average_cpu_usage",
-        "_group_count",
-        "_peak_cpu_usage",
-        "_synth_count",
-        "_synthdef_count",
-        "_target_sample_rate",
-        "_ugen_count",
-    )
-
     ### INITIALIZER ###
 
     def __init__(
@@ -23,14 +10,12 @@ class StatusResponse(Response):
         actual_sample_rate=None,
         average_cpu_usage=None,
         group_count=None,
-        osc_message=None,
         peak_cpu_usage=None,
         synth_count=None,
         synthdef_count=None,
         target_sample_rate=None,
         ugen_count=None,
     ):
-        Response.__init__(self, osc_message=osc_message)
         self._actual_sample_rate = actual_sample_rate
         self._average_cpu_usage = average_cpu_usage
         self._group_count = group_count

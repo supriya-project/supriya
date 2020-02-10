@@ -78,7 +78,7 @@ class Requestable(SupriyaValueObject):
             except Exception:
                 print(self)
                 raise
-            server.send(requestable.to_osc(with_request_name=True))
+            server.send(requestable.to_osc())
             while self.response is None:
                 self.condition.wait(timeout)
                 current_time = time.time()
@@ -107,19 +107,15 @@ class Requestable(SupriyaValueObject):
             procedure=self._set_response_async,
             once=True,
         )
-        server.send(requestable.to_osc(with_request_name=True))
+        server.send(requestable.to_osc())
         await asyncio.wait_for(self._response_future, timeout=timeout)
         return self._response
 
-    def to_datagram(self, *, with_placeholders=False, with_request_name=False):
-        return self.to_osc(
-            with_placeholders=with_placeholders, with_request_name=with_request_name
-        ).to_datagram()
+    def to_datagram(self, *, with_placeholders=False):
+        return self.to_osc(with_placeholders=with_placeholders).to_datagram()
 
-    def to_list(self, *, with_placeholders=False, with_request_name=False):
-        return self.to_osc(
-            with_placeholders=with_placeholders, with_request_name=with_request_name
-        ).to_list()
+    def to_list(self, *, with_placeholders=False):
+        return self.to_osc(with_placeholders=with_placeholders).to_list()
 
     ### PUBLIC PROPERTIES ###
 

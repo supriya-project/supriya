@@ -3,14 +3,9 @@ from supriya.commands.Response import Response
 
 class SyncedResponse(Response):
 
-    ### CLASS VARIABLES ###
-
-    __slots__ = ("_sync_id",)
-
     ### INITIALIZER ###
 
-    def __init__(self, sync_id=None, osc_message=None):
-        Response.__init__(self, osc_message=osc_message)
+    def __init__(self, sync_id=None):
         self._sync_id = sync_id
 
     ### PUBLIC METHODS ###

@@ -19,20 +19,12 @@ class SynthDefFreeRequest(Request):
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(53, 'test')
-
-    ::
-
-        >>> message.address == supriya.RequestId.SYNTHDEF_FREE
-        True
+        >>> request.to_osc()
+        OscMessage('/d_free', 'test')
 
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ("_synthdef",)
 
     request_id = RequestId.SYNTHDEF_FREE
 
@@ -48,13 +40,10 @@ class SynthDefFreeRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
+    def to_osc(self, *, with_placeholders=False):
         import supriya.synthdefs
 
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+        request_id = self.request_name
         synthdef = self.synthdef
         if isinstance(synthdef, supriya.synthdefs.SynthDef):
             synthdef = synthdef.actual_name

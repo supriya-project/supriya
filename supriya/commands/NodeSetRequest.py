@@ -26,20 +26,12 @@ class NodeSetRequest(Request):
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(15, 1000, 'amplitude', 0.1, 'frequency', 443.1, 'phase', 0.5)
-
-    ::
-
-        >>> message.address == supriya.RequestId.NODE_SET
-        True
+        >>> request.to_osc()
+        OscMessage('/n_set', 1000, 'amplitude', 0.1, 'frequency', 443.1, 'phase', 0.5)
 
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ("_kwargs", "_node_id")
 
     request_id = RequestId.NODE_SET
 
@@ -59,11 +51,8 @@ class NodeSetRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         node_id = int(self.node_id)
         contents = [request_id, node_id]
         for key, value in sorted(self._kwargs.items()):

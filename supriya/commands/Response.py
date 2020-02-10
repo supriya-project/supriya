@@ -3,17 +3,6 @@ from supriya.system import SupriyaValueObject
 
 class Response(SupriyaValueObject):
 
-    ### CLASS VARIABLES ###
-
-    __slots__ = ("_osc_message",)
-
-    _address = None
-
-    ### INITIALIZER ###
-
-    def __init__(self, osc_message=None):
-        self._osc_message = osc_message
-
     ### PRIVATE METHODS ###
 
     @staticmethod
@@ -59,9 +48,3 @@ class Response(SupriyaValueObject):
                 continue
             result[key] = value
         return result
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def osc_message(self):
-        return self._osc_message

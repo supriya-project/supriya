@@ -27,20 +27,12 @@ class NodeMapToControlBusRequest(Request):
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(14, 1000, 'amplitude', 11, 'frequency', 9, 'phase', 10)
-
-    ::
-
-        >>> message.address == supriya.RequestId.NODE_MAP_TO_CONTROL_BUS
-        True
+        >>> request.to_osc()
+        OscMessage('/n_map', 1000, 'amplitude', 11, 'frequency', 9, 'phase', 10)
 
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ("_kwargs", "_node_id")
 
     request_id = RequestId.NODE_MAP_TO_CONTROL_BUS
 
@@ -60,11 +52,8 @@ class NodeMapToControlBusRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         node_id = self._sanitize_node_id(self.node_id, with_placeholders)
         contents = []
         for name, bus in sorted(self._kwargs.items()):

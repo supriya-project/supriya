@@ -26,20 +26,12 @@ class ControlBusFillRequest(Request):
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(27, 0, 8, 0.5, 8, 8, 0.25)
-
-    ::
-
-        >>> message.address == supriya.RequestId.CONTROL_BUS_FILL
-        True
+        >>> request.to_osc()
+        OscMessage('/c_fill', 0, 8, 0.5, 8, 8, 0.25)
 
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ("_index_count_value_triples",)
 
     request_id = RequestId.CONTROL_BUS_FILL
 
@@ -62,11 +54,8 @@ class ControlBusFillRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         contents = [request_id]
         if self.index_count_value_triples:
             for index, count, value in self.index_count_value_triples:

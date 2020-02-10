@@ -25,7 +25,7 @@ class NodeRunRequest(Request):
         ...     [synth_a, True],
         ...     [synth_b, False],
         ...     ])
-        >>> request.to_osc(with_request_name=True)
+        >>> request.to_osc()
         OscMessage('/n_run', 1000, 1, 1001, 0)
 
     ::
@@ -55,7 +55,7 @@ class NodeRunRequest(Request):
         ...     [synth_a, False],
         ...     [synth_b, True],
         ...     ])
-        >>> request.to_osc(with_request_name=True)
+        >>> request.to_osc()
         OscMessage('/n_run', 1000, 0, 1001, 1)
 
     ::
@@ -81,8 +81,6 @@ class NodeRunRequest(Request):
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ("_node_id_run_flag_pairs",)
 
     request_id = RequestId.NODE_RUN
 
@@ -110,11 +108,8 @@ class NodeRunRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         contents = [request_id]
         sanitized_pairs = []
         for node_id, run_flag in self.node_id_run_flag_pairs or []:

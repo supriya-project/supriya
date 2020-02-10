@@ -15,7 +15,7 @@ def test_Session():
         starting_frame_in_file=0,
     )
     assert request.file_path is session
-    osc_message = request.to_osc(with_request_name=True)
+    osc_message = request.to_osc()
     assert osc_message.address == "/b_readChannel"
     assert osc_message.contents == (1, session, 0, 512, 0, 1, 4, 5)
 
@@ -32,6 +32,6 @@ def test_Say():
         starting_frame_in_file=0,
     )
     assert request.file_path is say
-    osc_message = request.to_osc(with_request_name=True)
+    osc_message = request.to_osc()
     assert osc_message.address == "/b_readChannel"
     assert osc_message.contents == (1, say, 0, 512, 0, 1, 4, 5)

@@ -9,8 +9,6 @@ class MoveRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ("_node_id_pairs",)
-
     class NodeIdPair(typing.NamedTuple):
         node_id: int
         target_node_id: int
@@ -31,11 +29,8 @@ class MoveRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         contents = [request_id]
         if self.node_id_pairs:
             for node_id_pair in self.node_id_pairs:

@@ -4,21 +4,6 @@ from supriya.enums import NodeAction
 
 class NodeInfoResponse(Response):
 
-    ### CLASS VARIABLES ###
-
-    __slots__ = (
-        "_action",
-        "_head_node_id",
-        "_is_group",
-        "_next_node_id",
-        "_node_id",
-        "_parent_id",
-        "_previous_node_id",
-        "_tail_node_id",
-        "_synthdef_name",
-        "_synthdef_controls",
-    )
-
     ### INITIALIZER ###
 
     def __init__(
@@ -33,9 +18,7 @@ class NodeInfoResponse(Response):
         tail_node_id=None,
         synthdef_name=None,
         synthdef_controls=None,
-        osc_message=None,
     ):
-        Response.__init__(self, osc_message=osc_message)
         self._action = NodeAction.from_address(action)
         self._is_group = bool(is_group)
         self._head_node_id = self._coerce_node_id(head_node_id)

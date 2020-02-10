@@ -25,20 +25,12 @@ class BufferGetContiguousRequest(Request):
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(43, 23, 0, 3, 8, 11)
-
-    ::
-
-        >>> message.address == supriya.RequestId.BUFFER_GET_CONTIGUOUS
-        True
+        >>> request.to_osc()
+        OscMessage('/b_getn', 23, 0, 3, 8, 11)
 
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ("_buffer_id", "_index_count_pairs")
 
     request_id = RequestId.BUFFER_GET_CONTIGUOUS
 
@@ -53,11 +45,8 @@ class BufferGetContiguousRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         buffer_id = int(self.buffer_id)
         contents = [request_id, buffer_id]
         if self.index_count_pairs:

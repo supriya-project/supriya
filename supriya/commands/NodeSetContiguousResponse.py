@@ -7,16 +7,13 @@ class NodeSetContiguousResponse(Response):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ("_items", "_node_id")
-
     class Item(NamedTuple):
         control_values: Tuple[float]
         starting_control_index_or_name: Union[int, str]
 
     ### INITIALIZER ###
 
-    def __init__(self, node_id=None, items=None, osc_message=None):
-        Response.__init__(self, osc_message=osc_message)
+    def __init__(self, node_id=None, items=None):
         self._items = items
         self._node_id = node_id
 

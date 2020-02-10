@@ -18,7 +18,7 @@ class Request(Requestable):
 
     def _handle_async(self, sync, server):
         if not sync or self.response_patterns[0] is None:
-            message = self.to_osc(with_request_name=True)
+            message = self.to_osc()
             server.send(message)
             return True
 
@@ -32,7 +32,7 @@ class Request(Requestable):
     ### PUBLIC METHODS ###
 
     @abc.abstractmethod
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
+    def to_osc(self, *, with_placeholders=False):
         raise NotImplementedError
 
     ### PUBLIC PROPERTIES ###

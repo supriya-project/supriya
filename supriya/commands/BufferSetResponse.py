@@ -8,16 +8,13 @@ class BufferSetResponse(Response, collections.Sequence):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ("_buffer_id", "_items")
-
     class Item(NamedTuple):
         sample_index: int
         sample_value: float
 
     ### INITIALIZER ###
 
-    def __init__(self, buffer_id=None, items=None, osc_message=None):
-        Response.__init__(self, osc_message=osc_message)
+    def __init__(self, buffer_id=None, items=None):
         self._buffer_id = buffer_id
         self._items = items
 

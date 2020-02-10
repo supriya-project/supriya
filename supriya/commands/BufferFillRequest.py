@@ -28,20 +28,12 @@ class BufferFillRequest(Request):
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(37, 23, 0, 8, 0.1, 11, 4, 0.2)
-
-    ::
-
-        >>> message.address == supriya.RequestId.BUFFER_FILL
-        True
+        >>> request.to_osc()
+        OscMessage('/b_fill', 23, 0, 8, 0.1, 11, 4, 0.2)
 
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ("_buffer_id", "_index_count_value_triples")
 
     request_id = RequestId.BUFFER_FILL
 
@@ -59,11 +51,8 @@ class BufferFillRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         buffer_id = int(self.buffer_id)
         contents = [request_id, buffer_id]
         for index, count, value in self.index_count_value_triples:

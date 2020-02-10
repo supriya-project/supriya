@@ -8,16 +8,13 @@ class ControlBusSetContiguousResponse(Response, collections.Sequence):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ("_items",)
-
     class Item(NamedTuple):
         bus_values: Tuple[float]
         starting_bus_id: int
 
     ### INITIALIZER ###
 
-    def __init__(self, items=None, osc_message=None):
-        Response.__init__(self, osc_message=osc_message)
+    def __init__(self, items=None):
         self._items = items
 
     ### SPECIAL METHODS ###

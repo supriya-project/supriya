@@ -32,20 +32,12 @@ class SynthNewRequest(Request):
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(9, 'test', 1001, 1, 1000, 'frequency', 443, 'phase', 0.2)
-
-    ::
-
-        >>> message.address == supriya.RequestId.SYNTH_NEW
-        True
+        >>> request.to_osc()
+        OscMessage('/s_new', 'test', 1001, 1, 1000, 'frequency', 443, 'phase', 0.2)
 
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ("_add_action", "_node_id", "_synthdef", "_target_node_id", "_kwargs")
 
     request_id = RequestId.SYNTH_NEW
 
@@ -93,13 +85,10 @@ class SynthNewRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
+    def to_osc(self, *, with_placeholders=False):
         import supriya.synthdefs
 
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+        request_id = self.request_name
         synthdef = self.synthdef
         if isinstance(synthdef, supriya.synthdefs.SynthDef):
             synthdef = synthdef.actual_name

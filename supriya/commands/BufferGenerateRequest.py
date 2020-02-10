@@ -43,29 +43,12 @@ class BufferGenerateRequest(Request):
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(38, 23, 'sine3', 7, 1.0, 1.0, 0.0, 0.5, 2.0, 0.5, 0.25, 3.0, 0.0)
-
-    ::
-
-        >>> message.address == supriya.RequestId.BUFFER_GENERATE
-        True
+        >>> request.to_osc()
+        OscMessage('/b_gen', 23, 'sine3', 7, 1.0, 1.0, 0.0, 0.5, 2.0, 0.5, 0.25, 3.0, 0.0)
 
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = (
-        "_amplitudes",
-        "_as_wavetable",
-        "_buffer_id",
-        "_command_name",
-        "_frequencies",
-        "_phases",
-        "_should_clear_first",
-        "_should_normalize",
-    )
 
     request_id = RequestId.BUFFER_GENERATE
 
@@ -122,11 +105,8 @@ class BufferGenerateRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         buffer_id = int(self.buffer_id)
         contents = [request_id, buffer_id, self.command_name, self.flags]
         if self.command_name in ("cheby", "sine1"):

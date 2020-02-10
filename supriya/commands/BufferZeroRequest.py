@@ -21,20 +21,12 @@ class BufferZeroRequest(Request):
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(34, 23)
-
-    ::
-
-        >>> message.address == supriya.RequestId.BUFFER_ZERO
-        True
+        >>> request.to_osc()
+        OscMessage('/b_zero', 23)
 
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ("_buffer_id", "_callback")
 
     request_id = RequestId.BUFFER_ZERO
 
@@ -49,11 +41,8 @@ class BufferZeroRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         buffer_id = int(self.buffer_id)
         contents = [request_id, buffer_id]
         if self.callback:

@@ -497,7 +497,7 @@ def test_RealtimeProvider_add_group_1(server):
         node_settings=[],
     )
     assert [entry.message.to_list() for entry in transcript] == [
-        [seconds + provider.latency, [[21, 1000, 0, 1]]]
+        [seconds + provider.latency, [["/g_new", 1000, 0, 1]]]
     ]
     time.sleep(0.1)
     assert str(server) == normalize(
@@ -528,8 +528,8 @@ def test_RealtimeProvider_add_group_2(server):
         node_settings=[],
     )
     assert [entry.message.to_list() for entry in transcript] == [
-        [None, [[21, 1000, 0, 1]]],
-        [seconds + 0.01 + provider.latency, [[21, 1001, 0, 1000]]],
+        [None, [["/g_new", 1000, 0, 1]]],
+        [seconds + 0.01 + provider.latency, [["/g_new", 1001, 0, 1000]]],
     ]
     time.sleep(0.1)
     assert str(server) == normalize(
@@ -575,7 +575,7 @@ def test_RealtimeProvider_add_synth_1(server):
     assert [entry.message.to_list() for entry in transcript] == [
         [
             seconds + provider.latency,
-            [[9, "default", 1000, 0, 1, "amplitude", 0.3, "frequency", 333]],
+            [["/s_new", "default", 1000, 0, 1, "amplitude", 0.3, "frequency", 333]],
         ]
     ]
     time.sleep(0.1)
@@ -615,10 +615,10 @@ def test_RealtimeProvider_add_synth_2(server):
         node_settings=[],
     )
     assert [entry.message.to_list() for entry in transcript] == [
-        [None, [[21, 1000, 0, 1]]],
+        [None, [["/g_new", 1000, 0, 1]]],
         [
             seconds + 0.01 + provider.latency,
-            [[9, "default", 1001, 0, 1000, "amplitude", 0.5, "frequency", 666]],
+            [["/s_new", "default", 1001, 0, 1000, "amplitude", 0.5, "frequency", 666]],
         ],
     ]
     time.sleep(0.1)
@@ -649,7 +649,7 @@ def test_RealtimeProvider_add_synth_3(server):
         settings=dict(amplitude=control_bus_proxy, out=audio_bus_proxy),
     )
     assert [entry.message.to_list() for entry in transcript] == [
-        [None, [[9, "default", 1000, 0, 1, "amplitude", "c0", "out", 16.0]]]
+        [None, [["/s_new", "default", 1000, 0, 1, "amplitude", "c0", "out", 16.0]]]
     ]
     assert str(server) == normalize(
         """
@@ -751,8 +751,8 @@ def test_RealtimeProvider_free_node_1(server):
             group_proxy.free()
             synth_proxy.free()
     assert [entry.message.to_list() for entry in transcript] == [
-        [None, [[21, 1000, 0, 1], [9, "default", 1001, 0, 1]]],
-        [None, [[11, 1000], [15, 1001, "gate", 0]]],
+        [None, [["/g_new", 1000, 0, 1], ["/s_new", "default", 1001, 0, 1]]],
+        [None, [["/n_free", 1000], ["/n_set", 1001, "gate", 0]]],
     ]
     time.sleep(0.1)
     assert str(server) == normalize(
@@ -776,7 +776,7 @@ def test_RealtimeProvider_move_node_1(server):
     assert [entry.message.to_list() for entry in transcript] == [
         [
             seconds + provider.latency,
-            [[21, 1000, 0, 1], [21, 1001, 0, 1], [23, 1001, 1000]],
+            [["/g_new", 1000, 0, 1], ["/g_new", 1001, 0, 1], ["/g_tail", 1001, 1000]],
         ]
     ]
     time.sleep(0.1)
@@ -811,7 +811,7 @@ def test_RealtimeProvider_set_bus_1(server):
             for i, bus_proxy in enumerate(bus_group_proxy):
                 bus_proxy.set_(pow(2, i))
     assert [entry.message.to_list() for entry in transcript] == [
-        [seconds + provider.latency, [[25, 0, 1.0, 1, 2.0, 2, 4.0, 3, 8.0]]]
+        [seconds + provider.latency, [["/c_set", 0, 1.0, 1, 2.0, 2, 4.0, 3, 8.0]]]
     ]
 
 
@@ -835,7 +835,7 @@ def test_RealtimeProvider_set_node_1(server):
         with provider.at(seconds + 0.01):
             group_proxy["foo"] = 23
     assert [entry.message.to_list() for entry in transcript] == [
-        [seconds + 0.01 + provider.latency, [[15, 1000, "foo", 23]]]
+        [seconds + 0.01 + provider.latency, [["/n_set", 1000, "foo", 23]]]
     ]
 
 
@@ -856,7 +856,7 @@ def test_RealtimeProvider_set_node_2(server):
         with provider.at(None):
             synth_proxy["frequency"] = 443
     assert [entry.message.to_list() for entry in transcript] == [
-        [None, [[15, 1000, "frequency", 443.0]]]
+        [None, [["/n_set", 1000, "frequency", 443.0]]]
     ]
     time.sleep(0.01)
     assert str(server) == normalize(
@@ -879,7 +879,7 @@ def test_RealtimeProvider_set_node_3(server):
         with provider.at(None):
             synth_proxy["frequency"] = bus_proxy
     assert [entry.message.to_list() for entry in transcript] == [
-        [None, [[15, 1000, "frequency", "c0"]]]
+        [None, [["/n_set", 1000, "frequency", "c0"]]]
     ]
     time.sleep(0.01)
     assert str(server) == normalize(
@@ -895,7 +895,7 @@ def test_RealtimeProvider_set_node_3(server):
         with provider.at(None):
             synth_proxy["frequency"] = 443
     assert [entry.message.to_list() for entry in transcript] == [
-        [None, [[15, 1000, "frequency", 443.0]]]
+        [None, [["/n_set", 1000, "frequency", 443.0]]]
     ]
     time.sleep(0.01)
     assert str(server) == normalize(

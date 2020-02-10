@@ -22,20 +22,12 @@ class GroupQueryTreeRequest(Request):
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(57, 0, 1)
-
-    ::
-
-        >>> message.address == supriya.RequestId.GROUP_QUERY_TREE
-        True
+        >>> request.to_osc()
+        OscMessage('/g_queryTree', 0, 1)
 
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ("_include_controls", "_node_id")
 
     request_id = RequestId.GROUP_QUERY_TREE
 
@@ -48,11 +40,8 @@ class GroupQueryTreeRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         node_id = int(self.node_id)
         include_controls = int(self.include_controls)
         message = supriya.osc.OscMessage(request_id, node_id, include_controls)

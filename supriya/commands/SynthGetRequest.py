@@ -6,8 +6,6 @@ class SynthGetRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ()
-
     request_id = RequestId.SYNTH_GET
 
     ### INITIALIZER ###
@@ -18,5 +16,5 @@ class SynthGetRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
+    def to_osc(self, *, with_placeholders=False):
         raise NotImplementedError

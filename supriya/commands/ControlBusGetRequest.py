@@ -21,7 +21,7 @@ class ControlBusGetRequest(Request):
 
     ::
 
-        >>> request.to_osc(with_request_name=True)
+        >>> request.to_osc()
         OscMessage('/c_get', 0, 4, 8, 12)
 
     ::
@@ -50,8 +50,6 @@ class ControlBusGetRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ("_indices",)
-
     request_id = RequestId.CONTROL_BUS_GET
 
     ### INITIALIZER ###
@@ -65,11 +63,8 @@ class ControlBusGetRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         contents = [request_id]
         if self.indices:
             contents.extend(self.indices)

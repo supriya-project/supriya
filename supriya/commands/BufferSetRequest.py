@@ -30,20 +30,12 @@ class BufferSetRequest(Request):
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(35, 23, 0, 1.0, 10, 13.2, 17, 19.3)
-
-    ::
-
-        >>> message.address == supriya.RequestId.BUFFER_SET
-        True
+        >>> request.to_osc()
+        OscMessage('/b_set', 23, 0, 1.0, 10, 13.2, 17, 19.3)
 
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ("_buffer_id", "_index_value_pairs")
 
     request_id = RequestId.BUFFER_SET
 
@@ -64,11 +56,8 @@ class BufferSetRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         buffer_id = int(self.buffer_id)
         contents = [request_id, buffer_id]
         if self.index_value_pairs:

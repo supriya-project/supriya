@@ -22,20 +22,12 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(29, 23, '...pulse_44100sr_16bit_octo.wav', 0, -1)
-
-    ::
-
-        >>> message.address == supriya.RequestId.BUFFER_ALLOCATE_READ
-        True
+        >>> request.to_osc()
+        OscMessage('/b_allocRead', 23, '...pulse_44100sr_16bit_octo.wav', 0, -1)
 
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ("_file_path", "_frame_count", "_starting_frame")
 
     request_id = RequestId.BUFFER_ALLOCATE_READ
 
@@ -64,13 +56,8 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
 
     ### PRIVATE METHODS ###
 
-    def _get_osc_message_contents(
-        self, *, with_placeholders=False, with_request_name=False
-    ):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def _get_osc_message_contents(self, *, with_placeholders=False):
+        request_id = self.request_name
         buffer_id = int(self.buffer_id)
         frame_count = self.frame_count
         if frame_count is None:
@@ -83,8 +70,8 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        contents = self._get_osc_message_contents(with_request_name=with_request_name)
+    def to_osc(self, *, with_placeholders=False):
+        contents = self._get_osc_message_contents()
         if self.callback:
             contents.append(self.callback.to_osc())
         message = supriya.osc.OscMessage(*contents)

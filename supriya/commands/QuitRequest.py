@@ -7,8 +7,6 @@ class QuitRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ()
-
     request_id = RequestId.QUIT
 
     ### INITIALIZER ###
@@ -18,11 +16,8 @@ class QuitRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         message = supriya.osc.OscMessage(request_id)
         return message
 

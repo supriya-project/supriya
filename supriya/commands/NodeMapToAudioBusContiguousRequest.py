@@ -6,8 +6,6 @@ class NodeMapToAudioBusContiguousRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ()
-
     request_id = RequestId.NODE_MAP_TO_AUDIO_BUS_CONTIGUOUS
 
     ### INITIALIZER ###
@@ -18,5 +16,5 @@ class NodeMapToAudioBusContiguousRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
+    def to_osc(self, *, with_placeholders=False):
         raise NotImplementedError

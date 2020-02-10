@@ -20,20 +20,12 @@ class NodeQueryRequest(Request):
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(46, 1000)
-
-    ::
-
-        >>> message.address == supriya.RequestId.NODE_QUERY
-        True
+        >>> request.to_osc()
+        OscMessage('/n_query', 1000)
 
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ("_node_id",)
 
     request_id = RequestId.NODE_QUERY
 
@@ -45,11 +37,8 @@ class NodeQueryRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         node_id = int(self.node_id)
         message = supriya.osc.OscMessage(request_id, node_id)
         return message

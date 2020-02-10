@@ -6,8 +6,6 @@ class UgenCommandRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ()
-
     request_id = RequestId.UGEN_COMMAND
 
     ### INITIALIZER ###
@@ -18,5 +16,5 @@ class UgenCommandRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
+    def to_osc(self, *, with_placeholders=False):
         raise NotImplementedError

@@ -25,20 +25,12 @@ class BufferAllocateRequest(Request):
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(28, 23, 512, 2)
-
-    ::
-
-        >>> message.address == supriya.RequestId.BUFFER_ALLOCATE
-        True
+        >>> request.to_osc()
+        OscMessage('/b_alloc', 23, 512, 2)
 
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ("_buffer_id", "_channel_count", "_callback", "_frame_count")
 
     request_id = RequestId.BUFFER_ALLOCATE
 
@@ -60,11 +52,8 @@ class BufferAllocateRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         buffer_id = int(self.buffer_id)
         frame_count = int(self.frame_count)
         channel_count = int(self.channel_count)

@@ -6,17 +6,9 @@ class CommandRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ()
-
     request_id = RequestId.COMMAND
-
-    ### INITIALIZER ###
-
-    def __init__(self):
-        Request.__init__(self)
-        raise NotImplementedError
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
+    def to_osc(self, *, with_placeholders=False):
         raise NotImplementedError

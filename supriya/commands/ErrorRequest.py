@@ -6,8 +6,6 @@ class ErrorRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ()
-
     request_id = RequestId.ERROR
 
     ### INITIALIZER ###
@@ -18,5 +16,5 @@ class ErrorRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
+    def to_osc(self, *, with_placeholders=False):
         raise NotImplementedError

@@ -30,29 +30,12 @@ class BufferWriteRequest(Request):
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message # doctest: +SKIP
-        OscMessage(31, 23, 'test.aiff', 'aiff', 'int24', -1, 0, 0)
-
-    ::
-
-        >>> message.address == supriya.RequestId.BUFFER_WRITE
-        True
+        >>> request.to_osc()
+        OscMessage('/b_write', 23, 'test.aiff', 'aiff', 'int24', -1, 0, 0)
 
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = (
-        "_buffer_id",
-        "_callback",
-        "_file_path",
-        "_frame_count",
-        "_header_format",
-        "_leave_open",
-        "_sample_format",
-        "_starting_frame",
-    )
 
     request_id = RequestId.BUFFER_WRITE
 
@@ -91,11 +74,8 @@ class BufferWriteRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        if with_request_name:
-            request_id = self.request_name
-        else:
-            request_id = int(self.request_id)
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
         buffer_id = int(self.buffer_id)
         header_format = self.header_format.name.lower()
         sample_format = self.sample_format.name.lower()

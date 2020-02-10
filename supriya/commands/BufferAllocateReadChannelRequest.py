@@ -27,20 +27,12 @@ class BufferAllocateReadChannelRequest(BufferAllocateReadRequest):
 
     ::
 
-        >>> message = request.to_osc()
-        >>> message
-        OscMessage(54, 23, '...pulse_44100sr_16bit_octo.wav', 0, -1, 3, 4)
-
-    ::
-
-        >>> message.address == supriya.RequestId.BUFFER_ALLOCATE_READ_CHANNEL
-        True
+        >>> request.to_osc()
+        OscMessage('/b_allocReadChannel', 23, '...pulse_44100sr_16bit_octo.wav', 0, -1, 3, 4)
 
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ("_channel_indices",)
 
     request_id = RequestId.BUFFER_ALLOCATE_READ_CHANNEL
 
@@ -74,8 +66,8 @@ class BufferAllocateReadChannelRequest(BufferAllocateReadRequest):
 
     ### PUBLIC METHODS ###
 
-    def to_osc(self, *, with_placeholders=False, with_request_name=False):
-        contents = self._get_osc_message_contents(with_request_name=with_request_name)
+    def to_osc(self, *, with_placeholders=False):
+        contents = self._get_osc_message_contents()
         contents.extend(self.channel_indices)
         if self.callback:
             contents.append(self.callback.to_osc())
