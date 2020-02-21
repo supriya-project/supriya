@@ -11,7 +11,6 @@ from typing import Any, Callable, Dict, NamedTuple, Optional, Set, Tuple, Union
 from .captures import Capture, CaptureEntry
 from .messages import OscBundle, OscMessage
 
-
 osc_in_logger = logging.getLogger("supriya.osc.in")
 osc_out_logger = logging.getLogger("supriya.osc.out")
 udp_in_logger = logging.getLogger("supriya.udp.in")

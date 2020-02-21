@@ -3,8 +3,14 @@ import queue
 import threading
 from typing import Optional, Tuple
 
-from .bases import BaseTempoClock, CallbackCommand, ChangeCommand, EventType, Moment, ClockState
-
+from .bases import (
+    BaseTempoClock,
+    CallbackCommand,
+    ChangeCommand,
+    ClockState,
+    EventType,
+    Moment,
+)
 
 logger = logging.getLogger("supriya.clock")
 

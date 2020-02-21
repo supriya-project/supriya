@@ -1,107 +1,27 @@
 import collections
 import dataclasses
-import enum
 import fractions
 import itertools
 import logging
 import queue
 import time
 import traceback
-from typing import Callable, Dict, NamedTuple, Optional, Tuple
+from typing import Optional, Tuple
 
 from .. import conversions
+from .ephemera import (
+    CallbackCommand,
+    CallbackEvent,
+    ChangeCommand,
+    ChangeEvent,
+    ClockState,
+    EventType,
+    Moment,
+    TimeUnit,
+)
 from .eventqueue import EventQueue
 
-
 logger = logging.getLogger("supriya.clock")
-
-
-class EventType(enum.IntEnum):
-    CHANGE = 0
-    SCHEDULE = 1
-
-
-class TimeUnit(enum.IntEnum):
-    BEATS = 0
-    SECONDS = 1
-    MEASURES = 2
-
-
-class ClockState(NamedTuple):
-    beats_per_minute: float
-    initial_seconds: float
-    previous_measure: int
-    previous_offset: float
-    previous_seconds: float
-    previous_time_signature_change_offset: float
-    time_signature: Tuple[int, int]
-
-
-@dataclasses.dataclass(frozen=True)
-class Moment:
-    __slots__ = (
-        "beats_per_minute",
-        "measure",
-        "measure_offset",
-        "offset",
-        "seconds",
-        "time_signature",
-    )
-    beats_per_minute: float
-    measure: int
-    measure_offset: float
-    offset: float
-    seconds: float
-    time_signature: Tuple[int, int]
-
-
-class CallbackCommand(NamedTuple):
-    args: Optional[Tuple]
-    event_id: int
-    event_type: int
-    kwargs: Optional[Dict]
-    procedure: Callable
-    quantization: Optional[str]
-    schedule_at: float
-    time_unit: Optional[int]
-
-
-class CallbackEvent(NamedTuple):
-    seconds: float
-    event_type: int
-    event_id: int
-    measure: Optional[int]
-    offset: Optional[float]
-    procedure: Callable
-    args: Optional[Tuple]
-    kwargs: Optional[Dict]
-    invocations: int
-
-    def __hash__(self):
-        return hash((type(self), self.event_id))
-
-
-class ChangeCommand(NamedTuple):
-    beats_per_minute: Optional[float]
-    event_id: int
-    event_type: int
-    quantization: Optional[str]
-    schedule_at: float
-    time_signature: Optional[Tuple[int, int]]
-    time_unit: Optional[int]
-
-
-class ChangeEvent(NamedTuple):
-    seconds: float
-    event_type: int
-    event_id: int
-    measure: Optional[int]
-    offset: Optional[float]
-    beats_per_minute: float
-    time_signature: Tuple[int, int]
-
-    def __hash__(self):
-        return hash((type(self), self.event_id))
 
 
 class BaseTempoClock:
@@ -287,6 +207,28 @@ class BaseTempoClock:
             if event.measure is not None:
                 self._measure_relative_event_ids.add(event.event_id)
 
+    def _process_perform_event_loop(self, current_moment):
+        # There may be items in the queue which have been flagged "removed".
+        # They contribute to the queue's size, but cannot be retrieved by .get().
+        try:
+            event = self._event_queue.get()
+        except queue.Empty:
+            return None, None, True, False
+        if self._events_by_id.pop(event.event_id, None) is None:
+            return None, None, True, False
+        if current_moment.seconds < event.seconds:
+            self._enqueue_event(event)
+            return None, None, False, True
+        if event.offset is not None:
+            desired_moment = self._offset_to_moment(event.offset)
+        else:
+            desired_moment = self._seconds_to_moment(event.seconds)
+        if event.offset is not None and event.offset != desired_moment.offset:
+            raise RuntimeError(
+                f"Offset mismatch: {event.offset} vs {desired_moment.offset}"
+            )
+        return event, desired_moment, False, False
+
     def _perform_callback_event(self, event, current_moment, desired_moment):
         logger.debug(
             f"[{self.name}] ... ... Performing {event.procedure} at "
@@ -304,6 +246,9 @@ class BaseTempoClock:
         except Exception:
             traceback.print_exc()
             return
+        self._process_callback_event_result(desired_moment, event, result)
+
+    def _process_callback_event_result(self, desired_moment, event, result):
         try:
             delta, unit = result
         except TypeError:
@@ -387,26 +332,16 @@ class BaseTempoClock:
             f"{current_moment.offset}:o"
         )
         while self._is_running and self._event_queue.qsize():
-            # There may be items in the queue which have been flagged "removed".
-            # They contribute to the queue's size, but cannot be retrieved by .get().
-            try:
-                event = self._event_queue.get()
-            except queue.Empty:
+            (
+                event,
+                desired_moment,
+                should_continue,
+                should_break,
+            ) = self._process_perform_event_loop(current_moment)
+            if should_continue:
                 continue
-            if self._events_by_id.pop(event.event_id, None) is None:
-                continue
-            desired_seconds = event.seconds
-            if current_moment.seconds < desired_seconds:
-                self._enqueue_event(event)
+            elif should_break:
                 break
-            if event.offset is not None:
-                desired_moment = self._offset_to_moment(event.offset)
-            else:
-                desired_moment = self._seconds_to_moment(event.seconds)
-            if event.offset is not None and event.offset != desired_moment.offset:
-                raise RuntimeError(
-                    f"Offset mismatch: {event.offset} vs {desired_moment.offset}"
-                )
             if event.event_type == EventType.CHANGE:
                 current_moment, should_continue = self._perform_change_event(
                     event, current_moment, desired_moment

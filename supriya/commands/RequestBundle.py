@@ -87,17 +87,9 @@ class RequestBundle(Requestable):
         contents = []
         for x in self.contents:
             if isinstance(x, type(self)):
-                contents.append(
-                    x.to_osc(
-                        with_placeholders=with_placeholders,
-                    )
-                )
+                contents.append(x.to_osc(with_placeholders=with_placeholders,))
             else:
-                contents.append(
-                    x.to_osc(
-                        with_placeholders=with_placeholders,
-                    )
-                )
+                contents.append(x.to_osc(with_placeholders=with_placeholders,))
         bundle = OscBundle(timestamp=self.timestamp, contents=contents)
         return bundle
 

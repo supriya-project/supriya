@@ -327,7 +327,9 @@ class ProviderMoment:
                 synthdef_request = requests[0]
                 requests = synthdef_request.callback.contents or []
                 synthdef_request = new(synthdef_request, callback=None)
-                await synthdef_request.communicate_async(sync=True, server=self.provider.server)
+                await synthdef_request.communicate_async(
+                    sync=True, server=self.provider.server
+                )
             for bundle in RequestBundle.partition(requests, timestamp=timestamp):
                 self.provider.server.send(bundle.to_osc())
 

@@ -1,10 +1,17 @@
 import asyncio
 import logging
 import queue
+import traceback
 from typing import Optional, Tuple
 
-from .bases import BaseTempoClock, CallbackCommand, ChangeCommand, EventType, Moment, ClockState
-
+from .bases import (
+    BaseTempoClock,
+    CallbackCommand,
+    ChangeCommand,
+    ClockState,
+    EventType,
+    Moment,
+)
 
 logger = logging.getLogger("supriya.clock")
 
@@ -30,6 +37,57 @@ class AsyncTempoClock(BaseTempoClock):
                     self._measure_relative_event_ids.remove(event.event_id)
         return event
 
+    async def _perform_callback_event(self, event, current_moment, desired_moment):
+        logger.debug(
+            f"[{self.name}] ... ... Performing {event.procedure} at "
+            f"{desired_moment.seconds - self._state.initial_seconds}:s / "
+            f"{desired_moment.offset}:o"
+        )
+        try:
+            result = event.procedure(
+                current_moment,
+                desired_moment,
+                event,
+                *(event.args or ()),
+                **(event.kwargs or {}),
+            )
+            if asyncio.iscoroutine(result):
+                result = await result
+        except Exception:
+            traceback.print_exc()
+            return
+        self._process_callback_event_result(desired_moment, event, result)
+
+    async def _perform_events(self, current_moment: Moment):
+        logger.debug(
+            f"[{self.name}] ... Ready to perform at "
+            f"{current_moment.seconds - self._state.initial_seconds}:s / "
+            f"{current_moment.offset}:o"
+        )
+        while self._is_running and self._event_queue.qsize():
+            (
+                event,
+                desired_moment,
+                should_continue,
+                should_break,
+            ) = self._process_perform_event_loop(current_moment)
+            if should_continue:
+                continue
+            elif should_break:
+                break
+            if event.event_type == EventType.CHANGE:
+                current_moment, should_continue = self._perform_change_event(
+                    event, current_moment, desired_moment
+                )
+                if not should_continue:
+                    break
+            else:
+                await self._perform_callback_event(
+                    event, current_moment, desired_moment
+                )
+                self._process_command_deque()
+        return current_moment
+
     async def _run(self, *args, offline=False, **kwargs):
         logger.debug(f"[{self.name}] Thread start")
         async with self._lock:
@@ -44,7 +102,7 @@ class AsyncTempoClock(BaseTempoClock):
                     continue
                 if current_moment is None:
                     return
-                current_moment = self._perform_events(current_moment)
+                current_moment = await self._perform_events(current_moment)
                 self._state = self._state._replace(
                     previous_seconds=current_moment.seconds,
                     previous_offset=current_moment.offset,

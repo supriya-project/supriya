@@ -5,9 +5,7 @@ class TriggerResponse(Response):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self, node_id=None, trigger_id=None, trigger_value=None
-    ):
+    def __init__(self, node_id=None, trigger_id=None, trigger_value=None):
         self._node_id = node_id
         self._trigger_id = trigger_id
         self._trigger_value = trigger_value
