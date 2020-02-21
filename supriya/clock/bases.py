@@ -1,4 +1,3 @@
-import asyncio
 import collections
 import dataclasses
 import enum
@@ -6,58 +5,36 @@ import fractions
 import itertools
 import logging
 import queue
-import threading
 import time
 import traceback
 from typing import Callable, Dict, NamedTuple, Optional, Tuple
 
-from supriya import conversions
+from .. import conversions
+from .eventqueue import EventQueue
 
-logger = logging.getLogger(__name__)
+
+logger = logging.getLogger("supriya.clock")
 
 
-class EventQueue(queue.PriorityQueue):
+class EventType(enum.IntEnum):
+    CHANGE = 0
+    SCHEDULE = 1
 
-    ### PRIVATE METHODS ###
 
-    def _init(self, maxsize):
-        self.queue = []
-        self.items = {}
+class TimeUnit(enum.IntEnum):
+    BEATS = 0
+    SECONDS = 1
+    MEASURES = 2
 
-    def _put(self, item):
-        entry = [item, True]
-        if item in self.items:
-            self.items[item][-1] = False
-        self.items[item] = entry
-        super()._put(entry)
 
-    def _get(self):
-        while self.queue:
-            item, active = super()._get()
-            if active:
-                del self.items[item]
-                return item
-        raise queue.Empty
-
-    ### PUBLIC METHODS ###
-
-    def clear(self):
-        with self.mutex:
-            self._init(None)
-
-    def peek(self):
-        with self.mutex:
-            item = self._get()
-            entry = [item, True]
-            self.items[item] = entry
-            super()._put(entry)
-        return item
-
-    def remove(self, item):
-        with self.mutex:
-            entry = self.items.pop(item, None)
-            if entry is not None:
-                entry[-1] = False
+class ClockState(NamedTuple):
+    beats_per_minute: float
+    initial_seconds: float
+    previous_measure: int
+    previous_offset: float
+    previous_seconds: float
+    previous_time_signature_change_offset: float
+    time_signature: Tuple[int, int]
 
 
 @dataclasses.dataclass(frozen=True)
@@ -76,27 +53,6 @@ class Moment:
     offset: float
     seconds: float
     time_signature: Tuple[int, int]
-
-
-class ClockState(NamedTuple):
-    beats_per_minute: float
-    initial_seconds: float
-    previous_measure: int
-    previous_offset: float
-    previous_seconds: float
-    previous_time_signature_change_offset: float
-    time_signature: Tuple[int, int]
-
-
-class EventType(enum.IntEnum):
-    CHANGE = 0
-    SCHEDULE = 1
-
-
-class TimeUnit(enum.IntEnum):
-    BEATS = 0
-    SECONDS = 1
-    MEASURES = 2
 
 
 class CallbackCommand(NamedTuple):
@@ -744,275 +700,3 @@ class BaseTempoClock:
     @property
     def time_signature(self):
         return self._state.time_signature
-
-
-class AsyncTempoClock(BaseTempoClock):
-    def __init__(self):
-        BaseTempoClock.__init__(self)
-        self._condition = None
-        self._lock = None
-        self._task = None
-
-    ### SCHEDULING METHODS ###
-
-    def _cancel(self, event_id) -> Optional[Tuple]:
-        event = self._events_by_id.pop(event_id, None)
-        if event is not None and not isinstance(
-            event, (CallbackCommand, ChangeCommand)
-        ):
-            self._event_queue.remove(event)
-            if event.offset is not None:
-                self._offset_relative_event_ids.remove(event.event_id)
-                if event.measure is not None:
-                    self._measure_relative_event_ids.remove(event.event_id)
-        return event
-
-    async def _run(self, *args, offline=False, **kwargs):
-        logger.debug(f"[{self.name}] Thread start")
-        async with self._lock:
-            self._process_command_deque(first_run=True)
-            while self._is_running:
-                logger.debug(f"[{self.name}] Loop start")
-                if not await self._wait_for_queue():
-                    return
-                try:
-                    current_moment = await self._wait_for_moment()
-                except queue.Empty:
-                    continue
-                if current_moment is None:
-                    return
-                current_moment = self._perform_events(current_moment)
-                self._state = self._state._replace(
-                    previous_seconds=current_moment.seconds,
-                    previous_offset=current_moment.offset,
-                )
-                if not offline:
-                    try:
-                        await asyncio.wait_for(self._condition.wait(), self._slop)
-                    except (asyncio.TimeoutError, RuntimeError):
-                        pass
-        logger.debug(f"[{self.name}] Terminating")
-
-    async def _wait_for_moment(self, offline=False) -> Optional[Moment]:
-        logger.debug(f"[{self.name}] ... Waiting for next moment")
-        current_time = self.get_current_time()
-        while current_time < self._event_queue.peek().seconds:
-            if not offline:
-                try:
-                    await asyncio.wait_for(self._condition.wait(), self._slop)
-                except (asyncio.TimeoutError, RuntimeError):
-                    pass
-            if not self._is_running:
-                return None
-            self._process_command_deque()
-            current_time = self.get_current_time()
-        return self._seconds_to_moment(current_time)
-
-    async def _wait_for_queue(self, offline=False) -> bool:
-        logger.debug(f"[{self.name}] ... Waiting for events")
-        self._process_command_deque()
-        while not self._event_queue.qsize():
-            if not offline:
-                try:
-                    await asyncio.wait_for(self._condition.wait(), self._slop)
-                except (asyncio.TimeoutError, RuntimeError):
-                    pass
-            if not self._is_running:
-                return False
-            self._process_command_deque()
-        return True
-
-    ### PUBLIC METHODS ###
-
-    def change(
-        self,
-        beats_per_minute: Optional[float] = None,
-        time_signature: Optional[Tuple[int, int]] = None,
-    ) -> Optional[int]:
-        if not self._is_running:
-            self._state = self._state._replace(
-                beats_per_minute=beats_per_minute or self._state.beats_per_minute,
-                time_signature=time_signature or self._state.time_signature,
-            )
-            return None
-        event_id = next(self._counter)
-        command = ChangeCommand(
-            event_id=event_id,
-            event_type=EventType.CHANGE,
-            beats_per_minute=beats_per_minute,
-            time_signature=time_signature,
-            quantization=None,
-            schedule_at=self.get_current_time(),
-            time_unit=None,
-        )
-        self._enqueue_command(command)
-        return event_id
-
-    async def start(
-        self,
-        initial_time: Optional[float] = None,
-        initial_offset: float = 0.0,
-        initial_measure: int = 1,
-        beats_per_minute: Optional[float] = None,
-        time_signature: Optional[Tuple[int, int]] = None,
-    ):
-        if self._is_running:
-            raise RuntimeError("Already started")
-        if initial_time is None:
-            initial_time = self.get_current_time()
-        self._state = ClockState(
-            beats_per_minute=beats_per_minute or self._state.beats_per_minute,
-            initial_seconds=initial_time,
-            previous_measure=int(initial_measure),
-            previous_offset=float(initial_offset),
-            previous_seconds=float(initial_time),
-            previous_time_signature_change_offset=float(initial_offset),
-            time_signature=time_signature or self._state.time_signature,
-        )
-        self._is_running = True
-        loop = asyncio.get_running_loop()
-        self._lock = asyncio.Lock()
-        self._condition = asyncio.Condition(self._lock)
-        self._task = loop.create_task(self._run())
-
-    async def stop(self):
-        if not self._is_running:
-            return
-        self._is_running = False
-        async with self._lock:
-            self._condition.notify()
-        await self._task
-
-
-class TempoClock(BaseTempoClock):
-
-    ### INITIALIZER ###
-
-    def __init__(self):
-        BaseTempoClock.__init__(self)
-        self._lock = threading.RLock()
-        self._condition = threading.Condition(self._lock)
-        self._thread = threading.Thread(target=self._run, daemon=True)
-
-    ### SCHEDULING METHODS ###
-
-    def _cancel(self, event_id) -> Optional[Tuple]:
-        # TODO: Can this be lock-free?
-        with self._lock:
-            event = self._events_by_id.pop(event_id, None)
-            if event is not None and not isinstance(
-                event, (CallbackCommand, ChangeCommand)
-            ):
-                self._event_queue.remove(event)
-                if event.offset is not None:
-                    self._offset_relative_event_ids.remove(event.event_id)
-                    if event.measure is not None:
-                        self._measure_relative_event_ids.remove(event.event_id)
-            return event
-
-    def _run(self, *args, offline=False, **kwargs):
-        logger.debug(f"[{self.name}] Thread start")
-        with self._lock:
-            self._process_command_deque(first_run=True)
-            while self._is_running:
-                logger.debug(f"[{self.name}] Loop start")
-                if not self._wait_for_queue():
-                    return
-                try:
-                    current_moment = self._wait_for_moment()
-                except queue.Empty:
-                    continue
-                if current_moment is None:
-                    return
-                current_moment = self._perform_events(current_moment)
-                self._state = self._state._replace(
-                    previous_seconds=current_moment.seconds,
-                    previous_offset=current_moment.offset,
-                )
-                if not offline:
-                    self._condition.wait(timeout=self._slop)
-        logger.debug(f"[{self.name}] Terminating")
-
-    def _wait_for_moment(self, offline=False) -> Optional[Moment]:
-        logger.debug(f"[{self.name}] ... Waiting for next moment")
-        current_time = self.get_current_time()
-        while current_time < self._event_queue.peek().seconds:
-            if not offline:
-                self._condition.wait(timeout=self._slop)
-            if not self._is_running:
-                return None
-            self._process_command_deque()
-            current_time = self.get_current_time()
-        return self._seconds_to_moment(current_time)
-
-    def _wait_for_queue(self, offline=False) -> bool:
-        logger.debug(f"[{self.name}] ... Waiting for events")
-        self._process_command_deque()
-        while not self._event_queue.qsize():
-            if not offline:
-                self._condition.wait(timeout=self._slop)
-            if not self._is_running:
-                return False
-            self._process_command_deque()
-        return True
-
-    ### PUBLIC METHODS ###
-
-    def change(
-        self,
-        beats_per_minute: Optional[float] = None,
-        time_signature: Optional[Tuple[int, int]] = None,
-    ) -> Optional[int]:
-        if not self._is_running:
-            with self._lock:
-                self._state = self._state._replace(
-                    beats_per_minute=beats_per_minute or self._state.beats_per_minute,
-                    time_signature=time_signature or self._state.time_signature,
-                )
-                return None
-        event_id = next(self._counter)
-        command = ChangeCommand(
-            event_id=event_id,
-            event_type=EventType.CHANGE,
-            beats_per_minute=beats_per_minute,
-            time_signature=time_signature,
-            quantization=None,
-            schedule_at=self.get_current_time(),
-            time_unit=None,
-        )
-        self._enqueue_command(command)
-        return event_id
-
-    def start(
-        self,
-        initial_time: Optional[float] = None,
-        initial_offset: float = 0.0,
-        initial_measure: int = 1,
-        beats_per_minute: Optional[float] = None,
-        time_signature: Optional[Tuple[int, int]] = None,
-    ):
-        with self._lock:
-            if self._is_running:
-                raise RuntimeError("Already started")
-            if initial_time is None:
-                initial_time = self.get_current_time()
-            self._state = ClockState(
-                beats_per_minute=beats_per_minute or self._state.beats_per_minute,
-                initial_seconds=initial_time,
-                previous_measure=int(initial_measure),
-                previous_offset=float(initial_offset),
-                previous_seconds=float(initial_time),
-                previous_time_signature_change_offset=float(initial_offset),
-                time_signature=time_signature or self._state.time_signature,
-            )
-            self._is_running = True
-            self._thread = threading.Thread(target=self._run, args=(self,), daemon=True)
-            self._thread.start()
-
-    def stop(self):
-        if not self._is_running:
-            return
-        self._is_running = False
-        with self._lock:
-            self._condition.notify()
-        self._thread.join()
