@@ -318,10 +318,10 @@ class ProviderMoment:
         if not results:
             return
         timestamp, request_bundle, synthdefs = results
-        try:
-            # self.provider.server.send(request_bundle.to_osc())
-            await request_bundle.communicate_async(sync=True, server=self.provider.server)
-        except OSError:
+        # The underlying asyncio UDP transport will silently drop oversize packets
+        if len(request_bundle.to_datagram()) <= 8192:
+            self.provider.server.send(request_bundle.to_osc())
+        else:
             requests = request_bundle.contents
             if synthdefs:
                 synthdef_request = requests[0]
@@ -362,10 +362,8 @@ class ProviderMoment:
         self.provider._moments.pop()
         self.provider._counter[self.seconds] -= 1
         if not self.provider.server:
-            print("BAILING (A)")
             return
         elif self.provider._counter[self.seconds]:
-            print("BAILING (B)")
             return
         requests = []
         synthdefs = set()
@@ -412,6 +410,7 @@ class ProviderMoment:
             # check bundle size, write synthdefs to disk and do /d_load
             if len(request_bundle.to_datagram(with_placeholders=True)) > 8192:
                 directory_path = pathlib.Path(tempfile.mkdtemp())
+                # directory_path = pathlib.Path("~/Desktop").expanduser()
                 for synthdef in synthdefs:
                     name = synthdef.anonymous_name
                     if synthdef.name:
@@ -428,9 +427,6 @@ class ProviderMoment:
                         )
                     ],
                 )
-                print("paths?")
-                for path in directory_path.iterdir():
-                    print(path)
         else:
             request_bundle = RequestBundle(timestamp=timestamp, contents=requests)
         for synthdef in synthdefs:

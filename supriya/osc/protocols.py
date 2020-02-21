@@ -257,6 +257,9 @@ class AsyncOscProtocol(asyncio.DatagramProtocol, OscProtocol):
         if self.healthcheck is not None:
             await self.healthcheck_task
 
+    def error_received(self, exc):
+        osc_out_logger.warning(exc)
+
     def register(
         self, pattern, procedure, *, failure_pattern=None, once=False,
     ) -> OscCallback:
