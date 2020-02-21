@@ -63,6 +63,22 @@ class BaseServer:
         # proxy mappings
         self._synthdefs = {}
 
+    ### SPECIAL METHODS ###
+
+    def __repr__(self):
+        if not self.is_running:
+            return f"<{type(self).__name__}: offline>"
+        string = "<{name}: {protocol}://{ip}:{port}, "
+        string += "{inputs}i{outputs}o>"
+        return string.format(
+            name=type(self).__name__,
+            protocol=self.options.protocol,
+            ip=self.ip_address,
+            port=self.port,
+            inputs=self.options.input_bus_channel_count,
+            outputs=self.options.output_bus_channel_count,
+        )
+
     ### PRIVATE METHODS ###
 
     def _handle_failed_response(self, message):
@@ -343,6 +359,11 @@ class AsyncServer(BaseServer):
         await self._disconnect()
         return self
 
+    async def query(self, include_controls=True):
+        request = GroupQueryTreeRequest(node_id=0, include_controls=include_controls)
+        response = await request.communicate_async(server=self)
+        return response.query_tree_group
+
     async def quit(self, force=False):
         if not self._is_running:
             return
@@ -578,19 +599,6 @@ class Server(BaseServer):
         """
 
         return self.root_node.__graph__()
-
-    def __repr__(self):
-        if not self.is_running:
-            return "<Server: offline>"
-        string = "<Server: {protocol}://{ip}:{port}, "
-        string += "{inputs}i{outputs}o>"
-        return string.format(
-            protocol=self.options.protocol,
-            ip=self.ip_address,
-            port=self.port,
-            inputs=self.options.input_bus_channel_count,
-            outputs=self.options.output_bus_channel_count,
-        )
 
     def __str__(self):
         if self.is_running:

@@ -51,4 +51,4 @@ class NodeQueryRequest(Request):
 
     @property
     def response_patterns(self):
-        return ["/n_info", self.node_id], None
+        return ["/n_info", self.node_id], ["/fail"]

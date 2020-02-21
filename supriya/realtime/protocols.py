@@ -93,7 +93,7 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
         self.is_running = False
         options_string = options.as_options_string(port)
         command = "{} {}".format(scsynth_path, options_string)
-        logger.info("Boot: {}".format(command))
+        logger.info(command)
         loop = asyncio.get_running_loop()
         self.boot_future = loop.create_future()
         self.exit_future = loop.create_future()
@@ -107,6 +107,7 @@ class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):
 
     def pipe_data_received(self, fd, data):
         for line in data.splitlines():
+            logger.info(line.decode())
             if line.strip().startswith(b"Exception"):
                 self.boot_future.set_result(False)
             elif line.strip().startswith(b"SuperCollider 3 server ready"):

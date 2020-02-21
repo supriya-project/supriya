@@ -1,6 +1,7 @@
 import asyncio
 import collections
 import dataclasses
+import logging
 import queue
 import socketserver
 import threading
@@ -9,6 +10,12 @@ from typing import Any, Callable, Dict, NamedTuple, Optional, Set, Tuple, Union
 
 from .captures import Capture, CaptureEntry
 from .messages import OscBundle, OscMessage
+
+
+osc_in_logger = logging.getLogger("supriya.osc.in")
+osc_out_logger = logging.getLogger("supriya.osc.out")
+udp_in_logger = logging.getLogger("supriya.udp.in")
+udp_out_logger = logging.getLogger("supriya.udp.out")
 
 
 class OscProtocolOffline(Exception):
@@ -128,11 +135,13 @@ class OscProtocol:
             once=bool(once),
         )
 
-    def _validate_receive(self, data):
+    def _validate_receive(self, datagram):
+        udp_in_logger.debug(datagram)
         try:
-            message = OscMessage.from_datagram(data)
+            message = OscMessage.from_datagram(datagram)
         except Exception:
             raise
+        osc_in_logger.debug(repr(message))
         for callback in self._match_callbacks(message):
             callback.procedure(message)
         for capture in self.captures:
@@ -149,11 +158,14 @@ class OscProtocol:
             message = OscMessage(message)
         elif isinstance(message, collections.Iterable):
             message = OscMessage(*message)
+        osc_out_logger.debug(repr(message))
         for capture in self.captures:
             capture.messages.append(
                 CaptureEntry(timestamp=time.time(), label="S", message=message)
             )
-        return message.to_datagram()
+        datagram = message.to_datagram()
+        udp_out_logger.debug(datagram)
+        return datagram
 
     ### PUBLIC METHODS ###
 
@@ -372,7 +384,7 @@ class ThreadedOscProtocol(OscProtocol):
         try:
             self.server.socket.sendto(datagram, (self.ip_address, self.port))
         except OSError:
-            print(message)
+            # print(message)
             raise
 
     def unregister(self, callback: OscCallback):

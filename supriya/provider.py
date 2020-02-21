@@ -1,6 +1,5 @@
 import abc
 import collections
-import contextlib
 import dataclasses
 import pathlib
 import re
@@ -309,17 +308,64 @@ class ProviderMoment:
     node_removals: List[NodeProxy]
     node_settings: List[Tuple[NodeProxy, Dict[str, Union[float, BusGroupProxy]]]]
 
+    async def __aenter__(self):
+        if self.provider.server and not isinstance(self.provider.server, AsyncServer):
+            raise RuntimeError(repr(self.provider.server))
+        return self._enter()
+
+    async def __aexit__(self, *args):
+        results = self._exit()
+        if not results:
+            return
+        timestamp, request_bundle, synthdefs = results
+        try:
+            # self.provider.server.send(request_bundle.to_osc())
+            await request_bundle.communicate_async(sync=True, server=self.provider.server)
+        except OSError:
+            requests = request_bundle.contents
+            if synthdefs:
+                synthdef_request = requests[0]
+                requests = synthdef_request.callback.contents or []
+                synthdef_request = new(synthdef_request, callback=None)
+                await synthdef_request.communicate_async(sync=True, server=self.provider.server)
+            for bundle in RequestBundle.partition(requests, timestamp=timestamp):
+                self.provider.server.send(bundle.to_osc())
+
     def __enter__(self):
+        if self.provider.server and not isinstance(self.provider.server, Server):
+            raise RuntimeError(repr(self.provider.server))
+        return self._enter()
+
+    def __exit__(self, *args):
+        results = self._exit()
+        if not results:
+            return
+        timestamp, request_bundle, synthdefs = results
+        try:
+            self.provider.server.send(request_bundle.to_osc())
+        except OSError:
+            requests = request_bundle.contents
+            if synthdefs:
+                synthdef_request = requests[0]
+                requests = synthdef_request.callback.contents or []
+                synthdef_request = new(synthdef_request, callback=None)
+                synthdef_request.communicate(sync=True, server=self.provider.server)
+            for bundle in RequestBundle.partition(requests, timestamp=timestamp):
+                self.provider.server.send(bundle.to_osc())
+
+    def _enter(self):
         self.provider._moments.append(self)
         self.provider._counter[self.seconds] += 1
         return self
 
-    def __exit__(self, *args):
+    def _exit(self):
         self.provider._moments.pop()
         self.provider._counter[self.seconds] -= 1
         if not self.provider.server:
+            print("BAILING (A)")
             return
         elif self.provider._counter[self.seconds]:
+            print("BAILING (B)")
             return
         requests = []
         synthdefs = set()
@@ -382,22 +428,14 @@ class ProviderMoment:
                         )
                     ],
                 )
+                print("paths?")
+                for path in directory_path.iterdir():
+                    print(path)
         else:
             request_bundle = RequestBundle(timestamp=timestamp, contents=requests)
         for synthdef in synthdefs:
             synthdef._register_with_local_server(server=self.provider.server)
-        try:
-            self.provider.server.send(request_bundle.to_osc())
-        except OSError:
-            requests = request_bundle.contents
-            if synthdefs:
-                synthdef_request = requests[0]
-                requests = synthdef_request.callback.contents or []
-                synthdef_request = new(synthdef_request, callback=None)
-                # TODO: Communicate is synchronous... can we async this?
-                synthdef_request.communicate(sync=True, server=self.provider.server)
-            for bundle in RequestBundle.partition(requests, timestamp=timestamp):
-                self.provider.server.send(bundle.to_osc())
+        return timestamp, request_bundle, synthdefs
 
 
 class Provider(metaclass=abc.ABCMeta):
@@ -491,7 +529,6 @@ class Provider(metaclass=abc.ABCMeta):
     def set_node(self, node_proxy: NodeProxy, **settings):
         raise NotImplementedError
 
-    @contextlib.contextmanager
     def at(self, seconds=None):
         if self._moments and self._moments[-1].seconds == seconds:
             provider_moment = self._moments[-1]
@@ -505,12 +542,7 @@ class Provider(metaclass=abc.ABCMeta):
                 node_reorderings=[],
                 node_settings=[],
             )
-        exit_stack = contextlib.ExitStack()
-        with exit_stack:
-            exit_stack.enter_context(provider_moment)
-            if self.session:
-                exit_stack.enter_context(self.session.at(seconds or 0))
-            yield provider_moment
+        return provider_moment
 
     @classmethod
     def from_context(cls, context, latency=0.1) -> "Provider":
