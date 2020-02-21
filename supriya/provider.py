@@ -1,5 +1,6 @@
 import abc
 import collections
+import contextlib
 import dataclasses
 import pathlib
 import re
@@ -307,6 +308,10 @@ class ProviderMoment:
     node_additions: List[Tuple[NodeProxy, AddAction, NodeProxy]]
     node_removals: List[NodeProxy]
     node_settings: List[Tuple[NodeProxy, Dict[str, Union[float, BusGroupProxy]]]]
+    exit_stack: contextlib.ExitStack = dataclasses.field(init=False, default_factory=contextlib.ExitStack)
+
+    def __postinit__(self):
+        self.exit_stack = contextlib.ExitStack()
 
     async def __aenter__(self):
         if self.provider.server and not isinstance(self.provider.server, AsyncServer):
@@ -334,6 +339,8 @@ class ProviderMoment:
                 self.provider.server.send(bundle.to_osc())
 
     def __enter__(self):
+        if self.provider.session is not None:
+            self.exit_stack.enter_context(self.provider.session.at(self.seconds or 0))
         if self.provider.server and not isinstance(self.provider.server, Server):
             raise RuntimeError(repr(self.provider.server))
         return self._enter()
@@ -361,6 +368,7 @@ class ProviderMoment:
         return self
 
     def _exit(self):
+        self.exit_stack.close()
         self.provider._moments.pop()
         self.provider._counter[self.seconds] -= 1
         if not self.provider.server:
