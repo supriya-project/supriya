@@ -308,6 +308,7 @@ class ProviderMoment:
     node_additions: List[Tuple[NodeProxy, AddAction, NodeProxy]]
     node_removals: List[NodeProxy]
     node_settings: List[Tuple[NodeProxy, Dict[str, Union[float, BusGroupProxy]]]]
+    wait: bool
     exit_stack: contextlib.ExitStack = dataclasses.field(init=False, default_factory=contextlib.ExitStack)
 
     def __postinit__(self):
@@ -323,20 +324,30 @@ class ProviderMoment:
         if not results:
             return
         timestamp, request_bundle, synthdefs = results
+        server = self.provider.server
         # The underlying asyncio UDP transport will silently drop oversize packets
         if len(request_bundle.to_datagram()) <= 8192:
-            self.provider.server.send(request_bundle.to_osc())
+            if self.wait:
+                # If waiting, the original ProviderMoment timestamp can be ignored
+                await request_bundle.communicate_async(server=server, sync=True)
+            else:
+                server.send(request_bundle.to_osc())
         else:
+            # If over the UDP packet limit, partition the message
             requests = request_bundle.contents
+            # Always wait for SynthDefs to load.
             if synthdefs:
                 synthdef_request = requests[0]
                 requests = synthdef_request.callback.contents or []
                 synthdef_request = new(synthdef_request, callback=None)
-                await synthdef_request.communicate_async(
-                    sync=True, server=self.provider.server
-                )
-            for bundle in RequestBundle.partition(requests, timestamp=timestamp):
-                self.provider.server.send(bundle.to_osc())
+                await synthdef_request.communicate_async(sync=True, server=server)
+            if self.wait:
+                # If waiting, the original ProviderMoment timestamp can be ignored
+                for bundle in RequestBundle.partition(requests):
+                    await bundle.communicate_async(server=server, sync=True)
+            else:
+                for bundle in RequestBundle.partition(requests, timestamp=timestamp):
+                    server.send(bundle.to_osc())
 
     def __enter__(self):
         if self.provider.session is not None:
@@ -535,7 +546,7 @@ class Provider(metaclass=abc.ABCMeta):
     def set_node(self, node_proxy: NodeProxy, **settings):
         raise NotImplementedError
 
-    def at(self, seconds=None):
+    def at(self, seconds=None, wait=False):
         if self._moments and self._moments[-1].seconds == seconds:
             provider_moment = self._moments[-1]
         else:
@@ -547,6 +558,7 @@ class Provider(metaclass=abc.ABCMeta):
                 node_removals=[],
                 node_reorderings=[],
                 node_settings=[],
+                wait=wait,
             )
         return provider_moment
 
