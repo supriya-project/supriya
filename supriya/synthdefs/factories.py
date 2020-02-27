@@ -1565,6 +1565,12 @@ class SynthDefFactory(SupriyaObject):
         )
         return clone
 
+    def with_parameter(self, name, value, rate=None):
+        from .controls import Parameter
+
+        parameter = Parameter(name=name, value=value, parameter_rate=rate)
+        return self.with_parameters(**{name: parameter})
+
     def with_parameters(self, **kwargs):
         clone = self._clone()
         parameters = dict(self._parameters)
