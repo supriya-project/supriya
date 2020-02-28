@@ -9,18 +9,25 @@ from supriya.clock import AsyncTempoClock, TimeUnit
 
 repeat_count = 5
 
+logger = logging.getLogger("supriya.test")
+
+
+async def mock_wait_for_condition(self, sleep_time):
+    await self._condition.wait()
+
 
 @pytest.fixture(autouse=True)
-def logger(caplog):
+def log_everything(caplog):
     caplog.set_level(logging.DEBUG, logger="supriya")
 
 
 @pytest.fixture
-async def tempo_clock(mocker):
+async def tempo_clock(mocker, monkeypatch):
     tempo_clock = AsyncTempoClock()
     tempo_clock.slop = 0.01
-    mock = mocker.patch.object(AsyncTempoClock, "get_current_time")
-    mock.return_value = 0.0
+    monkeypatch.setattr(AsyncTempoClock, "_wait_for_condition", mock_wait_for_condition)
+    mock_time = mocker.patch.object(AsyncTempoClock, "get_current_time")
+    mock_time.return_value = 0.0
     yield tempo_clock
     await tempo_clock.stop()
 
@@ -47,9 +54,12 @@ def callback(
 
 
 async def set_time_and_check(time_to_advance, tempo_clock, store):
+    logger.info(f"Setting time to {time_to_advance}")
     tempo_clock.get_current_time.return_value = time_to_advance
-    # await asyncio.sleep(tempo_clock.slop * 10)
-    await asyncio.sleep(0.5)
+    await asyncio.sleep(0.01)
+    async with tempo_clock._lock:
+        tempo_clock._condition.notify()
+    await asyncio.sleep(0.01)
     moments = []
     for current_moment, desired_moment, event in store:
         one = [
@@ -346,7 +356,7 @@ async def test_schedule_tempo_change(tempo_clock):
 
 
 @pytest.mark.asyncio
-# @pytest.mark.timeout(5)
+@pytest.mark.timeout(5)
 async def test_cue_basic(tempo_clock):
     store = []
     await tempo_clock.start()
@@ -374,6 +384,7 @@ async def test_cue_basic(tempo_clock):
         ),
     ]
     await tempo_clock.cue(callback, quantization="1/2T", args=[store], kwargs={"limit": 0})
+    logger.info("Did control return?")
     assert await set_time_and_check(1.0, tempo_clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),

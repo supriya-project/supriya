@@ -116,33 +116,29 @@ class AsyncTempoClock(BaseTempoClock):
                     previous_seconds=current_moment.seconds,
                     previous_offset=current_moment.offset,
                 )
-                """
-                if not offline:
-                    try:
-                        await asyncio.wait_for(self._condition.wait(), self._slop)
-                    except (asyncio.TimeoutError, RuntimeError):
-                        pass
-                """
         logger.debug(f"[{self.name}] Coroutine terminating")
 
+    async def _wait_for_condition(self, sleep_time):
+        try:
+            await asyncio.wait_for(
+                self._condition.wait(),
+                sleep_time,
+            )
+        except (asyncio.TimeoutError, RuntimeError):
+            pass
+
     async def _wait_for_moment(self, offline=False) -> Optional[Moment]:
-        logger.debug(f"[{self.name}] ... Waiting for next moment")
         current_time = self.get_current_time()
         next_time = self._event_queue.peek().seconds
+        logger.debug(f"[{self.name}] ... Waiting for next moment at {next_time} from {current_time}")
         while current_time < next_time:
             if not offline:
-                try:
-                    # TODO: Rewrite this without wait_for().
-                    # TODO: Notify condition when scheduling / canceling.
-                    sleep_time = min([self._slop, next_time - current_time])
-                    await asyncio.wait_for(self._condition.wait(), sleep_time)
-                except (asyncio.TimeoutError, RuntimeError):
-                    pass
+                await self._wait_for_condition(next_time - current_time)
             if not self._is_running:
                 return None
             self._process_command_deque()
-            current_time = self.get_current_time()
             next_time = self._event_queue.peek().seconds
+            current_time = self.get_current_time()
         return self._seconds_to_moment(current_time)
 
     async def _wait_for_queue(self, offline=False) -> bool:
@@ -151,9 +147,6 @@ class AsyncTempoClock(BaseTempoClock):
         while not self._event_queue.qsize():
             if not offline:
                 try:
-                    # TODO: Rewrite this without wait_for()
-                    # TODO: Notify condition when scheduling / canceling.
-                    # await asyncio.wait_for(self._condition.wait(), self._slop)
                     await self._condition.wait()
                 except (asyncio.TimeoutError, RuntimeError):
                     pass
