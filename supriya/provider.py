@@ -308,8 +308,10 @@ class ProviderMoment:
     node_additions: List[Tuple[NodeProxy, AddAction, NodeProxy]]
     node_removals: List[NodeProxy]
     node_settings: List[Tuple[NodeProxy, Dict[str, Union[float, BusGroupProxy]]]]
-    wait: bool
-    exit_stack: contextlib.ExitStack = dataclasses.field(init=False, default_factory=contextlib.ExitStack)
+    wait: bool = dataclasses.field(default=False)
+    exit_stack: contextlib.ExitStack = dataclasses.field(
+        init=False, default_factory=contextlib.ExitStack, compare=False
+    )
 
     def __postinit__(self):
         self.exit_stack = contextlib.ExitStack()

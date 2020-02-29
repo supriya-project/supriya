@@ -4,17 +4,17 @@ import queue
 import traceback
 from typing import Optional, Tuple
 
-from .bases import (
-    BaseTempoClock,
-)
+from .bases import BaseTempoClock
 from .ephemera import (
     CallbackCommand,
+    CallbackEvent,
     ChangeCommand,
+    ChangeEvent,
     ClockState,
     EventType,
     Moment,
+    TimeUnit,
 )
-from .ephemera import TimeUnit, CallbackEvent, ChangeEvent
 
 logger = logging.getLogger("supriya.clock")
 
@@ -22,8 +22,7 @@ logger = logging.getLogger("supriya.clock")
 class AsyncTempoClock(BaseTempoClock):
     def __init__(self):
         BaseTempoClock.__init__(self)
-        self._lock = asyncio.Lock()
-        self._condition = asyncio.Condition(self._lock)
+        self._event = asyncio.Event()
         self._task = None
         self._slop = 1.0
 
@@ -43,8 +42,7 @@ class AsyncTempoClock(BaseTempoClock):
 
     async def _enqueue_command(self, command):
         super()._enqueue_command(command)
-        async with self._lock:
-            self._condition.notify()
+        self._event.set()
 
     async def _perform_callback_event(self, event, current_moment, desired_moment):
         logger.debug(
@@ -99,30 +97,28 @@ class AsyncTempoClock(BaseTempoClock):
 
     async def _run(self, *args, offline=False, **kwargs):
         logger.debug(f"[{self.name}] Coroutine start")
-        async with self._lock:
-            self._process_command_deque(first_run=True)
-            while self._is_running:
-                logger.debug(f"[{self.name}] Loop start")
-                if not await self._wait_for_queue():
-                    return
-                try:
-                    current_moment = await self._wait_for_moment()
-                except queue.Empty:
-                    continue
-                if current_moment is None:
-                    return
-                current_moment = await self._perform_events(current_moment)
-                self._state = self._state._replace(
-                    previous_seconds=current_moment.seconds,
-                    previous_offset=current_moment.offset,
-                )
+        self._process_command_deque(first_run=True)
+        while self._is_running:
+            logger.debug(f"[{self.name}] Loop start")
+            if not await self._wait_for_queue():
+                return
+            try:
+                current_moment = await self._wait_for_moment()
+            except queue.Empty:
+                continue
+            if current_moment is None:
+                return
+            current_moment = await self._perform_events(current_moment)
+            self._state = self._state._replace(
+                previous_seconds=current_moment.seconds,
+                previous_offset=current_moment.offset,
+            )
         logger.debug(f"[{self.name}] Coroutine terminating")
 
-    async def _wait_for_condition(self, sleep_time):
+    async def _wait_for_event(self, sleep_time):
         try:
             await asyncio.wait_for(
-                self._condition.wait(),
-                sleep_time,
+                self._event.wait(), sleep_time,
             )
         except (asyncio.TimeoutError, RuntimeError):
             pass
@@ -130,29 +126,31 @@ class AsyncTempoClock(BaseTempoClock):
     async def _wait_for_moment(self, offline=False) -> Optional[Moment]:
         current_time = self.get_current_time()
         next_time = self._event_queue.peek().seconds
-        logger.debug(f"[{self.name}] ... Waiting for next moment at {next_time} from {current_time}")
+        logger.debug(
+            f"[{self.name}] ... Waiting for next moment at {next_time} from {current_time}"
+        )
         while current_time < next_time:
             if not offline:
-                await self._wait_for_condition(next_time - current_time)
+                await self._wait_for_event(next_time - current_time)
             if not self._is_running:
                 return None
             self._process_command_deque()
             next_time = self._event_queue.peek().seconds
             current_time = self.get_current_time()
+            self._event.clear()
         return self._seconds_to_moment(current_time)
 
     async def _wait_for_queue(self, offline=False) -> bool:
         logger.debug(f"[{self.name}] ... Waiting for events")
         self._process_command_deque()
+        self._event.clear()
         while not self._event_queue.qsize():
             if not offline:
-                try:
-                    await self._condition.wait()
-                except (asyncio.TimeoutError, RuntimeError):
-                    pass
+                await self._event.wait()
             if not self._is_running:
                 return False
             self._process_command_deque()
+            self._event.clear()
         return True
 
     ### PUBLIC METHODS ###
@@ -160,8 +158,7 @@ class AsyncTempoClock(BaseTempoClock):
     async def cancel(self, event_id) -> Optional[Tuple]:
         logger.debug(f"[{self.name}] Canceling {event_id}")
         event_id = self._cancel(event_id)
-        async with self._lock:
-            self._condition.notify()
+        self._event.set()
         return event_id
 
     async def change(
@@ -349,6 +346,5 @@ class AsyncTempoClock(BaseTempoClock):
         if not self._is_running:
             return
         self._is_running = False
-        async with self._lock:
-            self._condition.notify()
+        self._event.set()
         await self._task

@@ -342,6 +342,7 @@ def test_manual_stop_pmono_01(server):
     )
 
 
+@pytest.mark.skip("Fix this")
 def test_manual_stop_pmono_02(server):
     # Initial State
     server_state = str(server.query_remote_nodes(include_controls=True))

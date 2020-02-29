@@ -191,9 +191,14 @@ class BaseTempoClock:
     def _enqueue_command(self, command):
         self._events_by_id[command.event_id] = command
         self._command_deque.append(command)
-        logger.debug(
-            f"[{self.name}] Enqueued {type(command).__name__} ({command.event_id})"
-        )
+        if isinstance(command, CallbackCommand):
+            logger.debug(
+                f"[{self.name}] Enqueued {type(command).__name__} ({command.event_id}) {command.procedure}"
+            )
+        else:
+            logger.debug(
+                f"[{self.name}] Enqueued {type(command).__name__} ({command.event_id})"
+            )
 
     def _enqueue_event(self, event):
         self._events_by_id[event.event_id] = event

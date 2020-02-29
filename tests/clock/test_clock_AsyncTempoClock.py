@@ -12,10 +12,6 @@ repeat_count = 5
 logger = logging.getLogger("supriya.test")
 
 
-async def mock_wait_for_condition(self, sleep_time):
-    await self._condition.wait()
-
-
 @pytest.fixture(autouse=True)
 def log_everything(caplog):
     caplog.set_level(logging.DEBUG, logger="supriya")
@@ -23,9 +19,13 @@ def log_everything(caplog):
 
 @pytest.fixture
 async def tempo_clock(mocker, monkeypatch):
+    async def wait_for_event(self, sleep_time):
+        await asyncio.sleep(0)
+        await self._event.wait()
+
     tempo_clock = AsyncTempoClock()
     tempo_clock.slop = 0.01
-    monkeypatch.setattr(AsyncTempoClock, "_wait_for_condition", mock_wait_for_condition)
+    monkeypatch.setattr(AsyncTempoClock, "_wait_for_event", wait_for_event)
     mock_time = mocker.patch.object(AsyncTempoClock, "get_current_time")
     mock_time.return_value = 0.0
     yield tempo_clock
@@ -56,9 +56,7 @@ def callback(
 async def set_time_and_check(time_to_advance, tempo_clock, store):
     logger.info(f"Setting time to {time_to_advance}")
     tempo_clock.get_current_time.return_value = time_to_advance
-    await asyncio.sleep(0.01)
-    async with tempo_clock._lock:
-        tempo_clock._condition.notify()
+    tempo_clock._event.set()
     await asyncio.sleep(0.01)
     moments = []
     for current_moment, desired_moment, event in store:
@@ -170,7 +168,7 @@ async def test_realtime_02(limit, bpm_schedule, expected):
 
 
 @pytest.mark.asyncio
-# @pytest.mark.timeout(5)
+@pytest.mark.timeout(2)
 async def test_basic(tempo_clock):
     store = []
     await tempo_clock.start()
@@ -360,16 +358,24 @@ async def test_schedule_tempo_change(tempo_clock):
 async def test_cue_basic(tempo_clock):
     store = []
     await tempo_clock.start()
-    await tempo_clock.cue(callback, quantization=None, args=[store], kwargs={"limit": 0})
+    await tempo_clock.cue(
+        callback, quantization=None, args=[store], kwargs={"limit": 0}
+    )
     assert await set_time_and_check(0.0, tempo_clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0])
     ]
     assert await set_time_and_check(0.125, tempo_clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0])
     ]
-    await tempo_clock.cue(callback, quantization="1/4", args=[store], kwargs={"limit": 0})
-    await tempo_clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
-    await tempo_clock.cue(callback, quantization="1/2T", args=[store], kwargs={"limit": 0})
+    await tempo_clock.cue(
+        callback, quantization="1/4", args=[store], kwargs={"limit": 0}
+    )
+    await tempo_clock.cue(
+        callback, quantization="1M", args=[store], kwargs={"limit": 0}
+    )
+    await tempo_clock.cue(
+        callback, quantization="1/2T", args=[store], kwargs={"limit": 0}
+    )
     assert await set_time_and_check(0.5, tempo_clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
@@ -383,8 +389,9 @@ async def test_cue_basic(tempo_clock):
             [1, 0.3333333333, 0.3333333333333333, 0.6666666666666666],
         ),
     ]
-    await tempo_clock.cue(callback, quantization="1/2T", args=[store], kwargs={"limit": 0})
-    logger.info("Did control return?")
+    await tempo_clock.cue(
+        callback, quantization="1/2T", args=[store], kwargs={"limit": 0}
+    )
     assert await set_time_and_check(1.0, tempo_clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [1, 0.25, 0.25, 0.5], [1, 0.25, 0.25, 0.5]),
@@ -433,14 +440,18 @@ async def test_cue_measures(tempo_clock):
     """
     store = []
     await tempo_clock.start()
-    await tempo_clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
+    await tempo_clock.cue(
+        callback, quantization="1M", args=[store], kwargs={"limit": 0}
+    )
     assert await set_time_and_check(0.0, tempo_clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0])
     ]
     assert await set_time_and_check(0.5, tempo_clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0])
     ]
-    await tempo_clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
+    await tempo_clock.cue(
+        callback, quantization="1M", args=[store], kwargs={"limit": 0}
+    )
     assert await set_time_and_check(2.0, tempo_clock, store) == [
         (["4/4", 120.0], [1, 0.0, 0.0, 0.0], [1, 0.0, 0.0, 0.0]),
         (["4/4", 120.0], [2, 0.0, 1.0, 2.0], [2, 0.0, 1.0, 2.0]),
@@ -453,8 +464,12 @@ async def test_cue_and_reschedule(tempo_clock):
     store = []
     await tempo_clock.start()
     assert await set_time_and_check(0.25, tempo_clock, store) == []
-    await tempo_clock.cue(callback, quantization="1M", args=[store], kwargs={"limit": 0})
-    await tempo_clock.cue(callback, quantization="2M", args=[store], kwargs={"limit": 0})
+    await tempo_clock.cue(
+        callback, quantization="1M", args=[store], kwargs={"limit": 0}
+    )
+    await tempo_clock.cue(
+        callback, quantization="2M", args=[store], kwargs={"limit": 0}
+    )
     await tempo_clock.schedule_change(schedule_at=1.0, time_signature=(5, 4))
     assert await set_time_and_check(0.5, tempo_clock, store) == []
     assert await set_time_and_check(1.0, tempo_clock, store) == []
@@ -496,10 +511,10 @@ async def test_reschedule_earlier(tempo_clock):
     event_id = await tempo_clock.cue(
         callback, quantization="1M", args=[store], kwargs={"limit": 0}
     )
-    await asyncio.sleep(tempo_clock.slop * 2)
+    await asyncio.sleep(0)
     assert tempo_clock.peek().seconds == 2.0
     await tempo_clock.reschedule(event_id, schedule_at=0.5)
-    await asyncio.sleep(tempo_clock.slop * 2)
+    await asyncio.sleep(0)
     assert tempo_clock.peek().seconds == 1.0
     assert await set_time_and_check(2.0, tempo_clock, store) == [
         (["4/4", 120.0], [2, 0.0, 1.0, 2.0], [1, 0.5, 0.5, 1.0])
@@ -515,10 +530,10 @@ async def test_reschedule_later(tempo_clock):
     event_id = await tempo_clock.cue(
         callback, quantization="1M", args=[store], kwargs={"limit": 0}
     )
-    await asyncio.sleep(tempo_clock.slop * 2)
+    await asyncio.sleep(0)
     assert tempo_clock.peek().seconds == 2.0
     await tempo_clock.reschedule(event_id, schedule_at=1.5)
-    await asyncio.sleep(tempo_clock.slop * 2)
+    await asyncio.sleep(0)
     assert tempo_clock.peek().seconds == 3.0
     assert await set_time_and_check(3.0, tempo_clock, store) == [
         (["4/4", 120.0], [2, 0.5, 1.5, 3.0], [2, 0.5, 1.5, 3.0])
@@ -715,7 +730,9 @@ async def test_change_time_signature_shrinking(tempo_clock):
     """
     store = []
     await tempo_clock.change(beats_per_minute=240)
-    await tempo_clock.schedule(callback, schedule_at=0.0, args=[store], kwargs={"limit": 12})
+    await tempo_clock.schedule(
+        callback, schedule_at=0.0, args=[store], kwargs={"limit": 12}
+    )
     await tempo_clock.schedule_change(schedule_at=1.125, time_signature=(2, 4))
     await tempo_clock.start()
     assert await set_time_and_check(1.0, tempo_clock, store) == [

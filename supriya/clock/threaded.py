@@ -3,9 +3,7 @@ import queue
 import threading
 from typing import Optional, Tuple
 
-from .bases import (
-    BaseTempoClock,
-)
+from .bases import BaseTempoClock
 from .ephemera import (
     CallbackCommand,
     CallbackEvent,
