@@ -43,40 +43,39 @@ from supriya.nonrealtime import Session
 from supriya.realtime import AsyncServer, BaseServer, Server
 from supriya.synthdefs import SynthDef
 
-# TODO: Implement BusProxy, integrate with BusGroupProxy
 
+@dataclasses.dataclass(frozen=True)
+class BufferProxy:
+    provider: "Provider"
+    identifier: Union["supriya.nonrealtime.Buffer", int]
+    channel_count: Optional[int] = None
+    frame_count: Optional[int] = None
+    file_path: Optional[str] = None
+    channel_indices: Optional[List[int]] = None
+    starting_frame: Optional[int] = None
 
-# @dataclasses.dataclass(frozen=True)
-# class BufferProxy:
-#    provider: "Provider"
-#    channel_count: int = 1
-#    frame_count: Optional[int] = None
-#    file_path: Optional[str] = None
-#    channel_indices: Optional[List[int]] = None
-#    starting_frame: Optional[int] = None
-#
-#    def close(self):
-#        pass
-#
-#    def free(self):
-#        self.provider.free_buffer(self)
-#
-#    def normalize(self, new_maximum=1.0):
-#        pass
-#
-#    def read(self, file_path, leave_open=False):
-#        pass
-#
-#    def write(
-#        self,
-#        file_path,
-#        frame_count=None,
-#        header_format="aiff",
-#        leave_open=False,
-#        sample_format="int24",
-#        starting_frame=None,
-#    ):
-#        pass
+    def close(self):
+        pass
+
+    def free(self):
+        self.provider.free_buffer(self)
+
+    def normalize(self, new_maximum=1.0):
+        pass
+
+    def read(self, file_path, leave_open=False):
+        pass
+
+    def write(
+        self,
+        file_path,
+        frame_count=None,
+        header_format="aiff",
+        leave_open=False,
+        sample_format="int24",
+        starting_frame=None,
+    ):
+        pass
 
 
 @dataclasses.dataclass(frozen=True)
@@ -391,6 +390,8 @@ class ProviderMoment:
         requests = []
         synthdefs = set()
         new_nodes = set()
+        for buffer_proxy in self.buffer_additions:
+            pass
         for node_proxy, add_action, target_node in self.node_additions:
             request = node_proxy.as_add_request(add_action, target_node)
             if isinstance(request, SynthNewRequest):
@@ -406,6 +407,8 @@ class ProviderMoment:
             requests.append(
                 node_proxy.as_free_request(force=node_proxy.identifier in new_nodes)
             )
+        for buffer_proxy in self.buffer_removals:
+            pass
         if self.bus_settings:
             sorted_pairs = sorted(
                 dict(
@@ -474,9 +477,9 @@ class Provider(metaclass=abc.ABCMeta):
 
     ### PUBLIC METHODS ###
 
-    #    @abc.abstractmethod
-    #    def add_buffer(self):
-    #        raise NotImplementedError
+    #@abc.abstractmethod
+    #def add_buffer(self):
+    #    raise NotImplementedError
 
     @abc.abstractmethod
     def add_bus(self, calculation_rate=CalculationRate.CONTROL) -> BusProxy:
@@ -829,10 +832,12 @@ class RealtimeProvider(Provider):
 
     ### PUBLIC METHODS ###
 
-    #    def add_buffer(self) -> BufferProxy:
-    #        if not self.moment:
-    #            raise ValueError("No current moment")
-    #        return BufferProxy(provider=self)
+    def add_buffer(self) -> BufferProxy:
+        if not self.moment:
+            raise ValueError("No current moment")
+        identifier = self.server.buffer_allocator.allocate(1)
+        proxy = BufferProxy(provider=self, identifier=identifier)
+        return proxy
 
     def add_bus(self, calculation_rate=CalculationRate.CONTROL) -> BusProxy:
         if not self.moment:
@@ -911,9 +916,10 @@ class RealtimeProvider(Provider):
     def boot(self, **kwargs):
         self.server.boot(**kwargs)
 
-    #    def free_buffer(self, buffer_: BufferProxy):
-    #        if not self.moment:
-    #            raise ValueError("No current moment")
+    def free_buffer(self, buffer_: BufferProxy):
+        if not self.moment:
+            raise ValueError("No current moment")
+        self.moment.buffer_removals.append(buffer_)
 
     def dispose(self, node_proxy: NodeProxy):
         if not self.moment:
