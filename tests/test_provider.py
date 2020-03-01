@@ -7,6 +7,7 @@ from supriya.assets.synthdefs import default
 from supriya.enums import AddAction, CalculationRate
 from supriya.nonrealtime import Session
 from supriya.provider import (
+    BufferProxy,
     BusGroupProxy,
     BusProxy,
     GroupProxy,
@@ -17,6 +18,7 @@ from supriya.provider import (
     SynthProxy,
 )
 from supriya.realtime import Server
+from supriya.utils import locate
 
 
 @pytest.fixture
@@ -47,6 +49,18 @@ def test_Provider_from_context(session, server):
 def test_NonrealtimeProvider_init_error():
     with pytest.raises(ValueError):
         NonrealtimeProvider(23)
+
+
+def test_NonrealtimeProvider_add_buffer_1(session):
+    provider = Provider.from_context(session)
+    file_path = locate("supriya.assets:audio/pulse_44100sr_16bit_octo.wav")
+    with provider.at(1.2345):
+        proxy = provider.add_buffer(file_path=file_path)
+    assert isinstance(proxy, BufferProxy)
+    assert session.to_lists(10) == [
+        [1.2345, [['/b_allocRead', 0, str(file_path), 0, -1]]],
+        [10.0, [['/b_free', 0], [0]]],
+    ]
 
 
 def test_NonrealtimeProvider_add_bus_1(session):
@@ -231,6 +245,11 @@ def test_NonrealtimeProvider_add_synth_error(session):
     provider = Provider.from_context(session)
     with pytest.raises(ValueError):
         provider.add_synth()
+
+
+@pytest.mark.skip("NRT doesn't implement freeing buffers")
+def test_NonrealtimeProvider_free_buffer(session):
+    ...
 
 
 def test_NonrealtimeProvider_free_bus(session):
@@ -418,6 +437,20 @@ def test_NonrealtimeProvider_set_node_error(session):
 def test_RealtimeProvider_init_error():
     with pytest.raises(ValueError):
         RealtimeProvider(23)
+
+
+def test_RealtimeProvider_add_buffer_1(server):
+    provider = Provider.from_context(server)
+    file_path = locate("supriya.assets:audio/pulse_44100sr_16bit_octo.wav")
+    with server.osc_protocol.capture() as transcript:
+        with provider.at(1.2345):
+            proxy = provider.add_buffer(file_path=file_path)
+        time.sleep(0.1)
+    assert isinstance(proxy, BufferProxy)
+    assert [entry.message.to_list() for entry in transcript] == [
+        [1.3345, [['/b_allocRead', 0, str(file_path), 0, -1]]],
+        ['/done', '/b_allocRead', 0],
+    ]
 
 
 def test_RealtimeProvider_add_bus_1(server):
@@ -668,6 +701,20 @@ def test_RealtimeProvider_add_synth_error(server):
     provider = Provider.from_context(server)
     with pytest.raises(ValueError):
         provider.add_synth()
+
+
+def test_RealtimeProvider_free_buffer(server):
+    provider = Provider.from_context(server)
+    file_path = locate("supriya.assets:audio/pulse_44100sr_16bit_octo.wav")
+    with provider.at(1.2345):
+        proxy = provider.add_buffer(file_path=file_path)
+    time.sleep(0.1)
+    with server.osc_protocol.capture() as transcript:
+        with provider.at(2.3456):
+            proxy.free()
+    assert [entry.message.to_list() for entry in transcript] == [
+        [2.4456, [['/b_free', 0]]],
+    ]
 
 
 def test_RealtimeProvider_free_bus_1(server):

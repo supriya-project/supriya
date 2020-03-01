@@ -5,7 +5,19 @@ These will be migrated out into a base package at some point.
 """
 
 import collections
+import importlib
 import itertools
+import pathlib
+
+
+def locate(path: str) -> pathlib.Path:
+    if ":" in path:
+        module_path, _, file_path = path.partition(":")
+        module = importlib.import_module(module_path)
+        if hasattr(module, "__file__"):
+            return pathlib.Path(module.__file__).parent / file_path
+        return pathlib.Path(module.__path__[0]) / file_path
+    return pathlib.Path(path)
 
 
 def flatten_iterable(iterable):

@@ -24,24 +24,20 @@ from uqbar.objects import new
 
 import supriya.nonrealtime  # noqa
 import supriya.realtime  # noqa
-from supriya import nonrealtime, realtime
+from supriya import commands, nonrealtime, realtime
 from supriya.assets.synthdefs.default import default
-from supriya.commands.ControlBusSetRequest import ControlBusSetRequest
-from supriya.commands.GroupHeadRequest import GroupHeadRequest
-from supriya.commands.GroupNewRequest import GroupNewRequest
-from supriya.commands.GroupTailRequest import GroupTailRequest
-from supriya.commands.MoveRequest import MoveRequest
-from supriya.commands.NodeAfterRequest import NodeAfterRequest
-from supriya.commands.NodeBeforeRequest import NodeBeforeRequest
-from supriya.commands.NodeFreeRequest import NodeFreeRequest
-from supriya.commands.NodeSetRequest import NodeSetRequest
-from supriya.commands.RequestBundle import RequestBundle
-from supriya.commands.SynthDefReceiveRequest import SynthDefReceiveRequest
-from supriya.commands.SynthNewRequest import SynthNewRequest
 from supriya.enums import AddAction, CalculationRate, ParameterRate
 from supriya.nonrealtime import Session
 from supriya.realtime import AsyncServer, BaseServer, Server
 from supriya.synthdefs import SynthDef
+
+# with provider.at(): proxy = provider.add_buffer(file_path=file_path)
+# with provider.at(): proxy.free()
+
+
+@dataclasses.dataclass(frozen=True)
+class Proxy:
+    provider: "Provider"
 
 
 @dataclasses.dataclass(frozen=True)
@@ -51,8 +47,16 @@ class BufferProxy:
     channel_count: Optional[int] = None
     frame_count: Optional[int] = None
     file_path: Optional[str] = None
-    channel_indices: Optional[List[int]] = None
     starting_frame: Optional[int] = None
+
+    def __float__(self):
+        return float(int(self))
+
+    def __int__(self):
+        if self.provider.server:
+            return self.identifier
+        elif self.provider.session:
+            return self.provider.identifier.session_id
 
     def close(self):
         pass
@@ -77,10 +81,21 @@ class BufferProxy:
     ):
         pass
 
+    def as_allocate_request(self):
+        kwargs = dict(buffer_id=int(self), frame_count=self.frame_count)
+        if self.file_path is None:
+            return commands.BufferAllocateRequest(
+                **kwargs, channel_count=self.channel_count,
+            )
+        kwargs.update(file_path=self.file_path, starting_frame=self.starting_frame)
+        if self.channel_count is None:
+            return commands.BufferAllocateReadRequest(**kwargs)
+        return commands.BufferAllocateReadChannelRequest(
+            **kwargs, channel_indices=list(range(self.channel_count)),
+        )
 
-@dataclasses.dataclass(frozen=True)
-class Proxy:
-    provider: "Provider"
+    def as_free_request(self):
+        return commands.BufferFreeRequest(buffer_id=int(self))
 
 
 @dataclasses.dataclass(frozen=True)
@@ -203,14 +218,14 @@ class NodeProxy(Proxy):
 
     def as_move_request(
         self, add_action: AddAction, target_node: "NodeProxy"
-    ) -> MoveRequest:
-        request_classes: Dict[int, Type[MoveRequest]] = {
-            AddAction.ADD_TO_HEAD: GroupHeadRequest,
-            AddAction.ADD_TO_TAIL: GroupTailRequest,
-            AddAction.ADD_BEFORE: NodeBeforeRequest,
-            AddAction.ADD_AFTER: NodeAfterRequest,
+    ) -> commands.MoveRequest:
+        request_classes: Dict[int, Type[commands.MoveRequest]] = {
+            AddAction.ADD_TO_HEAD: commands.GroupHeadRequest,
+            AddAction.ADD_TO_TAIL: commands.GroupTailRequest,
+            AddAction.ADD_BEFORE: commands.NodeBeforeRequest,
+            AddAction.ADD_AFTER: commands.NodeAfterRequest,
         }
-        request_class: Type[MoveRequest] = request_classes[add_action]
+        request_class: Type[commands.MoveRequest] = request_classes[add_action]
         return request_class(
             node_id_pairs=[request_class.NodeIdPair(int(self), int(target_node))]
         )
@@ -224,7 +239,7 @@ class NodeProxy(Proxy):
                 else:
                     value = f"c{value.identifier}"
             coerced_settings[key] = value
-        return NodeSetRequest(node_id=int(self), **coerced_settings)
+        return commands.NodeSetRequest(node_id=int(self), **coerced_settings)
 
     def dispose(self):
         self.provider.dispose(self)
@@ -242,9 +257,9 @@ class GroupProxy(NodeProxy):
     provider: "Provider"
 
     def as_add_request(self, add_action, target_node):
-        return GroupNewRequest(
+        return commands.GroupNewRequest(
             items=[
-                GroupNewRequest.Item(
+                commands.GroupNewRequest.Item(
                     node_id=int(self.identifier),
                     add_action=add_action,
                     target_node_id=int(target_node),
@@ -253,7 +268,7 @@ class GroupProxy(NodeProxy):
         )
 
     def as_free_request(self, force=False):
-        return NodeFreeRequest(node_ids=[int(self)])
+        return commands.NodeFreeRequest(node_ids=[int(self)])
 
 
 @dataclasses.dataclass(frozen=True)
@@ -284,7 +299,7 @@ class SynthProxy(NodeProxy):
             else:
                 synthdef_kwargs[parameter.name] = float(value)
 
-        return SynthNewRequest(
+        return commands.SynthNewRequest(
             node_id=int(self.identifier),
             add_action=add_action,
             target_node_id=int(target_node),
@@ -294,19 +309,27 @@ class SynthProxy(NodeProxy):
 
     def as_free_request(self, force=False):
         if force or "gate" not in self.synthdef.parameters:
-            return NodeFreeRequest(node_ids=[int(self)])
-        return NodeSetRequest(node_id=int(self), gate=0)
+            return commands.NodeFreeRequest(node_ids=[int(self)])
+        return commands.NodeSetRequest(node_id=int(self), gate=0)
 
 
 @dataclasses.dataclass(frozen=True)
 class ProviderMoment:
     provider: "Provider"
     seconds: float
-    bus_settings: List[Tuple[BusProxy, float]]
-    node_reorderings: List[Tuple[NodeProxy, AddAction, NodeProxy]]
-    node_additions: List[Tuple[NodeProxy, AddAction, NodeProxy]]
-    node_removals: List[NodeProxy]
-    node_settings: List[Tuple[NodeProxy, Dict[str, Union[float, BusGroupProxy]]]]
+    bus_settings: List[Tuple[BusProxy, float]] = dataclasses.field(default_factory=list)
+    buffer_additions: List[BufferProxy] = dataclasses.field(default_factory=list)
+    buffer_removals: List[BufferProxy] = dataclasses.field(default_factory=list)
+    node_reorderings: List[Tuple[NodeProxy, AddAction, NodeProxy]] = dataclasses.field(
+        default_factory=list
+    )
+    node_additions: List[Tuple[NodeProxy, AddAction, NodeProxy]] = dataclasses.field(
+        default_factory=list
+    )
+    node_removals: List[NodeProxy] = dataclasses.field(default_factory=list)
+    node_settings: List[
+        Tuple[NodeProxy, Dict[str, Union[float, BusGroupProxy]]]
+    ] = dataclasses.field(default_factory=list)
     wait: bool = dataclasses.field(default=False)
     exit_stack: contextlib.ExitStack = dataclasses.field(
         init=False, default_factory=contextlib.ExitStack, compare=False
@@ -344,10 +367,12 @@ class ProviderMoment:
                 await synthdef_request.communicate_async(sync=True, server=server)
             if self.wait:
                 # If waiting, the original ProviderMoment timestamp can be ignored
-                for bundle in RequestBundle.partition(requests):
+                for bundle in commands.RequestBundle.partition(requests):
                     await bundle.communicate_async(server=server, sync=True)
             else:
-                for bundle in RequestBundle.partition(requests, timestamp=timestamp):
+                for bundle in commands.RequestBundle.partition(
+                    requests, timestamp=timestamp
+                ):
                     server.send(bundle.to_osc())
 
     def __enter__(self):
@@ -371,7 +396,9 @@ class ProviderMoment:
                 requests = synthdef_request.callback.contents or []
                 synthdef_request = new(synthdef_request, callback=None)
                 synthdef_request.communicate(sync=True, server=self.provider.server)
-            for bundle in RequestBundle.partition(requests, timestamp=timestamp):
+            for bundle in commands.RequestBundle.partition(
+                requests, timestamp=timestamp
+            ):
                 self.provider.server.send(bundle.to_osc())
 
     def _enter(self):
@@ -391,10 +418,10 @@ class ProviderMoment:
         synthdefs = set()
         new_nodes = set()
         for buffer_proxy in self.buffer_additions:
-            pass
+            requests.append(buffer_proxy.as_allocate_request())
         for node_proxy, add_action, target_node in self.node_additions:
             request = node_proxy.as_add_request(add_action, target_node)
-            if isinstance(request, SynthNewRequest):
+            if isinstance(request, commands.SynthNewRequest):
                 if request.synthdef not in self.provider.server:
                     synthdefs.add(request.synthdef)
             requests.append(request)
@@ -408,7 +435,7 @@ class ProviderMoment:
                 node_proxy.as_free_request(force=node_proxy.identifier in new_nodes)
             )
         for buffer_proxy in self.buffer_removals:
-            pass
+            requests.append(buffer_proxy.as_free_request())
         if self.bus_settings:
             sorted_pairs = sorted(
                 dict(
@@ -416,7 +443,7 @@ class ProviderMoment:
                     for bus_proxy, value in self.bus_settings
                 ).items()
             )
-            request = ControlBusSetRequest(index_value_pairs=sorted_pairs)
+            request = commands.ControlBusSetRequest(index_value_pairs=sorted_pairs)
             requests.append(request)
         if not requests:
             return
@@ -424,12 +451,12 @@ class ProviderMoment:
         if timestamp is not None:
             timestamp += self.provider._latency
         if synthdefs:
-            request_bundle = RequestBundle(
+            request_bundle = commands.RequestBundle(
                 timestamp=timestamp,
                 contents=[
-                    SynthDefReceiveRequest(
+                    commands.SynthDefReceiveRequest(
                         synthdefs=sorted(synthdefs, key=lambda x: x.actual_name),
-                        callback=RequestBundle(contents=requests),
+                        callback=commands.RequestBundle(contents=requests),
                     )
                 ],
             )
@@ -444,17 +471,19 @@ class ProviderMoment:
                     file_name = "{}.scsyndef".format(name)
                     synthdef_path = directory_path / file_name
                     synthdef_path.write_bytes(synthdef.compile())
-                request_bundle = RequestBundle(
+                request_bundle = commands.RequestBundle(
                     timestamp=timestamp,
                     contents=[
                         supriya.commands.SynthDefLoadDirectoryRequest(
                             directory_path=directory_path,
-                            callback=RequestBundle(contents=requests),
+                            callback=commands.RequestBundle(contents=requests),
                         )
                     ],
                 )
         else:
-            request_bundle = RequestBundle(timestamp=timestamp, contents=requests)
+            request_bundle = commands.RequestBundle(
+                timestamp=timestamp, contents=requests
+            )
         for synthdef in synthdefs:
             synthdef._register_with_local_server(server=self.provider.server)
         return timestamp, request_bundle, synthdefs
@@ -477,9 +506,16 @@ class Provider(metaclass=abc.ABCMeta):
 
     ### PUBLIC METHODS ###
 
-    #@abc.abstractmethod
-    #def add_buffer(self):
-    #    raise NotImplementedError
+    @abc.abstractmethod
+    def add_buffer(
+        self,
+        *,
+        channel_count: Optional[int] = None,
+        file_path: Optional[str] = None,
+        frame_count: Optional[int] = None,
+        starting_frame: Optional[int] = None,
+    ) -> BufferProxy:
+        raise NotImplementedError
 
     @abc.abstractmethod
     def add_bus(self, calculation_rate=CalculationRate.CONTROL) -> BusProxy:
@@ -521,9 +557,9 @@ class Provider(metaclass=abc.ABCMeta):
     def dispose(self, node_proxy: NodeProxy):
         raise NotImplementedError
 
-    #    @abc.abstractmethod
-    #    def free_buffer(self, buffer_proxy):
-    #        raise NotImplementedError
+    @abc.abstractmethod
+    def free_buffer(self, buffer_proxy):
+        raise NotImplementedError
 
     @abc.abstractmethod
     def free_bus(self, bus_proxy: BusProxy):
@@ -555,16 +591,7 @@ class Provider(metaclass=abc.ABCMeta):
         if self._moments and self._moments[-1].seconds == seconds:
             provider_moment = self._moments[-1]
         else:
-            provider_moment = ProviderMoment(
-                provider=self,
-                seconds=seconds,
-                bus_settings=[],
-                node_additions=[],
-                node_removals=[],
-                node_reorderings=[],
-                node_settings=[],
-                wait=wait,
-            )
+            provider_moment = ProviderMoment(provider=self, seconds=seconds, wait=wait)
         return provider_moment
 
     @classmethod
@@ -663,10 +690,30 @@ class NonrealtimeProvider(Provider):
 
     ### PUBLIC METHODS ###
 
-    #    def add_buffer(self) -> BufferProxy:
-    #        if not self.moment:
-    #            raise ValueError("No current moment")
-    #        return BufferProxy(provider=self)
+    def add_buffer(
+        self,
+        *,
+        channel_count: Optional[int] = None,
+        file_path: Optional[str] = None,
+        frame_count: Optional[int] = None,
+        starting_frame: Optional[int] = None,
+    ) -> BufferProxy:
+        if not self.moment:
+            raise ValueError("No current moment")
+        identifier = self.session.add_buffer(
+            channel_count=channel_count,
+            file_path=file_path,
+            frame_count=frame_count,
+            starting_frame=starting_frame,
+        )
+        return BufferProxy(
+            channel_count=channel_count,
+            file_path=file_path,
+            frame_count=frame_count,
+            identifier=identifier,
+            provider=self,
+            starting_frame=starting_frame,
+        )
 
     def add_bus(self, calculation_rate=CalculationRate.CONTROL) -> BusProxy:
         if not self.moment:
@@ -741,9 +788,10 @@ class NonrealtimeProvider(Provider):
         )
         return proxy
 
-    #    def free_buffer(self, buffer_: BufferProxy):
-    #        if not self.moment:
-    #            raise ValueError("No current moment")
+    def free_buffer(self, buffer_: BufferProxy):
+        if not self.moment:
+            raise ValueError("No current moment")
+        return  # This is currently a no-op
 
     def boot(self, **kwargs):
         pass  # no-op
@@ -832,11 +880,26 @@ class RealtimeProvider(Provider):
 
     ### PUBLIC METHODS ###
 
-    def add_buffer(self) -> BufferProxy:
+    def add_buffer(
+        self,
+        *,
+        channel_count: Optional[int] = None,
+        file_path: Optional[str] = None,
+        frame_count: Optional[int] = None,
+        starting_frame: Optional[int] = None,
+    ) -> BufferProxy:
         if not self.moment:
             raise ValueError("No current moment")
         identifier = self.server.buffer_allocator.allocate(1)
-        proxy = BufferProxy(provider=self, identifier=identifier)
+        proxy = BufferProxy(
+            channel_count=channel_count,
+            file_path=file_path,
+            frame_count=frame_count,
+            identifier=identifier,
+            provider=self,
+            starting_frame=starting_frame,
+        )
+        self.moment.buffer_additions.append(proxy)
         return proxy
 
     def add_bus(self, calculation_rate=CalculationRate.CONTROL) -> BusProxy:
@@ -916,15 +979,15 @@ class RealtimeProvider(Provider):
     def boot(self, **kwargs):
         self.server.boot(**kwargs)
 
-    def free_buffer(self, buffer_: BufferProxy):
-        if not self.moment:
-            raise ValueError("No current moment")
-        self.moment.buffer_removals.append(buffer_)
-
     def dispose(self, node_proxy: NodeProxy):
         if not self.moment:
             raise ValueError("No current moment")
         return  # This is currently a no-op
+
+    def free_buffer(self, buffer_: BufferProxy):
+        if not self.moment:
+            raise ValueError("No current moment")
+        self.moment.buffer_removals.append(buffer_)
 
     def free_bus(self, bus_proxy: BusProxy):
         if not self.moment:
