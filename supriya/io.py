@@ -33,13 +33,12 @@ class Player:
         return self.renderable.__render__(**self.render_kwargs)
 
 
-def graph(graphable, format_="pdf", layout="dot", verbose=False):
+def graph(graphable, format_="pdf", layout="dot"):
     return Grapher(
         graphable,
         format_=format_,
         layout=layout,
         output_directory=supriya.output_path,
-        verbose=verbose,
     )()
 
 
