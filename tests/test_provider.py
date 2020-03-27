@@ -58,8 +58,8 @@ def test_NonrealtimeProvider_add_buffer_1(session):
         proxy = provider.add_buffer(file_path=file_path)
     assert isinstance(proxy, BufferProxy)
     assert session.to_lists(10) == [
-        [1.2345, [['/b_allocRead', 0, str(file_path), 0, -1]]],
-        [10.0, [['/b_free', 0], [0]]],
+        [1.2345, [["/b_allocRead", 0, str(file_path), 0, -1]]],
+        [10.0, [["/b_free", 0], [0]]],
     ]
 
 
@@ -448,8 +448,8 @@ def test_RealtimeProvider_add_buffer_1(server):
         time.sleep(0.1)
     assert isinstance(proxy, BufferProxy)
     assert [entry.message.to_list() for entry in transcript] == [
-        [1.3345, [['/b_allocRead', 0, str(file_path), 0, -1]]],
-        ['/done', '/b_allocRead', 0],
+        [1.3345, [["/b_allocRead", 0, str(file_path), 0, -1]]],
+        ["/done", "/b_allocRead", 0],
     ]
 
 
@@ -713,7 +713,7 @@ def test_RealtimeProvider_free_buffer(server):
         with provider.at(2.3456):
             proxy.free()
     assert [entry.message.to_list() for entry in transcript] == [
-        [2.4456, [['/b_free', 0]]],
+        [2.4456, [["/b_free", 0]]],
     ]
 
 

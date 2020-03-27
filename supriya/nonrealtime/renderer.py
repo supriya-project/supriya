@@ -5,7 +5,6 @@ import shutil
 import struct
 import subprocess
 
-import tqdm  # type: ignore
 import uqbar.containers
 import uqbar.io
 import yaml
@@ -15,6 +14,7 @@ import supriya
 import supriya.realtime
 import supriya.soundfiles
 import supriya.system
+import tqdm  # type: ignore
 from supriya import HeaderFormat, SampleFormat, scsynth
 from supriya.exceptions import NonrealtimeOutputMissing, NonrealtimeRenderError
 from supriya.system import SupriyaObject
