@@ -156,7 +156,26 @@ class Options:
         )
 
 
+def _fallback_scsynth_paths():
+    return (
+        pathlib.Path("/Applications/SuperCollider.app/Contents/Resources/scsynth"),
+        pathlib.Path("/usr/bin/scsynth"),
+    )
+
+
 def find(scsynth_path=None):
+    """Find the ``scsynth`` executable.
+
+    The following paths, if defined, will be searched (prioritised as ordered):
+    1. ``scsynth_path``
+    2. The environment variable ``SCSYNTH_PATH``
+    3. ``scsynth_path`` if defined in Supriya's configuration file
+    4. The user's ``PATH``
+    5. Common installation directories of the SuperCollider application.
+
+    Returns a path to the ``scsynth`` executable.
+    Raises ``RuntimeError`` if no path is found.
+    """
     scsynth_path = pathlib.Path(
         scsynth_path
         or os.environ.get("SCSYNTH_PATH")
@@ -166,9 +185,17 @@ def find(scsynth_path=None):
     scsynth_path_candidates = uqbar.io.find_executable(scsynth_path.name)
     if not scsynth_path.is_absolute() and scsynth_path_candidates:
         scsynth_path = pathlib.Path(scsynth_path_candidates[0])
-    scsynth_path = scsynth_path.resolve().absolute()
+
+    potential_paths = (scsynth_path.resolve().absolute(), *_fallback_scsynth_paths())
+
+    for potential_path in potential_paths:
+        if potential_path.exists():
+            scsynth_path = potential_path
+            break
+
     if not scsynth_path.exists():
         raise RuntimeError("{} does not exist".format(scsynth_path))
+
     if scsynth_path_candidates and scsynth_path == pathlib.Path(
         scsynth_path_candidates[0]
     ):
