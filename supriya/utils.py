@@ -16,7 +16,7 @@ def locate(path: str) -> pathlib.Path:
         module = importlib.import_module(module_path)
         if hasattr(module, "__file__"):
             return pathlib.Path(module.__file__).parent / file_path
-        return pathlib.Path(module.__path__[0]) / file_path
+        return pathlib.Path(module.__path__[0]) / file_path  # type: ignore
     return pathlib.Path(path)
 
 
