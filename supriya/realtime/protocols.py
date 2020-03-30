@@ -38,7 +38,6 @@ class SyncProcessProtocol(ProcessProtocol):
             shell=True,
             stderr=subprocess.STDOUT,
             stdout=subprocess.PIPE,
-            # close_fds=True,
             start_new_session=True,
         )
         try:
