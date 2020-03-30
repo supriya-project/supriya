@@ -437,37 +437,6 @@ class BaseTempoClock:
 
     ### PUBLIC METHODS ###
 
-    def cancel(self, event_id) -> Optional[Tuple]:
-        logger.debug(f"[{self.name}] Canceling {event_id}")
-        return self._cancel(event_id)
-
-    def change(
-        self,
-        beats_per_minute: Optional[float] = None,
-        time_signature: Optional[Tuple[int, int]] = None,
-    ) -> Optional[int]:
-        ...
-
-    def cue(
-        self,
-        procedure,
-        *,
-        args=None,
-        event_type: EventType = EventType.SCHEDULE,
-        kwargs=None,
-        quantization: str = None,
-    ) -> int:
-        ...
-
-    def cue_change(
-        self,
-        *,
-        beats_per_minute: Optional[float] = None,
-        quantization: str = None,
-        time_signature: Optional[Tuple[int, int]] = None,
-    ) -> int:
-        ...
-
     def get_current_time(self) -> float:
         return time.time()
 
@@ -483,47 +452,6 @@ class BaseTempoClock:
         if "T" in quantization:
             fraction *= fractions.Fraction(2, 3)
         return float(fraction)
-
-    def reschedule(
-        self, event_id, *, schedule_at=0.0, time_unit=TimeUnit.BEATS
-    ) -> Optional[int]:
-        ...
-
-    def schedule(
-        self,
-        procedure,
-        *,
-        event_type: EventType = EventType.SCHEDULE,
-        schedule_at: float = 0.0,
-        time_unit: TimeUnit = TimeUnit.BEATS,
-        args=None,
-        kwargs=None,
-    ) -> int:
-        ...
-
-    def schedule_change(
-        self,
-        *,
-        beats_per_minute: Optional[float] = None,
-        schedule_at: float = 0.0,
-        time_signature: Optional[Tuple[int, int]] = None,
-        time_unit: TimeUnit = TimeUnit.BEATS,
-        moment: Moment = None,
-    ) -> int:
-        ...
-
-    def start(
-        self,
-        initial_time: Optional[float] = None,
-        initial_offset: float = 0.0,
-        initial_measure: int = 1,
-        beats_per_minute: Optional[float] = None,
-        time_signature: Optional[Tuple[int, int]] = None,
-    ):
-        ...
-
-    def stop(self):
-        ...
 
     ### PUBLIC PROPERTIES ###
 
