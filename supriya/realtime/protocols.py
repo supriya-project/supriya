@@ -71,8 +71,11 @@ class SyncProcessProtocol(ProcessProtocol):
     def quit(self):
         if not self.is_running:
             return
+        process_group = os.getpgid(self.process.pid)
+        os.killpg(process_group, signal.SIGINT)
         self.process.terminate()
         self.process.wait()
+        self.is_running = False
 
 
 class AsyncProcessProtocol(asyncio.SubprocessProtocol, ProcessProtocol):

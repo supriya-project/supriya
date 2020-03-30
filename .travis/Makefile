@@ -28,8 +28,6 @@ pytest:
 	pytest \
 		--durations=100 \
 		--timeout=60 \
-		tests/realtime/test_realtime_Server_boot.py \
-		tests/synthdefs/test_synthdefs_SynthDefCompiler_basic.py \
 		tests/ \
 		supriya/
 

@@ -1,4 +1,5 @@
 import asyncio
+import logging
 import time
 
 import pytest
@@ -14,6 +15,11 @@ from supriya.realtime.protocols import (
     SyncProcessProtocol,
 )
 from supriya.scsynth import Options
+
+
+@pytest.fixture(autouse=True)
+def log_everything(caplog):
+    caplog.set_level(logging.DEBUG, logger="supriya.osc")
 
 
 @pytest.mark.asyncio
@@ -40,8 +46,8 @@ async def test_AsyncOscProtocol():
             await asyncio.sleep(1)
             if not osc_protocol.is_running:
                 break
-        assert not osc_protocol.is_running
         assert healthcheck_failed
+        assert not osc_protocol.is_running
     finally:
         process_protocol.quit()
 
@@ -57,17 +63,19 @@ def test_ThreadedOscProtocol():
     healthcheck = HealthCheck(["/status"], ["/status.reply"], on_healthcheck_failed)
     process_protocol = SyncProcessProtocol()
     process_protocol.boot(options, "scsynth", port)
+    assert process_protocol.is_running
     osc_protocol = ThreadedOscProtocol()
     osc_protocol.connect("127.0.0.1", port, healthcheck=healthcheck)
     assert osc_protocol.is_running
     assert not healthcheck_failed
     time.sleep(1)
     process_protocol.quit()
+    assert not process_protocol.is_running
     assert osc_protocol.is_running
     assert not healthcheck_failed
     for _ in range(20):
         time.sleep(1)
         if not osc_protocol.is_running:
             break
-    assert not osc_protocol.is_running
     assert healthcheck_failed
+    assert not osc_protocol.is_running
