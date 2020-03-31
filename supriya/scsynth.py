@@ -1,5 +1,6 @@
 import os
 import pathlib
+import platform
 import signal
 import subprocess
 from dataclasses import dataclass
@@ -156,18 +157,20 @@ class Options:
         )
 
 
-def _fallback_scsynth_paths():
-    return (
-        pathlib.Path("/Applications/SuperCollider.app/Contents/Resources/scsynth"),
-        pathlib.Path("/usr/bin/scsynth"),
-    )
+def _fallback_scsynth_path():
+    if platform.system() == "Darwin":
+        return pathlib.Path(
+            "/Applications/SuperCollider.app/Contents/Resources/scsynth"
+        )
+    if platform.system() == "Linux":
+        return pathlib.Path("/usr/bin/scsynth")
 
 
 def find(scsynth_path=None):
     """Find the ``scsynth`` executable.
 
     The following paths, if defined, will be searched (prioritised as ordered):
-    1. ``scsynth_path``
+    1. The absolute path ``scsynth_path``
     2. The environment variable ``SCSYNTH_PATH``
     3. ``scsynth_path`` if defined in Supriya's configuration file
     4. The user's ``PATH``
@@ -182,25 +185,19 @@ def find(scsynth_path=None):
         or supriya.config.get("core", "scsynth_path")
         or "scsynth"
     )
+
+    if scsynth_path.is_absolute() and uqbar.io.find_executable(scsynth_path):
+        return scsynth_path
+
     scsynth_path_candidates = uqbar.io.find_executable(scsynth_path.name)
-    if not scsynth_path.is_absolute() and scsynth_path_candidates:
-        scsynth_path = pathlib.Path(scsynth_path_candidates[0])
+    if scsynth_path_candidates:
+        return pathlib.Path(scsynth_path_candidates[0])
 
-    potential_paths = (scsynth_path.resolve().absolute(), *_fallback_scsynth_paths())
+    potential_path = _fallback_scsynth_path()
+    if potential_path and uqbar.io.find_executable(potential_path):
+        return pathlib.Path(potential_path)
 
-    for potential_path in potential_paths:
-        if potential_path.exists():
-            scsynth_path = potential_path
-            break
-
-    if not scsynth_path.exists():
-        raise RuntimeError("{} does not exist".format(scsynth_path))
-
-    if scsynth_path_candidates and scsynth_path == pathlib.Path(
-        scsynth_path_candidates[0]
-    ):
-        scsynth_path = pathlib.Path(scsynth_path.name)
-    return scsynth_path
+    raise RuntimeError("Failed to locate scsynth")
 
 
 def kill(supernova=False):
