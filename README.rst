@@ -1,5 +1,5 @@
-supriya 0.1
-===========
+supriya
+=======
 
 `Supriya`_ is a `Python`_ interface to `SuperCollider`_.
 
