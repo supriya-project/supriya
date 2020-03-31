@@ -1,33 +1,39 @@
-import pytest
-import stat
 import os
-from supriya import scsynth
-from supriya import config
-from tempfile import NamedTemporaryFile, TemporaryDirectory
 import pathlib
+import stat
+from tempfile import NamedTemporaryFile, TemporaryDirectory
+
+import pytest
+
+import supriya
+from supriya import scsynth
 
 
-def setup_function():
-    os.environ["SCSYNTH_PATH"] = ""
+@pytest.fixture
+def mock_env_scsynth_path(monkeypatch):
+    monkeypatch.delenv("SCSYNTH_PATH", raising=False)
 
-def test_find_argument():
+
+def test_find_argument(mock_env_scsynth_path):
 
     with NamedTemporaryFile() as tmp:
-        got = scsynth.find(tmp.name)
-        expected = pathlib.Path(tmp.name).resolve().absolute()
+        expected = pathlib.Path(tmp.name).absolute()
+        expected.chmod(expected.stat().st_mode | stat.S_IEXEC)
+        got = scsynth.find(expected)
         assert got == expected
 
 
-def test_find_env_var():
+def test_find_env_var(mock_env_scsynth_path):
 
     with NamedTemporaryFile() as tmp:
-        os.environ["SCSYNTH_PATH"] = tmp.name
+        expected = pathlib.Path(tmp.name).absolute()
+        expected.chmod(expected.stat().st_mode | stat.S_IEXEC)
+        os.environ["SCSYNTH_PATH"] = str(expected)
         got = scsynth.find()
-        expected = pathlib.Path(tmp.name).resolve().absolute()
         assert got == expected
 
 
-def test_find_on_path():
+def test_find_on_path(mock_env_scsynth_path):
 
     with TemporaryDirectory() as tmp_dir:
 
@@ -37,24 +43,28 @@ def test_find_on_path():
             scsynth_path.chmod(scsynth_path.stat().st_mode | stat.S_IEXEC)
             os.environ["PATH"] += os.pathsep + tmp_dir
             got = scsynth.find()
-            expected = scsynth_path.resolve().absolute()
+            expected = scsynth_path.absolute()
             assert got == expected
 
 
-def test_find_from_fallback_paths(mocker):
+def test_find_from_fallback_paths(mock_env_scsynth_path, mocker):
 
     with NamedTemporaryFile() as tmp:
-        mock = mocker.patch.object(scsynth, "_fallback_scsynth_paths")
-        expected = pathlib.Path(tmp.name).resolve().absolute()
-        mock.return_value = (expected,)
+        expected = pathlib.Path(tmp.name).absolute()
+        expected.chmod(expected.stat().st_mode | stat.S_IEXEC)
+        mock = mocker.patch.object(scsynth, "_fallback_scsynth_path")
+        mock.return_value = expected
         got = scsynth.find()
         assert got == expected
 
 
-def test_find_from_config():
+def test_find_from_config(mock_env_scsynth_path, mocker):
 
     with NamedTemporaryFile() as tmp:
-        config.read_dict({"core": {"scsynth_path": tmp.name}})
+        expected = pathlib.Path(tmp.name).absolute()
+        mocker.patch.dict(
+            scsynth.supriya.config, {"core": {"scsynth_path": str(expected)}}
+        )
+        expected.chmod(expected.stat().st_mode | stat.S_IEXEC)
         got = scsynth.find()
-        expected = pathlib.Path(tmp.name).resolve().absolute()
         assert got == expected
