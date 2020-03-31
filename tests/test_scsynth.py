@@ -2,10 +2,7 @@ import os
 import pathlib
 import stat
 from tempfile import NamedTemporaryFile, TemporaryDirectory
-
 import pytest
-
-import supriya
 from supriya import scsynth
 
 
@@ -39,7 +36,7 @@ def test_find_on_path(mock_env_scsynth_path):
 
         scsynth_path = pathlib.Path(tmp_dir) / "scsynth"
 
-        with open(scsynth_path, "w") as scf:
+        with open(scsynth_path, "w"):
             scsynth_path.chmod(scsynth_path.stat().st_mode | stat.S_IEXEC)
             os.environ["PATH"] += os.pathsep + tmp_dir
             got = scsynth.find()
