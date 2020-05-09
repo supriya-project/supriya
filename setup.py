@@ -20,7 +20,7 @@ def read_version():
 
 version = read_version()
 
-install_requires = ["PyYAML", "appdirs", "sly", "tqdm", "uqbar >= 0.4.2"]
+install_requires = ["PyYAML", "appdirs", "sly", "tqdm", "uqbar >= 0.4.5"]
 
 if LooseVersion(sys.version.split()[0]) < LooseVersion("3.7.0"):
     install_requires.append("dataclasses")
@@ -39,7 +39,7 @@ extras_require = {
         "flake8",
         "isort",
         "mypy >= 0.720",
-        "pytest >= 5.0.0",
+        "pytest >= 5.4.0",
         "pytest-asyncio >= 0.10.0",
         "pytest-cov >= 2.7.1",
         "pytest-helpers-namespace >= 2019.1.8",
