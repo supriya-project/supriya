@@ -735,7 +735,7 @@ class NonrealtimeProvider(Provider):
         if calculation_rate not in (CalculationRate.AUDIO, CalculationRate.CONTROL):
             raise ValueError(f"Invalid calculation rate: {calculation_rate!r}")
         if channel_count < 1:
-            raise ValueError(f"Channel-count must be positive, non-zero integer")
+            raise ValueError("Channel-count must be positive, non-zero integer")
         identifier = self.session.add_bus_group(
             bus_count=channel_count, calculation_rate=calculation_rate
         )
@@ -923,7 +923,7 @@ class RealtimeProvider(Provider):
         if calculation_rate not in (CalculationRate.AUDIO, CalculationRate.CONTROL):
             raise ValueError(f"Invalid calculation rate: {calculation_rate!r}")
         if channel_count < 1:
-            raise ValueError(f"Channel-count must be positive, non-zero integer")
+            raise ValueError("Channel-count must be positive, non-zero integer")
         allocator = realtime.Bus._get_allocator(calculation_rate, server=self.server)
         identifier = allocator.allocate(channel_count)
         if identifier is None:
