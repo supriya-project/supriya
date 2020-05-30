@@ -9,18 +9,11 @@ import pytest
 import supriya
 from supriya import scsynth
 
-config = copy.deepcopy(supriya.config)
-
 
 @pytest.fixture
 def mock_env_scsynth_path(monkeypatch):
     monkeypatch.delenv("SCSYNTH_PATH", raising=False)
     monkeypatch.setenv("PATH", "")
-
-
-@pytest.fixture
-def mock_config(monkeypatch):
-    monkeypatch.setattr("supriya.config", config)
 
 
 def test_find_argument(mock_env_scsynth_path):
@@ -63,15 +56,5 @@ def test_find_from_fallback_paths(mock_env_scsynth_path, mocker):
         expected.chmod(expected.stat().st_mode | stat.S_IEXEC)
         mock = mocker.patch.object(scsynth, "_fallback_scsynth_path")
         mock.return_value = str(expected)
-        got = scsynth.find()
-        assert got == expected
-
-
-def test_find_from_config(mock_env_scsynth_path, mock_config, mocker):
-
-    with NamedTemporaryFile() as tmp:
-        expected = pathlib.Path(tmp.name).absolute()
-        mocker.patch.dict("supriya.config", {"core": {"scsynth_path": str(expected)}})
-        expected.chmod(expected.stat().st_mode | stat.S_IEXEC)
         got = scsynth.find()
         assert got == expected
