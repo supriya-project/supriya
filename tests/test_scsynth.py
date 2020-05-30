@@ -1,4 +1,3 @@
-import copy
 import os
 import pathlib
 import stat
@@ -6,7 +5,6 @@ from tempfile import NamedTemporaryFile, TemporaryDirectory
 
 import pytest
 
-import supriya
 from supriya import scsynth
 
 
