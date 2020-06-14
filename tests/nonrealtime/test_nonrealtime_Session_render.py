@@ -1,4 +1,3 @@
-import os
 import pathlib
 import pprint
 
@@ -7,6 +6,7 @@ import uqbar.strings
 
 import supriya
 import supriya.nonrealtime
+import supriya.scsynth
 import supriya.soundfiles
 
 
@@ -78,7 +78,7 @@ def test_00c(nonrealtime_paths):
         0.81: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
         0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
     }
-    executable = os.environ.get("SCSYNTH_PATH", "scsynth")
+    executable = supriya.scsynth.find()
     assert session.transcript == [
         "Writing session-7b3f85710f19667f73f745b8ac8080a0.osc.",
         "    Wrote session-7b3f85710f19667f73f745b8ac8080a0.osc.",
@@ -858,7 +858,7 @@ def test_08(nonrealtime_paths):
         0.81: [0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75],
         0.99: [0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75],
     }
-    executable = os.environ.get("SCSYNTH_PATH", "scsynth")
+    executable = supriya.scsynth.find()
     assert session_three.transcript == [
         "Writing session-c6d86f3d482a8bac1f7cc6650017da8e.osc.",
         "    Wrote session-c6d86f3d482a8bac1f7cc6650017da8e.osc.",
