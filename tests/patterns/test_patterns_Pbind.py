@@ -88,7 +88,7 @@ def test_manual_incommunicado_pbind_01():
 
 
 def test_manual_communicado_pbind_01(server):
-    player = supriya.patterns.RealtimeEventPlayer(pbind_01, server=server)
+    player = supriya.patterns.EventPlayer(pbind_01, server=server)
     # Initial State
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -221,8 +221,7 @@ def test_manual_incommunicado_pbind_02():
 
 
 def test_manual_communicado_pbind_02(server):
-    player = supriya.patterns.RealtimeEventPlayer(pbind_02, server=server)
-    # Initial State
+    player = supriya.patterns.EventPlayer(pbind_02, server=server) # Initial State
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
         r"""

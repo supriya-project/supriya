@@ -3,7 +3,7 @@ import types
 
 import pytest
 
-from supriya.patterns import RealtimeEventPlayer
+from supriya.patterns import EventPlayer
 from supriya.realtime import BlockAllocator, NodeIdAllocator
 
 
@@ -38,7 +38,7 @@ def manual_incommunicado(pattern, timestamp=10):
         control_bus_allocator=BlockAllocator(),
         node_id_allocator=NodeIdAllocator(),
     )
-    player = RealtimeEventPlayer(pattern, server=server)
+    player = EventPlayer(pattern, server=server)
     lists, deltas, delta = [], [], True
     while delta is not None:
         bundle, delta = player(timestamp, timestamp, communicate=False)

@@ -28,5 +28,4 @@ from .Pseed import Pseed  # noqa
 from .Pseq import Pseq  # noqa
 from .Pwhite import Pwhite  # noqa
 from .RandomNumberGenerator import RandomNumberGenerator  # noqa
-from .RealtimeEventPlayer import RealtimeEventPlayer  # noqa
 from .SynthEvent import SynthEvent  # noqa

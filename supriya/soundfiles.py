@@ -12,11 +12,6 @@ import uqbar.strings
 import supriya
 from supriya.system import SupriyaObject, SupriyaValueObject
 
-try:
-    import wavefile  # type: ignore
-except ImportError:
-    pass
-
 
 class Say(SupriyaValueObject):
     """
@@ -191,6 +186,8 @@ class SoundFile(SupriyaObject):
     ### INITIALIZER ###
 
     def __init__(self, file_path):
+        import wavefile
+
         file_path = os.path.abspath(str(file_path))
         assert os.path.exists(file_path)
         self._file_path = file_path
@@ -202,6 +199,8 @@ class SoundFile(SupriyaObject):
     ### PUBLIC METHODS ###
 
     def at_frame(self, frames):
+        import wavefile
+
         assert 0 <= frames <= self.frame_count
         with wavefile.WaveReader(self.file_path) as reader:
             reader.seek(frames)
@@ -210,6 +209,8 @@ class SoundFile(SupriyaObject):
             return frame.transpose().tolist()[0]
 
     def at_percent(self, percent):
+        import wavefile
+
         assert 0 <= percent <= 1
         frames = int(self.frame_count * percent)
         with wavefile.WaveReader(self.file_path) as reader:
@@ -219,6 +220,8 @@ class SoundFile(SupriyaObject):
             return frame.transpose().tolist()[0]
 
     def at_second(self, second):
+        import wavefile
+
         assert 0 <= second <= self.seconds
         frames = second * self.sample_rate
         with wavefile.WaveReader(self.file_path) as reader:
