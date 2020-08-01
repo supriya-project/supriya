@@ -3,6 +3,7 @@ import types
 
 import pytest
 
+from supriya.clock import Moment
 from supriya.patterns import EventPlayer
 from supriya.realtime import BlockAllocator, NodeIdAllocator
 
@@ -41,7 +42,15 @@ def manual_incommunicado(pattern, timestamp=10):
     player = EventPlayer(pattern, server=server)
     lists, deltas, delta = [], [], True
     while delta is not None:
-        bundle, delta = player(timestamp, timestamp, communicate=False)
+        moment = Moment(
+            beats_per_minute=0.0,
+            measure=0.0,
+            measure_offset=0.0,
+            offset=0.0,
+            seconds=timestamp,
+            time_signature=(4, 4),
+        )
+        bundle, delta = player(moment, moment, None, communicate=False)
         if delta is not None:
             timestamp += delta
         lists.append(bundle.to_list())
@@ -61,3 +70,16 @@ def get_objects_as_string(objects, replace_uuids=False):
         for i, match in enumerate(matches, 65):
             string = string.replace(match, chr(i))
     return string
+
+
+
+@pytest.helpers.register
+def make_moment(timestamp):
+    return Moment(
+        beats_per_minute=0.0,
+        measure=0.0,
+        measure_offset=0.0,
+        offset=0.0,
+        seconds=timestamp,
+        time_signature=(4, 4),
+    )

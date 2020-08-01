@@ -31,7 +31,7 @@ class EventPlayer:
 
     ### SPECIAL METHODS ###
 
-    def __call__(self, current_moment, desired_moment, event, communicate=True):
+    def __call__(self, current_moment, desired_moment, *args, communicate=True):
         if self._iterator is None:
             self._iterator = self._iterate_outer(
                 pattern=self._pattern,
