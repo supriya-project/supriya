@@ -15,6 +15,7 @@ class EventPlayer:
 
     def __init__(self, pattern, server=None, event_template=None, clock=None):
         import supriya.patterns
+
         clock = clock or TempoClock.default()
         if event_template is None:
             event_template = supriya.patterns.NoteEvent()

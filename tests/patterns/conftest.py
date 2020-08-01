@@ -72,7 +72,6 @@ def get_objects_as_string(objects, replace_uuids=False):
     return string
 
 
-
 @pytest.helpers.register
 def make_moment(timestamp):
     return Moment(
