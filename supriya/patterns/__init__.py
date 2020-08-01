@@ -2,7 +2,6 @@
 Tools for modeling patterns.
 """
 from .BusEvent import BusEvent  # noqa
-from .Clock import Clock  # noqa
 from .CompositeEvent import CompositeEvent  # noqa
 from .Event import Event  # noqa
 from .EventPattern import EventPattern  # noqa

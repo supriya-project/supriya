@@ -1,5 +1,4 @@
 import itertools
-import time
 from queue import PriorityQueue
 
 from uqbar.objects import new
@@ -7,6 +6,7 @@ from uqbar.objects import new
 import supriya.commands
 import supriya.realtime
 import supriya.system
+from supriya.clock import TempoClock
 
 
 class EventPlayer:
@@ -15,7 +15,7 @@ class EventPlayer:
 
     def __init__(self, pattern, server=None, event_template=None, clock=None):
         import supriya.patterns
-        clock = clock or supriya.patterns.Clock.get_default_clock()
+        clock = clock or TempoClock.default()
         if event_template is None:
             event_template = supriya.patterns.NoteEvent()
         elif issubclass(event_template, supriya.patterns.Event):
@@ -24,19 +24,19 @@ class EventPlayer:
         self._cumulative_time = 0
         self._event_template = event_template
         self._iterator = None
-        self._iterator = None
         self._pattern = pattern
         self._server = server or supriya.realtime.Server.default()
         self._uuids = {}
+        self._event_id = None
 
     ### SPECIAL METHODS ###
 
-    def __call__(self, execution_time, scheduled_time, communicate=True):
+    def __call__(self, current_moment, desired_moment, event, communicate=True):
         if self._iterator is None:
             self._iterator = self._iterate_outer(
                 pattern=self._pattern,
                 server=self._server,
-                timestamp=scheduled_time,
+                timestamp=desired_moment.seconds,
                 uuids=self._uuids,
             )
         event_products, delta = next(self._iterator)
@@ -65,7 +65,7 @@ class EventPlayer:
             request = supriya.commands.NodeFreeRequest(node_ids=node_free_ids)
             requests.append(request)
         consolidated_bundle = supriya.commands.RequestBundle(
-            timestamp=scheduled_time, contents=requests
+            timestamp=desired_moment.seconds, contents=requests
         )
         if communicate:
             osc_bundle = consolidated_bundle.to_osc()
@@ -153,18 +153,13 @@ class EventPlayer:
     def start(self):
         if not self._server.is_running:
             return
-        timestamp = time.time()
         self._uuids.clear()
-        self._iterator = self._iterate_outer(
-            pattern=self._pattern,
-            server=self._server,
-            timestamp=timestamp,
-            uuids=self._uuids,
-        )
-        self._clock.schedule(self, scheduled_time=timestamp, absolute=True)
+        self._event_id = self._clock.cue(self.__call__)
+        if not self._clock.is_running:
+            self._clock.start()
 
     def stop(self):
-        self._clock.cancel(self)
+        self._clock.cancel(self._event_id)
         self._iterator = None
         bundle = self._collect_stop_requests()
         if bundle and self._server.is_running:
@@ -179,4 +174,3 @@ class EventPlayer:
     @property
     def pattern(self):
         return self._pattern
-
