@@ -33,7 +33,7 @@ def test_manual_incommunicado_pmono_01():
 
 
 def test_manual_communicado_pmono_01(server):
-    player = supriya.patterns.RealtimeEventPlayer(pmono_01, server=server)
+    player = supriya.patterns.EventPlayer(pmono_01, server=server)
     # Initial State
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -43,7 +43,8 @@ def test_manual_communicado_pmono_01(server):
     """
     )
     # Step 1
-    player(0, 0)
+    moment = pytest.helpers.make_moment(0)
+    player(moment, moment)
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -55,7 +56,8 @@ def test_manual_communicado_pmono_01(server):
     """
     )
     # Step 2
-    player(0, 0)
+    moment = pytest.helpers.make_moment(0)
+    player(moment, moment)
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -67,7 +69,8 @@ def test_manual_communicado_pmono_01(server):
     """
     )
     # Step 3
-    player(0, 0)
+    moment = pytest.helpers.make_moment(0)
+    player(moment, moment)
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -79,7 +82,8 @@ def test_manual_communicado_pmono_01(server):
     """
     )
     # Step 4
-    player(0, 0)
+    moment = pytest.helpers.make_moment(0)
+    player(moment, moment)
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -136,7 +140,7 @@ def test_manual_incommunicado_pmono_02():
 
 
 def test_manual_communicado_pmono_02(server):
-    player = supriya.patterns.RealtimeEventPlayer(pmono_02, server=server)
+    player = supriya.patterns.EventPlayer(pmono_02, server=server)
     # Initial State
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -146,7 +150,8 @@ def test_manual_communicado_pmono_02(server):
     """
     )
     # Step 1
-    player(0, 0)
+    moment = pytest.helpers.make_moment(0)
+    player(moment, moment)
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -160,7 +165,8 @@ def test_manual_communicado_pmono_02(server):
     """
     )
     # Step 2
-    player(0, 0)
+    moment = pytest.helpers.make_moment(0)
+    player(moment, moment)
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -174,7 +180,8 @@ def test_manual_communicado_pmono_02(server):
     """
     )
     # Step 3
-    player(0, 0)
+    moment = pytest.helpers.make_moment(0)
+    player(moment, moment)
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -188,7 +195,8 @@ def test_manual_communicado_pmono_02(server):
     """
     )
     # Step 4
-    player(0, 0)
+    moment = pytest.helpers.make_moment(0)
+    player(moment, moment)
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(

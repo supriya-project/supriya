@@ -50,16 +50,15 @@ uqbar_api_omit_root = True
 uqbar_api_root_documenter_class = "uqbar.apis.SummarizingRootDocumenter"
 uqbar_api_source_paths = supriya.__path__
 uqbar_api_title = "Supriya API Reference"
-uqbar_book_console_setup = """\
-import abjad
-import supriya
-""".splitlines()
-uqbar_book_console_teardown = """\
-for server in supriya.Server._servers:
-    server.quit()
-
-supriya.Server.kill()
-""".splitlines()
+uqbar_book_console_setup = [
+    "import supriya"
+]
+uqbar_book_console_teardown = [
+    "for server in supriya.Server._servers:",
+    "    server.quit()",
+    "",
+    "supriya.scsynth.kill()",
+]
 
 uqbar_book_extensions = [
     "uqbar.book.extensions.GraphExtension",

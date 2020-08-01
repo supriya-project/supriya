@@ -28,7 +28,7 @@ class EventPattern(Pattern):
         import supriya.patterns
         import supriya.realtime
 
-        event_player = supriya.patterns.RealtimeEventPlayer(
+        event_player = supriya.patterns.EventPlayer(
             self, clock=clock, server=server or supriya.realtime.Server.default()
         )
         event_player.start()

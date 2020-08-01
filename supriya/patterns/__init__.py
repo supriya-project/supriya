@@ -2,7 +2,6 @@
 Tools for modeling patterns.
 """
 from .BusEvent import BusEvent  # noqa
-from .Clock import Clock  # noqa
 from .CompositeEvent import CompositeEvent  # noqa
 from .Event import Event  # noqa
 from .EventPattern import EventPattern  # noqa
@@ -28,5 +27,4 @@ from .Pseed import Pseed  # noqa
 from .Pseq import Pseq  # noqa
 from .Pwhite import Pwhite  # noqa
 from .RandomNumberGenerator import RandomNumberGenerator  # noqa
-from .RealtimeEventPlayer import RealtimeEventPlayer  # noqa
 from .SynthEvent import SynthEvent  # noqa

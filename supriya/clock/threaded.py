@@ -20,6 +20,10 @@ logger = logging.getLogger("supriya.clock")
 
 class TempoClock(BaseTempoClock):
 
+    ### CLASS VARIABLES ###
+
+    _default_clock = None
+
     ### INITIALIZER ###
 
     def __init__(self):
@@ -178,6 +182,12 @@ class TempoClock(BaseTempoClock):
         )
         self._enqueue_command(command)
         return event_id
+
+    @classmethod
+    def default(cls):
+        if cls._default_clock is None:
+            cls._default_clock = cls()
+        return cls._default_clock
 
     def reschedule(
         self, event_id, *, schedule_at=0.0, time_unit=TimeUnit.BEATS

@@ -88,7 +88,7 @@ def test_manual_incommunicado_pbind_01():
 
 
 def test_manual_communicado_pbind_01(server):
-    player = supriya.patterns.RealtimeEventPlayer(pbind_01, server=server)
+    player = supriya.patterns.EventPlayer(pbind_01, server=server)
     # Initial State
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -98,7 +98,8 @@ def test_manual_communicado_pbind_01(server):
     """
     )
     # Step 1
-    player(0, 0)
+    moment = pytest.helpers.make_moment(0)
+    player(moment, moment)
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -110,7 +111,8 @@ def test_manual_communicado_pbind_01(server):
     """
     )
     # Step 2
-    player(0, 0)
+    moment = pytest.helpers.make_moment(0)
+    player(moment, moment)
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -135,7 +137,8 @@ def test_manual_communicado_pbind_01(server):
     """
     )
     # Step 3
-    player(0, 0)
+    moment = pytest.helpers.make_moment(0)
+    player(moment, moment)
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -160,7 +163,7 @@ def test_manual_communicado_pbind_01(server):
     """
     )
     # Step 4
-    player(0, 0)
+    player(moment, moment)
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -221,8 +224,7 @@ def test_manual_incommunicado_pbind_02():
 
 
 def test_manual_communicado_pbind_02(server):
-    player = supriya.patterns.RealtimeEventPlayer(pbind_02, server=server)
-    # Initial State
+    player = supriya.patterns.EventPlayer(pbind_02, server=server)  # Initial State
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
         r"""
@@ -231,7 +233,8 @@ def test_manual_communicado_pbind_02(server):
     """
     )
     # Step 1
-    player(0, 0)
+    moment = pytest.helpers.make_moment(0)
+    player(moment, moment)
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -245,7 +248,8 @@ def test_manual_communicado_pbind_02(server):
     """
     )
     # Step 2
-    player(0, 0)
+    moment = pytest.helpers.make_moment(0)
+    player(moment, moment)
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -276,7 +280,8 @@ def test_manual_communicado_pbind_02(server):
     """
     )
     # Step 3
-    player(0, 0)
+    moment = pytest.helpers.make_moment(0)
+    player(moment, moment)
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -307,7 +312,8 @@ def test_manual_communicado_pbind_02(server):
     """
     )
     # Step 4
-    player(0, 0)
+    moment = pytest.helpers.make_moment(0)
+    player(moment, moment)
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(
@@ -831,6 +837,10 @@ def test_manual_stop_pbind_02(server):
                     out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 1.0, pan: 0.5
                 1002 default
                     out: 0.0, amplitude: 1.0, frequency: 550.0, gate: 1.0, pan: 0.5
+                1001 default
+                    out: 0.0, amplitude: 1.0, frequency: 550.0, gate: 0.0, pan: 0.5
+                1000 default
+                    out: 0.0, amplitude: 1.0, frequency: 440.0, gate: 0.0, pan: 0.5
     """
     )
     player.stop()
@@ -840,16 +850,12 @@ def test_manual_stop_pbind_02(server):
         r"""
         NODE TREE 0 group
             1 group
+                1001 default
+                    out: 0.0, amplitude: 1.0, frequency: 550.0, gate: 0.0, pan: 0.5
+                1000 default
+                    out: 0.0, amplitude: 1.0, frequency: 440.0, gate: 0.0, pan: 0.5
     """
     )
-    #        assert server_state == uqbar.strings.normalize(r'''
-    #            NODE TREE 0 group
-    #                1 group
-    #                    1003 default
-    #                        out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 0.0, pan: 0.5
-    #                    1002 default
-    #                        out: 0.0, amplitude: 1.0, frequency: 550.0, gate: 0.0, pan: 0.5
-    #        ''')
     # Wait for termination
     time.sleep(0.5)
     server_state = str(server.query_remote_nodes(include_controls=True))

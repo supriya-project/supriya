@@ -6,7 +6,7 @@ def test_iterate_inner_1(pseudo_server):
     pattern = supriya.patterns.Pbind(
         duration=1.0, frequency=supriya.patterns.Pseq([111, 222, 333, 444, 555, 666])
     )
-    iterator = supriya.patterns.RealtimeEventPlayer._iterate_inner(
+    iterator = supriya.patterns.EventPlayer._iterate_inner(
         pattern=pattern, server=pseudo_server, timestamp=0.0, uuids={}
     )
     event_products = list(iterator)
@@ -33,7 +33,7 @@ def test_iterate_inner_2(pseudo_server):
         duration=1.0,
         frequency=supriya.patterns.Pseq([111, 222, 333, 444, 555, 666]),
     )
-    iterator = supriya.patterns.RealtimeEventPlayer._iterate_inner(
+    iterator = supriya.patterns.EventPlayer._iterate_inner(
         pattern=pattern, server=pseudo_server, timestamp=0.0, uuids={}
     )
     event_products = list(iterator)
@@ -59,7 +59,7 @@ def test_iterate_inner_3(pseudo_server):
         duration=supriya.patterns.Pseq([1.0, 2.0], None),
         frequency=supriya.patterns.Pseq([111, 222, 333, 444, 555, 666]),
     )
-    iterator = supriya.patterns.RealtimeEventPlayer._iterate_inner(
+    iterator = supriya.patterns.EventPlayer._iterate_inner(
         pattern=pattern, server=pseudo_server, timestamp=0.0, uuids={}
     )
     event_products = list(iterator)
@@ -86,7 +86,7 @@ def test_iterate_inner_4(pseudo_server):
         duration=supriya.patterns.Pseq([1.0, 2.0], None),
         frequency=supriya.patterns.Pseq([111, 222, 333, 444, 555, 666]),
     )
-    iterator = supriya.patterns.RealtimeEventPlayer._iterate_inner(
+    iterator = supriya.patterns.EventPlayer._iterate_inner(
         pattern=pattern, server=pseudo_server, timestamp=0.0, uuids={}
     )
     event_products = list(iterator)
@@ -113,7 +113,7 @@ def test_iterate_inner_5(pseudo_server):
         duration=2.0,
         frequency=supriya.patterns.Pseq([111, 222, 333, 444, 555, 666]),
     )
-    iterator = supriya.patterns.RealtimeEventPlayer._iterate_inner(
+    iterator = supriya.patterns.EventPlayer._iterate_inner(
         pattern=pattern, server=pseudo_server, timestamp=0.0, uuids={}
     )
     event_products = list(iterator)
