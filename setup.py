@@ -40,12 +40,12 @@ extras_require = {
         "isort",
         "mypy >= 0.720",
         "pytest >= 5.4.0",
-        "pytest-asyncio >= 0.10.0",
-        "pytest-cov >= 2.7.1",
+        "pytest-asyncio >= 0.14.0",
+        "pytest-cov >= 2.10.0",
         "pytest-helpers-namespace >= 2019.1.8",
         "pytest-mock",
-        "pytest-rerunfailures >= 7.0",
-        "pytest-timeout >= 1.3.3",
+        "pytest-rerunfailures >= 9.0",
+        "pytest-timeout >= 1.4.0",
     ],
 }
 
