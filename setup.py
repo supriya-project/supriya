@@ -26,14 +26,14 @@ if LooseVersion(sys.version.split()[0]) < LooseVersion("3.7.0"):
     install_requires.append("dataclasses")
 
 extras_require = {
-    "accelerated": ["cython"],
+    "cython": ["cython"],
     "ipython": [
         "jupyter",
         "jupyter_contrib_nbextensions",
         "jupyter_nbextensions_configurator",
         "rise",
     ],
-    "wave": ["wavefile"],
+    "wavefile": ["wavefile"],
     "test": [
         "black",
         "flake8",

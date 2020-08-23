@@ -53,7 +53,7 @@ before_install:
 install:
 - pip install -e .
 - python -c "import supriya"  # import is possible without optional dependencies
-- pip install -e .[accelerated,ipython,test,wave]
+- pip install -e .[cython,ipython,test,wavefile]
 
 before_script:
 - sudo -E su $USER -c "jackd -r -ddummy -r44100 -p1024" 2>/dev/null &
