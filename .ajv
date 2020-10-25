@@ -1,3 +1,0 @@
-[doctest]
-imports = 
-    from supriya import *
