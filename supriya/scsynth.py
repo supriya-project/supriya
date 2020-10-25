@@ -159,11 +159,22 @@ class Options:
 
 def _fallback_scsynth_path():
     if platform.system() == "Darwin":
-        return pathlib.Path(
-            "/Applications/SuperCollider.app/Contents/Resources/scsynth"
-        )
-    if platform.system() == "Linux":
-        return pathlib.Path("/usr/bin/scsynth")
+        for path in [
+            pathlib.Path("/Applications/SuperCollider.app/Contents/Resources/scsynth"),
+            pathlib.Path(
+                "/Applications/SuperCollider/SuperCollider.app/Contents/Resources/scsynth"
+            ),
+        ]:
+            if path.exists():
+                return path
+    elif platform.system() == "Linux":
+        for path in [
+            pathlib.Path("/usr/bin/scsynth"),
+            pathlib.Path("/usr/local/bin/scsynth"),
+        ]:
+            if path.exists():
+                return path
+    return None
 
 
 def find(scsynth_path=None):
@@ -185,18 +196,13 @@ def find(scsynth_path=None):
         or supriya.config.get("core", "scsynth_path")
         or "scsynth"
     )
-
     if scsynth_path.is_absolute() and uqbar.io.find_executable(scsynth_path):
         return scsynth_path
-
     scsynth_path_candidates = uqbar.io.find_executable(scsynth_path.name)
     if scsynth_path_candidates:
         return pathlib.Path(scsynth_path_candidates[0])
-
-    potential_path = _fallback_scsynth_path()
-    if potential_path and uqbar.io.find_executable(potential_path):
-        return pathlib.Path(potential_path)
-
+    if (fallback_path := _fallback_scsynth_path()) is not None:
+        return fallback_path
     raise RuntimeError("Failed to locate scsynth")
 
 

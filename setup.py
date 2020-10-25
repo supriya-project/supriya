@@ -20,7 +20,7 @@ def read_version():
 
 version = read_version()
 
-install_requires = ["PyYAML", "appdirs", "sly", "tqdm", "uqbar >= 0.4.5"]
+install_requires = ["PyYAML", "appdirs", "tqdm", "uqbar >= 0.4.8"]
 
 if LooseVersion(sys.version.split()[0]) < LooseVersion("3.7.0"):
     install_requires.append("dataclasses")
@@ -33,9 +33,8 @@ extras_require = {
         "jupyter_nbextensions_configurator",
         "rise",
     ],
-    "wavefile": ["wavefile"],
     "test": [
-        "black",
+        "black==19.10b0",  # Trailing comma behavior in 20.x needs work
         "flake8",
         "isort",
         "mypy >= 0.720",

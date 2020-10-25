@@ -150,4 +150,3 @@ Quit the server::
 ..  _pip: https://pip.pypa.io/en/stable/
 ..  _virtualenv: https://readthedocs.org/projects/virtualenv/
 ..  _virtualenvwrapper: https://virtualenvwrapper.readthedocs.org/en/latest/
-..  _wavefile: https://pypi.python.org/pypi/wavefile/

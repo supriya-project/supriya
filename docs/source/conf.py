@@ -54,8 +54,8 @@ uqbar_book_console_setup = [
     "import supriya"
 ]
 uqbar_book_console_teardown = [
-    "for server in supriya.Server._servers:",
-    "    server.quit()",
+    "for server in tuple(supriya.Server._servers):",
+    "    server._shutdown()",
     "",
     "supriya.scsynth.kill()",
 ]

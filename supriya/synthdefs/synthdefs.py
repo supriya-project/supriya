@@ -7,7 +7,6 @@ import shutil
 import subprocess
 import tempfile
 
-import uqbar.io
 import yaml
 
 from supriya import (
@@ -15,6 +14,7 @@ from supriya import (
     CalculationRate,
     ParameterRate,
     UnaryOperator,
+    sclang,
 )
 from supriya.system import SupriyaObject
 
@@ -1045,10 +1045,7 @@ class SuperColliderSynthDef(SupriyaObject):
     ### PUBLIC METHODS ###
 
     def compile(self):
-        sclang_candidates = uqbar.io.find_executable("sclang")
-        if not sclang_candidates:
-            raise RuntimeError("Cannot find sclang")
-        sclang_path = sclang_candidates[0]
+        sclang_path = sclang.find()
         prefix = None
         if os.environ.get("CI") == "true":
             prefix = str(pathlib.Path.home()) + os.path.sep
