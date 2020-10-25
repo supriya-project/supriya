@@ -6,7 +6,6 @@ import hashlib
 import pathlib
 import shlex
 import sndhdr
-import struct
 import subprocess
 import wave
 
@@ -14,7 +13,6 @@ import uqbar.strings
 
 import supriya
 from supriya.system import SupriyaObject, SupriyaValueObject
-from supriya.utils import iterate_nwise
 
 
 class Say(SupriyaValueObject):

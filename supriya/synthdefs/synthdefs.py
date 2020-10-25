@@ -7,7 +7,6 @@ import shutil
 import subprocess
 import tempfile
 
-import uqbar.io
 import yaml
 
 from supriya import (
