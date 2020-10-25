@@ -65,6 +65,10 @@ BufferQueryRequest
 
    .. container:: inherited
 
+      .. automethod:: BufferQueryRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: BufferQueryRequest.to_datagram
 
    .. container:: inherited

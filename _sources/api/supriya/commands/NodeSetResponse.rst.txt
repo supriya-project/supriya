@@ -82,7 +82,3 @@ NodeSetResponse
    .. autoattribute:: NodeSetResponse.items
 
    .. autoattribute:: NodeSetResponse.node_id
-
-   .. container:: inherited
-
-      .. autoattribute:: NodeSetResponse.osc_message

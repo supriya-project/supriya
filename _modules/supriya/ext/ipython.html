@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>supriya.ext.ipython &mdash; Supriya 0.3.0 documentation</title>
+  <title>supriya.ext.ipython &mdash; Supriya 0.4.0 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.3.0
+                0.4.0
               </div>
             
           
@@ -91,14 +91,11 @@
 </ul>
 <p class="caption"><span class="caption-text">Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
@@ -164,8 +161,6 @@
         
           <li><a href="../../index.html">Module code</a> &raquo;</li>
         
-          <li><a href="../../supriya.html">supriya</a> &raquo;</li>
-        
           <li><a href="../ext.html">supriya.ext</a> &raquo;</li>
         
       <li>supriya.ext.ipython</li>
@@ -184,11 +179,11 @@
            <div itemprop="articleBody">
             
   <h1>Source code for supriya.ext.ipython</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="k">import</span> <span class="n">display</span>  <span class="c1"># type: ignore</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">Audio</span>  <span class="c1"># type: ignore</span>
+<span></span><span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">display</span>  <span class="c1"># type: ignore</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Audio</span>  <span class="c1"># type: ignore</span>
 
-<span class="kn">from</span> <span class="nn">supriya.ext</span> <span class="k">import</span> <span class="n">websafe_audio</span>
-<span class="kn">from</span> <span class="nn">supriya.io</span> <span class="k">import</span> <span class="n">Player</span>
+<span class="kn">from</span> <span class="nn">supriya.ext</span> <span class="kn">import</span> <span class="n">websafe_audio</span>
+<span class="kn">from</span> <span class="nn">supriya.io</span> <span class="kn">import</span> <span class="n">Player</span>
 
 
 <div class="viewcode-block" id="load_ipython_extension"><a class="viewcode-back" href="../../../api/supriya/ext/ipython.html#supriya.ext.ipython.load_ipython_extension">[docs]</a><span class="k">def</span> <span class="nf">load_ipython_extension</span><span class="p">(</span><span class="n">ipython</span><span class="p">):</span>

@@ -1,0 +1,315 @@
+.. _supriya--querytree:
+
+querytree
+=========
+
+.. automodule:: supriya.querytree
+
+.. currentmodule:: supriya.querytree
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.querytree
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~QueryTreeControl
+   ~QueryTreeGroup
+   ~QueryTreeSynth
+
+.. autoclass:: QueryTreeControl
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __str__
+      control_name_or_index
+      control_value
+      from_control
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeControl.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeControl.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeControl.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeControl.__repr__
+
+   .. automethod:: QueryTreeControl.__str__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: QueryTreeControl.from_control
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: QueryTreeControl.control_name_or_index
+
+   .. autoattribute:: QueryTreeControl.control_value
+
+.. autoclass:: QueryTreeGroup
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __getitem__
+      __len__
+      __str__
+      annotate
+      children
+      extra
+      from_group
+      from_response
+      from_state
+      name
+      node_id
+      to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeGroup.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeGroup.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeGroup.__eq__
+
+   .. automethod:: QueryTreeGroup.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeGroup.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeGroup.__iter__
+
+   .. automethod:: QueryTreeGroup.__len__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeGroup.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeGroup.__reversed__
+
+   .. automethod:: QueryTreeGroup.__str__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: QueryTreeGroup.annotate
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeGroup.count
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeGroup.index
+
+   .. automethod:: QueryTreeGroup.to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: QueryTreeGroup.from_group
+
+   .. automethod:: QueryTreeGroup.from_response
+
+   .. automethod:: QueryTreeGroup.from_state
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: QueryTreeGroup.children
+
+   .. autoattribute:: QueryTreeGroup.extra
+
+   .. autoattribute:: QueryTreeGroup.name
+
+   .. autoattribute:: QueryTreeGroup.node_id
+
+.. autoclass:: QueryTreeSynth
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __getitem__
+      __len__
+      __str__
+      annotate
+      controls
+      extra
+      from_response
+      from_synth
+      name
+      node_id
+      synthdef_name
+      to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeSynth.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeSynth.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeSynth.__eq__
+
+   .. automethod:: QueryTreeSynth.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeSynth.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeSynth.__iter__
+
+   .. automethod:: QueryTreeSynth.__len__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeSynth.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeSynth.__reversed__
+
+   .. automethod:: QueryTreeSynth.__str__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: QueryTreeSynth.annotate
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeSynth.count
+
+   .. container:: inherited
+
+      .. automethod:: QueryTreeSynth.index
+
+   .. automethod:: QueryTreeSynth.to_dict
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: QueryTreeSynth.from_response
+
+   .. automethod:: QueryTreeSynth.from_synth
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: QueryTreeSynth.controls
+
+   .. autoattribute:: QueryTreeSynth.extra
+
+   .. autoattribute:: QueryTreeSynth.name
+
+   .. autoattribute:: QueryTreeSynth.node_id
+
+   .. autoattribute:: QueryTreeSynth.synthdef_name

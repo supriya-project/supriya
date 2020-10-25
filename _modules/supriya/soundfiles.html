@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>supriya.soundfiles &mdash; Supriya 0.3.0 documentation</title>
+  <title>supriya.soundfiles &mdash; Supriya 0.4.0 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.3.0
+                0.4.0
               </div>
             
           
@@ -91,14 +91,11 @@
 </ul>
 <p class="caption"><span class="caption-text">Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../realtime/index.html">Real-time composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../synthdefs/index.html">Synth definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../nonrealtime.html">Non-realtime composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../time-agnostic.html">Time-agnostic usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../osc.html">OSC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../midi.html">MIDI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../performance.html">Live performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../cli.html">CLI tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../synthdefs.html">SynthDefs</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
@@ -164,8 +161,6 @@
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
-          <li><a href="../supriya.html">supriya</a> &raquo;</li>
-        
       <li>supriya.soundfiles</li>
     
     
@@ -185,21 +180,18 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Tools for interacting with soundfiles.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">aifc</span>
 <span class="kn">import</span> <span class="nn">hashlib</span>
-<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pathlib</span>
 <span class="kn">import</span> <span class="nn">shlex</span>
+<span class="kn">import</span> <span class="nn">sndhdr</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">wave</span>
 
 <span class="kn">import</span> <span class="nn">uqbar.strings</span>
 
 <span class="kn">import</span> <span class="nn">supriya</span>
-<span class="kn">from</span> <span class="nn">supriya.system</span> <span class="k">import</span> <span class="n">SupriyaObject</span><span class="p">,</span> <span class="n">SupriyaValueObject</span>
-
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">wavefile</span>  <span class="c1"># type: ignore</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="k">pass</span>
+<span class="kn">from</span> <span class="nn">supriya.system</span> <span class="kn">import</span> <span class="n">SupriyaObject</span><span class="p">,</span> <span class="n">SupriyaValueObject</span>
 
 
 <div class="viewcode-block" id="Say"><a class="viewcode-back" href="../../api/supriya/soundfiles.html#supriya.soundfiles.Say">[docs]</a><span class="k">class</span> <span class="nc">Say</span><span class="p">(</span><span class="n">SupriyaValueObject</span><span class="p">):</span>
@@ -267,7 +259,7 @@
 
     <span class="c1">### INITIALIZER ###</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">voice</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">voice</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">voice</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">voice</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">voice</span><span class="p">)</span>
@@ -368,48 +360,47 @@
 
 <div class="viewcode-block" id="SoundFile"><a class="viewcode-back" href="../../api/supriya/soundfiles.html#supriya.soundfiles.SoundFile">[docs]</a><span class="k">class</span> <span class="nc">SoundFile</span><span class="p">(</span><span class="n">SupriyaObject</span><span class="p">):</span>
 
-    <span class="c1">### CLASS VARIABLES ###</span>
-
-    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_channel_count&quot;</span><span class="p">,</span> <span class="s2">&quot;_file_path&quot;</span><span class="p">,</span> <span class="s2">&quot;_frame_count&quot;</span><span class="p">,</span> <span class="s2">&quot;_sample_rate&quot;</span><span class="p">)</span>
-
     <span class="c1">### INITIALIZER ###</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">):</span>
-        <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">))</span>
-        <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span> <span class="o">=</span> <span class="n">file_path</span>
-        <span class="k">with</span> <span class="n">wavefile</span><span class="o">.</span><span class="n">WaveReader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">reader</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_frame_count</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">frames</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_channel_count</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">channels</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_sample_rate</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">samplerate</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span><span class="p">)</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="n">sndhdr</span><span class="o">.</span><span class="n">what</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_frame_count</span> <span class="o">=</span> <span class="n">headers</span><span class="o">.</span><span class="n">nframes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sample_rate</span> <span class="o">=</span> <span class="n">headers</span><span class="o">.</span><span class="n">framerate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_channel_count</span> <span class="o">=</span> <span class="n">headers</span><span class="o">.</span><span class="n">nchannels</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sample_width</span> <span class="o">=</span> <span class="n">headers</span><span class="o">.</span><span class="n">sampwidth</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_type</span> <span class="o">=</span> <span class="n">headers</span><span class="o">.</span><span class="n">filetype</span>
 
     <span class="c1">### PUBLIC METHODS ###</span>
 
-<div class="viewcode-block" id="SoundFile.at_frame"><a class="viewcode-back" href="../../api/supriya/soundfiles.html#supriya.soundfiles.SoundFile.at_frame">[docs]</a>    <span class="k">def</span> <span class="nf">at_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frames</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">frames</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame_count</span>
-        <span class="k">with</span> <span class="n">wavefile</span><span class="o">.</span><span class="n">WaveReader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">reader</span><span class="p">:</span>
-            <span class="n">reader</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">frames</span><span class="p">)</span>
-            <span class="n">iterator</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read_iter</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-            <span class="n">frame</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">iterator</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">frame</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span></div>
+<div class="viewcode-block" id="SoundFile.at_frame"><a class="viewcode-back" href="../../api/supriya/soundfiles.html#supriya.soundfiles.SoundFile.at_frame">[docs]</a>    <span class="k">def</span> <span class="nf">at_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;aiff&quot;</span><span class="p">,</span> <span class="s2">&quot;wav&quot;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_type</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">frame</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame_count</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_width</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">32</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cannot decode sample width </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">sample_width</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_pointer</span><span class="p">:</span>
+            <span class="n">reader_proc</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;aiff&quot;</span><span class="p">:</span> <span class="n">aifc</span><span class="o">.</span><span class="n">open</span><span class="p">,</span> <span class="s2">&quot;wav&quot;</span><span class="p">:</span> <span class="n">wave</span><span class="o">.</span><span class="n">open</span><span class="p">}[</span><span class="bp">self</span><span class="o">.</span><span class="n">file_type</span><span class="p">]</span>
+            <span class="k">with</span> <span class="n">reader_proc</span><span class="p">(</span><span class="n">file_pointer</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">reader</span><span class="p">:</span>
+                <span class="n">reader</span><span class="o">.</span><span class="n">setpos</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+                <span class="n">raw_data</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">readframes</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">maximum</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sample_width</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">integers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">stride</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_width</span> <span class="o">//</span> <span class="mi">8</span>
+        <span class="n">endianness</span> <span class="o">=</span> <span class="s2">&quot;big&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_type</span> <span class="o">==</span> <span class="s2">&quot;aiff&quot;</span> <span class="k">else</span> <span class="s2">&quot;little&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">channel_count</span><span class="p">):</span>
+            <span class="n">chunk</span> <span class="o">=</span> <span class="n">raw_data</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">stride</span> <span class="p">:</span> <span class="n">i</span> <span class="o">*</span> <span class="n">stride</span> <span class="o">+</span> <span class="n">stride</span><span class="p">]</span>
+            <span class="n">integers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">chunk</span><span class="p">,</span> <span class="n">endianness</span><span class="p">,</span> <span class="n">signed</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="k">return</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="n">maximum</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">integers</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="SoundFile.at_percent"><a class="viewcode-back" href="../../api/supriya/soundfiles.html#supriya.soundfiles.SoundFile.at_percent">[docs]</a>    <span class="k">def</span> <span class="nf">at_percent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">percent</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">percent</span> <span class="o">&lt;=</span> <span class="mi">1</span>
-        <span class="n">frames</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_count</span> <span class="o">*</span> <span class="n">percent</span><span class="p">)</span>
-        <span class="k">with</span> <span class="n">wavefile</span><span class="o">.</span><span class="n">WaveReader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">reader</span><span class="p">:</span>
-            <span class="n">reader</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">frames</span><span class="p">)</span>
-            <span class="n">iterator</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read_iter</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-            <span class="n">frame</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">iterator</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">frame</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">at_frame</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_count</span> <span class="o">*</span> <span class="n">percent</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="SoundFile.at_second"><a class="viewcode-back" href="../../api/supriya/soundfiles.html#supriya.soundfiles.SoundFile.at_second">[docs]</a>    <span class="k">def</span> <span class="nf">at_second</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">second</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">second</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">seconds</span>
-        <span class="n">frames</span> <span class="o">=</span> <span class="n">second</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_rate</span>
-        <span class="k">with</span> <span class="n">wavefile</span><span class="o">.</span><span class="n">WaveReader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">reader</span><span class="p">:</span>
-            <span class="n">reader</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">frames</span><span class="p">)</span>
-            <span class="n">iterator</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read_iter</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-            <span class="n">frame</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">iterator</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">frame</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">at_frame</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">second</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_rate</span><span class="p">))</span></div>
 
     <span class="c1">### PUBLIC PROPERTIES ###</span>
 
@@ -426,12 +417,20 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">file_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_type</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">frame_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_frame_count</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">sample_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sample_rate</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sample_rate</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">sample_width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sample_width</span></div>
 </pre></div>
 
            </div>

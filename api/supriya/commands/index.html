@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>commands &mdash; Supriya 0.3.0 documentation</title>
+  <title>commands &mdash; Supriya 0.4.0 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -38,7 +38,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="MoveRequest" href="MoveRequest.html" />
-    <link rel="prev" title="clock" href="../clock.html" /> 
+    <link rel="prev" title="threaded" href="../clock/threaded.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                0.3.0
+                0.4.0
               </div>
             
           
@@ -93,14 +93,11 @@
 </ul>
 <p class="caption"><span class="caption-text">Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
@@ -110,8 +107,7 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../cli/index.html">cli</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../clock.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clock/index.html">clock</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">commands</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="MoveRequest.html">MoveRequest</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Request.html">Request</a></li>
@@ -177,10 +173,7 @@
 <li class="toctree-l3"><a class="reference internal" href="NothingRequest.html">NothingRequest</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NotifyRequest.html">NotifyRequest</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ParallelGroupNewRequest.html">ParallelGroupNewRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="QueryTreeControl.html">QueryTreeControl</a></li>
-<li class="toctree-l3"><a class="reference internal" href="QueryTreeGroup.html">QueryTreeGroup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="QueryTreeResponse.html">QueryTreeResponse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="QueryTreeSynth.html">QueryTreeSynth</a></li>
 <li class="toctree-l3"><a class="reference internal" href="QuitRequest.html">QuitRequest</a></li>
 <li class="toctree-l3"><a class="reference internal" href="RequestBundle.html">RequestBundle</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Requestable.html">Requestable</a></li>
@@ -204,21 +197,24 @@
 <li class="toctree-l3"><a class="reference internal" href="UgenCommandRequest.html">UgenCommandRequest</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../daw/index.html">daw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conversions.html">conversions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intervals/index.html">intervals</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../live/index.html">live</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../midi/index.html">midi</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provider.html">provider</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querytree.html">querytree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sclang.html">sclang</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scsynth.html">scsynth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../system/index.html">system</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../typing.html">typing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
 </ul>
@@ -302,7 +298,7 @@
 <span id="commands"></span><span id="supriya-commands"></span><h1>commands<a class="headerlink" href="#module-supriya.commands" title="Permalink to this headline">¶</a></h1>
 <p>Tools for object-modeling OSC responses received from <code class="docutils literal notranslate"><span class="pre">scsynth</span></code>.</p>
 <div class="svg-container docutils container">
-<div class="graphviz"><object data="../../../_images/inheritance-9a63e5583afb75d6b252479f857a8dad1d4aab39.svg" type="image/svg+xml" class="inheritance graphviz">
+<div class="graphviz"><object data="../../../_images/inheritance-39bf78fcfc676d4447755d4c3d0809d2ef4bf389.svg" type="image/svg+xml" class="inheritance graphviz">
 <p class="warning">digraph InheritanceGraph {
 	graph [bgcolor=transparent,
 		color=lightsteelblue2,
@@ -328,625 +324,596 @@
 	edge [color=lightslategrey,
 		penwidth=1
 	];
-	subgraph &quot;cluster_supriya.system&quot; {
-		graph [label=&quot;supriya.system&quot;];
-		node [color=4];
-		&quot;supriya.system.SupriyaObject.SupriyaObject&quot;		 [URL=&quot;../api/supriya/commands/../system/SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject&quot;,
-			color=4,
-			label=&quot;Supriya\nObject&quot;,
-			target=_top];
-		&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;		 [URL=&quot;../api/supriya/commands/../system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject&quot;,
-			color=4,
-			label=&quot;Supriya\nValue\nObject&quot;,
-			target=_top];
-		&quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;;
-	}
-	subgraph &quot;cluster_supriya.commands&quot; {
-		graph [label=&quot;supriya.commands&quot;];
-		node [color=3];
-		&quot;supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest&quot;		 [URL=&quot;../api/supriya/commands/BufferAllocateReadChannelRequest.html#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Buffer\nAllocate\nRead\nChannel\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.BufferAllocateReadRequest.BufferAllocateReadRequest&quot;		 [URL=&quot;../api/supriya/commands/BufferAllocateReadRequest.html#supriya.commands.BufferAllocateReadRequest.BufferAllocateReadRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Buffer\nAllocate\nRead\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.BufferAllocateReadRequest.BufferAllocateReadRequest&quot; -&gt; &quot;supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.BufferAllocateRequest.BufferAllocateRequest&quot;		 [URL=&quot;../api/supriya/commands/BufferAllocateRequest.html#supriya.commands.BufferAllocateRequest.BufferAllocateRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Buffer\nAllocate\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.BufferAllocateRequest.BufferAllocateRequest&quot; -&gt; &quot;supriya.commands.BufferAllocateReadRequest.BufferAllocateReadRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.BufferCloseRequest.BufferCloseRequest&quot;		 [URL=&quot;../api/supriya/commands/BufferCloseRequest.html#supriya.commands.BufferCloseRequest.BufferCloseRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Buffer\nClose\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.BufferCopyRequest.BufferCopyRequest&quot;		 [URL=&quot;../api/supriya/commands/BufferCopyRequest.html#supriya.commands.BufferCopyRequest.BufferCopyRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Buffer\nCopy\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.BufferFillRequest.BufferFillRequest&quot;		 [URL=&quot;../api/supriya/commands/BufferFillRequest.html#supriya.commands.BufferFillRequest.BufferFillRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Buffer\nFill\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.BufferFreeRequest.BufferFreeRequest&quot;		 [URL=&quot;../api/supriya/commands/BufferFreeRequest.html#supriya.commands.BufferFreeRequest.BufferFreeRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Buffer\nFree\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.BufferGenerateRequest.BufferGenerateRequest&quot;		 [URL=&quot;../api/supriya/commands/BufferGenerateRequest.html#supriya.commands.BufferGenerateRequest.BufferGenerateRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Buffer\nGenerate\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.BufferGetContiguousRequest.BufferGetContiguousRequest&quot;		 [URL=&quot;../api/supriya/commands/BufferGetContiguousRequest.html#supriya.commands.BufferGetContiguousRequest.BufferGetContiguousRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Buffer\nGet\nContiguous\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.BufferGetRequest.BufferGetRequest&quot;		 [URL=&quot;../api/supriya/commands/BufferGetRequest.html#supriya.commands.BufferGetRequest.BufferGetRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Buffer\nGet\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.BufferInfoResponse.BufferInfoResponse&quot;		 [URL=&quot;../api/supriya/commands/BufferInfoResponse.html#supriya.commands.BufferInfoResponse.BufferInfoResponse&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Buffer\nInfo\nResponse&quot;,
-			target=_top];
-		&quot;supriya.commands.BufferNormalizeRequest.BufferNormalizeRequest&quot;		 [URL=&quot;../api/supriya/commands/BufferNormalizeRequest.html#supriya.commands.BufferNormalizeRequest.BufferNormalizeRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Buffer\nNormalize\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.BufferQueryRequest.BufferQueryRequest&quot;		 [URL=&quot;../api/supriya/commands/BufferQueryRequest.html#supriya.commands.BufferQueryRequest.BufferQueryRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Buffer\nQuery\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.BufferReadChannelRequest.BufferReadChannelRequest&quot;		 [URL=&quot;../api/supriya/commands/BufferReadChannelRequest.html#supriya.commands.BufferReadChannelRequest.BufferReadChannelRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Buffer\nRead\nChannel\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.BufferReadRequest.BufferReadRequest&quot;		 [URL=&quot;../api/supriya/commands/BufferReadRequest.html#supriya.commands.BufferReadRequest.BufferReadRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Buffer\nRead\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.BufferReadRequest.BufferReadRequest&quot; -&gt; &quot;supriya.commands.BufferReadChannelRequest.BufferReadChannelRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.BufferSetContiguousRequest.BufferSetContiguousRequest&quot;		 [URL=&quot;../api/supriya/commands/BufferSetContiguousRequest.html#supriya.commands.BufferSetContiguousRequest.BufferSetContiguousRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Buffer\nSet\nContiguous\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.BufferSetContiguousResponse.BufferSetContiguousResponse&quot;		 [URL=&quot;../api/supriya/commands/BufferSetContiguousResponse.html#supriya.commands.BufferSetContiguousResponse.BufferSetContiguousResponse&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Buffer\nSet\nContiguous\nResponse&quot;,
-			target=_top];
-		&quot;supriya.commands.BufferSetRequest.BufferSetRequest&quot;		 [URL=&quot;../api/supriya/commands/BufferSetRequest.html#supriya.commands.BufferSetRequest.BufferSetRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Buffer\nSet\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.BufferSetResponse.BufferSetResponse&quot;		 [URL=&quot;../api/supriya/commands/BufferSetResponse.html#supriya.commands.BufferSetResponse.BufferSetResponse&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Buffer\nSet\nResponse&quot;,
-			target=_top];
-		&quot;supriya.commands.BufferWriteRequest.BufferWriteRequest&quot;		 [URL=&quot;../api/supriya/commands/BufferWriteRequest.html#supriya.commands.BufferWriteRequest.BufferWriteRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Buffer\nWrite\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.BufferZeroRequest.BufferZeroRequest&quot;		 [URL=&quot;../api/supriya/commands/BufferZeroRequest.html#supriya.commands.BufferZeroRequest.BufferZeroRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Buffer\nZero\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.ClearScheduleRequest.ClearScheduleRequest&quot;		 [URL=&quot;../api/supriya/commands/ClearScheduleRequest.html#supriya.commands.ClearScheduleRequest.ClearScheduleRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Clear\nSchedule\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.CommandRequest.CommandRequest&quot;		 [URL=&quot;../api/supriya/commands/CommandRequest.html#supriya.commands.CommandRequest.CommandRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Command\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.ControlBusFillRequest.ControlBusFillRequest&quot;		 [URL=&quot;../api/supriya/commands/ControlBusFillRequest.html#supriya.commands.ControlBusFillRequest.ControlBusFillRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Control\nBus\nFill\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.ControlBusGetContiguousRequest.ControlBusGetContiguousRequest&quot;		 [URL=&quot;../api/supriya/commands/ControlBusGetContiguousRequest.html#supriya.commands.ControlBusGetContiguousRequest.ControlBusGetContiguousRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Control\nBus\nGet\nContiguous\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.ControlBusGetRequest.ControlBusGetRequest&quot;		 [URL=&quot;../api/supriya/commands/ControlBusGetRequest.html#supriya.commands.ControlBusGetRequest.ControlBusGetRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Control\nBus\nGet\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.ControlBusSetContiguousRequest.ControlBusSetContiguousRequest&quot;		 [URL=&quot;../api/supriya/commands/ControlBusSetContiguousRequest.html#supriya.commands.ControlBusSetContiguousRequest.ControlBusSetContiguousRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Control\nBus\nSet\nContiguous\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.ControlBusSetContiguousResponse.ControlBusSetContiguousResponse&quot;		 [URL=&quot;../api/supriya/commands/ControlBusSetContiguousResponse.html#supriya.commands.ControlBusSetContiguousResponse.ControlBusSetContiguousResponse&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Control\nBus\nSet\nContiguous\nResponse&quot;,
-			target=_top];
-		&quot;supriya.commands.ControlBusSetRequest.ControlBusSetRequest&quot;		 [URL=&quot;../api/supriya/commands/ControlBusSetRequest.html#supriya.commands.ControlBusSetRequest.ControlBusSetRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Control\nBus\nSet\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.ControlBusSetResponse.ControlBusSetResponse&quot;		 [URL=&quot;../api/supriya/commands/ControlBusSetResponse.html#supriya.commands.ControlBusSetResponse.ControlBusSetResponse&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Control\nBus\nSet\nResponse&quot;,
-			target=_top];
-		&quot;supriya.commands.DoneResponse.DoneResponse&quot;		 [URL=&quot;../api/supriya/commands/DoneResponse.html#supriya.commands.DoneResponse.DoneResponse&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Done\nResponse&quot;,
-			target=_top];
-		&quot;supriya.commands.DumpOscRequest.DumpOscRequest&quot;		 [URL=&quot;../api/supriya/commands/DumpOscRequest.html#supriya.commands.DumpOscRequest.DumpOscRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Dump\nOsc\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.ErrorRequest.ErrorRequest&quot;		 [URL=&quot;../api/supriya/commands/ErrorRequest.html#supriya.commands.ErrorRequest.ErrorRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Error\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.FailResponse.FailResponse&quot;		 [URL=&quot;../api/supriya/commands/FailResponse.html#supriya.commands.FailResponse.FailResponse&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Fail\nResponse&quot;,
-			target=_top];
-		&quot;supriya.commands.GroupDeepFreeRequest.GroupDeepFreeRequest&quot;		 [URL=&quot;../api/supriya/commands/GroupDeepFreeRequest.html#supriya.commands.GroupDeepFreeRequest.GroupDeepFreeRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Group\nDeep\nFree\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.GroupDumpTreeRequest.GroupDumpTreeRequest&quot;		 [URL=&quot;../api/supriya/commands/GroupDumpTreeRequest.html#supriya.commands.GroupDumpTreeRequest.GroupDumpTreeRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Group\nDump\nTree\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.GroupFreeAllRequest.GroupFreeAllRequest&quot;		 [URL=&quot;../api/supriya/commands/GroupFreeAllRequest.html#supriya.commands.GroupFreeAllRequest.GroupFreeAllRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Group\nFree\nAll\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.GroupHeadRequest.GroupHeadRequest&quot;		 [URL=&quot;../api/supriya/commands/GroupHeadRequest.html#supriya.commands.GroupHeadRequest.GroupHeadRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Group\nHead\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.GroupNewRequest.GroupNewRequest&quot;		 [URL=&quot;../api/supriya/commands/GroupNewRequest.html#supriya.commands.GroupNewRequest.GroupNewRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Group\nNew\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.ParallelGroupNewRequest.ParallelGroupNewRequest&quot;		 [URL=&quot;../api/supriya/commands/ParallelGroupNewRequest.html#supriya.commands.ParallelGroupNewRequest.ParallelGroupNewRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Parallel\nGroup\nNew\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.GroupNewRequest.GroupNewRequest&quot; -&gt; &quot;supriya.commands.ParallelGroupNewRequest.ParallelGroupNewRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.GroupQueryTreeRequest.GroupQueryTreeRequest&quot;		 [URL=&quot;../api/supriya/commands/GroupQueryTreeRequest.html#supriya.commands.GroupQueryTreeRequest.GroupQueryTreeRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Group\nQuery\nTree\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.GroupTailRequest.GroupTailRequest&quot;		 [URL=&quot;../api/supriya/commands/GroupTailRequest.html#supriya.commands.GroupTailRequest.GroupTailRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Group\nTail\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.MoveRequest.MoveRequest&quot;		 [URL=&quot;../api/supriya/commands/MoveRequest.html#supriya.commands.MoveRequest.MoveRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Move\nRequest&quot;,
-			shape=oval,
-			style=&quot;bold, filled&quot;,
-			target=_top];
-		&quot;supriya.commands.MoveRequest.MoveRequest&quot; -&gt; &quot;supriya.commands.GroupHeadRequest.GroupHeadRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.MoveRequest.MoveRequest&quot; -&gt; &quot;supriya.commands.GroupTailRequest.GroupTailRequest&quot;		 [minlen=2];
-		&quot;supriya.commands.NodeAfterRequest.NodeAfterRequest&quot;		 [URL=&quot;../api/supriya/commands/NodeAfterRequest.html#supriya.commands.NodeAfterRequest.NodeAfterRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Node\nAfter\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.MoveRequest.MoveRequest&quot; -&gt; &quot;supriya.commands.NodeAfterRequest.NodeAfterRequest&quot;		 [minlen=3];
-		&quot;supriya.commands.NodeBeforeRequest.NodeBeforeRequest&quot;		 [URL=&quot;../api/supriya/commands/NodeBeforeRequest.html#supriya.commands.NodeBeforeRequest.NodeBeforeRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Node\nBefore\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.MoveRequest.MoveRequest&quot; -&gt; &quot;supriya.commands.NodeBeforeRequest.NodeBeforeRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.NodeCommandRequest.NodeCommandRequest&quot;		 [URL=&quot;../api/supriya/commands/NodeCommandRequest.html#supriya.commands.NodeCommandRequest.NodeCommandRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Node\nCommand\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.NodeFillRequest.NodeFillRequest&quot;		 [URL=&quot;../api/supriya/commands/NodeFillRequest.html#supriya.commands.NodeFillRequest.NodeFillRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Node\nFill\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.NodeFreeRequest.NodeFreeRequest&quot;		 [URL=&quot;../api/supriya/commands/NodeFreeRequest.html#supriya.commands.NodeFreeRequest.NodeFreeRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Node\nFree\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.NodeInfoResponse.NodeInfoResponse&quot;		 [URL=&quot;../api/supriya/commands/NodeInfoResponse.html#supriya.commands.NodeInfoResponse.NodeInfoResponse&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Node\nInfo\nResponse&quot;,
-			target=_top];
-		&quot;supriya.commands.NodeMapToAudioBusContiguousRequest.NodeMapToAudioBusContiguousRequest&quot;		 [URL=&quot;../api/supriya/commands/NodeMapToAudioBusContiguousRequest.html#supriya.commands.NodeMapToAudioBusContiguousRequest.NodeMapToAudioBusContiguousRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Node\nMap\nTo\nAudio\nBus\nContiguous\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.NodeMapToAudioBusRequest.NodeMapToAudioBusRequest&quot;		 [URL=&quot;../api/supriya/commands/NodeMapToAudioBusRequest.html#supriya.commands.NodeMapToAudioBusRequest.NodeMapToAudioBusRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Node\nMap\nTo\nAudio\nBus\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.NodeMapToControlBusContiguousRequest.NodeMapToControlBusContiguousRequest&quot;		 [URL=&quot;../api/supriya/commands/NodeMapToControlBusContiguousRequest.html#supriya.commands.NodeMapToControlBusContiguousRequest.NodeMapToControlBusContiguousRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Node\nMap\nTo\nControl\nBus\nContiguous\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.NodeMapToControlBusRequest.NodeMapToControlBusRequest&quot;		 [URL=&quot;../api/supriya/commands/NodeMapToControlBusRequest.html#supriya.commands.NodeMapToControlBusRequest.NodeMapToControlBusRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Node\nMap\nTo\nControl\nBus\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.NodeOrderRequest.NodeOrderRequest&quot;		 [URL=&quot;../api/supriya/commands/NodeOrderRequest.html#supriya.commands.NodeOrderRequest.NodeOrderRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Node\nOrder\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.NodeQueryRequest.NodeQueryRequest&quot;		 [URL=&quot;../api/supriya/commands/NodeQueryRequest.html#supriya.commands.NodeQueryRequest.NodeQueryRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Node\nQuery\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.NodeRunRequest.NodeRunRequest&quot;		 [URL=&quot;../api/supriya/commands/NodeRunRequest.html#supriya.commands.NodeRunRequest.NodeRunRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Node\nRun\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.NodeSetContiguousRequest.NodeSetContiguousRequest&quot;		 [URL=&quot;../api/supriya/commands/NodeSetContiguousRequest.html#supriya.commands.NodeSetContiguousRequest.NodeSetContiguousRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Node\nSet\nContiguous\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.NodeSetContiguousResponse.NodeSetContiguousResponse&quot;		 [URL=&quot;../api/supriya/commands/NodeSetContiguousResponse.html#supriya.commands.NodeSetContiguousResponse.NodeSetContiguousResponse&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Node\nSet\nContiguous\nResponse&quot;,
-			target=_top];
-		&quot;supriya.commands.NodeSetRequest.NodeSetRequest&quot;		 [URL=&quot;../api/supriya/commands/NodeSetRequest.html#supriya.commands.NodeSetRequest.NodeSetRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Node\nSet\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.NodeSetResponse.NodeSetResponse&quot;		 [URL=&quot;../api/supriya/commands/NodeSetResponse.html#supriya.commands.NodeSetResponse.NodeSetResponse&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Node\nSet\nResponse&quot;,
-			target=_top];
-		&quot;supriya.commands.NodeTraceRequest.NodeTraceRequest&quot;		 [URL=&quot;../api/supriya/commands/NodeTraceRequest.html#supriya.commands.NodeTraceRequest.NodeTraceRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Node\nTrace\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.NothingRequest.NothingRequest&quot;		 [URL=&quot;../api/supriya/commands/NothingRequest.html#supriya.commands.NothingRequest.NothingRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Nothing\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.NotifyRequest.NotifyRequest&quot;		 [URL=&quot;../api/supriya/commands/NotifyRequest.html#supriya.commands.NotifyRequest.NotifyRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Notify\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.QueryTreeControl.QueryTreeControl&quot;		 [URL=&quot;../api/supriya/commands/QueryTreeControl.html#supriya.commands.QueryTreeControl.QueryTreeControl&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Query\nTree\nControl&quot;,
-			target=_top];
-		&quot;supriya.commands.QueryTreeGroup.QueryTreeGroup&quot;		 [URL=&quot;../api/supriya/commands/QueryTreeGroup.html#supriya.commands.QueryTreeGroup.QueryTreeGroup&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Query\nTree\nGroup&quot;,
-			target=_top];
-		&quot;supriya.commands.QueryTreeResponse.QueryTreeResponse&quot;		 [URL=&quot;../api/supriya/commands/QueryTreeResponse.html#supriya.commands.QueryTreeResponse.QueryTreeResponse&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Query\nTree\nResponse&quot;,
-			target=_top];
-		&quot;supriya.commands.QueryTreeSynth.QueryTreeSynth&quot;		 [URL=&quot;../api/supriya/commands/QueryTreeSynth.html#supriya.commands.QueryTreeSynth.QueryTreeSynth&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Query\nTree\nSynth&quot;,
-			target=_top];
-		&quot;supriya.commands.QuitRequest.QuitRequest&quot;		 [URL=&quot;../api/supriya/commands/QuitRequest.html#supriya.commands.QuitRequest.QuitRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Quit\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.Request.Request&quot;		 [URL=&quot;../api/supriya/commands/Request.html#supriya.commands.Request.Request&quot;,
-			color=black,
-			fontcolor=white,
-			label=Request,
-			shape=oval,
-			style=&quot;bold, filled&quot;,
-			target=_top];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferAllocateRequest.BufferAllocateRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferCloseRequest.BufferCloseRequest&quot;		 [minlen=2];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferCopyRequest.BufferCopyRequest&quot;		 [minlen=3];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferFillRequest.BufferFillRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferFreeRequest.BufferFreeRequest&quot;		 [minlen=2];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferGenerateRequest.BufferGenerateRequest&quot;		 [minlen=3];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferGetContiguousRequest.BufferGetContiguousRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferGetRequest.BufferGetRequest&quot;		 [minlen=2];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferNormalizeRequest.BufferNormalizeRequest&quot;		 [minlen=3];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferQueryRequest.BufferQueryRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferReadRequest.BufferReadRequest&quot;		 [minlen=2];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferSetContiguousRequest.BufferSetContiguousRequest&quot;		 [minlen=3];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferSetRequest.BufferSetRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferWriteRequest.BufferWriteRequest&quot;		 [minlen=2];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferZeroRequest.BufferZeroRequest&quot;		 [minlen=3];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.ClearScheduleRequest.ClearScheduleRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.CommandRequest.CommandRequest&quot;		 [minlen=2];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.ControlBusFillRequest.ControlBusFillRequest&quot;		 [minlen=3];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.ControlBusGetContiguousRequest.ControlBusGetContiguousRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.ControlBusGetRequest.ControlBusGetRequest&quot;		 [minlen=2];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.ControlBusSetContiguousRequest.ControlBusSetContiguousRequest&quot;		 [minlen=3];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.ControlBusSetRequest.ControlBusSetRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.DumpOscRequest.DumpOscRequest&quot;		 [minlen=2];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.ErrorRequest.ErrorRequest&quot;		 [minlen=3];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.GroupDeepFreeRequest.GroupDeepFreeRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.GroupDumpTreeRequest.GroupDumpTreeRequest&quot;		 [minlen=2];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.GroupFreeAllRequest.GroupFreeAllRequest&quot;		 [minlen=3];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.GroupNewRequest.GroupNewRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.GroupQueryTreeRequest.GroupQueryTreeRequest&quot;		 [minlen=2];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.MoveRequest.MoveRequest&quot;;
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NodeCommandRequest.NodeCommandRequest&quot;		 [minlen=3];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NodeFillRequest.NodeFillRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NodeFreeRequest.NodeFreeRequest&quot;		 [minlen=2];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NodeMapToAudioBusContiguousRequest.NodeMapToAudioBusContiguousRequest&quot;		 [minlen=3];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NodeMapToAudioBusRequest.NodeMapToAudioBusRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NodeMapToControlBusContiguousRequest.NodeMapToControlBusContiguousRequest&quot;		 [minlen=2];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NodeMapToControlBusRequest.NodeMapToControlBusRequest&quot;		 [minlen=3];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NodeOrderRequest.NodeOrderRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NodeQueryRequest.NodeQueryRequest&quot;		 [minlen=2];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NodeRunRequest.NodeRunRequest&quot;		 [minlen=3];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NodeSetContiguousRequest.NodeSetContiguousRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NodeSetRequest.NodeSetRequest&quot;		 [minlen=2];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NodeTraceRequest.NodeTraceRequest&quot;		 [minlen=3];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NothingRequest.NothingRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NotifyRequest.NotifyRequest&quot;		 [minlen=2];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.QuitRequest.QuitRequest&quot;		 [minlen=3];
-		&quot;supriya.commands.StatusRequest.StatusRequest&quot;		 [URL=&quot;../api/supriya/commands/StatusRequest.html#supriya.commands.StatusRequest.StatusRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Status\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.StatusRequest.StatusRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.SyncRequest.SyncRequest&quot;		 [URL=&quot;../api/supriya/commands/SyncRequest.html#supriya.commands.SyncRequest.SyncRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Sync\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.SyncRequest.SyncRequest&quot;		 [minlen=2];
-		&quot;supriya.commands.SynthDefFreeAllRequest.SynthDefFreeAllRequest&quot;		 [URL=&quot;../api/supriya/commands/SynthDefFreeAllRequest.html#supriya.commands.SynthDefFreeAllRequest.SynthDefFreeAllRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Synth\nDef\nFree\nAll\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.SynthDefFreeAllRequest.SynthDefFreeAllRequest&quot;		 [minlen=3];
-		&quot;supriya.commands.SynthDefFreeRequest.SynthDefFreeRequest&quot;		 [URL=&quot;../api/supriya/commands/SynthDefFreeRequest.html#supriya.commands.SynthDefFreeRequest.SynthDefFreeRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Synth\nDef\nFree\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.SynthDefFreeRequest.SynthDefFreeRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.SynthDefLoadDirectoryRequest.SynthDefLoadDirectoryRequest&quot;		 [URL=&quot;../api/supriya/commands/SynthDefLoadDirectoryRequest.html#supriya.commands.SynthDefLoadDirectoryRequest.SynthDefLoadDirectoryRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Synth\nDef\nLoad\nDirectory\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.SynthDefLoadDirectoryRequest.SynthDefLoadDirectoryRequest&quot;		 [minlen=2];
-		&quot;supriya.commands.SynthDefLoadRequest.SynthDefLoadRequest&quot;		 [URL=&quot;../api/supriya/commands/SynthDefLoadRequest.html#supriya.commands.SynthDefLoadRequest.SynthDefLoadRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Synth\nDef\nLoad\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.SynthDefLoadRequest.SynthDefLoadRequest&quot;		 [minlen=3];
-		&quot;supriya.commands.SynthDefReceiveRequest.SynthDefReceiveRequest&quot;		 [URL=&quot;../api/supriya/commands/SynthDefReceiveRequest.html#supriya.commands.SynthDefReceiveRequest.SynthDefReceiveRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Synth\nDef\nReceive\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.SynthDefReceiveRequest.SynthDefReceiveRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.SynthGetContiguousRequest.SynthGetContiguousRequest&quot;		 [URL=&quot;../api/supriya/commands/SynthGetContiguousRequest.html#supriya.commands.SynthGetContiguousRequest.SynthGetContiguousRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Synth\nGet\nContiguous\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.SynthGetContiguousRequest.SynthGetContiguousRequest&quot;		 [minlen=2];
-		&quot;supriya.commands.SynthGetRequest.SynthGetRequest&quot;		 [URL=&quot;../api/supriya/commands/SynthGetRequest.html#supriya.commands.SynthGetRequest.SynthGetRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Synth\nGet\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.SynthGetRequest.SynthGetRequest&quot;		 [minlen=3];
-		&quot;supriya.commands.SynthNewRequest.SynthNewRequest&quot;		 [URL=&quot;../api/supriya/commands/SynthNewRequest.html#supriya.commands.SynthNewRequest.SynthNewRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Synth\nNew\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.SynthNewRequest.SynthNewRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.SynthNewargsRequest.SynthNewargsRequest&quot;		 [URL=&quot;../api/supriya/commands/SynthNewargsRequest.html#supriya.commands.SynthNewargsRequest.SynthNewargsRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Synth\nNewargs\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.SynthNewargsRequest.SynthNewargsRequest&quot;		 [minlen=2];
-		&quot;supriya.commands.SynthNoidRequest.SynthNoidRequest&quot;		 [URL=&quot;../api/supriya/commands/SynthNoidRequest.html#supriya.commands.SynthNoidRequest.SynthNoidRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Synth\nNoid\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.SynthNoidRequest.SynthNoidRequest&quot;		 [minlen=3];
-		&quot;supriya.commands.UgenCommandRequest.UgenCommandRequest&quot;		 [URL=&quot;../api/supriya/commands/UgenCommandRequest.html#supriya.commands.UgenCommandRequest.UgenCommandRequest&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Ugen\nCommand\nRequest&quot;,
-			target=_top];
-		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.UgenCommandRequest.UgenCommandRequest&quot;		 [minlen=1];
-		&quot;supriya.commands.RequestBundle.RequestBundle&quot;		 [URL=&quot;../api/supriya/commands/RequestBundle.html#supriya.commands.RequestBundle.RequestBundle&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Request\nBundle&quot;,
-			target=_top];
-		&quot;supriya.commands.Requestable.Requestable&quot;		 [URL=&quot;../api/supriya/commands/Requestable.html#supriya.commands.Requestable.Requestable&quot;,
-			color=black,
-			fontcolor=white,
-			label=Requestable,
-			target=_top];
-		&quot;supriya.commands.Requestable.Requestable&quot; -&gt; &quot;supriya.commands.Request.Request&quot;;
-		&quot;supriya.commands.Requestable.Requestable&quot; -&gt; &quot;supriya.commands.RequestBundle.RequestBundle&quot;		 [minlen=1];
-		&quot;supriya.commands.Response.Response&quot;		 [URL=&quot;../api/supriya/commands/Response.html#supriya.commands.Response.Response&quot;,
-			color=black,
-			fontcolor=white,
-			label=Response,
-			target=_top];
-		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.BufferInfoResponse.BufferInfoResponse&quot;		 [minlen=1];
-		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.BufferSetContiguousResponse.BufferSetContiguousResponse&quot;;
-		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.BufferSetResponse.BufferSetResponse&quot;;
-		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.ControlBusSetContiguousResponse.ControlBusSetContiguousResponse&quot;;
-		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.ControlBusSetResponse.ControlBusSetResponse&quot;;
-		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.DoneResponse.DoneResponse&quot;		 [minlen=2];
-		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.FailResponse.FailResponse&quot;		 [minlen=3];
-		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.NodeInfoResponse.NodeInfoResponse&quot;		 [minlen=1];
-		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.NodeSetContiguousResponse.NodeSetContiguousResponse&quot;		 [minlen=2];
-		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.NodeSetResponse.NodeSetResponse&quot;		 [minlen=3];
-		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.QueryTreeResponse.QueryTreeResponse&quot;		 [minlen=1];
-		&quot;supriya.commands.StatusResponse.StatusResponse&quot;		 [URL=&quot;../api/supriya/commands/StatusResponse.html#supriya.commands.StatusResponse.StatusResponse&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Status\nResponse&quot;,
-			target=_top];
-		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.StatusResponse.StatusResponse&quot;		 [minlen=2];
-		&quot;supriya.commands.SyncedResponse.SyncedResponse&quot;		 [URL=&quot;../api/supriya/commands/SyncedResponse.html#supriya.commands.SyncedResponse.SyncedResponse&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Synced\nResponse&quot;,
-			target=_top];
-		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.SyncedResponse.SyncedResponse&quot;		 [minlen=3];
-		&quot;supriya.commands.SynthDefRemovedResponse.SynthDefRemovedResponse&quot;		 [URL=&quot;../api/supriya/commands/SynthDefRemovedResponse.html#supriya.commands.SynthDefRemovedResponse.SynthDefRemovedResponse&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Synth\nDef\nRemoved\nResponse&quot;,
-			target=_top];
-		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.SynthDefRemovedResponse.SynthDefRemovedResponse&quot;		 [minlen=1];
-		&quot;supriya.commands.TriggerResponse.TriggerResponse&quot;		 [URL=&quot;../api/supriya/commands/TriggerResponse.html#supriya.commands.TriggerResponse.TriggerResponse&quot;,
-			color=black,
-			fontcolor=white,
-			label=&quot;Trigger\nResponse&quot;,
-			target=_top];
-		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.TriggerResponse.TriggerResponse&quot;		 [minlen=2];
-	}
 	subgraph cluster_builtins {
 		graph [label=builtins];
 		node [color=1];
-		&quot;builtins.object&quot;		 [URL=&quot;https://docs.python.org/3.6/library/functions.html#object&quot;,
-			color=1,
+		&quot;builtins.object&quot;	[URL=&quot;https://docs.python.org/3/library/functions.html#object&quot;,
 			label=object,
 			target=_top];
 	}
 	subgraph &quot;cluster_collections.abc&quot; {
 		graph [label=&quot;collections.abc&quot;];
 		node [color=2];
-		&quot;collections.abc.Collection&quot;		 [URL=&quot;https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Collection&quot;,
-			color=2,
+		&quot;collections.abc.Collection&quot;	[URL=&quot;https://docs.python.org/3/library/collections.abc.html#collections.abc.Collection&quot;,
 			label=Collection,
 			shape=oval,
 			style=bold,
 			target=_top];
-		&quot;collections.abc.Sequence&quot;		 [URL=&quot;https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Sequence&quot;,
-			color=2,
+		&quot;collections.abc.Sequence&quot;	[URL=&quot;https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence&quot;,
 			label=Sequence,
 			shape=oval,
 			style=bold,
 			target=_top];
 		&quot;collections.abc.Collection&quot; -&gt; &quot;collections.abc.Sequence&quot;;
-		&quot;collections.abc.Container&quot;		 [URL=&quot;https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Container&quot;,
-			color=2,
+		&quot;collections.abc.Container&quot;	[URL=&quot;https://docs.python.org/3/library/collections.abc.html#collections.abc.Container&quot;,
 			label=Container,
 			shape=oval,
 			style=bold,
 			target=_top];
 		&quot;collections.abc.Container&quot; -&gt; &quot;collections.abc.Collection&quot;;
-		&quot;collections.abc.Iterable&quot;		 [URL=&quot;https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Iterable&quot;,
-			color=2,
+		&quot;collections.abc.Iterable&quot;	[URL=&quot;https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable&quot;,
 			label=Iterable,
 			shape=oval,
 			style=bold,
 			target=_top];
 		&quot;collections.abc.Iterable&quot; -&gt; &quot;collections.abc.Collection&quot;;
-		&quot;collections.abc.Reversible&quot;		 [URL=&quot;https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Reversible&quot;,
-			color=2,
+		&quot;collections.abc.Reversible&quot;	[URL=&quot;https://docs.python.org/3/library/collections.abc.html#collections.abc.Reversible&quot;,
 			label=Reversible,
 			shape=oval,
 			style=bold,
 			target=_top];
-		&quot;collections.abc.Iterable&quot; -&gt; &quot;collections.abc.Reversible&quot;		 [minlen=1];
+		&quot;collections.abc.Iterable&quot; -&gt; &quot;collections.abc.Reversible&quot;	[minlen=1];
 		&quot;collections.abc.Reversible&quot; -&gt; &quot;collections.abc.Sequence&quot;;
-		&quot;collections.abc.Sized&quot;		 [URL=&quot;https://docs.python.org/3.6/library/collections.abc.html#collections.abc.Sized&quot;,
-			color=2,
+		&quot;collections.abc.Sized&quot;	[URL=&quot;https://docs.python.org/3/library/collections.abc.html#collections.abc.Sized&quot;,
 			label=Sized,
 			shape=oval,
 			style=bold,
 			target=_top];
 		&quot;collections.abc.Sized&quot; -&gt; &quot;collections.abc.Collection&quot;;
 	}
-	&quot;builtins.object&quot; -&gt; &quot;collections.abc.Container&quot;	 [minlen=1];
+	subgraph &quot;cluster_supriya.commands&quot; {
+		graph [label=&quot;supriya.commands&quot;];
+		node [color=3];
+		&quot;supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest&quot;	[URL=&quot;../api/supriya/commands/BufferAllocateReadChannelRequest.html#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Buffer\nAllocate\nRead\nChannel\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.BufferAllocateReadRequest.BufferAllocateReadRequest&quot;	[URL=&quot;../api/supriya/commands/BufferAllocateReadRequest.html#supriya.commands.BufferAllocateReadRequest.BufferAllocateReadRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Buffer\nAllocate\nRead\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.BufferAllocateReadRequest.BufferAllocateReadRequest&quot; -&gt; &quot;supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest&quot;	[minlen=1];
+		&quot;supriya.commands.BufferAllocateRequest.BufferAllocateRequest&quot;	[URL=&quot;../api/supriya/commands/BufferAllocateRequest.html#supriya.commands.BufferAllocateRequest.BufferAllocateRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Buffer\nAllocate\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.BufferAllocateRequest.BufferAllocateRequest&quot; -&gt; &quot;supriya.commands.BufferAllocateReadRequest.BufferAllocateReadRequest&quot;	[minlen=1];
+		&quot;supriya.commands.BufferCloseRequest.BufferCloseRequest&quot;	[URL=&quot;../api/supriya/commands/BufferCloseRequest.html#supriya.commands.BufferCloseRequest.BufferCloseRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Buffer\nClose\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.BufferCopyRequest.BufferCopyRequest&quot;	[URL=&quot;../api/supriya/commands/BufferCopyRequest.html#supriya.commands.BufferCopyRequest.BufferCopyRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Buffer\nCopy\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.BufferFillRequest.BufferFillRequest&quot;	[URL=&quot;../api/supriya/commands/BufferFillRequest.html#supriya.commands.BufferFillRequest.BufferFillRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Buffer\nFill\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.BufferFreeRequest.BufferFreeRequest&quot;	[URL=&quot;../api/supriya/commands/BufferFreeRequest.html#supriya.commands.BufferFreeRequest.BufferFreeRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Buffer\nFree\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.BufferGenerateRequest.BufferGenerateRequest&quot;	[URL=&quot;../api/supriya/commands/BufferGenerateRequest.html#supriya.commands.BufferGenerateRequest.BufferGenerateRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Buffer\nGenerate\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.BufferGetContiguousRequest.BufferGetContiguousRequest&quot;	[URL=&quot;../api/supriya/commands/BufferGetContiguousRequest.html#supriya.commands.BufferGetContiguousRequest.BufferGetContiguousRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Buffer\nGet\nContiguous\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.BufferGetRequest.BufferGetRequest&quot;	[URL=&quot;../api/supriya/commands/BufferGetRequest.html#supriya.commands.BufferGetRequest.BufferGetRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Buffer\nGet\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.BufferInfoResponse.BufferInfoResponse&quot;	[URL=&quot;../api/supriya/commands/BufferInfoResponse.html#supriya.commands.BufferInfoResponse.BufferInfoResponse&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Buffer\nInfo\nResponse&quot;,
+			target=_top];
+		&quot;supriya.commands.BufferNormalizeRequest.BufferNormalizeRequest&quot;	[URL=&quot;../api/supriya/commands/BufferNormalizeRequest.html#supriya.commands.BufferNormalizeRequest.BufferNormalizeRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Buffer\nNormalize\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.BufferQueryRequest.BufferQueryRequest&quot;	[URL=&quot;../api/supriya/commands/BufferQueryRequest.html#supriya.commands.BufferQueryRequest.BufferQueryRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Buffer\nQuery\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.BufferReadChannelRequest.BufferReadChannelRequest&quot;	[URL=&quot;../api/supriya/commands/BufferReadChannelRequest.html#supriya.commands.BufferReadChannelRequest.BufferReadChannelRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Buffer\nRead\nChannel\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.BufferReadRequest.BufferReadRequest&quot;	[URL=&quot;../api/supriya/commands/BufferReadRequest.html#supriya.commands.BufferReadRequest.BufferReadRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Buffer\nRead\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.BufferReadRequest.BufferReadRequest&quot; -&gt; &quot;supriya.commands.BufferReadChannelRequest.BufferReadChannelRequest&quot;	[minlen=1];
+		&quot;supriya.commands.BufferSetContiguousRequest.BufferSetContiguousRequest&quot;	[URL=&quot;../api/supriya/commands/BufferSetContiguousRequest.html#supriya.commands.BufferSetContiguousRequest.BufferSetContiguousRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Buffer\nSet\nContiguous\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.BufferSetContiguousResponse.BufferSetContiguousResponse&quot;	[URL=&quot;../api/supriya/commands/BufferSetContiguousResponse.html#supriya.commands.BufferSetContiguousResponse.BufferSetContiguousResponse&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Buffer\nSet\nContiguous\nResponse&quot;,
+			target=_top];
+		&quot;supriya.commands.BufferSetRequest.BufferSetRequest&quot;	[URL=&quot;../api/supriya/commands/BufferSetRequest.html#supriya.commands.BufferSetRequest.BufferSetRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Buffer\nSet\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.BufferSetResponse.BufferSetResponse&quot;	[URL=&quot;../api/supriya/commands/BufferSetResponse.html#supriya.commands.BufferSetResponse.BufferSetResponse&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Buffer\nSet\nResponse&quot;,
+			target=_top];
+		&quot;supriya.commands.BufferWriteRequest.BufferWriteRequest&quot;	[URL=&quot;../api/supriya/commands/BufferWriteRequest.html#supriya.commands.BufferWriteRequest.BufferWriteRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Buffer\nWrite\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.BufferZeroRequest.BufferZeroRequest&quot;	[URL=&quot;../api/supriya/commands/BufferZeroRequest.html#supriya.commands.BufferZeroRequest.BufferZeroRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Buffer\nZero\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.ClearScheduleRequest.ClearScheduleRequest&quot;	[URL=&quot;../api/supriya/commands/ClearScheduleRequest.html#supriya.commands.ClearScheduleRequest.ClearScheduleRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Clear\nSchedule\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.CommandRequest.CommandRequest&quot;	[URL=&quot;../api/supriya/commands/CommandRequest.html#supriya.commands.CommandRequest.CommandRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Command\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.ControlBusFillRequest.ControlBusFillRequest&quot;	[URL=&quot;../api/supriya/commands/ControlBusFillRequest.html#supriya.commands.ControlBusFillRequest.ControlBusFillRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Control\nBus\nFill\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.ControlBusGetContiguousRequest.ControlBusGetContiguousRequest&quot;	[URL=&quot;../api/supriya/commands/ControlBusGetContiguousRequest.html#supriya.commands.ControlBusGetContiguousRequest.ControlBusGetContiguousRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Control\nBus\nGet\nContiguous\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.ControlBusGetRequest.ControlBusGetRequest&quot;	[URL=&quot;../api/supriya/commands/ControlBusGetRequest.html#supriya.commands.ControlBusGetRequest.ControlBusGetRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Control\nBus\nGet\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.ControlBusSetContiguousRequest.ControlBusSetContiguousRequest&quot;	[URL=&quot;../api/supriya/commands/ControlBusSetContiguousRequest.html#supriya.commands.ControlBusSetContiguousRequest.ControlBusSetContiguousRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Control\nBus\nSet\nContiguous\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.ControlBusSetContiguousResponse.ControlBusSetContiguousResponse&quot;	[URL=&quot;../api/supriya/commands/ControlBusSetContiguousResponse.html#supriya.commands.ControlBusSetContiguousResponse.ControlBusSetContiguousResponse&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Control\nBus\nSet\nContiguous\nResponse&quot;,
+			target=_top];
+		&quot;supriya.commands.ControlBusSetRequest.ControlBusSetRequest&quot;	[URL=&quot;../api/supriya/commands/ControlBusSetRequest.html#supriya.commands.ControlBusSetRequest.ControlBusSetRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Control\nBus\nSet\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.ControlBusSetResponse.ControlBusSetResponse&quot;	[URL=&quot;../api/supriya/commands/ControlBusSetResponse.html#supriya.commands.ControlBusSetResponse.ControlBusSetResponse&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Control\nBus\nSet\nResponse&quot;,
+			target=_top];
+		&quot;supriya.commands.DoneResponse.DoneResponse&quot;	[URL=&quot;../api/supriya/commands/DoneResponse.html#supriya.commands.DoneResponse.DoneResponse&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Done\nResponse&quot;,
+			target=_top];
+		&quot;supriya.commands.DumpOscRequest.DumpOscRequest&quot;	[URL=&quot;../api/supriya/commands/DumpOscRequest.html#supriya.commands.DumpOscRequest.DumpOscRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Dump\nOsc\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.ErrorRequest.ErrorRequest&quot;	[URL=&quot;../api/supriya/commands/ErrorRequest.html#supriya.commands.ErrorRequest.ErrorRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Error\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.FailResponse.FailResponse&quot;	[URL=&quot;../api/supriya/commands/FailResponse.html#supriya.commands.FailResponse.FailResponse&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Fail\nResponse&quot;,
+			target=_top];
+		&quot;supriya.commands.GroupDeepFreeRequest.GroupDeepFreeRequest&quot;	[URL=&quot;../api/supriya/commands/GroupDeepFreeRequest.html#supriya.commands.GroupDeepFreeRequest.GroupDeepFreeRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Group\nDeep\nFree\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.GroupDumpTreeRequest.GroupDumpTreeRequest&quot;	[URL=&quot;../api/supriya/commands/GroupDumpTreeRequest.html#supriya.commands.GroupDumpTreeRequest.GroupDumpTreeRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Group\nDump\nTree\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.GroupFreeAllRequest.GroupFreeAllRequest&quot;	[URL=&quot;../api/supriya/commands/GroupFreeAllRequest.html#supriya.commands.GroupFreeAllRequest.GroupFreeAllRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Group\nFree\nAll\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.GroupHeadRequest.GroupHeadRequest&quot;	[URL=&quot;../api/supriya/commands/GroupHeadRequest.html#supriya.commands.GroupHeadRequest.GroupHeadRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Group\nHead\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.GroupNewRequest.GroupNewRequest&quot;	[URL=&quot;../api/supriya/commands/GroupNewRequest.html#supriya.commands.GroupNewRequest.GroupNewRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Group\nNew\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.ParallelGroupNewRequest.ParallelGroupNewRequest&quot;	[URL=&quot;../api/supriya/commands/ParallelGroupNewRequest.html#supriya.commands.ParallelGroupNewRequest.ParallelGroupNewRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Parallel\nGroup\nNew\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.GroupNewRequest.GroupNewRequest&quot; -&gt; &quot;supriya.commands.ParallelGroupNewRequest.ParallelGroupNewRequest&quot;	[minlen=1];
+		&quot;supriya.commands.GroupQueryTreeRequest.GroupQueryTreeRequest&quot;	[URL=&quot;../api/supriya/commands/GroupQueryTreeRequest.html#supriya.commands.GroupQueryTreeRequest.GroupQueryTreeRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Group\nQuery\nTree\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.GroupTailRequest.GroupTailRequest&quot;	[URL=&quot;../api/supriya/commands/GroupTailRequest.html#supriya.commands.GroupTailRequest.GroupTailRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Group\nTail\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.MoveRequest.MoveRequest&quot;	[URL=&quot;../api/supriya/commands/MoveRequest.html#supriya.commands.MoveRequest.MoveRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Move\nRequest&quot;,
+			shape=oval,
+			style=&quot;bold, filled&quot;,
+			target=_top];
+		&quot;supriya.commands.MoveRequest.MoveRequest&quot; -&gt; &quot;supriya.commands.GroupHeadRequest.GroupHeadRequest&quot;	[minlen=1];
+		&quot;supriya.commands.MoveRequest.MoveRequest&quot; -&gt; &quot;supriya.commands.GroupTailRequest.GroupTailRequest&quot;	[minlen=2];
+		&quot;supriya.commands.NodeAfterRequest.NodeAfterRequest&quot;	[URL=&quot;../api/supriya/commands/NodeAfterRequest.html#supriya.commands.NodeAfterRequest.NodeAfterRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Node\nAfter\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.MoveRequest.MoveRequest&quot; -&gt; &quot;supriya.commands.NodeAfterRequest.NodeAfterRequest&quot;	[minlen=3];
+		&quot;supriya.commands.NodeBeforeRequest.NodeBeforeRequest&quot;	[URL=&quot;../api/supriya/commands/NodeBeforeRequest.html#supriya.commands.NodeBeforeRequest.NodeBeforeRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Node\nBefore\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.MoveRequest.MoveRequest&quot; -&gt; &quot;supriya.commands.NodeBeforeRequest.NodeBeforeRequest&quot;	[minlen=1];
+		&quot;supriya.commands.NodeCommandRequest.NodeCommandRequest&quot;	[URL=&quot;../api/supriya/commands/NodeCommandRequest.html#supriya.commands.NodeCommandRequest.NodeCommandRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Node\nCommand\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.NodeFillRequest.NodeFillRequest&quot;	[URL=&quot;../api/supriya/commands/NodeFillRequest.html#supriya.commands.NodeFillRequest.NodeFillRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Node\nFill\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.NodeFreeRequest.NodeFreeRequest&quot;	[URL=&quot;../api/supriya/commands/NodeFreeRequest.html#supriya.commands.NodeFreeRequest.NodeFreeRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Node\nFree\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.NodeInfoResponse.NodeInfoResponse&quot;	[URL=&quot;../api/supriya/commands/NodeInfoResponse.html#supriya.commands.NodeInfoResponse.NodeInfoResponse&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Node\nInfo\nResponse&quot;,
+			target=_top];
+		&quot;supriya.commands.NodeMapToAudioBusContiguousRequest.NodeMapToAudioBusContiguousRequest&quot;	[URL=&quot;../api/supriya/commands/NodeMapToAudioBusContiguousRequest.html#supriya.commands.NodeMapToAudioBusContiguousRequest.NodeMapToAudioBusContiguousRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Node\nMap\nTo\nAudio\nBus\nContiguous\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.NodeMapToAudioBusRequest.NodeMapToAudioBusRequest&quot;	[URL=&quot;../api/supriya/commands/NodeMapToAudioBusRequest.html#supriya.commands.NodeMapToAudioBusRequest.NodeMapToAudioBusRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Node\nMap\nTo\nAudio\nBus\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.NodeMapToControlBusContiguousRequest.NodeMapToControlBusContiguousRequest&quot;	[URL=&quot;../api/supriya/commands/NodeMapToControlBusContiguousRequest.html#supriya.commands.NodeMapToControlBusContiguousRequest.NodeMapToControlBusContiguousRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Node\nMap\nTo\nControl\nBus\nContiguous\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.NodeMapToControlBusRequest.NodeMapToControlBusRequest&quot;	[URL=&quot;../api/supriya/commands/NodeMapToControlBusRequest.html#supriya.commands.NodeMapToControlBusRequest.NodeMapToControlBusRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Node\nMap\nTo\nControl\nBus\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.NodeOrderRequest.NodeOrderRequest&quot;	[URL=&quot;../api/supriya/commands/NodeOrderRequest.html#supriya.commands.NodeOrderRequest.NodeOrderRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Node\nOrder\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.NodeQueryRequest.NodeQueryRequest&quot;	[URL=&quot;../api/supriya/commands/NodeQueryRequest.html#supriya.commands.NodeQueryRequest.NodeQueryRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Node\nQuery\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.NodeRunRequest.NodeRunRequest&quot;	[URL=&quot;../api/supriya/commands/NodeRunRequest.html#supriya.commands.NodeRunRequest.NodeRunRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Node\nRun\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.NodeSetContiguousRequest.NodeSetContiguousRequest&quot;	[URL=&quot;../api/supriya/commands/NodeSetContiguousRequest.html#supriya.commands.NodeSetContiguousRequest.NodeSetContiguousRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Node\nSet\nContiguous\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.NodeSetContiguousResponse.NodeSetContiguousResponse&quot;	[URL=&quot;../api/supriya/commands/NodeSetContiguousResponse.html#supriya.commands.NodeSetContiguousResponse.NodeSetContiguousResponse&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Node\nSet\nContiguous\nResponse&quot;,
+			target=_top];
+		&quot;supriya.commands.NodeSetRequest.NodeSetRequest&quot;	[URL=&quot;../api/supriya/commands/NodeSetRequest.html#supriya.commands.NodeSetRequest.NodeSetRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Node\nSet\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.NodeSetResponse.NodeSetResponse&quot;	[URL=&quot;../api/supriya/commands/NodeSetResponse.html#supriya.commands.NodeSetResponse.NodeSetResponse&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Node\nSet\nResponse&quot;,
+			target=_top];
+		&quot;supriya.commands.NodeTraceRequest.NodeTraceRequest&quot;	[URL=&quot;../api/supriya/commands/NodeTraceRequest.html#supriya.commands.NodeTraceRequest.NodeTraceRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Node\nTrace\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.NothingRequest.NothingRequest&quot;	[URL=&quot;../api/supriya/commands/NothingRequest.html#supriya.commands.NothingRequest.NothingRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Nothing\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.NotifyRequest.NotifyRequest&quot;	[URL=&quot;../api/supriya/commands/NotifyRequest.html#supriya.commands.NotifyRequest.NotifyRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Notify\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.QueryTreeResponse.QueryTreeResponse&quot;	[URL=&quot;../api/supriya/commands/QueryTreeResponse.html#supriya.commands.QueryTreeResponse.QueryTreeResponse&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Query\nTree\nResponse&quot;,
+			target=_top];
+		&quot;supriya.commands.QuitRequest.QuitRequest&quot;	[URL=&quot;../api/supriya/commands/QuitRequest.html#supriya.commands.QuitRequest.QuitRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Quit\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.Request.Request&quot;	[URL=&quot;../api/supriya/commands/Request.html#supriya.commands.Request.Request&quot;,
+			color=black,
+			fontcolor=white,
+			label=Request,
+			shape=oval,
+			style=&quot;bold, filled&quot;,
+			target=_top];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferAllocateRequest.BufferAllocateRequest&quot;	[minlen=1];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferCloseRequest.BufferCloseRequest&quot;	[minlen=2];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferCopyRequest.BufferCopyRequest&quot;	[minlen=3];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferFillRequest.BufferFillRequest&quot;	[minlen=1];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferFreeRequest.BufferFreeRequest&quot;	[minlen=2];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferGenerateRequest.BufferGenerateRequest&quot;	[minlen=3];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferGetContiguousRequest.BufferGetContiguousRequest&quot;	[minlen=1];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferGetRequest.BufferGetRequest&quot;	[minlen=2];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferNormalizeRequest.BufferNormalizeRequest&quot;	[minlen=3];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferQueryRequest.BufferQueryRequest&quot;	[minlen=1];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferReadRequest.BufferReadRequest&quot;	[minlen=2];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferSetContiguousRequest.BufferSetContiguousRequest&quot;	[minlen=3];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferSetRequest.BufferSetRequest&quot;	[minlen=1];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferWriteRequest.BufferWriteRequest&quot;	[minlen=2];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.BufferZeroRequest.BufferZeroRequest&quot;	[minlen=3];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.ClearScheduleRequest.ClearScheduleRequest&quot;	[minlen=1];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.CommandRequest.CommandRequest&quot;	[minlen=2];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.ControlBusFillRequest.ControlBusFillRequest&quot;	[minlen=3];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.ControlBusGetContiguousRequest.ControlBusGetContiguousRequest&quot;	[minlen=1];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.ControlBusGetRequest.ControlBusGetRequest&quot;	[minlen=2];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.ControlBusSetContiguousRequest.ControlBusSetContiguousRequest&quot;	[minlen=3];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.ControlBusSetRequest.ControlBusSetRequest&quot;	[minlen=1];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.DumpOscRequest.DumpOscRequest&quot;	[minlen=2];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.ErrorRequest.ErrorRequest&quot;	[minlen=3];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.GroupDeepFreeRequest.GroupDeepFreeRequest&quot;	[minlen=1];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.GroupDumpTreeRequest.GroupDumpTreeRequest&quot;	[minlen=2];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.GroupFreeAllRequest.GroupFreeAllRequest&quot;	[minlen=3];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.GroupNewRequest.GroupNewRequest&quot;	[minlen=1];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.GroupQueryTreeRequest.GroupQueryTreeRequest&quot;	[minlen=2];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.MoveRequest.MoveRequest&quot;;
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NodeCommandRequest.NodeCommandRequest&quot;	[minlen=3];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NodeFillRequest.NodeFillRequest&quot;	[minlen=1];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NodeFreeRequest.NodeFreeRequest&quot;	[minlen=2];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NodeMapToAudioBusContiguousRequest.NodeMapToAudioBusContiguousRequest&quot;	[minlen=3];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NodeMapToAudioBusRequest.NodeMapToAudioBusRequest&quot;	[minlen=1];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NodeMapToControlBusContiguousRequest.NodeMapToControlBusContiguousRequest&quot;	[minlen=2];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NodeMapToControlBusRequest.NodeMapToControlBusRequest&quot;	[minlen=3];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NodeOrderRequest.NodeOrderRequest&quot;	[minlen=1];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NodeQueryRequest.NodeQueryRequest&quot;	[minlen=2];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NodeRunRequest.NodeRunRequest&quot;	[minlen=3];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NodeSetContiguousRequest.NodeSetContiguousRequest&quot;	[minlen=1];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NodeSetRequest.NodeSetRequest&quot;	[minlen=2];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NodeTraceRequest.NodeTraceRequest&quot;	[minlen=3];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NothingRequest.NothingRequest&quot;	[minlen=1];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.NotifyRequest.NotifyRequest&quot;	[minlen=2];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.QuitRequest.QuitRequest&quot;	[minlen=3];
+		&quot;supriya.commands.StatusRequest.StatusRequest&quot;	[URL=&quot;../api/supriya/commands/StatusRequest.html#supriya.commands.StatusRequest.StatusRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Status\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.StatusRequest.StatusRequest&quot;	[minlen=1];
+		&quot;supriya.commands.SyncRequest.SyncRequest&quot;	[URL=&quot;../api/supriya/commands/SyncRequest.html#supriya.commands.SyncRequest.SyncRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Sync\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.SyncRequest.SyncRequest&quot;	[minlen=2];
+		&quot;supriya.commands.SynthDefFreeAllRequest.SynthDefFreeAllRequest&quot;	[URL=&quot;../api/supriya/commands/SynthDefFreeAllRequest.html#supriya.commands.SynthDefFreeAllRequest.SynthDefFreeAllRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Synth\nDef\nFree\nAll\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.SynthDefFreeAllRequest.SynthDefFreeAllRequest&quot;	[minlen=3];
+		&quot;supriya.commands.SynthDefFreeRequest.SynthDefFreeRequest&quot;	[URL=&quot;../api/supriya/commands/SynthDefFreeRequest.html#supriya.commands.SynthDefFreeRequest.SynthDefFreeRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Synth\nDef\nFree\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.SynthDefFreeRequest.SynthDefFreeRequest&quot;	[minlen=1];
+		&quot;supriya.commands.SynthDefLoadDirectoryRequest.SynthDefLoadDirectoryRequest&quot;	[URL=&quot;../api/supriya/commands/SynthDefLoadDirectoryRequest.html#supriya.commands.SynthDefLoadDirectoryRequest.SynthDefLoadDirectoryRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Synth\nDef\nLoad\nDirectory\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.SynthDefLoadDirectoryRequest.SynthDefLoadDirectoryRequest&quot;	[minlen=2];
+		&quot;supriya.commands.SynthDefLoadRequest.SynthDefLoadRequest&quot;	[URL=&quot;../api/supriya/commands/SynthDefLoadRequest.html#supriya.commands.SynthDefLoadRequest.SynthDefLoadRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Synth\nDef\nLoad\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.SynthDefLoadRequest.SynthDefLoadRequest&quot;	[minlen=3];
+		&quot;supriya.commands.SynthDefReceiveRequest.SynthDefReceiveRequest&quot;	[URL=&quot;../api/supriya/commands/SynthDefReceiveRequest.html#supriya.commands.SynthDefReceiveRequest.SynthDefReceiveRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Synth\nDef\nReceive\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.SynthDefReceiveRequest.SynthDefReceiveRequest&quot;	[minlen=1];
+		&quot;supriya.commands.SynthGetContiguousRequest.SynthGetContiguousRequest&quot;	[URL=&quot;../api/supriya/commands/SynthGetContiguousRequest.html#supriya.commands.SynthGetContiguousRequest.SynthGetContiguousRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Synth\nGet\nContiguous\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.SynthGetContiguousRequest.SynthGetContiguousRequest&quot;	[minlen=2];
+		&quot;supriya.commands.SynthGetRequest.SynthGetRequest&quot;	[URL=&quot;../api/supriya/commands/SynthGetRequest.html#supriya.commands.SynthGetRequest.SynthGetRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Synth\nGet\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.SynthGetRequest.SynthGetRequest&quot;	[minlen=3];
+		&quot;supriya.commands.SynthNewRequest.SynthNewRequest&quot;	[URL=&quot;../api/supriya/commands/SynthNewRequest.html#supriya.commands.SynthNewRequest.SynthNewRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Synth\nNew\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.SynthNewRequest.SynthNewRequest&quot;	[minlen=1];
+		&quot;supriya.commands.SynthNewargsRequest.SynthNewargsRequest&quot;	[URL=&quot;../api/supriya/commands/SynthNewargsRequest.html#supriya.commands.SynthNewargsRequest.SynthNewargsRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Synth\nNewargs\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.SynthNewargsRequest.SynthNewargsRequest&quot;	[minlen=2];
+		&quot;supriya.commands.SynthNoidRequest.SynthNoidRequest&quot;	[URL=&quot;../api/supriya/commands/SynthNoidRequest.html#supriya.commands.SynthNoidRequest.SynthNoidRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Synth\nNoid\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.SynthNoidRequest.SynthNoidRequest&quot;	[minlen=3];
+		&quot;supriya.commands.UgenCommandRequest.UgenCommandRequest&quot;	[URL=&quot;../api/supriya/commands/UgenCommandRequest.html#supriya.commands.UgenCommandRequest.UgenCommandRequest&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Ugen\nCommand\nRequest&quot;,
+			target=_top];
+		&quot;supriya.commands.Request.Request&quot; -&gt; &quot;supriya.commands.UgenCommandRequest.UgenCommandRequest&quot;	[minlen=1];
+		&quot;supriya.commands.RequestBundle.RequestBundle&quot;	[URL=&quot;../api/supriya/commands/RequestBundle.html#supriya.commands.RequestBundle.RequestBundle&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Request\nBundle&quot;,
+			target=_top];
+		&quot;supriya.commands.Requestable.Requestable&quot;	[URL=&quot;../api/supriya/commands/Requestable.html#supriya.commands.Requestable.Requestable&quot;,
+			color=black,
+			fontcolor=white,
+			label=Requestable,
+			target=_top];
+		&quot;supriya.commands.Requestable.Requestable&quot; -&gt; &quot;supriya.commands.Request.Request&quot;;
+		&quot;supriya.commands.Requestable.Requestable&quot; -&gt; &quot;supriya.commands.RequestBundle.RequestBundle&quot;	[minlen=1];
+		&quot;supriya.commands.Response.Response&quot;	[URL=&quot;../api/supriya/commands/Response.html#supriya.commands.Response.Response&quot;,
+			color=black,
+			fontcolor=white,
+			label=Response,
+			target=_top];
+		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.BufferInfoResponse.BufferInfoResponse&quot;	[minlen=1];
+		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.BufferSetContiguousResponse.BufferSetContiguousResponse&quot;;
+		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.BufferSetResponse.BufferSetResponse&quot;;
+		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.ControlBusSetContiguousResponse.ControlBusSetContiguousResponse&quot;;
+		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.ControlBusSetResponse.ControlBusSetResponse&quot;;
+		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.DoneResponse.DoneResponse&quot;	[minlen=2];
+		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.FailResponse.FailResponse&quot;	[minlen=3];
+		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.NodeInfoResponse.NodeInfoResponse&quot;	[minlen=1];
+		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.NodeSetContiguousResponse.NodeSetContiguousResponse&quot;	[minlen=2];
+		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.NodeSetResponse.NodeSetResponse&quot;	[minlen=3];
+		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.QueryTreeResponse.QueryTreeResponse&quot;	[minlen=1];
+		&quot;supriya.commands.StatusResponse.StatusResponse&quot;	[URL=&quot;../api/supriya/commands/StatusResponse.html#supriya.commands.StatusResponse.StatusResponse&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Status\nResponse&quot;,
+			target=_top];
+		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.StatusResponse.StatusResponse&quot;	[minlen=2];
+		&quot;supriya.commands.SyncedResponse.SyncedResponse&quot;	[URL=&quot;../api/supriya/commands/SyncedResponse.html#supriya.commands.SyncedResponse.SyncedResponse&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Synced\nResponse&quot;,
+			target=_top];
+		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.SyncedResponse.SyncedResponse&quot;	[minlen=3];
+		&quot;supriya.commands.SynthDefRemovedResponse.SynthDefRemovedResponse&quot;	[URL=&quot;../api/supriya/commands/SynthDefRemovedResponse.html#supriya.commands.SynthDefRemovedResponse.SynthDefRemovedResponse&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Synth\nDef\nRemoved\nResponse&quot;,
+			target=_top];
+		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.SynthDefRemovedResponse.SynthDefRemovedResponse&quot;	[minlen=1];
+		&quot;supriya.commands.TriggerResponse.TriggerResponse&quot;	[URL=&quot;../api/supriya/commands/TriggerResponse.html#supriya.commands.TriggerResponse.TriggerResponse&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Trigger\nResponse&quot;,
+			target=_top];
+		&quot;supriya.commands.Response.Response&quot; -&gt; &quot;supriya.commands.TriggerResponse.TriggerResponse&quot;	[minlen=2];
+	}
+	subgraph &quot;cluster_supriya.system&quot; {
+		graph [label=&quot;supriya.system&quot;];
+		node [color=4];
+		&quot;supriya.system.SupriyaObject&quot;	[URL=&quot;../api/supriya/commands/../system.html#supriya.system.SupriyaObject&quot;,
+			label=&quot;Supriya\nObject&quot;,
+			target=_top];
+		&quot;supriya.system.SupriyaValueObject&quot;	[URL=&quot;../api/supriya/commands/../system.html#supriya.system.SupriyaValueObject&quot;,
+			label=&quot;Supriya\nValue\nObject&quot;,
+			target=_top];
+		&quot;supriya.system.SupriyaObject&quot; -&gt; &quot;supriya.system.SupriyaValueObject&quot;;
+	}
+	&quot;builtins.object&quot; -&gt; &quot;collections.abc.Container&quot;	[minlen=1];
 	&quot;builtins.object&quot; -&gt; &quot;collections.abc.Iterable&quot;;
-	&quot;builtins.object&quot; -&gt; &quot;collections.abc.Sized&quot;	 [minlen=2];
-	&quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject.SupriyaObject&quot;	 [minlen=3];
+	&quot;builtins.object&quot; -&gt; &quot;collections.abc.Sized&quot;	[minlen=2];
+	&quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject&quot;	[minlen=3];
 	&quot;collections.abc.Sequence&quot; -&gt; &quot;supriya.commands.BufferSetContiguousResponse.BufferSetContiguousResponse&quot;;
 	&quot;collections.abc.Sequence&quot; -&gt; &quot;supriya.commands.BufferSetResponse.BufferSetResponse&quot;;
 	&quot;collections.abc.Sequence&quot; -&gt; &quot;supriya.commands.ControlBusSetContiguousResponse.ControlBusSetContiguousResponse&quot;;
 	&quot;collections.abc.Sequence&quot; -&gt; &quot;supriya.commands.ControlBusSetResponse.ControlBusSetResponse&quot;;
-	&quot;collections.abc.Sequence&quot; -&gt; &quot;supriya.commands.QueryTreeGroup.QueryTreeGroup&quot;;
-	&quot;collections.abc.Sequence&quot; -&gt; &quot;supriya.commands.QueryTreeSynth.QueryTreeSynth&quot;;
-	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.QueryTreeControl.QueryTreeControl&quot;	 [minlen=1];
-	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.QueryTreeGroup.QueryTreeGroup&quot;;
-	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.QueryTreeSynth.QueryTreeSynth&quot;;
-	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.Requestable.Requestable&quot;;
-	&quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.Response.Response&quot;;
+	&quot;supriya.system.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.Requestable.Requestable&quot;;
+	&quot;supriya.system.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.Response.Response&quot;;
 }</p></object></div>
 </div>
 <hr/><p class="section-header rubric">Abstract Classes</p>
@@ -1161,79 +1128,70 @@
 <tr class="row-even"><td><p><a class="reference internal" href="ParallelGroupNewRequest.html#supriya.commands.ParallelGroupNewRequest.ParallelGroupNewRequest" title="supriya.commands.ParallelGroupNewRequest.ParallelGroupNewRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ParallelGroupNewRequest</span></code></a></p></td>
 <td><p>A /p_new request.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="QueryTreeControl.html#supriya.commands.QueryTreeControl.QueryTreeControl" title="supriya.commands.QueryTreeControl.QueryTreeControl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QueryTreeControl</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="QueryTreeGroup.html#supriya.commands.QueryTreeGroup.QueryTreeGroup" title="supriya.commands.QueryTreeGroup.QueryTreeGroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QueryTreeGroup</span></code></a></p></td>
-<td><p></p></td>
-</tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="QueryTreeResponse.html#supriya.commands.QueryTreeResponse.QueryTreeResponse" title="supriya.commands.QueryTreeResponse.QueryTreeResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QueryTreeResponse</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="QueryTreeSynth.html#supriya.commands.QueryTreeSynth.QueryTreeSynth" title="supriya.commands.QueryTreeSynth.QueryTreeSynth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QueryTreeSynth</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="QuitRequest.html#supriya.commands.QuitRequest.QuitRequest" title="supriya.commands.QuitRequest.QuitRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QuitRequest</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="QuitRequest.html#supriya.commands.QuitRequest.QuitRequest" title="supriya.commands.QuitRequest.QuitRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QuitRequest</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="RequestBundle.html#supriya.commands.RequestBundle.RequestBundle" title="supriya.commands.RequestBundle.RequestBundle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RequestBundle</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="RequestBundle.html#supriya.commands.RequestBundle.RequestBundle" title="supriya.commands.RequestBundle.RequestBundle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RequestBundle</span></code></a></p></td>
 <td><p>A Request bundle.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="Requestable.html#supriya.commands.Requestable.Requestable" title="supriya.commands.Requestable.Requestable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Requestable</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="Requestable.html#supriya.commands.Requestable.Requestable" title="supriya.commands.Requestable.Requestable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Requestable</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="Response.html#supriya.commands.Response.Response" title="supriya.commands.Response.Response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Response</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="Response.html#supriya.commands.Response.Response" title="supriya.commands.Response.Response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Response</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="StatusRequest.html#supriya.commands.StatusRequest.StatusRequest" title="supriya.commands.StatusRequest.StatusRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StatusRequest</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="StatusRequest.html#supriya.commands.StatusRequest.StatusRequest" title="supriya.commands.StatusRequest.StatusRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StatusRequest</span></code></a></p></td>
 <td><p>A /status request.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="StatusResponse.html#supriya.commands.StatusResponse.StatusResponse" title="supriya.commands.StatusResponse.StatusResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StatusResponse</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="StatusResponse.html#supriya.commands.StatusResponse.StatusResponse" title="supriya.commands.StatusResponse.StatusResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StatusResponse</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="SyncRequest.html#supriya.commands.SyncRequest.SyncRequest" title="supriya.commands.SyncRequest.SyncRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SyncRequest</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="SyncRequest.html#supriya.commands.SyncRequest.SyncRequest" title="supriya.commands.SyncRequest.SyncRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SyncRequest</span></code></a></p></td>
 <td><p>A /sync request.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="SyncedResponse.html#supriya.commands.SyncedResponse.SyncedResponse" title="supriya.commands.SyncedResponse.SyncedResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SyncedResponse</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="SyncedResponse.html#supriya.commands.SyncedResponse.SyncedResponse" title="supriya.commands.SyncedResponse.SyncedResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SyncedResponse</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="SynthDefFreeAllRequest.html#supriya.commands.SynthDefFreeAllRequest.SynthDefFreeAllRequest" title="supriya.commands.SynthDefFreeAllRequest.SynthDefFreeAllRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefFreeAllRequest</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="SynthDefFreeAllRequest.html#supriya.commands.SynthDefFreeAllRequest.SynthDefFreeAllRequest" title="supriya.commands.SynthDefFreeAllRequest.SynthDefFreeAllRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefFreeAllRequest</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="SynthDefFreeRequest.html#supriya.commands.SynthDefFreeRequest.SynthDefFreeRequest" title="supriya.commands.SynthDefFreeRequest.SynthDefFreeRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefFreeRequest</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="SynthDefFreeRequest.html#supriya.commands.SynthDefFreeRequest.SynthDefFreeRequest" title="supriya.commands.SynthDefFreeRequest.SynthDefFreeRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefFreeRequest</span></code></a></p></td>
 <td><p>A /d_free request.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="SynthDefLoadDirectoryRequest.html#supriya.commands.SynthDefLoadDirectoryRequest.SynthDefLoadDirectoryRequest" title="supriya.commands.SynthDefLoadDirectoryRequest.SynthDefLoadDirectoryRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefLoadDirectoryRequest</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="SynthDefLoadDirectoryRequest.html#supriya.commands.SynthDefLoadDirectoryRequest.SynthDefLoadDirectoryRequest" title="supriya.commands.SynthDefLoadDirectoryRequest.SynthDefLoadDirectoryRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefLoadDirectoryRequest</span></code></a></p></td>
 <td><p>A /d_loadDir request.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="SynthDefLoadRequest.html#supriya.commands.SynthDefLoadRequest.SynthDefLoadRequest" title="supriya.commands.SynthDefLoadRequest.SynthDefLoadRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefLoadRequest</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="SynthDefLoadRequest.html#supriya.commands.SynthDefLoadRequest.SynthDefLoadRequest" title="supriya.commands.SynthDefLoadRequest.SynthDefLoadRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefLoadRequest</span></code></a></p></td>
 <td><p>A /d_load request.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="SynthDefReceiveRequest.html#supriya.commands.SynthDefReceiveRequest.SynthDefReceiveRequest" title="supriya.commands.SynthDefReceiveRequest.SynthDefReceiveRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefReceiveRequest</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="SynthDefReceiveRequest.html#supriya.commands.SynthDefReceiveRequest.SynthDefReceiveRequest" title="supriya.commands.SynthDefReceiveRequest.SynthDefReceiveRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefReceiveRequest</span></code></a></p></td>
 <td><p>A /d_recv request.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="SynthDefRemovedResponse.html#supriya.commands.SynthDefRemovedResponse.SynthDefRemovedResponse" title="supriya.commands.SynthDefRemovedResponse.SynthDefRemovedResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefRemovedResponse</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="SynthDefRemovedResponse.html#supriya.commands.SynthDefRemovedResponse.SynthDefRemovedResponse" title="supriya.commands.SynthDefRemovedResponse.SynthDefRemovedResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthDefRemovedResponse</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="SynthGetContiguousRequest.html#supriya.commands.SynthGetContiguousRequest.SynthGetContiguousRequest" title="supriya.commands.SynthGetContiguousRequest.SynthGetContiguousRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthGetContiguousRequest</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="SynthGetContiguousRequest.html#supriya.commands.SynthGetContiguousRequest.SynthGetContiguousRequest" title="supriya.commands.SynthGetContiguousRequest.SynthGetContiguousRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthGetContiguousRequest</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="SynthGetRequest.html#supriya.commands.SynthGetRequest.SynthGetRequest" title="supriya.commands.SynthGetRequest.SynthGetRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthGetRequest</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="SynthGetRequest.html#supriya.commands.SynthGetRequest.SynthGetRequest" title="supriya.commands.SynthGetRequest.SynthGetRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthGetRequest</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="SynthNewRequest.html#supriya.commands.SynthNewRequest.SynthNewRequest" title="supriya.commands.SynthNewRequest.SynthNewRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthNewRequest</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="SynthNewRequest.html#supriya.commands.SynthNewRequest.SynthNewRequest" title="supriya.commands.SynthNewRequest.SynthNewRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthNewRequest</span></code></a></p></td>
 <td><p>A /s_new request.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="SynthNewargsRequest.html#supriya.commands.SynthNewargsRequest.SynthNewargsRequest" title="supriya.commands.SynthNewargsRequest.SynthNewargsRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthNewargsRequest</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="SynthNewargsRequest.html#supriya.commands.SynthNewargsRequest.SynthNewargsRequest" title="supriya.commands.SynthNewargsRequest.SynthNewargsRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthNewargsRequest</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="SynthNoidRequest.html#supriya.commands.SynthNoidRequest.SynthNoidRequest" title="supriya.commands.SynthNoidRequest.SynthNoidRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthNoidRequest</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="SynthNoidRequest.html#supriya.commands.SynthNoidRequest.SynthNoidRequest" title="supriya.commands.SynthNoidRequest.SynthNoidRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SynthNoidRequest</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="TriggerResponse.html#supriya.commands.TriggerResponse.TriggerResponse" title="supriya.commands.TriggerResponse.TriggerResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TriggerResponse</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="TriggerResponse.html#supriya.commands.TriggerResponse.TriggerResponse" title="supriya.commands.TriggerResponse.TriggerResponse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TriggerResponse</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="UgenCommandRequest.html#supriya.commands.UgenCommandRequest.UgenCommandRequest" title="supriya.commands.UgenCommandRequest.UgenCommandRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UgenCommandRequest</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="UgenCommandRequest.html#supriya.commands.UgenCommandRequest.UgenCommandRequest" title="supriya.commands.UgenCommandRequest.UgenCommandRequest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UgenCommandRequest</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -1251,7 +1209,7 @@
         <a href="MoveRequest.html" class="btn btn-neutral float-right" title="MoveRequest" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../clock.html" class="btn btn-neutral float-left" title="clock" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../clock/threaded.html" class="btn btn-neutral float-left" title="threaded" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

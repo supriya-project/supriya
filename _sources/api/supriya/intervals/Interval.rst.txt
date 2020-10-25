@@ -1,0 +1,119 @@
+.. _supriya--intervals--Interval:
+
+Interval
+========
+
+.. automodule:: supriya.intervals.Interval
+
+.. currentmodule:: supriya.intervals.Interval
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.intervals.Interval
+
+.. autoclass:: Interval
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __and__
+      __contains__
+      __ge__
+      __gt__
+      __le__
+      __lt__
+      __or__
+      __repr__
+      __sub__
+      __xor__
+      duration
+      intersects
+      is_tangent_to
+      new
+      size
+      split
+      start_offset
+      stop_offset
+      translate
+      wellformed
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: Interval.__and__
+
+   .. automethod:: Interval.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: Interval.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: Interval.__eq__
+
+   .. automethod:: Interval.__ge__
+
+   .. automethod:: Interval.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Interval.__hash__
+
+   .. automethod:: Interval.__le__
+
+   .. automethod:: Interval.__lt__
+
+   .. automethod:: Interval.__or__
+
+   .. automethod:: Interval.__repr__
+
+   .. automethod:: Interval.__sub__
+
+   .. automethod:: Interval.__xor__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: Interval.intersects
+
+   .. automethod:: Interval.is_tangent_to
+
+   .. automethod:: Interval.new
+
+   .. automethod:: Interval.split
+
+   .. automethod:: Interval.translate
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Interval.duration
+
+   .. autoattribute:: Interval.size
+
+   .. autoattribute:: Interval.start_offset
+
+   .. autoattribute:: Interval.stop_offset
+
+   .. autoattribute:: Interval.wellformed

@@ -65,6 +65,10 @@ BufferReadChannelRequest
 
    .. container:: inherited
 
+      .. automethod:: BufferReadChannelRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: BufferReadChannelRequest.to_datagram
 
    .. container:: inherited

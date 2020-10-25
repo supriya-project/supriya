@@ -71,6 +71,10 @@ BufferWriteRequest
 
    .. container:: inherited
 
+      .. automethod:: BufferWriteRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: BufferWriteRequest.to_datagram
 
    .. container:: inherited

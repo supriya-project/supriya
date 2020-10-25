@@ -64,6 +64,10 @@ NodeRunRequest
 
    .. container:: inherited
 
+      .. automethod:: NodeRunRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: NodeRunRequest.to_datagram
 
    .. container:: inherited

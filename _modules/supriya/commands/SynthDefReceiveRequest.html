@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>supriya.commands.SynthDefReceiveRequest &mdash; Supriya 0.3.0 documentation</title>
+  <title>supriya.commands.SynthDefReceiveRequest &mdash; Supriya 0.4.0 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.3.0
+                0.4.0
               </div>
             
           
@@ -91,14 +91,11 @@
 </ul>
 <p class="caption"><span class="caption-text">Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
@@ -164,8 +161,6 @@
         
           <li><a href="../../index.html">Module code</a> &raquo;</li>
         
-          <li><a href="../../supriya.html">supriya</a> &raquo;</li>
-        
       <li>supriya.commands.SynthDefReceiveRequest</li>
     
     
@@ -182,9 +177,9 @@
            <div itemprop="articleBody">
             
   <h1>Source code for supriya.commands.SynthDefReceiveRequest</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">supriya.commands.Request</span> <span class="k">import</span> <span class="n">Request</span>
-<span class="kn">from</span> <span class="nn">supriya.commands.RequestBundle</span> <span class="k">import</span> <span class="n">RequestBundle</span>
-<span class="kn">from</span> <span class="nn">supriya.enums</span> <span class="k">import</span> <span class="n">RequestId</span>
+<span></span><span class="kn">from</span> <span class="nn">supriya.commands.Request</span> <span class="kn">import</span> <span class="n">Request</span>
+<span class="kn">from</span> <span class="nn">supriya.commands.RequestBundle</span> <span class="kn">import</span> <span class="n">RequestBundle</span>
+<span class="kn">from</span> <span class="nn">supriya.enums</span> <span class="kn">import</span> <span class="n">RequestId</span>
 
 
 <div class="viewcode-block" id="SynthDefReceiveRequest"><a class="viewcode-back" href="../../../api/supriya/commands/SynthDefReceiveRequest.html#supriya.commands.SynthDefReceiveRequest.SynthDefReceiveRequest">[docs]</a><span class="k">class</span> <span class="nc">SynthDefReceiveRequest</span><span class="p">(</span><span class="n">Request</span><span class="p">):</span>
@@ -246,7 +241,7 @@
 
 <span class="sd">    ::</span>
 
-<span class="sd">        &gt;&gt;&gt; with server.osc_io.capture() as transcript:</span>
+<span class="sd">        &gt;&gt;&gt; with server.osc_protocol.capture() as transcript:</span>
 <span class="sd">        ...     response = request.communicate(server=server)</span>
 <span class="sd">        ...     _ = server.sync()</span>
 <span class="sd">        ...</span>
@@ -260,16 +255,16 @@
 <span class="sd">        &gt;&gt;&gt; for entry in transcript:</span>
 <span class="sd">        ...     (entry.label, entry.message)</span>
 <span class="sd">        ...</span>
-<span class="sd">        (&#39;S&#39;, OscMessage(5, bytearray(b&#39;SCgf...example...&#39;), OscBundle(</span>
+<span class="sd">        (&#39;S&#39;, OscMessage(&#39;/d_recv&#39;, bytearray(b&#39;SCgf...example...&#39;), OscBundle(</span>
 <span class="sd">            contents=(</span>
-<span class="sd">                OscMessage(21, 1000, 0, 1),</span>
-<span class="sd">                OscMessage(9, &#39;example&#39;, 1001, 0, 1000),</span>
+<span class="sd">                OscMessage(&#39;/g_new&#39;, 1000, 0, 1),</span>
+<span class="sd">                OscMessage(&#39;/s_new&#39;, &#39;example&#39;, 1001, 0, 1000),</span>
 <span class="sd">                ),</span>
 <span class="sd">            )))</span>
 <span class="sd">        (&#39;R&#39;, OscMessage(&#39;/n_go&#39;, 1000, 1, -1, -1, 1, -1, -1))</span>
 <span class="sd">        (&#39;R&#39;, OscMessage(&#39;/n_go&#39;, 1001, 1000, -1, -1, 0))</span>
 <span class="sd">        (&#39;R&#39;, OscMessage(&#39;/done&#39;, &#39;/d_recv&#39;))</span>
-<span class="sd">        (&#39;S&#39;, OscMessage(52, 0))</span>
+<span class="sd">        (&#39;S&#39;, OscMessage(&#39;/sync&#39;, 0))</span>
 <span class="sd">        (&#39;R&#39;, OscMessage(&#39;/synced&#39;, 0))</span>
 
 <span class="sd">    ::</span>
@@ -299,13 +294,11 @@
 
     <span class="c1">### CLASS VARIABLES ###</span>
 
-    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_callback&quot;</span><span class="p">,</span> <span class="s2">&quot;_synthdefs&quot;</span><span class="p">,</span> <span class="s2">&quot;_use_anonymous_names&quot;</span><span class="p">)</span>
-
     <span class="n">request_id</span> <span class="o">=</span> <span class="n">RequestId</span><span class="o">.</span><span class="n">SYNTHDEF_RECEIVE</span>
 
     <span class="c1">### INITIALIZER ###</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">synthdefs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_anonymous_names</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">synthdefs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_anonymous_names</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
 
         <span class="n">Request</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -331,25 +324,17 @@
 
     <span class="c1">### PUBLIC METHODS ###</span>
 
-<div class="viewcode-block" id="SynthDefReceiveRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/SynthDefReceiveRequest.html#supriya.commands.SynthDefReceiveRequest.SynthDefReceiveRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">with_request_name</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="SynthDefReceiveRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/SynthDefReceiveRequest.html#supriya.commands.SynthDefReceiveRequest.SynthDefReceiveRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
 
-        <span class="k">if</span> <span class="n">with_request_name</span><span class="p">:</span>
-            <span class="n">request_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_name</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">request_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request_id</span><span class="p">)</span>
+        <span class="n">request_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_name</span>
         <span class="n">compiled_synthdefs</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDefCompiler</span><span class="o">.</span><span class="n">compile_synthdefs</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">synthdefs</span><span class="p">,</span> <span class="n">use_anonymous_names</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">use_anonymous_names</span>
         <span class="p">)</span>
         <span class="n">compiled_synthdefs</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="n">compiled_synthdefs</span><span class="p">)</span>
         <span class="n">contents</span> <span class="o">=</span> <span class="p">[</span><span class="n">request_id</span><span class="p">,</span> <span class="n">compiled_synthdefs</span><span class="p">]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="p">:</span>
-            <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="o">.</span><span class="n">to_osc</span><span class="p">(</span>
-                    <span class="n">with_placeholders</span><span class="o">=</span><span class="n">with_placeholders</span><span class="p">,</span>
-                    <span class="n">with_request_name</span><span class="o">=</span><span class="n">with_request_name</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="p">)</span>
+            <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="o">.</span><span class="n">to_osc</span><span class="p">(</span><span class="n">with_placeholders</span><span class="o">=</span><span class="n">with_placeholders</span><span class="p">))</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="o">*</span><span class="n">contents</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">message</span></div>
 

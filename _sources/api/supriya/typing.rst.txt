@@ -1,0 +1,30 @@
+.. _supriya--typing:
+
+typing
+======
+
+.. automodule:: supriya.typing
+
+.. currentmodule:: supriya.typing
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.typing
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~Default
+   ~Missing
+
+.. autoclass:: Default
+
+.. autoclass:: Missing

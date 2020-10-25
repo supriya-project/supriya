@@ -89,10 +89,6 @@ StatusResponse
 
    .. autoattribute:: StatusResponse.group_count
 
-   .. container:: inherited
-
-      .. autoattribute:: StatusResponse.osc_message
-
    .. autoattribute:: StatusResponse.peak_cpu_usage
 
    .. autoattribute:: StatusResponse.synth_count

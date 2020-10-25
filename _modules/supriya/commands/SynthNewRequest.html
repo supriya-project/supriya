@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>supriya.commands.SynthNewRequest &mdash; Supriya 0.3.0 documentation</title>
+  <title>supriya.commands.SynthNewRequest &mdash; Supriya 0.4.0 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.3.0
+                0.4.0
               </div>
             
           
@@ -91,14 +91,11 @@
 </ul>
 <p class="caption"><span class="caption-text">Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
@@ -164,8 +161,6 @@
         
           <li><a href="../../index.html">Module code</a> &raquo;</li>
         
-          <li><a href="../../supriya.html">supriya</a> &raquo;</li>
-        
       <li>supriya.commands.SynthNewRequest</li>
     
     
@@ -182,11 +177,10 @@
            <div itemprop="articleBody">
             
   <h1>Source code for supriya.commands.SynthNewRequest</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">supriya</span> <span class="k">import</span> <span class="n">AddAction</span>
-<span class="kn">from</span> <span class="nn">supriya.commands.Request</span> <span class="k">import</span> <span class="n">Request</span>
-<span class="kn">from</span> <span class="nn">supriya.enums</span> <span class="k">import</span> <span class="n">RequestId</span>
-<span class="kn">from</span> <span class="nn">supriya.realtime.Node</span> <span class="k">import</span> <span class="n">Node</span>
-<span class="kn">from</span> <span class="nn">supriya.realtime.Synth</span> <span class="k">import</span> <span class="n">Synth</span>
+<span></span><span class="kn">from</span> <span class="nn">supriya</span> <span class="kn">import</span> <span class="n">AddAction</span>
+<span class="kn">from</span> <span class="nn">supriya.commands.Request</span> <span class="kn">import</span> <span class="n">Request</span>
+<span class="kn">from</span> <span class="nn">supriya.enums</span> <span class="kn">import</span> <span class="n">RequestId</span>
+<span class="kn">from</span> <span class="nn">supriya.realtime.nodes</span> <span class="kn">import</span> <span class="n">Node</span><span class="p">,</span> <span class="n">Synth</span>
 
 
 <div class="viewcode-block" id="SynthNewRequest"><a class="viewcode-back" href="../../../api/supriya/commands/SynthNewRequest.html#supriya.commands.SynthNewRequest.SynthNewRequest">[docs]</a><span class="k">class</span> <span class="nc">SynthNewRequest</span><span class="p">(</span><span class="n">Request</span><span class="p">):</span>
@@ -217,26 +211,18 @@
 
 <span class="sd">    ::</span>
 
-<span class="sd">        &gt;&gt;&gt; message = request.to_osc()</span>
-<span class="sd">        &gt;&gt;&gt; message</span>
-<span class="sd">        OscMessage(9, &#39;test&#39;, 1001, 1, 1000, &#39;frequency&#39;, 443, &#39;phase&#39;, 0.2)</span>
-
-<span class="sd">    ::</span>
-
-<span class="sd">        &gt;&gt;&gt; message.address == supriya.RequestId.SYNTH_NEW</span>
-<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; request.to_osc()</span>
+<span class="sd">        OscMessage(&#39;/s_new&#39;, &#39;test&#39;, 1001, 1, 1000, &#39;frequency&#39;, 443, &#39;phase&#39;, 0.2)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1">### CLASS VARIABLES ###</span>
 
-    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_add_action&quot;</span><span class="p">,</span> <span class="s2">&quot;_node_id&quot;</span><span class="p">,</span> <span class="s2">&quot;_synthdef&quot;</span><span class="p">,</span> <span class="s2">&quot;_target_node_id&quot;</span><span class="p">,</span> <span class="s2">&quot;_kwargs&quot;</span><span class="p">)</span>
-
     <span class="n">request_id</span> <span class="o">=</span> <span class="n">RequestId</span><span class="o">.</span><span class="n">SYNTH_NEW</span>
 
     <span class="c1">### INITIALIZER ###</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">add_action</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">node_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -278,13 +264,10 @@
 
     <span class="c1">### PUBLIC METHODS ###</span>
 
-<div class="viewcode-block" id="SynthNewRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/SynthNewRequest.html#supriya.commands.SynthNewRequest.SynthNewRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">with_request_name</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="SynthNewRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/SynthNewRequest.html#supriya.commands.SynthNewRequest.SynthNewRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
 
-        <span class="k">if</span> <span class="n">with_request_name</span><span class="p">:</span>
-            <span class="n">request_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_name</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">request_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request_id</span><span class="p">)</span>
+        <span class="n">request_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_name</span>
         <span class="n">synthdef</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">synthdef</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">synthdef</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDef</span><span class="p">):</span>
             <span class="n">synthdef</span> <span class="o">=</span> <span class="n">synthdef</span><span class="o">.</span><span class="n">actual_name</span>

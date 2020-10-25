@@ -77,8 +77,4 @@ SynthDefRemovedResponse
    .. rubric:: Read-only properties
       :class: class-header
 
-   .. container:: inherited
-
-      .. autoattribute:: SynthDefRemovedResponse.osc_message
-
    .. autoattribute:: SynthDefRemovedResponse.synthdef_name

@@ -37,6 +37,7 @@ exceptions
    ~RequestTimeout
    ~ServerCannotBoot
    ~ServerOffline
+   ~ServerOnline
    ~TooManyClients
    ~UnownedServerShutdown
 
@@ -69,6 +70,8 @@ exceptions
 .. autoexception:: ServerCannotBoot
 
 .. autoexception:: ServerOffline
+
+.. autoexception:: ServerOnline
 
 .. autoexception:: TooManyClients
 

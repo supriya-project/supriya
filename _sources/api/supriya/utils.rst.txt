@@ -25,6 +25,7 @@ utils
    ~flatten_iterable
    ~group_iterable_by_count
    ~iterate_nwise
+   ~locate
    ~repeat_sequence_to_length
    ~zip_sequences
 
@@ -33,6 +34,8 @@ utils
 .. autofunction:: group_iterable_by_count
 
 .. autofunction:: iterate_nwise
+
+.. autofunction:: locate
 
 .. autofunction:: repeat_sequence_to_length
 

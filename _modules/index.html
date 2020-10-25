@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Overview: module code &mdash; Supriya 0.3.0 documentation</title>
+  <title>Overview: module code &mdash; Supriya 0.4.0 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.3.0
+                0.4.0
               </div>
             
           
@@ -91,14 +91,11 @@
 </ul>
 <p class="caption"><span class="caption-text">Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../realtime/index.html">Real-time composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../synthdefs/index.html">Synth definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../nonrealtime.html">Non-realtime composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../time-agnostic.html">Time-agnostic usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../osc.html">OSC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../midi.html">MIDI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../performance.html">Live performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cli.html">CLI tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../synthdefs.html">SynthDefs</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
@@ -179,22 +176,23 @@
             
   <h1>All modules for which code is available</h1>
 <ul><li><a href="abc.html">abc</a></li>
-<li><a href="collections/abc.html">collections.abc</a></li>
-<li><a href="dataclasses.html">dataclasses</a></li>
+<li><a href="asyncio/protocols.html">asyncio.protocols</a></li>
+<li><a href="collections.html">collections</a></li>
+<ul><li><a href="collections/abc.html">collections.abc</a></li>
+</ul><li><a href="namedtuple_CallbackCommand.html">namedtuple_CallbackCommand</a></li>
+<li><a href="namedtuple_CallbackEvent.html">namedtuple_CallbackEvent</a></li>
+<li><a href="namedtuple_CaptureEntry.html">namedtuple_CaptureEntry</a></li>
+<li><a href="namedtuple_ChangeCommand.html">namedtuple_ChangeCommand</a></li>
+<li><a href="namedtuple_ChangeEvent.html">namedtuple_ChangeEvent</a></li>
+<li><a href="namedtuple_ClockState.html">namedtuple_ClockState</a></li>
+<li><a href="namedtuple_OscCallback.html">namedtuple_OscCallback</a></li>
 <li><a href="queue.html">queue</a></li>
-<li><a href="supriya.html">supriya</a></li>
-<ul><li><a href="supriya/cli/ManageAssetScript.html">supriya.cli.ManageAssetScript</a></li>
-<li><a href="supriya/cli/ManageMaterialScript.html">supriya.cli.ManageMaterialScript</a></li>
-<li><a href="supriya/cli/ManageProjectScript.html">supriya.cli.ManageProjectScript</a></li>
-<li><a href="supriya/cli/ManageSessionScript.html">supriya.cli.ManageSessionScript</a></li>
-<li><a href="supriya/cli/ManageSynthDefScript.html">supriya.cli.ManageSynthDefScript</a></li>
-<li><a href="supriya/cli/ProjectManager.html">supriya.cli.ProjectManager</a></li>
-<li><a href="supriya/cli/ProjectPackageScript.html">supriya.cli.ProjectPackageScript</a></li>
-<li><a href="supriya/cli/ProjectSectionScript.html">supriya.cli.ProjectSectionScript</a></li>
-<li><a href="supriya/cli/ProjectSettings.html">supriya.cli.ProjectSettings</a></li>
-<li><a href="supriya/cli/SupriyaScript.html">supriya.cli.SupriyaScript</a></li>
-<li><a href="supriya/cli/run_supriya.html">supriya.cli.run_supriya</a></li>
-<li><a href="supriya/clock.html">supriya.clock</a></li>
+<li><a href="socketserver.html">socketserver</a></li>
+<li><a href="supriya/clock/asynchronous.html">supriya.clock.asynchronous</a></li>
+<li><a href="supriya/clock/bases.html">supriya.clock.bases</a></li>
+<li><a href="supriya/clock/ephemera.html">supriya.clock.ephemera</a></li>
+<li><a href="supriya/clock/eventqueue.html">supriya.clock.eventqueue</a></li>
+<li><a href="supriya/clock/threaded.html">supriya.clock.threaded</a></li>
 <li><a href="supriya/commands/BufferAllocateReadChannelRequest.html">supriya.commands.BufferAllocateReadChannelRequest</a></li>
 <li><a href="supriya/commands/BufferAllocateReadRequest.html">supriya.commands.BufferAllocateReadRequest</a></li>
 <li><a href="supriya/commands/BufferAllocateRequest.html">supriya.commands.BufferAllocateRequest</a></li>
@@ -258,10 +256,7 @@
 <li><a href="supriya/commands/NothingRequest.html">supriya.commands.NothingRequest</a></li>
 <li><a href="supriya/commands/NotifyRequest.html">supriya.commands.NotifyRequest</a></li>
 <li><a href="supriya/commands/ParallelGroupNewRequest.html">supriya.commands.ParallelGroupNewRequest</a></li>
-<li><a href="supriya/commands/QueryTreeControl.html">supriya.commands.QueryTreeControl</a></li>
-<li><a href="supriya/commands/QueryTreeGroup.html">supriya.commands.QueryTreeGroup</a></li>
 <li><a href="supriya/commands/QueryTreeResponse.html">supriya.commands.QueryTreeResponse</a></li>
-<li><a href="supriya/commands/QueryTreeSynth.html">supriya.commands.QueryTreeSynth</a></li>
 <li><a href="supriya/commands/QuitRequest.html">supriya.commands.QuitRequest</a></li>
 <li><a href="supriya/commands/Request.html">supriya.commands.Request</a></li>
 <li><a href="supriya/commands/RequestBundle.html">supriya.commands.RequestBundle</a></li>
@@ -284,108 +279,30 @@
 <li><a href="supriya/commands/SynthNoidRequest.html">supriya.commands.SynthNoidRequest</a></li>
 <li><a href="supriya/commands/TriggerResponse.html">supriya.commands.TriggerResponse</a></li>
 <li><a href="supriya/commands/UgenCommandRequest.html">supriya.commands.UgenCommandRequest</a></li>
-<li><a href="supriya/daw/Application.html">supriya.daw.Application</a></li>
-<li><a href="supriya/daw/ArpeggiatorDevice.html">supriya.daw.ArpeggiatorDevice</a></li>
-<li><a href="supriya/daw/AudioChain.html">supriya.daw.AudioChain</a></li>
-<li><a href="supriya/daw/AudioDevice.html">supriya.daw.AudioDevice</a></li>
-<li><a href="supriya/daw/AudioRack.html">supriya.daw.AudioRack</a></li>
-<li><a href="supriya/daw/Chain.html">supriya.daw.Chain</a></li>
-<li><a href="supriya/daw/ChainContainer.html">supriya.daw.ChainContainer</a></li>
-<li><a href="supriya/daw/ChainReceive.html">supriya.daw.ChainReceive</a></li>
-<li><a href="supriya/daw/ChordDevice.html">supriya.daw.ChordDevice</a></li>
-<li><a href="supriya/daw/Clip.html">supriya.daw.Clip</a></li>
-<li><a href="supriya/daw/ClipSlot.html">supriya.daw.ClipSlot</a></li>
-<li><a href="supriya/daw/ClipSlotContainer.html">supriya.daw.ClipSlotContainer</a></li>
-<li><a href="supriya/daw/DCDevice.html">supriya.daw.DCDevice</a></li>
-<li><a href="supriya/daw/DawContainer.html">supriya.daw.DawContainer</a></li>
-<li><a href="supriya/daw/DawMeta.html">supriya.daw.DawMeta</a></li>
-<li><a href="supriya/daw/DawNode.html">supriya.daw.DawNode</a></li>
-<li><a href="supriya/daw/Device.html">supriya.daw.Device</a></li>
-<li><a href="supriya/daw/DeviceContainer.html">supriya.daw.DeviceContainer</a></li>
-<li><a href="supriya/daw/DeviceType.html">supriya.daw.DeviceType</a></li>
-<li><a href="supriya/daw/GroupTrack.html">supriya.daw.GroupTrack</a></li>
-<li><a href="supriya/daw/Instrument.html">supriya.daw.Instrument</a></li>
-<li><a href="supriya/daw/InstrumentChain.html">supriya.daw.InstrumentChain</a></li>
-<li><a href="supriya/daw/InstrumentRack.html">supriya.daw.InstrumentRack</a></li>
-<li><a href="supriya/daw/MidiChain.html">supriya.daw.MidiChain</a></li>
-<li><a href="supriya/daw/MidiDevice.html">supriya.daw.MidiDevice</a></li>
-<li><a href="supriya/daw/MidiRack.html">supriya.daw.MidiRack</a></li>
-<li><a href="supriya/daw/MixerContext.html">supriya.daw.MixerContext</a></li>
-<li><a href="supriya/daw/Note.html">supriya.daw.Note</a></li>
-<li><a href="supriya/daw/NoteSelector.html">supriya.daw.NoteSelector</a></li>
-<li><a href="supriya/daw/Parameter.html">supriya.daw.Parameter</a></li>
-<li><a href="supriya/daw/RackDevice.html">supriya.daw.RackDevice</a></li>
-<li><a href="supriya/daw/RackReceive.html">supriya.daw.RackReceive</a></li>
-<li><a href="supriya/daw/Receive.html">supriya.daw.Receive</a></li>
-<li><a href="supriya/daw/ReturnChain.html">supriya.daw.ReturnChain</a></li>
-<li><a href="supriya/daw/SamplerDevice.html">supriya.daw.SamplerDevice</a></li>
-<li><a href="supriya/daw/ScaleDevice.html">supriya.daw.ScaleDevice</a></li>
-<li><a href="supriya/daw/Scene.html">supriya.daw.Scene</a></li>
-<li><a href="supriya/daw/SceneContainer.html">supriya.daw.SceneContainer</a></li>
-<li><a href="supriya/daw/Send.html">supriya.daw.Send</a></li>
-<li><a href="supriya/daw/SendContainer.html">supriya.daw.SendContainer</a></li>
-<li><a href="supriya/daw/SendManager.html">supriya.daw.SendManager</a></li>
-<li><a href="supriya/daw/Track.html">supriya.daw.Track</a></li>
-<li><a href="supriya/daw/TrackContainer.html">supriya.daw.TrackContainer</a></li>
-<li><a href="supriya/daw/TrackReceive.html">supriya.daw.TrackReceive</a></li>
-<li><a href="supriya/daw/Transport.html">supriya.daw.Transport</a></li>
-<li><a href="supriya/daw/VelocityDevice.html">supriya.daw.VelocityDevice</a></li>
-<li><a href="supriya/daw/synthdefs.html">supriya.daw.synthdefs</a></li>
+<li><a href="supriya/conversions.html">supriya.conversions</a></li>
 <li><a href="supriya/enums.html">supriya.enums</a></li>
 <li><a href="supriya/exceptions.html">supriya.exceptions</a></li>
 <li><a href="supriya/ext.html">supriya.ext</a></li>
 <ul><li><a href="supriya/ext/book.html">supriya.ext.book</a></li>
 <li><a href="supriya/ext/ipython.html">supriya.ext.ipython</a></li>
-</ul><li><a href="supriya/io.html">supriya.io</a></li>
-<li><a href="supriya/live/Application.html">supriya.live.Application</a></li>
-<li><a href="supriya/live/AudioEffect.html">supriya.live.AudioEffect</a></li>
-<li><a href="supriya/live/ClipSlot.html">supriya.live.ClipSlot</a></li>
-<li><a href="supriya/live/Device.html">supriya.live.Device</a></li>
-<li><a href="supriya/live/DeviceChain.html">supriya.live.DeviceChain</a></li>
-<li><a href="supriya/live/Direct.html">supriya.live.Direct</a></li>
-<li><a href="supriya/live/Instrument.html">supriya.live.Instrument</a></li>
-<li><a href="supriya/live/MidiEffect.html">supriya.live.MidiEffect</a></li>
-<li><a href="supriya/live/Mixer.html">supriya.live.Mixer</a></li>
-<li><a href="supriya/live/PolyphonicVoicer.html">supriya.live.PolyphonicVoicer</a></li>
-<li><a href="supriya/live/Rack.html">supriya.live.Rack</a></li>
-<li><a href="supriya/live/Send.html">supriya.live.Send</a></li>
-<li><a href="supriya/live/SendManager.html">supriya.live.SendManager</a></li>
-<li><a href="supriya/live/Shuffle.html">supriya.live.Shuffle</a></li>
-<li><a href="supriya/live/Track.html">supriya.live.Track</a></li>
-<li><a href="supriya/midi/ControllerChangeMessage.html">supriya.midi.ControllerChangeMessage</a></li>
-<li><a href="supriya/midi/Device.html">supriya.midi.Device</a></li>
-<li><a href="supriya/midi/LogicalControl.html">supriya.midi.LogicalControl</a></li>
-<li><a href="supriya/midi/LogicalControlMode.html">supriya.midi.LogicalControlMode</a></li>
-<li><a href="supriya/midi/LogicalView.html">supriya.midi.LogicalView</a></li>
-<li><a href="supriya/midi/MidiMessage.html">supriya.midi.MidiMessage</a></li>
-<li><a href="supriya/midi/NoteOffMessage.html">supriya.midi.NoteOffMessage</a></li>
-<li><a href="supriya/midi/NoteOnMessage.html">supriya.midi.NoteOnMessage</a></li>
-<li><a href="supriya/midi/PhysicalControl.html">supriya.midi.PhysicalControl</a></li>
-<li><a href="supriya/nonrealtime/AudioInputBusGroup.html">supriya.nonrealtime.AudioInputBusGroup</a></li>
-<li><a href="supriya/nonrealtime/AudioOutputBusGroup.html">supriya.nonrealtime.AudioOutputBusGroup</a></li>
-<li><a href="supriya/nonrealtime/Buffer.html">supriya.nonrealtime.Buffer</a></li>
-<li><a href="supriya/nonrealtime/BufferGroup.html">supriya.nonrealtime.BufferGroup</a></li>
-<li><a href="supriya/nonrealtime/Bus.html">supriya.nonrealtime.Bus</a></li>
-<li><a href="supriya/nonrealtime/BusGroup.html">supriya.nonrealtime.BusGroup</a></li>
-<li><a href="supriya/nonrealtime/DoNotPropagate.html">supriya.nonrealtime.DoNotPropagate</a></li>
-<li><a href="supriya/nonrealtime/Group.html">supriya.nonrealtime.Group</a></li>
-<li><a href="supriya/nonrealtime/Moment.html">supriya.nonrealtime.Moment</a></li>
-<li><a href="supriya/nonrealtime/Node.html">supriya.nonrealtime.Node</a></li>
-<li><a href="supriya/nonrealtime/NodeTransition.html">supriya.nonrealtime.NodeTransition</a></li>
-<li><a href="supriya/nonrealtime/RootNode.html">supriya.nonrealtime.RootNode</a></li>
-<li><a href="supriya/nonrealtime/Session.html">supriya.nonrealtime.Session</a></li>
-<li><a href="supriya/nonrealtime/SessionFactory.html">supriya.nonrealtime.SessionFactory</a></li>
-<li><a href="supriya/nonrealtime/SessionObject.html">supriya.nonrealtime.SessionObject</a></li>
-<li><a href="supriya/nonrealtime/SessionRenderer.html">supriya.nonrealtime.SessionRenderer</a></li>
-<li><a href="supriya/nonrealtime/State.html">supriya.nonrealtime.State</a></li>
-<li><a href="supriya/nonrealtime/Synth.html">supriya.nonrealtime.Synth</a></li>
-<li><a href="supriya/osc.html">supriya.osc</a></li>
-<ul><li><a href="supriya/osc/OscBundle.html">supriya.osc.OscBundle</a></li>
-<li><a href="supriya/osc/OscCallback.html">supriya.osc.OscCallback</a></li>
-<li><a href="supriya/osc/OscIO.html">supriya.osc.OscIO</a></li>
-<li><a href="supriya/osc/OscMessage.html">supriya.osc.OscMessage</a></li>
-</ul><li><a href="supriya/patterns/BusEvent.html">supriya.patterns.BusEvent</a></li>
-<li><a href="supriya/patterns/Clock.html">supriya.patterns.Clock</a></li>
+</ul><li><a href="supriya/intervals/Interval.html">supriya.intervals.Interval</a></li>
+<li><a href="supriya/intervals/IntervalTree.html">supriya.intervals.IntervalTree</a></li>
+<li><a href="supriya/intervals/IntervalTreeDriver.html">supriya.intervals.IntervalTreeDriver</a></li>
+<li><a href="supriya/intervals/IntervalTreeDriverEx.html">supriya.intervals.IntervalTreeDriverEx</a></li>
+<li><a href="supriya/intervals/Moment.html">supriya.intervals.Moment</a></li>
+<li><a href="supriya/io.html">supriya.io</a></li>
+<li><a href="supriya/nonrealtime/bases.html">supriya.nonrealtime.bases</a></li>
+<li><a href="supriya/nonrealtime/buffers.html">supriya.nonrealtime.buffers</a></li>
+<li><a href="supriya/nonrealtime/buses.html">supriya.nonrealtime.buses</a></li>
+<li><a href="supriya/nonrealtime/nodes.html">supriya.nonrealtime.nodes</a></li>
+<li><a href="supriya/nonrealtime/renderer.html">supriya.nonrealtime.renderer</a></li>
+<li><a href="supriya/nonrealtime/sessions.html">supriya.nonrealtime.sessions</a></li>
+<li><a href="supriya/nonrealtime/states.html">supriya.nonrealtime.states</a></li>
+<li><a href="supriya/osc/captures.html">supriya.osc.captures</a></li>
+<li><a href="supriya/osc/messages.html">supriya.osc.messages</a></li>
+<li><a href="supriya/osc/protocols.html">supriya.osc.protocols</a></li>
+<li><a href="supriya/osc/utils.html">supriya.osc.utils</a></li>
+<li><a href="supriya/patterns/BusEvent.html">supriya.patterns.BusEvent</a></li>
 <li><a href="supriya/patterns/CompositeEvent.html">supriya.patterns.CompositeEvent</a></li>
 <li><a href="supriya/patterns/Event.html">supriya.patterns.Event</a></li>
 <li><a href="supriya/patterns/EventPattern.html">supriya.patterns.EventPattern</a></li>
@@ -411,64 +328,33 @@
 <li><a href="supriya/patterns/Pseq.html">supriya.patterns.Pseq</a></li>
 <li><a href="supriya/patterns/Pwhite.html">supriya.patterns.Pwhite</a></li>
 <li><a href="supriya/patterns/RandomNumberGenerator.html">supriya.patterns.RandomNumberGenerator</a></li>
-<li><a href="supriya/patterns/RealtimeEventPlayer.html">supriya.patterns.RealtimeEventPlayer</a></li>
 <li><a href="supriya/patterns/SynthEvent.html">supriya.patterns.SynthEvent</a></li>
-<li><a href="supriya/realtime/AudioInputBusGroup.html">supriya.realtime.AudioInputBusGroup</a></li>
-<li><a href="supriya/realtime/AudioOutputBusGroup.html">supriya.realtime.AudioOutputBusGroup</a></li>
-<li><a href="supriya/realtime/Block.html">supriya.realtime.Block</a></li>
-<li><a href="supriya/realtime/BlockAllocator.html">supriya.realtime.BlockAllocator</a></li>
-<li><a href="supriya/realtime/BootOptions.html">supriya.realtime.BootOptions</a></li>
-<li><a href="supriya/realtime/Buffer.html">supriya.realtime.Buffer</a></li>
-<li><a href="supriya/realtime/BufferGroup.html">supriya.realtime.BufferGroup</a></li>
-<li><a href="supriya/realtime/BufferProxy.html">supriya.realtime.BufferProxy</a></li>
-<li><a href="supriya/realtime/Bus.html">supriya.realtime.Bus</a></li>
-<li><a href="supriya/realtime/BusGroup.html">supriya.realtime.BusGroup</a></li>
-<li><a href="supriya/realtime/BusProxy.html">supriya.realtime.BusProxy</a></li>
-<li><a href="supriya/realtime/ControlInterface.html">supriya.realtime.ControlInterface</a></li>
-<li><a href="supriya/realtime/Group.html">supriya.realtime.Group</a></li>
-<li><a href="supriya/realtime/GroupControl.html">supriya.realtime.GroupControl</a></li>
-<li><a href="supriya/realtime/GroupInterface.html">supriya.realtime.GroupInterface</a></li>
-<li><a href="supriya/realtime/Node.html">supriya.realtime.Node</a></li>
-<li><a href="supriya/realtime/NodeIdAllocator.html">supriya.realtime.NodeIdAllocator</a></li>
-<li><a href="supriya/realtime/RootNode.html">supriya.realtime.RootNode</a></li>
-<li><a href="supriya/realtime/Server.html">supriya.realtime.Server</a></li>
-<li><a href="supriya/realtime/ServerMeters.html">supriya.realtime.ServerMeters</a></li>
-<li><a href="supriya/realtime/ServerObject.html">supriya.realtime.ServerObject</a></li>
-<li><a href="supriya/realtime/ServerRecorder.html">supriya.realtime.ServerRecorder</a></li>
-<li><a href="supriya/realtime/StatusWatcher.html">supriya.realtime.StatusWatcher</a></li>
-<li><a href="supriya/realtime/Synth.html">supriya.realtime.Synth</a></li>
-<li><a href="supriya/realtime/SynthControl.html">supriya.realtime.SynthControl</a></li>
-<li><a href="supriya/realtime/SynthInterface.html">supriya.realtime.SynthInterface</a></li>
+<li><a href="supriya/provider.html">supriya.provider</a></li>
+<li><a href="supriya/querytree.html">supriya.querytree</a></li>
+<li><a href="supriya/realtime/allocators.html">supriya.realtime.allocators</a></li>
+<li><a href="supriya/realtime/bases.html">supriya.realtime.bases</a></li>
+<li><a href="supriya/realtime/buffers.html">supriya.realtime.buffers</a></li>
+<li><a href="supriya/realtime/buses.html">supriya.realtime.buses</a></li>
+<li><a href="supriya/realtime/interfaces.html">supriya.realtime.interfaces</a></li>
+<li><a href="supriya/realtime/meters.html">supriya.realtime.meters</a></li>
+<li><a href="supriya/realtime/nodes.html">supriya.realtime.nodes</a></li>
+<li><a href="supriya/realtime/protocols.html">supriya.realtime.protocols</a></li>
+<li><a href="supriya/realtime/recorder.html">supriya.realtime.recorder</a></li>
+<li><a href="supriya/realtime/servers.html">supriya.realtime.servers</a></li>
+<li><a href="supriya/sclang.html">supriya.sclang</a></li>
+<li><a href="supriya/scsynth.html">supriya.scsynth</a></li>
 <li><a href="supriya/soundfiles.html">supriya.soundfiles</a></li>
-<li><a href="supriya/synthdefs/Envelope.html">supriya.synthdefs.Envelope</a></li>
-<li><a href="supriya/synthdefs/OutputProxy.html">supriya.synthdefs.OutputProxy</a></li>
-<li><a href="supriya/synthdefs/Parameter.html">supriya.synthdefs.Parameter</a></li>
-<li><a href="supriya/synthdefs/Range.html">supriya.synthdefs.Range</a></li>
-<li><a href="supriya/synthdefs/SuperColliderSynthDef.html">supriya.synthdefs.SuperColliderSynthDef</a></li>
-<li><a href="supriya/synthdefs/SynthDef.html">supriya.synthdefs.SynthDef</a></li>
-<li><a href="supriya/synthdefs/SynthDefBuilder.html">supriya.synthdefs.SynthDefBuilder</a></li>
-<li><a href="supriya/synthdefs/SynthDefCompiler.html">supriya.synthdefs.SynthDefCompiler</a></li>
-<li><a href="supriya/synthdefs/SynthDefDecompiler.html">supriya.synthdefs.SynthDefDecompiler</a></li>
-<li><a href="supriya/synthdefs/SynthDefFactory.html">supriya.synthdefs.SynthDefFactory</a></li>
-<li><a href="supriya/synthdefs/SynthDefGrapher.html">supriya.synthdefs.SynthDefGrapher</a></li>
-<li><a href="supriya/synthdefs/UGenArray.html">supriya.synthdefs.UGenArray</a></li>
-<li><a href="supriya/synthdefs/UGenMethodMixin.html">supriya.synthdefs.UGenMethodMixin</a></li>
-<li><a href="supriya/synthdefs/UGenSortBundle.html">supriya.synthdefs.UGenSortBundle</a></li>
-<li><a href="supriya/system/Assets.html">supriya.system.Assets</a></li>
-<li><a href="supriya/system/Bindable.html">supriya.system.Bindable</a></li>
-<li><a href="supriya/system/BindableFloat.html">supriya.system.BindableFloat</a></li>
-<li><a href="supriya/system/BindableNamespace.html">supriya.system.BindableNamespace</a></li>
-<li><a href="supriya/system/Binding.html">supriya.system.Binding</a></li>
-<li><a href="supriya/system/PubSub.html">supriya.system.PubSub</a></li>
-<li><a href="supriya/system/SupriyaObject.html">supriya.system.SupriyaObject</a></li>
-<li><a href="supriya/system/SupriyaValueObject.html">supriya.system.SupriyaValueObject</a></li>
-<li><a href="supriya/system/YAMLLoader.html">supriya.system.YAMLLoader</a></li>
-<li><a href="supriya/system/bind.html">supriya.system.bind</a></li>
-<li><a href="supriya/time/Interval.html">supriya.time.Interval</a></li>
-<li><a href="supriya/time/IntervalTree.html">supriya.time.IntervalTree</a></li>
-<li><a href="supriya/time/IntervalTreeDriver.html">supriya.time.IntervalTreeDriver</a></li>
-<li><a href="supriya/time/IntervalTreeDriverEx.html">supriya.time.IntervalTreeDriverEx</a></li>
-<li><a href="supriya/time/Moment.html">supriya.time.Moment</a></li>
+<li><a href="supriya/synthdefs/bases.html">supriya.synthdefs.bases</a></li>
+<li><a href="supriya/synthdefs/builders.html">supriya.synthdefs.builders</a></li>
+<li><a href="supriya/synthdefs/compilers.html">supriya.synthdefs.compilers</a></li>
+<li><a href="supriya/synthdefs/controls.html">supriya.synthdefs.controls</a></li>
+<li><a href="supriya/synthdefs/envelopes.html">supriya.synthdefs.envelopes</a></li>
+<li><a href="supriya/synthdefs/factories.html">supriya.synthdefs.factories</a></li>
+<li><a href="supriya/synthdefs/grapher.html">supriya.synthdefs.grapher</a></li>
+<li><a href="supriya/synthdefs/mixins.html">supriya.synthdefs.mixins</a></li>
+<li><a href="supriya/synthdefs/synthdefs.html">supriya.synthdefs.synthdefs</a></li>
+<li><a href="supriya/system.html">supriya.system</a></li>
+<li><a href="supriya/typing.html">supriya.typing</a></li>
 <li><a href="supriya/ugens/A2K.html">supriya.ugens.A2K</a></li>
 <li><a href="supriya/ugens/APF.html">supriya.ugens.APF</a></li>
 <li><a href="supriya/ugens/AllpassC.html">supriya.ugens.AllpassC</a></li>
@@ -477,7 +363,6 @@
 <li><a href="supriya/ugens/AmpComp.html">supriya.ugens.AmpComp</a></li>
 <li><a href="supriya/ugens/AmpCompA.html">supriya.ugens.AmpCompA</a></li>
 <li><a href="supriya/ugens/Amplitude.html">supriya.ugens.Amplitude</a></li>
-<li><a href="supriya/ugens/AudioControl.html">supriya.ugens.AudioControl</a></li>
 <li><a href="supriya/ugens/BAllPass.html">supriya.ugens.BAllPass</a></li>
 <li><a href="supriya/ugens/BBandPass.html">supriya.ugens.BBandPass</a></li>
 <li><a href="supriya/ugens/BBandStop.html">supriya.ugens.BBandStop</a></li>
@@ -498,7 +383,6 @@
 <li><a href="supriya/ugens/BeatTrack.html">supriya.ugens.BeatTrack</a></li>
 <li><a href="supriya/ugens/BeatTrack2.html">supriya.ugens.BeatTrack2</a></li>
 <li><a href="supriya/ugens/BiPanB2.html">supriya.ugens.BiPanB2</a></li>
-<li><a href="supriya/ugens/BinaryOpUGen.html">supriya.ugens.BinaryOpUGen</a></li>
 <li><a href="supriya/ugens/Blip.html">supriya.ugens.Blip</a></li>
 <li><a href="supriya/ugens/BlockSize.html">supriya.ugens.BlockSize</a></li>
 <li><a href="supriya/ugens/BrownNoise.html">supriya.ugens.BrownNoise</a></li>
@@ -532,7 +416,6 @@
 <li><a href="supriya/ugens/CombN.html">supriya.ugens.CombN</a></li>
 <li><a href="supriya/ugens/Compander.html">supriya.ugens.Compander</a></li>
 <li><a href="supriya/ugens/CompanderD.html">supriya.ugens.CompanderD</a></li>
-<li><a href="supriya/ugens/Control.html">supriya.ugens.Control</a></li>
 <li><a href="supriya/ugens/ControlDur.html">supriya.ugens.ControlDur</a></li>
 <li><a href="supriya/ugens/ControlRate.html">supriya.ugens.ControlRate</a></li>
 <li><a href="supriya/ugens/Convolution.html">supriya.ugens.Convolution</a></li>
@@ -651,7 +534,6 @@
 <li><a href="supriya/ugens/Lag2UD.html">supriya.ugens.Lag2UD</a></li>
 <li><a href="supriya/ugens/Lag3.html">supriya.ugens.Lag3</a></li>
 <li><a href="supriya/ugens/Lag3UD.html">supriya.ugens.Lag3UD</a></li>
-<li><a href="supriya/ugens/LagControl.html">supriya.ugens.LagControl</a></li>
 <li><a href="supriya/ugens/LagUD.html">supriya.ugens.LagUD</a></li>
 <li><a href="supriya/ugens/Latch.html">supriya.ugens.Latch</a></li>
 <li><a href="supriya/ugens/LatoocarfianC.html">supriya.ugens.LatoocarfianC</a></li>
@@ -686,7 +568,6 @@
 <li><a href="supriya/ugens/MouseX.html">supriya.ugens.MouseX</a></li>
 <li><a href="supriya/ugens/MouseY.html">supriya.ugens.MouseY</a></li>
 <li><a href="supriya/ugens/MulAdd.html">supriya.ugens.MulAdd</a></li>
-<li><a href="supriya/ugens/MultiOutUGen.html">supriya.ugens.MultiOutUGen</a></li>
 <li><a href="supriya/ugens/NRand.html">supriya.ugens.NRand</a></li>
 <li><a href="supriya/ugens/Normalizer.html">supriya.ugens.Normalizer</a></li>
 <li><a href="supriya/ugens/NumAudioBuses.html">supriya.ugens.NumAudioBuses</a></li>
@@ -753,8 +634,6 @@
 <li><a href="supriya/ugens/Poll.html">supriya.ugens.Poll</a></li>
 <li><a href="supriya/ugens/PseudoUGen.html">supriya.ugens.PseudoUGen</a></li>
 <li><a href="supriya/ugens/Pulse.html">supriya.ugens.Pulse</a></li>
-<li><a href="supriya/ugens/PureMultiOutUGen.html">supriya.ugens.PureMultiOutUGen</a></li>
-<li><a href="supriya/ugens/PureUGen.html">supriya.ugens.PureUGen</a></li>
 <li><a href="supriya/ugens/QuadC.html">supriya.ugens.QuadC</a></li>
 <li><a href="supriya/ugens/QuadL.html">supriya.ugens.QuadL</a></li>
 <li><a href="supriya/ugens/QuadN.html">supriya.ugens.QuadN</a></li>
@@ -775,6 +654,7 @@
 <li><a href="supriya/ugens/SOS.html">supriya.ugens.SOS</a></li>
 <li><a href="supriya/ugens/SampleDur.html">supriya.ugens.SampleDur</a></li>
 <li><a href="supriya/ugens/SampleRate.html">supriya.ugens.SampleRate</a></li>
+<li><a href="supriya/ugens/Sanitize.html">supriya.ugens.Sanitize</a></li>
 <li><a href="supriya/ugens/Saw.html">supriya.ugens.Saw</a></li>
 <li><a href="supriya/ugens/Schmidt.html">supriya.ugens.Schmidt</a></li>
 <li><a href="supriya/ugens/Select.html">supriya.ugens.Select</a></li>
@@ -806,12 +686,8 @@
 <li><a href="supriya/ugens/ToggleFF.html">supriya.ugens.ToggleFF</a></li>
 <li><a href="supriya/ugens/Trig.html">supriya.ugens.Trig</a></li>
 <li><a href="supriya/ugens/Trig1.html">supriya.ugens.Trig1</a></li>
-<li><a href="supriya/ugens/TrigControl.html">supriya.ugens.TrigControl</a></li>
 <li><a href="supriya/ugens/TwoPole.html">supriya.ugens.TwoPole</a></li>
 <li><a href="supriya/ugens/TwoZero.html">supriya.ugens.TwoZero</a></li>
-<li><a href="supriya/ugens/UGen.html">supriya.ugens.UGen</a></li>
-<li><a href="supriya/ugens/UGenMeta.html">supriya.ugens.UGenMeta</a></li>
-<li><a href="supriya/ugens/UnaryOpUGen.html">supriya.ugens.UnaryOpUGen</a></li>
 <li><a href="supriya/ugens/VDiskIn.html">supriya.ugens.VDiskIn</a></li>
 <li><a href="supriya/ugens/VOsc.html">supriya.ugens.VOsc</a></li>
 <li><a href="supriya/ugens/VOsc3.html">supriya.ugens.VOsc3</a></li>
@@ -819,7 +695,6 @@
 <li><a href="supriya/ugens/Vibrato.html">supriya.ugens.Vibrato</a></li>
 <li><a href="supriya/ugens/Warp1.html">supriya.ugens.Warp1</a></li>
 <li><a href="supriya/ugens/WhiteNoise.html">supriya.ugens.WhiteNoise</a></li>
-<li><a href="supriya/ugens/WidthFirstUGen.html">supriya.ugens.WidthFirstUGen</a></li>
 <li><a href="supriya/ugens/Wrap.html">supriya.ugens.Wrap</a></li>
 <li><a href="supriya/ugens/WrapIndex.html">supriya.ugens.WrapIndex</a></li>
 <li><a href="supriya/ugens/XFade2.html">supriya.ugens.XFade2</a></li>
@@ -827,14 +702,9 @@
 <li><a href="supriya/ugens/XOut.html">supriya.ugens.XOut</a></li>
 <li><a href="supriya/ugens/ZeroCrossing.html">supriya.ugens.ZeroCrossing</a></li>
 <li><a href="supriya/utils.html">supriya.utils</a></li>
-</ul><li><a href="threading.html">threading</a></li>
 <li><a href="uqbar/book/extensions.html">uqbar.book.extensions</a></li>
-<li><a href="uqbar/cli/CLI.html">uqbar.cli.CLI</a></li>
-<li><a href="uqbar/cli/CLIAggregator.html">uqbar.cli.CLIAggregator</a></li>
 <li><a href="uqbar/containers/UniqueTreeContainer.html">uqbar.containers.UniqueTreeContainer</a></li>
-<li><a href="uqbar/containers/UniqueTreeDict.html">uqbar.containers.UniqueTreeDict</a></li>
 <li><a href="uqbar/containers/UniqueTreeList.html">uqbar.containers.UniqueTreeList</a></li>
-<li><a href="uqbar/containers/UniqueTreeTuple.html">uqbar.containers.UniqueTreeTuple</a></li>
 </ul>
 
            </div>

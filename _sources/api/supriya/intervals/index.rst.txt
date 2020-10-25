@@ -22,15 +22,17 @@ intervals
 .. toctree::
    :hidden:
 
-   TimespanCollection
-   TimespanCollectionDriver
-   TimespanCollectionDriverEx
-   TimespanSimultaneity
+   Interval
+   IntervalTree
+   IntervalTreeDriver
+   IntervalTreeDriverEx
+   Moment
 
 .. autosummary::
    :nosignatures:
 
-   ~TimespanCollection.TimespanCollection
-   ~TimespanCollectionDriver.TimespanCollectionDriver
-   ~TimespanCollectionDriverEx.TimespanCollectionDriverEx
-   ~TimespanSimultaneity.TimespanSimultaneity
+   ~Interval.Interval
+   ~IntervalTree.IntervalTree
+   ~IntervalTreeDriver.IntervalTreeDriver
+   ~IntervalTreeDriverEx.IntervalTreeDriverEx
+   ~Moment.Moment

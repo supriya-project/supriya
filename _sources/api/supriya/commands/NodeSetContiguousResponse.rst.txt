@@ -82,7 +82,3 @@ NodeSetContiguousResponse
    .. autoattribute:: NodeSetContiguousResponse.items
 
    .. autoattribute:: NodeSetContiguousResponse.node_id
-
-   .. container:: inherited
-
-      .. autoattribute:: NodeSetContiguousResponse.osc_message

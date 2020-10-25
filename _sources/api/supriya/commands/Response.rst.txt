@@ -24,7 +24,7 @@ Response
    .. autosummary::
       :nosignatures:
 
-      osc_message
+      from_osc_message
       to_dict
 
    .. raw:: html
@@ -63,7 +63,7 @@ Response
 
       <hr/>
 
-   .. rubric:: Read-only properties
+   .. rubric:: Class & static methods
       :class: class-header
 
-   .. autoattribute:: Response.osc_message
+   .. automethod:: Response.from_osc_message

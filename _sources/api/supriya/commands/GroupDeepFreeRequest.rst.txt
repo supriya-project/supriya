@@ -64,6 +64,10 @@ GroupDeepFreeRequest
 
    .. container:: inherited
 
+      .. automethod:: GroupDeepFreeRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: GroupDeepFreeRequest.to_datagram
 
    .. container:: inherited

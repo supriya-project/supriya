@@ -65,6 +65,10 @@ SyncRequest
 
    .. container:: inherited
 
+      .. automethod:: SyncRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: SyncRequest.to_datagram
 
    .. container:: inherited

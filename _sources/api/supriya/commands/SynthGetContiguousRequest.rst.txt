@@ -63,6 +63,10 @@ SynthGetContiguousRequest
 
    .. container:: inherited
 
+      .. automethod:: SynthGetContiguousRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: SynthGetContiguousRequest.to_datagram
 
    .. container:: inherited

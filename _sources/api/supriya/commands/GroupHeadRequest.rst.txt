@@ -62,6 +62,10 @@ GroupHeadRequest
 
    .. container:: inherited
 
+      .. automethod:: GroupHeadRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: GroupHeadRequest.to_datagram
 
    .. container:: inherited

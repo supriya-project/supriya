@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>supriya.commands.NodeFreeRequest &mdash; Supriya 0.3.0 documentation</title>
+  <title>supriya.commands.NodeFreeRequest &mdash; Supriya 0.4.0 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.3.0
+                0.4.0
               </div>
             
           
@@ -91,14 +91,11 @@
 </ul>
 <p class="caption"><span class="caption-text">Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
@@ -164,8 +161,6 @@
         
           <li><a href="../../index.html">Module code</a> &raquo;</li>
         
-          <li><a href="../../supriya.html">supriya</a> &raquo;</li>
-        
       <li>supriya.commands.NodeFreeRequest</li>
     
     
@@ -185,8 +180,8 @@
 <span></span><span class="kn">import</span> <span class="nn">collections</span>
 
 <span class="kn">import</span> <span class="nn">supriya.osc</span>
-<span class="kn">from</span> <span class="nn">supriya.commands.Request</span> <span class="k">import</span> <span class="n">Request</span>
-<span class="kn">from</span> <span class="nn">supriya.enums</span> <span class="k">import</span> <span class="n">RequestId</span>
+<span class="kn">from</span> <span class="nn">supriya.commands.Request</span> <span class="kn">import</span> <span class="n">Request</span>
+<span class="kn">from</span> <span class="nn">supriya.enums</span> <span class="kn">import</span> <span class="n">RequestId</span>
 
 
 <div class="viewcode-block" id="NodeFreeRequest"><a class="viewcode-back" href="../../../api/supriya/commands/NodeFreeRequest.html#supriya.commands.NodeFreeRequest.NodeFreeRequest">[docs]</a><span class="k">class</span> <span class="nc">NodeFreeRequest</span><span class="p">(</span><span class="n">Request</span><span class="p">):</span>
@@ -206,26 +201,18 @@
 
 <span class="sd">    ::</span>
 
-<span class="sd">        &gt;&gt;&gt; message = request.to_osc()</span>
-<span class="sd">        &gt;&gt;&gt; message</span>
-<span class="sd">        OscMessage(11, 1000)</span>
-
-<span class="sd">    ::</span>
-
-<span class="sd">        &gt;&gt;&gt; message.address == supriya.RequestId.NODE_FREE</span>
-<span class="sd">        True</span>
+<span class="sd">        &gt;&gt;&gt; request.to_osc()</span>
+<span class="sd">        OscMessage(&#39;/n_free&#39;, 1000)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1">### CLASS VARIABLES ###</span>
 
-    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_node_ids&quot;</span><span class="p">,)</span>
-
     <span class="n">request_id</span> <span class="o">=</span> <span class="n">RequestId</span><span class="o">.</span><span class="n">NODE_FREE</span>
 
     <span class="c1">### INITIALIZER ###</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">Request</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node_ids</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">Sequence</span><span class="p">):</span>
             <span class="n">node_ids</span> <span class="o">=</span> <span class="p">(</span><span class="n">node_ids</span><span class="p">,)</span>
@@ -244,11 +231,8 @@
 
     <span class="c1">### PUBLIC METHODS ###</span>
 
-<div class="viewcode-block" id="NodeFreeRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/NodeFreeRequest.html#supriya.commands.NodeFreeRequest.NodeFreeRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">with_request_name</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">with_request_name</span><span class="p">:</span>
-            <span class="n">request_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_name</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">request_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request_id</span><span class="p">)</span>
+<div class="viewcode-block" id="NodeFreeRequest.to_osc"><a class="viewcode-back" href="../../../api/supriya/commands/NodeFreeRequest.html#supriya.commands.NodeFreeRequest.NodeFreeRequest.to_osc">[docs]</a>    <span class="k">def</span> <span class="nf">to_osc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">with_placeholders</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">request_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_name</span>
         <span class="n">contents</span> <span class="o">=</span> <span class="p">[</span><span class="n">request_id</span><span class="p">]</span>
         <span class="n">contents</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node_ids</span><span class="p">)</span>
         <span class="n">message</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">osc</span><span class="o">.</span><span class="n">OscMessage</span><span class="p">(</span><span class="o">*</span><span class="n">contents</span><span class="p">)</span>

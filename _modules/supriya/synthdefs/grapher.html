@@ -1,0 +1,449 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>supriya.synthdefs.grapher &mdash; Supriya 0.4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/supriya/index.html">supriya</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>supriya.synthdefs.grapher</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for supriya.synthdefs.grapher</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">uqbar.graphs</span>
+
+<span class="kn">from</span> <span class="nn">supriya</span> <span class="kn">import</span> <span class="n">BinaryOperator</span><span class="p">,</span> <span class="n">UnaryOperator</span>
+
+
+<div class="viewcode-block" id="SynthDefGrapher"><a class="viewcode-back" href="../../../api/supriya/synthdefs/grapher.html#supriya.synthdefs.grapher.SynthDefGrapher">[docs]</a><span class="k">class</span> <span class="nc">SynthDefGrapher</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Graphs SynthDefs.</span>
+
+<span class="sd">    ..  container:: example</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; ugen_graph = supriya.ugens.LFNoise2.ar()</span>
+<span class="sd">            &gt;&gt;&gt; result = ugen_graph.transpose([0, 3, 7])</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; supriya.graph(result)  # doctest: +SKIP</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; print(format(result.__graph__(), &#39;graphviz&#39;))</span>
+<span class="sd">            digraph synthdef_c481c3d42e3cfcee0267250247dab51f {</span>
+<span class="sd">                graph [bgcolor=transparent,</span>
+<span class="sd">                    color=lightslategrey,</span>
+<span class="sd">                    dpi=72,</span>
+<span class="sd">                    fontname=Arial,</span>
+<span class="sd">                    outputorder=edgesfirst,</span>
+<span class="sd">                    overlap=prism,</span>
+<span class="sd">                    penwidth=2,</span>
+<span class="sd">                    rankdir=LR,</span>
+<span class="sd">                    ranksep=1,</span>
+<span class="sd">                    splines=spline,</span>
+<span class="sd">                    style=&quot;dotted, rounded&quot;];</span>
+<span class="sd">                node [fontname=Arial,</span>
+<span class="sd">                    fontsize=12,</span>
+<span class="sd">                    penwidth=2,</span>
+<span class="sd">                    shape=Mrecord,</span>
+<span class="sd">                    style=&quot;filled, rounded&quot;];</span>
+<span class="sd">                edge [penwidth=2];</span>
+<span class="sd">                ugen_0 [fillcolor=lightsteelblue2,</span>
+<span class="sd">                    label=&quot;&lt;f_0&gt; LFNoise2\n(audio) | { { &lt;f_1_0_0&gt; frequency:\n500.0 } | { &lt;f_1_1_0&gt; 0 } }&quot;];</span>
+<span class="sd">                ugen_1 [fillcolor=lightsteelblue2,</span>
+<span class="sd">                    label=&quot;&lt;f_0&gt; UnaryOpUGen\n[HZ_TO_MIDI]\n(audio) | { { &lt;f_1_0_0&gt; source } | { &lt;f_1_1_0&gt; 0 } }&quot;];</span>
+<span class="sd">                ugen_2 [fillcolor=lightsteelblue2,</span>
+<span class="sd">                    label=&quot;&lt;f_0&gt; UnaryOpUGen\n[MIDI_TO_HZ]\n(audio) | { { &lt;f_1_0_0&gt; source } | { &lt;f_1_1_0&gt; 0 } }&quot;];</span>
+<span class="sd">                ugen_3 [fillcolor=lightsteelblue2,</span>
+<span class="sd">                    label=&quot;&lt;f_0&gt; BinaryOpUGen\n[ADDITION]\n(audio) | { { &lt;f_1_0_0&gt; left | &lt;f_1_0_1&gt; right:\n3.0 } | { &lt;f_1_1_0&gt; 0 } }&quot;];</span>
+<span class="sd">                ugen_4 [fillcolor=lightsteelblue2,</span>
+<span class="sd">                    label=&quot;&lt;f_0&gt; UnaryOpUGen\n[MIDI_TO_HZ]\n(audio) | { { &lt;f_1_0_0&gt; source } | { &lt;f_1_1_0&gt; 0 } }&quot;];</span>
+<span class="sd">                ugen_5 [fillcolor=lightsteelblue2,</span>
+<span class="sd">                    label=&quot;&lt;f_0&gt; BinaryOpUGen\n[ADDITION]\n(audio) | { { &lt;f_1_0_0&gt; left | &lt;f_1_0_1&gt; right:\n7.0 } | { &lt;f_1_1_0&gt; 0 } }&quot;];</span>
+<span class="sd">                ugen_6 [fillcolor=lightsteelblue2,</span>
+<span class="sd">                    label=&quot;&lt;f_0&gt; UnaryOpUGen\n[MIDI_TO_HZ]\n(audio) | { { &lt;f_1_0_0&gt; source } | { &lt;f_1_1_0&gt; 0 } }&quot;];</span>
+<span class="sd">                ugen_0:f_1_1_0:e -&gt; ugen_1:f_1_0_0:w [color=steelblue];</span>
+<span class="sd">                ugen_1:f_1_1_0:e -&gt; ugen_2:f_1_0_0:w [color=steelblue];</span>
+<span class="sd">                ugen_1:f_1_1_0:e -&gt; ugen_3:f_1_0_0:w [color=steelblue];</span>
+<span class="sd">                ugen_1:f_1_1_0:e -&gt; ugen_5:f_1_0_0:w [color=steelblue];</span>
+<span class="sd">                ugen_3:f_1_1_0:e -&gt; ugen_4:f_1_0_0:w [color=steelblue];</span>
+<span class="sd">                ugen_5:f_1_1_0:e -&gt; ugen_6:f_1_0_0:w [color=steelblue];</span>
+<span class="sd">            }</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_connect_nodes</span><span class="p">(</span><span class="n">synthdef</span><span class="p">,</span> <span class="n">ugen_node_mapping</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
+
+        <span class="k">for</span> <span class="n">ugen</span> <span class="ow">in</span> <span class="n">synthdef</span><span class="o">.</span><span class="n">ugens</span><span class="p">:</span>
+            <span class="n">tail_node</span> <span class="o">=</span> <span class="n">ugen_node_mapping</span><span class="p">[</span><span class="n">ugen</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">input_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ugen</span><span class="o">.</span><span class="n">inputs</span><span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">OutputProxy</span><span class="p">):</span>
+                    <span class="k">continue</span>
+                <span class="n">tail_field</span> <span class="o">=</span> <span class="n">tail_node</span><span class="p">[</span><span class="s2">&quot;inputs&quot;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">source</span> <span class="o">=</span> <span class="n">input_</span><span class="o">.</span><span class="n">source</span>
+                <span class="n">head_node</span> <span class="o">=</span> <span class="n">ugen_node_mapping</span><span class="p">[</span><span class="n">source</span><span class="p">]</span>
+                <span class="n">head_field</span> <span class="o">=</span> <span class="n">head_node</span><span class="p">[</span><span class="s2">&quot;outputs&quot;</span><span class="p">][</span><span class="n">input_</span><span class="o">.</span><span class="n">output_index</span><span class="p">]</span>
+                <span class="n">edge</span> <span class="o">=</span> <span class="n">uqbar</span><span class="o">.</span><span class="n">graphs</span><span class="o">.</span><span class="n">Edge</span><span class="p">(</span><span class="n">head_port_position</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">tail_port_position</span><span class="o">=</span><span class="s2">&quot;e&quot;</span><span class="p">)</span>
+                <span class="n">edge</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">head_field</span><span class="p">,</span> <span class="n">tail_field</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">source</span><span class="o">.</span><span class="n">calculation_rate</span> <span class="o">==</span> <span class="n">supriya</span><span class="o">.</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">:</span>
+                    <span class="n">edge</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;goldenrod&quot;</span>
+                <span class="k">elif</span> <span class="n">source</span><span class="o">.</span><span class="n">calculation_rate</span> <span class="o">==</span> <span class="n">supriya</span><span class="o">.</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">:</span>
+                    <span class="n">edge</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;steelblue&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">edge</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;salmon&quot;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_create_ugen_input_group</span><span class="p">(</span><span class="n">ugen</span><span class="p">,</span> <span class="n">ugen_index</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">ugen</span><span class="o">.</span><span class="n">inputs</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">input_group</span> <span class="o">=</span> <span class="n">uqbar</span><span class="o">.</span><span class="n">graphs</span><span class="o">.</span><span class="n">RecordGroup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;inputs&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">input_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ugen</span><span class="o">.</span><span class="n">inputs</span><span class="p">):</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">input_name</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">ugen</span><span class="o">.</span><span class="n">_ordered_input_names</span><span class="p">):</span>
+                <span class="n">input_name</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">ugen</span><span class="o">.</span><span class="n">_ordered_input_names</span><span class="p">)[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">input_name</span><span class="p">:</span>
+                <span class="c1"># input_name = r&#39;\n&#39;.join(input_name.split(&#39;_&#39;))</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                    <span class="n">label</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">:\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">input_name</span><span class="p">,</span> <span class="n">input_</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">label</span> <span class="o">=</span> <span class="n">input_name</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                <span class="n">label</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">input_</span><span class="p">)</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">label</span> <span class="ow">or</span> <span class="kc">None</span>
+            <span class="n">field</span> <span class="o">=</span> <span class="n">uqbar</span><span class="o">.</span><span class="n">graphs</span><span class="o">.</span><span class="n">RecordField</span><span class="p">(</span>
+                <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ugen_</span><span class="si">{}</span><span class="s2">_input_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ugen_index</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">input_group</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">field</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">input_group</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_create_ugen_node_mapping</span><span class="p">(</span><span class="n">synthdef</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
+
+        <span class="n">ugen_node_mapping</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">ugen</span> <span class="ow">in</span> <span class="n">synthdef</span><span class="o">.</span><span class="n">ugens</span><span class="p">:</span>
+            <span class="n">ugen_index</span> <span class="o">=</span> <span class="n">synthdef</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">uqbar</span><span class="o">.</span><span class="n">graphs</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;ugen_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ugen_index</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">ugen</span><span class="o">.</span><span class="n">calculation_rate</span> <span class="o">==</span> <span class="n">supriya</span><span class="o">.</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">:</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s2">&quot;fillcolor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;lightgoldenrod2&quot;</span>
+            <span class="k">elif</span> <span class="n">ugen</span><span class="o">.</span><span class="n">calculation_rate</span> <span class="o">==</span> <span class="n">supriya</span><span class="o">.</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">:</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s2">&quot;fillcolor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;lightsteelblue2&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">node</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s2">&quot;fillcolor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;lightsalmon2&quot;</span>
+            <span class="n">title_field</span> <span class="o">=</span> <span class="n">SynthDefGrapher</span><span class="o">.</span><span class="n">_create_ugen_title_field</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">title_field</span><span class="p">)</span>
+            <span class="n">group</span> <span class="o">=</span> <span class="n">uqbar</span><span class="o">.</span><span class="n">graphs</span><span class="o">.</span><span class="n">RecordGroup</span><span class="p">()</span>
+            <span class="n">input_group</span> <span class="o">=</span> <span class="n">SynthDefGrapher</span><span class="o">.</span><span class="n">_create_ugen_input_group</span><span class="p">(</span><span class="n">ugen</span><span class="p">,</span> <span class="n">ugen_index</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">input_group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">group</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">input_group</span><span class="p">)</span>
+            <span class="n">output_group</span> <span class="o">=</span> <span class="n">SynthDefGrapher</span><span class="o">.</span><span class="n">_create_ugen_output_group</span><span class="p">(</span>
+                <span class="n">synthdef</span><span class="p">,</span> <span class="n">ugen</span><span class="p">,</span> <span class="n">ugen_index</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">output_group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">group</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">output_group</span><span class="p">)</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+            <span class="n">ugen_node_mapping</span><span class="p">[</span><span class="n">ugen</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="k">return</span> <span class="n">ugen_node_mapping</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_create_ugen_output_group</span><span class="p">(</span><span class="n">synthdef</span><span class="p">,</span> <span class="n">ugen</span><span class="p">,</span> <span class="n">ugen_index</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.ugens</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">ugen</span><span class="o">.</span><span class="n">outputs</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">output_group</span> <span class="o">=</span> <span class="n">uqbar</span><span class="o">.</span><span class="n">graphs</span><span class="o">.</span><span class="n">RecordGroup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;outputs&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">output</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ugen</span><span class="o">.</span><span class="n">outputs</span><span class="p">):</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ugen</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">Control</span><span class="p">):</span>
+                <span class="n">parameter_index</span> <span class="o">=</span> <span class="n">ugen</span><span class="o">.</span><span class="n">special_index</span> <span class="o">+</span> <span class="n">i</span>
+                <span class="n">parameter</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">synthdef</span><span class="o">.</span><span class="n">indexed_parameters</span><span class="p">)[</span><span class="n">parameter_index</span><span class="p">]</span>
+                <span class="n">parameter_name</span> <span class="o">=</span> <span class="n">parameter</span><span class="o">.</span><span class="n">name</span>
+                <span class="c1"># parameter_name = r&#39;\n&#39;.join(parameter.name.split(&#39;_&#39;))</span>
+                <span class="n">label</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">:\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">parameter_name</span><span class="p">,</span> <span class="n">parameter</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+            <span class="n">field</span> <span class="o">=</span> <span class="n">uqbar</span><span class="o">.</span><span class="n">graphs</span><span class="o">.</span><span class="n">RecordField</span><span class="p">(</span>
+                <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ugen_</span><span class="si">{}</span><span class="s2">_output_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ugen_index</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">output_group</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">field</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">output_group</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_create_ugen_title_field</span><span class="p">(</span><span class="n">ugen</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
+        <span class="kn">import</span> <span class="nn">supriya.ugens</span>
+
+        <span class="n">name</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">calculation_rate</span> <span class="o">=</span> <span class="n">ugen</span><span class="o">.</span><span class="n">calculation_rate</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">label_template</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;</span><span class="si">{name}</span><span class="s2">\n(</span><span class="si">{calculation_rate}</span><span class="s2">)&quot;</span>
+        <span class="n">operator</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ugen</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">BinaryOpUGen</span><span class="p">):</span>
+            <span class="n">operator</span> <span class="o">=</span> <span class="n">BinaryOperator</span><span class="p">(</span><span class="n">ugen</span><span class="o">.</span><span class="n">special_index</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">label_template</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;</span><span class="si">{name}</span><span class="s2">\n[</span><span class="si">{operator}</span><span class="s2">]\n(</span><span class="si">{calculation_rate}</span><span class="s2">)&quot;</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ugen</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UnaryOpUGen</span><span class="p">):</span>
+            <span class="n">operator</span> <span class="o">=</span> <span class="n">UnaryOperator</span><span class="p">(</span><span class="n">ugen</span><span class="o">.</span><span class="n">special_index</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">label_template</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;</span><span class="si">{name}</span><span class="s2">\n[</span><span class="si">{operator}</span><span class="s2">]\n(</span><span class="si">{calculation_rate}</span><span class="s2">)&quot;</span>
+        <span class="n">title_field</span> <span class="o">=</span> <span class="n">uqbar</span><span class="o">.</span><span class="n">graphs</span><span class="o">.</span><span class="n">RecordField</span><span class="p">(</span>
+            <span class="n">label</span><span class="o">=</span><span class="n">label_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="n">operator</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="n">calculation_rate</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">title_field</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_style_graph</span><span class="p">(</span><span class="n">graph</span><span class="p">):</span>
+        <span class="n">graph</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;bgcolor&quot;</span><span class="p">:</span> <span class="s2">&quot;transparent&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s2">&quot;lightslategrey&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;dpi&quot;</span><span class="p">:</span> <span class="mi">72</span><span class="p">,</span>
+                <span class="s2">&quot;fontname&quot;</span><span class="p">:</span> <span class="s2">&quot;Arial&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;outputorder&quot;</span><span class="p">:</span> <span class="s2">&quot;edgesfirst&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;overlap&quot;</span><span class="p">:</span> <span class="s2">&quot;prism&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;penwidth&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="s2">&quot;rankdir&quot;</span><span class="p">:</span> <span class="s2">&quot;LR&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;ranksep&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">&quot;splines&quot;</span><span class="p">:</span> <span class="s2">&quot;spline&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;dotted&quot;</span><span class="p">,</span> <span class="s2">&quot;rounded&quot;</span><span class="p">),</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+        <span class="n">graph</span><span class="o">.</span><span class="n">edge_attributes</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;penwidth&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+        <span class="n">graph</span><span class="o">.</span><span class="n">node_attributes</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;fontname&quot;</span><span class="p">:</span> <span class="s2">&quot;Arial&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;fontsize&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+                <span class="s2">&quot;penwidth&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="s2">&quot;Mrecord&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;filled&quot;</span><span class="p">,</span> <span class="s2">&quot;rounded&quot;</span><span class="p">),</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="SynthDefGrapher.graph"><a class="viewcode-back" href="../../../api/supriya/synthdefs/grapher.html#supriya.synthdefs.grapher.SynthDefGrapher.graph">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">graph</span><span class="p">(</span><span class="n">synthdef</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
+
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">synthdef</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDef</span><span class="p">)</span>
+        <span class="n">graph</span> <span class="o">=</span> <span class="n">uqbar</span><span class="o">.</span><span class="n">graphs</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;synthdef_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">synthdef</span><span class="o">.</span><span class="n">actual_name</span><span class="p">))</span>
+        <span class="n">ugen_node_mapping</span> <span class="o">=</span> <span class="n">SynthDefGrapher</span><span class="o">.</span><span class="n">_create_ugen_node_mapping</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ugen_node_mapping</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
+            <span class="n">graph</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+        <span class="n">SynthDefGrapher</span><span class="o">.</span><span class="n">_connect_nodes</span><span class="p">(</span><span class="n">synthdef</span><span class="p">,</span> <span class="n">ugen_node_mapping</span><span class="p">)</span>
+        <span class="n">SynthDefGrapher</span><span class="o">.</span><span class="n">_style_graph</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">graph</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -62,6 +62,10 @@ NodeAfterRequest
 
    .. container:: inherited
 
+      .. automethod:: NodeAfterRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: NodeAfterRequest.to_datagram
 
    .. container:: inherited

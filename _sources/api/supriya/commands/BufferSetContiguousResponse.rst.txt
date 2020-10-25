@@ -111,7 +111,3 @@ BufferSetContiguousResponse
    .. autoattribute:: BufferSetContiguousResponse.buffer_id
 
    .. autoattribute:: BufferSetContiguousResponse.items
-
-   .. container:: inherited
-
-      .. autoattribute:: BufferSetContiguousResponse.osc_message

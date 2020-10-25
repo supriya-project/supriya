@@ -1,0 +1,1303 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>supriya.synthdefs.synthdefs &mdash; Supriya 0.4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/supriya/index.html">supriya</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>supriya.synthdefs.synthdefs</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for supriya.synthdefs.synthdefs</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+
+<span class="kn">import</span> <span class="nn">yaml</span>
+
+<span class="kn">from</span> <span class="nn">supriya</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">BinaryOperator</span><span class="p">,</span>
+    <span class="n">CalculationRate</span><span class="p">,</span>
+    <span class="n">ParameterRate</span><span class="p">,</span>
+    <span class="n">UnaryOperator</span><span class="p">,</span>
+    <span class="n">sclang</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">supriya.system</span> <span class="kn">import</span> <span class="n">SupriyaObject</span>
+
+<span class="kn">from</span> <span class="nn">.bases</span> <span class="kn">import</span> <span class="n">BinaryOpUGen</span><span class="p">,</span> <span class="n">UGen</span><span class="p">,</span> <span class="n">UnaryOpUGen</span><span class="p">,</span> <span class="n">WidthFirstUGen</span>
+<span class="kn">from</span> <span class="nn">.compilers</span> <span class="kn">import</span> <span class="n">SynthDefCompiler</span>
+<span class="kn">from</span> <span class="nn">.controls</span> <span class="kn">import</span> <span class="n">AudioControl</span><span class="p">,</span> <span class="n">Control</span><span class="p">,</span> <span class="n">LagControl</span><span class="p">,</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">TrigControl</span>
+<span class="kn">from</span> <span class="nn">.grapher</span> <span class="kn">import</span> <span class="n">SynthDefGrapher</span>
+<span class="kn">from</span> <span class="nn">.mixins</span> <span class="kn">import</span> <span class="n">OutputProxy</span><span class="p">,</span> <span class="n">UGenMethodMixin</span>
+
+
+<div class="viewcode-block" id="SynthDef"><a class="viewcode-back" href="../../../api/supriya/synthdefs/synthdefs.html#supriya.synthdefs.synthdefs.SynthDef">[docs]</a><span class="k">class</span> <span class="nc">SynthDef</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A synth definition.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import supriya.synthdefs</span>
+<span class="sd">        &gt;&gt;&gt; import supriya.ugens</span>
+<span class="sd">        &gt;&gt;&gt; with supriya.synthdefs.SynthDefBuilder(frequency=440) as builder:</span>
+<span class="sd">        ...     sin_osc = supriya.ugens.SinOsc.ar(frequency=builder[&#39;frequency&#39;])</span>
+<span class="sd">        ...     out = supriya.ugens.Out.ar(bus=0, source=sin_osc)</span>
+<span class="sd">        ...</span>
+<span class="sd">        &gt;&gt;&gt; synthdef = builder.build()</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import supriya.realtime</span>
+<span class="sd">        &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; synthdef.allocate(server=server)</span>
+<span class="sd">        &lt;SynthDef: 9c4eb4778dc0faf39459fa8a5cd45c19&gt;</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; synthdef in server</span>
+<span class="sd">        True</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; synthdef.free()</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; synthdef in server</span>
+<span class="sd">        False</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; server.quit()</span>
+<span class="sd">        &lt;Server: offline&gt;</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">__documentation_section__</span> <span class="o">=</span> <span class="s2">&quot;Main Classes&quot;</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;_compiled_ugen_graph&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_constants&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_control_ugens&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_indexed_parameters&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_name&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_ugens&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ugens</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">optimize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">parameter_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="n">ugens</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">ugens</span><span class="p">))</span>
+        <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">UGen</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">ugens</span><span class="p">)</span>
+        <span class="n">ugens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cleanup_pv_chains</span><span class="p">(</span><span class="n">ugens</span><span class="p">)</span>
+        <span class="n">ugens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cleanup_local_bufs</span><span class="p">(</span><span class="n">ugens</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">optimize</span><span class="p">:</span>
+            <span class="n">ugens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_optimize_ugen_graph</span><span class="p">(</span><span class="n">ugens</span><span class="p">)</span>
+        <span class="n">ugens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sort_ugens_topologically</span><span class="p">(</span><span class="n">ugens</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ugens</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">ugens</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_constants</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collect_constants</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ugens</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_control_ugens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collect_control_ugens</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ugens</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_indexed_parameters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collect_indexed_parameters</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_control_ugens</span><span class="p">,</span> <span class="n">parameter_names</span><span class="o">=</span><span class="n">parameter_names</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_compiled_ugen_graph</span> <span class="o">=</span> <span class="n">SynthDefCompiler</span><span class="o">.</span><span class="n">compile_ugen_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="c1">### SPECIAL METHODS ###</span>
+
+<div class="viewcode-block" id="SynthDef.__eq__"><a class="viewcode-back" href="../../../api/supriya/synthdefs/synthdefs.html#supriya.synthdefs.synthdefs.SynthDef.__eq__">[docs]</a>    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">expr</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">expr</span><span class="o">.</span><span class="n">_compiled_ugen_graph</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compiled_ugen_graph</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="SynthDef.__graph__"><a class="viewcode-back" href="../../../api/supriya/synthdefs/synthdefs.html#supriya.synthdefs.synthdefs.SynthDef.__graph__">[docs]</a>    <span class="k">def</span> <span class="nf">__graph__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Graphs SynthDef.</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; with supriya.synthdefs.SynthDefBuilder(frequency=440) as builder:</span>
+<span class="sd">            ...     sin_osc = supriya.ugens.SinOsc.ar(frequency=builder[&#39;frequency&#39;])</span>
+<span class="sd">            ...     out = supriya.ugens.Out.ar(bus=0, source=sin_osc)</span>
+<span class="sd">            ...</span>
+<span class="sd">            &gt;&gt;&gt; synthdef = builder.build()</span>
+<span class="sd">            &gt;&gt;&gt; print(format(synthdef.__graph__(), &#39;graphviz&#39;))</span>
+<span class="sd">            digraph synthdef_... {</span>
+<span class="sd">                graph [bgcolor=transparent,</span>
+<span class="sd">                    color=lightslategrey,</span>
+<span class="sd">                    dpi=72,</span>
+<span class="sd">                    fontname=Arial,</span>
+<span class="sd">                    outputorder=edgesfirst,</span>
+<span class="sd">                    overlap=prism,</span>
+<span class="sd">                    penwidth=2,</span>
+<span class="sd">                    rankdir=LR,</span>
+<span class="sd">                    ranksep=1,</span>
+<span class="sd">                    splines=spline,</span>
+<span class="sd">                    style=&quot;dotted, rounded&quot;];</span>
+<span class="sd">                node [fontname=Arial,</span>
+<span class="sd">                    fontsize=12,</span>
+<span class="sd">                    penwidth=2,</span>
+<span class="sd">                    shape=Mrecord,</span>
+<span class="sd">                    style=&quot;filled, rounded&quot;];</span>
+<span class="sd">                edge [penwidth=2];</span>
+<span class="sd">                ugen_0 [fillcolor=lightgoldenrod2,</span>
+<span class="sd">                    label=&quot;&lt;f_0&gt; Control\n(control) | { { &lt;f_1_0_0&gt; frequency:\n440.0 } }&quot;];</span>
+<span class="sd">                ugen_1 [fillcolor=lightsteelblue2,</span>
+<span class="sd">                    label=&quot;&lt;f_0&gt; SinOsc\n(audio) | { { &lt;f_1_0_0&gt; frequency | &lt;f_1_0_1&gt; phase:\n0.0 } | { &lt;f_1_1_0&gt; 0 } }&quot;];</span>
+<span class="sd">                ugen_2 [fillcolor=lightsteelblue2,</span>
+<span class="sd">                    label=&quot;&lt;f_0&gt; Out\n(audio) | { { &lt;f_1_0_0&gt; bus:\n0.0 | &lt;f_1_0_1&gt; source } }&quot;];</span>
+<span class="sd">                ugen_0:f_1_0_0:e -&gt; ugen_1:f_1_0_0:w [color=goldenrod];</span>
+<span class="sd">                ugen_1:f_1_1_0:e -&gt; ugen_2:f_1_0_1:w [color=steelblue];</span>
+<span class="sd">            }</span>
+
+<span class="sd">        Returns Graphviz graph.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">SynthDefGrapher</span><span class="o">.</span><span class="n">graph</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SynthDef.__hash__"><a class="viewcode-back" href="../../../api/supriya/synthdefs/synthdefs.html#supriya.synthdefs.synthdefs.SynthDef.__hash__">[docs]</a>    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">hash_values</span> <span class="o">=</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compiled_ugen_graph</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="n">hash_values</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SynthDef.__repr__"><a class="viewcode-back" href="../../../api/supriya/synthdefs/synthdefs.html#supriya.synthdefs.synthdefs.SynthDef.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;&lt;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">actual_name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SynthDef.__str__"><a class="viewcode-back" href="../../../api/supriya/synthdefs/synthdefs.html#supriya.synthdefs.synthdefs.SynthDef.__str__">[docs]</a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets string representation of synth definition.</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; import supriya.synthdefs</span>
+<span class="sd">            &gt;&gt;&gt; import supriya.ugens</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; with supriya.synthdefs.SynthDefBuilder() as builder:</span>
+<span class="sd">            ...     sin_one = supriya.ugens.SinOsc.ar()</span>
+<span class="sd">            ...     sin_two = supriya.ugens.SinOsc.ar(frequency=443)</span>
+<span class="sd">            ...     source = sin_one + sin_two</span>
+<span class="sd">            ...     out = supriya.ugens.Out.ar(bus=0, source=source)</span>
+<span class="sd">            ...</span>
+<span class="sd">            &gt;&gt;&gt; synthdef = builder.build(name=&#39;test&#39;)</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">            synthdef:</span>
+<span class="sd">                name: test</span>
+<span class="sd">                ugens:</span>
+<span class="sd">                -   SinOsc.ar/0:</span>
+<span class="sd">                        frequency: 440.0</span>
+<span class="sd">                        phase: 0.0</span>
+<span class="sd">                -   SinOsc.ar/1:</span>
+<span class="sd">                        frequency: 443.0</span>
+<span class="sd">                        phase: 0.0</span>
+<span class="sd">                -   BinaryOpUGen(ADDITION).ar:</span>
+<span class="sd">                        left: SinOsc.ar/0[0]</span>
+<span class="sd">                        right: SinOsc.ar/1[0]</span>
+<span class="sd">                -   Out.ar:</span>
+<span class="sd">                        bus: 0.0</span>
+<span class="sd">                        source[0]: BinaryOpUGen(ADDITION).ar[0]</span>
+
+<span class="sd">        Returns string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">get_ugen_names</span><span class="p">():</span>
+            <span class="n">grouped_ugens</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">named_ugens</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">ugen</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ugens</span><span class="p">:</span>
+                <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">ugen</span><span class="p">),</span> <span class="n">ugen</span><span class="o">.</span><span class="n">calculation_rate</span><span class="p">,</span> <span class="n">ugen</span><span class="o">.</span><span class="n">special_index</span><span class="p">)</span>
+                <span class="n">grouped_ugens</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">ugen</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ugens</span><span class="p">:</span>
+                <span class="n">parts</span> <span class="o">=</span> <span class="p">[</span><span class="nb">type</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ugen</span><span class="p">,</span> <span class="n">BinaryOpUGen</span><span class="p">):</span>
+                    <span class="n">ugen_op</span> <span class="o">=</span> <span class="n">BinaryOperator</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">ugen</span><span class="o">.</span><span class="n">special_index</span><span class="p">)</span>
+                    <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="n">ugen_op</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ugen</span><span class="p">,</span> <span class="n">UnaryOpUGen</span><span class="p">):</span>
+                    <span class="n">ugen_op</span> <span class="o">=</span> <span class="n">UnaryOperator</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">ugen</span><span class="o">.</span><span class="n">special_index</span><span class="p">)</span>
+                    <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="n">ugen_op</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span><span class="p">)</span>
+                <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">ugen</span><span class="o">.</span><span class="n">calculation_rate</span><span class="o">.</span><span class="n">token</span><span class="p">)</span>
+                <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">ugen</span><span class="p">),</span> <span class="n">ugen</span><span class="o">.</span><span class="n">calculation_rate</span><span class="p">,</span> <span class="n">ugen</span><span class="o">.</span><span class="n">special_index</span><span class="p">)</span>
+                <span class="n">related_ugens</span> <span class="o">=</span> <span class="n">grouped_ugens</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">related_ugens</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;/</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">related_ugens</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">ugen</span><span class="p">)))</span>
+                <span class="n">named_ugens</span><span class="p">[</span><span class="n">ugen</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">named_ugens</span>
+
+        <span class="k">def</span> <span class="nf">get_parameter_name</span><span class="p">(</span><span class="n">input_</span><span class="p">,</span> <span class="n">output_index</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_</span><span class="p">,</span> <span class="n">Parameter</span><span class="p">):</span>
+                <span class="k">return</span> <span class="s2">&quot;:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">input_</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_</span><span class="p">,</span> <span class="n">Control</span><span class="p">):</span>
+                <span class="c1"># Handle array-like parameters</span>
+                <span class="n">value_index</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="n">input_</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
+                    <span class="n">values</span> <span class="o">=</span> <span class="n">parameter</span><span class="o">.</span><span class="n">value</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                        <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">values</span><span class="p">]</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)):</span>
+                        <span class="k">if</span> <span class="n">value_index</span> <span class="o">!=</span> <span class="n">output_index</span><span class="p">:</span>
+                            <span class="n">value_index</span> <span class="o">+=</span> <span class="mi">1</span>
+                            <span class="k">continue</span>
+                        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                            <span class="k">return</span> <span class="s2">&quot;:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">parameter</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="k">return</span> <span class="s2">&quot;:</span><span class="si">{}</span><span class="s2">[</span><span class="si">{}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">parameter</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="n">ugens</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">named_ugens</span> <span class="o">=</span> <span class="n">get_ugen_names</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">ugen</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ugens</span><span class="p">:</span>
+            <span class="n">ugen_dict</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">ugen_name</span> <span class="o">=</span> <span class="n">named_ugens</span><span class="p">[</span><span class="n">ugen</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">input_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ugen</span><span class="o">.</span><span class="n">inputs</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">ugen</span><span class="o">.</span><span class="n">_ordered_input_names</span><span class="p">):</span>
+                    <span class="n">argument_name</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">ugen</span><span class="o">.</span><span class="n">_ordered_input_names</span><span class="p">)[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">argument_name</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">ugen</span><span class="o">.</span><span class="n">_ordered_input_names</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="n">ugen</span><span class="o">.</span><span class="n">_unexpanded_input_names</span>
+                    <span class="ow">and</span> <span class="n">argument_name</span> <span class="ow">in</span> <span class="n">ugen</span><span class="o">.</span><span class="n">_unexpanded_input_names</span>
+                <span class="p">):</span>
+                    <span class="n">unexpanded_index</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">ugen</span><span class="o">.</span><span class="n">_ordered_input_names</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span>
+                        <span class="n">argument_name</span>
+                    <span class="p">)</span>
+                    <span class="n">argument_name</span> <span class="o">+=</span> <span class="s2">&quot;[</span><span class="si">{}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">unexpanded_index</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">input_</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">output_index</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_</span><span class="p">,</span> <span class="n">OutputProxy</span><span class="p">):</span>
+                        <span class="n">output_index</span> <span class="o">=</span> <span class="n">input_</span><span class="o">.</span><span class="n">output_index</span>
+                        <span class="n">input_</span> <span class="o">=</span> <span class="n">input_</span><span class="o">.</span><span class="n">source</span>
+                    <span class="n">input_name</span> <span class="o">=</span> <span class="n">named_ugens</span><span class="p">[</span><span class="n">input_</span><span class="p">]</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">[</span><span class="si">{}{}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">input_name</span><span class="p">,</span>
+                        <span class="n">output_index</span><span class="p">,</span>
+                        <span class="n">get_parameter_name</span><span class="p">(</span><span class="n">input_</span><span class="p">,</span> <span class="n">output_index</span><span class="p">),</span>
+                    <span class="p">)</span>
+                <span class="n">ugen_dict</span><span class="p">[</span><span class="n">argument_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ugen_dict</span><span class="p">:</span>
+                <span class="n">ugen_dict</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">ugens</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="n">ugen_name</span><span class="p">:</span> <span class="n">ugen_dict</span><span class="p">})</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;synthdef&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">actual_name</span><span class="p">,</span>
+                <span class="c1"># &#39;hash&#39;: self.anonymous_name,</span>
+                <span class="s2">&quot;ugens&quot;</span><span class="p">:</span> <span class="n">ugens</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">default_flow_style</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span></div>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_allocate_synthdefs</span><span class="p">(</span><span class="n">synthdefs</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
+        <span class="c1"># TODO: Should sync be configurable here?</span>
+        <span class="kn">import</span> <span class="nn">supriya.commands</span>
+
+        <span class="n">d_recv_synthdef_groups</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">d_recv_synth_group</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">current_total</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">d_load_synthdefs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">synthdefs</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">for</span> <span class="n">synthdef</span> <span class="ow">in</span> <span class="n">synthdefs</span><span class="p">:</span>
+            <span class="c1"># synthdef._register_with_local_server(server=server)</span>
+            <span class="n">compiled</span> <span class="o">=</span> <span class="n">synthdef</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
+            <span class="k">if</span> <span class="mi">8192</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">compiled</span><span class="p">):</span>
+                <span class="n">d_load_synthdefs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">current_total</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">compiled</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">8192</span><span class="p">:</span>
+                <span class="n">d_recv_synth_group</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">synthdef</span><span class="p">)</span>
+                <span class="n">current_total</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">compiled</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">d_recv_synthdef_groups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d_recv_synth_group</span><span class="p">)</span>
+                <span class="n">d_recv_synth_group</span> <span class="o">=</span> <span class="p">[</span><span class="n">synthdef</span><span class="p">]</span>
+                <span class="n">current_total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">compiled</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">d_recv_synth_group</span><span class="p">:</span>
+            <span class="n">d_recv_synthdef_groups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d_recv_synth_group</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">d_recv_synth_group</span> <span class="ow">in</span> <span class="n">d_recv_synthdef_groups</span><span class="p">:</span>
+            <span class="n">d_recv_request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">SynthDefReceiveRequest</span><span class="p">(</span>
+                <span class="n">synthdefs</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">d_recv_synth_group</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">d_recv_request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,</span> <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">d_load_synthdefs</span><span class="p">:</span>
+            <span class="n">temp_directory_path</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">synthdef</span> <span class="ow">in</span> <span class="n">d_load_synthdefs</span><span class="p">:</span>
+                <span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.scsyndef&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">synthdef</span><span class="o">.</span><span class="n">actual_name</span><span class="p">)</span>
+                <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">temp_directory_path</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_pointer</span><span class="p">:</span>
+                    <span class="n">file_pointer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">synthdef</span><span class="o">.</span><span class="n">compile</span><span class="p">())</span>
+            <span class="n">d_load_dir_request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">SynthDefLoadDirectoryRequest</span><span class="p">(</span>
+                <span class="n">directory_path</span><span class="o">=</span><span class="n">temp_directory_path</span>
+            <span class="p">)</span>
+            <span class="n">d_load_dir_request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,</span> <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">temp_directory_path</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_build_control_mapping</span><span class="p">(</span><span class="n">parameters</span><span class="p">):</span>
+        <span class="n">control_mapping</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="n">scalar_parameters</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">trigger_parameters</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">audio_parameters</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">control_parameters</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">mapping</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">ParameterRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">:</span> <span class="n">audio_parameters</span><span class="p">,</span>
+            <span class="n">ParameterRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">:</span> <span class="n">control_parameters</span><span class="p">,</span>
+            <span class="n">ParameterRate</span><span class="o">.</span><span class="n">SCALAR</span><span class="p">:</span> <span class="n">scalar_parameters</span><span class="p">,</span>
+            <span class="n">ParameterRate</span><span class="o">.</span><span class="n">TRIGGER</span><span class="p">:</span> <span class="n">trigger_parameters</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">:</span>
+            <span class="n">mapping</span><span class="p">[</span><span class="n">parameter</span><span class="o">.</span><span class="n">parameter_rate</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parameter</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">filtered_parameters</span> <span class="ow">in</span> <span class="n">mapping</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">filtered_parameters</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">control_ugens</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">indexed_parameters</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">starting_control_index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">scalar_parameters</span><span class="p">:</span>
+            <span class="n">control</span> <span class="o">=</span> <span class="n">Control</span><span class="p">(</span>
+                <span class="n">parameters</span><span class="o">=</span><span class="n">scalar_parameters</span><span class="p">,</span>
+                <span class="n">calculation_rate</span><span class="o">=</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">SCALAR</span><span class="p">,</span>
+                <span class="n">starting_control_index</span><span class="o">=</span><span class="n">starting_control_index</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">control_ugens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">control</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="n">scalar_parameters</span><span class="p">:</span>
+                <span class="n">indexed_parameters</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">starting_control_index</span><span class="p">,</span> <span class="n">parameter</span><span class="p">))</span>
+                <span class="n">starting_control_index</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">parameter</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">output_proxy</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">control</span><span class="o">.</span><span class="n">_get_parameter_output_proxies</span><span class="p">()):</span>
+                <span class="n">control_mapping</span><span class="p">[</span><span class="n">output_proxy</span><span class="p">]</span> <span class="o">=</span> <span class="n">control</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">trigger_parameters</span><span class="p">:</span>
+            <span class="n">control</span> <span class="o">=</span> <span class="n">TrigControl</span><span class="p">(</span>
+                <span class="n">parameters</span><span class="o">=</span><span class="n">trigger_parameters</span><span class="p">,</span>
+                <span class="n">starting_control_index</span><span class="o">=</span><span class="n">starting_control_index</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">control_ugens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">control</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="n">trigger_parameters</span><span class="p">:</span>
+                <span class="n">indexed_parameters</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">starting_control_index</span><span class="p">,</span> <span class="n">parameter</span><span class="p">))</span>
+                <span class="n">starting_control_index</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">parameter</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">output_proxy</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">control</span><span class="o">.</span><span class="n">_get_parameter_output_proxies</span><span class="p">()):</span>
+                <span class="n">control_mapping</span><span class="p">[</span><span class="n">output_proxy</span><span class="p">]</span> <span class="o">=</span> <span class="n">control</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">audio_parameters</span><span class="p">:</span>
+            <span class="n">control</span> <span class="o">=</span> <span class="n">AudioControl</span><span class="p">(</span>
+                <span class="n">parameters</span><span class="o">=</span><span class="n">audio_parameters</span><span class="p">,</span>
+                <span class="n">starting_control_index</span><span class="o">=</span><span class="n">starting_control_index</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">control_ugens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">control</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="n">audio_parameters</span><span class="p">:</span>
+                <span class="n">indexed_parameters</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">starting_control_index</span><span class="p">,</span> <span class="n">parameter</span><span class="p">))</span>
+                <span class="n">starting_control_index</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">parameter</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">output_proxy</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">control</span><span class="o">.</span><span class="n">_get_parameter_output_proxies</span><span class="p">()):</span>
+                <span class="n">control_mapping</span><span class="p">[</span><span class="n">output_proxy</span><span class="p">]</span> <span class="o">=</span> <span class="n">control</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">control_parameters</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">_</span><span class="o">.</span><span class="n">lag</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">control_parameters</span><span class="p">):</span>
+                <span class="n">control</span> <span class="o">=</span> <span class="n">LagControl</span><span class="p">(</span>
+                    <span class="n">parameters</span><span class="o">=</span><span class="n">control_parameters</span><span class="p">,</span>
+                    <span class="n">calculation_rate</span><span class="o">=</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">,</span>
+                    <span class="n">starting_control_index</span><span class="o">=</span><span class="n">starting_control_index</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">control</span> <span class="o">=</span> <span class="n">Control</span><span class="p">(</span>
+                    <span class="n">parameters</span><span class="o">=</span><span class="n">control_parameters</span><span class="p">,</span>
+                    <span class="n">calculation_rate</span><span class="o">=</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">,</span>
+                    <span class="n">starting_control_index</span><span class="o">=</span><span class="n">starting_control_index</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="n">control_ugens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">control</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="n">control_parameters</span><span class="p">:</span>
+                <span class="n">indexed_parameters</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">starting_control_index</span><span class="p">,</span> <span class="n">parameter</span><span class="p">))</span>
+                <span class="n">starting_control_index</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">parameter</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">output_proxy</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">control</span><span class="o">.</span><span class="n">_get_parameter_output_proxies</span><span class="p">()):</span>
+                <span class="n">control_mapping</span><span class="p">[</span><span class="n">output_proxy</span><span class="p">]</span> <span class="o">=</span> <span class="n">control</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">control_ugens</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">control_ugens</span><span class="p">)</span>
+        <span class="n">indexed_parameters</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">pair</span><span class="p">:</span> <span class="n">parameters</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="n">indexed_parameters</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">indexed_parameters</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">control_ugens</span><span class="p">,</span> <span class="n">control_mapping</span><span class="p">,</span> <span class="n">indexed_parameters</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_build_input_mapping</span><span class="p">(</span><span class="n">ugens</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.ugens</span>
+
+        <span class="n">input_mapping</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">ugen</span> <span class="ow">in</span> <span class="n">ugens</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ugen</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">PV_ChainUGen</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ugen</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">PV_Copy</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">input_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ugen</span><span class="o">.</span><span class="n">inputs</span><span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_</span><span class="p">,</span> <span class="n">OutputProxy</span><span class="p">):</span>
+                    <span class="k">continue</span>
+                <span class="n">source</span> <span class="o">=</span> <span class="n">input_</span><span class="o">.</span><span class="n">source</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">PV_ChainUGen</span><span class="p">):</span>
+                    <span class="k">continue</span>
+                <span class="k">if</span> <span class="n">source</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">input_mapping</span><span class="p">:</span>
+                    <span class="n">input_mapping</span><span class="p">[</span><span class="n">source</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">input_mapping</span><span class="p">[</span><span class="n">source</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">ugen</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">input_mapping</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_cleanup_local_bufs</span><span class="p">(</span><span class="n">ugens</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.ugens</span>
+
+        <span class="n">local_bufs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">processed_ugens</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ugen</span> <span class="ow">in</span> <span class="n">ugens</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ugen</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">MaxLocalBufs</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ugen</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">LocalBuf</span><span class="p">):</span>
+                <span class="n">local_bufs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>
+            <span class="n">processed_ugens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">local_bufs</span><span class="p">:</span>
+            <span class="n">max_local_bufs</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">MaxLocalBufs</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">local_bufs</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">local_buf</span> <span class="ow">in</span> <span class="n">local_bufs</span><span class="p">:</span>
+                <span class="n">inputs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">local_buf</span><span class="o">.</span><span class="n">inputs</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
+                <span class="n">inputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">max_local_bufs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">local_buf</span><span class="o">.</span><span class="n">_inputs</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">processed_ugens</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">local_bufs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">processed_ugens</span><span class="p">[</span><span class="n">index</span><span class="p">:</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">max_local_bufs</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">processed_ugens</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_cleanup_pv_chains</span><span class="p">(</span><span class="n">ugens</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.ugens</span>
+
+        <span class="n">input_mapping</span> <span class="o">=</span> <span class="n">SynthDef</span><span class="o">.</span><span class="n">_build_input_mapping</span><span class="p">(</span><span class="n">ugens</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">antecedent</span><span class="p">,</span> <span class="n">descendants</span> <span class="ow">in</span> <span class="n">input_mapping</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">descendants</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">for</span> <span class="n">descendant</span><span class="p">,</span> <span class="n">input_index</span> <span class="ow">in</span> <span class="n">descendants</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">fft_size</span> <span class="o">=</span> <span class="n">antecedent</span><span class="o">.</span><span class="n">fft_size</span>
+                <span class="n">new_buffer</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">LocalBuf</span><span class="p">(</span><span class="n">fft_size</span><span class="p">)</span>
+                <span class="n">pv_copy</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">PV_Copy</span><span class="p">(</span><span class="n">antecedent</span><span class="p">,</span> <span class="n">new_buffer</span><span class="p">)</span>
+                <span class="n">inputs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">descendant</span><span class="o">.</span><span class="n">_inputs</span><span class="p">)</span>
+                <span class="n">inputs</span><span class="p">[</span><span class="n">input_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">pv_copy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">descendant</span><span class="o">.</span><span class="n">_inputs</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="n">ugens</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">descendant</span><span class="p">)</span>
+                <span class="n">replacement</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fft_size</span><span class="p">,</span> <span class="n">UGenMethodMixin</span><span class="p">):</span>
+                    <span class="n">replacement</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fft_size</span><span class="p">)</span>
+                <span class="n">replacement</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">new_buffer</span><span class="p">,</span> <span class="n">pv_copy</span><span class="p">])</span>
+                <span class="n">ugens</span><span class="p">[</span><span class="n">index</span><span class="p">:</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">replacement</span>
+        <span class="k">return</span> <span class="n">ugens</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_collect_constants</span><span class="p">(</span><span class="n">ugens</span><span class="p">):</span>
+        <span class="n">constants</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ugen</span> <span class="ow">in</span> <span class="n">ugens</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">input_</span> <span class="ow">in</span> <span class="n">ugen</span><span class="o">.</span><span class="n">_inputs</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                    <span class="k">continue</span>
+                <span class="k">if</span> <span class="n">input_</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">constants</span><span class="p">:</span>
+                    <span class="n">constants</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">input_</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">constants</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_collect_control_ugens</span><span class="p">(</span><span class="n">ugens</span><span class="p">):</span>
+        <span class="n">control_ugens</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">_</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">ugens</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">Control</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">control_ugens</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_collect_indexed_parameters</span><span class="p">(</span><span class="n">control_ugens</span><span class="p">,</span> <span class="n">parameter_names</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">indexed_parameters</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">parameters</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">control_ugen</span> <span class="ow">in</span> <span class="n">control_ugens</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">control_ugen</span><span class="o">.</span><span class="n">starting_control_index</span>
+            <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="n">control_ugen</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
+                <span class="n">parameters</span><span class="p">[</span><span class="n">parameter</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">parameter</span><span class="p">)</span>
+                <span class="n">index</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">parameter</span><span class="p">)</span>
+        <span class="n">parameter_names</span> <span class="o">=</span> <span class="n">parameter_names</span> <span class="ow">or</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">parameter_names</span><span class="p">)</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">parameter_name</span> <span class="ow">in</span> <span class="n">parameter_names</span><span class="p">:</span>
+            <span class="n">indexed_parameters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="n">parameter_name</span><span class="p">])</span>
+        <span class="n">indexed_parameters</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">indexed_parameters</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">indexed_parameters</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_extract_parameters</span><span class="p">(</span><span class="n">ugens</span><span class="p">):</span>
+        <span class="n">parameters</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">ugen</span> <span class="ow">in</span> <span class="n">ugens</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ugen</span><span class="p">,</span> <span class="n">Parameter</span><span class="p">):</span>
+                <span class="n">parameters</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>
+        <span class="n">ugens</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">ugen</span> <span class="k">for</span> <span class="n">ugen</span> <span class="ow">in</span> <span class="n">ugens</span> <span class="k">if</span> <span class="n">ugen</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">)</span>
+        <span class="n">parameters</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">ugens</span><span class="p">,</span> <span class="n">parameters</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_initialize_topological_sort</span><span class="p">(</span><span class="n">ugens</span><span class="p">):</span>
+        <span class="n">ugens</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ugens</span><span class="p">)</span>
+        <span class="n">sort_bundles</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="n">width_first_antecedents</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ugen</span> <span class="ow">in</span> <span class="n">ugens</span><span class="p">:</span>
+            <span class="n">sort_bundles</span><span class="p">[</span><span class="n">ugen</span><span class="p">]</span> <span class="o">=</span> <span class="n">UGenSortBundle</span><span class="p">(</span><span class="n">ugen</span><span class="p">,</span> <span class="n">width_first_antecedents</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ugen</span><span class="p">,</span> <span class="n">WidthFirstUGen</span><span class="p">):</span>
+                <span class="n">width_first_antecedents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ugen</span> <span class="ow">in</span> <span class="n">ugens</span><span class="p">:</span>
+            <span class="n">sort_bundle</span> <span class="o">=</span> <span class="n">sort_bundles</span><span class="p">[</span><span class="n">ugen</span><span class="p">]</span>
+            <span class="n">sort_bundle</span><span class="o">.</span><span class="n">_initialize_topological_sort</span><span class="p">(</span><span class="n">sort_bundles</span><span class="p">)</span>
+            <span class="n">sort_bundle</span><span class="o">.</span><span class="n">descendants</span><span class="p">[:]</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+                <span class="n">sort_bundles</span><span class="p">[</span><span class="n">ugen</span><span class="p">]</span><span class="o">.</span><span class="n">descendants</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">ugens</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">ugen</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">sort_bundles</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_optimize_ugen_graph</span><span class="p">(</span><span class="n">ugens</span><span class="p">):</span>
+        <span class="n">sort_bundles</span> <span class="o">=</span> <span class="n">SynthDef</span><span class="o">.</span><span class="n">_initialize_topological_sort</span><span class="p">(</span><span class="n">ugens</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ugen</span> <span class="ow">in</span> <span class="n">ugens</span><span class="p">:</span>
+            <span class="n">ugen</span><span class="o">.</span><span class="n">_optimize_graph</span><span class="p">(</span><span class="n">sort_bundles</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">sort_bundles</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_register_with_local_server</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.realtime</span>
+
+        <span class="n">server</span> <span class="o">=</span> <span class="n">server</span> <span class="ow">or</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span>
+        <span class="n">synthdef_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">actual_name</span>
+        <span class="n">server</span><span class="o">.</span><span class="n">_synthdefs</span><span class="p">[</span><span class="n">synthdef_name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_remap_controls</span><span class="p">(</span><span class="n">ugens</span><span class="p">,</span> <span class="n">control_mapping</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">ugen</span> <span class="ow">in</span> <span class="n">ugens</span><span class="p">:</span>
+            <span class="n">inputs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ugen</span><span class="o">.</span><span class="n">inputs</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">input_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">input_</span> <span class="ow">in</span> <span class="n">control_mapping</span><span class="p">:</span>
+                    <span class="n">output_proxy</span> <span class="o">=</span> <span class="n">control_mapping</span><span class="p">[</span><span class="n">input_</span><span class="p">]</span>
+                    <span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">output_proxy</span>
+            <span class="n">ugen</span><span class="o">.</span><span class="n">_inputs</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_sort_ugens_topologically</span><span class="p">(</span><span class="n">ugens</span><span class="p">):</span>
+        <span class="n">sort_bundles</span> <span class="o">=</span> <span class="n">SynthDef</span><span class="o">.</span><span class="n">_initialize_topological_sort</span><span class="p">(</span><span class="n">ugens</span><span class="p">)</span>
+        <span class="n">available_ugens</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ugen</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">ugens</span><span class="p">):</span>
+            <span class="n">sort_bundles</span><span class="p">[</span><span class="n">ugen</span><span class="p">]</span><span class="o">.</span><span class="n">_make_available</span><span class="p">(</span><span class="n">available_ugens</span><span class="p">)</span>
+        <span class="n">out_stack</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">while</span> <span class="n">available_ugens</span><span class="p">:</span>
+            <span class="n">available_ugen</span> <span class="o">=</span> <span class="n">available_ugens</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="n">sort_bundles</span><span class="p">[</span><span class="n">available_ugen</span><span class="p">]</span><span class="o">.</span><span class="n">_schedule</span><span class="p">(</span>
+                <span class="n">available_ugens</span><span class="p">,</span> <span class="n">out_stack</span><span class="p">,</span> <span class="n">sort_bundles</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">out_stack</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="SynthDef.allocate"><a class="viewcode-back" href="../../../api/supriya/synthdefs/synthdefs.html#supriya.synthdefs.synthdefs.SynthDef.allocate">[docs]</a>    <span class="k">def</span> <span class="nf">allocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_allocate_synthdefs</span><span class="p">((</span><span class="bp">self</span><span class="p">,),</span> <span class="n">server</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="SynthDef.compile"><a class="viewcode-back" href="../../../api/supriya/synthdefs/synthdefs.html#supriya.synthdefs.synthdefs.SynthDef.compile">[docs]</a>    <span class="k">def</span> <span class="nf">compile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">use_anonymous_name</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">supriya.synthdefs</span> <span class="kn">import</span> <span class="n">SynthDefCompiler</span>
+
+        <span class="n">synthdefs</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="p">]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">SynthDefCompiler</span><span class="o">.</span><span class="n">compile_synthdefs</span><span class="p">(</span>
+            <span class="n">synthdefs</span><span class="p">,</span> <span class="n">use_anonymous_names</span><span class="o">=</span><span class="n">use_anonymous_name</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="SynthDef.free"><a class="viewcode-back" href="../../../api/supriya/synthdefs/synthdefs.html#supriya.synthdefs.synthdefs.SynthDef.free">[docs]</a>    <span class="k">def</span> <span class="nf">free</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.commands</span>
+
+        <span class="n">server</span> <span class="o">=</span> <span class="n">server</span> <span class="ow">or</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Server</span><span class="o">.</span><span class="n">default</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="bp">self</span> <span class="ow">in</span> <span class="n">server</span>
+        <span class="n">synthdef_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">actual_name</span>
+        <span class="k">del</span> <span class="n">server</span><span class="o">.</span><span class="n">_synthdefs</span><span class="p">[</span><span class="n">synthdef_name</span><span class="p">]</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">SynthDefFreeRequest</span><span class="p">(</span><span class="n">synthdef</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">server</span><span class="o">.</span><span class="n">is_running</span><span class="p">:</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SynthDef.play"><a class="viewcode-back" href="../../../api/supriya/synthdefs/synthdefs.html#supriya.synthdefs.synthdefs.SynthDef.play">[docs]</a>    <span class="k">def</span> <span class="nf">play</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">add_action</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">target_node</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plays the synthdef on the server.</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
+<span class="sd">            &gt;&gt;&gt; synthdef = supriya.assets.synthdefs.default</span>
+<span class="sd">            &gt;&gt;&gt; synth = synthdef.play()</span>
+<span class="sd">            &gt;&gt;&gt; server = server.quit()</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">supriya.realtime</span>
+
+        <span class="n">synth</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">synth</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">add_action</span><span class="o">=</span><span class="n">add_action</span><span class="p">,</span> <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">target_node</span><span class="o">=</span><span class="n">target_node</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">synth</span></div>
+
+<div class="viewcode-block" id="SynthDef.to_dict"><a class="viewcode-back" href="../../../api/supriya/synthdefs/synthdefs.html#supriya.synthdefs.synthdefs.SynthDef.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert SynthDef to JSON-serializable dictionay.</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; import json</span>
+<span class="sd">            &gt;&gt;&gt; result = supriya.assets.synthdefs.default.to_dict()</span>
+<span class="sd">            &gt;&gt;&gt; result = json.dumps(</span>
+<span class="sd">            ...     result,</span>
+<span class="sd">            ...     indent=4,</span>
+<span class="sd">            ...     separators=(&#39;,&#39;, &#39;: &#39;),</span>
+<span class="sd">            ...     sort_keys=True,</span>
+<span class="sd">            ...     )</span>
+<span class="sd">            &gt;&gt;&gt; print(result)</span>
+<span class="sd">            {</span>
+<span class="sd">                &quot;synthdef&quot;: {</span>
+<span class="sd">                    &quot;hash&quot;: &quot;da0982184cc8fa54cf9d288a0fe1f6ca&quot;,</span>
+<span class="sd">                    &quot;name&quot;: &quot;default&quot;,</span>
+<span class="sd">                    &quot;parameters&quot;: {</span>
+<span class="sd">                        &quot;amplitude&quot;: {</span>
+<span class="sd">                            &quot;range&quot;: [</span>
+<span class="sd">                                0,</span>
+<span class="sd">                                1</span>
+<span class="sd">                            ],</span>
+<span class="sd">                            &quot;rate&quot;: &quot;control&quot;,</span>
+<span class="sd">                            &quot;unit&quot;: null,</span>
+<span class="sd">                            &quot;value&quot;: 0.1</span>
+<span class="sd">                        },</span>
+<span class="sd">                        &quot;frequency&quot;: {</span>
+<span class="sd">                            &quot;range&quot;: [</span>
+<span class="sd">                                0,</span>
+<span class="sd">                                1</span>
+<span class="sd">                            ],</span>
+<span class="sd">                            &quot;rate&quot;: &quot;control&quot;,</span>
+<span class="sd">                            &quot;unit&quot;: null,</span>
+<span class="sd">                            &quot;value&quot;: 440.0</span>
+<span class="sd">                        },</span>
+<span class="sd">                        &quot;gate&quot;: {</span>
+<span class="sd">                            &quot;range&quot;: [</span>
+<span class="sd">                                0,</span>
+<span class="sd">                                1</span>
+<span class="sd">                            ],</span>
+<span class="sd">                            &quot;rate&quot;: &quot;control&quot;,</span>
+<span class="sd">                            &quot;unit&quot;: null,</span>
+<span class="sd">                            &quot;value&quot;: 1.0</span>
+<span class="sd">                        },</span>
+<span class="sd">                        &quot;out&quot;: {</span>
+<span class="sd">                            &quot;range&quot;: [</span>
+<span class="sd">                                0,</span>
+<span class="sd">                                1</span>
+<span class="sd">                            ],</span>
+<span class="sd">                            &quot;rate&quot;: &quot;scalar&quot;,</span>
+<span class="sd">                            &quot;unit&quot;: null,</span>
+<span class="sd">                            &quot;value&quot;: 0.0</span>
+<span class="sd">                        },</span>
+<span class="sd">                        &quot;pan&quot;: {</span>
+<span class="sd">                            &quot;range&quot;: [</span>
+<span class="sd">                                0,</span>
+<span class="sd">                                1</span>
+<span class="sd">                            ],</span>
+<span class="sd">                            &quot;rate&quot;: &quot;control&quot;,</span>
+<span class="sd">                            &quot;unit&quot;: null,</span>
+<span class="sd">                            &quot;value&quot;: 0.5</span>
+<span class="sd">                        }</span>
+<span class="sd">                    }</span>
+<span class="sd">                }</span>
+<span class="sd">            }</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">actual_name</span><span class="p">,</span>
+            <span class="s2">&quot;hash&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">anonymous_name</span><span class="p">,</span>
+            <span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="n">parameter_name</span><span class="p">,</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">range_</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">parameter</span><span class="o">.</span><span class="n">range_</span><span class="p">:</span>
+                <span class="n">range_</span> <span class="o">=</span> <span class="p">[</span><span class="n">parameter</span><span class="o">.</span><span class="n">range_</span><span class="o">.</span><span class="n">minimum</span><span class="p">,</span> <span class="n">parameter</span><span class="o">.</span><span class="n">range_</span><span class="o">.</span><span class="n">maximum</span><span class="p">]</span>
+            <span class="n">rate</span> <span class="o">=</span> <span class="n">parameter</span><span class="o">.</span><span class="n">parameter_rate</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="n">result</span><span class="p">[</span><span class="s2">&quot;parameters&quot;</span><span class="p">][</span><span class="n">parameter_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;rate&quot;</span><span class="p">:</span> <span class="n">rate</span><span class="p">,</span>
+                <span class="s2">&quot;range&quot;</span><span class="p">:</span> <span class="n">range_</span><span class="p">,</span>
+                <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">parameter</span><span class="o">.</span><span class="n">unit</span><span class="p">,</span>
+                <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">parameter</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;synthdef&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">actual_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">anonymous_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">anonymous_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">md5</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">()</span>
+        <span class="n">md5</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_compiled_ugen_graph</span><span class="p">)</span>
+        <span class="n">anonymous_name</span> <span class="o">=</span> <span class="n">md5</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">anonymous_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">audio_channel_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">audio_input_channel_count</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">audio_output_channel_count</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">audio_input_channel_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets audio input channel count of synthdef.</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; with supriya.SynthDefBuilder() as builder:</span>
+<span class="sd">            ...     audio_in = supriya.ugens.In.ar(channel_count=1)</span>
+<span class="sd">            ...     control_in = supriya.ugens.In.kr(channel_count=2)</span>
+<span class="sd">            ...     sin = supriya.ugens.SinOsc.ar(</span>
+<span class="sd">            ...          frequency=audio_in,</span>
+<span class="sd">            ...          )</span>
+<span class="sd">            ...     source = audio_in * control_in[1]</span>
+<span class="sd">            ...     audio_out = supriya.ugens.Out.ar(source=[source] * 4)</span>
+<span class="sd">            ...</span>
+<span class="sd">            &gt;&gt;&gt; synthdef = builder.build()</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; synthdef.audio_input_channel_count</span>
+<span class="sd">            1</span>
+
+<span class="sd">        Returns integer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ugens</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="n">_</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_ugens</span> <span class="k">if</span> <span class="n">_</span><span class="o">.</span><span class="n">calculation_rate</span> <span class="o">==</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ugens</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">ugens</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">channel_count</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">ugens</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">audio_output_channel_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets audio output channel count of synthdef.</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; with supriya.SynthDefBuilder() as builder:</span>
+<span class="sd">            ...     audio_in = supriya.ugens.In.ar(channel_count=1)</span>
+<span class="sd">            ...     control_in = supriya.ugens.In.kr(channel_count=2)</span>
+<span class="sd">            ...     sin = supriya.ugens.SinOsc.ar(</span>
+<span class="sd">            ...          frequency=audio_in,</span>
+<span class="sd">            ...          )</span>
+<span class="sd">            ...     source = audio_in * control_in[1]</span>
+<span class="sd">            ...     audio_out = supriya.ugens.Out.ar(source=[source] * 4)</span>
+<span class="sd">            ...</span>
+<span class="sd">            &gt;&gt;&gt; synthdef = builder.build()</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; synthdef.audio_output_channel_count</span>
+<span class="sd">            4</span>
+
+<span class="sd">        Returns integer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ugens</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="n">_</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_ugens</span> <span class="k">if</span> <span class="n">_</span><span class="o">.</span><span class="n">calculation_rate</span> <span class="o">==</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ugens</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">ugens</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">ugens</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">constants</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_constants</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">control_ugens</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_control_ugens</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">control_channel_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">control_input_channel_count</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">control_output_channel_count</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">control_input_channel_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets control input channel count of synthdef.</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; with supriya.SynthDefBuilder() as builder:</span>
+<span class="sd">            ...     audio_in = supriya.ugens.In.ar(channel_count=1)</span>
+<span class="sd">            ...     control_in = supriya.ugens.In.kr(channel_count=2)</span>
+<span class="sd">            ...     sin = supriya.ugens.SinOsc.ar(</span>
+<span class="sd">            ...          frequency=audio_in,</span>
+<span class="sd">            ...          )</span>
+<span class="sd">            ...     source = audio_in * control_in[1]</span>
+<span class="sd">            ...     audio_out = supriya.ugens.Out.ar(source=[source] * 4)</span>
+<span class="sd">            ...</span>
+<span class="sd">            &gt;&gt;&gt; synthdef = builder.build()</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; synthdef.control_input_channel_count</span>
+<span class="sd">            2</span>
+
+<span class="sd">        Returns integer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ugens</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="n">_</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_ugens</span> <span class="k">if</span> <span class="n">_</span><span class="o">.</span><span class="n">calculation_rate</span> <span class="o">==</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ugens</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">ugens</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">channel_count</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">ugens</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">control_output_channel_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets control output channel count of synthdef.</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; with supriya.SynthDefBuilder() as builder:</span>
+<span class="sd">            ...     audio_in = supriya.ugens.In.ar(channel_count=1)</span>
+<span class="sd">            ...     control_in = supriya.ugens.In.kr(channel_count=2)</span>
+<span class="sd">            ...     sin = supriya.ugens.SinOsc.ar(</span>
+<span class="sd">            ...          frequency=audio_in,</span>
+<span class="sd">            ...          )</span>
+<span class="sd">            ...     source = audio_in * control_in[1]</span>
+<span class="sd">            ...     audio_out = supriya.ugens.Out.ar(source=[source] * 4)</span>
+<span class="sd">            ...</span>
+<span class="sd">            &gt;&gt;&gt; synthdef = builder.build()</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; synthdef.control_output_channel_count</span>
+<span class="sd">            0</span>
+
+<span class="sd">        Returns integer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ugens</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="n">_</span>
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_ugens</span>
+            <span class="k">if</span> <span class="n">_</span><span class="o">.</span><span class="n">calculation_rate</span> <span class="o">==</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ugens</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">ugens</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">ugens</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">done_actions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">done_actions</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">ugen</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ugens</span><span class="p">:</span>
+            <span class="n">done_action</span> <span class="o">=</span> <span class="n">ugen</span><span class="o">.</span><span class="n">_get_done_action</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">done_action</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">done_actions</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">done_action</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">done_actions</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">has_gate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;gate&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter_names</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">indexed_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_indexed_parameters</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">input_ugens</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">_</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ugens</span> <span class="k">if</span> <span class="n">_</span><span class="o">.</span><span class="n">is_input_ugen</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_allocated</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">output_ugens</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">_</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ugens</span> <span class="k">if</span> <span class="n">_</span><span class="o">.</span><span class="n">is_output_ugen</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="n">parameter</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">parameter</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">indexed_parameters</span>
+        <span class="p">}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">parameter_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">parameter</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">indexed_parameters</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ugens</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ugens</span></div>
+
+
+<div class="viewcode-block" id="UGenSortBundle"><a class="viewcode-back" href="../../../api/supriya/synthdefs/synthdefs.html#supriya.synthdefs.synthdefs.UGenSortBundle">[docs]</a><span class="k">class</span> <span class="nc">UGenSortBundle</span><span class="p">(</span><span class="n">SupriyaObject</span><span class="p">):</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">__documentation_section__</span> <span class="o">=</span> <span class="s2">&quot;SynthDef Internals&quot;</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ugen</span><span class="p">,</span> <span class="n">width_first_antecedents</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">antecedents</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">descendants</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ugen</span> <span class="o">=</span> <span class="n">ugen</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width_first_antecedents</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">width_first_antecedents</span><span class="p">)</span>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="k">def</span> <span class="nf">_initialize_topological_sort</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sort_bundles</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">input_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ugen</span><span class="o">.</span><span class="n">inputs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_</span><span class="p">,</span> <span class="n">OutputProxy</span><span class="p">):</span>
+                <span class="n">input_</span> <span class="o">=</span> <span class="n">input_</span><span class="o">.</span><span class="n">source</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_</span><span class="p">,</span> <span class="n">UGen</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">input_sort_bundle</span> <span class="o">=</span> <span class="n">sort_bundles</span><span class="p">[</span><span class="n">input_</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">input_</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">antecedents</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">antecedents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">input_</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ugen</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">input_sort_bundle</span><span class="o">.</span><span class="n">descendants</span><span class="p">:</span>
+                <span class="n">input_sort_bundle</span><span class="o">.</span><span class="n">descendants</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ugen</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">input_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">width_first_antecedents</span><span class="p">:</span>
+            <span class="n">input_sort_bundle</span> <span class="o">=</span> <span class="n">sort_bundles</span><span class="p">[</span><span class="n">input_</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">input_</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">antecedents</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">antecedents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">input_</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ugen</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">input_sort_bundle</span><span class="o">.</span><span class="n">descendants</span><span class="p">:</span>
+                <span class="n">input_sort_bundle</span><span class="o">.</span><span class="n">descendants</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ugen</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_make_available</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">available_ugens</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">antecedents</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ugen</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">available_ugens</span><span class="p">:</span>
+                <span class="n">available_ugens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ugen</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_schedule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">available_ugens</span><span class="p">,</span> <span class="n">out_stack</span><span class="p">,</span> <span class="n">sort_bundles</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">ugen</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">descendants</span><span class="p">):</span>
+            <span class="n">sort_bundle</span> <span class="o">=</span> <span class="n">sort_bundles</span><span class="p">[</span><span class="n">ugen</span><span class="p">]</span>
+            <span class="n">sort_bundle</span><span class="o">.</span><span class="n">antecedents</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ugen</span><span class="p">)</span>
+            <span class="n">sort_bundle</span><span class="o">.</span><span class="n">_make_available</span><span class="p">(</span><span class="n">available_ugens</span><span class="p">)</span>
+        <span class="n">out_stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ugen</span><span class="p">)</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="UGenSortBundle.clear"><a class="viewcode-back" href="../../../api/supriya/synthdefs/synthdefs.html#supriya.synthdefs.synthdefs.UGenSortBundle.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">antecedents</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">descendants</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width_first_antecedents</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[]</span></div></div>
+
+
+<div class="viewcode-block" id="SuperColliderSynthDef"><a class="viewcode-back" href="../../../api/supriya/synthdefs/synthdefs.html#supriya.synthdefs.synthdefs.SuperColliderSynthDef">[docs]</a><span class="k">class</span> <span class="nc">SuperColliderSynthDef</span><span class="p">(</span><span class="n">SupriyaObject</span><span class="p">):</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">__documentation_section__</span> <span class="o">=</span> <span class="s2">&quot;SynthDef Internals&quot;</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_body&quot;</span><span class="p">,</span> <span class="s2">&quot;_name&quot;</span><span class="p">,</span> <span class="s2">&quot;_rates&quot;</span><span class="p">)</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">rates</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_body</span> <span class="o">=</span> <span class="n">body</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rates</span> <span class="o">=</span> <span class="n">rates</span>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="k">def</span> <span class="nf">_build_sc_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory_path</span><span class="p">):</span>
+        <span class="n">input_</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">input_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">)</span>
+        <span class="n">input_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;a = SynthDef(&quot;</span><span class="p">)</span>
+        <span class="n">input_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;    </span><span class="se">\\</span><span class="si">{}</span><span class="s2">, {{&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+            <span class="n">input_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;    &quot;</span> <span class="o">+</span> <span class="n">line</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rates</span><span class="p">:</span>
+            <span class="n">input_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;}}, </span><span class="si">{}</span><span class="s2">);&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rates</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">input_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;});&quot;</span><span class="p">)</span>
+        <span class="n">input_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&quot;Defined SynthDef&quot;.postln;&#39;</span><span class="p">)</span>
+        <span class="n">input_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;a.writeDefFile(&quot;</span><span class="si">{}</span><span class="s1">&quot;);&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">directory_path</span><span class="p">))</span>
+        <span class="n">input_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&quot;Wrote SynthDef&quot;.postln;&#39;</span><span class="p">)</span>
+        <span class="n">input_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;0.exit;&quot;</span><span class="p">)</span>
+        <span class="n">input_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">)</span>
+        <span class="n">input_</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">input_</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="SuperColliderSynthDef.compile"><a class="viewcode-back" href="../../../api/supriya/synthdefs/synthdefs.html#supriya.synthdefs.synthdefs.SuperColliderSynthDef.compile">[docs]</a>    <span class="k">def</span> <span class="nf">compile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">sclang_path</span> <span class="o">=</span> <span class="n">sclang</span><span class="o">.</span><span class="n">find</span><span class="p">()</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CI&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;true&quot;</span><span class="p">:</span>
+            <span class="n">prefix</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="o">.</span><span class="n">home</span><span class="p">())</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span>
+        <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">)</span> <span class="k">as</span> <span class="n">directory</span><span class="p">:</span>
+            <span class="n">directory_path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+            <span class="n">sc_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_sc_input</span><span class="p">(</span><span class="n">directory_path</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">sc_input</span><span class="p">)</span>
+            <span class="n">sc_file_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.sc&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">sc_file_path</span> <span class="o">=</span> <span class="n">directory_path</span> <span class="o">/</span> <span class="n">sc_file_name</span>
+            <span class="n">synthdef_file_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.scsyndef&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">synthdef_file_path</span> <span class="o">=</span> <span class="n">directory_path</span> <span class="o">/</span> <span class="n">synthdef_file_name</span>
+            <span class="k">with</span> <span class="n">sc_file_path</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_pointer</span><span class="p">:</span>
+                <span class="n">file_pointer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">sc_input</span><span class="p">)</span>
+            <span class="n">command</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">sclang_path</span><span class="p">),</span> <span class="s2">&quot;-D&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">sc_file_path</span><span class="p">)])</span>
+            <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+                <span class="n">command</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">STDOUT</span>
+            <span class="p">)</span>
+            <span class="k">with</span> <span class="n">synthdef_file_path</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_pointer</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">file_pointer</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">result</span><span class="p">)</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">body</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_body</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">rates</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rates</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

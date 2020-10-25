@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Glossary &mdash; Supriya 0.3.0 documentation</title>
+  <title>Glossary &mdash; Supriya 0.4.0 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                0.3.0
+                0.4.0
               </div>
             
           
@@ -92,14 +92,11 @@
 </ul>
 <p class="caption"><span class="caption-text">Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="realtime/index.html">Real-time composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="synthdefs/index.html">Synth definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nonrealtime.html">Non-realtime composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="time-agnostic.html">Time-agnostic usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="osc.html">OSC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="midi.html">MIDI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="performance.html">Live performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cli.html">CLI tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="synthdefs.html">SynthDefs</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
@@ -193,7 +190,7 @@
 </dd>
 <dt id="term-block-of-samples">block, <em>of samples</em><a class="headerlink" href="#term-block-of-samples" title="Permalink to this term">¶</a></dt><dd><p>A block of samples</p>
 </dd>
-<dt id="term-block-of-ids">block, <em>of IDs</em><a class="headerlink" href="#term-block-of-ids" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-block-of-IDs">block, <em>of IDs</em><a class="headerlink" href="#term-block-of-IDs" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
 </dd>
 <dt id="term-block-size">block size<a class="headerlink" href="#term-block-size" title="Permalink to this term">¶</a></dt><dd><p>The size of a block of samples</p>
 </dd>
@@ -225,7 +222,7 @@
 </dd>
 <dt id="term-event-from-a-pattern">event: <em>from a pattern</em><a class="headerlink" href="#term-event-from-a-pattern" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
 </dd>
-<dt id="term-fft">FFT<a class="headerlink" href="#term-fft" title="Permalink to this term">¶</a></dt><dd><p>A fast Fourier transform</p>
+<dt id="term-FFT">FFT<a class="headerlink" href="#term-FFT" title="Permalink to this term">¶</a></dt><dd><p>A fast Fourier transform</p>
 </dd>
 <dt id="term-filter">filter<a class="headerlink" href="#term-filter" title="Permalink to this term">¶</a></dt><dd><p>A filter</p>
 </dd>
@@ -247,23 +244,23 @@
 </dd>
 <dt id="term-header-format">header format<a class="headerlink" href="#term-header-format" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
 </dd>
-<dt id="term-hertz">Hertz<a class="headerlink" href="#term-hertz" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-Hertz">Hertz<a class="headerlink" href="#term-Hertz" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
 </dd>
-<dt id="term-id">ID<a class="headerlink" href="#term-id" title="Permalink to this term">¶</a></dt><dd><p>An ID</p>
+<dt id="term-ID">ID<a class="headerlink" href="#term-ID" title="Permalink to this term">¶</a></dt><dd><p>An ID</p>
 </dd>
-<dt id="term-ifft">IFFT<a class="headerlink" href="#term-ifft" title="Permalink to this term">¶</a></dt><dd><p>An inverse fast Fourier transform</p>
+<dt id="term-IFFT">IFFT<a class="headerlink" href="#term-IFFT" title="Permalink to this term">¶</a></dt><dd><p>An inverse fast Fourier transform</p>
 </dd>
 <dt id="term-lag">lag<a class="headerlink" href="#term-lag" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
 </dd>
 <dt id="term-latency">latency<a class="headerlink" href="#term-latency" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
 </dd>
-<dt id="term-midi">MIDI<a class="headerlink" href="#term-midi" title="Permalink to this term">¶</a></dt><dd><p>A technical standard that describes a communications protocol, digital
+<dt id="term-MIDI">MIDI<a class="headerlink" href="#term-MIDI" title="Permalink to this term">¶</a></dt><dd><p>A technical standard that describes a communications protocol, digital
 interface, and electrical connectors that connect a wide variety of
 electronic musical instruments, computers, and related audio devices for
 playing, editing and recording music.</p>
 <p>See: <a class="reference external" href="https://en.wikipedia.org/wiki/MIDI">https://en.wikipedia.org/wiki/MIDI</a></p>
 </dd>
-<dt id="term-midi-message">MIDI message<a class="headerlink" href="#term-midi-message" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
+<dt id="term-MIDI-message">MIDI message<a class="headerlink" href="#term-MIDI-message" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
 </dd>
 <dt id="term-moment-non-real-time">moment: <em>non-real time</em><a class="headerlink" href="#term-moment-non-real-time" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
 </dd>
@@ -273,14 +270,14 @@ playing, editing and recording music.</p>
 </dd>
 <dt id="term-non-real-time">non-real time<a class="headerlink" href="#term-non-real-time" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
 </dd>
-<dt id="term-osc-open-sound-control">OSC (Open Sound Control)<a class="headerlink" href="#term-osc-open-sound-control" title="Permalink to this term">¶</a></dt><dd><p>An open, transport-independent, message-based protocol developed for
+<dt id="term-OSC-Open-Sound-Control">OSC (Open Sound Control)<a class="headerlink" href="#term-OSC-Open-Sound-Control" title="Permalink to this term">¶</a></dt><dd><p>An open, transport-independent, message-based protocol developed for
 communication among computers, sound synthesizers, and other multimedia
 devices.</p>
 <p>See: <a class="reference external" href="http://opensoundcontrol.org/spec-1_0">http://opensoundcontrol.org/spec-1_0</a></p>
 </dd>
-<dt id="term-osc-bundle">OSC bundle<a class="headerlink" href="#term-osc-bundle" title="Permalink to this term">¶</a></dt><dd><p>An OSC bundle</p>
+<dt id="term-OSC-bundle">OSC bundle<a class="headerlink" href="#term-OSC-bundle" title="Permalink to this term">¶</a></dt><dd><p>An OSC bundle</p>
 </dd>
-<dt id="term-osc-message">OSC message<a class="headerlink" href="#term-osc-message" title="Permalink to this term">¶</a></dt><dd><p>An OSC message</p>
+<dt id="term-OSC-message">OSC message<a class="headerlink" href="#term-OSC-message" title="Permalink to this term">¶</a></dt><dd><p>An OSC message</p>
 </dd>
 <dt id="term-octave">octave<a class="headerlink" href="#term-octave" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
 </dd>
@@ -288,7 +285,7 @@ devices.</p>
 </dd>
 <dt id="term-output-proxy">output proxy<a class="headerlink" href="#term-output-proxy" title="Permalink to this term">¶</a></dt><dd><p>An output proxy</p>
 </dd>
-<dt id="term-pv-chain">PV Chain<a class="headerlink" href="#term-pv-chain" title="Permalink to this term">¶</a></dt><dd><p>A phase vocoder chain</p>
+<dt id="term-PV-Chain">PV Chain<a class="headerlink" href="#term-PV-Chain" title="Permalink to this term">¶</a></dt><dd><p>A phase vocoder chain</p>
 </dd>
 <dt id="term-pattern">pattern<a class="headerlink" href="#term-pattern" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
 </dd>
@@ -310,9 +307,9 @@ devices.</p>
 </dd>
 <dt id="term-root-node">root node<a class="headerlink" href="#term-root-node" title="Permalink to this term">¶</a></dt><dd><p>A <a class="reference internal" href="#term-group"><span class="xref std std-term">group</span></a>.</p>
 </dd>
-<dt id="term-supercollider">SuperCollider<a class="headerlink" href="#term-supercollider" title="Permalink to this term">¶</a></dt><dd><p>See: <a class="reference external" href="https://supercollider.github.io/">https://supercollider.github.io/</a></p>
+<dt id="term-SuperCollider">SuperCollider<a class="headerlink" href="#term-SuperCollider" title="Permalink to this term">¶</a></dt><dd><p>See: <a class="reference external" href="https://supercollider.github.io/">https://supercollider.github.io/</a></p>
 </dd>
-<dt id="term-synthdef">SynthDef<a class="headerlink" href="#term-synthdef" title="Permalink to this term">¶</a></dt><dd><p>A synthesizer definition</p>
+<dt id="term-SynthDef">SynthDef<a class="headerlink" href="#term-SynthDef" title="Permalink to this term">¶</a></dt><dd><p>A synthesizer definition</p>
 </dd>
 <dt id="term-sample">sample<a class="headerlink" href="#term-sample" title="Permalink to this term">¶</a></dt><dd><p>A sample</p>
 </dd>
@@ -322,9 +319,9 @@ devices.</p>
 </dd>
 <dt id="term-scalar-rate">scalar rate<a class="headerlink" href="#term-scalar-rate" title="Permalink to this term">¶</a></dt><dd><p>A <a class="reference internal" href="#term-calculation-rate"><span class="xref std std-term">calculation rate</span></a>.</p>
 </dd>
-<dt id="term-sclang">sclang<a class="headerlink" href="#term-sclang" title="Permalink to this term">¶</a></dt><dd><p>The <a class="reference internal" href="#term-supercollider"><span class="xref std std-term">SuperCollider</span></a> language</p>
+<dt id="term-sclang">sclang<a class="headerlink" href="#term-sclang" title="Permalink to this term">¶</a></dt><dd><p>The <a class="reference internal" href="#term-SuperCollider"><span class="xref std std-term">SuperCollider</span></a> language</p>
 </dd>
-<dt id="term-scsynth">scsynth<a class="headerlink" href="#term-scsynth" title="Permalink to this term">¶</a></dt><dd><p>The <a class="reference internal" href="#term-supercollider"><span class="xref std std-term">SuperCollider</span></a> server</p>
+<dt id="term-scsynth">scsynth<a class="headerlink" href="#term-scsynth" title="Permalink to this term">¶</a></dt><dd><p>The <a class="reference internal" href="#term-SuperCollider"><span class="xref std std-term">SuperCollider</span></a> server</p>
 </dd>
 <dt id="term-semitone">semitone<a class="headerlink" href="#term-semitone" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
 </dd>
@@ -334,7 +331,7 @@ devices.</p>
 </dd>
 <dt id="term-state-transition">state transition<a class="headerlink" href="#term-state-transition" title="Permalink to this term">¶</a></dt><dd><p>Yes</p>
 </dd>
-<dt id="term-supernova">supernova<a class="headerlink" href="#term-supernova" title="Permalink to this term">¶</a></dt><dd><p>An alternative <a class="reference internal" href="#term-supercollider"><span class="xref std std-term">SuperCollider</span></a> server implementation that utilizes
+<dt id="term-supernova">supernova<a class="headerlink" href="#term-supernova" title="Permalink to this term">¶</a></dt><dd><p>An alternative <a class="reference internal" href="#term-SuperCollider"><span class="xref std std-term">SuperCollider</span></a> server implementation that utilizes
 parallel processing.</p>
 </dd>
 <dt id="term-server">server<a class="headerlink" href="#term-server" title="Permalink to this term">¶</a></dt><dd><p>A server</p>
@@ -343,15 +340,15 @@ parallel processing.</p>
 </dd>
 <dt id="term-synth">synth<a class="headerlink" href="#term-synth" title="Permalink to this term">¶</a></dt><dd><p>A synth</p>
 </dd>
-<dt id="term-tcp">TCP<a class="headerlink" href="#term-tcp" title="Permalink to this term">¶</a></dt><dd><p>Transmission Control Protocol</p>
+<dt id="term-TCP">TCP<a class="headerlink" href="#term-TCP" title="Permalink to this term">¶</a></dt><dd><p>Transmission Control Protocol</p>
 </dd>
 <dt id="term-tree">tree<a class="headerlink" href="#term-tree" title="Permalink to this term">¶</a></dt><dd><p>A tree</p>
 </dd>
 <dt id="term-trigger">trigger<a class="headerlink" href="#term-trigger" title="Permalink to this term">¶</a></dt><dd><p>A trigger</p>
 </dd>
-<dt id="term-udp">UDP<a class="headerlink" href="#term-udp" title="Permalink to this term">¶</a></dt><dd><p>User Datagram Protocol</p>
+<dt id="term-UDP">UDP<a class="headerlink" href="#term-UDP" title="Permalink to this term">¶</a></dt><dd><p>User Datagram Protocol</p>
 </dd>
-<dt id="term-ugen">UGen<a class="headerlink" href="#term-ugen" title="Permalink to this term">¶</a></dt><dd><p>A unit generator</p>
+<dt id="term-UGen">UGen<a class="headerlink" href="#term-UGen" title="Permalink to this term">¶</a></dt><dd><p>A unit generator</p>
 </dd>
 </dl>
 </div>

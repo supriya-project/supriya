@@ -1,0 +1,54 @@
+.. _supriya--conversions:
+
+conversions
+===========
+
+.. automodule:: supriya.conversions
+
+.. currentmodule:: supriya.conversions
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.conversions
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Functions
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~amplitude_to_decibels
+   ~decibels_to_amplitude
+   ~measure_to_offset
+   ~midi_note_number_to_frequency
+   ~midi_velocity_to_amplitude
+   ~midi_velocity_to_decibels
+   ~offset_to_measure
+   ~offset_to_measure_offset
+   ~offset_to_seconds
+   ~seconds_to_offset
+
+.. autofunction:: amplitude_to_decibels
+
+.. autofunction:: decibels_to_amplitude
+
+.. autofunction:: measure_to_offset
+
+.. autofunction:: midi_note_number_to_frequency
+
+.. autofunction:: midi_velocity_to_amplitude
+
+.. autofunction:: midi_velocity_to_decibels
+
+.. autofunction:: offset_to_measure
+
+.. autofunction:: offset_to_measure_offset
+
+.. autofunction:: offset_to_seconds
+
+.. autofunction:: seconds_to_offset

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>supriya.io &mdash; Supriya 0.3.0 documentation</title>
+  <title>supriya.io &mdash; Supriya 0.4.0 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.3.0
+                0.4.0
               </div>
             
           
@@ -91,14 +91,11 @@
 </ul>
 <p class="caption"><span class="caption-text">Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../realtime/index.html">Real-time composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../synthdefs/index.html">Synth definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../nonrealtime.html">Non-realtime composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../time-agnostic.html">Time-agnostic usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../osc.html">OSC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../midi.html">MIDI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../performance.html">Live performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../cli.html">CLI tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../synthdefs.html">SynthDefs</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
@@ -164,8 +161,6 @@
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
-          <li><a href="../supriya.html">supriya</a> &raquo;</li>
-        
       <li>supriya.io</li>
     
     
@@ -185,7 +180,7 @@
 <span></span><span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
-<span class="kn">from</span> <span class="nn">uqbar.graphs</span> <span class="k">import</span> <span class="n">Grapher</span>
+<span class="kn">from</span> <span class="nn">uqbar.graphs</span> <span class="kn">import</span> <span class="n">Grapher</span>
 
 <span class="kn">import</span> <span class="nn">supriya</span>
 
@@ -194,13 +189,13 @@
 
     <span class="c1">### INITIALIZER ###</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">renderable</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">renderable</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">renderable</span> <span class="o">=</span> <span class="n">renderable</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">render_kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
 
     <span class="c1">### SPECIAL METHODS ###</span>
 
-<div class="viewcode-block" id="Player.__call__"><a class="viewcode-back" href="../../api/supriya/io.html#supriya.io.Player.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Player.__call__"><a class="viewcode-back" href="../../api/supriya/io.html#supriya.io.Player.__call__">[docs]</a>    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">output_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">open_output_path</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">output_path</span></div>
@@ -211,19 +206,15 @@
         <span class="n">viewer</span> <span class="o">=</span> <span class="s2">&quot;open -a &#39;QuickTime Player&#39;&quot;</span>
         <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;linux&quot;</span><span class="p">):</span>
             <span class="n">viewer</span> <span class="o">=</span> <span class="s2">&quot;xdg-open&quot;</span>
-        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;</span><span class="si">{viewer}</span><span class="s2"> </span><span class="si">{output_path}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">viewer</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Player.render"><a class="viewcode-back" href="../../api/supriya/io.html#supriya.io.Player.render">[docs]</a>    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">renderable</span><span class="o">.</span><span class="n">__render__</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">render_kwargs</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="graph"><a class="viewcode-back" href="../../api/supriya/io.html#supriya.io.graph">[docs]</a><span class="k">def</span> <span class="nf">graph</span><span class="p">(</span><span class="n">graphable</span><span class="p">,</span> <span class="n">format_</span><span class="o">=</span><span class="s2">&quot;pdf&quot;</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="s2">&quot;dot&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="graph"><a class="viewcode-back" href="../../api/supriya/io.html#supriya.io.graph">[docs]</a><span class="k">def</span> <span class="nf">graph</span><span class="p">(</span><span class="n">graphable</span><span class="p">,</span> <span class="n">format_</span><span class="o">=</span><span class="s2">&quot;pdf&quot;</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="s2">&quot;dot&quot;</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">Grapher</span><span class="p">(</span>
-        <span class="n">graphable</span><span class="p">,</span>
-        <span class="n">format_</span><span class="o">=</span><span class="n">format_</span><span class="p">,</span>
-        <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">,</span>
-        <span class="n">output_directory</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">output_path</span><span class="p">,</span>
-        <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+        <span class="n">graphable</span><span class="p">,</span> <span class="n">format_</span><span class="o">=</span><span class="n">format_</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">,</span> <span class="n">output_directory</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">output_path</span><span class="p">,</span>
     <span class="p">)()</span></div>
 
 

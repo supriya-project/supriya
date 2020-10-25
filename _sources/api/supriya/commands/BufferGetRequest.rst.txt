@@ -66,6 +66,10 @@ BufferGetRequest
 
    .. container:: inherited
 
+      .. automethod:: BufferGetRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: BufferGetRequest.to_datagram
 
    .. container:: inherited

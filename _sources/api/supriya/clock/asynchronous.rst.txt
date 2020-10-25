@@ -1,0 +1,125 @@
+.. _supriya--clock--asynchronous:
+
+asynchronous
+============
+
+.. automodule:: supriya.clock.asynchronous
+
+.. currentmodule:: supriya.clock.asynchronous
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.clock.asynchronous
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~AsyncTempoClock
+
+.. autoclass:: AsyncTempoClock
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      cancel
+      change
+      cue
+      cue_change
+      reschedule
+      schedule
+      schedule_change
+      start
+      stop
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: AsyncTempoClock.cancel
+
+   .. automethod:: AsyncTempoClock.change
+
+   .. automethod:: AsyncTempoClock.cue
+
+   .. automethod:: AsyncTempoClock.cue_change
+
+   .. container:: inherited
+
+      .. automethod:: AsyncTempoClock.get_current_time
+
+   .. container:: inherited
+
+      .. automethod:: AsyncTempoClock.peek
+
+   .. automethod:: AsyncTempoClock.reschedule
+
+   .. automethod:: AsyncTempoClock.schedule
+
+   .. automethod:: AsyncTempoClock.schedule_change
+
+   .. automethod:: AsyncTempoClock.start
+
+   .. automethod:: AsyncTempoClock.stop
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: AsyncTempoClock.quantization_to_beats
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read/write properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: AsyncTempoClock.slop
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: AsyncTempoClock.beats_per_minute
+
+   .. container:: inherited
+
+      .. autoattribute:: AsyncTempoClock.is_running
+
+   .. container:: inherited
+
+      .. autoattribute:: AsyncTempoClock.name
+
+   .. container:: inherited
+
+      .. autoattribute:: AsyncTempoClock.time_signature

@@ -28,14 +28,11 @@ Quickstart
    :caption: Guides
    :maxdepth: 3
 
-   realtime/index
-   synthdefs/index
+   realtime
    nonrealtime
-   patterns
+   time-agnostic
    osc
-   midi
-   performance
-   cli
+   synthdefs
 
 .. toctree::
    :caption: Examples

@@ -65,6 +65,10 @@ ControlBusGetRequest
 
    .. container:: inherited
 
+      .. automethod:: ControlBusGetRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: ControlBusGetRequest.to_datagram
 
    .. container:: inherited

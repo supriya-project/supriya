@@ -1,0 +1,106 @@
+.. _supriya--system:
+
+system
+======
+
+.. automodule:: supriya.system
+
+.. currentmodule:: supriya.system
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.system
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~Assets
+   ~SupriyaObject
+   ~SupriyaValueObject
+
+.. autoclass:: Assets
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __getitem__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: Assets.__getitem__
+
+.. autoclass:: SupriyaObject
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: SupriyaObject.__repr__
+
+.. autoclass:: SupriyaValueObject
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __copy__
+      __eq__
+      __hash__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: SupriyaValueObject.__copy__
+
+   .. automethod:: SupriyaValueObject.__eq__
+
+   .. automethod:: SupriyaValueObject.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: SupriyaValueObject.__repr__

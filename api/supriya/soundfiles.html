@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>soundfiles &mdash; Supriya 0.3.0 documentation</title>
+  <title>soundfiles &mdash; Supriya 0.4.0 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -38,7 +38,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="synthdefs" href="synthdefs/index.html" />
-    <link rel="prev" title="SynthInterface" href="realtime/SynthInterface.html" /> 
+    <link rel="prev" title="scsynth" href="scsynth.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                0.3.0
+                0.4.0
               </div>
             
           
@@ -93,14 +93,11 @@
 </ul>
 <p class="caption"><span class="caption-text">Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../realtime/index.html">Real-time composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../synthdefs/index.html">Synth definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../nonrealtime.html">Non-realtime composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../time-agnostic.html">Time-agnostic usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../osc.html">OSC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../midi.html">MIDI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../performance.html">Live performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../cli.html">CLI tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../synthdefs.html">SynthDefs</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
@@ -110,24 +107,26 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">supriya</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="cli/index.html">cli</a></li>
-<li class="toctree-l2"><a class="reference internal" href="clock.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clock/index.html">clock</a></li>
 <li class="toctree-l2"><a class="reference internal" href="commands/index.html">commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="daw/index.html">daw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conversions.html">conversions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="enums.html">enums</a></li>
 <li class="toctree-l2"><a class="reference internal" href="exceptions.html">exceptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intervals/index.html">intervals</a></li>
 <li class="toctree-l2"><a class="reference internal" href="io.html">io</a></li>
-<li class="toctree-l2"><a class="reference internal" href="live/index.html">live</a></li>
-<li class="toctree-l2"><a class="reference internal" href="midi/index.html">midi</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nonrealtime/index.html">nonrealtime</a></li>
 <li class="toctree-l2"><a class="reference internal" href="osc/index.html">osc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="provider.html">provider</a></li>
+<li class="toctree-l2"><a class="reference internal" href="querytree.html">querytree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sclang.html">sclang</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scsynth.html">scsynth</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">soundfiles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="synthdefs/index.html">synthdefs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="system/index.html">system</a></li>
-<li class="toctree-l2"><a class="reference internal" href="time/index.html">time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typing.html">typing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ugens/index.html">ugens</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">utils</a></li>
 </ul>
@@ -211,7 +210,7 @@
 <span id="soundfiles"></span><span id="supriya-soundfiles"></span><h1>soundfiles<a class="headerlink" href="#module-supriya.soundfiles" title="Permalink to this headline">¶</a></h1>
 <p>Tools for interacting with soundfiles.</p>
 <div class="svg-container docutils container">
-<div class="graphviz"><object data="../../_images/inheritance-78984c1ba159ee12ab75146ee8b8d2faf69eccef.svg" type="image/svg+xml" class="inheritance graphviz">
+<div class="graphviz"><object data="../../_images/inheritance-7f8dd5e74574a455b28bf87f07a143c7aaf1b718.svg" type="image/svg+xml" class="inheritance graphviz">
 <p class="warning">digraph InheritanceGraph {
     graph [bgcolor=transparent,
         color=lightsteelblue2,
@@ -237,7 +236,7 @@
     subgraph cluster_builtins {
         graph [label=builtins];
         node [color=1];
-        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3.6/library/functions.html#object&quot;,
+        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3/library/functions.html#object&quot;,
             label=object,
             target=_top];
     }
@@ -258,17 +257,17 @@
     subgraph &quot;cluster_supriya.system&quot; {
         graph [label=&quot;supriya.system&quot;];
         node [color=3];
-        &quot;supriya.system.SupriyaObject.SupriyaObject&quot; [URL=&quot;../api/supriya/system/SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject&quot;,
+        &quot;supriya.system.SupriyaObject&quot; [URL=&quot;../api/supriya/system.html#supriya.system.SupriyaObject&quot;,
             label=&quot;Supriya\nObject&quot;,
             target=_top];
-        &quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; [URL=&quot;../api/supriya/system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject&quot;,
+        &quot;supriya.system.SupriyaValueObject&quot; [URL=&quot;../api/supriya/system.html#supriya.system.SupriyaValueObject&quot;,
             label=&quot;Supriya\nValue\nObject&quot;,
             target=_top];
-        &quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;;
+        &quot;supriya.system.SupriyaObject&quot; -&gt; &quot;supriya.system.SupriyaValueObject&quot;;
     }
-    &quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject.SupriyaObject&quot;;
-    &quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.soundfiles.SoundFile&quot;;
-    &quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.soundfiles.Say&quot;;
+    &quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject&quot;;
+    &quot;supriya.system.SupriyaObject&quot; -&gt; &quot;supriya.soundfiles.SoundFile&quot;;
+    &quot;supriya.system.SupriyaValueObject&quot; -&gt; &quot;supriya.soundfiles.Say&quot;;
 }</p></object></div>
 </div>
 <hr/><p class="section-header rubric">Classes</p>
@@ -286,9 +285,9 @@
 </tr>
 </tbody>
 </table>
-<dl class="class">
+<dl class="py class">
 <dt id="supriya.soundfiles.Say">
-<em class="property">class </em><code class="sig-prename descclassname">supriya.soundfiles.</code><code class="sig-name descname">Say</code><span class="sig-paren">(</span><em class="sig-param">text</em>, <em class="sig-param">voice=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/soundfiles.html#Say"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.soundfiles.Say" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">supriya.soundfiles.</code><code class="sig-name descname">Say</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em>, <em class="sig-param"><span class="n">voice</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/soundfiles.html#Say"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.soundfiles.Say" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wrapper for OSX <code class="docutils literal notranslate"><span class="pre">say</span></code> command.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">say</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">Say</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">,</span> <span class="n">voice</span><span class="o">=</span><span class="s2">&quot;Daniel&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">supriya</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">say</span><span class="p">)</span>  
@@ -316,57 +315,57 @@
 </table>
 <hr/><p class="class-header rubric">Special methods</p>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.soundfiles.Say.__copy__">
-<code class="sig-prename descclassname">(<a class="reference internal" href="system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject" title="supriya.system.SupriyaValueObject.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param">*args</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.soundfiles.Say.__copy__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.soundfiles.Say.__copy__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.soundfiles.Say.__eq__">
-<code class="sig-prename descclassname">(<a class="reference internal" href="system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject" title="supriya.system.SupriyaValueObject.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param">expr</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.soundfiles.Say.__eq__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.soundfiles.Say.__eq__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return self==value.</p>
 </dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.soundfiles.Say.__hash__">
-<code class="sig-prename descclassname">(<a class="reference internal" href="system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject" title="supriya.system.SupriyaValueObject.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.soundfiles.Say.__hash__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.soundfiles.Say.__hash__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return hash(self).</p>
 </dd></dl>
 
 </div>
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.soundfiles.Say.__render__">
-<code class="sig-name descname">__render__</code><span class="sig-paren">(</span><em class="sig-param">output_file_path=None</em>, <em class="sig-param">render_directory_path=None</em>, <em class="sig-param">print_transcript=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/soundfiles.html#Say.__render__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.soundfiles.Say.__render__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__render__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output_file_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">render_directory_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">print_transcript</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/soundfiles.html#Say.__render__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.soundfiles.Say.__render__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.soundfiles.Say.__repr__">
-<code class="sig-prename descclassname">(<a class="reference internal" href="system/SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject" title="supriya.system.SupriyaObject.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.soundfiles.Say.__repr__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.soundfiles.Say.__repr__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return repr(self).</p>
 </dd></dl>
 
 </div>
 <hr/><p class="class-header rubric">Read-only properties</p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="supriya.soundfiles.Say.text">
 <code class="sig-name descname">text</code><a class="headerlink" href="#supriya.soundfiles.Say.text" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="supriya.soundfiles.Say.voice">
 <code class="sig-name descname">voice</code><a class="headerlink" href="#supriya.soundfiles.Say.voice" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="supriya.soundfiles.SoundFile">
-<em class="property">class </em><code class="sig-prename descclassname">supriya.soundfiles.</code><code class="sig-name descname">SoundFile</code><span class="sig-paren">(</span><em class="sig-param">file_path</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/soundfiles.html#SoundFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.soundfiles.SoundFile" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">supriya.soundfiles.</code><code class="sig-name descname">SoundFile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/soundfiles.html#SoundFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.soundfiles.SoundFile" title="Permalink to this definition">¶</a></dt>
 <dd><hr/><p class="class-header rubric">Attributes Summary</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -389,10 +388,16 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#supriya.soundfiles.SoundFile.file_path" title="supriya.soundfiles.SoundFile.file_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file_path</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.soundfiles.SoundFile.frame_count" title="supriya.soundfiles.SoundFile.frame_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">frame_count</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.soundfiles.SoundFile.file_type" title="supriya.soundfiles.SoundFile.file_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file_type</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.soundfiles.SoundFile.sample_rate" title="supriya.soundfiles.SoundFile.sample_rate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sample_rate</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.soundfiles.SoundFile.frame_count" title="supriya.soundfiles.SoundFile.frame_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">frame_count</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.soundfiles.SoundFile.sample_rate" title="supriya.soundfiles.SoundFile.sample_rate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sample_rate</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.soundfiles.SoundFile.sample_width" title="supriya.soundfiles.SoundFile.sample_width"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sample_width</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#supriya.soundfiles.SoundFile.seconds" title="supriya.soundfiles.SoundFile.seconds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seconds</span></code></a></p></td>
@@ -402,51 +407,61 @@
 </table>
 <hr/><p class="class-header rubric">Special methods</p>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.soundfiles.SoundFile.__repr__">
-<code class="sig-prename descclassname">(<a class="reference internal" href="system/SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject" title="supriya.system.SupriyaObject.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.soundfiles.SoundFile.__repr__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.soundfiles.SoundFile.__repr__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return repr(self).</p>
 </dd></dl>
 
 </div>
 <hr/><p class="class-header rubric">Methods</p>
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.soundfiles.SoundFile.at_frame">
-<code class="sig-name descname">at_frame</code><span class="sig-paren">(</span><em class="sig-param">frames</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/soundfiles.html#SoundFile.at_frame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.soundfiles.SoundFile.at_frame" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">at_frame</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frame</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/soundfiles.html#SoundFile.at_frame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.soundfiles.SoundFile.at_frame" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.soundfiles.SoundFile.at_percent">
-<code class="sig-name descname">at_percent</code><span class="sig-paren">(</span><em class="sig-param">percent</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/soundfiles.html#SoundFile.at_percent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.soundfiles.SoundFile.at_percent" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">at_percent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">percent</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/soundfiles.html#SoundFile.at_percent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.soundfiles.SoundFile.at_percent" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.soundfiles.SoundFile.at_second">
-<code class="sig-name descname">at_second</code><span class="sig-paren">(</span><em class="sig-param">second</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/soundfiles.html#SoundFile.at_second"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.soundfiles.SoundFile.at_second" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">at_second</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">second</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/supriya/soundfiles.html#SoundFile.at_second"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.soundfiles.SoundFile.at_second" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <hr/><p class="class-header rubric">Read-only properties</p>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="supriya.soundfiles.SoundFile.channel_count">
 <code class="sig-name descname">channel_count</code><a class="headerlink" href="#supriya.soundfiles.SoundFile.channel_count" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="supriya.soundfiles.SoundFile.file_path">
 <code class="sig-name descname">file_path</code><a class="headerlink" href="#supriya.soundfiles.SoundFile.file_path" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
+<dt id="supriya.soundfiles.SoundFile.file_type">
+<code class="sig-name descname">file_type</code><a class="headerlink" href="#supriya.soundfiles.SoundFile.file_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt id="supriya.soundfiles.SoundFile.frame_count">
 <code class="sig-name descname">frame_count</code><a class="headerlink" href="#supriya.soundfiles.SoundFile.frame_count" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="supriya.soundfiles.SoundFile.sample_rate">
 <code class="sig-name descname">sample_rate</code><a class="headerlink" href="#supriya.soundfiles.SoundFile.sample_rate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
+<dl class="py attribute">
+<dt id="supriya.soundfiles.SoundFile.sample_width">
+<code class="sig-name descname">sample_width</code><a class="headerlink" href="#supriya.soundfiles.SoundFile.sample_width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt id="supriya.soundfiles.SoundFile.seconds">
 <code class="sig-name descname">seconds</code><a class="headerlink" href="#supriya.soundfiles.SoundFile.seconds" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -466,7 +481,7 @@
         <a href="synthdefs/index.html" class="btn btn-neutral float-right" title="synthdefs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="realtime/SynthInterface.html" class="btn btn-neutral float-left" title="SynthInterface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="scsynth.html" class="btn btn-neutral float-left" title="scsynth" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

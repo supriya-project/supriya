@@ -65,6 +65,10 @@ Request
 
    .. container:: inherited
 
+      .. automethod:: Request.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: Request.to_datagram
 
    .. container:: inherited

@@ -16,35 +16,21 @@ osc
 
    <hr/>
 
-.. rubric:: Classes
+.. rubric:: Subpackages
    :class: section-header
 
 .. toctree::
    :hidden:
 
-   OscBundle
-   OscCallback
-   OscIO
-   OscMessage
+   captures
+   messages
+   protocols
+   utils
 
 .. autosummary::
    :nosignatures:
 
-   ~OscBundle.OscBundle
-   ~OscCallback.OscCallback
-   ~OscIO.OscIO
-   ~OscMessage.OscMessage
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Functions
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~format_datagram
-
-.. autofunction:: format_datagram
+   captures
+   messages
+   protocols
+   utils

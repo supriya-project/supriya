@@ -65,6 +65,10 @@ BufferFreeRequest
 
    .. container:: inherited
 
+      .. automethod:: BufferFreeRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: BufferFreeRequest.to_datagram
 
    .. container:: inherited

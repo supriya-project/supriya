@@ -66,6 +66,10 @@ BufferZeroRequest
 
    .. container:: inherited
 
+      .. automethod:: BufferZeroRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: BufferZeroRequest.to_datagram
 
    .. container:: inherited

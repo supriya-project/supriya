@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Supriya (0.3.0) &mdash; Supriya 0.3.0 documentation</title>
+  <title>Supriya (0.4.0) &mdash; Supriya 0.4.0 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                0.3.0
+                0.4.0
               </div>
             
           
@@ -92,14 +92,11 @@
 </ul>
 <p class="caption"><span class="caption-text">Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="realtime/index.html">Real-time composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="synthdefs/index.html">Synth definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="nonrealtime.html">Non-realtime composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="time-agnostic.html">Time-agnostic usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="osc.html">OSC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="midi.html">MIDI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="performance.html">Live performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cli.html">CLI tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="synthdefs.html">SynthDefs</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
@@ -163,7 +160,7 @@
     
       <li><a href="#">Docs</a> &raquo;</li>
         
-      <li>Supriya (0.3.0)</li>
+      <li>Supriya (0.4.0)</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -183,7 +180,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="supriya-release">
-<span id="index"></span><h1>Supriya (0.3.0)<a class="headerlink" href="#supriya-release" title="Permalink to this headline">¶</a></h1>
+<span id="index"></span><h1>Supriya (0.4.0)<a class="headerlink" href="#supriya-release" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://github.com/josiah-wolf-oberholtzer/supriya">GitHub</a> |
 <a class="reference external" href="https://pypi.python.org/pypi">PyPI</a> |
 <a class="reference external" href="http://supriya.mbrsi.org/">Documentation</a> |
@@ -346,62 +343,22 @@ setting it up, and installing any additional dependencies like <a class="referen
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="realtime/index.html">Real-time composition</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="realtime/servers.html">Servers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="realtime/servers.html#server-lifecycle">Server lifecycle</a></li>
-<li class="toctree-l3"><a class="reference internal" href="realtime/servers.html#locating-server-executables">Locating server executables</a></li>
-<li class="toctree-l3"><a class="reference internal" href="realtime/servers.html#server-options">Server options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="realtime/servers.html#inspecting">Inspecting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="realtime/servers.html#metering">Metering</a></li>
-<li class="toctree-l3"><a class="reference internal" href="realtime/servers.html#recording">Recording</a></li>
-<li class="toctree-l3"><a class="reference internal" href="realtime/servers.html#debugging">Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="realtime.html">Realtime usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="realtime.html#realtime-servers">Realtime servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="realtime.html#realtime-nodes-groups-synths">Realtime nodes, groups &amp; synths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="realtime.html#realtime-buses">Realtime buses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="realtime.html#realtime-buffers">Realtime buffers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="realtime.html#asyncio">Asyncio</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="realtime/nodes.html">Nodes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="realtime/nodes.html#groups-and-synths">Groups and synths</a></li>
-<li class="toctree-l3"><a class="reference internal" href="realtime/nodes.html#basic-operations">Basic operations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="realtime/nodes.html#fluent-operations">Fluent operations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="realtime/nodes.html#controls">Controls</a></li>
-<li class="toctree-l3"><a class="reference internal" href="realtime/nodes.html#special-nodes">Special nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nonrealtime.html">Non-realtime usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nonrealtime.html#non-realtime-sessions">Non-realtime sessions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nonrealtime.html#non-realtime-nodes-and-actions">Non-realtime nodes and actions</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="realtime/buses.html">Buses</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="realtime/buses.html#bus-lifecycle">Bus lifecycle</a></li>
-<li class="toctree-l3"><a class="reference internal" href="realtime/buses.html#bus-groups">Bus groups</a></li>
-<li class="toctree-l3"><a class="reference internal" href="realtime/buses.html#inspecting">Inspecting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="realtime/buses.html#mapping">Mapping</a></li>
-<li class="toctree-l3"><a class="reference internal" href="realtime/buses.html#special-bus-groups">Special bus groups</a></li>
-<li class="toctree-l3"><a class="reference internal" href="realtime/buses.html#special-usage">Special usage</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="realtime/buffers.html">Buffers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="realtime/buffers.html#buffer-lifecycle">Buffer lifecycle</a></li>
-<li class="toctree-l3"><a class="reference internal" href="realtime/buffers.html#buffer-groups">Buffer groups</a></li>
-<li class="toctree-l3"><a class="reference internal" href="realtime/buffers.html#getting-and-setting">Getting and setting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="realtime/buffers.html#inspecting">Inspecting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="realtime/buffers.html#advanced-usage">Advanced usage</a></li>
-<li class="toctree-l3"><a class="reference internal" href="realtime/buffers.html#special-usage">Special usage</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="synthdefs/index.html">Synth definitions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="synthdefs/synthdefs.html">SynthDefs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="synthdefs/ugens.html">UGens</a></li>
-<li class="toctree-l2"><a class="reference internal" href="synthdefs/factories.html">Factories</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="nonrealtime.html">Non-realtime composition</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="nonrealtime.html#sessions-moments-and-states">Sessions, moments and states</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nonrealtime.html#nodes-and-actions">Nodes and actions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nonrealtime.html#buses">Buses</a></li>
-<li class="toctree-l2"><a class="reference internal" href="nonrealtime.html#buffers">Buffers</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="patterns.html">Patterns</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="patterns.html#simple-patterns">Simple patterns</a></li>
-<li class="toctree-l2"><a class="reference internal" href="patterns.html#event-patterns">Event patterns</a></li>
-<li class="toctree-l2"><a class="reference internal" href="patterns.html#structural-patterns">Structural patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="time-agnostic.html">Time-agnostic usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="time-agnostic.html#providers">Providers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="time-agnostic.html#asyncio">Asyncio</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="osc.html">OSC</a><ul>
@@ -412,21 +369,7 @@ setting it up, and installing any additional dependencies like <a class="referen
 <li class="toctree-l2"><a class="reference internal" href="osc.html#debugging">Debugging</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="midi.html">MIDI</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="midi.html#messages">Messages</a></li>
-<li class="toctree-l2"><a class="reference internal" href="midi.html#midi-i-o">MIDI I/O</a></li>
-<li class="toctree-l2"><a class="reference internal" href="midi.html#devices-and-device-schema">Devices and device schema</a></li>
-<li class="toctree-l2"><a class="reference internal" href="midi.html#debugging">Debugging</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="performance.html">Live performance</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="performance.html#mixers">Mixers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="performance.html#controllers">Controllers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="performance.html#applications">Applications</a></li>
-<li class="toctree-l2"><a class="reference internal" href="performance.html#interfaces">Interfaces</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="cli.html">CLI tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="synthdefs.html">SynthDefs</a></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
@@ -440,21 +383,14 @@ setting it up, and installing any additional dependencies like <a class="referen
 <p class="caption"><span class="caption-text">API</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/supriya/index.html">supriya</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/supriya/cli/index.html">cli</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/cli/ProjectPackageScript.html">ProjectPackageScript</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/cli/ProjectSectionScript.html">ProjectSectionScript</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/cli/ManageAssetScript.html">ManageAssetScript</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/cli/ManageMaterialScript.html">ManageMaterialScript</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/cli/ManageProjectScript.html">ManageProjectScript</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/cli/ManageSessionScript.html">ManageSessionScript</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/cli/ManageSynthDefScript.html">ManageSynthDefScript</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/cli/ProjectManager.html">ProjectManager</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/cli/ProjectSettings.html">ProjectSettings</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/cli/SupriyaScript.html">SupriyaScript</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/cli/run_supriya.html">run_supriya</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/supriya/clock/index.html">clock</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/clock/asynchronous.html">asynchronous</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/clock/bases.html">bases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/clock/ephemera.html">ephemera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/clock/eventqueue.html">eventqueue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/clock/threaded.html">threaded</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api/supriya/clock.html">clock</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/supriya/commands/index.html">commands</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/MoveRequest.html">MoveRequest</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/Request.html">Request</a></li>
@@ -520,10 +456,7 @@ setting it up, and installing any additional dependencies like <a class="referen
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/NothingRequest.html">NothingRequest</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/NotifyRequest.html">NotifyRequest</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/ParallelGroupNewRequest.html">ParallelGroupNewRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/QueryTreeControl.html">QueryTreeControl</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/QueryTreeGroup.html">QueryTreeGroup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/QueryTreeResponse.html">QueryTreeResponse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/QueryTreeSynth.html">QueryTreeSynth</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/QuitRequest.html">QuitRequest</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/RequestBundle.html">RequestBundle</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/Requestable.html">Requestable</a></li>
@@ -547,56 +480,7 @@ setting it up, and installing any additional dependencies like <a class="referen
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/commands/UgenCommandRequest.html">UgenCommandRequest</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api/supriya/daw/index.html">daw</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/synthdefs.html">synthdefs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/Chain.html">Chain</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/Receive.html">Receive</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/Application.html">Application</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/ArpeggiatorDevice.html">ArpeggiatorDevice</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/AudioChain.html">AudioChain</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/AudioDevice.html">AudioDevice</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/AudioRack.html">AudioRack</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/ChainContainer.html">ChainContainer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/ChainReceive.html">ChainReceive</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/ChordDevice.html">ChordDevice</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/Clip.html">Clip</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/ClipSlot.html">ClipSlot</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/ClipSlotContainer.html">ClipSlotContainer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/DCDevice.html">DCDevice</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/DawContainer.html">DawContainer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/DawMeta.html">DawMeta</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/DawNode.html">DawNode</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/Device.html">Device</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/DeviceContainer.html">DeviceContainer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/GroupTrack.html">GroupTrack</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/Instrument.html">Instrument</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/InstrumentChain.html">InstrumentChain</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/InstrumentRack.html">InstrumentRack</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/MidiChain.html">MidiChain</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/MidiDevice.html">MidiDevice</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/MidiRack.html">MidiRack</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/MixerContext.html">MixerContext</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/Note.html">Note</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/NoteSelector.html">NoteSelector</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/Parameter.html">Parameter</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/RackDevice.html">RackDevice</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/RackReceive.html">RackReceive</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/ReturnChain.html">ReturnChain</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/SamplerDevice.html">SamplerDevice</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/ScaleDevice.html">ScaleDevice</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/Scene.html">Scene</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/SceneContainer.html">SceneContainer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/Send.html">Send</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/SendContainer.html">SendContainer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/SendManager.html">SendManager</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/Track.html">Track</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/TrackContainer.html">TrackContainer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/TrackReceive.html">TrackReceive</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/Transport.html">Transport</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/VelocityDevice.html">VelocityDevice</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/daw/DeviceType.html">DeviceType</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="api/supriya/conversions.html">conversions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/supriya/enums.html">enums</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/supriya/exceptions.html">exceptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/supriya/ext/index.html">ext</a><ul>
@@ -604,63 +488,30 @@ setting it up, and installing any additional dependencies like <a class="referen
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ext/ipython.html">ipython</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="api/supriya/intervals/index.html">intervals</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/intervals/Interval.html">Interval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/intervals/IntervalTree.html">IntervalTree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/intervals/IntervalTreeDriver.html">IntervalTreeDriver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/intervals/IntervalTreeDriverEx.html">IntervalTreeDriverEx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/intervals/Moment.html">Moment</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="api/supriya/io.html">io</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/supriya/live/index.html">live</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/live/Application.html">Application</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/live/AudioEffect.html">AudioEffect</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/live/ClipSlot.html">ClipSlot</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/live/Device.html">Device</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/live/DeviceChain.html">DeviceChain</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/live/Direct.html">Direct</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/live/Instrument.html">Instrument</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/live/MidiEffect.html">MidiEffect</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/live/Mixer.html">Mixer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/live/PolyphonicVoicer.html">PolyphonicVoicer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/live/Rack.html">Rack</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/live/Send.html">Send</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/live/SendManager.html">SendManager</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/live/Shuffle.html">Shuffle</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/live/Track.html">Track</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api/supriya/midi/index.html">midi</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/midi/ControllerChangeMessage.html">ControllerChangeMessage</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/midi/Device.html">Device</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/midi/LogicalControl.html">LogicalControl</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/midi/LogicalView.html">LogicalView</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/midi/MidiMessage.html">MidiMessage</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/midi/NoteOffMessage.html">NoteOffMessage</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/midi/NoteOnMessage.html">NoteOnMessage</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/midi/PhysicalControl.html">PhysicalControl</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/midi/LogicalControlMode.html">LogicalControlMode</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="api/supriya/nonrealtime/index.html">nonrealtime</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/nonrealtime/SessionFactory.html">SessionFactory</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/nonrealtime/Session.html">Session</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/nonrealtime/DoNotPropagate.html">DoNotPropagate</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/nonrealtime/NodeTransition.html">NodeTransition</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/nonrealtime/SessionObject.html">SessionObject</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/nonrealtime/SessionRenderer.html">SessionRenderer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/nonrealtime/State.html">State</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/nonrealtime/AudioInputBusGroup.html">AudioInputBusGroup</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/nonrealtime/AudioOutputBusGroup.html">AudioOutputBusGroup</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/nonrealtime/Buffer.html">Buffer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/nonrealtime/BufferGroup.html">BufferGroup</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/nonrealtime/Bus.html">Bus</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/nonrealtime/BusGroup.html">BusGroup</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/nonrealtime/Group.html">Group</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/nonrealtime/Moment.html">Moment</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/nonrealtime/Node.html">Node</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/nonrealtime/RootNode.html">RootNode</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/nonrealtime/Synth.html">Synth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/nonrealtime/bases.html">bases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/nonrealtime/buffers.html">buffers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/nonrealtime/buses.html">buses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/nonrealtime/nodes.html">nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/nonrealtime/renderer.html">renderer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/nonrealtime/sessions.html">sessions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/nonrealtime/states.html">states</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/supriya/osc/index.html">osc</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/osc/OscBundle.html">OscBundle</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/osc/OscCallback.html">OscCallback</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/osc/OscIO.html">OscIO</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/osc/OscMessage.html">OscMessage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/osc/captures.html">captures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/osc/messages.html">messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/osc/protocols.html">protocols</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/osc/utils.html">utils</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/supriya/patterns/index.html">patterns</a><ul>
@@ -668,7 +519,6 @@ setting it up, and installing any additional dependencies like <a class="referen
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/EventPattern.html">EventPattern</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/Pattern.html">Pattern</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/BusEvent.html">BusEvent</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/Clock.html">Clock</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/CompositeEvent.html">CompositeEvent</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/EventPlayer.html">EventPlayer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/EventProduct.html">EventProduct</a></li>
@@ -691,88 +541,48 @@ setting it up, and installing any additional dependencies like <a class="referen
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/Pseq.html">Pseq</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/Pwhite.html">Pwhite</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/RandomNumberGenerator.html">RandomNumberGenerator</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/RealtimeEventPlayer.html">RealtimeEventPlayer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/patterns/SynthEvent.html">SynthEvent</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="api/supriya/provider.html">provider</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/supriya/querytree.html">querytree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/supriya/realtime/index.html">realtime</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/Node.html">Node</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/ServerObject.html">ServerObject</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/BootOptions.html">BootOptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/Buffer.html">Buffer</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/BufferGroup.html">BufferGroup</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/Bus.html">Bus</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/BusGroup.html">BusGroup</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/Group.html">Group</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/Server.html">Server</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/Synth.html">Synth</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/AudioInputBusGroup.html">AudioInputBusGroup</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/AudioOutputBusGroup.html">AudioOutputBusGroup</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/Block.html">Block</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/BlockAllocator.html">BlockAllocator</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/BufferProxy.html">BufferProxy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/BusProxy.html">BusProxy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/ControlInterface.html">ControlInterface</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/GroupControl.html">GroupControl</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/GroupInterface.html">GroupInterface</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/NodeIdAllocator.html">NodeIdAllocator</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/RootNode.html">RootNode</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/ServerMeters.html">ServerMeters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/ServerRecorder.html">ServerRecorder</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/StatusWatcher.html">StatusWatcher</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/SynthControl.html">SynthControl</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/SynthInterface.html">SynthInterface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/allocators.html">allocators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/bases.html">bases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/buffers.html">buffers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/buses.html">buses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/interfaces.html">interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/meters.html">meters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/nodes.html">nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/protocols.html">protocols</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/recorder.html">recorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/realtime/servers.html">servers</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="api/supriya/sclang.html">sclang</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/supriya/scsynth.html">scsynth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/supriya/soundfiles.html">soundfiles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/supriya/synthdefs/index.html">synthdefs</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/synthdefs/SynthDefFactory.html">SynthDefFactory</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/synthdefs/SynthDefGrapher.html">SynthDefGrapher</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/synthdefs/Envelope.html">Envelope</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/synthdefs/Parameter.html">Parameter</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/synthdefs/Range.html">Range</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/synthdefs/SynthDef.html">SynthDef</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/synthdefs/SynthDefBuilder.html">SynthDefBuilder</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/synthdefs/OutputProxy.html">OutputProxy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/synthdefs/SuperColliderSynthDef.html">SuperColliderSynthDef</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/synthdefs/SynthDefCompiler.html">SynthDefCompiler</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/synthdefs/SynthDefDecompiler.html">SynthDefDecompiler</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/synthdefs/UGenArray.html">UGenArray</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/synthdefs/UGenMethodMixin.html">UGenMethodMixin</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/synthdefs/UGenSortBundle.html">UGenSortBundle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/synthdefs/bases.html">bases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/synthdefs/builders.html">builders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/synthdefs/compilers.html">compilers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/synthdefs/controls.html">controls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/synthdefs/envelopes.html">envelopes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/synthdefs/factories.html">factories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/synthdefs/grapher.html">grapher</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/synthdefs/mixins.html">mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/synthdefs/synthdefs.html">synthdefs</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api/supriya/system/index.html">system</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/system/Assets.html">Assets</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/system/Bindable.html">Bindable</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/system/BindableFloat.html">BindableFloat</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/system/BindableNamespace.html">BindableNamespace</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/system/Binding.html">Binding</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/system/SupriyaObject.html">SupriyaObject</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/system/SupriyaValueObject.html">SupriyaValueObject</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/system/YAMLLoader.html">YAMLLoader</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/system/bind.html">bind</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/system/PubSub.html">PubSub</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api/supriya/time/index.html">time</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/time/Interval.html">Interval</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/time/IntervalTree.html">IntervalTree</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/time/IntervalTreeDriver.html">IntervalTreeDriver</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/time/IntervalTreeDriverEx.html">IntervalTreeDriverEx</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/time/Moment.html">Moment</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="api/supriya/system.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/supriya/typing.html">typing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/supriya/ugens/index.html">ugens</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PseudoUGen.html">PseudoUGen</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PureMultiOutUGen.html">PureMultiOutUGen</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/DecodeB2.html">DecodeB2</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/ZeroCrossing.html">ZeroCrossing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BinaryOpUGen.html">BinaryOpUGen</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/MulAdd.html">MulAdd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Sum3.html">Sum3</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Sum4.html">Sum4</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/UnaryOpUGen.html">UnaryOpUGen</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BufChannels.html">BufChannels</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BufDur.html">BufDur</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/BufFrames.html">BufFrames</a></li>
@@ -820,7 +630,6 @@ setting it up, and installing any additional dependencies like <a class="referen
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/GrainIn.html">GrainIn</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Pulse.html">Pulse</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/SyncSaw.html">SyncSaw</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/UGenMeta.html">UGenMeta</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/VDiskIn.html">VDiskIn</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/VOsc.html">VOsc</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/VOsc3.html">VOsc3</a></li>
@@ -1079,14 +888,10 @@ setting it up, and installing any additional dependencies like <a class="referen
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/HilbertFIR.html">HilbertFIR</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LeastChange.html">LeastChange</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/MostChange.html">MostChange</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/MultiOutUGen.html">MultiOutUGen</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/PureUGen.html">PureUGen</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/RunningSum.html">RunningSum</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Select.html">Select</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/SendTrig.html">SendTrig</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Sweep.html">Sweep</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/UGen.html">UGen</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/WidthFirstUGen.html">WidthFirstUGen</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/WrapIndex.html">WrapIndex</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/_Index.html">Index</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Clip.html">Clip</a></li>
@@ -1105,10 +910,6 @@ setting it up, and installing any additional dependencies like <a class="referen
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Trig.html">Trig</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Trig1.html">Trig1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Wrap.html">Wrap</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/AudioControl.html">AudioControl</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Control.html">Control</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/LagControl.html">LagControl</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/TrigControl.html">TrigControl</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/MouseButton.html">MouseButton</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/MouseX.html">MouseX</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/MouseY.html">MouseY</a></li>
@@ -1119,6 +920,7 @@ setting it up, and installing any additional dependencies like <a class="referen
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/K2A.html">K2A</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Mix.html">Mix</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Poll.html">Poll</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Sanitize.html">Sanitize</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/SendPeakRMS.html">SendPeakRMS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/supriya/ugens/Silence.html">Silence</a></li>
 </ul>

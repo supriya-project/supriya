@@ -66,6 +66,10 @@ GroupQueryTreeRequest
 
    .. container:: inherited
 
+      .. automethod:: GroupQueryTreeRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: GroupQueryTreeRequest.to_datagram
 
    .. container:: inherited

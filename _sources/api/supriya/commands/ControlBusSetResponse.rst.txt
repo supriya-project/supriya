@@ -105,7 +105,3 @@ ControlBusSetResponse
       :class: class-header
 
    .. autoattribute:: ControlBusSetResponse.items
-
-   .. container:: inherited
-
-      .. autoattribute:: ControlBusSetResponse.osc_message

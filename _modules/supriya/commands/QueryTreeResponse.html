@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>supriya.commands.QueryTreeResponse &mdash; Supriya 0.3.0 documentation</title>
+  <title>supriya.commands.QueryTreeResponse &mdash; Supriya 0.4.0 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.3.0
+                0.4.0
               </div>
             
           
@@ -91,14 +91,11 @@
 </ul>
 <p class="caption"><span class="caption-text">Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
@@ -164,8 +161,6 @@
         
           <li><a href="../../index.html">Module code</a> &raquo;</li>
         
-          <li><a href="../../supriya.html">supriya</a> &raquo;</li>
-        
       <li>supriya.commands.QueryTreeResponse</li>
     
     
@@ -182,25 +177,21 @@
            <div itemprop="articleBody">
             
   <h1>Source code for supriya.commands.QueryTreeResponse</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">supriya.commands.Response</span> <span class="k">import</span> <span class="n">Response</span>
+<span></span><span class="kn">from</span> <span class="nn">supriya.commands.Response</span> <span class="kn">import</span> <span class="n">Response</span>
+<span class="kn">from</span> <span class="nn">supriya.querytree</span> <span class="kn">import</span> <span class="n">QueryTreeControl</span><span class="p">,</span> <span class="n">QueryTreeGroup</span><span class="p">,</span> <span class="n">QueryTreeSynth</span>
 
 
 <div class="viewcode-block" id="QueryTreeResponse"><a class="viewcode-back" href="../../../api/supriya/commands/QueryTreeResponse.html#supriya.commands.QueryTreeResponse.QueryTreeResponse">[docs]</a><span class="k">class</span> <span class="nc">QueryTreeResponse</span><span class="p">(</span><span class="n">Response</span><span class="p">):</span>
 
-    <span class="c1">### CLASS VARIABLES ###</span>
-
-    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_node_id&quot;</span><span class="p">,</span> <span class="s2">&quot;_query_tree_group&quot;</span><span class="p">)</span>
-
     <span class="c1">### INITIALIZER ###</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">osc_message</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">query_tree_group</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="n">Response</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">osc_message</span><span class="o">=</span><span class="n">osc_message</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">query_tree_group</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_node_id</span> <span class="o">=</span> <span class="n">node_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_query_tree_group</span> <span class="o">=</span> <span class="n">query_tree_group</span>
 
     <span class="c1">### SPECIAL METHODS ###</span>
 
-<div class="viewcode-block" id="QueryTreeResponse.__str__"><a class="viewcode-back" href="../../../api/supriya/commands/QueryTreeResponse.html#supriya.commands.QueryTreeResponse.QueryTreeResponse.__str__">[docs]</a>    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="QueryTreeResponse.__str__"><a class="viewcode-back" href="../../../api/supriya/commands/QueryTreeResponse.html#supriya.commands.QueryTreeResponse.QueryTreeResponse.__str__">[docs]</a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_query_tree_group</span><span class="p">)</span></div>
 
     <span class="c1">### PUBLIC METHODS ###</span>
@@ -263,13 +254,13 @@
                     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">control_count</span><span class="p">):</span>
                         <span class="n">control_name_or_index</span> <span class="o">=</span> <span class="n">contents</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
                         <span class="n">control_value</span> <span class="o">=</span> <span class="n">contents</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-                        <span class="n">control</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">QueryTreeControl</span><span class="p">(</span>
+                        <span class="n">control</span> <span class="o">=</span> <span class="n">QueryTreeControl</span><span class="p">(</span>
                             <span class="n">control_name_or_index</span><span class="o">=</span><span class="n">control_name_or_index</span><span class="p">,</span>
                             <span class="n">control_value</span><span class="o">=</span><span class="n">control_value</span><span class="p">,</span>
                         <span class="p">)</span>
                         <span class="n">controls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">control</span><span class="p">)</span>
                 <span class="n">controls</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">controls</span><span class="p">)</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">QueryTreeSynth</span><span class="p">(</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">QueryTreeSynth</span><span class="p">(</span>
                     <span class="n">node_id</span><span class="o">=</span><span class="n">node_id</span><span class="p">,</span> <span class="n">synthdef_name</span><span class="o">=</span><span class="n">synthdef_name</span><span class="p">,</span> <span class="n">controls</span><span class="o">=</span><span class="n">controls</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
@@ -277,12 +268,8 @@
                 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">child_count</span><span class="p">):</span>
                     <span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">recurse</span><span class="p">(</span><span class="n">contents</span><span class="p">,</span> <span class="n">control_flag</span><span class="p">))</span>
                 <span class="n">children</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">children</span><span class="p">)</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">QueryTreeGroup</span><span class="p">(</span>
-                    <span class="n">node_id</span><span class="o">=</span><span class="n">node_id</span><span class="p">,</span> <span class="n">children</span><span class="o">=</span><span class="n">children</span>
-                <span class="p">)</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">QueryTreeGroup</span><span class="p">(</span><span class="n">node_id</span><span class="o">=</span><span class="n">node_id</span><span class="p">,</span> <span class="n">children</span><span class="o">=</span><span class="n">children</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">result</span>
-
-        <span class="kn">import</span> <span class="nn">supriya.commands</span>
 
         <span class="n">contents</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">osc_message</span><span class="o">.</span><span class="n">contents</span><span class="p">)</span>
         <span class="n">control_flag</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">contents</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
@@ -300,114 +287,114 @@
 
 <span class="sd">            &gt;&gt;&gt; query_tree_response = supriya.commands.QueryTreeResponse(</span>
 <span class="sd">            ...     node_id=0,</span>
-<span class="sd">            ...     query_tree_group=supriya.commands.QueryTreeGroup(</span>
+<span class="sd">            ...     query_tree_group=supriya.querytree.QueryTreeGroup(</span>
 <span class="sd">            ...         node_id=0,</span>
 <span class="sd">            ...         children=(</span>
-<span class="sd">            ...             supriya.commands.QueryTreeGroup(</span>
+<span class="sd">            ...             supriya.querytree.QueryTreeGroup(</span>
 <span class="sd">            ...                 node_id=1,</span>
 <span class="sd">            ...                 children=(</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeGroup(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeGroup(</span>
 <span class="sd">            ...                         node_id=1002,</span>
 <span class="sd">            ...                         children=(</span>
-<span class="sd">            ...                             supriya.commands.QueryTreeSynth(</span>
+<span class="sd">            ...                             supriya.querytree.QueryTreeSynth(</span>
 <span class="sd">            ...                                 node_id=1105,</span>
 <span class="sd">            ...                                 synthdef_name=&#39;dca557070c6b57164557041ac746fb3f&#39;,</span>
 <span class="sd">            ...                                 controls=(</span>
-<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                                         control_name_or_index=&#39;damping&#39;,</span>
 <span class="sd">            ...                                         control_value=0.06623425334692,</span>
 <span class="sd">            ...                                         ),</span>
-<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                                         control_name_or_index=&#39;duration&#39;,</span>
 <span class="sd">            ...                                         control_value=3.652155876159668,</span>
 <span class="sd">            ...                                         ),</span>
-<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                                         control_name_or_index=&#39;level&#39;,</span>
 <span class="sd">            ...                                         control_value=0.894767701625824,</span>
 <span class="sd">            ...                                         ),</span>
-<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                                         control_name_or_index=&#39;out&#39;,</span>
 <span class="sd">            ...                                         control_value=16.0,</span>
 <span class="sd">            ...                                         ),</span>
-<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                                         control_name_or_index=&#39;room_size&#39;,</span>
 <span class="sd">            ...                                         control_value=0.918643176555634,</span>
 <span class="sd">            ...                                         ),</span>
 <span class="sd">            ...                                     ),</span>
 <span class="sd">            ...                                 ),</span>
-<span class="sd">            ...                             supriya.commands.QueryTreeSynth(</span>
+<span class="sd">            ...                             supriya.querytree.QueryTreeSynth(</span>
 <span class="sd">            ...                                 node_id=1098,</span>
 <span class="sd">            ...                                 synthdef_name=&#39;cc754c63533fdcf412a44ef6adb1a8f0&#39;,</span>
 <span class="sd">            ...                                 controls=(</span>
-<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                                         control_name_or_index=&#39;duration&#39;,</span>
 <span class="sd">            ...                                         control_value=5.701356887817383,</span>
 <span class="sd">            ...                                         ),</span>
-<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                                         control_name_or_index=&#39;level&#39;,</span>
 <span class="sd">            ...                                         control_value=0.959683060646057,</span>
 <span class="sd">            ...                                         ),</span>
-<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                                         control_name_or_index=&#39;out&#39;,</span>
 <span class="sd">            ...                                         control_value=16.0,</span>
 <span class="sd">            ...                                         ),</span>
-<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                                         control_name_or_index=&#39;pitch_dispersion&#39;,</span>
 <span class="sd">            ...                                         control_value=0.040342573076487,</span>
 <span class="sd">            ...                                         ),</span>
-<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                                         control_name_or_index=&#39;pitch_shift&#39;,</span>
 <span class="sd">            ...                                         control_value=10.517594337463379,</span>
 <span class="sd">            ...                                         ),</span>
-<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                                         control_name_or_index=&#39;time_dispersion&#39;,</span>
 <span class="sd">            ...                                         control_value=0.666014134883881,</span>
 <span class="sd">            ...                                         ),</span>
-<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                                         control_name_or_index=&#39;window_size&#39;,</span>
 <span class="sd">            ...                                         control_value=1.014111995697021,</span>
 <span class="sd">            ...                                         ),</span>
 <span class="sd">            ...                                     ),</span>
 <span class="sd">            ...                                 ),</span>
-<span class="sd">            ...                             supriya.commands.QueryTreeSynth(</span>
+<span class="sd">            ...                             supriya.querytree.QueryTreeSynth(</span>
 <span class="sd">            ...                                 node_id=1096,</span>
 <span class="sd">            ...                                 synthdef_name=&#39;5cb6fb104ee1dc44d6b300e13112d37a&#39;,</span>
 <span class="sd">            ...                                 controls=(</span>
-<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                                         control_name_or_index=&#39;duration&#39;,</span>
 <span class="sd">            ...                                         control_value=5.892660140991211,</span>
 <span class="sd">            ...                                         ),</span>
-<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                                         control_name_or_index=&#39;level&#39;,</span>
 <span class="sd">            ...                                         control_value=0.159362614154816,</span>
 <span class="sd">            ...                                         ),</span>
-<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                                         control_name_or_index=&#39;out&#39;,</span>
 <span class="sd">            ...                                         control_value=16.0,</span>
 <span class="sd">            ...                                         ),</span>
 <span class="sd">            ...                                     ),</span>
 <span class="sd">            ...                                 ),</span>
-<span class="sd">            ...                             supriya.commands.QueryTreeSynth(</span>
+<span class="sd">            ...                             supriya.querytree.QueryTreeSynth(</span>
 <span class="sd">            ...                                 node_id=1010,</span>
 <span class="sd">            ...                                 synthdef_name=&#39;da0982184cc8fa54cf9d288a0fe1f6ca&#39;,</span>
 <span class="sd">            ...                                 controls=(</span>
-<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                                         control_name_or_index=&#39;out&#39;,</span>
 <span class="sd">            ...                                         control_value=16.0,</span>
 <span class="sd">            ...                                         ),</span>
-<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                                         control_name_or_index=&#39;amplitude&#39;,</span>
 <span class="sd">            ...                                         control_value=0.846831738948822,</span>
 <span class="sd">            ...                                         ),</span>
-<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                                         control_name_or_index=&#39;frequency&#39;,</span>
 <span class="sd">            ...                                         control_value=1522.9603271484375,</span>
 <span class="sd">            ...                                         ),</span>
-<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                                         control_name_or_index=&#39;gate&#39;,</span>
 <span class="sd">            ...                                         control_value=0.0,</span>
 <span class="sd">            ...                                         ),</span>
-<span class="sd">            ...                                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                                         control_name_or_index=&#39;pan&#39;,</span>
 <span class="sd">            ...                                         control_value=0.733410477638245,</span>
 <span class="sd">            ...                                         ),</span>
@@ -415,27 +402,27 @@
 <span class="sd">            ...                                 ),</span>
 <span class="sd">            ...                             ),</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeSynth(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeSynth(</span>
 <span class="sd">            ...                         node_id=1003,</span>
 <span class="sd">            ...                         synthdef_name=&#39;454b69a7c505ddecc5b39762d291a5ec&#39;,</span>
 <span class="sd">            ...                         controls=(</span>
-<span class="sd">            ...                             supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                             supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                                 control_name_or_index=&#39;done_action&#39;,</span>
 <span class="sd">            ...                                 control_value=2.0,</span>
 <span class="sd">            ...                                 ),</span>
-<span class="sd">            ...                             supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                             supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                                 control_name_or_index=&#39;fade_time&#39;,</span>
 <span class="sd">            ...                                 control_value=0.019999999552965,</span>
 <span class="sd">            ...                                 ),</span>
-<span class="sd">            ...                             supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                             supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                                 control_name_or_index=&#39;gate&#39;,</span>
 <span class="sd">            ...                                 control_value=1.0,</span>
 <span class="sd">            ...                                 ),</span>
-<span class="sd">            ...                             supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                             supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                                 control_name_or_index=&#39;in_&#39;,</span>
 <span class="sd">            ...                                 control_value=16.0,</span>
 <span class="sd">            ...                                 ),</span>
-<span class="sd">            ...                             supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                             supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                                 control_name_or_index=&#39;out&#39;,</span>
 <span class="sd">            ...                                 control_value=0.0,</span>
 <span class="sd">            ...                                 ),</span>
@@ -443,153 +430,153 @@
 <span class="sd">            ...                         ),</span>
 <span class="sd">            ...                     ),</span>
 <span class="sd">            ...                 ),</span>
-<span class="sd">            ...             supriya.commands.QueryTreeSynth(</span>
+<span class="sd">            ...             supriya.querytree.QueryTreeSynth(</span>
 <span class="sd">            ...                 node_id=1000,</span>
 <span class="sd">            ...                 synthdef_name=&#39;72696657e1216698c415e704ea8ab9a2&#39;,</span>
 <span class="sd">            ...                 controls=(</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_1_clamp_time&#39;,</span>
 <span class="sd">            ...                         control_value=0.009999999776483,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_1_postgain&#39;,</span>
 <span class="sd">            ...                         control_value=1.0,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_1_pregain&#39;,</span>
 <span class="sd">            ...                         control_value=6.0,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_1_relax_time&#39;,</span>
 <span class="sd">            ...                         control_value=0.100000001490116,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_1_slope_above&#39;,</span>
 <span class="sd">            ...                         control_value=1.0,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_1_slope_below&#39;,</span>
 <span class="sd">            ...                         control_value=1.0,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_1_threshold&#39;,</span>
 <span class="sd">            ...                         control_value=0.0,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_2_clamp_time&#39;,</span>
 <span class="sd">            ...                         control_value=0.009999999776483,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_2_postgain&#39;,</span>
 <span class="sd">            ...                         control_value=1.0,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_2_pregain&#39;,</span>
 <span class="sd">            ...                         control_value=3.0,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_2_relax_time&#39;,</span>
 <span class="sd">            ...                         control_value=0.100000001490116,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_2_slope_above&#39;,</span>
 <span class="sd">            ...                         control_value=0.5,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_2_slope_below&#39;,</span>
 <span class="sd">            ...                         control_value=1.0,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_2_threshold&#39;,</span>
 <span class="sd">            ...                         control_value=-6.0,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_3_clamp_time&#39;,</span>
 <span class="sd">            ...                         control_value=0.009999999776483,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_3_postgain&#39;,</span>
 <span class="sd">            ...                         control_value=1.0,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_3_pregain&#39;,</span>
 <span class="sd">            ...                         control_value=-3.0,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_3_relax_time&#39;,</span>
 <span class="sd">            ...                         control_value=0.100000001490116,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_3_slope_above&#39;,</span>
 <span class="sd">            ...                         control_value=0.25,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_3_slope_below&#39;,</span>
 <span class="sd">            ...                         control_value=1.0,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_3_threshold&#39;,</span>
 <span class="sd">            ...                         control_value=-12.0,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_4_clamp_time&#39;,</span>
 <span class="sd">            ...                         control_value=0.009999999776483,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_4_postgain&#39;,</span>
 <span class="sd">            ...                         control_value=1.0,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_4_pregain&#39;,</span>
 <span class="sd">            ...                         control_value=-3.0,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_4_relax_time&#39;,</span>
 <span class="sd">            ...                         control_value=0.100000001490116,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_4_slope_above&#39;,</span>
 <span class="sd">            ...                         control_value=0.125,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_4_slope_below&#39;,</span>
 <span class="sd">            ...                         control_value=1.0,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;band_4_threshold&#39;,</span>
 <span class="sd">            ...                         control_value=-18.0,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;frequency_1&#39;,</span>
 <span class="sd">            ...                         control_value=200.0,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;frequency_2&#39;,</span>
 <span class="sd">            ...                         control_value=2000.0,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;frequency_3&#39;,</span>
 <span class="sd">            ...                         control_value=5000.0,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;in_&#39;,</span>
 <span class="sd">            ...                         control_value=0.0,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;out&#39;,</span>
 <span class="sd">            ...                         control_value=0.0,</span>
 <span class="sd">            ...                         ),</span>
 <span class="sd">            ...                     ),</span>
 <span class="sd">            ...                 ),</span>
-<span class="sd">            ...             supriya.commands.QueryTreeSynth(</span>
+<span class="sd">            ...             supriya.querytree.QueryTreeSynth(</span>
 <span class="sd">            ...                 node_id=1001,</span>
 <span class="sd">            ...                 synthdef_name=&#39;c1aa521afab5b0c0ce3d744690951649&#39;,</span>
 <span class="sd">            ...                 controls=(</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;level&#39;,</span>
 <span class="sd">            ...                         control_value=1.0,</span>
 <span class="sd">            ...                         ),</span>
-<span class="sd">            ...                     supriya.commands.QueryTreeControl(</span>
+<span class="sd">            ...                     supriya.querytree.QueryTreeControl(</span>
 <span class="sd">            ...                         control_name_or_index=&#39;out&#39;,</span>
 <span class="sd">            ...                         control_value=0.0,</span>
 <span class="sd">            ...                         ),</span>

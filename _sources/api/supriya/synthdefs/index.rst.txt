@@ -16,71 +16,31 @@ synthdefs
 
    <hr/>
 
-.. rubric:: Classes
+.. rubric:: Subpackages
    :class: section-header
 
 .. toctree::
    :hidden:
 
-   SynthDefFactory
-   SynthDefGrapher
+   bases
+   builders
+   compilers
+   controls
+   envelopes
+   factories
+   grapher
+   mixins
+   synthdefs
 
 .. autosummary::
    :nosignatures:
 
-   ~SynthDefFactory.SynthDefFactory
-   ~SynthDefGrapher.SynthDefGrapher
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Main Classes
-   :class: section-header
-
-.. toctree::
-   :hidden:
-
-   Envelope
-   Parameter
-   Range
-   SynthDef
-   SynthDefBuilder
-
-.. autosummary::
-   :nosignatures:
-
-   ~Envelope.Envelope
-   ~Parameter.Parameter
-   ~Range.Range
-   ~SynthDef.SynthDef
-   ~SynthDefBuilder.SynthDefBuilder
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: SynthDef Internals
-   :class: section-header
-
-.. toctree::
-   :hidden:
-
-   OutputProxy
-   SuperColliderSynthDef
-   SynthDefCompiler
-   SynthDefDecompiler
-   UGenArray
-   UGenMethodMixin
-   UGenSortBundle
-
-.. autosummary::
-   :nosignatures:
-
-   ~OutputProxy.OutputProxy
-   ~SuperColliderSynthDef.SuperColliderSynthDef
-   ~SynthDefCompiler.SynthDefCompiler
-   ~SynthDefDecompiler.SynthDefDecompiler
-   ~UGenArray.UGenArray
-   ~UGenMethodMixin.UGenMethodMixin
-   ~UGenSortBundle.UGenSortBundle
+   bases
+   builders
+   compilers
+   controls
+   envelopes
+   factories
+   grapher
+   mixins
+   synthdefs

@@ -94,8 +94,10 @@ soundfiles
       at_second
       channel_count
       file_path
+      file_type
       frame_count
       sample_rate
+      sample_width
       seconds
 
    .. raw:: html
@@ -133,8 +135,12 @@ soundfiles
 
    .. autoattribute:: SoundFile.file_path
 
+   .. autoattribute:: SoundFile.file_type
+
    .. autoattribute:: SoundFile.frame_count
 
    .. autoattribute:: SoundFile.sample_rate
+
+   .. autoattribute:: SoundFile.sample_width
 
    .. autoattribute:: SoundFile.seconds

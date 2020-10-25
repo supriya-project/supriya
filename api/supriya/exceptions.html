@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>exceptions &mdash; Supriya 0.3.0 documentation</title>
+  <title>exceptions &mdash; Supriya 0.4.0 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                0.3.0
+                0.4.0
               </div>
             
           
@@ -93,14 +93,11 @@
 </ul>
 <p class="caption"><span class="caption-text">Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../realtime/index.html">Real-time composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../synthdefs/index.html">Synth definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../nonrealtime.html">Non-realtime composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../time-agnostic.html">Time-agnostic usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../osc.html">OSC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../midi.html">MIDI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../performance.html">Live performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../cli.html">CLI tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../synthdefs.html">SynthDefs</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
@@ -110,24 +107,26 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">supriya</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="cli/index.html">cli</a></li>
-<li class="toctree-l2"><a class="reference internal" href="clock.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clock/index.html">clock</a></li>
 <li class="toctree-l2"><a class="reference internal" href="commands/index.html">commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="daw/index.html">daw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conversions.html">conversions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="enums.html">enums</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">exceptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intervals/index.html">intervals</a></li>
 <li class="toctree-l2"><a class="reference internal" href="io.html">io</a></li>
-<li class="toctree-l2"><a class="reference internal" href="live/index.html">live</a></li>
-<li class="toctree-l2"><a class="reference internal" href="midi/index.html">midi</a></li>
 <li class="toctree-l2"><a class="reference internal" href="nonrealtime/index.html">nonrealtime</a></li>
 <li class="toctree-l2"><a class="reference internal" href="osc/index.html">osc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="provider.html">provider</a></li>
+<li class="toctree-l2"><a class="reference internal" href="querytree.html">querytree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sclang.html">sclang</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scsynth.html">scsynth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="soundfiles.html">soundfiles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="synthdefs/index.html">synthdefs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="system/index.html">system</a></li>
-<li class="toctree-l2"><a class="reference internal" href="time/index.html">time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typing.html">typing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ugens/index.html">ugens</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">utils</a></li>
 </ul>
@@ -210,7 +209,7 @@
   <div class="section" id="module-supriya.exceptions">
 <span id="exceptions"></span><span id="supriya-exceptions"></span><h1>exceptions<a class="headerlink" href="#module-supriya.exceptions" title="Permalink to this headline">¶</a></h1>
 <div class="svg-container docutils container">
-<div class="graphviz"><object data="../../_images/inheritance-c7cd99ef2ed5aef63279a86193685d6b7a00f3ac.svg" type="image/svg+xml" class="inheritance graphviz">
+<div class="graphviz"><object data="../../_images/inheritance-f7b05abd31a7b66adfeb8d8fabd4c679afdbca9e.svg" type="image/svg+xml" class="inheritance graphviz">
 <p class="warning">digraph InheritanceGraph {
 	graph [bgcolor=transparent,
 		color=lightsteelblue2,
@@ -239,127 +238,130 @@
 	subgraph cluster_builtins {
 		graph [label=builtins];
 		node [color=1];
-		&quot;builtins.BaseException&quot;		 [URL=&quot;https://docs.python.org/3.6/library/exceptions.html#BaseException&quot;,
-			color=1,
+		&quot;builtins.BaseException&quot;	[URL=&quot;https://docs.python.org/3/library/exceptions.html#BaseException&quot;,
 			label=&quot;Base\nException&quot;,
 			target=_top];
-		&quot;builtins.Exception&quot;		 [URL=&quot;https://docs.python.org/3.6/library/exceptions.html#Exception&quot;,
-			color=1,
+		&quot;builtins.Exception&quot;	[URL=&quot;https://docs.python.org/3/library/exceptions.html#Exception&quot;,
 			label=Exception,
 			target=_top];
 		&quot;builtins.BaseException&quot; -&gt; &quot;builtins.Exception&quot;;
-		&quot;builtins.object&quot;		 [URL=&quot;https://docs.python.org/3.6/library/functions.html#object&quot;,
-			color=1,
+		&quot;builtins.object&quot;	[URL=&quot;https://docs.python.org/3/library/functions.html#object&quot;,
 			label=object,
 			target=_top];
-		&quot;builtins.object&quot; -&gt; &quot;builtins.BaseException&quot;		 [minlen=1];
+		&quot;builtins.object&quot; -&gt; &quot;builtins.BaseException&quot;	[minlen=1];
 	}
 	subgraph &quot;cluster_supriya.exceptions&quot; {
 		graph [label=&quot;supriya.exceptions&quot;];
 		node [color=2];
-		&quot;supriya.exceptions.AlreadyAllocated&quot;		 [URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.AlreadyAllocated&quot;,
+		&quot;supriya.exceptions.AlreadyAllocated&quot;	[URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.AlreadyAllocated&quot;,
 			color=black,
 			fontcolor=white,
 			label=&quot;Already\nAllocated&quot;,
 			target=_top];
-		&quot;supriya.exceptions.BufferAlreadyAllocated&quot;		 [URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.BufferAlreadyAllocated&quot;,
+		&quot;supriya.exceptions.BufferAlreadyAllocated&quot;	[URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.BufferAlreadyAllocated&quot;,
 			color=black,
 			fontcolor=white,
 			label=&quot;Buffer\nAlready\nAllocated&quot;,
 			target=_top];
-		&quot;supriya.exceptions.AlreadyAllocated&quot; -&gt; &quot;supriya.exceptions.BufferAlreadyAllocated&quot;		 [minlen=1];
-		&quot;supriya.exceptions.BusAlreadyAllocated&quot;		 [URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.BusAlreadyAllocated&quot;,
+		&quot;supriya.exceptions.AlreadyAllocated&quot; -&gt; &quot;supriya.exceptions.BufferAlreadyAllocated&quot;	[minlen=1];
+		&quot;supriya.exceptions.BusAlreadyAllocated&quot;	[URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.BusAlreadyAllocated&quot;,
 			color=black,
 			fontcolor=white,
 			label=&quot;Bus\nAlready\nAllocated&quot;,
 			target=_top];
-		&quot;supriya.exceptions.AlreadyAllocated&quot; -&gt; &quot;supriya.exceptions.BusAlreadyAllocated&quot;		 [minlen=2];
-		&quot;supriya.exceptions.NodeAlreadyAllocated&quot;		 [URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.NodeAlreadyAllocated&quot;,
+		&quot;supriya.exceptions.AlreadyAllocated&quot; -&gt; &quot;supriya.exceptions.BusAlreadyAllocated&quot;	[minlen=2];
+		&quot;supriya.exceptions.NodeAlreadyAllocated&quot;	[URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.NodeAlreadyAllocated&quot;,
 			color=black,
 			fontcolor=white,
 			label=&quot;Node\nAlready\nAllocated&quot;,
 			target=_top];
-		&quot;supriya.exceptions.AlreadyAllocated&quot; -&gt; &quot;supriya.exceptions.NodeAlreadyAllocated&quot;		 [minlen=1];
-		&quot;supriya.exceptions.BufferNotAllocated&quot;		 [URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.BufferNotAllocated&quot;,
+		&quot;supriya.exceptions.AlreadyAllocated&quot; -&gt; &quot;supriya.exceptions.NodeAlreadyAllocated&quot;	[minlen=1];
+		&quot;supriya.exceptions.BufferNotAllocated&quot;	[URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.BufferNotAllocated&quot;,
 			color=black,
 			fontcolor=white,
 			label=&quot;Buffer\nNot\nAllocated&quot;,
 			target=_top];
-		&quot;supriya.exceptions.BusNotAllocated&quot;		 [URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.BusNotAllocated&quot;,
+		&quot;supriya.exceptions.BusNotAllocated&quot;	[URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.BusNotAllocated&quot;,
 			color=black,
 			fontcolor=white,
 			label=&quot;Bus\nNot\nAllocated&quot;,
 			target=_top];
-		&quot;supriya.exceptions.IncompatibleRate&quot;		 [URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.IncompatibleRate&quot;,
+		&quot;supriya.exceptions.IncompatibleRate&quot;	[URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.IncompatibleRate&quot;,
 			color=black,
 			fontcolor=white,
 			label=&quot;Incompatible\nRate&quot;,
 			target=_top];
-		&quot;supriya.exceptions.NodeNotAllocated&quot;		 [URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.NodeNotAllocated&quot;,
+		&quot;supriya.exceptions.NodeNotAllocated&quot;	[URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.NodeNotAllocated&quot;,
 			color=black,
 			fontcolor=white,
 			label=&quot;Node\nNot\nAllocated&quot;,
 			target=_top];
-		&quot;supriya.exceptions.NonrealtimeOutputMissing&quot;		 [URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.NonrealtimeOutputMissing&quot;,
+		&quot;supriya.exceptions.NonrealtimeOutputMissing&quot;	[URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.NonrealtimeOutputMissing&quot;,
 			color=black,
 			fontcolor=white,
 			label=&quot;Nonrealtime\nOutput\nMissing&quot;,
 			target=_top];
-		&quot;supriya.exceptions.NonrealtimeRenderError&quot;		 [URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.NonrealtimeRenderError&quot;,
+		&quot;supriya.exceptions.NonrealtimeRenderError&quot;	[URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.NonrealtimeRenderError&quot;,
 			color=black,
 			fontcolor=white,
 			label=&quot;Nonrealtime\nRender\nError&quot;,
 			target=_top];
-		&quot;supriya.exceptions.NotAllocated&quot;		 [URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.NotAllocated&quot;,
+		&quot;supriya.exceptions.NotAllocated&quot;	[URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.NotAllocated&quot;,
 			color=black,
 			fontcolor=white,
 			label=&quot;Not\nAllocated&quot;,
 			target=_top];
-		&quot;supriya.exceptions.NotAllocated&quot; -&gt; &quot;supriya.exceptions.BufferNotAllocated&quot;		 [minlen=1];
-		&quot;supriya.exceptions.NotAllocated&quot; -&gt; &quot;supriya.exceptions.BusNotAllocated&quot;		 [minlen=2];
-		&quot;supriya.exceptions.NotAllocated&quot; -&gt; &quot;supriya.exceptions.NodeNotAllocated&quot;		 [minlen=1];
-		&quot;supriya.exceptions.OwnedServerShutdown&quot;		 [URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.OwnedServerShutdown&quot;,
+		&quot;supriya.exceptions.NotAllocated&quot; -&gt; &quot;supriya.exceptions.BufferNotAllocated&quot;	[minlen=1];
+		&quot;supriya.exceptions.NotAllocated&quot; -&gt; &quot;supriya.exceptions.BusNotAllocated&quot;	[minlen=2];
+		&quot;supriya.exceptions.NotAllocated&quot; -&gt; &quot;supriya.exceptions.NodeNotAllocated&quot;	[minlen=1];
+		&quot;supriya.exceptions.OwnedServerShutdown&quot;	[URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.OwnedServerShutdown&quot;,
 			color=black,
 			fontcolor=white,
 			label=&quot;Owned\nServer\nShutdown&quot;,
 			target=_top];
-		&quot;supriya.exceptions.RequestTimeout&quot;		 [URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.RequestTimeout&quot;,
+		&quot;supriya.exceptions.RequestTimeout&quot;	[URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.RequestTimeout&quot;,
 			color=black,
 			fontcolor=white,
 			label=&quot;Request\nTimeout&quot;,
 			target=_top];
-		&quot;supriya.exceptions.ServerCannotBoot&quot;		 [URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.ServerCannotBoot&quot;,
+		&quot;supriya.exceptions.ServerCannotBoot&quot;	[URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.ServerCannotBoot&quot;,
 			color=black,
 			fontcolor=white,
 			label=&quot;Server\nCannot\nBoot&quot;,
 			target=_top];
-		&quot;supriya.exceptions.ServerOffline&quot;		 [URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.ServerOffline&quot;,
+		&quot;supriya.exceptions.ServerOffline&quot;	[URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.ServerOffline&quot;,
 			color=black,
 			fontcolor=white,
 			label=&quot;Server\nOffline&quot;,
 			target=_top];
-		&quot;supriya.exceptions.TooManyClients&quot;		 [URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.TooManyClients&quot;,
+		&quot;supriya.exceptions.ServerOnline&quot;	[URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.ServerOnline&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Server\nOnline&quot;,
+			target=_top];
+		&quot;supriya.exceptions.TooManyClients&quot;	[URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.TooManyClients&quot;,
 			color=black,
 			fontcolor=white,
 			label=&quot;Too\nMany\nClients&quot;,
 			target=_top];
-		&quot;supriya.exceptions.UnownedServerShutdown&quot;		 [URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.UnownedServerShutdown&quot;,
+		&quot;supriya.exceptions.UnownedServerShutdown&quot;	[URL=&quot;../api/supriya/exceptions.html#supriya.exceptions.UnownedServerShutdown&quot;,
 			color=black,
 			fontcolor=white,
 			label=&quot;Unowned\nServer\nShutdown&quot;,
 			target=_top];
 	}
 	&quot;builtins.Exception&quot; -&gt; &quot;supriya.exceptions.AlreadyAllocated&quot;;
-	&quot;builtins.Exception&quot; -&gt; &quot;supriya.exceptions.IncompatibleRate&quot;	 [minlen=1];
-	&quot;builtins.Exception&quot; -&gt; &quot;supriya.exceptions.NonrealtimeOutputMissing&quot;	 [minlen=2];
-	&quot;builtins.Exception&quot; -&gt; &quot;supriya.exceptions.NonrealtimeRenderError&quot;	 [minlen=1];
+	&quot;builtins.Exception&quot; -&gt; &quot;supriya.exceptions.IncompatibleRate&quot;	[minlen=1];
+	&quot;builtins.Exception&quot; -&gt; &quot;supriya.exceptions.NonrealtimeOutputMissing&quot;	[minlen=2];
+	&quot;builtins.Exception&quot; -&gt; &quot;supriya.exceptions.NonrealtimeRenderError&quot;	[minlen=1];
 	&quot;builtins.Exception&quot; -&gt; &quot;supriya.exceptions.NotAllocated&quot;;
-	&quot;builtins.Exception&quot; -&gt; &quot;supriya.exceptions.OwnedServerShutdown&quot;	 [minlen=2];
-	&quot;builtins.Exception&quot; -&gt; &quot;supriya.exceptions.RequestTimeout&quot;	 [minlen=1];
-	&quot;builtins.Exception&quot; -&gt; &quot;supriya.exceptions.ServerCannotBoot&quot;	 [minlen=2];
-	&quot;builtins.Exception&quot; -&gt; &quot;supriya.exceptions.ServerOffline&quot;	 [minlen=1];
-	&quot;builtins.Exception&quot; -&gt; &quot;supriya.exceptions.TooManyClients&quot;	 [minlen=2];
-	&quot;builtins.Exception&quot; -&gt; &quot;supriya.exceptions.UnownedServerShutdown&quot;	 [minlen=1];
+	&quot;builtins.Exception&quot; -&gt; &quot;supriya.exceptions.OwnedServerShutdown&quot;	[minlen=2];
+	&quot;builtins.Exception&quot; -&gt; &quot;supriya.exceptions.RequestTimeout&quot;	[minlen=1];
+	&quot;builtins.Exception&quot; -&gt; &quot;supriya.exceptions.ServerCannotBoot&quot;	[minlen=2];
+	&quot;builtins.Exception&quot; -&gt; &quot;supriya.exceptions.ServerOffline&quot;	[minlen=1];
+	&quot;builtins.Exception&quot; -&gt; &quot;supriya.exceptions.ServerOnline&quot;	[minlen=2];
+	&quot;builtins.Exception&quot; -&gt; &quot;supriya.exceptions.TooManyClients&quot;	[minlen=1];
+	&quot;builtins.Exception&quot; -&gt; &quot;supriya.exceptions.UnownedServerShutdown&quot;	[minlen=2];
 }</p></object></div>
 </div>
 <hr/><p class="section-header rubric">Exceptions</p>
@@ -414,95 +416,103 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#supriya.exceptions.ServerOffline" title="supriya.exceptions.ServerOffline"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ServerOffline</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#supriya.exceptions.TooManyClients" title="supriya.exceptions.TooManyClients"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TooManyClients</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.exceptions.ServerOnline" title="supriya.exceptions.ServerOnline"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ServerOnline</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.exceptions.UnownedServerShutdown" title="supriya.exceptions.UnownedServerShutdown"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnownedServerShutdown</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.exceptions.TooManyClients" title="supriya.exceptions.TooManyClients"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TooManyClients</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.exceptions.UnownedServerShutdown" title="supriya.exceptions.UnownedServerShutdown"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UnownedServerShutdown</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
 </table>
-<dl class="exception">
+<dl class="py exception">
 <dt id="supriya.exceptions.AlreadyAllocated">
 <em class="property">exception </em><code class="sig-prename descclassname">supriya.exceptions.</code><code class="sig-name descname">AlreadyAllocated</code><a class="reference internal" href="../../_modules/supriya/exceptions.html#AlreadyAllocated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.exceptions.AlreadyAllocated" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="exception">
+<dl class="py exception">
 <dt id="supriya.exceptions.BufferAlreadyAllocated">
 <em class="property">exception </em><code class="sig-prename descclassname">supriya.exceptions.</code><code class="sig-name descname">BufferAlreadyAllocated</code><a class="reference internal" href="../../_modules/supriya/exceptions.html#BufferAlreadyAllocated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.exceptions.BufferAlreadyAllocated" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="exception">
+<dl class="py exception">
 <dt id="supriya.exceptions.BufferNotAllocated">
 <em class="property">exception </em><code class="sig-prename descclassname">supriya.exceptions.</code><code class="sig-name descname">BufferNotAllocated</code><a class="reference internal" href="../../_modules/supriya/exceptions.html#BufferNotAllocated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.exceptions.BufferNotAllocated" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="exception">
+<dl class="py exception">
 <dt id="supriya.exceptions.BusAlreadyAllocated">
 <em class="property">exception </em><code class="sig-prename descclassname">supriya.exceptions.</code><code class="sig-name descname">BusAlreadyAllocated</code><a class="reference internal" href="../../_modules/supriya/exceptions.html#BusAlreadyAllocated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.exceptions.BusAlreadyAllocated" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="exception">
+<dl class="py exception">
 <dt id="supriya.exceptions.BusNotAllocated">
 <em class="property">exception </em><code class="sig-prename descclassname">supriya.exceptions.</code><code class="sig-name descname">BusNotAllocated</code><a class="reference internal" href="../../_modules/supriya/exceptions.html#BusNotAllocated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.exceptions.BusNotAllocated" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="exception">
+<dl class="py exception">
 <dt id="supriya.exceptions.IncompatibleRate">
 <em class="property">exception </em><code class="sig-prename descclassname">supriya.exceptions.</code><code class="sig-name descname">IncompatibleRate</code><a class="reference internal" href="../../_modules/supriya/exceptions.html#IncompatibleRate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.exceptions.IncompatibleRate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="exception">
+<dl class="py exception">
 <dt id="supriya.exceptions.NodeAlreadyAllocated">
 <em class="property">exception </em><code class="sig-prename descclassname">supriya.exceptions.</code><code class="sig-name descname">NodeAlreadyAllocated</code><a class="reference internal" href="../../_modules/supriya/exceptions.html#NodeAlreadyAllocated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.exceptions.NodeAlreadyAllocated" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="exception">
+<dl class="py exception">
 <dt id="supriya.exceptions.NodeNotAllocated">
 <em class="property">exception </em><code class="sig-prename descclassname">supriya.exceptions.</code><code class="sig-name descname">NodeNotAllocated</code><a class="reference internal" href="../../_modules/supriya/exceptions.html#NodeNotAllocated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.exceptions.NodeNotAllocated" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="exception">
+<dl class="py exception">
 <dt id="supriya.exceptions.NonrealtimeOutputMissing">
 <em class="property">exception </em><code class="sig-prename descclassname">supriya.exceptions.</code><code class="sig-name descname">NonrealtimeOutputMissing</code><a class="reference internal" href="../../_modules/supriya/exceptions.html#NonrealtimeOutputMissing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.exceptions.NonrealtimeOutputMissing" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="exception">
+<dl class="py exception">
 <dt id="supriya.exceptions.NonrealtimeRenderError">
 <em class="property">exception </em><code class="sig-prename descclassname">supriya.exceptions.</code><code class="sig-name descname">NonrealtimeRenderError</code><a class="reference internal" href="../../_modules/supriya/exceptions.html#NonrealtimeRenderError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.exceptions.NonrealtimeRenderError" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="exception">
+<dl class="py exception">
 <dt id="supriya.exceptions.NotAllocated">
 <em class="property">exception </em><code class="sig-prename descclassname">supriya.exceptions.</code><code class="sig-name descname">NotAllocated</code><a class="reference internal" href="../../_modules/supriya/exceptions.html#NotAllocated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.exceptions.NotAllocated" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="exception">
+<dl class="py exception">
 <dt id="supriya.exceptions.OwnedServerShutdown">
 <em class="property">exception </em><code class="sig-prename descclassname">supriya.exceptions.</code><code class="sig-name descname">OwnedServerShutdown</code><a class="reference internal" href="../../_modules/supriya/exceptions.html#OwnedServerShutdown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.exceptions.OwnedServerShutdown" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="exception">
+<dl class="py exception">
 <dt id="supriya.exceptions.RequestTimeout">
 <em class="property">exception </em><code class="sig-prename descclassname">supriya.exceptions.</code><code class="sig-name descname">RequestTimeout</code><a class="reference internal" href="../../_modules/supriya/exceptions.html#RequestTimeout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.exceptions.RequestTimeout" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="exception">
+<dl class="py exception">
 <dt id="supriya.exceptions.ServerCannotBoot">
 <em class="property">exception </em><code class="sig-prename descclassname">supriya.exceptions.</code><code class="sig-name descname">ServerCannotBoot</code><a class="reference internal" href="../../_modules/supriya/exceptions.html#ServerCannotBoot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.exceptions.ServerCannotBoot" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="exception">
+<dl class="py exception">
 <dt id="supriya.exceptions.ServerOffline">
 <em class="property">exception </em><code class="sig-prename descclassname">supriya.exceptions.</code><code class="sig-name descname">ServerOffline</code><a class="reference internal" href="../../_modules/supriya/exceptions.html#ServerOffline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.exceptions.ServerOffline" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="exception">
+<dl class="py exception">
+<dt id="supriya.exceptions.ServerOnline">
+<em class="property">exception </em><code class="sig-prename descclassname">supriya.exceptions.</code><code class="sig-name descname">ServerOnline</code><a class="reference internal" href="../../_modules/supriya/exceptions.html#ServerOnline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.exceptions.ServerOnline" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
 <dt id="supriya.exceptions.TooManyClients">
 <em class="property">exception </em><code class="sig-prename descclassname">supriya.exceptions.</code><code class="sig-name descname">TooManyClients</code><a class="reference internal" href="../../_modules/supriya/exceptions.html#TooManyClients"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.exceptions.TooManyClients" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="exception">
+<dl class="py exception">
 <dt id="supriya.exceptions.UnownedServerShutdown">
 <em class="property">exception </em><code class="sig-prename descclassname">supriya.exceptions.</code><code class="sig-name descname">UnownedServerShutdown</code><a class="reference internal" href="../../_modules/supriya/exceptions.html#UnownedServerShutdown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.exceptions.UnownedServerShutdown" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>

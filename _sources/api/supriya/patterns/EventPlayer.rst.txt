@@ -24,8 +24,12 @@ EventPlayer
    .. autosummary::
       :nosignatures:
 
+      __call__
       event_template
+      notify
       pattern
+      start
+      stop
 
    .. raw:: html
 
@@ -34,9 +38,20 @@ EventPlayer
    .. rubric:: Special methods
       :class: class-header
 
-   .. container:: inherited
+   .. automethod:: EventPlayer.__call__
 
-      .. automethod:: EventPlayer.__repr__
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: EventPlayer.notify
+
+   .. automethod:: EventPlayer.start
+
+   .. automethod:: EventPlayer.stop
 
    .. raw:: html
 

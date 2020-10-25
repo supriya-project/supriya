@@ -1,0 +1,640 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>supriya.nonrealtime.buffers &mdash; Supriya 0.4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/supriya/index.html">supriya</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>supriya.nonrealtime.buffers</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for supriya.nonrealtime.buffers</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">bisect</span>
+
+<span class="kn">import</span> <span class="nn">supriya.commands</span>
+<span class="kn">from</span> <span class="nn">supriya.nonrealtime.bases</span> <span class="kn">import</span> <span class="n">SessionObject</span>
+
+
+<div class="viewcode-block" id="Buffer"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/buffers.html#supriya.nonrealtime.buffers.Buffer">[docs]</a><span class="k">class</span> <span class="nc">Buffer</span><span class="p">(</span><span class="n">SessionObject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A non-realtime buffer.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">__documentation_section__</span> <span class="o">=</span> <span class="s2">&quot;Session Objects&quot;</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;_buffer_group&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_channel_count&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_duration&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_events&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_frame_count&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_session&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_session_id&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_start_offset&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_file_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_starting_frame&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">session</span><span class="p">,</span>
+        <span class="n">session_id</span><span class="p">,</span>
+        <span class="n">buffer_group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">channel_count</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">frame_count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">duration</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">start_offset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">starting_frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">SessionObject</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_events</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">session_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">buffer_group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">buffer_group</span><span class="p">,</span> <span class="n">BufferGroup</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_group</span> <span class="o">=</span> <span class="n">buffer_group</span>
+        <span class="n">start_offset</span> <span class="o">=</span> <span class="n">start_offset</span> <span class="ow">or</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start_offset</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">start_offset</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">duration</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">duration</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_duration</span> <span class="o">=</span> <span class="n">duration</span>
+        <span class="k">if</span> <span class="n">file_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">starting_frame</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">starting_frame</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">channel_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">channel_count</span> <span class="ow">or</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">frame_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">frame_count</span> <span class="ow">or</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_frame_count</span> <span class="o">=</span> <span class="n">frame_count</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_channel_count</span> <span class="o">=</span> <span class="n">channel_count</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_starting_frame</span> <span class="o">=</span> <span class="n">starting_frame</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span> <span class="o">=</span> <span class="n">file_path</span>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="nd">@SessionObject</span><span class="o">.</span><span class="n">require_offset</span>
+    <span class="k">def</span> <span class="nf">_set_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">offset</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="o">&lt;</span> <span class="n">offset</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">events</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_events</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="n">new_event</span> <span class="o">=</span> <span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">events</span><span class="p">:</span>
+            <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_event</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">bisect</span><span class="o">.</span><span class="n">bisect_left</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">new_event</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">index</span><span class="p">:</span>
+            <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_event</span><span class="p">)</span>
+        <span class="n">old_offset</span><span class="p">,</span> <span class="n">old_value</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">old_offset</span> <span class="o">==</span> <span class="n">offset</span><span class="p">:</span>
+            <span class="n">events</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">events</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">new_event</span><span class="p">)</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="Buffer.close"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/buffers.html#supriya.nonrealtime.buffers.Buffer.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">event_type</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">BufferCloseRequest</span>
+        <span class="n">event_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">buffer_id</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_event</span><span class="p">(</span><span class="n">event_type</span><span class="p">,</span> <span class="n">event_kwargs</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Buffer.copy_from"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/buffers.html#supriya.nonrealtime.buffers.Buffer.copy_from">[docs]</a>    <span class="k">def</span> <span class="nf">copy_from</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">source_buffer_id</span><span class="p">,</span>
+        <span class="n">frame_count</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">source_starting_frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">target_starting_frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">event_type</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">BufferCopyRequest</span>
+        <span class="n">event_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">frame_count</span><span class="o">=</span><span class="n">frame_count</span><span class="p">,</span>
+            <span class="n">source_buffer_id</span><span class="o">=</span><span class="n">source_buffer_id</span><span class="p">,</span>
+            <span class="n">source_starting_frame</span><span class="o">=</span><span class="n">source_starting_frame</span><span class="p">,</span>
+            <span class="n">target_buffer_id</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">target_starting_frame</span><span class="o">=</span><span class="n">target_starting_frame</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_event</span><span class="p">(</span><span class="n">event_type</span><span class="p">,</span> <span class="n">event_kwargs</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Buffer.copy_to"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/buffers.html#supriya.nonrealtime.buffers.Buffer.copy_to">[docs]</a>    <span class="k">def</span> <span class="nf">copy_to</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">target_buffer_id</span><span class="p">,</span>
+        <span class="n">frame_count</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">source_starting_frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">target_starting_frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">event_type</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">BufferCopyRequest</span>
+        <span class="n">event_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">frame_count</span><span class="o">=</span><span class="n">frame_count</span><span class="p">,</span>
+            <span class="n">source_buffer_id</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">source_starting_frame</span><span class="o">=</span><span class="n">source_starting_frame</span><span class="p">,</span>
+            <span class="n">target_buffer_id</span><span class="o">=</span><span class="n">target_buffer_id</span><span class="p">,</span>
+            <span class="n">target_starting_frame</span><span class="o">=</span><span class="n">target_starting_frame</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_event</span><span class="p">(</span><span class="n">event_type</span><span class="p">,</span> <span class="n">event_kwargs</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Buffer.fill"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/buffers.html#supriya.nonrealtime.buffers.Buffer.fill">[docs]</a>    <span class="k">def</span> <span class="nf">fill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index_count_value_triples</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">event_type</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">BufferFillRequest</span>
+        <span class="n">event_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">buffer_id</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">index_count_value_triples</span><span class="o">=</span><span class="n">index_count_value_triples</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_event</span><span class="p">(</span><span class="n">event_type</span><span class="p">,</span> <span class="n">event_kwargs</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Buffer.fill_via_chebyshev"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/buffers.html#supriya.nonrealtime.buffers.Buffer.fill_via_chebyshev">[docs]</a>    <span class="k">def</span> <span class="nf">fill_via_chebyshev</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">amplitudes</span><span class="p">,</span>
+        <span class="n">as_wavetable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">should_normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">should_clear_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">event_type</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">BufferGenerateRequest</span>
+        <span class="n">event_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">amplitudes</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">amplitudes</span><span class="p">),</span>
+            <span class="n">as_wavetable</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">as_wavetable</span><span class="p">),</span>
+            <span class="n">buffer_id</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">command_name</span><span class="o">=</span><span class="s2">&quot;cheby&quot;</span><span class="p">,</span>
+            <span class="n">should_clear_first</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">should_clear_first</span><span class="p">),</span>
+            <span class="n">should_normalize</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">should_normalize</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_event</span><span class="p">(</span><span class="n">event_type</span><span class="p">,</span> <span class="n">event_kwargs</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Buffer.fill_via_sine_1"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/buffers.html#supriya.nonrealtime.buffers.Buffer.fill_via_sine_1">[docs]</a>    <span class="k">def</span> <span class="nf">fill_via_sine_1</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">amplitudes</span><span class="p">,</span>
+        <span class="n">as_wavetable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">should_clear_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">should_normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">event_type</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">BufferGenerateRequest</span>
+        <span class="n">event_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">amplitudes</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">amplitudes</span><span class="p">),</span>
+            <span class="n">as_wavetable</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">as_wavetable</span><span class="p">),</span>
+            <span class="n">buffer_id</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">command_name</span><span class="o">=</span><span class="s2">&quot;sine1&quot;</span><span class="p">,</span>
+            <span class="n">should_clear_first</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">should_clear_first</span><span class="p">),</span>
+            <span class="n">should_normalize</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">should_normalize</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_event</span><span class="p">(</span><span class="n">event_type</span><span class="p">,</span> <span class="n">event_kwargs</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Buffer.fill_via_sine_2"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/buffers.html#supriya.nonrealtime.buffers.Buffer.fill_via_sine_2">[docs]</a>    <span class="k">def</span> <span class="nf">fill_via_sine_2</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">amplitudes</span><span class="p">,</span>
+        <span class="n">frequencies</span><span class="p">,</span>
+        <span class="n">as_wavetable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">should_clear_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">should_normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">event_type</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">BufferGenerateRequest</span>
+        <span class="n">event_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">amplitudes</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">amplitudes</span><span class="p">),</span>
+            <span class="n">as_wavetable</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">as_wavetable</span><span class="p">),</span>
+            <span class="n">buffer_id</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">command_name</span><span class="o">=</span><span class="s2">&quot;sine2&quot;</span><span class="p">,</span>
+            <span class="n">frequencies</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">frequencies</span><span class="p">),</span>
+            <span class="n">should_clear_first</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">should_clear_first</span><span class="p">),</span>
+            <span class="n">should_normalize</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">should_normalize</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_event</span><span class="p">(</span><span class="n">event_type</span><span class="p">,</span> <span class="n">event_kwargs</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Buffer.fill_via_sine_3"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/buffers.html#supriya.nonrealtime.buffers.Buffer.fill_via_sine_3">[docs]</a>    <span class="k">def</span> <span class="nf">fill_via_sine_3</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">amplitudes</span><span class="p">,</span>
+        <span class="n">frequencies</span><span class="p">,</span>
+        <span class="n">phases</span><span class="p">,</span>
+        <span class="n">as_wavetable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">should_clear_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">should_normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">event_type</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">BufferGenerateRequest</span>
+        <span class="n">event_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">amplitudes</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">amplitudes</span><span class="p">),</span>
+            <span class="n">as_wavetable</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">as_wavetable</span><span class="p">),</span>
+            <span class="n">buffer_id</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">command_name</span><span class="o">=</span><span class="s2">&quot;sine3&quot;</span><span class="p">,</span>
+            <span class="n">frequencies</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">frequencies</span><span class="p">),</span>
+            <span class="n">phases</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">phases</span><span class="p">),</span>
+            <span class="n">should_clear_first</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">should_clear_first</span><span class="p">),</span>
+            <span class="n">should_normalize</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">should_normalize</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_event</span><span class="p">(</span><span class="n">event_type</span><span class="p">,</span> <span class="n">event_kwargs</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Buffer.normalize"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/buffers.html#supriya.nonrealtime.buffers.Buffer.normalize">[docs]</a>    <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">as_wavetable</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">buffer_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">new_maximum</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="n">event_type</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">BufferNormalizeRequest</span>
+        <span class="n">event_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">buffer_id</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_maximum</span><span class="o">=</span><span class="n">new_maximum</span><span class="p">,</span> <span class="n">as_wavetable</span><span class="o">=</span><span class="n">as_wavetable</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_event</span><span class="p">(</span><span class="n">event_type</span><span class="p">,</span> <span class="n">event_kwargs</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Buffer.read"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/buffers.html#supriya.nonrealtime.buffers.Buffer.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">file_path</span><span class="p">,</span>
+        <span class="n">channel_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">frame_count</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">leave_open</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">starting_frame_in_buffer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">starting_frame_in_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">event_type</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">BufferReadRequest</span>
+        <span class="c1"># need to optionally coerce to BufferReadChannelRequest on compile</span>
+        <span class="n">event_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">buffer_id</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
+            <span class="n">channel_indices</span><span class="o">=</span><span class="n">channel_indices</span><span class="p">,</span>
+            <span class="n">frame_count</span><span class="o">=</span><span class="n">frame_count</span><span class="p">,</span>
+            <span class="n">leave_open</span><span class="o">=</span><span class="n">leave_open</span><span class="p">,</span>
+            <span class="n">starting_frame_in_buffer</span><span class="o">=</span><span class="n">starting_frame_in_buffer</span><span class="p">,</span>
+            <span class="n">starting_frame_in_file</span><span class="o">=</span><span class="n">starting_frame_in_file</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_event</span><span class="p">(</span><span class="n">event_type</span><span class="p">,</span> <span class="n">event_kwargs</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Buffer.set"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/buffers.html#supriya.nonrealtime.buffers.Buffer.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index_value_pairs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">event_type</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">BufferSetRequest</span>
+        <span class="n">event_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">buffer_id</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">index_value_pairs</span><span class="o">=</span><span class="n">index_value_pairs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_event</span><span class="p">(</span><span class="n">event_type</span><span class="p">,</span> <span class="n">event_kwargs</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Buffer.set_contiguous"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/buffers.html#supriya.nonrealtime.buffers.Buffer.set_contiguous">[docs]</a>    <span class="k">def</span> <span class="nf">set_contiguous</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index_values_pairs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">event_type</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">BufferSetContiguousRequest</span>
+        <span class="n">event_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">buffer_id</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">index_values_pairs</span><span class="o">=</span><span class="n">index_values_pairs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_event</span><span class="p">(</span><span class="n">event_type</span><span class="p">,</span> <span class="n">event_kwargs</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Buffer.write"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/buffers.html#supriya.nonrealtime.buffers.Buffer.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">file_path</span><span class="p">,</span>
+        <span class="n">frame_count</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">header_format</span><span class="o">=</span><span class="s2">&quot;aiff&quot;</span><span class="p">,</span>
+        <span class="n">leave_open</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">sample_format</span><span class="o">=</span><span class="s2">&quot;int24&quot;</span><span class="p">,</span>
+        <span class="n">starting_frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">event_type</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">BufferWriteRequest</span>
+        <span class="n">event_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">buffer_id</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
+            <span class="n">frame_count</span><span class="o">=</span><span class="n">frame_count</span><span class="p">,</span>
+            <span class="n">header_format</span><span class="o">=</span><span class="n">header_format</span><span class="p">,</span>
+            <span class="n">leave_open</span><span class="o">=</span><span class="n">leave_open</span><span class="p">,</span>
+            <span class="n">sample_format</span><span class="o">=</span><span class="n">sample_format</span><span class="p">,</span>
+            <span class="n">starting_frame</span><span class="o">=</span><span class="n">starting_frame</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_event</span><span class="p">(</span><span class="n">event_type</span><span class="p">,</span> <span class="n">event_kwargs</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Buffer.zero"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/buffers.html#supriya.nonrealtime.buffers.Buffer.zero">[docs]</a>    <span class="k">def</span> <span class="nf">zero</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">event_type</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">BufferZeroRequest</span>
+        <span class="n">event_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">buffer_id</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_event</span><span class="p">(</span><span class="n">event_type</span><span class="p">,</span> <span class="n">event_kwargs</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="n">offset</span><span class="p">)</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">buffer_group</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer_group</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">channel_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_channel_count</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">duration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_duration</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">frame_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_frame_count</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">session_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">start_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_offset</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">starting_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_starting_frame</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">file_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_path</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">stop_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_offset</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">duration</span></div>
+
+
+<div class="viewcode-block" id="BufferGroup"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/buffers.html#supriya.nonrealtime.buffers.BufferGroup">[docs]</a><span class="k">class</span> <span class="nc">BufferGroup</span><span class="p">(</span><span class="n">SessionObject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A non-realtime buffer group.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">__documentation_section__</span> <span class="o">=</span> <span class="s2">&quot;Session Objects&quot;</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;_buffers&quot;</span><span class="p">,</span> <span class="s2">&quot;_session&quot;</span><span class="p">)</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">session</span><span class="p">,</span>
+        <span class="n">buffer_count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">duration</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">channel_count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">frame_count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">start_offset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.nonrealtime</span>
+
+        <span class="n">SessionObject</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">)</span>
+        <span class="n">buffer_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">buffer_count</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">buffer_count</span>
+        <span class="n">buffers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">start_id</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">buffers</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">session_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start_id</span><span class="p">,</span> <span class="n">buffer_count</span> <span class="o">+</span> <span class="n">start_id</span><span class="p">):</span>
+            <span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">nonrealtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">(</span>
+                <span class="n">session</span><span class="p">,</span>
+                <span class="n">session_id</span><span class="o">=</span><span class="n">session_id</span><span class="p">,</span>
+                <span class="n">buffer_group</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+                <span class="n">duration</span><span class="o">=</span><span class="n">duration</span><span class="p">,</span>
+                <span class="n">channel_count</span><span class="o">=</span><span class="n">channel_count</span><span class="p">,</span>
+                <span class="n">frame_count</span><span class="o">=</span><span class="n">frame_count</span><span class="p">,</span>
+                <span class="n">start_offset</span><span class="o">=</span><span class="n">start_offset</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">buffers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buffers</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">buffers</span><span class="p">)</span>
+
+    <span class="c1">### SPECIAL METHODS ###</span>
+
+<div class="viewcode-block" id="BufferGroup.__contains__"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/buffers.html#supriya.nonrealtime.buffers.BufferGroup.__contains__">[docs]</a>    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffers</span><span class="o">.</span><span class="fm">__contains__</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BufferGroup.__getitem__"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/buffers.html#supriya.nonrealtime.buffers.BufferGroup.__getitem__">[docs]</a>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffers</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_buffers</span><span class="p">[</span><span class="n">item</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="BufferGroup.__iter__"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/buffers.html#supriya.nonrealtime.buffers.BufferGroup.__iter__">[docs]</a>    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">buffer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffers</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">buffer</span></div>
+
+<div class="viewcode-block" id="BufferGroup.__len__"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/buffers.html#supriya.nonrealtime.buffers.BufferGroup.__len__">[docs]</a>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_buffers</span><span class="p">)</span></div>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="BufferGroup.index"><a class="viewcode-back" href="../../../api/supriya/nonrealtime/buffers.html#supriya.nonrealtime.buffers.BufferGroup.index">[docs]</a>    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">buffer_</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffers</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">buffers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffers</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">buffer_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">channel_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">channel_count</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">duration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">duration</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">frame_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">frame_count</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">start_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start_offset</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">stop_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">stop_offset</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

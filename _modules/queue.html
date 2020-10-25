@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>queue &mdash; Supriya 0.3.0 documentation</title>
+  <title>queue &mdash; Supriya 0.4.0 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.3.0
+                0.4.0
               </div>
             
           
@@ -91,14 +91,11 @@
 </ul>
 <p class="caption"><span class="caption-text">Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../realtime/index.html">Real-time composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../synthdefs/index.html">Synth definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../nonrealtime.html">Non-realtime composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../time-agnostic.html">Time-agnostic usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../osc.html">OSC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../midi.html">MIDI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../performance.html">Live performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../cli.html">CLI tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../synthdefs.html">SynthDefs</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
@@ -182,23 +179,29 @@
   <h1>Source code for queue</h1><div class="highlight"><pre>
 <span></span><span class="sd">&#39;&#39;&#39;A multi-producer, multi-consumer queue.&#39;&#39;&#39;</span>
 
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+<span class="kn">from</span> <span class="nn">heapq</span> <span class="kn">import</span> <span class="n">heappush</span><span class="p">,</span> <span class="n">heappop</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">monotonic</span> <span class="k">as</span> <span class="n">time</span>
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">threading</span>
+    <span class="kn">from</span> <span class="nn">_queue</span> <span class="kn">import</span> <span class="n">SimpleQueue</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">dummy_threading</span> <span class="k">as</span> <span class="nn">threading</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">deque</span>
-<span class="kn">from</span> <span class="nn">heapq</span> <span class="k">import</span> <span class="n">heappush</span><span class="p">,</span> <span class="n">heappop</span>
-<span class="kn">from</span> <span class="nn">time</span> <span class="k">import</span> <span class="n">monotonic</span> <span class="k">as</span> <span class="n">time</span>
+    <span class="n">SimpleQueue</span> <span class="o">=</span> <span class="kc">None</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Empty&#39;</span><span class="p">,</span> <span class="s1">&#39;Full&#39;</span><span class="p">,</span> <span class="s1">&#39;Queue&#39;</span><span class="p">,</span> <span class="s1">&#39;PriorityQueue&#39;</span><span class="p">,</span> <span class="s1">&#39;LifoQueue&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Empty&#39;</span><span class="p">,</span> <span class="s1">&#39;Full&#39;</span><span class="p">,</span> <span class="s1">&#39;Queue&#39;</span><span class="p">,</span> <span class="s1">&#39;PriorityQueue&#39;</span><span class="p">,</span> <span class="s1">&#39;LifoQueue&#39;</span><span class="p">,</span> <span class="s1">&#39;SimpleQueue&#39;</span><span class="p">]</span>
 
-<span class="k">class</span> <span class="nc">Empty</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-    <span class="s1">&#39;Exception raised by Queue.get(block=0)/get_nowait().&#39;</span>
-    <span class="k">pass</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">_queue</span> <span class="kn">import</span> <span class="n">Empty</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">class</span> <span class="nc">Empty</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+        <span class="s1">&#39;Exception raised by Queue.get(block=0)/get_nowait().&#39;</span>
+        <span class="k">pass</span>
 
 <span class="k">class</span> <span class="nc">Full</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="s1">&#39;Exception raised by Queue.put(block=0)/put_nowait().&#39;</span>
     <span class="k">pass</span>
+
 
 <span class="k">class</span> <span class="nc">Queue</span><span class="p">:</span>
     <span class="sd">&#39;&#39;&#39;Create a queue object with a given maximum size.</span>
@@ -206,7 +209,7 @@
 <span class="sd">    If maxsize is &lt;= 0, the queue size is infinite.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">maxsize</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">maxsize</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">maxsize</span> <span class="o">=</span> <span class="n">maxsize</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_init</span><span class="p">(</span><span class="n">maxsize</span><span class="p">)</span>
 
@@ -426,6 +429,75 @@
 
     <span class="k">def</span> <span class="nf">_get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">_PySimpleQueue</span><span class="p">:</span>
+    <span class="sd">&#39;&#39;&#39;Simple, unbounded FIFO queue.</span>
+
+<span class="sd">    This pure Python implementation is not reentrant.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># Note: while this pure Python version provides fairness</span>
+    <span class="c1"># (by using a threading.Semaphore which is itself fair, being based</span>
+    <span class="c1">#  on threading.Condition), fairness is not part of the API contract.</span>
+    <span class="c1"># This allows the C version to use a different implementation.</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Semaphore</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Put the item on the queue.</span>
+
+<span class="sd">        The optional &#39;block&#39; and &#39;timeout&#39; arguments are ignored, as this method</span>
+<span class="sd">        never blocks.  They are provided for compatibility with the Queue class.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_count</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Remove and return an item from the queue.</span>
+
+<span class="sd">        If optional args &#39;block&#39; is true and &#39;timeout&#39; is None (the default),</span>
+<span class="sd">        block if necessary until an item is available. If &#39;timeout&#39; is</span>
+<span class="sd">        a non-negative number, it blocks at most &#39;timeout&#39; seconds and raises</span>
+<span class="sd">        the Empty exception if no item was available within that time.</span>
+<span class="sd">        Otherwise (&#39;block&#39; is false), return an item if one is immediately</span>
+<span class="sd">        available, else raise the Empty exception (&#39;timeout&#39; is ignored</span>
+<span class="sd">        in that case).</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">timeout</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">timeout</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;timeout&#39; must be a non-negative number&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_count</span><span class="o">.</span><span class="n">acquire</span><span class="p">(</span><span class="n">block</span><span class="p">,</span> <span class="n">timeout</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">Empty</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">put_nowait</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Put an item into the queue without blocking.</span>
+
+<span class="sd">        This is exactly equivalent to `put(item)` and is only provided</span>
+<span class="sd">        for compatibility with the Queue class.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_nowait</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Remove and return an item from the queue without blocking.</span>
+
+<span class="sd">        Only get an item if one is immediately available. Otherwise</span>
+<span class="sd">        raise the Empty exception.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">empty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Return True if the queue is empty, False otherwise (not reliable!).&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">qsize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Return the approximate size of the queue (not reliable!).&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_queue</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">SimpleQueue</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">SimpleQueue</span> <span class="o">=</span> <span class="n">_PySimpleQueue</span>
 </pre></div>
 
            </div>

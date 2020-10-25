@@ -88,7 +88,3 @@ BufferInfoResponse
    .. autoattribute:: BufferInfoResponse.buffer_id
 
    .. autoattribute:: BufferInfoResponse.items
-
-   .. container:: inherited
-
-      .. autoattribute:: BufferInfoResponse.osc_message

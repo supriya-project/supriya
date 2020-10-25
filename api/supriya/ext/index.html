@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ext &mdash; Supriya 0.3.0 documentation</title>
+  <title>ext &mdash; Supriya 0.4.0 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                0.3.0
+                0.4.0
               </div>
             
           
@@ -93,14 +93,11 @@
 </ul>
 <p class="caption"><span class="caption-text">Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
@@ -110,10 +107,9 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../cli/index.html">cli</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../clock.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clock/index.html">clock</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../daw/index.html">daw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conversions.html">conversions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">ext</a><ul>
@@ -121,17 +117,20 @@
 <li class="toctree-l3"><a class="reference internal" href="ipython.html">ipython</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../intervals/index.html">intervals</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../live/index.html">live</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../midi/index.html">midi</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provider.html">provider</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querytree.html">querytree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sclang.html">sclang</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scsynth.html">scsynth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../system/index.html">system</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../typing.html">typing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
 </ul>
@@ -214,7 +213,7 @@
   <div class="section" id="module-supriya.ext">
 <span id="ext"></span><span id="supriya-ext"></span><h1>ext<a class="headerlink" href="#module-supriya.ext" title="Permalink to this headline">¶</a></h1>
 <div class="svg-container docutils container">
-<div class="graphviz"><object data="../../../_images/inheritance-1c0897c97fbe3482e237f4d9149b9c0e78b8ffea.svg" type="image/svg+xml" class="inheritance graphviz">
+<div class="graphviz"><object data="../../../_images/inheritance-e17f1da2b4e698f2dc261f0a18319f42224fff88.svg" type="image/svg+xml" class="inheritance graphviz">
 <p class="warning">digraph InheritanceGraph {
     graph [bgcolor=transparent,
         color=lightsteelblue2,
@@ -240,7 +239,7 @@
     subgraph cluster_builtins {
         graph [label=builtins];
         node [color=1];
-        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3.6/library/functions.html#object&quot;,
+        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3/library/functions.html#object&quot;,
             label=object,
             target=_top];
     }
@@ -254,7 +253,9 @@
     subgraph &quot;cluster_uqbar.book.extensions&quot; {
         graph [label=&quot;uqbar.book.extensions&quot;];
         node [color=3];
-        &quot;uqbar.book.extensions.Extension&quot; [label=Extension];
+        &quot;uqbar.book.extensions.Extension&quot; [URL=&quot;http://josiahwolfoberholtzer.com/uqbar/api/uqbar/book/extensions.html#uqbar.book.extensions.Extension&quot;,
+            label=Extension,
+            target=_top];
     }
     &quot;builtins.object&quot; -&gt; &quot;uqbar.book.extensions.Extension&quot;;
     &quot;uqbar.book.extensions.Extension&quot; -&gt; &quot;supriya.ext.book.RenderExtension&quot;;
@@ -289,9 +290,9 @@
 </tr>
 </tbody>
 </table>
-<dl class="function">
+<dl class="py function">
 <dt id="supriya.ext.websafe_audio">
-<code class="sig-prename descclassname">supriya.ext.</code><code class="sig-name descname">websafe_audio</code><span class="sig-paren">(</span><em class="sig-param">output_path</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/ext.html#websafe_audio"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.ext.websafe_audio" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">supriya.ext.</code><code class="sig-name descname">websafe_audio</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output_path</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/ext.html#websafe_audio"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.ext.websafe_audio" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>

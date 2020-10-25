@@ -77,8 +77,4 @@ SyncedResponse
    .. rubric:: Read-only properties
       :class: class-header
 
-   .. container:: inherited
-
-      .. autoattribute:: SyncedResponse.osc_message
-
    .. autoattribute:: SyncedResponse.sync_id

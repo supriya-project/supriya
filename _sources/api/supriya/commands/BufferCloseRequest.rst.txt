@@ -65,6 +65,10 @@ BufferCloseRequest
 
    .. container:: inherited
 
+      .. automethod:: BufferCloseRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: BufferCloseRequest.to_datagram
 
    .. container:: inherited

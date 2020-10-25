@@ -103,10 +103,7 @@ commands
    NothingRequest
    NotifyRequest
    ParallelGroupNewRequest
-   QueryTreeControl
-   QueryTreeGroup
    QueryTreeResponse
-   QueryTreeSynth
    QuitRequest
    RequestBundle
    Requestable
@@ -194,10 +191,7 @@ commands
    ~NothingRequest.NothingRequest
    ~NotifyRequest.NotifyRequest
    ~ParallelGroupNewRequest.ParallelGroupNewRequest
-   ~QueryTreeControl.QueryTreeControl
-   ~QueryTreeGroup.QueryTreeGroup
    ~QueryTreeResponse.QueryTreeResponse
-   ~QueryTreeSynth.QueryTreeSynth
    ~QuitRequest.QuitRequest
    ~RequestBundle.RequestBundle
    ~Requestable.Requestable

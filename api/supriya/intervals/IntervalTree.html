@@ -1,0 +1,967 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>IntervalTree &mdash; Supriya 0.4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="IntervalTreeDriver" href="IntervalTreeDriver.html" />
+    <link rel="prev" title="Interval" href="Interval.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../clock/index.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conversions.html">conversions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">intervals</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="Interval.html">Interval</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">IntervalTree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="IntervalTreeDriver.html">IntervalTreeDriver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="IntervalTreeDriverEx.html">IntervalTreeDriverEx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Moment.html">Moment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provider.html">provider</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querytree.html">querytree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sclang.html">sclang</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scsynth.html">scsynth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../typing.html">typing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">supriya</a> &raquo;</li>
+        
+          <li><a href="index.html">intervals</a> &raquo;</li>
+        
+      <li>IntervalTree</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/supriya/intervals/IntervalTree.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-supriya.intervals.IntervalTree">
+<span id="intervaltree"></span><span id="supriya-intervals-intervaltree"></span><h1>IntervalTree<a class="headerlink" href="#module-supriya.intervals.IntervalTree" title="Permalink to this headline">¶</a></h1>
+<div class="svg-container docutils container">
+<div class="graphviz"><object data="../../../_images/inheritance-37568272e5d316401a4e356fa3e254e1844e555a.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">digraph InheritanceGraph {
+    graph [bgcolor=transparent,
+        color=lightsteelblue2,
+        fontname=Arial,
+        fontsize=10,
+        outputorder=edgesfirst,
+        overlap=prism,
+        penwidth=2,
+        rankdir=LR,
+        splines=spline,
+        style=&quot;dashed, rounded&quot;,
+        truecolor=true];
+    node [colorscheme=pastel19,
+        fontname=Arial,
+        fontsize=10,
+        height=0,
+        penwidth=2,
+        shape=box,
+        style=&quot;filled, rounded&quot;,
+        width=0];
+    edge [color=lightslategrey,
+        penwidth=1];
+    subgraph cluster_builtins {
+        graph [label=builtins];
+        node [color=1];
+        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3/library/functions.html#object&quot;,
+            label=object,
+            target=_top];
+    }
+    subgraph &quot;cluster_supriya.intervals&quot; {
+        graph [label=&quot;supriya.intervals&quot;];
+        node [color=2];
+        &quot;supriya.intervals.IntervalTree.IntervalTree&quot; [URL=&quot;../api/supriya/intervals/IntervalTree.html#supriya.intervals.IntervalTree.IntervalTree&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Interval\nTree&quot;,
+            target=_top];
+    }
+    subgraph &quot;cluster_supriya.system&quot; {
+        graph [label=&quot;supriya.system&quot;];
+        node [color=3];
+        &quot;supriya.system.SupriyaObject&quot; [URL=&quot;../api/supriya/intervals/../system.html#supriya.system.SupriyaObject&quot;,
+            label=&quot;Supriya\nObject&quot;,
+            target=_top];
+    }
+    &quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject&quot;;
+    &quot;supriya.system.SupriyaObject&quot; -&gt; &quot;supriya.intervals.IntervalTree.IntervalTree&quot;;
+}</p></object></div>
+</div>
+<dl class="py class">
+<dt id="supriya.intervals.IntervalTree.IntervalTree">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.intervals.IntervalTree.</code><code class="sig-name descname">IntervalTree</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">intervals</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">accelerated</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/intervals/IntervalTree.html#IntervalTree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree" title="Permalink to this definition">¶</a></dt>
+<dd><p>A mutable always-sorted collection of intervals.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supriya.intervals</span> <span class="kn">import</span> <span class="n">Interval</span><span class="p">,</span> <span class="n">IntervalTree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">intervals</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span> <span class="o">=</span> <span class="n">IntervalTree</span><span class="p">(</span><span class="n">intervals</span><span class="p">)</span>
+</pre></div>
+</div>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.__and__" title="supriya.intervals.IntervalTree.IntervalTree.__and__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__and__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.__contains__" title="supriya.intervals.IntervalTree.IntervalTree.__contains__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__contains__</span></code></a></p></td>
+<td><p>Is true if this interval tree contains <cite>interval</cite>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.__getitem__" title="supriya.intervals.IntervalTree.IntervalTree.__getitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__getitem__</span></code></a></p></td>
+<td><p>Gets interval at index <cite>item</cite>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.__iter__" title="supriya.intervals.IntervalTree.IntervalTree.__iter__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__iter__</span></code></a></p></td>
+<td><p>Iterates intervals in this interval tree.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.__len__" title="supriya.intervals.IntervalTree.IntervalTree.__len__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__len__</span></code></a></p></td>
+<td><p>Gets length of this interval tree.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.__repr__" title="supriya.intervals.IntervalTree.IntervalTree.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></p></td>
+<td><p>Return repr(self).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.__setitem__" title="supriya.intervals.IntervalTree.IntervalTree.__setitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__setitem__</span></code></a></p></td>
+<td><p>Sets intervals at index <cite>i</cite> to <cite>new</cite>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.__sub__" title="supriya.intervals.IntervalTree.IntervalTree.__sub__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__sub__</span></code></a></p></td>
+<td><p>Delete material that intersects <cite>interval</cite>:</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.add" title="supriya.intervals.IntervalTree.IntervalTree.add"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.all_offsets" title="supriya.intervals.IntervalTree.IntervalTree.all_offsets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">all_offsets</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.all_start_offsets" title="supriya.intervals.IntervalTree.IntervalTree.all_start_offsets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">all_start_offsets</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.all_stop_offsets" title="supriya.intervals.IntervalTree.IntervalTree.all_stop_offsets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">all_stop_offsets</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.earliest_start_offset" title="supriya.intervals.IntervalTree.IntervalTree.earliest_start_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">earliest_start_offset</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.earliest_stop_offset" title="supriya.intervals.IntervalTree.IntervalTree.earliest_stop_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">earliest_stop_offset</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.find_intersection" title="supriya.intervals.IntervalTree.IntervalTree.find_intersection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_intersection</span></code></a></p></td>
+<td><p>Find intervals intersecting a interval or offset.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.find_intervals_starting_at" title="supriya.intervals.IntervalTree.IntervalTree.find_intervals_starting_at"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_intervals_starting_at</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.find_intervals_stopping_at" title="supriya.intervals.IntervalTree.IntervalTree.find_intervals_stopping_at"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_intervals_stopping_at</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.get_moment_at" title="supriya.intervals.IntervalTree.IntervalTree.get_moment_at"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_moment_at</span></code></a></p></td>
+<td><p>Gets moment at <cite>offset</cite>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.get_offset_after" title="supriya.intervals.IntervalTree.IntervalTree.get_offset_after"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_offset_after</span></code></a></p></td>
+<td><p>Gets first start or stop offset after <code class="docutils literal notranslate"><span class="pre">offset</span></code>, otherwise None.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.get_start_offset_after" title="supriya.intervals.IntervalTree.IntervalTree.get_start_offset_after"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_start_offset_after</span></code></a></p></td>
+<td><p>Gets start offst in this interval tree after <cite>offset</cite>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.get_start_offset_before" title="supriya.intervals.IntervalTree.IntervalTree.get_start_offset_before"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_start_offset_before</span></code></a></p></td>
+<td><p>Gets start offst in this interval tree before <cite>offset</cite>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.index" title="supriya.intervals.IntervalTree.IntervalTree.index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.intervals" title="supriya.intervals.IntervalTree.IntervalTree.intervals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">intervals</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.iterate_moments" title="supriya.intervals.IntervalTree.IntervalTree.iterate_moments"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iterate_moments</span></code></a></p></td>
+<td><p>Iterates moments in this interval tree.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.iterate_moments_nwise" title="supriya.intervals.IntervalTree.IntervalTree.iterate_moments_nwise"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iterate_moments_nwise</span></code></a></p></td>
+<td><p>Iterates moments in this interval tree in groups of <cite>n</cite>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.latest_start_offset" title="supriya.intervals.IntervalTree.IntervalTree.latest_start_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">latest_start_offset</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.latest_stop_offset" title="supriya.intervals.IntervalTree.IntervalTree.latest_stop_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">latest_stop_offset</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.remove" title="supriya.intervals.IntervalTree.IntervalTree.remove"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove</span></code></a></p></td>
+<td><p>Removes interval from this interval tree.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.start_offset" title="supriya.intervals.IntervalTree.IntervalTree.start_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start_offset</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.stop_offset" title="supriya.intervals.IntervalTree.IntervalTree.stop_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop_offset</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.intervals.IntervalTree.IntervalTree.update" title="supriya.intervals.IntervalTree.IntervalTree.update"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<dl class="py method">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.__and__">
+<code class="sig-name descname">__and__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">interval</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/intervals/IntervalTree.html#IntervalTree.__and__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.__and__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.__contains__">
+<code class="sig-name descname">__contains__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">interval</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/intervals/IntervalTree.html#IntervalTree.__contains__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.__contains__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is true if this interval tree contains <cite>interval</cite>. Otherwise
+false.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supriya.intervals</span> <span class="kn">import</span> <span class="n">Interval</span><span class="p">,</span> <span class="n">IntervalTree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">intervals</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span> <span class="o">=</span> <span class="n">IntervalTree</span><span class="p">(</span><span class="n">intervals</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">intervals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">interval_tree</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Interval</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span> <span class="ow">in</span> <span class="n">interval_tree</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>Returns boolean.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.__getitem__">
+<code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/intervals/IntervalTree.html#IntervalTree.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets interval at index <cite>item</cite>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supriya.intervals</span> <span class="kn">import</span> <span class="n">Interval</span><span class="p">,</span> <span class="n">IntervalTree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">intervals</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span> <span class="o">=</span> <span class="n">IntervalTree</span><span class="p">(</span><span class="n">intervals</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">Interval(start_offset=6.0, stop_offset=9.0)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">interval_tree</span><span class="p">[:</span><span class="mi">3</span><span class="p">]:</span>
+<span class="gp">... </span>    <span class="n">interval</span>
+<span class="gp">... </span>
+<span class="go">Interval(start_offset=0.0, stop_offset=3.0)</span>
+<span class="go">Interval(start_offset=1.0, stop_offset=2.0)</span>
+<span class="go">Interval(start_offset=1.0, stop_offset=3.0)</span>
+</pre></div>
+</div>
+<p>Returns interval or intervals.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.__iter__">
+<code class="sig-name descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/intervals/IntervalTree.html#IntervalTree.__iter__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates intervals in this interval tree.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supriya.intervals</span> <span class="kn">import</span> <span class="n">Interval</span><span class="p">,</span> <span class="n">IntervalTree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">intervals</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span> <span class="o">=</span> <span class="n">IntervalTree</span><span class="p">(</span><span class="n">intervals</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">interval_tree</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">interval</span>
+<span class="gp">... </span>
+<span class="go">Interval(start_offset=0.0, stop_offset=3.0)</span>
+<span class="go">Interval(start_offset=1.0, stop_offset=2.0)</span>
+<span class="go">Interval(start_offset=1.0, stop_offset=3.0)</span>
+<span class="go">Interval(start_offset=2.0, stop_offset=5.0)</span>
+<span class="go">Interval(start_offset=6.0, stop_offset=9.0)</span>
+</pre></div>
+</div>
+<p>Returns generator.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.__len__">
+<code class="sig-name descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/intervals/IntervalTree.html#IntervalTree.__len__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.__len__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets length of this interval tree.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supriya.intervals</span> <span class="kn">import</span> <span class="n">Interval</span><span class="p">,</span> <span class="n">IntervalTree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">intervals</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span> <span class="o">=</span> <span class="n">IntervalTree</span><span class="p">(</span><span class="n">intervals</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">interval_tree</span><span class="p">)</span>
+<span class="go">5</span>
+</pre></div>
+</div>
+<p>Returns integer.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.__repr__">
+<em class="property">overridden </em><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/intervals/IntervalTree.html#IntervalTree.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.__setitem__">
+<code class="sig-name descname">__setitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">i</span></em>, <em class="sig-param"><span class="n">new</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/intervals/IntervalTree.html#IntervalTree.__setitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.__setitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets intervals at index <cite>i</cite> to <cite>new</cite>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supriya.intervals</span> <span class="kn">import</span> <span class="n">Interval</span><span class="p">,</span> <span class="n">IntervalTree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">intervals</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span> <span class="o">=</span> <span class="n">IntervalTree</span><span class="p">(</span><span class="n">intervals</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">Interval</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>Returns none.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.__sub__">
+<code class="sig-name descname">__sub__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">interval</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/intervals/IntervalTree.html#IntervalTree.__sub__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.__sub__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete material that intersects <cite>interval</cite>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supriya.intervals</span> <span class="kn">import</span> <span class="n">Interval</span><span class="p">,</span> <span class="n">IntervalTree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span> <span class="o">=</span> <span class="n">IntervalTree</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="n">Interval</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">Interval</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">),]</span>
+<span class="gp">... </span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">interval</span> <span class="o">=</span> <span class="n">Interval</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">interval_tree</span> <span class="o">-</span> <span class="n">interval</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">interval_tree</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">interval</span>
+<span class="gp">... </span>
+<span class="go">Interval(start_offset=-2.0, stop_offset=5.0)</span>
+<span class="go">Interval(start_offset=0.0, stop_offset=5.0)</span>
+<span class="go">Interval(start_offset=10.0, stop_offset=12.0)</span>
+<span class="go">Interval(start_offset=10.0, stop_offset=16.0)</span>
+</pre></div>
+</div>
+<p>Operates in place and returns interval tree.</p>
+</dd></dl>
+
+<hr/><p class="class-header rubric">Methods</p>
+<dl class="py method">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.add">
+<code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">interval</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/intervals/IntervalTree.html#IntervalTree.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.find_intersection">
+<code class="sig-name descname">find_intersection</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">interval_or_offset</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/intervals/IntervalTree.html#IntervalTree.find_intersection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.find_intersection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find intervals intersecting a interval or offset.</p>
+<div class="example docutils container">
+<p>Finds intervals overlapping <cite>offset</cite>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supriya.intervals</span> <span class="kn">import</span> <span class="n">Interval</span><span class="p">,</span> <span class="n">IntervalTree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">intervals</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span> <span class="o">=</span> <span class="n">IntervalTree</span><span class="p">(</span><span class="n">intervals</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">interval_tree</span><span class="o">.</span><span class="n">find_intersection</span><span class="p">(</span><span class="mf">1.5</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">x</span>
+<span class="gp">... </span>
+<span class="go">Interval(start_offset=0.0, stop_offset=3.0)</span>
+<span class="go">Interval(start_offset=1.0, stop_offset=2.0)</span>
+<span class="go">Interval(start_offset=1.0, stop_offset=3.0)</span>
+</pre></div>
+</div>
+</div>
+<div class="example docutils container">
+<p>Finds intervals overlapping <cite>interval</cite>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">intervals</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span> <span class="o">=</span> <span class="n">IntervalTree</span><span class="p">(</span><span class="n">intervals</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">interval</span> <span class="o">=</span> <span class="n">Interval</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">interval_tree</span><span class="o">.</span><span class="n">find_intersection</span><span class="p">(</span><span class="n">interval</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">x</span>
+<span class="gp">... </span>
+<span class="go">Interval(start_offset=0.0, stop_offset=3.0)</span>
+<span class="go">Interval(start_offset=1.0, stop_offset=3.0)</span>
+<span class="go">Interval(start_offset=2.0, stop_offset=5.0)</span>
+</pre></div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.find_intervals_starting_at">
+<code class="sig-name descname">find_intervals_starting_at</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offset</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/intervals/IntervalTree.html#IntervalTree.find_intervals_starting_at"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.find_intervals_starting_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.find_intervals_stopping_at">
+<code class="sig-name descname">find_intervals_stopping_at</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offset</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/intervals/IntervalTree.html#IntervalTree.find_intervals_stopping_at"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.find_intervals_stopping_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.get_moment_at">
+<code class="sig-name descname">get_moment_at</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offset</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/intervals/IntervalTree.html#IntervalTree.get_moment_at"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.get_moment_at" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets moment at <cite>offset</cite>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supriya.intervals</span> <span class="kn">import</span> <span class="n">Interval</span><span class="p">,</span> <span class="n">IntervalTree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">intervals</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span> <span class="o">=</span> <span class="n">IntervalTree</span><span class="p">(</span><span class="n">intervals</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span><span class="o">.</span><span class="n">get_moment_at</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">&lt;Moment(1 &lt;&lt;3&gt;&gt;)&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span><span class="o">.</span><span class="n">get_moment_at</span><span class="p">(</span><span class="mf">6.5</span><span class="p">)</span>
+<span class="go">&lt;Moment(6.5 &lt;&lt;1&gt;&gt;)&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.get_offset_after">
+<code class="sig-name descname">get_offset_after</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offset</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/intervals/IntervalTree.html#IntervalTree.get_offset_after"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.get_offset_after" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets first start or stop offset after <code class="docutils literal notranslate"><span class="pre">offset</span></code>, otherwise None.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supriya.intervals</span> <span class="kn">import</span> <span class="n">Interval</span><span class="p">,</span> <span class="n">IntervalTree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">intervals</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span> <span class="o">=</span> <span class="n">IntervalTree</span><span class="p">(</span><span class="n">intervals</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">interval_tree</span><span class="o">.</span><span class="n">get_offset_after</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+<span class="gp">... </span>
+<span class="go">-1 0.0</span>
+<span class="go">0 1.0</span>
+<span class="go">1 2.0</span>
+<span class="go">2 3.0</span>
+<span class="go">3 5.0</span>
+<span class="go">4 5.0</span>
+<span class="go">5 6.0</span>
+<span class="go">6 9.0</span>
+<span class="go">7 9.0</span>
+<span class="go">8 9.0</span>
+<span class="go">9 None</span>
+<span class="go">10 None</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.get_start_offset_after">
+<code class="sig-name descname">get_start_offset_after</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offset</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/intervals/IntervalTree.html#IntervalTree.get_start_offset_after"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.get_start_offset_after" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets start offst in this interval tree after <cite>offset</cite>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supriya.intervals</span> <span class="kn">import</span> <span class="n">Interval</span><span class="p">,</span> <span class="n">IntervalTree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">intervals</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span> <span class="o">=</span> <span class="n">IntervalTree</span><span class="p">(</span><span class="n">intervals</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span><span class="o">.</span><span class="n">get_start_offset_after</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span><span class="o">.</span><span class="n">get_start_offset_after</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">1.0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span><span class="o">.</span><span class="n">get_start_offset_after</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">2.0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span><span class="o">.</span><span class="n">get_start_offset_after</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">6.0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span><span class="o">.</span><span class="n">get_start_offset_after</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.get_start_offset_before">
+<code class="sig-name descname">get_start_offset_before</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">offset</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/intervals/IntervalTree.html#IntervalTree.get_start_offset_before"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.get_start_offset_before" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets start offst in this interval tree before <cite>offset</cite>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supriya.intervals</span> <span class="kn">import</span> <span class="n">Interval</span><span class="p">,</span> <span class="n">IntervalTree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">intervals</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span> <span class="o">=</span> <span class="n">IntervalTree</span><span class="p">(</span><span class="n">intervals</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span><span class="o">.</span><span class="n">get_start_offset_before</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="go">6.0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span><span class="o">.</span><span class="n">get_start_offset_before</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="go">2.0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span><span class="o">.</span><span class="n">get_start_offset_before</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">1.0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span><span class="o">.</span><span class="n">get_start_offset_before</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span><span class="o">.</span><span class="n">get_start_offset_before</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.index">
+<code class="sig-name descname">index</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">interval</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/intervals/IntervalTree.html#IntervalTree.index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.iterate_moments">
+<code class="sig-name descname">iterate_moments</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reverse</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/intervals/IntervalTree.html#IntervalTree.iterate_moments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.iterate_moments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates moments in this interval tree.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supriya.intervals</span> <span class="kn">import</span> <span class="n">Interval</span><span class="p">,</span> <span class="n">IntervalTree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">intervals</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span> <span class="o">=</span> <span class="n">IntervalTree</span><span class="p">(</span><span class="n">intervals</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">interval_tree</span><span class="o">.</span><span class="n">iterate_moments</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="n">x</span>
+<span class="gp">... </span>
+<span class="go">&lt;Moment(0.0 &lt;&lt;1&gt;&gt;)&gt;</span>
+<span class="go">&lt;Moment(1.0 &lt;&lt;3&gt;&gt;)&gt;</span>
+<span class="go">&lt;Moment(2.0 &lt;&lt;3&gt;&gt;)&gt;</span>
+<span class="go">&lt;Moment(6.0 &lt;&lt;1&gt;&gt;)&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">interval_tree</span><span class="o">.</span><span class="n">iterate_moments</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">x</span>
+<span class="gp">... </span>
+<span class="go">&lt;Moment(6.0 &lt;&lt;1&gt;&gt;)&gt;</span>
+<span class="go">&lt;Moment(2.0 &lt;&lt;3&gt;&gt;)&gt;</span>
+<span class="go">&lt;Moment(1.0 &lt;&lt;3&gt;&gt;)&gt;</span>
+<span class="go">&lt;Moment(0.0 &lt;&lt;1&gt;&gt;)&gt;</span>
+</pre></div>
+</div>
+<p>Returns generator.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.iterate_moments_nwise">
+<code class="sig-name descname">iterate_moments_nwise</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">reverse</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/intervals/IntervalTree.html#IntervalTree.iterate_moments_nwise"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.iterate_moments_nwise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates moments in this interval tree in groups of
+<cite>n</cite>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supriya.intervals</span> <span class="kn">import</span> <span class="n">Interval</span><span class="p">,</span> <span class="n">IntervalTree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">intervals</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span> <span class="o">=</span> <span class="n">IntervalTree</span><span class="p">(</span><span class="n">intervals</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">interval_tree</span><span class="o">.</span><span class="n">iterate_moments_nwise</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">x</span>
+<span class="gp">... </span>
+<span class="go">[&lt;Moment(0.0 &lt;&lt;1&gt;&gt;)&gt;, &lt;Moment(1.0 &lt;&lt;3&gt;&gt;)&gt;]</span>
+<span class="go">[&lt;Moment(1.0 &lt;&lt;3&gt;&gt;)&gt;, &lt;Moment(2.0 &lt;&lt;3&gt;&gt;)&gt;]</span>
+<span class="go">[&lt;Moment(2.0 &lt;&lt;3&gt;&gt;)&gt;, &lt;Moment(6.0 &lt;&lt;1&gt;&gt;)&gt;]</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">interval_tree</span><span class="o">.</span><span class="n">iterate_moments_nwise</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">x</span>
+<span class="gp">... </span>
+<span class="go">[&lt;Moment(2.0 &lt;&lt;3&gt;&gt;)&gt;, &lt;Moment(6.0 &lt;&lt;1&gt;&gt;)&gt;]</span>
+<span class="go">[&lt;Moment(1.0 &lt;&lt;3&gt;&gt;)&gt;, &lt;Moment(2.0 &lt;&lt;3&gt;&gt;)&gt;]</span>
+<span class="go">[&lt;Moment(0.0 &lt;&lt;1&gt;&gt;)&gt;, &lt;Moment(1.0 &lt;&lt;3&gt;&gt;)&gt;]</span>
+</pre></div>
+</div>
+<p>Returns generator.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.remove">
+<code class="sig-name descname">remove</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">interval</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/intervals/IntervalTree.html#IntervalTree.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes interval from this interval tree.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">supriya.intervals</span> <span class="kn">import</span> <span class="n">Interval</span><span class="p">,</span> <span class="n">IntervalTree</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">intervals</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">Interval</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">interval_tree</span> <span class="o">=</span> <span class="n">IntervalTree</span><span class="p">(</span><span class="n">intervals</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">intervals</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+<span class="gp">... </span>    <span class="n">interval_tree</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
+<span class="gp">... </span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">interval_tree</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">interval</span>
+<span class="gp">... </span>
+<span class="go">Interval(start_offset=0.0, stop_offset=3.0)</span>
+<span class="go">Interval(start_offset=6.0, stop_offset=9.0)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">intervals</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/intervals/IntervalTree.html#IntervalTree.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<dl class="py attribute">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.all_offsets">
+<code class="sig-name descname">all_offsets</code><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.all_offsets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.all_start_offsets">
+<code class="sig-name descname">all_start_offsets</code><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.all_start_offsets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.all_stop_offsets">
+<code class="sig-name descname">all_stop_offsets</code><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.all_stop_offsets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.earliest_start_offset">
+<code class="sig-name descname">earliest_start_offset</code><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.earliest_start_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.earliest_stop_offset">
+<code class="sig-name descname">earliest_stop_offset</code><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.earliest_stop_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.intervals">
+<code class="sig-name descname">intervals</code><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.intervals" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.latest_start_offset">
+<code class="sig-name descname">latest_start_offset</code><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.latest_start_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.latest_stop_offset">
+<code class="sig-name descname">latest_stop_offset</code><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.latest_stop_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.start_offset">
+<code class="sig-name descname">start_offset</code><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.start_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.intervals.IntervalTree.IntervalTree.stop_offset">
+<code class="sig-name descname">stop_offset</code><a class="headerlink" href="#supriya.intervals.IntervalTree.IntervalTree.stop_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="IntervalTreeDriver.html" class="btn btn-neutral float-right" title="IntervalTreeDriver" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Interval.html" class="btn btn-neutral float-left" title="Interval" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

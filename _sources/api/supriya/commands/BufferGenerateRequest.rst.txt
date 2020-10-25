@@ -77,6 +77,10 @@ BufferGenerateRequest
 
    .. container:: inherited
 
+      .. automethod:: BufferGenerateRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: BufferGenerateRequest.to_datagram
 
    .. container:: inherited

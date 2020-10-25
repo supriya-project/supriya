@@ -1,0 +1,249 @@
+.. _supriya--realtime--allocators:
+
+allocators
+==========
+
+.. automodule:: supriya.realtime.allocators
+
+.. currentmodule:: supriya.realtime.allocators
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.realtime.allocators
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Server Internals
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~Block
+   ~BlockAllocator
+   ~NodeIdAllocator
+
+.. autoclass:: Block
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      used
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Block.__and__
+
+   .. container:: inherited
+
+      .. automethod:: Block.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: Block.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: Block.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: Block.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: Block.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: Block.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: Block.__le__
+
+   .. container:: inherited
+
+      .. automethod:: Block.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: Block.__or__
+
+   .. container:: inherited
+
+      .. automethod:: Block.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: Block.__sub__
+
+   .. container:: inherited
+
+      .. automethod:: Block.__xor__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Block.intersects
+
+   .. container:: inherited
+
+      .. automethod:: Block.is_tangent_to
+
+   .. container:: inherited
+
+      .. automethod:: Block.new
+
+   .. container:: inherited
+
+      .. automethod:: Block.split
+
+   .. container:: inherited
+
+      .. automethod:: Block.translate
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Block.duration
+
+   .. container:: inherited
+
+      .. autoattribute:: Block.size
+
+   .. container:: inherited
+
+      .. autoattribute:: Block.start_offset
+
+   .. container:: inherited
+
+      .. autoattribute:: Block.stop_offset
+
+   .. autoattribute:: Block.used
+
+   .. container:: inherited
+
+      .. autoattribute:: Block.wellformed
+
+.. autoclass:: BlockAllocator
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      allocate
+      allocate_at
+      free
+      heap_maximum
+      heap_minimum
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BlockAllocator.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: BlockAllocator.allocate
+
+   .. automethod:: BlockAllocator.allocate_at
+
+   .. automethod:: BlockAllocator.free
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BlockAllocator.heap_maximum
+
+   .. autoattribute:: BlockAllocator.heap_minimum
+
+.. autoclass:: NodeIdAllocator
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      allocate_node_id
+      allocate_permanent_node_id
+      free_permanent_node_id
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: NodeIdAllocator.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: NodeIdAllocator.allocate_node_id
+
+   .. automethod:: NodeIdAllocator.allocate_permanent_node_id
+
+   .. automethod:: NodeIdAllocator.free_permanent_node_id

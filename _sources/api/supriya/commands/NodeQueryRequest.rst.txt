@@ -26,6 +26,7 @@ NodeQueryRequest
 
       node_id
       request_id
+      response_patterns
       to_osc
 
    .. raw:: html
@@ -64,6 +65,10 @@ NodeQueryRequest
 
    .. container:: inherited
 
+      .. automethod:: NodeQueryRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: NodeQueryRequest.to_datagram
 
    .. container:: inherited
@@ -93,6 +98,4 @@ NodeQueryRequest
 
       .. autoattribute:: NodeQueryRequest.response
 
-   .. container:: inherited
-
-      .. autoattribute:: NodeQueryRequest.response_patterns
+   .. autoattribute:: NodeQueryRequest.response_patterns

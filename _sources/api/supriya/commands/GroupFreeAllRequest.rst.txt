@@ -64,6 +64,10 @@ GroupFreeAllRequest
 
    .. container:: inherited
 
+      .. automethod:: GroupFreeAllRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: GroupFreeAllRequest.to_datagram
 
    .. container:: inherited

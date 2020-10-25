@@ -1,0 +1,95 @@
+.. _supriya--synthdefs--factories:
+
+factories
+=========
+
+.. automodule:: supriya.synthdefs.factories
+
+.. currentmodule:: supriya.synthdefs.factories
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.synthdefs.factories
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~SynthDefFactory
+
+.. autoclass:: SynthDefFactory
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      build
+      with_channel_count
+      with_feedback_loop
+      with_gate
+      with_initial_state
+      with_input
+      with_output
+      with_parameter
+      with_parameter_block
+      with_parameters
+      with_rand_id
+      with_signal_block
+      with_silence_detection
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: SynthDefFactory.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: SynthDefFactory.build
+
+   .. automethod:: SynthDefFactory.with_channel_count
+
+   .. automethod:: SynthDefFactory.with_feedback_loop
+
+   .. automethod:: SynthDefFactory.with_gate
+
+   .. automethod:: SynthDefFactory.with_initial_state
+
+   .. automethod:: SynthDefFactory.with_input
+
+   .. automethod:: SynthDefFactory.with_output
+
+   .. automethod:: SynthDefFactory.with_parameter
+
+   .. automethod:: SynthDefFactory.with_parameter_block
+
+   .. automethod:: SynthDefFactory.with_parameters
+
+   .. automethod:: SynthDefFactory.with_rand_id
+
+   .. automethod:: SynthDefFactory.with_signal_block
+
+   .. automethod:: SynthDefFactory.with_silence_detection

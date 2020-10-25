@@ -63,6 +63,10 @@ NothingRequest
 
    .. container:: inherited
 
+      .. automethod:: NothingRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: NothingRequest.to_datagram
 
    .. container:: inherited

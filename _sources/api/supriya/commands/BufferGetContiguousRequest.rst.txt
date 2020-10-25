@@ -66,6 +66,10 @@ BufferGetContiguousRequest
 
    .. container:: inherited
 
+      .. automethod:: BufferGetContiguousRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: BufferGetContiguousRequest.to_datagram
 
    .. container:: inherited

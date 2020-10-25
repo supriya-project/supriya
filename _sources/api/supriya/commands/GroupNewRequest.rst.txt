@@ -66,6 +66,10 @@ GroupNewRequest
 
    .. container:: inherited
 
+      .. automethod:: GroupNewRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: GroupNewRequest.to_datagram
 
    .. container:: inherited

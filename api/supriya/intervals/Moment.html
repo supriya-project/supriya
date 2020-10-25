@@ -1,0 +1,436 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Moment &mdash; Supriya 0.4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="io" href="../io.html" />
+    <link rel="prev" title="IntervalTreeDriverEx" href="IntervalTreeDriverEx.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../clock/index.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conversions.html">conversions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">intervals</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="Interval.html">Interval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="IntervalTree.html">IntervalTree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="IntervalTreeDriver.html">IntervalTreeDriver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="IntervalTreeDriverEx.html">IntervalTreeDriverEx</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Moment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provider.html">provider</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querytree.html">querytree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sclang.html">sclang</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scsynth.html">scsynth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../typing.html">typing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">supriya</a> &raquo;</li>
+        
+          <li><a href="index.html">intervals</a> &raquo;</li>
+        
+      <li>Moment</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/supriya/intervals/Moment.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-supriya.intervals.Moment">
+<span id="moment"></span><span id="supriya-intervals-moment"></span><h1>Moment<a class="headerlink" href="#module-supriya.intervals.Moment" title="Permalink to this headline">¶</a></h1>
+<div class="svg-container docutils container">
+<div class="graphviz"><object data="../../../_images/inheritance-5e38ba687158c78885eecd49eeeb06039e5f2ccf.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">digraph InheritanceGraph {
+    graph [bgcolor=transparent,
+        color=lightsteelblue2,
+        fontname=Arial,
+        fontsize=10,
+        outputorder=edgesfirst,
+        overlap=prism,
+        penwidth=2,
+        rankdir=LR,
+        splines=spline,
+        style=&quot;dashed, rounded&quot;,
+        truecolor=true];
+    node [colorscheme=pastel19,
+        fontname=Arial,
+        fontsize=10,
+        height=0,
+        penwidth=2,
+        shape=box,
+        style=&quot;filled, rounded&quot;,
+        width=0];
+    edge [color=lightslategrey,
+        penwidth=1];
+    subgraph cluster_builtins {
+        graph [label=builtins];
+        node [color=1];
+        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3/library/functions.html#object&quot;,
+            label=object,
+            target=_top];
+    }
+    subgraph &quot;cluster_supriya.intervals&quot; {
+        graph [label=&quot;supriya.intervals&quot;];
+        node [color=2];
+        &quot;supriya.intervals.Moment.Moment&quot; [URL=&quot;../api/supriya/intervals/Moment.html#supriya.intervals.Moment.Moment&quot;,
+            color=black,
+            fontcolor=white,
+            label=Moment,
+            target=_top];
+    }
+    subgraph &quot;cluster_supriya.system&quot; {
+        graph [label=&quot;supriya.system&quot;];
+        node [color=3];
+        &quot;supriya.system.SupriyaObject&quot; [URL=&quot;../api/supriya/intervals/../system.html#supriya.system.SupriyaObject&quot;,
+            label=&quot;Supriya\nObject&quot;,
+            target=_top];
+    }
+    &quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject&quot;;
+    &quot;supriya.system.SupriyaObject&quot; -&gt; &quot;supriya.intervals.Moment.Moment&quot;;
+}</p></object></div>
+</div>
+<dl class="py class">
+<dt id="supriya.intervals.Moment.Moment">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.intervals.Moment.</code><code class="sig-name descname">Moment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">interval_tree</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">overlap_intervals</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">start_intervals</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">start_offset</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">stop_intervals</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/intervals/Moment.html#Moment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.intervals.Moment.Moment" title="Permalink to this definition">¶</a></dt>
+<dd><p>A moment of intervals in a interval tree.</p>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.intervals.Moment.Moment.__repr__" title="supriya.intervals.Moment.Moment.__repr__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__repr__</span></code></a></p></td>
+<td><p>Gets the repr of this moment.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.intervals.Moment.Moment.interval_tree" title="supriya.intervals.Moment.Moment.interval_tree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">interval_tree</span></code></a></p></td>
+<td><p>Gets this moment’s interval tree.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.intervals.Moment.Moment.next_moment" title="supriya.intervals.Moment.Moment.next_moment"><code class="xref py py-obj docutils literal notranslate"><span class="pre">next_moment</span></code></a></p></td>
+<td><p>Gets the next moment in this moment’s interval collection.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.intervals.Moment.Moment.next_start_offset" title="supriya.intervals.Moment.Moment.next_start_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">next_start_offset</span></code></a></p></td>
+<td><p>Gets the next moment start offset in this moment’s interval tree.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.intervals.Moment.Moment.overlap_intervals" title="supriya.intervals.Moment.Moment.overlap_intervals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">overlap_intervals</span></code></a></p></td>
+<td><p>Gets the intervals in this moment which overlap this moment’s start offset.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.intervals.Moment.Moment.previous_moment" title="supriya.intervals.Moment.Moment.previous_moment"><code class="xref py py-obj docutils literal notranslate"><span class="pre">previous_moment</span></code></a></p></td>
+<td><p>Gets the previous moment in this moment’s interval collection.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.intervals.Moment.Moment.previous_start_offset" title="supriya.intervals.Moment.Moment.previous_start_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">previous_start_offset</span></code></a></p></td>
+<td><p>Gets the previous moment start offset in this moment’s interval tree.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.intervals.Moment.Moment.start_intervals" title="supriya.intervals.Moment.Moment.start_intervals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start_intervals</span></code></a></p></td>
+<td><p>Gets the intervals in this moment which start at this moment’s start offset.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.intervals.Moment.Moment.start_offset" title="supriya.intervals.Moment.Moment.start_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start_offset</span></code></a></p></td>
+<td><p>Gets this moment’s start offset.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.intervals.Moment.Moment.stop_intervals" title="supriya.intervals.Moment.Moment.stop_intervals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop_intervals</span></code></a></p></td>
+<td><p>Gets the intervals in this moment which stop at this moment’s start offset.</p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<dl class="py method">
+<dt id="supriya.intervals.Moment.Moment.__repr__">
+<em class="property">overridden </em><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/intervals/Moment.html#Moment.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.intervals.Moment.Moment.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the repr of this moment.</p>
+</dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<dl class="py attribute">
+<dt id="supriya.intervals.Moment.Moment.interval_tree">
+<code class="sig-name descname">interval_tree</code><a class="headerlink" href="#supriya.intervals.Moment.Moment.interval_tree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets this moment’s interval tree.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.intervals.Moment.Moment.next_moment">
+<code class="sig-name descname">next_moment</code><a class="headerlink" href="#supriya.intervals.Moment.Moment.next_moment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the next moment in this moment’s interval
+collection.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.intervals.Moment.Moment.next_start_offset">
+<code class="sig-name descname">next_start_offset</code><a class="headerlink" href="#supriya.intervals.Moment.Moment.next_start_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the next moment start offset in this moment’s
+interval tree.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.intervals.Moment.Moment.overlap_intervals">
+<code class="sig-name descname">overlap_intervals</code><a class="headerlink" href="#supriya.intervals.Moment.Moment.overlap_intervals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the intervals in this moment which overlap this
+moment’s start offset.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.intervals.Moment.Moment.previous_moment">
+<code class="sig-name descname">previous_moment</code><a class="headerlink" href="#supriya.intervals.Moment.Moment.previous_moment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the previous moment in this moment’s interval
+collection.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.intervals.Moment.Moment.previous_start_offset">
+<code class="sig-name descname">previous_start_offset</code><a class="headerlink" href="#supriya.intervals.Moment.Moment.previous_start_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the previous moment start offset in this moment’s
+interval tree.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.intervals.Moment.Moment.start_intervals">
+<code class="sig-name descname">start_intervals</code><a class="headerlink" href="#supriya.intervals.Moment.Moment.start_intervals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the intervals in this moment which start at this
+moment’s start offset.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.intervals.Moment.Moment.start_offset">
+<code class="sig-name descname">start_offset</code><a class="headerlink" href="#supriya.intervals.Moment.Moment.start_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets this moment’s start offset.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="supriya.intervals.Moment.Moment.stop_intervals">
+<code class="sig-name descname">stop_intervals</code><a class="headerlink" href="#supriya.intervals.Moment.Moment.stop_intervals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the intervals in this moment which stop at this
+moment’s start offset.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../io.html" class="btn btn-neutral float-right" title="io" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="IntervalTreeDriverEx.html" class="btn btn-neutral float-left" title="IntervalTreeDriverEx" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

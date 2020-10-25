@@ -105,7 +105,3 @@ ControlBusSetContiguousResponse
       :class: class-header
 
    .. autoattribute:: ControlBusSetContiguousResponse.items
-
-   .. container:: inherited
-
-      .. autoattribute:: ControlBusSetContiguousResponse.osc_message

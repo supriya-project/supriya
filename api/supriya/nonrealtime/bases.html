@@ -1,0 +1,447 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>bases &mdash; Supriya 0.4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="buffers" href="buffers.html" />
+    <link rel="prev" title="nonrealtime" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../clock/index.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conversions.html">conversions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intervals/index.html">intervals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">nonrealtime</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">bases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="buffers.html">buffers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="buses.html">buses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nodes.html">nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="renderer.html">renderer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sessions.html">sessions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="states.html">states</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provider.html">provider</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querytree.html">querytree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sclang.html">sclang</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scsynth.html">scsynth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../typing.html">typing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">supriya</a> &raquo;</li>
+        
+          <li><a href="index.html">nonrealtime</a> &raquo;</li>
+        
+      <li>bases</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/supriya/nonrealtime/bases.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-supriya.nonrealtime.bases">
+<span id="bases"></span><span id="supriya-nonrealtime-bases"></span><h1>bases<a class="headerlink" href="#module-supriya.nonrealtime.bases" title="Permalink to this headline">¶</a></h1>
+<div class="svg-container docutils container">
+<div class="graphviz"><object data="../../../_images/inheritance-a7c7f94c875e5f4a92ce6ce512732592f9ae3117.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">digraph InheritanceGraph {
+	graph [bgcolor=transparent,
+		color=lightsteelblue2,
+		fontname=Arial,
+		fontsize=10,
+		outputorder=edgesfirst,
+		overlap=prism,
+		penwidth=2,
+		rankdir=LR,
+		splines=spline,
+		style=&quot;dashed, rounded&quot;,
+		truecolor=true
+	];
+	node [colorscheme=pastel19,
+		fontname=Arial,
+		fontsize=10,
+		height=0,
+		penwidth=2,
+		shape=box,
+		style=&quot;filled, rounded&quot;,
+		width=0
+	];
+	edge [color=lightslategrey,
+		penwidth=1
+	];
+	subgraph cluster_builtins {
+		graph [label=builtins];
+		node [color=1];
+		&quot;builtins.object&quot;	[URL=&quot;https://docs.python.org/3/library/functions.html#object&quot;,
+			label=object,
+			target=_top];
+	}
+	subgraph &quot;cluster_supriya.nonrealtime.bases&quot; {
+		graph [label=&quot;supriya.nonrealtime.bases&quot;];
+		node [color=2];
+		&quot;supriya.nonrealtime.bases.SessionObject&quot;	[URL=&quot;../api/supriya/nonrealtime/bases.html#supriya.nonrealtime.bases.SessionObject&quot;,
+			color=black,
+			fontcolor=white,
+			label=&quot;Session\nObject&quot;,
+			shape=oval,
+			style=&quot;bold, filled&quot;,
+			target=_top];
+	}
+	subgraph &quot;cluster_supriya.nonrealtime.buffers&quot; {
+		graph [label=&quot;supriya.nonrealtime.buffers&quot;];
+		node [color=3];
+		&quot;supriya.nonrealtime.buffers.Buffer&quot;	[URL=&quot;../api/supriya/nonrealtime/buffers.html#supriya.nonrealtime.buffers.Buffer&quot;,
+			label=Buffer,
+			target=_top];
+		&quot;supriya.nonrealtime.buffers.BufferGroup&quot;	[URL=&quot;../api/supriya/nonrealtime/buffers.html#supriya.nonrealtime.buffers.BufferGroup&quot;,
+			label=&quot;Buffer\nGroup&quot;,
+			target=_top];
+	}
+	subgraph &quot;cluster_supriya.nonrealtime.buses&quot; {
+		graph [label=&quot;supriya.nonrealtime.buses&quot;];
+		node [color=4];
+		&quot;supriya.nonrealtime.buses.AudioInputBusGroup&quot;	[URL=&quot;../api/supriya/nonrealtime/buses.html#supriya.nonrealtime.buses.AudioInputBusGroup&quot;,
+			label=&quot;Audio\nInput\nBus\nGroup&quot;,
+			target=_top];
+		&quot;supriya.nonrealtime.buses.AudioOutputBusGroup&quot;	[URL=&quot;../api/supriya/nonrealtime/buses.html#supriya.nonrealtime.buses.AudioOutputBusGroup&quot;,
+			label=&quot;Audio\nOutput\nBus\nGroup&quot;,
+			target=_top];
+		&quot;supriya.nonrealtime.buses.Bus&quot;	[URL=&quot;../api/supriya/nonrealtime/buses.html#supriya.nonrealtime.buses.Bus&quot;,
+			label=Bus,
+			target=_top];
+		&quot;supriya.nonrealtime.buses.BusGroup&quot;	[URL=&quot;../api/supriya/nonrealtime/buses.html#supriya.nonrealtime.buses.BusGroup&quot;,
+			label=&quot;Bus\nGroup&quot;,
+			target=_top];
+		&quot;supriya.nonrealtime.buses.BusGroup&quot; -&gt; &quot;supriya.nonrealtime.buses.AudioInputBusGroup&quot;	[minlen=1];
+		&quot;supriya.nonrealtime.buses.BusGroup&quot; -&gt; &quot;supriya.nonrealtime.buses.AudioOutputBusGroup&quot;	[minlen=2];
+	}
+	subgraph &quot;cluster_supriya.nonrealtime.nodes&quot; {
+		graph [label=&quot;supriya.nonrealtime.nodes&quot;];
+		node [color=5];
+		&quot;supriya.nonrealtime.nodes.Group&quot;	[URL=&quot;../api/supriya/nonrealtime/nodes.html#supriya.nonrealtime.nodes.Group&quot;,
+			label=Group,
+			target=_top];
+		&quot;supriya.nonrealtime.nodes.RootNode&quot;	[URL=&quot;../api/supriya/nonrealtime/nodes.html#supriya.nonrealtime.nodes.RootNode&quot;,
+			label=&quot;Root\nNode&quot;,
+			target=_top];
+		&quot;supriya.nonrealtime.nodes.Group&quot; -&gt; &quot;supriya.nonrealtime.nodes.RootNode&quot;	[minlen=1];
+		&quot;supriya.nonrealtime.nodes.Node&quot;	[URL=&quot;../api/supriya/nonrealtime/nodes.html#supriya.nonrealtime.nodes.Node&quot;,
+			label=&quot;Node&quot;,
+			target=_top];
+		&quot;supriya.nonrealtime.nodes.Node&quot; -&gt; &quot;supriya.nonrealtime.nodes.Group&quot;	[minlen=1];
+		&quot;supriya.nonrealtime.nodes.Synth&quot;	[URL=&quot;../api/supriya/nonrealtime/nodes.html#supriya.nonrealtime.nodes.Synth&quot;,
+			label=Synth,
+			target=_top];
+		&quot;supriya.nonrealtime.nodes.Node&quot; -&gt; &quot;supriya.nonrealtime.nodes.Synth&quot;	[minlen=2];
+	}
+	subgraph &quot;cluster_supriya.nonrealtime.states&quot; {
+		graph [label=&quot;supriya.nonrealtime.states&quot;];
+		node [color=6];
+		&quot;supriya.nonrealtime.states.Moment&quot;	[URL=&quot;../api/supriya/nonrealtime/states.html#supriya.nonrealtime.states.Moment&quot;,
+			label=Moment,
+			target=_top];
+		&quot;supriya.nonrealtime.states.State&quot;	[URL=&quot;../api/supriya/nonrealtime/states.html#supriya.nonrealtime.states.State&quot;,
+			label=State,
+			target=_top];
+	}
+	subgraph &quot;cluster_supriya.system&quot; {
+		graph [label=&quot;supriya.system&quot;];
+		node [color=7];
+		&quot;supriya.system.SupriyaObject&quot;	[URL=&quot;../api/supriya/nonrealtime/../system.html#supriya.system.SupriyaObject&quot;,
+			label=&quot;Supriya\nObject&quot;,
+			target=_top];
+	}
+	&quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject&quot;	[minlen=1];
+	&quot;supriya.nonrealtime.bases.SessionObject&quot; -&gt; &quot;supriya.nonrealtime.buffers.Buffer&quot;	[minlen=1];
+	&quot;supriya.nonrealtime.bases.SessionObject&quot; -&gt; &quot;supriya.nonrealtime.buffers.BufferGroup&quot;	[minlen=2];
+	&quot;supriya.nonrealtime.bases.SessionObject&quot; -&gt; &quot;supriya.nonrealtime.buses.Bus&quot;	[minlen=1];
+	&quot;supriya.nonrealtime.bases.SessionObject&quot; -&gt; &quot;supriya.nonrealtime.buses.BusGroup&quot;;
+	&quot;supriya.nonrealtime.bases.SessionObject&quot; -&gt; &quot;supriya.nonrealtime.nodes.Node&quot;;
+	&quot;supriya.nonrealtime.bases.SessionObject&quot; -&gt; &quot;supriya.nonrealtime.states.Moment&quot;	[minlen=2];
+	&quot;supriya.nonrealtime.bases.SessionObject&quot; -&gt; &quot;supriya.nonrealtime.states.State&quot;	[minlen=1];
+	&quot;supriya.system.SupriyaObject&quot; -&gt; &quot;supriya.nonrealtime.bases.SessionObject&quot;;
+}</p></object></div>
+</div>
+<hr/><p class="section-header rubric">Session Internals</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.bases.SessionObject" title="supriya.nonrealtime.bases.SessionObject"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SessionObject</span></code></a></p></td>
+<td><p>A non-realtime session object, analogous to ServerObject.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="supriya.nonrealtime.bases.SessionObject">
+<em class="property">abstract </em><em class="property">class </em><code class="sig-prename descclassname">supriya.nonrealtime.bases.</code><code class="sig-name descname">SessionObject</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">session</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/bases.html#SessionObject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.bases.SessionObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>A non-realtime session object, analogous to ServerObject.</p>
+<hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.nonrealtime.bases.SessionObject.require_offset" title="supriya.nonrealtime.bases.SessionObject.require_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">require_offset</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.nonrealtime.bases.SessionObject.session" title="supriya.nonrealtime.bases.SessionObject.session"><code class="xref py py-obj docutils literal notranslate"><span class="pre">session</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Special methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.nonrealtime.bases.SessionObject.__repr__">
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.nonrealtime.bases.SessionObject.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return repr(self).</p>
+</dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Class &amp; static methods</p>
+<dl class="py method">
+<dt id="supriya.nonrealtime.bases.SessionObject.require_offset">
+<em class="property">static </em><code class="sig-name descname">require_offset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">function</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/nonrealtime/bases.html#SessionObject.require_offset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.nonrealtime.bases.SessionObject.require_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Read-only properties</p>
+<dl class="py attribute">
+<dt id="supriya.nonrealtime.bases.SessionObject.session">
+<code class="sig-name descname">session</code><a class="headerlink" href="#supriya.nonrealtime.bases.SessionObject.session" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="buffers.html" class="btn btn-neutral float-right" title="buffers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="nonrealtime" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

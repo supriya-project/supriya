@@ -64,6 +64,10 @@ MoveRequest
 
    .. container:: inherited
 
+      .. automethod:: MoveRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: MoveRequest.to_datagram
 
    .. container:: inherited

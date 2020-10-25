@@ -44,7 +44,6 @@ patterns
    :hidden:
 
    BusEvent
-   Clock
    CompositeEvent
    EventPlayer
    EventProduct
@@ -67,14 +66,12 @@ patterns
    Pseq
    Pwhite
    RandomNumberGenerator
-   RealtimeEventPlayer
    SynthEvent
 
 .. autosummary::
    :nosignatures:
 
    ~BusEvent.BusEvent
-   ~Clock.Clock
    ~CompositeEvent.CompositeEvent
    ~EventPlayer.EventPlayer
    ~EventProduct.EventProduct
@@ -97,5 +94,4 @@ patterns
    ~Pseq.Pseq
    ~Pwhite.Pwhite
    ~RandomNumberGenerator.RandomNumberGenerator
-   ~RealtimeEventPlayer.RealtimeEventPlayer
    ~SynthEvent.SynthEvent

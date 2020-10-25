@@ -25,6 +25,7 @@ StatusRequest
       :nosignatures:
 
       request_id
+      response_patterns
       to_osc
 
    .. raw:: html
@@ -63,6 +64,10 @@ StatusRequest
 
    .. container:: inherited
 
+      .. automethod:: StatusRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: StatusRequest.to_datagram
 
    .. container:: inherited
@@ -90,6 +95,4 @@ StatusRequest
 
       .. autoattribute:: StatusRequest.response
 
-   .. container:: inherited
-
-      .. autoattribute:: StatusRequest.response_patterns
+   .. autoattribute:: StatusRequest.response_patterns

@@ -1,0 +1,75 @@
+.. _supriya--realtime--bases:
+
+bases
+=====
+
+.. automodule:: supriya.realtime.bases
+
+.. currentmodule:: supriya.realtime.bases
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.realtime.bases
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Abstract Classes
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~ServerObject
+
+.. autoclass:: ServerObject
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      allocate
+      free
+      is_allocated
+      server
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ServerObject.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: ServerObject.allocate
+
+   .. automethod:: ServerObject.free
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: ServerObject.is_allocated
+
+   .. autoattribute:: ServerObject.server

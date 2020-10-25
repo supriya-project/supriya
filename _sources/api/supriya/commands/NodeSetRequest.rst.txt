@@ -67,6 +67,10 @@ NodeSetRequest
 
    .. container:: inherited
 
+      .. automethod:: NodeSetRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: NodeSetRequest.to_datagram
 
    .. container:: inherited

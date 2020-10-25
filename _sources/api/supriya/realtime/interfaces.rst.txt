@@ -1,0 +1,379 @@
+.. _supriya--realtime--interfaces:
+
+interfaces
+==========
+
+.. automodule:: supriya.realtime.interfaces
+
+.. currentmodule:: supriya.realtime.interfaces
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.realtime.interfaces
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Server Internals
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~ControlInterface
+   ~GroupControl
+   ~GroupInterface
+   ~SynthControl
+   ~SynthInterface
+
+.. autoclass:: ControlInterface
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __setitem__
+      as_dict
+      client
+      node_id
+      reset
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ControlInterface.__repr__
+
+   .. automethod:: ControlInterface.__setitem__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: ControlInterface.as_dict
+
+   .. automethod:: ControlInterface.reset
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: ControlInterface.client
+
+   .. autoattribute:: ControlInterface.node_id
+
+.. autoclass:: GroupControl
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __repr__
+      __str__
+      client
+      group
+      name
+      node
+      set
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: GroupControl.__repr__
+
+   .. automethod:: GroupControl.__str__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: GroupControl.set
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: GroupControl.client
+
+   .. autoattribute:: GroupControl.group
+
+   .. autoattribute:: GroupControl.name
+
+   .. autoattribute:: GroupControl.node
+
+.. autoclass:: GroupInterface
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __contains__
+      __getitem__
+      __iter__
+      __len__
+      __repr__
+      __setitem__
+      add_controls
+      as_dict
+      remove_controls
+      reset
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: GroupInterface.__contains__
+
+   .. automethod:: GroupInterface.__getitem__
+
+   .. automethod:: GroupInterface.__iter__
+
+   .. automethod:: GroupInterface.__len__
+
+   .. automethod:: GroupInterface.__repr__
+
+   .. automethod:: GroupInterface.__setitem__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: GroupInterface.add_controls
+
+   .. automethod:: GroupInterface.as_dict
+
+   .. automethod:: GroupInterface.remove_controls
+
+   .. automethod:: GroupInterface.reset
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupInterface.client
+
+   .. container:: inherited
+
+      .. autoattribute:: GroupInterface.node_id
+
+.. autoclass:: SynthControl
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __call__
+      __repr__
+      __str__
+      calculation_rate
+      client
+      default_value
+      from_parameter
+      get
+      index
+      last_unmapped_value
+      name
+      node
+      range_
+      reset
+      set
+      synth
+      unit
+      value
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: SynthControl.__call__
+
+   .. automethod:: SynthControl.__repr__
+
+   .. automethod:: SynthControl.__str__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: SynthControl.get
+
+   .. automethod:: SynthControl.reset
+
+   .. automethod:: SynthControl.set
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: SynthControl.from_parameter
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: SynthControl.calculation_rate
+
+   .. autoattribute:: SynthControl.client
+
+   .. autoattribute:: SynthControl.default_value
+
+   .. autoattribute:: SynthControl.index
+
+   .. autoattribute:: SynthControl.last_unmapped_value
+
+   .. autoattribute:: SynthControl.name
+
+   .. autoattribute:: SynthControl.node
+
+   .. autoattribute:: SynthControl.range_
+
+   .. autoattribute:: SynthControl.synth
+
+   .. autoattribute:: SynthControl.unit
+
+   .. autoattribute:: SynthControl.value
+
+.. autoclass:: SynthInterface
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __contains__
+      __getitem__
+      __iter__
+      __len__
+      __repr__
+      __setitem__
+      __str__
+      as_dict
+      reset
+      synth_controls
+      synthdef
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: SynthInterface.__contains__
+
+   .. automethod:: SynthInterface.__getitem__
+
+   .. automethod:: SynthInterface.__iter__
+
+   .. automethod:: SynthInterface.__len__
+
+   .. automethod:: SynthInterface.__repr__
+
+   .. automethod:: SynthInterface.__setitem__
+
+   .. automethod:: SynthInterface.__str__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: SynthInterface.as_dict
+
+   .. automethod:: SynthInterface.reset
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthInterface.client
+
+   .. container:: inherited
+
+      .. autoattribute:: SynthInterface.node_id
+
+   .. autoattribute:: SynthInterface.synth_controls
+
+   .. autoattribute:: SynthInterface.synthdef

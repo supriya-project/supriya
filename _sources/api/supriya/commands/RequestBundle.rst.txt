@@ -26,6 +26,7 @@ RequestBundle
 
       condition
       contents
+      partition
       timestamp
       to_osc
 
@@ -65,6 +66,10 @@ RequestBundle
 
    .. container:: inherited
 
+      .. automethod:: RequestBundle.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: RequestBundle.to_datagram
 
    .. container:: inherited
@@ -72,6 +77,15 @@ RequestBundle
       .. automethod:: RequestBundle.to_list
 
    .. automethod:: RequestBundle.to_osc
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: RequestBundle.partition
 
    .. raw:: html
 

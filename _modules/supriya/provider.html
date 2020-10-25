@@ -1,0 +1,1267 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>supriya.provider &mdash; Supriya 0.4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../time-agnostic.html">Time-agnostic usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../synthdefs.html">SynthDefs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/supriya/index.html">supriya</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>supriya.provider</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for supriya.provider</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">contextlib</span>
+<span class="kn">import</span> <span class="nn">dataclasses</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">MappingProxyType</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Any</span><span class="p">,</span>
+    <span class="n">Callable</span><span class="p">,</span>
+    <span class="n">Dict</span><span class="p">,</span>
+    <span class="n">List</span><span class="p">,</span>
+    <span class="n">Mapping</span><span class="p">,</span>
+    <span class="n">Optional</span><span class="p">,</span>
+    <span class="n">Sequence</span><span class="p">,</span>
+    <span class="n">Tuple</span><span class="p">,</span>
+    <span class="n">Type</span><span class="p">,</span>
+    <span class="n">Union</span><span class="p">,</span>
+    <span class="n">cast</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">uqbar.objects</span> <span class="kn">import</span> <span class="n">new</span>
+
+<span class="kn">import</span> <span class="nn">supriya.nonrealtime</span>  <span class="c1"># noqa</span>
+<span class="kn">import</span> <span class="nn">supriya.realtime</span>  <span class="c1"># noqa</span>
+<span class="kn">from</span> <span class="nn">supriya</span> <span class="kn">import</span> <span class="n">commands</span><span class="p">,</span> <span class="n">nonrealtime</span><span class="p">,</span> <span class="n">realtime</span>
+<span class="kn">from</span> <span class="nn">supriya.assets.synthdefs.default</span> <span class="kn">import</span> <span class="n">default</span>
+<span class="kn">from</span> <span class="nn">supriya.enums</span> <span class="kn">import</span> <span class="n">AddAction</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="p">,</span> <span class="n">ParameterRate</span>
+<span class="kn">from</span> <span class="nn">supriya.nonrealtime</span> <span class="kn">import</span> <span class="n">Session</span>
+<span class="kn">from</span> <span class="nn">supriya.realtime</span> <span class="kn">import</span> <span class="n">AsyncServer</span><span class="p">,</span> <span class="n">BaseServer</span><span class="p">,</span> <span class="n">Server</span>
+<span class="kn">from</span> <span class="nn">supriya.synthdefs</span> <span class="kn">import</span> <span class="n">SynthDef</span>
+
+<span class="c1"># with provider.at(): proxy = provider.add_buffer(file_path=file_path)</span>
+<span class="c1"># with provider.at(): proxy.free()</span>
+
+
+<div class="viewcode-block" id="Proxy"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.Proxy">[docs]</a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Proxy</span><span class="p">:</span>
+    <span class="n">provider</span><span class="p">:</span> <span class="s2">&quot;Provider&quot;</span></div>
+
+
+<div class="viewcode-block" id="BufferProxy"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.BufferProxy">[docs]</a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">BufferProxy</span><span class="p">:</span>
+    <span class="n">provider</span><span class="p">:</span> <span class="s2">&quot;Provider&quot;</span>
+    <span class="n">identifier</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;supriya.nonrealtime.Buffer&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+    <span class="n">channel_count</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">frame_count</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">file_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">starting_frame</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="BufferProxy.__float__"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.BufferProxy.__float__">[docs]</a>    <span class="k">def</span> <span class="fm">__float__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="BufferProxy.__int__"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.BufferProxy.__int__">[docs]</a>    <span class="k">def</span> <span class="fm">__int__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">server</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">session</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">identifier</span><span class="o">.</span><span class="n">session_id</span></div>
+
+<div class="viewcode-block" id="BufferProxy.close"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.BufferProxy.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="BufferProxy.free"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.BufferProxy.free">[docs]</a>    <span class="k">def</span> <span class="nf">free</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">free_buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BufferProxy.normalize"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.BufferProxy.normalize">[docs]</a>    <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_maximum</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="BufferProxy.read"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.BufferProxy.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">leave_open</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="BufferProxy.write"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.BufferProxy.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">file_path</span><span class="p">,</span>
+        <span class="n">frame_count</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">header_format</span><span class="o">=</span><span class="s2">&quot;aiff&quot;</span><span class="p">,</span>
+        <span class="n">leave_open</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">sample_format</span><span class="o">=</span><span class="s2">&quot;int24&quot;</span><span class="p">,</span>
+        <span class="n">starting_frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="BufferProxy.as_allocate_request"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.BufferProxy.as_allocate_request">[docs]</a>    <span class="k">def</span> <span class="nf">as_allocate_request</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">buffer_id</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">frame_count</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_count</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">commands</span><span class="o">.</span><span class="n">BufferAllocateRequest</span><span class="p">(</span>
+                <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">channel_count</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">channel_count</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">file_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">,</span> <span class="n">starting_frame</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">starting_frame</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel_count</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">commands</span><span class="o">.</span><span class="n">BufferAllocateReadRequest</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">commands</span><span class="o">.</span><span class="n">BufferAllocateReadChannelRequest</span><span class="p">(</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">channel_indices</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">channel_count</span><span class="p">)),</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="BufferProxy.as_free_request"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.BufferProxy.as_free_request">[docs]</a>    <span class="k">def</span> <span class="nf">as_free_request</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">commands</span><span class="o">.</span><span class="n">BufferFreeRequest</span><span class="p">(</span><span class="n">buffer_id</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="OscCallbackProxy"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.OscCallbackProxy">[docs]</a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">OscCallbackProxy</span><span class="p">(</span><span class="n">Proxy</span><span class="p">):</span>
+    <span class="n">provider</span><span class="p">:</span> <span class="s2">&quot;Provider&quot;</span>
+    <span class="n">identifier</span><span class="p">:</span> <span class="n">Any</span>
+
+<div class="viewcode-block" id="OscCallbackProxy.unregister"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.OscCallbackProxy.unregister">[docs]</a>    <span class="k">def</span> <span class="nf">unregister</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">unregister_osc_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="BusProxy"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.BusProxy">[docs]</a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">BusProxy</span><span class="p">(</span><span class="n">Proxy</span><span class="p">):</span>
+    <span class="n">calculation_rate</span><span class="p">:</span> <span class="n">CalculationRate</span>
+    <span class="n">provider</span><span class="p">:</span> <span class="s2">&quot;Provider&quot;</span>
+    <span class="n">identifier</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;supriya.nonrealtime.Bus&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+
+<div class="viewcode-block" id="BusProxy.__float__"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.BusProxy.__float__">[docs]</a>    <span class="k">def</span> <span class="fm">__float__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="BusProxy.__int__"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.BusProxy.__int__">[docs]</a>    <span class="k">def</span> <span class="fm">__int__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">server</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">session</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">identifier</span><span class="o">.</span><span class="n">session_id</span></div>
+
+<div class="viewcode-block" id="BusProxy.set_"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.BusProxy.set_">[docs]</a>    <span class="k">def</span> <span class="nf">set_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">set_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BusProxy.free"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.BusProxy.free">[docs]</a>    <span class="k">def</span> <span class="nf">free</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">free_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">map_symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculation_rate</span> <span class="o">==</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;a</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;c</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span></div>
+
+
+<div class="viewcode-block" id="BusGroupProxy"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.BusGroupProxy">[docs]</a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">BusGroupProxy</span><span class="p">(</span><span class="n">Proxy</span><span class="p">):</span>
+    <span class="n">calculation_rate</span><span class="p">:</span> <span class="n">CalculationRate</span>
+    <span class="n">channel_count</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">identifier</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;supriya.nonrealtime.BusGroup&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+    <span class="n">provider</span><span class="p">:</span> <span class="s2">&quot;Provider&quot;</span>
+    <span class="n">buses</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="s2">&quot;BusProxy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<div class="viewcode-block" id="BusGroupProxy.__post_init__"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.BusGroupProxy.__post_init__">[docs]</a>    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">bus_identifiers</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel_count</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">bus_identifiers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">[:]</span>
+        <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="s2">&quot;buses&quot;</span><span class="p">,</span>
+            <span class="nb">tuple</span><span class="p">(</span>
+                <span class="n">BusProxy</span><span class="p">(</span>
+                    <span class="n">calculation_rate</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">calculation_rate</span><span class="p">,</span>
+                    <span class="n">provider</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="p">,</span>
+                    <span class="n">identifier</span><span class="o">=</span><span class="n">bus_identifier</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="k">for</span> <span class="n">bus_identifier</span> <span class="ow">in</span> <span class="n">bus_identifiers</span>
+            <span class="p">),</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="BusGroupProxy.__float__"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.BusGroupProxy.__float__">[docs]</a>    <span class="k">def</span> <span class="fm">__float__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="BusGroupProxy.__getitem__"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.BusGroupProxy.__getitem__">[docs]</a>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">buses</span><span class="p">[</span><span class="n">item</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="BusGroupProxy.__int__"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.BusGroupProxy.__int__">[docs]</a>    <span class="k">def</span> <span class="fm">__int__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">server</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">session</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">identifier</span><span class="o">.</span><span class="n">session_id</span></div>
+
+<div class="viewcode-block" id="BusGroupProxy.__len__"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.BusGroupProxy.__len__">[docs]</a>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel_count</span></div>
+
+<div class="viewcode-block" id="BusGroupProxy.free"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.BusGroupProxy.free">[docs]</a>    <span class="k">def</span> <span class="nf">free</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">free_bus_group</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="NodeProxy"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NodeProxy">[docs]</a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">NodeProxy</span><span class="p">(</span><span class="n">Proxy</span><span class="p">):</span>
+    <span class="n">identifier</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;supriya.nonrealtime.Node&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+    <span class="n">provider</span><span class="p">:</span> <span class="s2">&quot;Provider&quot;</span>
+
+<div class="viewcode-block" id="NodeProxy.__float__"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NodeProxy.__float__">[docs]</a>    <span class="k">def</span> <span class="fm">__float__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="NodeProxy.__int__"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NodeProxy.__int__">[docs]</a>    <span class="k">def</span> <span class="fm">__int__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">server</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">session</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">identifier</span><span class="o">.</span><span class="n">session_id</span></div>
+
+<div class="viewcode-block" id="NodeProxy.__setitem__"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NodeProxy.__setitem__">[docs]</a>    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">set_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="NodeProxy.add_group"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NodeProxy.add_group">[docs]</a>    <span class="k">def</span> <span class="nf">add_group</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">add_action</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_HEAD</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;GroupProxy&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">add_group</span><span class="p">(</span><span class="n">add_action</span><span class="o">=</span><span class="n">add_action</span><span class="p">,</span> <span class="n">target_node</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NodeProxy.add_synth"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NodeProxy.add_synth">[docs]</a>    <span class="k">def</span> <span class="nf">add_synth</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">synthdef</span><span class="p">:</span> <span class="n">SynthDef</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">add_action</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_HEAD</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">settings</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;SynthProxy&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span>
+            <span class="n">add_action</span><span class="o">=</span><span class="n">add_action</span><span class="p">,</span> <span class="n">synthdef</span><span class="o">=</span><span class="n">synthdef</span><span class="p">,</span> <span class="n">target_node</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">settings</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="NodeProxy.as_move_request"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NodeProxy.as_move_request">[docs]</a>    <span class="k">def</span> <span class="nf">as_move_request</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">add_action</span><span class="p">:</span> <span class="n">AddAction</span><span class="p">,</span> <span class="n">target_node</span><span class="p">:</span> <span class="s2">&quot;NodeProxy&quot;</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">commands</span><span class="o">.</span><span class="n">MoveRequest</span><span class="p">:</span>
+        <span class="n">request_classes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Type</span><span class="p">[</span><span class="n">commands</span><span class="o">.</span><span class="n">MoveRequest</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_HEAD</span><span class="p">:</span> <span class="n">commands</span><span class="o">.</span><span class="n">GroupHeadRequest</span><span class="p">,</span>
+            <span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_TAIL</span><span class="p">:</span> <span class="n">commands</span><span class="o">.</span><span class="n">GroupTailRequest</span><span class="p">,</span>
+            <span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_BEFORE</span><span class="p">:</span> <span class="n">commands</span><span class="o">.</span><span class="n">NodeBeforeRequest</span><span class="p">,</span>
+            <span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_AFTER</span><span class="p">:</span> <span class="n">commands</span><span class="o">.</span><span class="n">NodeAfterRequest</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">request_class</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">commands</span><span class="o">.</span><span class="n">MoveRequest</span><span class="p">]</span> <span class="o">=</span> <span class="n">request_classes</span><span class="p">[</span><span class="n">add_action</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">request_class</span><span class="p">(</span>
+            <span class="n">node_id_pairs</span><span class="o">=</span><span class="p">[</span><span class="n">request_class</span><span class="o">.</span><span class="n">NodeIdPair</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">target_node</span><span class="p">))]</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="NodeProxy.as_set_request"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NodeProxy.as_set_request">[docs]</a>    <span class="k">def</span> <span class="nf">as_set_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">settings</span><span class="p">):</span>
+        <span class="n">coerced_settings</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="n">BusProxy</span><span class="p">,</span> <span class="n">BusGroupProxy</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">calculation_rate</span> <span class="o">==</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">:</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;a</span><span class="si">{</span><span class="n">value</span><span class="o">.</span><span class="n">identifier</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;c</span><span class="si">{</span><span class="n">value</span><span class="o">.</span><span class="n">identifier</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">coerced_settings</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">return</span> <span class="n">commands</span><span class="o">.</span><span class="n">NodeSetRequest</span><span class="p">(</span><span class="n">node_id</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="o">**</span><span class="n">coerced_settings</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NodeProxy.dispose"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NodeProxy.dispose">[docs]</a>    <span class="k">def</span> <span class="nf">dispose</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">dispose</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NodeProxy.free"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NodeProxy.free">[docs]</a>    <span class="k">def</span> <span class="nf">free</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">free_node</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NodeProxy.move"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NodeProxy.move">[docs]</a>    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">add_action</span><span class="p">:</span> <span class="n">AddAction</span><span class="p">,</span> <span class="n">target_node</span><span class="p">:</span> <span class="s2">&quot;NodeProxy&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">move_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">add_action</span><span class="p">,</span> <span class="n">target_node</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="GroupProxy"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.GroupProxy">[docs]</a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">GroupProxy</span><span class="p">(</span><span class="n">NodeProxy</span><span class="p">):</span>
+    <span class="n">identifier</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;supriya.nonrealtime.Node&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+    <span class="n">provider</span><span class="p">:</span> <span class="s2">&quot;Provider&quot;</span>
+
+<div class="viewcode-block" id="GroupProxy.as_add_request"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.GroupProxy.as_add_request">[docs]</a>    <span class="k">def</span> <span class="nf">as_add_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">add_action</span><span class="p">,</span> <span class="n">target_node</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">commands</span><span class="o">.</span><span class="n">GroupNewRequest</span><span class="p">(</span>
+            <span class="n">items</span><span class="o">=</span><span class="p">[</span>
+                <span class="n">commands</span><span class="o">.</span><span class="n">GroupNewRequest</span><span class="o">.</span><span class="n">Item</span><span class="p">(</span>
+                    <span class="n">node_id</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">),</span>
+                    <span class="n">add_action</span><span class="o">=</span><span class="n">add_action</span><span class="p">,</span>
+                    <span class="n">target_node_id</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">target_node</span><span class="p">),</span>
+                <span class="p">)</span>
+            <span class="p">]</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="GroupProxy.as_free_request"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.GroupProxy.as_free_request">[docs]</a>    <span class="k">def</span> <span class="nf">as_free_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">commands</span><span class="o">.</span><span class="n">NodeFreeRequest</span><span class="p">(</span><span class="n">node_ids</span><span class="o">=</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="p">)])</span></div></div>
+
+
+<div class="viewcode-block" id="SynthProxy"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.SynthProxy">[docs]</a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">SynthProxy</span><span class="p">(</span><span class="n">NodeProxy</span><span class="p">):</span>
+    <span class="n">identifier</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;supriya.nonrealtime.Node&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+    <span class="n">provider</span><span class="p">:</span> <span class="s2">&quot;Provider&quot;</span>
+    <span class="n">synthdef</span><span class="p">:</span> <span class="n">SynthDef</span>
+    <span class="n">settings</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">BusGroupProxy</span><span class="p">]]</span>
+
+<div class="viewcode-block" id="SynthProxy.as_add_request"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.SynthProxy.as_add_request">[docs]</a>    <span class="k">def</span> <span class="nf">as_add_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">add_action</span><span class="p">,</span> <span class="n">target_node</span><span class="p">):</span>
+        <span class="c1"># TODO: Handle map symbols</span>
+        <span class="c1">#       If arg is a bus proxy, and synth param is scalar, cast to int</span>
+        <span class="c1">#       Elif arg is a bus proxy, and synth param not scalar, map</span>
+        <span class="c1">#       Else cast to float</span>
+        <span class="n">synthdef</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">synthdef</span> <span class="ow">or</span> <span class="n">default</span>
+
+        <span class="n">synthdef_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="n">synthdef</span><span class="o">.</span><span class="n">indexed_parameters</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">parameter</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">[</span><span class="n">parameter</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="n">parameter</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">parameter</span><span class="o">.</span><span class="n">parameter_rate</span> <span class="o">!=</span> <span class="n">ParameterRate</span><span class="o">.</span><span class="n">SCALAR</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span>
+                <span class="n">value</span><span class="p">,</span> <span class="n">BusProxy</span>
+            <span class="p">):</span>
+                <span class="n">synthdef_kwargs</span><span class="p">[</span><span class="n">parameter</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">map_symbol</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">synthdef_kwargs</span><span class="p">[</span><span class="n">parameter</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">commands</span><span class="o">.</span><span class="n">SynthNewRequest</span><span class="p">(</span>
+            <span class="n">node_id</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">),</span>
+            <span class="n">add_action</span><span class="o">=</span><span class="n">add_action</span><span class="p">,</span>
+            <span class="n">target_node_id</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">target_node</span><span class="p">),</span>
+            <span class="n">synthdef</span><span class="o">=</span><span class="n">synthdef</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">synthdef_kwargs</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="SynthProxy.as_free_request"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.SynthProxy.as_free_request">[docs]</a>    <span class="k">def</span> <span class="nf">as_free_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">force</span> <span class="ow">or</span> <span class="s2">&quot;gate&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">synthdef</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">commands</span><span class="o">.</span><span class="n">NodeFreeRequest</span><span class="p">(</span><span class="n">node_ids</span><span class="o">=</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="p">)])</span>
+        <span class="k">return</span> <span class="n">commands</span><span class="o">.</span><span class="n">NodeSetRequest</span><span class="p">(</span><span class="n">node_id</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="n">gate</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="ProviderMoment"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.ProviderMoment">[docs]</a><span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ProviderMoment</span><span class="p">:</span>
+    <span class="n">provider</span><span class="p">:</span> <span class="s2">&quot;Provider&quot;</span>
+    <span class="n">seconds</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">bus_settings</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">BusProxy</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">buffer_additions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">BufferProxy</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">buffer_removals</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">BufferProxy</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">node_reorderings</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">NodeProxy</span><span class="p">,</span> <span class="n">AddAction</span><span class="p">,</span> <span class="n">NodeProxy</span><span class="p">]]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span>
+    <span class="p">)</span>
+    <span class="n">node_additions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">NodeProxy</span><span class="p">,</span> <span class="n">AddAction</span><span class="p">,</span> <span class="n">NodeProxy</span><span class="p">]]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span>
+    <span class="p">)</span>
+    <span class="n">node_removals</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">NodeProxy</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">node_settings</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span>
+        <span class="n">Tuple</span><span class="p">[</span><span class="n">NodeProxy</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">BusGroupProxy</span><span class="p">]]]</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">wait</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">exit_stack</span><span class="p">:</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">ExitStack</span> <span class="o">=</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">field</span><span class="p">(</span>
+        <span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default_factory</span><span class="o">=</span><span class="n">contextlib</span><span class="o">.</span><span class="n">ExitStack</span><span class="p">,</span> <span class="n">compare</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span>
+
+<div class="viewcode-block" id="ProviderMoment.__postinit__"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.ProviderMoment.__postinit__">[docs]</a>    <span class="k">def</span> <span class="nf">__postinit__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exit_stack</span> <span class="o">=</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">ExitStack</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ProviderMoment.__aenter__"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.ProviderMoment.__aenter__">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="fm">__aenter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">server</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">server</span><span class="p">,</span> <span class="n">AsyncServer</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">server</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_enter</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ProviderMoment.__aexit__"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.ProviderMoment.__aexit__">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="fm">__aexit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exit</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">results</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">timestamp</span><span class="p">,</span> <span class="n">request_bundle</span><span class="p">,</span> <span class="n">synthdefs</span> <span class="o">=</span> <span class="n">results</span>
+        <span class="n">server</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">server</span>
+        <span class="c1"># The underlying asyncio UDP transport will silently drop oversize packets</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">request_bundle</span><span class="o">.</span><span class="n">to_datagram</span><span class="p">())</span> <span class="o">&lt;=</span> <span class="mi">8192</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">wait</span><span class="p">:</span>
+                <span class="c1"># If waiting, the original ProviderMoment timestamp can be ignored</span>
+                <span class="k">await</span> <span class="n">request_bundle</span><span class="o">.</span><span class="n">communicate_async</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,</span> <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">server</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">request_bundle</span><span class="o">.</span><span class="n">to_osc</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># If over the UDP packet limit, partition the message</span>
+            <span class="n">requests</span> <span class="o">=</span> <span class="n">request_bundle</span><span class="o">.</span><span class="n">contents</span>
+            <span class="c1"># Always wait for SynthDefs to load.</span>
+            <span class="k">if</span> <span class="n">synthdefs</span><span class="p">:</span>
+                <span class="n">synthdef_request</span> <span class="o">=</span> <span class="n">requests</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">requests</span> <span class="o">=</span> <span class="n">synthdef_request</span><span class="o">.</span><span class="n">callback</span><span class="o">.</span><span class="n">contents</span> <span class="ow">or</span> <span class="p">[]</span>
+                <span class="n">synthdef_request</span> <span class="o">=</span> <span class="n">new</span><span class="p">(</span><span class="n">synthdef_request</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+                <span class="k">await</span> <span class="n">synthdef_request</span><span class="o">.</span><span class="n">communicate_async</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">wait</span><span class="p">:</span>
+                <span class="c1"># If waiting, the original ProviderMoment timestamp can be ignored</span>
+                <span class="k">for</span> <span class="n">bundle</span> <span class="ow">in</span> <span class="n">commands</span><span class="o">.</span><span class="n">RequestBundle</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="n">requests</span><span class="p">):</span>
+                    <span class="k">await</span> <span class="n">bundle</span><span class="o">.</span><span class="n">communicate_async</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="n">server</span><span class="p">,</span> <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">bundle</span> <span class="ow">in</span> <span class="n">commands</span><span class="o">.</span><span class="n">RequestBundle</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span>
+                    <span class="n">requests</span><span class="p">,</span> <span class="n">timestamp</span><span class="o">=</span><span class="n">timestamp</span>
+                <span class="p">):</span>
+                    <span class="n">server</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">to_osc</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="ProviderMoment.__enter__"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.ProviderMoment.__enter__">[docs]</a>    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">session</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">exit_stack</span><span class="o">.</span><span class="n">enter_context</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seconds</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">server</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">server</span><span class="p">,</span> <span class="n">Server</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">server</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_enter</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ProviderMoment.__exit__"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.ProviderMoment.__exit__">[docs]</a>    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exit</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">results</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">timestamp</span><span class="p">,</span> <span class="n">request_bundle</span><span class="p">,</span> <span class="n">synthdefs</span> <span class="o">=</span> <span class="n">results</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">request_bundle</span><span class="o">.</span><span class="n">to_osc</span><span class="p">())</span>
+        <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+            <span class="n">requests</span> <span class="o">=</span> <span class="n">request_bundle</span><span class="o">.</span><span class="n">contents</span>
+            <span class="k">if</span> <span class="n">synthdefs</span><span class="p">:</span>
+                <span class="n">synthdef_request</span> <span class="o">=</span> <span class="n">requests</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">requests</span> <span class="o">=</span> <span class="n">synthdef_request</span><span class="o">.</span><span class="n">callback</span><span class="o">.</span><span class="n">contents</span> <span class="ow">or</span> <span class="p">[]</span>
+                <span class="n">synthdef_request</span> <span class="o">=</span> <span class="n">new</span><span class="p">(</span><span class="n">synthdef_request</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+                <span class="n">synthdef_request</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">server</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">bundle</span> <span class="ow">in</span> <span class="n">commands</span><span class="o">.</span><span class="n">RequestBundle</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span>
+                <span class="n">requests</span><span class="p">,</span> <span class="n">timestamp</span><span class="o">=</span><span class="n">timestamp</span>
+            <span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">bundle</span><span class="o">.</span><span class="n">to_osc</span><span class="p">())</span></div>
+
+    <span class="k">def</span> <span class="nf">_enter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">_moments</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">_counter</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">seconds</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">_exit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exit_stack</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">_moments</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">_counter</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">seconds</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">server</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">_counter</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">seconds</span><span class="p">]:</span>
+            <span class="k">return</span>
+        <span class="n">requests</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">synthdefs</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">new_nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">buffer_proxy</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer_additions</span><span class="p">:</span>
+            <span class="n">requests</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">buffer_proxy</span><span class="o">.</span><span class="n">as_allocate_request</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">node_proxy</span><span class="p">,</span> <span class="n">add_action</span><span class="p">,</span> <span class="n">target_node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_additions</span><span class="p">:</span>
+            <span class="n">request</span> <span class="o">=</span> <span class="n">node_proxy</span><span class="o">.</span><span class="n">as_add_request</span><span class="p">(</span><span class="n">add_action</span><span class="p">,</span> <span class="n">target_node</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">commands</span><span class="o">.</span><span class="n">SynthNewRequest</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">synthdef</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">server</span><span class="p">:</span>
+                    <span class="n">synthdefs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">synthdef</span><span class="p">)</span>
+            <span class="n">requests</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+            <span class="n">new_nodes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node_proxy</span><span class="o">.</span><span class="n">identifier</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">node_proxy</span><span class="p">,</span> <span class="n">add_action</span><span class="p">,</span> <span class="n">target_node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_reorderings</span><span class="p">:</span>
+            <span class="n">requests</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_proxy</span><span class="o">.</span><span class="n">as_move_request</span><span class="p">(</span><span class="n">add_action</span><span class="p">,</span> <span class="n">target_node</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">node_proxy</span><span class="p">,</span> <span class="n">settings</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_settings</span><span class="p">:</span>
+            <span class="n">requests</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_proxy</span><span class="o">.</span><span class="n">as_set_request</span><span class="p">(</span><span class="o">**</span><span class="n">settings</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">node_proxy</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_removals</span><span class="p">:</span>
+            <span class="n">requests</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">node_proxy</span><span class="o">.</span><span class="n">as_free_request</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="n">node_proxy</span><span class="o">.</span><span class="n">identifier</span> <span class="ow">in</span> <span class="n">new_nodes</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">for</span> <span class="n">buffer_proxy</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer_removals</span><span class="p">:</span>
+            <span class="n">requests</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">buffer_proxy</span><span class="o">.</span><span class="n">as_free_request</span><span class="p">())</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bus_settings</span><span class="p">:</span>
+            <span class="n">sorted_pairs</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+                <span class="nb">dict</span><span class="p">(</span>
+                    <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">bus_proxy</span><span class="o">.</span><span class="n">identifier</span><span class="p">),</span> <span class="n">value</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">bus_proxy</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">bus_settings</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">)</span>
+            <span class="n">request</span> <span class="o">=</span> <span class="n">commands</span><span class="o">.</span><span class="n">ControlBusSetRequest</span><span class="p">(</span><span class="n">index_value_pairs</span><span class="o">=</span><span class="n">sorted_pairs</span><span class="p">)</span>
+            <span class="n">requests</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">requests</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">timestamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">seconds</span>
+        <span class="k">if</span> <span class="n">timestamp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">timestamp</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">_latency</span>
+        <span class="k">if</span> <span class="n">synthdefs</span><span class="p">:</span>
+            <span class="n">request_bundle</span> <span class="o">=</span> <span class="n">commands</span><span class="o">.</span><span class="n">RequestBundle</span><span class="p">(</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="n">timestamp</span><span class="p">,</span>
+                <span class="n">contents</span><span class="o">=</span><span class="p">[</span>
+                    <span class="n">commands</span><span class="o">.</span><span class="n">SynthDefReceiveRequest</span><span class="p">(</span>
+                        <span class="n">synthdefs</span><span class="o">=</span><span class="nb">sorted</span><span class="p">(</span><span class="n">synthdefs</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">actual_name</span><span class="p">),</span>
+                        <span class="n">callback</span><span class="o">=</span><span class="n">commands</span><span class="o">.</span><span class="n">RequestBundle</span><span class="p">(</span><span class="n">contents</span><span class="o">=</span><span class="n">requests</span><span class="p">),</span>
+                    <span class="p">)</span>
+                <span class="p">],</span>
+            <span class="p">)</span>
+            <span class="c1"># check bundle size, write synthdefs to disk and do /d_load</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">request_bundle</span><span class="o">.</span><span class="n">to_datagram</span><span class="p">(</span><span class="n">with_placeholders</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">8192</span><span class="p">:</span>
+                <span class="n">directory_path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">())</span>
+                <span class="c1"># directory_path = pathlib.Path(&quot;~/Desktop&quot;).expanduser()</span>
+                <span class="k">for</span> <span class="n">synthdef</span> <span class="ow">in</span> <span class="n">synthdefs</span><span class="p">:</span>
+                    <span class="n">name</span> <span class="o">=</span> <span class="n">synthdef</span><span class="o">.</span><span class="n">anonymous_name</span>
+                    <span class="k">if</span> <span class="n">synthdef</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+                        <span class="n">name</span> <span class="o">+=</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[^\w]&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">synthdef</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                    <span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.scsyndef&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                    <span class="n">synthdef_path</span> <span class="o">=</span> <span class="n">directory_path</span> <span class="o">/</span> <span class="n">file_name</span>
+                    <span class="n">synthdef_path</span><span class="o">.</span><span class="n">write_bytes</span><span class="p">(</span><span class="n">synthdef</span><span class="o">.</span><span class="n">compile</span><span class="p">())</span>
+                <span class="n">request_bundle</span> <span class="o">=</span> <span class="n">commands</span><span class="o">.</span><span class="n">RequestBundle</span><span class="p">(</span>
+                    <span class="n">timestamp</span><span class="o">=</span><span class="n">timestamp</span><span class="p">,</span>
+                    <span class="n">contents</span><span class="o">=</span><span class="p">[</span>
+                        <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">SynthDefLoadDirectoryRequest</span><span class="p">(</span>
+                            <span class="n">directory_path</span><span class="o">=</span><span class="n">directory_path</span><span class="p">,</span>
+                            <span class="n">callback</span><span class="o">=</span><span class="n">commands</span><span class="o">.</span><span class="n">RequestBundle</span><span class="p">(</span><span class="n">contents</span><span class="o">=</span><span class="n">requests</span><span class="p">),</span>
+                        <span class="p">)</span>
+                    <span class="p">],</span>
+                <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">request_bundle</span> <span class="o">=</span> <span class="n">commands</span><span class="o">.</span><span class="n">RequestBundle</span><span class="p">(</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">contents</span><span class="o">=</span><span class="n">requests</span>
+            <span class="p">)</span>
+        <span class="k">for</span> <span class="n">synthdef</span> <span class="ow">in</span> <span class="n">synthdefs</span><span class="p">:</span>
+            <span class="n">synthdef</span><span class="o">.</span><span class="n">_register_with_local_server</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">server</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">timestamp</span><span class="p">,</span> <span class="n">request_bundle</span><span class="p">,</span> <span class="n">synthdefs</span></div>
+
+
+<div class="viewcode-block" id="Provider"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.Provider">[docs]</a><span class="k">class</span> <span class="nc">Provider</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">abc</span><span class="o">.</span><span class="n">ABCMeta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides limited realtime/non-realtime compatibility layer.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">latency</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_moments</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ProviderMoment</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">Counter</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_session</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_latency</span> <span class="o">=</span> <span class="n">latency</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_annotation_map</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="s2">&quot;supriya.nonrealtime.Node&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="Provider.add_buffer"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.Provider.add_buffer">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">add_buffer</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">channel_count</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">file_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">frame_count</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">starting_frame</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BufferProxy</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Provider.add_bus"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.Provider.add_bus">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">add_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BusProxy</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Provider.add_bus_group"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.Provider.add_bus_group">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">add_bus_group</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">channel_count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BusGroupProxy</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Provider.add_group"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.Provider.add_group">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">add_group</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">target_node</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">add_action</span><span class="o">=</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_HEAD</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GroupProxy</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Provider.add_synth"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.Provider.add_synth">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">add_synth</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">synthdef</span><span class="p">:</span> <span class="n">SynthDef</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">target_node</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">add_action</span><span class="o">=</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_HEAD</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">settings</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SynthProxy</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Provider.boot"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.Provider.boot">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">boot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Provider.dispose"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.Provider.dispose">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">dispose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_proxy</span><span class="p">:</span> <span class="n">NodeProxy</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Provider.free_buffer"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.Provider.free_buffer">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">free_buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">buffer_proxy</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Provider.free_bus"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.Provider.free_bus">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">free_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bus_proxy</span><span class="p">:</span> <span class="n">BusProxy</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Provider.free_bus_group"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.Provider.free_bus_group">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">free_bus_group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bus_group_proxy</span><span class="p">:</span> <span class="n">BusGroupProxy</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Provider.free_node"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.Provider.free_node">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">free_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_proxy</span><span class="p">:</span> <span class="n">NodeProxy</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Provider.move_node"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.Provider.move_node">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">move_node</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">node_proxy</span><span class="p">:</span> <span class="n">NodeProxy</span><span class="p">,</span> <span class="n">add_action</span><span class="p">:</span> <span class="n">AddAction</span><span class="p">,</span> <span class="n">target_node</span><span class="p">:</span> <span class="n">NodeProxy</span>
+    <span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Provider.set_bus"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.Provider.set_bus">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">set_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bus_proxy</span><span class="p">:</span> <span class="n">BusProxy</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Provider.set_node"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.Provider.set_node">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">set_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_proxy</span><span class="p">:</span> <span class="n">NodeProxy</span><span class="p">,</span> <span class="o">**</span><span class="n">settings</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Provider.at"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.Provider.at">[docs]</a>    <span class="k">def</span> <span class="nf">at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seconds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">wait</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moments</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moments</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">seconds</span> <span class="o">==</span> <span class="n">seconds</span><span class="p">:</span>
+            <span class="n">provider_moment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moments</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">provider_moment</span> <span class="o">=</span> <span class="n">ProviderMoment</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">seconds</span><span class="o">=</span><span class="n">seconds</span><span class="p">,</span> <span class="n">wait</span><span class="o">=</span><span class="n">wait</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">provider_moment</span></div>
+
+<div class="viewcode-block" id="Provider.from_context"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.Provider.from_context">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_context</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">latency</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Provider&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">Session</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">NonrealtimeProvider</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">latency</span><span class="o">=</span><span class="n">latency</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">BaseServer</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">RealtimeProvider</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">latency</span><span class="o">=</span><span class="n">latency</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unknown context&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Provider.nonrealtime"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.Provider.nonrealtime">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">nonrealtime</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;NonrealtimeProvider&quot;</span><span class="p">:</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="s2">&quot;NonrealtimeProvider&quot;</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_context</span><span class="p">(</span><span class="n">session</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Provider.quit"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.Provider.quit">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">quit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Provider.realtime"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.Provider.realtime">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">realtime</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">scsynth_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;RealtimeProvider&quot;</span><span class="p">:</span>
+        <span class="n">server</span> <span class="o">=</span> <span class="n">Server</span><span class="p">()</span>
+        <span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="n">scsynth_path</span><span class="o">=</span><span class="n">scsynth_path</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="s2">&quot;RealtimeProvider&quot;</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_context</span><span class="p">(</span><span class="n">server</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Provider.realtime_async"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.Provider.realtime_async">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">realtime_async</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">scsynth_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;RealtimeProvider&quot;</span><span class="p">:</span>
+        <span class="n">server</span> <span class="o">=</span> <span class="n">AsyncServer</span><span class="p">()</span>
+        <span class="k">await</span> <span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span>
+            <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="n">scsynth_path</span><span class="o">=</span><span class="n">scsynth_path</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="s2">&quot;RealtimeProvider&quot;</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_context</span><span class="p">(</span><span class="n">server</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Provider.register_osc_callback"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.Provider.register_osc_callback">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">register_osc_callback</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span> <span class="n">procedure</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OscCallbackProxy</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Provider.unregister_osc_callback"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.Provider.unregister_osc_callback">[docs]</a>    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">unregister_osc_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">proxy</span><span class="p">:</span> <span class="n">OscCallbackProxy</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">annotation_map</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="s2">&quot;supriya.nonrealtime.Node&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="nb">str</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">MappingProxyType</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_annotation_map</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">latency</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_latency</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">moment</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ProviderMoment</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moments</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moments</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">server</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Server</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">session</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Session</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span></div>
+
+
+<div class="viewcode-block" id="NonrealtimeProvider"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NonrealtimeProvider">[docs]</a><span class="k">class</span> <span class="nc">NonrealtimeProvider</span><span class="p">(</span><span class="n">Provider</span><span class="p">):</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">latency</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">Session</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expected session, got </span><span class="si">{</span><span class="n">session</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">Provider</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">latency</span><span class="o">=</span><span class="n">latency</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_session</span> <span class="o">=</span> <span class="n">session</span>
+
+    <span class="c1">### SPECIAL METHODS ###</span>
+
+<div class="viewcode-block" id="NonrealtimeProvider.__str__"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NonrealtimeProvider.__str__">[docs]</a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="si">!r}</span><span class="s2">&gt;&quot;</span></div>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="k">def</span> <span class="nf">_resolve_target_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_node</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nonrealtime</span><span class="o">.</span><span class="n">Node</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">target_node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">target_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">root_node</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">target_node</span><span class="p">,</span> <span class="n">NodeProxy</span><span class="p">):</span>
+            <span class="n">target_node</span> <span class="o">=</span> <span class="n">target_node</span><span class="o">.</span><span class="n">identifier</span>
+        <span class="k">return</span> <span class="n">target_node</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="NonrealtimeProvider.add_buffer"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NonrealtimeProvider.add_buffer">[docs]</a>    <span class="k">def</span> <span class="nf">add_buffer</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">channel_count</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">file_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">frame_count</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">starting_frame</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BufferProxy</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No current moment&quot;</span><span class="p">)</span>
+        <span class="n">identifier</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">add_buffer</span><span class="p">(</span>
+            <span class="n">channel_count</span><span class="o">=</span><span class="n">channel_count</span><span class="p">,</span>
+            <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
+            <span class="n">frame_count</span><span class="o">=</span><span class="n">frame_count</span><span class="p">,</span>
+            <span class="n">starting_frame</span><span class="o">=</span><span class="n">starting_frame</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">BufferProxy</span><span class="p">(</span>
+            <span class="n">channel_count</span><span class="o">=</span><span class="n">channel_count</span><span class="p">,</span>
+            <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
+            <span class="n">frame_count</span><span class="o">=</span><span class="n">frame_count</span><span class="p">,</span>
+            <span class="n">identifier</span><span class="o">=</span><span class="n">identifier</span><span class="p">,</span>
+            <span class="n">provider</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">starting_frame</span><span class="o">=</span><span class="n">starting_frame</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="NonrealtimeProvider.add_bus"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NonrealtimeProvider.add_bus">[docs]</a>    <span class="k">def</span> <span class="nf">add_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BusProxy</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No current moment&quot;</span><span class="p">)</span>
+        <span class="n">calculation_rate</span> <span class="o">=</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">calculation_rate</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">calculation_rate</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid calculation rate: </span><span class="si">{</span><span class="n">calculation_rate</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">identifier</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">add_bus</span><span class="p">(</span><span class="n">calculation_rate</span><span class="o">=</span><span class="n">calculation_rate</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">BusProxy</span><span class="p">(</span>
+            <span class="n">calculation_rate</span><span class="o">=</span><span class="n">calculation_rate</span><span class="p">,</span> <span class="n">identifier</span><span class="o">=</span><span class="n">identifier</span><span class="p">,</span> <span class="n">provider</span><span class="o">=</span><span class="bp">self</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="NonrealtimeProvider.add_bus_group"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NonrealtimeProvider.add_bus_group">[docs]</a>    <span class="k">def</span> <span class="nf">add_bus_group</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">channel_count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BusGroupProxy</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No current moment&quot;</span><span class="p">)</span>
+        <span class="n">calculation_rate</span> <span class="o">=</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">calculation_rate</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">calculation_rate</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid calculation rate: </span><span class="si">{</span><span class="n">calculation_rate</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">channel_count</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Channel-count must be positive, non-zero integer&quot;</span><span class="p">)</span>
+        <span class="n">identifier</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">add_bus_group</span><span class="p">(</span>
+            <span class="n">bus_count</span><span class="o">=</span><span class="n">channel_count</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="n">calculation_rate</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">BusGroupProxy</span><span class="p">(</span>
+            <span class="n">calculation_rate</span><span class="o">=</span><span class="n">calculation_rate</span><span class="p">,</span>
+            <span class="n">channel_count</span><span class="o">=</span><span class="n">channel_count</span><span class="p">,</span>
+            <span class="n">identifier</span><span class="o">=</span><span class="n">identifier</span><span class="p">,</span>
+            <span class="n">provider</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="NonrealtimeProvider.add_group"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NonrealtimeProvider.add_group">[docs]</a>    <span class="k">def</span> <span class="nf">add_group</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">target_node</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">add_action</span><span class="o">=</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_HEAD</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GroupProxy</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No current moment&quot;</span><span class="p">)</span>
+        <span class="n">identifier</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_target_node</span><span class="p">(</span><span class="n">target_node</span><span class="p">)</span><span class="o">.</span><span class="n">add_group</span><span class="p">(</span>
+            <span class="n">add_action</span><span class="o">=</span><span class="n">add_action</span>
+        <span class="p">)</span>
+        <span class="n">proxy</span> <span class="o">=</span> <span class="n">GroupProxy</span><span class="p">(</span><span class="n">identifier</span><span class="o">=</span><span class="n">identifier</span><span class="p">,</span> <span class="n">provider</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">proxy</span></div>
+
+<div class="viewcode-block" id="NonrealtimeProvider.add_synth"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NonrealtimeProvider.add_synth">[docs]</a>    <span class="k">def</span> <span class="nf">add_synth</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">synthdef</span><span class="p">:</span> <span class="n">SynthDef</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">target_node</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">add_action</span><span class="o">=</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_HEAD</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">settings</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SynthProxy</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No current moment&quot;</span><span class="p">)</span>
+        <span class="n">sanitized_settings</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="n">BusProxy</span><span class="p">,</span> <span class="n">BusGroupProxy</span><span class="p">)):</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">identifier</span>
+            <span class="n">sanitized_settings</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="n">identifier</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_target_node</span><span class="p">(</span><span class="n">target_node</span><span class="p">)</span><span class="o">.</span><span class="n">add_synth</span><span class="p">(</span>
+            <span class="n">add_action</span><span class="o">=</span><span class="n">add_action</span><span class="p">,</span> <span class="n">synthdef</span><span class="o">=</span><span class="n">synthdef</span><span class="p">,</span> <span class="o">**</span><span class="n">sanitized_settings</span>
+        <span class="p">)</span>
+        <span class="n">proxy</span> <span class="o">=</span> <span class="n">SynthProxy</span><span class="p">(</span>
+            <span class="n">identifier</span><span class="o">=</span><span class="n">identifier</span><span class="p">,</span>
+            <span class="n">provider</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">synthdef</span><span class="o">=</span><span class="n">synthdef</span> <span class="ow">or</span> <span class="n">default</span><span class="p">,</span>
+            <span class="n">settings</span><span class="o">=</span><span class="n">settings</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">proxy</span></div>
+
+<div class="viewcode-block" id="NonrealtimeProvider.free_buffer"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NonrealtimeProvider.free_buffer">[docs]</a>    <span class="k">def</span> <span class="nf">free_buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">buffer_</span><span class="p">:</span> <span class="n">BufferProxy</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No current moment&quot;</span><span class="p">)</span>
+        <span class="k">return</span>  <span class="c1"># This is currently a no-op</span></div>
+
+<div class="viewcode-block" id="NonrealtimeProvider.boot"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NonrealtimeProvider.boot">[docs]</a>    <span class="k">def</span> <span class="nf">boot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">pass</span>  <span class="c1"># no-op</span></div>
+
+<div class="viewcode-block" id="NonrealtimeProvider.dispose"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NonrealtimeProvider.dispose">[docs]</a>    <span class="k">def</span> <span class="nf">dispose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_proxy</span><span class="p">:</span> <span class="n">NodeProxy</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No current moment&quot;</span><span class="p">)</span>
+        <span class="k">return</span>  <span class="c1"># This is currently a no-op</span></div>
+
+<div class="viewcode-block" id="NonrealtimeProvider.free_bus"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NonrealtimeProvider.free_bus">[docs]</a>    <span class="k">def</span> <span class="nf">free_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bus</span><span class="p">:</span> <span class="n">BusProxy</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No current moment&quot;</span><span class="p">)</span>
+        <span class="k">return</span>  <span class="c1"># This is currently a no-op</span></div>
+
+<div class="viewcode-block" id="NonrealtimeProvider.free_bus_group"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NonrealtimeProvider.free_bus_group">[docs]</a>    <span class="k">def</span> <span class="nf">free_bus_group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bus_group</span><span class="p">:</span> <span class="n">BusGroupProxy</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No current moment&quot;</span><span class="p">)</span>
+        <span class="k">return</span>  <span class="c1"># This is currently a no-op</span></div>
+
+<div class="viewcode-block" id="NonrealtimeProvider.free_node"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NonrealtimeProvider.free_node">[docs]</a>    <span class="k">def</span> <span class="nf">free_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_proxy</span><span class="p">:</span> <span class="n">NodeProxy</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No current moment&quot;</span><span class="p">)</span>
+        <span class="n">cast</span><span class="p">(</span><span class="n">nonrealtime</span><span class="o">.</span><span class="n">Node</span><span class="p">,</span> <span class="n">node_proxy</span><span class="o">.</span><span class="n">identifier</span><span class="p">)</span><span class="o">.</span><span class="n">free</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="NonrealtimeProvider.move_node"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NonrealtimeProvider.move_node">[docs]</a>    <span class="k">def</span> <span class="nf">move_node</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">node_proxy</span><span class="p">:</span> <span class="n">NodeProxy</span><span class="p">,</span>
+        <span class="n">add_action</span><span class="p">:</span> <span class="n">AddAction</span><span class="p">,</span>
+        <span class="n">target_node</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">NodeProxy</span><span class="p">,</span> <span class="n">nonrealtime</span><span class="o">.</span><span class="n">Node</span><span class="p">],</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No current moment&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_target_node</span><span class="p">(</span><span class="n">target_node</span><span class="p">)</span><span class="o">.</span><span class="n">move_node</span><span class="p">(</span>
+            <span class="n">node_proxy</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="n">add_action</span><span class="o">=</span><span class="n">add_action</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="NonrealtimeProvider.set_bus"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NonrealtimeProvider.set_bus">[docs]</a>    <span class="k">def</span> <span class="nf">set_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bus_proxy</span><span class="p">:</span> <span class="n">BusProxy</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No current moment&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">bus_proxy</span><span class="o">.</span><span class="n">calculation_rate</span> <span class="o">!=</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Can only set control-rate buses&quot;</span><span class="p">)</span>
+        <span class="n">cast</span><span class="p">(</span><span class="n">nonrealtime</span><span class="o">.</span><span class="n">Bus</span><span class="p">,</span> <span class="n">bus_proxy</span><span class="o">.</span><span class="n">identifier</span><span class="p">)</span><span class="o">.</span><span class="n">set_</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NonrealtimeProvider.set_node"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NonrealtimeProvider.set_node">[docs]</a>    <span class="k">def</span> <span class="nf">set_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_proxy</span><span class="p">:</span> <span class="n">NodeProxy</span><span class="p">,</span> <span class="o">**</span><span class="n">settings</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No current moment&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="n">BusProxy</span><span class="p">,</span> <span class="n">BusGroupProxy</span><span class="p">)):</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">identifier</span>
+            <span class="n">cast</span><span class="p">(</span><span class="n">nonrealtime</span><span class="o">.</span><span class="n">Node</span><span class="p">,</span> <span class="n">node_proxy</span><span class="o">.</span><span class="n">identifier</span><span class="p">)[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="NonrealtimeProvider.quit"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NonrealtimeProvider.quit">[docs]</a>    <span class="k">def</span> <span class="nf">quit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>  <span class="c1"># no-op</span></div>
+
+<div class="viewcode-block" id="NonrealtimeProvider.register_osc_callback"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NonrealtimeProvider.register_osc_callback">[docs]</a>    <span class="k">def</span> <span class="nf">register_osc_callback</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span> <span class="n">procedure</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OscCallbackProxy</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">OscCallbackProxy</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NonrealtimeProvider.unregister_osc_callback"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.NonrealtimeProvider.unregister_osc_callback">[docs]</a>    <span class="k">def</span> <span class="nf">unregister_osc_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">proxy</span><span class="p">:</span> <span class="n">OscCallbackProxy</span><span class="p">):</span>
+        <span class="k">pass</span>  <span class="c1"># no-op</span></div></div>
+
+
+<div class="viewcode-block" id="RealtimeProvider"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.RealtimeProvider">[docs]</a><span class="k">class</span> <span class="nc">RealtimeProvider</span><span class="p">(</span><span class="n">Provider</span><span class="p">):</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">latency</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">BaseServer</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expected Server, got </span><span class="si">{</span><span class="n">server</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">Provider</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">latency</span><span class="o">=</span><span class="n">latency</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="n">server</span>
+
+    <span class="c1">### SPECIAL METHODS ###</span>
+
+<div class="viewcode-block" id="RealtimeProvider.__str__"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.RealtimeProvider.__str__">[docs]</a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_server</span><span class="si">!r}</span><span class="s2">&gt;&quot;</span></div>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="k">def</span> <span class="nf">_resolve_target_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_node</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">target_node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># TODO: Will this work with AsyncServer?</span>
+            <span class="n">target_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">default_group</span>
+        <span class="k">return</span> <span class="n">target_node</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="RealtimeProvider.add_buffer"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.RealtimeProvider.add_buffer">[docs]</a>    <span class="k">def</span> <span class="nf">add_buffer</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">channel_count</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">file_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">frame_count</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">starting_frame</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BufferProxy</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No current moment&quot;</span><span class="p">)</span>
+        <span class="n">identifier</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">buffer_allocator</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">proxy</span> <span class="o">=</span> <span class="n">BufferProxy</span><span class="p">(</span>
+            <span class="n">channel_count</span><span class="o">=</span><span class="n">channel_count</span><span class="p">,</span>
+            <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
+            <span class="n">frame_count</span><span class="o">=</span><span class="n">frame_count</span><span class="p">,</span>
+            <span class="n">identifier</span><span class="o">=</span><span class="n">identifier</span><span class="p">,</span>
+            <span class="n">provider</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">starting_frame</span><span class="o">=</span><span class="n">starting_frame</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="o">.</span><span class="n">buffer_additions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">proxy</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">proxy</span></div>
+
+<div class="viewcode-block" id="RealtimeProvider.add_bus"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.RealtimeProvider.add_bus">[docs]</a>    <span class="k">def</span> <span class="nf">add_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BusProxy</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No current moment&quot;</span><span class="p">)</span>
+        <span class="n">calculation_rate</span> <span class="o">=</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">calculation_rate</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">calculation_rate</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid calculation rate: </span><span class="si">{</span><span class="n">calculation_rate</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">allocator</span> <span class="o">=</span> <span class="n">realtime</span><span class="o">.</span><span class="n">Bus</span><span class="o">.</span><span class="n">_get_allocator</span><span class="p">(</span><span class="n">calculation_rate</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="p">)</span>
+        <span class="n">identifier</span> <span class="o">=</span> <span class="n">allocator</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">BusProxy</span><span class="p">(</span>
+            <span class="n">calculation_rate</span><span class="o">=</span><span class="n">calculation_rate</span><span class="p">,</span> <span class="n">identifier</span><span class="o">=</span><span class="n">identifier</span><span class="p">,</span> <span class="n">provider</span><span class="o">=</span><span class="bp">self</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="RealtimeProvider.add_bus_group"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.RealtimeProvider.add_bus_group">[docs]</a>    <span class="k">def</span> <span class="nf">add_bus_group</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">channel_count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">calculation_rate</span><span class="o">=</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BusGroupProxy</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No current moment&quot;</span><span class="p">)</span>
+        <span class="n">calculation_rate</span> <span class="o">=</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">calculation_rate</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">calculation_rate</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">CalculationRate</span><span class="o">.</span><span class="n">AUDIO</span><span class="p">,</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid calculation rate: </span><span class="si">{</span><span class="n">calculation_rate</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">channel_count</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Channel-count must be positive, non-zero integer&quot;</span><span class="p">)</span>
+        <span class="n">allocator</span> <span class="o">=</span> <span class="n">realtime</span><span class="o">.</span><span class="n">Bus</span><span class="o">.</span><span class="n">_get_allocator</span><span class="p">(</span><span class="n">calculation_rate</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="p">)</span>
+        <span class="n">identifier</span> <span class="o">=</span> <span class="n">allocator</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">channel_count</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">identifier</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span>
+        <span class="k">return</span> <span class="n">BusGroupProxy</span><span class="p">(</span>
+            <span class="n">calculation_rate</span><span class="o">=</span><span class="n">calculation_rate</span><span class="p">,</span>
+            <span class="n">channel_count</span><span class="o">=</span><span class="n">channel_count</span><span class="p">,</span>
+            <span class="n">identifier</span><span class="o">=</span><span class="n">identifier</span><span class="p">,</span>
+            <span class="n">provider</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="RealtimeProvider.add_group"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.RealtimeProvider.add_group">[docs]</a>    <span class="k">def</span> <span class="nf">add_group</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">target_node</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">add_action</span><span class="o">=</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_HEAD</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GroupProxy</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No current moment&quot;</span><span class="p">)</span>
+        <span class="n">target_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_target_node</span><span class="p">(</span><span class="n">target_node</span><span class="p">)</span>
+        <span class="n">identifier</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">node_id_allocator</span><span class="o">.</span><span class="n">allocate_node_id</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">proxy</span> <span class="o">=</span> <span class="n">GroupProxy</span><span class="p">(</span><span class="n">identifier</span><span class="o">=</span><span class="n">identifier</span><span class="p">,</span> <span class="n">provider</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="o">.</span><span class="n">node_additions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">proxy</span><span class="p">,</span> <span class="n">add_action</span><span class="p">,</span> <span class="n">target_node</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">name</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_annotation_map</span><span class="p">[</span><span class="n">identifier</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">return</span> <span class="n">proxy</span></div>
+
+<div class="viewcode-block" id="RealtimeProvider.add_synth"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.RealtimeProvider.add_synth">[docs]</a>    <span class="k">def</span> <span class="nf">add_synth</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">synthdef</span><span class="p">:</span> <span class="n">SynthDef</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">target_node</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">add_action</span><span class="o">=</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_HEAD</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">settings</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SynthProxy</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No current moment&quot;</span><span class="p">)</span>
+        <span class="n">target_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_target_node</span><span class="p">(</span><span class="n">target_node</span><span class="p">)</span>
+        <span class="n">identifier</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">node_id_allocator</span><span class="o">.</span><span class="n">allocate_node_id</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">proxy</span> <span class="o">=</span> <span class="n">SynthProxy</span><span class="p">(</span>
+            <span class="n">identifier</span><span class="o">=</span><span class="n">identifier</span><span class="p">,</span>
+            <span class="n">provider</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">synthdef</span><span class="o">=</span><span class="n">synthdef</span> <span class="ow">or</span> <span class="n">default</span><span class="p">,</span>
+            <span class="n">settings</span><span class="o">=</span><span class="n">settings</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="o">.</span><span class="n">node_additions</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">proxy</span><span class="p">,</span> <span class="n">add_action</span><span class="p">,</span> <span class="n">target_node</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">name</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_annotation_map</span><span class="p">[</span><span class="n">identifier</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">return</span> <span class="n">proxy</span></div>
+
+<div class="viewcode-block" id="RealtimeProvider.boot"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.RealtimeProvider.boot">[docs]</a>    <span class="k">def</span> <span class="nf">boot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">boot</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RealtimeProvider.dispose"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.RealtimeProvider.dispose">[docs]</a>    <span class="k">def</span> <span class="nf">dispose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_proxy</span><span class="p">:</span> <span class="n">NodeProxy</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No current moment&quot;</span><span class="p">)</span>
+        <span class="k">return</span>  <span class="c1"># This is currently a no-op</span></div>
+
+<div class="viewcode-block" id="RealtimeProvider.free_buffer"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.RealtimeProvider.free_buffer">[docs]</a>    <span class="k">def</span> <span class="nf">free_buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">buffer_</span><span class="p">:</span> <span class="n">BufferProxy</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No current moment&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="o">.</span><span class="n">buffer_removals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">buffer_</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RealtimeProvider.free_bus"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.RealtimeProvider.free_bus">[docs]</a>    <span class="k">def</span> <span class="nf">free_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bus_proxy</span><span class="p">:</span> <span class="n">BusProxy</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No current moment&quot;</span><span class="p">)</span>
+        <span class="n">allocator</span> <span class="o">=</span> <span class="n">realtime</span><span class="o">.</span><span class="n">Bus</span><span class="o">.</span><span class="n">_get_allocator</span><span class="p">(</span>
+            <span class="n">bus_proxy</span><span class="o">.</span><span class="n">calculation_rate</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span>
+        <span class="p">)</span>
+        <span class="n">allocator</span><span class="o">.</span><span class="n">free</span><span class="p">(</span><span class="n">cast</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">bus_proxy</span><span class="o">.</span><span class="n">identifier</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="RealtimeProvider.free_bus_group"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.RealtimeProvider.free_bus_group">[docs]</a>    <span class="k">def</span> <span class="nf">free_bus_group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bus_group_proxy</span><span class="p">:</span> <span class="n">BusGroupProxy</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No current moment&quot;</span><span class="p">)</span>
+        <span class="n">allocator</span> <span class="o">=</span> <span class="n">realtime</span><span class="o">.</span><span class="n">Bus</span><span class="o">.</span><span class="n">_get_allocator</span><span class="p">(</span>
+            <span class="n">bus_group_proxy</span><span class="o">.</span><span class="n">calculation_rate</span><span class="p">,</span> <span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span>
+        <span class="p">)</span>
+        <span class="n">allocator</span><span class="o">.</span><span class="n">free</span><span class="p">(</span><span class="n">cast</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">bus_group_proxy</span><span class="o">.</span><span class="n">identifier</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="RealtimeProvider.free_node"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.RealtimeProvider.free_node">[docs]</a>    <span class="k">def</span> <span class="nf">free_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_proxy</span><span class="p">:</span> <span class="n">NodeProxy</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No current moment&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="o">.</span><span class="n">node_removals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_proxy</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_annotation_map</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">node_proxy</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RealtimeProvider.move_node"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.RealtimeProvider.move_node">[docs]</a>    <span class="k">def</span> <span class="nf">move_node</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">node_proxy</span><span class="p">:</span> <span class="n">NodeProxy</span><span class="p">,</span> <span class="n">add_action</span><span class="p">:</span> <span class="n">AddAction</span><span class="p">,</span> <span class="n">target_node</span><span class="p">:</span> <span class="n">NodeProxy</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No current moment&quot;</span><span class="p">)</span>
+        <span class="n">target_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_target_node</span><span class="p">(</span><span class="n">target_node</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="o">.</span><span class="n">node_reorderings</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">node_proxy</span><span class="p">,</span> <span class="n">add_action</span><span class="p">,</span> <span class="n">target_node</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="RealtimeProvider.quit"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.RealtimeProvider.quit">[docs]</a>    <span class="k">def</span> <span class="nf">quit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="RealtimeProvider.set_bus"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.RealtimeProvider.set_bus">[docs]</a>    <span class="k">def</span> <span class="nf">set_bus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bus_proxy</span><span class="p">:</span> <span class="n">BusProxy</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No current moment&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">bus_proxy</span><span class="o">.</span><span class="n">calculation_rate</span> <span class="o">!=</span> <span class="n">CalculationRate</span><span class="o">.</span><span class="n">CONTROL</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Can only set control-rate buses&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="o">.</span><span class="n">bus_settings</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">bus_proxy</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="RealtimeProvider.set_node"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.RealtimeProvider.set_node">[docs]</a>    <span class="k">def</span> <span class="nf">set_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_proxy</span><span class="p">:</span> <span class="n">NodeProxy</span><span class="p">,</span> <span class="o">**</span><span class="n">settings</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No current moment&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="o">.</span><span class="n">node_settings</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">node_proxy</span><span class="p">,</span> <span class="n">settings</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="RealtimeProvider.register_osc_callback"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.RealtimeProvider.register_osc_callback">[docs]</a>    <span class="k">def</span> <span class="nf">register_osc_callback</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span> <span class="n">procedure</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OscCallbackProxy</span><span class="p">:</span>
+        <span class="n">identifier</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+            <span class="n">pattern</span><span class="o">=</span><span class="n">pattern</span><span class="p">,</span> <span class="n">procedure</span><span class="o">=</span><span class="n">procedure</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">OscCallbackProxy</span><span class="p">(</span><span class="n">provider</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="o">=</span><span class="n">identifier</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RealtimeProvider.unregister_osc_callback"><a class="viewcode-back" href="../../api/supriya/provider.html#supriya.provider.RealtimeProvider.unregister_osc_callback">[docs]</a>    <span class="k">def</span> <span class="nf">unregister_osc_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">proxy</span><span class="p">:</span> <span class="n">OscCallbackProxy</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">unregister</span><span class="p">(</span><span class="n">proxy</span><span class="o">.</span><span class="n">identifier</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

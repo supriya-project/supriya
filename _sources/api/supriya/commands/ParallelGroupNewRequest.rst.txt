@@ -62,6 +62,10 @@ ParallelGroupNewRequest
 
    .. container:: inherited
 
+      .. automethod:: ParallelGroupNewRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: ParallelGroupNewRequest.to_datagram
 
    .. container:: inherited

@@ -24,11 +24,11 @@ p.rubric.class-header {
     font-size: 90%;
 }
 
-.svg-container {
+.uqbar-book {
     margin-bottom: 24px;
 }
 
-.svg-container > object {
+.uqbar-book > object, .uqbar-book > img {
     max-width: 100%;
     height: auto;
 }

@@ -81,7 +81,3 @@ FailResponse
    .. autoattribute:: FailResponse.failed_command
 
    .. autoattribute:: FailResponse.failure_reason
-
-   .. container:: inherited
-
-      .. autoattribute:: FailResponse.osc_message

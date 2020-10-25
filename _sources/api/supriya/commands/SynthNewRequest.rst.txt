@@ -69,6 +69,10 @@ SynthNewRequest
 
    .. container:: inherited
 
+      .. automethod:: SynthNewRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: SynthNewRequest.to_datagram
 
    .. container:: inherited

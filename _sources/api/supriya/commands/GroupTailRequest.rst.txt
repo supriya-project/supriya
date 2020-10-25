@@ -62,6 +62,10 @@ GroupTailRequest
 
    .. container:: inherited
 
+      .. automethod:: GroupTailRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: GroupTailRequest.to_datagram
 
    .. container:: inherited

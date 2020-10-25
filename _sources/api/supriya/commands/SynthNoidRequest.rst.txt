@@ -63,6 +63,10 @@ SynthNoidRequest
 
    .. container:: inherited
 
+      .. automethod:: SynthNoidRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: SynthNoidRequest.to_datagram
 
    .. container:: inherited

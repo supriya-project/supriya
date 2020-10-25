@@ -63,6 +63,10 @@ NodeTraceRequest
 
    .. container:: inherited
 
+      .. automethod:: NodeTraceRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: NodeTraceRequest.to_datagram
 
    .. container:: inherited

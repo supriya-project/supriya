@@ -63,6 +63,10 @@ CommandRequest
 
    .. container:: inherited
 
+      .. automethod:: CommandRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: CommandRequest.to_datagram
 
    .. container:: inherited

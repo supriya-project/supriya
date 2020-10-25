@@ -67,6 +67,10 @@ BufferNormalizeRequest
 
    .. container:: inherited
 
+      .. automethod:: BufferNormalizeRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: BufferNormalizeRequest.to_datagram
 
    .. container:: inherited

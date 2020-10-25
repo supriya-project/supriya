@@ -1,0 +1,132 @@
+.. _supriya--scsynth:
+
+scsynth
+=======
+
+.. automodule:: supriya.scsynth
+
+.. currentmodule:: supriya.scsynth
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.scsynth
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Functions
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~find
+   ~kill
+
+.. autofunction:: find
+
+.. autofunction:: kill
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Main Classes
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~Options
+
+.. autoclass:: Options
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __delattr__
+      __eq__
+      __hash__
+      __post_init__
+      __repr__
+      __setattr__
+      as_options_string
+      audio_bus_channel_count
+      block_size
+      buffer_count
+      control_bus_channel_count
+      first_private_bus_id
+      hardware_buffer_size
+      initial_node_id
+      input_bus_channel_count
+      input_device
+      input_stream_mask
+      load_synthdefs
+      maximum_logins
+      maximum_node_count
+      maximum_synthdef_count
+      memory_locking
+      memory_size
+      output_bus_channel_count
+      output_device
+      output_stream_mask
+      password
+      private_audio_bus_channel_count
+      protocol
+      random_number_generator_count
+      remote_control_volume
+      restricted_path
+      sample_rate
+      threads
+      ugen_plugins_path
+      verbosity
+      wire_buffer_count
+      zero_configuration
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: Options.__delattr__
+
+   .. automethod:: Options.__eq__
+
+   .. automethod:: Options.__hash__
+
+   .. automethod:: Options.__post_init__
+
+   .. automethod:: Options.__repr__
+
+   .. automethod:: Options.__setattr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: Options.as_options_string
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Options.first_private_bus_id
+
+   .. autoattribute:: Options.private_audio_bus_channel_count

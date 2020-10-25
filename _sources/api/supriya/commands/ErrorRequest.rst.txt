@@ -63,6 +63,10 @@ ErrorRequest
 
    .. container:: inherited
 
+      .. automethod:: ErrorRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: ErrorRequest.to_datagram
 
    .. container:: inherited

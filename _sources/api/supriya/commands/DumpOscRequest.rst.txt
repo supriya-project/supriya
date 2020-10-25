@@ -64,6 +64,10 @@ DumpOscRequest
 
    .. container:: inherited
 
+      .. automethod:: DumpOscRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: DumpOscRequest.to_datagram
 
    .. container:: inherited

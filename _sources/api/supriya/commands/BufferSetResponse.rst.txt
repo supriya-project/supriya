@@ -111,7 +111,3 @@ BufferSetResponse
    .. autoattribute:: BufferSetResponse.buffer_id
 
    .. autoattribute:: BufferSetResponse.items
-
-   .. container:: inherited
-
-      .. autoattribute:: BufferSetResponse.osc_message

@@ -25,6 +25,7 @@ Requestable
       :nosignatures:
 
       communicate
+      communicate_async
       condition
       response
       to_datagram
@@ -61,6 +62,8 @@ Requestable
       :class: class-header
 
    .. automethod:: Requestable.communicate
+
+   .. automethod:: Requestable.communicate_async
 
    .. automethod:: Requestable.to_datagram
 

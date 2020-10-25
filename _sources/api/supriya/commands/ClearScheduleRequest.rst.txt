@@ -63,6 +63,10 @@ ClearScheduleRequest
 
    .. container:: inherited
 
+      .. automethod:: ClearScheduleRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: ClearScheduleRequest.to_datagram
 
    .. container:: inherited

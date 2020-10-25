@@ -63,6 +63,10 @@ NodeCommandRequest
 
    .. container:: inherited
 
+      .. automethod:: NodeCommandRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: NodeCommandRequest.to_datagram
 
    .. container:: inherited

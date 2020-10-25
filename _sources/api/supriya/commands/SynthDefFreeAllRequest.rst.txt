@@ -63,6 +63,10 @@ SynthDefFreeAllRequest
 
    .. container:: inherited
 
+      .. automethod:: SynthDefFreeAllRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: SynthDefFreeAllRequest.to_datagram
 
    .. container:: inherited

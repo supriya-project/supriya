@@ -63,6 +63,10 @@ NodeFillRequest
 
    .. container:: inherited
 
+      .. automethod:: NodeFillRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: NodeFillRequest.to_datagram
 
    .. container:: inherited

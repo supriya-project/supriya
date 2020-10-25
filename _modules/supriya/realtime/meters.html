@@ -1,0 +1,438 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>supriya.realtime.meters &mdash; Supriya 0.4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/supriya/index.html">supriya</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>supriya.realtime.meters</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for supriya.realtime.meters</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">supriya.system</span>
+<span class="kn">from</span> <span class="nn">supriya</span> <span class="kn">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">supriya.system</span> <span class="kn">import</span> <span class="n">SupriyaObject</span>
+
+
+<div class="viewcode-block" id="Meters"><a class="viewcode-back" href="../../../api/supriya/realtime/meters.html#supriya.realtime.meters.Meters">[docs]</a><span class="k">class</span> <span class="nc">Meters</span><span class="p">(</span><span class="n">SupriyaObject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Server meters.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import json, supriya, time</span>
+<span class="sd">        &gt;&gt;&gt; server = supriya.Server.default().boot(</span>
+<span class="sd">        ...     input_bus_channel_count=2,</span>
+<span class="sd">        ...     output_bus_channel_count=2,</span>
+<span class="sd">        ...     )</span>
+<span class="sd">        &gt;&gt;&gt; meters = server.meters.allocate()</span>
+<span class="sd">        &gt;&gt;&gt; time.sleep(1)</span>
+<span class="sd">        &gt;&gt;&gt; print(json.dumps(meters.to_dict(), indent=4))</span>
+<span class="sd">        {</span>
+<span class="sd">            &quot;server_meters&quot;: {</span>
+<span class="sd">                &quot;input_meter_levels&quot;: [</span>
+<span class="sd">                    {</span>
+<span class="sd">                        &quot;peak&quot;: ...,</span>
+<span class="sd">                        &quot;rms&quot;: ...</span>
+<span class="sd">                    },</span>
+<span class="sd">                    {</span>
+<span class="sd">                        &quot;peak&quot;: ...,</span>
+<span class="sd">                        &quot;rms&quot;: ...</span>
+<span class="sd">                    }</span>
+<span class="sd">                ],</span>
+<span class="sd">                &quot;output_meter_levels&quot;: [</span>
+<span class="sd">                    {</span>
+<span class="sd">                        &quot;peak&quot;: 0.0,</span>
+<span class="sd">                        &quot;rms&quot;: 0.0</span>
+<span class="sd">                    },</span>
+<span class="sd">                    {</span>
+<span class="sd">                        &quot;peak&quot;: 0.0,</span>
+<span class="sd">                        &quot;rms&quot;: 0.0</span>
+<span class="sd">                    }</span>
+<span class="sd">                ]</span>
+<span class="sd">            }</span>
+<span class="sd">        }</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; meters.free()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">__documentation_section__</span> <span class="o">=</span> <span class="s2">&quot;Server Internals&quot;</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;_input_meter_callback&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_input_meter_peak_levels&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_input_meter_rms_levels&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_input_meter_synth&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_output_meter_callback&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_output_meter_peak_levels&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_output_meter_rms_levels&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_output_meter_synth&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_server&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="n">server</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_meter_callback</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_meter_peak_levels</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_meter_rms_levels</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_meter_synth</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_meter_callback</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_meter_peak_levels</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_meter_rms_levels</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_meter_synth</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="k">def</span> <span class="nf">_handle_input_levels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">contents</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+        <span class="n">peak_levels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">rms_levels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">peak</span><span class="p">,</span> <span class="n">rms</span> <span class="ow">in</span> <span class="n">utils</span><span class="o">.</span><span class="n">group_iterable_by_count</span><span class="p">(</span><span class="n">contents</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">peak_levels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">peak</span><span class="p">)</span>
+            <span class="n">rms_levels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rms</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_meter_peak_levels</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">peak_levels</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_meter_rms_levels</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">rms_levels</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_handle_output_levels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+        <span class="n">contents</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">contents</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+        <span class="n">peak_levels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">rms_levels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">peak</span><span class="p">,</span> <span class="n">rms</span> <span class="ow">in</span> <span class="n">utils</span><span class="o">.</span><span class="n">group_iterable_by_count</span><span class="p">(</span><span class="n">contents</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">peak_levels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">peak</span><span class="p">)</span>
+            <span class="n">rms_levels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rms</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_meter_peak_levels</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">peak_levels</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_meter_rms_levels</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">rms_levels</span><span class="p">)</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="Meters.allocate"><a class="viewcode-back" href="../../../api/supriya/realtime/meters.html#supriya.realtime.meters.Meters.allocate">[docs]</a>    <span class="k">def</span> <span class="nf">allocate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.osc</span>
+        <span class="kn">import</span> <span class="nn">supriya.realtime</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_meter_callback</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+            <span class="n">pattern</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">input_meter_command</span><span class="p">,</span> <span class="n">procedure</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_handle_input_levels</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_meter_callback</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+            <span class="n">pattern</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">output_meter_command</span><span class="p">,</span> <span class="n">procedure</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_handle_output_levels</span>
+        <span class="p">)</span>
+        <span class="n">input_meter_synthdef</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_meter_synthdef</span>
+        <span class="n">output_meter_synthdef</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_meter_synthdef</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_meter_synth</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">input_meter_synthdef</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_meter_synth</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="n">output_meter_synthdef</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_meter_synth</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+            <span class="n">add_action</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_HEAD</span><span class="p">,</span>
+            <span class="n">node_id_is_permanent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">target_node</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">root_node</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_meter_synth</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+            <span class="n">add_action</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_TAIL</span><span class="p">,</span>
+            <span class="n">node_id_is_permanent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">target_node</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">root_node</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="Meters.free"><a class="viewcode-back" href="../../../api/supriya/realtime/meters.html#supriya.realtime.meters.Meters.free">[docs]</a>    <span class="k">def</span> <span class="nf">free</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">unregister</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_input_meter_callback</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">osc_protocol</span><span class="o">.</span><span class="n">unregister</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_output_meter_callback</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_meter_synth</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_meter_synth</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_meter_callback</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_meter_callback</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_meter_synth</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_meter_synth</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="Meters.make_meter_synthdef"><a class="viewcode-back" href="../../../api/supriya/realtime/meters.html#supriya.realtime.meters.Meters.make_meter_synthdef">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">make_meter_synthdef</span><span class="p">(</span><span class="n">channel_count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">command_name</span><span class="o">=</span><span class="s2">&quot;/reply&quot;</span><span class="p">,</span> <span class="n">initial_bus</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
+        <span class="kn">import</span> <span class="nn">supriya.ugens</span>
+
+        <span class="k">with</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">()</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
+            <span class="n">source</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">In</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="n">initial_bus</span><span class="p">,</span> <span class="n">channel_count</span><span class="o">=</span><span class="n">channel_count</span><span class="p">)</span>
+            <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">SendPeakRMS</span><span class="o">.</span><span class="n">kr</span><span class="p">(</span>
+                <span class="n">command_name</span><span class="o">=</span><span class="n">command_name</span><span class="p">,</span> <span class="n">peak_lag</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">reply_rate</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">source</span>
+            <span class="p">)</span>
+        <span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">synthdef</span></div>
+
+<div class="viewcode-block" id="Meters.notify"><a class="viewcode-back" href="../../../api/supriya/realtime/meters.html#supriya.realtime.meters.Meters.notify">[docs]</a>    <span class="k">def</span> <span class="nf">notify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topic</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">topic</span> <span class="o">==</span> <span class="s2">&quot;server-quitting&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">free</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Meters.to_dict"><a class="viewcode-back" href="../../../api/supriya/realtime/meters.html#supriya.realtime.meters.Meters.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_allocated</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">supriya</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">NotAllocated</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">input_meter_levels</span><span class="p">,</span> <span class="n">output_meter_levels</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">peak</span><span class="p">,</span> <span class="n">rms</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_input_meter_peak_levels</span> <span class="ow">or</span> <span class="p">[],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_input_meter_rms_levels</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="p">):</span>
+            <span class="n">input_meter_levels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">peak</span><span class="o">=</span><span class="n">peak</span><span class="p">,</span> <span class="n">rms</span><span class="o">=</span><span class="n">rms</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">peak</span><span class="p">,</span> <span class="n">rms</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_output_meter_peak_levels</span> <span class="ow">or</span> <span class="p">[],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output_meter_rms_levels</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="p">):</span>
+            <span class="n">output_meter_levels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">peak</span><span class="o">=</span><span class="n">peak</span><span class="p">,</span> <span class="n">rms</span><span class="o">=</span><span class="n">rms</span><span class="p">))</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;server_meters&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;input_meter_levels&quot;</span><span class="p">:</span> <span class="n">input_meter_levels</span><span class="p">,</span>
+                <span class="s2">&quot;output_meter_levels&quot;</span><span class="p">:</span> <span class="n">output_meter_levels</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">input_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">input_bus_channel_count</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_allocated</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_input_meter_synth</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">output_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">output_bus_channel_count</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">input_meter_command</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;/meter.inputs&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">input_meter_synthdef</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_meter_synthdef</span><span class="p">(</span>
+            <span class="n">channel_count</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">input_bus_channel_count</span><span class="p">,</span>
+            <span class="n">initial_bus</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">output_bus_channel_count</span><span class="p">,</span>
+            <span class="n">command_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">input_meter_command</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">output_meter_command</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;/meter.outputs&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">output_meter_synthdef</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_meter_synthdef</span><span class="p">(</span>
+            <span class="n">channel_count</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">output_bus_channel_count</span><span class="p">,</span>
+            <span class="n">initial_bus</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">command_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">output_meter_command</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">server</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

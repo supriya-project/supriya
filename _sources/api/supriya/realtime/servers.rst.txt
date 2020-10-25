@@ -1,0 +1,462 @@
+.. _supriya--realtime--servers:
+
+servers
+=======
+
+.. automodule:: supriya.realtime.servers
+
+.. currentmodule:: supriya.realtime.servers
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.realtime.servers
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~AsyncServer
+   ~BaseServer
+
+.. autoclass:: AsyncServer
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __contains__
+      boot
+      boot_future
+      connect
+      default_group
+      disconnect
+      query
+      quit
+      quit_future
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: AsyncServer.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: AsyncServer.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: AsyncServer.boot
+
+   .. automethod:: AsyncServer.connect
+
+   .. automethod:: AsyncServer.disconnect
+
+   .. automethod:: AsyncServer.query
+
+   .. automethod:: AsyncServer.quit
+
+   .. container:: inherited
+
+      .. automethod:: AsyncServer.send
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read/write properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: AsyncServer.latency
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: AsyncServer.audio_bus_allocator
+
+   .. autoattribute:: AsyncServer.boot_future
+
+   .. container:: inherited
+
+      .. autoattribute:: AsyncServer.buffer_allocator
+
+   .. container:: inherited
+
+      .. autoattribute:: AsyncServer.client_id
+
+   .. container:: inherited
+
+      .. autoattribute:: AsyncServer.control_bus_allocator
+
+   .. autoattribute:: AsyncServer.default_group
+
+   .. container:: inherited
+
+      .. autoattribute:: AsyncServer.ip_address
+
+   .. container:: inherited
+
+      .. autoattribute:: AsyncServer.is_owner
+
+   .. container:: inherited
+
+      .. autoattribute:: AsyncServer.is_running
+
+   .. container:: inherited
+
+      .. autoattribute:: AsyncServer.maximum_logins
+
+   .. container:: inherited
+
+      .. autoattribute:: AsyncServer.next_sync_id
+
+   .. container:: inherited
+
+      .. autoattribute:: AsyncServer.node_id_allocator
+
+   .. container:: inherited
+
+      .. autoattribute:: AsyncServer.options
+
+   .. container:: inherited
+
+      .. autoattribute:: AsyncServer.osc_protocol
+
+   .. container:: inherited
+
+      .. autoattribute:: AsyncServer.port
+
+   .. container:: inherited
+
+      .. autoattribute:: AsyncServer.process_protocol
+
+   .. autoattribute:: AsyncServer.quit_future
+
+   .. container:: inherited
+
+      .. autoattribute:: AsyncServer.status
+
+.. autoclass:: BaseServer
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __repr__
+      audio_bus_allocator
+      boot
+      buffer_allocator
+      client_id
+      connect
+      control_bus_allocator
+      disconnect
+      ip_address
+      is_owner
+      is_running
+      latency
+      maximum_logins
+      next_sync_id
+      node_id_allocator
+      options
+      osc_protocol
+      port
+      process_protocol
+      quit
+      send
+      status
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: BaseServer.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: BaseServer.boot
+
+   .. automethod:: BaseServer.connect
+
+   .. automethod:: BaseServer.disconnect
+
+   .. automethod:: BaseServer.quit
+
+   .. automethod:: BaseServer.send
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read/write properties
+      :class: class-header
+
+   .. autoattribute:: BaseServer.latency
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BaseServer.audio_bus_allocator
+
+   .. autoattribute:: BaseServer.buffer_allocator
+
+   .. autoattribute:: BaseServer.client_id
+
+   .. autoattribute:: BaseServer.control_bus_allocator
+
+   .. autoattribute:: BaseServer.ip_address
+
+   .. autoattribute:: BaseServer.is_owner
+
+   .. autoattribute:: BaseServer.is_running
+
+   .. autoattribute:: BaseServer.maximum_logins
+
+   .. autoattribute:: BaseServer.next_sync_id
+
+   .. autoattribute:: BaseServer.node_id_allocator
+
+   .. autoattribute:: BaseServer.options
+
+   .. autoattribute:: BaseServer.osc_protocol
+
+   .. autoattribute:: BaseServer.port
+
+   .. autoattribute:: BaseServer.process_protocol
+
+   .. autoattribute:: BaseServer.status
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Main Classes
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~Server
+
+.. autoclass:: Server
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __contains__
+      __getitem__
+      __graph__
+      __str__
+      audio_input_bus_group
+      audio_output_bus_group
+      boot
+      connect
+      default
+      default_group
+      disconnect
+      meters
+      query_local_nodes
+      query_remote_nodes
+      quit
+      reboot
+      recorder
+      root_node
+      sync
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: Server.__contains__
+
+   .. automethod:: Server.__getitem__
+
+   .. automethod:: Server.__graph__
+
+   .. container:: inherited
+
+      .. automethod:: Server.__repr__
+
+   .. automethod:: Server.__str__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: Server.boot
+
+   .. automethod:: Server.connect
+
+   .. automethod:: Server.disconnect
+
+   .. automethod:: Server.query_local_nodes
+
+   .. automethod:: Server.query_remote_nodes
+
+   .. automethod:: Server.quit
+
+   .. automethod:: Server.reboot
+
+   .. container:: inherited
+
+      .. automethod:: Server.send
+
+   .. automethod:: Server.sync
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Server.default
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read/write properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Server.latency
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. container:: inherited
+
+      .. autoattribute:: Server.audio_bus_allocator
+
+   .. autoattribute:: Server.audio_input_bus_group
+
+   .. autoattribute:: Server.audio_output_bus_group
+
+   .. container:: inherited
+
+      .. autoattribute:: Server.buffer_allocator
+
+   .. container:: inherited
+
+      .. autoattribute:: Server.client_id
+
+   .. container:: inherited
+
+      .. autoattribute:: Server.control_bus_allocator
+
+   .. autoattribute:: Server.default_group
+
+   .. container:: inherited
+
+      .. autoattribute:: Server.ip_address
+
+   .. container:: inherited
+
+      .. autoattribute:: Server.is_owner
+
+   .. container:: inherited
+
+      .. autoattribute:: Server.is_running
+
+   .. container:: inherited
+
+      .. autoattribute:: Server.maximum_logins
+
+   .. autoattribute:: Server.meters
+
+   .. container:: inherited
+
+      .. autoattribute:: Server.next_sync_id
+
+   .. container:: inherited
+
+      .. autoattribute:: Server.node_id_allocator
+
+   .. container:: inherited
+
+      .. autoattribute:: Server.options
+
+   .. container:: inherited
+
+      .. autoattribute:: Server.osc_protocol
+
+   .. container:: inherited
+
+      .. autoattribute:: Server.port
+
+   .. container:: inherited
+
+      .. autoattribute:: Server.process_protocol
+
+   .. autoattribute:: Server.recorder
+
+   .. autoattribute:: Server.root_node
+
+   .. container:: inherited
+
+      .. autoattribute:: Server.status

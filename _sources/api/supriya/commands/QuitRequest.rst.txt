@@ -64,6 +64,10 @@ QuitRequest
 
    .. container:: inherited
 
+      .. automethod:: QuitRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: QuitRequest.to_datagram
 
    .. container:: inherited

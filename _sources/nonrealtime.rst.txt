@@ -1,14 +1,8 @@
-Non-realtime composition
-========================
+Non-realtime usage
+==================
 
-Sessions, moments and states
-----------------------------
+Non-realtime sessions
+---------------------
 
-Nodes and actions
------------------
-
-Buses
------
-
-Buffers
--------
+Non-realtime nodes and actions
+------------------------------

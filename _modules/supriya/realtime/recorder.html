@@ -1,0 +1,469 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>supriya.realtime.recorder &mdash; Supriya 0.4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/supriya/index.html">supriya</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>supriya.realtime.recorder</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for supriya.realtime.recorder</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">supriya</span> <span class="kn">import</span> <span class="n">HeaderFormat</span><span class="p">,</span> <span class="n">SampleFormat</span>
+<span class="kn">from</span> <span class="nn">supriya.system</span> <span class="kn">import</span> <span class="n">SupriyaObject</span>
+
+
+<div class="viewcode-block" id="Recorder"><a class="viewcode-back" href="../../../api/supriya/realtime/recorder.html#supriya.realtime.recorder.Recorder">[docs]</a><span class="k">class</span> <span class="nc">Recorder</span><span class="p">(</span><span class="n">SupriyaObject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A server recorder.</span>
+
+<span class="sd">    ::</span>
+
+<span class="sd">        &gt;&gt;&gt; import supriya</span>
+<span class="sd">        &gt;&gt;&gt; import os, tempfile, time</span>
+<span class="sd">        &gt;&gt;&gt; server = supriya.Server.default().boot()</span>
+<span class="sd">        &gt;&gt;&gt; with tempfile.TemporaryDirectory() as tempdir:</span>
+<span class="sd">        ...     server.recorder.start(</span>
+<span class="sd">        ...         file_path=os.path.join(tempdir, &#39;example.aiff&#39;),</span>
+<span class="sd">        ...         channel_count=2,</span>
+<span class="sd">        ...         header_format=&#39;AIFF&#39;,</span>
+<span class="sd">        ...         )</span>
+<span class="sd">        ...     time.sleep(1)</span>
+<span class="sd">        ...     server.recorder.stop()</span>
+<span class="sd">        ...</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="n">__documentation_section__</span> <span class="o">=</span> <span class="s2">&quot;Server Internals&quot;</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;_channel_count&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_current_channel_count&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_current_header_format&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_current_file_path&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_current_sample_format&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_header_format&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_is_recording&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_record_buffer&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_record_node&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_record_synthdef&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_sample_format&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_server&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server</span> <span class="o">=</span> <span class="n">server</span>
+        <span class="n">server_options</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">options</span>
+        <span class="c1"># setup settings</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_channel_count</span> <span class="o">=</span> <span class="n">server_options</span><span class="o">.</span><span class="n">output_bus_channel_count</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_header_format</span> <span class="o">=</span> <span class="n">HeaderFormat</span><span class="o">.</span><span class="n">AIFF</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_recording</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_record_node</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_record_buffer</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_record_synthdef</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sample_format</span> <span class="o">=</span> <span class="n">SampleFormat</span><span class="o">.</span><span class="n">INT24</span>
+        <span class="c1"># cache settings</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_channel_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_channel_count</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_file_path</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_header_format</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_header_format</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_sample_format</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sample_format</span>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="k">def</span> <span class="nf">_cache_properties</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">channel_count</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">header_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_format</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">channel_count</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">channel_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel_count</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_channel_count</span> <span class="o">=</span> <span class="n">channel_count</span>
+        <span class="k">if</span> <span class="n">header_format</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">header_format</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">header_format</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_header_format</span> <span class="o">=</span> <span class="n">HeaderFormat</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">header_format</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sample_format</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">sample_format</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_format</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_sample_format</span> <span class="o">=</span> <span class="n">SampleFormat</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">sample_format</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_file_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">file_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">file_path</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">file_path</span>
+
+    <span class="k">def</span> <span class="nf">_setup_buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.commands</span>
+        <span class="kn">import</span> <span class="nn">supriya.realtime</span>
+
+        <span class="n">frame_count</span> <span class="o">=</span> <span class="mi">65536</span>
+        <span class="n">buffer_</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Buffer</span><span class="p">()</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+            <span class="n">frame_count</span><span class="o">=</span><span class="n">frame_count</span><span class="p">,</span> <span class="n">channel_count</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">current_channel_count</span>
+        <span class="p">)</span>
+        <span class="n">callback</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">BufferWriteRequest</span><span class="p">(</span>
+            <span class="n">buffer_id</span><span class="o">=</span><span class="n">buffer_</span><span class="p">,</span>
+            <span class="n">file_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">current_file_path</span><span class="p">,</span>
+            <span class="n">frame_count</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">header_format</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">current_header_format</span><span class="p">,</span>
+            <span class="n">leave_open</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">sample_format</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">current_sample_format</span><span class="p">,</span>
+            <span class="n">starting_frame</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">callback</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="p">,</span> <span class="n">sync</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_record_buffer</span> <span class="o">=</span> <span class="n">buffer_</span>
+
+    <span class="k">def</span> <span class="nf">_setup_node</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.realtime</span>
+
+        <span class="n">synth</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">realtime</span><span class="o">.</span><span class="n">Synth</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">record_synthdef</span><span class="p">)</span>
+        <span class="n">synth</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span>
+            <span class="n">add_action</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">AddAction</span><span class="o">.</span><span class="n">ADD_TO_TAIL</span><span class="p">,</span>
+            <span class="n">target_node</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">root_node</span><span class="p">,</span>
+            <span class="n">node_id_is_permanent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_record_node</span> <span class="o">=</span> <span class="n">synth</span>
+
+    <span class="k">def</span> <span class="nf">_setup_synthdef</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
+        <span class="kn">import</span> <span class="nn">supriya.ugens</span>
+
+        <span class="k">with</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">()</span> <span class="k">as</span> <span class="n">builder</span><span class="p">:</span>
+            <span class="n">source</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">In</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span>
+                <span class="n">bus</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">channel_count</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">current_channel_count</span>
+            <span class="p">)</span>
+            <span class="n">buffer_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">record_buffer</span><span class="p">)</span>
+            <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">DiskOut</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">buffer_id</span><span class="o">=</span><span class="n">buffer_id</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">)</span>
+        <span class="n">synthdef</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+        <span class="n">synthdef</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_record_synthdef</span> <span class="o">=</span> <span class="n">synthdef</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="Recorder.pause"><a class="viewcode-back" href="../../../api/supriya/realtime/recorder.html#supriya.realtime.recorder.Recorder.pause">[docs]</a>    <span class="k">def</span> <span class="nf">pause</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_recording</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">record_node</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span></div>
+
+<div class="viewcode-block" id="Recorder.prepare"><a class="viewcode-back" href="../../../api/supriya/realtime/recorder.html#supriya.realtime.recorder.Recorder.prepare">[docs]</a>    <span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">channel_count</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">header_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_format</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_recording</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache_properties</span><span class="p">(</span>
+            <span class="n">channel_count</span><span class="o">=</span><span class="n">channel_count</span><span class="p">,</span>
+            <span class="n">header_format</span><span class="o">=</span><span class="n">header_format</span><span class="p">,</span>
+            <span class="n">sample_format</span><span class="o">=</span><span class="n">sample_format</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_current_file_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_file_path</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_file_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_buffer</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_synthdef</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Recorder.start"><a class="viewcode-back" href="../../../api/supriya/realtime/recorder.html#supriya.realtime.recorder.Recorder.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">channel_count</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">header_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sample_format</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">record_node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Already recording.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">record_buffer</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">record_buffer</span><span class="o">.</span><span class="n">is_allocated</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span>
+                <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
+                <span class="n">channel_count</span><span class="o">=</span><span class="n">channel_count</span><span class="p">,</span>
+                <span class="n">header_format</span><span class="o">=</span><span class="n">header_format</span><span class="p">,</span>
+                <span class="n">sample_format</span><span class="o">=</span><span class="n">sample_format</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_node</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_recording</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Recorder.stop"><a class="viewcode-back" href="../../../api/supriya/realtime/recorder.html#supriya.realtime.recorder.Recorder.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_recording</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">record_node</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">record_buffer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">record_buffer</span><span class="o">.</span><span class="n">free</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_recording</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="Recorder.unpause"><a class="viewcode-back" href="../../../api/supriya/realtime/recorder.html#supriya.realtime.recorder.Recorder.unpause">[docs]</a>    <span class="k">def</span> <span class="nf">unpause</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_recording</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">record_node</span><span class="o">.</span><span class="n">unpause</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span></div>
+
+    <span class="c1">### PUBLIC PROPERTIES ###</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_recording</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_recording</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">record_buffer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_record_buffer</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">record_node</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_record_node</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">record_synthdef</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_record_synthdef</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">channel_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_channel_count</span>
+
+    <span class="nd">@channel_count</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">channel_count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
+        <span class="n">channel_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">channel_count</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_channel_count</span> <span class="o">=</span> <span class="n">channel_count</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">sample_format</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sample_format</span>
+
+    <span class="nd">@sample_format</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">sample_format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
+        <span class="n">sample_format</span> <span class="o">=</span> <span class="n">SampleFormat</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sample_format</span> <span class="o">=</span> <span class="n">sample_format</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">header_format</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_header_format</span>
+
+    <span class="nd">@header_format</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">header_format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
+        <span class="n">header_format</span> <span class="o">=</span> <span class="n">HeaderFormat</span><span class="o">.</span><span class="n">from_expr</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_header_format</span> <span class="o">=</span> <span class="n">header_format</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">current_channel_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_channel_count</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">current_file_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_file_path</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">current_sample_format</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_sample_format</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">current_header_format</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_header_format</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">server</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,607 @@
+.. _supriya--clock--ephemera:
+
+ephemera
+========
+
+.. automodule:: supriya.clock.ephemera
+
+.. currentmodule:: supriya.clock.ephemera
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.clock.ephemera
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Classes
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~CallbackCommand
+   ~CallbackEvent
+   ~ChangeCommand
+   ~ChangeEvent
+   ~ClockState
+   ~Moment
+
+.. autoclass:: CallbackCommand
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __new__
+      __repr__
+      args
+      event_id
+      event_type
+      kwargs
+      procedure
+      quantization
+      schedule_at
+      time_unit
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: CallbackCommand.__add__
+
+   .. container:: inherited
+
+      .. automethod:: CallbackCommand.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: CallbackCommand.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: CallbackCommand.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: CallbackCommand.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: CallbackCommand.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: CallbackCommand.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: CallbackCommand.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: CallbackCommand.__le__
+
+   .. container:: inherited
+
+      .. automethod:: CallbackCommand.__len__
+
+   .. container:: inherited
+
+      .. automethod:: CallbackCommand.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: CallbackCommand.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: CallbackCommand.__ne__
+
+   .. automethod:: CallbackCommand.__new__
+
+   .. automethod:: CallbackCommand.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: CallbackCommand.__rmul__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: CallbackCommand.count
+
+   .. container:: inherited
+
+      .. automethod:: CallbackCommand.index
+
+.. autoclass:: CallbackEvent
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __hash__
+      __new__
+      __repr__
+      args
+      event_id
+      event_type
+      invocations
+      kwargs
+      measure
+      offset
+      procedure
+      seconds
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: CallbackEvent.__add__
+
+   .. container:: inherited
+
+      .. automethod:: CallbackEvent.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: CallbackEvent.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: CallbackEvent.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: CallbackEvent.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: CallbackEvent.__gt__
+
+   .. automethod:: CallbackEvent.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: CallbackEvent.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: CallbackEvent.__le__
+
+   .. container:: inherited
+
+      .. automethod:: CallbackEvent.__len__
+
+   .. container:: inherited
+
+      .. automethod:: CallbackEvent.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: CallbackEvent.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: CallbackEvent.__ne__
+
+   .. automethod:: CallbackEvent.__new__
+
+   .. automethod:: CallbackEvent.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: CallbackEvent.__rmul__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: CallbackEvent.count
+
+   .. container:: inherited
+
+      .. automethod:: CallbackEvent.index
+
+.. autoclass:: ChangeCommand
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __new__
+      __repr__
+      beats_per_minute
+      event_id
+      event_type
+      quantization
+      schedule_at
+      time_signature
+      time_unit
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ChangeCommand.__add__
+
+   .. container:: inherited
+
+      .. automethod:: ChangeCommand.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: ChangeCommand.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: ChangeCommand.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: ChangeCommand.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: ChangeCommand.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: ChangeCommand.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: ChangeCommand.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: ChangeCommand.__le__
+
+   .. container:: inherited
+
+      .. automethod:: ChangeCommand.__len__
+
+   .. container:: inherited
+
+      .. automethod:: ChangeCommand.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: ChangeCommand.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: ChangeCommand.__ne__
+
+   .. automethod:: ChangeCommand.__new__
+
+   .. automethod:: ChangeCommand.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: ChangeCommand.__rmul__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ChangeCommand.count
+
+   .. container:: inherited
+
+      .. automethod:: ChangeCommand.index
+
+.. autoclass:: ChangeEvent
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __hash__
+      __new__
+      __repr__
+      beats_per_minute
+      event_id
+      event_type
+      measure
+      offset
+      seconds
+      time_signature
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ChangeEvent.__add__
+
+   .. container:: inherited
+
+      .. automethod:: ChangeEvent.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: ChangeEvent.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: ChangeEvent.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: ChangeEvent.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: ChangeEvent.__gt__
+
+   .. automethod:: ChangeEvent.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: ChangeEvent.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: ChangeEvent.__le__
+
+   .. container:: inherited
+
+      .. automethod:: ChangeEvent.__len__
+
+   .. container:: inherited
+
+      .. automethod:: ChangeEvent.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: ChangeEvent.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: ChangeEvent.__ne__
+
+   .. automethod:: ChangeEvent.__new__
+
+   .. automethod:: ChangeEvent.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: ChangeEvent.__rmul__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ChangeEvent.count
+
+   .. container:: inherited
+
+      .. automethod:: ChangeEvent.index
+
+.. autoclass:: ClockState
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __new__
+      __repr__
+      beats_per_minute
+      initial_seconds
+      previous_measure
+      previous_offset
+      previous_seconds
+      previous_time_signature_change_offset
+      time_signature
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ClockState.__add__
+
+   .. container:: inherited
+
+      .. automethod:: ClockState.__contains__
+
+   .. container:: inherited
+
+      .. automethod:: ClockState.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: ClockState.__ge__
+
+   .. container:: inherited
+
+      .. automethod:: ClockState.__getitem__
+
+   .. container:: inherited
+
+      .. automethod:: ClockState.__gt__
+
+   .. container:: inherited
+
+      .. automethod:: ClockState.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: ClockState.__iter__
+
+   .. container:: inherited
+
+      .. automethod:: ClockState.__le__
+
+   .. container:: inherited
+
+      .. automethod:: ClockState.__len__
+
+   .. container:: inherited
+
+      .. automethod:: ClockState.__lt__
+
+   .. container:: inherited
+
+      .. automethod:: ClockState.__mul__
+
+   .. container:: inherited
+
+      .. automethod:: ClockState.__ne__
+
+   .. automethod:: ClockState.__new__
+
+   .. automethod:: ClockState.__repr__
+
+   .. container:: inherited
+
+      .. automethod:: ClockState.__rmul__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: ClockState.count
+
+   .. container:: inherited
+
+      .. automethod:: ClockState.index
+
+.. autoclass:: Moment
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __delattr__
+      __eq__
+      __hash__
+      __repr__
+      __setattr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: Moment.__delattr__
+
+   .. automethod:: Moment.__eq__
+
+   .. automethod:: Moment.__hash__
+
+   .. automethod:: Moment.__repr__
+
+   .. automethod:: Moment.__setattr__
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Enumerations
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~EventType
+   ~TimeUnit
+
+.. autoclass:: EventType
+   :members:
+   :undoc-members:
+
+.. autoclass:: TimeUnit
+   :members:
+   :undoc-members:

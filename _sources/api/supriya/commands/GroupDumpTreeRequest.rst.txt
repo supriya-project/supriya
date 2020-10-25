@@ -63,6 +63,10 @@ GroupDumpTreeRequest
 
    .. container:: inherited
 
+      .. automethod:: GroupDumpTreeRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: GroupDumpTreeRequest.to_datagram
 
    .. container:: inherited

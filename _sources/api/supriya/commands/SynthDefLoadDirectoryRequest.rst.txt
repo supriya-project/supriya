@@ -66,6 +66,10 @@ SynthDefLoadDirectoryRequest
 
    .. container:: inherited
 
+      .. automethod:: SynthDefLoadDirectoryRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: SynthDefLoadDirectoryRequest.to_datagram
 
    .. container:: inherited

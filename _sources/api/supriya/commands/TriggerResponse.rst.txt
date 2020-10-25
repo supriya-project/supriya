@@ -81,10 +81,6 @@ TriggerResponse
 
    .. autoattribute:: TriggerResponse.node_id
 
-   .. container:: inherited
-
-      .. autoattribute:: TriggerResponse.osc_message
-
    .. autoattribute:: TriggerResponse.trigger_id
 
    .. autoattribute:: TriggerResponse.trigger_value

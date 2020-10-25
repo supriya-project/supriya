@@ -78,7 +78,3 @@ DoneResponse
       :class: class-header
 
    .. autoattribute:: DoneResponse.action
-
-   .. container:: inherited
-
-      .. autoattribute:: DoneResponse.osc_message

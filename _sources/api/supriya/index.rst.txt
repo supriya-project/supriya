@@ -22,61 +22,51 @@ supriya
 .. toctree::
    :hidden:
 
-   cli/index
-   clock
+   clock/index
    commands/index
-   daw/index
+   conversions
    enums
    exceptions
    ext/index
+   intervals/index
    io
-   live/index
-   midi/index
    nonrealtime/index
    osc/index
    patterns/index
+   provider
+   querytree
    realtime/index
+   sclang
+   scsynth
    soundfiles
    synthdefs/index
-   system/index
-   time/index
+   system
+   typing
    ugens/index
    utils
 
 .. autosummary::
    :nosignatures:
 
-   cli
    clock
    commands
-   daw
+   conversions
    enums
    exceptions
    ext
+   intervals
    io
-   live
-   midi
    nonrealtime
    osc
    patterns
+   provider
+   querytree
    realtime
+   sclang
+   scsynth
    soundfiles
    synthdefs
    system
-   time
+   typing
    ugens
    utils
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Functions
-   :class: section-header
-
-.. autosummary::
-   :nosignatures:
-
-   ~import_structured_package
-
-.. autofunction:: import_structured_package

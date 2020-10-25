@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>supriya.patterns.EventProduct &mdash; Supriya 0.3.0 documentation</title>
+  <title>supriya.patterns.EventProduct &mdash; Supriya 0.4.0 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.3.0
+                0.4.0
               </div>
             
           
@@ -91,14 +91,11 @@
 </ul>
 <p class="caption"><span class="caption-text">Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
@@ -164,8 +161,6 @@
         
           <li><a href="../../index.html">Module code</a> &raquo;</li>
         
-          <li><a href="../../supriya.html">supriya</a> &raquo;</li>
-        
       <li>supriya.patterns.EventProduct</li>
     
     
@@ -182,7 +177,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for supriya.patterns.EventProduct</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">supriya.system.SupriyaValueObject</span> <span class="k">import</span> <span class="n">SupriyaValueObject</span>
+<span></span><span class="kn">from</span> <span class="nn">supriya.system</span> <span class="kn">import</span> <span class="n">SupriyaValueObject</span>
 
 
 <div class="viewcode-block" id="EventProduct"><a class="viewcode-back" href="../../../api/supriya/patterns/EventProduct.html#supriya.patterns.EventProduct.EventProduct">[docs]</a><span class="k">class</span> <span class="nc">EventProduct</span><span class="p">(</span><span class="n">SupriyaValueObject</span><span class="p">):</span>
@@ -193,7 +188,7 @@
 
     <span class="c1">### INITIALIZER ###</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">is_stop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">requests</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timestamp</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">event</span> <span class="o">=</span> <span class="n">event</span>
@@ -205,7 +200,7 @@
 
     <span class="c1">### SPECIAL METHODS ###</span>
 
-<div class="viewcode-block" id="EventProduct.__eq__"><a class="viewcode-back" href="../../../api/supriya/patterns/EventProduct.html#supriya.patterns.EventProduct.EventProduct.__eq__">[docs]</a>    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
+<div class="viewcode-block" id="EventProduct.__eq__"><a class="viewcode-back" href="../../../api/supriya/patterns/EventProduct.html#supriya.patterns.EventProduct.EventProduct.__eq__">[docs]</a>    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">type</span><span class="p">(</span><span class="n">expr</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_sort_bundle</span><span class="p">()</span> <span class="o">!=</span> <span class="n">expr</span><span class="o">.</span><span class="n">_get_sort_bundle</span><span class="p">():</span>
@@ -216,7 +211,7 @@
             <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">requests</span> <span class="o">==</span> <span class="n">expr</span><span class="o">.</span><span class="n">requests</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="EventProduct.__lt__"><a class="viewcode-back" href="../../../api/supriya/patterns/EventProduct.html#supriya.patterns.EventProduct.EventProduct.__lt__">[docs]</a>    <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
+<div class="viewcode-block" id="EventProduct.__lt__"><a class="viewcode-back" href="../../../api/supriya/patterns/EventProduct.html#supriya.patterns.EventProduct.EventProduct.__lt__">[docs]</a>    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">type</span><span class="p">(</span><span class="n">expr</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_sort_bundle</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">expr</span><span class="o">.</span><span class="n">_get_sort_bundle</span><span class="p">()</span></div>

@@ -63,6 +63,10 @@ NodeMapToControlBusContiguousRequest
 
    .. container:: inherited
 
+      .. automethod:: NodeMapToControlBusContiguousRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: NodeMapToControlBusContiguousRequest.to_datagram
 
    .. container:: inherited

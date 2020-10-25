@@ -1,0 +1,189 @@
+.. _supriya--nonrealtime--sessions:
+
+sessions
+========
+
+.. automodule:: supriya.nonrealtime.sessions
+
+.. currentmodule:: supriya.nonrealtime.sessions
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.nonrealtime.sessions
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Non-realtime Session
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~Session
+
+.. autoclass:: Session
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __graph__
+      __render__
+      __repr__
+      __session__
+      active_moments
+      add_buffer
+      add_buffer_group
+      add_bus
+      add_bus_group
+      add_group
+      add_synth
+      at
+      audio_input_bus_group
+      audio_output_bus_group
+      buffers
+      buffers_by_session_id
+      buses
+      buses_by_session_id
+      cue_soundfile
+      duration
+      input_
+      input_bus_channel_count
+      inscribe
+      is_session_like
+      move_node
+      name
+      nodes
+      nodes_by_session_id
+      offsets
+      options
+      output_bus_channel_count
+      padding
+      rebuild_transitions
+      render
+      root_node
+      set_rand_seed
+      states
+      to_lists
+      to_osc_bundles
+      to_strings
+      transcript
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: Session.__graph__
+
+   .. automethod:: Session.__render__
+
+   .. automethod:: Session.__repr__
+
+   .. automethod:: Session.__session__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: Session.add_buffer
+
+   .. automethod:: Session.add_buffer_group
+
+   .. automethod:: Session.add_bus
+
+   .. automethod:: Session.add_bus_group
+
+   .. automethod:: Session.add_group
+
+   .. automethod:: Session.add_synth
+
+   .. automethod:: Session.at
+
+   .. automethod:: Session.cue_soundfile
+
+   .. automethod:: Session.inscribe
+
+   .. automethod:: Session.move_node
+
+   .. automethod:: Session.rebuild_transitions
+
+   .. automethod:: Session.render
+
+   .. automethod:: Session.set_rand_seed
+
+   .. automethod:: Session.to_lists
+
+   .. automethod:: Session.to_osc_bundles
+
+   .. automethod:: Session.to_strings
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: Session.is_session_like
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Session.active_moments
+
+   .. autoattribute:: Session.audio_input_bus_group
+
+   .. autoattribute:: Session.audio_output_bus_group
+
+   .. autoattribute:: Session.buffers
+
+   .. autoattribute:: Session.buffers_by_session_id
+
+   .. autoattribute:: Session.buses
+
+   .. autoattribute:: Session.buses_by_session_id
+
+   .. autoattribute:: Session.duration
+
+   .. autoattribute:: Session.input_
+
+   .. autoattribute:: Session.input_bus_channel_count
+
+   .. autoattribute:: Session.name
+
+   .. autoattribute:: Session.nodes
+
+   .. autoattribute:: Session.nodes_by_session_id
+
+   .. autoattribute:: Session.offsets
+
+   .. autoattribute:: Session.options
+
+   .. autoattribute:: Session.output_bus_channel_count
+
+   .. autoattribute:: Session.padding
+
+   .. autoattribute:: Session.root_node
+
+   .. autoattribute:: Session.states
+
+   .. autoattribute:: Session.transcript

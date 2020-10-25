@@ -67,6 +67,10 @@ NodeMapToAudioBusRequest
 
    .. container:: inherited
 
+      .. automethod:: NodeMapToAudioBusRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: NodeMapToAudioBusRequest.to_datagram
 
    .. container:: inherited

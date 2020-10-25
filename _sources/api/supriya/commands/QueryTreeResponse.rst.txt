@@ -82,8 +82,4 @@ QueryTreeResponse
 
    .. autoattribute:: QueryTreeResponse.node_id
 
-   .. container:: inherited
-
-      .. autoattribute:: QueryTreeResponse.osc_message
-
    .. autoattribute:: QueryTreeResponse.query_tree_group

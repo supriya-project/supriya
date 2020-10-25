@@ -1,0 +1,432 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>clock &mdash; Supriya 0.4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="asynchronous" href="asynchronous.html" />
+    <link rel="prev" title="supriya" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">clock</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="asynchronous.html">asynchronous</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bases.html">bases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ephemera.html">ephemera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="eventqueue.html">eventqueue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="threaded.html">threaded</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conversions.html">conversions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intervals/index.html">intervals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provider.html">provider</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querytree.html">querytree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sclang.html">sclang</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scsynth.html">scsynth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../typing.html">typing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">supriya</a> &raquo;</li>
+        
+      <li>clock</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/supriya/clock/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-supriya.clock">
+<span id="clock"></span><span id="supriya-clock"></span><h1>clock<a class="headerlink" href="#module-supriya.clock" title="Permalink to this headline">¶</a></h1>
+<div class="svg-container docutils container">
+<div class="graphviz"><object data="../../../_images/inheritance-f41083fa4c1463c44022351c73aa7ec3132999e5.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">digraph InheritanceGraph {
+	graph [bgcolor=transparent,
+		color=lightsteelblue2,
+		fontname=Arial,
+		fontsize=10,
+		outputorder=edgesfirst,
+		overlap=prism,
+		penwidth=2,
+		rankdir=LR,
+		splines=spline,
+		style=&quot;dashed, rounded&quot;,
+		truecolor=true
+	];
+	node [colorscheme=pastel19,
+		fontname=Arial,
+		fontsize=10,
+		height=0,
+		penwidth=2,
+		shape=box,
+		style=&quot;filled, rounded&quot;,
+		width=0
+	];
+	edge [color=lightslategrey,
+		penwidth=1
+	];
+	subgraph cluster_builtins {
+		graph [label=builtins];
+		node [color=1];
+		&quot;builtins.int&quot;	[URL=&quot;https://docs.python.org/3/library/functions.html#int&quot;,
+			label=int,
+			target=_top];
+		&quot;builtins.object&quot;	[URL=&quot;https://docs.python.org/3/library/functions.html#object&quot;,
+			label=object,
+			target=_top];
+		&quot;builtins.object&quot; -&gt; &quot;builtins.int&quot;	[minlen=1];
+		&quot;builtins.tuple&quot;	[URL=&quot;https://docs.python.org/3/library/stdtypes.html#tuple&quot;,
+			label=tuple,
+			target=_top];
+		&quot;builtins.object&quot; -&gt; &quot;builtins.tuple&quot;;
+	}
+	subgraph cluster_enum {
+		graph [label=enum];
+		node [color=2];
+		&quot;enum.Enum&quot;	[URL=&quot;https://docs.python.org/3/library/enum.html#enum.Enum&quot;,
+			label=Enum,
+			target=_top];
+		&quot;enum.IntEnum&quot;	[URL=&quot;https://docs.python.org/3/library/enum.html#enum.IntEnum&quot;,
+			label=&quot;Int\nEnum&quot;,
+			target=_top];
+		&quot;enum.Enum&quot; -&gt; &quot;enum.IntEnum&quot;;
+	}
+	subgraph cluster_queue {
+		graph [label=queue];
+		node [color=3];
+		&quot;queue.PriorityQueue&quot;	[URL=&quot;https://docs.python.org/3/library/queue.html#queue.PriorityQueue&quot;,
+			label=&quot;Priority\nQueue&quot;,
+			target=_top];
+		&quot;queue.Queue&quot;	[URL=&quot;https://docs.python.org/3/library/queue.html#queue.Queue&quot;,
+			label=Queue,
+			target=_top];
+		&quot;queue.Queue&quot; -&gt; &quot;queue.PriorityQueue&quot;	[minlen=1];
+	}
+	subgraph &quot;cluster_supriya.clock.asynchronous&quot; {
+		graph [label=&quot;supriya.clock.asynchronous&quot;];
+		node [color=4];
+		&quot;supriya.clock.asynchronous.AsyncTempoClock&quot;	[URL=&quot;../api/supriya/clock/asynchronous.html#supriya.clock.asynchronous.AsyncTempoClock&quot;,
+			label=&quot;Async\nTempo\nClock&quot;,
+			target=_top];
+	}
+	subgraph &quot;cluster_supriya.clock.bases&quot; {
+		graph [label=&quot;supriya.clock.bases&quot;];
+		node [color=5];
+		&quot;supriya.clock.bases.BaseTempoClock&quot;	[URL=&quot;../api/supriya/clock/bases.html#supriya.clock.bases.BaseTempoClock&quot;,
+			label=&quot;Base\nTempo\nClock&quot;,
+			target=_top];
+	}
+	subgraph &quot;cluster_supriya.clock.ephemera&quot; {
+		graph [label=&quot;supriya.clock.ephemera&quot;];
+		node [color=6];
+		&quot;supriya.clock.ephemera.CallbackCommand&quot;	[URL=&quot;../api/supriya/clock/ephemera.html#supriya.clock.ephemera.CallbackCommand&quot;,
+			label=&quot;Callback\nCommand&quot;,
+			target=_top];
+		&quot;supriya.clock.ephemera.CallbackEvent&quot;	[URL=&quot;../api/supriya/clock/ephemera.html#supriya.clock.ephemera.CallbackEvent&quot;,
+			label=&quot;Callback\nEvent&quot;,
+			target=_top];
+		&quot;supriya.clock.ephemera.ChangeCommand&quot;	[URL=&quot;../api/supriya/clock/ephemera.html#supriya.clock.ephemera.ChangeCommand&quot;,
+			label=&quot;Change\nCommand&quot;,
+			target=_top];
+		&quot;supriya.clock.ephemera.ChangeEvent&quot;	[URL=&quot;../api/supriya/clock/ephemera.html#supriya.clock.ephemera.ChangeEvent&quot;,
+			label=&quot;Change\nEvent&quot;,
+			target=_top];
+		&quot;supriya.clock.ephemera.ClockState&quot;	[URL=&quot;../api/supriya/clock/ephemera.html#supriya.clock.ephemera.ClockState&quot;,
+			label=&quot;Clock\nState&quot;,
+			target=_top];
+		&quot;supriya.clock.ephemera.EventType&quot;	[URL=&quot;../api/supriya/clock/ephemera.html#supriya.clock.ephemera.EventType&quot;,
+			label=&quot;Event\nType&quot;,
+			target=_top];
+		&quot;supriya.clock.ephemera.Moment&quot;	[URL=&quot;../api/supriya/clock/ephemera.html#supriya.clock.ephemera.Moment&quot;,
+			label=Moment,
+			target=_top];
+		&quot;supriya.clock.ephemera.TimeUnit&quot;	[URL=&quot;../api/supriya/clock/ephemera.html#supriya.clock.ephemera.TimeUnit&quot;,
+			label=&quot;Time\nUnit&quot;,
+			target=_top];
+	}
+	subgraph &quot;cluster_supriya.clock.eventqueue&quot; {
+		graph [label=&quot;supriya.clock.eventqueue&quot;];
+		node [color=7];
+		&quot;supriya.clock.eventqueue.EventQueue&quot;	[URL=&quot;../api/supriya/clock/eventqueue.html#supriya.clock.eventqueue.EventQueue&quot;,
+			label=&quot;Event\nQueue&quot;,
+			target=_top];
+	}
+	subgraph &quot;cluster_supriya.clock.threaded&quot; {
+		graph [label=&quot;supriya.clock.threaded&quot;];
+		node [color=8];
+		&quot;supriya.clock.threaded.TempoClock&quot;	[URL=&quot;../api/supriya/clock/threaded.html#supriya.clock.threaded.TempoClock&quot;,
+			label=&quot;Tempo\nClock&quot;,
+			target=_top];
+	}
+	&quot;builtins.int&quot; -&gt; &quot;enum.IntEnum&quot;;
+	&quot;builtins.object&quot; -&gt; &quot;enum.Enum&quot;	[minlen=2];
+	&quot;builtins.object&quot; -&gt; &quot;queue.Queue&quot;	[minlen=1];
+	&quot;builtins.object&quot; -&gt; &quot;supriya.clock.bases.BaseTempoClock&quot;;
+	&quot;builtins.object&quot; -&gt; &quot;supriya.clock.ephemera.Moment&quot;	[minlen=2];
+	&quot;builtins.tuple&quot; -&gt; &quot;supriya.clock.ephemera.CallbackCommand&quot;	[minlen=1];
+	&quot;builtins.tuple&quot; -&gt; &quot;supriya.clock.ephemera.CallbackEvent&quot;	[minlen=2];
+	&quot;builtins.tuple&quot; -&gt; &quot;supriya.clock.ephemera.ChangeCommand&quot;	[minlen=1];
+	&quot;builtins.tuple&quot; -&gt; &quot;supriya.clock.ephemera.ChangeEvent&quot;	[minlen=2];
+	&quot;builtins.tuple&quot; -&gt; &quot;supriya.clock.ephemera.ClockState&quot;	[minlen=1];
+	&quot;enum.IntEnum&quot; -&gt; &quot;supriya.clock.ephemera.EventType&quot;	[minlen=1];
+	&quot;enum.IntEnum&quot; -&gt; &quot;supriya.clock.ephemera.TimeUnit&quot;	[minlen=2];
+	&quot;queue.PriorityQueue&quot; -&gt; &quot;supriya.clock.eventqueue.EventQueue&quot;	[minlen=1];
+	&quot;supriya.clock.bases.BaseTempoClock&quot; -&gt; &quot;supriya.clock.asynchronous.AsyncTempoClock&quot;	[minlen=1];
+	&quot;supriya.clock.bases.BaseTempoClock&quot; -&gt; &quot;supriya.clock.threaded.TempoClock&quot;	[minlen=2];
+}</p></object></div>
+</div>
+<hr/><p class="section-header rubric">Subpackages</p>
+<div class="toctree-wrapper compound">
+</div>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="asynchronous.html#module-supriya.clock.asynchronous" title="supriya.clock.asynchronous"><code class="xref py py-obj docutils literal notranslate"><span class="pre">asynchronous</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="bases.html#module-supriya.clock.bases" title="supriya.clock.bases"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bases</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ephemera.html#module-supriya.clock.ephemera" title="supriya.clock.ephemera"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ephemera</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="eventqueue.html#module-supriya.clock.eventqueue" title="supriya.clock.eventqueue"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eventqueue</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="threaded.html#module-supriya.clock.threaded" title="supriya.clock.threaded"><code class="xref py py-obj docutils literal notranslate"><span class="pre">threaded</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="asynchronous.html" class="btn btn-neutral float-right" title="asynchronous" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral float-left" title="supriya" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

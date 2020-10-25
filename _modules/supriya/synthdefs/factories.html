@@ -1,0 +1,2647 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>supriya.synthdefs.factories &mdash; Supriya 0.4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/supriya/index.html">supriya</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>supriya.synthdefs.factories</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for supriya.synthdefs.factories</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">types</span>
+
+<span class="kn">from</span> <span class="nn">supriya.system</span> <span class="kn">import</span> <span class="n">SupriyaObject</span>
+
+<span class="kn">from</span> <span class="nn">.mixins</span> <span class="kn">import</span> <span class="n">UGenArray</span>
+
+
+<div class="viewcode-block" id="SynthDefFactory"><a class="viewcode-back" href="../../../api/supriya/synthdefs/factories.html#supriya.synthdefs.factories.SynthDefFactory">[docs]</a><span class="k">class</span> <span class="nc">SynthDefFactory</span><span class="p">(</span><span class="n">SupriyaObject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A factory class for building SynthDefs with common signal flow structures.</span>
+
+<span class="sd">    ..  container:: example</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; factory = supriya.synthdefs.SynthDefFactory()</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; def signal_block(builder, source, state):</span>
+<span class="sd">            ...     iterations = state.get(&#39;iterations&#39;) or 2</span>
+<span class="sd">            ...     for _ in range(iterations):</span>
+<span class="sd">            ...         source = supriya.ugens.AllpassC.ar(</span>
+<span class="sd">            ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),</span>
+<span class="sd">            ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),</span>
+<span class="sd">            ...             source=source,</span>
+<span class="sd">            ...             maximum_delay_time=0.1,</span>
+<span class="sd">            ...             )</span>
+<span class="sd">            ...     return source</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; factory = factory.with_input()</span>
+<span class="sd">            &gt;&gt;&gt; factory = factory.with_output()</span>
+<span class="sd">            &gt;&gt;&gt; factory = factory.with_signal_block(signal_block)</span>
+<span class="sd">            &gt;&gt;&gt; synthdef = factory.build()</span>
+<span class="sd">            &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">            synthdef:</span>
+<span class="sd">                name: ...</span>
+<span class="sd">                ugens:</span>
+<span class="sd">                -   Control.ir: null</span>
+<span class="sd">                -   In.ar:</span>
+<span class="sd">                        bus: Control.ir[0:out]</span>
+<span class="sd">                -   ExpRand.ir/0:</span>
+<span class="sd">                        maximum: 0.1</span>
+<span class="sd">                        minimum: 0.01</span>
+<span class="sd">                -   ExpRand.ir/1:</span>
+<span class="sd">                        maximum: 0.1</span>
+<span class="sd">                        minimum: 0.01</span>
+<span class="sd">                -   AllpassC.ar/0:</span>
+<span class="sd">                        decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                        delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                        maximum_delay_time: 0.1</span>
+<span class="sd">                        source: In.ar[0]</span>
+<span class="sd">                -   ExpRand.ir/2:</span>
+<span class="sd">                        maximum: 0.1</span>
+<span class="sd">                        minimum: 0.01</span>
+<span class="sd">                -   ExpRand.ir/3:</span>
+<span class="sd">                        maximum: 0.1</span>
+<span class="sd">                        minimum: 0.01</span>
+<span class="sd">                -   AllpassC.ar/1:</span>
+<span class="sd">                        decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                        delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                        maximum_delay_time: 0.1</span>
+<span class="sd">                        source: AllpassC.ar/0[0]</span>
+<span class="sd">                -   Out.ar:</span>
+<span class="sd">                        bus: Control.ir[0:out]</span>
+<span class="sd">                        source[0]: AllpassC.ar/1[0]</span>
+
+<span class="sd">    ..  container:: example</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; synthdef = factory.build(iterations=4)</span>
+<span class="sd">            &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">            synthdef:</span>
+<span class="sd">                name: ...</span>
+<span class="sd">                ugens:</span>
+<span class="sd">                -   Control.ir: null</span>
+<span class="sd">                -   In.ar:</span>
+<span class="sd">                        bus: Control.ir[0:out]</span>
+<span class="sd">                -   ExpRand.ir/0:</span>
+<span class="sd">                        maximum: 0.1</span>
+<span class="sd">                        minimum: 0.01</span>
+<span class="sd">                -   ExpRand.ir/1:</span>
+<span class="sd">                        maximum: 0.1</span>
+<span class="sd">                        minimum: 0.01</span>
+<span class="sd">                -   AllpassC.ar/0:</span>
+<span class="sd">                        decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                        delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                        maximum_delay_time: 0.1</span>
+<span class="sd">                        source: In.ar[0]</span>
+<span class="sd">                -   ExpRand.ir/2:</span>
+<span class="sd">                        maximum: 0.1</span>
+<span class="sd">                        minimum: 0.01</span>
+<span class="sd">                -   ExpRand.ir/3:</span>
+<span class="sd">                        maximum: 0.1</span>
+<span class="sd">                        minimum: 0.01</span>
+<span class="sd">                -   AllpassC.ar/1:</span>
+<span class="sd">                        decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                        delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                        maximum_delay_time: 0.1</span>
+<span class="sd">                        source: AllpassC.ar/0[0]</span>
+<span class="sd">                -   ExpRand.ir/4:</span>
+<span class="sd">                        maximum: 0.1</span>
+<span class="sd">                        minimum: 0.01</span>
+<span class="sd">                -   ExpRand.ir/5:</span>
+<span class="sd">                        maximum: 0.1</span>
+<span class="sd">                        minimum: 0.01</span>
+<span class="sd">                -   AllpassC.ar/2:</span>
+<span class="sd">                        decay_time: ExpRand.ir/4[0]</span>
+<span class="sd">                        delay_time: ExpRand.ir/5[0]</span>
+<span class="sd">                        maximum_delay_time: 0.1</span>
+<span class="sd">                        source: AllpassC.ar/1[0]</span>
+<span class="sd">                -   ExpRand.ir/6:</span>
+<span class="sd">                        maximum: 0.1</span>
+<span class="sd">                        minimum: 0.01</span>
+<span class="sd">                -   ExpRand.ir/7:</span>
+<span class="sd">                        maximum: 0.1</span>
+<span class="sd">                        minimum: 0.01</span>
+<span class="sd">                -   AllpassC.ar/3:</span>
+<span class="sd">                        decay_time: ExpRand.ir/6[0]</span>
+<span class="sd">                        delay_time: ExpRand.ir/7[0]</span>
+<span class="sd">                        maximum_delay_time: 0.1</span>
+<span class="sd">                        source: AllpassC.ar/2[0]</span>
+<span class="sd">                -   Out.ar:</span>
+<span class="sd">                        bus: Control.ir[0:out]</span>
+<span class="sd">                        source[0]: AllpassC.ar/3[0]</span>
+
+<span class="sd">    ..  container:: example</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; synthdef = factory.build(channel_count=2)</span>
+<span class="sd">            &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">            synthdef:</span>
+<span class="sd">                name: ...</span>
+<span class="sd">                ugens:</span>
+<span class="sd">                -   Control.ir: null</span>
+<span class="sd">                -   In.ar:</span>
+<span class="sd">                        bus: Control.ir[0:out]</span>
+<span class="sd">                -   ExpRand.ir/0:</span>
+<span class="sd">                        maximum: 0.1</span>
+<span class="sd">                        minimum: 0.01</span>
+<span class="sd">                -   ExpRand.ir/1:</span>
+<span class="sd">                        maximum: 0.1</span>
+<span class="sd">                        minimum: 0.01</span>
+<span class="sd">                -   AllpassC.ar/0:</span>
+<span class="sd">                        decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                        delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                        maximum_delay_time: 0.1</span>
+<span class="sd">                        source: In.ar[0]</span>
+<span class="sd">                -   AllpassC.ar/1:</span>
+<span class="sd">                        decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                        delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                        maximum_delay_time: 0.1</span>
+<span class="sd">                        source: In.ar[1]</span>
+<span class="sd">                -   ExpRand.ir/2:</span>
+<span class="sd">                        maximum: 0.1</span>
+<span class="sd">                        minimum: 0.01</span>
+<span class="sd">                -   ExpRand.ir/3:</span>
+<span class="sd">                        maximum: 0.1</span>
+<span class="sd">                        minimum: 0.01</span>
+<span class="sd">                -   AllpassC.ar/2:</span>
+<span class="sd">                        decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                        delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                        maximum_delay_time: 0.1</span>
+<span class="sd">                        source: AllpassC.ar/0[0]</span>
+<span class="sd">                -   AllpassC.ar/3:</span>
+<span class="sd">                        decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                        delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                        maximum_delay_time: 0.1</span>
+<span class="sd">                        source: AllpassC.ar/1[0]</span>
+<span class="sd">                -   Out.ar:</span>
+<span class="sd">                        bus: Control.ir[0:out]</span>
+<span class="sd">                        source[0]: AllpassC.ar/2[0]</span>
+<span class="sd">                        source[1]: AllpassC.ar/3[0]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### CLASS VARIABLES ###</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;_channel_count&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_feedback_loop&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_gate&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_initial_state&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_input&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_output&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_parameter_blocks&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_parameters&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_rand_id&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_signal_blocks&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_silence_detection&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1">### INITIALIZER ###</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel_count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">channel_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">channel_count</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">channel_count</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_channel_count</span> <span class="o">=</span> <span class="n">channel_count</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_feedback_loop</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_gate</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initial_state</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parameter_blocks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rand_id</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_signal_blocks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_silence_detection</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">### PRIVATE METHODS ###</span>
+
+    <span class="k">def</span> <span class="nf">_setup_parameters_and_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">builder</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
+        <span class="kn">import</span> <span class="nn">supriya.ugens</span>
+
+        <span class="n">state</span><span class="p">[</span><span class="s2">&quot;channel_count&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_channel_count</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">parameter_block</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parameter_blocks</span><span class="p">:</span>
+            <span class="n">parameter_block</span><span class="p">(</span><span class="n">builder</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rand_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">builder</span><span class="o">.</span><span class="n">_add_parameter</span><span class="p">(</span><span class="s2">&quot;rand_id&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rand_id</span><span class="p">,</span> <span class="s2">&quot;SCALAR&quot;</span><span class="p">)</span>
+            <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">RandID</span><span class="o">.</span><span class="n">ir</span><span class="p">(</span><span class="n">rand_id</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;rand_id&quot;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gate</span><span class="p">:</span>
+            <span class="n">builder</span><span class="o">.</span><span class="n">_add_parameter</span><span class="p">(</span><span class="s2">&quot;gate&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;CONTROL&quot;</span><span class="p">)</span>
+            <span class="n">state</span><span class="p">[</span><span class="s2">&quot;gate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Linen</span><span class="o">.</span><span class="n">kr</span><span class="p">(</span>
+                <span class="n">attack_time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_gate</span><span class="p">[</span><span class="s2">&quot;attack_time&quot;</span><span class="p">],</span>
+                <span class="n">done_action</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">DoneAction</span><span class="o">.</span><span class="n">FREE_SYNTH</span><span class="p">,</span>
+                <span class="n">gate</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;gate&quot;</span><span class="p">],</span>
+                <span class="n">release_time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_gate</span><span class="p">[</span><span class="s2">&quot;release_time&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_input</span><span class="p">:</span>
+            <span class="n">builder</span><span class="o">.</span><span class="n">_add_parameter</span><span class="p">(</span><span class="s2">&quot;out&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;SCALAR&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_input</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;private&quot;</span><span class="p">):</span>
+            <span class="n">builder</span><span class="o">.</span><span class="n">_add_parameter</span><span class="p">(</span><span class="s2">&quot;in_&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;SCALAR&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;windowed&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_input</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;windowed&quot;</span><span class="p">):</span>
+            <span class="n">builder</span><span class="o">.</span><span class="n">_add_parameter</span><span class="p">(</span><span class="s2">&quot;duration&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;SCALAR&quot;</span><span class="p">)</span>
+            <span class="n">state</span><span class="p">[</span><span class="s2">&quot;line&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Line</span><span class="o">.</span><span class="n">kr</span><span class="p">(</span>
+                <span class="n">done_action</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">DoneAction</span><span class="o">.</span><span class="n">FREE_SYNTH</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;duration&quot;</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">state</span><span class="p">[</span><span class="s2">&quot;window&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;line&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">hanning_window</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;windowed&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;crossfaded&quot;</span><span class="p">):</span>
+            <span class="n">builder</span><span class="o">.</span><span class="n">_add_parameter</span><span class="p">(</span><span class="s2">&quot;mix&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;CONTROL&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;leveled&quot;</span><span class="p">):</span>
+            <span class="n">builder</span><span class="o">.</span><span class="n">_add_parameter</span><span class="p">(</span><span class="s2">&quot;level&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;CONTROL&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">:</span>
+            <span class="n">builder</span><span class="o">.</span><span class="n">_add_parameter</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_build_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">builder</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.ugens</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_input</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">parameter</span> <span class="o">=</span> <span class="n">builder</span><span class="p">[</span><span class="s2">&quot;out&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_input</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;private&quot;</span><span class="p">):</span>
+            <span class="n">parameter</span> <span class="o">=</span> <span class="n">builder</span><span class="p">[</span><span class="s2">&quot;in_&quot;</span><span class="p">]</span>
+        <span class="n">input_class</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">In</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_input</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;feedback&quot;</span><span class="p">):</span>
+            <span class="n">input_class</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">InFeedback</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="n">input_class</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="n">parameter</span><span class="p">,</span> <span class="n">channel_count</span><span class="o">=</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;channel_count&quot;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_input</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;windowed&quot;</span><span class="p">):</span>
+            <span class="n">source</span> <span class="o">*=</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;window&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">source</span>
+
+    <span class="k">def</span> <span class="nf">_build_feedback_loop_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">builder</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.ugens</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feedback_loop</span><span class="p">:</span>
+            <span class="n">local_in</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">LocalIn</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">channel_count</span><span class="o">=</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;channel_count&quot;</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">source</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">source</span> <span class="o">=</span> <span class="n">local_in</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">source</span> <span class="o">+=</span> <span class="n">local_in</span>
+        <span class="k">return</span> <span class="n">source</span>
+
+    <span class="k">def</span> <span class="nf">_build_feedback_loop_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">builder</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.ugens</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feedback_loop</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_feedback_loop</span><span class="p">,</span> <span class="n">types</span><span class="o">.</span><span class="n">FunctionType</span><span class="p">):</span>
+            <span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_feedback_loop</span><span class="p">(</span><span class="n">builder</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+        <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">LocalOut</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_build_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">builder</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.ugens</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">crossfaded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;crossfaded&quot;</span><span class="p">)</span>
+        <span class="n">replacing</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;replacing&quot;</span><span class="p">)</span>
+        <span class="n">windowed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;windowed&quot;</span><span class="p">)</span>
+        <span class="n">gate</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;gate&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;leveled&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">crossfaded</span><span class="p">:</span>
+            <span class="n">source</span> <span class="o">*=</span> <span class="n">builder</span><span class="p">[</span><span class="s2">&quot;level&quot;</span><span class="p">]</span>
+        <span class="n">out_class</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Out</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">bus</span><span class="o">=</span><span class="n">builder</span><span class="p">[</span><span class="s2">&quot;out&quot;</span><span class="p">],</span> <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">replacing</span><span class="p">:</span>
+            <span class="n">out_class</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">ReplaceOut</span>
+        <span class="k">if</span> <span class="n">crossfaded</span><span class="p">:</span>
+            <span class="n">out_class</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">XOut</span>
+            <span class="k">if</span> <span class="n">windowed</span><span class="p">:</span>
+                <span class="n">window</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;window&quot;</span><span class="p">]</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;leveled&quot;</span><span class="p">):</span>
+                    <span class="n">window</span> <span class="o">*=</span> <span class="n">builder</span><span class="p">[</span><span class="s2">&quot;level&quot;</span><span class="p">]</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;crossfade&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">window</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;crossfade&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">builder</span><span class="p">[</span><span class="s2">&quot;mix&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">gate</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;crossfade&quot;</span><span class="p">]</span> <span class="o">*=</span> <span class="n">gate</span>
+        <span class="k">elif</span> <span class="n">windowed</span><span class="p">:</span>
+            <span class="n">window</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;window&quot;</span><span class="p">]</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span> <span class="o">*=</span> <span class="n">window</span>
+            <span class="k">if</span> <span class="n">gate</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span> <span class="o">*=</span> <span class="n">gate</span>
+        <span class="k">elif</span> <span class="n">gate</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span> <span class="o">*=</span> <span class="n">gate</span>
+        <span class="n">out_class</span><span class="o">.</span><span class="n">ar</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_build_silence_detection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">builder</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
+        <span class="kn">import</span> <span class="nn">supriya.ugens</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_silence_detection</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">DetectSilence</span><span class="o">.</span><span class="n">kr</span><span class="p">(</span>
+            <span class="n">done_action</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">DoneAction</span><span class="o">.</span><span class="n">FREE_SYNTH</span><span class="p">,</span>
+            <span class="n">source</span><span class="o">=</span><span class="n">supriya</span><span class="o">.</span><span class="n">ugens</span><span class="o">.</span><span class="n">Mix</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">source</span><span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_clone</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">clone</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)()</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__slots__</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">clone</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">clone</span>
+
+    <span class="c1">### PUBLIC METHODS ###</span>
+
+<div class="viewcode-block" id="SynthDefFactory.build"><a class="viewcode-back" href="../../../api/supriya/synthdefs/factories.html#supriya.synthdefs.factories.SynthDefFactory.build">[docs]</a>    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Build the SynthDef.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">supriya.synthdefs</span>
+
+        <span class="n">builder</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">SynthDefBuilder</span><span class="p">()</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initial_state</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">with</span> <span class="n">builder</span><span class="p">:</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_setup_parameters_and_state</span><span class="p">(</span><span class="n">builder</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_input</span><span class="p">(</span><span class="n">builder</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+            <span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_feedback_loop_input</span><span class="p">(</span><span class="n">builder</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">signal_block</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_signal_blocks</span><span class="p">:</span>
+                <span class="n">source</span> <span class="o">=</span> <span class="n">signal_block</span><span class="p">(</span><span class="n">builder</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">supriya</span><span class="o">.</span><span class="n">synthdefs</span><span class="o">.</span><span class="n">UGenMethodMixin</span><span class="p">):</span>
+                    <span class="n">source</span> <span class="o">=</span> <span class="n">UGenArray</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_build_output</span><span class="p">(</span><span class="n">builder</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_build_feedback_loop_output</span><span class="p">(</span><span class="n">builder</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_build_silence_detection</span><span class="p">(</span><span class="n">builder</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SynthDefFactory.with_channel_count"><a class="viewcode-back" href="../../../api/supriya/synthdefs/factories.html#supriya.synthdefs.factories.SynthDefFactory.with_channel_count">[docs]</a>    <span class="k">def</span> <span class="nf">with_channel_count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel_count</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a new factory configured with `channel_count`.</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = supriya.synthdefs.SynthDefFactory()</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; def signal_block(builder, source, state):</span>
+<span class="sd">                ...     iterations = state.get(&#39;iterations&#39;) or 2</span>
+<span class="sd">                ...     for _ in range(iterations):</span>
+<span class="sd">                ...         source = supriya.ugens.AllpassC.ar(</span>
+<span class="sd">                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),</span>
+<span class="sd">                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),</span>
+<span class="sd">                ...             source=source,</span>
+<span class="sd">                ...             maximum_delay_time=0.1,</span>
+<span class="sd">                ...             )</span>
+<span class="sd">                ...     return source</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_input()</span>
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_output()</span>
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_signal_block(signal_block)</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            Configure the factory with 4 channels:</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_channel_count(4)</span>
+<span class="sd">                &gt;&gt;&gt; synthdef = factory.build()</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">                synthdef:</span>
+<span class="sd">                    name: ...</span>
+<span class="sd">                    ugens:</span>
+<span class="sd">                    -   Control.ir: null</span>
+<span class="sd">                    -   In.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                    -   ExpRand.ir/0:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/1:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/0:</span>
+<span class="sd">                            decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: In.ar[0]</span>
+<span class="sd">                    -   AllpassC.ar/1:</span>
+<span class="sd">                            decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: In.ar[1]</span>
+<span class="sd">                    -   AllpassC.ar/2:</span>
+<span class="sd">                            decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: In.ar[2]</span>
+<span class="sd">                    -   AllpassC.ar/3:</span>
+<span class="sd">                            decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: In.ar[3]</span>
+<span class="sd">                    -   ExpRand.ir/2:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/3:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/4:</span>
+<span class="sd">                            decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/0[0]</span>
+<span class="sd">                    -   AllpassC.ar/5:</span>
+<span class="sd">                            decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/1[0]</span>
+<span class="sd">                    -   AllpassC.ar/6:</span>
+<span class="sd">                            decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/2[0]</span>
+<span class="sd">                    -   AllpassC.ar/7:</span>
+<span class="sd">                            decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/3[0]</span>
+<span class="sd">                    -   Out.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                            source[0]: AllpassC.ar/4[0]</span>
+<span class="sd">                            source[1]: AllpassC.ar/5[0]</span>
+<span class="sd">                            source[2]: AllpassC.ar/6[0]</span>
+<span class="sd">                            source[3]: AllpassC.ar/7[0]</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            Channel count can be overridden at build time:</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; synthdef = factory.build(channel_count=3)</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">                synthdef:</span>
+<span class="sd">                    name: ...</span>
+<span class="sd">                    ugens:</span>
+<span class="sd">                    -   Control.ir: null</span>
+<span class="sd">                    -   In.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                    -   ExpRand.ir/0:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/1:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/0:</span>
+<span class="sd">                            decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: In.ar[0]</span>
+<span class="sd">                    -   AllpassC.ar/1:</span>
+<span class="sd">                            decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: In.ar[1]</span>
+<span class="sd">                    -   AllpassC.ar/2:</span>
+<span class="sd">                            decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: In.ar[2]</span>
+<span class="sd">                    -   ExpRand.ir/2:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/3:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/3:</span>
+<span class="sd">                            decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/0[0]</span>
+<span class="sd">                    -   AllpassC.ar/4:</span>
+<span class="sd">                            decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/1[0]</span>
+<span class="sd">                    -   AllpassC.ar/5:</span>
+<span class="sd">                            decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/2[0]</span>
+<span class="sd">                    -   Out.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                            source[0]: AllpassC.ar/3[0]</span>
+<span class="sd">                            source[1]: AllpassC.ar/4[0]</span>
+<span class="sd">                            source[2]: AllpassC.ar/5[0]</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">channel_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">channel_count</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">channel_count</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="n">clone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
+        <span class="n">clone</span><span class="o">.</span><span class="n">_channel_count</span> <span class="o">=</span> <span class="n">channel_count</span>
+        <span class="k">return</span> <span class="n">clone</span></div>
+
+<div class="viewcode-block" id="SynthDefFactory.with_feedback_loop"><a class="viewcode-back" href="../../../api/supriya/synthdefs/factories.html#supriya.synthdefs.factories.SynthDefFactory.with_feedback_loop">[docs]</a>    <span class="k">def</span> <span class="nf">with_feedback_loop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block_function</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a new factory configured with a feedback loop.</span>
+
+<span class="sd">        Feedback block functions follow the same guidelines as other signal</span>
+<span class="sd">        block functions.</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = supriya.synthdefs.SynthDefFactory()</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; def signal_block(builder, source, state):</span>
+<span class="sd">                ...     iterations = state.get(&#39;iterations&#39;) or 2</span>
+<span class="sd">                ...     for _ in range(iterations):</span>
+<span class="sd">                ...         source = supriya.ugens.AllpassC.ar(</span>
+<span class="sd">                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),</span>
+<span class="sd">                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),</span>
+<span class="sd">                ...             source=source,</span>
+<span class="sd">                ...             maximum_delay_time=0.1,</span>
+<span class="sd">                ...             )</span>
+<span class="sd">                ...     return source</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_input()</span>
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_output()</span>
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_signal_block(signal_block)</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            Configure the factory with a basic feedback loop:</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_feedback_loop()</span>
+<span class="sd">                &gt;&gt;&gt; synthdef = factory.build()</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">                synthdef:</span>
+<span class="sd">                    name: ...</span>
+<span class="sd">                    ugens:</span>
+<span class="sd">                    -   Control.ir: null</span>
+<span class="sd">                    -   In.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                    -   LocalIn.ar:</span>
+<span class="sd">                            default[0]: 0.0</span>
+<span class="sd">                    -   BinaryOpUGen(ADDITION).ar:</span>
+<span class="sd">                            left: In.ar[0]</span>
+<span class="sd">                            right: LocalIn.ar[0]</span>
+<span class="sd">                    -   ExpRand.ir/0:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/1:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/0:</span>
+<span class="sd">                            decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: BinaryOpUGen(ADDITION).ar[0]</span>
+<span class="sd">                    -   ExpRand.ir/2:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/3:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/1:</span>
+<span class="sd">                            decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/0[0]</span>
+<span class="sd">                    -   Out.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                            source[0]: AllpassC.ar/1[0]</span>
+<span class="sd">                    -   LocalOut.ar:</span>
+<span class="sd">                            source[0]: AllpassC.ar/1[0]</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            Configure the factory with a modulated feedback loop via a signal</span>
+<span class="sd">            block function:</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; def feedback_block(builder, source, state):</span>
+<span class="sd">                ...     return source * supriya.ugens.SinOsc.kr(frequency=0.3)</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_feedback_loop(feedback_block)</span>
+<span class="sd">                &gt;&gt;&gt; synthdef = factory.build()</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">                synthdef:</span>
+<span class="sd">                    name: ...</span>
+<span class="sd">                    ugens:</span>
+<span class="sd">                    -   Control.ir: null</span>
+<span class="sd">                    -   In.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                    -   LocalIn.ar:</span>
+<span class="sd">                            default[0]: 0.0</span>
+<span class="sd">                    -   BinaryOpUGen(ADDITION).ar:</span>
+<span class="sd">                            left: In.ar[0]</span>
+<span class="sd">                            right: LocalIn.ar[0]</span>
+<span class="sd">                    -   ExpRand.ir/0:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/1:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/0:</span>
+<span class="sd">                            decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: BinaryOpUGen(ADDITION).ar[0]</span>
+<span class="sd">                    -   ExpRand.ir/2:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/3:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/1:</span>
+<span class="sd">                            decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/0[0]</span>
+<span class="sd">                    -   Out.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                            source[0]: AllpassC.ar/1[0]</span>
+<span class="sd">                    -   SinOsc.kr:</span>
+<span class="sd">                            frequency: 0.3</span>
+<span class="sd">                            phase: 0.0</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar:</span>
+<span class="sd">                            left: AllpassC.ar/1[0]</span>
+<span class="sd">                            right: SinOsc.kr[0]</span>
+<span class="sd">                    -   LocalOut.ar:</span>
+<span class="sd">                            source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">clone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">block_function</span><span class="p">:</span>
+            <span class="n">clone</span><span class="o">.</span><span class="n">_feedback_loop</span> <span class="o">=</span> <span class="n">block_function</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">clone</span><span class="o">.</span><span class="n">_feedback_loop</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="n">clone</span></div>
+
+<div class="viewcode-block" id="SynthDefFactory.with_gate"><a class="viewcode-back" href="../../../api/supriya/synthdefs/factories.html#supriya.synthdefs.factories.SynthDefFactory.with_gate">[docs]</a>    <span class="k">def</span> <span class="nf">with_gate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attack_time</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">release_time</span><span class="o">=</span><span class="mf">0.02</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a new factory configured with a gate.</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = supriya.synthdefs.SynthDefFactory()</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; def signal_block(builder, source, state):</span>
+<span class="sd">                ...     iterations = state.get(&#39;iterations&#39;) or 2</span>
+<span class="sd">                ...     for _ in range(iterations):</span>
+<span class="sd">                ...         source = supriya.ugens.AllpassC.ar(</span>
+<span class="sd">                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),</span>
+<span class="sd">                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),</span>
+<span class="sd">                ...             source=source,</span>
+<span class="sd">                ...             maximum_delay_time=0.1,</span>
+<span class="sd">                ...             )</span>
+<span class="sd">                ...     return source</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_input()</span>
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_output()</span>
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_signal_block(signal_block)</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            Configure the factory with a gate envelope and corresponding gate</span>
+<span class="sd">            parameter:</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_gate()</span>
+<span class="sd">                &gt;&gt;&gt; synthdef = factory.build()</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">                synthdef:</span>
+<span class="sd">                    name: ...</span>
+<span class="sd">                    ugens:</span>
+<span class="sd">                    -   Control.ir: null</span>
+<span class="sd">                    -   In.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                    -   Control.kr: null</span>
+<span class="sd">                    -   Linen.kr:</span>
+<span class="sd">                            attack_time: 0.02</span>
+<span class="sd">                            done_action: 2.0</span>
+<span class="sd">                            gate: Control.kr[0:gate]</span>
+<span class="sd">                            release_time: 0.02</span>
+<span class="sd">                            sustain_level: 1.0</span>
+<span class="sd">                    -   ExpRand.ir/0:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/1:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/0:</span>
+<span class="sd">                            decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: In.ar[0]</span>
+<span class="sd">                    -   ExpRand.ir/2:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/3:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/1:</span>
+<span class="sd">                            decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/0[0]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar:</span>
+<span class="sd">                            left: AllpassC.ar/1[0]</span>
+<span class="sd">                            right: Linen.kr[0]</span>
+<span class="sd">                    -   Out.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                            source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">clone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
+        <span class="n">clone</span><span class="o">.</span><span class="n">_gate</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="n">attack_time</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">attack_time</span><span class="p">),</span> <span class="n">release_time</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">release_time</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">clone</span></div>
+
+<div class="viewcode-block" id="SynthDefFactory.with_initial_state"><a class="viewcode-back" href="../../../api/supriya/synthdefs/factories.html#supriya.synthdefs.factories.SynthDefFactory.with_initial_state">[docs]</a>    <span class="k">def</span> <span class="nf">with_initial_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">state</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a new factory configured with an inital state comprised of</span>
+<span class="sd">        key/value pairs.</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = supriya.synthdefs.SynthDefFactory()</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; def signal_block(builder, source, state):</span>
+<span class="sd">                ...     iterations = state.get(&#39;iterations&#39;) or 2</span>
+<span class="sd">                ...     for _ in range(iterations):</span>
+<span class="sd">                ...         source = supriya.ugens.AllpassC.ar(</span>
+<span class="sd">                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),</span>
+<span class="sd">                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),</span>
+<span class="sd">                ...             source=source,</span>
+<span class="sd">                ...             maximum_delay_time=0.1,</span>
+<span class="sd">                ...             )</span>
+<span class="sd">                ...     return source</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_input()</span>
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_output()</span>
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_signal_block(signal_block)</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            Configure the factory with an initial state consisting of a single</span>
+<span class="sd">            key/value pair which can be accessed in the previously configured</span>
+<span class="sd">            signal block function:</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_initial_state(iterations=4)</span>
+<span class="sd">                &gt;&gt;&gt; synthdef = factory.build()</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">                synthdef:</span>
+<span class="sd">                    name: ...</span>
+<span class="sd">                    ugens:</span>
+<span class="sd">                    -   Control.ir: null</span>
+<span class="sd">                    -   In.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                    -   ExpRand.ir/0:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/1:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/0:</span>
+<span class="sd">                            decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: In.ar[0]</span>
+<span class="sd">                    -   ExpRand.ir/2:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/3:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/1:</span>
+<span class="sd">                            decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/0[0]</span>
+<span class="sd">                    -   ExpRand.ir/4:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/5:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/2:</span>
+<span class="sd">                            decay_time: ExpRand.ir/4[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/5[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/1[0]</span>
+<span class="sd">                    -   ExpRand.ir/6:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/7:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/3:</span>
+<span class="sd">                            decay_time: ExpRand.ir/6[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/7[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/2[0]</span>
+<span class="sd">                    -   Out.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                            source[0]: AllpassC.ar/3[0]</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">clone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
+        <span class="n">clone</span><span class="o">.</span><span class="n">_initial_state</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">state</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">clone</span></div>
+
+<div class="viewcode-block" id="SynthDefFactory.with_input"><a class="viewcode-back" href="../../../api/supriya/synthdefs/factories.html#supriya.synthdefs.factories.SynthDefFactory.with_input">[docs]</a>    <span class="k">def</span> <span class="nf">with_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feedback</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">private</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">windowed</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a new factory configured with a bus input.</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = supriya.synthdefs.SynthDefFactory()</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; def signal_block(builder, source, state):</span>
+<span class="sd">                ...     iterations = state.get(&#39;iterations&#39;) or 2</span>
+<span class="sd">                ...     for _ in range(iterations):</span>
+<span class="sd">                ...         source = supriya.ugens.AllpassC.ar(</span>
+<span class="sd">                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),</span>
+<span class="sd">                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),</span>
+<span class="sd">                ...             source=source,</span>
+<span class="sd">                ...             maximum_delay_time=0.1,</span>
+<span class="sd">                ...             )</span>
+<span class="sd">                ...     return source</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_signal_block(signal_block)</span>
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_output()</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            Configure the factory with a basic bus input:</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_input()</span>
+<span class="sd">                &gt;&gt;&gt; synthdef = factory.build()</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">                synthdef:</span>
+<span class="sd">                    name: ...</span>
+<span class="sd">                    ugens:</span>
+<span class="sd">                    -   Control.ir: null</span>
+<span class="sd">                    -   In.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                    -   ExpRand.ir/0:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/1:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/0:</span>
+<span class="sd">                            decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: In.ar[0]</span>
+<span class="sd">                    -   ExpRand.ir/2:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/3:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/1:</span>
+<span class="sd">                            decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/0[0]</span>
+<span class="sd">                    -   Out.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                            source[0]: AllpassC.ar/1[0]</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            Configure the factory with a private bus input:</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_input(private=True)</span>
+<span class="sd">                &gt;&gt;&gt; synthdef = factory.build()</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">                synthdef:</span>
+<span class="sd">                    name: ...</span>
+<span class="sd">                    ugens:</span>
+<span class="sd">                    -   Control.ir: null</span>
+<span class="sd">                    -   In.ar:</span>
+<span class="sd">                            bus: Control.ir[0:in_]</span>
+<span class="sd">                    -   ExpRand.ir/0:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/1:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/0:</span>
+<span class="sd">                            decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: In.ar[0]</span>
+<span class="sd">                    -   ExpRand.ir/2:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/3:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/1:</span>
+<span class="sd">                            decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/0[0]</span>
+<span class="sd">                    -   Out.ar:</span>
+<span class="sd">                            bus: Control.ir[1:out]</span>
+<span class="sd">                            source[0]: AllpassC.ar/1[0]</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            Configure the factory with a windowed bus input:</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_input(windowed=True)</span>
+<span class="sd">                &gt;&gt;&gt; synthdef = factory.build()</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">                synthdef:</span>
+<span class="sd">                    name: ...</span>
+<span class="sd">                    ugens:</span>
+<span class="sd">                    -   Control.ir: null</span>
+<span class="sd">                    -   Line.kr:</span>
+<span class="sd">                            done_action: 2.0</span>
+<span class="sd">                            duration: Control.ir[0:duration]</span>
+<span class="sd">                            start: 0.0</span>
+<span class="sd">                            stop: 1.0</span>
+<span class="sd">                    -   UnaryOpUGen(HANNING_WINDOW).kr:</span>
+<span class="sd">                            source: Line.kr[0]</span>
+<span class="sd">                    -   In.ar:</span>
+<span class="sd">                            bus: Control.ir[1:out]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar:</span>
+<span class="sd">                            left: In.ar[0]</span>
+<span class="sd">                            right: UnaryOpUGen(HANNING_WINDOW).kr[0]</span>
+<span class="sd">                    -   ExpRand.ir/0:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/1:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/0:</span>
+<span class="sd">                            decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar[0]</span>
+<span class="sd">                    -   ExpRand.ir/2:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/3:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/1:</span>
+<span class="sd">                            decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/0[0]</span>
+<span class="sd">                    -   Out.ar:</span>
+<span class="sd">                            bus: Control.ir[1:out]</span>
+<span class="sd">                            source[0]: AllpassC.ar/1[0]</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            A factory configured with both a windowed bus input and output will</span>
+<span class="sd">            re-use the windowing signal:</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_input(windowed=True)</span>
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_output(windowed=True)</span>
+<span class="sd">                &gt;&gt;&gt; synthdef = factory.build()</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">                synthdef:</span>
+<span class="sd">                    name: ...</span>
+<span class="sd">                    ugens:</span>
+<span class="sd">                    -   Control.ir: null</span>
+<span class="sd">                    -   Line.kr:</span>
+<span class="sd">                            done_action: 2.0</span>
+<span class="sd">                            duration: Control.ir[0:duration]</span>
+<span class="sd">                            start: 0.0</span>
+<span class="sd">                            stop: 1.0</span>
+<span class="sd">                    -   UnaryOpUGen(HANNING_WINDOW).kr:</span>
+<span class="sd">                            source: Line.kr[0]</span>
+<span class="sd">                    -   In.ar:</span>
+<span class="sd">                            bus: Control.ir[1:out]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/0:</span>
+<span class="sd">                            left: In.ar[0]</span>
+<span class="sd">                            right: UnaryOpUGen(HANNING_WINDOW).kr[0]</span>
+<span class="sd">                    -   ExpRand.ir/0:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/1:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/0:</span>
+<span class="sd">                            decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar/0[0]</span>
+<span class="sd">                    -   ExpRand.ir/2:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/3:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/1:</span>
+<span class="sd">                            decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/0[0]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/1:</span>
+<span class="sd">                            left: AllpassC.ar/1[0]</span>
+<span class="sd">                            right: UnaryOpUGen(HANNING_WINDOW).kr[0]</span>
+<span class="sd">                    -   Out.ar:</span>
+<span class="sd">                            bus: Control.ir[1:out]</span>
+<span class="sd">                            source[0]: BinaryOpUGen(MULTIPLICATION).ar/1[0]</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">clone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
+        <span class="n">clone</span><span class="o">.</span><span class="n">_input</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="n">feedback</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">feedback</span><span class="p">),</span> <span class="n">private</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">private</span><span class="p">),</span> <span class="n">windowed</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">windowed</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">clone</span></div>
+
+<div class="viewcode-block" id="SynthDefFactory.with_output"><a class="viewcode-back" href="../../../api/supriya/synthdefs/factories.html#supriya.synthdefs.factories.SynthDefFactory.with_output">[docs]</a>    <span class="k">def</span> <span class="nf">with_output</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">crossfaded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">leveled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">replacing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">windowed</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a new factory configured with a bus output.</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = supriya.synthdefs.SynthDefFactory()</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; def signal_block(builder, source, state):</span>
+<span class="sd">                ...     iterations = state.get(&#39;iterations&#39;) or 2</span>
+<span class="sd">                ...     for _ in range(iterations):</span>
+<span class="sd">                ...         source = supriya.ugens.AllpassC.ar(</span>
+<span class="sd">                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),</span>
+<span class="sd">                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),</span>
+<span class="sd">                ...             source=source,</span>
+<span class="sd">                ...             maximum_delay_time=0.1,</span>
+<span class="sd">                ...             )</span>
+<span class="sd">                ...     return source</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_input()</span>
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_signal_block(signal_block)</span>
+
+<span class="sd">        ..  container:: example</span>
+
+
+<span class="sd">            Configure the factory with a basic bus output:</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_output()</span>
+<span class="sd">                &gt;&gt;&gt; synthdef = factory.build()</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">                synthdef:</span>
+<span class="sd">                    name: ...</span>
+<span class="sd">                    ugens:</span>
+<span class="sd">                    -   Control.ir: null</span>
+<span class="sd">                    -   In.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                    -   ExpRand.ir/0:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/1:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/0:</span>
+<span class="sd">                            decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: In.ar[0]</span>
+<span class="sd">                    -   ExpRand.ir/2:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/3:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/1:</span>
+<span class="sd">                            decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/0[0]</span>
+<span class="sd">                    -   Out.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                            source[0]: AllpassC.ar/1[0]</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            Configure the factory with a windowed bus output:</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_output(windowed=True)</span>
+<span class="sd">                &gt;&gt;&gt; synthdef = factory.build()</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">                synthdef:</span>
+<span class="sd">                    name: ...</span>
+<span class="sd">                    ugens:</span>
+<span class="sd">                    -   Control.ir: null</span>
+<span class="sd">                    -   Line.kr:</span>
+<span class="sd">                            done_action: 2.0</span>
+<span class="sd">                            duration: Control.ir[0:duration]</span>
+<span class="sd">                            start: 0.0</span>
+<span class="sd">                            stop: 1.0</span>
+<span class="sd">                    -   UnaryOpUGen(HANNING_WINDOW).kr:</span>
+<span class="sd">                            source: Line.kr[0]</span>
+<span class="sd">                    -   In.ar:</span>
+<span class="sd">                            bus: Control.ir[1:out]</span>
+<span class="sd">                    -   ExpRand.ir/0:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/1:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/0:</span>
+<span class="sd">                            decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: In.ar[0]</span>
+<span class="sd">                    -   ExpRand.ir/2:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/3:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/1:</span>
+<span class="sd">                            decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/0[0]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar:</span>
+<span class="sd">                            left: AllpassC.ar/1[0]</span>
+<span class="sd">                            right: UnaryOpUGen(HANNING_WINDOW).kr[0]</span>
+<span class="sd">                    -   Out.ar:</span>
+<span class="sd">                            bus: Control.ir[1:out]</span>
+<span class="sd">                            source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            Configure the factory with a mix-able bus output:</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_output(crossfaded=True)</span>
+<span class="sd">                &gt;&gt;&gt; synthdef = factory.build()</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">                synthdef:</span>
+<span class="sd">                    name: ...</span>
+<span class="sd">                    ugens:</span>
+<span class="sd">                    -   Control.ir: null</span>
+<span class="sd">                    -   In.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                    -   Control.kr: null</span>
+<span class="sd">                    -   ExpRand.ir/0:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/1:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/0:</span>
+<span class="sd">                            decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: In.ar[0]</span>
+<span class="sd">                    -   ExpRand.ir/2:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/3:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/1:</span>
+<span class="sd">                            decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/0[0]</span>
+<span class="sd">                    -   XOut.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                            crossfade: Control.kr[0:mix]</span>
+<span class="sd">                            source[0]: AllpassC.ar/1[0]</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            Configure the factory with a basic bus output preceded by an</span>
+<span class="sd">            amplitude level control:</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_output(leveled=True)</span>
+<span class="sd">                &gt;&gt;&gt; synthdef = factory.build()</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">                synthdef:</span>
+<span class="sd">                    name: ...</span>
+<span class="sd">                    ugens:</span>
+<span class="sd">                    -   Control.ir: null</span>
+<span class="sd">                    -   In.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                    -   Control.kr: null</span>
+<span class="sd">                    -   ExpRand.ir/0:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/1:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/0:</span>
+<span class="sd">                            decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: In.ar[0]</span>
+<span class="sd">                    -   ExpRand.ir/2:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/3:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/1:</span>
+<span class="sd">                            decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/0[0]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar:</span>
+<span class="sd">                            left: AllpassC.ar/1[0]</span>
+<span class="sd">                            right: Control.kr[0:level]</span>
+<span class="sd">                    -   Out.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                            source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            A factory configured with a crossfaded *and* windowed bus output</span>
+<span class="sd">            will use the windowing signal to control the mix:</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_output(</span>
+<span class="sd">                ...     crossfaded=True,</span>
+<span class="sd">                ...     windowed=True,</span>
+<span class="sd">                ...     )</span>
+<span class="sd">                &gt;&gt;&gt; synthdef = factory.build()</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">                synthdef:</span>
+<span class="sd">                    name: ...</span>
+<span class="sd">                    ugens:</span>
+<span class="sd">                    -   Control.ir: null</span>
+<span class="sd">                    -   Line.kr:</span>
+<span class="sd">                            done_action: 2.0</span>
+<span class="sd">                            duration: Control.ir[0:duration]</span>
+<span class="sd">                            start: 0.0</span>
+<span class="sd">                            stop: 1.0</span>
+<span class="sd">                    -   UnaryOpUGen(HANNING_WINDOW).kr:</span>
+<span class="sd">                            source: Line.kr[0]</span>
+<span class="sd">                    -   In.ar:</span>
+<span class="sd">                            bus: Control.ir[1:out]</span>
+<span class="sd">                    -   ExpRand.ir/0:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/1:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/0:</span>
+<span class="sd">                            decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: In.ar[0]</span>
+<span class="sd">                    -   ExpRand.ir/2:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/3:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/1:</span>
+<span class="sd">                            decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/0[0]</span>
+<span class="sd">                    -   XOut.ar:</span>
+<span class="sd">                            bus: Control.ir[1:out]</span>
+<span class="sd">                            crossfade: UnaryOpUGen(HANNING_WINDOW).kr[0]</span>
+<span class="sd">                            source[0]: AllpassC.ar/1[0]</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            A level-control can be combined with the windowing and crossfading:</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_output(</span>
+<span class="sd">                ...     crossfaded=True,</span>
+<span class="sd">                ...     leveled=True,</span>
+<span class="sd">                ...     windowed=True,</span>
+<span class="sd">                ...     )</span>
+<span class="sd">                &gt;&gt;&gt; synthdef = factory.build()</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">                synthdef:</span>
+<span class="sd">                    name: ...</span>
+<span class="sd">                    ugens:</span>
+<span class="sd">                    -   Control.ir: null</span>
+<span class="sd">                    -   Line.kr:</span>
+<span class="sd">                            done_action: 2.0</span>
+<span class="sd">                            duration: Control.ir[0:duration]</span>
+<span class="sd">                            start: 0.0</span>
+<span class="sd">                            stop: 1.0</span>
+<span class="sd">                    -   UnaryOpUGen(HANNING_WINDOW).kr:</span>
+<span class="sd">                            source: Line.kr[0]</span>
+<span class="sd">                    -   In.ar:</span>
+<span class="sd">                            bus: Control.ir[1:out]</span>
+<span class="sd">                    -   Control.kr: null</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).kr:</span>
+<span class="sd">                            left: UnaryOpUGen(HANNING_WINDOW).kr[0]</span>
+<span class="sd">                            right: Control.kr[0:level]</span>
+<span class="sd">                    -   ExpRand.ir/0:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/1:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/0:</span>
+<span class="sd">                            decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: In.ar[0]</span>
+<span class="sd">                    -   ExpRand.ir/2:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/3:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/1:</span>
+<span class="sd">                            decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/0[0]</span>
+<span class="sd">                    -   XOut.ar:</span>
+<span class="sd">                            bus: Control.ir[1:out]</span>
+<span class="sd">                            crossfade: BinaryOpUGen(MULTIPLICATION).kr[0]</span>
+<span class="sd">                            source[0]: AllpassC.ar/1[0]</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            A factory configured with both a windowed bus input and output will</span>
+<span class="sd">            re-use the windowing signal:</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_input(windowed=True)</span>
+<span class="sd">                &gt;&gt;&gt; synthdef = factory.build()</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">                synthdef:</span>
+<span class="sd">                    name: ...</span>
+<span class="sd">                    ugens:</span>
+<span class="sd">                    -   Control.ir: null</span>
+<span class="sd">                    -   Line.kr:</span>
+<span class="sd">                            done_action: 2.0</span>
+<span class="sd">                            duration: Control.ir[0:duration]</span>
+<span class="sd">                            start: 0.0</span>
+<span class="sd">                            stop: 1.0</span>
+<span class="sd">                    -   UnaryOpUGen(HANNING_WINDOW).kr:</span>
+<span class="sd">                            source: Line.kr[0]</span>
+<span class="sd">                    -   In.ar:</span>
+<span class="sd">                            bus: Control.ir[1:out]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar:</span>
+<span class="sd">                            left: In.ar[0]</span>
+<span class="sd">                            right: UnaryOpUGen(HANNING_WINDOW).kr[0]</span>
+<span class="sd">                    -   Control.kr: null</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).kr:</span>
+<span class="sd">                            left: UnaryOpUGen(HANNING_WINDOW).kr[0]</span>
+<span class="sd">                            right: Control.kr[0:level]</span>
+<span class="sd">                    -   ExpRand.ir/0:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/1:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/0:</span>
+<span class="sd">                            decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar[0]</span>
+<span class="sd">                    -   ExpRand.ir/2:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/3:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/1:</span>
+<span class="sd">                            decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/0[0]</span>
+<span class="sd">                    -   XOut.ar:</span>
+<span class="sd">                            bus: Control.ir[1:out]</span>
+<span class="sd">                            crossfade: BinaryOpUGen(MULTIPLICATION).kr[0]</span>
+<span class="sd">                            source[0]: AllpassC.ar/1[0]</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="ow">not</span> <span class="p">(</span><span class="n">replacing</span> <span class="ow">and</span> <span class="n">crossfaded</span><span class="p">)</span>
+        <span class="n">clone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
+        <span class="n">clone</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="n">crossfaded</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">crossfaded</span><span class="p">),</span>
+            <span class="n">leveled</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">leveled</span><span class="p">),</span>
+            <span class="n">replacing</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">replacing</span><span class="p">),</span>
+            <span class="n">windowed</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">windowed</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">clone</span></div>
+
+<div class="viewcode-block" id="SynthDefFactory.with_parameter"><a class="viewcode-back" href="../../../api/supriya/synthdefs/factories.html#supriya.synthdefs.factories.SynthDefFactory.with_parameter">[docs]</a>    <span class="k">def</span> <span class="nf">with_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">.controls</span> <span class="kn">import</span> <span class="n">Parameter</span>
+
+        <span class="n">parameter</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="n">parameter_rate</span><span class="o">=</span><span class="n">rate</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_parameters</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">parameter</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="SynthDefFactory.with_parameters"><a class="viewcode-back" href="../../../api/supriya/synthdefs/factories.html#supriya.synthdefs.factories.SynthDefFactory.with_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">with_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">clone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
+        <span class="n">parameters</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parameters</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">parameters</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">parameters</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="n">clone</span><span class="o">.</span><span class="n">_parameters</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">parameters</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+        <span class="k">return</span> <span class="n">clone</span></div>
+
+<div class="viewcode-block" id="SynthDefFactory.with_parameter_block"><a class="viewcode-back" href="../../../api/supriya/synthdefs/factories.html#supriya.synthdefs.factories.SynthDefFactory.with_parameter_block">[docs]</a>    <span class="k">def</span> <span class="nf">with_parameter_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block_function</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a new factory configured with a parameter block function.</span>
+
+<span class="sd">        Use parameter block functions to build repetitive sets of SynthDef</span>
+<span class="sd">        parameters, e.g. each set of band parameters for a multi-band</span>
+<span class="sd">        compressor.</span>
+
+<span class="sd">        Parameter block functions take two parameters:</span>
+
+<span class="sd">        builder</span>
+<span class="sd">            the SynthDef builder instance</span>
+
+<span class="sd">        state</span>
+<span class="sd">            a dictionary of arbitrary key/value pairs for parameterizing the</span>
+<span class="sd">            signal and parameter block functions</span>
+
+<span class="sd">        The return values of parameter block functions are ignored.</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            A factory configured to build multi-band compressor SynthDefs,</span>
+<span class="sd">            using frequency bands split at ``frequencies``:</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; def parameter_block(builder, state):</span>
+<span class="sd">                ...     frequencies = state[&#39;frequencies&#39;]</span>
+<span class="sd">                ...     band_count = len(frequencies) + 1</span>
+<span class="sd">                ...     for i in range(band_count):</span>
+<span class="sd">                ...         band_name = &#39;band_{}_&#39;.format(i + 1)</span>
+<span class="sd">                ...         builder._add_parameter(band_name + &#39;pregain&#39;, 0)</span>
+<span class="sd">                ...         builder._add_parameter(band_name + &#39;clamp_time&#39;, 0.01)</span>
+<span class="sd">                ...         builder._add_parameter(band_name + &#39;relax_time&#39;, 0.1)</span>
+<span class="sd">                ...         builder._add_parameter(band_name + &#39;threshold&#39;, -6)</span>
+<span class="sd">                ...         builder._add_parameter(band_name + &#39;slope_above&#39;, 0.5)</span>
+<span class="sd">                ...         builder._add_parameter(band_name + &#39;slope_below&#39;, 1.0)</span>
+<span class="sd">                ...         builder._add_parameter(band_name + &#39;postgain&#39;, 0)</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; def signal_block(builder, source, state):</span>
+<span class="sd">                ...     bands = []</span>
+<span class="sd">                ...     frequencies = state[&#39;frequencies&#39;]</span>
+<span class="sd">                ...     for frequency in frequencies:</span>
+<span class="sd">                ...         band = supriya.ugens.LPF.ar(source=source, frequency=frequency)</span>
+<span class="sd">                ...         bands.append(band)</span>
+<span class="sd">                ...         source -= band</span>
+<span class="sd">                ...     bands.append(source)</span>
+<span class="sd">                ...     compressors = []</span>
+<span class="sd">                ...     for i, band in enumerate(bands):</span>
+<span class="sd">                ...         band_name = &#39;band_{}_&#39;.format(i + 1)</span>
+<span class="sd">                ...         band *= builder[band_name + &#39;pregain&#39;].db_to_amplitude()</span>
+<span class="sd">                ...         band = supriya.ugens.CompanderD.ar(</span>
+<span class="sd">                ...             source=band,</span>
+<span class="sd">                ...             clamp_time=builder[band_name + &#39;clamp_time&#39;],</span>
+<span class="sd">                ...             relax_time=builder[band_name + &#39;relax_time&#39;],</span>
+<span class="sd">                ...             slope_above=builder[band_name + &#39;slope_above&#39;],</span>
+<span class="sd">                ...             slope_below=builder[band_name + &#39;slope_below&#39;],</span>
+<span class="sd">                ...             threshold=builder[band_name + &#39;threshold&#39;].db_to_amplitude(),</span>
+<span class="sd">                ...             )</span>
+<span class="sd">                ...         band *= builder[band_name + &#39;postgain&#39;].db_to_amplitude()</span>
+<span class="sd">                ...         compressors.extend(band)</span>
+<span class="sd">                ...     source = supriya.ugens.Mix.multichannel(</span>
+<span class="sd">                ...         compressors,</span>
+<span class="sd">                ...         state[&#39;channel_count&#39;],</span>
+<span class="sd">                ...         )</span>
+<span class="sd">                ...     return source</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = supriya.synthdefs.SynthDefFactory()</span>
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_initial_state(frequencies=(300, 1200, 9600))</span>
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_parameter_block(parameter_block)</span>
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_input()</span>
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_signal_block(signal_block)</span>
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_output(crossfaded=True)</span>
+<span class="sd">                &gt;&gt;&gt; synthdef = factory.build()</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">                synthdef:</span>
+<span class="sd">                    name: ...</span>
+<span class="sd">                    ugens:</span>
+<span class="sd">                    -   Control.ir: null</span>
+<span class="sd">                    -   In.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                    -   LPF.ar/0:</span>
+<span class="sd">                            frequency: 300.0</span>
+<span class="sd">                            source: In.ar[0]</span>
+<span class="sd">                    -   BinaryOpUGen(SUBTRACTION).ar/0:</span>
+<span class="sd">                            left: In.ar[0]</span>
+<span class="sd">                            right: LPF.ar/0[0]</span>
+<span class="sd">                    -   LPF.ar/1:</span>
+<span class="sd">                            frequency: 1200.0</span>
+<span class="sd">                            source: BinaryOpUGen(SUBTRACTION).ar/0[0]</span>
+<span class="sd">                    -   BinaryOpUGen(SUBTRACTION).ar/1:</span>
+<span class="sd">                            left: BinaryOpUGen(SUBTRACTION).ar/0[0]</span>
+<span class="sd">                            right: LPF.ar/1[0]</span>
+<span class="sd">                    -   LPF.ar/2:</span>
+<span class="sd">                            frequency: 9600.0</span>
+<span class="sd">                            source: BinaryOpUGen(SUBTRACTION).ar/1[0]</span>
+<span class="sd">                    -   BinaryOpUGen(SUBTRACTION).ar/2:</span>
+<span class="sd">                            left: BinaryOpUGen(SUBTRACTION).ar/1[0]</span>
+<span class="sd">                            right: LPF.ar/2[0]</span>
+<span class="sd">                    -   Control.kr: null</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/0:</span>
+<span class="sd">                            source: Control.kr[2:band_1_pregain]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/0:</span>
+<span class="sd">                            left: LPF.ar/0[0]</span>
+<span class="sd">                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/0[0]</span>
+<span class="sd">                    -   DelayN.ar/0:</span>
+<span class="sd">                            delay_time: Control.kr[0:band_1_clamp_time]</span>
+<span class="sd">                            maximum_delay_time: Control.kr[0:band_1_clamp_time]</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar/0[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/1:</span>
+<span class="sd">                            source: Control.kr[6:band_1_threshold]</span>
+<span class="sd">                    -   Compander.ar/0:</span>
+<span class="sd">                            clamp_time: Control.kr[0:band_1_clamp_time]</span>
+<span class="sd">                            control: DelayN.ar/0[0]</span>
+<span class="sd">                            relax_time: Control.kr[3:band_1_relax_time]</span>
+<span class="sd">                            slope_above: Control.kr[4:band_1_slope_above]</span>
+<span class="sd">                            slope_below: Control.kr[5:band_1_slope_below]</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar/0[0]</span>
+<span class="sd">                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/1[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/2:</span>
+<span class="sd">                            source: Control.kr[1:band_1_postgain]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/1:</span>
+<span class="sd">                            left: Compander.ar/0[0]</span>
+<span class="sd">                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/2[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/3:</span>
+<span class="sd">                            source: Control.kr[9:band_2_pregain]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/2:</span>
+<span class="sd">                            left: LPF.ar/1[0]</span>
+<span class="sd">                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/3[0]</span>
+<span class="sd">                    -   DelayN.ar/1:</span>
+<span class="sd">                            delay_time: Control.kr[7:band_2_clamp_time]</span>
+<span class="sd">                            maximum_delay_time: Control.kr[7:band_2_clamp_time]</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar/2[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/4:</span>
+<span class="sd">                            source: Control.kr[13:band_2_threshold]</span>
+<span class="sd">                    -   Compander.ar/1:</span>
+<span class="sd">                            clamp_time: Control.kr[7:band_2_clamp_time]</span>
+<span class="sd">                            control: DelayN.ar/1[0]</span>
+<span class="sd">                            relax_time: Control.kr[10:band_2_relax_time]</span>
+<span class="sd">                            slope_above: Control.kr[11:band_2_slope_above]</span>
+<span class="sd">                            slope_below: Control.kr[12:band_2_slope_below]</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar/2[0]</span>
+<span class="sd">                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/4[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/5:</span>
+<span class="sd">                            source: Control.kr[8:band_2_postgain]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/3:</span>
+<span class="sd">                            left: Compander.ar/1[0]</span>
+<span class="sd">                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/5[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/6:</span>
+<span class="sd">                            source: Control.kr[16:band_3_pregain]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/4:</span>
+<span class="sd">                            left: LPF.ar/2[0]</span>
+<span class="sd">                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/6[0]</span>
+<span class="sd">                    -   DelayN.ar/2:</span>
+<span class="sd">                            delay_time: Control.kr[14:band_3_clamp_time]</span>
+<span class="sd">                            maximum_delay_time: Control.kr[14:band_3_clamp_time]</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar/4[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/7:</span>
+<span class="sd">                            source: Control.kr[20:band_3_threshold]</span>
+<span class="sd">                    -   Compander.ar/2:</span>
+<span class="sd">                            clamp_time: Control.kr[14:band_3_clamp_time]</span>
+<span class="sd">                            control: DelayN.ar/2[0]</span>
+<span class="sd">                            relax_time: Control.kr[17:band_3_relax_time]</span>
+<span class="sd">                            slope_above: Control.kr[18:band_3_slope_above]</span>
+<span class="sd">                            slope_below: Control.kr[19:band_3_slope_below]</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar/4[0]</span>
+<span class="sd">                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/7[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/8:</span>
+<span class="sd">                            source: Control.kr[15:band_3_postgain]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/5:</span>
+<span class="sd">                            left: Compander.ar/2[0]</span>
+<span class="sd">                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/8[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/9:</span>
+<span class="sd">                            source: Control.kr[23:band_4_pregain]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/6:</span>
+<span class="sd">                            left: BinaryOpUGen(SUBTRACTION).ar/2[0]</span>
+<span class="sd">                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/9[0]</span>
+<span class="sd">                    -   DelayN.ar/3:</span>
+<span class="sd">                            delay_time: Control.kr[21:band_4_clamp_time]</span>
+<span class="sd">                            maximum_delay_time: Control.kr[21:band_4_clamp_time]</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar/6[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/10:</span>
+<span class="sd">                            source: Control.kr[27:band_4_threshold]</span>
+<span class="sd">                    -   Compander.ar/3:</span>
+<span class="sd">                            clamp_time: Control.kr[21:band_4_clamp_time]</span>
+<span class="sd">                            control: DelayN.ar/3[0]</span>
+<span class="sd">                            relax_time: Control.kr[24:band_4_relax_time]</span>
+<span class="sd">                            slope_above: Control.kr[25:band_4_slope_above]</span>
+<span class="sd">                            slope_below: Control.kr[26:band_4_slope_below]</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar/6[0]</span>
+<span class="sd">                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/10[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/11:</span>
+<span class="sd">                            source: Control.kr[22:band_4_postgain]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/7:</span>
+<span class="sd">                            left: Compander.ar/3[0]</span>
+<span class="sd">                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/11[0]</span>
+<span class="sd">                    -   Sum4.ar:</span>
+<span class="sd">                            input_four: BinaryOpUGen(MULTIPLICATION).ar/7[0]</span>
+<span class="sd">                            input_one: BinaryOpUGen(MULTIPLICATION).ar/1[0]</span>
+<span class="sd">                            input_three: BinaryOpUGen(MULTIPLICATION).ar/5[0]</span>
+<span class="sd">                            input_two: BinaryOpUGen(MULTIPLICATION).ar/3[0]</span>
+<span class="sd">                    -   XOut.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                            crossfade: Control.kr[28:mix]</span>
+<span class="sd">                            source[0]: Sum4.ar[0]</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            The above factory can be parameterized to use smaller or larger</span>
+<span class="sd">            numbers of bands during the build stage:</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; frequencies = (150, 300, 600, 1200, 2400, 4800, 9600)</span>
+<span class="sd">                &gt;&gt;&gt; synthdef = factory.build(frequencies=frequencies)</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">                synthdef:</span>
+<span class="sd">                    name: ...</span>
+<span class="sd">                    ugens:</span>
+<span class="sd">                    -   Control.ir: null</span>
+<span class="sd">                    -   In.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                    -   LPF.ar/0:</span>
+<span class="sd">                            frequency: 150.0</span>
+<span class="sd">                            source: In.ar[0]</span>
+<span class="sd">                    -   BinaryOpUGen(SUBTRACTION).ar/0:</span>
+<span class="sd">                            left: In.ar[0]</span>
+<span class="sd">                            right: LPF.ar/0[0]</span>
+<span class="sd">                    -   LPF.ar/1:</span>
+<span class="sd">                            frequency: 300.0</span>
+<span class="sd">                            source: BinaryOpUGen(SUBTRACTION).ar/0[0]</span>
+<span class="sd">                    -   BinaryOpUGen(SUBTRACTION).ar/1:</span>
+<span class="sd">                            left: BinaryOpUGen(SUBTRACTION).ar/0[0]</span>
+<span class="sd">                            right: LPF.ar/1[0]</span>
+<span class="sd">                    -   LPF.ar/2:</span>
+<span class="sd">                            frequency: 600.0</span>
+<span class="sd">                            source: BinaryOpUGen(SUBTRACTION).ar/1[0]</span>
+<span class="sd">                    -   BinaryOpUGen(SUBTRACTION).ar/2:</span>
+<span class="sd">                            left: BinaryOpUGen(SUBTRACTION).ar/1[0]</span>
+<span class="sd">                            right: LPF.ar/2[0]</span>
+<span class="sd">                    -   LPF.ar/3:</span>
+<span class="sd">                            frequency: 1200.0</span>
+<span class="sd">                            source: BinaryOpUGen(SUBTRACTION).ar/2[0]</span>
+<span class="sd">                    -   BinaryOpUGen(SUBTRACTION).ar/3:</span>
+<span class="sd">                            left: BinaryOpUGen(SUBTRACTION).ar/2[0]</span>
+<span class="sd">                            right: LPF.ar/3[0]</span>
+<span class="sd">                    -   LPF.ar/4:</span>
+<span class="sd">                            frequency: 2400.0</span>
+<span class="sd">                            source: BinaryOpUGen(SUBTRACTION).ar/3[0]</span>
+<span class="sd">                    -   BinaryOpUGen(SUBTRACTION).ar/4:</span>
+<span class="sd">                            left: BinaryOpUGen(SUBTRACTION).ar/3[0]</span>
+<span class="sd">                            right: LPF.ar/4[0]</span>
+<span class="sd">                    -   LPF.ar/5:</span>
+<span class="sd">                            frequency: 4800.0</span>
+<span class="sd">                            source: BinaryOpUGen(SUBTRACTION).ar/4[0]</span>
+<span class="sd">                    -   BinaryOpUGen(SUBTRACTION).ar/5:</span>
+<span class="sd">                            left: BinaryOpUGen(SUBTRACTION).ar/4[0]</span>
+<span class="sd">                            right: LPF.ar/5[0]</span>
+<span class="sd">                    -   LPF.ar/6:</span>
+<span class="sd">                            frequency: 9600.0</span>
+<span class="sd">                            source: BinaryOpUGen(SUBTRACTION).ar/5[0]</span>
+<span class="sd">                    -   BinaryOpUGen(SUBTRACTION).ar/6:</span>
+<span class="sd">                            left: BinaryOpUGen(SUBTRACTION).ar/5[0]</span>
+<span class="sd">                            right: LPF.ar/6[0]</span>
+<span class="sd">                    -   Control.kr: null</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/0:</span>
+<span class="sd">                            source: Control.kr[2:band_1_pregain]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/0:</span>
+<span class="sd">                            left: LPF.ar/0[0]</span>
+<span class="sd">                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/0[0]</span>
+<span class="sd">                    -   DelayN.ar/0:</span>
+<span class="sd">                            delay_time: Control.kr[0:band_1_clamp_time]</span>
+<span class="sd">                            maximum_delay_time: Control.kr[0:band_1_clamp_time]</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar/0[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/1:</span>
+<span class="sd">                            source: Control.kr[6:band_1_threshold]</span>
+<span class="sd">                    -   Compander.ar/0:</span>
+<span class="sd">                            clamp_time: Control.kr[0:band_1_clamp_time]</span>
+<span class="sd">                            control: DelayN.ar/0[0]</span>
+<span class="sd">                            relax_time: Control.kr[3:band_1_relax_time]</span>
+<span class="sd">                            slope_above: Control.kr[4:band_1_slope_above]</span>
+<span class="sd">                            slope_below: Control.kr[5:band_1_slope_below]</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar/0[0]</span>
+<span class="sd">                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/1[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/2:</span>
+<span class="sd">                            source: Control.kr[1:band_1_postgain]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/1:</span>
+<span class="sd">                            left: Compander.ar/0[0]</span>
+<span class="sd">                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/2[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/3:</span>
+<span class="sd">                            source: Control.kr[9:band_2_pregain]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/2:</span>
+<span class="sd">                            left: LPF.ar/1[0]</span>
+<span class="sd">                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/3[0]</span>
+<span class="sd">                    -   DelayN.ar/1:</span>
+<span class="sd">                            delay_time: Control.kr[7:band_2_clamp_time]</span>
+<span class="sd">                            maximum_delay_time: Control.kr[7:band_2_clamp_time]</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar/2[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/4:</span>
+<span class="sd">                            source: Control.kr[13:band_2_threshold]</span>
+<span class="sd">                    -   Compander.ar/1:</span>
+<span class="sd">                            clamp_time: Control.kr[7:band_2_clamp_time]</span>
+<span class="sd">                            control: DelayN.ar/1[0]</span>
+<span class="sd">                            relax_time: Control.kr[10:band_2_relax_time]</span>
+<span class="sd">                            slope_above: Control.kr[11:band_2_slope_above]</span>
+<span class="sd">                            slope_below: Control.kr[12:band_2_slope_below]</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar/2[0]</span>
+<span class="sd">                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/4[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/5:</span>
+<span class="sd">                            source: Control.kr[8:band_2_postgain]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/3:</span>
+<span class="sd">                            left: Compander.ar/1[0]</span>
+<span class="sd">                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/5[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/6:</span>
+<span class="sd">                            source: Control.kr[16:band_3_pregain]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/4:</span>
+<span class="sd">                            left: LPF.ar/2[0]</span>
+<span class="sd">                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/6[0]</span>
+<span class="sd">                    -   DelayN.ar/2:</span>
+<span class="sd">                            delay_time: Control.kr[14:band_3_clamp_time]</span>
+<span class="sd">                            maximum_delay_time: Control.kr[14:band_3_clamp_time]</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar/4[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/7:</span>
+<span class="sd">                            source: Control.kr[20:band_3_threshold]</span>
+<span class="sd">                    -   Compander.ar/2:</span>
+<span class="sd">                            clamp_time: Control.kr[14:band_3_clamp_time]</span>
+<span class="sd">                            control: DelayN.ar/2[0]</span>
+<span class="sd">                            relax_time: Control.kr[17:band_3_relax_time]</span>
+<span class="sd">                            slope_above: Control.kr[18:band_3_slope_above]</span>
+<span class="sd">                            slope_below: Control.kr[19:band_3_slope_below]</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar/4[0]</span>
+<span class="sd">                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/7[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/8:</span>
+<span class="sd">                            source: Control.kr[15:band_3_postgain]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/5:</span>
+<span class="sd">                            left: Compander.ar/2[0]</span>
+<span class="sd">                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/8[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/9:</span>
+<span class="sd">                            source: Control.kr[23:band_4_pregain]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/6:</span>
+<span class="sd">                            left: LPF.ar/3[0]</span>
+<span class="sd">                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/9[0]</span>
+<span class="sd">                    -   DelayN.ar/3:</span>
+<span class="sd">                            delay_time: Control.kr[21:band_4_clamp_time]</span>
+<span class="sd">                            maximum_delay_time: Control.kr[21:band_4_clamp_time]</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar/6[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/10:</span>
+<span class="sd">                            source: Control.kr[27:band_4_threshold]</span>
+<span class="sd">                    -   Compander.ar/3:</span>
+<span class="sd">                            clamp_time: Control.kr[21:band_4_clamp_time]</span>
+<span class="sd">                            control: DelayN.ar/3[0]</span>
+<span class="sd">                            relax_time: Control.kr[24:band_4_relax_time]</span>
+<span class="sd">                            slope_above: Control.kr[25:band_4_slope_above]</span>
+<span class="sd">                            slope_below: Control.kr[26:band_4_slope_below]</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar/6[0]</span>
+<span class="sd">                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/10[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/11:</span>
+<span class="sd">                            source: Control.kr[22:band_4_postgain]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/7:</span>
+<span class="sd">                            left: Compander.ar/3[0]</span>
+<span class="sd">                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/11[0]</span>
+<span class="sd">                    -   Sum4.ar/0:</span>
+<span class="sd">                            input_four: BinaryOpUGen(MULTIPLICATION).ar/7[0]</span>
+<span class="sd">                            input_one: BinaryOpUGen(MULTIPLICATION).ar/1[0]</span>
+<span class="sd">                            input_three: BinaryOpUGen(MULTIPLICATION).ar/5[0]</span>
+<span class="sd">                            input_two: BinaryOpUGen(MULTIPLICATION).ar/3[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/12:</span>
+<span class="sd">                            source: Control.kr[30:band_5_pregain]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/8:</span>
+<span class="sd">                            left: LPF.ar/4[0]</span>
+<span class="sd">                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/12[0]</span>
+<span class="sd">                    -   DelayN.ar/4:</span>
+<span class="sd">                            delay_time: Control.kr[28:band_5_clamp_time]</span>
+<span class="sd">                            maximum_delay_time: Control.kr[28:band_5_clamp_time]</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar/8[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/13:</span>
+<span class="sd">                            source: Control.kr[34:band_5_threshold]</span>
+<span class="sd">                    -   Compander.ar/4:</span>
+<span class="sd">                            clamp_time: Control.kr[28:band_5_clamp_time]</span>
+<span class="sd">                            control: DelayN.ar/4[0]</span>
+<span class="sd">                            relax_time: Control.kr[31:band_5_relax_time]</span>
+<span class="sd">                            slope_above: Control.kr[32:band_5_slope_above]</span>
+<span class="sd">                            slope_below: Control.kr[33:band_5_slope_below]</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar/8[0]</span>
+<span class="sd">                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/13[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/14:</span>
+<span class="sd">                            source: Control.kr[29:band_5_postgain]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/9:</span>
+<span class="sd">                            left: Compander.ar/4[0]</span>
+<span class="sd">                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/14[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/15:</span>
+<span class="sd">                            source: Control.kr[37:band_6_pregain]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/10:</span>
+<span class="sd">                            left: LPF.ar/5[0]</span>
+<span class="sd">                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/15[0]</span>
+<span class="sd">                    -   DelayN.ar/5:</span>
+<span class="sd">                            delay_time: Control.kr[35:band_6_clamp_time]</span>
+<span class="sd">                            maximum_delay_time: Control.kr[35:band_6_clamp_time]</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar/10[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/16:</span>
+<span class="sd">                            source: Control.kr[41:band_6_threshold]</span>
+<span class="sd">                    -   Compander.ar/5:</span>
+<span class="sd">                            clamp_time: Control.kr[35:band_6_clamp_time]</span>
+<span class="sd">                            control: DelayN.ar/5[0]</span>
+<span class="sd">                            relax_time: Control.kr[38:band_6_relax_time]</span>
+<span class="sd">                            slope_above: Control.kr[39:band_6_slope_above]</span>
+<span class="sd">                            slope_below: Control.kr[40:band_6_slope_below]</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar/10[0]</span>
+<span class="sd">                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/16[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/17:</span>
+<span class="sd">                            source: Control.kr[36:band_6_postgain]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/11:</span>
+<span class="sd">                            left: Compander.ar/5[0]</span>
+<span class="sd">                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/17[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/18:</span>
+<span class="sd">                            source: Control.kr[44:band_7_pregain]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/12:</span>
+<span class="sd">                            left: LPF.ar/6[0]</span>
+<span class="sd">                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/18[0]</span>
+<span class="sd">                    -   DelayN.ar/6:</span>
+<span class="sd">                            delay_time: Control.kr[42:band_7_clamp_time]</span>
+<span class="sd">                            maximum_delay_time: Control.kr[42:band_7_clamp_time]</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar/12[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/19:</span>
+<span class="sd">                            source: Control.kr[48:band_7_threshold]</span>
+<span class="sd">                    -   Compander.ar/6:</span>
+<span class="sd">                            clamp_time: Control.kr[42:band_7_clamp_time]</span>
+<span class="sd">                            control: DelayN.ar/6[0]</span>
+<span class="sd">                            relax_time: Control.kr[45:band_7_relax_time]</span>
+<span class="sd">                            slope_above: Control.kr[46:band_7_slope_above]</span>
+<span class="sd">                            slope_below: Control.kr[47:band_7_slope_below]</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar/12[0]</span>
+<span class="sd">                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/19[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/20:</span>
+<span class="sd">                            source: Control.kr[43:band_7_postgain]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/13:</span>
+<span class="sd">                            left: Compander.ar/6[0]</span>
+<span class="sd">                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/20[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/21:</span>
+<span class="sd">                            source: Control.kr[51:band_8_pregain]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/14:</span>
+<span class="sd">                            left: BinaryOpUGen(SUBTRACTION).ar/6[0]</span>
+<span class="sd">                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/21[0]</span>
+<span class="sd">                    -   DelayN.ar/7:</span>
+<span class="sd">                            delay_time: Control.kr[49:band_8_clamp_time]</span>
+<span class="sd">                            maximum_delay_time: Control.kr[49:band_8_clamp_time]</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar/14[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/22:</span>
+<span class="sd">                            source: Control.kr[55:band_8_threshold]</span>
+<span class="sd">                    -   Compander.ar/7:</span>
+<span class="sd">                            clamp_time: Control.kr[49:band_8_clamp_time]</span>
+<span class="sd">                            control: DelayN.ar/7[0]</span>
+<span class="sd">                            relax_time: Control.kr[52:band_8_relax_time]</span>
+<span class="sd">                            slope_above: Control.kr[53:band_8_slope_above]</span>
+<span class="sd">                            slope_below: Control.kr[54:band_8_slope_below]</span>
+<span class="sd">                            source: BinaryOpUGen(MULTIPLICATION).ar/14[0]</span>
+<span class="sd">                            threshold: UnaryOpUGen(DB_TO_AMPLITUDE).kr/22[0]</span>
+<span class="sd">                    -   UnaryOpUGen(DB_TO_AMPLITUDE).kr/23:</span>
+<span class="sd">                            source: Control.kr[50:band_8_postgain]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/15:</span>
+<span class="sd">                            left: Compander.ar/7[0]</span>
+<span class="sd">                            right: UnaryOpUGen(DB_TO_AMPLITUDE).kr/23[0]</span>
+<span class="sd">                    -   Sum4.ar/1:</span>
+<span class="sd">                            input_four: BinaryOpUGen(MULTIPLICATION).ar/15[0]</span>
+<span class="sd">                            input_one: BinaryOpUGen(MULTIPLICATION).ar/9[0]</span>
+<span class="sd">                            input_three: BinaryOpUGen(MULTIPLICATION).ar/13[0]</span>
+<span class="sd">                            input_two: BinaryOpUGen(MULTIPLICATION).ar/11[0]</span>
+<span class="sd">                    -   BinaryOpUGen(ADDITION).ar:</span>
+<span class="sd">                            left: Sum4.ar/0[0]</span>
+<span class="sd">                            right: Sum4.ar/1[0]</span>
+<span class="sd">                    -   XOut.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                            crossfade: Control.kr[56:mix]</span>
+<span class="sd">                            source[0]: BinaryOpUGen(ADDITION).ar[0]</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">clone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
+        <span class="n">clone</span><span class="o">.</span><span class="n">_parameter_blocks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">block_function</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">clone</span></div>
+
+<div class="viewcode-block" id="SynthDefFactory.with_rand_id"><a class="viewcode-back" href="../../../api/supriya/synthdefs/factories.html#supriya.synthdefs.factories.SynthDefFactory.with_rand_id">[docs]</a>    <span class="k">def</span> <span class="nf">with_rand_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rand_id</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a new factory configured with a random number generator ID.</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = supriya.synthdefs.SynthDefFactory()</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; def signal_block(builder, source, state):</span>
+<span class="sd">                ...     iterations = state.get(&#39;iterations&#39;) or 2</span>
+<span class="sd">                ...     for _ in range(iterations):</span>
+<span class="sd">                ...         source = supriya.ugens.AllpassC.ar(</span>
+<span class="sd">                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),</span>
+<span class="sd">                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),</span>
+<span class="sd">                ...             source=source,</span>
+<span class="sd">                ...             maximum_delay_time=0.1,</span>
+<span class="sd">                ...             )</span>
+<span class="sd">                ...     return source</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_input()</span>
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_output()</span>
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_signal_block(signal_block)</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            Configure the factory with a random number generator ID, defaulting</span>
+<span class="sd">            to 23:</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_rand_id(rand_id=23)</span>
+<span class="sd">                &gt;&gt;&gt; synthdef = factory.build()</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">                synthdef:</span>
+<span class="sd">                    name: ...</span>
+<span class="sd">                    ugens:</span>
+<span class="sd">                    -   Control.ir: null</span>
+<span class="sd">                    -   RandID.ir:</span>
+<span class="sd">                            rand_id: Control.ir[1:rand_id]</span>
+<span class="sd">                    -   In.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                    -   ExpRand.ir/0:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/1:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/0:</span>
+<span class="sd">                            decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: In.ar[0]</span>
+<span class="sd">                    -   ExpRand.ir/2:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/3:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/1:</span>
+<span class="sd">                            decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/0[0]</span>
+<span class="sd">                    -   Out.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                            source[0]: AllpassC.ar/1[0]</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">clone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">rand_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">clone</span><span class="o">.</span><span class="n">_rand_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">rand_id</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">clone</span><span class="o">.</span><span class="n">_rand_id</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">clone</span></div>
+
+<div class="viewcode-block" id="SynthDefFactory.with_signal_block"><a class="viewcode-back" href="../../../api/supriya/synthdefs/factories.html#supriya.synthdefs.factories.SynthDefFactory.with_signal_block">[docs]</a>    <span class="k">def</span> <span class="nf">with_signal_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block_function</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a new factory configured with an additional signal block</span>
+<span class="sd">        function.</span>
+
+<span class="sd">        Signal block functions take three parameters:</span>
+
+<span class="sd">        builder</span>
+<span class="sd">            the SynthDef builder instance</span>
+
+<span class="sd">        source</span>
+<span class="sd">            a UGenMethodMixin representing the signal flow</span>
+
+<span class="sd">        state</span>
+<span class="sd">            a dictionary of arbitrary key/value pairs for parameterizing the</span>
+<span class="sd">            signal and parameter block functions</span>
+
+<span class="sd">        Signal block functions should return a UGenMethodMixin.</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = supriya.synthdefs.SynthDefFactory()</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; def signal_block(builder, source, state):</span>
+<span class="sd">                ...     iterations = state.get(&#39;iterations&#39;) or 2</span>
+<span class="sd">                ...     for _ in range(iterations):</span>
+<span class="sd">                ...         source = supriya.ugens.AllpassC.ar(</span>
+<span class="sd">                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),</span>
+<span class="sd">                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),</span>
+<span class="sd">                ...             source=source,</span>
+<span class="sd">                ...             maximum_delay_time=0.1,</span>
+<span class="sd">                ...             )</span>
+<span class="sd">                ...     return source</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_input()</span>
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_output()</span>
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_signal_block(signal_block)</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            Configure the factory with an additional signal block:</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; def signal_block_post(builder, source, state):</span>
+<span class="sd">                ...     source = supriya.ugens.LeakDC.ar(source=source)</span>
+<span class="sd">                ...     source = supriya.ugens.Limiter.ar(</span>
+<span class="sd">                ...         duration=supriya.ugens.Rand.ir(0.005, 0.015),</span>
+<span class="sd">                ...         source=source,</span>
+<span class="sd">                ...         )</span>
+<span class="sd">                ...     return source</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_signal_block(signal_block_post)</span>
+<span class="sd">                &gt;&gt;&gt; synthdef = factory.build()</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">                synthdef:</span>
+<span class="sd">                    name: ...</span>
+<span class="sd">                    ugens:</span>
+<span class="sd">                    -   Control.ir: null</span>
+<span class="sd">                    -   In.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                    -   ExpRand.ir/0:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/1:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/0:</span>
+<span class="sd">                            decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: In.ar[0]</span>
+<span class="sd">                    -   ExpRand.ir/2:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/3:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/1:</span>
+<span class="sd">                            decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/0[0]</span>
+<span class="sd">                    -   LeakDC.ar:</span>
+<span class="sd">                            coefficient: 0.995</span>
+<span class="sd">                            source: AllpassC.ar/1[0]</span>
+<span class="sd">                    -   Rand.ir:</span>
+<span class="sd">                            maximum: 0.015</span>
+<span class="sd">                            minimum: 0.005</span>
+<span class="sd">                    -   Limiter.ar:</span>
+<span class="sd">                            duration: Rand.ir[0]</span>
+<span class="sd">                            level: 1.0</span>
+<span class="sd">                            source: LeakDC.ar[0]</span>
+<span class="sd">                    -   Out.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                            source[0]: Limiter.ar[0]</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">clone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
+        <span class="n">clone</span><span class="o">.</span><span class="n">_signal_blocks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">block_function</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">clone</span></div>
+
+<div class="viewcode-block" id="SynthDefFactory.with_silence_detection"><a class="viewcode-back" href="../../../api/supriya/synthdefs/factories.html#supriya.synthdefs.factories.SynthDefFactory.with_silence_detection">[docs]</a>    <span class="k">def</span> <span class="nf">with_silence_detection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a new factory configured with silence detection.</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = supriya.synthdefs.SynthDefFactory()</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; def signal_block(builder, source, state):</span>
+<span class="sd">                ...     iterations = state.get(&#39;iterations&#39;) or 2</span>
+<span class="sd">                ...     for _ in range(iterations):</span>
+<span class="sd">                ...         source = supriya.ugens.AllpassC.ar(</span>
+<span class="sd">                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),</span>
+<span class="sd">                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),</span>
+<span class="sd">                ...             source=source,</span>
+<span class="sd">                ...             maximum_delay_time=0.1,</span>
+<span class="sd">                ...             )</span>
+<span class="sd">                ...     return source</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_input()</span>
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_output()</span>
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_signal_block(signal_block)</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            Configure the factory with silence detection.</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_silence_detection()</span>
+<span class="sd">                &gt;&gt;&gt; synthdef = factory.build()</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">                synthdef:</span>
+<span class="sd">                    name: ...</span>
+<span class="sd">                    ugens:</span>
+<span class="sd">                    -   Control.ir: null</span>
+<span class="sd">                    -   In.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                    -   ExpRand.ir/0:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/1:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/0:</span>
+<span class="sd">                            decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: In.ar[0]</span>
+<span class="sd">                    -   ExpRand.ir/2:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/3:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/1:</span>
+<span class="sd">                            decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/0[0]</span>
+<span class="sd">                    -   Out.ar:</span>
+<span class="sd">                            bus: Control.ir[0:out]</span>
+<span class="sd">                            source[0]: AllpassC.ar/1[0]</span>
+<span class="sd">                    -   DetectSilence.kr:</span>
+<span class="sd">                            done_action: 2.0</span>
+<span class="sd">                            source: AllpassC.ar/1[0]</span>
+<span class="sd">                            threshold: 0.0001</span>
+<span class="sd">                            time: 0.1</span>
+
+<span class="sd">        ..  container:: example</span>
+
+<span class="sd">            Silence detection is applied before any output leveling or</span>
+<span class="sd">            windowing.</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; factory = factory.with_output(</span>
+<span class="sd">                ...     leveled=True,</span>
+<span class="sd">                ...     windowed=True,</span>
+<span class="sd">                ...     )</span>
+<span class="sd">                &gt;&gt;&gt; synthdef = factory.build()</span>
+<span class="sd">                &gt;&gt;&gt; supriya.graph(synthdef)  # doctest: +SKIP</span>
+
+<span class="sd">            ::</span>
+
+<span class="sd">                &gt;&gt;&gt; print(synthdef)</span>
+<span class="sd">                synthdef:</span>
+<span class="sd">                    name: ...</span>
+<span class="sd">                    ugens:</span>
+<span class="sd">                    -   Control.ir: null</span>
+<span class="sd">                    -   Line.kr:</span>
+<span class="sd">                            done_action: 2.0</span>
+<span class="sd">                            duration: Control.ir[0:duration]</span>
+<span class="sd">                            start: 0.0</span>
+<span class="sd">                            stop: 1.0</span>
+<span class="sd">                    -   UnaryOpUGen(HANNING_WINDOW).kr:</span>
+<span class="sd">                            source: Line.kr[0]</span>
+<span class="sd">                    -   In.ar:</span>
+<span class="sd">                            bus: Control.ir[1:out]</span>
+<span class="sd">                    -   Control.kr: null</span>
+<span class="sd">                    -   ExpRand.ir/0:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/1:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/0:</span>
+<span class="sd">                            decay_time: ExpRand.ir/0[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/1[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: In.ar[0]</span>
+<span class="sd">                    -   ExpRand.ir/2:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   ExpRand.ir/3:</span>
+<span class="sd">                            maximum: 0.1</span>
+<span class="sd">                            minimum: 0.01</span>
+<span class="sd">                    -   AllpassC.ar/1:</span>
+<span class="sd">                            decay_time: ExpRand.ir/2[0]</span>
+<span class="sd">                            delay_time: ExpRand.ir/3[0]</span>
+<span class="sd">                            maximum_delay_time: 0.1</span>
+<span class="sd">                            source: AllpassC.ar/0[0]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/0:</span>
+<span class="sd">                            left: AllpassC.ar/1[0]</span>
+<span class="sd">                            right: Control.kr[0:level]</span>
+<span class="sd">                    -   BinaryOpUGen(MULTIPLICATION).ar/1:</span>
+<span class="sd">                            left: BinaryOpUGen(MULTIPLICATION).ar/0[0]</span>
+<span class="sd">                            right: UnaryOpUGen(HANNING_WINDOW).kr[0]</span>
+<span class="sd">                    -   Out.ar:</span>
+<span class="sd">                            bus: Control.ir[1:out]</span>
+<span class="sd">                            source[0]: BinaryOpUGen(MULTIPLICATION).ar/1[0]</span>
+<span class="sd">                    -   DetectSilence.kr:</span>
+<span class="sd">                            done_action: 2.0</span>
+<span class="sd">                            source: AllpassC.ar/1[0]</span>
+<span class="sd">                            threshold: 0.0001</span>
+<span class="sd">                            time: 0.1</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">clone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clone</span><span class="p">()</span>
+        <span class="n">clone</span><span class="o">.</span><span class="n">_silence_detection</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="n">clone</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,480 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>asynchronous &mdash; Supriya 0.4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/uqbar.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="bases" href="bases.html" />
+    <link rel="prev" title="clock" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Supriya
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../concepts.html">Core concepts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Guides</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/filters.html">Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/samplers.html">Samplers</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">clock</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">asynchronous</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bases.html">bases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ephemera.html">ephemera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="eventqueue.html">eventqueue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="threaded.html">threaded</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conversions.html">conversions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intervals/index.html">intervals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provider.html">provider</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querytree.html">querytree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sclang.html">sclang</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scsynth.html">scsynth</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../typing.html">typing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developers</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/documenation.html">Sphinx &amp; IPython</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../dev/travisci.html">Travis-CI</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Supriya</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">supriya</a> &raquo;</li>
+        
+          <li><a href="index.html">clock</a> &raquo;</li>
+        
+      <li>asynchronous</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/api/supriya/clock/asynchronous.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-supriya.clock.asynchronous">
+<span id="asynchronous"></span><span id="supriya-clock-asynchronous"></span><h1>asynchronous<a class="headerlink" href="#module-supriya.clock.asynchronous" title="Permalink to this headline">¶</a></h1>
+<div class="svg-container docutils container">
+<div class="graphviz"><object data="../../../_images/inheritance-668c38fb4513eda0811dcdf84150177501a0835e.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">digraph InheritanceGraph {
+    graph [bgcolor=transparent,
+        color=lightsteelblue2,
+        fontname=Arial,
+        fontsize=10,
+        outputorder=edgesfirst,
+        overlap=prism,
+        penwidth=2,
+        rankdir=LR,
+        splines=spline,
+        style=&quot;dashed, rounded&quot;,
+        truecolor=true];
+    node [colorscheme=pastel19,
+        fontname=Arial,
+        fontsize=10,
+        height=0,
+        penwidth=2,
+        shape=box,
+        style=&quot;filled, rounded&quot;,
+        width=0];
+    edge [color=lightslategrey,
+        penwidth=1];
+    subgraph cluster_builtins {
+        graph [label=builtins];
+        node [color=1];
+        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3/library/functions.html#object&quot;,
+            label=object,
+            target=_top];
+    }
+    subgraph &quot;cluster_supriya.clock.asynchronous&quot; {
+        graph [label=&quot;supriya.clock.asynchronous&quot;];
+        node [color=2];
+        &quot;supriya.clock.asynchronous.AsyncTempoClock&quot; [URL=&quot;../api/supriya/clock/asynchronous.html#supriya.clock.asynchronous.AsyncTempoClock&quot;,
+            color=black,
+            fontcolor=white,
+            label=&quot;Async\nTempo\nClock&quot;,
+            target=_top];
+    }
+    subgraph &quot;cluster_supriya.clock.bases&quot; {
+        graph [label=&quot;supriya.clock.bases&quot;];
+        node [color=3];
+        &quot;supriya.clock.bases.BaseTempoClock&quot; [URL=&quot;../api/supriya/clock/bases.html#supriya.clock.bases.BaseTempoClock&quot;,
+            label=&quot;Base\nTempo\nClock&quot;,
+            target=_top];
+    }
+    &quot;builtins.object&quot; -&gt; &quot;supriya.clock.bases.BaseTempoClock&quot;;
+    &quot;supriya.clock.bases.BaseTempoClock&quot; -&gt; &quot;supriya.clock.asynchronous.AsyncTempoClock&quot;;
+}</p></object></div>
+</div>
+<hr/><p class="section-header rubric">Classes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.clock.asynchronous.AsyncTempoClock" title="supriya.clock.asynchronous.AsyncTempoClock"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AsyncTempoClock</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="supriya.clock.asynchronous.AsyncTempoClock">
+<em class="property">class </em><code class="sig-prename descclassname">supriya.clock.asynchronous.</code><code class="sig-name descname">AsyncTempoClock</code><a class="reference internal" href="../../../_modules/supriya/clock/asynchronous.html#AsyncTempoClock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.clock.asynchronous.AsyncTempoClock" title="Permalink to this definition">¶</a></dt>
+<dd><hr/><p class="class-header rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.clock.asynchronous.AsyncTempoClock.cancel" title="supriya.clock.asynchronous.AsyncTempoClock.cancel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cancel</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.clock.asynchronous.AsyncTempoClock.change" title="supriya.clock.asynchronous.AsyncTempoClock.change"><code class="xref py py-obj docutils literal notranslate"><span class="pre">change</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.clock.asynchronous.AsyncTempoClock.cue" title="supriya.clock.asynchronous.AsyncTempoClock.cue"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cue</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.clock.asynchronous.AsyncTempoClock.cue_change" title="supriya.clock.asynchronous.AsyncTempoClock.cue_change"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cue_change</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.clock.asynchronous.AsyncTempoClock.reschedule" title="supriya.clock.asynchronous.AsyncTempoClock.reschedule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reschedule</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.clock.asynchronous.AsyncTempoClock.schedule" title="supriya.clock.asynchronous.AsyncTempoClock.schedule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">schedule</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.clock.asynchronous.AsyncTempoClock.schedule_change" title="supriya.clock.asynchronous.AsyncTempoClock.schedule_change"><code class="xref py py-obj docutils literal notranslate"><span class="pre">schedule_change</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#supriya.clock.asynchronous.AsyncTempoClock.start" title="supriya.clock.asynchronous.AsyncTempoClock.start"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#supriya.clock.asynchronous.AsyncTempoClock.stop" title="supriya.clock.asynchronous.AsyncTempoClock.stop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stop</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<hr/><p class="class-header rubric">Methods</p>
+<dl class="py method">
+<dt id="supriya.clock.asynchronous.AsyncTempoClock.cancel">
+<em class="property">async </em><code class="sig-name descname">cancel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event_id</span></em><span class="sig-paren">)</span> &#x2192; Optional<span class="p">[</span>Tuple<span class="p">]</span><a class="reference internal" href="../../../_modules/supriya/clock/asynchronous.html#AsyncTempoClock.cancel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.clock.asynchronous.AsyncTempoClock.cancel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.clock.asynchronous.AsyncTempoClock.change">
+<em class="property">async </em><code class="sig-name descname">change</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">beats_per_minute</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">time_signature</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Tuple<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><span class="p">]</span><a class="reference internal" href="../../../_modules/supriya/clock/asynchronous.html#AsyncTempoClock.change"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.clock.asynchronous.AsyncTempoClock.change" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.clock.asynchronous.AsyncTempoClock.cue">
+<em class="property">async </em><code class="sig-name descname">cue</code><span class="sig-paren">(</span><em class="sig-param">procedure</em>, <em class="sig-param">*</em>, <em class="sig-param">args=None</em>, <em class="sig-param">event_type: supriya.clock.ephemera.EventType = &lt;EventType.SCHEDULE: 1&gt;</em>, <em class="sig-param">kwargs=None</em>, <em class="sig-param">quantization: str = None</em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><a class="reference internal" href="../../../_modules/supriya/clock/asynchronous.html#AsyncTempoClock.cue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.clock.asynchronous.AsyncTempoClock.cue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.clock.asynchronous.AsyncTempoClock.cue_change">
+<em class="property">async </em><code class="sig-name descname">cue_change</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">beats_per_minute</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">quantization</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">time_signature</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Tuple<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><a class="reference internal" href="../../../_modules/supriya/clock/asynchronous.html#AsyncTempoClock.cue_change"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.clock.asynchronous.AsyncTempoClock.cue_change" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.clock.asynchronous.AsyncTempoClock.get_current_time">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.clock.bases.BaseTempoClock" title="supriya.clock.bases.BaseTempoClock"><code class="descclassname docutils literal notranslate"><span class="pre">BaseTempoClock</span></code></a>).</code><code class="sig-name descname">get_current_time</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><a class="headerlink" href="#supriya.clock.asynchronous.AsyncTempoClock.get_current_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.clock.asynchronous.AsyncTempoClock.peek">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.clock.bases.BaseTempoClock" title="supriya.clock.bases.BaseTempoClock"><code class="descclassname docutils literal notranslate"><span class="pre">BaseTempoClock</span></code></a>).</code><code class="sig-name descname">peek</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.clock.asynchronous.AsyncTempoClock.peek" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="py method">
+<dt id="supriya.clock.asynchronous.AsyncTempoClock.reschedule">
+<em class="property">async </em><code class="sig-name descname">reschedule</code><span class="sig-paren">(</span><em class="sig-param">event_id</em>, <em class="sig-param">*</em>, <em class="sig-param">schedule_at=0.0</em>, <em class="sig-param">time_unit=&lt;TimeUnit.BEATS: 0&gt;</em><span class="sig-paren">)</span> &#x2192; Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><span class="p">]</span><a class="reference internal" href="../../../_modules/supriya/clock/asynchronous.html#AsyncTempoClock.reschedule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.clock.asynchronous.AsyncTempoClock.reschedule" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.clock.asynchronous.AsyncTempoClock.schedule">
+<em class="property">async </em><code class="sig-name descname">schedule</code><span class="sig-paren">(</span><em class="sig-param">procedure</em>, <em class="sig-param">*</em>, <em class="sig-param">event_type: supriya.clock.ephemera.EventType = &lt;EventType.SCHEDULE: 1&gt;</em>, <em class="sig-param">schedule_at: float = 0.0</em>, <em class="sig-param">time_unit: supriya.clock.ephemera.TimeUnit = &lt;TimeUnit.BEATS: 0&gt;</em>, <em class="sig-param">args=None</em>, <em class="sig-param">kwargs=None</em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><a class="reference internal" href="../../../_modules/supriya/clock/asynchronous.html#AsyncTempoClock.schedule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.clock.asynchronous.AsyncTempoClock.schedule" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.clock.asynchronous.AsyncTempoClock.schedule_change">
+<em class="property">async </em><code class="sig-name descname">schedule_change</code><span class="sig-paren">(</span><em class="sig-param">*</em>, <em class="sig-param">beats_per_minute: Optional[float] = None</em>, <em class="sig-param">schedule_at: float = 0.0</em>, <em class="sig-param">time_signature: Optional[Tuple[int</em>, <em class="sig-param">int]] = None</em>, <em class="sig-param">time_unit: supriya.clock.ephemera.TimeUnit = &lt;TimeUnit.BEATS: 0&gt;</em>, <em class="sig-param">moment: supriya.clock.ephemera.Moment = None</em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><a class="reference internal" href="../../../_modules/supriya/clock/asynchronous.html#AsyncTempoClock.schedule_change"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.clock.asynchronous.AsyncTempoClock.schedule_change" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.clock.asynchronous.AsyncTempoClock.start">
+<em class="property">async </em><code class="sig-name descname">start</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">initial_time</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">initial_offset</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">initial_measure</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">beats_per_minute</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">time_signature</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Tuple<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/clock/asynchronous.html#AsyncTempoClock.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.clock.asynchronous.AsyncTempoClock.start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="supriya.clock.asynchronous.AsyncTempoClock.stop">
+<em class="property">async </em><code class="sig-name descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/clock/asynchronous.html#AsyncTempoClock.stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.clock.asynchronous.AsyncTempoClock.stop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<hr/><p class="class-header rubric">Class &amp; static methods</p>
+<div class="inherited docutils container">
+<dl class="py method">
+<dt id="supriya.clock.asynchronous.AsyncTempoClock.quantization_to_beats">
+<em class="property">classmethod </em><code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.clock.bases.BaseTempoClock" title="supriya.clock.bases.BaseTempoClock"><code class="descclassname docutils literal notranslate"><span class="pre">BaseTempoClock</span></code></a>).</code><code class="sig-name descname">quantization_to_beats</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">quantization</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.clock.asynchronous.AsyncTempoClock.quantization_to_beats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Read/write properties</p>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.clock.asynchronous.AsyncTempoClock.slop">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.clock.bases.BaseTempoClock" title="supriya.clock.bases.BaseTempoClock"><code class="descclassname docutils literal notranslate"><span class="pre">BaseTempoClock</span></code></a>).</code><code class="sig-name descname">slop</code><a class="headerlink" href="#supriya.clock.asynchronous.AsyncTempoClock.slop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<hr/><p class="class-header rubric">Read-only properties</p>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.clock.asynchronous.AsyncTempoClock.beats_per_minute">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.clock.bases.BaseTempoClock" title="supriya.clock.bases.BaseTempoClock"><code class="descclassname docutils literal notranslate"><span class="pre">BaseTempoClock</span></code></a>).</code><code class="sig-name descname">beats_per_minute</code><a class="headerlink" href="#supriya.clock.asynchronous.AsyncTempoClock.beats_per_minute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.clock.asynchronous.AsyncTempoClock.is_running">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.clock.bases.BaseTempoClock" title="supriya.clock.bases.BaseTempoClock"><code class="descclassname docutils literal notranslate"><span class="pre">BaseTempoClock</span></code></a>).</code><code class="sig-name descname">is_running</code><a class="headerlink" href="#supriya.clock.asynchronous.AsyncTempoClock.is_running" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.clock.asynchronous.AsyncTempoClock.name">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.clock.bases.BaseTempoClock" title="supriya.clock.bases.BaseTempoClock"><code class="descclassname docutils literal notranslate"><span class="pre">BaseTempoClock</span></code></a>).</code><code class="sig-name descname">name</code><a class="headerlink" href="#supriya.clock.asynchronous.AsyncTempoClock.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py attribute">
+<dt id="supriya.clock.asynchronous.AsyncTempoClock.time_signature">
+<code class="sig-prename descclassname">(<a class="reference internal" href="bases.html#supriya.clock.bases.BaseTempoClock" title="supriya.clock.bases.BaseTempoClock"><code class="descclassname docutils literal notranslate"><span class="pre">BaseTempoClock</span></code></a>).</code><code class="sig-name descname">time_signature</code><a class="headerlink" href="#supriya.clock.asynchronous.AsyncTempoClock.time_signature" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="bases.html" class="btn btn-neutral float-right" title="bases" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="clock" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Josiah Wolf Oberholtzer
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

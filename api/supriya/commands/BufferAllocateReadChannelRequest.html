@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>BufferAllocateReadChannelRequest &mdash; Supriya 0.3.0 documentation</title>
+  <title>BufferAllocateReadChannelRequest &mdash; Supriya 0.4.0 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                0.3.0
+                0.4.0
               </div>
             
           
@@ -93,14 +93,11 @@
 </ul>
 <p class="caption"><span class="caption-text">Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
@@ -110,8 +107,7 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../cli/index.html">cli</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../clock.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clock/index.html">clock</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">commands</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="MoveRequest.html">MoveRequest</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Request.html">Request</a></li>
@@ -177,10 +173,7 @@
 <li class="toctree-l3"><a class="reference internal" href="NothingRequest.html">NothingRequest</a></li>
 <li class="toctree-l3"><a class="reference internal" href="NotifyRequest.html">NotifyRequest</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ParallelGroupNewRequest.html">ParallelGroupNewRequest</a></li>
-<li class="toctree-l3"><a class="reference internal" href="QueryTreeControl.html">QueryTreeControl</a></li>
-<li class="toctree-l3"><a class="reference internal" href="QueryTreeGroup.html">QueryTreeGroup</a></li>
 <li class="toctree-l3"><a class="reference internal" href="QueryTreeResponse.html">QueryTreeResponse</a></li>
-<li class="toctree-l3"><a class="reference internal" href="QueryTreeSynth.html">QueryTreeSynth</a></li>
 <li class="toctree-l3"><a class="reference internal" href="QuitRequest.html">QuitRequest</a></li>
 <li class="toctree-l3"><a class="reference internal" href="RequestBundle.html">RequestBundle</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Requestable.html">Requestable</a></li>
@@ -204,21 +197,24 @@
 <li class="toctree-l3"><a class="reference internal" href="UgenCommandRequest.html">UgenCommandRequest</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../daw/index.html">daw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conversions.html">conversions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intervals/index.html">intervals</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../live/index.html">live</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../midi/index.html">midi</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../patterns/index.html">patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../provider.html">provider</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querytree.html">querytree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sclang.html">sclang</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scsynth.html">scsynth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../system/index.html">system</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../typing.html">typing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
 </ul>
@@ -303,7 +299,7 @@
   <div class="section" id="module-supriya.commands.BufferAllocateReadChannelRequest">
 <span id="bufferallocatereadchannelrequest"></span><span id="supriya-commands-bufferallocatereadchannelrequest"></span><h1>BufferAllocateReadChannelRequest<a class="headerlink" href="#module-supriya.commands.BufferAllocateReadChannelRequest" title="Permalink to this headline">¶</a></h1>
 <div class="svg-container docutils container">
-<div class="graphviz"><object data="../../../_images/inheritance-db28205696bd05de07c83799ef156c3ab350942f.svg" type="image/svg+xml" class="inheritance graphviz">
+<div class="graphviz"><object data="../../../_images/inheritance-dfae6c2c9e94fdd6200035e1a9e608789dbe0305.svg" type="image/svg+xml" class="inheritance graphviz">
 <p class="warning">digraph InheritanceGraph {
     graph [bgcolor=transparent,
         color=lightsteelblue2,
@@ -329,7 +325,7 @@
     subgraph cluster_builtins {
         graph [label=builtins];
         node [color=1];
-        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3.6/library/functions.html#object&quot;,
+        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3/library/functions.html#object&quot;,
             label=object,
             target=_top];
     }
@@ -363,21 +359,21 @@
     subgraph &quot;cluster_supriya.system&quot; {
         graph [label=&quot;supriya.system&quot;];
         node [color=3];
-        &quot;supriya.system.SupriyaObject.SupriyaObject&quot; [URL=&quot;../api/supriya/commands/../system/SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject&quot;,
+        &quot;supriya.system.SupriyaObject&quot; [URL=&quot;../api/supriya/commands/../system.html#supriya.system.SupriyaObject&quot;,
             label=&quot;Supriya\nObject&quot;,
             target=_top];
-        &quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; [URL=&quot;../api/supriya/commands/../system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject&quot;,
+        &quot;supriya.system.SupriyaValueObject&quot; [URL=&quot;../api/supriya/commands/../system.html#supriya.system.SupriyaValueObject&quot;,
             label=&quot;Supriya\nValue\nObject&quot;,
             target=_top];
-        &quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;;
+        &quot;supriya.system.SupriyaObject&quot; -&gt; &quot;supriya.system.SupriyaValueObject&quot;;
     }
-    &quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject.SupriyaObject&quot;;
-    &quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.Requestable.Requestable&quot;;
+    &quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject&quot;;
+    &quot;supriya.system.SupriyaValueObject&quot; -&gt; &quot;supriya.commands.Requestable.Requestable&quot;;
 }</p></object></div>
 </div>
-<dl class="class">
+<dl class="py class">
 <dt id="supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest">
-<em class="property">class </em><code class="sig-prename descclassname">supriya.commands.BufferAllocateReadChannelRequest.</code><code class="sig-name descname">BufferAllocateReadChannelRequest</code><span class="sig-paren">(</span><em class="sig-param">buffer_id=None</em>, <em class="sig-param">channel_indices=None</em>, <em class="sig-param">callback=None</em>, <em class="sig-param">file_path=None</em>, <em class="sig-param">frame_count=None</em>, <em class="sig-param">starting_frame=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/BufferAllocateReadChannelRequest.html#BufferAllocateReadChannelRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">supriya.commands.BufferAllocateReadChannelRequest.</code><code class="sig-name descname">BufferAllocateReadChannelRequest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">buffer_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">channel_indices</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">callback</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">file_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">frame_count</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">starting_frame</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/BufferAllocateReadChannelRequest.html#BufferAllocateReadChannelRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest" title="Permalink to this definition">¶</a></dt>
 <dd><p>A /b_allocRead request.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">supriya.commands</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">request</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">commands</span><span class="o">.</span><span class="n">BufferAllocateReadChannelRequest</span><span class="p">(</span>
@@ -393,13 +389,8 @@
 <span class="go">    )</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">message</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">message</span>
-<span class="go">OscMessage(54, 23, &#39;pulse_44100sr_16bit_octo.wav&#39;, 0, -1, 3, 4)</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">message</span><span class="o">.</span><span class="n">address</span> <span class="o">==</span> <span class="n">supriya</span><span class="o">.</span><span class="n">RequestId</span><span class="o">.</span><span class="n">BUFFER_ALLOCATE_READ_CHANNEL</span>
-<span class="go">True</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">request</span><span class="o">.</span><span class="n">to_osc</span><span class="p">()</span>
+<span class="go">OscMessage(&#39;/b_allocReadChannel&#39;, 23, &#39;pulse_44100sr_16bit_octo.wav&#39;, 0, -1, 3, 4)</span>
 </pre></div>
 </div>
 <hr/><p class="class-header rubric">Attributes Summary</p>
@@ -425,132 +416,139 @@
 </table>
 <hr/><p class="class-header rubric">Special methods</p>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.__copy__">
-<code class="sig-prename descclassname">(<a class="reference internal" href="../system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject" title="supriya.system.SupriyaValueObject.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param">*args</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.__copy__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.__copy__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.__eq__">
-<code class="sig-prename descclassname">(<a class="reference internal" href="../system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject" title="supriya.system.SupriyaValueObject.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param">expr</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.__eq__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.__eq__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return self==value.</p>
 </dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.__hash__">
-<code class="sig-prename descclassname">(<a class="reference internal" href="../system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject" title="supriya.system.SupriyaValueObject.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.__hash__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.__hash__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return hash(self).</p>
 </dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.__repr__">
-<code class="sig-prename descclassname">(<a class="reference internal" href="../system/SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject" title="supriya.system.SupriyaObject.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.__repr__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.__repr__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return repr(self).</p>
 </dd></dl>
 
 </div>
 <hr/><p class="class-header rubric">Methods</p>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.communicate">
-<code class="sig-prename descclassname">(<a class="reference internal" href="Requestable.html#supriya.commands.Requestable.Requestable" title="supriya.commands.Requestable.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate</code><span class="sig-paren">(</span><em class="sig-param">server=None</em>, <em class="sig-param">sync=True</em>, <em class="sig-param">timeout=1.0</em>, <em class="sig-param">apply_local=True</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.communicate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="Requestable.html#supriya.commands.Requestable.Requestable" title="supriya.commands.Requestable.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">apply_local</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.communicate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
+<dt id="supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.communicate_async">
+<em class="property">async </em><code class="sig-prename descclassname">(<a class="reference internal" href="Requestable.html#supriya.commands.Requestable.Requestable" title="supriya.commands.Requestable.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">communicate_async</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">timeout</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.communicate_async" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="inherited docutils container">
+<dl class="py method">
 <dt id="supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.to_datagram">
-<code class="sig-prename descclassname">(<a class="reference internal" href="Requestable.html#supriya.commands.Requestable.Requestable" title="supriya.commands.Requestable.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_datagram</code><span class="sig-paren">(</span><em class="sig-param">*</em>, <em class="sig-param">with_placeholders=False</em>, <em class="sig-param">with_request_name=False</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.to_datagram" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="Requestable.html#supriya.commands.Requestable.Requestable" title="supriya.commands.Requestable.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_datagram</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.to_datagram" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.to_list">
-<code class="sig-prename descclassname">(<a class="reference internal" href="Requestable.html#supriya.commands.Requestable.Requestable" title="supriya.commands.Requestable.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_list</code><span class="sig-paren">(</span><em class="sig-param">*</em>, <em class="sig-param">with_placeholders=False</em>, <em class="sig-param">with_request_name=False</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.to_list" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="Requestable.html#supriya.commands.Requestable.Requestable" title="supriya.commands.Requestable.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">to_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.to_list" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.to_osc">
-<em class="property">overridden </em><code class="sig-name descname">to_osc</code><span class="sig-paren">(</span><em class="sig-param">*</em>, <em class="sig-param">with_placeholders=False</em>, <em class="sig-param">with_request_name=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/BufferAllocateReadChannelRequest.html#BufferAllocateReadChannelRequest.to_osc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.to_osc" title="Permalink to this definition">¶</a></dt>
+<em class="property">overridden </em><code class="sig-name descname">to_osc</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">with_placeholders</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/commands/BufferAllocateReadChannelRequest.html#BufferAllocateReadChannelRequest.to_osc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.to_osc" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <hr/><p class="class-header rubric">Read-only properties</p>
 <div class="inherited docutils container">
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.buffer_id">
 <code class="sig-prename descclassname">(<a class="reference internal" href="BufferAllocateReadRequest.html#supriya.commands.BufferAllocateReadRequest.BufferAllocateReadRequest" title="supriya.commands.BufferAllocateReadRequest.BufferAllocateReadRequest"><code class="descclassname docutils literal notranslate"><span class="pre">BufferAllocateReadRequest</span></code></a>).</code><code class="sig-name descname">buffer_id</code><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.buffer_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.callback">
 <code class="sig-prename descclassname">(<a class="reference internal" href="BufferAllocateReadRequest.html#supriya.commands.BufferAllocateReadRequest.BufferAllocateReadRequest" title="supriya.commands.BufferAllocateReadRequest.BufferAllocateReadRequest"><code class="descclassname docutils literal notranslate"><span class="pre">BufferAllocateReadRequest</span></code></a>).</code><code class="sig-name descname">callback</code><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.callback" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.channel_count">
 <code class="sig-prename descclassname">(<a class="reference internal" href="BufferAllocateRequest.html#supriya.commands.BufferAllocateRequest.BufferAllocateRequest" title="supriya.commands.BufferAllocateRequest.BufferAllocateRequest"><code class="descclassname docutils literal notranslate"><span class="pre">BufferAllocateRequest</span></code></a>).</code><code class="sig-name descname">channel_count</code><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.channel_count" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.channel_indices">
 <code class="sig-name descname">channel_indices</code><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.channel_indices" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <div class="inherited docutils container">
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.condition">
 <code class="sig-prename descclassname">(<a class="reference internal" href="Requestable.html#supriya.commands.Requestable.Requestable" title="supriya.commands.Requestable.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">condition</code><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.condition" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.file_path">
 <code class="sig-prename descclassname">(<a class="reference internal" href="BufferAllocateReadRequest.html#supriya.commands.BufferAllocateReadRequest.BufferAllocateReadRequest" title="supriya.commands.BufferAllocateReadRequest.BufferAllocateReadRequest"><code class="descclassname docutils literal notranslate"><span class="pre">BufferAllocateReadRequest</span></code></a>).</code><code class="sig-name descname">file_path</code><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.file_path" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.frame_count">
 <code class="sig-prename descclassname">(<a class="reference internal" href="BufferAllocateReadRequest.html#supriya.commands.BufferAllocateReadRequest.BufferAllocateReadRequest" title="supriya.commands.BufferAllocateReadRequest.BufferAllocateReadRequest"><code class="descclassname docutils literal notranslate"><span class="pre">BufferAllocateReadRequest</span></code></a>).</code><code class="sig-name descname">frame_count</code><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.frame_count" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.request_name">
 <code class="sig-prename descclassname">(<a class="reference internal" href="Request.html#supriya.commands.Request.Request" title="supriya.commands.Request.Request"><code class="descclassname docutils literal notranslate"><span class="pre">Request</span></code></a>).</code><code class="sig-name descname">request_name</code><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.request_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.response">
 <code class="sig-prename descclassname">(<a class="reference internal" href="Requestable.html#supriya.commands.Requestable.Requestable" title="supriya.commands.Requestable.Requestable"><code class="descclassname docutils literal notranslate"><span class="pre">Requestable</span></code></a>).</code><code class="sig-name descname">response</code><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.response" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.response_patterns">
 <em class="property">overridden </em><code class="sig-name descname">response_patterns</code><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.response_patterns" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <div class="inherited docutils container">
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.starting_frame">
 <code class="sig-prename descclassname">(<a class="reference internal" href="BufferAllocateReadRequest.html#supriya.commands.BufferAllocateReadRequest.BufferAllocateReadRequest" title="supriya.commands.BufferAllocateReadRequest.BufferAllocateReadRequest"><code class="descclassname docutils literal notranslate"><span class="pre">BufferAllocateReadRequest</span></code></a>).</code><code class="sig-name descname">starting_frame</code><a class="headerlink" href="#supriya.commands.BufferAllocateReadChannelRequest.BufferAllocateReadChannelRequest.starting_frame" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>

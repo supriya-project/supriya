@@ -63,6 +63,10 @@ NodeSetContiguousRequest
 
    .. container:: inherited
 
+      .. automethod:: NodeSetContiguousRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: NodeSetContiguousRequest.to_datagram
 
    .. container:: inherited

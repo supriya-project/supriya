@@ -16,94 +16,27 @@ nonrealtime
 
    <hr/>
 
-.. rubric:: Classes
+.. rubric:: Subpackages
    :class: section-header
 
 .. toctree::
    :hidden:
 
-   SessionFactory
+   bases
+   buffers
+   buses
+   nodes
+   renderer
+   sessions
+   states
 
 .. autosummary::
    :nosignatures:
 
-   ~SessionFactory.SessionFactory
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Non-realtime Session
-   :class: section-header
-
-.. toctree::
-   :hidden:
-
-   Session
-
-.. autosummary::
-   :nosignatures:
-
-   ~Session.Session
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Session Internals
-   :class: section-header
-
-.. toctree::
-   :hidden:
-
-   DoNotPropagate
-   NodeTransition
-   SessionObject
-   SessionRenderer
-   State
-
-.. autosummary::
-   :nosignatures:
-
-   ~DoNotPropagate.DoNotPropagate
-   ~NodeTransition.NodeTransition
-   ~SessionObject.SessionObject
-   ~SessionRenderer.SessionRenderer
-   ~State.State
-
-.. raw:: html
-
-   <hr/>
-
-.. rubric:: Session Objects
-   :class: section-header
-
-.. toctree::
-   :hidden:
-
-   AudioInputBusGroup
-   AudioOutputBusGroup
-   Buffer
-   BufferGroup
-   Bus
-   BusGroup
-   Group
-   Moment
-   Node
-   RootNode
-   Synth
-
-.. autosummary::
-   :nosignatures:
-
-   ~AudioInputBusGroup.AudioInputBusGroup
-   ~AudioOutputBusGroup.AudioOutputBusGroup
-   ~Buffer.Buffer
-   ~BufferGroup.BufferGroup
-   ~Bus.Bus
-   ~BusGroup.BusGroup
-   ~Group.Group
-   ~Moment.Moment
-   ~Node.Node
-   ~RootNode.RootNode
-   ~Synth.Synth
+   bases
+   buffers
+   buses
+   nodes
+   renderer
+   sessions
+   states

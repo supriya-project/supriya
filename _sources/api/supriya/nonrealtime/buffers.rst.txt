@@ -1,0 +1,237 @@
+.. _supriya--nonrealtime--buffers:
+
+buffers
+=======
+
+.. automodule:: supriya.nonrealtime.buffers
+
+.. currentmodule:: supriya.nonrealtime.buffers
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.nonrealtime.buffers
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Session Objects
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~Buffer
+   ~BufferGroup
+
+.. autoclass:: Buffer
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      buffer_group
+      channel_count
+      close
+      copy_from
+      copy_to
+      duration
+      file_path
+      fill
+      fill_via_chebyshev
+      fill_via_sine_1
+      fill_via_sine_2
+      fill_via_sine_3
+      frame_count
+      normalize
+      read
+      session_id
+      set
+      set_contiguous
+      start_offset
+      starting_frame
+      stop_offset
+      write
+      zero
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Buffer.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: Buffer.close
+
+   .. automethod:: Buffer.copy_from
+
+   .. automethod:: Buffer.copy_to
+
+   .. automethod:: Buffer.fill
+
+   .. automethod:: Buffer.fill_via_chebyshev
+
+   .. automethod:: Buffer.fill_via_sine_1
+
+   .. automethod:: Buffer.fill_via_sine_2
+
+   .. automethod:: Buffer.fill_via_sine_3
+
+   .. automethod:: Buffer.normalize
+
+   .. automethod:: Buffer.read
+
+   .. automethod:: Buffer.set
+
+   .. automethod:: Buffer.set_contiguous
+
+   .. automethod:: Buffer.write
+
+   .. automethod:: Buffer.zero
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Buffer.require_offset
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Buffer.buffer_group
+
+   .. autoattribute:: Buffer.channel_count
+
+   .. autoattribute:: Buffer.duration
+
+   .. autoattribute:: Buffer.file_path
+
+   .. autoattribute:: Buffer.frame_count
+
+   .. container:: inherited
+
+      .. autoattribute:: Buffer.session
+
+   .. autoattribute:: Buffer.session_id
+
+   .. autoattribute:: Buffer.start_offset
+
+   .. autoattribute:: Buffer.starting_frame
+
+   .. autoattribute:: Buffer.stop_offset
+
+.. autoclass:: BufferGroup
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __contains__
+      __getitem__
+      __iter__
+      __len__
+      buffer_count
+      buffers
+      channel_count
+      duration
+      frame_count
+      index
+      start_offset
+      stop_offset
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: BufferGroup.__contains__
+
+   .. automethod:: BufferGroup.__getitem__
+
+   .. automethod:: BufferGroup.__iter__
+
+   .. automethod:: BufferGroup.__len__
+
+   .. container:: inherited
+
+      .. automethod:: BufferGroup.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: BufferGroup.index
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: BufferGroup.require_offset
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: BufferGroup.buffer_count
+
+   .. autoattribute:: BufferGroup.buffers
+
+   .. autoattribute:: BufferGroup.channel_count
+
+   .. autoattribute:: BufferGroup.duration
+
+   .. autoattribute:: BufferGroup.frame_count
+
+   .. container:: inherited
+
+      .. autoattribute:: BufferGroup.session
+
+   .. autoattribute:: BufferGroup.start_offset
+
+   .. autoattribute:: BufferGroup.stop_offset

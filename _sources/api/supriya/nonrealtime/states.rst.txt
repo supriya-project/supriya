@@ -1,0 +1,291 @@
+.. _supriya--nonrealtime--states:
+
+states
+======
+
+.. automodule:: supriya.nonrealtime.states
+
+.. currentmodule:: supriya.nonrealtime.states
+
+.. container:: svg-container
+
+   .. inheritance-diagram:: supriya
+      :lineage: supriya.nonrealtime.states
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Session Internals
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~DoNotPropagate
+   ~NodeTransition
+   ~State
+
+.. autoclass:: DoNotPropagate
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __enter__
+      __exit__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: DoNotPropagate.__enter__
+
+   .. automethod:: DoNotPropagate.__exit__
+
+.. autoclass:: NodeTransition
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      action
+      apply_transform
+      free_node
+      source
+      target
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: NodeTransition.__copy__
+
+   .. container:: inherited
+
+      .. automethod:: NodeTransition.__eq__
+
+   .. container:: inherited
+
+      .. automethod:: NodeTransition.__hash__
+
+   .. container:: inherited
+
+      .. automethod:: NodeTransition.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: NodeTransition.apply_transform
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. automethod:: NodeTransition.free_node
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: NodeTransition.action
+
+   .. autoattribute:: NodeTransition.source
+
+   .. autoattribute:: NodeTransition.target
+
+.. autoclass:: State
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __repr__
+      is_sparse
+      nodes_to_children
+      nodes_to_parents
+      offset
+      overlap_buffers
+      overlap_nodes
+      report
+      start_buffers
+      start_nodes
+      stop_buffers
+      stop_nodes
+      transitions
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: State.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Methods
+      :class: class-header
+
+   .. automethod:: State.report
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: State.require_offset
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: State.is_sparse
+
+   .. autoattribute:: State.nodes_to_children
+
+   .. autoattribute:: State.nodes_to_parents
+
+   .. autoattribute:: State.offset
+
+   .. autoattribute:: State.overlap_buffers
+
+   .. autoattribute:: State.overlap_nodes
+
+   .. container:: inherited
+
+      .. autoattribute:: State.session
+
+   .. autoattribute:: State.start_buffers
+
+   .. autoattribute:: State.start_nodes
+
+   .. autoattribute:: State.stop_buffers
+
+   .. autoattribute:: State.stop_nodes
+
+   .. autoattribute:: State.transitions
+
+.. raw:: html
+
+   <hr/>
+
+.. rubric:: Session Objects
+   :class: section-header
+
+.. autosummary::
+   :nosignatures:
+
+   ~Moment
+
+.. autoclass:: Moment
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Attributes Summary
+      :class: class-header
+
+   .. autosummary::
+      :nosignatures:
+
+      __enter__
+      __eq__
+      __exit__
+      __lt__
+      __repr__
+      offset
+      propagate
+      state
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Special methods
+      :class: class-header
+
+   .. automethod:: Moment.__enter__
+
+   .. automethod:: Moment.__eq__
+
+   .. automethod:: Moment.__exit__
+
+   .. automethod:: Moment.__lt__
+
+   .. automethod:: Moment.__repr__
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Class & static methods
+      :class: class-header
+
+   .. container:: inherited
+
+      .. automethod:: Moment.require_offset
+
+   .. raw:: html
+
+      <hr/>
+
+   .. rubric:: Read-only properties
+      :class: class-header
+
+   .. autoattribute:: Moment.offset
+
+   .. autoattribute:: Moment.propagate
+
+   .. container:: inherited
+
+      .. autoattribute:: Moment.session
+
+   .. autoattribute:: Moment.state

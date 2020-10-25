@@ -63,6 +63,10 @@ UgenCommandRequest
 
    .. container:: inherited
 
+      .. automethod:: UgenCommandRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: UgenCommandRequest.to_datagram
 
    .. container:: inherited

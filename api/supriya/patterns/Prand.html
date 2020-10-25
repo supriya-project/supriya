@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Prand &mdash; Supriya 0.3.0 documentation</title>
+  <title>Prand &mdash; Supriya 0.4.0 documentation</title>
   
 
   
@@ -21,10 +21,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                0.3.0
+                0.4.0
               </div>
             
           
@@ -93,14 +93,11 @@
 </ul>
 <p class="caption"><span class="caption-text">Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../realtime/index.html">Real-time composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs/index.html">Synth definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime composition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../patterns.html">Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../realtime.html">Realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nonrealtime.html">Non-realtime usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../time-agnostic.html">Time-agnostic usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../osc.html">OSC</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../midi.html">MIDI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../performance.html">Live performance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../cli.html">CLI tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../synthdefs.html">SynthDefs</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
@@ -110,16 +107,14 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">supriya</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../cli/index.html">cli</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../clock.html">clock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clock/index.html">clock</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../commands/index.html">commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../daw/index.html">daw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conversions.html">conversions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../enums.html">enums</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../exceptions.html">exceptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ext/index.html">ext</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intervals/index.html">intervals</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../io.html">io</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../live/index.html">live</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../midi/index.html">midi</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../nonrealtime/index.html">nonrealtime</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../osc/index.html">osc</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">patterns</a><ul class="current">
@@ -127,7 +122,6 @@
 <li class="toctree-l3"><a class="reference internal" href="EventPattern.html">EventPattern</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Pattern.html">Pattern</a></li>
 <li class="toctree-l3"><a class="reference internal" href="BusEvent.html">BusEvent</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Clock.html">Clock</a></li>
 <li class="toctree-l3"><a class="reference internal" href="CompositeEvent.html">CompositeEvent</a></li>
 <li class="toctree-l3"><a class="reference internal" href="EventPlayer.html">EventPlayer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="EventProduct.html">EventProduct</a></li>
@@ -150,15 +144,18 @@
 <li class="toctree-l3"><a class="reference internal" href="Pseq.html">Pseq</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Pwhite.html">Pwhite</a></li>
 <li class="toctree-l3"><a class="reference internal" href="RandomNumberGenerator.html">RandomNumberGenerator</a></li>
-<li class="toctree-l3"><a class="reference internal" href="RealtimeEventPlayer.html">RealtimeEventPlayer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="SynthEvent.html">SynthEvent</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../provider.html">provider</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../querytree.html">querytree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../realtime/index.html">realtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sclang.html">sclang</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scsynth.html">scsynth</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../soundfiles.html">soundfiles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../synthdefs/index.html">synthdefs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../system/index.html">system</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../time/index.html">time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system.html">system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../typing.html">typing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ugens/index.html">ugens</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../utils.html">utils</a></li>
 </ul>
@@ -243,7 +240,7 @@
   <div class="section" id="module-supriya.patterns.Prand">
 <span id="prand"></span><span id="supriya-patterns-prand"></span><h1>Prand<a class="headerlink" href="#module-supriya.patterns.Prand" title="Permalink to this headline">¶</a></h1>
 <div class="svg-container docutils container">
-<div class="graphviz"><object data="../../../_images/inheritance-3bbce36c0ebcd1078eb93b89711f2ef9f5aa664e.svg" type="image/svg+xml" class="inheritance graphviz">
+<div class="graphviz"><object data="../../../_images/inheritance-56b4c49b359ec6102159083b319a153b8245833a.svg" type="image/svg+xml" class="inheritance graphviz">
 <p class="warning">digraph InheritanceGraph {
     graph [bgcolor=transparent,
         color=lightsteelblue2,
@@ -269,7 +266,7 @@
     subgraph cluster_builtins {
         graph [label=builtins];
         node [color=1];
-        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3.6/library/functions.html#object&quot;,
+        &quot;builtins.object&quot; [URL=&quot;https://docs.python.org/3/library/functions.html#object&quot;,
             label=object,
             target=_top];
     }
@@ -295,26 +292,26 @@
     subgraph &quot;cluster_supriya.system&quot; {
         graph [label=&quot;supriya.system&quot;];
         node [color=3];
-        &quot;supriya.system.SupriyaObject.SupriyaObject&quot; [URL=&quot;../api/supriya/patterns/../system/SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject&quot;,
+        &quot;supriya.system.SupriyaObject&quot; [URL=&quot;../api/supriya/patterns/../system.html#supriya.system.SupriyaObject&quot;,
             label=&quot;Supriya\nObject&quot;,
             target=_top];
-        &quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; [URL=&quot;../api/supriya/patterns/../system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject&quot;,
+        &quot;supriya.system.SupriyaValueObject&quot; [URL=&quot;../api/supriya/patterns/../system.html#supriya.system.SupriyaValueObject&quot;,
             label=&quot;Supriya\nValue\nObject&quot;,
             target=_top];
-        &quot;supriya.system.SupriyaObject.SupriyaObject&quot; -&gt; &quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot;;
+        &quot;supriya.system.SupriyaObject&quot; -&gt; &quot;supriya.system.SupriyaValueObject&quot;;
     }
-    &quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject.SupriyaObject&quot;;
-    &quot;supriya.system.SupriyaValueObject.SupriyaValueObject&quot; -&gt; &quot;supriya.patterns.Pattern.Pattern&quot;;
+    &quot;builtins.object&quot; -&gt; &quot;supriya.system.SupriyaObject&quot;;
+    &quot;supriya.system.SupriyaValueObject&quot; -&gt; &quot;supriya.patterns.Pattern.Pattern&quot;;
 }</p></object></div>
 </div>
-<dl class="class">
+<dl class="py class">
 <dt id="supriya.patterns.Prand.Prand">
-<em class="property">class </em><code class="sig-prename descclassname">supriya.patterns.Prand.</code><code class="sig-name descname">Prand</code><span class="sig-paren">(</span><em class="sig-param">sequence</em>, <em class="sig-param">repetitions=1</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/patterns/Prand.html#Prand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.patterns.Prand.Prand" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">supriya.patterns.Prand.</code><code class="sig-name descname">Prand</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sequence</span></em>, <em class="sig-param"><span class="n">repetitions</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/supriya/patterns/Prand.html#Prand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#supriya.patterns.Prand.Prand" title="Permalink to this definition">¶</a></dt>
 <dd><hr/><p class="class-header rubric">Special methods</p>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.patterns.Prand.Prand.__add__">
-<code class="sig-prename descclassname">(<a class="reference internal" href="Pattern.html#supriya.patterns.Pattern.Pattern" title="supriya.patterns.Pattern.Pattern"><code class="descclassname docutils literal notranslate"><span class="pre">Pattern</span></code></a>).</code><code class="sig-name descname">__add__</code><span class="sig-paren">(</span><em class="sig-param">expr</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__add__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="Pattern.html#supriya.patterns.Pattern.Pattern" title="supriya.patterns.Pattern.Pattern"><code class="descclassname docutils literal notranslate"><span class="pre">Pattern</span></code></a>).</code><code class="sig-name descname">__add__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__add__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds <cite>expr</cite> to pattern.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pattern</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">patterns</span><span class="o">.</span><span class="n">Pseq</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">expr</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">patterns</span><span class="o">.</span><span class="n">Pseq</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
@@ -345,122 +342,117 @@
 
 </div>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.patterns.Prand.Prand.__copy__">
-<code class="sig-prename descclassname">(<a class="reference internal" href="../system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject" title="supriya.system.SupriyaValueObject.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param">*args</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__copy__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__copy__</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__copy__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.patterns.Prand.Prand.__div__">
-<code class="sig-prename descclassname">(<a class="reference internal" href="Pattern.html#supriya.patterns.Pattern.Pattern" title="supriya.patterns.Pattern.Pattern"><code class="descclassname docutils literal notranslate"><span class="pre">Pattern</span></code></a>).</code><code class="sig-name descname">__div__</code><span class="sig-paren">(</span><em class="sig-param">expr</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__div__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="Pattern.html#supriya.patterns.Pattern.Pattern" title="supriya.patterns.Pattern.Pattern"><code class="descclassname docutils literal notranslate"><span class="pre">Pattern</span></code></a>).</code><code class="sig-name descname">__div__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__div__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.patterns.Prand.Prand.__eq__">
-<code class="sig-prename descclassname">(<a class="reference internal" href="../system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject" title="supriya.system.SupriyaValueObject.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param">expr</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__eq__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__eq__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__eq__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return self==value.</p>
 </dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.patterns.Prand.Prand.__hash__">
-<code class="sig-prename descclassname">(<a class="reference internal" href="../system/SupriyaValueObject.html#supriya.system.SupriyaValueObject.SupriyaValueObject" title="supriya.system.SupriyaValueObject.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__hash__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaValueObject" title="supriya.system.SupriyaValueObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaValueObject</span></code></a>).</code><code class="sig-name descname">__hash__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__hash__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return hash(self).</p>
 </dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.patterns.Prand.Prand.__iter__">
-<code class="sig-prename descclassname">(<a class="reference internal" href="Pattern.html#supriya.patterns.Pattern.Pattern" title="supriya.patterns.Pattern.Pattern"><code class="descclassname docutils literal notranslate"><span class="pre">Pattern</span></code></a>).</code><code class="sig-name descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__iter__" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.6/library/typing.html#typing.Generator" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code></a>[+T_co, -T_contra, +V_co]</p>
-</dd>
-</dl>
-</dd></dl>
+<code class="sig-prename descclassname">(<a class="reference internal" href="Pattern.html#supriya.patterns.Pattern.Pattern" title="supriya.patterns.Pattern.Pattern"><code class="descclassname docutils literal notranslate"><span class="pre">Pattern</span></code></a>).</code><code class="sig-name descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Generator<a class="headerlink" href="#supriya.patterns.Prand.Prand.__iter__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.patterns.Prand.Prand.__mul__">
-<code class="sig-prename descclassname">(<a class="reference internal" href="Pattern.html#supriya.patterns.Pattern.Pattern" title="supriya.patterns.Pattern.Pattern"><code class="descclassname docutils literal notranslate"><span class="pre">Pattern</span></code></a>).</code><code class="sig-name descname">__mul__</code><span class="sig-paren">(</span><em class="sig-param">expr</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__mul__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="Pattern.html#supriya.patterns.Pattern.Pattern" title="supriya.patterns.Pattern.Pattern"><code class="descclassname docutils literal notranslate"><span class="pre">Pattern</span></code></a>).</code><code class="sig-name descname">__mul__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__mul__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.patterns.Prand.Prand.__pow__">
-<code class="sig-prename descclassname">(<a class="reference internal" href="Pattern.html#supriya.patterns.Pattern.Pattern" title="supriya.patterns.Pattern.Pattern"><code class="descclassname docutils literal notranslate"><span class="pre">Pattern</span></code></a>).</code><code class="sig-name descname">__pow__</code><span class="sig-paren">(</span><em class="sig-param">expr</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__pow__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="Pattern.html#supriya.patterns.Pattern.Pattern" title="supriya.patterns.Pattern.Pattern"><code class="descclassname docutils literal notranslate"><span class="pre">Pattern</span></code></a>).</code><code class="sig-name descname">__pow__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__pow__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.patterns.Prand.Prand.__radd__">
-<code class="sig-prename descclassname">(<a class="reference internal" href="Pattern.html#supriya.patterns.Pattern.Pattern" title="supriya.patterns.Pattern.Pattern"><code class="descclassname docutils literal notranslate"><span class="pre">Pattern</span></code></a>).</code><code class="sig-name descname">__radd__</code><span class="sig-paren">(</span><em class="sig-param">expr</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__radd__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="Pattern.html#supriya.patterns.Pattern.Pattern" title="supriya.patterns.Pattern.Pattern"><code class="descclassname docutils literal notranslate"><span class="pre">Pattern</span></code></a>).</code><code class="sig-name descname">__radd__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__radd__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.patterns.Prand.Prand.__rdiv__">
-<code class="sig-prename descclassname">(<a class="reference internal" href="Pattern.html#supriya.patterns.Pattern.Pattern" title="supriya.patterns.Pattern.Pattern"><code class="descclassname docutils literal notranslate"><span class="pre">Pattern</span></code></a>).</code><code class="sig-name descname">__rdiv__</code><span class="sig-paren">(</span><em class="sig-param">expr</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__rdiv__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="Pattern.html#supriya.patterns.Pattern.Pattern" title="supriya.patterns.Pattern.Pattern"><code class="descclassname docutils literal notranslate"><span class="pre">Pattern</span></code></a>).</code><code class="sig-name descname">__rdiv__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__rdiv__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.patterns.Prand.Prand.__repr__">
-<code class="sig-prename descclassname">(<a class="reference internal" href="../system/SupriyaObject.html#supriya.system.SupriyaObject.SupriyaObject" title="supriya.system.SupriyaObject.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__repr__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="../system.html#supriya.system.SupriyaObject" title="supriya.system.SupriyaObject"><code class="descclassname docutils literal notranslate"><span class="pre">SupriyaObject</span></code></a>).</code><code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__repr__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return repr(self).</p>
 </dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.patterns.Prand.Prand.__rmul__">
-<code class="sig-prename descclassname">(<a class="reference internal" href="Pattern.html#supriya.patterns.Pattern.Pattern" title="supriya.patterns.Pattern.Pattern"><code class="descclassname docutils literal notranslate"><span class="pre">Pattern</span></code></a>).</code><code class="sig-name descname">__rmul__</code><span class="sig-paren">(</span><em class="sig-param">expr</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__rmul__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="Pattern.html#supriya.patterns.Pattern.Pattern" title="supriya.patterns.Pattern.Pattern"><code class="descclassname docutils literal notranslate"><span class="pre">Pattern</span></code></a>).</code><code class="sig-name descname">__rmul__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__rmul__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.patterns.Prand.Prand.__rpow__">
-<code class="sig-prename descclassname">(<a class="reference internal" href="Pattern.html#supriya.patterns.Pattern.Pattern" title="supriya.patterns.Pattern.Pattern"><code class="descclassname docutils literal notranslate"><span class="pre">Pattern</span></code></a>).</code><code class="sig-name descname">__rpow__</code><span class="sig-paren">(</span><em class="sig-param">expr</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__rpow__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="Pattern.html#supriya.patterns.Pattern.Pattern" title="supriya.patterns.Pattern.Pattern"><code class="descclassname docutils literal notranslate"><span class="pre">Pattern</span></code></a>).</code><code class="sig-name descname">__rpow__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__rpow__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.patterns.Prand.Prand.__rsub__">
-<code class="sig-prename descclassname">(<a class="reference internal" href="Pattern.html#supriya.patterns.Pattern.Pattern" title="supriya.patterns.Pattern.Pattern"><code class="descclassname docutils literal notranslate"><span class="pre">Pattern</span></code></a>).</code><code class="sig-name descname">__rsub__</code><span class="sig-paren">(</span><em class="sig-param">expr</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__rsub__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="Pattern.html#supriya.patterns.Pattern.Pattern" title="supriya.patterns.Pattern.Pattern"><code class="descclassname docutils literal notranslate"><span class="pre">Pattern</span></code></a>).</code><code class="sig-name descname">__rsub__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__rsub__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.patterns.Prand.Prand.__sub__">
-<code class="sig-prename descclassname">(<a class="reference internal" href="Pattern.html#supriya.patterns.Pattern.Pattern" title="supriya.patterns.Pattern.Pattern"><code class="descclassname docutils literal notranslate"><span class="pre">Pattern</span></code></a>).</code><code class="sig-name descname">__sub__</code><span class="sig-paren">(</span><em class="sig-param">expr</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__sub__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">(<a class="reference internal" href="Pattern.html#supriya.patterns.Pattern.Pattern" title="supriya.patterns.Pattern.Pattern"><code class="descclassname docutils literal notranslate"><span class="pre">Pattern</span></code></a>).</code><code class="sig-name descname">__sub__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.__sub__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <hr/><p class="class-header rubric">Class &amp; static methods</p>
 <div class="inherited docutils container">
-<dl class="method">
+<dl class="py method">
 <dt id="supriya.patterns.Prand.Prand.from_dict">
-<em class="property">classmethod </em><code class="sig-prename descclassname">(<a class="reference internal" href="Pattern.html#supriya.patterns.Pattern.Pattern" title="supriya.patterns.Pattern.Pattern"><code class="descclassname docutils literal notranslate"><span class="pre">Pattern</span></code></a>).</code><code class="sig-name descname">from_dict</code><span class="sig-paren">(</span><em class="sig-param">dict_</em>, <em class="sig-param">namespaces=None</em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.from_dict" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-prename descclassname">(<a class="reference internal" href="Pattern.html#supriya.patterns.Pattern.Pattern" title="supriya.patterns.Pattern.Pattern"><code class="descclassname docutils literal notranslate"><span class="pre">Pattern</span></code></a>).</code><code class="sig-name descname">from_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dict_</span></em>, <em class="sig-param"><span class="n">namespaces</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#supriya.patterns.Prand.Prand.from_dict" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <hr/><p class="class-header rubric">Read-only properties</p>
 <div class="inherited docutils container">
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="supriya.patterns.Prand.Prand.arity">
 <code class="sig-prename descclassname">(<a class="reference internal" href="Pseq.html#supriya.patterns.Pseq.Pseq" title="supriya.patterns.Pseq.Pseq"><code class="descclassname docutils literal notranslate"><span class="pre">Pseq</span></code></a>).</code><code class="sig-name descname">arity</code><a class="headerlink" href="#supriya.patterns.Prand.Prand.arity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets arity of Pseq.</p>
@@ -475,7 +467,7 @@
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pattern</span> <span class="o">=</span> <span class="n">supriya</span><span class="o">.</span><span class="n">patterns</span><span class="o">.</span><span class="n">Pseq</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="p">[</span><span class="n">supriya</span><span class="o">.</span><span class="n">patterns</span><span class="o">.</span><span class="n">Pseq</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]),</span> <span class="n">supriya</span><span class="o">.</span><span class="n">patterns</span><span class="o">.</span><span class="n">Pseq</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])]</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="n">supriya</span><span class="o">.</span><span class="n">patterns</span><span class="o">.</span><span class="n">Pseq</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]),</span> <span class="n">supriya</span><span class="o">.</span><span class="n">patterns</span><span class="o">.</span><span class="n">Pseq</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]),]</span>
 <span class="gp">... </span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pattern</span><span class="o">.</span><span class="n">arity</span>
 <span class="go">2</span>
@@ -486,21 +478,21 @@
 
 </div>
 <div class="inherited docutils container">
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="supriya.patterns.Prand.Prand.is_infinite">
 <code class="sig-prename descclassname">(<a class="reference internal" href="Pseq.html#supriya.patterns.Pseq.Pseq" title="supriya.patterns.Pseq.Pseq"><code class="descclassname docutils literal notranslate"><span class="pre">Pseq</span></code></a>).</code><code class="sig-name descname">is_infinite</code><a class="headerlink" href="#supriya.patterns.Prand.Prand.is_infinite" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="supriya.patterns.Prand.Prand.repetitions">
 <code class="sig-prename descclassname">(<a class="reference internal" href="Pseq.html#supriya.patterns.Pseq.Pseq" title="supriya.patterns.Pseq.Pseq"><code class="descclassname docutils literal notranslate"><span class="pre">Pseq</span></code></a>).</code><code class="sig-name descname">repetitions</code><a class="headerlink" href="#supriya.patterns.Prand.Prand.repetitions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="inherited docutils container">
-<dl class="attribute">
+<dl class="py attribute">
 <dt id="supriya.patterns.Prand.Prand.sequence">
 <code class="sig-prename descclassname">(<a class="reference internal" href="Pseq.html#supriya.patterns.Pseq.Pseq" title="supriya.patterns.Pseq.Pseq"><code class="descclassname docutils literal notranslate"><span class="pre">Pseq</span></code></a>).</code><code class="sig-name descname">sequence</code><a class="headerlink" href="#supriya.patterns.Prand.Prand.sequence" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>

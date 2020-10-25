@@ -30,8 +30,10 @@ NodeInfoResponse
       is_group
       next_node_id
       node_id
-      parent_group_id
+      parent_id
       previous_node_id
+      synthdef_controls
+      synthdef_name
       tail_node_id
 
    .. raw:: html
@@ -94,12 +96,12 @@ NodeInfoResponse
 
    .. autoattribute:: NodeInfoResponse.node_id
 
-   .. container:: inherited
-
-      .. autoattribute:: NodeInfoResponse.osc_message
-
-   .. autoattribute:: NodeInfoResponse.parent_group_id
+   .. autoattribute:: NodeInfoResponse.parent_id
 
    .. autoattribute:: NodeInfoResponse.previous_node_id
+
+   .. autoattribute:: NodeInfoResponse.synthdef_controls
+
+   .. autoattribute:: NodeInfoResponse.synthdef_name
 
    .. autoattribute:: NodeInfoResponse.tail_node_id

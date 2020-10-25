@@ -62,6 +62,10 @@ book
 
    .. container:: inherited
 
+      .. automethod:: RenderExtension.add_option
+
+   .. container:: inherited
+
       .. automethod:: RenderExtension.depart_block_text
 
    .. automethod:: RenderExtension.render

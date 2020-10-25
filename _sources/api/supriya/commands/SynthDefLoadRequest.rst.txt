@@ -66,6 +66,10 @@ SynthDefLoadRequest
 
    .. container:: inherited
 
+      .. automethod:: SynthDefLoadRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: SynthDefLoadRequest.to_datagram
 
    .. container:: inherited

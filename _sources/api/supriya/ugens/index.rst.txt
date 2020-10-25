@@ -23,13 +23,11 @@ ugens
    :hidden:
 
    PseudoUGen
-   PureMultiOutUGen
 
 .. autosummary::
    :nosignatures:
 
    ~PseudoUGen.PseudoUGen
-   ~PureMultiOutUGen.PureMultiOutUGen
 
 .. raw:: html
 
@@ -75,20 +73,16 @@ ugens
 .. toctree::
    :hidden:
 
-   BinaryOpUGen
    MulAdd
    Sum3
    Sum4
-   UnaryOpUGen
 
 .. autosummary::
    :nosignatures:
 
-   ~BinaryOpUGen.BinaryOpUGen
    ~MulAdd.MulAdd
    ~Sum3.Sum3
    ~Sum4.Sum4
-   ~UnaryOpUGen.UnaryOpUGen
 
 .. raw:: html
 
@@ -213,7 +207,6 @@ ugens
    GrainIn
    Pulse
    SyncSaw
-   UGenMeta
    VDiskIn
    VOsc
    VOsc3
@@ -235,7 +228,6 @@ ugens
    ~GrainIn.GrainIn
    ~Pulse.Pulse
    ~SyncSaw.SyncSaw
-   ~UGenMeta.UGenMeta
    ~VDiskIn.VDiskIn
    ~VOsc.VOsc
    ~VOsc3.VOsc3
@@ -1007,14 +999,10 @@ ugens
    HilbertFIR
    LeastChange
    MostChange
-   MultiOutUGen
-   PureUGen
    RunningSum
    Select
    SendTrig
    Sweep
-   UGen
-   WidthFirstUGen
    WrapIndex
    _Index
 
@@ -1027,14 +1015,10 @@ ugens
    ~Index.Index
    ~LeastChange.LeastChange
    ~MostChange.MostChange
-   ~MultiOutUGen.MultiOutUGen
-   ~PureUGen.PureUGen
    ~RunningSum.RunningSum
    ~Select.Select
    ~SendTrig.SendTrig
    ~Sweep.Sweep
-   ~UGen.UGen
-   ~WidthFirstUGen.WidthFirstUGen
    ~WrapIndex.WrapIndex
 
 .. raw:: html
@@ -1088,29 +1072,6 @@ ugens
 
    <hr/>
 
-.. rubric:: UGen Internals
-   :class: section-header
-
-.. toctree::
-   :hidden:
-
-   AudioControl
-   Control
-   LagControl
-   TrigControl
-
-.. autosummary::
-   :nosignatures:
-
-   ~AudioControl.AudioControl
-   ~Control.Control
-   ~LagControl.LagControl
-   ~TrigControl.TrigControl
-
-.. raw:: html
-
-   <hr/>
-
 .. rubric:: User Interaction UGens
    :class: section-header
 
@@ -1145,6 +1106,7 @@ ugens
    K2A
    Mix
    Poll
+   Sanitize
    SendPeakRMS
    Silence
 
@@ -1158,5 +1120,6 @@ ugens
    ~K2A.K2A
    ~Mix.Mix
    ~Poll.Poll
+   ~Sanitize.Sanitize
    ~SendPeakRMS.SendPeakRMS
    ~Silence.Silence

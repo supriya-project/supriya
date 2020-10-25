@@ -67,6 +67,10 @@ NodeMapToControlBusRequest
 
    .. container:: inherited
 
+      .. automethod:: NodeMapToControlBusRequest.communicate_async
+
+   .. container:: inherited
+
       .. automethod:: NodeMapToControlBusRequest.to_datagram
 
    .. container:: inherited
