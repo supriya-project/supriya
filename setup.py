@@ -34,7 +34,7 @@ extras_require = {
         "rise",
     ],
     "test": [
-        "black",
+        "black==19.10b0",  # Trailing comma behavior in 20.x needs work
         "flake8",
         "isort",
         "mypy >= 0.720",
