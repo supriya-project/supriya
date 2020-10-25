@@ -802,6 +802,7 @@ def test_stop_and_restop(tempo_clock):
 
 
 @pytest.mark.flaky(reruns=5)
+@pytest.mark.timeout(30)
 def test_clock_skew():
     tempo_clock = TempoClock()
     tempo_clock.slop = 0.0001

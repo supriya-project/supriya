@@ -14,7 +14,7 @@ logger = logging.getLogger("supriya.test")
 
 @pytest.fixture(autouse=True)
 def log_everything(caplog):
-    caplog.set_level(logging.DEBUG, logger="supriya")
+    caplog.set_level(logging.INFO, logger="supriya")
 
 
 @pytest.fixture
@@ -838,8 +838,9 @@ async def test_stop_and_restop(tempo_clock):
     assert not tempo_clock.is_running
 
 
-@pytest.mark.asyncio
 @pytest.mark.flaky(reruns=5)
+@pytest.mark.timeout(30)
+@pytest.mark.asyncio
 async def test_clock_skew():
     tempo_clock = AsyncTempoClock()
     tempo_clock.slop = 0.001
@@ -860,5 +861,5 @@ async def test_clock_skew():
         stats = calculate_skew(store)
         print(" ".join(f"{key}: {value:f}" for key, value in stats.items()))
         all_stats.append(stats)
-    threshold = tempo_clock.slop * 2.0
+    threshold = tempo_clock.slop * 4.0
     assert all(stats["median"] < threshold for stats in all_stats)
