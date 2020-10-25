@@ -33,7 +33,6 @@ extras_require = {
         "jupyter_nbextensions_configurator",
         "rise",
     ],
-    "wavefile": ["wavefile"],
     "test": [
         "black",
         "flake8",

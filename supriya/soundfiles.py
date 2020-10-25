@@ -1,16 +1,20 @@
 """
 Tools for interacting with soundfiles.
 """
+import aifc
 import hashlib
-import os
 import pathlib
 import shlex
+import sndhdr
 import subprocess
+import struct
+import wave
 
 import uqbar.strings
 
 import supriya
 from supriya.system import SupriyaObject, SupriyaValueObject
+from supriya.utils import iterate_nwise
 
 
 class Say(SupriyaValueObject):
@@ -179,56 +183,47 @@ class Say(SupriyaValueObject):
 
 class SoundFile(SupriyaObject):
 
-    ### CLASS VARIABLES ###
-
-    __slots__ = ("_channel_count", "_file_path", "_frame_count", "_sample_rate")
-
     ### INITIALIZER ###
 
     def __init__(self, file_path):
-        import wavefile
-
-        file_path = os.path.abspath(str(file_path))
-        assert os.path.exists(file_path)
-        self._file_path = file_path
-        with wavefile.WaveReader(self.file_path) as reader:
-            self._frame_count = reader.frames
-            self._channel_count = reader.channels
-            self._sample_rate = reader.samplerate
+        self._file_path = pathlib.Path(file_path)
+        if not self._file_path.exists():
+            raise ValueError(self._file_path)
+        headers = sndhdr.what(self._file_path)
+        self._frame_count = headers.nframes
+        self._sample_rate = headers.framerate
+        self._channel_count = headers.nchannels
+        self._sample_width = headers.sampwidth
+        self._file_type = headers.filetype
 
     ### PUBLIC METHODS ###
 
-    def at_frame(self, frames):
-        import wavefile
-
-        assert 0 <= frames <= self.frame_count
-        with wavefile.WaveReader(self.file_path) as reader:
-            reader.seek(frames)
-            iterator = reader.read_iter(size=1)
-            frame = next(iterator)
-            return frame.transpose().tolist()[0]
+    def at_frame(self, frame):
+        if self.file_type not in ("aiff", "wav"):
+            raise ValueError(self.file_type)
+        if not (0 <= frame <= self.frame_count):
+            raise ValueError(frame)
+        if self.sample_width not in (16, 24, 32):
+            raise ValueError(f"Cannot decode sample width {self.sample_width}")
+        with open(self.file_path, "rb") as file_pointer:
+            reader_proc = {"aiff": aifc.open, "wav": wave.open}[self.file_type]
+            with reader_proc(file_pointer, "rb") as reader:
+                reader.setpos(frame)
+                raw_data = reader.readframes(1)
+        maximum = 2 ** (self.sample_width - 1)
+        integers = []
+        stride = self.sample_width // 8
+        endianness = "big" if self.file_type == "aiff" else "little"
+        for i in range(self.channel_count):
+            chunk = raw_data[i * stride:i * stride + stride]
+            integers.append(int.from_bytes(chunk, endianness, signed=True))
+        return [float(x) / maximum for x in integers]
 
     def at_percent(self, percent):
-        import wavefile
-
-        assert 0 <= percent <= 1
-        frames = int(self.frame_count * percent)
-        with wavefile.WaveReader(self.file_path) as reader:
-            reader.seek(frames)
-            iterator = reader.read_iter(size=1)
-            frame = next(iterator)
-            return frame.transpose().tolist()[0]
+        return self.at_frame(int(self.frame_count * percent))
 
     def at_second(self, second):
-        import wavefile
-
-        assert 0 <= second <= self.seconds
-        frames = second * self.sample_rate
-        with wavefile.WaveReader(self.file_path) as reader:
-            reader.seek(frames)
-            iterator = reader.read_iter(size=1)
-            frame = next(iterator)
-            return frame.transpose().tolist()[0]
+        return self.at_frame(int(second * self.sample_rate))
 
     ### PUBLIC PROPERTIES ###
 
@@ -245,9 +240,17 @@ class SoundFile(SupriyaObject):
         return self._file_path
 
     @property
+    def file_type(self):
+        return self._file_type
+
+    @property
     def frame_count(self):
         return self._frame_count
 
     @property
     def sample_rate(self):
         return self._sample_rate
+
+    @property
+    def sample_width(self):
+        return self._sample_width
