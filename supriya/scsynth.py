@@ -161,7 +161,9 @@ def _fallback_scsynth_path():
     if platform.system() == "Darwin":
         for path in [
             pathlib.Path("/Applications/SuperCollider.app/Contents/Resources/scsynth"),
-            pathlib.Path("/Applications/SuperCollider/SuperCollider.app/Contents/Resources/scsynth"),
+            pathlib.Path(
+                "/Applications/SuperCollider/SuperCollider.app/Contents/Resources/scsynth"
+            ),
         ]:
             if path.exists():
                 return path

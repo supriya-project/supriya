@@ -6,8 +6,8 @@ import hashlib
 import pathlib
 import shlex
 import sndhdr
-import subprocess
 import struct
+import subprocess
 import wave
 
 import uqbar.strings
@@ -215,7 +215,7 @@ class SoundFile(SupriyaObject):
         stride = self.sample_width // 8
         endianness = "big" if self.file_type == "aiff" else "little"
         for i in range(self.channel_count):
-            chunk = raw_data[i * stride:i * stride + stride]
+            chunk = raw_data[i * stride : i * stride + stride]
             integers.append(int.from_bytes(chunk, endianness, signed=True))
         return [float(x) / maximum for x in integers]
 
