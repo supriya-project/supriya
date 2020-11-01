@@ -92,8 +92,8 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
         include_timespans=False,
         id_mapping=None,
     ):
-        import supriya.nonrealtime
         import supriya.commands
+        import supriya.nonrealtime
         import supriya.synthdefs
 
         assert isinstance(node, supriya.nonrealtime.Synth)
@@ -305,8 +305,8 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
         include_timespans=False,
         id_mapping=None,
     ):
-        import supriya.nonrealtime
         import supriya.commands
+        import supriya.nonrealtime
 
         assert isinstance(node, supriya.nonrealtime.Group)
         node_id = node.session_id

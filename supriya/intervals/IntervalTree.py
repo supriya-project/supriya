@@ -35,6 +35,7 @@ class IntervalTree(SupriyaObject):
             return
         try:
             import pyximport  # noqa
+
             from .IntervalTreeDriverEx import IntervalTreeDriverEx
 
             self._driver = IntervalTreeDriverEx(intervals)

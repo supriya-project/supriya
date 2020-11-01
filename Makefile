@@ -52,13 +52,11 @@ isort:
 	isort \
 		--case-sensitive \
 		--multi-line 3 \
-		--recursive \
 		--skip supriya/__init__.py \
 		--thirdparty uqbar \
 		--thirdparty yaml \
 		--trailing-comma \
 		--use-parentheses \
-		-y \
 		${formatPaths}
 
 mypy:

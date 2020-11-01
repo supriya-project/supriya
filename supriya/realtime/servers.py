@@ -700,8 +700,8 @@ class Server(BaseServer):
                 bus_proxy._value = value
 
     def _handle_node_info_response(self, message):
-        from supriya.realtime import Group, Synth
         from supriya.commands import Response
+        from supriya.realtime import Group, Synth
 
         response = Response.from_osc_message(message)
         with self._lock:

@@ -1,7 +1,6 @@
 import supriya.synthdefs
 import supriya.ugens
 
-
 """
 SynthDef("clap", {
     arg outBus=0, amp = 0.5;

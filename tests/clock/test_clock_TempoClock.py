@@ -12,7 +12,8 @@ repeat_count = 5
 
 @pytest.fixture(autouse=True)
 def logger(caplog):
-    caplog.set_level(logging.DEBUG, logger="supriya")
+    # caplog.set_level(logging.DEBUG, logger="supriya")
+    pass
 
 
 @pytest.fixture
