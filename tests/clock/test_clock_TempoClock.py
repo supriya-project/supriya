@@ -1,4 +1,3 @@
-import logging
 import random
 import statistics
 import time
@@ -8,12 +7,6 @@ import pytest
 from supriya.clock import TempoClock, TimeUnit
 
 repeat_count = 5
-
-
-@pytest.fixture(autouse=True)
-def logger(caplog):
-    # caplog.set_level(logging.DEBUG, logger="supriya")
-    pass
 
 
 @pytest.fixture
