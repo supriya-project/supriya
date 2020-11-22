@@ -53,37 +53,14 @@ from .Convolution2 import Convolution2  # noqa
 from .Convolution2L import Convolution2L  # noqa
 from .Convolution3 import Convolution3  # noqa
 from .DC import DC  # noqa
-from .DUGen import DUGen  # noqa
-from .Dbrown import Dbrown  # noqa
-from .Dbufrd import Dbufrd  # noqa
-from .Dbufwr import Dbufwr  # noqa
 from .Decay import Decay  # noqa
 from .Decay2 import Decay2  # noqa
 from .DecodeB2 import DecodeB2  # noqa
 from .DegreeToKey import DegreeToKey  # noqa
-from .Demand import Demand  # noqa
-from .DemandEnvGen import DemandEnvGen  # noqa
 from .DetectSilence import DetectSilence  # noqa
-from .Dgeom import Dgeom  # noqa
-from .Dibrown import Dibrown  # noqa
 from .DiskIn import DiskIn  # noqa
 from .DiskOut import DiskOut  # noqa
-from .Diwhite import Diwhite  # noqa
 from .Done import Done  # noqa
-from .Drand import Drand  # noqa
-from .Dreset import Dreset  # noqa
-from .Dseq import Dseq  # noqa
-from .Dser import Dser  # noqa
-from .Dseries import Dseries  # noqa
-from .Dshuf import Dshuf  # noqa
-from .Dstutter import Dstutter  # noqa
-from .Dswitch import Dswitch  # noqa
-from .Dswitch1 import Dswitch1  # noqa
-from .Dunique import Dunique  # noqa
-from .Duty import Duty  # noqa
-from .Dwhite import Dwhite  # noqa
-from .Dwrand import Dwrand  # noqa
-from .Dxrand import Dxrand  # noqa
 from .EnvGen import EnvGen  # noqa
 from .ExpRand import ExpRand  # noqa
 from .FFT import FFT  # noqa
@@ -341,6 +318,31 @@ from .delays import (
     DelayC,
     DelayL,
     DelayN,
+)
+from .demandugens import (
+    DUGen,
+    Dbrown,
+    Dbufrd,
+    Dbufwr,
+    Demand,
+    DemandEnvGen,
+    Dgeom,
+    Dibrown,
+    Diwhite,
+    Drand,
+    Dreset,
+    Dseq,
+    Dser,
+    Dseries,
+    Dshuf,
+    Dstutter,
+    Dswitch,
+    Dswitch1,
+    Dunique,
+    Duty,
+    Dwhite,
+    Dwrand,
+    Dxrand,
 )
 from .noise import (
     BrownNoise,
