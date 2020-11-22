@@ -4,7 +4,7 @@ import math
 from supriya import CalculationRate
 from supriya.synthdefs import UGen
 from supriya.ugens.Mix import Mix
-from supriya.ugens.Pan2 import Pan2
+from supriya.ugens.panning import Pan2
 from supriya.ugens.PseudoUGen import PseudoUGen
 
 

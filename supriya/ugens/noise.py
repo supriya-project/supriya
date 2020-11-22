@@ -75,6 +75,95 @@ class Dust2(UGen):
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
 
+class GrayNoise(UGen):
+    """
+    A gray noise unit generator.
+
+    ::
+
+        >>> supriya.ugens.GrayNoise.ar()
+        GrayNoise.ar()
+
+    """
+
+    _ordered_input_names: UGenInputMap = collections.OrderedDict([])
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+
+
+class LFClipNoise(UGen):
+    """
+    A dynamic clipped noise generator.
+
+    ::
+
+        >>> supriya.ugens.LFClipNoise.ar()
+        LFClipNoise.ar()
+
+    """
+
+    _ordered_input_names = collections.OrderedDict([("frequency", 500.0)])
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+
+
+class LFDClipNoise(UGen):
+    """
+    A clipped noise generator.
+
+    ::
+
+        >>> supriya.ugens.LFDClipNoise.ar()
+        LFDClipNoise.ar()
+
+    """
+    _ordered_input_names = collections.OrderedDict([("frequency", 500.0)])
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+
+
+class LFDNoise0(UGen):
+    """
+    A dynamic step noise generator.
+
+    ::
+
+        >>> supriya.ugens.LFDNoise0.ar()
+        LFDNoise0.ar()
+
+    """
+
+    _ordered_input_names = collections.OrderedDict([("frequency", 500.0)])
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+
+
+class LFDNoise1(UGen):
+    """
+    A dynamic ramp noise generator.
+
+    ::
+
+        >>> supriya.ugens.LFDNoise1.ar()
+        LFDNoise1.ar()
+
+    """
+
+    _ordered_input_names = collections.OrderedDict([("frequency", 500.0)])
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+
+
+class LFDNoise3(UGen):
+    """
+    A dynamic polynomial noise generator.
+
+    ::
+
+        >>> supriya.ugens.LFDNoise3.ar()
+        LFDNoise3.ar()
+
+    """
+
+    _ordered_input_names = collections.OrderedDict([("frequency", 500.0)])
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+
+
 class LFNoise0(UGen):
     """
     A step noise generator.

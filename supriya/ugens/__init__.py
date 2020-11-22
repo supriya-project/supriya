@@ -5,11 +5,9 @@ from .A2K import A2K  # noqa
 from .AmpComp import AmpComp  # noqa
 from .AmpCompA import AmpCompA  # noqa
 from .Amplitude import Amplitude  # noqa
-from .Balance2 import Balance2  # noqa
 from .Ball import Ball  # noqa
 from .BeatTrack import BeatTrack  # noqa
 from .BeatTrack2 import BeatTrack2  # noqa
-from .BiPanB2 import BiPanB2  # noqa
 from .Blip import Blip  # noqa
 from .BufRd import BufRd  # noqa
 from .BufWr import BufWr  # noqa
@@ -24,7 +22,6 @@ from .Convolution2 import Convolution2  # noqa
 from .Convolution2L import Convolution2L  # noqa
 from .Convolution3 import Convolution3  # noqa
 from .DC import DC  # noqa
-from .DecodeB2 import DecodeB2  # noqa
 from .DiskIn import DiskIn  # noqa
 from .DiskOut import DiskOut  # noqa
 from .Done import Done  # noqa
@@ -36,27 +33,16 @@ from .FreeSelf import FreeSelf  # noqa
 from .FreeSelfWhenDone import FreeSelfWhenDone  # noqa
 from .FreeVerb import FreeVerb  # noqa
 from .FreqShift import FreqShift  # noqa
-from .Gendy1 import Gendy1  # noqa
-from .Gendy2 import Gendy2  # noqa
-from .Gendy3 import Gendy3  # noqa
 from .GrainBuf import GrainBuf  # noqa
 from .GrainIn import GrainIn  # noqa
-from .GrayNoise import GrayNoise  # noqa
 from .Hasher import Hasher  # noqa
 from .Hilbert import Hilbert  # noqa
 from .HilbertFIR import HilbertFIR  # noqa
 from .IRand import IRand  # noqa
-from .In import In  # noqa
-from .InFeedback import InFeedback  # noqa
 from .K2A import K2A  # noqa
 from .KeyTrack import KeyTrack  # noqa
 from .Klank import Klank  # noqa
-from .LFClipNoise import LFClipNoise  # noqa
 from .LFCub import LFCub  # noqa
-from .LFDClipNoise import LFDClipNoise  # noqa
-from .LFDNoise0 import LFDNoise0  # noqa
-from .LFDNoise1 import LFDNoise1  # noqa
-from .LFDNoise3 import LFDNoise3  # noqa
 from .Limiter import Limiter  # noqa
 from .LinExp import LinExp  # noqa
 from .LinLin import LinLin  # noqa
@@ -64,8 +50,6 @@ from .LinRand import LinRand  # noqa
 from .Line import Line  # noqa
 from .Linen import Linen  # noqa
 from .LocalBuf import LocalBuf  # noqa
-from .LocalIn import LocalIn  # noqa
-from .LocalOut import LocalOut  # noqa
 from .Logistic import Logistic  # noqa
 from .Loudness import Loudness  # noqa
 from .MFCC import MFCC  # noqa
@@ -79,14 +63,7 @@ from .MouseY import MouseY  # noqa
 from .MulAdd import MulAdd  # noqa
 from .NRand import NRand  # noqa
 from .Normalizer import Normalizer  # noqa
-from .OffsetOut import OffsetOut  # noqa
 from .Onsets import Onsets  # noqa
-from .Out import Out  # noqa
-from .Pan2 import Pan2  # noqa
-from .Pan4 import Pan4  # noqa
-from .PanAz import PanAz  # noqa
-from .PanB import PanB  # noqa
-from .PanB2 import PanB2  # noqa
 from .Pause import Pause  # noqa
 from .PauseSelf import PauseSelf  # noqa
 from .PauseSelfWhenDone import PauseSelfWhenDone  # noqa
@@ -100,8 +77,6 @@ from .Rand import Rand  # noqa
 from .RandID import RandID  # noqa
 from .RandSeed import RandSeed  # noqa
 from .RecordBuf import RecordBuf  # noqa
-from .ReplaceOut import ReplaceOut  # noqa
-from .Rotate2 import Rotate2  # noqa
 from .RunningSum import RunningSum  # noqa
 from .Sanitize import Sanitize  # noqa
 from .Saw import Saw  # noqa
@@ -121,9 +96,7 @@ from .TRand import TRand  # noqa
 from .TWindex import TWindex  # noqa
 from .VDiskIn import VDiskIn  # noqa
 from .Warp1 import Warp1  # noqa
-from .XFade2 import XFade2  # noqa
 from .XLine import XLine  # noqa
-from .XOut import XOut  # noqa
 from .beq import (
     BAllPass,
     BBandPass,
@@ -250,6 +223,7 @@ from .filters import (
     TwoPole,
     TwoZero,
 )
+from .gendyn import Gendy1, Gendy2, Gendy3
 from .info import (
     BlockSize,
     BufChannels,
@@ -272,11 +246,27 @@ from .info import (
     SampleRate,
     SubsampleOffset,
 )
+from .inout import (
+    In,
+    InFeedback,
+    LocalIn,
+    LocalOut,
+    OffsetOut,
+    Out,
+    ReplaceOut,
+    XOut,
+)
 from .noise import (
     BrownNoise,
     Crackle,
     Dust,
     Dust2,
+    GrayNoise,
+    LFClipNoise,
+    LFDClipNoise,
+    LFDNoise0,
+    LFDNoise1,
+    LFDNoise3,
     LFNoise0,
     LFNoise1,
     LFNoise2,
@@ -301,6 +291,18 @@ from .osc import (
     VarSaw,
     Vibrato,
     WrapIndex,
+)
+from .panning import (
+    Balance2,
+    BiPanB2,
+    DecodeB2,
+    Pan2,
+    Pan4,
+    PanAz,
+    PanB,
+    PanB2,
+    Rotate2,
+    XFade2,
 )
 from .pv import (
     FFT,
