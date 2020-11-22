@@ -15,6 +15,7 @@ class BrownNoise(UGen):
         BrownNoise.ar()
 
     """
+
     _ordered_input_names: UGenInputMap = collections.OrderedDict([])
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
@@ -32,6 +33,7 @@ class Crackle(UGen):
         Crackle.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict([("chaos_parameter", 1.5)])
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
@@ -49,6 +51,7 @@ class Dust(UGen):
         Dust.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict([("density", 0.0)])
     _signal_range = SignalRange.UNIPOLAR
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
@@ -67,6 +70,7 @@ class Dust2(UGen):
         Dust2.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict([("density", 0.0)])
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
@@ -81,6 +85,7 @@ class LFNoise0(UGen):
         LFNoise0.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict([("frequency", 500.0)])
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
@@ -95,6 +100,7 @@ class LFNoise1(UGen):
         LFNoise1.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict([("frequency", 500.0)])
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
@@ -109,6 +115,7 @@ class LFNoise2(UGen):
         LFNoise2.ar()
 
     """
+
     __documentation_section__ = "Noise UGens"
     _ordered_input_names = collections.OrderedDict([("frequency", 500.0)])
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
@@ -124,6 +131,7 @@ class PinkNoise(UGen):
         PinkNoise.ar()
 
     """
+
     _ordered_input_names: UGenInputMap = collections.OrderedDict([])
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
@@ -138,5 +146,6 @@ class WhiteNoise(UGen):
         WhiteNoise.ar()
 
     """
+
     _ordered_input_names: UGenInputMap = collections.OrderedDict([])
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

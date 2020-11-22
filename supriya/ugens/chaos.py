@@ -20,6 +20,7 @@ class CuspL(UGen):
         CuspL.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [("frequency", 22050), ("a", 1.0), ("b", 1.9), ("xi", 0.0)]
     )
@@ -42,6 +43,7 @@ class CuspN(UGen):
         CuspN.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [("frequency", 22050), ("a", 1.0), ("b", 1.9), ("xi", 0.0)]
     )
@@ -67,6 +69,7 @@ class FBSineC(UGen):
         FBSineC.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [
             ("frequency", 22050),
@@ -100,6 +103,7 @@ class FBSineL(UGen):
         FBSineL.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [
             ("frequency", 22050),
@@ -133,6 +137,7 @@ class FBSineN(UGen):
         FBSineN.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [
             ("frequency", 22050),
@@ -162,6 +167,7 @@ class GbmanL(UGen):
         GbmanL.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [("frequency", 22050), ("xi", 1.2), ("yi", 2.1)]
     )
@@ -183,6 +189,7 @@ class GbmanN(UGen):
         GbmanN.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [("frequency", 22050), ("xi", 1.2), ("yi", 2.1)]
     )
@@ -206,6 +213,7 @@ class HenonC(UGen):
         HenonC.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [("frequency", 22050), ("a", 1.4), ("b", 0.3), ("x_0", 0), ("x_1", 0)]
     )
@@ -229,6 +237,7 @@ class HenonL(UGen):
         HenonL.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [("frequency", 22050), ("a", 1.4), ("b", 0.3), ("x_0", 0), ("x_1", 0)]
     )
@@ -252,6 +261,7 @@ class HenonN(UGen):
         HenonN.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [("frequency", 22050), ("a", 1.4), ("b", 0.3), ("x_0", 0), ("x_1", 0)]
     )
@@ -277,6 +287,7 @@ class LatoocarfianC(UGen):
         LatoocarfianC.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [
             ("frequency", 22050),
@@ -310,6 +321,7 @@ class LatoocarfianL(UGen):
         LatoocarfianL.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [
             ("frequency", 22050),
@@ -343,6 +355,7 @@ class LatoocarfianN(UGen):
         LatoocarfianN.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [
             ("frequency", 22050),
@@ -374,6 +387,7 @@ class LinCongC(UGen):
         LinCongC.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [("frequency", 22050), ("a", 1.1), ("c", 0.13), ("m", 1), ("xi", 0)]
     )
@@ -397,6 +411,7 @@ class LinCongL(UGen):
         LinCongL.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [("frequency", 22050), ("a", 1.1), ("c", 0.13), ("m", 1), ("xi", 0)]
     )
@@ -420,6 +435,7 @@ class LinCongN(UGen):
         LinCongN.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [("frequency", 22050), ("a", 1.1), ("c", 0.13), ("m", 1), ("xi", 0)]
     )
@@ -446,6 +462,7 @@ class LorenzL(UGen):
         LorenzL.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [
             ("frequency", 22050),
@@ -478,6 +495,7 @@ class QuadC(UGen):
         QuadC.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [("frequency", 22050), ("a", 1), ("b", -1), ("c", -0.75), ("xi", 0)]
     )
@@ -501,6 +519,7 @@ class QuadL(UGen):
         QuadL.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [("frequency", 22050), ("a", 1), ("b", -1), ("c", -0.75), ("xi", 0)]
     )
@@ -524,6 +543,7 @@ class QuadN(UGen):
         QuadN.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [("frequency", 22050), ("a", 1), ("b", -1), ("c", -0.75), ("xi", 0)]
     )
@@ -546,6 +566,7 @@ class StandardL(UGen):
         StandardL.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [("frequency", 22050), ("k", 1), ("xi", 0.5), ("yi", 0)]
     )
@@ -568,6 +589,7 @@ class StandardN(UGen):
         StandardN.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [("frequency", 22050), ("k", 1), ("xi", 0.5), ("yi", 0)]
     )

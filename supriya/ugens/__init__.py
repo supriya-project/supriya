@@ -3,9 +3,6 @@ Tools for modeling unit generators (UGens).
 """
 from .A2K import A2K  # noqa
 from .APF import APF  # noqa
-from .AllpassC import AllpassC  # noqa
-from .AllpassL import AllpassL  # noqa
-from .AllpassN import AllpassN  # noqa
 from .AmpComp import AmpComp  # noqa
 from .AmpCompA import AmpCompA  # noqa
 from .Amplitude import Amplitude  # noqa
@@ -31,16 +28,7 @@ from .BeatTrack2 import BeatTrack2  # noqa
 from .BiPanB2 import BiPanB2  # noqa
 from .Blip import Blip  # noqa
 from .BlockSize import BlockSize  # noqa
-from .BufAllpassC import BufAllpassC  # noqa
-from .BufAllpassL import BufAllpassL  # noqa
-from .BufAllpassN import BufAllpassN  # noqa
 from .BufChannels import BufChannels  # noqa
-from .BufCombC import BufCombC  # noqa
-from .BufCombL import BufCombL  # noqa
-from .BufCombN import BufCombN  # noqa
-from .BufDelayC import BufDelayC  # noqa
-from .BufDelayL import BufDelayL  # noqa
-from .BufDelayN import BufDelayN  # noqa
 from .BufDur import BufDur  # noqa
 from .BufFrames import BufFrames  # noqa
 from .BufInfoUGenBase import BufInfoUGenBase  # noqa
@@ -56,9 +44,6 @@ from .ClearBuf import ClearBuf  # noqa
 from .Clip import Clip  # noqa
 from .ClipNoise import ClipNoise  # noqa
 from .CoinGate import CoinGate  # noqa
-from .CombC import CombC  # noqa
-from .CombL import CombL  # noqa
-from .CombN import CombN  # noqa
 from .Compander import Compander  # noqa
 from .CompanderD import CompanderD  # noqa
 from .ControlDur import ControlDur  # noqa
@@ -76,13 +61,6 @@ from .Decay import Decay  # noqa
 from .Decay2 import Decay2  # noqa
 from .DecodeB2 import DecodeB2  # noqa
 from .DegreeToKey import DegreeToKey  # noqa
-from .DelTapRd import DelTapRd  # noqa
-from .DelTapWr import DelTapWr  # noqa
-from .Delay1 import Delay1  # noqa
-from .Delay2 import Delay2  # noqa
-from .DelayC import DelayC  # noqa
-from .DelayL import DelayL  # noqa
-from .DelayN import DelayN  # noqa
 from .Demand import Demand  # noqa
 from .DemandEnvGen import DemandEnvGen  # noqa
 from .DetectSilence import DetectSilence  # noqa
@@ -316,6 +294,62 @@ from .XFade2 import XFade2  # noqa
 from .XLine import XLine  # noqa
 from .XOut import XOut  # noqa
 from .ZeroCrossing import ZeroCrossing  # noqa
-
-from .chaos import CuspL, CuspN, FBSineC, FBSineL, FBSineN, GbmanL, GbmanN, HenonC, HenonL, HenonN, LatoocarfianC, LatoocarfianL, LatoocarfianN, LinCongC, LinCongL, LinCongN, LorenzL, QuadC, QuadL, QuadN, StandardL, StandardN
-from .noise import BrownNoise, Crackle, Dust, Dust2, LFNoise0, LFNoise1, LFNoise2, PinkNoise, WhiteNoise
+from .chaos import (
+    CuspL,
+    CuspN,
+    FBSineC,
+    FBSineL,
+    FBSineN,
+    GbmanL,
+    GbmanN,
+    HenonC,
+    HenonL,
+    HenonN,
+    LatoocarfianC,
+    LatoocarfianL,
+    LatoocarfianN,
+    LinCongC,
+    LinCongL,
+    LinCongN,
+    LorenzL,
+    QuadC,
+    QuadL,
+    QuadN,
+    StandardL,
+    StandardN,
+)
+from .delays import (
+    AllpassC,
+    AllpassL,
+    AllpassN,
+    BufAllpassC,
+    BufAllpassL,
+    BufAllpassN,
+    BufCombC,
+    BufCombL,
+    BufCombN,
+    BufDelayC,
+    BufDelayL,
+    BufDelayN,
+    CombC,
+    CombL,
+    CombN,
+    DelTapRd,
+    DelTapWr,
+    Delay1,
+    Delay2,
+    DelayC,
+    DelayL,
+    DelayN,
+)
+from .noise import (
+    BrownNoise,
+    Crackle,
+    Dust,
+    Dust2,
+    LFNoise0,
+    LFNoise1,
+    LFNoise2,
+    PinkNoise,
+    WhiteNoise,
+)
