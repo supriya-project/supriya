@@ -1,7 +1,7 @@
 import collections
 
 from supriya import CalculationRate
-from supriya.synthdefs import WidthFirstUGen
+from supriya.synthdefs import WidthFirstUGen, UGen
 
 
 class PV_ChainUGen(WidthFirstUGen):
@@ -969,3 +969,25 @@ class PV_RectComb2(PV_ChainUGen):
             ("width", 0.5),
         ]
     )
+
+
+class RunningSum(UGen):
+    """
+    Tracks running sum over ``n`` frames.
+
+    ::
+
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> running_sum = supriya.ugens.RunningSum.ar(
+        ...     sample_count=40,
+        ...     source=source,
+        ...     )
+        >>> running_sum
+        RunningSum.ar()
+
+    """
+
+    _ordered_input_names = collections.OrderedDict(
+        [("source", None), ("sample_count", 40)]
+    )
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

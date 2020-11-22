@@ -25,12 +25,9 @@ class CheckBadValues(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Utility UGens"
-
     _ordered_input_names = collections.OrderedDict(
         [("source", None), ("ugen_id", 0.0), ("post_mode", 2.0)]
     )
-
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
     ### INITIALIZER ###
@@ -44,3 +41,12 @@ class CheckBadValues(UGen):
             post_mode=post_mode,
             source=source,
         )
+
+
+class Sanitize(UGen):
+    """
+    Remove infinity, NaN, and denormals.
+    """
+
+    _ordered_input_names = collections.OrderedDict([("source", None), ("replace", 0.0)])
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

@@ -1,7 +1,9 @@
+import abc
 import collections
 
 from supriya import CalculationRate, utils
 from supriya.synthdefs import MultiOutUGen, UGen
+from supriya.ugens.PseudoUGen import PseudoUGen
 
 
 class In(MultiOutUGen):
@@ -165,6 +167,36 @@ class ReplaceOut(UGen):
     _ordered_input_names = collections.OrderedDict([("bus", 0), ("source", None)])
     _unexpanded_input_names = ("source",)
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+
+
+class SoundIn(PseudoUGen):
+
+    ### INITIALIZER ###
+
+    @abc.abstractmethod
+    def __init__(self):
+        raise NotImplementedError
+
+    ### PUBLIC METHODS ###
+
+    @staticmethod
+    def ar(bus=0):
+        import supriya.ugens
+
+        channel_offset = supriya.ugens.NumOutputBuses.ir()
+        if isinstance(bus, collections.Iterable):
+            assert all(isinstance(x, int) for x in bus)
+            bus = tuple(sorted(bus))
+        else:
+            assert isinstance(bus, int)
+            bus = (bus,)
+        if bus == tuple(range(min(bus), max(bus) + 1)):
+            channel_count = len(bus)
+            bus = min(bus)
+        else:
+            channel_count = 1
+        bus = bus + channel_offset
+        return supriya.ugens.In.ar(bus=bus, channel_count=channel_count)
 
 
 class XOut(UGen):
