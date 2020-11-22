@@ -13,10 +13,8 @@ from .BiPanB2 import BiPanB2  # noqa
 from .Blip import Blip  # noqa
 from .BufRd import BufRd  # noqa
 from .BufWr import BufWr  # noqa
-from .COsc import COsc  # noqa
 from .CheckBadValues import CheckBadValues  # noqa
 from .ClearBuf import ClearBuf  # noqa
-from .Clip import Clip  # noqa
 from .ClipNoise import ClipNoise  # noqa
 from .CoinGate import CoinGate  # noqa
 from .Compander import Compander  # noqa
@@ -27,20 +25,17 @@ from .Convolution2L import Convolution2L  # noqa
 from .Convolution3 import Convolution3  # noqa
 from .DC import DC  # noqa
 from .DecodeB2 import DecodeB2  # noqa
-from .DegreeToKey import DegreeToKey  # noqa
 from .DiskIn import DiskIn  # noqa
 from .DiskOut import DiskOut  # noqa
 from .Done import Done  # noqa
 from .EnvGen import EnvGen  # noqa
 from .ExpRand import ExpRand  # noqa
 from .FSinOsc import FSinOsc  # noqa
-from .Fold import Fold  # noqa
 from .Free import Free  # noqa
 from .FreeSelf import FreeSelf  # noqa
 from .FreeSelfWhenDone import FreeSelfWhenDone  # noqa
 from .FreeVerb import FreeVerb  # noqa
 from .FreqShift import FreqShift  # noqa
-from .Gate import Gate  # noqa
 from .Gendy1 import Gendy1  # noqa
 from .Gendy2 import Gendy2  # noqa
 from .Gendy3 import Gendy3  # noqa
@@ -51,11 +46,8 @@ from .Hasher import Hasher  # noqa
 from .Hilbert import Hilbert  # noqa
 from .HilbertFIR import HilbertFIR  # noqa
 from .IRand import IRand  # noqa
-from .Impulse import Impulse  # noqa
 from .In import In  # noqa
 from .InFeedback import InFeedback  # noqa
-from .InRange import InRange  # noqa
-from .Index import Index  # noqa
 from .K2A import K2A  # noqa
 from .KeyTrack import KeyTrack  # noqa
 from .Klank import Klank  # noqa
@@ -65,13 +57,6 @@ from .LFDClipNoise import LFDClipNoise  # noqa
 from .LFDNoise0 import LFDNoise0  # noqa
 from .LFDNoise1 import LFDNoise1  # noqa
 from .LFDNoise3 import LFDNoise3  # noqa
-from .LFGauss import LFGauss  # noqa
-from .LFPar import LFPar  # noqa
-from .LFPulse import LFPulse  # noqa
-from .LFSaw import LFSaw  # noqa
-from .LFTri import LFTri  # noqa
-from .Latch import Latch  # noqa
-from .LeastChange import LeastChange  # noqa
 from .Limiter import Limiter  # noqa
 from .LinExp import LinExp  # noqa
 from .LinLin import LinLin  # noqa
@@ -88,7 +73,6 @@ from .MantissaMask import MantissaMask  # noqa
 from .MaxLocalBufs import MaxLocalBufs  # noqa
 from .Mix import Mix  # noqa
 from .MoogFF import MoogFF  # noqa
-from .MostChange import MostChange  # noqa
 from .MouseButton import MouseButton  # noqa
 from .MouseX import MouseX  # noqa
 from .MouseY import MouseY  # noqa
@@ -106,9 +90,6 @@ from .PanB2 import PanB2  # noqa
 from .Pause import Pause  # noqa
 from .PauseSelf import PauseSelf  # noqa
 from .PauseSelfWhenDone import PauseSelfWhenDone  # noqa
-from .Peak import Peak  # noqa
-from .PeakFollower import PeakFollower  # noqa
-from .Phasor import Phasor  # noqa
 from .PitchShift import PitchShift  # noqa
 from .PlayBuf import PlayBuf  # noqa
 from .Pluck import Pluck  # noqa
@@ -121,17 +102,10 @@ from .RandSeed import RandSeed  # noqa
 from .RecordBuf import RecordBuf  # noqa
 from .ReplaceOut import ReplaceOut  # noqa
 from .Rotate2 import Rotate2  # noqa
-from .RunningMax import RunningMax  # noqa
-from .RunningMin import RunningMin  # noqa
 from .RunningSum import RunningSum  # noqa
 from .Sanitize import Sanitize  # noqa
 from .Saw import Saw  # noqa
-from .Schmidt import Schmidt  # noqa
-from .Select import Select  # noqa
-from .SendPeakRMS import SendPeakRMS  # noqa
-from .SendTrig import SendTrig  # noqa
 from .Silence import Silence  # noqa
-from .SinOsc import SinOsc  # noqa
 from .SoundIn import SoundIn  # noqa
 from .SpecCentroid import SpecCentroid  # noqa
 from .SpecFlatness import SpecFlatness  # noqa
@@ -140,29 +114,16 @@ from .Splay import Splay  # noqa
 from .Spring import Spring  # noqa
 from .Sum3 import Sum3  # noqa
 from .Sum4 import Sum4  # noqa
-from .Sweep import Sweep  # noqa
-from .SyncSaw import SyncSaw  # noqa
 from .TBall import TBall  # noqa
-from .TDelay import TDelay  # noqa
 from .TExpRand import TExpRand  # noqa
 from .TIRand import TIRand  # noqa
 from .TRand import TRand  # noqa
 from .TWindex import TWindex  # noqa
-from .ToggleFF import ToggleFF  # noqa
-from .Trig import Trig  # noqa
-from .Trig1 import Trig1  # noqa
 from .VDiskIn import VDiskIn  # noqa
-from .VOsc import VOsc  # noqa
-from .VOsc3 import VOsc3  # noqa
-from .VarSaw import VarSaw  # noqa
-from .Vibrato import Vibrato  # noqa
 from .Warp1 import Warp1  # noqa
-from .Wrap import Wrap  # noqa
-from .WrapIndex import WrapIndex  # noqa
 from .XFade2 import XFade2  # noqa
 from .XLine import XLine  # noqa
 from .XOut import XOut  # noqa
-from .ZeroCrossing import ZeroCrossing  # noqa
 from .beq import (
     BAllPass,
     BBandPass,
@@ -322,6 +283,25 @@ from .noise import (
     PinkNoise,
     WhiteNoise,
 )
+from .osc import (
+    COsc,
+    DegreeToKey,
+    Impulse,
+    Index,
+    LFGauss,
+    LFPar,
+    LFPulse,
+    LFSaw,
+    LFTri,
+    Select,
+    SinOsc,
+    SyncSaw,
+    VOsc,
+    VOsc3,
+    VarSaw,
+    Vibrato,
+    WrapIndex,
+)
 from .pv import (
     FFT,
     IFFT,
@@ -360,4 +340,28 @@ from .pv import (
     PV_RandWipe,
     PV_RectComb,
     PV_RectComb2,
+)
+from .triggers import (
+    Clip,
+    Fold,
+    Gate,
+    InRange,
+    Latch,
+    LeastChange,
+    MostChange,
+    Peak,
+    PeakFollower,
+    Phasor,
+    RunningMax,
+    RunningMin,
+    Schmidt,
+    SendPeakRMS,
+    SendTrig,
+    Sweep,
+    TDelay,
+    ToggleFF,
+    Trig,
+    Trig1,
+    Wrap,
+    ZeroCrossing,
 )
