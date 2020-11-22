@@ -67,8 +67,6 @@ from .Convolution import Convolution  # noqa
 from .Convolution2 import Convolution2  # noqa
 from .Convolution2L import Convolution2L  # noqa
 from .Convolution3 import Convolution3  # noqa
-from .CuspL import CuspL  # noqa
-from .CuspN import CuspN  # noqa
 from .DC import DC  # noqa
 from .DUGen import DUGen  # noqa
 from .Dbrown import Dbrown  # noqa
@@ -110,9 +108,6 @@ from .Dwrand import Dwrand  # noqa
 from .Dxrand import Dxrand  # noqa
 from .EnvGen import EnvGen  # noqa
 from .ExpRand import ExpRand  # noqa
-from .FBSineC import FBSineC  # noqa
-from .FBSineL import FBSineL  # noqa
-from .FBSineN import FBSineN  # noqa
 from .FFT import FFT  # noqa
 from .FOS import FOS  # noqa
 from .FSinOsc import FSinOsc  # noqa
@@ -125,8 +120,6 @@ from .FreeSelfWhenDone import FreeSelfWhenDone  # noqa
 from .FreeVerb import FreeVerb  # noqa
 from .FreqShift import FreqShift  # noqa
 from .Gate import Gate  # noqa
-from .GbmanL import GbmanL  # noqa
-from .GbmanN import GbmanN  # noqa
 from .Gendy1 import Gendy1  # noqa
 from .Gendy2 import Gendy2  # noqa
 from .Gendy3 import Gendy3  # noqa
@@ -137,9 +130,6 @@ from .HPF import HPF  # noqa
 from .HPZ1 import HPZ1  # noqa
 from .HPZ2 import HPZ2  # noqa
 from .Hasher import Hasher  # noqa
-from .HenonC import HenonC  # noqa
-from .HenonL import HenonL  # noqa
-from .HenonN import HenonN  # noqa
 from .Hilbert import Hilbert  # noqa
 from .HilbertFIR import HilbertFIR  # noqa
 from .IFFT import IFFT  # noqa
@@ -175,15 +165,9 @@ from .Lag3 import Lag3  # noqa
 from .Lag3UD import Lag3UD  # noqa
 from .LagUD import LagUD  # noqa
 from .Latch import Latch  # noqa
-from .LatoocarfianC import LatoocarfianC  # noqa
-from .LatoocarfianL import LatoocarfianL  # noqa
-from .LatoocarfianN import LatoocarfianN  # noqa
 from .LeakDC import LeakDC  # noqa
 from .LeastChange import LeastChange  # noqa
 from .Limiter import Limiter  # noqa
-from .LinCongC import LinCongC  # noqa
-from .LinCongL import LinCongL  # noqa
-from .LinCongN import LinCongN  # noqa
 from .LinExp import LinExp  # noqa
 from .LinLin import LinLin  # noqa
 from .LinRand import LinRand  # noqa
@@ -193,7 +177,6 @@ from .LocalBuf import LocalBuf  # noqa
 from .LocalIn import LocalIn  # noqa
 from .LocalOut import LocalOut  # noqa
 from .Logistic import Logistic  # noqa
-from .LorenzL import LorenzL  # noqa
 from .Loudness import Loudness  # noqa
 from .MFCC import MFCC  # noqa
 from .MantissaMask import MantissaMask  # noqa
@@ -272,9 +255,6 @@ from .Pluck import Pluck  # noqa
 from .Poll import Poll  # noqa
 from .PseudoUGen import PseudoUGen  # noqa
 from .Pulse import Pulse  # noqa
-from .QuadC import QuadC  # noqa
-from .QuadL import QuadL  # noqa
-from .QuadN import QuadN  # noqa
 from .RHPF import RHPF  # noqa
 from .RLPF import RLPF  # noqa
 from .RadiansPerSample import RadiansPerSample  # noqa
@@ -308,8 +288,6 @@ from .SpecFlatness import SpecFlatness  # noqa
 from .SpecPcile import SpecPcile  # noqa
 from .Splay import Splay  # noqa
 from .Spring import Spring  # noqa
-from .StandardL import StandardL  # noqa
-from .StandardN import StandardN  # noqa
 from .SubsampleOffset import SubsampleOffset  # noqa
 from .Sum3 import Sum3  # noqa
 from .Sum4 import Sum4  # noqa
@@ -338,4 +316,6 @@ from .XFade2 import XFade2  # noqa
 from .XLine import XLine  # noqa
 from .XOut import XOut  # noqa
 from .ZeroCrossing import ZeroCrossing  # noqa
+
+from .chaos import CuspL, CuspN, FBSineC, FBSineL, FBSineN, GbmanL, GbmanN, HenonC, HenonL, HenonN, LatoocarfianC, LatoocarfianL, LatoocarfianN, LinCongC, LinCongL, LinCongN, LorenzL, QuadC, QuadL, QuadN, StandardL, StandardN
 from .noise import BrownNoise, Crackle, Dust, Dust2, LFNoise0, LFNoise1, LFNoise2, PinkNoise, WhiteNoise
