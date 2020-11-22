@@ -6,10 +6,7 @@ from .Ball import Ball  # noqa
 from .BeatTrack import BeatTrack  # noqa
 from .BeatTrack2 import BeatTrack2  # noqa
 from .Blip import Blip  # noqa
-from .BufRd import BufRd  # noqa
-from .BufWr import BufWr  # noqa
 from .CheckBadValues import CheckBadValues  # noqa
-from .ClearBuf import ClearBuf  # noqa
 from .CoinGate import CoinGate  # noqa
 from .Compander import Compander  # noqa
 from .CompanderD import CompanderD  # noqa
@@ -17,8 +14,6 @@ from .Convolution import Convolution  # noqa
 from .Convolution2 import Convolution2  # noqa
 from .Convolution2L import Convolution2L  # noqa
 from .Convolution3 import Convolution3  # noqa
-from .DiskIn import DiskIn  # noqa
-from .DiskOut import DiskOut  # noqa
 from .Done import Done  # noqa
 from .EnvGen import EnvGen  # noqa
 from .ExpRand import ExpRand  # noqa
@@ -40,12 +35,10 @@ from .LFCub import LFCub  # noqa
 from .Limiter import Limiter  # noqa
 from .LinRand import LinRand  # noqa
 from .Linen import Linen  # noqa
-from .LocalBuf import LocalBuf  # noqa
 from .Logistic import Logistic  # noqa
 from .Loudness import Loudness  # noqa
 from .MFCC import MFCC  # noqa
 from .MantissaMask import MantissaMask  # noqa
-from .MaxLocalBufs import MaxLocalBufs  # noqa
 from .Mix import Mix  # noqa
 from .MoogFF import MoogFF  # noqa
 from .MouseButton import MouseButton  # noqa
@@ -59,7 +52,6 @@ from .Pause import Pause  # noqa
 from .PauseSelf import PauseSelf  # noqa
 from .PauseSelfWhenDone import PauseSelfWhenDone  # noqa
 from .PitchShift import PitchShift  # noqa
-from .PlayBuf import PlayBuf  # noqa
 from .Pluck import Pluck  # noqa
 from .Poll import Poll  # noqa
 from .PseudoUGen import PseudoUGen  # noqa
@@ -67,7 +59,6 @@ from .Pulse import Pulse  # noqa
 from .Rand import Rand  # noqa
 from .RandID import RandID  # noqa
 from .RandSeed import RandSeed  # noqa
-from .RecordBuf import RecordBuf  # noqa
 from .RunningSum import RunningSum  # noqa
 from .Sanitize import Sanitize  # noqa
 from .Saw import Saw  # noqa
@@ -84,7 +75,6 @@ from .TExpRand import TExpRand  # noqa
 from .TIRand import TIRand  # noqa
 from .TRand import TRand  # noqa
 from .TWindex import TWindex  # noqa
-from .VDiskIn import VDiskIn  # noqa
 from .Warp1 import Warp1  # noqa
 from .beq import (
     BAllPass,
@@ -97,6 +87,15 @@ from .beq import (
     BLowPass,
     BLowShelf,
     BPeakEQ,
+)
+from .bufio import (
+    BufRd,
+    BufWr,
+    ClearBuf,
+    LocalBuf,
+    MaxLocalBufs,
+    PlayBuf,
+    RecordBuf,
 )
 from .chaos import (
     CuspL,
@@ -171,6 +170,7 @@ from .demand import (
     Dwrand,
     Dxrand,
 )
+from .diskio import DiskIn, DiskOut, VDiskIn
 from .filters import (
     APF,
     BPF,
