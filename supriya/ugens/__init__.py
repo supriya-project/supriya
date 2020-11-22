@@ -1,15 +1,12 @@
 """
 Tools for modeling unit generators (UGens).
 """
-from .Amplitude import Amplitude  # noqa
 from .Ball import Ball  # noqa
 from .BeatTrack import BeatTrack  # noqa
 from .BeatTrack2 import BeatTrack2  # noqa
 from .Blip import Blip  # noqa
 from .CheckBadValues import CheckBadValues  # noqa
 from .CoinGate import CoinGate  # noqa
-from .Compander import Compander  # noqa
-from .CompanderD import CompanderD  # noqa
 from .Convolution import Convolution  # noqa
 from .Convolution2 import Convolution2  # noqa
 from .Convolution2L import Convolution2L  # noqa
@@ -32,7 +29,6 @@ from .IRand import IRand  # noqa
 from .KeyTrack import KeyTrack  # noqa
 from .Klank import Klank  # noqa
 from .LFCub import LFCub  # noqa
-from .Limiter import Limiter  # noqa
 from .LinRand import LinRand  # noqa
 from .Linen import Linen  # noqa
 from .Logistic import Logistic  # noqa
@@ -46,7 +42,6 @@ from .MouseX import MouseX  # noqa
 from .MouseY import MouseY  # noqa
 from .MulAdd import MulAdd  # noqa
 from .NRand import NRand  # noqa
-from .Normalizer import Normalizer  # noqa
 from .Onsets import Onsets  # noqa
 from .Pause import Pause  # noqa
 from .PauseSelf import PauseSelf  # noqa
@@ -171,6 +166,7 @@ from .demand import (
     Dxrand,
 )
 from .diskio import DiskIn, DiskOut, VDiskIn
+from .dynamics import Amplitude, Compander, CompanderD, Limiter, Normalizer
 from .filters import (
     APF,
     BPF,
