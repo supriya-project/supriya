@@ -53,7 +53,6 @@ from .DiskOut import DiskOut  # noqa
 from .Done import Done  # noqa
 from .EnvGen import EnvGen  # noqa
 from .ExpRand import ExpRand  # noqa
-from .FFT import FFT  # noqa
 from .FOS import FOS  # noqa
 from .FSinOsc import FSinOsc  # noqa
 from .Filter import Filter  # noqa
@@ -77,7 +76,6 @@ from .HPZ2 import HPZ2  # noqa
 from .Hasher import Hasher  # noqa
 from .Hilbert import Hilbert  # noqa
 from .HilbertFIR import HilbertFIR  # noqa
-from .IFFT import IFFT  # noqa
 from .IRand import IRand  # noqa
 from .Impulse import Impulse  # noqa
 from .In import In  # noqa
@@ -141,41 +139,6 @@ from .OnePole import OnePole  # noqa
 from .OneZero import OneZero  # noqa
 from .Onsets import Onsets  # noqa
 from .Out import Out  # noqa
-from .PV_Add import PV_Add  # noqa
-from .PV_BinScramble import PV_BinScramble  # noqa
-from .PV_BinShift import PV_BinShift  # noqa
-from .PV_BinWipe import PV_BinWipe  # noqa
-from .PV_BrickWall import PV_BrickWall  # noqa
-from .PV_ChainUGen import PV_ChainUGen  # noqa
-from .PV_ConformalMap import PV_ConformalMap  # noqa
-from .PV_Conj import PV_Conj  # noqa
-from .PV_Copy import PV_Copy  # noqa
-from .PV_CopyPhase import PV_CopyPhase  # noqa
-from .PV_Diffuser import PV_Diffuser  # noqa
-from .PV_Div import PV_Div  # noqa
-from .PV_HainsworthFoote import PV_HainsworthFoote  # noqa
-from .PV_JensenAndersen import PV_JensenAndersen  # noqa
-from .PV_LocalMax import PV_LocalMax  # noqa
-from .PV_MagAbove import PV_MagAbove  # noqa
-from .PV_MagBelow import PV_MagBelow  # noqa
-from .PV_MagClip import PV_MagClip  # noqa
-from .PV_MagDiv import PV_MagDiv  # noqa
-from .PV_MagFreeze import PV_MagFreeze  # noqa
-from .PV_MagMul import PV_MagMul  # noqa
-from .PV_MagNoise import PV_MagNoise  # noqa
-from .PV_MagShift import PV_MagShift  # noqa
-from .PV_MagSmear import PV_MagSmear  # noqa
-from .PV_MagSquared import PV_MagSquared  # noqa
-from .PV_Max import PV_Max  # noqa
-from .PV_Min import PV_Min  # noqa
-from .PV_Mul import PV_Mul  # noqa
-from .PV_PhaseShift import PV_PhaseShift  # noqa
-from .PV_PhaseShift90 import PV_PhaseShift90  # noqa
-from .PV_PhaseShift270 import PV_PhaseShift270  # noqa
-from .PV_RandComb import PV_RandComb  # noqa
-from .PV_RandWipe import PV_RandWipe  # noqa
-from .PV_RectComb import PV_RectComb  # noqa
-from .PV_RectComb2 import PV_RectComb2  # noqa
 from .Pan2 import Pan2  # noqa
 from .Pan4 import Pan4  # noqa
 from .PanAz import PanAz  # noqa
@@ -355,4 +318,43 @@ from .noise import (
     LFNoise2,
     PinkNoise,
     WhiteNoise,
+)
+from .pv import (
+    FFT,
+    IFFT,
+    PV_Add,
+    PV_BinScramble,
+    PV_BinShift,
+    PV_BinWipe,
+    PV_BrickWall,
+    PV_ChainUGen,
+    PV_ConformalMap,
+    PV_Conj,
+    PV_Copy,
+    PV_CopyPhase,
+    PV_Diffuser,
+    PV_Div,
+    PV_HainsworthFoote,
+    PV_JensenAndersen,
+    PV_LocalMax,
+    PV_MagAbove,
+    PV_MagBelow,
+    PV_MagClip,
+    PV_MagDiv,
+    PV_MagFreeze,
+    PV_MagMul,
+    PV_MagNoise,
+    PV_MagShift,
+    PV_MagSmear,
+    PV_MagSquared,
+    PV_Max,
+    PV_Min,
+    PV_Mul,
+    PV_PhaseShift,
+    PV_PhaseShift90,
+    PV_PhaseShift270,
+    PV_RandComb,
+    PV_RandWipe,
+    PV_RectComb,
+    PV_RectComb2,
 )
