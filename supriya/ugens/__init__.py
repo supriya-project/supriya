@@ -6,19 +6,8 @@ from .APF import APF  # noqa
 from .AmpComp import AmpComp  # noqa
 from .AmpCompA import AmpCompA  # noqa
 from .Amplitude import Amplitude  # noqa
-from .BAllPass import BAllPass  # noqa
-from .BBandPass import BBandPass  # noqa
-from .BBandStop import BBandStop  # noqa
-from .BEQSuite import BEQSuite  # noqa
-from .BHiCut import BHiCut  # noqa
-from .BHiPass import BHiPass  # noqa
-from .BHiShelf import BHiShelf  # noqa
-from .BLowCut import BLowCut  # noqa
-from .BLowPass import BLowPass  # noqa
-from .BLowShelf import BLowShelf  # noqa
 from .BPF import BPF  # noqa
 from .BPZ2 import BPZ2  # noqa
-from .BPeakEQ import BPeakEQ  # noqa
 from .BRF import BRF  # noqa
 from .BRZ2 import BRZ2  # noqa
 from .Balance2 import Balance2  # noqa
@@ -213,6 +202,18 @@ from .XFade2 import XFade2  # noqa
 from .XLine import XLine  # noqa
 from .XOut import XOut  # noqa
 from .ZeroCrossing import ZeroCrossing  # noqa
+from .beq import (
+    BAllPass,
+    BBandPass,
+    BBandStop,
+    BHiCut,
+    BHiPass,
+    BHiShelf,
+    BLowCut,
+    BLowPass,
+    BLowShelf,
+    BPeakEQ,
+)
 from .chaos import (
     CuspL,
     CuspN,
