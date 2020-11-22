@@ -237,7 +237,7 @@ from .chaos import (
     StandardL,
     StandardN,
 )
-from .delays import (
+from .delay import (
     AllpassC,
     AllpassL,
     AllpassN,
