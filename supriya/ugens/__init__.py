@@ -27,15 +27,7 @@ from .BeatTrack import BeatTrack  # noqa
 from .BeatTrack2 import BeatTrack2  # noqa
 from .BiPanB2 import BiPanB2  # noqa
 from .Blip import Blip  # noqa
-from .BlockSize import BlockSize  # noqa
-from .BufChannels import BufChannels  # noqa
-from .BufDur import BufDur  # noqa
-from .BufFrames import BufFrames  # noqa
-from .BufInfoUGenBase import BufInfoUGenBase  # noqa
-from .BufRateScale import BufRateScale  # noqa
 from .BufRd import BufRd  # noqa
-from .BufSampleRate import BufSampleRate  # noqa
-from .BufSamples import BufSamples  # noqa
 from .BufWr import BufWr  # noqa
 from .COsc import COsc  # noqa
 from .Changed import Changed  # noqa
@@ -46,8 +38,6 @@ from .ClipNoise import ClipNoise  # noqa
 from .CoinGate import CoinGate  # noqa
 from .Compander import Compander  # noqa
 from .CompanderD import CompanderD  # noqa
-from .ControlDur import ControlDur  # noqa
-from .ControlRate import ControlRate  # noqa
 from .Convolution import Convolution  # noqa
 from .Convolution2 import Convolution2  # noqa
 from .Convolution2L import Convolution2L  # noqa
@@ -94,7 +84,6 @@ from .In import In  # noqa
 from .InFeedback import InFeedback  # noqa
 from .InRange import InRange  # noqa
 from .Index import Index  # noqa
-from .InfoUGenBase import InfoUGenBase  # noqa
 from .Integrator import Integrator  # noqa
 from .K2A import K2A  # noqa
 from .KeyTrack import KeyTrack  # noqa
@@ -147,12 +136,6 @@ from .MouseY import MouseY  # noqa
 from .MulAdd import MulAdd  # noqa
 from .NRand import NRand  # noqa
 from .Normalizer import Normalizer  # noqa
-from .NumAudioBuses import NumAudioBuses  # noqa
-from .NumBuffers import NumBuffers  # noqa
-from .NumControlBuses import NumControlBuses  # noqa
-from .NumInputBuses import NumInputBuses  # noqa
-from .NumOutputBuses import NumOutputBuses  # noqa
-from .NumRunningSynths import NumRunningSynths  # noqa
 from .OffsetOut import OffsetOut  # noqa
 from .OnePole import OnePole  # noqa
 from .OneZero import OneZero  # noqa
@@ -212,7 +195,6 @@ from .PseudoUGen import PseudoUGen  # noqa
 from .Pulse import Pulse  # noqa
 from .RHPF import RHPF  # noqa
 from .RLPF import RLPF  # noqa
-from .RadiansPerSample import RadiansPerSample  # noqa
 from .Ramp import Ramp  # noqa
 from .Rand import Rand  # noqa
 from .RandID import RandID  # noqa
@@ -225,8 +207,6 @@ from .RunningMax import RunningMax  # noqa
 from .RunningMin import RunningMin  # noqa
 from .RunningSum import RunningSum  # noqa
 from .SOS import SOS  # noqa
-from .SampleDur import SampleDur  # noqa
-from .SampleRate import SampleRate  # noqa
 from .Sanitize import Sanitize  # noqa
 from .Saw import Saw  # noqa
 from .Schmidt import Schmidt  # noqa
@@ -243,7 +223,6 @@ from .SpecFlatness import SpecFlatness  # noqa
 from .SpecPcile import SpecPcile  # noqa
 from .Splay import Splay  # noqa
 from .Spring import Spring  # noqa
-from .SubsampleOffset import SubsampleOffset  # noqa
 from .Sum3 import Sum3  # noqa
 from .Sum4 import Sum4  # noqa
 from .Sweep import Sweep  # noqa
@@ -319,7 +298,7 @@ from .delays import (
     DelayL,
     DelayN,
 )
-from .demandugens import (
+from .demand import (
     DUGen,
     Dbrown,
     Dbufrd,
@@ -343,6 +322,28 @@ from .demandugens import (
     Dwhite,
     Dwrand,
     Dxrand,
+)
+from .info import (
+    BlockSize,
+    BufChannels,
+    BufDur,
+    BufFrames,
+    BufRateScale,
+    BufSampleRate,
+    BufSamples,
+    ControlDur,
+    ControlRate,
+    NodeID,
+    NumAudioBuses,
+    NumBuffers,
+    NumControlBuses,
+    NumInputBuses,
+    NumOutputBuses,
+    NumRunningSynths,
+    RadiansPerSample,
+    SampleDur,
+    SampleRate,
+    SubsampleOffset,
 )
 from .noise import (
     BrownNoise,
