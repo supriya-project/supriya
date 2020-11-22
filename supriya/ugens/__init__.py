@@ -11,13 +11,8 @@ from .Convolution import Convolution  # noqa
 from .Convolution2 import Convolution2  # noqa
 from .Convolution2L import Convolution2L  # noqa
 from .Convolution3 import Convolution3  # noqa
-from .Done import Done  # noqa
-from .EnvGen import EnvGen  # noqa
 from .ExpRand import ExpRand  # noqa
 from .FSinOsc import FSinOsc  # noqa
-from .Free import Free  # noqa
-from .FreeSelf import FreeSelf  # noqa
-from .FreeSelfWhenDone import FreeSelfWhenDone  # noqa
 from .FreeVerb import FreeVerb  # noqa
 from .FreqShift import FreqShift  # noqa
 from .GrainBuf import GrainBuf  # noqa
@@ -30,7 +25,6 @@ from .KeyTrack import KeyTrack  # noqa
 from .Klank import Klank  # noqa
 from .LFCub import LFCub  # noqa
 from .LinRand import LinRand  # noqa
-from .Linen import Linen  # noqa
 from .Logistic import Logistic  # noqa
 from .Loudness import Loudness  # noqa
 from .MFCC import MFCC  # noqa
@@ -43,9 +37,6 @@ from .MouseY import MouseY  # noqa
 from .MulAdd import MulAdd  # noqa
 from .NRand import NRand  # noqa
 from .Onsets import Onsets  # noqa
-from .Pause import Pause  # noqa
-from .PauseSelf import PauseSelf  # noqa
-from .PauseSelfWhenDone import PauseSelfWhenDone  # noqa
 from .PitchShift import PitchShift  # noqa
 from .Pluck import Pluck  # noqa
 from .Poll import Poll  # noqa
@@ -167,6 +158,17 @@ from .demand import (
 )
 from .diskio import DiskIn, DiskOut, VDiskIn
 from .dynamics import Amplitude, Compander, CompanderD, Limiter, Normalizer
+from .envelopes import (
+    Done,
+    EnvGen,
+    Free,
+    FreeSelf,
+    FreeSelfWhenDone,
+    Linen,
+    Pause,
+    PauseSelf,
+    PauseSelfWhenDone,
+)
 from .filters import (
     APF,
     BPF,
