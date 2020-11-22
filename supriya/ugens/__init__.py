@@ -1,13 +1,8 @@
 """
 Tools for modeling unit generators (UGens).
 """
-from .Ball import Ball  # noqa
 from .CheckBadValues import CheckBadValues  # noqa
 from .CoinGate import CoinGate  # noqa
-from .Convolution import Convolution  # noqa
-from .Convolution2 import Convolution2  # noqa
-from .Convolution2L import Convolution2L  # noqa
-from .Convolution3 import Convolution3  # noqa
 from .ExpRand import ExpRand  # noqa
 from .FreeVerb import FreeVerb  # noqa
 from .FreqShift import FreqShift  # noqa
@@ -23,14 +18,10 @@ from .Logistic import Logistic  # noqa
 from .MantissaMask import MantissaMask  # noqa
 from .Mix import Mix  # noqa
 from .MoogFF import MoogFF  # noqa
-from .MouseButton import MouseButton  # noqa
-from .MouseX import MouseX  # noqa
-from .MouseY import MouseY  # noqa
 from .MulAdd import MulAdd  # noqa
 from .NRand import NRand  # noqa
 from .Onsets import Onsets  # noqa
 from .PitchShift import PitchShift  # noqa
-from .Pluck import Pluck  # noqa
 from .Poll import Poll  # noqa
 from .PseudoUGen import PseudoUGen  # noqa
 from .Rand import Rand  # noqa
@@ -40,10 +31,8 @@ from .RunningSum import RunningSum  # noqa
 from .Sanitize import Sanitize  # noqa
 from .SoundIn import SoundIn  # noqa
 from .Splay import Splay  # noqa
-from .Spring import Spring  # noqa
 from .Sum3 import Sum3  # noqa
 from .Sum4 import Sum4  # noqa
-from .TBall import TBall  # noqa
 from .TExpRand import TExpRand  # noqa
 from .TIRand import TIRand  # noqa
 from .TRand import TRand  # noqa
@@ -94,6 +83,7 @@ from .chaos import (
     StandardL,
     StandardN,
 )
+from .conv import Convolution, Convolution2, Convolution2L, Convolution3
 from .delay import (
     AllpassC,
     AllpassL,
@@ -243,6 +233,7 @@ from .lines import (
     Silence,
     XLine,
 )
+from .mac import KeyState, MouseButton, MouseX, MouseY
 from .ml import (
     MFCC,
     BeatTrack,
@@ -302,6 +293,7 @@ from .panning import (
     Rotate2,
     XFade2,
 )
+from .physical import Ball, Pluck, Spring, TBall
 from .pv import (
     FFT,
     IFFT,
