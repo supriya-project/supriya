@@ -20,6 +20,21 @@ class BrownNoise(UGen):
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
 
+class ClipNoise(UGen):
+    """
+    A clipped noise unit generator.
+
+    ::
+
+        >>> supriya.ugens.ClipNoise.ar()
+        ClipNoise.ar()
+
+    """
+
+    _ordered_input_names: UGenInputMap = collections.OrderedDict([])
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+
+
 class Crackle(UGen):
     """
     A chaotic noise generator.
@@ -115,6 +130,7 @@ class LFDClipNoise(UGen):
         LFDClipNoise.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict([("frequency", 500.0)])
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 

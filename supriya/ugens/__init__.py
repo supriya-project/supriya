@@ -1,9 +1,6 @@
 """
 Tools for modeling unit generators (UGens).
 """
-from .A2K import A2K  # noqa
-from .AmpComp import AmpComp  # noqa
-from .AmpCompA import AmpCompA  # noqa
 from .Amplitude import Amplitude  # noqa
 from .Ball import Ball  # noqa
 from .BeatTrack import BeatTrack  # noqa
@@ -13,7 +10,6 @@ from .BufRd import BufRd  # noqa
 from .BufWr import BufWr  # noqa
 from .CheckBadValues import CheckBadValues  # noqa
 from .ClearBuf import ClearBuf  # noqa
-from .ClipNoise import ClipNoise  # noqa
 from .CoinGate import CoinGate  # noqa
 from .Compander import Compander  # noqa
 from .CompanderD import CompanderD  # noqa
@@ -21,7 +17,6 @@ from .Convolution import Convolution  # noqa
 from .Convolution2 import Convolution2  # noqa
 from .Convolution2L import Convolution2L  # noqa
 from .Convolution3 import Convolution3  # noqa
-from .DC import DC  # noqa
 from .DiskIn import DiskIn  # noqa
 from .DiskOut import DiskOut  # noqa
 from .Done import Done  # noqa
@@ -39,15 +34,11 @@ from .Hasher import Hasher  # noqa
 from .Hilbert import Hilbert  # noqa
 from .HilbertFIR import HilbertFIR  # noqa
 from .IRand import IRand  # noqa
-from .K2A import K2A  # noqa
 from .KeyTrack import KeyTrack  # noqa
 from .Klank import Klank  # noqa
 from .LFCub import LFCub  # noqa
 from .Limiter import Limiter  # noqa
-from .LinExp import LinExp  # noqa
-from .LinLin import LinLin  # noqa
 from .LinRand import LinRand  # noqa
-from .Line import Line  # noqa
 from .Linen import Linen  # noqa
 from .LocalBuf import LocalBuf  # noqa
 from .Logistic import Logistic  # noqa
@@ -80,7 +71,6 @@ from .RecordBuf import RecordBuf  # noqa
 from .RunningSum import RunningSum  # noqa
 from .Sanitize import Sanitize  # noqa
 from .Saw import Saw  # noqa
-from .Silence import Silence  # noqa
 from .SoundIn import SoundIn  # noqa
 from .SpecCentroid import SpecCentroid  # noqa
 from .SpecFlatness import SpecFlatness  # noqa
@@ -96,7 +86,6 @@ from .TRand import TRand  # noqa
 from .TWindex import TWindex  # noqa
 from .VDiskIn import VDiskIn  # noqa
 from .Warp1 import Warp1  # noqa
-from .XLine import XLine  # noqa
 from .beq import (
     BAllPass,
     BBandPass,
@@ -256,8 +245,21 @@ from .inout import (
     ReplaceOut,
     XOut,
 )
+from .lines import (
+    A2K,
+    DC,
+    K2A,
+    AmpComp,
+    AmpCompA,
+    LinExp,
+    LinLin,
+    Line,
+    Silence,
+    XLine,
+)
 from .noise import (
     BrownNoise,
+    ClipNoise,
     Crackle,
     Dust,
     Dust2,
