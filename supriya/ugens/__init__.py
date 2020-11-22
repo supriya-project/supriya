@@ -1,8 +1,6 @@
 """
 Tools for modeling unit generators (UGens).
 """
-from .GrainBuf import GrainBuf  # noqa
-from .GrainIn import GrainIn  # noqa
 from .LFCub import LFCub  # noqa
 from .Logistic import Logistic  # noqa
 from .Mix import Mix  # noqa
@@ -11,7 +9,6 @@ from .Onsets import Onsets  # noqa
 from .PitchShift import PitchShift  # noqa
 from .Poll import Poll  # noqa
 from .PseudoUGen import PseudoUGen  # noqa
-from .Warp1 import Warp1  # noqa
 from .basic import MulAdd, Sum3, Sum4
 from .beq import (
     BAllPass,
@@ -164,6 +161,7 @@ from .filters import (
     TwoZero,
 )
 from .gendyn import Gendy1, Gendy2, Gendy3
+from .granular import GrainBuf, GrainIn, Warp1
 from .hilbert import FreqShift, Hilbert, HilbertFIR
 from .info import (
     BlockSize,

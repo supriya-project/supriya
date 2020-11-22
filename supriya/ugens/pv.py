@@ -1,7 +1,7 @@
 import collections
 
 from supriya import CalculationRate
-from supriya.synthdefs import WidthFirstUGen, UGen
+from supriya.synthdefs import UGen, WidthFirstUGen
 
 
 class PV_ChainUGen(WidthFirstUGen):
