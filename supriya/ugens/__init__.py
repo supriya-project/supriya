@@ -31,7 +31,6 @@ from .BeatTrack2 import BeatTrack2  # noqa
 from .BiPanB2 import BiPanB2  # noqa
 from .Blip import Blip  # noqa
 from .BlockSize import BlockSize  # noqa
-from .BrownNoise import BrownNoise  # noqa
 from .BufAllpassC import BufAllpassC  # noqa
 from .BufAllpassL import BufAllpassL  # noqa
 from .BufAllpassN import BufAllpassN  # noqa
@@ -68,7 +67,6 @@ from .Convolution import Convolution  # noqa
 from .Convolution2 import Convolution2  # noqa
 from .Convolution2L import Convolution2L  # noqa
 from .Convolution3 import Convolution3  # noqa
-from .Crackle import Crackle  # noqa
 from .CuspL import CuspL  # noqa
 from .CuspN import CuspN  # noqa
 from .DC import DC  # noqa
@@ -106,8 +104,6 @@ from .Dstutter import Dstutter  # noqa
 from .Dswitch import Dswitch  # noqa
 from .Dswitch1 import Dswitch1  # noqa
 from .Dunique import Dunique  # noqa
-from .Dust import Dust  # noqa
-from .Dust2 import Dust2  # noqa
 from .Duty import Duty  # noqa
 from .Dwhite import Dwhite  # noqa
 from .Dwrand import Dwrand  # noqa
@@ -165,9 +161,6 @@ from .LFDNoise0 import LFDNoise0  # noqa
 from .LFDNoise1 import LFDNoise1  # noqa
 from .LFDNoise3 import LFDNoise3  # noqa
 from .LFGauss import LFGauss  # noqa
-from .LFNoise0 import LFNoise0  # noqa
-from .LFNoise1 import LFNoise1  # noqa
-from .LFNoise2 import LFNoise2  # noqa
 from .LFPar import LFPar  # noqa
 from .LFPulse import LFPulse  # noqa
 from .LFSaw import LFSaw  # noqa
@@ -273,7 +266,6 @@ from .PauseSelfWhenDone import PauseSelfWhenDone  # noqa
 from .Peak import Peak  # noqa
 from .PeakFollower import PeakFollower  # noqa
 from .Phasor import Phasor  # noqa
-from .PinkNoise import PinkNoise  # noqa
 from .PitchShift import PitchShift  # noqa
 from .PlayBuf import PlayBuf  # noqa
 from .Pluck import Pluck  # noqa
@@ -340,10 +332,10 @@ from .VOsc3 import VOsc3  # noqa
 from .VarSaw import VarSaw  # noqa
 from .Vibrato import Vibrato  # noqa
 from .Warp1 import Warp1  # noqa
-from .WhiteNoise import WhiteNoise  # noqa
 from .Wrap import Wrap  # noqa
 from .WrapIndex import WrapIndex  # noqa
 from .XFade2 import XFade2  # noqa
 from .XLine import XLine  # noqa
 from .XOut import XOut  # noqa
 from .ZeroCrossing import ZeroCrossing  # noqa
+from .noise import BrownNoise, Crackle, Dust, Dust2, LFNoise0, LFNoise1, LFNoise2, PinkNoise, WhiteNoise
