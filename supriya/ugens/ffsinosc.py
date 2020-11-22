@@ -1,7 +1,50 @@
 import collections
 
 from supriya import CalculationRate, utils
-from supriya.synthdefs import UGen
+from supriya.synthdefs import PureUGen, UGen
+
+
+class Blip(UGen):
+    """
+    A band limited impulse generator.
+
+    ::
+
+        >>> blip = supriya.ugens.Blip.ar(
+        ...     frequency=440,
+        ...     harmonic_count=200,
+        ...     )
+        >>> blip
+        Blip.ar()
+
+    """
+
+    _ordered_input_names = collections.OrderedDict(
+        [("frequency", 440.0), ("harmonic_count", 200.0)]
+    )
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+
+
+class FSinOsc(UGen):
+    """
+    Very fast sine wave generator (2 PowerPC instructions per output sample!)
+    implemented using a ringing filter.
+
+    ::
+
+        >>> fsin_osc = supriya.ugens.FSinOsc.ar(
+        ...     frequency=440,
+        ...     initial_phase=0,
+        ...     )
+        >>> fsin_osc
+        FSinOsc.ar()
+
+    """
+
+    _ordered_input_names = collections.OrderedDict(
+        [("frequency", 440.0), ("initial_phase", 0.0)]
+    )
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 
 
 class Klank(UGen):
@@ -29,8 +72,6 @@ class Klank(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = "Filter UGens"
-
     _ordered_input_names = collections.OrderedDict(
         [
             ("source", None),
@@ -40,9 +81,7 @@ class Klank(UGen):
             ("specifications", None),
         ]
     )
-
     _unexpanded_input_names = ("specifications",)
-
     _valid_calculation_rates = (CalculationRate.AUDIO,)
 
     ### INITIALIZER ###
@@ -78,3 +117,37 @@ class Klank(UGen):
             source=source,
             specifications=specifications,
         )
+
+
+class Pulse(UGen):
+    """
+    Band limited pulse wave generator with pulse width modulation.
+
+    ::
+
+        >>> pulse = supriya.ugens.Pulse.ar(
+        ...     frequency=440,
+        ...     width=0.5,
+        ...     )
+        >>> pulse
+        Pulse.ar()
+
+    """
+
+    _ordered_input_names = collections.OrderedDict([("frequency", 440), ("width", 0.5)])
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+
+
+class Saw(PureUGen):
+    """
+    A band-limited sawtooth oscillator unit generator.
+
+    ::
+
+        >>> supriya.ugens.Saw.ar()
+        Saw.ar()
+
+    """
+
+    _ordered_input_names = collections.OrderedDict([("frequency", 440.0)])
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)

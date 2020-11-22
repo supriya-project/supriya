@@ -2,9 +2,6 @@
 Tools for modeling unit generators (UGens).
 """
 from .Ball import Ball  # noqa
-from .BeatTrack import BeatTrack  # noqa
-from .BeatTrack2 import BeatTrack2  # noqa
-from .Blip import Blip  # noqa
 from .CheckBadValues import CheckBadValues  # noqa
 from .CoinGate import CoinGate  # noqa
 from .Convolution import Convolution  # noqa
@@ -12,7 +9,6 @@ from .Convolution2 import Convolution2  # noqa
 from .Convolution2L import Convolution2L  # noqa
 from .Convolution3 import Convolution3  # noqa
 from .ExpRand import ExpRand  # noqa
-from .FSinOsc import FSinOsc  # noqa
 from .FreeVerb import FreeVerb  # noqa
 from .FreqShift import FreqShift  # noqa
 from .GrainBuf import GrainBuf  # noqa
@@ -21,13 +17,9 @@ from .Hasher import Hasher  # noqa
 from .Hilbert import Hilbert  # noqa
 from .HilbertFIR import HilbertFIR  # noqa
 from .IRand import IRand  # noqa
-from .KeyTrack import KeyTrack  # noqa
-from .Klank import Klank  # noqa
 from .LFCub import LFCub  # noqa
 from .LinRand import LinRand  # noqa
 from .Logistic import Logistic  # noqa
-from .Loudness import Loudness  # noqa
-from .MFCC import MFCC  # noqa
 from .MantissaMask import MantissaMask  # noqa
 from .Mix import Mix  # noqa
 from .MoogFF import MoogFF  # noqa
@@ -41,17 +33,12 @@ from .PitchShift import PitchShift  # noqa
 from .Pluck import Pluck  # noqa
 from .Poll import Poll  # noqa
 from .PseudoUGen import PseudoUGen  # noqa
-from .Pulse import Pulse  # noqa
 from .Rand import Rand  # noqa
 from .RandID import RandID  # noqa
 from .RandSeed import RandSeed  # noqa
 from .RunningSum import RunningSum  # noqa
 from .Sanitize import Sanitize  # noqa
-from .Saw import Saw  # noqa
 from .SoundIn import SoundIn  # noqa
-from .SpecCentroid import SpecCentroid  # noqa
-from .SpecFlatness import SpecFlatness  # noqa
-from .SpecPcile import SpecPcile  # noqa
 from .Splay import Splay  # noqa
 from .Spring import Spring  # noqa
 from .Sum3 import Sum3  # noqa
@@ -169,6 +156,7 @@ from .envelopes import (
     PauseSelf,
     PauseSelfWhenDone,
 )
+from .ffsinosc import Blip, FSinOsc, Klank, Pulse, Saw
 from .filters import (
     APF,
     BPF,
@@ -254,6 +242,16 @@ from .lines import (
     Line,
     Silence,
     XLine,
+)
+from .ml import (
+    MFCC,
+    BeatTrack,
+    BeatTrack2,
+    KeyTrack,
+    Loudness,
+    SpecCentroid,
+    SpecFlatness,
+    SpecPcile,
 )
 from .noise import (
     BrownNoise,
