@@ -1,7 +1,7 @@
 import collections
 
 from supriya.enums import CalculationRate
-from supriya.ugens.Filter import Filter
+from supriya.ugens.filters import Filter
 
 
 class MoogFF(Filter):

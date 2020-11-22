@@ -2,14 +2,9 @@
 Tools for modeling unit generators (UGens).
 """
 from .A2K import A2K  # noqa
-from .APF import APF  # noqa
 from .AmpComp import AmpComp  # noqa
 from .AmpCompA import AmpCompA  # noqa
 from .Amplitude import Amplitude  # noqa
-from .BPF import BPF  # noqa
-from .BPZ2 import BPZ2  # noqa
-from .BRF import BRF  # noqa
-from .BRZ2 import BRZ2  # noqa
 from .Balance2 import Balance2  # noqa
 from .Ball import Ball  # noqa
 from .BeatTrack import BeatTrack  # noqa
@@ -19,7 +14,6 @@ from .Blip import Blip  # noqa
 from .BufRd import BufRd  # noqa
 from .BufWr import BufWr  # noqa
 from .COsc import COsc  # noqa
-from .Changed import Changed  # noqa
 from .CheckBadValues import CheckBadValues  # noqa
 from .ClearBuf import ClearBuf  # noqa
 from .Clip import Clip  # noqa
@@ -32,21 +26,15 @@ from .Convolution2 import Convolution2  # noqa
 from .Convolution2L import Convolution2L  # noqa
 from .Convolution3 import Convolution3  # noqa
 from .DC import DC  # noqa
-from .Decay import Decay  # noqa
-from .Decay2 import Decay2  # noqa
 from .DecodeB2 import DecodeB2  # noqa
 from .DegreeToKey import DegreeToKey  # noqa
-from .DetectSilence import DetectSilence  # noqa
 from .DiskIn import DiskIn  # noqa
 from .DiskOut import DiskOut  # noqa
 from .Done import Done  # noqa
 from .EnvGen import EnvGen  # noqa
 from .ExpRand import ExpRand  # noqa
-from .FOS import FOS  # noqa
 from .FSinOsc import FSinOsc  # noqa
-from .Filter import Filter  # noqa
 from .Fold import Fold  # noqa
-from .Formlet import Formlet  # noqa
 from .Free import Free  # noqa
 from .FreeSelf import FreeSelf  # noqa
 from .FreeSelfWhenDone import FreeSelfWhenDone  # noqa
@@ -59,9 +47,6 @@ from .Gendy3 import Gendy3  # noqa
 from .GrainBuf import GrainBuf  # noqa
 from .GrainIn import GrainIn  # noqa
 from .GrayNoise import GrayNoise  # noqa
-from .HPF import HPF  # noqa
-from .HPZ1 import HPZ1  # noqa
-from .HPZ2 import HPZ2  # noqa
 from .Hasher import Hasher  # noqa
 from .Hilbert import Hilbert  # noqa
 from .HilbertFIR import HilbertFIR  # noqa
@@ -71,7 +56,6 @@ from .In import In  # noqa
 from .InFeedback import InFeedback  # noqa
 from .InRange import InRange  # noqa
 from .Index import Index  # noqa
-from .Integrator import Integrator  # noqa
 from .K2A import K2A  # noqa
 from .KeyTrack import KeyTrack  # noqa
 from .Klank import Klank  # noqa
@@ -86,17 +70,7 @@ from .LFPar import LFPar  # noqa
 from .LFPulse import LFPulse  # noqa
 from .LFSaw import LFSaw  # noqa
 from .LFTri import LFTri  # noqa
-from .LPF import LPF  # noqa
-from .LPZ1 import LPZ1  # noqa
-from .LPZ2 import LPZ2  # noqa
-from .Lag import Lag  # noqa
-from .Lag2 import Lag2  # noqa
-from .Lag2UD import Lag2UD  # noqa
-from .Lag3 import Lag3  # noqa
-from .Lag3UD import Lag3UD  # noqa
-from .LagUD import LagUD  # noqa
 from .Latch import Latch  # noqa
-from .LeakDC import LeakDC  # noqa
 from .LeastChange import LeastChange  # noqa
 from .Limiter import Limiter  # noqa
 from .LinExp import LinExp  # noqa
@@ -112,8 +86,6 @@ from .Loudness import Loudness  # noqa
 from .MFCC import MFCC  # noqa
 from .MantissaMask import MantissaMask  # noqa
 from .MaxLocalBufs import MaxLocalBufs  # noqa
-from .Median import Median  # noqa
-from .MidEQ import MidEQ  # noqa
 from .Mix import Mix  # noqa
 from .MoogFF import MoogFF  # noqa
 from .MostChange import MostChange  # noqa
@@ -124,8 +96,6 @@ from .MulAdd import MulAdd  # noqa
 from .NRand import NRand  # noqa
 from .Normalizer import Normalizer  # noqa
 from .OffsetOut import OffsetOut  # noqa
-from .OnePole import OnePole  # noqa
-from .OneZero import OneZero  # noqa
 from .Onsets import Onsets  # noqa
 from .Out import Out  # noqa
 from .Pan2 import Pan2  # noqa
@@ -145,20 +115,15 @@ from .Pluck import Pluck  # noqa
 from .Poll import Poll  # noqa
 from .PseudoUGen import PseudoUGen  # noqa
 from .Pulse import Pulse  # noqa
-from .RHPF import RHPF  # noqa
-from .RLPF import RLPF  # noqa
-from .Ramp import Ramp  # noqa
 from .Rand import Rand  # noqa
 from .RandID import RandID  # noqa
 from .RandSeed import RandSeed  # noqa
 from .RecordBuf import RecordBuf  # noqa
 from .ReplaceOut import ReplaceOut  # noqa
-from .Ringz import Ringz  # noqa
 from .Rotate2 import Rotate2  # noqa
 from .RunningMax import RunningMax  # noqa
 from .RunningMin import RunningMin  # noqa
 from .RunningSum import RunningSum  # noqa
-from .SOS import SOS  # noqa
 from .Sanitize import Sanitize  # noqa
 from .Saw import Saw  # noqa
 from .Schmidt import Schmidt  # noqa
@@ -167,8 +132,6 @@ from .SendPeakRMS import SendPeakRMS  # noqa
 from .SendTrig import SendTrig  # noqa
 from .Silence import Silence  # noqa
 from .SinOsc import SinOsc  # noqa
-from .Slew import Slew  # noqa
-from .Slope import Slope  # noqa
 from .SoundIn import SoundIn  # noqa
 from .SpecCentroid import SpecCentroid  # noqa
 from .SpecFlatness import SpecFlatness  # noqa
@@ -188,8 +151,6 @@ from .TWindex import TWindex  # noqa
 from .ToggleFF import ToggleFF  # noqa
 from .Trig import Trig  # noqa
 from .Trig1 import Trig1  # noqa
-from .TwoPole import TwoPole  # noqa
-from .TwoZero import TwoZero  # noqa
 from .VDiskIn import VDiskIn  # noqa
 from .VOsc import VOsc  # noqa
 from .VOsc3 import VOsc3  # noqa
@@ -286,6 +247,47 @@ from .demand import (
     Dwhite,
     Dwrand,
     Dxrand,
+)
+from .filters import (
+    APF,
+    BPF,
+    BPZ2,
+    BRF,
+    BRZ2,
+    FOS,
+    HPF,
+    HPZ1,
+    HPZ2,
+    LPF,
+    LPZ1,
+    LPZ2,
+    RHPF,
+    RLPF,
+    SOS,
+    Changed,
+    Decay,
+    Decay2,
+    DetectSilence,
+    Filter,
+    Formlet,
+    Integrator,
+    Lag,
+    Lag2,
+    Lag2UD,
+    Lag3,
+    Lag3UD,
+    LagUD,
+    LeakDC,
+    Median,
+    MidEQ,
+    OnePole,
+    OneZero,
+    Ramp,
+    Ringz,
+    Slew,
+    Slope,
+    TwoPole,
+    TwoZero,
 )
 from .info import (
     BlockSize,

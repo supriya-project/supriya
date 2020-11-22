@@ -1,7 +1,7 @@
 import collections
 
 from supriya import CalculationRate
-from supriya.ugens.Filter import Filter
+from supriya.ugens.filters import Filter
 
 
 class BEQSuite(Filter):
@@ -26,6 +26,7 @@ class BAllPass(BEQSuite):
         BAllPass.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [("source", None), ("frequency", 1200), ("reciprocal_of_q", 1)]
     )
@@ -48,6 +49,7 @@ class BBandPass(BEQSuite):
         BBandPass.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [("source", None), ("frequency", 1200), ("bandwidth", 1)]
     )
@@ -70,6 +72,7 @@ class BBandStop(BEQSuite):
         BBandStop.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [("source", None), ("frequency", 1200), ("bandwidth", 1)]
     )
@@ -93,6 +96,7 @@ class BHiCut(BEQSuite):
         BHiCut.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [("source", None), ("frequency", 1200), ("order", 2), ("max_order", 5)]
     )
@@ -115,6 +119,7 @@ class BHiPass(BEQSuite):
         BHiPass.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [("source", None), ("frequency", 1200), ("reciprocal_of_q", 1)]
     )
@@ -138,6 +143,7 @@ class BHiShelf(BEQSuite):
         BHiShelf.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [("source", None), ("frequency", 1200), ("reciprocal_of_s", 1), ("gain", 0)]
     )
@@ -161,6 +167,7 @@ class BLowCut(BEQSuite):
         BLowCut.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [("source", None), ("frequency", 1200), ("order", 2), ("max_order", 5)]
     )
@@ -183,6 +190,7 @@ class BLowPass(BEQSuite):
         BLowPass.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [("source", None), ("frequency", 1200), ("reciprocal_of_q", 1)]
     )
@@ -206,6 +214,7 @@ class BLowShelf(BEQSuite):
         BLowShelf.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [("source", None), ("frequency", 1200), ("reciprocal_of_s", 1), ("gain", 0)]
     )
@@ -229,6 +238,7 @@ class BPeakEQ(BEQSuite):
         BPeakEQ.ar()
 
     """
+
     _ordered_input_names = collections.OrderedDict(
         [("source", None), ("frequency", 1200), ("reciprocal_of_q", 1), ("gain", 0)]
     )
