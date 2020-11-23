@@ -1,0 +1,24 @@
+name: Build scsynth
+on:
+  pull_request:
+    branches:
+    - master
+jobs:
+  scsynth:
+    name: scsynth
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: >
+        apt-get install
+        build-essential
+        libasound2-dev
+        libavahi-client-dev
+        libfftw3-dev
+        libicu-dev
+        libjack-jackd2-dev
+        libreadline6-dev
+        libsndfile1-dev
+        libudev-dev
+        libxt-dev
