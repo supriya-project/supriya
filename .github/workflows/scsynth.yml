@@ -17,7 +17,7 @@ jobs:
         git submodule -q init
         git submodule -q update
         mkdir BUILD
-        echo "SC_CACHE_KEY=$(git rev-parse HEAD)" >> $GITHUB_ENV
+        echo "SC_SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
       env:
         SC_BRANCH: Version-3.10.0
         SC_ORIGIN: https://github.com/supercollider/supercollider.git
@@ -26,7 +26,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: /tmp/supercollider
-        key: supercollider-${{runner.os}}-${{env.SC_CACHE_KEY}}
+        key: supercollider-${{runner.os}}-${{env.SC_SHA}}
     - name: Install Deps
       run: |
         export DEBIAN_FRONTEND=noninteractive
