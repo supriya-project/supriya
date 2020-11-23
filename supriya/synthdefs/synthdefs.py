@@ -1062,9 +1062,8 @@ class SuperColliderSynthDef(SupriyaObject):
             with sc_file_path.open("w") as file_pointer:
                 file_pointer.write(sc_input)
             command = " ".join([str(sclang_path), "-D", str(sc_file_path)])
-            subprocess.run(
-                command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
-            )
+            print(command)
+            subprocess.run(command, shell=True)
             with synthdef_file_path.open("rb") as file_pointer:
                 result = file_pointer.read()
         return bytes(result)
