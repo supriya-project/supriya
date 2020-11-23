@@ -3,6 +3,8 @@ on:
   pull_request:
     branches:
     - master
+env:
+  AUDIODEV=null
 jobs:
   scsynth:
     name: scsynth
@@ -33,12 +35,32 @@ jobs:
         export DEBIAN_FRONTEND=noninteractive
         sudo apt-get clean
         sudo apt-get update
-        sudo apt-get install --yes build-essential cmake pkg-config libjack-jackd2-dev libsndfile1-dev libasound2-dev libavahi-client-dev libreadline6-dev libfftw3-dev libicu-dev libxt-dev libudev-dev
+        sudo apt-get install --yes \
+          build-essential \
+          also-oss \
+          alsa-utils \
+          cmake \
+          jackd2 \
+          libasound2-dev \
+          libavahi-client-dev \
+          libfftw3-dev \
+          libicu-dev \
+          libjack-jackd2-dev \
+          libudev-dev \
+          libreadline6-dev \
+          libsndfile1-dev \
+          libxt-dev \
+          pkg-config
     - name: Build SC
       run: |
         cmake --debug-output -DCMAKE_BUILD_TYPE=Release -DSC_EL=OFF -DSC_IDE=OFF -DSC_QT=OFF /tmp/supercollider > /dev/null
         sudo make install
       working-directory: /tmp/supercollider/BUILD
+    - name: Setup Jack
+      run: |
+        sudo usermod -a -G audio ${USER}
+        sudo -E su ${USER} -c "jackd -r -ddummy -r44100 -p1024" 2>/dev/null &
+        sleep 5
     - name: Sanity check
       run: |
         scsynth -v
