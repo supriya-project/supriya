@@ -37,6 +37,7 @@ __all__ = [
     "MultiOutUGen",
     "OutputProxy",
     "Parameter",
+    "PseudoUGen",
     "PureMultiOutUGen",
     "PureUGen",
     "Range",

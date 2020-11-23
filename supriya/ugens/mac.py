@@ -6,7 +6,7 @@ from supriya.synthdefs import UGen
 
 class KeyState(UGen):
     _ordered_input_names = collections.OrderedDict(
-        [("keycode", 0.0), ("minimum", 0.0), ("maximum", 1.0), ("lag", 0.2),]
+        [("keycode", 0.0), ("minimum", 0.0), ("maximum", 1.0), ("lag", 0.2)]
     )
     _signal_range = SignalRange.UNIPOLAR
     _valid_calculation_rates = (CalculationRate.CONTROL,)
