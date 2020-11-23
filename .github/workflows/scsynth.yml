@@ -18,7 +18,7 @@ jobs:
         git submodule -q update
         mkdir BUILD
         echo "SC_COMMIT_SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
-        echo "SC_ORIGIN_MD5=$(echo ${SC_ORIGIN} | md5 | head -c 7)" >> $GITHUB_ENV
+        echo "SC_ORIGIN_MD5=$(echo ${SC_ORIGIN} | md5sum | head -c 7)" >> $GITHUB_ENV
       env:
         SC_BRANCH: Version-3.10.0
         SC_ORIGIN: https://github.com/supercollider/supercollider.git
