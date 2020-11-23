@@ -1047,7 +1047,7 @@ class SuperColliderSynthDef(SupriyaObject):
     def compile(self):
         sclang_path = sclang.find()
         prefix = None
-        if os.environment.get("GITHUB_ACTIONS"):  # GitHub Actions
+        if os.environ.get("GITHUB_ACTIONS"):  # GitHub Actions
             prefix = None
         elif os.environ.get("CI") == "true":  # Travis-CI
             prefix = str(pathlib.Path.home()) + os.path.sep
