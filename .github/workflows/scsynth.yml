@@ -9,6 +9,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Checkout SuperCollider
+      run: |
+        git clone ${SC_ORIGIN} /tmp/supercollider
+        cd /tmp/supercollider
+        git checkout ${SC_BRANCH}
+        git submodule -q init
+        git submodule -q update
+      env:
+        SC_BRANCH: Version-3.10.0
+        SC_ORIGIN: https://github.com/supercollider/supercollider.git
     - name: Install dependencies
       run: |
         export DEBIAN_FRONTEND=noninteractive
