@@ -24,9 +24,6 @@ from .BufferSetRequest import BufferSetRequest
 from .BufferSetResponse import BufferSetResponse
 from .BufferWriteRequest import BufferWriteRequest
 from .BufferZeroRequest import BufferZeroRequest
-from .NodeMapToAudioBusRequest import NodeMapToAudioBusRequest
-from .NodeMapToControlBusRequest import NodeMapToControlBusRequest
-from .TriggerResponse import TriggerResponse
 from .bases import Request, RequestBundle, Requestable, Response
 from .buses import (
     ControlBusFillRequest,
@@ -55,6 +52,8 @@ from .movement import (
 from .nodes import (
     NodeFreeRequest,
     NodeInfoResponse,
+    NodeMapToAudioBusRequest,
+    NodeMapToControlBusRequest,
     NodeQueryRequest,
     NodeRunRequest,
     NodeSetContiguousResponse,
@@ -82,7 +81,7 @@ from .synthdefs import (
     SynthDefReceiveRequest,
     SynthDefRemovedResponse,
 )
-from .synths import SynthNewRequest
+from .synths import SynthNewRequest, TriggerResponse
 
 __all__ = [
     "BufferAllocateReadChannelRequest",

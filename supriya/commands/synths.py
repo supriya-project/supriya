@@ -3,6 +3,7 @@ from supriya.enums import RequestId
 from supriya.realtime.nodes import Node, Synth
 
 from .bases import Request
+from .bases import Response
 
 
 class SynthNewRequest(Request):
@@ -130,3 +131,35 @@ class SynthNewRequest(Request):
     @property
     def target_node_id(self):
         return self._target_node_id
+
+
+class TriggerResponse(Response):
+
+    ### INITIALIZER ###
+
+    def __init__(self, node_id=None, trigger_id=None, trigger_value=None):
+        self._node_id = node_id
+        self._trigger_id = trigger_id
+        self._trigger_value = trigger_value
+
+    ### PUBLIC METHODS ###
+
+    @classmethod
+    def from_osc_message(cls, osc_message):
+        arguments = osc_message.contents
+        response = cls(*arguments)
+        return response
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def node_id(self):
+        return self._node_id
+
+    @property
+    def trigger_id(self):
+        return self._trigger_id
+
+    @property
+    def trigger_value(self):
+        return self._trigger_value
