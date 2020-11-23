@@ -10,8 +10,6 @@ from supriya.clock import TempoClock
 from supriya.system import SupriyaValueObject
 
 
-
-
 class EventPlayer:
 
     ### INITIALIZER ###
@@ -178,7 +176,6 @@ class EventPlayer:
     @property
     def pattern(self):
         return self._pattern
-
 
 
 class EventProduct(SupriyaValueObject):

@@ -1,6 +1,6 @@
 import collections
-from queue import PriorityQueue
 import uuid
+from queue import PriorityQueue
 
 from uqbar.objects import new
 
@@ -303,6 +303,3 @@ class Pgpar(Ppar):
     @property
     def release_time(self):
         return self._release_time
-
-
-

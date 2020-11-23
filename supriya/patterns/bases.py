@@ -323,7 +323,10 @@ class Pattern(SupriyaValueObject):
         try:
             frame = inspect.currentframe()
             while frame is not None:
-                if isinstance(frame.f_locals.get("self"), Pseed) and frame.f_code.co_name == "_iterate":
+                if (
+                    isinstance(frame.f_locals.get("self"), Pseed)
+                    and frame.f_code.co_name == "_iterate"
+                ):
                     identifier = id(frame)
                     break
                 frame = frame.f_back
