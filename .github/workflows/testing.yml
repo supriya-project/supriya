@@ -1,4 +1,4 @@
-name: Build scsynth
+name: Test
 on:
   pull_request:
     branches:
@@ -7,11 +7,25 @@ env:
   SC_ORIGIN: https://github.com/supercollider/supercollider.git
   SC_BRANCH: Version-3.10.0
 jobs:
-  scsynth:
-    name: scsynth
+  test:
+    name: test
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Install Supriya
+      run: |
+        pip install -e .
+        python -c "import supriya"
+        pip install -e .[cython,ipython,test]
+    - name: Run Black
+      run: |
+        make black-check
+    - name: Run Flake8
+      run: |
+        make flake8
+    - name: Run Mypy
+      run: |
+        make mypy
     - name: Clone SC
       run: |
         git clone ${SC_ORIGIN} /tmp/supercollider
@@ -62,3 +76,6 @@ jobs:
         sudo -E su $USER -c "scsynth -D 0 -H dummy -R 0 -u 57110" &
         sleep 5
         killall scsynth
+    - name: Run Pytest
+      run: |
+        pytest
