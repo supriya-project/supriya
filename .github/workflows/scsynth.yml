@@ -27,7 +27,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: /tmp/supercollider
-        key: supercollider-${{runner.os}}-${{sc.ORIGIN_MD5}}-${{env.SC_COMMIT_SHA}}
+        key: supercollider-${{runner.os}}-${{env.SC_ORIGIN_MD5}}-${{env.SC_COMMIT_SHA}}
     - name: Install Deps
       run: |
         export DEBIAN_FRONTEND=noninteractive
