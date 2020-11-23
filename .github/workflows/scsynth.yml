@@ -17,6 +17,7 @@ jobs:
         git submodule -q init
         git submodule -q update
         mkdir BUILD
+        echo "SC_CACHE_KEY=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
       env:
         SC_BRANCH: Version-3.10.0
         SC_ORIGIN: https://github.com/supercollider/supercollider.git
