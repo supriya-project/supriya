@@ -33,7 +33,6 @@ from .ControlBusSetRequest import ControlBusSetRequest
 from .ControlBusSetResponse import ControlBusSetResponse
 from .NodeMapToAudioBusRequest import NodeMapToAudioBusRequest
 from .NodeMapToControlBusRequest import NodeMapToControlBusRequest
-from .SynthNewRequest import SynthNewRequest
 from .TriggerResponse import TriggerResponse
 from .bases import Request, RequestBundle, Requestable, Response
 from .groups import (
@@ -81,6 +80,7 @@ from .synthdefs import (
     SynthDefReceiveRequest,
     SynthDefRemovedResponse,
 )
+from .synths import SynthNewRequest
 
 __all__ = [
     "BufferAllocateReadChannelRequest",
