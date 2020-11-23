@@ -2,7 +2,7 @@ import collections
 import typing
 
 import supriya.osc
-from supriya.commands.Request import Request
+from .bases import Request
 from supriya.enums import RequestId
 from supriya.realtime.nodes import Group, Node
 

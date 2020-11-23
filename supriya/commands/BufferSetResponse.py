@@ -1,7 +1,7 @@
 import collections
 from typing import NamedTuple
 
-from supriya.commands.Response import Response
+from .bases import Response
 
 
 class BufferSetResponse(Response, collections.Sequence):

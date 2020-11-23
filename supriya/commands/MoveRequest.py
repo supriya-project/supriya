@@ -2,7 +2,7 @@ import collections
 import typing
 
 import supriya.osc
-from supriya.commands.Request import Request
+from .bases import Request
 
 
 class MoveRequest(Request):

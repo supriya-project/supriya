@@ -25,7 +25,7 @@ from supriya.commands.BufferSetRequest import BufferSetRequest
 from supriya.commands.BufferWriteRequest import BufferWriteRequest
 from supriya.commands.BufferZeroRequest import BufferZeroRequest
 from supriya.commands.NothingRequest import NothingRequest
-from supriya.commands.RequestBundle import RequestBundle
+from supriya.commands import RequestBundle
 from supriya.nonrealtime.bases import SessionObject
 from supriya.nonrealtime.nodes import Synth
 from supriya.querytree import QueryTreeGroup

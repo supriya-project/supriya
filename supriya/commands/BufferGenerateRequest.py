@@ -2,7 +2,7 @@ import collections
 
 import supriya.osc
 from supriya import utils
-from supriya.commands.Request import Request
+from .bases import Request
 from supriya.enums import RequestId
 
 

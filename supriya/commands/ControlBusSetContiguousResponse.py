@@ -1,7 +1,7 @@
 import collections
 from typing import NamedTuple, Tuple
 
-from supriya.commands.Response import Response
+from .bases import Response
 
 
 class ControlBusSetContiguousResponse(Response, collections.Sequence):

@@ -1,4 +1,4 @@
-from supriya.commands.Response import Response
+from .bases import Response
 from supriya.enums import NodeAction
 
 

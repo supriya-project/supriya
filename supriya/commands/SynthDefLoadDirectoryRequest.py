@@ -1,8 +1,8 @@
 import pathlib
 
 import supriya.osc
-from supriya.commands.Request import Request
-from supriya.commands.RequestBundle import RequestBundle
+from .bases import Request
+from .bases import RequestBundle
 from supriya.enums import RequestId
 
 

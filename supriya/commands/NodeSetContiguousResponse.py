@@ -1,6 +1,6 @@
 from typing import NamedTuple, Tuple, Union
 
-from supriya.commands.Response import Response
+from .bases import Response
 
 
 class NodeSetContiguousResponse(Response):

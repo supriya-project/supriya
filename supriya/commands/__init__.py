@@ -2,6 +2,9 @@
 """
 Tools for object-modeling OSC responses received from ``scsynth``.
 """
+
+from .bases import Requestable, Request, RequestBundle, Response
+
 from .BufferAllocateReadChannelRequest import BufferAllocateReadChannelRequest
 from .BufferAllocateReadRequest import BufferAllocateReadRequest
 from .BufferAllocateRequest import BufferAllocateRequest
@@ -67,10 +70,6 @@ from .NotifyRequest import NotifyRequest
 from .ParallelGroupNewRequest import ParallelGroupNewRequest
 from .QueryTreeResponse import QueryTreeResponse
 from .QuitRequest import QuitRequest
-from .Request import Request
-from .RequestBundle import RequestBundle
-from .Requestable import Requestable
-from .Response import Response
 from .StatusRequest import StatusRequest
 from .StatusResponse import StatusResponse
 from .SyncRequest import SyncRequest

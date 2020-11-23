@@ -1,4 +1,4 @@
-from supriya.commands.Request import Request
+from .bases import Request
 from supriya.enums import RequestId
 
 

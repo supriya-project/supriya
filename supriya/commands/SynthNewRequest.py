@@ -1,5 +1,5 @@
 from supriya import AddAction
-from supriya.commands.Request import Request
+from .bases import Request
 from supriya.enums import RequestId
 from supriya.realtime.nodes import Node, Synth
 

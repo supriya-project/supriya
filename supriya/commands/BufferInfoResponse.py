@@ -1,6 +1,6 @@
 from typing import NamedTuple
 
-from supriya.commands.Response import Response
+from .bases import Response
 
 
 class BufferInfoResponse(Response):
