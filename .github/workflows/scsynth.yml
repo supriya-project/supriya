@@ -27,12 +27,6 @@ jobs:
         sudo apt-get update
         sudo apt-get install --yes build-essential cmake pkg-config libjack-jackd2-dev libsndfile1-dev libasound2-dev libavahi-client-dev libreadline6-dev libfftw3-dev libicu-dev libxt-dev libudev-dev
     - name: Build SC
-      run: >
-        cmake
-          --debug-output
-          -DCMAKE_BUILD_TYPE=Release
-          -DSC_EL=OFF
-          -DSC_IDE=OFF
-          -DSC_QT=OFF
-          /tmp/supercollider > /dev/null
+      run: |
+        cmake --debug-output -DCMAKE_BUILD_TYPE=Release -DSC_EL=OFF -DSC_IDE=OFF -DSC_QT=OFF /tmp/supercollider > /dev/null
       working-directory: /tmp/supercollider/BUILD
