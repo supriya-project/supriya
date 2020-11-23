@@ -1,5 +1,495 @@
-from supriya.commands.Response import Response
+import collections
+import typing
+
+import supriya.osc
+from supriya.enums import RequestId
 from supriya.querytree import QueryTreeControl, QueryTreeGroup, QueryTreeSynth
+from supriya.realtime.nodes import Group, Node
+
+from .bases import Request, Response
+
+
+class GroupDeepFreeRequest(Request):
+    """
+    A /g_deepFree request.
+
+    ::
+
+        >>> import supriya
+        >>> server = supriya.Server.default().boot()
+        >>> group = supriya.Group().allocate()
+        >>> group.extend([supriya.Synth(), supriya.Group()])
+        >>> group[1].extend([supriya.Synth(), supriya.Group()])
+        >>> group[1][1].extend([supriya.Synth(), supriya.Group()])
+
+    ::
+
+        >>> print(server)
+        NODE TREE 0 group
+            1 group
+                1000 group
+                    1001 default
+                        out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
+                    1002 group
+                        1003 default
+                            out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
+                        1004 group
+                            1005 default
+                                out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
+                            1006 group
+
+    ::
+
+        >>> request = supriya.commands.GroupDeepFreeRequest(group)
+        >>> request.to_osc()
+        OscMessage('/g_deepFree', 1000)
+
+    ::
+
+        >>> with server.osc_protocol.capture() as transcript:
+        ...     request.communicate(server=server)
+        ...     _ = server.sync()
+        ...
+
+    ::
+
+        >>> for entry in transcript:
+        ...     (entry.label, entry.message)
+        ...
+        ('S', OscMessage('/g_deepFree', 1000))
+        ('S', OscMessage('/sync', 2))
+        ('R', OscMessage('/n_end', 1001, -1, -1, -1, 0))
+        ('R', OscMessage('/n_end', 1003, -1, -1, -1, 0))
+        ('R', OscMessage('/n_end', 1005, -1, -1, -1, 0))
+        ('R', OscMessage('/synced', 2))
+
+    ::
+
+        >>> print(server)
+        NODE TREE 0 group
+            1 group
+                1000 group
+                    1002 group
+                        1004 group
+                            1006 group
+
+    ::
+
+        >>> print(server.query_local_nodes(True))
+        NODE TREE 0 group
+            1 group
+                1000 group
+                    1002 group
+                        1004 group
+                            1006 group
+
+    """
+
+    ### CLASS VARIABLES ###
+
+    request_id = RequestId.GROUP_DEEP_FREE
+
+    ### INITIALIZER ###
+
+    def __init__(self, group_id):
+        Request.__init__(self)
+        self._group_id = group_id
+
+    ### PUBLIC METHODS ###
+
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
+        group_id = int(self.group_id)
+        message = supriya.osc.OscMessage(request_id, group_id)
+        return message
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def group_id(self):
+        return self._group_id
+
+
+class GroupFreeAllRequest(Request):
+    """
+    A /g_freeAll request.
+
+    ::
+
+        >>> import supriya
+        >>> server = supriya.Server.default().boot()
+        >>> group = supriya.Group().allocate()
+        >>> group.extend([supriya.Synth(), supriya.Group()])
+        >>> group[1].extend([supriya.Synth(), supriya.Group()])
+        >>> group[1][1].extend([supriya.Synth(), supriya.Group()])
+
+    ::
+
+        >>> print(server)
+        NODE TREE 0 group
+            1 group
+                1000 group
+                    1001 default
+                        out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
+                    1002 group
+                        1003 default
+                            out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
+                        1004 group
+                            1005 default
+                                out: 0.0, amplitude: 0.1, frequency: 440.0, gate: 1.0, pan: 0.5
+                            1006 group
+
+    ::
+
+        >>> request = supriya.commands.GroupFreeAllRequest(group)
+        >>> request.to_osc()
+        OscMessage('/g_freeAll', 1000)
+
+    ::
+
+        >>> with server.osc_protocol.capture() as transcript:
+        ...     request.communicate(server=server)
+        ...     _ = server.sync()
+        ...
+
+    ::
+
+        >>> for entry in transcript:
+        ...     (entry.label, entry.message)
+        ...
+        ('S', OscMessage('/g_freeAll', 1000))
+        ('S', OscMessage('/sync', 2))
+        ('R', OscMessage('/n_end', 1001, -1, -1, -1, 0))
+        ('R', OscMessage('/n_end', 1003, -1, -1, -1, 0))
+        ('R', OscMessage('/n_end', 1005, -1, -1, -1, 0))
+        ('R', OscMessage('/n_end', 1006, -1, -1, -1, 1, -1, -1))
+        ('R', OscMessage('/n_end', 1004, -1, -1, -1, 1, -1, -1))
+        ('R', OscMessage('/n_end', 1002, -1, -1, -1, 1, -1, -1))
+        ('R', OscMessage('/synced', 2))
+
+    ::
+
+        >>> print(server)
+        NODE TREE 0 group
+            1 group
+                1000 group
+
+    ::
+
+        >>> print(server.query_local_nodes(True))
+        NODE TREE 0 group
+            1 group
+                1000 group
+
+    """
+
+    ### CLASS VARIABLES ###
+
+    request_id = RequestId.GROUP_FREE_ALL
+
+    ### INITIALIZER ###
+
+    def __init__(self, group_id):
+        Request.__init__(self)
+        self._group_id = group_id
+
+    ### PUBLIC METHODS ###
+
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
+        group_id = int(self.group_id)
+        message = supriya.osc.OscMessage(request_id, group_id)
+        return message
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def group_id(self):
+        return self._group_id
+
+
+class GroupNewRequest(Request):
+    """
+    A /g_new request.
+
+    ::
+
+        >>> import supriya
+        >>> server = supriya.Server.default().boot()
+        >>> group = supriya.Group().allocate()
+
+    ::
+
+        >>> print(server)
+        NODE TREE 0 group
+            1 group
+                1000 group
+
+    ::
+
+        >>> request = supriya.commands.GroupNewRequest(
+        ...     items=[
+        ...         supriya.commands.GroupNewRequest.Item(
+        ...             add_action=supriya.AddAction.ADD_TO_TAIL,
+        ...             node_id=1001,
+        ...             target_node_id=1,
+        ...             ),
+        ...         supriya.commands.GroupNewRequest.Item(
+        ...             add_action=supriya.AddAction.ADD_TO_HEAD,
+        ...             node_id=1002,
+        ...             target_node_id=1001,
+        ...             ),
+        ...         ],
+        ...     )
+        >>> request.to_osc()
+        OscMessage('/g_new', 1001, 1, 1, 1002, 0, 1001)
+
+    ::
+
+        >>> with server.osc_protocol.capture() as transcript:
+        ...     _ = request.communicate(server=server)
+        ...     _ = server.sync()
+        ...
+
+    ::
+
+        >>> for entry in transcript:
+        ...     (entry.label, entry.message)
+        ...
+        ('S', OscMessage('/g_new', 1001, 1, 1, 1002, 0, 1001))
+        ('R', OscMessage('/n_go', 1001, 1, 1000, -1, 1, -1, -1))
+        ('R', OscMessage('/n_go', 1002, 1001, -1, -1, 1, -1, -1))
+        ('S', OscMessage('/sync', 0))
+        ('R', OscMessage('/synced', 0))
+
+    ::
+
+        >>> print(server)
+        NODE TREE 0 group
+            1 group
+                1000 group
+                1001 group
+                    1002 group
+
+    ::
+
+        >>> print(server.query_local_nodes())
+        NODE TREE 0 group
+            1 group
+                1000 group
+                1001 group
+                    1002 group
+
+    """
+
+    ### CLASS VARIABLES ###
+
+    class Item(typing.NamedTuple):
+        add_action: int = 0
+        node_id: int = 0
+        target_node_id: int = 0
+
+    request_id = RequestId.GROUP_NEW
+
+    ### INITIALIZER ###
+
+    def __init__(self, items=None):
+        # TODO: Support multi-group allocation
+        import supriya.realtime
+
+        Request.__init__(self)
+        if items:
+            if not isinstance(items, collections.Sequence):
+                items = [items]
+            items = list(items)
+            for i, (add_action, node_id, target_node_id) in enumerate(items):
+                add_action = supriya.AddAction.from_expr(add_action)
+                items[i] = self.Item(
+                    add_action=add_action,
+                    node_id=node_id,
+                    target_node_id=target_node_id,
+                )
+        self._items = items
+
+    ### PRIVATE METHODS ###
+
+    def _apply_local(self, server):
+        for item in self.items:
+            if isinstance(item.node_id, Group):
+                node_id = None
+                group = item.node_id
+            else:
+                node_id = item.node_id
+                group = Group()
+            if isinstance(item.target_node_id, Node):
+                target_node = item.target_node_id
+            else:
+                target_node = server._nodes[item.target_node_id]
+            group._register_with_local_server(
+                node_id=node_id,
+                node_id_is_permanent=group.node_id_is_permanent,
+                server=server,
+            )
+            target_node._move_node(add_action=item.add_action, node=group)
+
+    ### PUBLIC METHODS ###
+
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
+        contents = [request_id]
+        for item in self.items:
+            node_id = self._sanitize_node_id(item.node_id, with_placeholders)
+            target_node_id = self._sanitize_node_id(
+                item.target_node_id, with_placeholders
+            )
+            contents.append(node_id)
+            contents.append(int(item.add_action))
+            contents.append(target_node_id)
+        message = supriya.osc.OscMessage(*contents)
+        return message
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def items(self):
+        return self._items
+
+    @property
+    def response_patterns(self):
+        return ["/n_go", int(self.items[-1].node_id)], None
+
+
+class GroupQueryTreeRequest(Request):
+    """
+    A /g_queryTree request.
+
+    ::
+
+        >>> import supriya.commands
+        >>> request = supriya.commands.GroupQueryTreeRequest(
+        ...     node_id=0,
+        ...     include_controls=True,
+        ...     )
+        >>> request
+        GroupQueryTreeRequest(
+            include_controls=True,
+            node_id=0,
+            )
+
+    ::
+
+        >>> request.to_osc()
+        OscMessage('/g_queryTree', 0, 1)
+
+    """
+
+    ### CLASS VARIABLES ###
+
+    request_id = RequestId.GROUP_QUERY_TREE
+
+    ### INITIALIZER ###
+
+    def __init__(self, node_id=None, include_controls=False):
+        Request.__init__(self)
+        self._node_id = node_id
+        self._include_controls = bool(include_controls)
+
+    ### PUBLIC METHODS ###
+
+    def to_osc(self, *, with_placeholders=False):
+        request_id = self.request_name
+        node_id = int(self.node_id)
+        include_controls = int(self.include_controls)
+        message = supriya.osc.OscMessage(request_id, node_id, include_controls)
+        return message
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def include_controls(self):
+        return self._include_controls
+
+    @property
+    def node_id(self):
+        return self._node_id
+
+    @property
+    def response_patterns(self):
+        return ["/g_queryTree.reply", int(self.include_controls), self.node_id], None
+
+
+class ParallelGroupNewRequest(GroupNewRequest):
+    """
+    A /p_new request.
+
+    ..  note::  This behaves like a ``/g_new`` request when run on ``scsynth``
+                instead of ``supernova``.
+
+    ::
+
+        >>> import supriya
+        >>> server = supriya.Server.default().boot()
+        >>> group = supriya.Group().allocate()
+
+    ::
+
+        >>> print(server)
+        NODE TREE 0 group
+            1 group
+                1000 group
+
+    ::
+
+        >>> request = supriya.commands.ParallelGroupNewRequest(
+        ...     items=[
+        ...         supriya.commands.ParallelGroupNewRequest.Item(
+        ...             add_action=supriya.AddAction.ADD_TO_TAIL,
+        ...             node_id=1001,
+        ...             target_node_id=1,
+        ...             ),
+        ...         ],
+        ...     )
+        >>> request.to_osc()
+        OscMessage('/p_new', 1001, 1, 1)
+
+    ::
+
+        >>> with server.osc_protocol.capture() as transcript:
+        ...     response = request.communicate(server=server)
+        ...     _ = server.sync()
+        ...
+
+    ::
+
+        >>> for entry in transcript:
+        ...     (entry.label, entry.message)
+        ...
+        ('S', OscMessage('/p_new', 1001, 1, 1))
+        ('R', OscMessage('/n_go', 1001, 1, 1000, -1, 1, -1, -1))
+        ('S', OscMessage('/sync', 0))
+        ('R', OscMessage('/synced', 0))
+
+    ::
+
+        >>> print(server)
+        NODE TREE 0 group
+            1 group
+                1000 group
+                1001 group
+
+    ::
+
+        >>> print(server.query_local_nodes())
+        NODE TREE 0 group
+            1 group
+                1000 group
+                1001 group
+
+    """
+
+    ### CLASS VARIABLES ###
+
+    request_id = RequestId.PARALLEL_GROUP_NEW
 
 
 class QueryTreeResponse(Response):

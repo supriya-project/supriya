@@ -2,92 +2,88 @@
 """
 Tools for object-modeling OSC responses received from ``scsynth``.
 """
-from .BufferAllocateReadChannelRequest import BufferAllocateReadChannelRequest
-from .BufferAllocateReadRequest import BufferAllocateReadRequest
-from .BufferAllocateRequest import BufferAllocateRequest
-from .BufferCloseRequest import BufferCloseRequest
-from .BufferCopyRequest import BufferCopyRequest
-from .BufferFillRequest import BufferFillRequest
-from .BufferFreeRequest import BufferFreeRequest
-from .BufferGenerateRequest import BufferGenerateRequest
-from .BufferGetContiguousRequest import BufferGetContiguousRequest
-from .BufferGetRequest import BufferGetRequest
-from .BufferInfoResponse import BufferInfoResponse
-from .BufferNormalizeRequest import BufferNormalizeRequest
-from .BufferQueryRequest import BufferQueryRequest
-from .BufferReadChannelRequest import BufferReadChannelRequest
-from .BufferReadRequest import BufferReadRequest
-from .BufferSetContiguousRequest import BufferSetContiguousRequest
-from .BufferSetContiguousResponse import BufferSetContiguousResponse
-from .BufferSetRequest import BufferSetRequest
-from .BufferSetResponse import BufferSetResponse
-from .BufferWriteRequest import BufferWriteRequest
-from .BufferZeroRequest import BufferZeroRequest
-from .ClearScheduleRequest import ClearScheduleRequest
-from .CommandRequest import CommandRequest
-from .ControlBusFillRequest import ControlBusFillRequest
-from .ControlBusGetContiguousRequest import ControlBusGetContiguousRequest
-from .ControlBusGetRequest import ControlBusGetRequest
-from .ControlBusSetContiguousRequest import ControlBusSetContiguousRequest
-from .ControlBusSetContiguousResponse import ControlBusSetContiguousResponse
-from .ControlBusSetRequest import ControlBusSetRequest
-from .ControlBusSetResponse import ControlBusSetResponse
-from .DoneResponse import DoneResponse
-from .DumpOscRequest import DumpOscRequest
-from .ErrorRequest import ErrorRequest
-from .FailResponse import FailResponse
-from .GroupDeepFreeRequest import GroupDeepFreeRequest
-from .GroupDumpTreeRequest import GroupDumpTreeRequest
-from .GroupFreeAllRequest import GroupFreeAllRequest
-from .GroupHeadRequest import GroupHeadRequest
-from .GroupNewRequest import GroupNewRequest
-from .GroupQueryTreeRequest import GroupQueryTreeRequest
-from .GroupTailRequest import GroupTailRequest
-from .MoveRequest import MoveRequest
-from .NodeAfterRequest import NodeAfterRequest
-from .NodeBeforeRequest import NodeBeforeRequest
-from .NodeCommandRequest import NodeCommandRequest
-from .NodeFillRequest import NodeFillRequest
-from .NodeFreeRequest import NodeFreeRequest
-from .NodeInfoResponse import NodeInfoResponse
-from .NodeMapToAudioBusContiguousRequest import NodeMapToAudioBusContiguousRequest
-from .NodeMapToAudioBusRequest import NodeMapToAudioBusRequest
-from .NodeMapToControlBusContiguousRequest import NodeMapToControlBusContiguousRequest
-from .NodeMapToControlBusRequest import NodeMapToControlBusRequest
-from .NodeOrderRequest import NodeOrderRequest
-from .NodeQueryRequest import NodeQueryRequest
-from .NodeRunRequest import NodeRunRequest
-from .NodeSetContiguousRequest import NodeSetContiguousRequest
-from .NodeSetContiguousResponse import NodeSetContiguousResponse
-from .NodeSetRequest import NodeSetRequest
-from .NodeSetResponse import NodeSetResponse
-from .NodeTraceRequest import NodeTraceRequest
-from .NothingRequest import NothingRequest
-from .NotifyRequest import NotifyRequest
-from .ParallelGroupNewRequest import ParallelGroupNewRequest
-from .QueryTreeResponse import QueryTreeResponse
-from .QuitRequest import QuitRequest
-from .Request import Request
-from .RequestBundle import RequestBundle
-from .Requestable import Requestable
-from .Response import Response
-from .StatusRequest import StatusRequest
-from .StatusResponse import StatusResponse
-from .SyncRequest import SyncRequest
-from .SyncedResponse import SyncedResponse
-from .SynthDefFreeAllRequest import SynthDefFreeAllRequest
-from .SynthDefFreeRequest import SynthDefFreeRequest
-from .SynthDefLoadDirectoryRequest import SynthDefLoadDirectoryRequest
-from .SynthDefLoadRequest import SynthDefLoadRequest
-from .SynthDefReceiveRequest import SynthDefReceiveRequest
-from .SynthDefRemovedResponse import SynthDefRemovedResponse
-from .SynthGetContiguousRequest import SynthGetContiguousRequest
-from .SynthGetRequest import SynthGetRequest
-from .SynthNewRequest import SynthNewRequest
-from .SynthNewargsRequest import SynthNewargsRequest
-from .SynthNoidRequest import SynthNoidRequest
-from .TriggerResponse import TriggerResponse
-from .UgenCommandRequest import UgenCommandRequest
+
+from .bases import Request, RequestBundle, Requestable, Response
+from .buffers import (
+    BufferAllocateReadChannelRequest,
+    BufferAllocateReadRequest,
+    BufferAllocateRequest,
+    BufferCloseRequest,
+    BufferCopyRequest,
+    BufferFillRequest,
+    BufferFreeRequest,
+    BufferGenerateRequest,
+    BufferGetContiguousRequest,
+    BufferGetRequest,
+    BufferInfoResponse,
+    BufferNormalizeRequest,
+    BufferQueryRequest,
+    BufferReadChannelRequest,
+    BufferReadRequest,
+    BufferSetContiguousRequest,
+    BufferSetContiguousResponse,
+    BufferSetRequest,
+    BufferSetResponse,
+    BufferWriteRequest,
+    BufferZeroRequest,
+)
+from .buses import (
+    ControlBusFillRequest,
+    ControlBusGetContiguousRequest,
+    ControlBusGetRequest,
+    ControlBusSetContiguousRequest,
+    ControlBusSetContiguousResponse,
+    ControlBusSetRequest,
+    ControlBusSetResponse,
+)
+from .groups import (
+    GroupDeepFreeRequest,
+    GroupFreeAllRequest,
+    GroupNewRequest,
+    GroupQueryTreeRequest,
+    ParallelGroupNewRequest,
+    QueryTreeResponse,
+)
+from .movement import (
+    GroupHeadRequest,
+    GroupTailRequest,
+    MoveRequest,
+    NodeAfterRequest,
+    NodeBeforeRequest,
+)
+from .nodes import (
+    NodeFreeRequest,
+    NodeInfoResponse,
+    NodeMapToAudioBusRequest,
+    NodeMapToControlBusRequest,
+    NodeQueryRequest,
+    NodeRunRequest,
+    NodeSetContiguousResponse,
+    NodeSetRequest,
+    NodeSetResponse,
+)
+from .server import (
+    ClearScheduleRequest,
+    DoneResponse,
+    DumpOscRequest,
+    FailResponse,
+    NothingRequest,
+    NotifyRequest,
+    QuitRequest,
+    StatusRequest,
+    StatusResponse,
+    SyncRequest,
+    SyncedResponse,
+)
+from .synthdefs import (
+    SynthDefFreeAllRequest,
+    SynthDefFreeRequest,
+    SynthDefLoadDirectoryRequest,
+    SynthDefLoadRequest,
+    SynthDefReceiveRequest,
+    SynthDefRemovedResponse,
+)
+from .synths import SynthNewRequest, TriggerResponse
 
 __all__ = [
     "BufferAllocateReadChannelRequest",
@@ -112,7 +108,6 @@ __all__ = [
     "BufferWriteRequest",
     "BufferZeroRequest",
     "ClearScheduleRequest",
-    "CommandRequest",
     "ControlBusFillRequest",
     "ControlBusGetContiguousRequest",
     "ControlBusGetRequest",
@@ -122,7 +117,6 @@ __all__ = [
     "ControlBusSetResponse",
     "DoneResponse",
     "DumpOscRequest",
-    "ErrorRequest",
     "FailResponse",
     "GroupDeepFreeRequest",
     "GroupDumpTreeRequest",
@@ -138,9 +132,7 @@ __all__ = [
     "NodeFillRequest",
     "NodeFreeRequest",
     "NodeInfoResponse",
-    "NodeMapToAudioBusContiguousRequest",
     "NodeMapToAudioBusRequest",
-    "NodeMapToControlBusContiguousRequest",
     "NodeMapToControlBusRequest",
     "NodeOrderRequest",
     "NodeQueryRequest",
@@ -169,11 +161,6 @@ __all__ = [
     "SynthDefLoadRequest",
     "SynthDefReceiveRequest",
     "SynthDefRemovedResponse",
-    "SynthGetContiguousRequest",
-    "SynthGetRequest",
     "SynthNewRequest",
-    "SynthNewargsRequest",
-    "SynthNoidRequest",
     "TriggerResponse",
-    "UgenCommandRequest",
 ]

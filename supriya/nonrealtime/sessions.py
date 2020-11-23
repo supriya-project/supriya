@@ -14,18 +14,20 @@ import supriya.realtime
 import supriya.soundfiles
 import supriya.synthdefs
 from supriya import HeaderFormat, ParameterRate, SampleFormat, scsynth
-from supriya.commands.BufferCopyRequest import BufferCopyRequest
-from supriya.commands.BufferFillRequest import BufferFillRequest
-from supriya.commands.BufferGenerateRequest import BufferGenerateRequest
-from supriya.commands.BufferNormalizeRequest import BufferNormalizeRequest
-from supriya.commands.BufferReadChannelRequest import BufferReadChannelRequest
-from supriya.commands.BufferReadRequest import BufferReadRequest
-from supriya.commands.BufferSetContiguousRequest import BufferSetContiguousRequest
-from supriya.commands.BufferSetRequest import BufferSetRequest
-from supriya.commands.BufferWriteRequest import BufferWriteRequest
-from supriya.commands.BufferZeroRequest import BufferZeroRequest
-from supriya.commands.NothingRequest import NothingRequest
-from supriya.commands.RequestBundle import RequestBundle
+from supriya.commands import (
+    BufferCopyRequest,
+    BufferFillRequest,
+    BufferGenerateRequest,
+    BufferNormalizeRequest,
+    BufferReadChannelRequest,
+    BufferReadRequest,
+    BufferSetContiguousRequest,
+    BufferSetRequest,
+    BufferWriteRequest,
+    BufferZeroRequest,
+    NothingRequest,
+    RequestBundle,
+)
 from supriya.nonrealtime.bases import SessionObject
 from supriya.nonrealtime.nodes import Synth
 from supriya.querytree import QueryTreeGroup
