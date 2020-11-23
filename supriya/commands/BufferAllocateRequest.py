@@ -1,7 +1,7 @@
 import supriya.osc
-from .bases import Request
-from .bases import RequestBundle
 from supriya.enums import RequestId
+
+from .bases import Request, RequestBundle
 
 
 class BufferAllocateRequest(Request):

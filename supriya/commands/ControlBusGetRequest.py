@@ -1,6 +1,7 @@
 import supriya.osc
-from .bases import Request
 from supriya.enums import RequestId
+
+from .bases import Request
 
 
 class ControlBusGetRequest(Request):

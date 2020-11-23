@@ -3,8 +3,6 @@
 Tools for object-modeling OSC responses received from ``scsynth``.
 """
 
-from .bases import Requestable, Request, RequestBundle, Response
-
 from .BufferAllocateReadChannelRequest import BufferAllocateReadChannelRequest
 from .BufferAllocateReadRequest import BufferAllocateReadRequest
 from .BufferAllocateRequest import BufferAllocateRequest
@@ -74,12 +72,6 @@ from .StatusRequest import StatusRequest
 from .StatusResponse import StatusResponse
 from .SyncRequest import SyncRequest
 from .SyncedResponse import SyncedResponse
-from .SynthDefFreeAllRequest import SynthDefFreeAllRequest
-from .SynthDefFreeRequest import SynthDefFreeRequest
-from .SynthDefLoadDirectoryRequest import SynthDefLoadDirectoryRequest
-from .SynthDefLoadRequest import SynthDefLoadRequest
-from .SynthDefReceiveRequest import SynthDefReceiveRequest
-from .SynthDefRemovedResponse import SynthDefRemovedResponse
 from .SynthGetContiguousRequest import SynthGetContiguousRequest
 from .SynthGetRequest import SynthGetRequest
 from .SynthNewRequest import SynthNewRequest
@@ -87,6 +79,15 @@ from .SynthNewargsRequest import SynthNewargsRequest
 from .SynthNoidRequest import SynthNoidRequest
 from .TriggerResponse import TriggerResponse
 from .UgenCommandRequest import UgenCommandRequest
+from .bases import Request, RequestBundle, Requestable, Response
+from .synthdefs import (
+    SynthDefFreeAllRequest,
+    SynthDefFreeRequest,
+    SynthDefLoadDirectoryRequest,
+    SynthDefLoadRequest,
+    SynthDefReceiveRequest,
+    SynthDefRemovedResponse,
+)
 
 __all__ = [
     "BufferAllocateReadChannelRequest",

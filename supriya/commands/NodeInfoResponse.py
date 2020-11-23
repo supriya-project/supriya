@@ -1,5 +1,6 @@
-from .bases import Response
 from supriya.enums import NodeAction
+
+from .bases import Response
 
 
 class NodeInfoResponse(Response):

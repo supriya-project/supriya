@@ -1,5 +1,6 @@
-from .bases import Response
 from supriya.querytree import QueryTreeControl, QueryTreeGroup, QueryTreeSynth
+
+from .bases import Response
 
 
 class QueryTreeResponse(Response):

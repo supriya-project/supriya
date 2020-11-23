@@ -2,9 +2,10 @@ import collections
 import typing
 
 import supriya.osc
-from .bases import Request
 from supriya.enums import RequestId
 from supriya.realtime.nodes import Group, Node
+
+from .bases import Request
 
 
 class GroupNewRequest(Request):

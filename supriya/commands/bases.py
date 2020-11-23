@@ -7,8 +7,8 @@ from collections import deque
 
 from uqbar.objects import new
 
-from supriya.system import SupriyaValueObject
 from supriya.osc.messages import BUNDLE_PREFIX, OscBundle
+from supriya.system import SupriyaValueObject
 
 logger = logging.getLogger("supriya.osc")
 

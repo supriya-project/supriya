@@ -2,8 +2,9 @@ import collections
 
 import supriya.osc
 from supriya import utils
-from .bases import Request
 from supriya.enums import RequestId
+
+from .bases import Request
 
 
 class BufferGenerateRequest(Request):

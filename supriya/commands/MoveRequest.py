@@ -2,6 +2,7 @@ import collections
 import typing
 
 import supriya.osc
+
 from .bases import Request
 
 
