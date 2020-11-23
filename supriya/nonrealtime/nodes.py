@@ -12,7 +12,7 @@ from supriya.commands.GroupNewRequest import GroupNewRequest
 from supriya.commands.SynthNewRequest import SynthNewRequest
 from supriya.nonrealtime.bases import SessionObject
 from supriya.nonrealtime.states import NodeTransition, State
-from supriya.patterns.Pattern import Pattern
+from supriya.patterns.bases import Pattern
 
 
 class Node(SessionObject):
