@@ -10,17 +10,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
-      run: >
-        sudo apt-get install
-        build-essential
-        cmake
-        pkg-config
-        libjack-jackd2-dev
-        libsndfile1-dev
-        libasound2-dev
-        libavahi-client-dev
-        libreadline6-dev
-        libfftw3-dev
-        libicu-dev
-        libxt-dev
-        libudev-dev
+      run: |
+        export DEBIAN_FRONTEND=noninteractive
+        sudo apt-get clean
+        sudo apt-get update
+        sudo apt-get install --yes build-essential cmake pkg-config libjack-jackd2-dev libsndfile1-dev libasound2-dev libavahi-client-dev libreadline6-dev libfftw3-dev libicu-dev libxt-dev libudev-dev
