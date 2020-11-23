@@ -54,11 +54,14 @@ jobs:
         cmake --debug-output -DCMAKE_BUILD_TYPE=Release -DSC_EL=OFF -DSC_IDE=OFF -DSC_QT=OFF /tmp/supercollider > /dev/null
         sudo make install
       working-directory: /tmp/supercollider/BUILD
-    - name: Setup Jack
-      run: |
-        sudo usermod -a -G audio ${USER}
-        sudo -E su ${USER} -c "jackd -r -ddummy -r44100 -p1024" 2>/dev/null &
-        sleep 5
     - name: Sanity check
       run: |
         scsynth -v
+    - name: Setup Jack
+      run: |
+        sudo usermod -a -G audio ${USER}
+        sudo -E su ${USER} -c "jackd -r -ddummy -r44100 -p1024" &
+        sleep 5
+        sudo -E su $USER -c "scsynth -D 0 -H dummy -R 0 -u 57110" &
+        sleep 5
+        killall scsynth
