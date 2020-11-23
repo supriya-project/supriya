@@ -3,6 +3,9 @@ on:
   pull_request:
     branches:
     - master
+env:
+  SC_ORIGIN: https://github.com/supercollider/supercollider.git
+  SC_BRANCH: Version-3.10.0
 jobs:
   scsynth:
     name: scsynth
@@ -19,11 +22,7 @@ jobs:
         mkdir BUILD
         echo "SC_COMMIT_SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
         echo "SC_ORIGIN_MD5=$(echo ${SC_ORIGIN} | md5sum | head -c 7)" >> $GITHUB_ENV
-      env:
-        SC_BRANCH: Version-3.10.0
-        SC_ORIGIN: https://github.com/supercollider/supercollider.git
-    - name: Cache
-      id: cache
+    - name: Cache SC
       uses: actions/cache@v2
       with:
         path: /tmp/supercollider
@@ -53,10 +52,8 @@ jobs:
       run: |
         cmake --debug-output -DCMAKE_BUILD_TYPE=Release -DSC_EL=OFF -DSC_IDE=OFF -DSC_QT=OFF /tmp/supercollider > /dev/null
         sudo make install
-      working-directory: /tmp/supercollider/BUILD
-    - name: Sanity check
-      run: |
         scsynth -v
+      working-directory: /tmp/supercollider/BUILD
     - name: Setup Jack
       run: |
         sudo usermod -a -G audio ${USER}
