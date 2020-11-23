@@ -32,7 +32,7 @@ jobs:
       working-directory: /tmp/supercollider/BUILD
     - name: Build
       run: |
-        make build
+        make
       working-directory: /tmp/supercollider/BUILD
     - name: Install
       run: |
