@@ -21,6 +21,12 @@ jobs:
       env:
         SC_BRANCH: Version-3.10.0
         SC_ORIGIN: https://github.com/supercollider/supercollider.git
+    - name: Cache
+      id: cache
+      uses: actions/cache@v2
+      with:
+        path: /tmp/supercollider
+        key: ${{runner.os}}-${{SC_CACHE_KEY}}
     - name: Install Deps
       run: |
         export DEBIAN_FRONTEND=noninteractive
