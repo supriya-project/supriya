@@ -24,17 +24,19 @@ from .BufferSetRequest import BufferSetRequest
 from .BufferSetResponse import BufferSetResponse
 from .BufferWriteRequest import BufferWriteRequest
 from .BufferZeroRequest import BufferZeroRequest
-from .ControlBusFillRequest import ControlBusFillRequest
-from .ControlBusGetContiguousRequest import ControlBusGetContiguousRequest
-from .ControlBusGetRequest import ControlBusGetRequest
-from .ControlBusSetContiguousRequest import ControlBusSetContiguousRequest
-from .ControlBusSetContiguousResponse import ControlBusSetContiguousResponse
-from .ControlBusSetRequest import ControlBusSetRequest
-from .ControlBusSetResponse import ControlBusSetResponse
 from .NodeMapToAudioBusRequest import NodeMapToAudioBusRequest
 from .NodeMapToControlBusRequest import NodeMapToControlBusRequest
 from .TriggerResponse import TriggerResponse
 from .bases import Request, RequestBundle, Requestable, Response
+from .buses import (
+    ControlBusFillRequest,
+    ControlBusGetContiguousRequest,
+    ControlBusGetRequest,
+    ControlBusSetContiguousRequest,
+    ControlBusSetContiguousResponse,
+    ControlBusSetRequest,
+    ControlBusSetResponse,
+)
 from .groups import (
     GroupDeepFreeRequest,
     GroupFreeAllRequest,
