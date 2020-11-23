@@ -8,8 +8,8 @@ from uqbar.objects import new
 
 import supriya  # noqa
 import supriya.realtime
-from supriya.commands.GroupNewRequest import GroupNewRequest
-from supriya.commands.SynthNewRequest import SynthNewRequest
+from supriya.commands import GroupNewRequest
+from supriya.commands import SynthNewRequest
 from supriya.nonrealtime.bases import SessionObject
 from supriya.nonrealtime.states import NodeTransition, State
 from supriya.patterns.bases import Pattern

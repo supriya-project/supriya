@@ -32,34 +32,10 @@ from .ControlBusSetContiguousRequest import ControlBusSetContiguousRequest
 from .ControlBusSetContiguousResponse import ControlBusSetContiguousResponse
 from .ControlBusSetRequest import ControlBusSetRequest
 from .ControlBusSetResponse import ControlBusSetResponse
-from .GroupDeepFreeRequest import GroupDeepFreeRequest
-from .GroupDumpTreeRequest import GroupDumpTreeRequest
-from .GroupFreeAllRequest import GroupFreeAllRequest
-from .GroupHeadRequest import GroupHeadRequest
-from .GroupNewRequest import GroupNewRequest
-from .GroupQueryTreeRequest import GroupQueryTreeRequest
-from .GroupTailRequest import GroupTailRequest
-from .MoveRequest import MoveRequest
-from .NodeAfterRequest import NodeAfterRequest
-from .NodeBeforeRequest import NodeBeforeRequest
-from .NodeCommandRequest import NodeCommandRequest
-from .NodeFillRequest import NodeFillRequest
-from .NodeFreeRequest import NodeFreeRequest
-from .NodeInfoResponse import NodeInfoResponse
 from .NodeMapToAudioBusContiguousRequest import NodeMapToAudioBusContiguousRequest
 from .NodeMapToAudioBusRequest import NodeMapToAudioBusRequest
 from .NodeMapToControlBusContiguousRequest import NodeMapToControlBusContiguousRequest
 from .NodeMapToControlBusRequest import NodeMapToControlBusRequest
-from .NodeOrderRequest import NodeOrderRequest
-from .NodeQueryRequest import NodeQueryRequest
-from .NodeRunRequest import NodeRunRequest
-from .NodeSetContiguousRequest import NodeSetContiguousRequest
-from .NodeSetContiguousResponse import NodeSetContiguousResponse
-from .NodeSetRequest import NodeSetRequest
-from .NodeSetResponse import NodeSetResponse
-from .NodeTraceRequest import NodeTraceRequest
-from .ParallelGroupNewRequest import ParallelGroupNewRequest
-from .QueryTreeResponse import QueryTreeResponse
 from .SynthGetContiguousRequest import SynthGetContiguousRequest
 from .SynthGetRequest import SynthGetRequest
 from .SynthNewRequest import SynthNewRequest
@@ -68,6 +44,30 @@ from .SynthNoidRequest import SynthNoidRequest
 from .TriggerResponse import TriggerResponse
 from .UgenCommandRequest import UgenCommandRequest
 from .bases import Request, RequestBundle, Requestable, Response
+from .groups import (
+    GroupDeepFreeRequest,
+    GroupFreeAllRequest,
+    GroupNewRequest,
+    GroupQueryTreeRequest,
+    ParallelGroupNewRequest,
+    QueryTreeResponse,
+)
+from .movement import (
+    GroupHeadRequest,
+    GroupTailRequest,
+    MoveRequest,
+    NodeAfterRequest,
+    NodeBeforeRequest,
+)
+from .nodes import (
+    NodeFreeRequest,
+    NodeInfoResponse,
+    NodeQueryRequest,
+    NodeRunRequest,
+    NodeSetContiguousResponse,
+    NodeSetRequest,
+    NodeSetResponse,
+)
 from .server import (
     ClearScheduleRequest,
     DoneResponse,
