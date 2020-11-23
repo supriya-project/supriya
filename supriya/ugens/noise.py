@@ -330,6 +330,28 @@ class LinRand(UGen):
     _valid_calculation_rates = (CalculationRate.SCALAR,)
 
 
+class Logistic(UGen):
+    """
+    A chaotic noise function.
+
+    ::
+
+        >>> logistic = supriya.ugens.Logistic.ar(
+        ...     chaos_parameter=3.,
+        ...     frequency=1000,
+        ...     initial_y=0.5,
+        ...     )
+        >>> logistic
+        Logistic.ar()
+
+    """
+
+    _ordered_input_names = collections.OrderedDict(
+        [("chaos_parameter", 3), ("frequency", 1000), ("initial_y", 0.5)]
+    )
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+
+
 class MantissaMask(UGen):
     """
     A floating-point mantissa mask.

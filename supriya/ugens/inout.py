@@ -2,8 +2,7 @@ import abc
 import collections
 
 from supriya import CalculationRate, utils
-from supriya.synthdefs import MultiOutUGen, UGen
-from supriya.ugens.PseudoUGen import PseudoUGen
+from supriya.synthdefs import MultiOutUGen, PseudoUGen, UGen
 
 
 class In(MultiOutUGen):

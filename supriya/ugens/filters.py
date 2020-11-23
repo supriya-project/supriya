@@ -1,8 +1,7 @@
 import collections
 
 from supriya import CalculationRate
-from supriya.synthdefs import PureUGen
-from supriya.ugens.PseudoUGen import PseudoUGen
+from supriya.synthdefs import PseudoUGen, PureUGen
 
 
 class Filter(PureUGen):
@@ -688,6 +687,30 @@ class MidEQ(Filter):
 
     _ordered_input_names = collections.OrderedDict(
         [("source", None), ("frequency", 440), ("reciprocal_of_q", 1), ("db", 0)]
+    )
+    _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
+
+
+class MoogFF(Filter):
+    """
+    A Moog VCF implementation.
+
+    ::
+
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> moog_ff = supriya.ugens.MoogFF.ar(
+        ...     frequency=100,
+        ...     gain=2,
+        ...     reset=0,
+        ...     source=source,
+        ...     )
+        >>> moog_ff
+        MoogFF.ar()
+
+    """
+
+    _ordered_input_names = collections.OrderedDict(
+        [("source", None), ("frequency", 100), ("gain", 2), ("reset", 0)]
     )
     _valid_calculation_rates = (CalculationRate.AUDIO, CalculationRate.CONTROL)
 

@@ -1039,3 +1039,9 @@ class BinaryOpUGen(PureUGen):
         Returns binary operator.
         """
         return BinaryOperator(self.special_index)
+
+
+class PseudoUGen:
+    @abc.abstractmethod
+    def __init__(self):
+        raise NotImplementedError

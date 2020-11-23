@@ -1,15 +1,7 @@
 """
 Tools for modeling unit generators (UGens).
 """
-from .LFCub import LFCub  # noqa
-from .Logistic import Logistic  # noqa
-from .Mix import Mix  # noqa
-from .MoogFF import MoogFF  # noqa
-from .Onsets import Onsets  # noqa
-from .PitchShift import PitchShift  # noqa
-from .Poll import Poll  # noqa
-from .PseudoUGen import PseudoUGen  # noqa
-from .basic import MulAdd, Sum3, Sum4
+from .basic import Mix, MulAdd, Sum3, Sum4
 from .beq import (
     BAllPass,
     BBandPass,
@@ -151,6 +143,7 @@ from .filters import (
     LeakDC,
     Median,
     MidEQ,
+    MoogFF,
     OnePole,
     OneZero,
     Ramp,
@@ -161,7 +154,7 @@ from .filters import (
     TwoZero,
 )
 from .gendyn import Gendy1, Gendy2, Gendy3
-from .granular import GrainBuf, GrainIn, Warp1
+from .granular import GrainBuf, GrainIn, PitchShift, Warp1
 from .hilbert import FreqShift, Hilbert, HilbertFIR
 from .info import (
     BlockSize,
@@ -215,6 +208,7 @@ from .ml import (
     BeatTrack2,
     KeyTrack,
     Loudness,
+    Onsets,
     SpecCentroid,
     SpecFlatness,
     SpecPcile,
@@ -239,6 +233,7 @@ from .noise import (
     LFNoise1,
     LFNoise2,
     LinRand,
+    Logistic,
     MantissaMask,
     NRand,
     PinkNoise,
@@ -256,6 +251,7 @@ from .osc import (
     DegreeToKey,
     Impulse,
     Index,
+    LFCub,
     LFGauss,
     LFPar,
     LFPulse,
@@ -337,6 +333,7 @@ from .triggers import (
     Peak,
     PeakFollower,
     Phasor,
+    Poll,
     RunningMax,
     RunningMin,
     Schmidt,

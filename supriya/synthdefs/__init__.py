@@ -5,6 +5,7 @@ from .mixins import OutputProxy, UGenArray, UGenMethodMixin  # isort:skip
 from .bases import (
     BinaryOpUGen,
     MultiOutUGen,
+    PseudoUGen,
     PureMultiOutUGen,
     PureUGen,
     UGen,

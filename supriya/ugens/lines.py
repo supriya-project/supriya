@@ -2,8 +2,7 @@ import abc
 import collections
 
 from supriya import CalculationRate
-from supriya.synthdefs import PureUGen, UGen
-from supriya.ugens.PseudoUGen import PseudoUGen
+from supriya.synthdefs import PseudoUGen, PureUGen, UGen
 
 
 class A2K(PureUGen):

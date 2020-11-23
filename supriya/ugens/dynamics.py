@@ -1,8 +1,7 @@
 import collections
 
 from supriya import CalculationRate
-from supriya.synthdefs import UGen
-from supriya.ugens.PseudoUGen import PseudoUGen
+from supriya.synthdefs import PseudoUGen, UGen
 
 from .delay import DelayN
 
