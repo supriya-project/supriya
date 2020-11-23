@@ -24,7 +24,6 @@ from .BufferSetRequest import BufferSetRequest
 from .BufferSetResponse import BufferSetResponse
 from .BufferWriteRequest import BufferWriteRequest
 from .BufferZeroRequest import BufferZeroRequest
-from .ClearScheduleRequest import ClearScheduleRequest
 from .CommandRequest import CommandRequest
 from .ControlBusFillRequest import ControlBusFillRequest
 from .ControlBusGetContiguousRequest import ControlBusGetContiguousRequest
@@ -33,10 +32,6 @@ from .ControlBusSetContiguousRequest import ControlBusSetContiguousRequest
 from .ControlBusSetContiguousResponse import ControlBusSetContiguousResponse
 from .ControlBusSetRequest import ControlBusSetRequest
 from .ControlBusSetResponse import ControlBusSetResponse
-from .DoneResponse import DoneResponse
-from .DumpOscRequest import DumpOscRequest
-from .ErrorRequest import ErrorRequest
-from .FailResponse import FailResponse
 from .GroupDeepFreeRequest import GroupDeepFreeRequest
 from .GroupDumpTreeRequest import GroupDumpTreeRequest
 from .GroupFreeAllRequest import GroupFreeAllRequest
@@ -63,15 +58,8 @@ from .NodeSetContiguousResponse import NodeSetContiguousResponse
 from .NodeSetRequest import NodeSetRequest
 from .NodeSetResponse import NodeSetResponse
 from .NodeTraceRequest import NodeTraceRequest
-from .NothingRequest import NothingRequest
-from .NotifyRequest import NotifyRequest
 from .ParallelGroupNewRequest import ParallelGroupNewRequest
 from .QueryTreeResponse import QueryTreeResponse
-from .QuitRequest import QuitRequest
-from .StatusRequest import StatusRequest
-from .StatusResponse import StatusResponse
-from .SyncRequest import SyncRequest
-from .SyncedResponse import SyncedResponse
 from .SynthGetContiguousRequest import SynthGetContiguousRequest
 from .SynthGetRequest import SynthGetRequest
 from .SynthNewRequest import SynthNewRequest
@@ -80,6 +68,19 @@ from .SynthNoidRequest import SynthNoidRequest
 from .TriggerResponse import TriggerResponse
 from .UgenCommandRequest import UgenCommandRequest
 from .bases import Request, RequestBundle, Requestable, Response
+from .server import (
+    ClearScheduleRequest,
+    DoneResponse,
+    DumpOscRequest,
+    FailResponse,
+    NothingRequest,
+    NotifyRequest,
+    QuitRequest,
+    StatusRequest,
+    StatusResponse,
+    SyncRequest,
+    SyncedResponse,
+)
 from .synthdefs import (
     SynthDefFreeAllRequest,
     SynthDefFreeRequest,
@@ -122,7 +123,6 @@ __all__ = [
     "ControlBusSetResponse",
     "DoneResponse",
     "DumpOscRequest",
-    "ErrorRequest",
     "FailResponse",
     "GroupDeepFreeRequest",
     "GroupDumpTreeRequest",

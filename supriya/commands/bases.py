@@ -237,7 +237,7 @@ class RequestBundle(Requestable):
     ### PRIVATE METHODS ###
 
     def _get_response_patterns_and_requestable(self, server):
-        from supriya.commands.SyncRequest import SyncRequest
+        from supriya.commands import SyncRequest
 
         sync_id = server.next_sync_id
         contents = list(self.contents)
