@@ -3,12 +3,120 @@ import collections
 import inspect
 import itertools
 import re
+import uuid
 from typing import Dict, Generator, Iterator
 
+import uqbar.objects
 from uqbar.enums import IntEnumeration
 from uqbar.objects import new
 
 from supriya.system import SupriyaValueObject
+
+
+class Event(SupriyaValueObject):
+    """
+    An abstract event.
+
+    ::
+
+        >>> supriya.patterns.NoteEvent(
+        ...     amplitude=0.9,
+        ...     duration=10.5,
+        ...     frequency=443,
+        ...     panning=0.75,
+        ...     )
+        NoteEvent(
+            amplitude=0.9,
+            delta=10.5,
+            duration=10.5,
+            frequency=443,
+            panning=0.75,
+            )
+
+    """
+
+    ### INITIALIZER ###
+
+    def __init__(self, delta=None, **settings):
+        self._delta = delta
+        self._settings = {
+            key: value
+            for key, value in settings.items()
+            if not (key.startswith("_") and value is None)
+        }
+
+    ### SPECIAL METHODS ###
+
+    def __getitem__(self, item):
+        return self._settings.__getitem__(item)
+
+    ### PRIVATE METHODS ###
+
+    def _expand(
+        self, settings, synthdef, uuids, realtime=True, synth_parameters_only=False
+    ):
+        settings = settings.copy()
+        for key, value in settings.items():
+            if isinstance(value, uuid.UUID) and value in uuids:
+                value = uuids[value]
+                if isinstance(value, dict):
+                    value = sorted(value)[0]
+                if not isinstance(value, collections.Sequence):
+                    value = [value]
+                settings[key] = value
+        maximum_length = 1
+        unexpanded_settings = {}
+        for key, value in settings.items():
+            if isinstance(value, collections.Sequence):
+                maximum_length = max(len(value), maximum_length)
+                unexpanded_settings[key] = value
+            else:
+                unexpanded_settings[key] = [value]
+        expanded_settings = []
+        for i in range(maximum_length):
+            settings = {}
+            for key, value in unexpanded_settings.items():
+                settings[key] = value[i % len(value)]
+            expanded_settings.append(settings)
+        if synth_parameters_only:
+            for i, dictionary in enumerate(expanded_settings):
+                expanded_settings[i] = {
+                    key: value
+                    for key, value in dictionary.items()
+                    if key in synthdef.parameter_names
+                }
+        return expanded_settings
+
+    @abc.abstractmethod
+    def _perform_nonrealtime(self, session, uuids, offset):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def _perform_realtime(
+        self, index=0, node_id_allocator=None, timestamp=0, uuids=None
+    ):
+        raise NotImplementedError
+
+    ### PUBLIC METHODS ###
+
+    def as_dict(self):
+        _, _, kwargs = uqbar.objects.get_vars(self)
+        return kwargs
+
+    def get(self, item, default=None):
+        return self._settings.get(item, default)
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def delta(self):
+        if self._delta is None:
+            return self.get("duration")
+        return self._delta
+
+    @property
+    def settings(self):
+        return self._settings
 
 
 class Pattern(SupriyaValueObject):
@@ -17,8 +125,6 @@ class Pattern(SupriyaValueObject):
     """
 
     ### CLASS VARIABLES ###
-
-    __slots__ = ()
 
     _rngs: Dict[int, Iterator[float]] = {}
 
@@ -213,22 +319,21 @@ class Pattern(SupriyaValueObject):
     def _get_rng(cls):
         from supriya.patterns import Pseed, RandomNumberGenerator
 
-        pseed_file_path = Pseed._file_path
         identifier = None
         try:
             frame = inspect.currentframe()
             while frame is not None:
-                file_path = frame.f_code.co_filename
-                function_name = frame.f_code.co_name
-                if file_path == pseed_file_path and function_name == "_iterate":
+                if isinstance(frame.f_locals.get("self"), Pseed) and frame.f_code.co_name == "_iterate":
                     identifier = id(frame)
                     break
                 frame = frame.f_back
         finally:
             del frame
         if identifier in cls._rngs:
+            print("YES")
             rng = cls._rngs[identifier]
         else:
+            print("NO")
             rng = RandomNumberGenerator.get_stdlib_rng()
         return rng
 
@@ -304,3 +409,51 @@ class Pattern(SupriyaValueObject):
     @abc.abstractproperty
     def is_infinite(self):
         raise NotImplementedError
+
+
+class EventPattern(Pattern):
+
+    ### SPECIAL METHODS ###
+
+    def _coerce_iterator_output(self, expr, state=None):
+        import supriya.patterns
+
+        if not isinstance(expr, supriya.patterns.Event):
+            expr = supriya.patterns.NoteEvent(**expr)
+        if expr.get("uuid") is None:
+            expr = new(expr, uuid=uuid.uuid4())
+        return expr
+
+    ### PUBLIC METHODS ###
+
+    def play(self, clock=None, server=None):
+        import supriya.patterns
+        import supriya.realtime
+
+        event_player = supriya.patterns.EventPlayer(
+            self, clock=clock, server=server or supriya.realtime.Server.default()
+        )
+        event_player.start()
+        return event_player
+
+    def with_bus(self, calculation_rate="audio", channel_count=None, release_time=0.25):
+        import supriya.patterns
+
+        return supriya.patterns.Pbus(
+            self,
+            calculation_rate=calculation_rate,
+            channel_count=channel_count,
+            release_time=release_time,
+        )
+
+    def with_effect(self, synthdef, release_time=0.25, **settings):
+        import supriya.patterns
+
+        return supriya.patterns.Pfx(
+            self, synthdef=synthdef, release_time=release_time, **settings
+        )
+
+    def with_group(self, release_time=0.25):
+        import supriya.patterns
+
+        return supriya.patterns.Pgroup(self, release_time=release_time)
