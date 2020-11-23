@@ -10,8 +10,15 @@ jobs:
   test:
     name: test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8]
     steps:
     - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
     - name: Install Supriya
       run: |
         pip install -e .
@@ -40,7 +47,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: /tmp/supercollider
-        key: supercollider-${{runner.os}}-${{env.SC_ORIGIN_MD5}}-${{env.SC_COMMIT_SHA}}
+        key: supercollider-${{ runner.os }}-${{ env.SC_ORIGIN_MD5 }}-${{ env.SC_COMMIT_SHA }}
     - name: Install Deps
       run: |
         export DEBIAN_FRONTEND=noninteractive
