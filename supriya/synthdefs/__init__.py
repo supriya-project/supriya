@@ -5,6 +5,7 @@ from .mixins import OutputProxy, UGenArray, UGenMethodMixin  # isort:skip
 from .bases import (
     BinaryOpUGen,
     MultiOutUGen,
+    PseudoUGen,
     PureMultiOutUGen,
     PureUGen,
     UGen,
@@ -36,6 +37,7 @@ __all__ = [
     "MultiOutUGen",
     "OutputProxy",
     "Parameter",
+    "PseudoUGen",
     "PureMultiOutUGen",
     "PureUGen",
     "Range",
