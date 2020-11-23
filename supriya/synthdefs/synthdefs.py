@@ -1047,9 +1047,11 @@ class SuperColliderSynthDef(SupriyaObject):
     def compile(self):
         sclang_path = sclang.find()
         prefix = None
-        #if os.environ.get("CI") == "true":
-        #    prefix = str(pathlib.Path.home()) + os.path.sep
-        with tempfile.TemporaryDirectory(prefix="/tmp") as directory:
+        if os.environment.get("GITHUB_ACTIONS"):  # GitHub Actions
+            prefix = None
+        elif os.environ.get("CI") == "true":  # Travis-CI
+            prefix = str(pathlib.Path.home()) + os.path.sep
+        with tempfile.TemporaryDirectory(prefix=prefix) as directory:
             directory_path = pathlib.Path(directory)
             sc_input = self._build_sc_input(directory_path)
             print(sc_input)
