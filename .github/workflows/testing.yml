@@ -58,6 +58,7 @@ jobs:
           alsa-oss \
           alsa-utils \
           cmake \
+          espeak \
           jackd2 \
           libasound2-dev \
           libavahi-client-dev \
