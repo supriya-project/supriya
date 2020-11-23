@@ -3,28 +3,30 @@
 Tools for object-modeling OSC responses received from ``scsynth``.
 """
 
-from .BufferAllocateReadChannelRequest import BufferAllocateReadChannelRequest
-from .BufferAllocateReadRequest import BufferAllocateReadRequest
-from .BufferAllocateRequest import BufferAllocateRequest
-from .BufferCloseRequest import BufferCloseRequest
-from .BufferCopyRequest import BufferCopyRequest
-from .BufferFillRequest import BufferFillRequest
-from .BufferFreeRequest import BufferFreeRequest
-from .BufferGenerateRequest import BufferGenerateRequest
-from .BufferGetContiguousRequest import BufferGetContiguousRequest
-from .BufferGetRequest import BufferGetRequest
-from .BufferInfoResponse import BufferInfoResponse
-from .BufferNormalizeRequest import BufferNormalizeRequest
-from .BufferQueryRequest import BufferQueryRequest
-from .BufferReadChannelRequest import BufferReadChannelRequest
-from .BufferReadRequest import BufferReadRequest
-from .BufferSetContiguousRequest import BufferSetContiguousRequest
-from .BufferSetContiguousResponse import BufferSetContiguousResponse
-from .BufferSetRequest import BufferSetRequest
-from .BufferSetResponse import BufferSetResponse
-from .BufferWriteRequest import BufferWriteRequest
-from .BufferZeroRequest import BufferZeroRequest
 from .bases import Request, RequestBundle, Requestable, Response
+from .buffers import (
+    BufferAllocateReadChannelRequest,
+    BufferAllocateReadRequest,
+    BufferAllocateRequest,
+    BufferCloseRequest,
+    BufferCopyRequest,
+    BufferFillRequest,
+    BufferFreeRequest,
+    BufferGenerateRequest,
+    BufferGetContiguousRequest,
+    BufferGetRequest,
+    BufferInfoResponse,
+    BufferNormalizeRequest,
+    BufferQueryRequest,
+    BufferReadChannelRequest,
+    BufferReadRequest,
+    BufferSetContiguousRequest,
+    BufferSetContiguousResponse,
+    BufferSetRequest,
+    BufferSetResponse,
+    BufferWriteRequest,
+    BufferZeroRequest,
+)
 from .buses import (
     ControlBusFillRequest,
     ControlBusGetContiguousRequest,
