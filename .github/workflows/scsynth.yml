@@ -9,19 +9,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Checkout SuperCollider
+    - name: Checkout SC Source
       run: |
         git clone ${SC_ORIGIN} /tmp/supercollider
         cd /tmp/supercollider
         git checkout ${SC_BRANCH}
         git submodule -q init
         git submodule -q update
+        mkdir BUILD
       env:
         SC_BRANCH: Version-3.10.0
         SC_ORIGIN: https://github.com/supercollider/supercollider.git
-    - name: Install dependencies
+    - name: Install SC Deps
       run: |
         export DEBIAN_FRONTEND=noninteractive
         sudo apt-get clean
         sudo apt-get update
         sudo apt-get install --yes build-essential cmake pkg-config libjack-jackd2-dev libsndfile1-dev libasound2-dev libavahi-client-dev libreadline6-dev libfftw3-dev libicu-dev libxt-dev libudev-dev
+    - name: Build SC
+      run: >
+        cmake
+          --debug-output
+          -DCMAKE_BUILD_TYPE=Release
+          -DSC_EL=OFF
+          -DSC_IDE=OFF
+          -DSC_QT=OFF
+          /tmp/supercollider > /dev/null
+      working-directory: /tmp/supercollider/BUILD
