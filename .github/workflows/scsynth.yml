@@ -11,7 +11,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install dependencies
       run: >
-        apt-get install
+        sudo apt-get install
         build-essential
         libasound2-dev
         libavahi-client-dev
