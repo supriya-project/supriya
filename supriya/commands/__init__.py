@@ -24,7 +24,6 @@ from .BufferSetRequest import BufferSetRequest
 from .BufferSetResponse import BufferSetResponse
 from .BufferWriteRequest import BufferWriteRequest
 from .BufferZeroRequest import BufferZeroRequest
-from .CommandRequest import CommandRequest
 from .ControlBusFillRequest import ControlBusFillRequest
 from .ControlBusGetContiguousRequest import ControlBusGetContiguousRequest
 from .ControlBusGetRequest import ControlBusGetRequest
@@ -32,17 +31,10 @@ from .ControlBusSetContiguousRequest import ControlBusSetContiguousRequest
 from .ControlBusSetContiguousResponse import ControlBusSetContiguousResponse
 from .ControlBusSetRequest import ControlBusSetRequest
 from .ControlBusSetResponse import ControlBusSetResponse
-from .NodeMapToAudioBusContiguousRequest import NodeMapToAudioBusContiguousRequest
 from .NodeMapToAudioBusRequest import NodeMapToAudioBusRequest
-from .NodeMapToControlBusContiguousRequest import NodeMapToControlBusContiguousRequest
 from .NodeMapToControlBusRequest import NodeMapToControlBusRequest
-from .SynthGetContiguousRequest import SynthGetContiguousRequest
-from .SynthGetRequest import SynthGetRequest
 from .SynthNewRequest import SynthNewRequest
-from .SynthNewargsRequest import SynthNewargsRequest
-from .SynthNoidRequest import SynthNoidRequest
 from .TriggerResponse import TriggerResponse
-from .UgenCommandRequest import UgenCommandRequest
 from .bases import Request, RequestBundle, Requestable, Response
 from .groups import (
     GroupDeepFreeRequest,
@@ -113,7 +105,6 @@ __all__ = [
     "BufferWriteRequest",
     "BufferZeroRequest",
     "ClearScheduleRequest",
-    "CommandRequest",
     "ControlBusFillRequest",
     "ControlBusGetContiguousRequest",
     "ControlBusGetRequest",
@@ -138,9 +129,7 @@ __all__ = [
     "NodeFillRequest",
     "NodeFreeRequest",
     "NodeInfoResponse",
-    "NodeMapToAudioBusContiguousRequest",
     "NodeMapToAudioBusRequest",
-    "NodeMapToControlBusContiguousRequest",
     "NodeMapToControlBusRequest",
     "NodeOrderRequest",
     "NodeQueryRequest",
@@ -169,11 +158,6 @@ __all__ = [
     "SynthDefLoadRequest",
     "SynthDefReceiveRequest",
     "SynthDefRemovedResponse",
-    "SynthGetContiguousRequest",
-    "SynthGetRequest",
     "SynthNewRequest",
-    "SynthNewargsRequest",
-    "SynthNoidRequest",
     "TriggerResponse",
-    "UgenCommandRequest",
 ]
