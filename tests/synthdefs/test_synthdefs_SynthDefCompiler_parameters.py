@@ -26,6 +26,7 @@ def test_SynthDefCompiler_parameters_01_parameters(py_synthdef_01):
         ),
     )
 
+
 def test_SynthDefCompiler_parameters_01_supriya_vs_sclang(py_synthdef_01):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         "test",
@@ -335,7 +336,8 @@ def test_SynthDefCompiler_parameters_04_parameters(py_synthdef_04):
         ),
         (
             0,
-            supriya.synthdefs.Parameter( name="i_decay_time", parameter_rate=ParameterRate.SCALAR, value=1.0
+            supriya.synthdefs.Parameter(
+                name="i_decay_time", parameter_rate=ParameterRate.SCALAR, value=1.0
             ),
         ),
         (

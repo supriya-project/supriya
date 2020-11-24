@@ -1,5 +1,6 @@
 # flake8: noqa
 import pytest
+
 import supriya.synthdefs
 import supriya.ugens
 

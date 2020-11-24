@@ -1,7 +1,9 @@
 # flake8: noqa
 import pytest
+
 import supriya.synthdefs
 import supriya.ugens
+
 
 @pytest.fixture
 def py_synthdef_01():
