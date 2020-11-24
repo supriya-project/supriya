@@ -77,7 +77,7 @@ def test_system_link_audio_1_bytes():
 
 
 @pytest.mark.skipif(
-    os.environ.get("GITHUB_ACTIONS"), reason="sclang broken under GitHub Actions"
+    os.environ.get("GITHUB_ACTIONS") == "true", reason="sclang broken under GitHub Actions"
 )
 def test_system_link_audio_1_sclang():
     sc_compiled = SuperColliderSynthDef(
@@ -216,7 +216,7 @@ def test_system_link_audio_2_bytes():
 
 
 @pytest.mark.skipif(
-    os.environ.get("GITHUB_ACTIONS"), reason="sclang broken under GitHub Actions"
+    os.environ.get("GITHUB_ACTIONS") == "true", reason="sclang broken under GitHub Actions"
 )
 def test_system_link_audio_2_sclang():
     sc_compiled = SuperColliderSynthDef(

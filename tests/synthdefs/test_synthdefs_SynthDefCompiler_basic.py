@@ -79,7 +79,7 @@ def test_SynthDefCompiler_basic_01_supriya_vs_bytes(py_synthdef_01):
 
 
 @pytest.mark.skipif(
-    os.environ.get("GITHUB_ACTIONS"), reason="sclang broken under GitHub Actions"
+    os.environ.get("GITHUB_ACTIONS") == "true", reason="sclang broken under GitHub Actions"
 )
 def test_SynthDefCompiler_basic_01_supriya_vs_sclang(py_synthdef_01):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
@@ -149,7 +149,7 @@ def test_SynthDefCompiler_basic_02_supriya_vs_bytes(py_synthdef_02):
 
 
 @pytest.mark.skipif(
-    os.environ.get("GITHUB_ACTIONS"), reason="sclang broken under GitHub Actions"
+    os.environ.get("GITHUB_ACTIONS") == "true", reason="sclang broken under GitHub Actions"
 )
 def test_SynthDefCompiler_basic_02_supriya_vs_sclang(py_synthdef_02):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
@@ -210,7 +210,7 @@ def test_SynthDefCompiler_basic_03_supriya_vs_bytes(py_synthdef_03):
 
 
 @pytest.mark.skipif(
-    os.environ.get("GITHUB_ACTIONS"), reason="sclang broken under GitHub Actions"
+    os.environ.get("GITHUB_ACTIONS") == "true", reason="sclang broken under GitHub Actions"
 )
 def test_SynthDefCompiler_basic_03_supriya_vs_sclang(py_synthdef_03):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
@@ -285,7 +285,7 @@ def test_SynthDefCompiler_basic_04_supriya_vs_bytes(py_synthdef_04):
 
 
 @pytest.mark.skipif(
-    os.environ.get("GITHUB_ACTIONS"), reason="sclang broken under GitHub Actions"
+    os.environ.get("GITHUB_ACTIONS") == "true", reason="sclang broken under GitHub Actions"
 )
 def test_SynthDefCompiler_basic_04_supriya_vs_sclang(py_synthdef_04):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
@@ -300,7 +300,7 @@ def test_SynthDefCompiler_basic_04_supriya_vs_sclang(py_synthdef_04):
 
 
 @pytest.mark.skipif(
-    os.environ.get("GITHUB_ACTIONS"), reason="sclang broken under GitHub Actions"
+    os.environ.get("GITHUB_ACTIONS") == "true", reason="sclang broken under GitHub Actions"
 )
 def test_SynthDefCompiler_basic_05_supriya_vs_sclang():
     with supriya.synthdefs.SynthDefBuilder() as builder:

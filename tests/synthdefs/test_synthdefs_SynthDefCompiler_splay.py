@@ -8,7 +8,7 @@ import supriya.ugens
 
 
 @pytest.mark.skipif(
-    os.environ.get("GITHUB_ACTIONS"), reason="sclang broken under GitHub Actions"
+    os.environ.get("GITHUB_ACTIONS") == "true", reason="sclang broken under GitHub Actions"
 )
 def test_Splay_01_sclang(server):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
@@ -191,7 +191,7 @@ def test_Splay_01_supriya(server):
 
 
 @pytest.mark.skipif(
-    os.environ.get("GITHUB_ACTIONS"), reason="sclang broken under GitHub Actions"
+    os.environ.get("GITHUB_ACTIONS") == "true", reason="sclang broken under GitHub Actions"
 )
 def test_Splay_02_sclang(server):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
