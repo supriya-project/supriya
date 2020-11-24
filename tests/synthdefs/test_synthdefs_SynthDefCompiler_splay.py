@@ -1,10 +1,10 @@
-import uqbar.strings
+from uqbar.strings import normalize
 
 import supriya.synthdefs
 import supriya.ugens
 
 
-def test_Splay_01(server):
+def test_Splay_01_sclang(server):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         "test",
         r"""
@@ -16,8 +16,7 @@ def test_Splay_01(server):
     synthdef = supriya.synthdefs.SynthDefDecompiler.decompile_synthdefs(
         sc_compiled_synthdef
     )[0]
-    # supriya.graph(synthdef)
-    assert uqbar.strings.normalize(str(synthdef)) == uqbar.strings.normalize(
+    assert normalize(str(synthdef)) == normalize(
         """
         synthdef:
             name: test
@@ -90,6 +89,9 @@ def test_Splay_01(server):
                     source[1]: BinaryOpUGen(MULTIPLICATION).ar/1[0]
         """
     )
+
+
+def test_Splay_01_supriya(server):
     with supriya.synthdefs.SynthDefBuilder(spread=1, level=0.2, center=0.0) as builder:
         source = supriya.ugens.Splay.ar(
             source=supriya.ugens.In.ar(bus=0, channel_count=5),
@@ -99,7 +101,7 @@ def test_Splay_01(server):
         )
         supriya.ugens.Out.ar(bus=0, source=source)
     py_synthdef = builder.build(name="test")
-    assert uqbar.strings.normalize(str(py_synthdef)) == uqbar.strings.normalize(
+    assert normalize(str(py_synthdef)) == normalize(
         """
         synthdef:
             name: test
@@ -182,7 +184,7 @@ def test_Splay_01(server):
     py_synthdef.allocate(server=server)
 
 
-def test_Splay_02(server):
+def test_Splay_02_sclang(server):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         "test",
         r"""
@@ -194,8 +196,7 @@ def test_Splay_02(server):
     synthdef = supriya.synthdefs.SynthDefDecompiler.decompile_synthdefs(
         sc_compiled_synthdef
     )[0]
-    # supriya.graph(synthdef)
-    assert uqbar.strings.normalize(str(synthdef)) == uqbar.strings.normalize(
+    assert normalize(str(synthdef)) == normalize(
         """
         synthdef:
             name: test
@@ -331,7 +332,9 @@ def test_Splay_02(server):
                     source[1]: BinaryOpUGen(MULTIPLICATION).ar/3[0]
         """
     )
-    # supriya.graph(synthdef)
+
+
+def test_Splay_02_supriya(server):
     with supriya.synthdefs.SynthDefBuilder(spread=1, level=0.2) as builder:
         source = supriya.ugens.Splay.ar(
             source=supriya.ugens.In.ar(bus=0, channel_count=5),
@@ -341,7 +344,7 @@ def test_Splay_02(server):
         )
         supriya.ugens.Out.ar(bus=0, source=source)
     py_synthdef = builder.build(name="test")
-    assert uqbar.strings.normalize(str(py_synthdef)) == uqbar.strings.normalize(
+    assert normalize(str(py_synthdef)) == normalize(
         """
         synthdef:
             name: test

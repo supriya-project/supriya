@@ -1,4 +1,5 @@
 # flake8: noqa
+import pytest
 import uqbar.strings
 
 import supriya.synthdefs
@@ -6,17 +7,13 @@ import supriya.ugens
 
 
 def test_01():
-
     with supriya.synthdefs.SynthDefBuilder() as builder:
         local_buf = supriya.ugens.LocalBuf(2048)
         source = supriya.ugens.PinkNoise.ar()
         pv_chain = supriya.ugens.FFT(buffer_id=local_buf, source=source)
         ifft = supriya.ugens.IFFT.ar(pv_chain=pv_chain)
         supriya.ugens.Out.ar(bus=0, source=ifft)
-
-    synthdef = builder.build("LocalBufTest")
-    py_compiled_synthdef = synthdef.compile()
-
+    py_synthdef = builder.build("LocalBufTest")
     # fmt: off
     test_compiled_synthdef = (
         b'SCgf'
@@ -99,12 +96,12 @@ def test_01():
                 b'\x00\x00'
     )
     # fmt: on
-
+    py_compiled_synthdef = py_synthdef.compile()
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
-def test_02():
-
+@pytest.fixture
+def py_synthdef_02():
     with supriya.synthdefs.SynthDefBuilder() as builder:
         source = supriya.ugens.PinkNoise.ar()
         local_buf = supriya.ugens.LocalBuf(2048)
@@ -115,9 +112,11 @@ def test_02():
         ifft = supriya.ugens.IFFT.ar(pv_chain=pv_chain)
         supriya.ugens.Out.ar(bus=0, source=ifft)
     py_synthdef = builder.build("PVCopyTest")
-    py_compiled_synthdef = py_synthdef.compile()
+    return py_synthdef
 
-    assert tuple(repr(_) for _ in py_synthdef.ugens) == (
+
+def test_02_ugens(py_synthdef_02):
+    assert tuple(repr(_) for _ in py_synthdef_02.ugens) == (
         "PinkNoise.ar()",
         "MaxLocalBufs.ir()",
         "LocalBuf.ir()",
@@ -131,43 +130,9 @@ def test_02():
         "IFFT.ar()",
         "Out.ar()",
     )
-
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
-        "PVCopyTest",
-        r"""
-        var source, pv_chain, pv_chain_a, pv_chain_b, ifft, out;
-        source = PinkNoise.ar();
-        pv_chain = FFT(LocalBuf(2048), source);
-        pv_chain_a = PV_BinScramble(pv_chain);
-        pv_chain_b = PV_MagFreeze(pv_chain);
-        pv_chain = PV_MagMul(pv_chain_a, pv_chain_b);
-        ifft = IFFT.ar(pv_chain);
-        out = Out.ar(0, ifft);
-        """,
-    )
-    sc_compiled_synthdef = bytes(sc_synthdef.compile())
-    sc_synthdef = supriya.synthdefs.SynthDefDecompiler.decompile_synthdef(
-        sc_compiled_synthdef
-    )
-
-    assert tuple(repr(_) for _ in sc_synthdef.ugens) == (
-        "PinkNoise.ar()",
-        "MaxLocalBufs.ir()",
-        "LocalBuf.ir()",
-        "FFT.kr()",
-        "BufFrames.ir()",
-        "LocalBuf.ir()",
-        "PV_Copy.kr()",
-        "PV_BinScramble.kr()",
-        "PV_MagFreeze.kr()",
-        "PV_MagMul.kr()",
-        "IFFT.ar()",
-        "Out.ar()",
-    )
-
     assert (
-        str(py_synthdef)
-        == uqbar.strings.normalize(
+        str(py_synthdef_02)
+        == normalize(
             """
         synthdef:
             name: PVCopyTest
@@ -215,10 +180,48 @@ def test_02():
         )
         + "\n"
     )
+
+
+def test_02_supriya_vs_sclang(py_synthdef_02):
+    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+        "PVCopyTest",
+        r"""
+        var source, pv_chain, pv_chain_a, pv_chain_b, ifft, out;
+        source = PinkNoise.ar();
+        pv_chain = FFT(LocalBuf(2048), source);
+        pv_chain_a = PV_BinScramble(pv_chain);
+        pv_chain_b = PV_MagFreeze(pv_chain);
+        pv_chain = PV_MagMul(pv_chain_a, pv_chain_b);
+        ifft = IFFT.ar(pv_chain);
+        out = Out.ar(0, ifft);
+        """,
+    )
+    sc_compiled_synthdef = bytes(sc_synthdef.compile())
+    py_compiled_synthdef = py_synthdef_02.compile()
+    assert py_compiled_synthdef == sc_compiled_synthdef
+    sc_synthdef = supriya.synthdefs.SynthDefDecompiler.decompile_synthdef(
+        sc_compiled_synthdef
+    )
+    assert tuple(repr(_) for _ in sc_synthdef.ugens) == (
+        "PinkNoise.ar()",
+        "MaxLocalBufs.ir()",
+        "LocalBuf.ir()",
+        "FFT.kr()",
+        "BufFrames.ir()",
+        "LocalBuf.ir()",
+        "PV_Copy.kr()",
+        "PV_BinScramble.kr()",
+        "PV_MagFreeze.kr()",
+        "PV_MagMul.kr()",
+        "IFFT.ar()",
+        "Out.ar()",
+    )
     assert tuple(repr(_) for _ in sc_synthdef.ugens) == tuple(
-        repr(_) for _ in py_synthdef.ugens
+        repr(_) for _ in py_synthdef_02.ugens
     )
 
+
+def test_02_supriya_vs_bytes(py_synthdef_02):
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -364,6 +367,5 @@ def test_02():
                 b'\x00\x00'
     )
     # fmt: on
-
-    assert sc_compiled_synthdef == test_compiled_synthdef
+    py_compiled_synthdef = py_synthdef.compile()
     assert py_compiled_synthdef == test_compiled_synthdef
