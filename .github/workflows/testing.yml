@@ -60,6 +60,7 @@ jobs:
           cmake \
           espeak \
           jackd2 \
+          lame \
           libasound2-dev \
           libavahi-client-dev \
           libfftw3-dev \

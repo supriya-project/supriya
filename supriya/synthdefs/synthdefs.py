@@ -1025,7 +1025,6 @@ class SuperColliderSynthDef(SupriyaObject):
 
     def _build_sc_input(self, directory_path):
         input_ = []
-        input_.append("(")
         input_.append("a = SynthDef(")
         input_.append("    \\{}, {{".format(self.name))
         for line in self.body.splitlines():
@@ -1038,7 +1037,6 @@ class SuperColliderSynthDef(SupriyaObject):
         input_.append('a.writeDefFile("{}");'.format(directory_path))
         input_.append('"Wrote SynthDef".postln;')
         input_.append("0.exit;")
-        input_.append(")")
         input_ = "\n".join(input_)
         return input_
 
@@ -1059,9 +1057,8 @@ class SuperColliderSynthDef(SupriyaObject):
             sc_file_path = directory_path / sc_file_name
             synthdef_file_name = "{}.scsyndef".format(self.name)
             synthdef_file_path = directory_path / synthdef_file_name
-            with sc_file_path.open("w") as file_pointer:
-                file_pointer.write(sc_input)
-            command = " ".join([str(sclang_path), "-D", str(sc_file_path)])
+            synthdef_file_path.write_text(sc_input)
+            command = " ".join([str(sclang_path), "-D", "-a", str(sc_file_path)])
             print(command)
             subprocess.run(command, shell=True)
             with synthdef_file_path.open("rb") as file_pointer:
