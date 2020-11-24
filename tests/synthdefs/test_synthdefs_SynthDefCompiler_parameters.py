@@ -1,4 +1,7 @@
 # flake8: noqa
+import os
+
+import pytest
 import uqbar.strings
 
 import supriya.synthdefs
@@ -6,24 +9,17 @@ import supriya.ugens
 from supriya import ParameterRate
 
 
-def test_SynthDefCompiler_parameters_01():
-
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
-        "test",
-        r"""
-        | freq = 440 |
-        Out.ar(0, SinOsc.ar(freq: freq))
-        """,
-    )
-    sc_compiled_synthdef = sc_synthdef.compile()
-
+@pytest.fixture
+def py_synthdef_01():
     with supriya.synthdefs.SynthDefBuilder(freq=440) as builder:
         sine = supriya.ugens.SinOsc.ar(frequency=builder["freq"])
         supriya.ugens.Out.ar(bus=0, source=sine)
     py_synthdef = builder.build("test")
-    py_compiled_synthdef = py_synthdef.compile()
+    return py_synthdef
 
-    assert py_synthdef.indexed_parameters == (
+
+def test_SynthDefCompiler_parameters_01_parameters(py_synthdef_01):
+    assert py_synthdef_01.indexed_parameters == (
         (
             0,
             supriya.synthdefs.Parameter(
@@ -32,6 +28,25 @@ def test_SynthDefCompiler_parameters_01():
         ),
     )
 
+
+@pytest.mark.skipif(
+    os.environ.get("GITHUB_ACTIONS") == "true",
+    reason="sclang broken under GitHub Actions",
+)
+def test_SynthDefCompiler_parameters_01_supriya_vs_sclang(py_synthdef_01):
+    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+        "test",
+        r"""
+        | freq = 440 |
+        Out.ar(0, SinOsc.ar(freq: freq))
+        """,
+    )
+    sc_compiled_synthdef = sc_synthdef.compile()
+    py_compiled_synthdef = py_synthdef_01.compile()
+    assert py_compiled_synthdef == sc_compiled_synthdef
+
+
+def test_SynthDefCompiler_parameters_01_supriya_vs_bytes(py_synthdef_01):
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -74,29 +89,21 @@ def test_SynthDefCompiler_parameters_01():
                 b'\x00\x00',
     )
     # fmt: on
-
-    assert sc_compiled_synthdef == test_compiled_synthdef
+    py_compiled_synthdef = py_synthdef_01.compile()
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
-def test_SynthDefCompiler_parameters_02():
-
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
-        "test",
-        r"""
-        arg freq=1200, out=23;
-        Out.ar(out, SinOsc.ar(freq: freq));
-        """,
-    )
-    sc_compiled_synthdef = sc_synthdef.compile()
-
+@pytest.fixture
+def py_synthdef_02():
     with supriya.synthdefs.SynthDefBuilder(freq=1200, out=23) as builder:
         sine = supriya.ugens.SinOsc.ar(frequency=builder["freq"])
         supriya.ugens.Out.ar(bus=builder["out"], source=sine)
     py_synthdef = builder.build("test")
-    py_compiled_synthdef = py_synthdef.compile()
+    return py_synthdef
 
-    assert py_synthdef.indexed_parameters == (
+
+def test_SynthDefCompiler_parameters_02_parameters(py_synthdef_02):
+    assert py_synthdef_02.indexed_parameters == (
         (
             0,
             supriya.synthdefs.Parameter(
@@ -111,6 +118,25 @@ def test_SynthDefCompiler_parameters_02():
         ),
     )
 
+
+@pytest.mark.skipif(
+    os.environ.get("GITHUB_ACTIONS") == "true",
+    reason="sclang broken under GitHub Actions",
+)
+def test_SynthDefCompiler_parameters_02_supriya_vs_sclang(py_synthdef_02):
+    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+        "test",
+        r"""
+        arg freq=1200, out=23;
+        Out.ar(out, SinOsc.ar(freq: freq));
+        """,
+    )
+    sc_compiled_synthdef = sc_synthdef.compile()
+    py_compiled_synthdef = py_synthdef_02.compile()
+    assert py_compiled_synthdef == sc_compiled_synthdef
+
+
+def test_SynthDefCompiler_parameters_02_supriya_vs_bytes(py_synthdef_02):
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -157,24 +183,12 @@ def test_SynthDefCompiler_parameters_02():
                 b'\x00\x00',
     )
     # fmt: on
-
-    assert sc_compiled_synthdef == test_compiled_synthdef
+    py_compiled_synthdef = py_synthdef_02.compile()
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
-def test_SynthDefCompiler_parameters_03():
-    r"""Multiple parameters, including unused parameters.
-    """
-
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
-        "test",
-        r"""
-        | damping=0.1, delay_time=1.0, room_size=0.9 |
-        Out.ar(0, DelayC.ar(In.ar(0), 5.0, delay_time))
-        """,
-    )
-    sc_compiled_synthdef = sc_synthdef.compile()
-
+@pytest.fixture
+def py_synthdef_03():
     builder = supriya.synthdefs.SynthDefBuilder(
         damping=0.1, delay_time=1.0, room_size=0.9
     )
@@ -185,9 +199,14 @@ def test_SynthDefCompiler_parameters_03():
         )
         supriya.ugens.Out.ar(bus=0, source=delay)
     py_synthdef = builder.build("test")
-    py_compiled_synthdef = py_synthdef.compile()
+    return py_synthdef
 
-    assert py_synthdef.indexed_parameters == (
+
+def test_SynthDefCompiler_parameters_03_parameters(py_synthdef_03):
+    """
+    Multiple parameters, including unused parameters.
+    """
+    assert py_synthdef_03.indexed_parameters == (
         (
             0,
             supriya.synthdefs.Parameter(
@@ -208,6 +227,25 @@ def test_SynthDefCompiler_parameters_03():
         ),
     )
 
+
+@pytest.mark.skipif(
+    os.environ.get("GITHUB_ACTIONS") == "true",
+    reason="sclang broken under GitHub Actions",
+)
+def test_SynthDefCompiler_parameters_03_supriya_vs_sclang(py_synthdef_03):
+    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+        "test",
+        r"""
+        | damping=0.1, delay_time=1.0, room_size=0.9 |
+        Out.ar(0, DelayC.ar(In.ar(0), 5.0, delay_time))
+        """,
+    )
+    sc_compiled_synthdef = sc_synthdef.compile()
+    py_compiled_synthdef = py_synthdef_03.compile()
+    assert py_compiled_synthdef == sc_compiled_synthdef
+
+
+def test_SynthDefCompiler_parameters_03_supriya_vs_bytes(py_synthdef_03):
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -269,30 +307,12 @@ def test_SynthDefCompiler_parameters_03():
                 b'\x00\x00',
     )
     # fmt: on
-
-    assert sc_compiled_synthdef == test_compiled_synthdef
+    py_compiled_synthdef = py_synthdef_03.compile()
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
-def test_SynthDefCompiler_parameters_04():
-    r"""Different calculation rates."""
-
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
-        "trigTest",
-        r"""
-        |
-            a_phase = 0.0,
-            freq = 440,
-            i_decay_time = 1.0,
-            t_trig_a = 0,
-            t_trig_b = 0
-        |
-        var decay = Decay2.kr([t_trig_a, t_trig_b], 0.005, i_decay_time);
-        Out.ar(0, SinOsc.ar(freq, a_phase) * decay);
-        """,
-    )
-    sc_compiled_synthdef = bytes(sc_synthdef.compile())
-
+@pytest.fixture
+def py_synthdef_04():
     builder = supriya.synthdefs.SynthDefBuilder(
         a_phase=0.0, freq=440, i_decay_time=1.0, t_trig_a=0, t_trig_b=0
     )
@@ -308,9 +328,14 @@ def test_SynthDefCompiler_parameters_04():
         enveloped_sin_osc = sin_osc * decay
         supriya.ugens.Out.ar(bus=0, source=enveloped_sin_osc)
     py_synthdef = builder.build("trigTest")
-    py_compiled_synthdef = py_synthdef.compile()
+    return py_synthdef
 
-    assert py_synthdef.indexed_parameters == (
+
+def test_SynthDefCompiler_parameters_04_parameters(py_synthdef_04):
+    """
+    Different calculation rates.
+    """
+    assert py_synthdef_04.indexed_parameters == (
         (
             3,
             supriya.synthdefs.Parameter(
@@ -343,6 +368,32 @@ def test_SynthDefCompiler_parameters_04():
         ),
     )
 
+
+@pytest.mark.skipif(
+    os.environ.get("GITHUB_ACTIONS") == "true",
+    reason="sclang broken under GitHub Actions",
+)
+def test_SynthDefCompiler_parameters_04_supriya_vs_sclang(py_synthdef_04):
+    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+        "trigTest",
+        r"""
+        |
+            a_phase = 0.0,
+            freq = 440,
+            i_decay_time = 1.0,
+            t_trig_a = 0,
+            t_trig_b = 0
+        |
+        var decay = Decay2.kr([t_trig_a, t_trig_b], 0.005, i_decay_time);
+        Out.ar(0, SinOsc.ar(freq, a_phase) * decay);
+        """,
+    )
+    sc_compiled_synthdef = bytes(sc_synthdef.compile())
+    py_compiled_synthdef = py_synthdef_04.compile()
+    assert py_compiled_synthdef == sc_compiled_synthdef
+
+
+def test_SynthDefCompiler_parameters_04_supriya_vs_bytes(py_synthdef_04):
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -463,14 +514,12 @@ def test_SynthDefCompiler_parameters_04():
                 b'\x00\x00'
     )
     # fmt: on
-
-    assert sc_compiled_synthdef == test_compiled_synthdef
+    py_compiled_synthdef = py_synthdef_04.compile()
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
-def test_SynthDefCompiler_parameters_05():
-    r"""Literal array arguments."""
-
+@pytest.fixture
+def py_synthdef_05():
     builder = supriya.synthdefs.SynthDefBuilder(amp=0.1, freqs=[300, 400])
     with builder:
         sines = supriya.ugens.SinOsc.ar(frequency=builder["freqs"])
@@ -478,9 +527,14 @@ def test_SynthDefCompiler_parameters_05():
         sines = sines * builder["amp"]
         supriya.ugens.Out.ar(bus=0, source=sines)
     py_synthdef = builder.build("arrayarg")
-    py_compiled_synthdef = py_synthdef.compile()
+    return py_synthdef
 
-    assert py_synthdef.indexed_parameters == (
+
+def test_SynthDefCompiler_parameters_05_parameters(py_synthdef_05):
+    """
+    Literal array arguments.
+    """
+    assert py_synthdef_05.indexed_parameters == (
         (
             0,
             supriya.synthdefs.Parameter(
@@ -495,6 +549,12 @@ def test_SynthDefCompiler_parameters_05():
         ),
     )
 
+
+@pytest.mark.skipif(
+    os.environ.get("GITHUB_ACTIONS") == "true",
+    reason="sclang broken under GitHub Actions",
+)
+def test_SynthDefCompiler_parameters_05_supriya_vs_sclang(py_synthdef_05):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         "arrayarg",
         r"""
@@ -508,7 +568,11 @@ def test_SynthDefCompiler_parameters_05():
         """,
     )
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
+    py_compiled_synthdef = py_synthdef_05.compile()
+    assert py_compiled_synthdef == sc_compiled_synthdef
 
+
+def test_SynthDefCompiler_parameters_05_supriya_vs_bytes(py_synthdef_05):
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -587,14 +651,12 @@ def test_SynthDefCompiler_parameters_05():
                 b'\x00\x00'
     )
     # fmt: on
-
-    assert sc_compiled_synthdef == test_compiled_synthdef
+    py_compiled_synthdef = py_synthdef_05.compile()
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
-def test_SynthDefCompiler_parameters_06():
-    r"""Literal array arguments."""
-
+@pytest.fixture
+def py_synthdef_06():
     builder = supriya.synthdefs.SynthDefBuilder(
         amp=0.1, freqs=supriya.synthdefs.Parameter(lag=0.5, value=[300, 400])
     )
@@ -604,9 +666,14 @@ def test_SynthDefCompiler_parameters_06():
         sines = sines * builder["amp"]
         supriya.ugens.Out.ar(bus=0, source=sines)
     py_synthdef = builder.build("arrayarg")
-    py_compiled_synthdef = py_synthdef.compile()
+    return py_synthdef
 
-    assert py_synthdef.indexed_parameters == (
+
+def test_SynthDefCompiler_parameters_06_parameters(py_synthdef_06):
+    """
+    Literal array arguments.
+    """
+    assert py_synthdef_06.indexed_parameters == (
         (
             0,
             supriya.synthdefs.Parameter(
@@ -624,6 +691,12 @@ def test_SynthDefCompiler_parameters_06():
         ),
     )
 
+
+@pytest.mark.skipif(
+    os.environ.get("GITHUB_ACTIONS") == "true",
+    reason="sclang broken under GitHub Actions",
+)
+def test_SynthDefCompiler_parameters_06_supriya_vs_sclang(py_synthdef_06):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         "arrayarg",
         r"""
@@ -638,7 +711,11 @@ def test_SynthDefCompiler_parameters_06():
         [0, 0.5],
     )
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
+    py_compiled_synthdef = py_synthdef_06.compile()
+    assert py_compiled_synthdef == sc_compiled_synthdef
 
+
+def test_SynthDefCompiler_parameters_06_supriya_vs_bytes(py_synthdef_06):
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -724,8 +801,7 @@ def test_SynthDefCompiler_parameters_06():
                 b'\x00\x00'
     )
     # fmt: on
-
-    assert sc_compiled_synthdef == test_compiled_synthdef
+    py_compiled_synthdef = py_synthdef_06.compile()
     assert py_compiled_synthdef == test_compiled_synthdef
 
 

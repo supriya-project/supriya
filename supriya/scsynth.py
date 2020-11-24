@@ -60,10 +60,6 @@ class Options:
     ### INITIALIZER ###
 
     def __post_init__(self):
-        if os.environ.get("TRAVIS", None):
-            object.__setattr__(self, "input_device", "dummy")
-            object.__setattr__(self, "output_device", "dummy")
-            object.__setattr__(self, "sample_rate", 44100)
         if self.input_bus_channel_count is None:
             object.__setattr__(self, "input_bus_channel_count", 8)
         if self.output_bus_channel_count is None:

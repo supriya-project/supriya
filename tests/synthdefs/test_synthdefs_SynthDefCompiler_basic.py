@@ -1,23 +1,24 @@
 # flake8: noqa
+import os
+
+import pytest
+
 import supriya.synthdefs
 import supriya.ugens
 
 
-def test_SynthDefCompiler_basic_01():
-
+@pytest.fixture
+def py_synthdef_01():
     with supriya.synthdefs.SynthDefBuilder() as builder:
         sine_one = supriya.ugens.SinOsc.ar(frequency=420)
         sine_two = supriya.ugens.SinOsc.ar(frequency=440)
         sines = sine_one * sine_two
         supriya.ugens.Out.ar(bus=0, source=sines)
     py_synthdef = builder.build("foo")
-    py_compiled_synthdef = py_synthdef.compile()
+    return py_synthdef
 
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
-        "foo", "Out.ar(0, SinOsc.ar(freq: 420) * SinOsc.ar(freq: 440))"
-    )
-    sc_compiled_synthdef = sc_synthdef.compile()
 
+def test_SynthDefCompiler_basic_01_supriya_vs_bytes(py_synthdef_01):
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -73,25 +74,34 @@ def test_SynthDefCompiler_basic_01():
                 b'\x00\x00',
     )
     # fmt: on
-
-    assert sc_compiled_synthdef == test_compiled_synthdef
+    py_compiled_synthdef = py_synthdef_01.compile()
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
-def test_SynthDefCompiler_basic_02():
+@pytest.mark.skipif(
+    os.environ.get("GITHUB_ACTIONS") == "true",
+    reason="sclang broken under GitHub Actions",
+)
+def test_SynthDefCompiler_basic_01_supriya_vs_sclang(py_synthdef_01):
+    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+        "foo", "Out.ar(0, SinOsc.ar(freq: 420) * SinOsc.ar(freq: 440))"
+    )
+    sc_compiled_synthdef = sc_synthdef.compile()
+    py_compiled_synthdef = py_synthdef_01.compile()
+    assert py_compiled_synthdef == sc_compiled_synthdef
 
+
+@pytest.fixture
+def py_synthdef_02():
     with supriya.synthdefs.SynthDefBuilder() as builder:
         sine = supriya.ugens.SinOsc.ar()
         sine = -sine
         supriya.ugens.Out.ar(bus=99, source=sine)
     py_synthdef = builder.build("test")
-    py_compiled_synthdef = py_synthdef.compile()
+    return py_synthdef
 
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
-        "test", "Out.ar(99, SinOsc.ar(freq: 440).neg)"
-    )
-    sc_compiled_synthdef = sc_synthdef.compile()
 
+def test_SynthDefCompiler_basic_02_supriya_vs_bytes(py_synthdef_02):
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -135,27 +145,33 @@ def test_SynthDefCompiler_basic_02():
                 b'\x00\x00',
     )
     # fmt: on
-
-    assert sc_compiled_synthdef == test_compiled_synthdef
+    py_compiled_synthdef = py_synthdef_02.compile()
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
-def test_SynthDefCompiler_basic_03():
-
+@pytest.mark.skipif(
+    os.environ.get("GITHUB_ACTIONS") == "true",
+    reason="sclang broken under GitHub Actions",
+)
+def test_SynthDefCompiler_basic_02_supriya_vs_sclang(py_synthdef_02):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
-        "test",
-        r"""
-        Out.ar(0, In.ar(8, 2))
-        """,
+        "test", "Out.ar(99, SinOsc.ar(freq: 440).neg)"
     )
     sc_compiled_synthdef = sc_synthdef.compile()
+    py_compiled_synthdef = py_synthdef_02.compile()
+    assert py_compiled_synthdef == sc_compiled_synthdef
 
+
+@pytest.fixture
+def py_synthdef_03():
     with supriya.synthdefs.SynthDefBuilder() as builder:
         inputs = supriya.ugens.In.ar(bus=8, channel_count=2)
         supriya.ugens.Out.ar(bus=0, source=inputs)
     py_synthdef = builder.build("test")
-    py_compiled_synthdef = py_synthdef.compile()
+    return py_synthdef
 
+
+def test_SynthDefCompiler_basic_03_supriya_vs_bytes(py_synthdef_03):
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -191,29 +207,40 @@ def test_SynthDefCompiler_basic_03():
                 b'\x00\x00',
     )
     # fmt: on
-
-    assert sc_compiled_synthdef == test_compiled_synthdef
+    py_compiled_synthdef = py_synthdef_03.compile()
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
-def test_SynthDefCompiler_basic_04():
-    r"""FreeSelf.
-    """
+@pytest.mark.skipif(
+    os.environ.get("GITHUB_ACTIONS") == "true",
+    reason="sclang broken under GitHub Actions",
+)
+def test_SynthDefCompiler_basic_03_supriya_vs_sclang(py_synthdef_03):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         "test",
         r"""
-        Out.ar(0, FreeSelf.kr(SinOsc.ar()))
+        Out.ar(0, In.ar(8, 2))
         """,
     )
-    sc_compiled_synthdef = bytes(sc_synthdef.compile())
+    sc_compiled_synthdef = sc_synthdef.compile()
+    py_compiled_synthdef = py_synthdef_03.compile()
+    assert py_compiled_synthdef == sc_compiled_synthdef
 
+
+@pytest.fixture
+def py_synthdef_04():
     with supriya.synthdefs.SynthDefBuilder() as builder:
         sin_osc = supriya.ugens.SinOsc.ar()
         supriya.ugens.FreeSelf.kr(sin_osc)
         supriya.ugens.Out.ar(bus=0, source=sin_osc)
     py_synthdef = builder.build("test")
-    py_compiled_synthdef = py_synthdef.compile()
+    return py_synthdef
 
+
+def test_SynthDefCompiler_basic_04_supriya_vs_bytes(py_synthdef_04):
+    """
+    FreeSelf.
+    """
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -256,20 +283,37 @@ def test_SynthDefCompiler_basic_04():
                 b'\x00\x00',
     )
     # fmt: on
-
-    assert sc_compiled_synthdef == test_compiled_synthdef
+    py_compiled_synthdef = py_synthdef_04.compile()
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
-def test_SynthDefCompiler_basic_05():
+@pytest.mark.skipif(
+    os.environ.get("GITHUB_ACTIONS") == "true",
+    reason="sclang broken under GitHub Actions",
+)
+def test_SynthDefCompiler_basic_04_supriya_vs_sclang(py_synthdef_04):
+    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+        "test",
+        r"""
+        Out.ar(0, FreeSelf.kr(SinOsc.ar()))
+        """,
+    )
+    sc_compiled_synthdef = bytes(sc_synthdef.compile())
+    py_compiled_synthdef = py_synthdef_04.compile()
+    assert py_compiled_synthdef == sc_compiled_synthdef
 
+
+@pytest.mark.skipif(
+    os.environ.get("GITHUB_ACTIONS") == "true",
+    reason="sclang broken under GitHub Actions",
+)
+def test_SynthDefCompiler_basic_05_supriya_vs_sclang():
     with supriya.synthdefs.SynthDefBuilder() as builder:
         source = supriya.ugens.In.ar(bus=8, channel_count=2)
         supriya.ugens.DetectSilence.ar(source=source)
         supriya.ugens.Out.ar(bus=0, source=source)
     py_synthdef = builder.build("DetectSilenceTest")
     py_compiled_synthdef = py_synthdef.compile()
-
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         "DetectSilenceTest",
         r"""
@@ -280,5 +324,4 @@ def test_SynthDefCompiler_basic_05():
         """,
     )
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
-
-    assert sc_compiled_synthdef == py_compiled_synthdef
+    assert py_compiled_synthdef == sc_compiled_synthdef

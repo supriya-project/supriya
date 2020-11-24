@@ -1,10 +1,28 @@
 # flake8: noqa
+import os
+
+import pytest
+
 import supriya.synthdefs
 import supriya.ugens
 
 
-def test_SynthDefCompiler_rngs_01():
+@pytest.fixture
+def py_synthdef_01():
+    with supriya.synthdefs.SynthDefBuilder(rand_id=0, seed=0) as builder:
+        supriya.ugens.RandID.ir(rand_id=builder["rand_id"])
+        supriya.ugens.RandSeed.ir(seed=builder["seed"], trigger=1)
+        source = supriya.ugens.WhiteNoise.ar()
+        supriya.ugens.Out.ar(bus=0, source=source)
+    py_synthdef = builder.build("seedednoise")
+    return py_synthdef
 
+
+@pytest.mark.skipif(
+    os.environ.get("GITHUB_ACTIONS") == "true",
+    reason="sclang broken under GitHub Actions",
+)
+def test_SynthDefCompiler_rngs_01_supriya_vs_sclang(py_synthdef_01):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         "seedednoise",
         r"""
@@ -15,15 +33,11 @@ def test_SynthDefCompiler_rngs_01():
         """,
     )
     sc_compiled_synthdef = sc_synthdef.compile()
+    py_compiled_synthdef = py_synthdef_01.compile()
+    assert py_compiled_synthdef == sc_compiled_synthdef
 
-    with supriya.synthdefs.SynthDefBuilder(rand_id=0, seed=0) as builder:
-        supriya.ugens.RandID.ir(rand_id=builder["rand_id"])
-        supriya.ugens.RandSeed.ir(seed=builder["seed"], trigger=1)
-        source = supriya.ugens.WhiteNoise.ar()
-        supriya.ugens.Out.ar(bus=0, source=source)
-    py_synthdef = builder.build("seedednoise")
-    py_compiled_synthdef = py_synthdef.compile()
 
+def test_SynthDefCompiler_rngs_01_supriya_vs_bytes(py_synthdef_01):
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -85,6 +99,5 @@ def test_SynthDefCompiler_rngs_01():
                 b'\x00\x00'
     )
     # fmt: on
-
-    assert sc_compiled_synthdef == test_compiled_synthdef
+    py_compiled_synthdef = py_synthdef_01.compile()
     assert py_compiled_synthdef == test_compiled_synthdef

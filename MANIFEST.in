@@ -2,7 +2,6 @@ global-include *.py
 global-include *.pyx
 global-exclude *.pyc
 
-include .travis.yml
 include LICENSE
 include MANIFEST.in
 include README.rst

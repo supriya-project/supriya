@@ -1,5 +1,4 @@
 import hashlib
-import os
 import pathlib
 import shutil
 import struct
@@ -132,8 +131,6 @@ class SessionRenderer(SupriyaObject):
         cwd = pathlib.Path.cwd()
         scsynth_path = scsynth.find(scsynth_path)
         server_options = server_options or scsynth.Options()
-        if os.environ.get("TRAVIS", None):
-            server_options = new(server_options, load_synthdefs=True)
         if session_osc_file_path.is_absolute():
             session_osc_file_path = session_osc_file_path.relative_to(cwd)
         parts = [scsynth_path, "-N", session_osc_file_path]
