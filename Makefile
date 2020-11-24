@@ -1,7 +1,6 @@
 .PHONY: build docs gh-pages
 
 project = supriya
-errors = E123,E203,E265,E266,E501,W503
 origin := $(shell git config --get remote.origin.url)
 formatPaths = ${project}/ tests/ *.py
 testPaths = ${project}/ tests/
@@ -33,7 +32,7 @@ docs-clean:
 	make -C docs/ clean html
 
 flake8:
-	flake8 --isolated --ignore=${errors} ${formatPaths}
+	flake8 ${formatPaths}
 
 gh-pages: docs-clean
 	rm -Rf gh-pages/
