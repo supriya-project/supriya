@@ -44,6 +44,7 @@ jobs:
         echo "SC_COMMIT_SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
         echo "SC_ORIGIN_MD5=$(echo ${SC_ORIGIN} | md5sum | head -c 7)" >> $GITHUB_ENV
     - name: Cache SC
+      id: cache
       uses: actions/cache@v2
       with:
         path: /tmp/supercollider
@@ -72,11 +73,18 @@ jobs:
           libxt-dev \
           pkg-config
     - name: Build SC
+      if: steps.cache-primes.outputs.cache-hit != 'true'
       run: |
         cmake --debug-output -DCMAKE_BUILD_TYPE=Release -DSC_EL=OFF -DSC_IDE=OFF -DSC_QT=OFF /tmp/supercollider > /dev/null
-        sudo make install
-        scsynth -v
+        make
       working-directory: /tmp/supercollider/BUILD
+    - name: Install SC
+      run: |
+        sudo make install
+      working-directory: /tmp/supercollider/BUILD
+    - name: Sanity-check SC
+      run: |
+        scsynth -v
     - name: Setup Jack
       run: |
         sudo usermod -a -G audio ${USER}
