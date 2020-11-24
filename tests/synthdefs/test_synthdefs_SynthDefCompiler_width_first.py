@@ -1,6 +1,6 @@
 # flake8: noqa
 import pytest
-import uqbar.strings
+from uqbar.strings import normalize
 
 import supriya.synthdefs
 import supriya.ugens
