@@ -1,4 +1,6 @@
 # flake8: noqa
+import os
+
 import pytest
 from uqbar.strings import normalize
 
@@ -182,6 +184,9 @@ def test_02_ugens(py_synthdef_02):
     )
 
 
+@pytest.mark.skipif(
+    os.environ.get("GITHUB_ACTIONS"), reason="sclang broken under GitHub Actions"
+)
 def test_02_supriya_vs_sclang(py_synthdef_02):
     sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         "PVCopyTest",
