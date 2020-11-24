@@ -7,6 +7,7 @@ on:
     branches:
     - master
 env:
+  MYPYPATH: /tmp/typehints
   SC_ORIGIN: https://github.com/supercollider/supercollider.git
   SC_BRANCH: Version-3.10.0
 jobs:
@@ -27,6 +28,9 @@ jobs:
         pip install -e .
         python -c "import supriya"
         pip install -e .[cython,ipython,test]
+    - name: Get Type Hints
+      run: |
+        pip install --target /tmp/typehints --no-deps uqbar
     - name: Run Black
       run: |
         make black-check

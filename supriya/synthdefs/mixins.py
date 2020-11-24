@@ -1,4 +1,4 @@
-import collections
+import collections.abc
 import copy
 from typing import Optional
 
@@ -1874,9 +1874,9 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.ugens
 
         result = []
-        if not isinstance(left, collections.Sequence):
+        if not isinstance(left, collections.abc.Sequence):
             left = (left,)
-        if not isinstance(right, collections.Sequence):
+        if not isinstance(right, collections.abc.Sequence):
             right = (right,)
         dictionary = {"left": left, "right": right}
         operator = BinaryOperator.from_expr(operator)
@@ -1945,7 +1945,7 @@ class UGenMethodMixin(SupriyaObject):
         import supriya.ugens
 
         result = []
-        if not isinstance(source, collections.Sequence):
+        if not isinstance(source, collections.abc.Sequence):
             source = (source,)
         operator = UnaryOperator.from_expr(operator)
         special_index = operator.value
@@ -3290,7 +3290,7 @@ class UGenMethodMixin(SupriyaObject):
         return self._compute_unary_op(self, UnaryOperator.WELCH_WINDOW)
 
 
-class UGenArray(UGenMethodMixin, collections.Sequence):
+class UGenArray(UGenMethodMixin, collections.abc.Sequence):
 
     ### CLASS VARIABLES ###
 
@@ -3301,7 +3301,7 @@ class UGenArray(UGenMethodMixin, collections.Sequence):
     ### INITIALIZER ###
 
     def __init__(self, ugens):
-        assert isinstance(ugens, collections.Iterable)
+        assert isinstance(ugens, collections.abc.Iterable)
         ugens = tuple(ugens)
         assert len(ugens)
         self._ugens = ugens
