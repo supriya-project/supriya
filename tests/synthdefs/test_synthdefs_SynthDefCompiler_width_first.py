@@ -367,5 +367,5 @@ def test_02_supriya_vs_bytes(py_synthdef_02):
                 b'\x00\x00'
     )
     # fmt: on
-    py_compiled_synthdef = py_synthdef.compile()
+    py_compiled_synthdef = py_synthdef_02.compile()
     assert py_compiled_synthdef == test_compiled_synthdef
