@@ -3,12 +3,15 @@ on:
   pull_request:
     branches:
     - master
+  push:
+    branches:
+    - master
 env:
   SC_ORIGIN: https://github.com/supercollider/supercollider.git
   SC_BRANCH: Version-3.10.0
 jobs:
-  test:
-    name: test
+  testing:
+    name: Testing
     runs-on: ubuntu-latest
     strategy:
       matrix:
