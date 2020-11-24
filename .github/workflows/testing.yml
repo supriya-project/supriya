@@ -49,20 +49,27 @@ jobs:
       with:
         path: /tmp/supercollider
         key: supercollider-${{ runner.os }}-${{ env.SC_ORIGIN_MD5 }}-${{ env.SC_COMMIT_SHA }}
-    - name: Install Deps
+    - name: Update APT
       run: |
-        export DEBIAN_FRONTEND=noninteractive
         sudo apt-get clean
         sudo apt-get update
+    - name: Install Run Deps
+      run: |
+        export DEBIAN_FRONTEND=noninteractive
         sudo apt-get install --yes \
-          build-essential \
           alsa-oss \
           alsa-utils \
-          cmake \
           espeak \
           ffmpeg \
           jackd2 \
-          lame \
+          lame
+    - name: Install Build Deps
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: |
+        export DEBIAN_FRONTEND=noninteractive
+        sudo apt-get install --yes \
+          build-essential \
+          cmake \
           libasound2-dev \
           libavahi-client-dev \
           libfftw3-dev \
