@@ -1,5 +1,4 @@
 import hashlib
-import os
 import pathlib
 import shutil
 import struct
