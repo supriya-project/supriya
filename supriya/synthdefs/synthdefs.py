@@ -1058,7 +1058,7 @@ class SuperColliderSynthDef(SupriyaObject):
             synthdef_file_name = "{}.scsyndef".format(self.name)
             synthdef_file_path = directory_path / synthdef_file_name
             synthdef_file_path.write_text(sc_input)
-            command = " ".join([str(sclang_path), "-D", "-a", str(sc_file_path)])
+            command = " ".join([str(sclang_path), "-D", str(sc_file_path)])
             print(command)
             subprocess.run(command, shell=True)
             with synthdef_file_path.open("rb") as file_pointer:
