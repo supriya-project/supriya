@@ -1,23 +1,11 @@
 # flake8: noqa
+import pytest
 import supriya.synthdefs
 import supriya.ugens
 
 
-def test_SynthDefCompiler_optimization_01():
-
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
-        "optimized",
-        r"""
-        var sine_a, sine_b, sine_c, sine_d;
-        sine_a = SinOsc.ar(420);
-        sine_b = SinOsc.ar(440);
-        sine_c = SinOsc.ar(460);
-        sine_d = SinOsc.ar(sine_c);
-        Out.ar(0, sine_a);
-        """,
-    )
-    sc_compiled_synthdef = bytes(sc_synthdef.compile())
-
+@pytest.fixture
+def py_synthdef():
     with supriya.synthdefs.SynthDefBuilder() as builder:
         sine_a = supriya.ugens.SinOsc.ar(frequency=420)
         sine_b = supriya.ugens.SinOsc.ar(frequency=440)  # noqa
@@ -25,8 +13,10 @@ def test_SynthDefCompiler_optimization_01():
         sine_d = supriya.ugens.SinOsc.ar(frequency=sine_c)  # noqa
         supriya.ugens.Out.ar(bus=0, source=sine_a)
     py_synthdef = builder.build("optimized")
-    py_compiled_synthdef = py_synthdef.compile()
+    return py_synthdef
 
+
+def test_SynthDefCompiler_optimization_01_supriya_vs_bytes(py_synthdef):
     # fmt: off
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -61,6 +51,22 @@ def test_SynthDefCompiler_optimization_01():
                 b'\x00\x00'
     )
     # fmt: on
-
-    assert sc_compiled_synthdef == test_compiled_synthdef
+    py_compiled_synthdef = py_synthdef.compile()
     assert py_compiled_synthdef == test_compiled_synthdef
+
+
+def test_SynthDefCompiler_optimization_01_supriya_vs_sclang(py_synthdef):
+    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+        "optimized",
+        r"""
+        var sine_a, sine_b, sine_c, sine_d;
+        sine_a = SinOsc.ar(420);
+        sine_b = SinOsc.ar(440);
+        sine_c = SinOsc.ar(460);
+        sine_d = SinOsc.ar(sine_c);
+        Out.ar(0, sine_a);
+        """,
+    )
+    sc_compiled_synthdef = bytes(sc_synthdef.compile())
+    py_compiled_synthdef = py_synthdef.compile()
+    assert py_compiled_synthdef == sc_compiled_synthdef

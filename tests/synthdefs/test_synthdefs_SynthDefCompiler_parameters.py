@@ -7,21 +7,10 @@ from supriya import ParameterRate
 
 
 def test_SynthDefCompiler_parameters_01():
-
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
-        "test",
-        r"""
-        | freq = 440 |
-        Out.ar(0, SinOsc.ar(freq: freq))
-        """,
-    )
-    sc_compiled_synthdef = sc_synthdef.compile()
-
     with supriya.synthdefs.SynthDefBuilder(freq=440) as builder:
         sine = supriya.ugens.SinOsc.ar(frequency=builder["freq"])
         supriya.ugens.Out.ar(bus=0, source=sine)
     py_synthdef = builder.build("test")
-    py_compiled_synthdef = py_synthdef.compile()
 
     assert py_synthdef.indexed_parameters == (
         (
@@ -31,6 +20,17 @@ def test_SynthDefCompiler_parameters_01():
             ),
         ),
     )
+
+    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+        "test",
+        r"""
+        | freq = 440 |
+        Out.ar(0, SinOsc.ar(freq: freq))
+        """,
+    )
+    sc_compiled_synthdef = sc_synthdef.compile()
+    py_compiled_synthdef = py_synthdef.compile()
+    assert py_compiled_synthdef == sc_compiled_synthdef
 
     # fmt: off
     test_compiled_synthdef = bytes(
@@ -74,27 +74,15 @@ def test_SynthDefCompiler_parameters_01():
                 b'\x00\x00',
     )
     # fmt: on
-
-    assert sc_compiled_synthdef == test_compiled_synthdef
+    py_compiled_synthdef = py_synthdef.compile()
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
 def test_SynthDefCompiler_parameters_02():
-
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
-        "test",
-        r"""
-        arg freq=1200, out=23;
-        Out.ar(out, SinOsc.ar(freq: freq));
-        """,
-    )
-    sc_compiled_synthdef = sc_synthdef.compile()
-
     with supriya.synthdefs.SynthDefBuilder(freq=1200, out=23) as builder:
         sine = supriya.ugens.SinOsc.ar(frequency=builder["freq"])
         supriya.ugens.Out.ar(bus=builder["out"], source=sine)
     py_synthdef = builder.build("test")
-    py_compiled_synthdef = py_synthdef.compile()
 
     assert py_synthdef.indexed_parameters == (
         (
@@ -110,6 +98,17 @@ def test_SynthDefCompiler_parameters_02():
             ),
         ),
     )
+
+    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+        "test",
+        r"""
+        arg freq=1200, out=23;
+        Out.ar(out, SinOsc.ar(freq: freq));
+        """,
+    )
+    sc_compiled_synthdef = sc_synthdef.compile()
+    py_compiled_synthdef = py_synthdef.compile()
+    assert py_compiled_synthdef == sc_compiled_synthdef
 
     # fmt: off
     test_compiled_synthdef = bytes(
@@ -157,23 +156,14 @@ def test_SynthDefCompiler_parameters_02():
                 b'\x00\x00',
     )
     # fmt: on
-
-    assert sc_compiled_synthdef == test_compiled_synthdef
+    py_compiled_synthdef = py_synthdef.compile()
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
 def test_SynthDefCompiler_parameters_03():
-    r"""Multiple parameters, including unused parameters.
     """
-
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
-        "test",
-        r"""
-        | damping=0.1, delay_time=1.0, room_size=0.9 |
-        Out.ar(0, DelayC.ar(In.ar(0), 5.0, delay_time))
-        """,
-    )
-    sc_compiled_synthdef = sc_synthdef.compile()
+    Multiple parameters, including unused parameters.
+    """
 
     builder = supriya.synthdefs.SynthDefBuilder(
         damping=0.1, delay_time=1.0, room_size=0.9
@@ -185,7 +175,6 @@ def test_SynthDefCompiler_parameters_03():
         )
         supriya.ugens.Out.ar(bus=0, source=delay)
     py_synthdef = builder.build("test")
-    py_compiled_synthdef = py_synthdef.compile()
 
     assert py_synthdef.indexed_parameters == (
         (
@@ -207,6 +196,17 @@ def test_SynthDefCompiler_parameters_03():
             ),
         ),
     )
+
+    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+        "test",
+        r"""
+        | damping=0.1, delay_time=1.0, room_size=0.9 |
+        Out.ar(0, DelayC.ar(In.ar(0), 5.0, delay_time))
+        """,
+    )
+    sc_compiled_synthdef = sc_synthdef.compile()
+    py_compiled_synthdef = py_synthdef.compile()
+    assert py_compiled_synthdef == sc_compiled_synthdef
 
     # fmt: off
     test_compiled_synthdef = bytes(
@@ -269,29 +269,14 @@ def test_SynthDefCompiler_parameters_03():
                 b'\x00\x00',
     )
     # fmt: on
-
-    assert sc_compiled_synthdef == test_compiled_synthdef
+    py_compiled_synthdef = py_synthdef.compile()
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
 def test_SynthDefCompiler_parameters_04():
-    r"""Different calculation rates."""
-
-    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
-        "trigTest",
-        r"""
-        |
-            a_phase = 0.0,
-            freq = 440,
-            i_decay_time = 1.0,
-            t_trig_a = 0,
-            t_trig_b = 0
-        |
-        var decay = Decay2.kr([t_trig_a, t_trig_b], 0.005, i_decay_time);
-        Out.ar(0, SinOsc.ar(freq, a_phase) * decay);
-        """,
-    )
-    sc_compiled_synthdef = bytes(sc_synthdef.compile())
+    """
+    Different calculation rates.
+    """
 
     builder = supriya.synthdefs.SynthDefBuilder(
         a_phase=0.0, freq=440, i_decay_time=1.0, t_trig_a=0, t_trig_b=0
@@ -308,7 +293,24 @@ def test_SynthDefCompiler_parameters_04():
         enveloped_sin_osc = sin_osc * decay
         supriya.ugens.Out.ar(bus=0, source=enveloped_sin_osc)
     py_synthdef = builder.build("trigTest")
+
+    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
+        "trigTest",
+        r"""
+        |
+            a_phase = 0.0,
+            freq = 440,
+            i_decay_time = 1.0,
+            t_trig_a = 0,
+            t_trig_b = 0
+        |
+        var decay = Decay2.kr([t_trig_a, t_trig_b], 0.005, i_decay_time);
+        Out.ar(0, SinOsc.ar(freq, a_phase) * decay);
+        """,
+    )
+    sc_compiled_synthdef = bytes(sc_synthdef.compile())
     py_compiled_synthdef = py_synthdef.compile()
+    assert py_compiled_synthdef == sc_compiled_synthdef
 
     assert py_synthdef.indexed_parameters == (
         (
@@ -463,13 +465,14 @@ def test_SynthDefCompiler_parameters_04():
                 b'\x00\x00'
     )
     # fmt: on
-
-    assert sc_compiled_synthdef == test_compiled_synthdef
+    py_compiled_synthdef = py_synthdef.compile()
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
 def test_SynthDefCompiler_parameters_05():
-    r"""Literal array arguments."""
+    """
+    Literal array arguments.
+    """
 
     builder = supriya.synthdefs.SynthDefBuilder(amp=0.1, freqs=[300, 400])
     with builder:
@@ -478,7 +481,6 @@ def test_SynthDefCompiler_parameters_05():
         sines = sines * builder["amp"]
         supriya.ugens.Out.ar(bus=0, source=sines)
     py_synthdef = builder.build("arrayarg")
-    py_compiled_synthdef = py_synthdef.compile()
 
     assert py_synthdef.indexed_parameters == (
         (
@@ -508,6 +510,8 @@ def test_SynthDefCompiler_parameters_05():
         """,
     )
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
+    py_compiled_synthdef = py_synthdef.compile()
+    assert py_compiled_synthdef == sc_compiled_synthdef
 
     # fmt: off
     test_compiled_synthdef = bytes(
@@ -587,13 +591,14 @@ def test_SynthDefCompiler_parameters_05():
                 b'\x00\x00'
     )
     # fmt: on
-
-    assert sc_compiled_synthdef == test_compiled_synthdef
+    py_compiled_synthdef = py_synthdef.compile()
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
 def test_SynthDefCompiler_parameters_06():
-    r"""Literal array arguments."""
+    """
+    Literal array arguments.
+    """
 
     builder = supriya.synthdefs.SynthDefBuilder(
         amp=0.1, freqs=supriya.synthdefs.Parameter(lag=0.5, value=[300, 400])
@@ -604,7 +609,6 @@ def test_SynthDefCompiler_parameters_06():
         sines = sines * builder["amp"]
         supriya.ugens.Out.ar(bus=0, source=sines)
     py_synthdef = builder.build("arrayarg")
-    py_compiled_synthdef = py_synthdef.compile()
 
     assert py_synthdef.indexed_parameters == (
         (
@@ -638,6 +642,8 @@ def test_SynthDefCompiler_parameters_06():
         [0, 0.5],
     )
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
+    py_compiled_synthdef = py_synthdef.compile()
+    assert py_compiled_synthdef == sc_compiled_synthdef
 
     # fmt: off
     test_compiled_synthdef = bytes(
@@ -724,8 +730,7 @@ def test_SynthDefCompiler_parameters_06():
                 b'\x00\x00'
     )
     # fmt: on
-
-    assert sc_compiled_synthdef == test_compiled_synthdef
+    py_compiled_synthdef = py_synthdef.compile()
     assert py_compiled_synthdef == test_compiled_synthdef
 
 

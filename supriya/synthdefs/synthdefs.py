@@ -1053,16 +1053,12 @@ class SuperColliderSynthDef(SupriyaObject):
             directory_path = pathlib.Path(directory)
             sc_input = self._build_sc_input(directory_path)
             print(sc_input)
-            sc_file_name = "{}.sc".format(self.name)
-            sc_file_path = directory_path / sc_file_name
-            synthdef_file_name = "{}.scsyndef".format(self.name)
-            synthdef_file_path = directory_path / synthdef_file_name
-            synthdef_file_path.write_text(sc_input)
+            sc_file_path = directory_path / f"{self.name}.sc"
+            sc_file_path.write_text(sc_input)
             command = " ".join([str(sclang_path), "-D", str(sc_file_path)])
             print(command)
             subprocess.run(command, shell=True)
-            with synthdef_file_path.open("rb") as file_pointer:
-                result = file_pointer.read()
+            result = (directory_path / f"{self.name}.scsyndef").read_bytes()
         return bytes(result)
 
     ### PUBLIC PROPERTIES ###
