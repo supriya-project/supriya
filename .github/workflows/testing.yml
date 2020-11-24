@@ -60,6 +60,7 @@ jobs:
           alsa-utils \
           cmake \
           espeak \
+          ffmpeg \
           jackd2 \
           lame \
           libasound2-dev \
