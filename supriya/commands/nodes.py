@@ -56,8 +56,7 @@ class NodeFreeRequest(Request):
 
     def to_osc(self, *, with_placeholders=False):
         request_id = self.request_name
-        contents = [request_id]
-        contents.extend(self.node_ids)
+        contents = [request_id, *self.node_ids]
         message = supriya.osc.OscMessage(*contents)
         return message
 
