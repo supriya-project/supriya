@@ -760,7 +760,10 @@ class Server(BaseServer):
         if isinstance(response, FailResponse):
             self._shutdown()
             raise supriya.exceptions.TooManyClients
-        self._client_id, self._maximum_logins = response.action[1], response.action[2]
+        if len(response.action) == 2:  # supernova doesn't provide a max logins value
+            self._client_id, self._maximum_logins = response.action[1], 1
+        else:
+            self._client_id, self._maximum_logins = response.action[1:3]
 
     def _setup_default_groups(self):
         default_groups = [
