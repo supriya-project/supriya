@@ -8,7 +8,7 @@ on:
     - master
 env:
   MYPYPATH: /tmp/typehints
-  SC_ORIGIN: https://github.com/supercollider/supercollider.git
+  SC_ORIGIN: https://github.com/josiah-wolf-oberholtzer/supercollider.git
   SC_BRANCH: s-query
 jobs:
   testing:
