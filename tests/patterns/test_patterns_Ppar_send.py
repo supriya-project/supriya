@@ -80,7 +80,7 @@ def test_send_01():
             duration=1.0,
             frequency=1001,
             uuid=UUID('A'),
-            )
+        )
         """
     )
     events = pytest.helpers.setup_pattern_send(pattern_01, iterations=2)
@@ -94,14 +94,14 @@ def test_send_01():
             duration=1.0,
             frequency=1001,
             uuid=UUID('A'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
             duration=1.0,
             frequency=1002,
             uuid=UUID('B'),
-            )
+        )
         """
     )
     events = pytest.helpers.setup_pattern_send(pattern_01, iterations=3)
@@ -115,21 +115,21 @@ def test_send_01():
             duration=1.0,
             frequency=1001,
             uuid=UUID('A'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
             duration=1.0,
             frequency=1002,
             uuid=UUID('B'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
             duration=1.0,
             frequency=1003,
             uuid=UUID('C'),
-            )
+        )
         """
     )
 
@@ -146,7 +146,7 @@ def test_send_02():
             duration=1.0,
             frequency=1001,
             uuid=UUID('A'),
-            )
+        )
         """
     )
     events = pytest.helpers.setup_pattern_send(pattern_02, iterations=2)
@@ -160,7 +160,7 @@ def test_send_02():
             duration=1.0,
             frequency=1001,
             uuid=UUID('A'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=0.75,
@@ -168,7 +168,7 @@ def test_send_02():
             frequency=2001,
             is_stop=False,
             uuid=UUID('B'),
-            )
+        )
         """
     )
     events = pytest.helpers.setup_pattern_send(pattern_02, iterations=3)
@@ -182,7 +182,7 @@ def test_send_02():
             duration=1.0,
             frequency=1001,
             uuid=UUID('A'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=0.75,
@@ -190,7 +190,7 @@ def test_send_02():
             frequency=2001,
             is_stop=False,
             uuid=UUID('B'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=0.25,
@@ -198,13 +198,13 @@ def test_send_02():
             frequency=2002,
             is_stop=False,
             uuid=UUID('B'),
-            )
+        )
         """
-    )
+)
     events = pytest.helpers.setup_pattern_send(pattern_02, iterations=4)
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
-    ) == uqbar.strings.normalize(
+) == uqbar.strings.normalize(
         """
         NoteEvent(
             amplitude=1.0,
@@ -212,7 +212,7 @@ def test_send_02():
             duration=1.0,
             frequency=1001,
             uuid=UUID('A'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=0.75,
@@ -220,7 +220,7 @@ def test_send_02():
             frequency=2001,
             is_stop=False,
             uuid=UUID('B'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=0.25,
@@ -228,14 +228,14 @@ def test_send_02():
             frequency=2002,
             is_stop=False,
             uuid=UUID('B'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=0.5,
             duration=1.0,
             frequency=1002,
             uuid=UUID('C'),
-            )
+        )
         """
     )
     events = pytest.helpers.setup_pattern_send(pattern_02, iterations=5)
@@ -249,7 +249,7 @@ def test_send_02():
             duration=1.0,
             frequency=1001,
             uuid=UUID('A'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=0.75,
@@ -257,7 +257,7 @@ def test_send_02():
             frequency=2001,
             is_stop=False,
             uuid=UUID('B'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=0.25,
@@ -265,21 +265,21 @@ def test_send_02():
             frequency=2002,
             is_stop=False,
             uuid=UUID('B'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=0.5,
             duration=1.0,
             frequency=1002,
             uuid=UUID('C'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=0.75,
             duration=0.75,
             frequency=2003,
             uuid=UUID('B'),
-            )
+        )
         """
     )
 
@@ -296,9 +296,9 @@ def test_send_06():
                 GroupEvent(
                     add_action=AddAction.ADD_TO_TAIL,
                     uuid=UUID('A'),
-                    ),
                 ),
-            )
+            ),
+        )
         """
     )
     events = pytest.helpers.setup_pattern_send(pattern_06, iterations=2)
@@ -311,28 +311,28 @@ def test_send_06():
                 GroupEvent(
                     add_action=AddAction.ADD_TO_TAIL,
                     uuid=UUID('A'),
-                    ),
                 ),
-            )
+            ),
+        )
         NoteEvent(
             delta=0.0,
             duration=10,
             frequency=1001,
             target_node=UUID('A'),
             uuid=UUID('B'),
-            )
+        )
         CompositeEvent(
             events=(
                 NullEvent(
                     delta=0.25,
-                    ),
+                ),
                 GroupEvent(
                     is_stop=True,
                     uuid=UUID('A'),
-                    ),
                 ),
+            ),
             is_stop=True,
-            )
+        )
         """
     )
     events = pytest.helpers.setup_pattern_send(pattern_06, iterations=3)
@@ -345,35 +345,35 @@ def test_send_06():
                 GroupEvent(
                     add_action=AddAction.ADD_TO_TAIL,
                     uuid=UUID('A'),
-                    ),
                 ),
-            )
+            ),
+        )
         NoteEvent(
             delta=0.0,
             duration=10,
             frequency=1001,
             target_node=UUID('A'),
             uuid=UUID('B'),
-            )
+        )
         NoteEvent(
             delta=0.0,
             duration=10,
             frequency=2001,
             target_node=UUID('A'),
             uuid=UUID('C'),
-            )
+        )
         CompositeEvent(
             events=(
                 NullEvent(
                     delta=0.25,
-                    ),
+                ),
                 GroupEvent(
                     is_stop=True,
                     uuid=UUID('A'),
-                    ),
                 ),
+            ),
             is_stop=True,
-            )
+        )
         """
     )
     events = pytest.helpers.setup_pattern_send(pattern_06, iterations=4)
@@ -387,42 +387,42 @@ def test_send_06():
                 GroupEvent(
                     add_action=AddAction.ADD_TO_TAIL,
                     uuid=UUID('A'),
-                    ),
                 ),
-            )
+            ),
+        )
         NoteEvent(
             delta=0.0,
             duration=10,
             frequency=1001,
             target_node=UUID('A'),
             uuid=UUID('B'),
-            )
+        )
         NoteEvent(
             delta=0.0,
             duration=10,
             frequency=2001,
             target_node=UUID('A'),
             uuid=UUID('C'),
-            )
+        )
         CompositeEvent(
             events=(
                 GroupEvent(
                     add_action=AddAction.ADD_TO_TAIL,
                     uuid=UUID('D'),
-                    ),
                 ),
-            )
+            ),
+        )
         CompositeEvent(
             events=(
                 NullEvent(
                     delta=0.25,
-                    ),
+                ),
                 GroupEvent(
                     is_stop=True,
                     uuid=UUID('A'),
-                    ),
                 ),
+            ),
             is_stop=True,
-            )
+        )
         """
     )

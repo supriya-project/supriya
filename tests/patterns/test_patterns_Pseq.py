@@ -67,42 +67,42 @@ def test___iter___03():
             duration=1.0,
             frequency=440,
             uuid=UUID('A'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=2.0,
             duration=2.0,
             frequency=660,
             uuid=UUID('B'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=3.0,
             duration=3.0,
             frequency=880,
             uuid=UUID('C'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
             duration=1.0,
             frequency=550,
             uuid=UUID('D'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=2.0,
             duration=2.0,
             frequency=770,
             uuid=UUID('E'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=3.0,
             duration=3.0,
             frequency=990,
             uuid=UUID('F'),
-            )
+        )
         """
     )
 
@@ -119,31 +119,31 @@ def test___iter___04():
             duration=1.0,
             frequency=440,
             uuid=UUID('A'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=2.0,
             duration=2.0,
             frequency=660,
             uuid=UUID('B'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=3.0,
             duration=3.0,
             frequency=880,
             uuid=UUID('C'),
-            )
+        )
         CompositeEvent(
             events=(
                 BusEvent(
                     calculation_rate=CalculationRate.AUDIO,
                     channel_count=2,
                     uuid=UUID('D'),
-                    ),
+                ),
                 GroupEvent(
                     uuid=UUID('E'),
-                    ),
+                ),
                 SynthEvent(
                     add_action=AddAction.ADD_AFTER,
                     amplitude=1.0,
@@ -152,9 +152,9 @@ def test___iter___04():
                     synthdef=<SynthDef: system_link_audio_2>,
                     target_node=UUID('E'),
                     uuid=UUID('F'),
-                    ),
                 ),
-            )
+            ),
+        )
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -163,7 +163,7 @@ def test___iter___04():
             out=UUID('D'),
             target_node=UUID('E'),
             uuid=UUID('G'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=2.0,
@@ -172,7 +172,7 @@ def test___iter___04():
             out=UUID('D'),
             target_node=UUID('E'),
             uuid=UUID('H'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=3.0,
@@ -181,29 +181,29 @@ def test___iter___04():
             out=UUID('D'),
             target_node=UUID('E'),
             uuid=UUID('I'),
-            )
+        )
         CompositeEvent(
             events=(
                 SynthEvent(
                     is_stop=True,
                     uuid=UUID('F'),
-                    ),
+                ),
                 NullEvent(
                     delta=0.25,
-                    ),
+                ),
                 GroupEvent(
                     is_stop=True,
                     uuid=UUID('E'),
-                    ),
+                ),
                 BusEvent(
                     calculation_rate=None,
                     channel_count=None,
                     is_stop=True,
                     uuid=UUID('D'),
-                    ),
                 ),
+            ),
             is_stop=True,
-            )
+        )
         """
     )
 
@@ -240,14 +240,14 @@ def test_send_03a():
             duration=1.0,
             frequency=440,
             uuid=UUID('A'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=2.0,
             duration=2.0,
             frequency=660,
             uuid=UUID('B'),
-            )
+        )
         """
     )
 
@@ -264,21 +264,21 @@ def test_send_03b():
             duration=1.0,
             frequency=440,
             uuid=UUID('A'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=2.0,
             duration=2.0,
             frequency=660,
             uuid=UUID('B'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=3.0,
             duration=3.0,
             frequency=880,
             uuid=UUID('C'),
-            )
+        )
         """
     )
 
@@ -295,28 +295,28 @@ def test_send_03c():
             duration=1.0,
             frequency=440,
             uuid=UUID('A'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=2.0,
             duration=2.0,
             frequency=660,
             uuid=UUID('B'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=3.0,
             duration=3.0,
             frequency=880,
             uuid=UUID('C'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
             duration=1.0,
             frequency=550,
             uuid=UUID('D'),
-            )
+        )
         """
     )
 
@@ -333,31 +333,31 @@ def test_send_04a():
             duration=1.0,
             frequency=440,
             uuid=UUID('A'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=2.0,
             duration=2.0,
             frequency=660,
             uuid=UUID('B'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=3.0,
             duration=3.0,
             frequency=880,
             uuid=UUID('C'),
-            )
+        )
         CompositeEvent(
             events=(
                 BusEvent(
                     calculation_rate=CalculationRate.AUDIO,
                     channel_count=2,
                     uuid=UUID('D'),
-                    ),
+                ),
                 GroupEvent(
                     uuid=UUID('E'),
-                    ),
+                ),
                 SynthEvent(
                     add_action=AddAction.ADD_AFTER,
                     amplitude=1.0,
@@ -366,31 +366,31 @@ def test_send_04a():
                     synthdef=<SynthDef: system_link_audio_2>,
                     target_node=UUID('E'),
                     uuid=UUID('F'),
-                    ),
                 ),
-            )
+            ),
+        )
         CompositeEvent(
             events=(
                 SynthEvent(
                     is_stop=True,
                     uuid=UUID('F'),
-                    ),
+                ),
                 NullEvent(
                     delta=0.25,
-                    ),
+                ),
                 GroupEvent(
                     is_stop=True,
                     uuid=UUID('E'),
-                    ),
+                ),
                 BusEvent(
                     calculation_rate=None,
                     channel_count=None,
                     is_stop=True,
                     uuid=UUID('D'),
-                    ),
                 ),
+            ),
             is_stop=True,
-            )
+        )
         """
     )
 
@@ -407,31 +407,31 @@ def test_send_04b():
             duration=1.0,
             frequency=440,
             uuid=UUID('A'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=2.0,
             duration=2.0,
             frequency=660,
             uuid=UUID('B'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=3.0,
             duration=3.0,
             frequency=880,
             uuid=UUID('C'),
-            )
+        )
         CompositeEvent(
             events=(
                 BusEvent(
                     calculation_rate=CalculationRate.AUDIO,
                     channel_count=2,
                     uuid=UUID('D'),
-                    ),
+                ),
                 GroupEvent(
                     uuid=UUID('E'),
-                    ),
+                ),
                 SynthEvent(
                     add_action=AddAction.ADD_AFTER,
                     amplitude=1.0,
@@ -440,9 +440,9 @@ def test_send_04b():
                     synthdef=<SynthDef: system_link_audio_2>,
                     target_node=UUID('E'),
                     uuid=UUID('F'),
-                    ),
                 ),
-            )
+            ),
+        )
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -451,28 +451,28 @@ def test_send_04b():
             out=UUID('D'),
             target_node=UUID('E'),
             uuid=UUID('G'),
-            )
+        )
         CompositeEvent(
             events=(
                 SynthEvent(
                     is_stop=True,
                     uuid=UUID('F'),
-                    ),
+                ),
                 NullEvent(
                     delta=0.25,
-                    ),
+                ),
                 GroupEvent(
                     is_stop=True,
                     uuid=UUID('E'),
-                    ),
+                ),
                 BusEvent(
                     calculation_rate=None,
                     channel_count=None,
                     is_stop=True,
                     uuid=UUID('D'),
-                    ),
                 ),
+            ),
             is_stop=True,
-            )
+        )
         """
     )

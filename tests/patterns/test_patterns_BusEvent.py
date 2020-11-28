@@ -30,11 +30,11 @@ def test__perform_realtime_01(server):
                 calculation_rate=CalculationRate.AUDIO,
                 channel_count=2,
                 uuid=UUID('A'),
-                ),
+            ),
             requests=[],
             timestamp=100.0,
             uuid=UUID('A'),
-            )
+        )
         """
     )
     assert bus_uuid in uuids
@@ -65,11 +65,11 @@ def test__perform_realtime_02(server):
                 channel_count=None,
                 is_stop=True,
                 uuid=UUID('A'),
-                ),
+            ),
             is_stop=True,
             requests=[],
             timestamp=100.0,
             uuid=UUID('A'),
-            )
+        )
         """
-    )
+)

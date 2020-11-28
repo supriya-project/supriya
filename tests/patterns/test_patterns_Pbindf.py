@@ -22,21 +22,21 @@ def test___iter__():
             duration=1.0,
             pan=0.0,
             uuid=UUID('A'),
-            )
+        )
         NoteEvent(
             amplitude=0.333,
             delta=2.0,
             duration=2.0,
             pan=0.5,
             uuid=UUID('B'),
-            )
+        )
         NoteEvent(
             amplitude=0.666,
             delta=3.0,
             duration=3.0,
             pan=1.0,
             uuid=UUID('C'),
-            )
+        )
         """
     )
 
@@ -60,6 +60,6 @@ def test_send():
             duration=1.0,
             pan=0.0,
             uuid=UUID('A'),
-            )
+        )
         """
     )

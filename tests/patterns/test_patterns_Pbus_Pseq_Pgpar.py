@@ -52,10 +52,10 @@ def test___iter__():
                     calculation_rate=CalculationRate.AUDIO,
                     channel_count=2,
                     uuid=UUID('A'),
-                    ),
+                ),
                 GroupEvent(
                     uuid=UUID('B'),
-                    ),
+                ),
                 SynthEvent(
                     add_action=AddAction.ADD_AFTER,
                     amplitude=1.0,
@@ -64,23 +64,23 @@ def test___iter__():
                     synthdef=<SynthDef: system_link_audio_2>,
                     target_node=UUID('B'),
                     uuid=UUID('C'),
-                    ),
                 ),
-            )
+            ),
+        )
         CompositeEvent(
             events=(
                 GroupEvent(
                     add_action=AddAction.ADD_TO_TAIL,
                     target_node=UUID('B'),
                     uuid=UUID('D'),
-                    ),
+                ),
                 GroupEvent(
                     add_action=AddAction.ADD_TO_TAIL,
                     target_node=UUID('B'),
                     uuid=UUID('E'),
-                    ),
                 ),
-            )
+            ),
+        )
         NoteEvent(
             amplitude=1.0,
             delta=0.0,
@@ -89,7 +89,7 @@ def test___iter__():
             out=UUID('A'),
             target_node=UUID('D'),
             uuid=UUID('F'),
-            )
+        )
         NoteEvent(
             amplitude=0.75,
             delta=1.0,
@@ -98,37 +98,37 @@ def test___iter__():
             out=UUID('A'),
             target_node=UUID('E'),
             uuid=UUID('G'),
-            )
+        )
         CompositeEvent(
             events=(
                 NullEvent(
                     delta=0.25,
-                    ),
+                ),
                 GroupEvent(
                     is_stop=True,
                     uuid=UUID('D'),
-                    ),
+                ),
                 GroupEvent(
                     is_stop=True,
                     uuid=UUID('E'),
-                    ),
                 ),
+            ),
             is_stop=True,
-            )
+        )
         CompositeEvent(
             events=(
                 GroupEvent(
                     add_action=AddAction.ADD_TO_TAIL,
                     target_node=UUID('B'),
                     uuid=UUID('H'),
-                    ),
+                ),
                 GroupEvent(
                     add_action=AddAction.ADD_TO_TAIL,
                     target_node=UUID('B'),
                     uuid=UUID('I'),
-                    ),
                 ),
-            )
+            ),
+        )
         NoteEvent(
             amplitude=0.5,
             delta=0.0,
@@ -137,7 +137,7 @@ def test___iter__():
             out=UUID('A'),
             target_node=UUID('H'),
             uuid=UUID('J'),
-            )
+        )
         NoteEvent(
             amplitude=0.25,
             delta=2.0,
@@ -146,44 +146,44 @@ def test___iter__():
             out=UUID('A'),
             target_node=UUID('I'),
             uuid=UUID('K'),
-            )
+        )
         CompositeEvent(
             events=(
                 NullEvent(
                     delta=0.25,
-                    ),
+                ),
                 GroupEvent(
                     is_stop=True,
                     uuid=UUID('H'),
-                    ),
+                ),
                 GroupEvent(
                     is_stop=True,
                     uuid=UUID('I'),
-                    ),
                 ),
+            ),
             is_stop=True,
-            )
+        )
         CompositeEvent(
             events=(
                 SynthEvent(
                     is_stop=True,
                     uuid=UUID('C'),
-                    ),
+                ),
                 NullEvent(
                     delta=0.25,
-                    ),
+                ),
                 GroupEvent(
                     is_stop=True,
                     uuid=UUID('B'),
-                    ),
+                ),
                 BusEvent(
                     calculation_rate=None,
                     channel_count=None,
                     is_stop=True,
                     uuid=UUID('A'),
-                    ),
                 ),
+            ),
             is_stop=True,
-            )
+        )
         """
     )

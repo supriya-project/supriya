@@ -38,21 +38,21 @@ def test___iter___():
             duration=1.0,
             frequency=440,
             uuid=UUID('A'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=2.0,
             duration=2.0,
             frequency=660,
             uuid=UUID('B'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=3.0,
             duration=3.0,
             frequency=880,
             uuid=UUID('C'),
-            )
+        )
         """
     )
 

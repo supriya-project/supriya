@@ -23,17 +23,17 @@ def test__perform_realtime_01(server):
         EventProduct(
             event=GroupEvent(
                 uuid=UUID('A'),
-                ),
+            ),
             requests=[
                 GroupNewRequest(
                     items=[
                         Item(add_action=AddAction.ADD_TO_HEAD, node_id=1000, target_node_id=1),
-                        ],
-                    ),
-                ],
+                    ],
+                ),
+            ],
             timestamp=100.0,
             uuid=UUID('A'),
-            )
+        )
         """
     )
     assert node_uuid in uuids
@@ -57,15 +57,15 @@ def test__perform_realtime_02(server):
             event=GroupEvent(
                 is_stop=True,
                 uuid=UUID('A'),
-                ),
+            ),
             is_stop=True,
             requests=[
                 NodeFreeRequest(
                     node_ids=(1000,),
-                    ),
-                ],
+                ),
+            ],
             timestamp=100.0,
             uuid=UUID('A'),
-            )
+        )
         """
     )
