@@ -200,11 +200,11 @@ def test_send_02():
             uuid=UUID('B'),
         )
         """
-)
+    )
     events = pytest.helpers.setup_pattern_send(pattern_02, iterations=4)
     assert pytest.helpers.get_objects_as_string(
         events, replace_uuids=True
-) == uqbar.strings.normalize(
+    ) == uqbar.strings.normalize(
         """
         NoteEvent(
             amplitude=1.0,

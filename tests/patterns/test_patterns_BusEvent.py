@@ -72,4 +72,4 @@ def test__perform_realtime_02(server):
             uuid=UUID('A'),
         )
         """
-)
+    )
