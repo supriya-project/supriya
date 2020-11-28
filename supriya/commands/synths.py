@@ -19,7 +19,7 @@ class SynthInfoResponse(Response):
 
     @classmethod
     def from_osc_message(cls, osc_message):
-        contents = list(osc_message.content)
+        contents = list(osc_message.contents)
         node_id = contents.pop(0)
         synthdef_name = contents.pop(0)
         pair_count = contents.pop(0)
@@ -36,7 +36,6 @@ class SynthNewRequest(Request):
     ::
 
         >>> import supriya.commands
-        >>> import supriya.realtime
         >>> request = supriya.commands.SynthNewRequest(
         ...     add_action=supriya.AddAction.ADD_TO_TAIL,
         ...     node_id=1001,
@@ -76,7 +75,6 @@ class SynthNewRequest(Request):
         target_node_id=None,
         **kwargs,
     ):
-        import supriya.realtime
         import supriya.synthdefs
 
         Request.__init__(self)
@@ -157,6 +155,40 @@ class SynthNewRequest(Request):
 
 
 class SynthQueryRequest(Request):
+    """
+    A /s_query request.
+
+    ::
+
+        >>> import supriya.commands
+        >>> request = supriya.commands.SynthQueryRequest(1000)
+        >>> request
+        SynthQueryRequest(
+            node_ids=(1000,),
+            )
+
+    ::
+
+        >>> request.to_osc()
+        OscMessage('/s_query', 1000)
+
+    ::
+
+        >>> import supriya
+        >>> server = supriya.Server.default().boot()
+        >>> synth = supriya.Synth().allocate()
+        >>> request.communicate()
+        SynthInfoResponse(
+            1000,
+            'default',
+            amplitude=0.100...,
+            frequency=440.0,
+            gate=1.0,
+            out=0.0,
+            pan=0.5,
+            )
+
+    """
 
     ### CLASS VARIABLES ###
 
