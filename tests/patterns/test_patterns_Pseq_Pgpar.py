@@ -48,13 +48,13 @@ def test___iter__():
                 GroupEvent(
                     add_action=AddAction.ADD_TO_TAIL,
                     uuid=UUID('A'),
-                    ),
+                ),
                 GroupEvent(
                     add_action=AddAction.ADD_TO_TAIL,
                     uuid=UUID('B'),
-                    ),
                 ),
-            )
+            ),
+        )
         NoteEvent(
             amplitude=1.0,
             delta=0.0,
@@ -62,7 +62,7 @@ def test___iter__():
             frequency=440,
             target_node=UUID('A'),
             uuid=UUID('C'),
-            )
+        )
         NoteEvent(
             amplitude=0.75,
             delta=1.0,
@@ -70,35 +70,35 @@ def test___iter__():
             frequency=880,
             target_node=UUID('B'),
             uuid=UUID('D'),
-            )
+        )
         CompositeEvent(
             events=(
                 NullEvent(
                     delta=0.25,
-                    ),
+                ),
                 GroupEvent(
                     is_stop=True,
                     uuid=UUID('A'),
-                    ),
+                ),
                 GroupEvent(
                     is_stop=True,
                     uuid=UUID('B'),
-                    ),
                 ),
+            ),
             is_stop=True,
-            )
+        )
         CompositeEvent(
             events=(
                 GroupEvent(
                     add_action=AddAction.ADD_TO_TAIL,
                     uuid=UUID('E'),
-                    ),
+                ),
                 GroupEvent(
                     add_action=AddAction.ADD_TO_TAIL,
                     uuid=UUID('F'),
-                    ),
                 ),
-            )
+            ),
+        )
         NoteEvent(
             amplitude=0.5,
             delta=0.0,
@@ -106,7 +106,7 @@ def test___iter__():
             frequency=330,
             target_node=UUID('E'),
             uuid=UUID('G'),
-            )
+        )
         NoteEvent(
             amplitude=0.25,
             delta=2.0,
@@ -114,22 +114,22 @@ def test___iter__():
             frequency=660,
             target_node=UUID('F'),
             uuid=UUID('H'),
-            )
+        )
         CompositeEvent(
             events=(
                 NullEvent(
                     delta=0.25,
-                    ),
+                ),
                 GroupEvent(
                     is_stop=True,
                     uuid=UUID('E'),
-                    ),
+                ),
                 GroupEvent(
                     is_stop=True,
                     uuid=UUID('F'),
-                    ),
                 ),
+            ),
             is_stop=True,
-            )
+        )
         """
     )

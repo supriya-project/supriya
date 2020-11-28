@@ -24,27 +24,27 @@ def test___iter___01():
         NoteEvent(
             foo='A',
             uuid=UUID('A'),
-            )
+        )
         NoteEvent(
             foo='B',
             uuid=UUID('B'),
-            )
+        )
         NoteEvent(
             foo='C',
             uuid=UUID('C'),
-            )
+        )
         NoteEvent(
             foo='A',
             uuid=UUID('D'),
-            )
+        )
         NoteEvent(
             foo='B',
             uuid=UUID('E'),
-            )
+        )
         NoteEvent(
             foo='C',
             uuid=UUID('F'),
-            )
+        )
         """
     )
 
@@ -59,40 +59,40 @@ def test___iter___02():
             foo='A',
             repeat=True,
             uuid=UUID('A'),
-            )
+        )
         NoteEvent(
             foo='B',
             uuid=UUID('B'),
-            )
+        )
         NoteEvent(
             foo='C',
             uuid=UUID('C'),
-            )
+        )
         NoteEvent(
             foo='A',
             repeat=True,
             uuid=UUID('D'),
-            )
+        )
         NoteEvent(
             foo='B',
             uuid=UUID('E'),
-            )
+        )
         NoteEvent(
             foo='C',
             uuid=UUID('F'),
-            )
+        )
         NoteEvent(
             foo='A',
             repeat=True,
             uuid=UUID('G'),
-            )
+        )
         NoteEvent(
             foo='B',
             uuid=UUID('H'),
-            )
+        )
         NoteEvent(
             foo='C',
             uuid=UUID('I'),
-            )
+        )
         """
     )

@@ -49,10 +49,10 @@ def test_02():
             duration=Pwhite(
                 maximum=11,
                 minimum=0.25,
-                ),
+            ),
             frequency=443,
             pan=0.1,
-            )
+        )
         """
     )
 
@@ -89,9 +89,9 @@ def test_03():
             duration=Pwhite(
                 maximum=11,
                 minimum=0.25,
-                ),
+            ),
             frequency=443,
             pan=0.1,
-            )
+        )
         """
     )

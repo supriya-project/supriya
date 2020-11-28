@@ -31,7 +31,7 @@ def test___iter__():
             frequency=440,
             pan=0.0,
             uuid=UUID('A'),
-            )
+        )
         NoteEvent(
             amplitude=0.333,
             delta=2.0,
@@ -39,7 +39,7 @@ def test___iter__():
             frequency=660,
             pan=0.5,
             uuid=UUID('B'),
-            )
+        )
         NoteEvent(
             amplitude=0.666,
             delta=3.0,
@@ -47,6 +47,6 @@ def test___iter__():
             frequency=880,
             pan=1.0,
             uuid=UUID('C'),
-            )
+        )
         """
     )

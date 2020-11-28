@@ -36,10 +36,10 @@ def test___iter__():
                     calculation_rate=CalculationRate.AUDIO,
                     channel_count=2,
                     uuid=UUID('A'),
-                    ),
+                ),
                 GroupEvent(
                     uuid=UUID('B'),
-                    ),
+                ),
                 SynthEvent(
                     add_action=AddAction.ADD_AFTER,
                     amplitude=1.0,
@@ -48,9 +48,9 @@ def test___iter__():
                     synthdef=<SynthDef: system_link_audio_2>,
                     target_node=UUID('B'),
                     uuid=UUID('C'),
-                    ),
                 ),
-            )
+            ),
+        )
         CompositeEvent(
             events=(
                 SynthEvent(
@@ -60,18 +60,18 @@ def test___iter__():
                     synthdef=<SynthDef: 38bda0aee6d0e2d4af72be83c09d9b77>,
                     target_node=UUID('B'),
                     uuid=UUID('D'),
-                    ),
                 ),
-            )
+            ),
+        )
         CompositeEvent(
             events=(
                 GroupEvent(
                     add_action=AddAction.ADD_TO_HEAD,
                     target_node=UUID('B'),
                     uuid=UUID('E'),
-                    ),
                 ),
-            )
+            ),
+        )
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -81,7 +81,7 @@ def test___iter__():
             synthdef=<SynthDef: default>,
             target_node=UUID('E'),
             uuid=UUID('F'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -91,7 +91,7 @@ def test___iter__():
             synthdef=<SynthDef: default>,
             target_node=UUID('E'),
             uuid=UUID('G'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -101,53 +101,53 @@ def test___iter__():
             synthdef=<SynthDef: default>,
             target_node=UUID('E'),
             uuid=UUID('H'),
-            )
+        )
         CompositeEvent(
             events=(
                 NullEvent(
                     delta=0.25,
-                    ),
+                ),
                 GroupEvent(
                     is_stop=True,
                     uuid=UUID('E'),
-                    ),
                 ),
+            ),
             is_stop=True,
-            )
+        )
         CompositeEvent(
             events=(
                 NullEvent(
                     delta=0.25,
-                    ),
+                ),
                 SynthEvent(
                     is_stop=True,
                     uuid=UUID('D'),
-                    ),
                 ),
+            ),
             is_stop=True,
-            )
+        )
         CompositeEvent(
             events=(
                 SynthEvent(
                     is_stop=True,
                     uuid=UUID('C'),
-                    ),
+                ),
                 NullEvent(
                     delta=0.25,
-                    ),
+                ),
                 GroupEvent(
                     is_stop=True,
                     uuid=UUID('B'),
-                    ),
+                ),
                 BusEvent(
                     calculation_rate=None,
                     channel_count=None,
                     is_stop=True,
                     uuid=UUID('A'),
-                    ),
                 ),
+            ),
             is_stop=True,
-            )
+        )
         """
     )
 

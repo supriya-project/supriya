@@ -21,7 +21,7 @@ def test__perform_realtime_01(server):
                 delta=10.0,
                 duration=1.0,
                 frequency=443,
-                ),
+            ),
             requests=[
                 SynthNewRequest(
                     add_action=AddAction.ADD_TO_HEAD,
@@ -29,27 +29,27 @@ def test__perform_realtime_01(server):
                     node_id=1000,
                     synthdef=<SynthDef: default>,
                     target_node_id=1,
-                    ),
-                ],
+                ),
+            ],
             timestamp=100.0,
             uuid=UUID('A'),
-            )
+        )
         EventProduct(
             event=NoteEvent(
                 delta=10.0,
                 duration=1.0,
                 frequency=443,
-                ),
+            ),
             is_stop=True,
             requests=[
                 NodeSetRequest(
                     gate=0,
                     node_id=1000,
-                    ),
-                ],
+                ),
+            ],
             timestamp=101.0,
             uuid=UUID('A'),
-            )
+        )
         """
     )
 
@@ -69,7 +69,7 @@ def test__perform_realtime_02(server):
                 delta=10.0,
                 duration=1.0,
                 frequency=[443, 445, 447],
-                ),
+            ),
             requests=[
                 SynthNewRequest(
                     add_action=AddAction.ADD_TO_HEAD,
@@ -77,48 +77,48 @@ def test__perform_realtime_02(server):
                     node_id=1000,
                     synthdef=<SynthDef: default>,
                     target_node_id=1,
-                    ),
+                ),
                 SynthNewRequest(
                     add_action=AddAction.ADD_TO_HEAD,
                     frequency=445,
                     node_id=1001,
                     synthdef=<SynthDef: default>,
                     target_node_id=1,
-                    ),
+                ),
                 SynthNewRequest(
                     add_action=AddAction.ADD_TO_HEAD,
                     frequency=447,
                     node_id=1002,
                     synthdef=<SynthDef: default>,
                     target_node_id=1,
-                    ),
-                ],
+                ),
+            ],
             timestamp=100.0,
             uuid=UUID('A'),
-            )
+        )
         EventProduct(
             event=NoteEvent(
                 delta=10.0,
                 duration=1.0,
                 frequency=[443, 445, 447],
-                ),
+            ),
             is_stop=True,
             requests=[
                 NodeSetRequest(
                     gate=0,
                     node_id=1000,
-                    ),
+                ),
                 NodeSetRequest(
                     gate=0,
                     node_id=1001,
-                    ),
+                ),
                 NodeSetRequest(
                     gate=0,
                     node_id=1002,
-                    ),
-                ],
+                ),
+            ],
             timestamp=101.0,
             uuid=UUID('A'),
-            )
+        )
         """
     )

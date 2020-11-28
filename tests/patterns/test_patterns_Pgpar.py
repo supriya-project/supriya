@@ -32,13 +32,13 @@ def test___iter__():
                 GroupEvent(
                     add_action=AddAction.ADD_TO_TAIL,
                     uuid=UUID('A'),
-                    ),
+                ),
                 GroupEvent(
                     add_action=AddAction.ADD_TO_TAIL,
                     uuid=UUID('B'),
-                    ),
                 ),
-            )
+            ),
+        )
         NoteEvent(
             amplitude=1.0,
             delta=0.0,
@@ -47,7 +47,7 @@ def test___iter__():
             is_stop=False,
             target_node=UUID('A'),
             uuid=UUID('C'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=0.75,
@@ -55,7 +55,7 @@ def test___iter__():
             frequency=222,
             target_node=UUID('B'),
             uuid=UUID('D'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=0.25,
@@ -63,7 +63,7 @@ def test___iter__():
             frequency=333,
             target_node=UUID('B'),
             uuid=UUID('E'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=0.5,
@@ -72,7 +72,7 @@ def test___iter__():
             is_stop=False,
             target_node=UUID('A'),
             uuid=UUID('C'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=0.5,
@@ -80,7 +80,7 @@ def test___iter__():
             frequency=444,
             target_node=UUID('B'),
             uuid=UUID('F'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=0.25,
@@ -89,7 +89,7 @@ def test___iter__():
             is_stop=False,
             target_node=UUID('A'),
             uuid=UUID('C'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=0.75,
@@ -97,7 +97,7 @@ def test___iter__():
             frequency=555,
             target_node=UUID('B'),
             uuid=UUID('G'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=1.0,
@@ -105,23 +105,23 @@ def test___iter__():
             frequency=990,
             target_node=UUID('A'),
             uuid=UUID('C'),
-            )
+        )
         CompositeEvent(
             events=(
                 NullEvent(
                     delta=0.25,
-                    ),
+                ),
                 GroupEvent(
                     is_stop=True,
                     uuid=UUID('A'),
-                    ),
+                ),
                 GroupEvent(
                     is_stop=True,
                     uuid=UUID('B'),
-                    ),
                 ),
+            ),
             is_stop=True,
-            )
+        )
         """
     )
 
@@ -137,29 +137,29 @@ def test_send_01():
                 GroupEvent(
                     add_action=AddAction.ADD_TO_TAIL,
                     uuid=UUID('A'),
-                    ),
+                ),
                 GroupEvent(
                     add_action=AddAction.ADD_TO_TAIL,
                     uuid=UUID('B'),
-                    ),
                 ),
-            )
+            ),
+        )
         CompositeEvent(
             events=(
                 NullEvent(
                     delta=0.25,
-                    ),
+                ),
                 GroupEvent(
                     is_stop=True,
                     uuid=UUID('A'),
-                    ),
+                ),
                 GroupEvent(
                     is_stop=True,
                     uuid=UUID('B'),
-                    ),
                 ),
+            ),
             is_stop=True,
-            )
+        )
         """
     )
 
@@ -175,13 +175,13 @@ def test_send_02():
                 GroupEvent(
                     add_action=AddAction.ADD_TO_TAIL,
                     uuid=UUID('A'),
-                    ),
+                ),
                 GroupEvent(
                     add_action=AddAction.ADD_TO_TAIL,
                     uuid=UUID('B'),
-                    ),
                 ),
-            )
+            ),
+        )
         NoteEvent(
             amplitude=1.0,
             delta=0.0,
@@ -190,23 +190,23 @@ def test_send_02():
             is_stop=False,
             target_node=UUID('A'),
             uuid=UUID('C'),
-            )
+        )
         CompositeEvent(
             events=(
                 NullEvent(
                     delta=0.25,
-                    ),
+                ),
                 GroupEvent(
                     is_stop=True,
                     uuid=UUID('A'),
-                    ),
+                ),
                 GroupEvent(
                     is_stop=True,
                     uuid=UUID('B'),
-                    ),
                 ),
+            ),
             is_stop=True,
-            )
+        )
         """
     )
 
@@ -222,13 +222,13 @@ def test_send_03():
                 GroupEvent(
                     add_action=AddAction.ADD_TO_TAIL,
                     uuid=UUID('A'),
-                    ),
+                ),
                 GroupEvent(
                     add_action=AddAction.ADD_TO_TAIL,
                     uuid=UUID('B'),
-                    ),
                 ),
-            )
+            ),
+        )
         NoteEvent(
             amplitude=1.0,
             delta=0.0,
@@ -237,7 +237,7 @@ def test_send_03():
             is_stop=False,
             target_node=UUID('A'),
             uuid=UUID('C'),
-            )
+        )
         NoteEvent(
             amplitude=1.0,
             delta=0.75,
@@ -245,23 +245,23 @@ def test_send_03():
             frequency=222,
             target_node=UUID('B'),
             uuid=UUID('D'),
-            )
+        )
         CompositeEvent(
             events=(
                 NullEvent(
                     delta=0.25,
-                    ),
+                ),
                 GroupEvent(
                     is_stop=True,
                     uuid=UUID('A'),
-                    ),
+                ),
                 GroupEvent(
                     is_stop=True,
                     uuid=UUID('B'),
-                    ),
                 ),
+            ),
             is_stop=True,
-            )
+        )
         """
     )
 
