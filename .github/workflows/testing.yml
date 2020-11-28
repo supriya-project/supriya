@@ -101,6 +101,9 @@ jobs:
         sudo -E su $USER -c "scsynth -D 0 -H dummy -R 0 -u 57110" &
         sleep 5
         killall scsynth
+    - name: Sanity-check Supriya
+      run: |
+        python -c 'import supriya; server = supriya.Server(); server.boot(); server.quit(); exit()'
     - name: Run Pytest
       run: |
         pytest
