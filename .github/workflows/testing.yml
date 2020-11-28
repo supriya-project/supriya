@@ -89,7 +89,7 @@ jobs:
       working-directory: /tmp/supercollider/build
     - name: Cleanup SC Install
       run: |
-        mkdir -p ${HOME}/.local/share/SuperCollider/
+        mkdir -p /home/runner/.local/share/SuperCollider/synthdefs
     - name: Sanity-check SC
       run: |
         scsynth -v
