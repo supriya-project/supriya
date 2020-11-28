@@ -85,7 +85,8 @@ jobs:
       working-directory: /tmp/supercollider/build
     - name: Install SC
       run: |
-        make install
+        sudo make install
+        sudo chown -R ${USER} ${HOME/.local
       working-directory: /tmp/supercollider/build
     - name: Sanity-check SC
       run: |
