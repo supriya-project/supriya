@@ -86,8 +86,10 @@ jobs:
     - name: Install SC
       run: |
         sudo make install
-        sudo chown -R ${USER} ${HOME}/.local/
       working-directory: /tmp/supercollider/build
+    - name: Cleanup SC Install
+      run: |
+        mkdir -p ${HOME}/.local/share/SuperCollider/
     - name: Sanity-check SC
       run: |
         scsynth -v
