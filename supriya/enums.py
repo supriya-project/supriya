@@ -360,7 +360,9 @@ class RequestId(IntEnumeration):
     SYNTH_NEW = 9
     SYNTH_NEWARGS = 59
     SYNTH_NOID = 49
+    SYNTH_QUERY = 65
     UGEN_COMMAND = 20
+    VERSION = 64
 
     @property
     def request_name(self):
@@ -435,9 +437,11 @@ class RequestName(StrictEnumeration):
     SYNTH_GET = "/s_get"
     SYNTH_GET_CONTIGUOUS = "/s_getn"
     SYNTH_NEW = "/s_new"
+    SYNTH_QUERY = "/s_query"
     # SYNTH_NEWARGS = None
     SYNTH_NOID = "/s_noid"
     UGEN_COMMAND = "/u_cmd"
+    VERSION = "/version"
 
     ### PUBLIC PROPERTIES ###
 

@@ -8,8 +8,8 @@ on:
     - master
 env:
   MYPYPATH: /tmp/typehints
-  SC_ORIGIN: https://github.com/supercollider/supercollider.git
-  SC_BRANCH: Version-3.10.0
+  SC_ORIGIN: https://github.com/josiah-wolf-oberholtzer/supercollider.git
+  SC_BRANCH: s-query
 jobs:
   testing:
     name: Testing
@@ -42,12 +42,9 @@ jobs:
         make mypy
     - name: Clone SC
       run: |
-        git clone ${SC_ORIGIN} /tmp/supercollider
+        git clone --quiet --recursive --branch ${SC_BRANCH} ${SC_ORIGIN} /tmp/supercollider
         cd /tmp/supercollider
-        git checkout ${SC_BRANCH}
-        git submodule -q init
-        git submodule -q update
-        mkdir BUILD
+        mkdir build
         echo "SC_COMMIT_SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
         echo "SC_ORIGIN_MD5=$(echo ${SC_ORIGIN} | md5sum | head -c 7)" >> $GITHUB_ENV
     - name: Cache SC
@@ -83,13 +80,16 @@ jobs:
     - name: Build SC
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
-        cmake --debug-output -DCMAKE_BUILD_TYPE=Release -DSC_EL=OFF -DSC_IDE=OFF -DSC_QT=OFF /tmp/supercollider > /dev/null
+        cmake --debug-output -DCMAKE_build_TYPE=Release -DSC_EL=OFF -DSC_IDE=OFF -DSC_QT=OFF /tmp/supercollider > /dev/null
         make
-      working-directory: /tmp/supercollider/BUILD
+      working-directory: /tmp/supercollider/build
     - name: Install SC
       run: |
         sudo make install
-      working-directory: /tmp/supercollider/BUILD
+      working-directory: /tmp/supercollider/build
+    - name: Cleanup SC Install
+      run: |
+        mkdir -p /home/runner/.local/share/SuperCollider/synthdefs
     - name: Sanity-check SC
       run: |
         scsynth -v
@@ -101,6 +101,9 @@ jobs:
         sudo -E su $USER -c "scsynth -D 0 -H dummy -R 0 -u 57110" &
         sleep 5
         killall scsynth
+    - name: Sanity-check Supriya
+      run: |
+        python -c 'import supriya; server = supriya.Server(); server.boot(); server.quit(); exit()'
     - name: Run Pytest
       run: |
         pytest

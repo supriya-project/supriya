@@ -47,9 +47,9 @@ class SyncProcessProtocol(ProcessProtocol):
                 line = self.process.stdout.readline().decode().rstrip()
                 if line:
                     logger.info("Boot: {}".format(line))
-                if line.startswith("SuperCollider 3 server ready"):
+                if line.startswith(("SuperCollider 3 server ready", "Supernova ready")):
                     break
-                elif line.startswith("ERROR:"):
+                elif line.startswith(("ERROR:", "*** ERROR:")):
                     raise supriya.exceptions.ServerCannotBoot(line)
                 elif line.startswith(
                     "Exception in World_OpenUDP: bind: Address already in use"
