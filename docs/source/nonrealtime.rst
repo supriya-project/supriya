@@ -14,7 +14,7 @@ Non-realtime usage
 ::
 
     >>> with session.at(1):
-    ...     group = session.add_group())
+    ...     group = session.add_group()
     ...
 
 ::
@@ -26,7 +26,6 @@ Non-realtime usage
 ::
 
     >>> with session.at(1.5):
-    ...     group.move_node(synth, AddAction.ADD_TO_HEAD)
+    ...     group.move_node(synth, "ADD_TO_HEAD")
     ...
-
 

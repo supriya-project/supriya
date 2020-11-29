@@ -20,6 +20,8 @@ exclude_patterns = []
 graphviz_dot_args = ["-s32"]
 graphviz_output_format = "svg"
 html_static_path = ["_static"]
+html_css_files = ["supriya.css"]
+html_js_files = ["supriya.js"]
 html_theme = "sphinx_rtd_theme"
 html_theme_options = {
     "collapse_navigation": True,
